@@ -46,7 +46,7 @@ in
         Store paths to copy into the shutdown ramfs as well.
       '';
       type = lib.types.listOf lib.types.singleLineStr;
-      default = [ ];
+      default = [];
     };
   };
 
@@ -67,12 +67,12 @@ in
 
     systemd.services.generate-shutdown-ramfs = {
       description = "Generate shutdown ramfs";
-      wantedBy = [ "shutdown.target" ];
-      before = [ "shutdown.target" ];
+      wantedBy = ["shutdown.target"];
+      before = ["shutdown.target"];
       unitConfig = {
         DefaultDependencies = false;
         RequiresMountsFor = "/run/initramfs";
-        ConditionFileIsExecutable = [ "!/run/initramfs/shutdown" ];
+        ConditionFileIsExecutable = ["!/run/initramfs/shutdown"];
       };
 
       serviceConfig = {

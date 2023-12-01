@@ -59,7 +59,7 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://github.com/akinomyoga/ble.sh";
     description = "Bash Line Editor -- a full-featured line editor written in pure Bash";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ aiotter ];
+    maintainers = with maintainers; [aiotter];
     platforms = platforms.unix;
   };
 }

@@ -30,7 +30,7 @@ stdenv.mkDerivation (
       substituteInPlace unit-tests/opt-chdir.exp --replace "File name" "Filename"
     '';
 
-    nativeBuildInputs = [ getopt ];
+    nativeBuildInputs = [getopt];
 
     patches = [
       # make bootstrap script aware of the prefix in /nix/store
@@ -57,7 +57,7 @@ stdenv.mkDerivation (
     # given op. On a case-insensitive filesystem this generated makefile clobbers
     # a distinct, shipped, Makefile and causes infinite recursion during tests
     # which eventually fail with "fork: Resource temporarily unavailable"
-    configureFlags = [ "--without-makefile" ];
+    configureFlags = ["--without-makefile"];
 
     # Disabled tests:
     # opt-chdir: ofborg complains about it somehow
@@ -88,7 +88,7 @@ stdenv.mkDerivation (
 
     doCheck = true;
 
-    nativeCheckInputs = [ tzdata ] ++ lib.optionals (stdenv.hostPlatform.libc != "musl") [ ksh ];
+    nativeCheckInputs = [tzdata] ++ lib.optionals (stdenv.hostPlatform.libc != "musl") [ksh];
 
     checkPhase = ''
       runHook preCheck

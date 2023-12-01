@@ -11,7 +11,7 @@
   socat,
   tesseract4,
   vde2,
-  extraPythonPackages ? (_: [ ]),
+  extraPythonPackages ? (_: []),
 }:
 
 python3Packages.buildPythonApplication rec {

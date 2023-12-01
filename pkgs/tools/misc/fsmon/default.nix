@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/nowsecure/fsmon";
     changelog = "https://github.com/nowsecure/fsmon/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ dezgeg ];
+    maintainers = with maintainers; [dezgeg];
     platforms = platforms.linux;
   };
 }

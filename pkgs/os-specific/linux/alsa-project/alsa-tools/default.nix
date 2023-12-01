@@ -19,7 +19,7 @@ stdenv.mkDerivation (
       hash = "sha256-NacQJ6AfTX3kci4iNSDpQN5os8VwtsZxaRVnrij5iT4=";
     };
 
-    nativeBuildInputs = [ pkg-config ];
+    nativeBuildInputs = [pkg-config];
 
     buildInputs = [
       alsa-lib
@@ -95,7 +95,7 @@ stdenv.mkDerivation (
       homepage = "http://www.alsa-project.org/";
       description = "ALSA Tools";
       license = lib.licenses.gpl2Plus;
-      maintainers = [ lib.maintainers.AndersonTorres ];
+      maintainers = [lib.maintainers.AndersonTorres];
       platforms = lib.platforms.linux;
     };
   }

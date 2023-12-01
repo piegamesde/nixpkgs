@@ -30,7 +30,7 @@ buildPythonPackage rec {
     patchShebangs tests
   '';
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   propagatedBuildInputs = [
     passlib
@@ -40,9 +40,9 @@ buildPythonPackage rec {
     toml
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  disabledTestPaths = [ "tests/parse_test.py" ];
+  disabledTestPaths = ["tests/parse_test.py"];
 
   disabledTests = [
     # Tests require network access
@@ -52,13 +52,13 @@ buildPythonPackage rec {
     "testParse_valid_filepath"
   ];
 
-  pythonImportsCheck = [ "ciscoconfparse" ];
+  pythonImportsCheck = ["ciscoconfparse"];
 
   meta = with lib; {
     description = "Module to parse, audit, query, build, and modify Cisco IOS-style configurations";
     homepage = "https://github.com/mpenning/ciscoconfparse";
     changelog = "https://github.com/mpenning/ciscoconfparse/blob/${version}/CHANGES.md";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ astro ];
+    maintainers = with maintainers; [astro];
   };
 }

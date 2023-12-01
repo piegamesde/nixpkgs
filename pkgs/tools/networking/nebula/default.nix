@@ -23,7 +23,7 @@ buildGoModule rec {
     "cmd/nebula-cert"
   ];
 
-  ldflags = [ "-X main.Build=${version}" ];
+  ldflags = ["-X main.Build=${version}"];
 
   passthru.tests = {
     inherit (nixosTests) nebula;

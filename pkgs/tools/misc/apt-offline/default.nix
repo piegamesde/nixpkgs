@@ -32,15 +32,15 @@ python3Packages.buildPythonApplication rec {
 
   doCheck = false;
 
-  pythonimportsCheck = [ "apt-offline" ];
+  pythonimportsCheck = ["apt-offline"];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     homepage = "https://github.com/rickysarraf/apt-offline";
     description = "Offline APT package manager";
     license = licenses.gpl3;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.linux;
   };
 }

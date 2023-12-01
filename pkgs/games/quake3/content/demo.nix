@@ -29,6 +29,6 @@ stdenv.mkDerivation {
     description = "Quake 3 Arena demo content";
     license = licenses.unfreeRedistributable;
     platforms = platforms.all;
-    maintainers = with maintainers; [ abbradar ];
+    maintainers = with maintainers; [abbradar];
   };
 }

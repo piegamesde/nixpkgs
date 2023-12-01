@@ -17,14 +17,14 @@ buildGoModule rec {
 
   vendorHash = "sha256-OnByMNjs6C3R7v5PRDYGYekamsesz9yq2KNsI+NHcQ4=";
 
-  ldflags = [ "-X main.version=${version}" ];
+  ldflags = ["-X main.version=${version}"];
 
   doCheck = false;
 
   meta = with lib; {
     description = "Automatic GeoIP database updater";
     homepage = "https://github.com/maxmind/geoipupdate";
-    license = with licenses; [ asl20 ];
-    maintainers = with maintainers; [ das_j ];
+    license = with licenses; [asl20];
+    maintainers = with maintainers; [das_j];
   };
 }

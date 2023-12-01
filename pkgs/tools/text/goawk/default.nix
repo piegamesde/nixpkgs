@@ -19,7 +19,7 @@ buildGoModule rec {
 
   vendorSha256 = null;
 
-  nativeCheckInputs = [ gawk ];
+  nativeCheckInputs = [gawk];
 
   postPatch = ''
     substituteInPlace goawk_test.go \
@@ -44,6 +44,6 @@ buildGoModule rec {
     homepage = "https://benhoyt.com/writings/goawk/";
     license = licenses.mit;
     mainProgram = "goawk";
-    maintainers = with maintainers; [ abbe ];
+    maintainers = with maintainers; [abbe];
   };
 }

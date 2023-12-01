@@ -385,7 +385,7 @@ let
     in
     lib.attrsets.unionOfDisjoint otherGrammars treeSitterOrgaGrammars;
 
-  jsonFile = name: val: (formats.json { }).generate name val;
+  jsonFile = name: val: (formats.json {}).generate name val;
 
   # implementation of the updater
   updateImpl =
@@ -398,7 +398,7 @@ let
         };
         inherit knownTreeSitterOrgGrammarRepos ignoredTreeSitterOrgRepos;
       }
-      (writers.writePython3 "updateImpl" { flakeIgnore = [ "E501" ]; } ./update_impl.py);
+      (writers.writePython3 "updateImpl" {flakeIgnore = ["E501"];} ./update_impl.py);
 
   # Pass the given arguments to the command, in the ARGS environment variable.
   # The arguments are just a json object that should be available in the script.
@@ -410,9 +410,9 @@ let
     '';
 
   foreachSh =
-    attrs: f: lib.concatMapStringsSep "\n" f (lib.mapAttrsToList (k: v: { name = k; } // v) attrs);
+    attrs: f: lib.concatMapStringsSep "\n" f (lib.mapAttrsToList (k: v: {name = k;} // v) attrs);
 
-  jsonNewlines = lib.concatMapStringsSep "\n" (lib.generators.toJSON { });
+  jsonNewlines = lib.concatMapStringsSep "\n" (lib.generators.toJSON {});
 
   # Run the given script for each of the attr list.
   # The attrs are passed to the script as a json value.
@@ -438,14 +438,14 @@ let
            ${updateImpl} fetch-repo "$1"
          '')
          (
-           lib.mapAttrsToList (nixRepoAttrName: attrs: attrs // { inherit nixRepoAttrName outputDir; })
+           lib.mapAttrsToList (nixRepoAttrName: attrs: attrs // {inherit nixRepoAttrName outputDir;})
              allGrammars
          )
      }
      ${updateImpl} print-all-grammars-nix-file "$(< ${
        jsonFile "all-grammars.json" {
          allGrammars =
-           (lib.mapAttrsToList (nixRepoAttrName: attrs: attrs // { inherit nixRepoAttrName; }) allGrammars);
+           (lib.mapAttrsToList (nixRepoAttrName: attrs: attrs // {inherit nixRepoAttrName;}) allGrammars);
          inherit outputDir;
        }
      })"

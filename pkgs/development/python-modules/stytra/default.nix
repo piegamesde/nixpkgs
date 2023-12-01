@@ -84,6 +84,6 @@ buildPythonPackage rec {
     description = "A modular package to control stimulation and track behaviour";
     homepage = "https://github.com/portugueslab/stytra";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ tbenst ];
+    maintainers = with maintainers; [tbenst];
   };
 }

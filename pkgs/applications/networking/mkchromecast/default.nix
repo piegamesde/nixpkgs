@@ -27,7 +27,7 @@ let
     nodejs
     ffmpeg
     youtube-dl
-  ] ++ lib.optionals stdenv.isLinux [ pulseaudio ];
+  ] ++ lib.optionals stdenv.isLinux [pulseaudio];
 in
 python3Packages.buildPythonApplication rec {
   pname = "mkchromecast-unstable";
@@ -52,7 +52,7 @@ python3Packages.buildPythonApplication rec {
         requests
         pyqt5
       ]
-      ++ lib.optionals enableSonos [ soco ]
+      ++ lib.optionals enableSonos [soco]
     );
 
   postPatch = ''
@@ -61,7 +61,7 @@ python3Packages.buildPythonApplication rec {
       --replace 'platform.system() == "Linux"' 'True'
   '';
 
-  nativeBuildInputs = [ wrapQtAppsHook ];
+  nativeBuildInputs = [wrapQtAppsHook];
 
   # Relies on an old version (0.7.7) of PyChromecast unavailable in Nixpkgs.
   # Is also I/O bound and impure, testing an actual device, so we disable.
@@ -89,7 +89,7 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://mkchromecast.com/";
     description = "Cast macOS and Linux Audio/Video to your Google Cast and Sonos Devices";
     license = licenses.mit;
-    maintainers = with maintainers; [ shou ];
+    maintainers = with maintainers; [shou];
     mainProgram = "mkchromecast";
   };
 }

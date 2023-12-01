@@ -24,12 +24,12 @@ mkDerivation rec {
     tinyxml-2
   ];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   meta = with lib; {
     description = "A completely normal office calculator";
     homepage = "https://proofficecalculator.com/";
-    maintainers = [ maintainers.pmiddend ];
+    maintainers = [maintainers.pmiddend];
     platforms = platforms.linux;
     license = licenses.gpl3;
   };

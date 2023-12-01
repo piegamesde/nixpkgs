@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
       --replace ' /usr/' " $out/"
   '';
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   meta = with lib; {
     description = "Source code indenter, formatter, and beautifier for C, C++, C# and Java";

@@ -1,4 +1,4 @@
-{ buildPythonPackage, usbrelay }:
+{buildPythonPackage, usbrelay}:
 
 buildPythonPackage rec {
   pname = "usbrelay_py";
@@ -8,9 +8,9 @@ buildPythonPackage rec {
     cd usbrelay_py
   '';
 
-  buildInputs = [ usbrelay ];
+  buildInputs = [usbrelay];
 
-  pythonImportsCheck = [ "usbrelay_py" ];
+  pythonImportsCheck = ["usbrelay_py"];
 
   inherit (usbrelay) meta;
 }

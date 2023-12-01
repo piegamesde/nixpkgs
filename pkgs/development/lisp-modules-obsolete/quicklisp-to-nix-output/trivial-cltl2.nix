@@ -1,12 +1,12 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "trivial-cltl2";
   version = "20200325-git";
 
   description = "Compatibility package exporting CLtL2 functionality";
 
-  deps = [ ];
+  deps = [];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/trivial-cltl2/2020-03-25/trivial-cltl2-20200325-git.tgz";
@@ -15,7 +15,7 @@ rec {
 
   packageName = "trivial-cltl2";
 
-  asdFilesToKeep = [ "trivial-cltl2.asd" ];
+  asdFilesToKeep = ["trivial-cltl2.asd"];
   overrides = x: x;
 }
 /* (SYSTEM trivial-cltl2 DESCRIPTION

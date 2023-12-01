@@ -70,7 +70,7 @@ in
     };
     scopes = mkOption {
       type = types.listOf types.str;
-      default = [ "user" ];
+      default = ["user"];
       example = [
         "user"
         "global"

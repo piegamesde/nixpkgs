@@ -34,7 +34,7 @@ buildPythonPackage rec {
     hash = "sha256-k+OyCKUN9hC6J1Ff2DDb2ECLvmWkkK1HtNxfKVXyl8g=";
   };
 
-  nativeBuildInputs = [ hatchling ];
+  nativeBuildInputs = [hatchling];
 
   propagatedBuildInputs = [
     jsonschema
@@ -65,6 +65,6 @@ buildPythonPackage rec {
     description = "Configurable event system for Jupyter applications and extensions";
     homepage = "https://github.com/jupyter/jupyter_events";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

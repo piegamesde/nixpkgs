@@ -4,7 +4,7 @@
   config,
   version,
   revision,
-  extraSources ? [ ],
+  extraSources ? [],
   baseOptionsJSON ? null,
   warningsAreErrors ? true,
   allowDocBook ? true,
@@ -18,7 +18,7 @@ let
 
   lib = pkgs.lib;
 
-  docbook_xsl_ns = pkgs.docbook-xsl-ns.override { withManOptDedupPatch = true; };
+  docbook_xsl_ns = pkgs.docbook-xsl-ns.override {withManOptDedupPatch = true;};
 
   manpageUrls = pkgs.path + "/doc/manpage-urls.json";
 
@@ -28,7 +28,7 @@ let
   #
   # E.g. if some `options` came from modules in ${pkgs.customModules}/nix,
   # you'd need to include `extraSources = [ pkgs.customModules ]`
-  prefixesToStrip = map (p: "${toString p}/") ([ prefix ] ++ extraSources);
+  prefixesToStrip = map (p: "${toString p}/") ([prefix] ++ extraSources);
   stripAnyPrefixes = lib.flip (lib.foldr lib.removePrefix) prefixesToStrip;
 
   optionsDoc = buildPackages.nixosOptionsDoc {
@@ -48,14 +48,14 @@ let
       };
   };
 
-  nixos-lib = import ../../lib { };
+  nixos-lib = import ../../lib {};
 
   testOptionsDoc =
     let
       eval = nixos-lib.evalTest {
         # Avoid evaluating a NixOS config prototype.
         config.node.type = lib.types.deferredModule;
-        options._module.args = lib.mkOption { internal = true; };
+        options._module.args = lib.mkOption {internal = true;};
       };
     in
     buildPackages.nixosOptionsDoc {
@@ -248,10 +248,10 @@ rec {
               buildPackages.libxslt.bin
             ]
           else
-            [ buildPackages.nixos-render-docs ];
-        inputs = lib.optionals (!allowDocBook) (lib.sourceFilesBySuffices ./. [ ".md" ]);
+            [buildPackages.nixos-render-docs];
+        inputs = lib.optionals (!allowDocBook) (lib.sourceFilesBySuffices ./. [".md"]);
         meta.description = "The NixOS manual in HTML format";
-        allowedReferences = [ "out" ];
+        allowedReferences = ["out"];
       }
       ''
         # Generate the HTML manual.
@@ -346,13 +346,13 @@ rec {
     runCommand "nixos-manpages"
       {
         nativeBuildInputs =
-          [ buildPackages.installShellFiles ]
+          [buildPackages.installShellFiles]
           ++ lib.optionals allowDocBook [
             buildPackages.libxml2.bin
             buildPackages.libxslt.bin
           ]
-          ++ lib.optionals (!allowDocBook) [ buildPackages.nixos-render-docs ];
-        allowedReferences = [ "out" ];
+          ++ lib.optionals (!allowDocBook) [buildPackages.nixos-render-docs];
+        allowedReferences = ["out"];
       }
       ''
         # Generate manpages.

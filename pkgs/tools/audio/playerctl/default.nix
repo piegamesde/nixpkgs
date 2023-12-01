@@ -30,16 +30,16 @@ stdenv.mkDerivation rec {
     docbook_xsl
     gobject-introspection
   ];
-  buildInputs = [ glib ];
+  buildInputs = [glib];
 
-  mesonFlags = [ "-Dbash-completions=true" ];
+  mesonFlags = ["-Dbash-completions=true"];
 
   meta = with lib; {
     description = "Command-line utility and library for controlling media players that implement MPRIS";
     homepage = "https://github.com/acrisci/playerctl";
     license = licenses.lgpl3;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ puffnfresh ];
+    maintainers = with maintainers; [puffnfresh];
     broken = stdenv.hostPlatform.isDarwin;
   };
 }

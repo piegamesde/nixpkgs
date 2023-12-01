@@ -34,13 +34,13 @@ buildPythonPackage rec {
     "test_glib_events.TestBaseGLibEventLoop" # Somtimes fail due to imprecise timing
   ];
 
-  pythonImportsCheck = [ "gbulb" ];
+  pythonImportsCheck = ["gbulb"];
 
   meta = with lib; {
     broken = stdenv.isDarwin;
     description = "GLib implementation of PEP 3156";
     homepage = "https://github.com/beeware/gbulb";
     license = licenses.asl20;
-    maintainers = with maintainers; [ marius851000 ];
+    maintainers = with maintainers; [marius851000];
   };
 }

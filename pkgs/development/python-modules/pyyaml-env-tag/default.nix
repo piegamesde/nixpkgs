@@ -18,16 +18,16 @@ buildPythonPackage rec {
     sha256 = "1nsva88jsmwn0cb9jnrfiz4dvs9xakkpgfii7g1xwkx1pmsjc2bh";
   };
 
-  propagatedBuildInputs = [ pyyaml ];
+  propagatedBuildInputs = [pyyaml];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "yaml_env_tag" ];
+  pythonImportsCheck = ["yaml_env_tag"];
 
   meta = with lib; {
     description = "Custom YAML tag for referencing environment variables";
     homepage = "https://github.com/waylan/pyyaml-env-tag";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

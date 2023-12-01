@@ -129,13 +129,13 @@ buildPythonPackage rec {
     "test_replication_applier"
   ];
 
-  pythonImportsCheck = [ "arango" ];
+  pythonImportsCheck = ["arango"];
 
   meta = with lib; {
     description = "Python Driver for ArangoDB";
     homepage = "https://github.com/ArangoDB-Community/python-arango";
     changelog = "https://github.com/ArangoDB-Community/python-arango/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ jsoo1 ];
+    maintainers = with maintainers; [jsoo1];
   };
 }

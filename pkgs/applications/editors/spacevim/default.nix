@@ -14,15 +14,15 @@
 }:
 
 let
-  format = formats.toml { };
+  format = formats.toml {};
   vim-customized = vim-full.customize {
     name = "vim";
     # Not clear at the moment how to import plugins such that
     # SpaceVim finds them and does not auto download them to
     # ~/.cache/vimfiles/repos
-    vimrcConfig.packages.myVimPackage = with vimPlugins; { start = [ ]; };
+    vimrcConfig.packages.myVimPackage = with vimPlugins; {start = [];};
   };
-  spacevimdir = runCommand "SpaceVim.d" { } ''
+  spacevimdir = runCommand "SpaceVim.d" {} ''
     mkdir -p $out
     cp ${format.generate "init.toml" spacevim_config} $out/init.toml
   '';
@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
     makeWrapper
     vim-customized
   ];
-  buildInputs = [ vim-customized ];
+  buildInputs = [vim-customized];
 
   buildPhase = ''
     runHook preBuild
@@ -82,7 +82,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://spacevim.org/";
     license = licenses.gpl3Plus;
-    maintainers = [ maintainers.fzakaria ];
+    maintainers = [maintainers.fzakaria];
     platforms = platforms.all;
   };
 }

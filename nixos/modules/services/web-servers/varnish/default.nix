@@ -13,9 +13,9 @@ let
   commandLine =
     "-f ${pkgs.writeText "default.vcl" cfg.config}"
     +
-      optionalString (cfg.extraModules != [ ])
+      optionalString (cfg.extraModules != [])
         " -p vmod_path='${
-           makeSearchPathOutput "lib" "lib/varnish/vmods" ([ cfg.package ] ++ cfg.extraModules)
+           makeSearchPathOutput "lib" "lib/varnish/vmods" ([cfg.package] ++ cfg.extraModules)
          }' -r vmod_path";
 in
 {
@@ -62,7 +62,7 @@ in
 
       extraModules = mkOption {
         type = types.listOf types.package;
-        default = [ ];
+        default = [];
         example = literalExpression "[ pkgs.varnishPackages.geoip ]";
         description = lib.mdDoc ''
           Varnish modules (except 'std').
@@ -84,8 +84,8 @@ in
 
     systemd.services.varnish = {
       description = "Varnish";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
       preStart = ''
         mkdir -p ${cfg.stateDir}
         chown -R varnish:varnish ${cfg.stateDir}
@@ -107,11 +107,11 @@ in
       };
     };
 
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
     # check .vcl syntax at compile time (e.g. before nixops deployment)
     system.extraDependencies = mkIf cfg.enableConfigCheck [
-      (pkgs.runCommand "check-varnish-syntax" { } ''
+      (pkgs.runCommand "check-varnish-syntax" {} ''
         ${cfg.package}/bin/varnishd -C ${commandLine} 2> $out || (cat $out; exit 1)
       '')
     ];

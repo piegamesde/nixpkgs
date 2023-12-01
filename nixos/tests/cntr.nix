@@ -1,13 +1,13 @@
 # Test for cntr tool
 {
   system ? builtins.currentSystem,
-  config ? { },
-  pkgs ? import ../.. { inherit system config; },
+  config ? {},
+  pkgs ? import ../.. {inherit system config;},
   lib ? pkgs.lib,
 }:
 
 let
-  inherit (import ../lib/testing-python.nix { inherit system pkgs; }) makeTest;
+  inherit (import ../lib/testing-python.nix {inherit system pkgs;}) makeTest;
 
   mkOCITest =
     backend:
@@ -23,15 +23,15 @@ let
 
       nodes = {
         ${backend} =
-          { pkgs, ... }:
+          {pkgs, ...}:
           {
-            environment.systemPackages = [ pkgs.cntr ];
+            environment.systemPackages = [pkgs.cntr];
             virtualisation.oci-containers = {
               inherit backend;
               containers.nginx = {
                 image = "nginx-container";
                 imageFile = pkgs.dockerTools.examples.nginx;
-                ports = [ "8181:80" ];
+                ports = ["8181:80"];
               };
             };
           };
@@ -64,15 +64,15 @@ let
     };
 
     nodes.machine =
-      { lib, ... }:
+      {lib, ...}:
       {
-        environment.systemPackages = [ pkgs.cntr ];
+        environment.systemPackages = [pkgs.cntr];
         containers.test = {
           autoStart = true;
           privateNetwork = true;
           hostAddress = "172.16.0.1";
           localAddress = "172.16.0.2";
-          config = { };
+          config = {};
         };
       };
 
@@ -92,7 +92,7 @@ in
 {
   nixos-container = mkContainersTest;
 }
-// (lib.foldl' (attrs: backend: attrs // { ${backend} = mkOCITest backend; }) { } [
+// (lib.foldl' (attrs: backend: attrs // {${backend} = mkOCITest backend;}) {} [
   "docker"
   "podman"
 ])

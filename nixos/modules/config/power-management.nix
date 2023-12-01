@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{config, lib, ...}:
 
 with lib;
 
@@ -64,17 +64,17 @@ in
 
     systemd.targets.post-resume = {
       description = "Post-Resume Actions";
-      requires = [ "post-resume.service" ];
-      after = [ "post-resume.service" ];
-      wantedBy = [ "sleep.target" ];
+      requires = ["post-resume.service"];
+      after = ["post-resume.service"];
+      wantedBy = ["sleep.target"];
       unitConfig.StopWhenUnneeded = true;
     };
 
     # Service executed before suspending/hibernating.
     systemd.services.pre-sleep = {
       description = "Pre-Sleep Actions";
-      wantedBy = [ "sleep.target" ];
-      before = [ "sleep.target" ];
+      wantedBy = ["sleep.target"];
+      before = ["sleep.target"];
       script = ''
         ${cfg.powerDownCommands}
       '';

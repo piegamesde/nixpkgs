@@ -38,7 +38,7 @@ stdenv.mkDerivation {
 
   strictDeps = true;
 
-  installTargets = [ "ocamlfind-install" ];
+  installTargets = ["ocamlfind-install"];
 
   createFindlibDestdir = true;
 
@@ -46,7 +46,7 @@ stdenv.mkDerivation {
     homepage = "https://www.lri.fr/~filliatr/functory/";
     description = "A distributed computing library for Objective Caml which facilitates distributed execution of parallelizable computations in a seamless fashion";
     license = licenses.lgpl21;
-    maintainers = [ maintainers.vbgl ];
+    maintainers = [maintainers.vbgl];
     inherit (ocaml.meta) platforms;
   };
 }

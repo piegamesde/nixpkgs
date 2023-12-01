@@ -18,7 +18,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-CoXlUX9hkP8gijA/vg19AS9030w95A2oKGD1wjzO8ak=";
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   ldflags = [
     "-s"
@@ -30,7 +30,7 @@ buildGoModule rec {
     description = "A toolkit to help you manage, manipulate, customize, and apply Kubernetes Resource configuration data files";
     homepage = "https://googlecontainertools.github.io/kpt/";
     license = licenses.asl20;
-    maintainers = with maintainers; [ mikefaille ];
+    maintainers = with maintainers; [mikefaille];
     broken = stdenv.isDarwin;
   };
 }

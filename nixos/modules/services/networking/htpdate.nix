@@ -39,7 +39,7 @@ in
 
       servers = mkOption {
         type = types.listOf types.str;
-        default = [ "www.google.com" ];
+        default = ["www.google.com"];
         description = lib.mdDoc ''
           HTTP servers to use for time synchronization.
         '';
@@ -62,7 +62,7 @@ in
 
     systemd.services.htpdate = {
       description = "htpdate daemon";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         Type = "forking";
         PIDFile = "/run/htpdate.pid";

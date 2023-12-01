@@ -56,12 +56,12 @@ stdenv.mkDerivation rec {
     xorg.libXmu
   ];
 
-  configureFlags = [ "--disable-update-desktop-database" ];
+  configureFlags = ["--disable-update-desktop-database"];
 
   meta = with lib; {
     description = "Printed Circuit Board editor";
     homepage = "http://pcb.geda-project.org/";
-    maintainers = with maintainers; [ mog ];
+    maintainers = with maintainers; [mog];
     platforms = platforms.linux;
     license = licenses.gpl2;
   };

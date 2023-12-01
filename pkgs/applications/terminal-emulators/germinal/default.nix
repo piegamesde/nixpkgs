@@ -38,14 +38,14 @@ stdenv.mkDerivation rec {
     vte
   ];
 
-  configureFlags = [ "--with-dbusservicesdir=${placeholder "out"}/etc/dbus-1/system-services/" ];
+  configureFlags = ["--with-dbusservicesdir=${placeholder "out"}/etc/dbus-1/system-services/"];
 
   dontWrapGApps = true;
 
   fixupPhase = ''
     runHook preFixup
     wrapProgram $out/bin/germinal \
-     --prefix PATH ":" "${lib.makeBinPath [ tmux ]}" \
+     --prefix PATH ":" "${lib.makeBinPath [tmux]}" \
       "''${gappsWrapperArgs[@]}"
     runHook postFixup
   '';
@@ -57,6 +57,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/Keruspe/Germinal";
     license = with licenses; gpl3Plus;
     platforms = with platforms; unix;
-    maintainers = with maintainers; [ AndersonTorres ];
+    maintainers = with maintainers; [AndersonTorres];
   };
 }

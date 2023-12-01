@@ -29,7 +29,7 @@ buildPythonPackage rec {
   };
 
   propagatedBuildInputs =
-    [ markupsafe ]
+    [markupsafe]
     ++ lib.optionals (!stdenv.isDarwin)
       [
         # watchdog requires macos-sdk 10.13+
@@ -43,7 +43,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  disabledTests = lib.optionals stdenv.isDarwin [ "test_get_machine_id" ];
+  disabledTests = lib.optionals stdenv.isDarwin ["test_get_machine_id"];
 
   disabledTestPaths =
     [
@@ -72,6 +72,6 @@ buildPythonPackage rec {
       utility libraries.
     '';
     license = licenses.bsd3;
-    maintainers = with maintainers; [ SuperSandro2000 ];
+    maintainers = with maintainers; [SuperSandro2000];
   };
 }

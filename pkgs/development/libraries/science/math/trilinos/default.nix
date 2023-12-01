@@ -67,7 +67,7 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "trilinos";
     repo = "Trilinos";
-    rev = "${pname}-release-${lib.replaceStrings [ "." ] [ "-" ] version}";
+    rev = "${pname}-release-${lib.replaceStrings ["."] ["-"] version}";
     sha256 = "sha256-Nqjr7RAlUHm6vs87a1P84Y7BIZEL0Vs/A1Z6dykfv+o=";
   };
 
@@ -82,7 +82,7 @@ stdenv.mkDerivation rec {
     boost
     lapack
     suitesparse
-  ] ++ lib.optionals withMPI [ mpi ];
+  ] ++ lib.optionals withMPI [mpi];
 
   preConfigure =
     if withMPI then
@@ -108,7 +108,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://trilinos.org";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ fbeffa ];
+    maintainers = with maintainers; [fbeffa];
     platforms = platforms.all;
   };
 }

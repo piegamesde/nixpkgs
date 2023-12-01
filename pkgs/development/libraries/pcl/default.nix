@@ -57,7 +57,7 @@ stdenv.mkDerivation rec {
       Cocoa
       AGL
     ]
-    ++ lib.optionals withCuda [ cudatoolkit ];
+    ++ lib.optionals withCuda [cudatoolkit];
 
   propagatedBuildInputs = [
     boost
@@ -69,14 +69,14 @@ stdenv.mkDerivation rec {
   ];
 
   cmakeFlags =
-    lib.optionals stdenv.isDarwin [ "-DOPENGL_INCLUDE_DIR=${OpenGL}/Library/Frameworks" ]
-    ++ lib.optionals withCuda [ "-DWITH_CUDA=true" ];
+    lib.optionals stdenv.isDarwin ["-DOPENGL_INCLUDE_DIR=${OpenGL}/Library/Frameworks"]
+    ++ lib.optionals withCuda ["-DWITH_CUDA=true"];
 
   meta = {
     homepage = "https://pointclouds.org/";
     description = "Open project for 2D/3D image and point cloud processing";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ viric ];
+    maintainers = with lib.maintainers; [viric];
     platforms = with lib.platforms; linux ++ darwin;
   };
 }

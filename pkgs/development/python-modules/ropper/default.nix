@@ -28,15 +28,15 @@ buildPythonPackage rec {
     filebytes
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "ropper" ];
+  pythonImportsCheck = ["ropper"];
 
   meta = with lib; {
     description = "Show information about files in different file formats";
     homepage = "https://scoding.de/ropper/";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ bennofs ];
+    maintainers = with maintainers; [bennofs];
     broken = stdenv.isDarwin;
   };
 }

@@ -25,6 +25,6 @@ buildPythonPackage {
     homepage = "https://github.com/noahmorrison/chevron";
     description = "A python implementation of the mustache templating language";
     license = licenses.mit;
-    maintainers = with maintainers; [ dhkl ];
+    maintainers = with maintainers; [dhkl];
   };
 }

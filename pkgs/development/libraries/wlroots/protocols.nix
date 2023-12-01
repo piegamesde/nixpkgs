@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
   };
 
   strictDeps = true;
-  nativeBuildInputs = [ wayland-scanner ];
+  nativeBuildInputs = [wayland-scanner];
 
   patchPhase = ''
     substituteInPlace wlr-protocols.pc.in \
@@ -49,6 +49,6 @@ stdenv.mkDerivation rec {
     homepage = "https://gitlab.freedesktop.org/wlroots/wlr-protocols";
     license = licenses.mit; # See file headers
     platforms = platforms.linux;
-    maintainers = with maintainers; [ twitchyliquid64 ];
+    maintainers = with maintainers; [twitchyliquid64];
   };
 }

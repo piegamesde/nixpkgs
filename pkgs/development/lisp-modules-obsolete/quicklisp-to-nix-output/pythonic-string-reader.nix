@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "pythonic-string-reader";
   version = "20180711-git";
@@ -8,7 +8,7 @@ rec {
     A simple and unintrusive read table modification that allows for
     simple string literal definition that doesn't require escaping characters.'';
 
-  deps = [ args."named-readtables" ];
+  deps = [args."named-readtables"];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/pythonic-string-reader/2018-07-11/pythonic-string-reader-20180711-git.tgz";
@@ -17,7 +17,7 @@ rec {
 
   packageName = "pythonic-string-reader";
 
-  asdFilesToKeep = [ "pythonic-string-reader.asd" ];
+  asdFilesToKeep = ["pythonic-string-reader.asd"];
   overrides = x: x;
 }
 /* (SYSTEM pythonic-string-reader DESCRIPTION

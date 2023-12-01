@@ -31,7 +31,7 @@ buildPythonPackage rec {
       --replace " --cov=bleak_retry_connector --cov-report=term-missing:skip-covered" ""
   '';
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   propagatedBuildInputs = [
     async-timeout
@@ -52,13 +52,13 @@ buildPythonPackage rec {
     "test_establish_connection_without_dangerous_use_cached_services"
   ];
 
-  pythonImportsCheck = [ "bleak_retry_connector" ];
+  pythonImportsCheck = ["bleak_retry_connector"];
 
   meta = with lib; {
     description = "Connector for Bleak Clients that handles transient connection failures";
     homepage = "https://github.com/bluetooth-devices/bleak-retry-connector";
     changelog = "https://github.com/bluetooth-devices/bleak-retry-connector/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -32,12 +32,12 @@ stdenv.mkDerivation rec {
       # https://github.com/NixOS/nixpkgs/blob/049e5e93af9bbbe06b4c40fd001a4e138ce1d677/pkgs/development/libraries/webkitgtk/default.nix#L154
       # TL;DR, the other headers in the include path for the macOS SDK is not compatible with the C++ stdlib and causes issues, so we copy
       # this to avoid those issues
-      runCommand "${pname}_headers" { } ''
+      runCommand "${pname}_headers" {} ''
         install -Dm444 "${lib.getDev sdk}"/include/libproc.h "$out"/include/libproc.h
       ''
     );
 
-  installFlags = [ "PREFIX=$(out)" ];
+  installFlags = ["PREFIX=$(out)"];
 
   postInstall = ''
     ${removeReferencesTo}/bin/remove-references-to -t ${stdenv.cc.cc} $(readlink -f $out/bin/btop)
@@ -49,6 +49,6 @@ stdenv.mkDerivation rec {
     changelog = "https://github.com/aristocratos/btop/blob/v${version}/CHANGELOG.md";
     license = licenses.asl20;
     platforms = platforms.linux ++ platforms.darwin;
-    maintainers = with maintainers; [ rmcgibbo ];
+    maintainers = with maintainers; [rmcgibbo];
   };
 }

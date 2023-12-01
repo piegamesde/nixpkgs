@@ -23,6 +23,6 @@ stdenvNoCC.mkDerivation rec {
     description = "Script to toggle and control ffmpeg's dynamic range compression filter.";
     homepage = "https://github.com/mpv-player/mpv/blob/master/TOOLS/lua/acompressor.lua";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ nicoo ];
+    maintainers = with maintainers; [nicoo];
   };
 }

@@ -19,7 +19,7 @@
   zlib,
 }:
 let
-  py3 = python3.withPackages (p: [ p.mako ]);
+  py3 = python3.withPackages (p: [p.mako]);
 in
 stdenv.mkDerivation rec {
   pname = "clightning";
@@ -80,7 +80,7 @@ stdenv.mkDerivation rec {
     "--disable-valgrind"
   ];
 
-  makeFlags = [ "VERSION=v${version}" ];
+  makeFlags = ["VERSION=v${version}"];
 
   enableParallelBuilding = true;
 

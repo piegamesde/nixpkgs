@@ -15,11 +15,11 @@ python3Packages.buildPythonApplication rec {
     sha256 = "0fmsdn28z09bvivdkqcla5bnalky7k744iir25z70bv4pz1jcvnk";
   };
 
-  propagatedBuildInputs = with python3Packages; [ feedparser ];
+  propagatedBuildInputs = with python3Packages; [feedparser];
 
   doCheck = false;
 
-  pythonImportsCheck = [ "canto_next" ];
+  pythonImportsCheck = ["canto_next"];
 
   meta = with lib; {
     description = "Daemon for the canto Atom/RSS feed reader";
@@ -34,6 +34,6 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://codezen.org/canto-ng/";
     license = licenses.gpl2;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ devhell ];
+    maintainers = with maintainers; [devhell];
   };
 }

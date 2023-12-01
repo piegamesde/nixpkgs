@@ -4,7 +4,7 @@
   fetchFromGitHub,
 }:
 import ./versions.nix (
-  { version, sha256 }:
+  {version, sha256}:
   buildGoModule {
     pname = "honeyvent";
     inherit version;
@@ -22,7 +22,7 @@ import ./versions.nix (
       description = "CLI for sending individual events to honeycomb.io";
       homepage = "https://honeycomb.io/";
       license = licenses.asl20;
-      maintainers = [ maintainers.iand675 ];
+      maintainers = [maintainers.iand675];
     };
   }
 )

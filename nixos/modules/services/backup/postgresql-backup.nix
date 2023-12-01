@@ -38,7 +38,7 @@ let
 
       description = "Backup of ${db} database(s)";
 
-      requires = [ "postgresql.service" ];
+      requires = ["postgresql.service"];
 
       path = [
         pkgs.coreutils
@@ -101,7 +101,7 @@ in
       };
 
       backupAll = mkOption {
-        default = cfg.databases == [ ];
+        default = cfg.databases == [];
         defaultText = literalExpression "services.postgresqlBackup.databases == []";
         type = lib.types.bool;
         description = lib.mdDoc ''
@@ -114,7 +114,7 @@ in
       };
 
       databases = mkOption {
-        default = [ ];
+        default = [];
         type = types.listOf types.str;
         description = lib.mdDoc ''
           List of database names to dump.
@@ -167,7 +167,7 @@ in
     {
       assertions = [
         {
-          assertion = cfg.backupAll -> cfg.databases == [ ];
+          assertion = cfg.backupAll -> cfg.databases == [];
           message = "config.services.postgresqlBackup.backupAll cannot be used together with config.services.postgresqlBackup.databases";
         }
         {
@@ -179,7 +179,7 @@ in
         }
       ];
     }
-    (mkIf cfg.enable { systemd.tmpfiles.rules = [ "d '${cfg.location}' 0700 postgres - - -" ]; })
+    (mkIf cfg.enable {systemd.tmpfiles.rules = ["d '${cfg.location}' 0700 postgres - - -"];})
     (mkIf (cfg.enable && cfg.backupAll) {
       systemd.services.postgresqlBackup = postgresqlBackupService "all" "pg_dumpall";
     })

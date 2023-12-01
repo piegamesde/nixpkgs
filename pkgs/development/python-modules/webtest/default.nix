@@ -42,12 +42,12 @@ buildPythonPackage rec {
 
   __darwinAllowLocalNetworking = true;
 
-  pythonImportsCheck = [ "webtest" ];
+  pythonImportsCheck = ["webtest"];
 
   meta = with lib; {
     description = "Helper to test WSGI applications";
     homepage = "https://webtest.readthedocs.org/";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

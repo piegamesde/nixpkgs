@@ -30,7 +30,7 @@ stdenv.mkDerivation {
 
   strictDeps = true;
 
-  installFlags = [ "LIBDIR=$(OCAMLFIND_DESTDIR)" ];
+  installFlags = ["LIBDIR=$(OCAMLFIND_DESTDIR)"];
 
   createFindlibDestdir = true;
 
@@ -39,6 +39,6 @@ stdenv.mkDerivation {
     homepage = "https://github.com/OCamlPro-Iguernlala/ocplib-simplex";
     inherit (ocaml.meta) platforms;
     license = lib.licenses.lgpl21;
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
   };
 }

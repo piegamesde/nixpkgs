@@ -35,6 +35,6 @@ stdenv.mkDerivation rec {
     description = "C++ library which makes accessing SQL databases easy and robust";
     platforms = platforms.linux;
     license = licenses.lgpl21;
-    maintainers = [ maintainers.juliendehos ];
+    maintainers = [maintainers.juliendehos];
   };
 }

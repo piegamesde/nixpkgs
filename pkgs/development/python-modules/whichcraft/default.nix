@@ -16,9 +16,9 @@ buildPythonPackage rec {
   };
 
   LC_ALL = "en_US.utf-8";
-  buildInputs = [ glibcLocales ];
+  buildInputs = [glibcLocales];
 
-  nativeCheckInputs = [ pytest ];
+  nativeCheckInputs = [pytest];
 
   checkPhase = ''
     py.test

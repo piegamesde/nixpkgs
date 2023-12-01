@@ -60,7 +60,7 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = false;
 
   # Without hardeningDisable, certain flags are passed to the compile that break the build (primarily string format errors)
-  hardeningDisable = [ "all" ];
+  hardeningDisable = ["all"];
 
   meta = {
     broken = stdenv.isDarwin && stdenv.isx86_64;

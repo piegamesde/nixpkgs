@@ -37,12 +37,12 @@ in
       CLIENTNAME = ${cfg.clientName}
     '';
 
-    services.udev.packages = [ pkgs.usbrelayd ];
-    systemd.packages = [ pkgs.usbrelayd ];
-    users.groups.usbrelay = { };
+    services.udev.packages = [pkgs.usbrelayd];
+    systemd.packages = [pkgs.usbrelayd];
+    users.groups.usbrelay = {};
   };
 
   meta = {
-    maintainers = with lib.maintainers; [ wentasah ];
+    maintainers = with lib.maintainers; [wentasah];
   };
 }

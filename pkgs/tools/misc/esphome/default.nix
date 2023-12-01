@@ -10,7 +10,7 @@
 
 let
   python = python3.override {
-    packageOverrides = self: super: { esphome-dashboard = self.callPackage ./dashboard.nix { }; };
+    packageOverrides = self: super: {esphome-dashboard = self.callPackage ./dashboard.nix {};};
   };
 in
 python.pkgs.buildPythonApplication rec {
@@ -98,7 +98,7 @@ python.pkgs.buildPythonApplication rec {
 
   passthru = {
     dashboard = python.pkgs.esphome-dashboard;
-    updateScript = callPackage ./update.nix { };
+    updateScript = callPackage ./update.nix {};
   };
 
   meta = with lib; {

@@ -27,9 +27,9 @@ stdenv.mkDerivation rec {
     hash = "sha256-EIreweeOx44YDxlnxnJ7l31Ie1jSx6y87VAyEX+4NsQ=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
-  buildInputs = [ blas ];
+  buildInputs = [blas];
 
   dontUseCmakeConfigure = true;
 
@@ -62,7 +62,7 @@ stdenv.mkDerivation rec {
     description = "Graph Coarsening and Partitioning Library";
     homepage = "https://github.com/DrTimothyAldenDavis/SuiteSparse/tree/dev/Mongoose";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ wegank ];
+    maintainers = with maintainers; [wegank];
     platforms = with platforms; unix;
   };
 }

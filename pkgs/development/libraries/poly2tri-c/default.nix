@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  buildInputs = [ glib ];
+  buildInputs = [glib];
 
   env.NIX_CFLAGS_COMPILE = toString [
     "--std=gnu99"
@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
     description = "Library for generating, refining and rendering 2-Dimensional Constrained Delaunay Triangulations";
     homepage = "https://code.google.com/archive/p/poly2tri-c/";
     license = licenses.bsd3;
-    maintainers = with lib.maintainers; [ jtojnar ];
+    maintainers = with lib.maintainers; [jtojnar];
     platforms = platforms.unix;
   };
 }

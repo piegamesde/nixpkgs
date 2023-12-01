@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "cl-shellwords";
   version = "20150923-git";
@@ -8,7 +8,7 @@ rec {
     Common Lisp port of Ruby's shellwords.rb, for escaping and
     splitting strings to be passed to a shell.'';
 
-  deps = [ args."cl-ppcre" ];
+  deps = [args."cl-ppcre"];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/cl-shellwords/2015-09-23/cl-shellwords-20150923-git.tgz";
@@ -17,7 +17,7 @@ rec {
 
   packageName = "cl-shellwords";
 
-  asdFilesToKeep = [ "cl-shellwords.asd" ];
+  asdFilesToKeep = ["cl-shellwords.asd"];
   overrides = x: x;
 }
 /* (SYSTEM cl-shellwords DESCRIPTION

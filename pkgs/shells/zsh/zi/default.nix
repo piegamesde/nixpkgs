@@ -17,7 +17,7 @@ stdenvNoCC.mkDerivation rec {
 
   dontBuild = true;
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   installPhase = ''
     mkdir -p $out
@@ -30,6 +30,6 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://github.com/z-shell/zi";
     description = "A Swiss Army Knife for Zsh - Unix Shell";
     license = licenses.mit;
-    maintainers = with maintainers; [ sei40kr ];
+    maintainers = with maintainers; [sei40kr];
   };
 }

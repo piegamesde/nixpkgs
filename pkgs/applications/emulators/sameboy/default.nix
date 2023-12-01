@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
     glib
     wrapGAppsHook
   ];
-  buildInputs = [ SDL2 ];
+  buildInputs = [SDL2];
 
   makeFlags = [
     "CONF=release"
@@ -55,7 +55,7 @@ stdenv.mkDerivation rec {
     '';
 
     license = licenses.mit;
-    maintainers = with maintainers; [ NieDzejkob ];
+    maintainers = with maintainers; [NieDzejkob];
     platforms = platforms.linux;
   };
 }

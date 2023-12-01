@@ -25,7 +25,7 @@
   xz,
   python-setup-hook,
   # For the Python package set
-  packageOverrides ? (self: super: { }),
+  packageOverrides ? (self: super: {}),
   pkgsBuildBuild,
   pkgsBuildHost,
   pkgsBuildTarget,
@@ -64,11 +64,11 @@ let
     pythonOnBuildForHost = pkgsBuildHost.${pythonAttr};
     pythonOnBuildForTarget = pkgsBuildTarget.${pythonAttr};
     pythonOnHostForHost = pkgsHostHost.${pythonAttr};
-    pythonOnTargetForTarget = pkgsTargetTarget.${pythonAttr} or { };
+    pythonOnTargetForTarget = pkgsTargetTarget.${pythonAttr} or {};
   };
   pname = passthru.executable;
   version = with sourceVersion; "${major}.${minor}.${patch}";
-  pythonForPypy = python.withPackages (ppkgs: [ ppkgs.pycparser ]);
+  pythonForPypy = python.withPackages (ppkgs: [ppkgs.pycparser]);
 in
 with passthru;
 stdenv.mkDerivation rec {
@@ -79,7 +79,7 @@ stdenv.mkDerivation rec {
     inherit hash;
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs =
     [
       bzip2
@@ -95,9 +95,9 @@ stdenv.mkDerivation rec {
       gdbm
       db
     ]
-    ++ lib.optionals isPy3k [ xz ]
-    ++ lib.optionals (stdenv ? cc && stdenv.cc.libc != null) [ stdenv.cc.libc ]
-    ++ lib.optionals zlibSupport [ zlib ]
+    ++ lib.optionals isPy3k [xz]
+    ++ lib.optionals (stdenv ? cc && stdenv.cc.libc != null) [stdenv.cc.libc]
+    ++ lib.optionals zlibSupport [zlib]
     ++ lib.optionals stdenv.isDarwin [
       libunwind
       Security
@@ -105,7 +105,7 @@ stdenv.mkDerivation rec {
 
   # Remove bootstrap python from closure
   dontPatchShebangs = true;
-  disallowedReferences = [ python ];
+  disallowedReferences = [python];
 
   C_INCLUDE_PATH = lib.makeSearchPathOutput "dev" "include" buildInputs;
   LIBRARY_PATH = lib.makeLibraryPath buildInputs;
@@ -233,7 +233,7 @@ stdenv.mkDerivation rec {
           "curses"
           "sqlite3"
         ]
-        ++ lib.optionals (!isPy3k) [ "Tkinter" ]
+        ++ lib.optionals (!isPy3k) ["Tkinter"]
         ++ lib.optionals isPy3k [
           "tkinter"
           "lzma"
@@ -258,6 +258,6 @@ stdenv.mkDerivation rec {
       "aarch64-darwin"
       "x86_64-darwin"
     ];
-    maintainers = with maintainers; [ andersk ];
+    maintainers = with maintainers; [andersk];
   };
 }

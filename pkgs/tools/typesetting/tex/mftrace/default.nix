@@ -60,7 +60,7 @@ stdenv.mkDerivation (
         t1utils
         metafont
       ];
-      pkgs = [ finalAttrs.finalPackage ];
+      pkgs = [finalAttrs.finalPackage];
     };
 
     meta = with lib; {
@@ -75,7 +75,7 @@ stdenv.mkDerivation (
         gpl2Only
         mit
       ];
-      maintainers = with maintainers; [ xworld21 ];
+      maintainers = with maintainers; [xworld21];
       platforms = platforms.all;
     };
   }

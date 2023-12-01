@@ -8,7 +8,7 @@
 
 runCommand "auditable-${cargo.name}"
   {
-    nativeBuildInputs = [ makeBinaryWrapper ];
+    nativeBuildInputs = [makeBinaryWrapper];
     meta = cargo-auditable.meta // {
       mainProgram = "cargo";
     };

@@ -19,7 +19,7 @@ buildPythonApplication rec {
     sha256 = "sha256-TxfpzKAsU/5ble4VzJ+4pokCiyJsdisjmNwWfxOMKzE=";
   };
 
-  nativeBuildInputs = [ copyDesktopItems ];
+  nativeBuildInputs = [copyDesktopItems];
 
   desktopItems = [
     (makeDesktopItem {
@@ -73,7 +73,7 @@ buildPythonApplication rec {
     '';
     homepage = "https://www.thonny.org/";
     license = licenses.mit;
-    maintainers = with maintainers; [ leenaars ];
+    maintainers = with maintainers; [leenaars];
     platforms = platforms.linux;
   };
 }

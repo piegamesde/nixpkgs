@@ -23,8 +23,8 @@ stdenv.mkDerivation rec {
     hash = "sha256-DCrp3o/ukzkfnVaLbIK84bmYnXvqKsvlkGn3GJY3iNg=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ txt2man ];
+  nativeBuildInputs = [makeWrapper];
+  buildInputs = [txt2man];
 
   postPatch = "patchShebangs .";
 
@@ -59,7 +59,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://duply.net/";
     license = licenses.gpl2;
-    maintainers = [ maintainers.bjornfor ];
+    maintainers = [maintainers.bjornfor];
     platforms = lib.platforms.unix;
   };
 }

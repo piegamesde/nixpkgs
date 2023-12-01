@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "cl-async-ssl";
   version = "cl-async-20211020-git";
@@ -32,7 +32,7 @@ rec {
 
   packageName = "cl-async-ssl";
 
-  asdFilesToKeep = [ "cl-async-ssl.asd" ];
+  asdFilesToKeep = ["cl-async-ssl.asd"];
   overrides = x: x;
 }
 /* (SYSTEM cl-async-ssl DESCRIPTION

@@ -18,7 +18,7 @@ buildDotnetPackage {
   strictDeps = true;
   preConfigure = "rm -rvf $src/Source/PashConsole/bin/*";
 
-  outputFiles = [ "Source/PashConsole/bin/Release/*" ];
+  outputFiles = ["Source/PashConsole/bin/Release/*"];
 
   meta = with lib; {
     description = "An open source implementation of Windows PowerShell";

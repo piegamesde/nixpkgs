@@ -10,7 +10,7 @@
 
 {
   # The platforms for which we build Nixpkgs.
-  supportedSystems ? [ "x86_64-linux" ],
+  supportedSystems ? ["x86_64-linux"],
   # Attributes passed to nixpkgs.
   nixpkgsArgs ? {
     config = {
@@ -20,7 +20,7 @@
   },
 }:
 
-with import ./release-lib.nix { inherit supportedSystems nixpkgsArgs; };
+with import ./release-lib.nix {inherit supportedSystems nixpkgsArgs;};
 with lib;
 
 let
@@ -41,7 +41,7 @@ let
     "cudaPackages"
   ];
 
-  evalPackageSet = pset: mapTestOn { ${pset} = packagePlatforms pkgs.${pset}; };
+  evalPackageSet = pset: mapTestOn {${pset} = packagePlatforms pkgs.${pset};};
 
   jobs =
     (

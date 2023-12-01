@@ -14,16 +14,16 @@ buildPythonPackage rec {
     sha256 = "0q52rb0kshgbligxjqrwz0v7kgqjbv6jahdb66ndxy93mfr0ig3a";
   };
 
-  propagatedBuildInputs = [ requests ];
+  propagatedBuildInputs = [requests];
 
   # Project has no tests
   doCheck = false;
-  pythonImportsCheck = [ "pyfnip" ];
+  pythonImportsCheck = ["pyfnip"];
 
   meta = with lib; {
     description = "Python client to get fido account data";
     homepage = "https://github.com/juhaniemi/pyfnip";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

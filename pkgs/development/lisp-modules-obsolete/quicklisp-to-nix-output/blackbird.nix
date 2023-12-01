@@ -1,12 +1,12 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "blackbird";
   version = "20160531-git";
 
   description = "A promise implementation for Common Lisp.";
 
-  deps = [ args."vom" ];
+  deps = [args."vom"];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/blackbird/2016-05-31/blackbird-20160531-git.tgz";
@@ -15,7 +15,7 @@ rec {
 
   packageName = "blackbird";
 
-  asdFilesToKeep = [ "blackbird.asd" ];
+  asdFilesToKeep = ["blackbird.asd"];
   overrides = x: x;
 }
 /* (SYSTEM blackbird DESCRIPTION A promise implementation for Common Lisp.

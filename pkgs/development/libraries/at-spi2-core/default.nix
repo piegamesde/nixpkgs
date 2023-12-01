@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
     ninja
     pkg-config
     makeWrapper
-  ] ++ lib.optionals withIntrospection [ gobject-introspection ];
+  ] ++ lib.optionals withIntrospection [gobject-introspection];
 
   buildInputs =
     [
@@ -102,7 +102,7 @@ stdenv.mkDerivation rec {
     description = "Assistive Technology Service Provider Interface protocol definitions and daemon for D-Bus";
     homepage = "https://gitlab.gnome.org/GNOME/at-spi2-core";
     license = licenses.lgpl21Plus;
-    maintainers = teams.gnome.members ++ (with maintainers; [ raskin ]);
+    maintainers = teams.gnome.members ++ (with maintainers; [raskin]);
     platforms = platforms.unix;
   };
 }

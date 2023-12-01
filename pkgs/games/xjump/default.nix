@@ -31,12 +31,12 @@ stdenv.mkDerivation {
     libXaw
   ];
   preConfigure = "autoreconf --install";
-  patches = lib.optionals stdenv.buildPlatform.isDarwin [ ./darwin.patch ];
-  configureFlags = lib.optionals (localStateDir != null) [ "--localstatedir=${localStateDir}" ];
+  patches = lib.optionals stdenv.buildPlatform.isDarwin [./darwin.patch];
+  configureFlags = lib.optionals (localStateDir != null) ["--localstatedir=${localStateDir}"];
 
   meta = with lib; {
     description = "The falling tower game";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ pmeunier ];
+    maintainers = with maintainers; [pmeunier];
   };
 }

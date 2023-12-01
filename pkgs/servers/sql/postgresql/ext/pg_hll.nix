@@ -9,7 +9,7 @@ stdenv.mkDerivation rec {
   pname = "pg_hll";
   version = "2.17";
 
-  buildInputs = [ postgresql ];
+  buildInputs = [postgresql];
 
   src = fetchFromGitHub {
     owner = "citusdata";
@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
     description = "HyperLogLog for PostgreSQL";
     homepage = "https://github.com/citusdata/postgresql-hll";
     changelog = "https://github.com/citusdata/postgresql-hll/raw/v${version}/CHANGELOG.md";
-    maintainers = with maintainers; [ thoughtpolice ];
+    maintainers = with maintainers; [thoughtpolice];
     platforms = postgresql.meta.platforms;
     license = licenses.asl20;
   };

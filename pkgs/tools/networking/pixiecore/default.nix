@@ -20,7 +20,7 @@ buildGoModule rec {
 
   doCheck = false;
 
-  subPackages = [ "cmd/pixiecore" ];
+  subPackages = ["cmd/pixiecore"];
 
   meta = {
     description = "A tool to manage network booting of machines";

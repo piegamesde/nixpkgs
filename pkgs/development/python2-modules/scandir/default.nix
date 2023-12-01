@@ -14,7 +14,7 @@ buildPythonPackage rec {
     sha256 = "1bkqwmf056pkchf05ywbnf659wqlp6lljcdb0y88wr9f0vv32ijd";
   };
 
-  patches = [ ./add-aarch64-darwin-dirent.patch ];
+  patches = [./add-aarch64-darwin-dirent.patch];
 
   checkPhase = "${python.interpreter} test/run_tests.py";
 
@@ -22,6 +22,6 @@ buildPythonPackage rec {
     description = "A better directory iterator and faster os.walk()";
     homepage = "https://github.com/benhoyt/scandir";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ abbradar ];
+    maintainers = with maintainers; [abbradar];
   };
 }

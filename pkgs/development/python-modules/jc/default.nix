@@ -27,9 +27,9 @@ buildPythonPackage rec {
     pygments
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "jc" ];
+  pythonImportsCheck = ["jc"];
 
   # tests require timezone to set America/Los_Angeles
   doCheck = false;
@@ -38,7 +38,7 @@ buildPythonPackage rec {
     description = "This tool serializes the output of popular command line tools and filetypes to structured JSON output";
     homepage = "https://github.com/kellyjonbrazil/jc";
     license = licenses.mit;
-    maintainers = with maintainers; [ atemu ];
+    maintainers = with maintainers; [atemu];
     changelog = "https://github.com/kellyjonbrazil/jc/blob/v${version}/CHANGELOG";
   };
 }

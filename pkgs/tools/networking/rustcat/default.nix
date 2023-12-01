@@ -25,7 +25,7 @@ rustPlatform.buildRustPackage rec {
     description = "Port listener and reverse shell";
     homepage = "https://github.com/robiot/rustcat";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
     mainProgram = "rcat";
   };
 }

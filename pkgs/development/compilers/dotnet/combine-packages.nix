@@ -29,7 +29,7 @@ buildEnv {
     "/templates"
   ];
   ignoreCollisions = true;
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
   postBuild = ''
     cp -R ${cli}/{dotnet,share,nix-support} $out/
 

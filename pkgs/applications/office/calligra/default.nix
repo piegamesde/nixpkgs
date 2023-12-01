@@ -87,7 +87,7 @@ mkDerivation rec {
       name = "fix-fontconfig-linking.patch";
       url = "https://github.com/KDE/calligra/commit/62f510702ef9c34ac50f8d8601a4290ab558464c.patch";
       sha256 = "11dzrp9q05dmvnwp4vk4ihcibqcf4xyr0ijscpi716cyy730flma";
-      excludes = [ "CMakeLists.txt" ];
+      excludes = ["CMakeLists.txt"];
     })
     # Fixes for building calligra with gcc11/c++17
     (fetchpatch {
@@ -181,7 +181,7 @@ mkDerivation rec {
     fontconfig
   ];
 
-  propagatedUserEnvPkgs = [ kproperty ];
+  propagatedUserEnvPkgs = [kproperty];
 
   env.NIX_CFLAGS_COMPILE = "-I${ilmbase.dev}/include/OpenEXR";
 

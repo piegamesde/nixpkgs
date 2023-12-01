@@ -9,7 +9,7 @@
 # nix run nixpkgs#nodePackages.node2nix -- -c node2nix -l package-lock.json -d
 # cp -v node-*.nix package*.json ${nixpkgs_path:?}/pkgs/tools/misc/fx_cast/
 # ```
-{ pkgs, stdenv }:
+{pkgs, stdenv}:
 let
   nodeEnv = import ./node-env.nix {
     inherit (pkgs)
@@ -33,7 +33,7 @@ let
       fetchgit
       ;
     inherit nodeEnv;
-    globalBuildInputs = [ pkgs.avahi-compat ];
+    globalBuildInputs = [pkgs.avahi-compat];
   };
 in
 stdenv.mkDerivation rec {
@@ -47,7 +47,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-hB4NVJW2exHoKsMp0CKzHerYgj8aR77rV+ZsCoWA1Dg=";
   };
 
-  buildInputs = with pkgs; [ nodejs ];
+  buildInputs = with pkgs; [nodejs];
 
   buildPhase = ''
     ln -vs ${nodePackages.nodeDependencies}/lib/node_modules app/node_modules

@@ -25,8 +25,8 @@ buildDunePackage (
       description = "Ocamldoc comment syntax parser";
       homepage = "https://github.com/ocaml-doc/octavius";
       license = licenses.isc;
-      maintainers = with maintainers; [ vbgl ];
+      maintainers = with maintainers; [vbgl];
     };
   }
-  // lib.optionalAttrs (!lib.versionAtLeast ocaml.version "4.08") { duneVersion = "1"; }
+  // lib.optionalAttrs (!lib.versionAtLeast ocaml.version "4.08") {duneVersion = "1";}
 )

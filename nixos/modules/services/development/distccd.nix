@@ -17,7 +17,7 @@ in
 
       allowedClients = mkOption {
         type = types.listOf types.str;
-        default = [ "127.0.0.1" ];
+        default = ["127.0.0.1"];
         example = [
           "127.0.0.1"
           "192.168.0.0/24"
@@ -124,15 +124,15 @@ in
 
   config = mkIf cfg.enable {
     networking.firewall = mkIf cfg.openFirewall {
-      allowedTCPPorts = [ cfg.port ] ++ optionals cfg.stats.enable [ cfg.stats.port ];
+      allowedTCPPorts = [cfg.port] ++ optionals cfg.stats.enable [cfg.stats.port];
     };
 
     systemd.services.distccd = {
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
 
       description = "Distributed C, C++ and Objective-C compiler";
-      documentation = [ "man:distccd(1)" ];
+      documentation = ["man:distccd(1)"];
 
       serviceConfig = {
         User = "distcc";

@@ -18,7 +18,7 @@ let
   cfg = config.services.zeronet;
   dataDir = "/var/lib/zeronet";
   configFile = pkgs.writeText "zeronet.conf" (
-    generators.toINI { } (recursiveUpdate defaultSettings cfg.settings)
+    generators.toINI {} (recursiveUpdate defaultSettings cfg.settings)
   );
 
   defaultSettings = {
@@ -59,7 +59,7 @@ with lib; {
             (listOf str)
           ]
         );
-      default = { };
+      default = {};
       example = literalExpression "{ global.tor = enable; }";
 
       description = lib.mdDoc ''
@@ -110,14 +110,14 @@ with lib; {
 
     systemd.services.zeronet = {
       description = "zeronet";
-      after = [ "network.target" ] ++ optional cfg.tor "tor.service";
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"] ++ optional cfg.tor "tor.service";
+      wantedBy = ["multi-user.target"];
 
       serviceConfig = {
         User = "zeronet";
         DynamicUser = true;
         StateDirectory = "zeronet";
-        SupplementaryGroups = mkIf cfg.tor [ "tor" ];
+        SupplementaryGroups = mkIf cfg.tor ["tor"];
         ExecStart = "${cfg.package}/bin/zeronet --config_file ${configFile}";
       };
     };
@@ -142,5 +142,5 @@ with lib; {
     )
   ];
 
-  meta.maintainers = with maintainers; [ Madouura ];
+  meta.maintainers = with maintainers; [Madouura];
 }

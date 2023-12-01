@@ -18,7 +18,7 @@ buildPythonPackage rec {
     hash = "sha256-M0K7pBDXlBKQ7tDlii5arbD3uXhj7EKDsoPEBu5yOig=";
   };
 
-  pythonImportsCheck = [ "xyzservices.providers" ];
+  pythonImportsCheck = ["xyzservices.providers"];
 
   nativeCheckInputs = [
     mercantile
@@ -31,6 +31,6 @@ buildPythonPackage rec {
     description = "Source of XYZ tiles providers";
     homepage = "https://github.com/geopandas/xyzservices";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "cl-async-repl";
   version = "cl-async-20211020-git";
@@ -32,7 +32,7 @@ rec {
 
   packageName = "cl-async-repl";
 
-  asdFilesToKeep = [ "cl-async-repl.asd" ];
+  asdFilesToKeep = ["cl-async-repl.asd"];
   overrides = x: x;
 }
 /* (SYSTEM cl-async-repl DESCRIPTION REPL integration for CL-ASYNC. SHA256

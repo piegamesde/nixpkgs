@@ -41,7 +41,7 @@ let
     postPatch = ''
       patchShebangs tests
     '';
-    buildInputs = [ perl ];
+    buildInputs = [perl];
   };
 in
 qtModule {
@@ -82,7 +82,7 @@ qtModule {
   ];
 
   cmakeFlags =
-    [ "-DPORT=Qt" ]
+    ["-DPORT=Qt"]
     ++ lib.optionals stdenv.isDarwin [
       "-DQt5Multimedia_DIR=${lib.getDev qtmultimedia}/lib/cmake/Qt5Multimedia"
       "-DQt5MultimediaWidgets_DIR=${lib.getDev qtmultimedia}/lib/cmake/Qt5MultimediaWidgets"

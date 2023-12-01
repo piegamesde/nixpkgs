@@ -44,7 +44,7 @@ buildPythonPackage rec {
     })
   ];
 
-  propagatedBuildInputs = lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
+  propagatedBuildInputs = lib.optionals (pythonOlder "3.8") [importlib-metadata];
 
   nativeCheckInputs = [
     build
@@ -63,16 +63,16 @@ buildPythonPackage rec {
     "default_src_with_excluded_data"
   ];
 
-  pythonImportsCheck = [ "poetry.core" ];
+  pythonImportsCheck = ["poetry.core"];
 
   # Allow for package to use pep420's native namespaces
-  pythonNamespaces = [ "poetry" ];
+  pythonNamespaces = ["poetry"];
 
   meta = with lib; {
     changelog = "https://github.com/python-poetry/poetry-core/blob/${src.rev}/CHANGELOG.md";
     description = "Core utilities for Poetry";
     homepage = "https://github.com/python-poetry/poetry-core/";
     license = licenses.mit;
-    maintainers = with maintainers; [ jonringer ];
+    maintainers = with maintainers; [jonringer];
   };
 }

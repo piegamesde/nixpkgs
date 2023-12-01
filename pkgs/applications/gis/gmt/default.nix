@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-0mfAx9b7MMnqfgKe8n2tsm/9e5LLS0cD+aO6Do85Ohs=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   buildInputs =
     [
@@ -59,7 +59,7 @@ stdenv.mkDerivation rec {
         ]
     );
 
-  propagatedBuildInputs = [ ghostscript ];
+  propagatedBuildInputs = [ghostscript];
 
   cmakeFlags =
     [
@@ -104,6 +104,6 @@ stdenv.mkDerivation rec {
       "x86_64-darwin"
     ];
     license = licenses.lgpl3Plus;
-    maintainers = with maintainers; [ tviti ];
+    maintainers = with maintainers; [tviti];
   };
 }

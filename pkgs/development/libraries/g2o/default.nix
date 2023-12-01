@@ -26,7 +26,7 @@ mkDerivation rec {
   };
 
   # Removes a reference to gcc that is only used in a debug message
-  patches = [ ./remove-compiler-reference.patch ];
+  patches = [./remove-compiler-reference.patch];
 
   separateDebugInfo = true;
 
@@ -68,7 +68,7 @@ mkDerivation rec {
       lgpl3
       gpl3
     ];
-    maintainers = with maintainers; [ lopsided98 ];
+    maintainers = with maintainers; [lopsided98];
     platforms = platforms.all;
     # fatal error: 'qglviewer.h' file not found
     broken = stdenv.isDarwin;

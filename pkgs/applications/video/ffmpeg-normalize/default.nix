@@ -27,7 +27,7 @@ buildPythonApplication rec {
   meta = with lib; {
     description = "Normalize audio via ffmpeg";
     homepage = "https://github.com/slhck/ffmpeg-normalize";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ prusnak ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [prusnak];
   };
 }

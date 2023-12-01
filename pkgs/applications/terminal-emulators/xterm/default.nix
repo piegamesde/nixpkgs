@@ -53,7 +53,7 @@ stdenv.mkDerivation rec {
   ];
 
   patches =
-    [ ./sixel-256.support.patch ]
+    [./sixel-256.support.patch]
     ++ lib.optional stdenv.hostPlatform.isMusl (
       fetchpatch {
         name = "posix-ptys.patch";
@@ -121,7 +121,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     homepage = "https://invisible-island.net/xterm";
-    license = with lib.licenses; [ mit ];
+    license = with lib.licenses; [mit];
     maintainers = with lib.maintainers; [
       nequissimus
       vrthra

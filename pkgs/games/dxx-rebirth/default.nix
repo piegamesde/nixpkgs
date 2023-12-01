@@ -49,7 +49,7 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  sconsFlags = [ "sdl2=1" ];
+  sconsFlags = ["sdl2=1"];
 
   env.NIX_CFLAGS_COMPILE = toString [
     "-Wno-format-nonliteral"
@@ -65,7 +65,7 @@ stdenv.mkDerivation rec {
     description = "Source Port of the Descent 1 and 2 engines";
     homepage = "https://www.dxx-rebirth.com/";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ peterhoeg ];
+    maintainers = with maintainers; [peterhoeg];
     platforms = with platforms; linux;
   };
 }

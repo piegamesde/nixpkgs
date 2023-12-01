@@ -54,16 +54,16 @@ buildPythonPackage rec {
     zstd
   ];
 
-  pytestFlagsArray = [ "--benchmark-disable" ];
+  pytestFlagsArray = ["--benchmark-disable"];
 
-  disabledTestPaths = [ "benchmarks/test_bench.py" ];
+  disabledTestPaths = ["benchmarks/test_bench.py"];
 
-  pythonImportsCheck = [ "cramjam" ];
+  pythonImportsCheck = ["cramjam"];
 
   meta = with lib; {
     description = "Thin Python bindings to de/compression algorithms in Rust";
     homepage = "https://github.com/milesgranger/pyrus-cramjam";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ veprbl ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [veprbl];
   };
 }

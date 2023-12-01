@@ -105,7 +105,7 @@ buildPythonPackage rec {
     patchShebangs $out/bin
   '';
 
-  pythonImportsCheck = [ "pelican" ];
+  pythonImportsCheck = ["pelican"];
 
   meta = with lib; {
     description = "Static site generator that requires no database or server-side logic";

@@ -15,7 +15,7 @@ stdenvNoCC.mkDerivation (
       sha256 = "sha256-6OempDmedl6LOwP/s5y0hOIxGDWHd7qM7/opW3UwQ+I=";
     };
 
-    nativeBuildInputs = [ makeWrapper ];
+    nativeBuildInputs = [makeWrapper];
 
     buildCommand = ''
       install -Dm644 $src $out/lib/apgdiff.jar
@@ -31,8 +31,8 @@ stdenvNoCC.mkDerivation (
       homepage = "https://apgdiff.com";
       license = licenses.mit;
       inherit (jre.meta) platforms;
-      sourceProvenance = [ sourceTypes.binaryBytecode ];
-      maintainers = [ maintainers.misterio77 ];
+      sourceProvenance = [sourceTypes.binaryBytecode];
+      maintainers = [maintainers.misterio77];
     };
   }
 )

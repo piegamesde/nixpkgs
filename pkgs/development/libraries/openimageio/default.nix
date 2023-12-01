@@ -51,7 +51,7 @@ stdenv.mkDerivation rec {
     robin-map
   ];
 
-  propagatedBuildInputs = [ fmt ];
+  propagatedBuildInputs = [fmt];
 
   cmakeFlags = [
     "-DUSE_PYTHON=OFF"
@@ -71,7 +71,7 @@ stdenv.mkDerivation rec {
     homepage = "https://openimageio.org";
     description = "A library and tools for reading and writing images";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ goibhniu ];
+    maintainers = with maintainers; [goibhniu];
     platforms = platforms.unix;
   };
 }

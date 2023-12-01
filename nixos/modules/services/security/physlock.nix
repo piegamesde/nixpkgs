@@ -90,8 +90,8 @@ in
 
         extraTargets = mkOption {
           type = types.listOf types.str;
-          default = [ ];
-          example = [ "display-manager.service" ];
+          default = [];
+          example = ["display-manager.service"];
           description = lib.mdDoc ''
             Other targets to lock the screen just before.
 
@@ -112,7 +112,7 @@ in
       {
 
         # for physlock -l and physlock -L
-        environment.systemPackages = [ pkgs.physlock ];
+        environment.systemPackages = [pkgs.physlock];
 
         systemd.services.physlock = {
           enable = true;
@@ -134,7 +134,7 @@ in
           };
         };
 
-        security.pam.services.physlock = { };
+        security.pam.services.physlock = {};
       }
 
       (mkIf cfg.allowAnyUser {

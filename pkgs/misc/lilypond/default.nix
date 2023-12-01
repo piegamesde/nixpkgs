@@ -108,8 +108,8 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   passthru.updateScript = {
-    command = [ ./update.sh ];
-    supportedFeatures = [ "commit" ];
+    command = [./update.sh];
+    supportedFeatures = ["commit"];
   };
 
   meta = with lib; {

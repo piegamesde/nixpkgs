@@ -26,7 +26,7 @@ stdenvNoCC.mkDerivation rec {
   meta = with lib; {
     description = "Tiny C++ Library for terminal colors and more!";
     homepage = "https://github.com/Curve/fancypp";
-    maintainers = with maintainers; [ aidalgol ];
+    maintainers = with maintainers; [aidalgol];
     license = licenses.mit;
   };
 }

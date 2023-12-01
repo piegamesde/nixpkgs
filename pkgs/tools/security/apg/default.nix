@@ -16,9 +16,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-+7TrJACdm/i/pc0dsp8edEIOjx8cip+x0Qc2gONajSE=";
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
 
   meta = {
     description = "Tools for random password generation";
@@ -67,7 +67,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://github.com/wilx/apg";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ astsmtl ];
+    maintainers = with lib.maintainers; [astsmtl];
     platforms = lib.platforms.unix;
   };
 }

@@ -26,15 +26,15 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-mH76ODPKlKDEK9ckThPnL5Ar7p1l1gNd7zXfesLZlBM=";
 
-  buildInputs = [ sqlite ];
+  buildInputs = [sqlite];
 
   passAsFile = [
     "firefoxManifest"
     "chromeManifest"
   ];
-  firefoxManifest = builtins.toJSON (manifest // { allowed_extensions = [ "bukubrow@samhh.com" ]; });
+  firefoxManifest = builtins.toJSON (manifest // {allowed_extensions = ["bukubrow@samhh.com"];});
   chromeManifest = builtins.toJSON (
-    manifest // { allowed_origins = [ "chrome-extension://ghniladkapjacfajiooekgkfopkjblpn/" ]; }
+    manifest // {allowed_origins = ["chrome-extension://ghniladkapjacfajiooekgkfopkjblpn/"];}
   );
   postBuild = ''
     substituteAll $firefoxManifestPath firefox.json
@@ -49,6 +49,6 @@ rustPlatform.buildRustPackage rec {
     description = "A WebExtension for Buku, a command-line bookmark manager";
     homepage = "https://github.com/SamHH/bukubrow-host";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ infinisil ];
+    maintainers = with maintainers; [infinisil];
   };
 }

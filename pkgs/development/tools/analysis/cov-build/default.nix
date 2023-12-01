@@ -48,6 +48,6 @@ stdenv.mkDerivation rec {
     homepage = "https://scan.coverity.com";
     license = lib.licenses.unfreeRedistributable;
     platforms = lib.platforms.linux;
-    maintainers = [ lib.maintainers.thoughtpolice ];
+    maintainers = [lib.maintainers.thoughtpolice];
   };
 }

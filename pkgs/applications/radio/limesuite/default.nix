@@ -26,9 +26,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-t3v2lhPZ1L/HRRBwA3k1KfIpih6R4TUmBWaIm8sVGdY=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
-  cmakeFlags = [ "-DOpenGL_GL_PREFERENCE=GLVND" ] ++ lib.optional (!withGui) "-DENABLE_GUI=OFF";
+  cmakeFlags = ["-DOpenGL_GL_PREFERENCE=GLVND"] ++ lib.optional (!withGui) "-DENABLE_GUI=OFF";
 
   buildInputs =
     [
@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
       libusb1
       soapysdr
     ]
-    ++ lib.optionals stdenv.isDarwin [ GLUT ]
+    ++ lib.optionals stdenv.isDarwin [GLUT]
     ++ lib.optionals withGui [
       fltk
       libX11
@@ -55,7 +55,7 @@ stdenv.mkDerivation rec {
     description = "Driver and GUI for LMS7002M-based SDR platforms";
     homepage = "https://github.com/myriadrf/LimeSuite";
     license = licenses.asl20;
-    maintainers = with maintainers; [ markuskowa ];
+    maintainers = with maintainers; [markuskowa];
     platforms = platforms.unix;
   };
 }

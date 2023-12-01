@@ -88,7 +88,7 @@ stdenv.mkDerivation rec {
   '';
 
   # RPATH of binary /nix/store/.../lib64/games/speed-dreams-2/drivers/shadow_sc/shadow_sc.so contains a forbidden reference to /build/
-  cmakeFlags = [ "-DCMAKE_SKIP_BUILD_RPATH=ON" ];
+  cmakeFlags = ["-DCMAKE_SKIP_BUILD_RPATH=ON"];
 
   nativeBuildInputs = [
     pkg-config
@@ -128,8 +128,8 @@ stdenv.mkDerivation rec {
     description = "Car racing game - TORCS fork with more experimental approach";
     homepage = "https://speed-dreams.sourceforge.net/";
     license = lib.licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ raskin ];
+    maintainers = with lib.maintainers; [raskin];
     platforms = lib.platforms.linux;
-    hydraPlatforms = [ ];
+    hydraPlatforms = [];
   };
 }

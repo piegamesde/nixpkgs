@@ -9,13 +9,13 @@ with lib;
 
 let
   cfg = config.services.garage;
-  toml = pkgs.formats.toml { };
+  toml = pkgs.formats.toml {};
   configFile = toml.generate "garage.toml" cfg.settings;
 in
 {
   meta = {
     doc = ./garage.md;
-    maintainers = with pkgs.lib.maintainers; [ raitobezarius ];
+    maintainers = with pkgs.lib.maintainers; [raitobezarius];
   };
 
   options.services.garage = {
@@ -24,7 +24,7 @@ in
     extraEnvironment = mkOption {
       type = types.attrsOf types.str;
       description = lib.mdDoc "Extra environment variables to pass to the Garage server.";
-      default = { };
+      default = {};
       example = {
         RUST_BACKTRACE = "yes";
       };
@@ -92,7 +92,7 @@ in
       source = configFile;
     };
 
-    environment.systemPackages = [ cfg.package ]; # For administration
+    environment.systemPackages = [cfg.package]; # For administration
 
     systemd.services.garage = {
       description = "Garage Object Storage (S3 compatible)";
@@ -104,7 +104,7 @@ in
         "network.target"
         "network-online.target"
       ];
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         ExecStart = "${cfg.package}/bin/garage server";
 

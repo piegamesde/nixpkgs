@@ -27,9 +27,9 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
-  propagatedBuildInputs = [ django ];
+  propagatedBuildInputs = [django];
 
   checkPhase = ''
     ${python.interpreter} -m django test --settings=tests.settings
@@ -39,6 +39,6 @@ buildPythonPackage rec {
     description = "Tweak the form field rendering in templates, not in python-level form definitions.";
     homepage = "https://github.com/jazzband/django-widget-tweaks";
     license = licenses.mit;
-    maintainers = with maintainers; [ maxxk ];
+    maintainers = with maintainers; [maxxk];
   };
 }

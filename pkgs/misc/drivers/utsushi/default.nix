@@ -103,7 +103,7 @@ stdenv.mkDerivation rec {
     "--with-tiff"
   ];
 
-  installFlags = [ "SANE_BACKENDDIR=${placeholder "out"}/lib/sane" ];
+  installFlags = ["SANE_BACKENDDIR=${placeholder "out"}/lib/sane"];
 
   enableParallelBuilding = true;
 

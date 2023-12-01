@@ -13,13 +13,13 @@ stdenv.mkDerivation rec {
     hash = "sha256-WPFUoTUofigPxTRo6vUbVTEVWMeEPDWszCA05toOX0I=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   meta = {
     description = "Library for operations on boolean expression binary trees";
     homepage = "http://perso.b2b2c.ca/~sarrazip/dev/boolstuff.html";
     license = "GPL";
-    maintainers = [ lib.maintainers.marcweber ];
+    maintainers = [lib.maintainers.marcweber];
     mainProgram = "booldnf";
     platforms = lib.platforms.all;
   };

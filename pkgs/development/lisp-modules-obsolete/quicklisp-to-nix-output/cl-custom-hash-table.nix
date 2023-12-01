@@ -1,12 +1,12 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "cl-custom-hash-table";
   version = "20201220-git";
 
   description = "System lacks description";
 
-  deps = [ ];
+  deps = [];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/cl-custom-hash-table/2020-12-20/cl-custom-hash-table-20201220-git.tgz";
@@ -15,7 +15,7 @@ rec {
 
   packageName = "cl-custom-hash-table";
 
-  asdFilesToKeep = [ "cl-custom-hash-table.asd" ];
+  asdFilesToKeep = ["cl-custom-hash-table.asd"];
   overrides = x: x;
 }
 /* (SYSTEM cl-custom-hash-table DESCRIPTION System lacks description SHA256

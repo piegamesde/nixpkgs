@@ -10,7 +10,7 @@ let
   mkStudio =
     opts:
     callPackage (import ./common.nix opts) {
-      fontsConf = makeFontsConf { fontDirectories = [ ]; };
+      fontsConf = makeFontsConf {fontDirectories = [];};
       inherit (gnome2) GConf gnome_vfs;
       inherit buildFHSEnv;
       inherit tiling_wm;

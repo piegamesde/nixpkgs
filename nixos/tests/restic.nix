@@ -1,5 +1,5 @@
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
 
   let
     remoteRepository = "/root/restic-backup";
@@ -26,8 +26,8 @@ import ./make-test-python.nix (
     };
 
     passwordFile = "${pkgs.writeText "password" "correcthorsebatterystaple"}";
-    paths = [ "/opt" ];
-    exclude = [ "/opt/excluded_file_*" ];
+    paths = ["/opt"];
+    exclude = ["/opt/excluded_file_*"];
     pruneOpts = [
       "--keep-daily 2"
       "--keep-weekly 1"
@@ -47,7 +47,7 @@ import ./make-test-python.nix (
 
     nodes = {
       server =
-        { pkgs, ... }:
+        {pkgs, ...}:
         {
           services.restic.backups = {
             remotebackup = {
@@ -95,7 +95,7 @@ import ./make-test-python.nix (
             remoteprune = {
               inherit passwordFile;
               repository = remoteRepository;
-              pruneOpts = [ "--keep-last 1" ];
+              pruneOpts = ["--keep-last 1"];
             };
             custompackage = {
               inherit passwordFile paths;
@@ -104,8 +104,8 @@ import ./make-test-python.nix (
                 echo "$@" >> /root/fake-restic.log;
               '';
 
-              pruneOpts = [ "--keep-last 1" ];
-              checkOpts = [ "--some-check-option" ];
+              pruneOpts = ["--keep-last 1"];
+              checkOpts = ["--some-check-option"];
             };
           };
 

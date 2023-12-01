@@ -33,13 +33,13 @@ stdenv.mkDerivation rec {
     wayland-protocols
   ];
 
-  mesonFlags = [ "-Dfishcompletiondir=share/fish/vendor_completions.d" ];
+  mesonFlags = ["-Dfishcompletiondir=share/fish/vendor_completions.d"];
 
   meta = with lib; {
     homepage = "https://github.com/bugaevc/wl-clipboard";
     description = "Command-line copy/paste utilities for Wayland";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ dywedir ];
+    maintainers = with maintainers; [dywedir];
     platforms = platforms.unix;
   };
 }

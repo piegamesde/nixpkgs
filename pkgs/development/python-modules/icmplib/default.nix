@@ -26,12 +26,12 @@ buildPythonPackage rec {
 
   # Project has no tests
   doCheck = false;
-  pythonImportsCheck = [ "icmplib" ];
+  pythonImportsCheck = ["icmplib"];
 
   meta = with lib; {
     description = "Python implementation of the ICMP protocol";
     homepage = "https://github.com/ValentinBELYN/icmplib";
-    license = with licenses; [ lgpl3Plus ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [lgpl3Plus];
+    maintainers = with maintainers; [fab];
   };
 }

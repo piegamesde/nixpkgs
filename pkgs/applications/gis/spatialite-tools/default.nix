@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-lgTCBeh/A3eJvFIwLGbM0TccPpjHTo7E4psHUt41Fxw=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     expat
@@ -58,7 +58,7 @@ stdenv.mkDerivation rec {
       lgpl21Plus
     ];
     platforms = platforms.unix;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
     mainProgram = "spatialite_tool";
   };
 }

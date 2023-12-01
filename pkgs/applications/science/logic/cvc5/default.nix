@@ -65,6 +65,6 @@ stdenv.mkDerivation rec {
     homepage = "https://cvc5.github.io";
     license = licenses.gpl3Only;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ shadaj ];
+    maintainers = with maintainers; [shadaj];
   };
 }

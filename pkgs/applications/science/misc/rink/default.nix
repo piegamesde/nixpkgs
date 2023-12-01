@@ -23,9 +23,9 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-Xo5iYwL4Db+GWMl5UXbPmj0Y0PJYR4Q0aUGnYCd+NB8=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs =
-    [ ncurses ]
+    [ncurses]
     ++ (
       if stdenv.isDarwin then
         [
@@ -33,7 +33,7 @@ rustPlatform.buildRustPackage rec {
           Security
         ]
       else
-        [ openssl ]
+        [openssl]
     );
 
   # Some tests fail and/or attempt to use internet servers.

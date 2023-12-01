@@ -21,7 +21,7 @@ buildPythonPackage rec {
     azure-common
   ];
 
-  pythonNamespaces = [ "azure" ];
+  pythonNamespaces = ["azure"];
 
   # has no tests
   doCheck = false;

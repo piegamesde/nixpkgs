@@ -2,7 +2,7 @@
 #
 # Please insert new packages *alphabetically*
 # in the OTHER PACKAGES section.
-{ pkgs, haskellLib }:
+{pkgs, haskellLib}:
 
 let
   removeLibraryHaskellDepends =
@@ -70,7 +70,7 @@ self: super:
   ghcjs-dom-jsffi =
     overrideCabal
       (drv: {
-        libraryHaskellDepends = (drv.libraryHaskellDepends or [ ]) ++ [
+        libraryHaskellDepends = (drv.libraryHaskellDepends or []) ++ [
           self.ghcjs-base
           self.text
         ];
@@ -89,7 +89,7 @@ self: super:
 
   jsaddle =
     overrideCabal
-      (drv: { libraryHaskellDepends = (drv.libraryHaskellDepends or [ ]) ++ [ self.ghcjs-base ]; })
+      (drv: {libraryHaskellDepends = (drv.libraryHaskellDepends or []) ++ [self.ghcjs-base];})
       super.jsaddle;
 
   # Tests hang, possibly some issue with tasty and race(async) usage in the nonTerminating tests
@@ -105,14 +105,14 @@ self: super:
 
   reflex =
     overrideCabal
-      (drv: { libraryHaskellDepends = (drv.libraryHaskellDepends or [ ]) ++ [ self.ghcjs-base ]; })
+      (drv: {libraryHaskellDepends = (drv.libraryHaskellDepends or []) ++ [self.ghcjs-base];})
       super.reflex;
 
   reflex-dom =
     overrideCabal
       (drv: {
-        libraryHaskellDepends = removeLibraryHaskellDepends [ "jsaddle-webkit2gtk" ] (
-          drv.libraryHaskellDepends or [ ]
+        libraryHaskellDepends = removeLibraryHaskellDepends ["jsaddle-webkit2gtk"] (
+          drv.libraryHaskellDepends or []
         );
       })
       super.reflex-dom;

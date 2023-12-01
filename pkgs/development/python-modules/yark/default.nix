@@ -23,7 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-8O4EpHb1fP/O/t6hS1K1ylSXNKBuiipo7wvEnUJODSw=";
   };
 
-  pythonRelaxDeps = [ "requests" ];
+  pythonRelaxDeps = ["requests"];
 
   nativeBuildInputs = [
     poetry-core
@@ -43,12 +43,12 @@ buildPythonPackage rec {
   # When upstream adds unit tests, please configure them here. Thanks! ~ C.
   doCheck = false;
 
-  pythonImportsCheck = [ "yark" ];
+  pythonImportsCheck = ["yark"];
 
   meta = with lib; {
     description = "YouTube archiving made simple";
     homepage = "https://github.com/Owez/yark";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

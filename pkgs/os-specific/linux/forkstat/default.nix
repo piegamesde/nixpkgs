@@ -26,6 +26,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/ColinIanKing/forkstat";
     license = licenses.gpl2;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ womfoo ];
+    maintainers = with maintainers; [womfoo];
   };
 }

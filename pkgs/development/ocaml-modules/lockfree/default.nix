@@ -19,7 +19,7 @@ buildDunePackage rec {
     hash = "sha256-XdJR5ojFsA7bJ4aZ5rh10NjopE0NjfqQ9KitOLMh3Jo=";
   };
 
-  propagatedBuildInputs = [ dscheck ];
+  propagatedBuildInputs = [dscheck];
 
   doCheck = true;
   checkInputs = [
@@ -31,6 +31,6 @@ buildDunePackage rec {
     description = "Lock-free data structures for multicore OCaml";
     homepage = "https://github.com/ocaml-multicore/lockfree";
     license = lib.licenses.isc;
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
   };
 }

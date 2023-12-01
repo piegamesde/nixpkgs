@@ -6,7 +6,7 @@
 }:
 
 # openafsBin, openafsSrv, mkCellServDB
-with import ./lib.nix { inherit config lib pkgs; };
+with import ./lib.nix {inherit config lib pkgs;};
 
 let
   inherit (lib)
@@ -60,7 +60,7 @@ let
   );
 
   netInfo =
-    if (cfg.advertisedAddresses != [ ]) then
+    if (cfg.advertisedAddresses != []) then
       pkgs.writeText "NetInfo" (
         (concatStringsSep
           ''
@@ -77,7 +77,7 @@ let
     mkCellServDB cfg.cellName cfg.roles.backup.cellServDB
   );
 
-  useBuCellServDB = (cfg.roles.backup.cellServDB != [ ]) && (!cfg.roles.backup.enableFabs);
+  useBuCellServDB = (cfg.roles.backup.cellServDB != []) && (!cfg.roles.backup.enableFabs);
 
   cfg = config.services.openafsServer;
 
@@ -122,7 +122,7 @@ in
 
       advertisedAddresses = mkOption {
         type = types.listOf types.str;
-        default = [ ];
+        default = [];
         description = lib.mdDoc "List of IP addresses this server is advertised under. See NetInfo(5)";
       };
 
@@ -134,8 +134,8 @@ in
       };
 
       cellServDB = mkOption {
-        default = [ ];
-        type = with types; listOf (submodule [ { options = cellServDBConfig; } ]);
+        default = [];
+        type = with types; listOf (submodule [{options = cellServDBConfig;}]);
         description = lib.mdDoc "Definition of all cell-local database server machines.";
       };
 
@@ -241,8 +241,8 @@ in
           };
 
           cellServDB = mkOption {
-            default = [ ];
-            type = with types; listOf (submodule [ { options = cellServDBConfig; } ]);
+            default = [];
+            type = with types; listOf (submodule [{options = cellServDBConfig;}]);
             description = lib.mdDoc ''
               Definition of all cell-local backup database server machines.
               Use this when your cell uses less backup database servers than
@@ -261,7 +261,7 @@ in
           };
 
           fabsExtraConfig = mkOption {
-            default = { };
+            default = {};
             type = types.attrs;
             description = lib.mdDoc ''
               Additional configuration parameters for the FABS backup server.
@@ -303,7 +303,7 @@ in
 
     assertions = [
       {
-        assertion = cfg.cellServDB != [ ];
+        assertion = cfg.cellServDB != [];
         message = "You must specify all cell-local database servers in config.services.openafsServer.cellServDB.";
       }
       {
@@ -312,7 +312,7 @@ in
       }
     ];
 
-    environment.systemPackages = [ openafsBin ];
+    environment.systemPackages = [openafsBin];
 
     environment.etc = {
       bosConfig = {
@@ -340,10 +340,10 @@ in
     systemd.services = {
       openafs-server = {
         description = "OpenAFS server";
-        after = [ "network.target" ];
-        wantedBy = [ "multi-user.target" ];
+        after = ["network.target"];
+        wantedBy = ["multi-user.target"];
         restartIfChanged = false;
-        unitConfig.ConditionPathExists = [ "|/etc/openafs/server/KeyFileExt" ];
+        unitConfig.ConditionPathExists = ["|/etc/openafs/server/KeyFileExt"];
         preStart = ''
           mkdir -m 0755 -p /var/openafs
           ${optionalString (netInfo != null) "cp ${netInfo} /var/openafs/netInfo"}

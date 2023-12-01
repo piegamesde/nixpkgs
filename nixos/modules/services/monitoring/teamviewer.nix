@@ -25,20 +25,20 @@ in
 
   config = mkIf (cfg.enable) {
 
-    environment.systemPackages = [ pkgs.teamviewer ];
+    environment.systemPackages = [pkgs.teamviewer];
 
-    services.dbus.packages = [ pkgs.teamviewer ];
+    services.dbus.packages = [pkgs.teamviewer];
 
     systemd.services.teamviewerd = {
       description = "TeamViewer remote control daemon";
 
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       after = [
         "network-online.target"
         "network.target"
         "dbus.service"
       ];
-      requires = [ "dbus.service" ];
+      requires = ["dbus.service"];
       preStart = "mkdir -pv /var/lib/teamviewer /var/log/teamviewer";
 
       startLimitIntervalSec = 60;

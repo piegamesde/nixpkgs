@@ -56,7 +56,7 @@ stdenvNoCC.mkDerivation {
   nativeBuildInputs = [
     makeBinaryWrapper
     installShellFiles
-  ] ++ lib.optionals stdenvNoCC.isLinux [ autoPatchelfHook ];
+  ] ++ lib.optionals stdenvNoCC.isLinux [autoPatchelfHook];
 
   installPhase = ''
     runHook preInstall
@@ -64,7 +64,7 @@ stdenvNoCC.mkDerivation {
     cp -r bin share $out
     chmod +x $out/bin/limactl
     wrapProgram $out/bin/limactl \
-      --prefix PATH : ${lib.makeBinPath [ qemu ]}
+      --prefix PATH : ${lib.makeBinPath [qemu]}
     installShellCompletion --cmd limactl \
       --bash <($out/bin/limactl completion bash) \
       --fish <($out/bin/limactl completion fish) \
@@ -115,6 +115,6 @@ stdenvNoCC.mkDerivation {
     homepage = "https://github.com/lima-vm/lima";
     description = "Linux virtual machines (on macOS, in most cases)";
     license = licenses.asl20;
-    maintainers = with maintainers; [ tricktron ];
+    maintainers = with maintainers; [tricktron];
   };
 }

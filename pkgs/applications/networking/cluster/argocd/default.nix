@@ -21,7 +21,7 @@ buildGoModule rec {
 
   # Set target as ./cmd per cli-local
   # https://github.com/argoproj/argo-cd/blob/master/Makefile#L227
-  subPackages = [ "cmd" ];
+  subPackages = ["cmd"];
 
   ldflags =
     let
@@ -42,7 +42,7 @@ buildGoModule rec {
       # Will need a way to automate it :P
     ];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   installPhase = ''
     runHook preInstall

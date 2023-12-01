@@ -8,12 +8,12 @@
 args@{
   name ? "${args.pname}-${args.version}",
   bazel,
-  bazelFlags ? [ ],
-  bazelBuildFlags ? [ ],
-  bazelTestFlags ? [ ],
-  bazelFetchFlags ? [ ],
+  bazelFlags ? [],
+  bazelBuildFlags ? [],
+  bazelTestFlags ? [],
+  bazelFetchFlags ? [],
   bazelTargets,
-  bazelTestTargets ? [ ],
+  bazelTestTargets ? [],
   buildAttrs,
   fetchAttrs,
 
@@ -62,14 +62,14 @@ let
       dontAddBazelOpts = dontAddBazelOpts;
     };
   fBuildAttrs = fArgs // buildAttrs;
-  fFetchAttrs = fArgs // removeAttrs fetchAttrs [ "sha256" ];
+  fFetchAttrs = fArgs // removeAttrs fetchAttrs ["sha256"];
   bazelCmd =
     {
       cmd,
       additionalFlags,
       targets,
     }:
-    lib.optionalString (targets != [ ]) ''
+    lib.optionalString (targets != []) ''
       # See footnote called [USER and BAZEL_USE_CPP_ONLY_TOOLCHAIN variables]
       BAZEL_USE_CPP_ONLY_TOOLCHAIN=1 \
       USER=homeless-shelter \
@@ -120,9 +120,9 @@ stdenv.mkDerivation (
       // {
         name = "${name}-deps.tar.gz";
 
-        impureEnvVars = lib.fetchers.proxyImpureEnvVars ++ fFetchAttrs.impureEnvVars or [ ];
+        impureEnvVars = lib.fetchers.proxyImpureEnvVars ++ fFetchAttrs.impureEnvVars or [];
 
-        nativeBuildInputs = fFetchAttrs.nativeBuildInputs or [ ] ++ [ bazel ];
+        nativeBuildInputs = fFetchAttrs.nativeBuildInputs or [] ++ [bazel];
 
         preHook =
           fFetchAttrs.preHook or ""
@@ -208,15 +208,15 @@ stdenv.mkDerivation (
           );
 
         dontFixup = true;
-        allowedRequisites = [ ];
+        allowedRequisites = [];
 
         outputHashAlgo = "sha256";
         outputHash = fetchAttrs.sha256;
       }
     );
 
-    nativeBuildInputs = fBuildAttrs.nativeBuildInputs or [ ] ++ [
-      (bazel.override { enableNixHacks = true; })
+    nativeBuildInputs = fBuildAttrs.nativeBuildInputs or [] ++ [
+      (bazel.override {enableNixHacks = true;})
     ];
 
     preHook =
@@ -280,7 +280,7 @@ stdenv.mkDerivation (
 
         ${bazelCmd {
           cmd = "test";
-          additionalFlags = [ "--test_output=errors" ] ++ fBuildAttrs.bazelTestFlags;
+          additionalFlags = ["--test_output=errors"] ++ fBuildAttrs.bazelTestFlags;
           targets = fBuildAttrs.bazelTestTargets;
         }}
         ${bazelCmd {

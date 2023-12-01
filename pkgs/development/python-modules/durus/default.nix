@@ -28,6 +28,6 @@ buildPythonPackage rec {
     description = "Object persistence layer";
     homepage = "https://github.com/nascheme/durus";
     license = licenses.mit;
-    maintainers = with maintainers; [ grindhold ];
+    maintainers = with maintainers; [grindhold];
   };
 }

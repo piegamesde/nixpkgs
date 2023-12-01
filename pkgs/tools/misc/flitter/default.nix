@@ -22,7 +22,7 @@ ocamlPackages.buildDunePackage rec {
   };
 
   # compatibility with core >= 0.15
-  patches = [ ./flitter.patch ];
+  patches = [./flitter.patch];
 
   # https://github.com/alexozer/flitter/issues/28
   postPatch = ''
@@ -35,7 +35,7 @@ ocamlPackages.buildDunePackage rec {
     done
   '';
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   buildInputs = with ocamlPackages; [
     core_unix
@@ -47,13 +47,13 @@ ocamlPackages.buildDunePackage rec {
 
   postInstall = ''
     wrapProgram $out/bin/flitter \
-      --prefix PATH : "${python3.withPackages (pp: [ pp.pynput ])}/bin"
+      --prefix PATH : "${python3.withPackages (pp: [pp.pynput])}/bin"
   '';
 
   meta = with lib; {
     description = "A Livesplit-inspired speedrunning split timer for Linux/macOS terminal";
     license = licenses.mit;
-    maintainers = with maintainers; [ fgaz ];
+    maintainers = with maintainers; [fgaz];
     homepage = "https://github.com/alexozer/flitter";
     platforms = platforms.unix;
   };

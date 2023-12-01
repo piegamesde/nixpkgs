@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
   '';
 
   sourceRoot = "diskdev_cmds-" + version;
-  patches = [ "../debian/patches/*.patch" ];
+  patches = ["../debian/patches/*.patch"];
 
   buildInputs = [
     openssl

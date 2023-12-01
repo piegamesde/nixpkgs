@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
     homepage = "http://subsonic.org";
     description = "Personal media streamer";
     license = licenses.unfree;
-    maintainers = with maintainers; [ telotortium ];
+    maintainers = with maintainers; [telotortium];
     platforms = platforms.unix;
   };
 }

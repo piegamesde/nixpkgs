@@ -13,7 +13,7 @@
 
 plugins:
 let
-  pythonEnvironment = python3.buildEnv.override { extraLibs = plugins; };
+  pythonEnvironment = python3.buildEnv.override {extraLibs = plugins;};
 
   getRecursivePropagatedBuildInputs =
     pkgs:
@@ -33,7 +33,7 @@ let
 
   pluginsEnv = buildEnv {
     name = "vapoursynth-plugins-env";
-    pathsToLink = [ "/lib/vapoursynth" ];
+    pathsToLink = ["/lib/vapoursynth"];
     paths = deepPlugins;
   };
 
@@ -60,7 +60,7 @@ let
 in
 runCommand "${vapoursynth.name}-with-plugins"
   {
-    nativeBuildInputs = [ makeWrapper ];
+    nativeBuildInputs = [makeWrapper];
     passthru = {
       inherit python3;
       inherit (vapoursynth) src version;

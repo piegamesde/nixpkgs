@@ -36,7 +36,7 @@ python.pkgs.buildPythonPackage rec {
 
   format = "setuptools";
 
-  patches = [ ./0001-Re-add-entrypoint.patch ];
+  patches = [./0001-Re-add-entrypoint.patch];
 
   propagatedBuildInputs =
     with python.pkgs;

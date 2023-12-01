@@ -4,7 +4,7 @@
   fetchurl,
   ncurses,
   libressl,
-  patches ? [ ], # allow users to easily override config.def.h
+  patches ? [], # allow users to easily override config.def.h
 }:
 
 stdenv.mkDerivation rec {
@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
     libressl
   ];
 
-  CFLAGS = lib.optionals stdenv.isDarwin [ "-D_DARWIN_C_SOURCE" ];
+  CFLAGS = lib.optionals stdenv.isDarwin ["-D_DARWIN_C_SOURCE"];
 
   postPatch = ''
     substituteInPlace config.mk \
@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
     description = "A terminal gopher client";
     homepage = "gopher://bitreich.org/1/scm/sacc";
     license = licenses.isc;
-    maintainers = [ maintainers.sternenseemann ];
+    maintainers = [maintainers.sternenseemann];
     platforms = platforms.unix;
   };
 }

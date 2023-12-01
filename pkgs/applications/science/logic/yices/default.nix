@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
     ];
   postPatch = "patchShebangs tests/regress/check.sh";
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
   buildInputs = [
     cudd
     gmp-static
@@ -49,6 +49,6 @@ stdenv.mkDerivation rec {
     homepage = "https://yices.csl.sri.com";
     license = licenses.gpl3;
     platforms = with platforms; linux ++ darwin;
-    maintainers = with maintainers; [ thoughtpolice ];
+    maintainers = with maintainers; [thoughtpolice];
   };
 }

@@ -38,12 +38,12 @@ buildPythonPackage rec {
   # tests take ~1h
   doCheck = false;
 
-  pythonImportsCheck = [ "diofant" ];
+  pythonImportsCheck = ["diofant"];
 
   meta = with lib; {
     description = "A Python CAS library";
     homepage = "https://diofant.readthedocs.io/";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ suhr ];
+    maintainers = with maintainers; [suhr];
   };
 }

@@ -28,7 +28,7 @@ buildPythonPackage rec {
     hash = "sha256-UMByfnnP1va3v1IgyQL0f3kC+W6HoiWScb7U2FAvWkU=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   propagatedBuildInputs =
     [
@@ -45,9 +45,9 @@ buildPythonPackage rec {
     ]
     ++ typer.optional-dependencies.all;
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "rstcheck" ];
+  pythonImportsCheck = ["rstcheck"];
 
   preCheck = ''
     # The tests need to find and call the rstcheck executable
@@ -59,6 +59,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/myint/rstcheck";
     changelog = "https://github.com/rstcheck/rstcheck/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ staccato ];
+    maintainers = with maintainers; [staccato];
   };
 }

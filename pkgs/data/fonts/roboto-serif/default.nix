@@ -16,7 +16,7 @@ stdenvNoCC.mkDerivation rec {
 
   sourceRoot = ".";
 
-  nativeBuildInputs = [ unzip ];
+  nativeBuildInputs = [unzip];
 
   installPhase = ''
     runHook preInstall
@@ -35,7 +35,7 @@ stdenvNoCC.mkDerivation rec {
     '';
     homepage = "https://github.com/googlefonts/roboto-serif";
     license = licenses.ofl;
-    maintainers = with maintainers; [ wegank ];
+    maintainers = with maintainers; [wegank];
     platforms = platforms.all;
   };
 }

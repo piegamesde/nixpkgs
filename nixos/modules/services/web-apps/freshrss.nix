@@ -140,7 +140,7 @@ in
     let
       defaultServiceConfig = {
         ReadWritePaths = "${cfg.dataDir}";
-        CapabilityBoundingSet = [ "CAP_NET_BIND_SERVICE" ];
+        CapabilityBoundingSet = ["CAP_NET_BIND_SERVICE"];
         DeviceAllow = "";
         LockPersonality = true;
         NoNewPrivileges = true;
@@ -232,7 +232,7 @@ in
         group = "${cfg.user}";
         home = cfg.dataDir;
       };
-      users.groups."${cfg.user}" = { };
+      users.groups."${cfg.user}" = {};
 
       systemd.tmpfiles.rules = [
         "d '${cfg.dataDir}' - ${cfg.user} ${config.users.users.${cfg.user}.group} - -"
@@ -266,7 +266,7 @@ in
         in
         {
           description = "Set up the state directory for FreshRSS before use";
-          wantedBy = [ "multi-user.target" ];
+          wantedBy = ["multi-user.target"];
           serviceConfig = defaultServiceConfig // {
             Type = "oneshot";
             User = "freshrss";
@@ -296,8 +296,8 @@ in
 
       systemd.services.freshrss-updater = {
         description = "FreshRSS feed updater";
-        after = [ "freshrss-config.service" ];
-        wantedBy = [ "multi-user.target" ];
+        after = ["freshrss-config.service"];
+        wantedBy = ["multi-user.target"];
         startAt = "*:0/5";
         environment = {
           FRESHRSS_DATA_PATH = cfg.dataDir;

@@ -14,7 +14,7 @@
   six,
   libgpuarray,
   cudaSupport ? false,
-  cudaPackages ? { },
+  cudaPackages ? {},
   cudnnSupport ? false,
 }:
 
@@ -27,7 +27,7 @@ assert cudnnSupport -> cudaSupport;
 let
   wrapped =
     command: buildTop: buildInputs:
-    runCommandCC "${command}-wrapped" { inherit buildInputs; } ''
+    runCommandCC "${command}-wrapped" {inherit buildInputs;} ''
       type -P '${command}' || { echo '${command}: not found'; exit 1; }
       cat > "$out" <<EOF
       #!$(type -P bash)
@@ -52,7 +52,7 @@ let
 
   # We need to be careful with overriding Python packages within the package set
   # as this can lead to collisions!
-  libgpuarray_ = libgpuarray.override { inherit cudaSupport cudaPackages; };
+  libgpuarray_ = libgpuarray.override {inherit cudaSupport cudaPackages;};
 in
 buildPythonPackage rec {
   pname = "theano";
@@ -92,7 +92,7 @@ buildPythonPackage rec {
   # the fix for which hasn't been merged yet.
 
   # keep Nose around since running the tests by hand is possible from Python or bash
-  nativeCheckInputs = [ nose ];
+  nativeCheckInputs = [nose];
   # setuptools needed for cuda support
   propagatedBuildInputs = [
     libgpuarray_
@@ -103,12 +103,12 @@ buildPythonPackage rec {
     six
   ];
 
-  pythonImportsCheck = [ "theano" ];
+  pythonImportsCheck = ["theano"];
 
   meta = with lib; {
     homepage = "https://github.com/Theano/Theano";
     description = "A Python library for large-scale array computation";
     license = licenses.bsd3;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

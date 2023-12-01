@@ -10,7 +10,7 @@ let
 
   cfg = config.services.tremor-rs;
 
-  loggerSettingsFormat = pkgs.formats.yaml { };
+  loggerSettingsFormat = pkgs.formats.yaml {};
   loggerConfigFile = loggerSettingsFormat.generate "logger.yaml" cfg.loggerSettings;
 in
 {
@@ -21,7 +21,7 @@ in
 
       troyFileList = mkOption {
         type = types.listOf types.path;
-        default = [ ];
+        default = [];
         description = lib.mdDoc "List of troy files to load.";
       };
 
@@ -45,7 +45,7 @@ in
 
       loggerSettings = mkOption {
         description = lib.mdDoc "Tremor logger configuration";
-        default = { };
+        default = {};
         type = loggerSettingsFormat.type;
 
         example = {
@@ -53,17 +53,17 @@ in
           appenders.stdout.kind = "console";
           root = {
             level = "warn";
-            appenders = [ "stdout" ];
+            appenders = ["stdout"];
           };
           loggers = {
             tremor_runtime = {
               level = "debug";
-              appenders = [ "stdout" ];
+              appenders = ["stdout"];
               additive = false;
             };
             tremor = {
               level = "debug";
-              appenders = [ "stdout" ];
+              appenders = ["stdout"];
               additive = false;
             };
           };
@@ -97,13 +97,13 @@ in
 
   config = mkIf (cfg.enable) {
 
-    environment.systemPackages = [ pkgs.tremor-rs ];
+    environment.systemPackages = [pkgs.tremor-rs];
 
     systemd.services.tremor-rs = {
       description = "Tremor event- or stream-processing system";
-      wantedBy = [ "multi-user.target" ];
-      requires = [ "network-online.target" ];
-      after = [ "network-online.target" ];
+      wantedBy = ["multi-user.target"];
+      requires = ["network-online.target"];
+      after = ["network-online.target"];
 
       environment.TREMOR_PATH = "${pkgs.tremor-rs}/lib:${cfg.tremorLibDir}";
 

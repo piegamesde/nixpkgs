@@ -7,7 +7,7 @@
 }:
 let
   mkDerivation =
-    { name, ... }@argSet:
+    {name, ...}@argSet:
     derivation {
       inherit name;
       text =
@@ -28,15 +28,15 @@ let
         "echo  $(<$textPath) > $out"
       ];
       system = stdenv.hostPlatform.system;
-      passAsFile = [ "text" ];
+      passAsFile = ["text"];
     };
   fetchurl =
     {
       url ? "",
-      urls ? [ ],
+      urls ? [],
       ...
     }:
-    "fetchurl:${if urls == [ ] then url else builtins.head urls}";
+    "fetchurl:${if urls == [] then url else builtins.head urls}";
 
   stdenv' = stdenv // {
     inherit mkDerivation;

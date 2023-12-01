@@ -27,7 +27,7 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-WTDE+MYL8CjeNvGHRNiMgBFrydDJWIcG8TYvbQTH/6o=";
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   postFixup = lib.optionals (!stdenv.isDarwin) ''
     mv $out/bin/SNOWCRASH $out/bin/${pname}
@@ -36,8 +36,8 @@ buildGoModule rec {
   meta = with lib; {
     description = "Polyglot payload generator";
     homepage = "https://github.com/redcode-labs/SNOWCRASH";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ] ++ teams.redcodelabs.members;
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab] ++ teams.redcodelabs.members;
     mainProgram = "SNOWCRASH";
   };
 }

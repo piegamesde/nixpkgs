@@ -24,8 +24,8 @@ python3Packages.buildPythonApplication rec {
     sha256 = "1qma8b3lnkdhxdjsnrq7n9zgy53q62j4naaqqs07kjxbn72zb4p4";
   };
 
-  nativeBuildInputs = [ git ];
-  propagatedBuildInputs = [ youtube-dl ];
+  nativeBuildInputs = [git];
+  propagatedBuildInputs = [youtube-dl];
 
   postPatch = ''
     substituteInPlace setup.py --replace \
@@ -37,6 +37,6 @@ python3Packages.buildPythonApplication rec {
     description = "Chrome extension and python server that allows you to play videos in webpages with MPV instead";
     homepage = "https://github.com/Thann/play-with-mpv";
     license = licenses.mit;
-    maintainers = with maintainers; [ dawidsowa ];
+    maintainers = with maintainers; [dawidsowa];
   };
 }

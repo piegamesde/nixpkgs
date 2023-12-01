@@ -55,13 +55,13 @@ stdenv.mkDerivation rec {
     ))
   ];
 
-  mesonFlags = [ "-Dsystemd-unit-dir=./lib/systemd/system/" ];
+  mesonFlags = ["-Dsystemd-unit-dir=./lib/systemd/system/"];
 
   meta = with lib; {
     description = "Configuration library for gaming mice";
     homepage = "https://github.com/libratbag/libratbag";
     license = licenses.mit;
-    maintainers = with maintainers; [ mvnetbiz ];
+    maintainers = with maintainers; [mvnetbiz];
     platforms = platforms.linux;
   };
 }

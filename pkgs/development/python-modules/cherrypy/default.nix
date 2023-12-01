@@ -45,7 +45,7 @@ buildPythonPackage rec {
     sed -i "/--cov/d" pytest.ini
   '';
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
   propagatedBuildInputs = [
     cheroot
@@ -81,19 +81,19 @@ buildPythonPackage rec {
     "test_basic_request"
     "test_3_Redirect"
     "test_4_File_deletion"
-  ] ++ lib.optionals stdenv.isDarwin [ "test_block" ];
+  ] ++ lib.optionals stdenv.isDarwin ["test_block"];
 
-  disabledTestPaths = lib.optionals stdenv.isDarwin [ "cherrypy/test/test_config_server.py" ];
+  disabledTestPaths = lib.optionals stdenv.isDarwin ["cherrypy/test/test_config_server.py"];
 
   __darwinAllowLocalNetworking = true;
 
-  pythonImportsCheck = [ "cherrypy" ];
+  pythonImportsCheck = ["cherrypy"];
 
   passthru.optional-dependencies = {
-    json = [ simplejson ];
-    memcached_session = [ python-memcached ];
-    routes_dispatcher = [ routes ];
-    ssl = [ pyopenssl ];
+    json = [simplejson];
+    memcached_session = [python-memcached];
+    routes_dispatcher = [routes];
+    ssl = [pyopenssl];
     # not packaged yet
     xcgi =
       [
@@ -105,6 +105,6 @@ buildPythonPackage rec {
     description = "Object-oriented HTTP framework";
     homepage = "https://cherrypy.dev/";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

@@ -51,7 +51,7 @@ in
         "shibresponder.service"
         "shibauthorizer.service"
       ];
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         ExecStart = "${pkgs.shibboleth-sp}/bin/shibd -F -d ${pkgs.shibboleth-sp} -c ${cfg.configFile}";
       };
@@ -59,9 +59,9 @@ in
 
     systemd.services.shibresponder = mkIf cfg.fastcgi.enable {
       description = "Provides SSO through Shibboleth via FastCGI";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
-      path = [ "${pkgs.spawn_fcgi}" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
+      path = ["${pkgs.spawn_fcgi}"];
       environment.SHIBSP_CONFIG = "${cfg.configFile}";
       serviceConfig = {
         ExecStart = "${pkgs.spawn_fcgi}/bin/spawn-fcgi -n -p ${toString cfg.fastcgi.shibResponderPort} ${pkgs.shibboleth-sp}/lib/shibboleth/shibresponder";
@@ -70,9 +70,9 @@ in
 
     systemd.services.shibauthorizer = mkIf cfg.fastcgi.enable {
       description = "Provides SSO through Shibboleth via FastCGI";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
-      path = [ "${pkgs.spawn_fcgi}" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
+      path = ["${pkgs.spawn_fcgi}"];
       environment.SHIBSP_CONFIG = "${cfg.configFile}";
       serviceConfig = {
         ExecStart = "${pkgs.spawn_fcgi}/bin/spawn-fcgi -n -p ${toString cfg.fastcgi.shibAuthorizerPort} ${pkgs.shibboleth-sp}/lib/shibboleth/shibauthorizer";
@@ -80,5 +80,5 @@ in
     };
   };
 
-  meta.maintainers = with lib.maintainers; [ jammerful ];
+  meta.maintainers = with lib.maintainers; [jammerful];
 }

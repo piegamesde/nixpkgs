@@ -16,7 +16,7 @@ stdenv.mkDerivation {
     sha256 = "0vzff2hdng8ybwd5frflhxpak0yqg0985p1dy7vpvhr8kbqqzwdz";
   };
 
-  propagatedBuildInputs = with python3Packages; [ python ];
+  propagatedBuildInputs = with python3Packages; [python];
 
   installPhase = ''
     mkdir -p $out/bin/
@@ -31,6 +31,6 @@ stdenv.mkDerivation {
     # The (only) source file states:
     #   License: "Do what you feel is right, but don't be a jerk" public license.
 
-    maintainers = with lib.maintainers; [ matthiasbeyer ];
+    maintainers = with lib.maintainers; [matthiasbeyer];
   };
 }

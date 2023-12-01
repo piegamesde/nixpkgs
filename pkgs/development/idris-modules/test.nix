@@ -8,7 +8,7 @@ build-idris-package {
   pname = "test";
   version = "2017-03-30";
 
-  idrisDeps = [ effects ];
+  idrisDeps = [effects];
 
   src = fetchFromGitHub {
     owner = "jfdm";
@@ -23,6 +23,6 @@ build-idris-package {
     description = "Testing Utilities for Idris programs";
     homepage = "https://github.com/jfdm/idris-testing";
     license = lib.licenses.bsd3;
-    maintainers = [ lib.maintainers.brainrape ];
+    maintainers = [lib.maintainers.brainrape];
   };
 }

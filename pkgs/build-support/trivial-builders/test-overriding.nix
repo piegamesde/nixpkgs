@@ -28,8 +28,8 @@ let
   callPackageCase =
     case:
     callPackage
-      ({ writeShellScript }: writeShellScript "test-trivial-callpackage-overriding-${case}" extglobScript)
-      { };
+      ({writeShellScript}: writeShellScript "test-trivial-callpackage-overriding-${case}" extglobScript)
+      {};
 
   binCase = case: writeShellScriptBin "test-trivial-overriding-bin-${case}" extglobScript;
 
@@ -74,7 +74,7 @@ let
     case: outcome: isBin:
     let
       drv = lib.pipe outcome (
-        [ case ]
+        [case]
         ++ lib.optionals (outcome == "fail") [
           disallowExtglob
           assertFail
@@ -96,7 +96,7 @@ let
     binSucc = mkCase binCase "succ" true;
     binFail = mkCase binCase "fail" true;
     # Check that we can also override plain writeTextFile
-    textFileSuccess = textFileCase.overrideAttrs (_: { checkPhase = "true"; });
+    textFileSuccess = textFileCase.overrideAttrs (_: {checkPhase = "true";});
   };
 
   # `runTest` forces nix to build the script of our test case and

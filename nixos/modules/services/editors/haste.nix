@@ -11,7 +11,7 @@ let
   pkg = pkgs.haste-server;
   cfg = config.services.haste-server;
 
-  format = pkgs.formats.json { };
+  format = pkgs.formats.json {};
 in
 {
   options.services.haste-server = {
@@ -28,7 +28,7 @@ in
   };
 
   config = mkIf (cfg.enable) {
-    networking.firewall.allowedTCPPorts = mkIf (cfg.openFirewall) [ cfg.settings.port ];
+    networking.firewall.allowedTCPPorts = mkIf (cfg.openFirewall) [cfg.settings.port];
 
     services.haste-server = {
       settings = {
@@ -49,7 +49,7 @@ in
           }
         ];
 
-        keyGenerator = mkDefault { type = "phonetic"; };
+        keyGenerator = mkDefault {type = "phonetic";};
 
         rateLimits = {
           categories = {
@@ -60,7 +60,7 @@ in
           };
         };
 
-        storage = mkDefault { type = "file"; };
+        storage = mkDefault {type = "file";};
 
         documents = {
           about = mkDefault "${pkg}/share/haste-server/about.md";
@@ -69,9 +69,9 @@ in
     };
 
     systemd.services.haste-server = {
-      wantedBy = [ "multi-user.target" ];
-      requires = [ "network.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      requires = ["network.target"];
+      after = ["network.target"];
 
       serviceConfig = {
         User = "haste-server";

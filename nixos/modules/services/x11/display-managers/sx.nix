@@ -29,12 +29,12 @@ in
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = [ pkgs.sx ];
+    environment.systemPackages = [pkgs.sx];
     services.xserver = {
       exportConfiguration = true;
       logFile = mkDefault null;
     };
   };
 
-  meta.maintainers = with maintainers; [ figsoda ];
+  meta.maintainers = with maintainers; [figsoda];
 }

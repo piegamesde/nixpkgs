@@ -11,7 +11,7 @@
 }:
 
 let
-  afl-qemu = callPackage ./qemu.nix { inherit afl; };
+  afl-qemu = callPackage ./qemu.nix {inherit afl;};
   qemu-exe-name =
     if stdenv.hostPlatform.system == "x86_64-linux" then
       "qemu-x86_64"
@@ -38,9 +38,9 @@ let
       which
       llvm.dev
     ];
-    buildInputs = [ llvm ];
+    buildInputs = [llvm];
 
-    makeFlags = [ "PREFIX=$(out)" ];
+    makeFlags = ["PREFIX=$(out)"];
     postBuild = ''
       make -C llvm_mode $makeFlags -j$NIX_BUILD_CORES
     '';

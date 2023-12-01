@@ -19,7 +19,7 @@ buildPythonPackage rec {
     sha256 = "1iv9f22v834g8wrjcynjn2azpzk8gsczv71jf7dw8aix0n04h325";
   };
 
-  propagatedBuildInputs = [ asyncssh ];
+  propagatedBuildInputs = [asyncssh];
 
   nativeCheckInputs = [
     pytest-asyncio
@@ -33,12 +33,12 @@ buildPythonPackage rec {
       --replace "--cov-report term-missing" ""
   '';
 
-  pythonImportsCheck = [ "aioasuswrt" ];
+  pythonImportsCheck = ["aioasuswrt"];
 
   meta = with lib; {
     description = "Python module for Asuswrt";
     homepage = "https://github.com/kennedyshead/aioasuswrt";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

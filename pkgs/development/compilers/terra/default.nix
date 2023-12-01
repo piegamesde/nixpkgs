@@ -53,14 +53,14 @@ stdenv.mkDerivation rec {
     sha256 = "1bs76ibzb469rlqs7slw8pm65csjq1nf0lqh6i9kcvbzavmdfds7";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs =
     [
       llvmMerged
       ncurses
       libxml2
     ]
-    ++ lib.optionals enableCUDA [ cuda ]
+    ++ lib.optionals enableCUDA [cuda]
     ++ lib.optionals stdenv.isDarwin [
       libobjc
       Cocoa
@@ -75,7 +75,7 @@ stdenv.mkDerivation rec {
   ] ++ lib.optional enableCUDA "-DTERRA_ENABLE_CUDA=ON";
 
   doCheck = true;
-  hardeningDisable = [ "fortify" ];
+  hardeningDisable = ["fortify"];
   outputs = [
     "bin"
     "dev"
@@ -83,7 +83,7 @@ stdenv.mkDerivation rec {
     "static"
   ];
 
-  patches = [ ./nix-cflags.patch ];
+  patches = [./nix-cflags.patch];
 
   postPatch = ''
     sed -i '/file(DOWNLOAD "''${LUAJIT_URL}" "''${LUAJIT_TAR}")/d' \

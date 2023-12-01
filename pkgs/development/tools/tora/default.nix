@@ -72,11 +72,11 @@ mkDerivation {
 
   env.NIX_CFLAGS_COMPILE = "-L${libmysqlclient}/lib/mysql -I${libmysqlclient}/include/mysql";
 
-  qtWrapperArgs = [ "--prefix PATH : ${lib.getBin graphviz}/bin" ];
+  qtWrapperArgs = ["--prefix PATH : ${lib.getBin graphviz}/bin"];
 
   meta = with lib; {
     description = "Tora SQL tool";
-    maintainers = with maintainers; [ peterhoeg ];
+    maintainers = with maintainers; [peterhoeg];
     platforms = platforms.linux;
     license = licenses.asl20;
   };

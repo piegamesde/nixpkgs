@@ -23,11 +23,11 @@ stdenv.mkDerivation {
     hash = "sha256-LMmAHCGKgon/wNbrXTUH9hiHyGVwwSDpB1236xawzXs=";
   };
 
-  buildInputs = [ zlib ];
+  buildInputs = [zlib];
 
   inherit ARCH;
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
   enableParallelBuilding = true;
 
   buildPhase = "cd emu && make -j $NIX_BUILD_CORES -f Makefile.$ARCH";

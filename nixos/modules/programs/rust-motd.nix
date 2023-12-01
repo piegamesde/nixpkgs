@@ -9,7 +9,7 @@ with lib;
 
 let
   cfg = config.programs.rust-motd;
-  format = pkgs.formats.toml { };
+  format = pkgs.formats.toml {};
 in
 {
   options.programs.rust-motd = {
@@ -34,7 +34,7 @@ in
       '';
     };
     settings = mkOption {
-      type = types.submodule { freeformType = format.type; };
+      type = types.submodule {freeformType = format.type;};
       description = mdDoc ''
         Settings on what to generate. Please read the
         [upstream documentation](https://github.com/rust-motd/rust-motd/blob/main/README.md#configuration)
@@ -52,7 +52,7 @@ in
       }
     ];
     systemd.services.rust-motd = {
-      path = with pkgs; [ bash ];
+      path = with pkgs; [bash];
       documentation = [
         "https://github.com/rust-motd/rust-motd/blob/v${pkgs.rust-motd.version}/README.md"
       ];
@@ -61,7 +61,7 @@ in
         ExecStart = "${pkgs.writeShellScript "update-motd" ''
           ${pkgs.rust-motd}/bin/rust-motd ${format.generate "motd.conf" cfg.settings} > motd
         ''}";
-        CapabilityBoundingSet = [ "" ];
+        CapabilityBoundingSet = [""];
         LockPersonality = true;
         MemoryDenyWriteExecute = true;
         NoNewPrivileges = true;
@@ -76,7 +76,7 @@ in
         ProtectKernelTunables = true;
         ProtectSystem = "full";
         StateDirectory = "rust-motd";
-        RestrictAddressFamilies = [ "AF_UNIX" ];
+        RestrictAddressFamilies = ["AF_UNIX"];
         RestrictNamespaces = true;
         RestrictRealtime = true;
         RestrictSUIDSGID = true;
@@ -85,7 +85,7 @@ in
       };
     };
     systemd.timers.rust-motd = {
-      wantedBy = [ "timers.target" ];
+      wantedBy = ["timers.target"];
       timerConfig.OnCalendar = cfg.refreshInterval;
     };
     security.pam.services.sshd.text = mkIf cfg.enableMotdInSSHD (
@@ -95,9 +95,9 @@ in
         ''
       )
     );
-    services.openssh.extraConfig = mkIf (cfg.settings ? last_login && cfg.settings.last_login != { }) ''
+    services.openssh.extraConfig = mkIf (cfg.settings ? last_login && cfg.settings.last_login != {}) ''
       PrintLastLog no
     '';
   };
-  meta.maintainers = with maintainers; [ ma27 ];
+  meta.maintainers = with maintainers; [ma27];
 }

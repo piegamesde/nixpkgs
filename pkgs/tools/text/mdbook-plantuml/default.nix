@@ -34,14 +34,14 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-3HlnhRexfFcAuk1RoatWORMJvYRrnoEft5ys6j3t9S0=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  buildInputs = [ openssl ] ++ lib.optionals stdenv.isDarwin [ CoreServices ];
+  buildInputs = [openssl] ++ lib.optionals stdenv.isDarwin [CoreServices];
 
   meta = with lib; {
     description = "mdBook preprocessor to render PlantUML diagrams to png images in the book output directory";
     homepage = "https://github.com/sytsereitsma/mdbook-plantuml";
-    license = [ licenses.mit ];
-    maintainers = with maintainers; [ jcouyang ];
+    license = [licenses.mit];
+    maintainers = with maintainers; [jcouyang];
   };
 }

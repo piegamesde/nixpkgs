@@ -34,7 +34,7 @@ buildPythonPackage rec {
   buildInputs =
     (
       if stdenv.isDarwin then
-        [ openblas ]
+        [openblas]
       else
         [
           blas
@@ -79,7 +79,7 @@ buildPythonPackage rec {
       export CVXOPT_FFTW_INC_DIR=${lib.getDev fftw}/include
     '';
 
-  nativeCheckInputs = [ unittestCheckHook ];
+  nativeCheckInputs = [unittestCheckHook];
 
   unittestFlagsArray = [
     "-s"
@@ -99,7 +99,7 @@ buildPythonPackage rec {
       standard library and on the strengths of Python as a high-level
       programming language.
     '';
-    maintainers = with maintainers; [ edwtjo ];
+    maintainers = with maintainers; [edwtjo];
     license = licenses.gpl3Plus;
   };
 }

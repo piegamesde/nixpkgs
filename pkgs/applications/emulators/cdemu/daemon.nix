@@ -13,7 +13,7 @@ let
   };
 in
 callPackage pkg {
-  nativeBuildInputs = [ intltool ];
+  nativeBuildInputs = [intltool];
   buildInputs = [
     glib
     libao

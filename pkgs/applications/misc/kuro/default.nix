@@ -71,7 +71,7 @@ mkYarnPackage rec {
       desktopName = "Kuro";
       genericName = "Microsoft To-Do Client";
       comment = meta.description;
-      categories = [ "Office" ];
+      categories = ["Office"];
       startupWMClass = pname;
     })
   ];
@@ -80,7 +80,7 @@ mkYarnPackage rec {
     description = "An unofficial, featureful, open source, community-driven, free Microsoft To-Do app";
     homepage = "https://github.com/davidsmorais/kuro";
     license = licenses.mit;
-    maintainers = with maintainers; [ ChaosAttractor ];
+    maintainers = with maintainers; [ChaosAttractor];
     inherit (electron.meta) platforms;
   };
 }

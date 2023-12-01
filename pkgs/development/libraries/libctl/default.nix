@@ -26,12 +26,12 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  configureFlags = [ "--enable-shared" ];
+  configureFlags = ["--enable-shared"];
 
   meta = with lib; {
     description = "Guile-based library for supporting flexible control files in scientific simulations";
     homepage = "https://github.com/NanoComp/libctl";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ carpinchomug ];
+    maintainers = with maintainers; [carpinchomug];
   };
 }

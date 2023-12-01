@@ -35,7 +35,7 @@ in
 stdenv.mkDerivation {
   inherit pname version src;
 
-  makeFlags = [ "MANPATH=${manDir}" ];
+  makeFlags = ["MANPATH=${manDir}"];
 
   dontBuild = true;
 

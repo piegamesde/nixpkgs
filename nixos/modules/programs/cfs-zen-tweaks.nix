@@ -17,7 +17,7 @@ in
 {
 
   meta = {
-    maintainers = with maintainers; [ mkg20001 ];
+    maintainers = with maintainers; [mkg20001];
   };
 
   options = {
@@ -25,7 +25,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    systemd.packages = [ pkgs.cfs-zen-tweaks ];
+    systemd.packages = [pkgs.cfs-zen-tweaks];
 
     systemd.services.set-cfs-tweak.wantedBy = [
       "multi-user.target"

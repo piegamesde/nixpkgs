@@ -61,7 +61,7 @@ stdenv.mkDerivation rec {
       --replace '$FILEBOT_HOME/data/.license' '$APP_DATA/.license' \
       --replace '-jar "$FILEBOT_HOME/jar/filebot.jar"' '-Dcom.googlecode.lanterna.terminal.UnixTerminal.sttyCommand=${coreutils}/bin/stty -jar "$FILEBOT_HOME/jar/filebot.jar"'
     wrapProgram $out/opt/filebot.sh \
-      --prefix PATH : ${lib.makeBinPath [ openjdk17 ]}
+      --prefix PATH : ${lib.makeBinPath [openjdk17]}
     # Expose the binary in bin to make runnable.
     ln -s $out/opt/filebot.sh $out/bin/filebot
   '';

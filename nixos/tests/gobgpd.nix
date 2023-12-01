@@ -1,5 +1,5 @@
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   let
     ifAddr =
       node: iface: (pkgs.lib.head node.config.networking.interfaces.${iface}.ipv4.addresses).address;
@@ -7,14 +7,14 @@ import ./make-test-python.nix (
   {
     name = "gobgpd";
 
-    meta = with pkgs.lib.maintainers; { maintainers = [ higebu ]; };
+    meta = with pkgs.lib.maintainers; {maintainers = [higebu];};
 
     nodes = {
       node1 =
-        { nodes, ... }:
+        {nodes, ...}:
         {
-          environment.systemPackages = [ pkgs.gobgp ];
-          networking.firewall.allowedTCPPorts = [ 179 ];
+          environment.systemPackages = [pkgs.gobgp];
+          networking.firewall.allowedTCPPorts = [179];
           services.gobgpd = {
             enable = true;
             settings = {
@@ -36,10 +36,10 @@ import ./make-test-python.nix (
           };
         };
       node2 =
-        { nodes, ... }:
+        {nodes, ...}:
         {
-          environment.systemPackages = [ pkgs.gobgp ];
-          networking.firewall.allowedTCPPorts = [ 179 ];
+          environment.systemPackages = [pkgs.gobgp];
+          networking.firewall.allowedTCPPorts = [179];
           services.gobgpd = {
             enable = true;
             settings = {
@@ -63,7 +63,7 @@ import ./make-test-python.nix (
     };
 
     testScript =
-      { nodes, ... }:
+      {nodes, ...}:
       let
         addr1 = ifAddr nodes.node1 "eth1";
         addr2 = ifAddr nodes.node2 "eth1";

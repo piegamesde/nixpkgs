@@ -1,10 +1,10 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "data-table";
   version = "20160208-git";
 
-  parasites = [ "data-table-test" ];
+  parasites = ["data-table-test"];
 
   description = "A library providing a data-table class, and useful functionality around this";
 
@@ -27,7 +27,7 @@ rec {
 
   packageName = "data-table";
 
-  asdFilesToKeep = [ "data-table.asd" ];
+  asdFilesToKeep = ["data-table.asd"];
   overrides = x: x;
 }
 /* (SYSTEM data-table DESCRIPTION

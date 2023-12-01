@@ -1,10 +1,10 @@
 {
   system ? builtins.currentSystem,
-  config ? { },
-  pkgs ? import ../.. { inherit system config; },
+  config ? {},
+  pkgs ? import ../.. {inherit system config;},
 }:
 
-with import ../lib/testing-python.nix { inherit system pkgs; };
+with import ../lib/testing-python.nix {inherit system pkgs;};
 
 let
   inherit (pkgs) lib;
@@ -14,9 +14,9 @@ let
     packageName:
     makeTest {
       name = "${packageName}";
-      meta.maintainers = with lib.maintainers; [ ma27 ];
+      meta.maintainers = with lib.maintainers; [ma27];
       nodes.machine =
-        { pkgs, lib, ... }:
+        {pkgs, lib, ...}:
         {
           services.postgresql = {
             enable = true;

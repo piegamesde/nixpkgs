@@ -1,15 +1,15 @@
 import ./make-test-python.nix (
-  { pkgs, lib, ... }:
+  {pkgs, lib, ...}:
   {
     name = "containers-tmpfs";
     meta = {
-      maintainers = with lib.maintainers; [ patryk27 ];
+      maintainers = with lib.maintainers; [patryk27];
     };
 
     nodes.machine =
-      { pkgs, ... }:
+      {pkgs, ...}:
       {
-        imports = [ ../modules/installer/cd-dvd/channel.nix ];
+        imports = [../modules/installer/cd-dvd/channel.nix];
         virtualisation.writableStore = true;
 
         containers.tmpfs = {
@@ -24,10 +24,10 @@ import ./make-test-python.nix (
             # Add a tmpfs on a path that does not exist
             "/some/random/path"
           ];
-          config = { };
+          config = {};
         };
 
-        virtualisation.additionalPaths = [ pkgs.stdenv ];
+        virtualisation.additionalPaths = [pkgs.stdenv];
       };
 
     testScript = ''

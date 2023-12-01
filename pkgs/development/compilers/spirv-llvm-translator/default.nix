@@ -51,11 +51,11 @@ stdenv.mkDerivation {
     pkg-config
     cmake
     spirv-tools
-  ] ++ (if isROCm then [ llvm ] else [ llvm.dev ]);
+  ] ++ (if isROCm then [llvm] else [llvm.dev]);
 
-  buildInputs = [ spirv-headers ] ++ lib.optionals (!isROCm) [ llvm ];
+  buildInputs = [spirv-headers] ++ lib.optionals (!isROCm) [llvm];
 
-  nativeCheckInputs = [ lit ];
+  nativeCheckInputs = [lit];
 
   cmakeFlags =
     [
@@ -87,6 +87,6 @@ stdenv.mkDerivation {
     description = "A tool and a library for bi-directional translation between SPIR-V and LLVM IR";
     license = licenses.ncsa;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ gloaming ];
+    maintainers = with maintainers; [gloaming];
   };
 }

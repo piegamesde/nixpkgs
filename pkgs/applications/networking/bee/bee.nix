@@ -45,7 +45,7 @@ buildGoModule {
     inherit (versionSpec) rev sha256;
   };
 
-  subPackages = [ "cmd/bee" ];
+  subPackages = ["cmd/bee"];
 
   # no symbol table, no debug info, and pass the commit for the version string
   ldflags = lib.optionals (lib.hasAttr "goVersionString" versionSpec) [
@@ -78,7 +78,7 @@ buildGoModule {
 
       Bee is a Swarm node implementation, written in Go.
     '';
-    license = with licenses; [ bsd3 ];
-    maintainers = with maintainers; [ attila-lendvai ];
+    license = with licenses; [bsd3];
+    maintainers = with maintainers; [attila-lendvai];
   };
 }

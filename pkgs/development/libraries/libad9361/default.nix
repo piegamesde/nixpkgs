@@ -17,9 +17,9 @@ stdenv.mkDerivation rec {
     hash = "sha256-dYoFWRnREvlOC514ZpmmvoS37DmIkVqfq7JPpTXqXd8=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
-  buildInputs = [ libiio ];
+  buildInputs = [libiio];
 
   postPatch = lib.optionalString stdenv.isDarwin ''
     # Fix iio include path on darwin to match linux
@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
     description = "IIO AD9361 library for filter design and handling, multi-chip sync, etc";
     homepage = "http://analogdevicesinc.github.io/libad9361-iio/";
     license = licenses.lgpl21Plus;
-    maintainers = with maintainers; [ sikmir ];
+    maintainers = with maintainers; [sikmir];
     platforms = platforms.linux ++ platforms.darwin;
   };
 }

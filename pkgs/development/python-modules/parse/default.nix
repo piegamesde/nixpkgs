@@ -21,6 +21,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/r1chardj0n3s/parse";
     description = "parse() is the opposite of format()";
     license = licenses.bsdOriginal;
-    maintainers = with maintainers; [ alunduil ];
+    maintainers = with maintainers; [alunduil];
   };
 }

@@ -26,7 +26,7 @@ buildPythonPackage rec {
     hash = "sha256-1RgxDXzijWr47mZeqfHfFnANdZKyY3QXCZoXijs5nTw=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   propagatedBuildInputs = [
     dunamai
@@ -51,13 +51,13 @@ buildPythonPackage rec {
     "test_integration"
   ];
 
-  pythonImportsCheck = [ "poetry_dynamic_versioning" ];
+  pythonImportsCheck = ["poetry_dynamic_versioning"];
 
   meta = with lib; {
     description = "Plugin for Poetry to enable dynamic versioning based on VCS tags";
     homepage = "https://github.com/mtkennerly/poetry-dynamic-versioning";
     changelog = "https://github.com/mtkennerly/poetry-dynamic-versioning/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ cpcloud ];
+    maintainers = with maintainers; [cpcloud];
   };
 }

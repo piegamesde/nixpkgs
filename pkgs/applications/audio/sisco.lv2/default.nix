@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
   ];
   sourceRoot = src.name;
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     lv2
     pango
@@ -59,7 +59,7 @@ stdenv.mkDerivation rec {
     description = "Simple audio oscilloscope with variable time scale, triggering, cursors and numeric readout in LV2 plugin format";
     homepage = "http://x42.github.io/sisco.lv2/";
     license = licenses.gpl2;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.linux;
   };
 }

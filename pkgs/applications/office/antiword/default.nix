@@ -18,11 +18,11 @@ stdenv.mkDerivation rec {
     substituteInPlace Makefile --replace "gcc" '$(CC)'
   '';
 
-  patches = [ ./10_fix_buffer_overflow_wordole_c_CVE-2014-8123.patch ];
+  patches = [./10_fix_buffer_overflow_wordole_c_CVE-2014-8123.patch];
 
-  makeFlags = [ "CC=${stdenv.cc.targetPrefix}cc" ];
+  makeFlags = ["CC=${stdenv.cc.targetPrefix}cc"];
 
-  installTargets = [ "global_install" ];
+  installTargets = ["global_install"];
 
   meta = {
     homepage = "http://www.winfield.demon.nl/";

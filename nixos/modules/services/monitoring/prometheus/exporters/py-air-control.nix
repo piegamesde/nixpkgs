@@ -51,7 +51,7 @@ in
           --listen-port ${toString cfg.port} \
           --listen-address ${cfg.listenAddress}
       '';
-      Environment = [ "HOME=${workingDir}" ];
+      Environment = ["HOME=${workingDir}"];
     };
   };
 }

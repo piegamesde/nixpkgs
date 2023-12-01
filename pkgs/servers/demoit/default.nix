@@ -15,12 +15,12 @@ buildGoModule {
     sha256 = "sha256-yRfdnqk93GOTBa0zZrm4K3AkUqxGmlrwlKYcD6CtgRg=";
   };
   vendorSha256 = null;
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   meta = with lib; {
     description = "Live coding demos without Context Switching";
     homepage = "https://github.com/dgageot/demoit";
     license = licenses.asl20;
-    maintainers = [ maintainers.freezeboy ];
+    maintainers = [maintainers.freezeboy];
   };
 }

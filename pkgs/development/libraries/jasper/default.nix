@@ -43,7 +43,7 @@ stdenv.mkDerivation rec {
       for most computing platforms when JasPer was first developed, circa 1999.
     '';
     license = licenses.free; # MIT-like
-    maintainers = with maintainers; [ AndersonTorres ];
+    maintainers = with maintainers; [AndersonTorres];
     platforms = platforms.unix;
   };
 }

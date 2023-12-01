@@ -17,9 +17,9 @@ stdenvNoCC.mkDerivation rec {
     sha256 = "0xv15m30nhcknasqiybj5wwf7l91q4a4jf6xind8x5x00c6br6nl";
   };
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
-  nativeBuildInputs = [ patsh ];
+  nativeBuildInputs = [patsh];
 
   buildInputs = [
     xorg.xauth

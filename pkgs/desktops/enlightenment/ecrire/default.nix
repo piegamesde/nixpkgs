@@ -24,9 +24,9 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  buildInputs = [ efl ];
+  buildInputs = [efl];
 
-  passthru.updateScript = directoryListingUpdater { };
+  passthru.updateScript = directoryListingUpdater {};
 
   meta = with lib; {
     description = "EFL simple text editor";

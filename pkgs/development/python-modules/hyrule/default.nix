@@ -21,20 +21,20 @@ buildPythonPackage rec {
     hash = "sha256-nQAUVX409RWlFPeknnNwFNgo7e2xHkEXkAuXazZNntk=";
   };
 
-  propagatedBuildInputs = [ hy ];
+  propagatedBuildInputs = [hy];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   # Some tests depends on hy on PATH
   preCheck = "PATH=${hy}/bin:$PATH";
 
-  pythonImportsCheck = [ "hyrule" ];
+  pythonImportsCheck = ["hyrule"];
 
   meta = with lib; {
     description = "Hyrule is a utility library for the Hy programming language";
     homepage = "https://github.com/hylang/hyrule";
     changelog = "https://github.com/hylang/hylure/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ thiagokokada ];
+    maintainers = with maintainers; [thiagokokada];
   };
 }

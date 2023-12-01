@@ -25,7 +25,7 @@
   pidgin,
   protobuf,
   sqlite,
-  plugins ? [ ],
+  plugins ? [],
 }:
 
 stdenv.mkDerivation rec {

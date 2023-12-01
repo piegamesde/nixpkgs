@@ -26,7 +26,7 @@
   tensorflow-estimator-bin,
   tensorboard,
   cudaSupport ? false,
-  cudaPackages ? { },
+  cudaPackages ? {},
   zlib,
   python,
   keras-applications,
@@ -64,7 +64,7 @@ buildPythonPackage {
       unit = if cudaSupport then "gpu" else "cpu";
       key = "${platform}_py_${pyVerNoDot}_${unit}";
     in
-    fetchurl (packages.${key} or { });
+    fetchurl (packages.${key} or {});
 
   propagatedBuildInputs = [
     astunparse
@@ -89,9 +89,9 @@ buildPythonPackage {
     keras-applications
     keras-preprocessing
     h5py
-  ] ++ lib.optional (!isPy3k) mock ++ lib.optionals (pythonOlder "3.4") [ backports_weakref ];
+  ] ++ lib.optional (!isPy3k) mock ++ lib.optionals (pythonOlder "3.4") [backports_weakref];
 
-  nativeBuildInputs = [ wheel ] ++ lib.optionals cudaSupport [ addOpenGLRunpath ];
+  nativeBuildInputs = [wheel] ++ lib.optionals cudaSupport [addOpenGLRunpath];
 
   preConfigure = ''
     unset SOURCE_DATE_EPOCH
@@ -205,7 +205,7 @@ buildPythonPackage {
   meta = with lib; {
     description = "Computation using data flow graphs for scalable machine learning";
     homepage = "http://tensorflow.org";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.asl20;
     maintainers = with maintainers; [
       jyp

@@ -9,7 +9,7 @@
   nixos-background-light ? nixos-artwork.wallpapers.simple-blue,
   nixos-background-dark ? nixos-artwork.wallpapers.simple-dark-gray,
   extraGSettingsOverrides ? "",
-  extraGSettingsOverridePackages ? [ ],
+  extraGSettingsOverridePackages ? [],
   favoriteAppsOverride ? "",
   flashbackEnabled ? false,
 }:
@@ -21,7 +21,7 @@ let
   gsettingsOverridePackages = [
     gsettings-desktop-schemas
     gnome-shell
-  ] ++ lib.optionals flashbackEnabled [ gnome-flashback ] ++ extraGSettingsOverridePackages;
+  ] ++ lib.optionals flashbackEnabled [gnome-flashback] ++ extraGSettingsOverridePackages;
 
   gsettingsOverrides = ''
     [org.gnome.desktop.background]
@@ -37,7 +37,7 @@ let
   '';
 in
 
-runCommand "gnome-gsettings-overrides" { preferLocalBuild = true; } ''
+runCommand "gnome-gsettings-overrides" {preferLocalBuild = true;} ''
   data_dir="$out/share/gsettings-schemas/nixos-gsettings-overrides"
   schema_dir="$data_dir/glib-2.0/schemas"
   mkdir -p "$schema_dir"

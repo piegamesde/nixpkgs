@@ -29,12 +29,12 @@ in
     programs._1password = {
       enable = mkEnableOption (lib.mdDoc "the 1Password CLI tool");
 
-      package = mkPackageOptionMD pkgs "1Password CLI" { default = [ "_1password" ]; };
+      package = mkPackageOptionMD pkgs "1Password CLI" {default = ["_1password"];};
     };
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
     users.groups.onepassword-cli.gid = config.ids.gids.onepassword-cli;
 
     security.wrappers = {

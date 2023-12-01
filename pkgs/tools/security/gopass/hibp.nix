@@ -19,9 +19,9 @@ buildGoModule rec {
 
   vendorHash = "sha256-Y6BMzSRzbORIbebfP+ptIswyOclM1bs1zPmLpqko//4=";
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   ldflags = [
     "-s"
@@ -32,13 +32,13 @@ buildGoModule rec {
 
   postFixup = ''
     wrapProgram $out/bin/gopass-hibp \
-      --prefix PATH : "${lib.makeBinPath [ gopass ]}"
+      --prefix PATH : "${lib.makeBinPath [gopass]}"
   '';
 
   meta = with lib; {
     description = "Gopass haveibeenpwnd.com integration";
     homepage = "https://www.gopass.pw/";
     license = licenses.mit;
-    maintainers = with maintainers; [ sikmir ];
+    maintainers = with maintainers; [sikmir];
   };
 }

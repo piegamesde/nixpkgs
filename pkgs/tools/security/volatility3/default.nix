@@ -30,7 +30,7 @@ python3.pkgs.buildPythonApplication rec {
   # Project has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "volatility3" ];
+  pythonImportsCheck = ["volatility3"];
 
   meta = with lib; {
     description = "Volatile memory extraction frameworks";
@@ -41,6 +41,6 @@ python3.pkgs.buildPythonApplication rec {
       free = false;
       url = "https://www.volatilityfoundation.org/license/vsl-v1.0";
     };
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

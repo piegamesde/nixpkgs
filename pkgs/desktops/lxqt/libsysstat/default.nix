@@ -25,9 +25,9 @@ mkDerivation rec {
     lxqt-build-tools
   ];
 
-  buildInputs = [ qtbase ];
+  buildInputs = [qtbase];
 
-  passthru.updateScript = gitUpdater { };
+  passthru.updateScript = gitUpdater {};
 
   meta = with lib; {
     broken = stdenv.isDarwin;

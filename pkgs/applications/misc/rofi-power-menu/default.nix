@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Shows a Power/Lock menu with Rofi";
     homepage = "https://github.com/jluttine/rofi-power-menu";
-    maintainers = with maintainers; [ ikervagyok ];
+    maintainers = with maintainers; [ikervagyok];
     platforms = platforms.linux;
   };
 }

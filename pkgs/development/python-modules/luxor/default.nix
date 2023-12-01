@@ -20,19 +20,19 @@ buildPythonPackage rec {
     sha256 = "GIwVEOKZAudTu2M3OM4LFVR8e22q52m/AN0anskdmWQ=";
   };
 
-  propagatedBuildInputs = [ aiohttp ];
+  propagatedBuildInputs = [aiohttp];
 
   nativeCheckInputs = [
     pytest-aiohttp
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "luxor" ];
+  pythonImportsCheck = ["luxor"];
 
   meta = with lib; {
     description = "Python module to control FX Luminaire controllers";
     homepage = "https://github.com/pbozeman/luxor";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

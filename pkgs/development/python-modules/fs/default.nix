@@ -29,7 +29,7 @@ buildPythonPackage rec {
     hash = "sha256-rpfH1RIT9LcLapWCklMCiQkN46fhWEHhCPvhRPBp0xM=";
   };
 
-  buildInputs = [ glibcLocales ];
+  buildInputs = [glibcLocales];
 
   # strong cycle with paramaterized
   doCheck = false;
@@ -46,10 +46,10 @@ buildPythonPackage rec {
       pytz
       setuptools
     ]
-    ++ lib.optionals (!isPy3k) [ backports_os ]
-    ++ lib.optionals (!pythonAtLeast "3.6") [ typing ]
-    ++ lib.optionals (!pythonAtLeast "3.5") [ scandir ]
-    ++ lib.optionals (!pythonAtLeast "3.5") [ enum34 ];
+    ++ lib.optionals (!isPy3k) [backports_os]
+    ++ lib.optionals (!pythonAtLeast "3.6") [typing]
+    ++ lib.optionals (!pythonAtLeast "3.5") [scandir]
+    ++ lib.optionals (!pythonAtLeast "3.5") [enum34];
 
   LC_ALL = "en_US.utf-8";
 
@@ -57,10 +57,10 @@ buildPythonPackage rec {
     HOME=$(mktemp -d)
   '';
 
-  pytestFlagsArray = [ "--ignore=tests/test_opener.py" ];
+  pytestFlagsArray = ["--ignore=tests/test_opener.py"];
 
   disabledTests =
-    [ "user_data_repr" ]
+    ["user_data_repr"]
     ++ lib.optionals (stdenv.isDarwin)
       [
         # remove if https://github.com/PyFilesystem/pyfilesystem2/issues/430#issue-707878112 resolved
@@ -80,7 +80,7 @@ buildPythonPackage rec {
     description = "Filesystem abstraction";
     homepage = "https://github.com/PyFilesystem/pyfilesystem2";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ lovek323 ];
+    maintainers = with maintainers; [lovek323];
     platforms = platforms.unix;
   };
 }

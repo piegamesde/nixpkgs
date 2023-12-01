@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
     openssl
   ] ++ lib.optional stdenv.hostPlatform.isUnix upx;
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   makeFlags = [
     "local=1"
@@ -71,7 +71,7 @@ stdenv.mkDerivation rec {
     cp -r {cmd,vlib,thirdparty} $out/lib
     cp v $out/lib
     ln -s $out/lib/v $out/bin/v
-    wrapProgram $out/bin/v --prefix PATH : ${lib.makeBinPath [ stdenv.cc ]}
+    wrapProgram $out/bin/v --prefix PATH : ${lib.makeBinPath [stdenv.cc]}
 
     mkdir -p $HOME/.vmodules;
     ln -sf ${markdown} $HOME/.vmodules/markdown
@@ -96,7 +96,7 @@ stdenv.mkDerivation rec {
     homepage = "https://vlang.io/";
     description = "Simple, fast, safe, compiled language for developing maintainable software";
     license = licenses.mit;
-    maintainers = with maintainers; [ Madouura ];
+    maintainers = with maintainers; [Madouura];
     mainProgram = "v";
     platforms = platforms.all;
   };

@@ -14,7 +14,7 @@ stdenv.mkDerivation rec {
   version = "10.90";
 
   src = fetchurl {
-    url = "http://static.tibia.com/download/tibia${lib.replaceStrings [ "." ] [ "" ] version}.tgz";
+    url = "http://static.tibia.com/download/tibia${lib.replaceStrings ["."] [""] version}.tgz";
     sha256 = "11mkh2dynmbpay51yfaxm5dmcys3rnpk579s9ypfkhblsrchbkhx";
   };
 
@@ -67,7 +67,7 @@ stdenv.mkDerivation rec {
     description = "Top-down MMORPG set in a fantasy world";
     homepage = "http://tibia.com";
     license = lib.licenses.unfree;
-    platforms = [ "i686-linux" ];
-    maintainers = with lib.maintainers; [ ];
+    platforms = ["i686-linux"];
+    maintainers = with lib.maintainers; [];
   };
 }

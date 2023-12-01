@@ -28,6 +28,6 @@ buildGoModule rec {
     inherit (src.meta) homepage;
     description = "Prometheus MikroTik device(s) exporter";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ mmilata ];
+    maintainers = with maintainers; [mmilata];
   };
 }

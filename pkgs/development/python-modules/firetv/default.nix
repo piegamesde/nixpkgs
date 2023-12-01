@@ -34,6 +34,6 @@ buildPythonPackage rec {
     description = "Communicate with an Amazon Fire TV device via ADB over a network";
     homepage = "https://github.com/happyleavesaoc/python-firetv/";
     license = licenses.mit;
-    maintainers = [ maintainers.makefu ];
+    maintainers = [maintainers.makefu];
   };
 }

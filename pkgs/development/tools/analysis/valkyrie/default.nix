@@ -23,15 +23,15 @@ stdenv.mkDerivation rec {
     sed -i '1s;^;#include <sys/types.h>\n;' src/utils/vk_utils.cpp
   '';
 
-  buildInputs = [ qt4 ];
+  buildInputs = [qt4];
 
-  nativeBuildInputs = [ qmake4Hook ];
+  nativeBuildInputs = [qmake4Hook];
 
   meta = with lib; {
     homepage = "http://www.valgrind.org/";
     description = "Qt4-based GUI for the Valgrind 3.6.x series";
     license = licenses.gpl2;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ pSub ];
+    maintainers = with maintainers; [pSub];
   };
 }

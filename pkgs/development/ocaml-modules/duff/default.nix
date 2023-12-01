@@ -21,7 +21,7 @@ buildDunePackage rec {
     sha256 = "sha256-0eqpfPWNOHYjkcjXRnZUTUFF0/L9E+TNoOqKCETN5hI=";
   };
 
-  propagatedBuildInputs = [ fmt ];
+  propagatedBuildInputs = [fmt];
 
   doCheck = true;
   checkInputs = [
@@ -35,6 +35,6 @@ buildDunePackage rec {
     description = "Pure OCaml implementation of libXdiff (Rabin’s fingerprint)";
     homepage = "https://github.com/mirage/duff";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
   };
 }

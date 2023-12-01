@@ -1,12 +1,12 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "make-hash";
   version = "20130615-git";
 
   description = "System lacks description";
 
-  deps = [ ];
+  deps = [];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/make-hash/2013-06-15/make-hash-20130615-git.tgz";
@@ -15,7 +15,7 @@ rec {
 
   packageName = "make-hash";
 
-  asdFilesToKeep = [ "make-hash.asd" ];
+  asdFilesToKeep = ["make-hash.asd"];
   overrides = x: x;
 }
 /* (SYSTEM make-hash DESCRIPTION System lacks description SHA256

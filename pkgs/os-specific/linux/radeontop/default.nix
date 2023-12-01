@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
     substituteInPlace Makefile --replace pkg-config "$PKG_CONFIG"
   '';
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   postInstall = ''
     wrapProgram $out/bin/radeontop \

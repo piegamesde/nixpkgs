@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [
     pkg-config
     autoreconfHook
-  ] ++ lib.optionals withGui [ wrapQtAppsHook ];
+  ] ++ lib.optionals withGui [wrapQtAppsHook];
 
   buildInputs =
     [
@@ -62,7 +62,7 @@ stdenv.mkDerivation rec {
     ];
 
   configureFlags =
-    [ "--with-boost-libdir=${boost.out}/lib" ]
+    ["--with-boost-libdir=${boost.out}/lib"]
     ++ lib.optional enableUpnp "--enable-upnp-default"
     ++ lib.optional disableWallet "--disable-wallet"
     ++ lib.optional disableDaemon "--disable-daemon"
@@ -94,7 +94,7 @@ stdenv.mkDerivation rec {
     '';
     license = licenses.mit;
     homepage = "https://pivx.org";
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     platforms = platforms.unix;
   };
 }

@@ -17,9 +17,9 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-AOIrB0FRagbA2+JEURF41d+th0AbR++U5WKCcZmh4Os=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  buildInputs = [ udev ];
+  buildInputs = [udev];
 
   meta = with lib; {
     description = "Tool to easily flash code onto an AVR microcontroller with avrdude";
@@ -29,6 +29,6 @@ rustPlatform.buildRustPackage rec {
       asl20
     ];
     platforms = platforms.linux;
-    maintainers = with maintainers; [ rvarago ];
+    maintainers = with maintainers; [rvarago];
   };
 }

@@ -14,7 +14,7 @@ buildPythonPackage rec {
     sha256 = "a2fdac9fe8a9dcf02b438201d6ce0b7be78f85dc6492d03edfb89be2adf489de";
   };
 
-  buildInputs = [ nose ];
+  buildInputs = [nose];
 
   meta = with lib; {
     homepage = "https://github.com/lepture/safe";

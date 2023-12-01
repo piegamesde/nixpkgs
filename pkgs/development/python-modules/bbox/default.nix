@@ -23,12 +23,12 @@ buildPythonPackage rec {
     numpy
   ];
 
-  pythonImportsCheck = [ "bbox" ];
+  pythonImportsCheck = ["bbox"];
 
   meta = with lib; {
     description = "Python library for 2D/3D bounding boxes";
     homepage = "https://github.com/varunagrawal/bbox";
     license = licenses.mit;
-    maintainers = with maintainers; [ lucasew ];
+    maintainers = with maintainers; [lucasew];
   };
 }

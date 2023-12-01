@@ -41,8 +41,8 @@
   profilingLibraries ? false,
   withGd ? false,
   withLibcrypt ? false,
-  extraBuildInputs ? [ ],
-  extraNativeBuildInputs ? [ ],
+  extraBuildInputs ? [],
+  extraNativeBuildInputs ? [],
   ...
 }@args:
 
@@ -177,9 +177,9 @@ stdenv.mkDerivation (
       ++ lib.optional withGd "--with-gd"
       ++ lib.optional (!withLibcrypt) "--disable-crypt";
 
-    makeFlags = [ "OBJCOPY=${stdenv.cc.targetPrefix}objcopy" ];
+    makeFlags = ["OBJCOPY=${stdenv.cc.targetPrefix}objcopy"];
 
-    installFlags = [ "sysconfdir=$(out)/etc" ];
+    installFlags = ["sysconfdir=$(out)/etc"];
 
     # out as the first output is an exception exclusive to glibc
     outputs = [
@@ -190,13 +190,13 @@ stdenv.mkDerivation (
     ];
 
     strictDeps = true;
-    depsBuildBuild = [ buildPackages.stdenv.cc ];
+    depsBuildBuild = [buildPackages.stdenv.cc];
     nativeBuildInputs = [
       bison
       python3Minimal
     ] ++ extraNativeBuildInputs;
     buildInputs =
-      [ linuxHeaders ]
+      [linuxHeaders]
       ++ lib.optionals withGd [
         gd
         libpng
@@ -310,6 +310,6 @@ stdenv.mkDerivation (
           ];
           platforms = platforms.linux;
         }
-        // (args.meta or { });
+        // (args.meta or {});
     }
 )

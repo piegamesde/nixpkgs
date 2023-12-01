@@ -6,8 +6,8 @@
   gtk3,
   hicolor-icon-theme,
   jdupes,
-  colorVariants ? [ ], # default is all
-  themeVariants ? [ ], # default is all
+  colorVariants ? [], # default is all
+  themeVariants ? [], # default is all
 }:
 
 let
@@ -47,7 +47,7 @@ lib.checkListOfEnum "${pname}: color variants"
       jdupes
     ];
 
-    propagatedBuildInputs = [ hicolor-icon-theme ];
+    propagatedBuildInputs = [hicolor-icon-theme];
 
     dontDropIconThemeCache = true;
 
@@ -65,8 +65,8 @@ lib.checkListOfEnum "${pname}: color variants"
       mkdir -p $out/share/icons
 
       name= ./install.sh \
-        ${lib.optionalString (themeVariants != [ ]) ("--theme " + builtins.toString themeVariants)} \
-        ${lib.optionalString (colorVariants != [ ]) ("--color " + builtins.toString colorVariants)} \
+        ${lib.optionalString (themeVariants != []) ("--theme " + builtins.toString themeVariants)} \
+        ${lib.optionalString (colorVariants != []) ("--color " + builtins.toString colorVariants)} \
         --dest $out/share/icons
 
       jdupes --quiet --link-soft --recurse $out/share
@@ -74,13 +74,13 @@ lib.checkListOfEnum "${pname}: color variants"
       runHook postInstall
     '';
 
-    passthru.updateScript = gitUpdater { };
+    passthru.updateScript = gitUpdater {};
 
     meta = with lib; {
       description = "Flat colorful design icon theme";
       homepage = "https://github.com/vinceliuice/Qogir-icon-theme";
-      license = with licenses; [ gpl3Only ];
+      license = with licenses; [gpl3Only];
       platforms = platforms.linux;
-      maintainers = with maintainers; [ romildo ];
+      maintainers = with maintainers; [romildo];
     };
   }

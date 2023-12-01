@@ -61,7 +61,7 @@ stdenv.mkDerivation rec {
     pango
     libsecret
     openssh
-  ] ++ lib.optionals stdenv.isLinux [ systemd ];
+  ] ++ lib.optionals stdenv.isLinux [systemd];
 
   propagatedBuildInputs = [
     glib
@@ -69,7 +69,7 @@ stdenv.mkDerivation rec {
     p11-kit
   ];
 
-  nativeCheckInputs = [ python3 ];
+  nativeCheckInputs = [python3];
 
   mesonFlags =
     [
@@ -77,7 +77,7 @@ stdenv.mkDerivation rec {
       # https://github.com/NixOS/nixpkgs/issues/140824
       "-Dssh_agent=false"
     ]
-    ++ lib.optionals (!stdenv.isLinux) [ "-Dsystemd=disabled" ];
+    ++ lib.optionals (!stdenv.isLinux) ["-Dsystemd=disabled"];
 
   doCheck = false; # fails 21 out of 603 tests, needs dbus daemon
 

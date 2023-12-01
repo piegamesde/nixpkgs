@@ -51,7 +51,7 @@ python3Packages.buildPythonApplication rec {
     description = "Decentralized websites using Bitcoin crypto and BitTorrent network";
     homepage = "https://zeronet.io/";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ fgaz ];
+    maintainers = with maintainers; [fgaz];
     knownVulnerabilities = [
       ''
         Unmaintained. Probable XSS/code injection vulnerability.

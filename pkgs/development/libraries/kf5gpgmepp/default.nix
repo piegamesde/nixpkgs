@@ -24,13 +24,13 @@ mkDerivation {
     qtbase
     boost
   ];
-  propagatedBuildInputs = [ gpgme ];
+  propagatedBuildInputs = [gpgme];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   meta = with lib; {
-    license = [ licenses.lgpl2 ];
-    maintainers = [ maintainers.ehmry ];
+    license = [licenses.lgpl2];
+    maintainers = [maintainers.ehmry];
     platforms = platforms.linux;
   };
 }

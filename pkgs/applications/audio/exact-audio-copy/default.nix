@@ -87,7 +87,7 @@ symlinkJoin {
     homepage = "https://www.exactaudiocopy.de/";
     changelog = "https://www.exactaudiocopy.de/en/index.php/resources/whats-new/whats-new/";
     license = licenses.unfree;
-    maintainers = [ maintainers.brendanreis ];
+    maintainers = [maintainers.brendanreis];
     platforms = wine.meta.platforms;
   };
 }

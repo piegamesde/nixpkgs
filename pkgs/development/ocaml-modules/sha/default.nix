@@ -16,15 +16,15 @@ buildDunePackage rec {
     hash = "sha256-beWxITmxmZzp30zHiloxiGwqVHydRIvyhT+LU7zx8bE=";
   };
 
-  propagatedBuildInputs = [ stdlib-shims ];
+  propagatedBuildInputs = [stdlib-shims];
 
   doCheck = true;
-  checkInputs = [ ounit2 ];
+  checkInputs = [ounit2];
 
   meta = with lib; {
     description = "Binding for SHA interface code in OCaml";
     homepage = "https://github.com/djs55/ocaml-sha/";
     license = licenses.isc;
-    maintainers = with maintainers; [ arthurteisseire ];
+    maintainers = with maintainers; [arthurteisseire];
   };
 }

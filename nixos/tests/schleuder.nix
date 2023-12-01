@@ -5,9 +5,9 @@ in
 import ./make-test-python.nix {
   name = "schleuder";
   nodes.machine =
-    { pkgs, ... }:
+    {pkgs, ...}:
     {
-      imports = [ ./common/user-account.nix ];
+      imports = [./common/user-account.nix];
       services.postfix = {
         enable = true;
         enableSubmission = true;
@@ -15,7 +15,7 @@ import ./make-test-python.nix {
         sslCert = "${certs.${domain}.cert}";
         sslKey = "${certs.${domain}.key}";
         inherit domain;
-        destination = [ domain ];
+        destination = [domain];
         localRecipients = [
           "root"
           "alice"
@@ -32,7 +32,7 @@ import ./make-test-python.nix {
             valid_api_keys:
               - fnord
         '';
-        lists = [ "security@${domain}" ];
+        lists = ["security@${domain}"];
         settings.api = {
           tls_cert_file = "${certs.${domain}.cert}";
           tls_key_file = "${certs.${domain}.key}";
@@ -83,7 +83,7 @@ import ./make-test-python.nix {
         # pkgs.vim pkgs.openssl pkgs.sqliteinteractive
       ];
 
-      security.pki.certificateFiles = [ certs.ca.cert ];
+      security.pki.certificateFiles = [certs.ca.cert];
 
       # Since we don't have internet here, use dnsmasq to provide MX records from /etc/hosts
       services.dnsmasq = {
@@ -127,7 +127,7 @@ import ./make-test-python.nix {
                 EOF
               '';
         in
-        [ "L+ /root/.schleuder-cli/schleuder-cli.yml - - - - ${cliconfig}" ];
+        ["L+ /root/.schleuder-cli/schleuder-cli.yml - - - - ${cliconfig}"];
     };
 
   testScript = ''

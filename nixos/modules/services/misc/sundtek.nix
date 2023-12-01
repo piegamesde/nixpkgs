@@ -17,11 +17,11 @@ in
 
   config = mkIf cfg.enable {
 
-    environment.systemPackages = [ pkgs.sundtek ];
+    environment.systemPackages = [pkgs.sundtek];
 
     systemd.services.sundtek = {
       description = "Sundtek driver";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
 
       serviceConfig = {
         Type = "oneshot";

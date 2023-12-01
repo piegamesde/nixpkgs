@@ -18,7 +18,7 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-IBer+8FP+IWWJPnaugr8zzQA9mSVFzP0Nofgl/PhtzQ=";
 
-  nativeBuildInputs = [ go-bindata ];
+  nativeBuildInputs = [go-bindata];
 
   preBuild = ''
     make assets
@@ -30,14 +30,14 @@ buildGoModule rec {
     "-X github.com/writeas/writefreely.softwareVer=${version}"
   ];
 
-  tags = [ "sqlite" ];
+  tags = ["sqlite"];
 
-  subPackages = [ "cmd/writefreely" ];
+  subPackages = ["cmd/writefreely"];
 
   meta = with lib; {
     description = "Build a digital writing community";
     homepage = "https://github.com/writeas/writefreely";
     license = licenses.agpl3Only;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

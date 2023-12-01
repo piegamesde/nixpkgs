@@ -1,12 +1,12 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "chipz";
   version = "20210807-git";
 
   description = "A library for decompressing deflate, zlib, and gzip data";
 
-  deps = [ ];
+  deps = [];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/chipz/2021-08-07/chipz-20210807-git.tgz";
@@ -15,7 +15,7 @@ rec {
 
   packageName = "chipz";
 
-  asdFilesToKeep = [ "chipz.asd" ];
+  asdFilesToKeep = ["chipz.asd"];
   overrides = x: x;
 }
 /* (SYSTEM chipz DESCRIPTION

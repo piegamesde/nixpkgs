@@ -21,7 +21,7 @@ buildNimPackage rec {
     // {
       description = "Mouse enabled widgets for illwill";
 
-      license = [ licenses.mit ];
-      maintainers = with maintainers; [ marcusramberg ];
+      license = [licenses.mit];
+      maintainers = with maintainers; [marcusramberg];
     };
 }

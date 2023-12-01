@@ -11,7 +11,7 @@ in
 stdenv.mkDerivation {
   name = "ghdl-test-simple";
   meta.timeout = 300;
-  nativeBuildInputs = [ ghdl ];
+  nativeBuildInputs = [ghdl];
   buildCommand =
     ''
       cp ${./simple.vhd} simple.vhd

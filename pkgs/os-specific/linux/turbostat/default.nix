@@ -9,8 +9,8 @@ stdenv.mkDerivation {
   pname = "turbostat";
   inherit (kernel) src version;
 
-  buildInputs = [ libcap ];
-  makeFlags = [ "PREFIX=${placeholder "out"}" ];
+  buildInputs = [libcap];
+  makeFlags = ["PREFIX=${placeholder "out"}"];
 
   postPatch = ''
     cd tools/power/x86/turbostat

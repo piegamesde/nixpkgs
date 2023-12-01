@@ -20,11 +20,11 @@ buildPythonPackage rec {
     hash = "sha256-xaLpSHRtpv5QToQEKE9FfY6Y2m31BHxrs/cbGIgunSo=";
   };
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "xkcdpass" ];
+  pythonImportsCheck = ["xkcdpass"];
 
   disabledTests =
     lib.optionals (pythonAtLeast "3.10")
@@ -42,6 +42,6 @@ buildPythonPackage rec {
     description = "Generate secure multiword passwords/passphrases, inspired by XKCD";
     homepage = "https://github.com/redacted/XKCD-password-generator";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ peterhoeg ];
+    maintainers = with maintainers; [peterhoeg];
   };
 }

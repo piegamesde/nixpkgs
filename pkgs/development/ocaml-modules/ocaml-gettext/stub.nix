@@ -11,13 +11,13 @@ buildDunePackage rec {
 
   inherit (ocaml_gettext) src version;
 
-  buildInputs = [ dune-configurator ];
+  buildInputs = [dune-configurator];
 
-  propagatedBuildInputs = [ ocaml_gettext ];
+  propagatedBuildInputs = [ocaml_gettext];
 
   doCheck = true;
 
-  checkInputs = [ ounit ];
+  checkInputs = [ounit];
 
-  meta = builtins.removeAttrs ocaml_gettext.meta [ "mainProgram" ];
+  meta = builtins.removeAttrs ocaml_gettext.meta ["mainProgram"];
 }

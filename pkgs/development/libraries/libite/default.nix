@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
     autoreconfHook
     pkg-config
   ];
-  buildInputs = [ libconfuse ];
+  buildInputs = [libconfuse];
 
   meta = with lib; {
     description = "Lightweight library of frog DNA";
@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://github.com/troglobit/libite";
     platforms = with platforms; linux ++ netbsd;
-    maintainers = with maintainers; [ fpletz ];
+    maintainers = with maintainers; [fpletz];
     license = with licenses; [
       mit
       isc

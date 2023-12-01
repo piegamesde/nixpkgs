@@ -27,9 +27,9 @@ stdenv.mkDerivation rec {
 
   sourceRoot = "source/src";
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
-  buildInputs = [ bash ];
+  buildInputs = [bash];
 
   makeFlags = [
     "DESTDIR=$(out)"

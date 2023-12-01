@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
   minimalOCamlVersion = "4.08";
 
   # strictoverflow is disabled because it breaks aarch64-darwin
-  hardeningDisable = [ "strictoverflow" ];
+  hardeningDisable = ["strictoverflow"];
 
   postPatch = ''
     patchShebangs ./
@@ -64,9 +64,9 @@ stdenv.mkDerivation rec {
     findlib
   ];
 
-  propagatedBuildInputs = [ ctypes ];
+  propagatedBuildInputs = [ctypes];
 
-  checkInputs = [ cppo ];
+  checkInputs = [cppo];
 
   strictDeps = true;
 
@@ -76,6 +76,6 @@ stdenv.mkDerivation rec {
     inherit (ocaml.meta) platforms;
     description = "Auto-generated low-level OCaml bindings for EverCrypt/HACL*";
     license = lib.licenses.asl20;
-    maintainers = [ lib.maintainers.ulrikstrid ];
+    maintainers = [lib.maintainers.ulrikstrid];
   };
 }

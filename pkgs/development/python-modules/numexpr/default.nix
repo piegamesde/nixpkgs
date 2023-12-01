@@ -20,7 +20,7 @@ buildPythonPackage rec {
     hash = "sha256-1UMlN0GNGGkbkRXWFdbaoX7oJ1uu8+3xr7v4vGmAYUc=";
   };
 
-  nativeBuildInputs = [ numpy ];
+  nativeBuildInputs = [numpy];
 
   propagatedBuildInputs = [
     numpy
@@ -39,12 +39,12 @@ buildPythonPackage rec {
     popd
   '';
 
-  pythonImportsCheck = [ "numexpr" ];
+  pythonImportsCheck = ["numexpr"];
 
   meta = with lib; {
     description = "Fast numerical array expression evaluator for NumPy";
     homepage = "https://github.com/pydata/numexpr";
     license = licenses.mit;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

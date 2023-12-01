@@ -24,7 +24,7 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-fOIzJuTXiDNJak5ilgI2KnPOCogbFWTlPL3yNQdzUUI=";
 
-  buildInputs = [ pam ];
+  buildInputs = [pam];
 
   buildPhase = ''
     runHook preBuild
@@ -61,6 +61,6 @@ buildGoModule rec {
     description = "PAM module to authenticate using SSH certificates";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ lukegb ];
+    maintainers = with maintainers; [lukegb];
   };
 }

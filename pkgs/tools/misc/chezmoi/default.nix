@@ -27,7 +27,7 @@ buildGoModule rec {
     "-X main.builtBy=nixpkgs"
   ];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = ''
     installShellCompletion --bash --name chezmoi.bash completions/chezmoi-completion.bash
@@ -35,13 +35,13 @@ buildGoModule rec {
     installShellCompletion --zsh completions/chezmoi.zsh
   '';
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   meta = with lib; {
     homepage = "https://www.chezmoi.io/";
     description = "Manage your dotfiles across multiple machines, securely";
     changelog = "https://github.com/twpayne/chezmoi/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ jhillyerd ];
+    maintainers = with maintainers; [jhillyerd];
   };
 }

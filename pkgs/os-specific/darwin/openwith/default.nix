@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-lysleg3qM2MndXeKjNk+Y9Tkk40urXA2ZdxY5KZNANo=";
   };
 
-  nativeBuildInputs = [ swift ];
+  nativeBuildInputs = [swift];
 
   buildInputs = [
     AppKit
@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
     UniformTypeIdentifiers
   ];
 
-  makeFlags = [ "openwith_${arch}" ];
+  makeFlags = ["openwith_${arch}"];
 
   installPhase = ''
     runHook preInstall
@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
     description = "Utility to specify which application bundle should open specific file extensions";
     homepage = "https://github.com/jdek/openwith";
     license = licenses.unlicense;
-    maintainers = with maintainers; [ zowoq ];
+    maintainers = with maintainers; [zowoq];
     platforms = [
       "aarch64-darwin"
       "x86_64-darwin"

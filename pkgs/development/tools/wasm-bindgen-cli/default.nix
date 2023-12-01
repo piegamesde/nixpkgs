@@ -22,19 +22,19 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-vcpxcRlW1OKoD64owFF6mkxSqmNrvY+y3Ckn5UwEQ50=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs =
-    [ openssl ]
+    [openssl]
     ++ lib.optionals stdenv.isDarwin [
       curl
       Security
     ];
 
-  nativeCheckInputs = [ nodejs ];
+  nativeCheckInputs = [nodejs];
 
   # other tests require it to be ran in the wasm-bindgen monorepo
-  cargoTestFlags = [ "--test=interface-types" ];
+  cargoTestFlags = ["--test=interface-types"];
 
   meta = with lib; {
     homepage = "https://rustwasm.github.io/docs/wasm-bindgen/";

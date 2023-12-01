@@ -11,7 +11,7 @@
 
 # This derivation does not provide any Python module and should therefore be called via `all-packages.nix`.
 let
-  pythonEnv = python3.withPackages (ps: with ps; [ sphinx ]);
+  pythonEnv = python3.withPackages (ps: with ps; [sphinx]);
 in
 stdenv.mkDerivation rec {
   pname = "pyside-apiextractor";
@@ -47,7 +47,7 @@ stdenv.mkDerivation rec {
     description = "Eases the development of bindings of Qt-based libraries for high level languages by automating most of the process";
     license = licenses.gpl2;
     homepage = "http://www.pyside.org/docs/apiextractor/";
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.all;
   };
 }

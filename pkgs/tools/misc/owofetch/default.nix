@@ -31,6 +31,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/netthier/owofetch-rs";
     license = licenses.gpl3Only;
     platforms = platforms.x86_64;
-    maintainers = with maintainers; [ nullishamy ];
+    maintainers = with maintainers; [nullishamy];
   };
 }

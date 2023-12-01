@@ -8,7 +8,7 @@
   pkg,
   version,
   sha256,
-  meta ? { },
+  meta ? {},
 }:
 
 stdenv.mkDerivation ({

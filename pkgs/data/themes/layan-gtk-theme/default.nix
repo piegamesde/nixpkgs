@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-FI8+AJlcPHGOzxN6HUKLtPGLe8JTfTQ9Az9NsvVUK7g=";
   };
 
-  propagatedUserEnvPkgs = [ gtk-engine-murrine ];
+  propagatedUserEnvPkgs = [gtk-engine-murrine];
 
   postPatch = ''
     patchShebangs install.sh
@@ -34,6 +34,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/vinceliuice/Layan-gtk-theme";
     license = licenses.gpl3Only;
     platforms = platforms.linux;
-    maintainers = [ maintainers.vanilla ];
+    maintainers = [maintainers.vanilla];
   };
 }

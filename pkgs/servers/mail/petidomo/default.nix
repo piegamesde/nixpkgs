@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
     bison
   ];
 
-  configureFlags = [ "--with-mta=${sendmailPath}" ];
+  configureFlags = ["--with-mta=${sendmailPath}"];
 
   enableParallelBuilding = true;
 
@@ -33,6 +33,6 @@ stdenv.mkDerivation rec {
     license = lib.licenses.gpl3Plus;
 
     platforms = lib.platforms.unix;
-    maintainers = [ lib.maintainers.peti ];
+    maintainers = [lib.maintainers.peti];
   };
 }

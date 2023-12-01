@@ -14,7 +14,7 @@ stdenv.mkDerivation rec {
     sha256 = "0iginbz2m15hcsa3x4y7v3mhk54gr1r7m3ghx0pg4n46vv2snmpi";
   };
 
-  buildInputs = [ zlib ];
+  buildInputs = [zlib];
 
   doCheck = true;
 
@@ -31,6 +31,6 @@ stdenv.mkDerivation rec {
 
     license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.linux;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

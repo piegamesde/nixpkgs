@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
     libXpm
     libXext
   ];
-  nativeBuildInputs = [ imake ];
+  nativeBuildInputs = [imake];
 
   env.NIX_CFLAGS_COMPILE = " -isystem ${libXpm.dev}/include/X11 ";
 
@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
     sed -e 's/CC = gcc/CC = cc/g' -i src/Imakefile
   '';
 
-  makeFlags = [ "BINDIR=$(out)/bin" ];
+  makeFlags = ["BINDIR=$(out)/bin"];
 
   postInstall = lib.optionalString withNethackLevels ''
     gzip < ${nethackLevels} > "$out/share/games/lib/xsok/Nethack.def.gz"
@@ -54,7 +54,7 @@ stdenv.mkDerivation rec {
   meta = {
     description = "A generic Sokoban game for X11";
     license = lib.licenses.gpl2Plus;
-    maintainers = [ lib.maintainers.raskin ];
+    maintainers = [lib.maintainers.raskin];
     platforms = lib.platforms.unix;
     homepage = "https://tracker.debian.org/pkg/xsok";
   };

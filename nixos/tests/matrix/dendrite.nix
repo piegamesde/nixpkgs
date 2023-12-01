@@ -1,23 +1,23 @@
 import ../make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   let
     homeserverUrl = "http://homeserver:8008";
 
     private_key =
-      pkgs.runCommand "matrix_key.pem" { buildInputs = [ pkgs.dendrite ]; }
+      pkgs.runCommand "matrix_key.pem" {buildInputs = [pkgs.dendrite];}
         "generate-keys --private-key $out";
   in
   {
     name = "dendrite";
-    meta = with pkgs.lib; { maintainers = teams.matrix.members; };
+    meta = with pkgs.lib; {maintainers = teams.matrix.members;};
 
     nodes = {
       homeserver =
-        { pkgs, ... }:
+        {pkgs, ...}:
         {
           services.dendrite = {
             enable = true;
-            loadCredential = [ "test_private_key:${private_key}" ];
+            loadCredential = ["test_private_key:${private_key}"];
             openRegistration = true;
             settings = {
               global.server_name = "test-dendrite-server.com";
@@ -26,14 +26,14 @@ import ../make-test-python.nix (
             };
           };
 
-          networking.firewall.allowedTCPPorts = [ 8008 ];
+          networking.firewall.allowedTCPPorts = [8008];
         };
 
       client =
-        { pkgs, ... }:
+        {pkgs, ...}:
         {
           environment.systemPackages = [
-            (pkgs.writers.writePython3Bin "do_test" { libraries = [ pkgs.python3Packages.matrix-nio ]; } ''
+            (pkgs.writers.writePython3Bin "do_test" {libraries = [pkgs.python3Packages.matrix-nio];} ''
               import asyncio
 
               from nio import AsyncClient

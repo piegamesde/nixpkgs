@@ -82,7 +82,7 @@ in
 
       session = mkOption {
         internal = true;
-        default = [ ];
+        default = [];
         example = singleton {
           name = "kde";
           bgSupport = true;

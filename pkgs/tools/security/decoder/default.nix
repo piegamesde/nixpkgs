@@ -28,9 +28,9 @@ stdenv.mkDerivation rec {
       })
     ];
 
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
 
-  makeFlags = [ "OPENSSL=y" ];
+  makeFlags = ["OPENSSL=y"];
 
   installPhase = ''
     runHook preInstall
@@ -45,6 +45,6 @@ stdenv.mkDerivation rec {
     description = ''"secrets" decoding for FRITZ!OS devices'';
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ Luflosi ];
+    maintainers = with maintainers; [Luflosi];
   };
 }

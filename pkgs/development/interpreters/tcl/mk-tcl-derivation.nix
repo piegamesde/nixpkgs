@@ -8,23 +8,23 @@
 }:
 
 {
-  buildInputs ? [ ],
-  nativeBuildInputs ? [ ],
-  propagatedBuildInputs ? [ ],
-  checkInputs ? [ ],
-  nativeCheckInputs ? [ ],
+  buildInputs ? [],
+  nativeBuildInputs ? [],
+  propagatedBuildInputs ? [],
+  checkInputs ? [],
+  nativeCheckInputs ? [],
 
   # true if we should skip the configuration phase altogether
   dontConfigure ? false,
 
   # Extra flags passed to configure step
-  configureFlags ? [ ],
+  configureFlags ? [],
 
   # Whether or not we should add common Tcl-related configure flags
   addTclConfigureFlags ? true,
 
-  meta ? { },
-  passthru ? { },
+  meta ? {},
+  passthru ? {},
   doCheck ? true,
   ...
 }@attrs:
@@ -50,20 +50,20 @@ let
       ])
       // {
 
-        buildInputs = buildInputs ++ [ tcl.tclPackageHook ];
+        buildInputs = buildInputs ++ [tcl.tclPackageHook];
         nativeBuildInputs = nativeBuildInputs ++ [
           makeWrapper
           tcl
         ];
-        propagatedBuildInputs = propagatedBuildInputs ++ [ tcl ];
+        propagatedBuildInputs = propagatedBuildInputs ++ [tcl];
 
         TCLSH = "${getBin tcl}/bin/tclsh";
 
         # Run tests after install, at which point we've done all TCLLIBPATH setup
         doCheck = false;
         doInstallCheck = attrs.doCheck or (attrs.doInstallCheck or false);
-        installCheckInputs = checkInputs ++ (attrs.installCheckInputs or [ ]);
-        nativeInstallCheckInputs = nativeCheckInputs ++ (attrs.nativeInstallCheckInputs or [ ]);
+        installCheckInputs = checkInputs ++ (attrs.installCheckInputs or []);
+        nativeInstallCheckInputs = nativeCheckInputs ++ (attrs.nativeInstallCheckInputs or []);
 
         # Add typical values expected by TEA for configureFlags
         configureFlags =
@@ -76,7 +76,7 @@ let
           platforms = tcl.meta.platforms;
         } // meta;
       }
-      // optionalAttrs (attrs ? checkPhase) { installCheckPhase = attrs.checkPhase; }
+      // optionalAttrs (attrs ? checkPhase) {installCheckPhase = attrs.checkPhase;}
     ));
 in
 lib.extendDerivation true passthru self

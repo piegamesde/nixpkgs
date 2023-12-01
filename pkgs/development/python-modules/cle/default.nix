@@ -41,7 +41,7 @@ buildPythonPackage rec {
     hash = "sha256-D5qIuu8pqnkroU3ChmhseVitLrUJjwXr01MG7ing2Zk=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs = [
     cffi
@@ -76,12 +76,12 @@ buildPythonPackage rec {
     "test_remote_file_map"
   ];
 
-  pythonImportsCheck = [ "cle" ];
+  pythonImportsCheck = ["cle"];
 
   meta = with lib; {
     description = "Python loader for many binary formats";
     homepage = "https://github.com/angr/cle";
-    license = with licenses; [ bsd2 ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [bsd2];
+    maintainers = with maintainers; [fab];
   };
 }

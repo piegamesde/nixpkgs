@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
   outputs = [
     "out"
     "dev"
-  ] ++ lib.optionals withIntrospection [ "devdoc" ];
+  ] ++ lib.optionals withIntrospection ["devdoc"];
 
   src = fetchurl {
     url = "mirror://gnome/sources/${pname}/${lib.versions.majorMinor version}/${pname}-${version}.tar.xz";
@@ -55,7 +55,7 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  depsBuildBuild = [ pkg-config ];
+  depsBuildBuild = [pkg-config];
 
   nativeBuildInputs =
     [
@@ -169,7 +169,7 @@ stdenv.mkDerivation rec {
   passthru = {
     updateScript =
       let
-        updateSource = gnome.updateScript { packageName = "librsvg"; };
+        updateSource = gnome.updateScript {packageName = "librsvg";};
 
         updateLockfile = {
           command = [
@@ -196,7 +196,7 @@ stdenv.mkDerivation rec {
             ''
           ];
           # Experimental feature: do not copy!
-          supportedFeatures = [ "silent" ];
+          supportedFeatures = ["silent"];
         };
       in
       _experimental-update-script-combinators.sequence [

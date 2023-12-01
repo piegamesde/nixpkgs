@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
 
   dontUnpack = true;
 
-  passAsFile = [ "polyWrapper" ];
+  passAsFile = ["polyWrapper"];
   polyWrapper = ''
     #!${runtimeShell}
     ARGS=""
@@ -50,7 +50,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "A tool used to develop Polylith based architectures in Clojure";
     homepage = "https://github.com/polyfy/polylith";
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with sourceTypes; [binaryBytecode];
     license = licenses.epl10;
     maintainers = with maintainers; [
       ericdallo

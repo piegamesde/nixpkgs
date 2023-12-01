@@ -17,12 +17,12 @@ stdenv.mkDerivation rec {
     sha256 = "1q66cksms4l62y0wizb8vfavhmf7kyfgcfkynil3n99s0hny1aqp";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
   buildInputs = [
     libpng
     perl
   ];
-  propagatedBuildInputs = [ perlPackages.LWP ];
+  propagatedBuildInputs = [perlPackages.LWP];
 
   # Fixes a build failure on aarch64-darwin. Define for all Darwin targets for when x86_64-darwin
   # upgrades to a newer SDK.

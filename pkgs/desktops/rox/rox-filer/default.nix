@@ -47,7 +47,7 @@ stdenv.mkDerivation rec {
   setSourceRoot = "export sourceRoot=rox-filer-${version}/ROX-Filer/";
 
   # account for 'setSourceRoot' offset
-  patchFlags = [ "-p2" ];
+  patchFlags = ["-p2"];
 
   # patch the main.c to disable the lookup of the APP_DIR environment variable,
   # which is used to lookup the location for certain images when rox-filer
@@ -101,6 +101,6 @@ stdenv.mkDerivation rec {
       lgpl2
     ];
     platforms = platforms.linux;
-    maintainers = [ maintainers.eleanor ];
+    maintainers = [maintainers.eleanor];
   };
 }

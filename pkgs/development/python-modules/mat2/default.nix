@@ -47,7 +47,7 @@ buildPythonPackage rec {
           exiftool = "${exiftool}/bin/exiftool";
           ffmpeg = "${ffmpeg}/bin/ffmpeg";
         }
-        // lib.optionalAttrs dolphinIntegration { kdialog = "${plasma5Packages.kdialog}/bin/kdialog"; }
+        // lib.optionalAttrs dolphinIntegration {kdialog = "${plasma5Packages.kdialog}/bin/kdialog";}
       ))
       # the executable shouldn't be called .mat2-wrapped
       ./executable-name.patch
@@ -94,15 +94,15 @@ buildPythonPackage rec {
       install -Dm 444 dolphin/mat2.desktop -t "$out/share/kservices5/ServiceMenus"
     '';
 
-  nativeCheckInputs = [ unittestCheckHook ];
+  nativeCheckInputs = [unittestCheckHook];
 
-  unittestFlagsArray = [ "-v" ];
+  unittestFlagsArray = ["-v"];
 
   meta = with lib; {
     description = "A handy tool to trash your metadata";
     homepage = "https://0xacab.org/jvoisin/mat2";
     changelog = "https://0xacab.org/jvoisin/mat2/-/blob/${version}/CHANGELOG.md";
     license = licenses.lgpl3Plus;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

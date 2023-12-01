@@ -21,6 +21,6 @@ rustPlatform.buildRustPackage rec {
     description = "Simplified Find command made with Rust";
     homepage = "https://github.com/LyonSyonII/hunt";
     license = licenses.mit;
-    maintainers = with maintainers; [ dit7ya ];
+    maintainers = with maintainers; [dit7ya];
   };
 }

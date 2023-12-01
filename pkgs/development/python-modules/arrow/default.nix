@@ -27,9 +27,7 @@ buildPythonPackage rec {
     sed -i "/addopts/d" tox.ini
   '';
 
-  propagatedBuildInputs = [
-    python-dateutil
-  ] ++ lib.optionals (pythonOlder "3.8") [ typing-extensions ];
+  propagatedBuildInputs = [python-dateutil] ++ lib.optionals (pythonOlder "3.8") [typing-extensions];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -39,14 +37,14 @@ buildPythonPackage rec {
   ];
 
   # ParserError: Could not parse timezone expression "America/Nuuk"
-  disabledTests = [ "test_parse_tz_name_zzz" ];
+  disabledTests = ["test_parse_tz_name_zzz"];
 
-  pythonImportsCheck = [ "arrow" ];
+  pythonImportsCheck = ["arrow"];
 
   meta = with lib; {
     description = "Python library for date manipulation";
     homepage = "https://github.com/crsmithdev/arrow";
     license = licenses.asl20;
-    maintainers = with maintainers; [ thoughtpolice ];
+    maintainers = with maintainers; [thoughtpolice];
   };
 }

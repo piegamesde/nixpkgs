@@ -17,8 +17,8 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-1KWoGbdjF8VI4th/ZjAzASgsLEuS3xiwObulzxQAppA=";
   };
 
-  nativeBuildInputs = [ cmake ];
-  buildInputs = [ sfml ];
+  nativeBuildInputs = [cmake];
+  buildInputs = [sfml];
 
   postPatch = ''
     substituteInPlace src/main.cpp \
@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/johnBuffer/AntSimulator";
     description = "Simple Ants simulator";
     license = licenses.free;
-    maintainers = with maintainers; [ ivar ];
+    maintainers = with maintainers; [ivar];
     platforms = platforms.unix;
   };
 }

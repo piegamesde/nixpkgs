@@ -75,7 +75,7 @@ buildPythonPackage rec {
     ++ lib.optionals (pythonAtLeast "3.11") [
       (fetchpatch {
         url = "https://github.com/twisted/twisted/pull/11734.diff";
-        excludes = [ ".github/workflows/*" ];
+        excludes = [".github/workflows/*"];
         hash = "sha256-Td08pDxHwl7fPLCA6rUySuXpy8YmZfvXPHGsBpdcmSo=";
       })
       (fetchpatch {
@@ -157,7 +157,7 @@ buildPythonPackage rec {
       git
       glibcLocales
       # "hypothesis" indirectly depends on twisted to build its documentation.
-      (hypothesis.override { enableDocumentation = false; })
+      (hypothesis.override {enableDocumentation = false;})
       pyhamcrest
     ]
     ++ passthru.optional-dependencies.conch
@@ -179,12 +179,12 @@ buildPythonPackage rec {
         cryptography
         pyasn1
       ];
-      conch_nacl = conch ++ [ pynacl ];
+      conch_nacl = conch ++ [pynacl];
       http2 = [
         h2
         priority
       ];
-      serial = [ pyserial ];
+      serial = [pyserial];
       tls = [
         idna
         pyopenssl
@@ -213,6 +213,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/twisted/twisted";
     description = "Asynchronous networking framework written in Python";
     license = licenses.mit;
-    maintainers = with maintainers; [ SuperSandro2000 ];
+    maintainers = with maintainers; [SuperSandro2000];
   };
 }

@@ -20,14 +20,14 @@ buildPythonPackage rec {
     hash = "sha256-kTmuiy0IbTGjDokZjxp3p8lr/0uVxG/0pRN2hETLBtA=";
   };
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
   # give a hint to setuptools-scm on package version
   SETUPTOOLS_SCM_PRETEND_VERSION = "v${version}";
 
-  propagatedBuildInputs = [ blspy ];
+  propagatedBuildInputs = [blspy];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTestPaths =
     [
@@ -35,7 +35,7 @@ buildPythonPackage rec {
       "tests/cmds_test.py"
     ];
 
-  pythonImportsCheck = [ "clvm" ];
+  pythonImportsCheck = ["clvm"];
 
   meta = with lib; {
     description = "Chia Lisp virtual machine";

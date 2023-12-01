@@ -14,7 +14,7 @@
   mpi,
   onebitSGDSupport ? false,
   cudaSupport ? false,
-  cudaPackages ? { },
+  cudaPackages ? {},
   addOpenGLRunpath,
   cudatoolkit,
   nvidia_x11,
@@ -70,7 +70,7 @@ stdenv.mkDerivation rec {
                 'SetTotalBytesLimit(limit)'
   '';
 
-  nativeBuildInputs = [ cmake ] ++ lib.optional cudaSupport addOpenGLRunpath;
+  nativeBuildInputs = [cmake] ++ lib.optional cudaSupport addOpenGLRunpath;
 
   # Force OpenMPI to use g++ in PATH.
   OMPI_CXX = "g++";
@@ -147,8 +147,8 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/Microsoft/CNTK";
     description = "An open source deep-learning toolkit";
     license = if onebitSGDSupport then licenses.unfreeRedistributable else licenses.mit;
-    platforms = [ "x86_64-linux" ];
-    maintainers = with maintainers; [ abbradar ];
+    platforms = ["x86_64-linux"];
+    maintainers = with maintainers; [abbradar];
     # Newer cub is included with cudatoolkit now and it breaks the build.
     # https://github.com/Microsoft/CNTK/issues/3191
     # broken = cudaSupport;

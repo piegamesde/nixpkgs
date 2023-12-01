@@ -88,7 +88,7 @@ stdenv.mkDerivation {
     sha256 = "0n40927c8cnjackfns68zwl7h4d7dvhf7cyqdkazzwwx4k2xxvma";
   };
 
-  patches = [ ./0001-fix-locale.patch ];
+  patches = [./0001-fix-locale.patch];
 
   nativeBuildInputs = [
     makeWrapper
@@ -159,9 +159,9 @@ stdenv.mkDerivation {
   meta = with lib; {
     description = "GUI for managing Windows programs under linux";
     homepage = "https://www.playonlinux.com/";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.gpl3;
-    maintainers = [ maintainers.pasqui23 ];
+    maintainers = [maintainers.pasqui23];
     platforms = [
       "x86_64-linux"
       "i686-linux"

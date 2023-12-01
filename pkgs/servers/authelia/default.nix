@@ -8,13 +8,13 @@
 }:
 
 let
-  inherit (import ./sources.nix { inherit fetchFromGitHub; })
+  inherit (import ./sources.nix {inherit fetchFromGitHub;})
     pname
     version
     src
     vendorHash
     ;
-  web = callPackage ./web.nix { };
+  web = callPackage ./web.nix {};
 in
 buildGoModule rec {
   inherit
@@ -24,13 +24,13 @@ buildGoModule rec {
     vendorHash
     ;
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postPatch = ''
     cp -r ${web}/share/authelia-web/* internal/server/public_html
   '';
 
-  subPackages = [ "cmd/authelia" ];
+  subPackages = ["cmd/authelia"];
 
   ldflags =
     let

@@ -31,8 +31,8 @@ stdenv.mkDerivation rec {
       ready to run.
       It is especially intended for ISPs and other network operators.
     '';
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
     license = licenses.asl20;
-    maintainers = [ maintainers.lukego ];
+    maintainers = [maintainers.lukego];
   };
 }

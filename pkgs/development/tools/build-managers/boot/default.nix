@@ -18,13 +18,13 @@ stdenv.mkDerivation rec {
 
   builder = ./builder.sh;
 
-  propagatedBuildInputs = [ jdk ];
+  propagatedBuildInputs = [jdk];
 
   meta = with lib; {
     description = "Build tooling for Clojure";
     homepage = "https://boot-clj.github.io/";
     license = licenses.epl10;
     platforms = platforms.linux ++ platforms.darwin;
-    maintainers = with maintainers; [ ragge ];
+    maintainers = with maintainers; [ragge];
   };
 }

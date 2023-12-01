@@ -8,7 +8,7 @@
   pname,
   version,
   hash,
-  metaCommon ? { },
+  metaCommon ? {},
 }:
 
 let
@@ -19,7 +19,7 @@ let
     inherit hash;
   };
 
-  extracted = appimageTools.extractType2 { inherit pname version src; };
+  extracted = appimageTools.extractType2 {inherit pname version src;};
 in
 (appimageTools.wrapType2 {
   inherit pname version src;
@@ -49,7 +49,7 @@ in
   '';
 
   meta = metaCommon // {
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
     mainProgram = "losslesscut";
   };
 })

@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-4w5aQIh3loHrxFGhWt6pW2jgj/JuqQSYmNsnAkEuKoI=";
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
   buildInputs = [
     openssl
     nettle
@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
     homepage = "https://radsecproxy.github.io/";
     description = "A generic RADIUS proxy that supports both UDP and TLS (RadSec) RADIUS transports";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ sargon ];
+    maintainers = with maintainers; [sargon];
     platforms = with platforms; linux;
   };
 }

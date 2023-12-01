@@ -77,6 +77,6 @@ stdenv.mkDerivation {
     description = "Abstract shooter created by Kenta Cho";
     homepage = "https://rrootage.sourceforge.net/";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ fgaz ];
+    maintainers = with maintainers; [fgaz];
   };
 }

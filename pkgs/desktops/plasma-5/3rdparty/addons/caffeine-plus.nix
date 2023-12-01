@@ -23,14 +23,14 @@ mkDerivation rec {
     plasma-framework
   ];
 
-  nativeBuildInputs = [ extra-cmake-modules ];
+  nativeBuildInputs = [extra-cmake-modules];
 
-  cmakeFlags = [ "-Wno-dev" ];
+  cmakeFlags = ["-Wno-dev"];
 
   meta = with lib; {
     description = "Disable screensaver and auto suspend";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ peterhoeg ];
+    maintainers = with maintainers; [peterhoeg];
     inherit (src.meta) homepage;
     inherit (kwindowsystem.meta) platforms;
   };

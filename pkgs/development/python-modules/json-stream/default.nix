@@ -23,25 +23,25 @@ buildPythonPackage rec {
     hash = "sha256-MwDpX3ISJxo0Am3t/uuUC8GTyZFuUFGt1g7BeTY1z/0=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  buildInputs = lib.optionals stdenv.isDarwin [ iconv ];
+  buildInputs = lib.optionals stdenv.isDarwin [iconv];
 
   propagatedBuildInputs = [
     requests
     json-stream-rs-tokenizer
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "json_stream" ];
+  pythonImportsCheck = ["json_stream"];
 
-  disabledTests = [ "test_writer" ];
+  disabledTests = ["test_writer"];
 
   meta = with lib; {
     description = "Streaming JSON parser";
     homepage = "https://github.com/daggaz/json-stream";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

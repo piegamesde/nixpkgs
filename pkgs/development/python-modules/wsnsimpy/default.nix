@@ -29,12 +29,12 @@ buildPythonPackage rec {
   # fail because no DISPLAYs are available.
   doCheck = false;
 
-  pythonImportsCheck = [ "wsnsimpy" ] ++ lib.optional enableVisualization "wsnsimpy.wsnsimpy_tk";
+  pythonImportsCheck = ["wsnsimpy"] ++ lib.optional enableVisualization "wsnsimpy.wsnsimpy_tk";
 
   meta = with lib; {
     description = "SimPy-based WSN Simulator";
     homepage = "https://pypi.org/project/wsnsimpy/";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ dmrauh ];
+    maintainers = with maintainers; [dmrauh];
   };
 }

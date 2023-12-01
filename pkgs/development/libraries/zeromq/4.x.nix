@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
     asciidoc
     pkg-config
   ];
-  buildInputs = [ libsodium ];
+  buildInputs = [libsodium];
 
   doCheck = false; # fails all the tests (ctest)
 
@@ -37,6 +37,6 @@ stdenv.mkDerivation rec {
     description = "The Intelligent Transport Layer";
     license = licenses.gpl3;
     platforms = platforms.all;
-    maintainers = with maintainers; [ fpletz ];
+    maintainers = with maintainers; [fpletz];
   };
 }

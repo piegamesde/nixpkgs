@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
   ];
 
   # the project uses single argument `printf` throughout the program
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   meta = {
     description = "ARPA2 ID and ACL libraries and other core data structures for ARPA2";
@@ -59,7 +59,7 @@ stdenv.mkDerivation rec {
       cc0
       isc
     ];
-    maintainers = with lib.maintainers; [ fufexan ];
+    maintainers = with lib.maintainers; [fufexan];
     platforms = lib.platforms.linux;
   };
 }

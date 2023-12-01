@@ -177,7 +177,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/BuddiesOfBudgie/budgie-control-center";
     mainProgram = "budgie-control-center";
     platforms = platforms.linux;
-    maintainers = [ maintainers.federicoschonborn ];
+    maintainers = [maintainers.federicoschonborn];
     license = licenses.gpl2Plus;
   };
 }

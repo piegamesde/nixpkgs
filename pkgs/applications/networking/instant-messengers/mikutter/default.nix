@@ -48,21 +48,21 @@ let
   };
 
   mkDesktopItem =
-    { description }:
+    {description}:
     makeDesktopItem {
       name = "mikutter";
       desktopName = "mikutter";
       exec = "mikutter";
       icon = "mikutter";
-      categories = [ "Network" ];
+      categories = ["Network"];
       comment = description;
-      keywords = [ "Mastodon" ];
+      keywords = ["Mastodon"];
     };
 
   mkInfoPlist =
-    { version }:
+    {version}:
     writeText "Info.plist" (
-      lib.generators.toPlist { } {
+      lib.generators.toPlist {} {
         CFBundleName = "mikutter";
         CFBundleDisplayName = "mikutter";
         CFBundleExecutable = "mikutter";
@@ -90,7 +90,7 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [
     copyDesktopItems
     wrapGAppsHook
-  ] ++ lib.optionals stdenv.isDarwin [ libicns ];
+  ] ++ lib.optionals stdenv.isDarwin [libicns];
   buildInputs = [
     atk
     gtk2
@@ -98,7 +98,7 @@ stdenv.mkDerivation rec {
     libnotify
     which # some plugins use it at runtime
     wrappedRuby
-  ] ++ lib.optionals stdenv.isLinux [ alsa-utils ];
+  ] ++ lib.optionals stdenv.isLinux [alsa-utils];
 
   scriptPath = lib.makeBinPath (
     [
@@ -106,7 +106,7 @@ stdenv.mkDerivation rec {
       libnotify
       which
     ]
-    ++ lib.optionals stdenv.isLinux [ alsa-utils ]
+    ++ lib.optionals stdenv.isLinux [alsa-utils]
   );
 
   postUnpack = ''
@@ -137,7 +137,7 @@ stdenv.mkDerivation rec {
 
   postInstall =
     let
-      infoPlist = mkInfoPlist { inherit version; };
+      infoPlist = mkInfoPlist {inherit version;};
     in
     lib.optionalString stdenv.isDarwin ''
       mkdir -p ${appBinDir} ${appResourceDir}
@@ -157,7 +157,7 @@ stdenv.mkDerivation rec {
     runHook postInstallCheck
   '';
 
-  desktopItems = [ (mkDesktopItem { inherit (meta) description; }) ];
+  desktopItems = [(mkDesktopItem {inherit (meta) description;})];
 
   doInstallCheck = true;
   dontWrapGApps = true; # the target is placed outside of bin/

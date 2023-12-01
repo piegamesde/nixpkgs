@@ -5,12 +5,12 @@ args@{
 }:
 
 (import ../make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   let
     adminuser = "root";
     adminpass = "notproduction";
     nextcloudBase = {
-      networking.firewall.allowedTCPPorts = [ 80 ];
+      networking.firewall.allowedTCPPorts = [80];
       system.stateVersion = "22.05"; # stateVersions <22.11 use openssl 1.1 by default
       services.nextcloud = {
         enable = true;
@@ -21,20 +21,20 @@ args@{
   in
   {
     name = "nextcloud-openssl";
-    meta = with pkgs.lib.maintainers; { maintainers = [ ma27 ]; };
+    meta = with pkgs.lib.maintainers; {maintainers = [ma27];};
     nodes.nextcloudwithopenssl1 = {
-      imports = [ nextcloudBase ];
+      imports = [nextcloudBase];
       services.nextcloud.hostName = "nextcloudwithopenssl1";
     };
     nodes.nextcloudwithopenssl3 = {
-      imports = [ nextcloudBase ];
+      imports = [nextcloudBase];
       services.nextcloud = {
         hostName = "nextcloudwithopenssl3";
         enableBrokenCiphersForSSE = false;
       };
     };
     testScript =
-      { nodes, ... }:
+      {nodes, ...}:
       let
         withRcloneEnv =
           host:

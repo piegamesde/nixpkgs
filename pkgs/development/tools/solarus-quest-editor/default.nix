@@ -36,7 +36,7 @@ mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   buildInputs = [
     luajit
@@ -62,7 +62,7 @@ mkDerivation rec {
     '';
     homepage = "https://www.solarus-games.org";
     license = licenses.gpl3;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.linux;
   };
 }

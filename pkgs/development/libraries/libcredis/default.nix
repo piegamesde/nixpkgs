@@ -29,6 +29,6 @@ stdenv.mkDerivation rec {
     homepage = "https://code.google.com/archive/p/credis/";
     license = licenses.bsd3; # from homepage
     platforms = platforms.all;
-    maintainers = [ maintainers.bjornfor ];
+    maintainers = [maintainers.bjornfor];
   };
 }

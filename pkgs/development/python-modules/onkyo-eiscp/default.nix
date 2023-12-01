@@ -24,6 +24,6 @@ buildPythonPackage rec {
     description = "Control Onkyo receivers over ethernet";
     homepage = "https://github.com/miracle2k/onkyo-eiscp";
     license = licenses.mit;
-    maintainers = with maintainers; [ peterhoeg ];
+    maintainers = with maintainers; [peterhoeg];
   };
 }

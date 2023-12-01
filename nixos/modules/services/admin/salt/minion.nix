@@ -31,7 +31,7 @@ in
       enable = mkEnableOption (lib.mdDoc "Salt minion service");
       configuration = mkOption {
         type = types.attrs;
-        default = { };
+        default = {};
         description = lib.mdDoc ''
           Salt minion configuration as Nix attribute set.
           See <https://docs.saltstack.com/en/latest/ref/configuration/minion.html>
@@ -48,20 +48,20 @@ in
       # - passing --config-dir to all salt commands, not just the minion unit,
       # - setting aglobal environment variable.
       etc."salt/minion".source = pkgs.writeText "minion" (builtins.toJSON fullConfig);
-      systemPackages = with pkgs; [ salt ];
+      systemPackages = with pkgs; [salt];
     };
     systemd.services.salt-minion = {
       description = "Salt Minion";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
-      path = with pkgs; [ util-linux ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
+      path = with pkgs; [util-linux];
       serviceConfig = {
         ExecStart = "${pkgs.salt}/bin/salt-minion";
         LimitNOFILE = 8192;
         Type = "notify";
         NotifyAccess = "all";
       };
-      restartTriggers = [ config.environment.etc."salt/minion".source ];
+      restartTriggers = [config.environment.etc."salt/minion".source];
     };
   };
 }

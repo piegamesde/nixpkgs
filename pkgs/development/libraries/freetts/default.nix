@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
     url = "mirror://sourceforge/freetts/${pname}-${version}-src.zip";
     sha256 = "0mnikqhpf4f4jdr0irmibr8yy0dnffx1i257y22iamxi7a6by2r7";
   };
-  nativeBuildInputs = [ unzip ];
+  nativeBuildInputs = [unzip];
   buildInputs = [
     apacheAnt
     sharutils
@@ -46,6 +46,6 @@ stdenv.mkDerivation rec {
     '';
     license = "GPL";
     homepage = "http://freetts.sourceforge.net";
-    maintainers = [ lib.maintainers.sander ];
+    maintainers = [lib.maintainers.sander];
   };
 }

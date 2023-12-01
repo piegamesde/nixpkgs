@@ -31,7 +31,7 @@ let
   inherit (lib) optional optionalString;
 in
 import ./versions.nix (
-  { version, sha256, ... }:
+  {version, sha256, ...}:
   stdenv.mkDerivation {
     pname = "zabbix-proxy";
     inherit version;
@@ -41,7 +41,7 @@ import ./versions.nix (
       inherit sha256;
     };
 
-    nativeBuildInputs = [ pkg-config ];
+    nativeBuildInputs = [pkg-config];
     buildInputs =
       [
         libevent
@@ -104,7 +104,7 @@ import ./versions.nix (
       description = "An enterprise-class open source distributed monitoring solution (client-server proxy)";
       homepage = "https://www.zabbix.com/";
       license = licenses.gpl2;
-      maintainers = [ maintainers.mmahut ];
+      maintainers = [maintainers.mmahut];
       platforms = platforms.linux;
     };
   }

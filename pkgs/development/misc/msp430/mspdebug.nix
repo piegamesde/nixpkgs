@@ -55,7 +55,7 @@ stdenv.mkDerivation rec {
     "PREFIX=$(out)"
     "INSTALL=install"
   ];
-  makeFlags = [ "UNAME_S=$(unameS)" ] ++ lib.optional (!enableReadline) "WITHOUT_READLINE=1";
+  makeFlags = ["UNAME_S=$(unameS)"] ++ lib.optional (!enableReadline) "WITHOUT_READLINE=1";
   unameS = lib.optionalString stdenv.isDarwin "Darwin";
 
   meta = with lib; {
@@ -63,6 +63,6 @@ stdenv.mkDerivation rec {
     homepage = "https://dlbeer.co.nz/mspdebug/";
     license = licenses.gpl2;
     platforms = platforms.all;
-    maintainers = with maintainers; [ aerialx ];
+    maintainers = with maintainers; [aerialx];
   };
 }

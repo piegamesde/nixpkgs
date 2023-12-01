@@ -17,7 +17,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-sL2i9kpMuJIdkDXOXJVMzYBiIsU7duu/tRfDaLPjbwo=";
 
-  subPackages = [ "cmd/spicedb" ];
+  subPackages = ["cmd/spicedb"];
 
   meta = with lib; {
     description = "Open source permission database";
@@ -27,6 +27,6 @@ buildGoModule rec {
     '';
     homepage = "https://authzed.com/";
     license = licenses.asl20;
-    maintainers = with maintainers; [ thoughtpolice ];
+    maintainers = with maintainers; [thoughtpolice];
   };
 }

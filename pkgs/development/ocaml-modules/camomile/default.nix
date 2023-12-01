@@ -19,7 +19,7 @@ buildDunePackage rec {
     sha256 = "00i910qjv6bpk0nkafp5fg97isqas0bwjf7m6rz11rsxilpalzad";
   };
 
-  nativeBuildInputs = [ cppo ];
+  nativeBuildInputs = [cppo];
 
   configurePhase = ''
     runHook preConfigure
@@ -33,7 +33,7 @@ buildDunePackage rec {
 
   meta = {
     inherit (src.meta) homepage;
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
     license = lib.licenses.lgpl21;
     description = "A Unicode library for OCaml";
   };

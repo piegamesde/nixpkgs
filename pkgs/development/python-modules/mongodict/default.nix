@@ -14,7 +14,7 @@ buildPythonPackage rec {
     sha256 = "0nv5amfs337m0gbxpjb0585s20rndqfc3mfrzq1iwgnds5gxcrlw";
   };
 
-  propagatedBuildInputs = [ pymongo ];
+  propagatedBuildInputs = [pymongo];
 
   meta = with lib; {
     description = "MongoDB-backed Python dict-like interface";

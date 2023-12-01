@@ -25,12 +25,12 @@ buildGoModule rec {
     "-X main.version=${version}"
   ];
 
-  passthru.tests.version = testers.testVersion { package = dashing; };
+  passthru.tests.version = testers.testVersion {package = dashing;};
 
   meta = with lib; {
     description = "A Dash Generator Script for Any HTML";
     homepage = "https://github.com/technosophos/dashing";
     license = licenses.mit;
-    maintainers = with maintainers; [ aaronjheng ];
+    maintainers = with maintainers; [aaronjheng];
   };
 }

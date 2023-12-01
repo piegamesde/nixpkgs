@@ -23,7 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-ejRIlRxDbdZgy7wHilSzunRTGn1uO6YLLmLxNrrHKss=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   propagatedBuildInputs = [
     pysnmp-pysmi
@@ -34,13 +34,13 @@ buildPythonPackage rec {
   # Module has no test, examples are used for testing
   doCheck = false;
 
-  pythonImportsCheck = [ "pysnmp" ];
+  pythonImportsCheck = ["pysnmp"];
 
   meta = with lib; {
     description = "Implementation of v1/v2c/v3 SNMP engine";
     homepage = "https://github.com/pysnmp/pysnmp";
     changelog = "https://github.com/pysnmp/pysnmp/releases/tag/v${version}";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

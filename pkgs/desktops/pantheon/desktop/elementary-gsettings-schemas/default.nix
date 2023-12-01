@@ -11,7 +11,7 @@
   elementary-dock,
   gsettings-desktop-schemas,
   extraGSettingsOverrides ? "",
-  extraGSettingsOverridePackages ? [ ],
+  extraGSettingsOverridePackages ? [],
 }:
 
 let
@@ -30,7 +30,7 @@ let
 in
 
 # TODO: Having https://github.com/NixOS/nixpkgs/issues/54150 would supersede this
-runCommand "elementary-gsettings-desktop-schemas" { preferLocalBuild = true; } ''
+runCommand "elementary-gsettings-desktop-schemas" {preferLocalBuild = true;} ''
   data_dir="$out/share/gsettings-schemas/nixos-gsettings-overrides"
   schema_dir="$data_dir/glib-2.0/schemas"
 

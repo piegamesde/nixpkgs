@@ -44,10 +44,10 @@ rustPlatform.buildRustPackage rec {
         libGL.dev
       ]
     else
-      [ openssl ];
+      [openssl];
 
   buildNoDefaultFeatures = true;
-  buildFeatures = [ (if withGui then "egui" else "cli") ];
+  buildFeatures = [(if withGui then "egui" else "cli")];
 
   postFixup =
     ''
@@ -63,7 +63,7 @@ rustPlatform.buildRustPackage rec {
       desktopName = "rusty-psn";
       exec = "rusty-psn-gui";
       comment = "A simple tool to grab updates for PS3 games, directly from Sony's servers using their updates API.";
-      categories = [ "Network" ];
+      categories = ["Network"];
       keywords = [
         "psn"
         "ps3"
@@ -73,13 +73,13 @@ rustPlatform.buildRustPackage rec {
       ];
     }
   );
-  desktopItems = lib.optionals withGui [ desktopItem ];
+  desktopItems = lib.optionals withGui [desktopItem];
 
   meta = with lib; {
     description = "Simple tool to grab updates for PS3 games, directly from Sony's servers using their updates API";
     homepage = "https://github.com/RainbowCookie32/rusty-psn/";
     license = licenses.mit;
-    platforms = [ "x86_64-linux" ];
-    maintainers = with maintainers; [ AngryAnt ];
+    platforms = ["x86_64-linux"];
+    maintainers = with maintainers; [AngryAnt];
   };
 }

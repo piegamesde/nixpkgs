@@ -29,16 +29,16 @@ buildPythonPackage rec {
       --replace "+dairiki.1" ""
   '';
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   propagatedBuildInputs = [
     inkex
     lxml
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "svg2tikz" ];
+  pythonImportsCheck = ["svg2tikz"];
 
   meta = with lib; {
     changelog = "https://github.com/xyz2tex/svg2tikz/blob/${src.rev}/README.md#changes-bug-fixes-and-known-problems-from-the-original";

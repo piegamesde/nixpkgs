@@ -1,10 +1,10 @@
 {
   system ? builtins.currentSystem,
-  config ? { },
-  pkgs ? import ../.. { inherit system config; },
+  config ? {},
+  pkgs ? import ../.. {inherit system config;},
 }:
 
-with import ../lib/testing-python.nix { inherit system pkgs; };
+with import ../lib/testing-python.nix {inherit system pkgs;};
 
 let
   lib = pkgs.lib;
@@ -31,10 +31,10 @@ let
       in
       makeTest {
         name = "postgresql-wal-receiver-${postgresqlPackage}";
-        meta.maintainers = with lib.maintainers; [ pacien ];
+        meta.maintainers = with lib.maintainers; [pacien];
 
         nodes.machine =
-          { ... }:
+          {...}:
           {
             services.postgresql = {
               package = pkg;

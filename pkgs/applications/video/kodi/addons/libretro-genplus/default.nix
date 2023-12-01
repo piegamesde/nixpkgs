@@ -22,8 +22,8 @@ buildKodiBinaryAddon rec {
     "-DGENPLUS_LIB=${genesis-plus-gx}/lib/retroarch/cores/genesis_plus_gx_libretro.so"
   ];
 
-  extraBuildInputs = [ genesis-plus-gx ];
-  propagatedBuildInputs = [ libretro ];
+  extraBuildInputs = [genesis-plus-gx];
+  propagatedBuildInputs = [libretro];
 
   meta = with lib; {
     homepage = "https://github.com/kodi-game/game.libretro.genplus";

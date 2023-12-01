@@ -22,6 +22,6 @@ buildGoModule rec {
     homepage = "https://github.com/antonmedv/fx";
     changelog = "https://github.com/antonmedv/fx/releases/tag/${src.rev}";
     license = licenses.mit;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
   };
 }

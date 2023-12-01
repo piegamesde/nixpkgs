@@ -26,12 +26,12 @@ buildPythonPackage rec {
   # upstream has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "pypoint" ];
+  pythonImportsCheck = ["pypoint"];
 
   meta = with lib; {
     description = "Python module for communicating with Minut Point";
     homepage = "https://github.com/fredrike/pypoint";
     license = licenses.mit;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

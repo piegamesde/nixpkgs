@@ -36,7 +36,7 @@ in
 
     listen = mkOption {
       type = types.listOf types.str;
-      default = [ ":6697" ];
+      default = [":6697"];
       description = lib.mdDoc ''
         Where soju should listen for incoming connections. See the
         `listen` directive in
@@ -73,7 +73,7 @@ in
 
     httpOrigins = mkOption {
       type = types.listOf types.str;
-      default = [ ];
+      default = [];
       description = lib.mdDoc ''
         List of allowed HTTP origins for WebSocket listeners. The parameters are
         interpreted as shell patterns, see
@@ -83,7 +83,7 @@ in
 
     acceptProxyIP = mkOption {
       type = types.listOf types.str;
-      default = [ ];
+      default = [];
       description = lib.mdDoc ''
         Allow the specified IPs to act as a proxy. Proxys have the ability to
         overwrite the remote and local connection addresses (via the X-Forwarded-\*
@@ -114,8 +114,8 @@ in
 
     systemd.services.soju = {
       description = "soju IRC bouncer";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network-online.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network-online.target"];
       serviceConfig = {
         DynamicUser = true;
         Restart = "always";
@@ -125,5 +125,5 @@ in
     };
   };
 
-  meta.maintainers = with maintainers; [ malte-v ];
+  meta.maintainers = with maintainers; [malte-v];
 }

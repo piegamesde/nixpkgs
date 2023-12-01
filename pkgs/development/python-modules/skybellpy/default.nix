@@ -35,12 +35,12 @@ buildPythonPackage rec {
     requests-mock
   ];
 
-  pythonImportsCheck = [ "skybellpy" ];
+  pythonImportsCheck = ["skybellpy"];
 
   meta = with lib; {
     description = "Python wrapper for the Skybell alarm API";
     homepage = "https://github.com/MisterWil/skybellpy";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

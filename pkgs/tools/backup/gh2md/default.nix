@@ -1,4 +1,4 @@
-{ lib, python3Packages }:
+{lib, python3Packages}:
 
 python3Packages.buildPythonApplication rec {
   pname = "gh2md";
@@ -18,12 +18,12 @@ python3Packages.buildPythonApplication rec {
   # uses network
   doCheck = false;
 
-  pythonImportsCheck = [ "gh2md" ];
+  pythonImportsCheck = ["gh2md"];
 
   meta = with lib; {
     description = "Export Github repository issues to markdown files";
     homepage = "https://github.com/mattduck/gh2md";
     license = licenses.mit;
-    maintainers = with maintainers; [ artturin ];
+    maintainers = with maintainers; [artturin];
   };
 }

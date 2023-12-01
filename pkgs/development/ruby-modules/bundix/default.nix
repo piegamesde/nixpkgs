@@ -26,7 +26,7 @@ buildRubyGem rec {
     ruby
     bundler
   ];
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   preFixup = ''
     wrapProgram $out/bin/bundix \

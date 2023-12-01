@@ -65,6 +65,6 @@ stdenv.mkDerivation {
       "x86_64-linux"
     ];
     license = licenses.bsd2;
-    maintainers = with maintainers; [ abbradar ];
+    maintainers = with maintainers; [abbradar];
   };
 }

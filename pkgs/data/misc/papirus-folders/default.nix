@@ -16,9 +16,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-Dus9f2m5Wj46Url7N3UYEvBAankppzGzdJHGPH3CT3g=";
   };
 
-  buildInputs = [ getent ];
+  buildInputs = [getent];
 
-  makeFlags = [ "PREFIX=${placeholder "out"}" ];
+  makeFlags = ["PREFIX=${placeholder "out"}"];
 
   patchPhase = ''
     substituteInPlace ./papirus-folders --replace "getent" "${getent}/bin/getent"
@@ -33,6 +33,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/PapirusDevelopmentTeam/papirus-folders";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = [ maintainers.aacebedo ];
+    maintainers = [maintainers.aacebedo];
   };
 }

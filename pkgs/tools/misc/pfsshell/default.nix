@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
 
   # Build errors since 1.1.1 when format hardening is enabled:
   #   cc1: error: '-Wformat-security' ignored without '-Wformat' [-Werror=format-security]
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   meta = with lib; {
     inherit (src.meta) homepage;
@@ -34,6 +34,6 @@ stdenv.mkDerivation rec {
       gpl2Only # the pfsshell software itself
       afl20 # APA, PFS, and iomanX libraries which are compiled together with this package
     ];
-    maintainers = with maintainers; [ makefu ];
+    maintainers = with maintainers; [makefu];
   };
 }

@@ -17,18 +17,18 @@ buildPythonPackage rec {
     hash = "sha256-nSpVBAS2VvXIQwYK/qVVzEc13bicAQ+ScXpO4Rn2O+8=";
   };
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
   checkPhase = ''
     ${python.interpreter} setup.py test
   '';
 
-  pythonImportsCheck = [ "f90nml" ];
+  pythonImportsCheck = ["f90nml"];
 
   meta = with lib; {
     description = "Python module for working with Fortran Namelists";
     homepage = "https://f90nml.readthedocs.io";
     license = licenses.asl20;
-    maintainers = with maintainers; [ loicreynier ];
+    maintainers = with maintainers; [loicreynier];
   };
 }

@@ -1,5 +1,5 @@
 import ./make-test-python.nix (
-  { pkgs, lib, ... }:
+  {pkgs, lib, ...}:
   let
     initiatorName = "iqn.2020-08.org.linux-iscsi.initiatorhost:example";
     targetName = "iqn.2003-01.org.linux-iscsi.target.x8664:sn.acf8fd9c23af";
@@ -7,7 +7,7 @@ import ./make-test-python.nix (
   {
     name = "iscsi";
     meta = {
-      maintainers = pkgs.lib.teams.deshaw.members ++ (with pkgs.lib.maintainers; [ ajs124 ]);
+      maintainers = pkgs.lib.teams.deshaw.members ++ (with pkgs.lib.maintainers; [ajs124]);
     };
 
     nodes = {
@@ -22,7 +22,7 @@ import ./make-test-python.nix (
           services.target = {
             enable = true;
             config = {
-              fabric_modules = [ ];
+              fabric_modules = [];
               storage_objects = [
                 {
                   dev = "/dev/vdb";
@@ -80,11 +80,11 @@ import ./make-test-python.nix (
             };
           };
 
-          networking.firewall.allowedTCPPorts = [ 3260 ];
-          networking.firewall.allowedUDPPorts = [ 3260 ];
+          networking.firewall.allowedTCPPorts = [3260];
+          networking.firewall.allowedUDPPorts = [3260];
 
           virtualisation.memorySize = 2048;
-          virtualisation.emptyDiskImages = [ 2048 ];
+          virtualisation.emptyDiskImages = [2048];
         };
 
       initiatorAuto =
@@ -102,12 +102,12 @@ import ./make-test-python.nix (
             name = initiatorName;
           };
 
-          environment.systemPackages = with pkgs; [ xfsprogs ];
+          environment.systemPackages = with pkgs; [xfsprogs];
 
-          system.extraDependencies = [ nodes.initiatorRootDisk.config.system.build.toplevel ];
+          system.extraDependencies = [nodes.initiatorRootDisk.config.system.build.toplevel];
 
           nix.settings = {
-            substituters = lib.mkForce [ ];
+            substituters = lib.mkForce [];
             hashed-mirrors = null;
             connect-timeout = 1;
           };
@@ -136,7 +136,7 @@ import ./make-test-python.nix (
             "/" = {
               fsType = "xfs";
               device = "/dev/sda";
-              options = [ "_netdev" ];
+              options = ["_netdev"];
             };
           };
 
@@ -149,7 +149,7 @@ import ./make-test-python.nix (
     };
 
     testScript =
-      { nodes, ... }:
+      {nodes, ...}:
       ''
         target.start()
         target.wait_for_unit("iscsi-target.service")

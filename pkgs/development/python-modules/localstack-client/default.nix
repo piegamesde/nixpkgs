@@ -21,13 +21,13 @@ buildPythonPackage rec {
     hash = "sha256-MBXTiTzCwkduJPPRN7OKaWy2q9J8xCX/GGu09tyac3A=";
   };
 
-  propagatedBuildInputs = [ boto3 ];
+  propagatedBuildInputs = [boto3];
 
-  pythonImportsCheck = [ "localstack_client" ];
+  pythonImportsCheck = ["localstack_client"];
 
   # All commands test `localstack` which is a downstream dependency
   doCheck = false;
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTests =
     [
@@ -46,6 +46,6 @@ buildPythonPackage rec {
     description = "A lightweight Python client for LocalStack";
     homepage = "https://github.com/localstack/localstack-python-client";
     license = licenses.asl20;
-    maintainers = with maintainers; [ jonringer ];
+    maintainers = with maintainers; [jonringer];
   };
 }

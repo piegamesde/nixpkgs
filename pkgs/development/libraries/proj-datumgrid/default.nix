@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
     description = "Repository for proj datum grids";
     homepage = "https://proj4.org";
     license = licenses.mit;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     mainProgram = "nad2bin";
     platforms = platforms.linux ++ platforms.darwin;
   };

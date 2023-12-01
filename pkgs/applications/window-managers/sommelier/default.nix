@@ -40,7 +40,7 @@ stdenv.mkDerivation {
   ];
 
   doCheck = true;
-  nativeCheckInputs = [ gtest ];
+  nativeCheckInputs = [gtest];
 
   postInstall = ''
     rm $out/bin/sommelier_test # why does it install the test binary? o_O
@@ -51,7 +51,7 @@ stdenv.mkDerivation {
   meta = with lib; {
     homepage = "https://chromium.googlesource.com/chromiumos/platform2/+/refs/heads/main/vm_tools/sommelier/";
     description = "Nested Wayland compositor with support for X11 forwarding";
-    maintainers = with maintainers; [ qyliss ];
+    maintainers = with maintainers; [qyliss];
     license = licenses.bsd3;
     platforms = platforms.linux;
   };

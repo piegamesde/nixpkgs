@@ -1,11 +1,11 @@
 {
   system ? builtins.currentSystem,
-  config ? { },
+  config ? {},
   giteaPackage ? pkgs.gitea,
-  pkgs ? import ../.. { inherit system config; },
+  pkgs ? import ../.. {inherit system config;},
 }:
 
-with import ../lib/testing-python.nix { inherit system pkgs; };
+with import ../lib/testing-python.nix {inherit system pkgs;};
 with pkgs.lib;
 
 let
@@ -43,7 +43,7 @@ let
 
         nodes = {
           server =
-            { config, pkgs, ... }:
+            {config, pkgs, ...}:
             {
               virtualisation.memorySize = 2048;
               services.gitea = {
@@ -62,8 +62,8 @@ let
               ];
               services.openssh.enable = true;
             };
-          client1 = { config, pkgs, ... }: { environment.systemPackages = [ pkgs.git ]; };
-          client2 = { config, pkgs, ... }: { environment.systemPackages = [ pkgs.git ]; };
+          client1 = {config, pkgs, ...}: {environment.systemPackages = [pkgs.git];};
+          client2 = {config, pkgs, ...}: {environment.systemPackages = [pkgs.git];};
         };
 
         testScript =

@@ -46,7 +46,7 @@ buildDunePackage rec {
     hash = "sha256-lraur6NfFD9yddG+y21jlHKt82gLgYBBbedltlgcRm0=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   propagatedBuildInputs = [
     ppx_cstruct
@@ -71,7 +71,7 @@ buildDunePackage rec {
     metrics
     arp
     mirage-flow
-  ] ++ lib.optionals withFreestanding [ ocaml-freestanding ];
+  ] ++ lib.optionals withFreestanding [ocaml-freestanding];
 
   doCheck = true;
   checkInputs = [
@@ -88,7 +88,7 @@ buildDunePackage rec {
   meta = with lib; {
     description = "OCaml TCP/IP networking stack, used in MirageOS";
     homepage = "https://github.com/mirage/mirage-tcpip";
-    maintainers = [ maintainers.sternenseemann ];
+    maintainers = [maintainers.sternenseemann];
     license = licenses.isc;
   };
 }

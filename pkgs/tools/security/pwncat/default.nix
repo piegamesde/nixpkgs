@@ -19,7 +19,7 @@ buildPythonApplication rec {
   meta = with lib; {
     description = "TCP/UDP communication suite";
     homepage = "https://pwncat.org/";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

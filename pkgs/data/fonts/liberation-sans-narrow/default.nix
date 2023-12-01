@@ -42,6 +42,6 @@ stdenv.mkDerivation rec {
 
     license = licenses.gpl2;
     homepage = "https://github.com/liberationfonts";
-    maintainers = [ maintainers.leenaars ];
+    maintainers = [maintainers.leenaars];
   };
 }

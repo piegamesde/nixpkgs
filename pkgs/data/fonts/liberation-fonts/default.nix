@@ -58,7 +58,7 @@ let
 
         license = licenses.ofl;
         homepage = "https://github.com/liberationfonts";
-        maintainers = with maintainers; [ raskin ];
+        maintainers = with maintainers; [raskin];
       };
     };
 in
@@ -72,7 +72,7 @@ in
   liberation_ttf_v2 = common {
     repo = "liberation-fonts";
     version = "2.1.0";
-    nativeBuildInputs = commonNativeBuildInputs ++ [ fonttools ];
+    nativeBuildInputs = commonNativeBuildInputs ++ [fonttools];
     postPatch = ''
       substituteInPlace scripts/setisFixedPitch-fonttools.py --replace \
         'font = ttLib.TTFont(fontfile)' \

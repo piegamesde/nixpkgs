@@ -22,12 +22,12 @@ buildPythonPackage rec {
     pygobject3
   ];
 
-  pythonImportsCheck = [ "gatt" ];
+  pythonImportsCheck = ["gatt"];
 
   meta = with lib; {
     description = "Bluetooth (Generic Attribute Profile) GATT SDK for Python";
     homepage = "https://github.com/getsenic/gatt-python/";
     license = licenses.mit;
-    maintainers = with maintainers; [ tomfitzhenry ];
+    maintainers = with maintainers; [tomfitzhenry];
   };
 }

@@ -29,13 +29,13 @@
       src,
       srcDir ? ".",
       tagSuffix ? "_tags",
-      createTagFiles ? [ ],
+      createTagFiles ? [],
     }:
     stdenv.mkDerivation {
       phases = "unpackPhase buildPhase";
       inherit src srcDir tagSuffix;
       name = "${name}-source-with-tags";
-      nativeBuildInputs = [ unzip ];
+      nativeBuildInputs = [unzip];
       # using separate tag directory so that you don't have to glob that much files when starting your editor
       # is this a good choice?
       buildPhase =

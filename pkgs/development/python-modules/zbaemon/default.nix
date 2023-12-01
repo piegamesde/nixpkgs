@@ -14,7 +14,7 @@ buildPythonPackage rec {
     hash = "sha256-SCHjvbRzh88eklWwREusQ3z3KqC1nRQHuTLjH9QyPvw=";
   };
 
-  propagatedBuildInputs = [ zconfig ];
+  propagatedBuildInputs = [zconfig];
 
   # too many deps..
   doCheck = false;
@@ -23,6 +23,6 @@ buildPythonPackage rec {
     description = "A daemon process control library and tools for Unix-based systems";
     homepage = "https://pypi.python.org/pypi/zdaemon";
     license = licenses.zpl20;
-    maintainers = with maintainers; [ goibhniu ];
+    maintainers = with maintainers; [goibhniu];
   };
 }

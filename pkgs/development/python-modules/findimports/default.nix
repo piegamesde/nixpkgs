@@ -20,7 +20,7 @@ buildPythonPackage rec {
     hash = "sha256-p13GVDXDOzOiTnRgtF7UxN1vwZRMa7wVEXJQrFQV7RU=";
   };
 
-  pythonImportsCheck = [ "findimports" ];
+  pythonImportsCheck = ["findimports"];
 
   checkPhase = ''
     runHook preCheck
@@ -35,6 +35,6 @@ buildPythonPackage rec {
       gpl2Only # or
       gpl3Only
     ];
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

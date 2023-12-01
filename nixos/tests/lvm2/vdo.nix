@@ -2,22 +2,22 @@
   kernelPackages ? null,
 }:
 import ../make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   {
     name = "lvm2-vdo";
-    meta.maintainers = with pkgs.lib.maintainers; [ ajs124 ];
+    meta.maintainers = with pkgs.lib.maintainers; [ajs124];
 
     nodes.machine =
-      { pkgs, lib, ... }:
+      {pkgs, lib, ...}:
       {
         # Minimum required size for VDO volume: 5063921664 bytes
-        virtualisation.emptyDiskImages = [ 8192 ];
+        virtualisation.emptyDiskImages = [8192];
         services.lvm = {
           boot.vdo.enable = true;
           dmeventd.enable = true;
         };
-        environment.systemPackages = with pkgs; [ xfsprogs ];
-        boot = lib.mkIf (kernelPackages != null) { inherit kernelPackages; };
+        environment.systemPackages = with pkgs; [xfsprogs];
+        boot = lib.mkIf (kernelPackages != null) {inherit kernelPackages;};
       };
 
     testScript = ''

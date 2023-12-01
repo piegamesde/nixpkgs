@@ -39,13 +39,13 @@ buildPythonPackage rec {
     cudaPackages.tensorrt
   ];
 
-  pythonCheckImports = [ "tensorrt" ];
+  pythonCheckImports = ["tensorrt"];
 
   meta = with lib; {
     description = "Python bindings for TensorRT, a high-performance deep learning interface";
     homepage = "https://developer.nvidia.com/tensorrt";
     license = licenses.unfree;
-    platforms = [ "x86_64-linux" ];
-    maintainers = with maintainers; [ aidalgol ];
+    platforms = ["x86_64-linux"];
+    maintainers = with maintainers; [aidalgol];
   };
 }

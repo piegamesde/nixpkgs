@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
 
   configureFlags = [
     "--with-graphics-backend=gdk"
-  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ "--disable-alsa" ];
+  ] ++ lib.optionals stdenv.hostPlatform.isDarwin ["--disable-alsa"];
 
   enableParallelBuilding = true;
 
@@ -69,7 +69,7 @@ stdenv.mkDerivation rec {
     homepage = "http://www.soundtracker.org/";
     downloadPage = "https://sourceforge.net/projects/soundtracker/files/";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ fgaz ];
+    maintainers = with maintainers; [fgaz];
     platforms = platforms.all;
   };
 }

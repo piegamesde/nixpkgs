@@ -17,9 +17,9 @@ buildPythonPackage rec {
     hash = "sha256-pSIHgKQE2+M1N4mHCXjkcs/kd3YfBu5VB3JW5QmxVtA=";
   };
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  propagatedBuildInputs = [ setuptools ] ++ lib.optionals (!isPy3k) [ backports_functools_lru_cache ];
+  propagatedBuildInputs = [setuptools] ++ lib.optionals (!isPy3k) [backports_functools_lru_cache];
 
   # To prevent infinite recursion with pytest
   doCheck = false;

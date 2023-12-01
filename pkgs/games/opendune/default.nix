@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
     "--with-pulse=${lib.getLib libpulseaudio}/lib/libpulse.so"
   ];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     alsa-lib
@@ -56,6 +56,6 @@ stdenv.mkDerivation rec {
     description = "Dune, Reinvented";
     homepage = "https://github.com/OpenDUNE/OpenDUNE";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

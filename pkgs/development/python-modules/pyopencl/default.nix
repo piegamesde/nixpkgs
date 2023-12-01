@@ -19,13 +19,13 @@
 }:
 
 let
-  os-specific-buildInputs = if stdenv.isDarwin then [ mesa_drivers.dev ] else [ ocl-icd ];
+  os-specific-buildInputs = if stdenv.isDarwin then [mesa_drivers.dev] else [ocl-icd];
 in
 buildPythonPackage rec {
   pname = "pyopencl";
   version = "2022.3.1";
 
-  nativeCheckInputs = [ pytest ];
+  nativeCheckInputs = [pytest];
   buildInputs = [
     opencl-headers
     pybind11
@@ -63,6 +63,6 @@ buildPythonPackage rec {
     description = "Python wrapper for OpenCL";
     homepage = "https://github.com/pyopencl/pyopencl";
     license = licenses.mit;
-    maintainers = [ maintainers.fridh ];
+    maintainers = [maintainers.fridh];
   };
 }

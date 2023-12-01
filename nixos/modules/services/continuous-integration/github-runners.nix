@@ -13,7 +13,7 @@ in
 
 {
   options.services.github-runners = mkOption {
-    default = { };
+    default = {};
     type =
       with types;
       attrsOf (

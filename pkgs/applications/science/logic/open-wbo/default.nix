@@ -22,7 +22,7 @@ stdenv.mkDerivation {
     gmp
   ];
 
-  makeFlags = [ "r" ];
+  makeFlags = ["r"];
   installPhase = ''
     install -Dm0755 open-wbo_release $out/bin/open-wbo
   '';
@@ -30,7 +30,7 @@ stdenv.mkDerivation {
   meta = with lib; {
     broken = (stdenv.isLinux && stdenv.isAarch64);
     description = "State-of-the-art MaxSAT and Pseudo-Boolean solver";
-    maintainers = with maintainers; [ gebner ];
+    maintainers = with maintainers; [gebner];
     platforms = platforms.unix;
     license = licenses.mit;
     homepage = "http://sat.inesc-id.pt/open-wbo/";

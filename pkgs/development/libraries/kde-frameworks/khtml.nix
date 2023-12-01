@@ -49,5 +49,5 @@ mkDerivation {
     sonnet
     gperf
   ];
-  propagatedBuildInputs = [ kjs ];
+  propagatedBuildInputs = [kjs];
 }

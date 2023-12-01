@@ -98,7 +98,7 @@ let
       description = "Autoscaling daemon for Nomad";
       homepage = "https://github.com/hashicorp/nomad-autoscaler";
       license = licenses.mpl20;
-      maintainers = with maintainers; [ jonringer ];
+      maintainers = with maintainers; [jonringer];
     };
   };
 
@@ -122,7 +122,7 @@ let
     f:
     buildEnv {
       name = "nomad-autoscaler-env";
-      paths = [ package.bin ] ++ f plugins;
+      paths = [package.bin] ++ f plugins;
     };
 in
 package

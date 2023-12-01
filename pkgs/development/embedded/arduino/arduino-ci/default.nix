@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-9RbBxgwsSQ7oGGKr1Vsn9Ug9AsacoRgvQgd9jbRQ034=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     runHook preInstall
@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
     description = "CI for Arduino Libraries";
     homepage = src.meta.homepage;
     license = licenses.mit;
-    maintainers = with maintainers; [ ryantm ];
+    maintainers = with maintainers; [ryantm];
     platforms = platforms.unix;
   };
 }

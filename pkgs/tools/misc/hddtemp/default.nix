@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
     ./satacmds.patch
   ];
 
-  configureFlags = [ "--with-db-path=${placeholder "out"}/share/${pname}/hddtemp.db" ];
+  configureFlags = ["--with-db-path=${placeholder "out"}/share/${pname}/hddtemp.db"];
 
   postInstall = ''
     install -Dm444 ${db} $out/share/${pname}/hddtemp.db
@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
     description = "Tool for displaying hard disk temperature";
     homepage = "https://savannah.nongnu.org/projects/hddtemp/";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ peterhoeg ];
+    maintainers = with maintainers; [peterhoeg];
     platforms = platforms.linux;
   };
 }

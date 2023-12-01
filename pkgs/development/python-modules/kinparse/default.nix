@@ -19,9 +19,9 @@ buildPythonPackage {
   };
 
   doCheck = true;
-  pythonImportsCheck = [ "kinparse" ];
+  pythonImportsCheck = ["kinparse"];
 
-  nativeCheckInputs = [ pytest ];
+  nativeCheckInputs = [pytest];
 
   propagatedBuildInputs = [
     future
@@ -32,6 +32,6 @@ buildPythonPackage {
     description = "A Parser for KiCad EESCHEMA netlists";
     homepage = "https://github.com/xesscorp/kinparse";
     license = licenses.mit;
-    maintainers = with maintainers; [ matthuszagh ];
+    maintainers = with maintainers; [matthuszagh];
   };
 }

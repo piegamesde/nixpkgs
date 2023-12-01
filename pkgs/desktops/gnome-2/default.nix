@@ -12,40 +12,38 @@ lib.makeScope pkgs.newScope (
 
     #### PLATFORM
 
-    libIDL = callPackage ./platform/libIDL {
-      gettext = if stdenv.isDarwin then pkgs.gettext else null;
-    };
+    libIDL = callPackage ./platform/libIDL {gettext = if stdenv.isDarwin then pkgs.gettext else null;};
 
-    ORBit2 = callPackage ./platform/ORBit2 { };
+    ORBit2 = callPackage ./platform/ORBit2 {};
 
-    libart_lgpl = callPackage ./platform/libart_lgpl { };
+    libart_lgpl = callPackage ./platform/libart_lgpl {};
 
-    libglade = callPackage ./platform/libglade { };
+    libglade = callPackage ./platform/libglade {};
 
-    GConf = callPackage ./platform/GConf { };
+    GConf = callPackage ./platform/GConf {};
 
-    libgnomecanvas = callPackage ./platform/libgnomecanvas { };
+    libgnomecanvas = callPackage ./platform/libgnomecanvas {};
 
     # for git-head builds
-    gnome-common = callPackage platform/gnome-common { };
+    gnome-common = callPackage platform/gnome-common {};
 
-    gnome_mime_data = callPackage ./platform/gnome-mime-data { };
+    gnome_mime_data = callPackage ./platform/gnome-mime-data {};
 
-    gnome_vfs = callPackage ./platform/gnome-vfs { };
+    gnome_vfs = callPackage ./platform/gnome-vfs {};
 
-    libgnome = callPackage ./platform/libgnome { };
+    libgnome = callPackage ./platform/libgnome {};
 
-    libgnomeui = callPackage ./platform/libgnomeui { };
+    libgnomeui = callPackage ./platform/libgnomeui {};
 
-    libbonobo = callPackage ./platform/libbonobo { };
+    libbonobo = callPackage ./platform/libbonobo {};
 
-    libbonoboui = callPackage ./platform/libbonoboui { };
+    libbonoboui = callPackage ./platform/libbonoboui {};
 
-    gtkglext = callPackage ./platform/gtkglext { };
+    gtkglext = callPackage ./platform/gtkglext {};
 
     #### DESKTOP
 
-    gtksourceview = callPackage ./desktop/gtksourceview { autoreconfHook = pkgs.autoreconfHook269; };
+    gtksourceview = callPackage ./desktop/gtksourceview {autoreconfHook = pkgs.autoreconfHook269;};
   }
   // lib.optionalAttrs config.allowAliases {
     inherit (pkgs)

@@ -23,7 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-9s3iGpxoz3Vq8CA19y1acjv2B+hi574z7OUFq/Sjutk=";
   };
 
-  nativeBuildInputs = [ hatchling ];
+  nativeBuildInputs = [hatchling];
   nativeCheckInputs = [
     glibcLocales
     pytest
@@ -43,6 +43,6 @@ buildPythonPackage rec {
     description = "Traitlets Python config system";
     homepage = "https://ipython.org/";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ fridh ];
+    maintainers = with lib.maintainers; [fridh];
   };
 }

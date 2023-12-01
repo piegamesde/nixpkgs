@@ -23,7 +23,7 @@ let
   meta = with lib; {
     homepage = "https://github.com/talaia-labs/rust-teos";
     license = licenses.mit;
-    maintainers = with maintainers; [ seberm ];
+    maintainers = with maintainers; [seberm];
   };
   updateScript = ./update.sh;
 in
@@ -41,7 +41,7 @@ in
       rustfmt
     ];
 
-    buildInputs = lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Security ];
+    buildInputs = lib.optionals stdenv.isDarwin [darwin.apple_sdk.frameworks.Security];
 
     passthru.updateScript = updateScript;
 
@@ -68,7 +68,7 @@ in
 
     buildInputs = [
       openssl
-    ] ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.SystemConfiguration ];
+    ] ++ lib.optionals stdenv.isDarwin [darwin.apple_sdk.frameworks.SystemConfiguration];
 
     passthru.updateScript = updateScript;
 

@@ -18,12 +18,12 @@ stdenv.mkDerivation rec {
   };
 
   # It attempts to install windows-only libraries which we never build
-  patches = [ ./dont-install-unsupported.patch ];
+  patches = [./dont-install-unsupported.patch];
 
-  nativeBuildInputs = [ cmake ];
-  buildInputs = [ protobuf ];
+  nativeBuildInputs = [cmake];
+  buildInputs = [protobuf];
 
-  cmakeFlags = [ "-DCMAKE_INSTALL_PREFIX=${placeholder "out"}/share/goldberg" ];
+  cmakeFlags = ["-DCMAKE_INSTALL_PREFIX=${placeholder "out"}/share/goldberg"];
 
   preFixup = ''
     mkdir -p $out/{bin,lib}
@@ -47,6 +47,6 @@ stdenv.mkDerivation rec {
     mainProgram = "lobby_connect";
     license = licenses.lgpl3Only;
     platforms = platforms.unix;
-    maintainers = [ maintainers.ivar ];
+    maintainers = [maintainers.ivar];
   };
 }

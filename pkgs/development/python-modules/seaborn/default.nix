@@ -25,7 +25,7 @@ buildPythonPackage rec {
     hash = "sha256-N0ZF82UJ0NyriVy6W0fa8Fhvd7/js2yXxgfbfaW+ATk=";
   };
 
-  nativeBuildInputs = [ flit-core ];
+  nativeBuildInputs = [flit-core];
 
   propagatedBuildInputs = [
     matplotlib
@@ -58,12 +58,12 @@ buildPythonPackage rec {
   # backends (leads to crashes on macOS).
   MPLBACKEND = "Agg";
 
-  pythonImportsCheck = [ "seaborn" ];
+  pythonImportsCheck = ["seaborn"];
 
   meta = with lib; {
     description = "Statistical data visualization";
     homepage = "https://seaborn.pydata.org/";
-    license = with licenses; [ bsd3 ];
-    maintainers = with maintainers; [ fridh ];
+    license = with licenses; [bsd3];
+    maintainers = with maintainers; [fridh];
   };
 }

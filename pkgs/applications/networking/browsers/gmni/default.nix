@@ -17,8 +17,8 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-3MFNAI/SfFigNfitfFs3o9kkz7JeEflMHiH7iJpLfi4=";
   };
 
-  nativeBuildInputs = [ scdoc ];
-  buildInputs = [ bearssl ];
+  nativeBuildInputs = [scdoc];
+  buildInputs = [bearssl];
 
   meta = with lib; {
     description = "A Gemini client";

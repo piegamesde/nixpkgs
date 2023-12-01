@@ -24,8 +24,8 @@ stdenv.mkDerivation rec {
     else
       "libmsp430${archPostfix}${stdenv.hostPlatform.extensions.sharedLibrary}";
 
-  nativeBuildInputs = [ unzip ] ++ lib.optional stdenv.isLinux autoPatchelfHook;
-  buildInputs = [ stdenv.cc.cc ];
+  nativeBuildInputs = [unzip] ++ lib.optional stdenv.isLinux autoPatchelfHook;
+  buildInputs = [stdenv.cc.cc];
 
   installPhase = ''
     install -Dm0755 $libname $out/lib/''${libname//_64/}
@@ -35,9 +35,9 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Unfree binary release of the TI MSP430 FET debug driver";
     homepage = "https://www.ti.com/tool/MSPDS";
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
     license = licenses.unfree;
     platforms = platforms.linux ++ platforms.darwin;
-    maintainers = with maintainers; [ aerialx ];
+    maintainers = with maintainers; [aerialx];
   };
 }

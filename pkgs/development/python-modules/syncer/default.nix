@@ -20,12 +20,12 @@ buildPythonPackage rec {
   # Tests require an not maintained package (xfail)
   doCheck = false;
 
-  pythonImportsCheck = [ "syncer" ];
+  pythonImportsCheck = ["syncer"];
 
   meta = with lib; {
     description = "Python async to sync converter";
     homepage = "https://github.com/miyakogi/syncer";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

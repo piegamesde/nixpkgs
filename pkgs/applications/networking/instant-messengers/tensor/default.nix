@@ -28,7 +28,7 @@ mkDerivation rec {
     qtbase
     qtquickcontrols
   ];
-  nativeBuildInputs = [ qmake ];
+  nativeBuildInputs = [qmake];
 
   desktopItem = makeDesktopItem {
     name = "tensor";
@@ -41,7 +41,7 @@ mkDerivation rec {
       "Chat"
       "Utility"
     ];
-    mimeTypes = [ "application/x-chat" ];
+    mimeTypes = ["application/x-chat"];
   };
 
   installPhase =
@@ -74,7 +74,7 @@ mkDerivation rec {
     homepage = "https://matrix.org/docs/projects/client/tensor.html";
     description = "Cross-platform Qt5/QML-based Matrix client";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ peterhoeg ];
+    maintainers = with maintainers; [peterhoeg];
     inherit (qtbase.meta) platforms;
   };
 }

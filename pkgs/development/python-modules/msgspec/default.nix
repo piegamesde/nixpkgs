@@ -24,13 +24,13 @@ buildPythonPackage rec {
   # Requires libasan to be accessible
   doCheck = false;
 
-  pythonImportsCheck = [ "msgspec" ];
+  pythonImportsCheck = ["msgspec"];
 
   meta = with lib; {
     description = "Module to handle JSON/MessagePack";
     homepage = "https://github.com/jcrist/msgspec";
     changelog = "https://github.com/jcrist/msgspec/releases/tag/${version}";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

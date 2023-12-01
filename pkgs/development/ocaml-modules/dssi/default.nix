@@ -20,7 +20,7 @@ buildDunePackage rec {
     sha256 = "1frbmx1aznwp60r6bkx1whqyr6mkflvd9ysmjg7s7b80mh0s4ix6";
   };
 
-  buildInputs = [ dune-configurator ];
+  buildInputs = [dune-configurator];
   propagatedBuildInputs = [
     ladspa
     alsa-lib
@@ -30,6 +30,6 @@ buildDunePackage rec {
     homepage = "https://github.com/savonet/ocaml-dssi";
     description = "Bindings for the DSSI API which provides audio synthesizers";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ dandellion ];
+    maintainers = with maintainers; [dandellion];
   };
 }

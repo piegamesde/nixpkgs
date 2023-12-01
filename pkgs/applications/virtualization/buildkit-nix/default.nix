@@ -29,6 +29,6 @@ buildGoModule rec {
     homepage = "https://github.com/reproducible-containers/buildkit-nix/";
     license = licenses.asl20;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ lesuisse ];
+    maintainers = with maintainers; [lesuisse];
   };
 }

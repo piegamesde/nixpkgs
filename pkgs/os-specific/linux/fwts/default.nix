@@ -60,6 +60,6 @@ stdenv.mkDerivation rec {
     description = "Firmware Test Suite";
     platforms = platforms.linux;
     license = licenses.gpl2;
-    maintainers = with maintainers; [ tadfisher ];
+    maintainers = with maintainers; [tadfisher];
   };
 }

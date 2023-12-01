@@ -12,7 +12,7 @@ let
   cfg = config.services.zope2;
 
   zope2Opts =
-    { name, ... }:
+    {name, ...}:
     {
       options = {
 
@@ -77,7 +77,7 @@ in
   options = {
 
     services.zope2.instances = mkOption {
-      default = { };
+      default = {};
       type = with types; attrsOf (submodule zope2Opts);
       example = literalExpression ''
         {
@@ -105,13 +105,13 @@ in
 
   ###### implementation
 
-  config = mkIf (cfg.instances != { }) {
+  config = mkIf (cfg.instances != {}) {
 
     users.users.zope2 = {
       isSystemUser = true;
       group = "zope2";
     };
-    users.groups.zope2 = { };
+    users.groups.zope2 = {};
 
     systemd.services =
       let
@@ -231,8 +231,8 @@ in
           in
           {
             #description = "${name} instance";
-            after = [ "network.target" ]; # with RelStorage also add "postgresql.service"
-            wantedBy = [ "multi-user.target" ];
+            after = ["network.target"]; # with RelStorage also add "postgresql.service"
+            wantedBy = ["multi-user.target"];
             path = opts.packages;
             preStart = ''
               mkdir -p /var/log/zope2/

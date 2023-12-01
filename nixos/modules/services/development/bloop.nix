@@ -16,7 +16,7 @@ in
   options.services.bloop = {
     extraOptions = mkOption {
       type = types.listOf types.str;
-      default = [ ];
+      default = [];
       example = [
         "-J-Xmx2G"
         "-J-XX:MaxInlineLevel=20"
@@ -45,7 +45,7 @@ in
       description = "Bloop Scala build server";
 
       environment = {
-        PATH = mkForce "${makeBinPath [ config.programs.java.package ]}";
+        PATH = mkForce "${makeBinPath [config.programs.java.package]}";
       };
       serviceConfig = {
         Type = "simple";
@@ -54,6 +54,6 @@ in
       };
     };
 
-    environment.systemPackages = [ pkgs.bloop ];
+    environment.systemPackages = [pkgs.bloop];
   };
 }

@@ -20,7 +20,7 @@ rustPlatform.buildRustPackage rec {
     sha256 = "sha256-g5KhJlkW32b2g2ZtpYd/52TTmCezxAT5SavvgXYEJoE=";
   };
 
-  buildInputs = lib.optionals stdenv.isDarwin [ Security ];
+  buildInputs = lib.optionals stdenv.isDarwin [Security];
 
   cargoHash = "sha256-SnYNp+iWqDPi2kdM3qzGIj6jsWgl0pj0x9f3gd7lbpA=";
 
@@ -38,7 +38,7 @@ rustPlatform.buildRustPackage rec {
       intruder to get any system information.
     '';
     homepage = "https://www.diswall.stream";
-    license = with licenses; [ gpl3 ];
-    maintainers = with maintainers; [ izorkin ];
+    license = with licenses; [gpl3];
+    maintainers = with maintainers; [izorkin];
   };
 }

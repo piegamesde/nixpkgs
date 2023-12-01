@@ -6,8 +6,8 @@
 
 {
   disabled ? false,
-  propagatedBuildInputs ? [ ],
-  makeFlags ? [ ],
+  propagatedBuildInputs ? [],
+  makeFlags ? [],
   ...
 }@attrs:
 

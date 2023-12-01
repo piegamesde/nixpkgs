@@ -60,6 +60,6 @@ stdenv.mkDerivation rec {
     description = "Fast Python library for SEGY files";
     homepage = "https://github.com/equinor/segyio";
     license = licenses.lgpl3Only;
-    maintainers = with maintainers; [ atila ];
+    maintainers = with maintainers; [atila];
   };
 }

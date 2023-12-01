@@ -36,10 +36,10 @@ rec {
     javaVersion = "11";
     src = fetchurl (source "graalvm-ce" javaVersion);
     meta.platforms = builtins.attrNames javaPlatform;
-    products = [ ];
+    products = [];
   };
 
-  graalvm11-ce = graalvm11-ce-bare.override { products = [ native-image-installable-svm-java11 ]; };
+  graalvm11-ce = graalvm11-ce-bare.override {products = [native-image-installable-svm-java11];};
 
   # Mostly available for testing, not to be exposed at the top level
   graalvm11-ce-full = graalvm11-ce-bare.override {
@@ -106,10 +106,10 @@ rec {
     javaVersion = "17";
     src = fetchurl (source "graalvm-ce" javaVersion);
     meta.platforms = builtins.attrNames javaPlatform;
-    products = [ ];
+    products = [];
   };
 
-  graalvm17-ce = graalvm17-ce-bare.override { products = [ native-image-installable-svm-java17 ]; };
+  graalvm17-ce = graalvm17-ce-bare.override {products = [native-image-installable-svm-java17];};
 
   # Mostly available for testing, not to be exposed at the top level
   graalvm17-ce-full = graalvm17-ce-bare.override {
@@ -176,10 +176,10 @@ rec {
     javaVersion = "19";
     src = fetchurl (source "graalvm-ce" javaVersion);
     meta.platforms = builtins.attrNames javaPlatform;
-    products = [ ];
+    products = [];
   };
 
-  graalvm19-ce = graalvm19-ce-bare.override { products = [ native-image-installable-svm-java19 ]; };
+  graalvm19-ce = graalvm19-ce-bare.override {products = [native-image-installable-svm-java19];};
 
   # Mostly available for testing, not to be exposed at the top level
   graalvm19-ce-full = graalvm19-ce-bare.override {

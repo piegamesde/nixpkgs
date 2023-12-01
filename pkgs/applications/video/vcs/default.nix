@@ -38,8 +38,8 @@ stdenv.mkDerivation {
   };
 
   unpackCmd = "mkdir src; cp $curSrc src/vcs";
-  patches = [ ./fonts.patch ];
-  nativeBuildInputs = [ makeWrapper ];
+  patches = [./fonts.patch];
+  nativeBuildInputs = [makeWrapper];
 
   inherit dejavu_fonts;
   installPhase = ''
@@ -54,7 +54,7 @@ stdenv.mkDerivation {
     description = "Generates contact sheets from video files";
     homepage = "http://p.outlyer.net/vcs";
     license = licenses.cc-by-nc-sa-30;
-    maintainers = with maintainers; [ elitak ];
+    maintainers = with maintainers; [elitak];
     platforms = with platforms; unix;
   };
 }

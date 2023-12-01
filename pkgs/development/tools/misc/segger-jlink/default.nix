@@ -73,7 +73,7 @@ stdenv.mkDerivation {
   # https://github.com/NixOS/patchelf/pull/275
   #runtimeDependencies = [ udev ];
 
-  nativeBuildInputs = [ autoPatchelfHook ];
+  nativeBuildInputs = [autoPatchelfHook];
   buildInputs = [
     qt4
     udev

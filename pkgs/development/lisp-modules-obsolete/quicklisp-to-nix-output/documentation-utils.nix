@@ -1,12 +1,12 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "documentation-utils";
   version = "20190710-git";
 
   description = "A few simple tools to help you with documenting your library.";
 
-  deps = [ args."trivial-indent" ];
+  deps = [args."trivial-indent"];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/documentation-utils/2019-07-10/documentation-utils-20190710-git.tgz";
@@ -15,7 +15,7 @@ rec {
 
   packageName = "documentation-utils";
 
-  asdFilesToKeep = [ "documentation-utils.asd" ];
+  asdFilesToKeep = ["documentation-utils.asd"];
   overrides = x: x;
 }
 /* (SYSTEM documentation-utils DESCRIPTION

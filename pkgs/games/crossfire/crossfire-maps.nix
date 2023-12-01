@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
     homepage = "http://crossfire.real-time.com/";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    hydraPlatforms = [ ];
-    maintainers = with maintainers; [ ToxicFrog ];
+    hydraPlatforms = [];
+    maintainers = with maintainers; [ToxicFrog];
   };
 }

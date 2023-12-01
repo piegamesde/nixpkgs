@@ -68,7 +68,7 @@ buildPythonPackage rec {
     installShellFiles
     makeWrapper
   ];
-  buildInputs = [ zip ] ++ lib.optional generateManPage pandoc;
+  buildInputs = [zip] ++ lib.optional generateManPage pandoc;
   propagatedBuildInputs = lib.optional hlsEncryptedSupport pycryptodome;
 
   # Ensure these utilities are available in $PATH:
@@ -81,9 +81,9 @@ buildPythonPackage rec {
         atomicparsley
       ] ++ lib.optional ffmpegSupport ffmpeg ++ lib.optional rtmpSupport rtmpdump;
     in
-    [ ''--prefix PATH : "${lib.makeBinPath packagesToBinPath}"'' ];
+    [''--prefix PATH : "${lib.makeBinPath packagesToBinPath}"''];
 
-  setupPyBuildFlags = [ "build_lazy_extractors" ];
+  setupPyBuildFlags = ["build_lazy_extractors"];
 
   postInstall = ''
     installShellCompletion youtube-dl.zsh

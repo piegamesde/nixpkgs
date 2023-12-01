@@ -11,11 +11,11 @@ let
 in
 {
 
-  imports = [ ./digital-ocean-config.nix ];
+  imports = [./digital-ocean-config.nix];
 
   options = {
     virtualisation.digitalOceanImage.diskSize = mkOption {
-      type = with types; either (enum [ "auto" ]) int;
+      type = with types; either (enum ["auto"]) int;
       default = "auto";
       example = 4096;
       description = lib.mdDoc ''

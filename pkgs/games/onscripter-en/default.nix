@@ -37,7 +37,7 @@ stdenv.mkDerivation {
     SDL_ttf
   ];
 
-  configureFlags = [ "--no-werror" ];
+  configureFlags = ["--no-werror"];
 
   # Without this libvorbisfile.so is not getting linked properly for some reason.
   NIX_CFLAGS_LINK = "-lvorbisfile";
@@ -52,6 +52,6 @@ stdenv.mkDerivation {
     homepage = "http://unclemion.com/onscripter/";
     license = licenses.gpl2;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ abbradar ];
+    maintainers = with maintainers; [abbradar];
   };
 }

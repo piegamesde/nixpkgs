@@ -81,7 +81,7 @@ buildPythonPackage rec {
   # Skip tests because they require network access.
   doCheck = false;
 
-  pythonImportsCheck = [ "playwright" ];
+  pythonImportsCheck = ["playwright"];
 
   passthru = {
     inherit driver;

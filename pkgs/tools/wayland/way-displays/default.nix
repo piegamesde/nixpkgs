@@ -32,13 +32,13 @@ stdenv.mkDerivation rec {
     libinput
   ];
 
-  makeFlags = [ "DESTDIR=$(out) PREFIX= PREFIX_ETC= ROOT_ETC=$(out)/etc" ];
+  makeFlags = ["DESTDIR=$(out) PREFIX= PREFIX_ETC= ROOT_ETC=$(out)/etc"];
 
   meta = with lib; {
     homepage = "https://github.com/alex-courtis/way-displays";
     description = "Auto Manage Your Wayland Displays";
     license = licenses.mit;
-    maintainers = with maintainers; [ simoneruffini ];
+    maintainers = with maintainers; [simoneruffini];
     platforms = platforms.linux;
   };
 }

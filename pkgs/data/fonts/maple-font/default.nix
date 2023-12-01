@@ -24,7 +24,7 @@ let
       # Work around the "unpacker appears to have produced no directories"
       # case that happens when the archive doesn't have a subdirectory.
       setSourceRoot = "sourceRoot=`pwd`";
-      nativeBuildInputs = [ unzip ];
+      nativeBuildInputs = [unzip];
       installPhase = ''
         find . -name '*.ttf'    -exec install -Dt $out/share/fonts/truetype {} \;
         find . -name '*.otf'    -exec install -Dt $out/share/fonts/opentype {} \;
@@ -38,7 +38,7 @@ let
         '';
         license = licenses.ofl;
         platforms = platforms.all;
-        maintainers = with maintainers; [ oluceps ];
+        maintainers = with maintainers; [oluceps];
       };
     };
 in

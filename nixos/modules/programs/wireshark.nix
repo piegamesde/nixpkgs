@@ -34,8 +34,8 @@ in
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = [ wireshark ];
-    users.groups.wireshark = { };
+    environment.systemPackages = [wireshark];
+    users.groups.wireshark = {};
 
     security.wrappers.dumpcap = {
       source = "${wireshark}/bin/dumpcap";

@@ -36,7 +36,7 @@ buildGoModule rec {
     description = "The Amazon ECR Docker Credential Helper is a credential helper for the Docker daemon that makes it easier to use Amazon Elastic Container Registry";
     homepage = "https://github.com/awslabs/amazon-ecr-credential-helper";
     license = licenses.asl20;
-    maintainers = with maintainers; [ kalbasit ];
+    maintainers = with maintainers; [kalbasit];
     mainProgram = "docker-credential-ecr-login";
   };
 }

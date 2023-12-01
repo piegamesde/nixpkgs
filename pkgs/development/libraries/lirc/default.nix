@@ -113,6 +113,6 @@ stdenv.mkDerivation rec {
     homepage = "https://www.lirc.org/";
     license = licenses.gpl2;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ pSub ];
+    maintainers = with maintainers; [pSub];
   };
 }

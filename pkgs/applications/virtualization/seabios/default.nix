@@ -17,9 +17,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-J2FuT+FXn9YoFLSfxDOxyKZvKrys59a6bP1eYvEXVNU=";
   };
 
-  nativeBuildInputs = [ python3 ];
+  nativeBuildInputs = [python3];
 
-  buildInputs = [ acpica-tools ];
+  buildInputs = [acpica-tools];
 
   strictDeps = true;
 
@@ -54,7 +54,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "http://www.seabios.org";
     license = licenses.lgpl3;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     platforms = [
       "i686-linux"
       "x86_64-linux"

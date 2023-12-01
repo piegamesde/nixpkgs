@@ -40,9 +40,9 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Open source server for sharing geospatial data";
     homepage = "https://geoserver.org/";
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with sourceTypes; [binaryBytecode];
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ sikmir ];
+    maintainers = with maintainers; [sikmir];
     platforms = platforms.all;
   };
 }

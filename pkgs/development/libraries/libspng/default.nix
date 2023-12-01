@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
     libpng
   ];
 
-  buildInputs = [ zlib ];
+  buildInputs = [zlib];
 
   nativeBuildInputs = [
     ninja
@@ -53,8 +53,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Simple, modern libpng alternative";
     homepage = "https://libspng.org/";
-    license = with licenses; [ bsd2 ];
-    maintainers = with maintainers; [ humancalico ];
+    license = with licenses; [bsd2];
+    maintainers = with maintainers; [humancalico];
     platforms = platforms.all;
   };
 }

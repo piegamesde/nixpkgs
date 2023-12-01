@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
     ninja
   ];
 
-  buildInputs = [ ];
+  buildInputs = [];
 
   mesonFlags = [
     # install validators to $dev
@@ -45,7 +45,7 @@ stdenv.mkDerivation rec {
     "-Dtests=disabled"
     # Avoid heavyweight python dependencies.
     "-Ddocs=disabled"
-  ] ++ lib.optionals stdenv.isDarwin [ "-Dlv2dir=${placeholder "out"}/lib/lv2" ];
+  ] ++ lib.optionals stdenv.isDarwin ["-Dlv2dir=${placeholder "out"}/lib/lv2"];
 
   passthru = {
     tests = {
@@ -62,7 +62,7 @@ stdenv.mkDerivation rec {
     homepage = "https://lv2plug.in";
     description = "A plugin standard for audio systems";
     license = licenses.mit;
-    maintainers = with maintainers; [ goibhniu ];
+    maintainers = with maintainers; [goibhniu];
     platforms = platforms.unix;
   };
 }

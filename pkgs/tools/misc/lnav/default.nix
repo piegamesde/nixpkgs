@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-W0NXmdbrarSmLOLpl9bt9kYjjDBtejGgh0QYeGFVMNQ=";
   };
 
-  patches = [ ./0001-Forcefully-disable-docs-build.patch ];
+  patches = [./0001-Forcefully-disable-docs-build.patch];
   postPatch = ''
     substituteInPlace Makefile.am \
       --replace "SUBDIRS = tools src test" "SUBDIRS = tools src"
@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   strictDeps = true;
-  depsBuildBuild = [ buildPackages.stdenv.cc ];
+  depsBuildBuild = [buildPackages.stdenv.cc];
   nativeBuildInputs = [
     autoconf
     automake
@@ -68,7 +68,7 @@ stdenv.mkDerivation rec {
     '';
     downloadPage = "https://github.com/tstack/lnav/releases";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ dochang ];
+    maintainers = with maintainers; [dochang];
     platforms = platforms.unix;
   };
 }

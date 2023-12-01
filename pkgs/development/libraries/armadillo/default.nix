@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-sNzgQil+hlrdM1Ha1394wsdjjWYy9YNXsBXlDty9IYY=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     blas
     lapack
@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
     "-DDETECT_HDF5=ON"
   ];
 
-  patches = [ ./use-unix-config-on-OS-X.patch ];
+  patches = [./use-unix-config-on-OS-X.patch];
 
   meta = with lib; {
     description = "C++ linear algebra library";

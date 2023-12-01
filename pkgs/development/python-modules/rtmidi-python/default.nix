@@ -23,26 +23,26 @@ buildPythonPackage rec {
     rm rtmidi_python.cpp
   '';
 
-  nativeBuildInputs = [ cython ];
+  nativeBuildInputs = [cython];
   buildInputs =
-    lib.optionals stdenv.isLinux [ alsa-lib ]
+    lib.optionals stdenv.isLinux [alsa-lib]
     ++ lib.optionals stdenv.isDarwin [
       CoreAudio
       CoreMIDI
       CoreServices
     ];
 
-  setupPyBuildFlags = [ "--from-cython" ];
+  setupPyBuildFlags = ["--from-cython"];
 
   # package has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "rtmidi_python" ];
+  pythonImportsCheck = ["rtmidi_python"];
 
   meta = with lib; {
     description = "Python wrapper for RtMidi";
     homepage = "https://github.com/superquadratic/rtmidi-python";
     license = licenses.mit;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

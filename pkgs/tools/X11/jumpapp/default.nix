@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-9sh0+zpDxwqRGC1jUgGTDdSDRdAFsL12mQ/Opwh/UBc=";
   };
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
   nativeBuildInputs = [
     pandoc
     perl
@@ -46,6 +46,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/mkropat/jumpapp";
     description = "A run-or-raise application switcher for any X11 desktop";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.matklad ];
+    maintainers = [lib.maintainers.matklad];
   };
 }

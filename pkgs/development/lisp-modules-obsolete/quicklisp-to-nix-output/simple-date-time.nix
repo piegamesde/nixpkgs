@@ -1,12 +1,12 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "simple-date-time";
   version = "20160421-git";
 
   description = "date and time library for common lisp";
 
-  deps = [ args."cl-ppcre" ];
+  deps = [args."cl-ppcre"];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/simple-date-time/2016-04-21/simple-date-time-20160421-git.tgz";
@@ -15,7 +15,7 @@ rec {
 
   packageName = "simple-date-time";
 
-  asdFilesToKeep = [ "simple-date-time.asd" ];
+  asdFilesToKeep = ["simple-date-time.asd"];
   overrides = x: x;
 }
 /* (SYSTEM simple-date-time DESCRIPTION date and time library for common lisp

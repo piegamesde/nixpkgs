@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
 
   src = dockapps-sources;
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     libX11
     libXpm
@@ -47,6 +47,6 @@ stdenv.mkDerivation rec {
     description = "Alsa mixer application for Windowmaker";
     homepage = "https://www.dockapps.net/alsamixerapp";
     license = licenses.gpl2Plus;
-    maintainers = [ maintainers.bstrik ];
+    maintainers = [maintainers.bstrik];
   };
 }

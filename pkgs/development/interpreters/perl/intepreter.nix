@@ -21,7 +21,7 @@
   makeWrapper,
   enableCrypt ? true,
   libxcrypt ? null,
-  overrides ? config.perlPackageOverrides or (p: { }), # TODO: (self: super: {}) like in python
+  overrides ? config.perlPackageOverrides or (p: {}), # TODO: (self: super: {}) like in python
 }@inputs:
 
 # Note: this package is used for bootstrapping fetchurl, and thus
@@ -68,7 +68,7 @@ stdenv.mkDerivation (
     # Without libxcrypt, Perl will still find FreeBSD's crypt functions.
     propagatedBuildInputs = lib.optional (enableCrypt && !stdenv.isFreeBSD) libxcrypt;
 
-    disallowedReferences = [ stdenv.cc ];
+    disallowedReferences = [stdenv.cc];
 
     patches =
       [
@@ -196,7 +196,7 @@ stdenv.mkDerivation (
       '';
 
     # Default perl does not support --host= & co.
-    configurePlatforms = [ ];
+    configurePlatforms = [];
 
     setupHook = ./setup-hook.sh;
 
@@ -208,7 +208,7 @@ stdenv.mkDerivation (
         override =
           attr:
           let
-            perl = attr.override (inputs' // { self = perl; });
+            perl = attr.override (inputs' // {self = perl;});
           in
           perl;
       in
@@ -220,7 +220,7 @@ stdenv.mkDerivation (
         perlOnBuildForTarget = override pkgsBuildTarget.${perlAttr};
         perlOnHostForHost = override pkgsHostHost.${perlAttr};
         perlOnTargetForTarget =
-          if lib.hasAttr perlAttr pkgsTargetTarget then (override pkgsTargetTarget.${perlAttr}) else { };
+          if lib.hasAttr perlAttr pkgsTargetTarget then (override pkgsTargetTarget.${perlAttr}) else {};
       };
 
     doCheck = false; # some tests fail, expensive
@@ -268,7 +268,7 @@ stdenv.mkDerivation (
       homepage = "https://www.perl.org/";
       description = "The standard implementation of the Perl 5 programmming language";
       license = licenses.artistic1;
-      maintainers = [ maintainers.eelco ];
+      maintainers = [maintainers.eelco];
       platforms = platforms.all;
       priority = 6; # in `buildEnv' (including the one inside `perl.withPackages') the library files will have priority over files in `perl`
     };

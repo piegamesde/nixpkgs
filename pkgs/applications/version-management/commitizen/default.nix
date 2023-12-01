@@ -39,7 +39,7 @@ buildPythonApplication rec {
 
   format = "pyproject";
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   postPatch = ''
     substituteInPlace pyproject.toml \
@@ -102,7 +102,7 @@ buildPythonApplication rec {
       package = commitizen;
       command = "cz version";
     };
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {

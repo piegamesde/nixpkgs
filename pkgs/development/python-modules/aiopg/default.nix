@@ -34,12 +34,12 @@ buildPythonPackage rec {
   # Tests requires a PostgreSQL Docker instance
   doCheck = false;
 
-  pythonImportsCheck = [ "aiopg" ];
+  pythonImportsCheck = ["aiopg"];
 
   meta = with lib; {
     description = "Python library for accessing a PostgreSQL database";
     homepage = "https://aiopg.readthedocs.io/";
-    license = with licenses; [ bsd2 ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [bsd2];
+    maintainers = with maintainers; [fab];
   };
 }

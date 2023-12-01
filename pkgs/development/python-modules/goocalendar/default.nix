@@ -26,7 +26,7 @@ buildPythonPackage rec {
     gobject-introspection
   ];
 
-  propagatedBuildInputs = [ pygobject3 ];
+  propagatedBuildInputs = [pygobject3];
 
   buildInputs = [
     gtk3
@@ -40,6 +40,6 @@ buildPythonPackage rec {
     description = "A calendar widget for GTK using PyGoocanvas.";
     homepage = "https://goocalendar.tryton.org/";
     license = licenses.gpl2;
-    maintainers = [ maintainers.udono ];
+    maintainers = [maintainers.udono];
   };
 }

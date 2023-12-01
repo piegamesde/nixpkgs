@@ -24,9 +24,9 @@ buildPythonPackage rec {
     sed -i 's#''${Python3_SITEARCH}#${placeholder "out"}/${python.sitePackages}#' cmake/SIPMacros.cmake
   '';
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
-  propagatedBuildInputs = [ sip_4 ];
+  propagatedBuildInputs = [sip_4];
 
   disabled = pythonOlder "3.4.0";
 

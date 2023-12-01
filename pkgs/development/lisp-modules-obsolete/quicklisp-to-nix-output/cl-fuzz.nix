@@ -1,12 +1,12 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "cl-fuzz";
   version = "20181018-git";
 
   description = "A Fuzz Testing Framework";
 
-  deps = [ args."alexandria" ];
+  deps = [args."alexandria"];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/cl-fuzz/2018-10-18/cl-fuzz-20181018-git.tgz";
@@ -15,7 +15,7 @@ rec {
 
   packageName = "cl-fuzz";
 
-  asdFilesToKeep = [ "cl-fuzz.asd" ];
+  asdFilesToKeep = ["cl-fuzz.asd"];
   overrides = x: x;
 }
 /* (SYSTEM cl-fuzz DESCRIPTION A Fuzz Testing Framework SHA256

@@ -27,7 +27,7 @@ mkDerivation {
     fetchSubmodules = true;
   };
   postUnpack = "sourceRoot+=/avh4-lib; echo source root reset to $sourceRoot";
-  configureFlags = [ "--ghc-option=-Wno-error=unused-packages" ];
+  configureFlags = ["--ghc-option=-Wno-error=unused-packages"];
   libraryHaskellDepends = [
     array
     base
@@ -55,7 +55,7 @@ mkDerivation {
     tasty-hunit
     text
   ];
-  testToolDepends = [ tasty-discover ];
+  testToolDepends = [tasty-discover];
   doHaddock = false;
   description = "Common code for haskell projects";
   license = lib.licenses.bsd3;

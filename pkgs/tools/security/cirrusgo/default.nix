@@ -21,7 +21,7 @@ buildGoModule rec {
   meta = with lib; {
     description = "Tool to scan SAAS and PAAS applications";
     homepage = "https://github.com/Ph33rr/cirrusgo";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

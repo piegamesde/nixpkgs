@@ -17,12 +17,12 @@ let
       dir = "/var/lib/dragonflydb";
       keys_output_limit = cfg.keysOutputLimit;
     }
-    // (lib.optionalAttrs (cfg.bind != null) { bind = cfg.bind; })
-    // (lib.optionalAttrs (cfg.requirePass != null) { requirepass = cfg.requirePass; })
-    // (lib.optionalAttrs (cfg.maxMemory != null) { maxmemory = cfg.maxMemory; })
-    // (lib.optionalAttrs (cfg.memcachePort != null) { memcache_port = cfg.memcachePort; })
-    // (lib.optionalAttrs (cfg.dbNum != null) { dbnum = cfg.dbNum; })
-    // (lib.optionalAttrs (cfg.cacheMode != null) { cache_mode = cfg.cacheMode; });
+    // (lib.optionalAttrs (cfg.bind != null) {bind = cfg.bind;})
+    // (lib.optionalAttrs (cfg.requirePass != null) {requirepass = cfg.requirePass;})
+    // (lib.optionalAttrs (cfg.maxMemory != null) {maxmemory = cfg.maxMemory;})
+    // (lib.optionalAttrs (cfg.memcachePort != null) {memcache_port = cfg.memcachePort;})
+    // (lib.optionalAttrs (cfg.dbNum != null) {dbnum = cfg.dbNum;})
+    // (lib.optionalAttrs (cfg.cacheMode != null) {cache_mode = cfg.cacheMode;});
 in
 {
 
@@ -114,15 +114,15 @@ in
       dragonfly.isSystemUser = true;
       dragonfly.group = "dragonfly";
     };
-    users.groups = optionalAttrs (cfg.user == "dragonfly") { dragonfly = { }; };
+    users.groups = optionalAttrs (cfg.user == "dragonfly") {dragonfly = {};};
 
-    environment.systemPackages = [ dragonflydb ];
+    environment.systemPackages = [dragonflydb];
 
     systemd.services.dragonflydb = {
       description = "DragonflyDB server";
 
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
 
       serviceConfig = {
         ExecStart = "${dragonflydb}/bin/dragonfly --alsologtostderr ${
@@ -134,7 +134,7 @@ in
         User = cfg.user;
 
         # Filesystem access
-        ReadWritePaths = [ settings.dir ];
+        ReadWritePaths = [settings.dir];
         StateDirectory = "dragonflydb";
         StateDirectoryMode = "0700";
         # Process Properties

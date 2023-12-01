@@ -33,7 +33,7 @@ buildPythonPackage rec {
       --replace " --cov=tablib --cov=tests --cov-report xml --cov-report term --cov-report html" ""
   '';
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
   passthru.optional-dependencies = {
     all = [
@@ -46,16 +46,16 @@ buildPythonPackage rec {
       xlrd
       xlwt
     ];
-    cli = [ tabulate ];
-    html = [ markuppy ];
-    ods = [ odfpy ];
-    pandas = [ pandas ];
+    cli = [tabulate];
+    html = [markuppy];
+    ods = [odfpy];
+    pandas = [pandas];
     xls = [
       xlrd
       xlwt
     ];
-    xlsx = [ openpyxl ];
-    yaml = [ pyyaml ];
+    xlsx = [openpyxl];
+    yaml = [pyyaml];
   };
 
   nativeCheckInputs = [
@@ -70,13 +70,13 @@ buildPythonPackage rec {
       "tests/test_tablib.py"
     ];
 
-  pythonImportsCheck = [ "tablib" ];
+  pythonImportsCheck = ["tablib"];
 
   meta = with lib; {
     description = "Format-agnostic tabular dataset library";
     homepage = "https://tablib.readthedocs.io/";
     changelog = "https://github.com/jazzband/tablib/raw/v${version}/HISTORY.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

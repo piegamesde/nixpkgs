@@ -17,17 +17,17 @@ buildPythonPackage rec {
     sha256 = "0dlvq4bpamhlva86042wlc0xxfsxlpdgm2adfb1c6y3vjgbm0nvd";
   };
 
-  buildInputs = [ pbr ];
-  propagatedBuildInputs = [ pythonix ];
+  buildInputs = [pbr];
+  propagatedBuildInputs = [pythonix];
 
   # does not have any tests
   doCheck = false;
-  pythonImportsCheck = [ "nixpkgs" ];
+  pythonImportsCheck = ["nixpkgs"];
 
   meta = with lib; {
     description = "Allows to `from nixpkgs import` stuff in interactive Python sessions";
     homepage = "https://github.com/t184256/nixpkgs-python-importer";
     license = licenses.mit;
-    maintainers = with maintainers; [ t184256 ];
+    maintainers = with maintainers; [t184256];
   };
 }

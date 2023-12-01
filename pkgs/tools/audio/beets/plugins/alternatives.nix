@@ -21,7 +21,7 @@ python3Packages.buildPythonApplication rec {
       --replace "addopts = --cov --cov-report=term --cov-report=html" ""
   '';
 
-  nativeBuildInputs = [ beets ];
+  nativeBuildInputs = [beets];
 
   nativeCheckInputs = with python3Packages; [
     pytestCheckHook

@@ -8,7 +8,7 @@ stdenv.mkDerivation rec {
   pname = "vulkan-headers";
   version = "1.3.249";
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   src = fetchFromGitHub {
     owner = "KhronosGroup";
@@ -24,6 +24,6 @@ stdenv.mkDerivation rec {
     homepage = "https://www.lunarg.com";
     platforms = platforms.unix ++ platforms.windows;
     license = licenses.asl20;
-    maintainers = [ maintainers.ralith ];
+    maintainers = [maintainers.ralith];
   };
 }

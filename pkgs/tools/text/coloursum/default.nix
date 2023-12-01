@@ -25,6 +25,6 @@ rustPlatform.buildRustPackage rec {
     description = "Colourise your checksum output";
     homepage = "https://github.com/ticky/coloursum";
     license = licenses.mit;
-    maintainers = with maintainers; [ fgaz ];
+    maintainers = with maintainers; [fgaz];
   };
 }

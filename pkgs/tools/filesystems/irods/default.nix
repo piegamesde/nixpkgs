@@ -88,7 +88,7 @@ rec {
       # Patches:
       # irods_root_path.patch : the root path is obtained by stripping 3 items of the path,
       #                         but we don't use /usr with nix, so remove only 2 items.
-      patches = [ ./irods_root_path.patch ];
+      patches = [./irods_root_path.patch];
 
       # fix build with recent llvm versions
       env.NIX_CFLAGS_COMPILE = "-Wno-deprecated-register -Wno-deprecated-declarations";
@@ -136,9 +136,9 @@ rec {
         sha256 = "0wgs585j2lp820py2pbizsk54xgz5id96fhxwwk9lqhbzxhfjhcg";
       };
 
-      patches = [ ./zmqcpp-deprecated-send_recv.patch ];
+      patches = [./zmqcpp-deprecated-send_recv.patch];
 
-      buildInputs = common.buildInputs ++ [ irods ];
+      buildInputs = common.buildInputs ++ [irods];
 
       postPatch =
         common.postPatch

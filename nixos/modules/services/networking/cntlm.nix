@@ -28,7 +28,7 @@ let
             Proxy ${entry}
           '')
           cfg.proxy}
-        ${optionalString (cfg.noproxy != [ ]) "NoProxy ${concatStringsSep ", " cfg.noproxy}"}
+        ${optionalString (cfg.noproxy != []) "NoProxy ${concatStringsSep ", " cfg.noproxy}"}
 
         ${concatMapStrings
           (port: ''
@@ -81,14 +81,14 @@ in
         number  of  proxies.  Should  one proxy fail, cntlm automatically moves on to the next one. The connect request fails only if the whole
         list of proxies is scanned and (for each request) and found to be invalid. Command-line takes precedence over the configuration file.
       '';
-      example = [ "proxy.example.com:81" ];
+      example = ["proxy.example.com:81"];
     };
 
     noproxy = mkOption {
       description = lib.mdDoc ''
         A list of domains where the proxy is skipped.
       '';
-      default = [ ];
+      default = [];
       type = types.listOf types.str;
       example = [
         "*.example.com"
@@ -97,7 +97,7 @@ in
     };
 
     port = mkOption {
-      default = [ 3128 ];
+      default = [3128];
       type = types.listOf types.port;
       description = lib.mdDoc "Specifies on which ports the cntlm daemon listens.";
     };
@@ -120,8 +120,8 @@ in
   config = mkIf cfg.enable {
     systemd.services.cntlm = {
       description = "CNTLM is an NTLM / NTLM Session Response / NTLMv2 authenticating HTTP proxy";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         User = "cntlm";
         ExecStart = ''

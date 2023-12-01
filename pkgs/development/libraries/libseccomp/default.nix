@@ -26,8 +26,8 @@ stdenv.mkDerivation rec {
     "pythonsrc"
   ];
 
-  nativeBuildInputs = [ gperf ];
-  buildInputs = [ getopt ];
+  nativeBuildInputs = [gperf];
+  buildInputs = [getopt];
 
   patchPhase = ''
     patchShebangs .
@@ -50,7 +50,7 @@ stdenv.mkDerivation rec {
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {
@@ -65,6 +65,6 @@ stdenv.mkDerivation rec {
       "sparc-linux"
       "sparc64-linux"
     ];
-    maintainers = with maintainers; [ thoughtpolice ];
+    maintainers = with maintainers; [thoughtpolice];
   };
 }

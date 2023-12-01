@@ -17,13 +17,13 @@ stdenv.mkDerivation rec {
     sha256 = "0ibyb60a0b4n34bsjgvhdw8yf24463ky0hpmf6a2jjqsbm5g4v64";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     gtk2
     poppler
   ];
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   patches = [
     (fetchpatch {
@@ -47,7 +47,7 @@ stdenv.mkDerivation rec {
       viewer, in the lines of Evince but without using the Gnome libraries.
     '';
     license = licenses.gpl2;
-    maintainers = [ maintainers.astsmtl ];
+    maintainers = [maintainers.astsmtl];
     platforms = platforms.linux;
   };
 }

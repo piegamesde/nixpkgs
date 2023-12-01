@@ -11,7 +11,7 @@ let
   cfg = config.services.tp-auto-kbbl;
 in
 {
-  meta.maintainers = with maintainers; [ sebtm ];
+  meta.maintainers = with maintainers; [sebtm];
 
   options = {
     services.tp-auto-kbbl = {
@@ -28,7 +28,7 @@ in
 
       arguments = mkOption {
         type = types.listOf types.str;
-        default = [ ];
+        default = [];
         description = lib.mdDoc ''
           List of arguments appended to `./tp-auto-kbbl --device [device] [arguments]`
         '';
@@ -43,7 +43,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
     systemd.services.tp-auto-kbbl = {
       serviceConfig = {
@@ -61,10 +61,10 @@ in
       unitConfig = {
         Description = "Auto toggle keyboard backlight";
         Documentation = "https://github.com/saibotd/tp-auto-kbbl";
-        After = [ "dbus.service" ];
+        After = ["dbus.service"];
       };
 
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
     };
   };
 }

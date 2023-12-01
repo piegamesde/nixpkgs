@@ -20,15 +20,15 @@ buildPythonPackage rec {
     hash = "sha256-3rkyvlWx2UGeN9xNZd+/640we3HIwR/VLxWaul/A3u0=";
   };
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
-  propagatedBuildInputs = [ django ];
+  propagatedBuildInputs = [django];
 
   checkPhase = ''
     ${python.interpreter} -m django test --settings=tests.settings
   '';
 
-  pythonImportsCheck = [ "formtools" ];
+  pythonImportsCheck = ["formtools"];
 
   meta = with lib; {
     description = "A set of high-level abstractions for Django forms";

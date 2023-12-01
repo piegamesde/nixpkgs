@@ -55,7 +55,7 @@ stdenv.mkDerivation rec {
     sha256 = "04l8aqr474pb115nagn9f6y48jw92n1qfszgw7dbhgl4mpn95lcr";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     install -Dm 0755 screenfetch-dev $out/bin/screenfetch
@@ -82,7 +82,7 @@ stdenv.mkDerivation rec {
     '';
     license = licenses.gpl3;
     homepage = "https://github.com/KittyKatt/screenFetch";
-    maintainers = with maintainers; [ relrod ];
+    maintainers = with maintainers; [relrod];
     platforms = platforms.all;
   };
 }

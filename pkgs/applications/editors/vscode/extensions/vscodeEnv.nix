@@ -10,15 +10,15 @@
 ##User input
 {
   vscode ? vscodeDefault,
-  nixExtensions ? [ ],
+  nixExtensions ? [],
   vscodeExtsFolderName ? ".vscode-exts",
   # will add to the command updateSettings (which will run on executing vscode) settings to override in settings.json file
-  settings ? { },
+  settings ? {},
   createSettingsIfDoesNotExists ? true,
-  launch ? { },
+  launch ? {},
   createLaunchIfDoesNotExists ? true,
   # will add to the command updateKeybindings(which will run on executing vscode) keybindings to override in keybinding.json file
-  keybindings ? { },
+  keybindings ? {},
   createKeybindingsIfDoesNotExists ? true,
   user-data-dir ? ''"''${TMP}''${name}"/vscode-data-dir'',
   # if file exists will use it and import the extensions in it into this dervation else will use empty extensions list
@@ -45,7 +45,7 @@ let
           ;
       };
 
-  updateSettings = import ./updateSettings.nix { inherit lib writeShellScriptBin jq; };
+  updateSettings = import ./updateSettings.nix {inherit lib writeShellScriptBin jq;};
   userSettingsFolder = "${user-data-dir}/User";
 
   updateSettingsCmd = updateSettings {

@@ -55,7 +55,7 @@ stdenv.mkDerivation rec {
       qt5.qtsvg
     ];
 
-  nativeInstallCheckInputs = [ bc ];
+  nativeInstallCheckInputs = [bc];
 
   postPatch = ''
     patchShebangs ./build ./configure ./run_tests ./bin/*
@@ -102,7 +102,7 @@ stdenv.mkDerivation rec {
   postInstall = ''
     for prog in $out/bin/*; do
       if [[ -x "$prog" ]]; then
-        wrapProgram $prog --prefix PATH : ${lib.makeBinPath [ ants ]}
+        wrapProgram $prog --prefix PATH : ${lib.makeBinPath [ants]}
       fi
     done
   '';
@@ -111,7 +111,7 @@ stdenv.mkDerivation rec {
     broken = (stdenv.isLinux && stdenv.isAarch64);
     homepage = "https://github.com/MRtrix3/mrtrix3";
     description = "Suite of tools for diffusion imaging";
-    maintainers = with maintainers; [ bcdarwin ];
+    maintainers = with maintainers; [bcdarwin];
     platforms = platforms.linux;
     license = licenses.mpl20;
   };

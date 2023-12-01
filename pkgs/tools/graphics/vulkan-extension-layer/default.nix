@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
     jq
   ];
 
-  buildInputs = [ vulkan-headers ];
+  buildInputs = [vulkan-headers];
 
   # Help vulkan-loader find the validation layers
   setupHook = writeText "setup-hook" ''
@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
   '';
 
   # Tests are not for gpu-less and headless environments
-  cmakeFlags = [ "-DBUILD_TESTS=false" ];
+  cmakeFlags = ["-DBUILD_TESTS=false"];
 
   # Include absolute paths to layer libraries in their associated
   # layer definition json files.
@@ -48,6 +48,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/KhronosGroup/Vulkan-ExtensionLayer/";
     platforms = platforms.linux;
     license = licenses.asl20;
-    maintainers = with maintainers; [ expipiplus1 ];
+    maintainers = with maintainers; [expipiplus1];
   };
 }

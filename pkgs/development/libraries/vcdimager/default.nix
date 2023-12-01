@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
     sha256 = "0ypnb1vp49nmzp5571ynlz6n1gh90f23w3z4x95hb7c2p7pmylb7";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs =
     [
@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
       ]
     );
 
-  propagatedBuildInputs = [ libcdio ];
+  propagatedBuildInputs = [libcdio];
 
   meta = with lib; {
     homepage = "https://www.gnu.org/software/vcdimager/";

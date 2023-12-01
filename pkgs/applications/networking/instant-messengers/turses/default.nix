@@ -91,7 +91,7 @@ buildPythonPackage rec {
     description = "A Twitter client for the console";
     homepage = "https://github.com/louipc/turses";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     platforms = platforms.unix;
   };
 }

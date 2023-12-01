@@ -1,4 +1,4 @@
-{ stdenv }:
+{stdenv}:
 crateName: metadata: buildTests:
 if !buildTests then
   ''

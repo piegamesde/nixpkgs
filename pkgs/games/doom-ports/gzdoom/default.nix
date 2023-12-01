@@ -83,7 +83,7 @@ stdenv.mkDerivation rec {
       name = "gzdoom";
       exec = "gzdoom";
       desktopName = "GZDoom";
-      categories = [ "Game" ];
+      categories = ["Game"];
     })
   ];
 

@@ -41,6 +41,6 @@ buildPythonPackage rec {
     description = "Histogramming for analysis powered by boost-histogram";
     homepage = "https://hist.readthedocs.io/en/latest/";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ veprbl ];
+    maintainers = with maintainers; [veprbl];
   };
 }

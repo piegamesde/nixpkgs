@@ -19,12 +19,12 @@ buildPythonPackage rec {
     hash = "sha256-gJ/piHaC01wffR9U8PQPmLsfdxsUJltFPKBR4s5Y/Kc=";
   };
 
-  pythonImportsCheck = [ "tensorboard_data_server" ];
+  pythonImportsCheck = ["tensorboard_data_server"];
 
   meta = with lib; {
     description = "Fast data loading for TensorBoard";
     homepage = "https://github.com/tensorflow/tensorboard/tree/master/tensorboard/data/server";
     license = licenses.asl20;
-    maintainers = with maintainers; [ abbradar ];
+    maintainers = with maintainers; [abbradar];
   };
 }

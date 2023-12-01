@@ -45,7 +45,7 @@ rustPlatform.buildRustPackage rec {
       bsd3
       mpl20
     ];
-    maintainers = with maintainers; [ gin66 ];
+    maintainers = with maintainers; [gin66];
     platforms = platforms.linux;
   };
 }

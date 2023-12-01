@@ -46,6 +46,6 @@ buildGoModule rec {
     description = "community managed domain list";
     homepage = "https://github.com/SagerNet/sing-geosite";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ linsui ];
+    maintainers = with maintainers; [linsui];
   };
 }

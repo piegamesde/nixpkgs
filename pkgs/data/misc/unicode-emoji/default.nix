@@ -9,7 +9,7 @@ let
   version = "15.0";
 
   fetchData =
-    { suffix, hash }:
+    {suffix, hash}:
     stdenvNoCC.mkDerivation {
       pname = "unicode-emoji-${suffix}";
       inherit version;

@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
     description = "Practice flashcards in bash";
     homepage = "https://github.com/rpearce/bashcards/";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ rpearce ];
+    maintainers = with maintainers; [rpearce];
     platforms = platforms.all;
   };
 }

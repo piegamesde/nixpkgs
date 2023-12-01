@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
     "dev"
   ];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs =
     [
@@ -55,7 +55,7 @@ stdenv.mkDerivation rec {
       avahi
       gnutls
     ]
-    ++ lib.optionals withPAMSupport [ pam ];
+    ++ lib.optionals withPAMSupport [pam];
 
   # testing requires some networking
   # doCheck = true;
@@ -72,6 +72,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/michaelrsweet/pappl";
     license = licenses.asl20;
     platforms = platforms.linux; # should also work for darwin, but requires additional work
-    maintainers = with maintainers; [ jonringer ];
+    maintainers = with maintainers; [jonringer];
   };
 }

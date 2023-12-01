@@ -25,11 +25,11 @@ mkCoqDerivation {
       ]
       null;
 
-  propagatedBuildInputs = [ ssreflect ];
+  propagatedBuildInputs = [ssreflect];
 
   meta = with lib; {
     description = "Regular Language Representations in Coq";
-    maintainers = with maintainers; [ siraben ];
+    maintainers = with maintainers; [siraben];
     license = licenses.cecill-b;
     platforms = platforms.unix;
   };

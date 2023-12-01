@@ -33,6 +33,6 @@ stdenv.mkDerivation rec {
       mit # or
       ruby
     ];
-    maintainers = with maintainers; [ zimbatm ];
+    maintainers = with maintainers; [zimbatm];
   };
 }

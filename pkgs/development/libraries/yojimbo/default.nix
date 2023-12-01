@@ -52,6 +52,6 @@ stdenv.mkDerivation {
     homepage = "https://github.com/networkprotocol/yojimbo";
     license = licenses.bsd3;
     platforms = platforms.x86_64;
-    maintainers = with maintainers; [ paddygord ];
+    maintainers = with maintainers; [paddygord];
   };
 }

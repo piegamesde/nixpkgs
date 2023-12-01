@@ -20,6 +20,6 @@ buildNimPackage rec {
     description = "Various asynchronous tools for Nim language";
     homepage = "https://github.com/cheatfate/asynctools";
     license = licenses.mit;
-    maintainers = [ maintainers.marsam ];
+    maintainers = [maintainers.marsam];
   };
 }

@@ -22,7 +22,7 @@ buildPythonPackage rec {
     sha256 = "0v6b4ly0p8nknpnp3f4dbslfsifzzjx2vv27rfylx04kzdhg4m9p";
   };
 
-  buildInputs = [ pytest ];
+  buildInputs = [pytest];
 
   propagatedBuildInputs = [
     factory_boy
@@ -36,13 +36,13 @@ buildPythonPackage rec {
     pytest-cov
   ];
 
-  pytestFlagsArray = [ "--ignore=docs" ];
-  pythonImportsCheck = [ "pytest_factoryboy" ];
+  pytestFlagsArray = ["--ignore=docs"];
+  pythonImportsCheck = ["pytest_factoryboy"];
 
   meta = with lib; {
     description = "Integration of factory_boy into the pytest runner";
     homepage = "https://pytest-factoryboy.readthedocs.io/en/latest/";
-    maintainers = with maintainers; [ winpat ];
+    maintainers = with maintainers; [winpat];
     license = licenses.mit;
   };
 }

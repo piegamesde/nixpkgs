@@ -26,7 +26,7 @@
 }@inputs:
 let
   # FIXME: Replace with gnome.rygel once hqplayerd releases a new version.
-  rygel-hqplayerd = inputs.rygel or (callPackage ./rygel.nix { });
+  rygel-hqplayerd = inputs.rygel or (callPackage ./rygel.nix {});
 in
 stdenv.mkDerivation rec {
   pname = "hqplayerd";
@@ -117,9 +117,9 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://www.signalyst.com/custom.html";
     description = "High-end upsampling multichannel software embedded HD-audio player";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.unfree;
-    platforms = [ "x86_64-linux" ];
-    maintainers = with maintainers; [ lovesegfault ];
+    platforms = ["x86_64-linux"];
+    maintainers = with maintainers; [lovesegfault];
   };
 }

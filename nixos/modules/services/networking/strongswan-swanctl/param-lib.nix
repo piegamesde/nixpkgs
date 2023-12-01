@@ -75,7 +75,7 @@ rec {
             let
               value' = filterEmptySets value;
             in
-            if value' == { } then null else value'
+            if value' == {} then null else value'
           else
             value
         )
@@ -94,16 +94,16 @@ rec {
           g =
             name: value:
             if isAttrs value && cond value then
-              { ${name} = recurse (path ++ [ name ]) value; }
+              {${name} = recurse (path ++ [name]) value;}
             else
-              f (path ++ [ name ]) name value;
+              f (path ++ [name]) name value;
         in
         mapAttrs'' g set;
     in
-    recurse [ ] set;
+    recurse [] set;
 
-  mapAttrs'' = f: set: foldl' (a: b: a // b) { } (map (attr: f attr set.${attr}) (attrNames set));
+  mapAttrs'' = f: set: foldl' (a: b: a // b) {} (map (attr: f attr set.${attr}) (attrNames set));
 
   # Extract the options from the given set of parameters.
-  paramsToOptions = ps: mapParamsRecursive (_path: name: param: { ${name} = param.option; }) ps;
+  paramsToOptions = ps: mapParamsRecursive (_path: name: param: {${name} = param.option;}) ps;
 }

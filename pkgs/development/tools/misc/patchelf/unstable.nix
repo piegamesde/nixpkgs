@@ -24,22 +24,22 @@ stdenv.mkDerivation rec {
       --replace "set-rpath-library.sh" ""
   '';
 
-  setupHook = [ ./setup-hook.sh ];
+  setupHook = [./setup-hook.sh];
 
-  nativeBuildInputs = [ autoreconfHook ];
-  buildInputs = [ ];
+  nativeBuildInputs = [autoreconfHook];
+  buildInputs = [];
 
   doCheck = !stdenv.isDarwin;
 
   passthru = {
-    updateScript = unstableGitUpdater { url = "https://github.com/NixOS/patchelf.git"; };
+    updateScript = unstableGitUpdater {url = "https://github.com/NixOS/patchelf.git";};
   };
 
   meta = with lib; {
     homepage = "https://github.com/NixOS/patchelf";
     license = licenses.gpl3;
     description = "A small utility to modify the dynamic linker and RPATH of ELF executables";
-    maintainers = [ maintainers.eelco ];
+    maintainers = [maintainers.eelco];
     platforms = platforms.all;
   };
 }

@@ -26,7 +26,7 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-9+x7HrbXRoS/7ZADWwhsbynQLr3SyCbcsp9QnSubov0=";
 
-  nativeBuildInputs = [ gems ];
+  nativeBuildInputs = [gems];
 
   ldflags = [
     "-s"
@@ -47,6 +47,6 @@ buildGoModule rec {
     description = "A small library to manage encrypted secrets using asymmetric encryption";
     license = licenses.mit;
     homepage = "https://github.com/Shopify/ejson";
-    maintainers = [ maintainers.manveru ];
+    maintainers = [maintainers.manveru];
   };
 }

@@ -15,7 +15,7 @@ stdenvNoCC.mkDerivation rec {
     sha256 = "sha256-lW1TfTckqhCmhjcvduISY9qAdKPM/0cobxbIrCq5JkQ=";
   };
 
-  nativeBuildInputs = [ makeBinaryWrapper ];
+  nativeBuildInputs = [makeBinaryWrapper];
 
   installPhase = ''
     runHook preInstall
@@ -34,7 +34,7 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://valentjn.github.io/ltex/";
     description = "LSP language server for LanguageTool";
     license = licenses.mpl20;
-    maintainers = [ maintainers.marsam ];
+    maintainers = [maintainers.marsam];
     platforms = jre_headless.meta.platforms;
   };
 }

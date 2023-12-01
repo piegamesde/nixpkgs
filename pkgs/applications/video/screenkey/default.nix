@@ -44,7 +44,7 @@ python3.pkgs.buildPythonApplication rec {
 
   preFixup = ''
     makeWrapperArgs+=(
-      --prefix PATH ":" "${lib.makeBinPath [ slop ]}"
+      --prefix PATH ":" "${lib.makeBinPath [slop]}"
       "''${gappsWrapperArgs[@]}"
       )
   '';
@@ -64,6 +64,6 @@ python3.pkgs.buildPythonApplication rec {
     description = "A screencast tool to display your keys inspired by Screenflick";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    maintainers = [ maintainers.rasendubi ];
+    maintainers = [maintainers.rasendubi];
   };
 }

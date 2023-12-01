@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "plump";
   version = "20210630-git";
@@ -19,7 +19,7 @@ rec {
 
   packageName = "plump";
 
-  asdFilesToKeep = [ "plump.asd" ];
+  asdFilesToKeep = ["plump.asd"];
   overrides = x: x;
 }
 /* (SYSTEM plump DESCRIPTION

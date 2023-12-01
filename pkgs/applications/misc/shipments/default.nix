@@ -48,6 +48,6 @@ stdenv.mkDerivation rec {
     homepage = "https://sr.ht/~martijnbraam/shipments/";
     changelog = "https://git.sr.ht/~martijnbraam/shipments/refs/${version}";
     license = licenses.lgpl3;
-    maintainers = with maintainers; [ michaelgrahamevans ];
+    maintainers = with maintainers; [michaelgrahamevans];
   };
 }

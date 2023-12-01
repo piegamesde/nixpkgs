@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
     systemd
     libnotify
   ];
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   installPhase = ''
     runHook preInstall
@@ -44,6 +44,6 @@ stdenv.mkDerivation rec {
     license = licenses.mit;
     homepage = "https://github.com/cdown/psi-notify";
     platforms = platforms.linux;
-    maintainers = with maintainers; [ eduarrrd ];
+    maintainers = with maintainers; [eduarrrd];
   };
 }

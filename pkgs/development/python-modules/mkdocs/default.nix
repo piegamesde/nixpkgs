@@ -44,7 +44,7 @@ buildPythonPackage rec {
       --replace "Markdown >=3.2.1, <3.4" "Markdown"
   '';
 
-  nativeBuildInputs = [ hatchling ];
+  nativeBuildInputs = [hatchling];
 
   propagatedBuildInputs = [
     click
@@ -72,7 +72,7 @@ buildPythonPackage rec {
     "mkdocs"
   ];
 
-  pythonImportsCheck = [ "mkdocs" ];
+  pythonImportsCheck = ["mkdocs"];
 
   meta = with lib; {
     description = "Project documentation with Markdown / static website generator";
@@ -86,6 +86,6 @@ buildPythonPackage rec {
     homepage = "http://mkdocs.org/";
     license = licenses.bsd2;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ rkoe ];
+    maintainers = with maintainers; [rkoe];
   };
 }

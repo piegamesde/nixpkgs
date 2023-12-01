@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-jHdzQ+SmOZVpxyq8OKlbJNtWiCyD29tsZCSl9K61TT0=";
   };
 
-  patches = [ ./build-fix.patch ];
+  patches = [./build-fix.patch];
   postPatch = "sed '3i#include <stdint.h>' -i ./include/speex/speexdsp_config_types.h.in";
 
   outputs = [
@@ -29,9 +29,9 @@ stdenv.mkDerivation rec {
     autoreconfHook
     pkg-config
   ];
-  buildInputs = [ fftw ];
+  buildInputs = [fftw];
 
-  configureFlags = [ "--with-fft=gpl-fftw3" ] ++ lib.optional stdenv.isAarch64 "--disable-neon";
+  configureFlags = ["--with-fft=gpl-fftw3"] ++ lib.optional stdenv.isAarch64 "--disable-neon";
 
   meta = with lib; {
     homepage = "https://www.speex.org/";

@@ -47,6 +47,6 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "https://github.com/belane/CloudHunter";
     changelog = "https://github.com/belane/CloudHunter/releases/tag/v${version}";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

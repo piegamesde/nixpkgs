@@ -185,10 +185,10 @@ stdenv.mkDerivation (rec {
     chmod +w assets/configuration
   '';
 
-  hardeningDisable = [ "fortify" ];
+  hardeningDisable = ["fortify"];
 
-  node = (callPackage ./node.nix { }).offline_cache;
-  extensions = (callPackage ./extensions.nix { }).offline_cache;
+  node = (callPackage ./node.nix {}).offline_cache;
+  extensions = (callPackage ./extensions.nix {}).offline_cache;
 
   configurePhase = ''
     runHook preConfigure
@@ -287,7 +287,7 @@ stdenv.mkDerivation (rec {
     '';
     homepage = "https://v2.onivim.io/";
     inherit license;
-    maintainers = with maintainers; [ gardspirito ];
+    maintainers = with maintainers; [gardspirito];
     platforms = [
       "x86_64-linux"
       "x86_64-darwin"

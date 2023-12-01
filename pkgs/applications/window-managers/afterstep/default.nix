@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
   sourceName = "AfterStep-${version}";
 
   src = fetchurl {
-    urls = [ "ftp://ftp.afterstep.org/stable/${sourceName}.tar.bz2" ];
+    urls = ["ftp://ftp.afterstep.org/stable/${sourceName}.tar.bz2"];
     sha256 = "1j7vkx1ig4kzwffdxnkqv3kld9qi3sam4w2nhq18waqjsi8xl5gz";
   };
 
@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
     done
   '';
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     libtiff
     fltk
@@ -91,7 +91,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "http://www.afterstep.org/";
     license = licenses.gpl2;
-    maintainers = [ maintainers.AndersonTorres ];
+    maintainers = [maintainers.AndersonTorres];
     platforms = platforms.linux;
   };
 }

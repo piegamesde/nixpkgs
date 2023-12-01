@@ -20,7 +20,7 @@ buildPythonPackage rec {
     hash = "sha256-lknmbatOce+sv+8C9IuDuRaEiYNSoatW8Whs5xAzsyg=";
   };
 
-  nativeCheckInputs = [ testfixtures ];
+  nativeCheckInputs = [testfixtures];
 
   checkPhase = ''
     cd testproject

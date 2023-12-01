@@ -49,7 +49,7 @@ stdenv.mkDerivation rec {
     zlib
   ];
 
-  patches = [ ./0001-lto-fix.patch ];
+  patches = [./0001-lto-fix.patch];
 
   preConfigure = ''
     patchShebangs .
@@ -68,7 +68,7 @@ stdenv.mkDerivation rec {
       licenses.mit
       licenses.cc-by-40
     ];
-    maintainers = [ maintainers.lambda-11235 ];
+    maintainers = [maintainers.lambda-11235];
     platforms = platforms.all;
   };
 }

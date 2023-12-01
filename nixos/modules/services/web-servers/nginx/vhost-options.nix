@@ -3,7 +3,7 @@
 # has additional options that affect the web server as a whole, like
 # the user/group to run under.)
 
-{ config, lib, ... }:
+{config, lib, ...}:
 
 with lib; {
   options = {
@@ -18,7 +18,7 @@ with lib; {
 
     serverAliases = mkOption {
       type = types.listOf types.str;
-      default = [ ];
+      default = [];
       example = [
         "www.example.org"
         "example.org"
@@ -51,7 +51,7 @@ with lib; {
               extraParameters = mkOption {
                 type = listOf str;
                 description = lib.mdDoc "Extra parameters of this listen directive.";
-                default = [ ];
+                default = [];
                 example = [
                   "backlog=1024"
                   "deferred"
@@ -60,7 +60,7 @@ with lib; {
             };
           }
         );
-      default = [ ];
+      default = [];
       example = [
         {
           addr = "195.154.1.1";
@@ -93,7 +93,7 @@ with lib; {
 
         Note: This option overrides `enableIPv6`
       '';
-      default = [ ];
+      default = [];
       example = [
         "127.0.0.1"
         "[::1]"
@@ -324,7 +324,7 @@ with lib; {
 
     basicAuth = mkOption {
       type = types.attrsOf types.str;
-      default = { };
+      default = {};
       example = literalExpression ''
         {
           user = "password";
@@ -351,8 +351,8 @@ with lib; {
     };
 
     locations = mkOption {
-      type = types.attrsOf (types.submodule (import ./location-options.nix { inherit lib config; }));
-      default = { };
+      type = types.attrsOf (types.submodule (import ./location-options.nix {inherit lib config;}));
+      default = {};
       example = literalExpression ''
         {
           "/" = {

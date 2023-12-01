@@ -16,7 +16,7 @@ buildPythonPackage rec {
     hash = "sha256-brmQtp304VutiZ6oaNxGVyw/dTOXNWY7gd55sG8X65o=";
   };
 
-  propagatedBuildInputs = [ smmap ];
+  propagatedBuildInputs = [smmap];
 
   postPatch = ''
     substituteInPlace setup.py --replace ",<4" ""
@@ -27,7 +27,7 @@ buildPythonPackage rec {
 
   meta = {
     description = "Git Object Database";
-    maintainers = [ ];
+    maintainers = [];
     homepage = "https://github.com/gitpython-developers/gitdb";
     license = lib.licenses.bsd3;
   };

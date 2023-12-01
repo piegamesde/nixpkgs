@@ -38,9 +38,9 @@ stdenv.mkDerivation rec {
     libGL
   ];
 
-  installFlags = [ "bindir=\${out}/bin" ];
+  installFlags = ["bindir=\${out}/bin"];
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   postConfigure = ''
     substituteInPlace config.h \
@@ -49,7 +49,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Space flight simulator";
-    maintainers = [ maintainers.raskin ];
+    maintainers = [maintainers.raskin];
     platforms = platforms.linux;
     license = licenses.gpl2Plus;
   };

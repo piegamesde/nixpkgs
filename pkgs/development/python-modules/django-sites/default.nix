@@ -18,9 +18,9 @@ buildPythonPackage rec {
     hash = "sha256-MQtQC+9DyS1ICXXovbqPpkKIQ5wpuJDgq3Lcd/1kORU=";
   };
 
-  propagatedBuildInputs = [ django ];
+  propagatedBuildInputs = [django];
 
-  nativeCheckInputs = [ django-jinja ];
+  nativeCheckInputs = [django-jinja];
 
   checkPhase = ''
     runHook preCheck

@@ -15,7 +15,7 @@ with lib; {
   };
 
   config = mkIf config.services.expressvpn.enable {
-    boot.kernelModules = [ "tun" ];
+    boot.kernelModules = ["tun"];
 
     systemd.services.expressvpn = {
       description = "ExpressVPN Daemon";
@@ -24,7 +24,7 @@ with lib; {
         Restart = "on-failure";
         RestartSec = 5;
       };
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       after = [
         "network.target"
         "network-online.target"
@@ -32,5 +32,5 @@ with lib; {
     };
   };
 
-  meta.maintainers = with maintainers; [ yureien ];
+  meta.maintainers = with maintainers; [yureien];
 }

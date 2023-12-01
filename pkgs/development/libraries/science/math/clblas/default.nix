@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
     sha256 = "154mz52r5hm0jrp5fqrirzzbki14c1jkacj75flplnykbl36ibjs";
   };
 
-  patches = [ ./platform.patch ];
+  patches = [./platform.patch];
 
   postPatch = ''
     sed -i -re 's/(set\(\s*Boost_USE_STATIC_LIBS\s+).*/\1OFF\ \)/g' src/CMakeLists.txt
@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
     cd src
   '';
 
-  cmakeFlags = [ "-DBUILD_TEST=OFF" ];
+  cmakeFlags = ["-DBUILD_TEST=OFF"];
 
   nativeBuildInputs = [
     cmake
@@ -57,7 +57,7 @@ stdenv.mkDerivation rec {
       CoreGraphics
       CoreVideo
     ];
-  propagatedBuildInputs = lib.optionals stdenv.isDarwin [ OpenCL ];
+  propagatedBuildInputs = lib.optionals stdenv.isDarwin [OpenCL];
 
   strictDeps = true;
 
@@ -68,7 +68,7 @@ stdenv.mkDerivation rec {
       This package contains a library of BLAS functions on top of OpenCL.
     '';
     license = licenses.asl20;
-    maintainers = with maintainers; [ artuuge ];
+    maintainers = with maintainers; [artuuge];
     platforms = platforms.unix;
   };
 }

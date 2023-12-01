@@ -1,5 +1,5 @@
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   {
     name = "sogo";
     meta = with pkgs.lib.maintainers; {
@@ -11,14 +11,14 @@ import ./make-test-python.nix (
 
     nodes = {
       sogo =
-        { config, pkgs, ... }:
+        {config, pkgs, ...}:
         {
           services.nginx.enable = true;
 
           services.mysql = {
             enable = true;
             package = pkgs.mariadb;
-            ensureDatabases = [ "sogo" ];
+            ensureDatabases = ["sogo"];
             ensureUsers = [
               {
                 name = "sogo";

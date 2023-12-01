@@ -19,12 +19,12 @@ buildPythonPackage rec {
   # No native rz_core library
   doCheck = false;
 
-  pythonImportsCheck = [ "rzpipe" ];
+  pythonImportsCheck = ["rzpipe"];
 
   meta = with lib; {
     description = "Python interface for rizin";
     homepage = "https://rizin.re";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

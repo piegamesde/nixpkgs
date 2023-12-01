@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
   };
 
   enableParallelBuilding = true;
-  buildInputs = [ check ];
+  buildInputs = [check];
 
   doCheck = true;
 
@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
     description = "'D is not GLib' utility libraries";
     homepage = "https://pagure.io/SSSD/ding-libs";
     platforms = with lib.platforms; linux;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     license = [
       lib.licenses.gpl3
       lib.licenses.lgpl3

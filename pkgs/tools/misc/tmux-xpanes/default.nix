@@ -37,6 +37,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/greymd/tmux-xpanes";
     license = licenses.mit;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ monsieurp ];
+    maintainers = with maintainers; [monsieurp];
   };
 }

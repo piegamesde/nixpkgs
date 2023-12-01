@@ -15,7 +15,7 @@ let
 in
 (llvmPackages.lldb.overrideAttrs (
   oldAttrs: rec {
-    passthru = (oldAttrs.passthru or { }) // {
+    passthru = (oldAttrs.passthru or {}) // {
       inherit llvmSrc;
     };
 
@@ -41,5 +41,5 @@ in
 )).override
   ({
     monorepoSrc = llvmSrc;
-    libllvm = llvmPackages.libllvm.override ({ monorepoSrc = llvmSrc; });
+    libllvm = llvmPackages.libllvm.override ({monorepoSrc = llvmSrc;});
   })

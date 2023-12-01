@@ -18,8 +18,8 @@ rustPlatform.buildRustPackage rec {
   };
   cargoHash = "sha256-mpobdeTRWJzIEmhwtcM6UE66qRD5ot/0yLeQM6Tec+0=";
 
-  buildInputs = [ openssl ];
-  nativeBuildInputs = [ pkg-config ];
+  buildInputs = [openssl];
+  nativeBuildInputs = [pkg-config];
 
   # tests expect internet connectivity to query real nameservers like 8.8.8.8
   doCheck = false;
@@ -27,7 +27,7 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "A Rust based DNS client, server, and resolver";
     homepage = "https://trust-dns.org/";
-    maintainers = with maintainers; [ colinsane ];
+    maintainers = with maintainers; [colinsane];
     platforms = platforms.linux;
     license = with licenses; [
       asl20

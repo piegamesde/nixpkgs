@@ -25,7 +25,7 @@ rustPlatform.buildRustPackage {
     description = "A convenient helper for passing sockets into another process";
     homepage = "https://github.com/mitsuhiko/systemfd";
     license = lib.licenses.asl20;
-    maintainers = [ lib.maintainers.adisbladis ];
+    maintainers = [lib.maintainers.adisbladis];
     platforms = lib.platforms.unix;
   };
 }

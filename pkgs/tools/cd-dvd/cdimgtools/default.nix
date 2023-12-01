@@ -69,7 +69,7 @@ stdenv.mkDerivation {
     homepage = "https://repo.or.cz/cdimgtools.git/blob_plain/refs/heads/release:/README.html";
     description = "Tools to inspect and manipulate CD/DVD optical disc images";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ hhm ];
+    maintainers = with maintainers; [hhm];
     platforms = platforms.linux ++ platforms.darwin;
   };
 }

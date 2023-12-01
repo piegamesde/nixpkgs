@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-X0VuXNghHoNsNNDfZJXXJ++nfUa5ofjW8rv3CHOUzxQ=";
   };
 
-  patches = [ ./0001-fix-build-with-qt-6.5.patch ];
+  patches = [./0001-fix-build-with-qt-6.5.patch];
 
   nativeBuildInputs = [
     cmake
@@ -50,7 +50,7 @@ stdenv.mkDerivation rec {
     description = "Simple TeX front-end program inspired by TeXShop";
     homepage = "http://www.tug.org/texworks/";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
     platforms = with platforms; linux;
   };
 }

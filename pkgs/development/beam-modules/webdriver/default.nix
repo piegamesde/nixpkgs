@@ -11,7 +11,7 @@ let
     drv:
     stdenv.mkDerivation {
       name = "interactive-shell-${drv.name}";
-      buildInputs = [ drv ];
+      buildInputs = [drv];
     };
 
   pkg =
@@ -31,15 +31,15 @@ let
         addToSearchPath ERL_LIBS "$1/lib/erlang/lib/"
       '';
 
-      buildInputs = [ erlang ];
+      buildInputs = [erlang];
 
-      installFlags = [ "PREFIX=$(out)/lib/erlang/lib" ];
+      installFlags = ["PREFIX=$(out)/lib/erlang/lib"];
 
       meta = {
         description = "WebDriver implementation in Erlang";
         license = lib.licenses.mit;
         homepage = "https://github.com/Quviq/webdrv";
-        maintainers = with lib.maintainers; [ ericbmerritt ];
+        maintainers = with lib.maintainers; [ericbmerritt];
       };
 
       passthru = {

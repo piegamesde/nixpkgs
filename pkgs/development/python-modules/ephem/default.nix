@@ -26,12 +26,12 @@ buildPythonPackage rec {
     LC_ALL="en_US.UTF-8" pytest --pyargs ephem.tests -k "not JPLTest"
   '';
 
-  pythonImportsCheck = [ "ephem" ];
+  pythonImportsCheck = ["ephem"];
 
   meta = with lib; {
     description = "Compute positions of the planets and stars";
     homepage = "https://github.com/brandon-rhodes/pyephem";
     license = licenses.mit;
-    maintainers = with maintainers; [ chrisrosset ];
+    maintainers = with maintainers; [chrisrosset];
   };
 }

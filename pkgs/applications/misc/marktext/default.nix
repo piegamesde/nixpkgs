@@ -13,7 +13,7 @@ let
     sha256 = "2e2555113e37df830ba3958efcccce7020907b12fd4162368cfd906aeda630b7";
   };
 
-  appimageContents = appimageTools.extractType2 { inherit pname version src; };
+  appimageContents = appimageTools.extractType2 {inherit pname version src;};
 in
 appimageTools.wrapType2 rec {
   inherit pname version src;
@@ -50,7 +50,7 @@ appimageTools.wrapType2 rec {
       nh2
       eduarrrd
     ];
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
     mainProgram = "marktext";
   };
 }

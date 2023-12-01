@@ -26,7 +26,7 @@ buildGoModule rec {
     rm -f pkg/analytics/track_test.go
   '';
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   ldflags = [
     "-s"
@@ -60,6 +60,6 @@ buildGoModule rec {
     description = "Develop your applications directly in your Kubernetes Cluster";
     homepage = "https://okteto.com/";
     license = licenses.asl20;
-    maintainers = with maintainers; [ aaronjheng ];
+    maintainers = with maintainers; [aaronjheng];
   };
 }

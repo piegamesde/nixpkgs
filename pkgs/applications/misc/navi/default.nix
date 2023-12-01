@@ -23,14 +23,14 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-nastb6dsBGM8zIQ/WCfQy3Y50kH3J1dM/vnkOe/q95A=";
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
-  buildInputs = lib.optionals stdenv.isDarwin [ libiconv ];
+  buildInputs = lib.optionals stdenv.isDarwin [libiconv];
 
   postInstall = ''
     wrapProgram $out/bin/navi \
       --prefix PATH : "$out/bin" \
-      --prefix PATH : ${lib.makeBinPath ([ wget ] ++ lib.optionals withFzf [ fzf ])}
+      --prefix PATH : ${lib.makeBinPath ([wget] ++ lib.optionals withFzf [fzf])}
   '';
 
   checkFlags =
@@ -44,6 +44,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/denisidoro/navi";
     license = licenses.asl20;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ cust0dian ];
+    maintainers = with maintainers; [cust0dian];
   };
 }

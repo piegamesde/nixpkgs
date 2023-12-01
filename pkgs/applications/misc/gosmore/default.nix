@@ -27,13 +27,13 @@ stdenv.mkDerivation rec {
     curl
   ];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   prePatch = ''
     sed -e '/curl.types.h/d' -i *.{c,h,hpp,cpp}
   '';
 
-  patches = [ ./pointer_int_comparison.patch ];
+  patches = [./pointer_int_comparison.patch];
   patchFlags = [
     "-p1"
     "--binary"
@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Open Street Map viewer";
     homepage = "https://sourceforge.net/projects/gosmore/";
-    maintainers = with maintainers; [ raskin ];
+    maintainers = with maintainers; [raskin];
     platforms = platforms.linux;
     license = licenses.bsd2;
   };

@@ -34,7 +34,7 @@ buildPythonPackage rec {
     hash = "sha256-LBVOwjWC/HEvGgoi8WxEdl33M4JrfdHEj1Dk7f1NAiA=";
   };
 
-  propagatedBuildInputs = [ six ];
+  propagatedBuildInputs = [six];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -46,20 +46,20 @@ buildPythonPackage rec {
   preCheck = lib.optionalString doFullCheck ''
     sed -i '/^testFilesDir = /ctestFilesDir = "${testFiles}"' tests/unit/test_testfiles.py
   '';
-  disabledTestPaths = lib.optionals (!doFullCheck) [ "tests/unit/test_testfiles.py" ];
+  disabledTestPaths = lib.optionals (!doFullCheck) ["tests/unit/test_testfiles.py"];
 
-  pythonImportsCheck = [ "jpylyzer" ];
+  pythonImportsCheck = ["jpylyzer"];
 
-  disallowedReferences = [ testFiles ];
+  disallowedReferences = [testFiles];
 
   passthru.tests = {
-    withFullCheck = jpylyzer.override { doFullCheck = true; };
+    withFullCheck = jpylyzer.override {doFullCheck = true;};
   };
 
   meta = with lib; {
     description = "JP2 (JPEG 2000 Part 1) image validator and properties extractor";
     homepage = "https://jpylyzer.openpreservation.org/";
     license = licenses.lgpl3;
-    maintainers = with maintainers; [ ris ];
+    maintainers = with maintainers; [ris];
   };
 }

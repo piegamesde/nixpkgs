@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
     description = "A program and library for changing the tempo, pitch and playback rate of audio";
     homepage = "https://www.surina.net/soundtouch/";
     license = licenses.lgpl21Plus;
-    maintainers = with maintainers; [ orivej ];
+    maintainers = with maintainers; [orivej];
     mainProgram = "soundstretch";
     platforms = platforms.all;
   };

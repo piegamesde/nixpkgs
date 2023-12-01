@@ -1,11 +1,11 @@
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   {
     name = "nixos-rebuild-specialisations";
 
     nodes = {
       machine =
-        { lib, pkgs, ... }:
+        {lib, pkgs, ...}:
         {
           imports = [
             ../modules/profiles/installation-device.nix
@@ -13,7 +13,7 @@ import ./make-test-python.nix (
           ];
 
           nix.settings = {
-            substituters = lib.mkForce [ ];
+            substituters = lib.mkForce [];
             hashed-mirrors = null;
             connect-timeout = 1;
           };

@@ -10,7 +10,7 @@ buildPecl {
   version = "3.21.9";
   sha256 = "05zlq9k6c45wj1286850nl31024ik158jnj1f5kskr1pchknnsf3";
 
-  buildInputs = [ pcre2 ];
+  buildInputs = [pcre2];
 
   meta = with lib; {
     description = "Google's language-neutral, platform-neutral, extensible mechanism for serializing structured data.";

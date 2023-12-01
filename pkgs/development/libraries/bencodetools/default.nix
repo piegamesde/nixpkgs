@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  nativeBuildInputs = [ python3 ];
+  nativeBuildInputs = [python3];
 
   # installCheck instead of check due to -install_name'd library on Darwin
   doInstallCheck = stdenv.buildPlatform == stdenv.hostPlatform;
@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
     description = "Collection of tools for manipulating bencoded data";
     homepage = "https://gitlab.com/heikkiorsila/bencodetools";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ OPNA2608 ];
+    maintainers = with maintainers; [OPNA2608];
     mainProgram = "bencat";
     platforms = platforms.unix;
   };

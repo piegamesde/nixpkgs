@@ -39,7 +39,7 @@ rustPlatform.buildRustPackage rec {
   ];
 
   buildInputs =
-    [ openssl ]
+    [openssl]
     ++ lib.optionals stdenv.isDarwin [
       SystemConfiguration
       Security
@@ -48,7 +48,7 @@ rustPlatform.buildRustPackage rec {
       curl
     ];
 
-  nativeCheckInputs = [ git ];
+  nativeCheckInputs = [git];
 
   meta = with lib; {
     description = "A cryptographically verifiable code review system for the cargo (Rust) package manager";
@@ -58,6 +58,6 @@ rustPlatform.buildRustPackage rec {
       mit
       mpl20
     ];
-    maintainers = with maintainers; [ b4dm4n ];
+    maintainers = with maintainers; [b4dm4n];
   };
 }

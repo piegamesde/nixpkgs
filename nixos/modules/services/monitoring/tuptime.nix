@@ -34,10 +34,10 @@ in
 
   config = mkIf cfg.enable {
 
-    environment.systemPackages = [ pkgs.tuptime ];
+    environment.systemPackages = [pkgs.tuptime];
 
     users = {
-      groups._tuptime.members = [ "_tuptime" ];
+      groups._tuptime.members = ["_tuptime"];
       users._tuptime = {
         isSystemUser = true;
         group = "_tuptime";
@@ -50,9 +50,9 @@ in
 
         tuptime = {
           description = "The total uptime service";
-          documentation = [ "man:tuptime(1)" ];
-          after = [ "time-sync.target" ];
-          wantedBy = [ "multi-user.target" ];
+          documentation = ["man:tuptime(1)"];
+          after = ["time-sync.target"];
+          wantedBy = ["multi-user.target"];
           serviceConfig = {
             StateDirectory = "tuptime";
             Type = "oneshot";
@@ -82,7 +82,7 @@ in
           "timers.target"
         ];
         # this timer should be stopped if the service is stopped
-        partOf = [ "tuptime.service" ];
+        partOf = ["tuptime.service"];
         timerConfig = {
           OnBootSec = "1min";
           OnCalendar = cfg.timer.period;
@@ -92,5 +92,5 @@ in
     };
   };
 
-  meta.maintainers = [ maintainers.evils ];
+  meta.maintainers = [maintainers.evils];
 }

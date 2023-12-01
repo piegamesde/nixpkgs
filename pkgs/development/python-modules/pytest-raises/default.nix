@@ -16,14 +16,14 @@ buildPythonPackage rec {
     sha256 = "0gbb4kml2qv7flp66i73mgb4qihdaybb6c96b5dw3mhydhymcsy2";
   };
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "pytest_raises" ];
+  pythonImportsCheck = ["pytest_raises"];
 
   meta = with lib; {
     description = "An implementation of pytest.raises as a pytest.mark fixture";
     homepage = "https://github.com/Lemmons/pytest-raises";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

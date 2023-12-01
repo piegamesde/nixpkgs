@@ -27,7 +27,7 @@ let
   url_for_platform =
     version: arch:
     "https://www.reaper.fm/files/${lib.versions.major version}.x/reaper${
-      builtins.replaceStrings [ "." ] [ "" ] version
+      builtins.replaceStrings ["."] [""] version
     }_linux_${arch}.tar.xz";
 in
 stdenv.mkDerivation rec {
@@ -104,7 +104,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Digital audio workstation";
     homepage = "https://www.reaper.fm/";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.unfree;
     platforms = [
       "x86_64-linux"

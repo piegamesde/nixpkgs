@@ -20,7 +20,7 @@ stdenvNoCC.mkDerivation rec {
     sha256 = "0wfb2ykzlsxyqn9krfsis9jxhaxy3pxl71a4f15an1ngfndai694";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     for f in rm{,dir}trash; do
@@ -46,7 +46,7 @@ stdenvNoCC.mkDerivation rec {
       and `rmdir`.
     '';
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ peelz ];
+    maintainers = with maintainers; [peelz];
     platforms = platforms.all;
   };
 }

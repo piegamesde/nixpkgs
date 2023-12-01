@@ -97,13 +97,13 @@ python.pkgs.buildPythonApplication rec {
     ++ lib.optional keyringSupport keyring
     ++ lib.optional serverSupport bottle;
 
-  nativeCheckInputs = with python.pkgs; [ pytest ];
+  nativeCheckInputs = with python.pkgs; [pytest];
 
   checkPhase = ''
     ${xvfb-run}/bin/xvfb-run pytest
   '';
 
-  pythonImportsCheck = [ "sublime_music" ];
+  pythonImportsCheck = ["sublime_music"];
 
   postInstall = ''
     install -Dm444 sublime-music.desktop      -t $out/share/applications

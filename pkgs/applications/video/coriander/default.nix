@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
     cp ${automake}/share/automake-*/mkinstalldirs .
   '';
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     glib
     gtk2
@@ -48,7 +48,7 @@ stdenv.mkDerivation rec {
     homepage = "https://damien.douxchamps.net/ieee1394/coriander/";
     description = "GUI for controlling a Digital Camera through the IEEE1394 bus";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ viric ];
+    maintainers = with lib.maintainers; [viric];
     platforms = with lib.platforms; linux;
   };
 }

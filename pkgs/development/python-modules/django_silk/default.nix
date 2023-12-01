@@ -48,9 +48,9 @@ buildPythonPackage rec {
       --replace 'use_scm_version=True' 'version="${version}"'
   '';
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
-  buildInputs = [ mock ];
+  buildInputs = [mock];
 
   propagatedBuildInputs = [
     autopep8
@@ -73,7 +73,7 @@ buildPythonPackage rec {
     factory_boy
   ];
 
-  pythonImportsCheck = [ "silk" ];
+  pythonImportsCheck = ["silk"];
 
   checkPhase = ''
     runHook preCheck
@@ -90,6 +90,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/jazzband/django-silk";
     changelog = "https://github.com/jazzband/django-silk/blob/${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ ris ];
+    maintainers = with maintainers; [ris];
   };
 }

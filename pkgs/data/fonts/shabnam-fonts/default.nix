@@ -28,6 +28,6 @@ stdenvNoCC.mkDerivation rec {
     description = "A Persian (Farsi) Font - فونت (قلم) فارسی شبنم";
     license = licenses.ofl;
     platforms = platforms.all;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

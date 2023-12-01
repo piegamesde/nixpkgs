@@ -73,6 +73,6 @@ stdenv.mkDerivation rec {
     description = "A GTK+3 Timezone Map Widget";
     license = licenses.gpl2;
     platforms = platforms.linux;
-    maintainers = [ maintainers.mkg20001 ];
+    maintainers = [maintainers.mkg20001];
   };
 }

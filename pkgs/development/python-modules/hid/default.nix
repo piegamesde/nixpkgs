@@ -15,9 +15,9 @@ buildPythonPackage rec {
     hash = "sha256-HpVOf3q5t8nfx421lQRpLBfbO3EklJK5drFSW5fbsOg=";
   };
 
-  propagatedBuildInputs = [ hidapi ];
+  propagatedBuildInputs = [hidapi];
 
-  nativeCheckInputs = [ nose ];
+  nativeCheckInputs = [nose];
 
   postPatch = ''
     hidapi=${hidapi}/lib/
@@ -28,7 +28,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "hidapi bindings in ctypes";
     homepage = "https://github.com/apmorton/pyhidapi";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ AndersonTorres ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [AndersonTorres];
   };
 }

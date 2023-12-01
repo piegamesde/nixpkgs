@@ -13,7 +13,7 @@ let
     sha256 = "sha256-SqeMnoMzxxaViJ3NPccj3kyMc1xvXWULM6hQIDZySWY=";
   };
 
-  appimageContents = appimageTools.extract { inherit name src; };
+  appimageContents = appimageTools.extract {inherit name src;};
 in
 appimageTools.wrapType2 {
   inherit name src;
@@ -31,7 +31,7 @@ appimageTools.wrapType2 {
     description = "Notion Desktop builds with Notion Enhancer for Windows, MacOS and Linux.";
     homepage = "https://github.com/notion-enhancer/desktop";
     license = licenses.unfree;
-    maintainers = with maintainers; [ sei40kr ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with maintainers; [sei40kr];
+    platforms = ["x86_64-linux"];
   };
 }

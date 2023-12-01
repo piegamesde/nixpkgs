@@ -4,7 +4,7 @@
   nukeReferences,
 }:
 
-runCommand "${openjdk.name}-bootstrap.tar.xz" { } ''
+runCommand "${openjdk.name}-bootstrap.tar.xz" {} ''
   mkdir -pv openjdk-bootstrap/lib
 
   # Do a deep copy of the openjdk

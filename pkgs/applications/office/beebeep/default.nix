@@ -39,6 +39,6 @@ mkDerivation rec {
     description = "BeeBEEP is the free office messenger that is indispensable in all those places where privacy and security are an essential requirement.";
     platforms = platforms.linux;
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ mglolenstine ];
+    maintainers = with maintainers; [mglolenstine];
   };
 }

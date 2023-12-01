@@ -20,7 +20,7 @@ buildPythonPackage rec {
 
   src =
     let
-      pyVerNoDot = lib.replaceStrings [ "." ] [ "" ] python.pythonVersion;
+      pyVerNoDot = lib.replaceStrings ["."] [""] python.pythonVersion;
       unsupported = throw "Unsupported system";
       srcs = (import ./binary-hashes.nix version)."${stdenv.system}-${pyVerNoDot}" or unsupported;
     in
@@ -45,7 +45,7 @@ buildPythonPackage rec {
     addOpenGLRunpath
   ];
 
-  propagatedBuildInputs = [ torch-bin ];
+  propagatedBuildInputs = [torch-bin];
 
   preInstall = ''
     addAutoPatchelfSearchPath "${torch-bin}/${python.sitePackages}/torch"
@@ -54,7 +54,7 @@ buildPythonPackage rec {
   # The wheel-binary is not stripped to avoid the error of `ImportError: libtorch_cuda_cpp.so: ELF load command address/offset not properly aligned.`.
   dontStrip = true;
 
-  pythonImportsCheck = [ "torchaudio" ];
+  pythonImportsCheck = ["torchaudio"];
 
   meta = with lib; {
     description = "PyTorch audio library";
@@ -64,11 +64,11 @@ buildPythonPackage rec {
     # https://docs.nvidia.com/cuda/eula/index.html
     # https://www.intel.com/content/www/us/en/developer/articles/license/onemkl-license-faq.html
     license = licenses.bsd3;
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     platforms = [
       "aarch64-linux"
       "x86_64-linux"
     ];
-    maintainers = with maintainers; [ junjihashimoto ];
+    maintainers = with maintainers; [junjihashimoto];
   };
 }

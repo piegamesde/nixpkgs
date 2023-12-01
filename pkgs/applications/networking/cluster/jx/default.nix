@@ -21,9 +21,9 @@ buildGoModule rec {
 
   doCheck = false;
 
-  subPackages = [ "cmd/jx" ];
+  subPackages = ["cmd/jx"];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   ldflags = [
     "-s -w"
@@ -49,7 +49,7 @@ buildGoModule rec {
       Skaffold and Helm.
     '';
     license = licenses.asl20;
-    maintainers = with maintainers; [ kalbasit ];
+    maintainers = with maintainers; [kalbasit];
     platforms = platforms.linux ++ platforms.darwin;
   };
 }

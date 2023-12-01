@@ -26,13 +26,13 @@ stdenv.mkDerivation rec {
     sassc
   ];
 
-  makeFlags = [ "INSTALLBASE=${placeholder "out"}/share/gnome-shell/extensions" ];
+  makeFlags = ["INSTALLBASE=${placeholder "out"}/share/gnome-shell/extensions"];
 
   passthru = {
     extensionUuid = "dash-to-dock@micxgx.gmail.com";
     extensionPortalSlug = "dash-to-dock";
 
-    updateScript = gitUpdater { rev-prefix = "extensions.gnome.org-v"; };
+    updateScript = gitUpdater {rev-prefix = "extensions.gnome.org-v";};
   };
 
   meta = with lib; {

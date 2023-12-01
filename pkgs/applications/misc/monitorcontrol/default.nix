@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
     sha256 = "iaxM9j78Sq1EH5TCY240N+D5bG6quk2dZj8T7nt9ATo=";
   };
 
-  nativeBuildInputs = [ undmg ];
+  nativeBuildInputs = [undmg];
 
   sourceRoot = "MonitorControl.app";
 
@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
     longDescription = "Controls your external display brightness and volume and shows native OSD. Use menulet sliders or the keyboard, including native Apple keys!";
     homepage = "https://github.com/MonitorControl/MonitorControl#readme";
     license = licenses.mit;
-    maintainers = with maintainers; [ cbleslie ];
+    maintainers = with maintainers; [cbleslie];
     platforms = platforms.darwin;
   };
 }

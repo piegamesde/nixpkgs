@@ -36,10 +36,10 @@ buildPythonPackage rec {
       markdown-it-py
       tomli
     ]
-    ++ lib.optionals (pythonOlder "3.10") [ importlib-metadata ]
-    ++ lib.optionals (pythonOlder "3.7") [ typing-extensions ];
+    ++ lib.optionals (pythonOlder "3.10") [importlib-metadata]
+    ++ lib.optionals (pythonOlder "3.7") [typing-extensions];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTests = [
     # AssertionError
@@ -48,12 +48,12 @@ buildPythonPackage rec {
     "default_style.md-options0"
   ];
 
-  pythonImportsCheck = [ "mdformat" ];
+  pythonImportsCheck = ["mdformat"];
 
   meta = with lib; {
     description = "CommonMark compliant Markdown formatter";
     homepage = "https://mdformat.rtfd.io/";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

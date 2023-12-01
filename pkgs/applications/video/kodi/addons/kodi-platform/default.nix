@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
     sha256 = "1r3gs3c6zczmm66qcxh9mr306clwb3p7ykzb70r3jv5jqggiz199";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     kodi
     libcec_platform

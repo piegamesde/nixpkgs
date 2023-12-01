@@ -29,15 +29,15 @@ stdenv.mkDerivation (
       "M=$(sourceRoot)"
     ];
 
-    buildFlags = [ "modules" ];
-    installFlags = [ "INSTALL_MOD_PATH=${placeholder "out"}" ];
-    installTargets = [ "modules_install" ];
+    buildFlags = ["modules"];
+    installFlags = ["INSTALL_MOD_PATH=${placeholder "out"}"];
+    installTargets = ["modules_install"];
 
     meta = {
       homepage = "https://github.com/nicman23/dkms-hid-nintendo";
       description = "A Nintendo HID kernel module";
       license = lib.licenses.gpl2Plus;
-      maintainers = [ ];
+      maintainers = [];
       platforms = lib.platforms.linux;
       broken = lib.versionOlder kernel.version "4.14";
     };

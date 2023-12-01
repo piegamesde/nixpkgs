@@ -19,7 +19,7 @@ gerbil-support.gerbilPackage {
     gerbil-poo
     gerbil-persist
   ];
-  buildInputs = [ ];
+  buildInputs = [];
   gambit-params = gambit-support.unstable-params;
   version-path = "version";
   softwareName = "Gerbil-ethereum";
@@ -34,6 +34,6 @@ gerbil-support.gerbilPackage {
     homepage = "https://github.com/fare/gerbil-ethereum";
     license = lib.licenses.asl20;
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ fare ];
+    maintainers = with lib.maintainers; [fare];
   };
 }

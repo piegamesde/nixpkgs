@@ -36,7 +36,7 @@ buildPythonApplication rec {
 
   # lots of networking and other fails
   doCheck = false;
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
   nativeCheckInputs = [
     mock
     pytest
@@ -74,6 +74,6 @@ buildPythonApplication rec {
     homepage = "https://docs.docker.com/compose/";
     description = "Multi-container orchestration for Docker";
     license = licenses.asl20;
-    maintainers = with maintainers; [ Frostman ];
+    maintainers = with maintainers; [Frostman];
   };
 }

@@ -23,6 +23,6 @@ stdenv.mkDerivation rec {
     description = "Scheme 48 interpreter for R5RS";
     platforms = platforms.unix;
     license = licenses.bsd3;
-    maintainers = [ maintainers.siraben ];
+    maintainers = [maintainers.siraben];
   };
 }

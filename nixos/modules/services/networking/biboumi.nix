@@ -13,7 +13,7 @@ let
   stateDir = "/var/lib/biboumi";
   settingsFile = pkgs.writeText "biboumi.cfg" (
     generators.toKeyValue
-      { mkKeyValue = k: v: if v == null then "" else generators.mkKeyValueDefault { } "=" k v; }
+      {mkKeyValue = k: v: if v == null then "" else generators.mkKeyValueDefault {} "=" k v;}
       cfg.settings
   );
   need_CAP_NET_BIND_SERVICE = cfg.settings.identd_port != 0 && cfg.settings.identd_port < 1024;
@@ -28,7 +28,7 @@ in
           See [biboumi 8.5](https://lab.louiz.org/louiz/biboumi/blob/8.5/doc/biboumi.1.rst)
           for documentation.
         '';
-        default = { };
+        default = {};
         type = types.submodule {
           freeformType =
             with types;
@@ -46,8 +46,8 @@ in
             };
           options.admin = mkOption {
             type = with types; listOf str;
-            default = [ ];
-            example = [ "admin@example.org" ];
+            default = [];
+            example = ["admin@example.org"];
             apply = concatStringsSep ":";
             description = lib.mdDoc ''
               The bare JID of the gateway administrator. This JID will have more
@@ -187,13 +187,13 @@ in
 
   config = mkIf cfg.enable {
     networking.firewall = mkIf (cfg.openFirewall && cfg.settings.identd_port != 0) {
-      allowedTCPPorts = [ cfg.settings.identd_port ];
+      allowedTCPPorts = [cfg.settings.identd_port];
     };
 
     systemd.services.biboumi = {
       description = "Biboumi, XMPP to IRC gateway";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
 
       serviceConfig = {
         Type = "notify";
@@ -223,7 +223,7 @@ in
         DynamicUser = true;
         RootDirectory = rootDir;
         RootDirectoryStartOnly = true;
-        InaccessiblePaths = [ "-+${rootDir}" ];
+        InaccessiblePaths = ["-+${rootDir}"];
         RuntimeDirectory = [
           "biboumi"
           (removePrefix "/run/" rootDir)
@@ -246,8 +246,8 @@ in
         ];
         # The following options are only for optimizing:
         # systemd-analyze security biboumi
-        AmbientCapabilities = [ (optionalString need_CAP_NET_BIND_SERVICE "CAP_NET_BIND_SERVICE") ];
-        CapabilityBoundingSet = [ (optionalString need_CAP_NET_BIND_SERVICE "CAP_NET_BIND_SERVICE") ];
+        AmbientCapabilities = [(optionalString need_CAP_NET_BIND_SERVICE "CAP_NET_BIND_SERVICE")];
+        CapabilityBoundingSet = [(optionalString need_CAP_NET_BIND_SERVICE "CAP_NET_BIND_SERVICE")];
         # ProtectClock= adds DeviceAllow=char-rtc r
         DeviceAllow = "";
         LockPersonality = true;
@@ -300,5 +300,5 @@ in
     };
   };
 
-  meta.maintainers = with maintainers; [ julm ];
+  meta.maintainers = with maintainers; [julm];
 }

@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
     homepage = "https://xmlgraphics.apache.org/batik";
     license = licenses.asl20;
     platforms = platforms.unix;
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with sourceTypes; [binaryBytecode];
   };
 
   installPhase = ''

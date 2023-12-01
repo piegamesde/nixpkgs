@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
     python3
   ];
 
-  buildInputs = [ libiconv ];
+  buildInputs = [libiconv];
 
   strictDeps = true;
 
@@ -49,7 +49,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://github.com/att/ast";
     license = licenses.cpl10;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     platforms = platforms.all;
   };
 

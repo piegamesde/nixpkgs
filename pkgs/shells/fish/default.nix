@@ -218,7 +218,7 @@ let
 
     cmakeFlags = [
       "-DCMAKE_INSTALL_DOCDIR=${placeholder "doc"}/share/doc/fish"
-    ] ++ lib.optionals stdenv.isDarwin [ "-DMAC_CODESIGN_ID=OFF" ];
+    ] ++ lib.optionals stdenv.isDarwin ["-DMAC_CODESIGN_ID=OFF"];
 
     # The optional string is kind of an inelegant way to get fish to cross compile.
     # Fish needs coreutils as a runtime dependency, and it gets put into
@@ -245,7 +245,7 @@ let
 
     nativeCheckInputs = [
       coreutils
-      (python3.withPackages (ps: [ ps.pexpect ]))
+      (python3.withPackages (ps: [ps.pexpect]))
       procps
     ];
 
@@ -350,12 +350,12 @@ let
               # cannot test the http server because it needs a localhost port
             '';
           in
-          runCommand "test-web-config" { } ''
+          runCommand "test-web-config" {} ''
             HOME=$(mktemp -d)
             ${fish}/bin/fish ${fishScript} && touch $out
           '';
       };
-      updateScript = nix-update-script { };
+      updateScript = nix-update-script {};
     };
   };
 in

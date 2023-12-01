@@ -25,6 +25,6 @@ buildPythonPackage rec {
       binaryBytecode
     ];
     license = licenses.bsd3;
-    maintainers = [ maintainers.shlevy ];
+    maintainers = [maintainers.shlevy];
   };
 }

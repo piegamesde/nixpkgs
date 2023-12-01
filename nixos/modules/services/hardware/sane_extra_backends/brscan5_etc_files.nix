@@ -2,7 +2,7 @@
   stdenv,
   lib,
   brscan5,
-  netDevices ? [ ],
+  netDevices ? [],
 }:
 
 /* Testing
@@ -50,7 +50,7 @@ stdenv.mkDerivation {
   version = "1.2.6-0";
   src = "${brscan5}/opt/brother/scanner/brscan5";
 
-  nativeBuildInputs = [ brscan5 ];
+  nativeBuildInputs = [brscan5];
 
   dontConfigure = true;
 
@@ -75,6 +75,6 @@ stdenv.mkDerivation {
     homepage = "https://www.brother.com";
     platforms = platforms.linux;
     license = licenses.unfree;
-    maintainers = with maintainers; [ mattchrist ];
+    maintainers = with maintainers; [mattchrist];
   };
 }

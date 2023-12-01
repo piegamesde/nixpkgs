@@ -30,7 +30,7 @@ buildPythonPackage rec {
     hash = "sha256-20+qoCaSNGw4DVlW3USrSkg3fckqF77TQ7wmSsuZ3ek=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   propagatedBuildInputs = [
     orjson
@@ -45,19 +45,19 @@ buildPythonPackage rec {
     pytest-mock
   ] ++ passthru.optional-dependencies.pandas;
 
-  pythonImportsCheck = [ "coinmetrics.api_client" ];
+  pythonImportsCheck = ["coinmetrics.api_client"];
 
   passthru = {
     optional-dependencies = {
-      pandas = [ pandas ];
+      pandas = [pandas];
     };
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {
     description = "Coin Metrics API v4 client library";
     homepage = "https://coinmetrics.github.io/api-client-python/site/index.html";
     license = licenses.mit;
-    maintainers = with maintainers; [ centromere ];
+    maintainers = with maintainers; [centromere];
   };
 }

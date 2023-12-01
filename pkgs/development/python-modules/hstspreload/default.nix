@@ -22,7 +22,7 @@ buildPythonPackage rec {
   # Tests require network connection
   doCheck = false;
 
-  pythonImportsCheck = [ "hstspreload" ];
+  pythonImportsCheck = ["hstspreload"];
 
   meta = with lib; {
     description = "Chromium HSTS Preload list as a Python package and updated daily";

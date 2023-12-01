@@ -19,6 +19,6 @@ buildFishPlugin rec {
     description = "Git plugin for fish (similar to oh-my-zsh git)";
     homepage = "https://github.com/jhillyerd/plugin-git";
     license = licenses.mit;
-    maintainers = with maintainers; [ unsolvedcypher ];
+    maintainers = with maintainers; [unsolvedcypher];
   };
 }

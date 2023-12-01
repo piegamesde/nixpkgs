@@ -38,12 +38,12 @@ buildPythonPackage rec {
   # no tests in the package
   doCheck = false;
 
-  pythonImportsCheck = [ "grpc_tools" ];
+  pythonImportsCheck = ["grpc_tools"];
 
   meta = with lib; {
     description = "Protobuf code generator for gRPC";
     license = licenses.asl20;
     homepage = "https://grpc.io/grpc/python/";
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

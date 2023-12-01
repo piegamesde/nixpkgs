@@ -17,7 +17,7 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-lPNPl6fqBT3XLQie9z93j91FLtrMjKbHnXUQ6b4lDb4=";
 
-  subPackages = [ "cmd/migrate" ];
+  subPackages = ["cmd/migrate"];
 
   tags = [
     "postgres"
@@ -37,7 +37,7 @@ buildGoModule rec {
   meta = with lib; {
     homepage = "https://github.com/golang-migrate/migrate";
     description = "Database migrations. CLI and Golang library";
-    maintainers = with maintainers; [ offline ];
+    maintainers = with maintainers; [offline];
     license = licenses.mit;
     mainProgram = "migrate";
   };

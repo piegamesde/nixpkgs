@@ -26,5 +26,5 @@ stdenv.mkDerivation rec {
     "PURPLE_DATADIR=${placeholder "out"}/share/data"
   ];
 
-  buildInputs = [ pidgin ];
+  buildInputs = [pidgin];
 }

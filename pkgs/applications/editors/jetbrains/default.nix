@@ -41,7 +41,7 @@ let
   products = versions.${versionKey} or (throw "Unsupported system: ${system}");
 
   package = if stdenv.isDarwin then ./darwin.nix else ./linux.nix;
-  mkJetBrainsProduct = callPackage package { inherit vmopts; };
+  mkJetBrainsProduct = callPackage package {inherit vmopts;};
 
   # Sorted alphabetically
 
@@ -80,13 +80,13 @@ let
       (
         attrs: {
           nativeBuildInputs =
-            (attrs.nativeBuildInputs or [ ])
+            (attrs.nativeBuildInputs or [])
             ++ lib.optionals (stdenv.isLinux) [
               autoPatchelfHook
               patchelf
             ];
           buildInputs =
-            (attrs.buildInputs or [ ])
+            (attrs.buildInputs or [])
             ++ lib.optionals (stdenv.isLinux) [
               python3
               stdenv.cc.cc
@@ -149,7 +149,7 @@ let
           It allows you to quickly migrate and refactor relational databases,
           construct efficient, statically checked SQL queries and much more.
         '';
-        maintainers = with maintainers; [ ];
+        maintainers = with maintainers; [];
       };
     });
 
@@ -182,7 +182,7 @@ let
           server with your local machine, downloads necessary components on the
           backend, and opens your project in JetBrains Client.
         '';
-        maintainers = with maintainers; [ kouyk ];
+        maintainers = with maintainers; [kouyk];
       };
     });
 
@@ -214,7 +214,7 @@ let
           The new IDE extends the IntelliJ platform with the coding assistance
           and tool integrations specific for the Go language
         '';
-        maintainers = [ ];
+        maintainers = [];
       };
     }).overrideAttrs
       (
@@ -255,7 +255,7 @@ let
         product
         ;
       productShort = "IDEA";
-      extraLdPath = [ zlib ];
+      extraLdPath = [zlib];
       extraWrapperArgs = [
         ''--set M2_HOME "${maven}/maven"''
         ''--set M2 "${maven}/maven/bin"''
@@ -310,7 +310,7 @@ let
           parsers, and build DSL editors, such as ones with tables and
           diagrams.
         '';
-        maintainers = with maintainers; [ rasendubi ];
+        maintainers = with maintainers; [rasendubi];
       };
     });
 
@@ -341,7 +341,7 @@ let
           with on-the-fly code analysis, error prevention and
           automated refactorings for PHP and JavaScript code.
         '';
-        maintainers = with maintainers; [ dritter ];
+        maintainers = with maintainers; [dritter];
       };
     });
 
@@ -384,7 +384,7 @@ let
           providing you almost everything you need for your comfortable
           and productive development!
         '';
-        maintainers = with maintainers; [ ];
+        maintainers = with maintainers; [];
       };
     }).overrideAttrs
       (
@@ -426,7 +426,7 @@ let
         ;
       product = "Rider";
       # icu is required by Rider.Backend
-      extraLdPath = [ icu ];
+      extraLdPath = [icu];
       meta = with lib; {
         homepage = "https://www.jetbrains.com/rider/";
         inherit description license platforms;
@@ -438,7 +438,7 @@ let
           apps, services and libraries, Unity games, ASP.NET and
           ASP.NET Core web applications.
         '';
-        maintainers = with maintainers; [ raphaelr ];
+        maintainers = with maintainers; [raphaelr];
       };
     }).overrideAttrs
       (
@@ -481,7 +481,7 @@ let
         homepage = "https://www.jetbrains.com/ruby/";
         inherit description license platforms;
         longDescription = description;
-        maintainers = with maintainers; [ edwtjo ];
+        maintainers = with maintainers; [edwtjo];
       };
     });
 
@@ -512,7 +512,7 @@ let
           and CSS with on-the-fly code analysis, error prevention and
           automated refactorings for JavaScript code.
         '';
-        maintainers = with maintainers; [ abaldeau ];
+        maintainers = with maintainers; [abaldeau];
       };
     });
 in

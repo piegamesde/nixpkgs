@@ -2,13 +2,13 @@
 # will result in the expected output.
 
 import ../make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   {
     name = "krb5-with-deprecated-config";
-    meta = with pkgs.lib.maintainers; { maintainers = [ eqyiel ]; };
+    meta = with pkgs.lib.maintainers; {maintainers = [eqyiel];};
 
     nodes.machine =
-      { ... }:
+      {...}:
       {
         krb5 = {
           enable = true;

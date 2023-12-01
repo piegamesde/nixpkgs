@@ -33,7 +33,7 @@ let
     ];
   };
   product = lib.attrsets.cartesianProductOfSets dimensions;
-  variantName = { palette, color }: (lib.strings.toLower palette) + color;
+  variantName = {palette, color}: (lib.strings.toLower palette) + color;
   variants = map variantName product;
 in
 stdenvNoCC.mkDerivation rec {
@@ -46,14 +46,14 @@ stdenvNoCC.mkDerivation rec {
     repo = "cursors";
     rev = "v${version}";
     sha256 = "sha256-TgV5f8+YWR+h61m6WiBMg3aBFnhqShocZBdzZHSyU2c=";
-    sparseCheckout = [ "cursors" ];
+    sparseCheckout = ["cursors"];
   };
 
-  nativeBuildInputs = [ unzip ];
+  nativeBuildInputs = [unzip];
 
-  outputs = variants ++ [ "out" ]; # dummy "out" output to prevent breakage
+  outputs = variants ++ ["out"]; # dummy "out" output to prevent breakage
 
-  outputsToInstall = [ ];
+  outputsToInstall = [];
 
   installPhase = ''
     runHook preInstall
@@ -84,6 +84,6 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://github.com/catppuccin/cursors";
     license = licenses.gpl2;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ PlayerNameHere ];
+    maintainers = with maintainers; [PlayerNameHere];
   };
 }

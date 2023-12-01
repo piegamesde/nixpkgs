@@ -1,6 +1,6 @@
 {
   sourcePerArch,
-  knownVulnerabilities ? [ ],
+  knownVulnerabilities ? [],
 }:
 
 {
@@ -23,7 +23,7 @@ let
         "adoptopenjdk-${sourcePerArch.packageType}-${sourcePerArch.vmType}-bin";
     version = sourcePerArch.${cpuName}.version or (throw "unsupported CPU ${cpuName}");
 
-    src = fetchurl { inherit (sourcePerArch.${cpuName}) url sha256; };
+    src = fetchurl {inherit (sourcePerArch.${cpuName}) url sha256;};
 
     # See: https://github.com/NixOS/patchelf/issues/10
     dontStrip = 1;
@@ -63,8 +63,8 @@ let
     meta = with lib; {
       license = licenses.gpl2Classpath;
       description = "AdoptOpenJDK, prebuilt OpenJDK binary";
-      platforms = [ "x86_64-darwin" ]; # some inherit jre.meta.platforms
-      maintainers = with lib.maintainers; [ taku0 ];
+      platforms = ["x86_64-darwin"]; # some inherit jre.meta.platforms
+      maintainers = with lib.maintainers; [taku0];
       inherit knownVulnerabilities;
       mainProgram = "java";
     };

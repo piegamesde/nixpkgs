@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
     libxcrypt
   ];
 
-  patches = [ ./CVE-2015-1419.patch ];
+  patches = [./CVE-2015-1419.patch];
 
   postPatch = ''
     sed -i "/VSF_BUILD_SSL/s/^#undef/#define/" builddefs.h
@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
     mkdir -p $out/sbin $out/man/man{5,8}
   '';
 
-  makeFlags = [ "CC=${stdenv.cc.targetPrefix}cc" ];
+  makeFlags = ["CC=${stdenv.cc.targetPrefix}cc"];
 
   NIX_LDFLAGS = "-lcrypt -lssl -lcrypto -lpam -lcap -lseccomp";
 
@@ -57,7 +57,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "A very secure FTP daemon";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ peterhoeg ];
+    maintainers = with maintainers; [peterhoeg];
     platforms = platforms.linux;
   };
 }

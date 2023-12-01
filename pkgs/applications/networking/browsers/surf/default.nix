@@ -57,7 +57,7 @@ stdenv.mkDerivation rec {
 
   inherit patches;
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   # Add run-time dependencies to PATH. Append them to PATH so the user can
   # override the dependencies with their own PATH.
@@ -88,6 +88,6 @@ stdenv.mkDerivation rec {
     homepage = "https://surf.suckless.org";
     license = licenses.mit;
     platforms = webkitgtk.meta.platforms;
-    maintainers = with maintainers; [ joachifm ];
+    maintainers = with maintainers; [joachifm];
   };
 }

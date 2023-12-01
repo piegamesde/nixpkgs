@@ -82,7 +82,7 @@ stdenv.mkDerivation rec {
       Shortwave is a streaming audio player designed for the GNOME
       desktop. It is the successor to the older Gradio application.
     '';
-    maintainers = with maintainers; [ lasandell ];
+    maintainers = with maintainers; [lasandell];
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
   };

@@ -24,7 +24,7 @@ stdenv.mkDerivation {
       --replace "-lGLESv2" "-lGL -lGLESv2"
   '';
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     libGL
     glfw
@@ -40,7 +40,7 @@ stdenv.mkDerivation {
     description = "Offline ShaderToy-compatible GLSL shader viewer using OpenGL ES 2.0";
     homepage = "https://github.com/cmcsun/esshader";
     license = licenses.mit;
-    maintainers = with maintainers; [ astro ];
+    maintainers = with maintainers; [astro];
     platforms = lib.platforms.unix;
     # never built on aarch64-darwin, x86_64-darwin since first introduction in nixpkgs
     broken = stdenv.isDarwin;

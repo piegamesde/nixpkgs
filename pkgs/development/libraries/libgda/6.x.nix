@@ -80,7 +80,7 @@ stdenv.mkDerivation rec {
     openssl
     libgee
     sqlite
-  ] ++ lib.optionals mysqlSupport [ libmysqlclient ] ++ lib.optionals postgresSupport [ postgresql ];
+  ] ++ lib.optionals mysqlSupport [libmysqlclient] ++ lib.optionals postgresSupport [postgresql];
 
   postPatch = ''
     patchShebangs \

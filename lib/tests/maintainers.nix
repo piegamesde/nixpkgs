@@ -3,7 +3,7 @@
 # These tests should stay in sync with the comment in maintainers/maintainers-list.nix
 {
   # The pkgs used for dependencies for the testing itself
-  pkgs ? import ../.. { },
+  pkgs ? import ../.. {},
   lib ? pkgs.lib,
 }:
 
@@ -60,7 +60,7 @@ let
 
   missingGithubIds = lib.concatLists (lib.mapAttrsToList checkMaintainer lib.maintainers);
 
-  success = pkgs.runCommand "checked-maintainers-success" { } ">$out";
+  success = pkgs.runCommand "checked-maintainers-success" {} ">$out";
 
   failure =
     pkgs.runCommand "checked-maintainers-failure"
@@ -79,4 +79,4 @@ let
         exit 1
       '';
 in
-if missingGithubIds == [ ] then success else failure
+if missingGithubIds == [] then success else failure

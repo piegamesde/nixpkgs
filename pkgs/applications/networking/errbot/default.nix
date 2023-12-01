@@ -21,7 +21,7 @@ python3.pkgs.buildPythonApplication rec {
 
   LC_ALL = "en_US.utf8";
 
-  buildInputs = [ glibcLocales ];
+  buildInputs = [glibcLocales];
 
   propagatedBuildInputs = with python3.pkgs; [
     ansi
@@ -52,7 +52,7 @@ python3.pkgs.buildPythonApplication rec {
   ];
 
   # Slack backend test has an import issue
-  pytestFlagsArray = [ "--ignore=tests/backend_tests/slack_test.py" ];
+  pytestFlagsArray = ["--ignore=tests/backend_tests/slack_test.py"];
 
   disabledTests = [
     "backup"
@@ -60,12 +60,12 @@ python3.pkgs.buildPythonApplication rec {
     "plugin_cycle"
   ];
 
-  pythonImportsCheck = [ "errbot" ];
+  pythonImportsCheck = ["errbot"];
 
   meta = with lib; {
     description = "Chatbot designed to be simple to extend with plugins written in Python";
     homepage = "http://errbot.io/";
-    maintainers = with maintainers; [ globin ];
+    maintainers = with maintainers; [globin];
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
     # flaky on darwin, "RuntimeError: can't start new thread"

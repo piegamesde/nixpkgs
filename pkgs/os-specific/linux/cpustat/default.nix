@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-4HDXRtklzQSsywCGCTKdz6AtZta9R1mx7qkT7skX6Kc=";
   };
 
-  buildInputs = [ ncurses ];
+  buildInputs = [ncurses];
 
   installFlags = [
     "BINDIR=${placeholder "out"}/bin"
@@ -29,6 +29,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/ColinIanKing/cpustat";
     license = licenses.gpl2;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ dtzWill ];
+    maintainers = with maintainers; [dtzWill];
   };
 }

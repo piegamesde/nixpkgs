@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
     lv2
   ];
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   prePatch = ''
     patchShebangs generate-ttl.sh patch.sh patch/apply.sh
@@ -74,6 +74,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/ryukau/LV2Plugins/";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    maintainers = [ maintainers.magnetophon ];
+    maintainers = [maintainers.magnetophon];
   };
 }

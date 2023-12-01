@@ -22,9 +22,9 @@ stdenv.mkDerivation rec {
       --replace /usr/include/asm/unistd_64.h ${glibc.dev}/include/asm/unistd_64.h
   '';
 
-  buildInputs = [ python3 ];
+  buildInputs = [python3];
 
-  makeFlags = [ "PREFIX=${placeholder "out"}" ];
+  makeFlags = ["PREFIX=${placeholder "out"}"];
 
   preInstall = ''
     mkdir -p $out/bin
@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
     description = "Utilities for analyzing application performance";
     homepage = "https://0x.tools";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ astro ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with maintainers; [astro];
+    platforms = ["x86_64-linux"];
   };
 }

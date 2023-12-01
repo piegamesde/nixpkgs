@@ -13,7 +13,7 @@ let
   bitlbeeUid = config.ids.uids.bitlbee;
 
   bitlbeePkg = pkgs.bitlbee.override {
-    enableLibPurple = cfg.libpurple_plugins != [ ];
+    enableLibPurple = cfg.libpurple_plugins != [];
     enablePam = cfg.authBackend == "pam";
   };
 
@@ -115,7 +115,7 @@ in
 
       plugins = mkOption {
         type = types.listOf types.package;
-        default = [ ];
+        default = [];
         example = literalExpression "[ pkgs.bitlbee-facebook ]";
         description = lib.mdDoc ''
           The list of bitlbee plugins to install.
@@ -124,7 +124,7 @@ in
 
       libpurple_plugins = mkOption {
         type = types.listOf types.package;
-        default = [ ];
+        default = [];
         example = literalExpression "[ pkgs.purple-matrix ]";
         description = lib.mdDoc ''
           The list of libpurple plugins to install.
@@ -174,19 +174,19 @@ in
       systemd.services.bitlbee = {
         environment.PURPLE_PLUGIN_PATH = purple_plugin_path;
         description = "BitlBee IRC to other chat networks gateway";
-        after = [ "network.target" ];
-        wantedBy = [ "multi-user.target" ];
+        after = ["network.target"];
+        wantedBy = ["multi-user.target"];
 
         serviceConfig = {
           DynamicUser = true;
           StateDirectory = "bitlbee";
-          ReadWritePaths = [ cfg.configDir ];
+          ReadWritePaths = [cfg.configDir];
           ExecStart = "${bitlbeePkg}/sbin/bitlbee -F -n -c ${bitlbeeConfig}";
         };
       };
 
-      environment.systemPackages = [ bitlbeePkg ];
+      environment.systemPackages = [bitlbeePkg];
     })
-    (mkIf (config.services.bitlbee.authBackend == "pam") { security.pam.services.bitlbee = { }; })
+    (mkIf (config.services.bitlbee.authBackend == "pam") {security.pam.services.bitlbee = {};})
   ];
 }

@@ -24,9 +24,9 @@ buildPythonPackage rec {
     hash = "sha256-WOyv1fLSXG7p+WKs2QSwlsh8FSK/lxp6I1hPY0VIkKo=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  propagatedBuildInputs = [ asn1crypto ] ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
+  propagatedBuildInputs = [asn1crypto] ++ lib.optionals (pythonOlder "3.8") [importlib-metadata];
 
   nativeCheckInputs = [
     pytest-mock
@@ -39,14 +39,14 @@ buildPythonPackage rec {
     sed -i "/dynamic =/d" pyproject.toml
   '';
 
-  pythonImportsCheck = [ "scramp" ];
+  pythonImportsCheck = ["scramp"];
 
-  disabledTests = [ "test_readme" ];
+  disabledTests = ["test_readme"];
 
   meta = with lib; {
     description = "Implementation of the SCRAM authentication protocol";
     homepage = "https://github.com/tlocke/scramp";
     license = licenses.mit;
-    maintainers = with maintainers; [ jonringer ];
+    maintainers = with maintainers; [jonringer];
   };
 }

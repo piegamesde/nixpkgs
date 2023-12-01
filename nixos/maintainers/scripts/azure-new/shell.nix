@@ -1,4 +1,4 @@
-with (import ../../../../default.nix { });
+with (import ../../../../default.nix {});
 stdenv.mkDerivation {
   name = "nixcfg-azure-devenv";
 

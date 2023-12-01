@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
     SkyLight
   ];
 
-  makeFlags = [ target ];
+  makeFlags = [target];
 
   installPhase = ''
     mkdir -p $out/bin
@@ -49,7 +49,7 @@ stdenv.mkDerivation rec {
     description = "A highly customizable macOS status bar replacement";
     homepage = "https://github.com/FelixKratz/SketchyBar";
     platforms = platforms.darwin;
-    maintainers = [ maintainers.azuwis ];
+    maintainers = [maintainers.azuwis];
     license = licenses.gpl3;
   };
 }

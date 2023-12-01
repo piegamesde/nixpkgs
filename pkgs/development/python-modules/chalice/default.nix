@@ -97,13 +97,13 @@ buildPythonPackage rec {
     "test_both_tar_bz2"
   ];
 
-  pythonImportsCheck = [ "chalice" ];
+  pythonImportsCheck = ["chalice"];
 
   meta = with lib; {
     description = "Python Serverless Microframework for AWS";
     homepage = "https://github.com/aws/chalice";
     changelog = "https://github.com/aws/chalice/blob/${version}/CHANGELOG.rst";
     license = licenses.asl20;
-    maintainers = with maintainers; [ costrouc ];
+    maintainers = with maintainers; [costrouc];
   };
 }

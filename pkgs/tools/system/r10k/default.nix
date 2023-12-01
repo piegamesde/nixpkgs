@@ -11,9 +11,9 @@
 bundlerApp {
   pname = "r10k";
   gemdir = ./.;
-  exes = [ "r10k" ];
+  exes = ["r10k"];
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   postBuild = ''
     wrapProgram $out/bin/r10k --prefix PATH : ${

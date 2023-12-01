@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
     sha256 = "1db500k6w90qn6qb4j3zcczailmmv81q9lv4bwq516hbncg5p4sl";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   # https://github.com/selmf/unarr/issues/23
   postPatch =

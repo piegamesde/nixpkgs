@@ -47,13 +47,13 @@ buildPythonPackage rec {
   # indicative for package usability hence tests are disabled by default.
   doCheck = false;
 
-  pythonImportsCheck = [ "pymc" ];
+  pythonImportsCheck = ["pymc"];
 
   meta = with lib; {
     description = "Bayesian estimation, particularly using Markov chain Monte Carlo (MCMC)";
     homepage = "https://github.com/pymc-devs/pymc3";
     changelog = "https://github.com/pymc-devs/pymc/releases/tag/v${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ nidabdella ];
+    maintainers = with maintainers; [nidabdella];
   };
 }

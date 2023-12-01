@@ -29,7 +29,7 @@ buildDunePackage rec {
     ]
     ++ lib.optional (lib.versionAtLeast version "1.14.2") ocamlc-loc;
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   postInstall = ''
     wrapProgram $out/bin/ocamllsp --prefix PATH : ${dot-merlin-reader}/bin

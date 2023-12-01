@@ -20,7 +20,7 @@ buildPythonPackage rec {
   };
 
   # Prevent circular dependency
-  pythonRemoveDeps = [ "dvc" ];
+  pythonRemoveDeps = ["dvc"];
 
   nativeBuildInputs = [
     setuptools-scm
@@ -36,13 +36,13 @@ buildPythonPackage rec {
   # Network access is needed for tests
   doCheck = false;
 
-  pythonCheckImports = [ "dvc_azure" ];
+  pythonCheckImports = ["dvc_azure"];
 
   meta = with lib; {
     description = "azure plugin for dvc";
     homepage = "https://pypi.org/project/dvc-azure/${version}";
     changelog = "https://github.com/iterative/dvc-azure/releases/tag/${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ melling ];
+    maintainers = with maintainers; [melling];
   };
 }

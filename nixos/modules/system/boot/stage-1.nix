@@ -19,7 +19,7 @@ let
 
   kernel-name = config.boot.kernelPackages.kernel.name or "kernel";
 
-  modulesTree = config.system.modulesTree.override { name = kernel-name + "-modules"; };
+  modulesTree = config.system.modulesTree.override {name = kernel-name + "-modules";};
   firmware = config.hardware.firmware;
 
   # Determine the set of modules that we need to mount the root FS.
@@ -97,8 +97,8 @@ let
   extraUtils =
     pkgs.runCommand "extra-utils"
       {
-        nativeBuildInputs = [ pkgs.buildPackages.nukeReferences ];
-        allowedReferences = [ "out" ]; # prevent accidents like glibc being included in the initrd
+        nativeBuildInputs = [pkgs.buildPackages.nukeReferences];
+        allowedReferences = ["out"]; # prevent accidents like glibc being included in the initrd
       }
       ''
         set +o pipefail
@@ -263,7 +263,7 @@ let
   linkUnits =
     pkgs.runCommand "link-units"
       {
-        allowedReferences = [ extraUtils ];
+        allowedReferences = [extraUtils];
         preferLocalBuild = true;
       }
       (
@@ -283,7 +283,7 @@ let
   udevRules =
     pkgs.runCommand "udev-rules"
       {
-        allowedReferences = [ extraUtils ];
+        allowedReferences = [extraUtils];
         preferLocalBuild = true;
       }
       ''
@@ -487,7 +487,7 @@ let
         exit 0
       fi
 
-      ${lib.optionalString (config.boot.initrd.secrets == { }) "exit 0"}
+      ${lib.optionalString (config.boot.initrd.secrets == {}) "exit 0"}
 
       export PATH=${pkgs.coreutils}/bin:${pkgs.libarchive}/bin:${pkgs.gzip}/bin:${pkgs.findutils}/bin
 
@@ -549,7 +549,7 @@ in
     };
 
     boot.initrd.extraFiles = mkOption {
-      default = { };
+      default = {};
       type = types.attrsOf (
         types.submodule {
           options = {
@@ -566,7 +566,7 @@ in
     };
 
     boot.initrd.prepend = mkOption {
-      default = [ ];
+      default = [];
       type = types.listOf types.str;
       description = lib.mdDoc ''
         Other initrd files to prepend to the final initrd we are building.
@@ -683,7 +683,7 @@ in
     };
 
     boot.initrd.secrets = mkOption {
-      default = { };
+      default = {};
       type = types.attrsOf (types.nullOr types.path);
       description = lib.mdDoc ''
         Secrets to append to the initrd. The attribute name is the
@@ -699,8 +699,8 @@ in
     };
 
     boot.initrd.supportedFilesystems = mkOption {
-      default = [ ];
-      example = [ "btrfs" ];
+      default = [];
+      example = ["btrfs"];
       type = types.listOf types.str;
       description = lib.mdDoc "Names of supported filesystem types in the initial ramdisk.";
     };
@@ -789,10 +789,10 @@ in
     ];
 
     system.build = mkMerge [
-      { inherit bootStage1 initialRamdiskSecretAppender extraUtils; }
+      {inherit bootStage1 initialRamdiskSecretAppender extraUtils;}
 
       # generated in nixos/modules/system/boot/systemd/initrd.nix
-      (mkIf (!config.boot.initrd.systemd.enable) { inherit initialRamdisk; })
+      (mkIf (!config.boot.initrd.systemd.enable) {inherit initialRamdisk;})
     ];
 
     system.requiredKernelConfig = with config.lib.kernelConfig; [

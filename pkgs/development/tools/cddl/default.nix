@@ -8,7 +8,7 @@ bundlerApp {
   pname = "cddl";
 
   gemdir = ./.;
-  exes = [ "cddl" ];
+  exes = ["cddl"];
 
   passthru.updateScript = bundlerUpdateScript "cddl";
 

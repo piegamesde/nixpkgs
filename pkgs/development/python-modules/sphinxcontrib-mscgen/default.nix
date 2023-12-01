@@ -27,12 +27,12 @@ buildPythonPackage rec {
   # There are no unit tests
   doCheck = false;
 
-  pythonImportsCheck = [ "sphinxcontrib.mscgen" ];
+  pythonImportsCheck = ["sphinxcontrib.mscgen"];
 
   meta = with lib; {
     description = "Sphinx extension using mscgen to render diagrams";
     homepage = "https://github.com/sphinx-contrib/mscgen";
     license = licenses.bola11;
-    maintainers = with maintainers; [ drupol ];
+    maintainers = with maintainers; [drupol];
   };
 }

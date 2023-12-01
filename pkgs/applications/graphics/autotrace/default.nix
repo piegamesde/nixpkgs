@@ -45,13 +45,13 @@ stdenv.mkDerivation rec {
     imagemagick
     libpng
     pstoedit
-  ] ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Foundation ];
+  ] ++ lib.optionals stdenv.isDarwin [darwin.apple_sdk.frameworks.Foundation];
 
   meta = with lib; {
     homepage = "https://github.com/autotrace/autotrace";
     description = "Utility for converting bitmap into vector graphics";
     platforms = platforms.unix;
-    maintainers = with maintainers; [ hodapp ];
+    maintainers = with maintainers; [hodapp];
     license = licenses.gpl2;
   };
 }

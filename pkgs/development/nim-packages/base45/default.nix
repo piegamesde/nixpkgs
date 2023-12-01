@@ -18,6 +18,6 @@ buildNimPackage rec {
     description = "Base45 library for Nim";
     license = lib.licenses.unlicense;
     mainProgram = pname;
-    maintainers = with lib.maintainers; [ ehmry ];
+    maintainers = with lib.maintainers; [ehmry];
   };
 }

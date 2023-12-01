@@ -16,12 +16,12 @@ stdenv.mkDerivation {
     sha256 = "18w2x0g5yq89yxkxh1fmb05lz4hw7a3b4jmkk95gvh11mwbbr5lm";
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   meta = with lib; {
     description = "LHa is an archiver and compressor using the LZSS and Huffman encoding compression algorithms";
     platforms = platforms.unix;
-    maintainers = [ maintainers.sander ];
+    maintainers = [maintainers.sander];
     # Some of the original LhA code has been rewritten and the current author
     # considers adopting a "true" free and open source license for it.
     # However, old code is still covered by the original LHa license, which is

@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "fillods";
     repo = "grig";
-    rev = "GRIG-${lib.replaceStrings [ "." ] [ "_" ] version}";
+    rev = "GRIG-${lib.replaceStrings ["."] ["_"] version}";
     sha256 = "sha256-OgIgHW9NMW/xSSti3naIR8AQWUtNSv5bYdOcObStBlM=";
   };
 
@@ -40,6 +40,6 @@ stdenv.mkDerivation rec {
     homepage = "https://groundstation.sourceforge.net/grig/";
     license = licenses.gpl2;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ melling ];
+    maintainers = with maintainers; [melling];
   };
 }

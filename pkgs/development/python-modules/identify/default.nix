@@ -28,12 +28,12 @@ buildPythonPackage rec {
     ukkonen
   ];
 
-  pythonImportsCheck = [ "identify" ];
+  pythonImportsCheck = ["identify"];
 
   meta = with lib; {
     description = "File identification library for Python";
     homepage = "https://github.com/chriskuehl/identify";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

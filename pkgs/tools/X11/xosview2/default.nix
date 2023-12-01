@@ -15,7 +15,7 @@ stdenv.mkDerivation (
       hash = "sha256-ex1GDBgx9Zzx5tOkZ2IRYskmBh/bUYpRTXHWRoE30vA=";
     };
 
-    buildInputs = [ libX11 ];
+    buildInputs = [libX11];
 
     meta = with lib; {
       homepage = "https://xosview.sourceforge.net/index.html";
@@ -41,7 +41,7 @@ stdenv.mkDerivation (
         gpl2
         bsdOriginal
       ];
-      maintainers = with maintainers; [ AndersonTorres ];
+      maintainers = with maintainers; [AndersonTorres];
       platforms = platforms.all;
     };
   }

@@ -1,12 +1,12 @@
 import ../make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   {
     name = "dnscrypt-wrapper";
-    meta = with pkgs.lib.maintainers; { maintainers = [ rnhmjoj ]; };
+    meta = with pkgs.lib.maintainers; {maintainers = [rnhmjoj];};
 
     nodes = {
       server =
-        { lib, ... }:
+        {lib, ...}:
         {
           services.dnscrypt-wrapper = with builtins; {
             enable = true;
@@ -25,8 +25,8 @@ import ../make-test-python.nix (
             ..:192.168.1.1:a
             +it.works:1.2.3.4
           '';
-          networking.firewall.allowedUDPPorts = [ 5353 ];
-          networking.firewall.allowedTCPPorts = [ 5353 ];
+          networking.firewall.allowedUDPPorts = [5353];
+          networking.firewall.allowedTCPPorts = [5353];
           networking.interfaces.eth1.ipv4.addresses = lib.mkForce [
             {
               address = "192.168.1.1";
@@ -36,15 +36,15 @@ import ../make-test-python.nix (
         };
 
       client =
-        { lib, ... }:
+        {lib, ...}:
         {
           services.dnscrypt-proxy2.enable = true;
           services.dnscrypt-proxy2.upstreamDefaults = false;
           services.dnscrypt-proxy2.settings = {
-            server_names = [ "server" ];
+            server_names = ["server"];
             static.server.stamp = "sdns://AQAAAAAAAAAAEDE5Mi4xNjguMS4xOjUzNTMgFEHYOv0SCKSuqR5CDYa7-58cCBuXO2_5uTSVU9wNQF0WMi5kbnNjcnlwdC1jZXJ0LnNlcnZlcg";
           };
-          networking.nameservers = [ "127.0.0.1" ];
+          networking.nameservers = ["127.0.0.1"];
           networking.interfaces.eth1.ipv4.addresses = lib.mkForce [
             {
               address = "192.168.1.2";

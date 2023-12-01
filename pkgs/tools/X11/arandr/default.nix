@@ -46,6 +46,6 @@ buildPythonApplication rec {
     homepage = "https://christian.amsuess.com/tools/arandr/";
     description = "A simple visual front end for XRandR";
     license = lib.licenses.gpl3;
-    maintainers = [ lib.maintainers.domenkozar ];
+    maintainers = [lib.maintainers.domenkozar];
   };
 }

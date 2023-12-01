@@ -50,7 +50,7 @@ with lib; {
             "panic=1"
             "boot.panic_on_fail"
           ];
-          initrd.kernelModules = [ "virtio_scsi" ];
+          initrd.kernelModules = ["virtio_scsi"];
           kernelModules = [
             "virtio_pci"
             "virtio_net"
@@ -73,7 +73,7 @@ with lib; {
         # Check for and wait for the metadata server to become reachable.
         # This serves as a dependency for all the other metadata services.
         systemd.services.digitalocean-metadata = {
-          path = [ pkgs.curl ];
+          path = [pkgs.curl];
           description = "Get host metadata provided by Digitalocean";
           script = ''
             set -eu
@@ -102,7 +102,7 @@ with lib; {
           unitConfig = {
             ConditionPathExists = "!${doMetadataFile}";
             After =
-              [ "network-pre.target" ]
+              ["network-pre.target"]
               ++ optional config.networking.dhcpcd.enable "dhcpcd.service"
               ++ optional config.systemd.network.enable "systemd-networkd.service";
           };
@@ -117,7 +117,7 @@ with lib; {
             pkgs.jq
           ];
           description = "Set root password provided by Digitalocean";
-          wantedBy = [ "multi-user.target" ];
+          wantedBy = ["multi-user.target"];
           script = ''
             set -eo pipefail
             ROOT_PASSWORD=$(jq -er '.auth_key' ${doMetadataFile})
@@ -127,8 +127,8 @@ with lib; {
           unitConfig = {
             ConditionPathExists = "!/etc/do-metadata/set-root-password";
             Before = optional config.services.openssh.enable "sshd.service";
-            After = [ "digitalocean-metadata.service" ];
-            Requires = [ "digitalocean-metadata.service" ];
+            After = ["digitalocean-metadata.service"];
+            Requires = ["digitalocean-metadata.service"];
           };
           serviceConfig = {
             Type = "oneshot";
@@ -144,7 +144,7 @@ with lib; {
             pkgs.nettools
           ];
           description = "Set hostname provided by Digitalocean";
-          wantedBy = [ "network.target" ];
+          wantedBy = ["network.target"];
           script = ''
             set -e
             DIGITALOCEAN_HOSTNAME=$(curl -fsSL http://169.254.169.254/metadata/v1/hostname)
@@ -154,9 +154,9 @@ with lib; {
             fi
           '';
           unitConfig = {
-            Before = [ "network.target" ];
-            After = [ "digitalocean-metadata.service" ];
-            Wants = [ "digitalocean-metadata.service" ];
+            Before = ["network.target"];
+            After = ["digitalocean-metadata.service"];
+            Wants = ["digitalocean-metadata.service"];
           };
           serviceConfig = {
             Type = "oneshot";
@@ -166,8 +166,8 @@ with lib; {
         # Fetch the ssh keys for root from Digital Ocean
         systemd.services.digitalocean-ssh-keys = mkIf cfg.setSshKeys {
           description = "Set root ssh keys provided by Digital Ocean";
-          wantedBy = [ "multi-user.target" ];
-          path = [ pkgs.jq ];
+          wantedBy = ["multi-user.target"];
+          path = [pkgs.jq];
           script = ''
             set -e
             mkdir -m 0700 -p /root/.ssh
@@ -181,8 +181,8 @@ with lib; {
           unitConfig = {
             ConditionPathExists = "!/root/.ssh/authorized_keys";
             Before = optional config.services.openssh.enable "sshd.service";
-            After = [ "digitalocean-metadata.service" ];
-            Requires = [ "digitalocean-metadata.service" ];
+            After = ["digitalocean-metadata.service"];
+            Requires = ["digitalocean-metadata.service"];
           };
         };
 
@@ -190,7 +190,7 @@ with lib; {
         # Digital Ocean metadata
         systemd.services.digitalocean-entropy-seed = mkIf cfg.seedEntropy {
           description = "Run the kernel RNG entropy seeding script from the Digital Ocean vendor data";
-          wantedBy = [ "network.target" ];
+          wantedBy = ["network.target"];
           path = [
             pkgs.jq
             pkgs.mpack
@@ -204,9 +204,9 @@ with lib; {
             rm -rf $TEMPDIR
           '';
           unitConfig = {
-            Before = [ "network.target" ];
-            After = [ "digitalocean-metadata.service" ];
-            Requires = [ "digitalocean-metadata.service" ];
+            Before = ["network.target"];
+            After = ["digitalocean-metadata.service"];
+            Requires = ["digitalocean-metadata.service"];
           };
           serviceConfig = {
             Type = "oneshot";

@@ -15,14 +15,14 @@ buildGoModule rec {
     sha256 = "sha256-V5M7vXlBSQFX2YZ+Vjt63hLziWy0yuAbCMmSZFEO0OA=";
   };
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   vendorHash = "sha256-oyFPycyQoYnN261kmGhkN9NMPMA6XChf4jXlYezKiCo=";
 
   meta = with lib; {
     description = "More expressive universal gRPC client";
     homepage = "https://evans.syfm.me/";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ diogox ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [diogox];
   };
 }

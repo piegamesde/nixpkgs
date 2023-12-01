@@ -37,6 +37,6 @@ buildPythonPackage rec {
     description = "Lightweight python client to communicate with the etelemetry server";
     homepage = "https://github.com/mgxd/etelemetry-client";
     license = licenses.asl20;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

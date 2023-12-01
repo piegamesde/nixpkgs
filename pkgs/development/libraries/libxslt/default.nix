@@ -46,15 +46,15 @@ stdenv.mkDerivation rec {
       libxml2.dev
       libxcrypt
     ]
-    ++ lib.optionals stdenv.isDarwin [ gettext ]
+    ++ lib.optionals stdenv.isDarwin [gettext]
     ++ lib.optionals pythonSupport [
       libxml2.py
       python
       ncurses
     ]
-    ++ lib.optionals cryptoSupport [ libgcrypt ];
+    ++ lib.optionals cryptoSupport [libgcrypt];
 
-  propagatedBuildInputs = [ findXMLCatalogs ];
+  propagatedBuildInputs = [findXMLCatalogs];
 
   configureFlags = [
     "--without-debug"
@@ -62,7 +62,7 @@ stdenv.mkDerivation rec {
     "--without-debugger"
     (lib.withFeature pythonSupport "python")
     (lib.optionalString pythonSupport "PYTHON=${python.pythonForBuild.interpreter}")
-  ] ++ lib.optionals (!cryptoSupport) [ "--without-crypto" ];
+  ] ++ lib.optionals (!cryptoSupport) ["--without-crypto"];
 
   postFixup =
     ''

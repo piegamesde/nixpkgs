@@ -30,7 +30,7 @@ mkDerivation rec {
 
   src = fetchurl {
     url = "mirror://sourceforge/project/${pname}/Version_${
-      builtins.replaceStrings [ "." ] [ "_" ] version
+      builtins.replaceStrings ["."] ["_"] version
     }/${pname}-${version}-Source.tar.gz";
     sha256 = "sha256-jyBUyadkSuQKXOrr5XZ1jy6of1Qw8S2HPxuOrPc7RnE=";
   };
@@ -71,7 +71,7 @@ mkDerivation rec {
     "--prefix"
     "PATH"
     ":"
-    (lib.makeBinPath [ ffmpeg ])
+    (lib.makeBinPath [ffmpeg])
   ];
 
   meta = with lib; {
@@ -85,7 +85,7 @@ mkDerivation rec {
     '';
 
     license = lib.licenses.gpl2Plus;
-    maintainers = [ maintainers.leenaars ];
+    maintainers = [maintainers.leenaars];
     broken = stdenv.isAarch64;
     platforms = lib.platforms.gnu ++ lib.platforms.linux;
   };

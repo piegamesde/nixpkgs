@@ -89,9 +89,9 @@ in
     systemd.services.yandex-disk = {
       description = "Yandex-disk server";
 
-      after = [ "network.target" ];
+      after = ["network.target"];
 
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
 
       # FIXME: have to specify ${directory} here as well
       unitConfig.RequiresMountsFor = dir;

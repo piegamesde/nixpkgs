@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
     url = "https://software.intel.com/en-us/articles/intel-architecture-code-analyzer-download";
   };
   unpackCmd = ''${unzip}/bin/unzip "$src" -x __MACOSX/ __MACOSX/iaca-lin64/ __MACOSX/iaca-lin64/._.DS_Store'';
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
   installPhase = ''
     mkdir -p $out/bin $out/lib
     cp bin/iaca $out/bin/
@@ -40,9 +40,9 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Intel Architecture Code Analyzer";
     homepage = "https://software.intel.com/en-us/articles/intel-architecture-code-analyzer/";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.unfree;
-    platforms = [ "x86_64-linux" ];
-    maintainers = with maintainers; [ kazcw ];
+    platforms = ["x86_64-linux"];
+    maintainers = with maintainers; [kazcw];
   };
 }

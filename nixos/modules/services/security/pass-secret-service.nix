@@ -24,9 +24,9 @@ in
   };
 
   config = mkIf cfg.enable {
-    systemd.packages = [ cfg.package ];
-    services.dbus.packages = [ cfg.package ];
+    systemd.packages = [cfg.package];
+    services.dbus.packages = [cfg.package];
   };
 
-  meta.maintainers = with maintainers; [ aidalgol ];
+  meta.maintainers = with maintainers; [aidalgol];
 }

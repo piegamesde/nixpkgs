@@ -58,7 +58,7 @@ stdenv.mkDerivation rec {
   ];
 
   # skip interactive browser check
-  buildFlags = [ "nobrowsers" ];
+  buildFlags = ["nobrowsers"];
 
   # Workaround build failure on -fno-common toolchains:
   #   ld: cexp.o:(.bss+0x40): multiple definition of `obstck'; cccp.o:(.bss+0x0): first defined here
@@ -94,7 +94,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://eli-project.sourceforge.net/";
     license = lib.licenses.gpl2;
-    maintainers = with lib.maintainers; [ timokau ];
+    maintainers = with lib.maintainers; [timokau];
     platforms = lib.platforms.linux;
   };
 }

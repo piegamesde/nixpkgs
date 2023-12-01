@@ -25,7 +25,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = with pkgs; [ wavemon ];
+    environment.systemPackages = with pkgs; [wavemon];
     security.wrappers.wavemon = {
       owner = "root";
       group = "root";

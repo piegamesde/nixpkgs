@@ -10,7 +10,7 @@ buildPythonPackage rec {
   pname = "flufl.bounce";
   version = "4.0";
 
-  buildInputs = [ nose2 ];
+  buildInputs = [nose2];
   propagatedBuildInputs = [
     atpublic
     zope_interface

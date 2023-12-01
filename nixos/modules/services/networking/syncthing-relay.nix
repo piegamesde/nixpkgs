@@ -100,7 +100,7 @@ in
 
     extraOptions = mkOption {
       type = types.listOf types.str;
-      default = [ ];
+      default = [];
       description = lib.mdDoc ''
         Extra command line arguments to pass to strelaysrv.
       '';
@@ -112,8 +112,8 @@ in
   config = mkIf cfg.enable {
     systemd.services.syncthing-relay = {
       description = "Syncthing relay service";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
 
       serviceConfig = {
         DynamicUser = true;

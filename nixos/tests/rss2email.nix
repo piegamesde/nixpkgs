@@ -3,9 +3,9 @@ import ./make-test-python.nix {
 
   nodes = {
     server =
-      { pkgs, ... }:
+      {pkgs, ...}:
       {
-        imports = [ common/user-account.nix ];
+        imports = [common/user-account.nix];
         services.nginx = {
           enable = true;
           virtualHosts."127.0.0.1".root = ./common/webroot;
@@ -23,7 +23,7 @@ import ./make-test-python.nix {
         };
         services.opensmtpd = {
           enable = true;
-          extraServerArgs = [ "-v" ];
+          extraServerArgs = ["-v"];
           serverConfiguration = ''
             listen on 127.0.0.1
             action dovecot_deliver mda \
@@ -35,7 +35,7 @@ import ./make-test-python.nix {
           enable = true;
           enableImap = true;
           mailLocation = "maildir:~/mail";
-          protocols = [ "imap" ];
+          protocols = ["imap"];
         };
         environment.systemPackages =
           let

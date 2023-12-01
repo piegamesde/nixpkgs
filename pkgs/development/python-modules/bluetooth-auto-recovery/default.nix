@@ -25,7 +25,7 @@ buildPythonPackage rec {
     hash = "sha256-lOtdrNXY9IYMGFdqhX4rM228OAZ2bUEBZKP+gcDGfuM=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   propagatedBuildInputs = [
     async-timeout
@@ -34,20 +34,20 @@ buildPythonPackage rec {
     usb-devices
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   postPatch = ''
     substituteInPlace pyproject.toml \
       --replace " --cov=bluetooth_auto_recovery --cov-report=term-missing:skip-covered" ""
   '';
 
-  pythonImportsCheck = [ "bluetooth_auto_recovery" ];
+  pythonImportsCheck = ["bluetooth_auto_recovery"];
 
   meta = with lib; {
     description = "Library for recovering Bluetooth adapters";
     homepage = "https://github.com/Bluetooth-Devices/bluetooth-auto-recovery";
     changelog = "https://github.com/Bluetooth-Devices/bluetooth-auto-recovery/blob/v${version}/CHANGELOG.md";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

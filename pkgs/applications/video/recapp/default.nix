@@ -82,6 +82,6 @@ python3.pkgs.buildPythonApplication rec {
     description = "User friendly Open Source screencaster for Linux written in GTK";
     homepage = "https://github.com/amikha1lov/RecApp";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

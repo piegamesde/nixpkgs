@@ -19,14 +19,14 @@ stdenv.mkDerivation rec {
 
   doCheck = true;
 
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ libbsd ];
+  nativeBuildInputs = [pkg-config];
+  buildInputs = [libbsd];
 
   postPatch = ''
     substituteInPlace Makefile --replace "shell pkg-config" "shell $PKG_CONFIG"
   '';
 
-  installFlags = [ "PREFIX=$(out)" ];
+  installFlags = ["PREFIX=$(out)"];
 
   meta = with lib; {
     description = "OpenBSD signing tool";
@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://www.tedunangst.com/flak/post/signify";
     license = licenses.isc;
-    maintainers = [ maintainers.rlupton20 ];
+    maintainers = [maintainers.rlupton20];
     platforms = platforms.linux;
   };
 }

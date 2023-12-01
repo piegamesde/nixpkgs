@@ -22,18 +22,18 @@ buildPythonPackage rec {
     hash = "sha256-W3Osv0RApm6sCVdsLXUB79H3g62yUID4dtBi5Ywk5NY=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
-  propagatedBuildInputs = [ pysigma ];
+  propagatedBuildInputs = [pysigma];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "sigma.pipelines.sysmon" ];
+  pythonImportsCheck = ["sigma.pipelines.sysmon"];
 
   meta = with lib; {
     description = "Library to support Sysmon pipeline for pySigma";
     homepage = "https://github.com/SigmaHQ/pySigma-pipeline-sysmon";
-    license = with licenses; [ lgpl21Only ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [lgpl21Only];
+    maintainers = with maintainers; [fab];
   };
 }

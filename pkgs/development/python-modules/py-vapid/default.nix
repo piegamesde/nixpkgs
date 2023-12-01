@@ -22,7 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-BmSreJl0LvKyhzl6TUYe9pHtDML1hyBRKNjPYX/9uRk=";
   };
 
-  propagatedBuildInputs = [ cryptography ];
+  propagatedBuildInputs = [cryptography];
 
   nativeCheckInputs = [
     flake8
@@ -35,6 +35,6 @@ buildPythonPackage rec {
     description = "Library for VAPID header generation";
     homepage = "https://github.com/mozilla-services/vapid";
     license = licenses.mpl20;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

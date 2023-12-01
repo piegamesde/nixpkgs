@@ -20,12 +20,12 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "javier-lopez";
     repo = "learn";
-    sparseCheckout = [ "sh/tools/simple-dlna-browser" ];
+    sparseCheckout = ["sh/tools/simple-dlna-browser"];
     rev = "666e2c402723251ba19ce9d7c11b83b06c15a2c5";
     sha256 = "sha256-jwPAEgti5DrjNnNVW/61GGTP+QedGAjz9kPwYhMAdTk=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     outputWrapper="$out/bin/simple-dlna-browser"
@@ -62,6 +62,6 @@ stdenv.mkDerivation {
     '';
     homepage = "https://github.com/javier-lopez/learn/blob/master/sh/tools/simple-dlna-browser";
     license = lib.licenses.fair;
-    maintainers = with lib.maintainers; [ loveisgrief ];
+    maintainers = with lib.maintainers; [loveisgrief];
   };
 }

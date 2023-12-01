@@ -34,11 +34,11 @@ buildPythonPackage rec {
   ];
 
   passthru.optional-dependencies = {
-    flask = [ flask ];
-    flask-login = [ flask-login ];
-    flask-sqlalchemy = [ flask-sqlalchemy ];
-    flexmock = [ flexmock ];
-    i18n = [ sqlalchemy-i18n ];
+    flask = [flask];
+    flask-login = [flask-login];
+    flask-sqlalchemy = [flask-sqlalchemy];
+    flexmock = [flexmock];
+    i18n = [sqlalchemy-i18n];
   };
 
   nativeCheckInputs = [
@@ -56,13 +56,13 @@ buildPythonPackage rec {
       "tests/plugins/test_flask.py"
     ];
 
-  pythonImportsCheck = [ "sqlalchemy_continuum" ];
+  pythonImportsCheck = ["sqlalchemy_continuum"];
 
   meta = with lib; {
     description = "Versioning and auditing extension for SQLAlchemy";
     homepage = "https://github.com/kvesteri/sqlalchemy-continuum/";
     changelog = "https://github.com/kvesteri/sqlalchemy-continuum/blob/${version}/CHANGES.rst";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

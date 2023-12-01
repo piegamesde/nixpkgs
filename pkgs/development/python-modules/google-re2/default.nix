@@ -26,12 +26,12 @@ buildPythonPackage rec {
     six
   ];
 
-  pythonImportsCheck = [ "re2" ];
+  pythonImportsCheck = ["re2"];
 
   meta = with lib; {
     description = "RE2 Python bindings";
     homepage = "https://github.com/google/re2";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ alexbakker ];
+    maintainers = with maintainers; [alexbakker];
   };
 }

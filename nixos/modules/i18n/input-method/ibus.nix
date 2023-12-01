@@ -9,7 +9,7 @@ with lib;
 
 let
   cfg = config.i18n.inputMethod.ibus;
-  ibusPackage = pkgs.ibus-with-plugins.override { plugins = cfg.engines; };
+  ibusPackage = pkgs.ibus-with-plugins.override {plugins = cfg.engines;};
   ibusEngine = types.package // {
     name = "ibus-engine";
     check =
@@ -61,7 +61,7 @@ in
     i18n.inputMethod.ibus = {
       engines = mkOption {
         type = with types; listOf ibusEngine;
-        default = [ ];
+        default = [];
         example = literalExpression "with pkgs.ibus-engines; [ mozc hangul ]";
         description =
           let
@@ -82,14 +82,14 @@ in
   config = mkIf (config.i18n.inputMethod.enabled == "ibus") {
     i18n.inputMethod.package = ibusPackage;
 
-    environment.systemPackages = [ ibusAutostart ];
+    environment.systemPackages = [ibusAutostart];
 
     # Without dconf enabled it is impossible to use IBus
     programs.dconf.enable = true;
 
-    programs.dconf.packages = [ ibusPackage ];
+    programs.dconf.packages = [ibusPackage];
 
-    services.dbus.packages = [ ibusPackage ];
+    services.dbus.packages = [ibusPackage];
 
     environment.variables = {
       GTK_IM_MODULE = "ibus";
@@ -97,7 +97,7 @@ in
       XMODIFIERS = "@im=ibus";
     };
 
-    xdg.portal.extraPortals = mkIf config.xdg.portal.enable [ ibusPackage ];
+    xdg.portal.extraPortals = mkIf config.xdg.portal.enable [ibusPackage];
   };
 
   # uses attributes of the linked package

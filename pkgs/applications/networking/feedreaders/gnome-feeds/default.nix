@@ -15,7 +15,7 @@
   glib-networking,
   gtk3,
   libhandy,
-  listparser ? callPackage ./listparser.nix { },
+  listparser ? callPackage ./listparser.nix {},
   webkitgtk,
   python3,
 }:
@@ -81,7 +81,7 @@ python3.pkgs.buildPythonApplication rec {
     description = "An RSS/Atom feed reader for GNOME";
     homepage = "https://gitlab.gnome.org/World/gfeeds";
     license = licenses.gpl3Plus;
-    maintainers = [ maintainers.pbogdan ];
+    maintainers = [maintainers.pbogdan];
     platforms = platforms.linux;
   };
 }

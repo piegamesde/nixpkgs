@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
     bc
   ];
 
-  patches = [ ./fix-install-path.patch ];
+  patches = [./fix-install-path.patch];
 
   dontConfigure = true;
 

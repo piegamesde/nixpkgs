@@ -40,7 +40,7 @@ buildPythonPackage rec {
       --replace "\"--cov-report=term-missing:skip-covered\"," ""
   '';
 
-  nativeBuildInputs = [ flit-core ];
+  nativeBuildInputs = [flit-core];
 
   propagatedBuildInputs = [
     astroid
@@ -86,7 +86,7 @@ buildPythonPackage rec {
       "tests/test_runtime/test_offline.py"
     ];
 
-  pythonImportsCheck = [ "deal" ];
+  pythonImportsCheck = ["deal"];
 
   meta = with lib; {
     description = "Library for design by contract (DbC) and checking values, exceptions, and side-effects";
@@ -96,6 +96,6 @@ buildPythonPackage rec {
     '';
     homepage = "https://github.com/life4/deal";
     license = licenses.mit;
-    maintainers = with maintainers; [ gador ];
+    maintainers = with maintainers; [gador];
   };
 }

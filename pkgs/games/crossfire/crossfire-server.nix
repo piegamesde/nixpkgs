@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
     pkg-config
     python3
   ];
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   preConfigure = ''
     ln -s ${arch} lib/arch
@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
     sh autogen.sh
   '';
 
-  configureFlags = [ "--with-python=${python3}" ];
+  configureFlags = ["--with-python=${python3}"];
 
   postInstall = ''
     ln -s ${maps} "$out/share/crossfire/maps"
@@ -57,6 +57,6 @@ stdenv.mkDerivation rec {
     homepage = "http://crossfire.real-time.com/";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ ToxicFrog ];
+    maintainers = with maintainers; [ToxicFrog];
   };
 }

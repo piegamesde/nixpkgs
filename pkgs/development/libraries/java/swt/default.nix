@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
   version = "4.5";
   fullVersion = "${version}-201506032000";
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   # Alas, the Eclipse Project apparently doesn't produce source-only
   # releases of SWT.  So we just grab a binary release and extract
@@ -77,7 +77,7 @@ stdenv.mkDerivation rec {
     gnome2.gnome_vfs
     gnome2.libgnome
     gnome2.libgnomeui
-  ] ++ lib.optionals (lib.hasPrefix "8u" jdk.version) [ libXt ];
+  ] ++ lib.optionals (lib.hasPrefix "8u" jdk.version) [libXt];
 
   patches = [
     ./awt-libs.patch
@@ -170,7 +170,7 @@ stdenv.mkDerivation rec {
       the operating systems on which it is implemented.
     '';
     license = licenses.epl10;
-    maintainers = with maintainers; [ bb010g ];
+    maintainers = with maintainers; [bb010g];
     platforms = platforms.linux;
   };
 }

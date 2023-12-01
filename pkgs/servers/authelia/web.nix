@@ -1,7 +1,7 @@
-{ buildNpmPackage, fetchFromGitHub }:
+{buildNpmPackage, fetchFromGitHub}:
 
 let
-  inherit (import ./sources.nix { inherit fetchFromGitHub; })
+  inherit (import ./sources.nix {inherit fetchFromGitHub;})
     pname
     version
     src
@@ -14,13 +14,13 @@ buildNpmPackage {
 
   sourceRoot = "source/web";
 
-  patches = [ ./change-web-out-dir.patch ];
+  patches = [./change-web-out-dir.patch];
 
   postPatch = ''
     cp ${./package-lock.json} ./package-lock.json
   '';
 
-  npmFlags = [ "--legacy-peer-deps" ];
+  npmFlags = ["--legacy-peer-deps"];
 
   installPhase = ''
     runHook preInstall

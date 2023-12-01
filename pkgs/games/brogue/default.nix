@@ -73,7 +73,7 @@ stdenv.mkDerivation rec {
     description = "A roguelike game";
     homepage = "https://sites.google.com/site/broguegame/";
     license = licenses.agpl3;
-    maintainers = [ maintainers.skeidel ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = [maintainers.skeidel];
+    platforms = ["x86_64-linux"];
   };
 }

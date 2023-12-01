@@ -34,17 +34,17 @@ buildPythonPackage rec {
     wheel
   ];
 
-  propagatedBuildInputs = [ fnvhash ];
+  propagatedBuildInputs = [fnvhash];
 
-  pythonImportsCheck = [ "fnv_hash_fast" ];
+  pythonImportsCheck = ["fnv_hash_fast"];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = with lib; {
     description = "A fast version of fnv1a";
     homepage = "https://github.com/bdraco/fnv-hash-fast";
     changelog = "https://github.com/bdraco/fnv-hash-fast/blob/${src.rev}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

@@ -35,7 +35,7 @@ buildNpmPackage rec {
   meta = {
     description = "Adds a hook that allows mpv to stream torrents";
     homepage = "https://github.com/mrxdst/webtorrent-mpv-hook";
-    maintainers = [ lib.maintainers.chuangzhu ];
+    maintainers = [lib.maintainers.chuangzhu];
     license = lib.licenses.isc;
   };
 }

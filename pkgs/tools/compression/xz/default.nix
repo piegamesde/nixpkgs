@@ -82,7 +82,7 @@ stdenv.mkDerivation rec {
       gpl2Plus
       lgpl21Plus
     ];
-    maintainers = with maintainers; [ sander ];
+    maintainers = with maintainers; [sander];
     platforms = platforms.all;
   };
 }

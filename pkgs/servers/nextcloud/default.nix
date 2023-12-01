@@ -11,7 +11,7 @@ let
       version,
       sha256,
       eol ? false,
-      extraVulnerabilities ? [ ],
+      extraVulnerabilities ? [],
     }:
     let
       major = lib.versions.major version;
@@ -40,7 +40,7 @@ let
       '';
 
       meta = with lib; {
-        changelog = "https://nextcloud.com/changelog/#${lib.replaceStrings [ "." ] [ "-" ] version}";
+        changelog = "https://nextcloud.com/changelog/#${lib.replaceStrings ["."] ["-"] version}";
         description = "Sharing solution for files, calendars, contacts and more";
         homepage = "https://nextcloud.com";
         maintainers = with maintainers; [

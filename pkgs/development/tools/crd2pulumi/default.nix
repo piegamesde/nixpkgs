@@ -23,12 +23,12 @@ buildGoModule rec {
     "-X github.com/pulumi/crd2pulumi/gen.Version=${src.rev}"
   ];
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   meta = with lib; {
     description = "Generate typed CustomResources from a Kubernetes CustomResourceDefinition";
     homepage = "https://github.com/pulumi/crd2pulumi";
     license = licenses.asl20;
-    maintainers = with maintainers; [ flokli ];
+    maintainers = with maintainers; [flokli];
   };
 }

@@ -44,10 +44,10 @@ buildPythonPackage rec {
       --replace '"unittest2",' ""
   '';
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   # see https://github.com/MIC-DKFZ/batchgenerators/pull/78
-  disabledTestPaths = [ "tests/test_axis_mirroring.py" ];
+  disabledTestPaths = ["tests/test_axis_mirroring.py"];
 
   pythonImportsCheck = [
     "batchgenerators"
@@ -62,6 +62,6 @@ buildPythonPackage rec {
     description = "2D and 3D image data augmentation for deep learning";
     homepage = "https://github.com/MIC-DKFZ/batchgenerators";
     license = licenses.asl20;
-    maintainers = with maintainers; [ bcdarwin ];
+    maintainers = with maintainers; [bcdarwin];
   };
 }

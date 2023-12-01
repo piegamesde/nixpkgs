@@ -63,6 +63,6 @@ buildPythonPackage rec {
     homepage = "https://mdp-toolkit.github.io/";
     changelog = "https://github.com/mdp-toolkit/mdp-toolkit/blob/MDP-${version}/CHANGES";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ nico202 ];
+    maintainers = with maintainers; [nico202];
   };
 }

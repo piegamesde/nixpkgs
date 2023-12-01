@@ -31,7 +31,7 @@ stdenvNoCC.mkDerivation (
       homepage = "http://dotcolon.net/font/${finalAttrs.pname}/";
       description = "A headline typeface that could be used as a movie title";
       platforms = platforms.all;
-      maintainers = with maintainers; [ minijackson ];
+      maintainers = with maintainers; [minijackson];
       license = licenses.ofl;
     };
   }

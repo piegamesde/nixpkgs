@@ -51,6 +51,6 @@ stdenv.mkDerivation rec {
     # Supports both the GNU and FreeBSD NSS.
     platforms = lib.platforms.gnu ++ lib.platforms.linux ++ lib.platforms.freebsd;
 
-    maintainers = [ ];
+    maintainers = [];
   };
 }

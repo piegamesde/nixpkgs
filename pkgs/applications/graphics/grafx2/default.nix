@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-KdY7GUhQp/Q7t/ktLPGxI66ZHy2gDAffn2yB5pmcJCM=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     SDL
     SDL_image
@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
     zlib
   ];
 
-  makeFlags = [ "-C src" ];
+  makeFlags = ["-C src"];
   installFlags = [
     "-C src"
     "PREFIX=$(out)"
@@ -49,7 +49,7 @@ stdenv.mkDerivation rec {
       "x86_64-linux"
       "i686-linux"
     ];
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "grafx2-sdl";
   };
 }

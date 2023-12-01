@@ -1,17 +1,17 @@
 import ./make-test-python.nix (
-  { lib, ... }:
+  {lib, ...}:
   {
     name = "chrony-ptp";
 
     meta = {
-      maintainers = with lib.maintainers; [ gkleen ];
+      maintainers = with lib.maintainers; [gkleen];
     };
 
     nodes = {
       qemuGuest =
-        { lib, ... }:
+        {lib, ...}:
         {
-          boot.kernelModules = [ "ptp_kvm" ];
+          boot.kernelModules = ["ptp_kvm"];
 
           services.chrony = {
             enable = true;

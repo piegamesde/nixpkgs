@@ -11,7 +11,7 @@ let
   dataDir = "/var/lib/headscale";
   runDir = "/run/headscale";
 
-  settingsFormat = pkgs.formats.yaml { };
+  settingsFormat = pkgs.formats.yaml {};
   configFile = settingsFormat.generate "headscale.yaml" cfg.settings;
 in
 {
@@ -112,7 +112,7 @@ in
             derp = {
               urls = mkOption {
                 type = types.listOf types.str;
-                default = [ "https://controlplane.tailscale.com/derpmap/default" ];
+                default = ["https://controlplane.tailscale.com/derpmap/default"];
                 description = lib.mdDoc ''
                   List of urls containing DERP maps.
                   See [How Tailscale works](https://tailscale.com/blog/how-tailscale-works/) for more information on DERP maps.
@@ -121,7 +121,7 @@ in
 
               paths = mkOption {
                 type = types.listOf types.path;
-                default = [ ];
+                default = [];
                 description = lib.mdDoc ''
                   List of file paths containing DERP maps.
                   See [How Tailscale works](https://tailscale.com/blog/how-tailscale-works/) for more information on DERP maps.
@@ -231,7 +231,7 @@ in
             dns_config = {
               nameservers = mkOption {
                 type = types.listOf types.str;
-                default = [ "1.1.1.1" ];
+                default = ["1.1.1.1"];
                 description = lib.mdDoc ''
                   List of nameservers to pass to Tailscale clients.
                 '';
@@ -248,11 +248,11 @@ in
 
               domains = mkOption {
                 type = types.listOf types.str;
-                default = [ ];
+                default = [];
                 description = lib.mdDoc ''
                   Search domains to inject to Tailscale clients.
                 '';
-                example = [ "mydomain.internal" ];
+                example = ["mydomain.internal"];
               };
 
               magic_dns = mkOption {
@@ -318,7 +318,7 @@ in
 
               extra_params = mkOption {
                 type = types.attrsOf types.str;
-                default = { };
+                default = {};
                 description = lib.mdDoc ''
                   Custom query parameters to send with the Authorize Endpoint request.
                 '';
@@ -329,21 +329,21 @@ in
 
               allowed_domains = mkOption {
                 type = types.listOf types.str;
-                default = [ ];
+                default = [];
                 description = lib.mdDoc ''
                   Allowed principal domains. if an authenticated user's domain
                   is not in this list authentication request will be rejected.
                 '';
-                example = [ "example.com" ];
+                example = ["example.com"];
               };
 
               allowed_users = mkOption {
                 type = types.listOf types.str;
-                default = [ ];
+                default = [];
                 description = lib.mdDoc ''
                   Users allowed to authenticate even if not in allowedDomains.
                 '';
-                example = [ "alice@example.com" ];
+                example = ["alice@example.com"];
               };
 
               strip_email_domain = mkOption {
@@ -850,7 +850,7 @@ in
     # for communication.
     environment.etc."headscale/config.yaml".source = configFile;
 
-    users.groups.headscale = mkIf (cfg.group == "headscale") { };
+    users.groups.headscale = mkIf (cfg.group == "headscale") {};
 
     users.users.headscale = mkIf (cfg.user == "headscale") {
       description = "headscale user";
@@ -861,9 +861,9 @@ in
 
     systemd.services.headscale = {
       description = "headscale coordination server for Tailscale";
-      after = [ "network-online.target" ];
-      wantedBy = [ "multi-user.target" ];
-      restartTriggers = [ configFile ];
+      after = ["network-online.target"];
+      wantedBy = ["multi-user.target"];
+      restartTriggers = [configFile];
 
       environment.GIN_MODE = "release";
 
@@ -877,7 +877,7 @@ in
 
       serviceConfig =
         let
-          capabilityBoundingSet = [ "CAP_CHOWN" ] ++ optional (cfg.port < 1024) "CAP_NET_BIND_SERVICE";
+          capabilityBoundingSet = ["CAP_CHOWN"] ++ optional (cfg.port < 1024) "CAP_NET_BIND_SERVICE";
         in
         {
           Restart = "always";

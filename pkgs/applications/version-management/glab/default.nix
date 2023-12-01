@@ -30,9 +30,9 @@ buildGoModule rec {
     export HOME=$TMPDIR
   '';
 
-  subPackages = [ "cmd/glab" ];
+  subPackages = ["cmd/glab"];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = lib.optionalString (stdenv.hostPlatform == stdenv.buildPlatform) ''
     installShellCompletion --cmd glab \
@@ -45,6 +45,6 @@ buildGoModule rec {
     description = "GitLab CLI tool bringing GitLab to your command line";
     license = licenses.mit;
     homepage = "https://gitlab.com/gitlab-org/cli";
-    maintainers = with maintainers; [ freezeboy ];
+    maintainers = with maintainers; [freezeboy];
   };
 }

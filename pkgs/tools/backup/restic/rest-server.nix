@@ -24,6 +24,6 @@ buildGoModule rec {
     homepage = "https://github.com/restic/rest-server";
     platforms = platforms.unix;
     license = licenses.bsd2;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

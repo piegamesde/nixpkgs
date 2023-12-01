@@ -1,5 +1,5 @@
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   let
     certs = import ./common/acme/server/snakeoil-certs.nix;
     serverDomain = certs.domain;
@@ -31,10 +31,10 @@ import ./make-test-python.nix (
           };
         };
 
-        security.pki.certificateFiles = [ certs.ca.cert ];
+        security.pki.certificateFiles = [certs.ca.cert];
 
-        networking.hosts."::1" = [ serverDomain ];
-        networking.firewall.allowedTCPPorts = [ 443 ];
+        networking.hosts."::1" = [serverDomain];
+        networking.firewall.allowedTCPPorts = [443];
 
         users.users.kanidm.shell = pkgs.bashInteractive;
 
@@ -46,7 +46,7 @@ import ./make-test-python.nix (
       };
 
     nodes.client =
-      { pkgs, nodes, ... }:
+      {pkgs, nodes, ...}:
       {
         services.kanidm = {
           enableClient = true;
@@ -57,17 +57,17 @@ import ./make-test-python.nix (
           };
           enablePam = true;
           unixSettings = {
-            pam_allowed_login_groups = [ "shell" ];
+            pam_allowed_login_groups = ["shell"];
           };
         };
 
-        networking.hosts."${nodes.server.networking.primaryIPAddress}" = [ serverDomain ];
+        networking.hosts."${nodes.server.networking.primaryIPAddress}" = [serverDomain];
 
-        security.pki.certificateFiles = [ certs.ca.cert ];
+        security.pki.certificateFiles = [certs.ca.cert];
       };
 
     testScript =
-      { nodes, ... }:
+      {nodes, ...}:
       let
         ldapBaseDN = builtins.concatStringsSep "," (
           map (s: "dc=" + s) (pkgs.lib.splitString "." serverDomain)
@@ -77,7 +77,7 @@ import ./make-test-python.nix (
         filteredConfig =
           pkgs.lib.converge (pkgs.lib.filterAttrsRecursive (_: v: v != null))
             nodes.server.services.kanidm.serverSettings;
-        serverConfigFile = (pkgs.formats.toml { }).generate "server.toml" filteredConfig;
+        serverConfigFile = (pkgs.formats.toml {}).generate "server.toml" filteredConfig;
       in
       ''
         start_all()

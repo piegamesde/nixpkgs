@@ -43,7 +43,7 @@ stdenv.mkDerivation rec {
     libtirpc
   ];
 
-  env.NIX_CFLAGS_COMPILE = toString [ "-I${libtirpc.dev}/include/tirpc" ];
+  env.NIX_CFLAGS_COMPILE = toString ["-I${libtirpc.dev}/include/tirpc"];
 
   enableParallelBuilding = true;
 
@@ -61,7 +61,7 @@ stdenv.mkDerivation rec {
   meta = {
     description = "Network intrusion prevention and detection system (IDS/IPS)";
     homepage = "https://www.snort.org";
-    maintainers = with lib.maintainers; [ aycanirican ];
+    maintainers = with lib.maintainers; [aycanirican];
     license = lib.licenses.gpl2;
     platforms = with lib.platforms; linux;
   };

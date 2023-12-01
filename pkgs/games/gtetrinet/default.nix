@@ -32,7 +32,7 @@ stdenv.mkDerivation {
     libgnomeui
   ];
 
-  propagatedUserEnvPkgs = [ GConf ];
+  propagatedUserEnvPkgs = [GConf];
 
   postAutoreconf = ''
     intltoolize --force
@@ -57,6 +57,6 @@ stdenv.mkDerivation {
     homepage = "https://gtetrinet.sourceforge.net/";
     license = lib.licenses.gpl2;
     platforms = lib.platforms.unix;
-    maintainers = [ lib.maintainers.chris-martin ];
+    maintainers = [lib.maintainers.chris-martin];
   };
 }

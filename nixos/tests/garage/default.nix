@@ -1,7 +1,7 @@
 {
   system ? builtins.currentSystem,
-  config ? { },
-  pkgs ? import ../../.. { inherit system config; },
+  config ? {},
+  pkgs ? import ../../.. {inherit system config;},
 }:
 with pkgs.lib;
 
@@ -12,7 +12,7 @@ let
       replicationMode,
       publicV6Address ? "::1",
     }:
-    { pkgs, ... }:
+    {pkgs, ...}:
     {
       networking.interfaces.eth1.ipv6.addresses = [
         {
@@ -49,7 +49,7 @@ let
           };
         };
       };
-      environment.systemPackages = [ pkgs.minio-client ];
+      environment.systemPackages = [pkgs.minio-client];
 
       # Garage requires at least 1GiB of free disk space to run.
       virtualisation.diskSize = 2 * 1024;
@@ -70,5 +70,5 @@ foldl
       };
     }
   )
-  { }
-  [ "0_8" ]
+  {}
+  ["0_8"]

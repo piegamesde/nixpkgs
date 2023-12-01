@@ -60,7 +60,7 @@ stdenv.mkDerivation rec {
     gtest
   ];
 
-  cmakeFlags = [ "-DUSE_DEEPIN_WAYLAND=OFF" ];
+  cmakeFlags = ["-DUSE_DEEPIN_WAYLAND=OFF"];
 
   meta = with lib; {
     description = "DDE optional clipboard manager componment";

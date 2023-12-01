@@ -25,7 +25,7 @@ buildPythonPackage rec {
     hash = "sha256-WgtHhp7lE6StoOBfSy9+v3ODe/+zUC7lGrc2S4M68+M=";
   };
 
-  propagatedBuildInputs = [ six ];
+  propagatedBuildInputs = [six];
 
   nativeCheckInputs = [
     faker
@@ -51,12 +51,12 @@ buildPythonPackage rec {
         "test_compressed_complex"
       ];
 
-  pythonImportsCheck = [ "pymemcache" ];
+  pythonImportsCheck = ["pymemcache"];
 
   meta = with lib; {
     description = "Python memcached client";
     homepage = "https://pymemcache.readthedocs.io/";
-    license = with licenses; [ asl20 ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [asl20];
+    maintainers = with maintainers; [fab];
   };
 }

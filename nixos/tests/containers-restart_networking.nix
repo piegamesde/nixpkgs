@@ -19,26 +19,26 @@ let
   };
 in
 import ./make-test-python.nix (
-  { pkgs, lib, ... }:
+  {pkgs, lib, ...}:
   {
     name = "containers-restart_networking";
     meta = {
-      maintainers = with lib.maintainers; [ kampfschlaefer ];
+      maintainers = with lib.maintainers; [kampfschlaefer];
     };
 
     nodes = {
       client =
-        { lib, ... }:
+        {lib, ...}:
         client_base
         // {
-          virtualisation.vlans = [ 1 ];
+          virtualisation.vlans = [1];
 
           networking.bridges.br0 = {
-            interfaces = [ ];
+            interfaces = [];
             rstp = false;
           };
           networking.interfaces = {
-            eth1.ipv4.addresses = lib.mkOverride 0 [ ];
+            eth1.ipv4.addresses = lib.mkOverride 0 [];
             br0.ipv4.addresses = [
               {
                 address = "192.168.1.1";
@@ -48,15 +48,15 @@ import ./make-test-python.nix (
           };
         };
       client_eth1 =
-        { lib, ... }:
+        {lib, ...}:
         client_base
         // {
           networking.bridges.br0 = {
-            interfaces = [ "eth1" ];
+            interfaces = ["eth1"];
             rstp = false;
           };
           networking.interfaces = {
-            eth1.ipv4.addresses = lib.mkOverride 0 [ ];
+            eth1.ipv4.addresses = lib.mkOverride 0 [];
             br0.ipv4.addresses = [
               {
                 address = "192.168.1.2";
@@ -66,15 +66,15 @@ import ./make-test-python.nix (
           };
         };
       client_eth1_rstp =
-        { lib, ... }:
+        {lib, ...}:
         client_base
         // {
           networking.bridges.br0 = {
-            interfaces = [ "eth1" ];
+            interfaces = ["eth1"];
             rstp = true;
           };
           networking.interfaces = {
-            eth1.ipv4.addresses = lib.mkOverride 0 [ ];
+            eth1.ipv4.addresses = lib.mkOverride 0 [];
             br0.ipv4.addresses = [
               {
                 address = "192.168.1.2";
@@ -86,7 +86,7 @@ import ./make-test-python.nix (
     };
 
     testScript =
-      { nodes, ... }:
+      {nodes, ...}:
       let
         originalSystem = nodes.client.config.system.build.toplevel;
         eth1_bridged = nodes.client_eth1.config.system.build.toplevel;

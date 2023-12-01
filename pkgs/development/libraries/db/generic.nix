@@ -9,9 +9,9 @@
   # Options from inherited versions
   version,
   sha256,
-  extraPatches ? [ ],
+  extraPatches ? [],
   license ? lib.licenses.sleepycat,
-  drvArgs ? { },
+  drvArgs ? {},
 }:
 
 stdenv.mkDerivation (

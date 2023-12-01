@@ -43,6 +43,6 @@ stdenv.mkDerivation rec {
     homepage = "https://locomalito.com/abbaye_des_morts.php";
     description = "A retro arcade video game";
     license = licenses.gpl3;
-    maintainers = [ maintainers.marius851000 ];
+    maintainers = [maintainers.marius851000];
   };
 }

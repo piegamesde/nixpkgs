@@ -30,6 +30,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/trou/rsbkb";
     changelog = "https://github.com/trou/rsbkb/releases/tag/release-${version}";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ ProducerMatt ];
+    maintainers = with maintainers; [ProducerMatt];
   };
 }

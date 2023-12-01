@@ -1,9 +1,9 @@
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   {
     name = "invidious";
 
-    meta = with pkgs.lib.maintainers; { maintainers = [ sbruder ]; };
+    meta = with pkgs.lib.maintainers; {maintainers = [sbruder];};
 
     nodes.machine =
       {
@@ -27,7 +27,7 @@ import ./make-test-python.nix (
               forceSSL = false;
               enableACME = false;
             };
-            networking.hosts."127.0.0.1" = [ "invidious.example.com" ];
+            networking.hosts."127.0.0.1" = ["invidious.example.com"];
           };
           postgres-tcp.configuration = {
             services.invidious = {
@@ -40,8 +40,8 @@ import ./make-test-python.nix (
             # Normally not needed because when connecting to postgres over TCP/IP
             # the database is most likely on another host.
             systemd.services.invidious = {
-              after = [ "postgresql.service" ];
-              requires = [ "postgresql.service" ];
+              after = ["postgresql.service"];
+              requires = ["postgresql.service"];
             };
             services.postgresql =
               let
@@ -60,7 +60,7 @@ import ./make-test-python.nix (
       };
 
     testScript =
-      { nodes, ... }:
+      {nodes, ...}:
       ''
         def curl_assert_status_code(url, code, form=None):
             assert int(machine.succeed(f"curl -s -o /dev/null -w %{{http_code}} {'-F ' + form + ' ' if form else '''}{url}")) == code

@@ -67,7 +67,7 @@ stdenv.mkDerivation rec {
       })
     ];
 
-  depsBuildBuild = [ pkg-config ];
+  depsBuildBuild = [pkg-config];
 
   nativeBuildInputs =
     [
@@ -202,6 +202,6 @@ stdenv.mkDerivation rec {
     description = "A toolkit for defining and handling the policy that allows unprivileged processes to speak to privileged processes";
     license = licenses.lgpl2Plus;
     platforms = platforms.linux;
-    maintainers = teams.freedesktop.members ++ (with maintainers; [ ]);
+    maintainers = teams.freedesktop.members ++ (with maintainers; []);
   };
 }

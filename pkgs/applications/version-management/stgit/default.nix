@@ -69,7 +69,7 @@ python3Packages.buildPythonApplication rec {
   ];
 
   checkTarget = "test";
-  checkFlags = [ "PERL_PATH=${perl}/bin/perl" ];
+  checkFlags = ["PERL_PATH=${perl}/bin/perl"];
 
   installTargets = [
     "install"
@@ -88,6 +88,6 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://stacked-git.github.io/";
     license = licenses.gpl2Only;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ jshholland ];
+    maintainers = with maintainers; [jshholland];
   };
 }

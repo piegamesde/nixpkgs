@@ -37,7 +37,7 @@ stdenvNoCC.mkDerivation rec {
       licenses.bsd3
       licenses.ofl
     ];
-    maintainers = [ maintainers.marsam ];
+    maintainers = [maintainers.marsam];
     platforms = platforms.all;
   };
 }

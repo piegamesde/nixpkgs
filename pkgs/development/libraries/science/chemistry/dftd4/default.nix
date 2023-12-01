@@ -55,6 +55,6 @@ stdenv.mkDerivation rec {
     ];
     homepage = "https://github.com/grimme-lab/dftd4";
     platforms = platforms.linux;
-    maintainers = [ maintainers.sheepforce ];
+    maintainers = [maintainers.sheepforce];
   };
 }

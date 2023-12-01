@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "cl-typesetting";
   version = "20210531-git";
@@ -19,7 +19,7 @@ rec {
 
   packageName = "cl-typesetting";
 
-  asdFilesToKeep = [ "cl-typesetting.asd" ];
+  asdFilesToKeep = ["cl-typesetting.asd"];
   overrides = x: x;
 }
 /* (SYSTEM cl-typesetting DESCRIPTION Common Lisp Typesetting system SHA256

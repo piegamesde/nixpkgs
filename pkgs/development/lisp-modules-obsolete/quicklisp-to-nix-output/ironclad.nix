@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "ironclad";
   version = "v0.56";
@@ -112,7 +112,7 @@ rec {
 
   packageName = "ironclad";
 
-  asdFilesToKeep = [ "ironclad.asd" ];
+  asdFilesToKeep = ["ironclad.asd"];
   overrides = x: x;
 }
 /* (SYSTEM ironclad DESCRIPTION System lacks description SHA256

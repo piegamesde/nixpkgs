@@ -4,13 +4,13 @@
    Hashes and urls are retrieved from:
    https://dotnet.microsoft.com/download/dotnet
 */
-{ callPackage }:
+{callPackage}:
 let
-  buildDotnet = attrs: callPackage (import ./build-dotnet.nix attrs) { };
+  buildDotnet = attrs: callPackage (import ./build-dotnet.nix attrs) {};
   buildAttrs = {
-    buildAspNetCore = attrs: buildDotnet (attrs // { type = "aspnetcore"; });
-    buildNetRuntime = attrs: buildDotnet (attrs // { type = "runtime"; });
-    buildNetSdk = attrs: buildDotnet (attrs // { type = "sdk"; });
+    buildAspNetCore = attrs: buildDotnet (attrs // {type = "aspnetcore";});
+    buildNetRuntime = attrs: buildDotnet (attrs // {type = "runtime";});
+    buildNetSdk = attrs: buildDotnet (attrs // {type = "sdk";});
   };
 
   ## Files in versions/ are generated automatically by update.sh ##
@@ -34,7 +34,7 @@ in
 rec {
   inherit systemToDotnetRid;
 
-  combinePackages = attrs: callPackage (import ./combine-packages.nix attrs) { };
+  combinePackages = attrs: callPackage (import ./combine-packages.nix attrs) {};
 
   # EOL
   sdk_2_1 = throw "Dotnet SDK 2.1 is EOL, please use 6.0 (LTS) or 7.0 (Current)";

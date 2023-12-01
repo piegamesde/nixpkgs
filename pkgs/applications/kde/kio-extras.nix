@@ -42,7 +42,7 @@ mkDerivation {
       gpl2
       lgpl21
     ];
-    maintainers = [ lib.maintainers.ttuegel ];
+    maintainers = [lib.maintainers.ttuegel];
   };
   nativeBuildInputs = [
     extra-cmake-modules
@@ -86,5 +86,5 @@ mkDerivation {
       --replace Exec=$out Exec=${kio}
   '';
 
-  CXXFLAGS = [ "-I${ilmbase.dev}/include/OpenEXR" ];
+  CXXFLAGS = ["-I${ilmbase.dev}/include/OpenEXR"];
 }

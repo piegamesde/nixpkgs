@@ -74,7 +74,7 @@ let
           sha256 = "sha256-xh/QPYNEWxPtDaVmBeIE/Ch98g0ox9gJ/lR6ziOu+bg=";
         };
 
-        patches = [ ./tests.patch ];
+        patches = [./tests.patch];
 
         postPatch = ''
           substituteInPlace cmake/jsoncpp.cmake \
@@ -89,13 +89,13 @@ let
           [
             "-DBoost_USE_STATIC_LIBS=OFF"
           ]
-          ++ (if z3Support then [ "-DSTRICT_Z3_VERSION=OFF" ] else [ "-DUSE_Z3=OFF" ])
-          ++ lib.optionals (!cvc4Support) [ "-DUSE_CVC4=OFF" ];
+          ++ (if z3Support then ["-DSTRICT_Z3_VERSION=OFF"] else ["-DUSE_Z3=OFF"])
+          ++ lib.optionals (!cvc4Support) ["-DUSE_CVC4=OFF"];
 
-        nativeBuildInputs = [ cmake ];
+        nativeBuildInputs = [cmake];
         buildInputs =
-          [ boost ]
-          ++ lib.optionals z3Support [ z3 ]
+          [boost]
+          ++ lib.optionals z3Support [z3]
           ++ lib.optionals cvc4Support [
             cvc4
             cln
@@ -141,7 +141,7 @@ let
         '';
 
         passthru.tests = {
-          solcWithTests = solc.overrideAttrs (attrs: { doCheck = true; });
+          solcWithTests = solc.overrideAttrs (attrs: {doCheck = true;});
         };
       }
     else

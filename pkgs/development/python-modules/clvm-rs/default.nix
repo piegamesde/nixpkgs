@@ -43,9 +43,9 @@ buildPythonPackage rec {
       ]
     );
 
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
 
-  pythonImportsCheck = [ "clvm_rs" ];
+  pythonImportsCheck = ["clvm_rs"];
 
   meta = with lib; {
     broken = stdenv.isDarwin;

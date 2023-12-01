@@ -37,12 +37,12 @@ buildPythonPackage rec {
   # has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "audible" ];
+  pythonImportsCheck = ["audible"];
 
   meta = with lib; {
     description = "A(Sync) Interface for internal Audible API written in pure Python";
     license = licenses.agpl3;
     homepage = "https://github.com/mkb79/Audible";
-    maintainers = with maintainers; [ jvanbruegge ];
+    maintainers = with maintainers; [jvanbruegge];
   };
 }

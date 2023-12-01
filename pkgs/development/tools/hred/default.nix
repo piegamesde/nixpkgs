@@ -23,7 +23,7 @@ buildNpmPackage rec {
   dontNpmBuild = true;
 
   passthru.tests = {
-    simple = runCommand "${pname}-test" { } ''
+    simple = runCommand "${pname}-test" {} ''
       set -e -o pipefail
       echo '<i id="foo">bar</i>' | ${hred}/bin/hred 'i#foo { @id => id, @.textContent => text }' -c | ${jq}/bin/jq -c > $out
       [ "$(cat $out)" = '{"id":"foo","text":"bar"}' ]
@@ -34,6 +34,6 @@ buildNpmPackage rec {
     description = "A command-line tool to extract data from HTML";
     license = lib.licenses.mit;
     homepage = "https://github.com/danburzo/hred";
-    maintainers = with lib.maintainers; [ tejing ];
+    maintainers = with lib.maintainers; [tejing];
   };
 }

@@ -13,5 +13,5 @@ qtModule {
     qtdeclarative
     qtmultimedia
   ];
-  propagatedBuildInputs = [ assimp ];
+  propagatedBuildInputs = [assimp];
 }

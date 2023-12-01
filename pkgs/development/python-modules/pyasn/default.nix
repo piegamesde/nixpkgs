@@ -29,7 +29,7 @@ buildPythonPackage rec {
 
   doCheck = false; # Tests require internet connection which wont work
 
-  pythonImportsCheck = [ "pyasn" ];
+  pythonImportsCheck = ["pyasn"];
 
   meta = with lib; {
     description = "Offline IP address to Autonomous System Number lookup module";
@@ -38,6 +38,6 @@ buildPythonPackage rec {
       bsdOriginal
       mit
     ];
-    maintainers = with maintainers; [ onny ];
+    maintainers = with maintainers; [onny];
   };
 }

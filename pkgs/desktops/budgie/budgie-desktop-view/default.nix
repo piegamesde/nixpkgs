@@ -48,7 +48,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/BuddiesOfBudgie/budgie-desktop-view";
     mainProgram = "org.buddiesofbudgie.budgie-desktop-view";
     platforms = platforms.linux;
-    maintainers = [ maintainers.federicoschonborn ];
+    maintainers = [maintainers.federicoschonborn];
     license = licenses.asl20;
   };
 }

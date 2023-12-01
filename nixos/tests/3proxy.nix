@@ -1,11 +1,11 @@
-{ lib, pkgs, ... }:
+{lib, pkgs, ...}:
 {
   name = "3proxy";
-  meta = with lib.maintainers; { maintainers = [ misuzu ]; };
+  meta = with lib.maintainers; {maintainers = [misuzu];};
 
   nodes = {
     peer0 =
-      { lib, ... }:
+      {lib, ...}:
       {
         networking.useDHCP = false;
         networking.interfaces.eth1 = {
@@ -23,7 +23,7 @@
       };
 
     peer1 =
-      { lib, ... }:
+      {lib, ...}:
       {
         networking.useDHCP = false;
         networking.interfaces.eth1 = {
@@ -46,12 +46,12 @@
             {
               type = "admin";
               bindPort = 9999;
-              auth = [ "none" ];
+              auth = ["none"];
             }
             {
               type = "proxy";
               bindPort = 3128;
-              auth = [ "none" ];
+              auth = ["none"];
             }
           ];
         };
@@ -62,7 +62,7 @@
       };
 
     peer2 =
-      { lib, ... }:
+      {lib, ...}:
       {
         networking.useDHCP = false;
         networking.interfaces.eth1 = {
@@ -83,13 +83,13 @@
             {
               type = "admin";
               bindPort = 9999;
-              auth = [ "none" ];
+              auth = ["none"];
             }
             {
               type = "proxy";
               bindPort = 3128;
-              auth = [ "iponly" ];
-              acl = [ { rule = "allow"; } ];
+              auth = ["iponly"];
+              acl = [{rule = "allow";}];
             }
           ];
         };
@@ -100,7 +100,7 @@
       };
 
     peer3 =
-      { lib, pkgs, ... }:
+      {lib, pkgs, ...}:
       {
         networking.useDHCP = false;
         networking.interfaces.eth1 = {
@@ -124,13 +124,13 @@
             {
               type = "admin";
               bindPort = 9999;
-              auth = [ "none" ];
+              auth = ["none"];
             }
             {
               type = "proxy";
               bindPort = 3128;
-              auth = [ "strong" ];
-              acl = [ { rule = "allow"; } ];
+              auth = ["strong"];
+              acl = [{rule = "allow";}];
             }
           ];
         };

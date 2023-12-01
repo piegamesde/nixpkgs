@@ -21,8 +21,8 @@ stdenv.mkDerivation rec {
     description = "A faster version of Apple's linker";
     homepage = "https://github.com/michaeleisel/zld";
     license = licenses.mit;
-    maintainers = [ maintainers.rgnns ];
+    maintainers = [maintainers.rgnns];
     platforms = platforms.darwin;
-    hydraPlatforms = [ ];
+    hydraPlatforms = [];
   };
 }

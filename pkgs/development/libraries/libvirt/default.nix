@@ -82,7 +82,7 @@
 let
   inherit (stdenv) isDarwin isLinux isx86_64;
   binPath = lib.makeBinPath (
-    [ dnsmasq ]
+    [dnsmasq]
     ++ lib.optionals isLinux [
       bridge-utils
       dmidecode
@@ -101,7 +101,7 @@ let
       libiscsi
       openiscsi
     ]
-    ++ lib.optionals enableZfs [ zfs ]
+    ++ lib.optionals enableZfs [zfs]
   );
 in
 
@@ -127,7 +127,7 @@ stdenv.mkDerivation rec {
   };
 
   patches =
-    [ ./0001-meson-patch-in-an-install-prefix-for-building-on-nix.patch ]
+    [./0001-meson-patch-in-an-install-prefix-for-building-on-nix.patch]
     ++ lib.optionals enableZfs [
       (substituteAll {
         src = ./0002-substitute-zfs-and-zpool-commands.patch;
@@ -230,14 +230,14 @@ stdenv.mkDerivation rec {
       gmp
       libiconv
     ]
-    ++ lib.optionals enableCeph [ ceph ]
-    ++ lib.optionals enableGlusterfs [ glusterfs ]
+    ++ lib.optionals enableCeph [ceph]
+    ++ lib.optionals enableGlusterfs [glusterfs]
     ++ lib.optionals enableIscsi [
       libiscsi
       openiscsi
     ]
-    ++ lib.optionals enableXen [ xen ]
-    ++ lib.optionals enableZfs [ zfs ];
+    ++ lib.optionals enableXen [xen]
+    ++ lib.optionals enableZfs [zfs];
 
   preConfigure =
     let

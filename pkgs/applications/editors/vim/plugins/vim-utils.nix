@@ -146,23 +146,22 @@ let
         if builtins.isString plugin then
           # make sure `pname` is set to that we are able to convert the derivation
           # back to a string.
-          (knownPlugins.${plugin} // { pname = plugin; })
+          (knownPlugins.${plugin} // {pname = plugin;})
         else
           plugin;
     in
     # make sure all the dependencies of the plugin are also derivations
-    drv // { dependencies = map (pluginToDrv knownPlugins) (drv.dependencies or [ ]); };
+    drv // {dependencies = map (pluginToDrv knownPlugins) (drv.dependencies or []);};
 
   # transitive closure of plugin dependencies (plugin needs to be a derivation)
   transitiveClosure =
     plugin:
-    [ plugin ]
-    ++ (lib.unique (builtins.concatLists (map transitiveClosure plugin.dependencies or [ ])));
+    [plugin] ++ (lib.unique (builtins.concatLists (map transitiveClosure plugin.dependencies or [])));
 
   findDependenciesRecursively = plugins: lib.concatMap transitiveClosure plugins;
 
   vamDictToNames =
-    x: if builtins.isString x then [ x ] else (lib.optional (x ? name) x.name) ++ (x.names or [ ]);
+    x: if builtins.isString x then [x] else (lib.optional (x ? name) x.name) ++ (x.names or []);
 
   rtpPath = ".";
 
@@ -187,8 +186,8 @@ let
       packageLinks =
         packageName:
         {
-          start ? [ ],
-          opt ? [ ],
+          start ? [],
+          opt ? [],
         }:
         let
           # `nativeImpl` expects packages to be derivations, not strings (as
@@ -199,7 +198,7 @@ let
           startWithDeps = findDependenciesRecursively start;
           allPlugins = lib.unique (startWithDeps ++ depsOfOptionalPlugins);
           allPython3Dependencies =
-            ps: lib.flatten (builtins.map (plugin: (plugin.python3Dependencies or (_: [ ])) ps) allPlugins);
+            ps: lib.flatten (builtins.map (plugin: (plugin.python3Dependencies or (_: [])) ps) allPlugins);
           python3Env = python3.withPackages allPython3Dependencies;
 
           packdirStart = vimFarm "pack/${packageName}/start" "packdir-start" allPlugins;
@@ -208,7 +207,7 @@ let
           # for each plugin.
           # This directory is only for python import search path, and will not slow down the startup time.
           # see :help python3-directory for more details
-          python3link = runCommand "vim-python3-deps" { } ''
+          python3link = runCommand "vim-python3-deps" {} ''
             mkdir -p $out/pack/${packageName}/start/__python3_dependencies
             ln -s ${python3Env}/${python3Env.sitePackages} $out/pack/${packageName}/start/__python3_dependencies/python3
           '';
@@ -217,7 +216,7 @@ let
           packdirStart
           packdirOpt
         ]
-        ++ lib.optional (allPython3Dependencies python3.pkgs != [ ]) python3link;
+        ++ lib.optional (allPython3Dependencies python3.pkgs != []) python3link;
     in
     buildEnv {
       name = "vim-pack-dir";
@@ -286,16 +285,16 @@ let
         nativeImpl vamPackages;
 
       entries =
-        [ beforePlugins ]
+        [beforePlugins]
         ++ lib.optional (vam != null) (
           lib.warn "'vam' attribute is deprecated. Use 'packages' instead in your vim configuration" vamImpl
         )
-        ++ lib.optional (packages != null && packages != [ ]) (nativeImpl packages)
+        ++ lib.optional (packages != null && packages != []) (nativeImpl packages)
         ++ lib.optional (pathogen != null) (
           throw "pathogen is now unsupported, replace `pathogen = {}` with `packages.home = { start = []; }`"
         )
         ++ lib.optional (plug != null) plugImpl
-        ++ [ customRC ];
+        ++ [customRC];
     in
     lib.concatStringsSep "\n" (lib.filter (x: x != null && x != "") entries);
 
@@ -323,7 +322,7 @@ rec {
           # The shell variable $exe can be used to refer to the wrapped executable's name.
           # Examples: "my-$exe", "$exe-with-plugins", "\${exe/vim/v1m}"
           executableName ? if lib.hasInfix "vim" name then
-            lib.replaceStrings [ "vim" ] [ "$exe" ] name
+            lib.replaceStrings ["vim"] ["$exe"] name
           else
             "\${exe/vim/${lib.escapeShellArg name}}",
           # A custom vimrc configuration, treated as an argument to vimrcContent (see the documentation in this file).
@@ -366,7 +365,7 @@ rec {
                   mkVimrcFile vimrcConfig
                 else
                   throw "at least one of vimrcConfig and vimrcFile must be specified";
-              bin = runCommand "${name}-bin" { nativeBuildInputs = [ makeWrapper ]; } ''
+              bin = runCommand "${name}-bin" {nativeBuildInputs = [makeWrapper];} ''
                 vimrc=${lib.escapeShellArg vimrc}
                 gvimrc=${lib.optionalString (gvimrcFile != null) (lib.escapeShellArg gvimrcFile)}
 
@@ -407,11 +406,11 @@ rec {
   vimGenDocHook =
     callPackage
       (
-        { vim }:
+        {vim}:
         makeSetupHook
           {
             name = "vim-gen-doc-hook";
-            propagatedBuildInputs = [ vim ];
+            propagatedBuildInputs = [vim];
             substitutions = {
               vimBinary = "${vim}/bin/vim";
               inherit rtpPath;
@@ -419,16 +418,16 @@ rec {
           }
           ./vim-gen-doc-hook.sh
       )
-      { };
+      {};
 
   vimCommandCheckHook =
     callPackage
       (
-        { neovim-unwrapped }:
+        {neovim-unwrapped}:
         makeSetupHook
           {
             name = "vim-command-check-hook";
-            propagatedBuildInputs = [ neovim-unwrapped ];
+            propagatedBuildInputs = [neovim-unwrapped];
             substitutions = {
               vimBinary = "${neovim-unwrapped}/bin/nvim";
               inherit rtpPath;
@@ -436,16 +435,16 @@ rec {
           }
           ./vim-command-check-hook.sh
       )
-      { };
+      {};
 
   neovimRequireCheckHook =
     callPackage
       (
-        { neovim-unwrapped }:
+        {neovim-unwrapped}:
         makeSetupHook
           {
             name = "neovim-require-check-hook";
-            propagatedBuildInputs = [ neovim-unwrapped ];
+            propagatedBuildInputs = [neovim-unwrapped];
             substitutions = {
               nvimBinary = "${neovim-unwrapped}/bin/nvim";
               inherit rtpPath;
@@ -453,7 +452,7 @@ rec {
           }
           ./neovim-require-check-hook.sh
       )
-      { };
+      {};
 
   inherit
     (import ./build-vim-plugin.nix {
@@ -471,7 +470,7 @@ rec {
   # used to figure out which python dependencies etc. neovim needs
   requiredPlugins =
     {
-      packages ? { },
+      packages ? {},
       plug ? null,
       ...
     }:
@@ -485,8 +484,8 @@ rec {
   # figures out which python dependencies etc. is needed for one vim package
   requiredPluginsForPackage =
     {
-      start ? [ ],
-      opt ? [ ],
+      start ? [],
+      opt ? [],
     }:
     start ++ opt;
 
@@ -501,7 +500,7 @@ rec {
         ];
 
         nativeBuildInputs =
-          oldAttrs.nativeBuildInputs or [ ]
+          oldAttrs.nativeBuildInputs or []
           ++ lib.optionals (stdenv.hostPlatform == stdenv.buildPlatform) [
             vimCommandCheckHook
             vimGenDocHook
@@ -509,7 +508,7 @@ rec {
             neovimRequireCheckHook
           ];
 
-        passthru = (oldAttrs.passthru or { }) // {
+        passthru = (oldAttrs.passthru or {}) // {
           vimPlugin = true;
         };
       }

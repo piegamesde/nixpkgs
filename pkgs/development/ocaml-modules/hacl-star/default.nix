@@ -28,7 +28,7 @@ buildDunePackage {
     zarith
   ];
 
-  nativeBuildInputs = [ cppo ];
+  nativeBuildInputs = [cppo];
 
   checkInputs = [
     alcotest

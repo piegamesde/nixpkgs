@@ -10,12 +10,12 @@
 
 mkDerivation {
   pname = "kidletime";
-  nativeBuildInputs = [ extra-cmake-modules ];
+  nativeBuildInputs = [extra-cmake-modules];
   buildInputs = [
     qtx11extras
     wayland
     wayland-protocols
     plasma-wayland-protocols
   ];
-  propagatedBuildInputs = [ qtbase ];
+  propagatedBuildInputs = [qtbase];
 }

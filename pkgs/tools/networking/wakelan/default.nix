@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
       power on.
     '';
     license = lib.licenses.gpl2Plus;
-    maintainers = [ lib.maintainers.viric ];
+    maintainers = [lib.maintainers.viric];
     platforms = lib.platforms.unix;
   };
 }

@@ -63,6 +63,6 @@ stdenv.mkDerivation rec {
     homepage = "https://www.id.ee/";
     license = licenses.lgpl21Plus;
     platforms = platforms.linux;
-    maintainers = [ maintainers.jagajaga ];
+    maintainers = [maintainers.jagajaga];
   };
 }

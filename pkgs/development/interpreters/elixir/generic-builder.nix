@@ -34,8 +34,8 @@ stdenv.mkDerivation ({
 
   inherit src version debugInfo;
 
-  nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ erlang ];
+  nativeBuildInputs = [makeWrapper];
+  buildInputs = [erlang];
 
   LANG = "C.UTF-8";
   LC_TYPE = "C.UTF-8";

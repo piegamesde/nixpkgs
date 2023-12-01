@@ -22,6 +22,6 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Correct bit errors in an AES key schedules";
     homepage = "https://citp.princeton.edu/our-work/memory/";
-    maintainers = with maintainers; [ fedx-sudo ];
+    maintainers = with maintainers; [fedx-sudo];
   };
 }

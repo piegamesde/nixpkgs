@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     sha256 = "0dqjj3mlc28s8ljnph6l086b4j9r5dly4fldq59crycwys72zzai";
   };
 
-  nativeBuildInputs = [ fontforge ];
+  nativeBuildInputs = [fontforge];
 
   installPhase = ''
     find . -name '*.ttf' -exec install -m444 -Dt $out/share/fonts/truetype {} \;

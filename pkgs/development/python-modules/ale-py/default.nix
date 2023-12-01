@@ -55,7 +55,7 @@ buildPythonPackage rec {
     typing-extensions
     importlib-resources
     numpy
-  ] ++ lib.optionals (pythonOlder "3.10") [ importlib-metadata ];
+  ] ++ lib.optionals (pythonOlder "3.10") [importlib-metadata];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -71,13 +71,13 @@ buildPythonPackage rec {
 
   dontUseCmakeConfigure = true;
 
-  pythonImportsCheck = [ "ale_py" ];
+  pythonImportsCheck = ["ale_py"];
 
   meta = with lib; {
     description = "a simple framework that allows researchers and hobbyists to develop AI agents for Atari 2600 games";
     homepage = "https://github.com/mgbellemare/Arcade-Learning-Environment";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ billhuang ];
+    maintainers = with maintainers; [billhuang];
     broken = stdenv.isDarwin; # fails to link with missing library
   };
 }

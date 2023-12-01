@@ -62,7 +62,7 @@ let
     set  -s escape-time       ${toString cfg.escapeTime}
     set  -g history-limit     ${toString cfg.historyLimit}
 
-    ${lib.optionalString (cfg.plugins != [ ]) ''
+    ${lib.optionalString (cfg.plugins != []) ''
       # Run plugins
       ${lib.concatMapStringsSep "\n" (x: "run-shell ${x.rtp}") cfg.plugins}
 
@@ -81,7 +81,7 @@ in
         type = types.bool;
         default = false;
         description = lib.mdDoc "Whenever to configure {command}`tmux` system-wide.";
-        relatedPackages = [ "tmux" ];
+        relatedPackages = ["tmux"];
       };
 
       aggressiveResize = mkOption {
@@ -189,7 +189,7 @@ in
       };
 
       plugins = mkOption {
-        default = [ ];
+        default = [];
         type = types.listOf types.package;
         description = lib.mdDoc "List of plugins to install.";
         example = lib.literalExpression "[ pkgs.tmuxPlugins.nord ]";
@@ -213,7 +213,7 @@ in
     environment = {
       etc."tmux.conf".text = tmuxConf;
 
-      systemPackages = [ pkgs.tmux ] ++ cfg.plugins;
+      systemPackages = [pkgs.tmux] ++ cfg.plugins;
 
       variables = {
         TMUX_TMPDIR = lib.optional cfg.secureSocket ''''${XDG_RUNTIME_DIR:-"/run/user/$(id -u)"}'';

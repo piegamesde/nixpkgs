@@ -15,7 +15,7 @@ let
     ;
 
   cfg = config.networking.wireless.iwd;
-  ini = pkgs.formats.ini { };
+  ini = pkgs.formats.ini {};
   defaults = {
     # without UseDefaultInterface, sometimes wlan0 simply goes AWOL with NetworkManager
     # https://iwd.wiki.kernel.org/interface_lifecycle#interface_management_in_iwd
@@ -39,7 +39,7 @@ in
 
     settings = mkOption {
       type = ini.type;
-      default = { };
+      default = {};
 
       example = {
         Settings.AutoConnect = true;
@@ -70,11 +70,11 @@ in
     environment.etc."iwd/${configFile.name}".source = configFile;
 
     # for iwctl
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
-    services.dbus.packages = [ cfg.package ];
+    services.dbus.packages = [cfg.package];
 
-    systemd.packages = [ cfg.package ];
+    systemd.packages = [cfg.package];
 
     systemd.network.links."80-iwd" = {
       matchConfig.Type = "wlan";
@@ -82,10 +82,10 @@ in
     };
 
     systemd.services.iwd = {
-      wantedBy = [ "multi-user.target" ];
-      restartTriggers = [ configFile ];
+      wantedBy = ["multi-user.target"];
+      restartTriggers = [configFile];
     };
   };
 
-  meta.maintainers = with lib.maintainers; [ dtzWill ];
+  meta.maintainers = with lib.maintainers; [dtzWill];
 }

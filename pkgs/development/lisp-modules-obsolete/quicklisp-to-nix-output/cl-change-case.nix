@@ -1,10 +1,10 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "cl-change-case";
   version = "20210411-git";
 
-  parasites = [ "cl-change-case/test" ];
+  parasites = ["cl-change-case/test"];
 
   description = "Convert strings between camelCase, param-case, PascalCase and more";
 
@@ -23,7 +23,7 @@ rec {
 
   packageName = "cl-change-case";
 
-  asdFilesToKeep = [ "cl-change-case.asd" ];
+  asdFilesToKeep = ["cl-change-case.asd"];
   overrides = x: x;
 }
 /* (SYSTEM cl-change-case DESCRIPTION

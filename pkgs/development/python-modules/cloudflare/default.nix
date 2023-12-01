@@ -35,12 +35,12 @@ buildPythonPackage rec {
   # no tests associated with package
   doCheck = false;
 
-  pythonImportsCheck = [ "CloudFlare" ];
+  pythonImportsCheck = ["CloudFlare"];
 
   meta = with lib; {
     description = "Python wrapper for the Cloudflare v4 API";
     homepage = "https://github.com/cloudflare/python-cloudflare";
     license = licenses.mit;
-    maintainers = with maintainers; [ costrouc ];
+    maintainers = with maintainers; [costrouc];
   };
 }

@@ -10,7 +10,7 @@
 assert enableCurrenciesUpdater -> pythonPackages != null;
 
 let
-  pythonEnv = pythonPackages.python.withPackages (ps: [ ps.requests ]);
+  pythonEnv = pythonPackages.python.withPackages (ps: [ps.requests]);
 in
 stdenv.mkDerivation rec {
   pname = "units";
@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-XRPhIHch/ncm2Qa6HZLcDt2qn8JnWe0i47jRp5MSWEg=";
   };
 
-  buildInputs = [ readline ] ++ lib.optionals enableCurrenciesUpdater [ pythonEnv ];
+  buildInputs = [readline] ++ lib.optionals enableCurrenciesUpdater [pythonEnv];
   prePatch = lib.optionalString enableCurrenciesUpdater ''
     substituteInPlace units_cur \
       --replace "#!/usr/bin/env python" ${pythonEnv}/bin/python
@@ -35,8 +35,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Unit conversion tool";
     homepage = "https://www.gnu.org/software/units/";
-    license = [ licenses.gpl3Plus ];
+    license = [licenses.gpl3Plus];
     platforms = platforms.all;
-    maintainers = [ maintainers.vrthra ];
+    maintainers = [maintainers.vrthra];
   };
 }

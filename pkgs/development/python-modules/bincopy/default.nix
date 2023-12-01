@@ -22,7 +22,7 @@ buildPythonPackage rec {
     pyelftools
   ];
 
-  pythonImportsCheck = [ "bincopy" ];
+  pythonImportsCheck = ["bincopy"];
 
   meta = with lib; {
     description = "Mangling of various file formats that conveys binary information (Motorola S-Record, Intel HEX, TI-TXT, ELF and binary files)";

@@ -23,7 +23,7 @@ let
       name = "${pname}-${version}";
       inherit pname version src;
 
-      nativeBuildInputs = [ unzip ];
+      nativeBuildInputs = [unzip];
 
       buildCommand =
         let
@@ -47,8 +47,8 @@ let
       meta = with lib; {
         inherit description license;
         homepage = "https://saxon.sourceforge.net/";
-        sourceProvenance = with sourceTypes; [ binaryBytecode ];
-        maintainers = with maintainers; [ rvl ];
+        sourceProvenance = with sourceTypes; [binaryBytecode];
+        maintainers = with maintainers; [rvl];
         platforms = platforms.all;
       };
     };

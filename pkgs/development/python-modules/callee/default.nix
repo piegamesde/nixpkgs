@@ -17,7 +17,7 @@ buildPythonPackage rec {
     hash = "sha256-dsXMY3bW/70CmTfCuy5KjxPa+NLCzxzWv5e1aV2NEWE=";
   };
 
-  pythonImportsCheck = [ "callee" ];
+  pythonImportsCheck = ["callee"];
 
   doCheck = false; # missing dependency
 
@@ -31,6 +31,6 @@ buildPythonPackage rec {
     description = "Argument matchers for unittest.mock";
     homepage = "https://github.com/Xion/callee";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

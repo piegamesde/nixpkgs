@@ -34,6 +34,6 @@ stdenv.mkDerivation rec {
     description = "Signal support for Pidgin / libpurple";
     license = licenses.gpl3Only;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ hufman ];
+    maintainers = with maintainers; [hufman];
   };
 }

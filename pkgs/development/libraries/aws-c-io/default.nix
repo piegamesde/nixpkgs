@@ -21,16 +21,16 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-6lTAnoBWbwyWpycsaS7dpCC9c4xYws19HCNyTd7aRho=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   buildInputs = [
     aws-c-cal
     aws-c-common
     s2n-tls
   ];
-  propagatedBuildInputs = lib.optionals stdenv.hostPlatform.isDarwin [ Security ];
+  propagatedBuildInputs = lib.optionals stdenv.hostPlatform.isDarwin [Security];
 
-  cmakeFlags = [ "-DBUILD_SHARED_LIBS=ON" ];
+  cmakeFlags = ["-DBUILD_SHARED_LIBS=ON"];
 
   passthru.tests = {
     inherit nix;
@@ -41,6 +41,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/awslabs/aws-c-io";
     license = licenses.asl20;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ orivej ];
+    maintainers = with maintainers; [orivej];
   };
 }

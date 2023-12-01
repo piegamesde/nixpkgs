@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-WjUM52IqMDvBzeGHo7p4JcvMO5iPWPVOr8GJ3RSsnUs=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     libgcrypt
     glib
@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
     sqlite
   ];
 
-  makeFlags = [ "PREFIX=${placeholder "out"}" ];
+  makeFlags = ["PREFIX=${placeholder "out"}"];
 
   meta = with lib; {
     description = "A simple tool for finding duplicated extents and submitting them for deduplication";

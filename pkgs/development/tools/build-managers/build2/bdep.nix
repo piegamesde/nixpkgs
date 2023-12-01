@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
   };
 
   strictDeps = true;
-  nativeBuildInputs = [ build2 ];
+  nativeBuildInputs = [build2];
   buildInputs = [
     libbpkg
     libbutl
@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
     libodb-sqlite
   ];
 
-  build2ConfigureFlags = [ "config.bin.lib=${build2.configSharedStatic enableShared enableStatic}" ];
+  build2ConfigureFlags = ["config.bin.lib=${build2.configSharedStatic enableShared enableStatic}"];
 
   meta = with lib; {
     description = "build2 project dependency manager";
@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
     homepage = "https://build2.org/";
     changelog = "https://git.build2.org/cgit/bdep/tree/NEWS";
     license = licenses.mit;
-    maintainers = with maintainers; [ r-burns ];
+    maintainers = with maintainers; [r-burns];
     platforms = platforms.all;
   };
 }

@@ -28,7 +28,7 @@ buildGoModule rec {
     sha256 = "sha256-lyKKD6Rxr4psFUxqGTtqQ3M/vQXoNPbcg0cTam9MkXk=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     taglib
     zlib
@@ -57,7 +57,7 @@ buildGoModule rec {
     homepage = "https://github.com/sentriz/gonic";
     description = "Music streaming server / subsonic server API implementation";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ Profpatsch ];
+    maintainers = with lib.maintainers; [Profpatsch];
     platforms = lib.platforms.linux;
   };
 }

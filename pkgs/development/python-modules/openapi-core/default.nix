@@ -44,7 +44,7 @@ buildPythonPackage rec {
     sed -i "/--cov/d" pyproject.toml
   '';
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   propagatedBuildInputs = [
     isodate
@@ -60,10 +60,10 @@ buildPythonPackage rec {
   ];
 
   passthru.optional-dependencies = {
-    django = [ django ];
-    falcon = [ falcon ];
-    flask = [ flask ];
-    requests = [ requests ];
+    django = [django];
+    falcon = [falcon];
+    flask = [flask];
+    requests = [requests];
     starlette = [
       httpx
       starlette
@@ -93,6 +93,6 @@ buildPythonPackage rec {
     description = "Client-side and server-side support for the OpenAPI Specification v3";
     homepage = "https://github.com/p1c2u/openapi-core";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

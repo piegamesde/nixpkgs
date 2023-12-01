@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-48Blio8qHLmXSKG0c1tphXSfiwQXs0Xqwxe187nM3Ro=";
   };
 
-  nativeBuildInputs = [ qmake4Hook ];
+  nativeBuildInputs = [qmake4Hook];
   buildInputs = [
     qt4
     libX11
@@ -49,6 +49,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/tsujan/Kvantum";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    maintainers = [ maintainers.bugworm ];
+    maintainers = [maintainers.bugworm];
   };
 }

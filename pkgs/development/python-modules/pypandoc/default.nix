@@ -36,7 +36,7 @@ buildPythonPackage rec {
     pandocfilters
   ];
 
-  pythonImportsCheck = [ "pypandoc" ];
+  pythonImportsCheck = ["pypandoc"];
 
   meta = with lib; {
     description = "Thin wrapper for pandoc";

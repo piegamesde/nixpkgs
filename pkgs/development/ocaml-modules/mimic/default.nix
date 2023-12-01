@@ -45,6 +45,6 @@ buildDunePackage rec {
     description = "A simple protocol dispatcher";
     license = licenses.isc;
     homepage = "https://github.com/mirage/ocaml-git";
-    maintainers = [ maintainers.sternenseemann ];
+    maintainers = [maintainers.sternenseemann];
   };
 }

@@ -27,7 +27,7 @@ buildPythonPackage rec {
 
   dontConfigure = true;
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
   propagatedBuildInputs = [
     chardet
@@ -35,9 +35,9 @@ buildPythonPackage rec {
     commoncode
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "debian_inspector" ];
+  pythonImportsCheck = ["debian_inspector"];
 
   meta = with lib; {
     description = "Utilities to parse Debian package, copyright and control files";
@@ -47,6 +47,6 @@ buildPythonPackage rec {
       bsd3
       mit
     ];
-    maintainers = [ ];
+    maintainers = [];
   };
 }

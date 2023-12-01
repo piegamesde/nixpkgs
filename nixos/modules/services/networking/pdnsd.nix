@@ -78,8 +78,8 @@ in
     };
 
     systemd.services.pdnsd = {
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
       preStart = ''
         mkdir -p "${cfg.cacheDir}"
         touch "${cfg.cacheDir}/pdnsd.cache"

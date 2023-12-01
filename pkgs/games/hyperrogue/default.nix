@@ -83,7 +83,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "http://www.roguetemple.com/z/hyper/";
     description = "A roguelike game set in hyperbolic geometry";
-    maintainers = with maintainers; [ rardiol ];
+    maintainers = with maintainers; [rardiol];
     license = licenses.gpl2;
     platforms = platforms.all;
   };

@@ -105,7 +105,7 @@ stdenv.mkDerivation rec {
       sed -i ${outPythonPath}/mlt/__init__.py -e "s|return importlib.import_module('_mlt')|return importlib.import_module('mlt._mlt')|g"
     '';
 
-  passthru.updateScript = gitUpdater { rev-prefix = "v"; };
+  passthru.updateScript = gitUpdater {rev-prefix = "v";};
 
   meta = with lib; {
     description = "Open source multimedia framework, designed for television broadcasting";
@@ -115,7 +115,7 @@ stdenv.mkDerivation rec {
       gpl2Only
       lgpl21Only
     ];
-    maintainers = with maintainers; [ peti ];
+    maintainers = with maintainers; [peti];
     platforms = platforms.linux;
   };
 }

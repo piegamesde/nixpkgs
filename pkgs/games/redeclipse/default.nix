@@ -47,7 +47,7 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  installTargets = [ "system-install" ];
+  installTargets = ["system-install"];
 
   postInstall = ''
     cp -R -t $out/share/redeclipse/data/ data/*
@@ -66,8 +66,8 @@ stdenv.mkDerivation rec {
       licenses.zlib
       cc-by-sa-30
     ];
-    maintainers = with maintainers; [ lambda-11235 ];
+    maintainers = with maintainers; [lambda-11235];
     platforms = platforms.linux;
-    hydraPlatforms = [ ];
+    hydraPlatforms = [];
   };
 }

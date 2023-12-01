@@ -29,7 +29,7 @@
 
 buildPythonPackage rec {
   pname = "paperwork-backend";
-  inherit (import ./src.nix { inherit fetchFromGitLab; }) version src;
+  inherit (import ./src.nix {inherit fetchFromGitLab;}) version src;
 
   sourceRoot = "source/paperwork-backend";
 
@@ -42,7 +42,7 @@ buildPythonPackage rec {
     })
   ];
 
-  patchFlags = [ "-p2" ];
+  patchFlags = ["-p2"];
 
   postPatch = ''
     substituteInPlace setup.py \

@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "trivial-utf-8";
   version = "20211209-git";
@@ -11,7 +11,7 @@ rec {
 
   description = "A small library for doing UTF-8-based input and output.";
 
-  deps = [ args."mgl-pax" ];
+  deps = [args."mgl-pax"];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/trivial-utf-8/2021-12-09/trivial-utf-8-20211209-git.tgz";
@@ -20,7 +20,7 @@ rec {
 
   packageName = "trivial-utf-8";
 
-  asdFilesToKeep = [ "trivial-utf-8.asd" ];
+  asdFilesToKeep = ["trivial-utf-8.asd"];
   overrides = x: x;
 }
 /* (SYSTEM trivial-utf-8 DESCRIPTION

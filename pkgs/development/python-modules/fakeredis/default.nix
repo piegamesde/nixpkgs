@@ -29,7 +29,7 @@ buildPythonPackage rec {
     hash = "sha256-MjyLyIcf0NmQMHWEN/IMq68UIrkj1VgVW5RrxZe36gc=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   propagatedBuildInputs = [
     redis
@@ -45,17 +45,17 @@ buildPythonPackage rec {
   ];
 
   passthru.optional-dependencies = {
-    lua = [ lupa ];
-    aioredis = [ aioredis ];
+    lua = [lupa];
+    aioredis = [aioredis];
   };
 
-  pythonImportsCheck = [ "fakeredis" ];
+  pythonImportsCheck = ["fakeredis"];
 
   meta = with lib; {
     description = "Fake implementation of Redis API";
     homepage = "https://github.com/dsoftwareinc/fakeredis-py";
     changelog = "https://github.com/cunla/fakeredis-py/releases/tag/v${version}";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

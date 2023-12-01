@@ -32,12 +32,12 @@ buildPythonPackage rec {
       "test_stagger_coro_gen"
     ];
 
-  pythonImportsCheck = [ "async_stagger" ];
+  pythonImportsCheck = ["async_stagger"];
 
   meta = with lib; {
     description = "Happy Eyeballs connection algorithm and underlying scheduling logic in asyncio";
     homepage = "https://github.com/twisteroidambassador/async_stagger";
     license = licenses.mit;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

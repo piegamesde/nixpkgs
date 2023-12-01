@@ -43,7 +43,7 @@ rustPlatform.buildRustPackage rec {
     install -Dm0755 ./scripts/set-license -t $out/bin
     wrapProgram $out/bin/set-license \
       --prefix PATH : "$out/bin" \
-      --prefix PATH : ${lib.makeBinPath [ fzf ]}
+      --prefix PATH : ${lib.makeBinPath [fzf]}
 
     install -Dm0755 ./scripts/copy-header -t $out/bin
     wrapProgram $out/bin/copy-header \
@@ -61,6 +61,6 @@ rustPlatform.buildRustPackage rec {
     description = "Command-line tool to easily add license to your project";
     license = licenses.mpl20;
     mainProgram = "license";
-    maintainers = with maintainers; [ foo-dogsquared ];
+    maintainers = with maintainers; [foo-dogsquared];
   };
 }

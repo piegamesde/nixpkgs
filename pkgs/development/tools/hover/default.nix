@@ -42,10 +42,10 @@ let
       homepage = "https://github.com/go-flutter-desktop/hover";
       license = licenses.bsd3;
       platforms = platforms.linux;
-      maintainers = with maintainers; [ ericdallo ];
+      maintainers = with maintainers; [ericdallo];
     };
 
-    subPackages = [ "." ];
+    subPackages = ["."];
 
     vendorSha256 = "sha256-GDoX5d2aDfaAx9JsKuS4r8137t3swT6rgcCghmaThSM=";
 
@@ -65,7 +65,7 @@ let
 
     checkRun = false;
 
-    patches = [ ./fix-assets-path.patch ];
+    patches = [./fix-assets-path.patch];
 
     postPatch = ''
       sed -i 's|@assetsFolder@|'"''${out}/share/assets"'|g' internal/fileutils/assets.go

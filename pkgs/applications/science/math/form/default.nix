@@ -25,7 +25,7 @@ stdenv.mkDerivation {
     description = "The FORM project for symbolic manipulation of very big expressions";
     homepage = "https://www.nikhef.nl/~form/";
     license = licenses.gpl3;
-    maintainers = [ maintainers.veprbl ];
+    maintainers = [maintainers.veprbl];
     platforms = platforms.unix;
   };
 }

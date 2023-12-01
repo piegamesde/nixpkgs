@@ -10,7 +10,7 @@
   systemd,
   hostname,
   withSystemd ? lib.meta.availableOn stdenv.hostPlatform systemd,
-  extraTags ? [ ],
+  extraTags ? [],
 }:
 
 let
@@ -31,8 +31,8 @@ let
     pname = "datadog-agent-rtloader";
     src = "${src}/rtloader";
     inherit version;
-    nativeBuildInputs = [ cmake ];
-    buildInputs = [ python ];
+    nativeBuildInputs = [cmake];
+    buildInputs = [python];
     cmakeFlags = [
       "-DBUILD_DEMO=OFF"
       "-DDISABLE_PYTHON2=ON"
@@ -59,7 +59,7 @@ buildGo118Module rec {
     pkg-config
     makeWrapper
   ];
-  buildInputs = [ rtloader ] ++ lib.optionals withSystemd [ systemd ];
+  buildInputs = [rtloader] ++ lib.optionals withSystemd [systemd];
   PKG_CONFIG_PATH = "${python}/lib/pkgconfig";
 
   tags = [
@@ -68,7 +68,7 @@ buildGo118Module rec {
     "process"
     "log"
     "secrets"
-  ] ++ lib.optionals withSystemd [ "systemd" ] ++ extraTags;
+  ] ++ lib.optionals withSystemd ["systemd"] ++ extraTags;
 
   ldflags = [
     "-X ${goPackagePath}/pkg/version.Commit=${src.rev}"

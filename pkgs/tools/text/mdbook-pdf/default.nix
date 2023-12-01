@@ -19,9 +19,9 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-mX2EKjuWM1KW8DXFdYFKQfASjdqZCW78F1twZNQQr7o=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  buildInputs = [ openssl ] ++ lib.optionals stdenv.isDarwin [ CoreServices ];
+  buildInputs = [openssl] ++ lib.optionals stdenv.isDarwin [CoreServices];
 
   # No test.
   doCheck = false;
@@ -31,6 +31,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/HollowMan6/mdbook-pdf";
     changelog = "https://github.com/HollowMan6/mdbook-pdf/releases/tag/v${version}";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ hollowman6 ];
+    maintainers = with maintainers; [hollowman6];
   };
 }

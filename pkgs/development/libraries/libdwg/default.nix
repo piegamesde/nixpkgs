@@ -14,9 +14,9 @@ stdenv.mkDerivation rec {
     sha256 = "0l8ks1x70mkna1q7mzy1fxplinz141bd24qhrm1zkdil74mcsryc";
   };
 
-  nativeBuildInputs = [ indent ];
+  nativeBuildInputs = [indent];
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   # Hack to avoid TMPDIR in RPATHs.
   preFixup = ''rm -rf "$(pwd)" '';
@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
     description = "Library reading dwg files";
     homepage = "http://libdwg.sourceforge.net/en/";
     license = lib.licenses.gpl3;
-    maintainers = [ lib.maintainers.marcweber ];
+    maintainers = [lib.maintainers.marcweber];
     platforms = lib.platforms.linux;
   };
 }

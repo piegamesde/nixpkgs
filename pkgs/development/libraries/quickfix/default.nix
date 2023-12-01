@@ -50,6 +50,6 @@ stdenv.mkDerivation rec {
     description = "QuickFIX C++ Fix Engine Library";
     homepage = "http://www.quickfixengine.org";
     license = licenses.free; # similar to BSD 4-clause
-    maintainers = with maintainers; [ bhipple ];
+    maintainers = with maintainers; [bhipple];
   };
 }

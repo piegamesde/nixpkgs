@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
     pkg-config
     cmake
   ];
-  buildInputs = [ libuuid ];
+  buildInputs = [libuuid];
 
   meta = with lib; {
     homepage = "https://wiki.crosswire.org/BibleSync";
@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
       navigation, and handling of incoming packets.
     '';
     license = licenses.publicDomain;
-    maintainers = [ maintainers.AndersonTorres ];
+    maintainers = [maintainers.AndersonTorres];
     platforms = lib.platforms.linux;
   };
 }

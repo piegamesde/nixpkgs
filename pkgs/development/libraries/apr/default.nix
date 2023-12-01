@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-ded8yGd2wDDApcQI370L8qC3Xu1TUeUtVDn6HlUJpD4=";
   };
 
-  patches = [ ./cross-assume-dev-zero-mmappable.patch ];
+  patches = [./cross-assume-dev-zero-mmappable.patch];
 
   # This test needs the net
   postPatch = ''
@@ -67,7 +67,7 @@ stdenv.mkDerivation rec {
 
   # - Update libtool for macOS 11 support
   # - Regenerate for cross fix patch
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   doCheck = true;
 
@@ -78,6 +78,6 @@ stdenv.mkDerivation rec {
     description = "The Apache Portable Runtime library";
     platforms = platforms.all;
     license = licenses.asl20;
-    maintainers = [ maintainers.eelco ];
+    maintainers = [maintainers.eelco];
   };
 }

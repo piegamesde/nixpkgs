@@ -84,7 +84,7 @@ gnuradio3_8.pkgs.mkDerivation rec {
     description = "SDR transceiver application for analog and digital modes";
     homepage = "http://qradiolink.org/";
     license = licenses.agpl3;
-    maintainers = [ maintainers.markuskowa ];
+    maintainers = [maintainers.markuskowa];
     platforms = platforms.linux;
   };
 }

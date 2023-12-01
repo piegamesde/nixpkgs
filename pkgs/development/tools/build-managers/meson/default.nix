@@ -69,7 +69,7 @@ python3.pkgs.buildPythonApplication rec {
     (fetchpatch {
       url = "https://github.com/mesonbuild/meson/commit/d5252c5d4cf1c1931fef0c1c98dd66c000891d21.patch";
       sha256 = "GiUNVul1N5Fl8mfqM7vA/r1FdKqImiDYLXMVDt77gvw=";
-      excludes = [ "docs/yaml/objects/dep.yaml" ];
+      excludes = ["docs/yaml/objects/dep.yaml"];
     })
   ];
 
@@ -80,7 +80,7 @@ python3.pkgs.buildPythonApplication rec {
     pkg-config
   ];
   checkInputs =
-    [ zlib ]
+    [zlib]
     ++ lib.optionals stdenv.isDarwin [
       Foundation
       OpenGL
@@ -122,9 +122,9 @@ python3.pkgs.buildPythonApplication rec {
       --replace "python3 -c " "${python3.interpreter} -c "
   '';
 
-  buildInputs = lib.optionals (python3.pythonOlder "3.9") [ libxcrypt ];
+  buildInputs = lib.optionals (python3.pythonOlder "3.9") [libxcrypt];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = ''
     installShellCompletion --zsh data/shell-completions/zsh/_meson

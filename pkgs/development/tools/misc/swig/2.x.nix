@@ -26,9 +26,9 @@ stdenv.mkDerivation rec {
     libtool
     bison
   ];
-  buildInputs = [ pcre ];
+  buildInputs = [pcre];
 
-  configureFlags = [ "--without-tcl" ];
+  configureFlags = ["--without-tcl"];
 
   # Disable ccache documentation as it needs yodl
   postPatch = ''

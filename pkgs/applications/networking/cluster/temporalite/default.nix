@@ -17,7 +17,7 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-w86/XCMRGBmXM+oQ5+0qiX0fdwiKXvsmEkApuRLUOiA=";
 
-  subPackages = [ "cmd/temporalite" ];
+  subPackages = ["cmd/temporalite"];
 
   postPatch = ''
     substituteInPlace cmd/temporalite/ui_test.go \
@@ -31,6 +31,6 @@ buildGoModule rec {
     description = "An experimental distribution of Temporal that runs as a single process";
     homepage = "https://github.com/temporalio/temporalite";
     license = licenses.mit;
-    maintainers = with maintainers; [ lucperkins ];
+    maintainers = with maintainers; [lucperkins];
   };
 }

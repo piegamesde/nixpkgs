@@ -46,7 +46,7 @@ python3Packages.buildPythonApplication rec {
     description = "Prometheus exporter for Bitcoin Core nodes";
     homepage = "https://github.com/jvstein/bitcoin-prometheus-exporter";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ mmilata ];
+    maintainers = with maintainers; [mmilata];
     platforms = platforms.all;
   };
 }

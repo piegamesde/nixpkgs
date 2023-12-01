@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-JqN3kIkMnB+DggO0f1sjIDNP6SwCpNJuu+Jmnb12kGE=";
   };
 
-  patches = [ ./lilv-pkgconfig.patch ];
+  patches = [./lilv-pkgconfig.patch];
 
   nativeBuildInputs = [
     pkg-config
@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
     sord
     sratom
   ];
-  propagatedBuildInputs = [ lv2 ];
+  propagatedBuildInputs = [lv2];
   dontAddWafCrossFlags = true;
 
   passthru.tests = {
@@ -51,7 +51,7 @@ stdenv.mkDerivation rec {
     homepage = "http://drobilla.net/software/lilv";
     description = "A C library to make the use of LV2 plugins";
     license = licenses.mit;
-    maintainers = [ maintainers.goibhniu ];
+    maintainers = [maintainers.goibhniu];
     platforms = platforms.unix;
   };
 }

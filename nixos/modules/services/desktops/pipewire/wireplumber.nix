@@ -11,7 +11,7 @@ let
   pwUsedForAudio = pwCfg.audio.enable;
 in
 {
-  meta.maintainers = [ lib.maintainers.k900 ];
+  meta.maintainers = [lib.maintainers.k900];
 
   options = {
     services.pipewire.wireplumber = {
@@ -39,7 +39,7 @@ in
       }
     ];
 
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
     environment.etc."wireplumber/main.lua.d/80-nixos.lua" = lib.mkIf (!pwUsedForAudio) {
       text = ''
@@ -66,13 +66,13 @@ in
           '';
         };
 
-    systemd.packages = [ cfg.package ];
+    systemd.packages = [cfg.package];
 
     systemd.services.wireplumber.enable = config.services.pipewire.systemWide;
     systemd.user.services.wireplumber.enable = !config.services.pipewire.systemWide;
 
-    systemd.services.wireplumber.wantedBy = [ "pipewire.service" ];
-    systemd.user.services.wireplumber.wantedBy = [ "pipewire.service" ];
+    systemd.services.wireplumber.wantedBy = ["pipewire.service"];
+    systemd.user.services.wireplumber.wantedBy = ["pipewire.service"];
 
     systemd.services.wireplumber.environment = lib.mkIf config.services.pipewire.systemWide {
       # Force wireplumber to use system dbus.

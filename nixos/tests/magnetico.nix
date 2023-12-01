@@ -1,19 +1,19 @@
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
 
   let
     port = 8081;
   in
   {
     name = "magnetico";
-    meta = with pkgs.lib.maintainers; { maintainers = [ rnhmjoj ]; };
+    meta = with pkgs.lib.maintainers; {maintainers = [rnhmjoj];};
 
     nodes.machine =
-      { ... }:
+      {...}:
       {
-        imports = [ ../modules/profiles/minimal.nix ];
+        imports = [../modules/profiles/minimal.nix];
 
-        networking.firewall.allowedTCPPorts = [ 9000 ];
+        networking.firewall.allowedTCPPorts = [9000];
 
         services.magnetico = {
           enable = true;

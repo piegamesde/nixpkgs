@@ -23,8 +23,8 @@ buildPecl {
     sha256 = "sha256-kEc0883sYgmAf1mkH0zRjHzUASnZgQvdYE6VzT5X2RI=";
   };
 
-  buildInputs = [ gpgme ];
-  nativeCheckInputs = [ gnupg ];
+  buildInputs = [gpgme];
+  nativeCheckInputs = [gnupg];
 
   postPhpize = ''
     substituteInPlace configure \
@@ -51,6 +51,6 @@ buildPecl {
     description = "PHP wrapper for GpgME library that provides access to GnuPG";
     license = licenses.bsd3;
     homepage = "https://pecl.php.net/package/gnupg";
-    maintainers = with maintainers; [ taikx4 ] ++ teams.php.members;
+    maintainers = with maintainers; [taikx4] ++ teams.php.members;
   };
 }

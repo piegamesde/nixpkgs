@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
     cmake
   ];
 
-  buildInputs = [ test-drive ];
+  buildInputs = [test-drive];
 
   postInstall = ''
     substituteInPlace $out/lib/pkgconfig/${pname}.pc \
@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
       mit
     ];
     homepage = "https://github.com/toml-f/toml-f";
-    platforms = [ "x86_64-linux" ];
-    maintainers = [ maintainers.sheepforce ];
+    platforms = ["x86_64-linux"];
+    maintainers = [maintainers.sheepforce];
   };
 }

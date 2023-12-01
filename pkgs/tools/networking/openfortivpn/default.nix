@@ -33,10 +33,10 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  buildInputs = [ openssl ] ++ lib.optional withSystemd systemd ++ lib.optional withPpp ppp;
+  buildInputs = [openssl] ++ lib.optional withSystemd systemd ++ lib.optional withPpp ppp;
 
   configureFlags =
-    [ "--sysconfdir=/etc" ]
+    ["--sysconfdir=/etc"]
     ++ lib.optional withSystemd "--with-systemdsystemunitdir=${placeholder "out"}/lib/systemd/system"
     ++ lib.optional withPpp "--with-pppd=${ppp}/bin/pppd";
 
@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
     description = "Client for PPP+SSL VPN tunnel services";
     homepage = "https://github.com/adrienverge/openfortivpn";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ madjar ];
+    maintainers = with maintainers; [madjar];
     platforms = with platforms; linux ++ darwin;
   };
 }

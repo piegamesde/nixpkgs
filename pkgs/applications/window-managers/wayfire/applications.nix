@@ -11,11 +11,11 @@ lib.makeExtensible (
 
     callPackage = newScope self;
 
-    wayfire = callPackage ./. { };
+    wayfire = callPackage ./. {};
 
-    wcm = callPackage ./wcm.nix { inherit (wayfirePlugins) wf-shell; };
+    wcm = callPackage ./wcm.nix {inherit (wayfirePlugins) wf-shell;};
 
-    wrapWayfireApplication = callPackage ./wrapper.nix { };
+    wrapWayfireApplication = callPackage ./wrapper.nix {};
 
     withPlugins =
       selector:

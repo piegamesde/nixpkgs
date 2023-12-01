@@ -4,7 +4,7 @@
 # enable the secure tunnel Eve's spying becomes ineffective.
 
 import ./make-test-python.nix (
-  { lib, pkgs, ... }:
+  {lib, pkgs, ...}:
 
   let
 
@@ -35,10 +35,10 @@ import ./make-test-python.nix (
       '';
       # remove all automatic addresses
       useDHCP = false;
-      interfaces.eth1.ipv4.addresses = lib.mkVMOverride [ ];
-      interfaces.eth2.ipv4.addresses = lib.mkVMOverride [ ];
+      interfaces.eth1.ipv4.addresses = lib.mkVMOverride [];
+      interfaces.eth2.ipv4.addresses = lib.mkVMOverride [];
       # open a port for testing
-      firewall.allowedUDPPorts = [ 1234 ];
+      firewall.allowedUDPPorts = [1234];
     };
 
     # Adds an address and route from a to b via Eve
@@ -61,29 +61,29 @@ import ./make-test-python.nix (
 
   {
     name = "libreswan";
-    meta = with lib.maintainers; { maintainers = [ rnhmjoj ]; };
+    meta = with lib.maintainers; {maintainers = [rnhmjoj];};
 
     # Our protagonist
     nodes.alice =
-      { ... }:
+      {...}:
       {
-        virtualisation.vlans = [ 1 ];
+        virtualisation.vlans = [1];
         networking = baseNetwork // addRoute "fd::a" "fd::b";
       }
       // tunnelConfig;
 
     # Her best friend
     nodes.bob =
-      { ... }:
+      {...}:
       {
-        virtualisation.vlans = [ 2 ];
+        virtualisation.vlans = [2];
         networking = baseNetwork // addRoute "fd::b" "fd::a";
       }
       // tunnelConfig;
 
     # The malicious network operator
     nodes.eve =
-      { ... }:
+      {...}:
       {
         virtualisation.vlans = [
           1
@@ -104,7 +104,7 @@ import ./make-test-python.nix (
             ];
           }
         ];
-        environment.systemPackages = [ pkgs.tcpdump ];
+        environment.systemPackages = [pkgs.tcpdump];
         boot.kernel.sysctl."net.ipv6.conf.all.forwarding" = true;
       };
 

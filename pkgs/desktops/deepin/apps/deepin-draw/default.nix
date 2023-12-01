@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
     qt5platform-plugins
   ];
 
-  cmakeFlags = [ "-DVERSION=${version}" ];
+  cmakeFlags = ["-DVERSION=${version}"];
 
   strictDeps = true;
 

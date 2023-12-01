@@ -20,6 +20,6 @@ python3Packages.buildPythonPackage rec {
     homepage = "https://humenda.github.io/GladTeX";
     license = licenses.lgpl3Plus;
     platforms = platforms.all;
-    maintainers = with maintainers; [ alyaeanyx ];
+    maintainers = with maintainers; [alyaeanyx];
   };
 }

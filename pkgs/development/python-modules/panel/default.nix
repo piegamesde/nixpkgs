@@ -29,9 +29,9 @@ buildPythonPackage rec {
     hash = "sha256-XOu17oydXwfyowYUmCKF7/RC0RQ0Uf1Ixmn+VTa85Lo=";
   };
 
-  nativeBuildInputs = [ pythonRelaxDepsHook ];
+  nativeBuildInputs = [pythonRelaxDepsHook];
 
-  pythonRelaxDeps = [ "bokeh" ];
+  pythonRelaxDeps = ["bokeh"];
 
   propagatedBuildInputs = [
     bleach
@@ -46,7 +46,7 @@ buildPythonPackage rec {
     typing-extensions
   ];
 
-  pythonImportsCheck = [ "panel" ];
+  pythonImportsCheck = ["panel"];
 
   # infinite recursion in test dependencies (hvplot)
   doCheck = false;
@@ -56,6 +56,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/holoviz/panel";
     changelog = "https://github.com/holoviz/panel/releases/tag/v${version}";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ costrouc ];
+    maintainers = with maintainers; [costrouc];
   };
 }

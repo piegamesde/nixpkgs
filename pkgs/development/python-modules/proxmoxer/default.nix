@@ -41,13 +41,13 @@ buildPythonPackage rec {
       "tests/test_openssh.py"
     ];
 
-  pythonImportsCheck = [ "proxmoxer" ];
+  pythonImportsCheck = ["proxmoxer"];
 
   meta = with lib; {
     description = "Python wrapper for Proxmox API v2";
     homepage = "https://github.com/proxmoxer/proxmoxer";
     changelog = "https://github.com/proxmoxer/proxmoxer/releases/tag/${version}";
-    license = with licenses; [ bsd3 ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [bsd3];
+    maintainers = with maintainers; [fab];
   };
 }

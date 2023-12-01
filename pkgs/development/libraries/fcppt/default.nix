@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
     sha256 = "1pcmi2ck12nanw1rnwf8lmyx85iq20897k6daxx3hw5f23j1kxv6";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     boost
     catch2
@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://fcppt.org";
     license = licenses.boost;
-    maintainers = with maintainers; [ pmiddend ];
+    maintainers = with maintainers; [pmiddend];
     platforms = [
       "x86_64-linux"
       "x86_64-windows"

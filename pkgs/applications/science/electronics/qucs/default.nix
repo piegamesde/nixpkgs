@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
 
   QTDIR = qt4;
 
-  patches = [ ./cmakelists.patch ];
+  patches = [./cmakelists.patch];
 
   nativeBuildInputs = [
     cmake
@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
     description = "Integrated circuit simulator";
     homepage = "https://qucs.sourceforge.net";
     license = lib.licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ viric ];
+    maintainers = with lib.maintainers; [viric];
     platforms = with lib.platforms; linux;
   };
 }

@@ -69,7 +69,7 @@ in
 
     journalFiles = mkOption {
       type = types.listOf types.str;
-      default = [ ".hledger.journal" ];
+      default = [".hledger.journal"];
       description = lib.mdDoc ''
         Paths to journal files relative to {option}`services.hledger-web.stateDir`.
       '';
@@ -86,8 +86,8 @@ in
 
     extraOptions = mkOption {
       type = types.listOf types.str;
-      default = [ ];
-      example = [ "--forecast" ];
+      default = [];
+      example = ["--forecast"];
       description = lib.mdDoc ''
         Extra command line arguments to pass to hledger-web.
       '';
@@ -104,7 +104,7 @@ in
       useDefaultShell = true;
     };
 
-    users.groups.hledger = { };
+    users.groups.hledger = {};
 
     systemd.services.hledger-web =
       let
@@ -128,9 +128,9 @@ in
       in
       {
         description = "hledger-web - web-app for the hledger accounting tool.";
-        documentation = [ "https://hledger.org/hledger-web.html" ];
-        wantedBy = [ "multi-user.target" ];
-        after = [ "networking.target" ];
+        documentation = ["https://hledger.org/hledger-web.html"];
+        wantedBy = ["multi-user.target"];
+        after = ["networking.target"];
         serviceConfig = mkMerge [
           {
             ExecStart = "${pkgs.hledger-web}/bin/hledger-web ${serverArgs}";
@@ -140,7 +140,7 @@ in
             Group = "hledger";
             PrivateTmp = true;
           }
-          (mkIf (cfg.stateDir == "/var/lib/hledger-web") { StateDirectory = "hledger-web"; })
+          (mkIf (cfg.stateDir == "/var/lib/hledger-web") {StateDirectory = "hledger-web";})
         ];
       };
   };

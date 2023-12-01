@@ -31,7 +31,7 @@ let
       pkg-config
       boehmgc
     ];
-    makeFlags = [ "mktable" ];
+    makeFlags = ["mktable"];
     installPhase = ''
       install -D mktable $out/bin/mktable
     '';
@@ -55,7 +55,7 @@ stdenv.mkDerivation rec {
   PERL = "${perl}/bin/perl";
   MAN = "${man}/bin/man";
 
-  makeFlags = [ "AR=${stdenv.cc.bintools.targetPrefix}ar" ];
+  makeFlags = ["AR=${stdenv.cc.bintools.targetPrefix}ar"];
 
   patches = [
     ./RAND_egd.libressl.patch
@@ -91,14 +91,14 @@ stdenv.mkDerivation rec {
     ln -s $out/libexec/w3m/w3mimgdisplay $out/bin
   '';
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   configureFlags =
     [
       "--with-ssl=${openssl.dev}"
       "--with-gc=${boehmgc.dev}"
     ]
-    ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [ "ac_cv_func_setpgrp_void=yes" ]
+    ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) ["ac_cv_func_setpgrp_void=yes"]
     ++ lib.optional graphicsSupport "--enable-image=${lib.optionalString x11Support "x11,"}fb"
     ++ lib.optional (graphicsSupport && !x11Support) "--without-x";
 

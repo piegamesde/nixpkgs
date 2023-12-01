@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-AGP05GoxLjHqlnW63/KkZe+TjO3IKcgBi+Qb/osQuCM=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs =
     lib.optionals stdenv.isLinux [
       libGLU
@@ -70,7 +70,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "http://bulletphysics.org";
     license = licenses.zlib;
-    maintainers = with maintainers; [ aforemny ];
+    maintainers = with maintainers; [aforemny];
     platforms = platforms.unix;
   };
 }

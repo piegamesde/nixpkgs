@@ -19,14 +19,14 @@ rustPlatform.buildRustPackage rec {
   cargoHash = "sha256-gw5m1/btJ5zZP04C7BCnHqEOUBoeu0whK8W7xA+xSQo=";
 
   postFixup = ''
-    patchelf --set-rpath ${lib.makeLibraryPath [ wayland ]} $out/bin/waylevel
+    patchelf --set-rpath ${lib.makeLibraryPath [wayland]} $out/bin/waylevel
   '';
 
   meta = with lib; {
     description = "A tool to print wayland toplevels and other compositor info";
     homepage = "https://git.sr.ht/~shinyzenith/waylevel";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ dit7ya ];
+    maintainers = with maintainers; [dit7ya];
     platforms = platforms.linux;
   };
 }

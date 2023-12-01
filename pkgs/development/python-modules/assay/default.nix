@@ -15,12 +15,12 @@ buildPythonPackage rec {
     hash = "sha256-FuAD74mFJ9F9AMgB3vPmODAlZKgPR7FQ4yn7HEBS5Rw=";
   };
 
-  pythonImportsCheck = [ "assay" ];
+  pythonImportsCheck = ["assay"];
 
   meta = with lib; {
     homepage = "https://github.com/brandon-rhodes/assay";
     description = "Attempt to write a Python testing framework I can actually stand";
     license = licenses.mit;
-    maintainers = with maintainers; [ zane ];
+    maintainers = with maintainers; [zane];
   };
 }

@@ -72,7 +72,7 @@ let
 
   vmware-unpack-env = buildFHSEnv rec {
     name = "vmware-unpack-env";
-    targetPkgs = pkgs: [ zlib ];
+    targetPkgs = pkgs: [zlib];
   };
 in
 stdenv.mkDerivation rec {
@@ -410,9 +410,9 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Industry standard desktop hypervisor for x86-64 architecture";
     homepage = "https://www.vmware.com/products/workstation-pro.html";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.unfree;
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
     maintainers = with maintainers; [
       cawilliamson
       deinferno

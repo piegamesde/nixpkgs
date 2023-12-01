@@ -41,7 +41,7 @@ buildPythonPackage rec {
     transformers
   ];
 
-  pythonImportsCheck = [ "sentence_transformers" ];
+  pythonImportsCheck = ["sentence_transformers"];
 
   doCheck = false; # tests fail at build_ext
 
@@ -49,6 +49,6 @@ buildPythonPackage rec {
     description = "Multilingual Sentence & Image Embeddings with BERT";
     homepage = "https://github.com/UKPLab/sentence-transformers";
     license = licenses.asl20;
-    maintainers = with maintainers; [ dit7ya ];
+    maintainers = with maintainers; [dit7ya];
   };
 }

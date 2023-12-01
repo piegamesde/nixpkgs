@@ -64,11 +64,11 @@ let
   meta = {
     homepage = "https://www.ibm.com/products/data-protection-and-recovery";
     downloadPage = "https://www.ibm.com/support/pages/ibm-spectrum-protect-downloads-latest-fix-packs-and-interim-fixes";
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
     mainProgram = "dsmc";
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
     license = lib.licenses.unfree;
-    maintainers = [ lib.maintainers.yarny ];
+    maintainers = [lib.maintainers.yarny];
     description = "IBM Spectrum Protect (Tivoli Storage Manager) CLI and API";
     longDescription = ''
       IBM Spectrum Protect (Tivoli Storage Manager) provides
@@ -86,7 +86,7 @@ let
   };
 
   passthru.tests = {
-    test-cli = callPackage ./test-cli.nix { };
+    test-cli = callPackage ./test-cli.nix {};
     test-gui = nixosTests.tsm-client-gui;
   };
 
@@ -120,7 +120,7 @@ let
       stdenv.cc.cc
       zlib
     ];
-    runtimeDependencies = [ (lib.attrsets.getLib lvm2) ];
+    runtimeDependencies = [(lib.attrsets.getLib lvm2)];
     sourceRoot = ".";
 
     postUnpack = ''
@@ -174,12 +174,12 @@ in
 
 buildEnv {
   name = "tsm-client-${unwrapped.version}";
-  meta = meta // lib.attrsets.optionalAttrs enableGui { mainProgram = "dsmj"; };
+  meta = meta // lib.attrsets.optionalAttrs enableGui {mainProgram = "dsmj";};
   passthru = passthru // {
     inherit unwrapped;
   };
-  paths = [ unwrapped ];
-  nativeBuildInputs = [ makeWrapper ];
+  paths = [unwrapped];
+  nativeBuildInputs = [makeWrapper];
   pathsToLink = [
     "/"
     "/bin"

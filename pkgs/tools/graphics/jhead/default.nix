@@ -22,12 +22,12 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       url = "https://github.com/Matthias-Wandel/jhead/commit/8384c6fd2ebfb8eb8bd96616343e73af0e575131.patch";
       sha256 = "sha256-f3FOIqgFr5QPAsBjvUVAOf1CAqw8pNAVx+pZZuMjq3c=";
-      includes = [ "jhead.c" ];
+      includes = ["jhead.c"];
     })
     (fetchpatch {
       url = "https://github.com/Matthias-Wandel/jhead/commit/63aff8e9bd8c970fedf87f0ec3a1f3368bf2421e.patch";
       sha256 = "sha256-jyhGdWuwd/eP5uuS8uLYiTJZJdxxLYdsvl0jnQC+Y5c=";
-      includes = [ "jhead.c" ];
+      includes = ["jhead.c"];
     })
 
     # Fixes around CVE-2022-41751
@@ -49,7 +49,7 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  buildInputs = [ libjpeg ];
+  buildInputs = [libjpeg];
 
   makeFlags = [
     "CPPFLAGS="
@@ -72,7 +72,7 @@ stdenv.mkDerivation rec {
     homepage = "http://www.sentex.net/~mwandel/jhead/";
     description = "Exif Jpeg header manipulation tool";
     license = licenses.publicDomain;
-    maintainers = with maintainers; [ rycee ];
+    maintainers = with maintainers; [rycee];
     platforms = platforms.all;
   };
 }

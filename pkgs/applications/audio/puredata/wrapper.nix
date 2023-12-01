@@ -11,9 +11,9 @@ in
 symlinkJoin {
   name = "puredata-with-plugins-${puredata.version}";
 
-  paths = [ puredata ] ++ plugins;
+  paths = [puredata] ++ plugins;
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   postBuild = ''
     wrapProgram $out/bin/pd \

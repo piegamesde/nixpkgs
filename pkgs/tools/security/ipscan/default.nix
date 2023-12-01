@@ -22,9 +22,9 @@ stdenv.mkDerivation rec {
   sourceRoot = ".";
   unpackCmd = "${dpkg}/bin/dpkg-deb -x $src .";
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
-  buildInputs = [ jdk ];
+  buildInputs = [jdk];
 
   installPhase = ''
     mkdir -p $out/share
@@ -51,9 +51,9 @@ stdenv.mkDerivation rec {
     description = "Fast and friendly network scanner";
     homepage = "https://angryip.org";
     changelog = "https://github.com/angryip/ipscan/blob/${version}/CHANGELOG";
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with sourceTypes; [binaryBytecode];
     license = licenses.gpl2Only;
-    platforms = [ "x86_64-linux" ];
-    maintainers = with maintainers; [ kylesferrazza ];
+    platforms = ["x86_64-linux"];
+    maintainers = with maintainers; [kylesferrazza];
   };
 }

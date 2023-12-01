@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
 
   # Revert after https://github.com/NixOS/nixpkgs/issues/125008 is
   # fixed properly
-  patches = [ ./cmake-fix-libxml2-find-package.patch ];
+  patches = [./cmake-fix-libxml2-find-package.patch];
 
   nativeBuildInputs = [
     cmake
@@ -67,7 +67,7 @@ stdenv.mkDerivation rec {
     # the linux-like directory structure is used for proper output splitting
     "-DOSX_PACKAGE=off"
     "-DOSX_FRAMEWORK=off"
-  ] ++ lib.optionals (!avahiSupport) [ "-DHAVE_DNS_SD=OFF" ];
+  ] ++ lib.optionals (!avahiSupport) ["-DHAVE_DNS_SD=OFF"];
 
   postPatch = ''
     # Hardcode path to the shared library into the bindings.
@@ -87,6 +87,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/analogdevicesinc/libiio";
     license = licenses.lgpl21Plus;
     platforms = platforms.linux ++ platforms.darwin;
-    maintainers = with maintainers; [ thoughtpolice ];
+    maintainers = with maintainers; [thoughtpolice];
   };
 }

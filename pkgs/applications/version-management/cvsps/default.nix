@@ -54,7 +54,7 @@ stdenv.mkDerivation rec {
     zlib
   ];
 
-  installFlags = [ "prefix=$(out)" ];
+  installFlags = ["prefix=$(out)"];
 
   meta = {
     description = "A tool to generate CVS patch set information";

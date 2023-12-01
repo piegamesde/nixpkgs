@@ -118,10 +118,10 @@ stdenv.mkDerivation rec {
       --replace "<level>trace</level>" "<level>warning</level>"
   '';
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   # Builds in 7+h with 2 cores, and ~20m with a big-parallel builder.
-  requiredSystemFeatures = [ "big-parallel" ];
+  requiredSystemFeatures = ["big-parallel"];
 
   passthru.tests.clickhouse = nixosTests.clickhouse;
 
@@ -129,7 +129,7 @@ stdenv.mkDerivation rec {
     homepage = "https://clickhouse.com";
     description = "Column-oriented database management system";
     license = licenses.asl20;
-    maintainers = with maintainers; [ orivej ];
+    maintainers = with maintainers; [orivej];
     platforms = platforms.linux;
   };
 }

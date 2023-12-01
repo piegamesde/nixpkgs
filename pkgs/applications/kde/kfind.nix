@@ -16,8 +16,8 @@ mkDerivation {
   meta = {
     homepage = "https://apps.kde.org/kfind/";
     description = "Find files/folders";
-    license = with lib.licenses; [ gpl2 ];
-    maintainers = [ lib.maintainers.iblech ];
+    license = with lib.licenses; [gpl2];
+    maintainers = [lib.maintainers.iblech];
   };
   nativeBuildInputs = [
     extra-cmake-modules

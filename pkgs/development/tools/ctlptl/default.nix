@@ -18,7 +18,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-QGceY4xUdjPyO0XGpE0mvP5Q5nQKc/tkBp0Iseuw8Ro=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   ldflags = [
     "-s"
@@ -37,6 +37,6 @@ buildGoModule rec {
     description = "CLI for declaratively setting up local Kubernetes clusters";
     homepage = "https://github.com/tilt-dev/ctlptl";
     license = licenses.asl20;
-    maintainers = with maintainers; [ svrana ];
+    maintainers = with maintainers; [svrana];
   };
 }

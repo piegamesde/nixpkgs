@@ -27,7 +27,7 @@ stdenv.mkDerivation {
   # case that happens when the archive doesn't have a subdirectory.
   setSourceRoot = "sourceRoot=`pwd`";
 
-  nativeBuildInputs = [ unzip ];
+  nativeBuildInputs = [unzip];
 
   installPhase = ''
     runHook preInstall
@@ -48,6 +48,6 @@ stdenv.mkDerivation {
     description = "Smart Compose for code that uses deep learning to help you write code faster";
     license = licenses.unfree;
     platforms = attrNames sources.platforms;
-    maintainers = with maintainers; [ lovesegfault ];
+    maintainers = with maintainers; [lovesegfault];
   };
 }

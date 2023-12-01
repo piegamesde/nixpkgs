@@ -22,8 +22,8 @@ stdenv.mkDerivation rec {
     tar xvf data.tar.gz
   '';
 
-  nativeBuildInputs = [ wrapGAppsHook ];
-  buildInputs = [ glib ];
+  nativeBuildInputs = [wrapGAppsHook];
+  buildInputs = [glib];
 
   preFixup = ''
     gappsWrapperArgs+=(--set JAVA_HOME "${jdk19}" --set PDFSAM_JAVA_PATH "${jdk19}")
@@ -43,8 +43,8 @@ stdenv.mkDerivation rec {
     comment = meta.description;
     desktopName = "PDFsam Basic";
     genericName = "PDF Split and Merge";
-    mimeTypes = [ "application/pdf" ];
-    categories = [ "Office" ];
+    mimeTypes = ["application/pdf"];
+    categories = ["Office"];
   };
 
   meta = with lib; {
@@ -56,6 +56,6 @@ stdenv.mkDerivation rec {
     ];
     license = licenses.agpl3Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ _1000101 ];
+    maintainers = with maintainers; [_1000101];
   };
 }

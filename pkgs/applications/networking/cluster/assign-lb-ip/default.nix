@@ -21,6 +21,6 @@ buildGoModule rec {
     description = "Assigns loadBalancerIP address to a Kubernetes service for testing purposes";
     homepage = "https://github.com/Nordix/assign-lb-ip";
     license = licenses.asl20;
-    maintainers = [ maintainers.starcraft66 ];
+    maintainers = [maintainers.starcraft66];
   };
 }

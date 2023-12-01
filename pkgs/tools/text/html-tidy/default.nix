@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
     libxslt # manpage
   ] ++ lib.optional (stdenv.hostPlatform != stdenv.buildPlatform) html-tidy;
 
-  cmakeFlags = lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [ "-DHOST_TIDY=tidy" ];
+  cmakeFlags = lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) ["-DHOST_TIDY=tidy"];
 
   # ATM bin/tidy is statically linked, as upstream provides no other option yet.
   # https://github.com/htacg/tidy-html5/issues/326#issuecomment-160322107
@@ -45,7 +45,7 @@ stdenv.mkDerivation rec {
     license = licenses.libpng; # very close to it - the 3 clauses are identical
     homepage = "http://html-tidy.org";
     platforms = platforms.all;
-    maintainers = with maintainers; [ edwtjo ];
+    maintainers = with maintainers; [edwtjo];
     mainProgram = "tidy";
   };
 }

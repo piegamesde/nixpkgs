@@ -18,12 +18,12 @@ perlPackages.buildPerlPackage rec {
     hash = "sha256-4KtrsckO9Q9H0yIM0877YvWaDW02CQVAQiOKD919e9w=";
   };
 
-  outputs = [ "out" ];
+  outputs = ["out"];
 
-  makeMakerFlags = [ "INSTALLDIRS=vendor" ];
+  makeMakerFlags = ["INSTALLDIRS=vendor"];
 
   # Avoid creating perllocal.pod, which contains a timestamp
-  installTargets = [ "pure_install" ];
+  installTargets = ["pure_install"];
 
   patches =
     [
@@ -54,7 +54,7 @@ perlPackages.buildPerlPackage rec {
     description = "A PostgreSQL SQL syntax beautifier that can work as a console program or as a CGI";
     homepage = "https://github.com/darold/pgFormatter";
     changelog = "https://github.com/darold/pgFormatter/releases/tag/v${version}";
-    maintainers = [ maintainers.marsam ];
+    maintainers = [maintainers.marsam];
     license = [
       licenses.postgresql
       licenses.artistic2

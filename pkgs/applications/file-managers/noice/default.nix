@@ -27,9 +27,9 @@ stdenv.mkDerivation rec {
   configFile = optionalString (conf != null) (builtins.toFile "config.def.h" conf);
   preBuild = optionalString (conf != null) "cp ${configFile} config.def.h";
 
-  buildInputs = [ ncurses ];
+  buildInputs = [ncurses];
 
-  buildFlags = [ "LDLIBS=-lncurses" ];
+  buildFlags = ["LDLIBS=-lncurses"];
 
   installFlags = [
     "DESTDIR=$(out)"
@@ -41,6 +41,6 @@ stdenv.mkDerivation rec {
     homepage = "https://git.2f30.org/noice/";
     license = licenses.bsd2;
     platforms = platforms.all;
-    maintainers = with maintainers; [ jfrankenau ];
+    maintainers = with maintainers; [jfrankenau];
   };
 }

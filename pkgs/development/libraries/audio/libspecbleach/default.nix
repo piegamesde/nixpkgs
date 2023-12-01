@@ -24,13 +24,13 @@ stdenv.mkDerivation rec {
     ninja
     pkg-config
   ];
-  buildInputs = [ fftwFloat ];
+  buildInputs = [fftwFloat];
 
   meta = with lib; {
     description = "C library for audio noise reduction";
     homepage = "https://github.com/lucianodato/libspecbleach";
     license = licenses.lgpl2;
-    maintainers = [ maintainers.magnetophon ];
+    maintainers = [maintainers.magnetophon];
     platforms = platforms.unix;
   };
 }

@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
   buildInputs = [
     itk
     vtk
-  ] ++ lib.optionals stdenv.isDarwin [ Cocoa ];
+  ] ++ lib.optionals stdenv.isDarwin [Cocoa];
 
   cmakeFlags = [
     "-DANTS_SUPERBUILD=FALSE"
@@ -43,7 +43,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://github.com/ANTsX/ANTs";
     description = "Advanced normalization toolkit for medical image registration and other processing";
-    maintainers = with maintainers; [ bcdarwin ];
+    maintainers = with maintainers; [bcdarwin];
     platforms = platforms.unix;
     license = licenses.bsd3;
   };

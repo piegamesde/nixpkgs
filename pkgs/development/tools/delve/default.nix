@@ -19,11 +19,11 @@ buildGoModule rec {
 
   vendorHash = null;
 
-  subPackages = [ "cmd/dlv" ];
+  subPackages = ["cmd/dlv"];
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
-  hardeningDisable = [ "fortify" ];
+  hardeningDisable = ["fortify"];
 
   preCheck = ''
     XDG_CONFIG_HOME=$(mktemp -d)

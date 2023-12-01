@@ -36,9 +36,9 @@ stdenv.mkDerivation rec {
     "USELIBWRAP=1"
   ];
 
-  installFlags = [ "PREFIX=$(out)" ];
+  installFlags = ["PREFIX=$(out)"];
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   passthru.tests = {
     inherit (nixosTests) sslh;

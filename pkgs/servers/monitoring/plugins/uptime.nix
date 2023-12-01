@@ -16,7 +16,7 @@ stdenv.mkDerivation {
     sha256 = "18q9ibzqn97dsyr9xs3w9mqk80nmmfw3kcjidrdsj542amlsycyk";
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   enableParallelBuilding = true;
 
@@ -26,6 +26,6 @@ stdenv.mkDerivation {
     description = "Uptime check plugin for Sensu/Nagios/others";
     homepage = "https://github.com/madrisan/nagios-plugins-uptime";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ peterhoeg ];
+    maintainers = with maintainers; [peterhoeg];
   };
 }

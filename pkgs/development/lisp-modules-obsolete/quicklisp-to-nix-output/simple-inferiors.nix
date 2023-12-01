@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "simple-inferiors";
   version = "20200325-git";
@@ -21,7 +21,7 @@ rec {
 
   packageName = "simple-inferiors";
 
-  asdFilesToKeep = [ "simple-inferiors.asd" ];
+  asdFilesToKeep = ["simple-inferiors.asd"];
   overrides = x: x;
 }
 /* (SYSTEM simple-inferiors DESCRIPTION

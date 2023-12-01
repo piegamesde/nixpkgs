@@ -41,7 +41,7 @@ stdenv.mkDerivation {
         sha256 = "17822hs9y07vcviv2af17p3va7qh79dird49nj50bwi9rz64ia3w";
       };
 
-  buildInputs = [ ncurses ] ++ lib.optionals enableX11 [ libX11 ];
+  buildInputs = [ncurses] ++ lib.optionals enableX11 [libX11];
 
   configurePhase = ''
     runHook preConfigure
@@ -112,7 +112,7 @@ stdenv.mkDerivation {
 
     license = licenses.gpl2Plus;
 
-    maintainers = [ ];
+    maintainers = [];
 
     # Build fails on Cygwin and Darwin:
     # <http://article.gmane.org/gmane.lisp.scheme.mit-scheme.devel/489>.

@@ -29,6 +29,6 @@ buildGoModule rec {
     description = "HashiCorp Vault interactive shell";
     homepage = "https://github.com/fishi0x01/vsh";
     license = licenses.mit;
-    maintainers = with maintainers; [ fishi0x01 ];
+    maintainers = with maintainers; [fishi0x01];
   };
 }

@@ -20,9 +20,9 @@ buildPythonPackage rec {
     hash = "sha256-j0mxWXwPbjD/W2wdqh17L0FP2eREI8IusLL9cuySGAY=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  propagatedBuildInputs = [ mitogen ] ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
+  propagatedBuildInputs = [mitogen] ++ lib.optionals (pythonOlder "3.8") [importlib-metadata];
 
   # Requires root privileges, https://github.com/svinota/pyroute2/issues/778
   doCheck = false;

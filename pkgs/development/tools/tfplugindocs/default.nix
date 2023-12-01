@@ -21,6 +21,6 @@ buildGoModule rec {
     description = "Generate and validate Terraform plugin/provider documentation";
     homepage = "https://github.com/hashicorp/terraform-plugin-docs";
     license = licenses.mpl20;
-    maintainers = with maintainers; [ lewo ];
+    maintainers = with maintainers; [lewo];
   };
 }

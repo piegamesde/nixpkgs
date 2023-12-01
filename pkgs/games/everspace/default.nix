@@ -115,7 +115,7 @@ stdenv.mkDerivation rec {
       comment = meta.description;
       exec = "everspace";
       icon = "everspace-gog";
-      categories = [ "Game" ];
+      categories = ["Game"];
     })
   ];
 
@@ -123,7 +123,7 @@ stdenv.mkDerivation rec {
     description = "Action-focused single-player space shooter with roguelike elements";
     homepage = "https://classic.everspace-game.com/";
     license = licenses.unfree;
-    maintainers = with maintainers; [ jtrees ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with maintainers; [jtrees];
+    platforms = ["x86_64-linux"];
   };
 }

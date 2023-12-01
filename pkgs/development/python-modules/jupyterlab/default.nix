@@ -51,7 +51,7 @@ buildPythonPackage rec {
     nbclassic
     notebook
     jinja2
-  ] ++ lib.optionals (pythonOlder "3.11") [ tomli ];
+  ] ++ lib.optionals (pythonOlder "3.11") [tomli];
 
   makeWrapperArgs = [
     "--set"
@@ -62,12 +62,12 @@ buildPythonPackage rec {
   # Depends on npm
   doCheck = false;
 
-  pythonImportsCheck = [ "jupyterlab" ];
+  pythonImportsCheck = ["jupyterlab"];
 
   meta = with lib; {
     changelog = "https://github.com/jupyterlab/jupyterlab/releases/tag/v${version}";
     description = "Jupyter lab environment notebook server extension";
-    license = with licenses; [ bsd3 ];
+    license = with licenses; [bsd3];
     homepage = "https://jupyter.org/";
     maintainers = with maintainers; [
       zimbatm

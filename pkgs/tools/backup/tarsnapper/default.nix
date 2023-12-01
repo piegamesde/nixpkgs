@@ -22,7 +22,7 @@ python3Packages.buildPythonApplication rec {
     pexpect
   ];
 
-  nativeCheckInputs = with python3Packages; [ nose ];
+  nativeCheckInputs = with python3Packages; [nose];
 
   patches =
     [
@@ -30,7 +30,7 @@ python3Packages.buildPythonApplication rec {
       ./remove-argparse.patch
     ];
 
-  makeWrapperArgs = [ "--prefix PATH : ${lib.makeBinPath [ tarsnap ]}" ];
+  makeWrapperArgs = ["--prefix PATH : ${lib.makeBinPath [tarsnap]}"];
 
   checkPhase = ''
     runHook preCheck
@@ -38,12 +38,12 @@ python3Packages.buildPythonApplication rec {
     runHook postCheck
   '';
 
-  pythonImportsCheck = [ "tarsnapper" ];
+  pythonImportsCheck = ["tarsnapper"];
 
   meta = with lib; {
     description = "Wrapper which expires backups using a gfs-scheme";
     homepage = "https://github.com/miracle2k/tarsnapper";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

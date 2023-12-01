@@ -31,7 +31,7 @@ buildPythonApplication rec {
       A pandoc filter that will turn code blocks tagged with certain classes
       into images or ASCII art
     '';
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ synthetica ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [synthetica];
   };
 }

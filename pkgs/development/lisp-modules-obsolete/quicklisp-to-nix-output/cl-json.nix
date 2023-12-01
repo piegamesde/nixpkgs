@@ -1,14 +1,14 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "cl-json";
   version = "20141217-git";
 
-  parasites = [ "cl-json.test" ];
+  parasites = ["cl-json.test"];
 
   description = "JSON in Lisp. JSON (JavaScript Object Notation) is a lightweight data-interchange format.";
 
-  deps = [ args."fiveam" ];
+  deps = [args."fiveam"];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/cl-json/2014-12-17/cl-json-20141217-git.tgz";
@@ -17,7 +17,7 @@ rec {
 
   packageName = "cl-json";
 
-  asdFilesToKeep = [ "cl-json.asd" ];
+  asdFilesToKeep = ["cl-json.asd"];
   overrides = x: x;
 }
 /* (SYSTEM cl-json DESCRIPTION

@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
     perl # for pod2man
   ];
 
-  configureFlags = [ "--disable-xrectsel" ];
+  configureFlags = ["--disable-xrectsel"];
 
   postInstall =
     let
@@ -51,7 +51,7 @@ stdenv.mkDerivation rec {
     description = "Run commands on rectangular screen regions";
     homepage = "https://github.com/ropery/FFcast";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ sikmir ];
+    maintainers = with maintainers; [sikmir];
     platforms = platforms.linux;
   };
 }

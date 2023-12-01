@@ -26,9 +26,9 @@ stdenv.mkDerivation rec {
     iconnamingutils
   ];
 
-  buildInputs = [ librsvg ];
+  buildInputs = [librsvg];
 
-  propagatedBuildInputs = [ hicolor-icon-theme ];
+  propagatedBuildInputs = [hicolor-icon-theme];
 
   dontDropIconThemeCache = true;
 
@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  passthru.updateScript = mateUpdateScript { inherit pname; };
+  passthru.updateScript = mateUpdateScript {inherit pname;};
 
   meta = with lib; {
     description = "Icon themes from MATE";

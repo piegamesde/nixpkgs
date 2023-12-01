@@ -108,7 +108,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://www.xiphos.org/";
     license = licenses.gpl2Plus;
-    maintainers = [ maintainers.AndersonTorres ];
+    maintainers = [maintainers.AndersonTorres];
     platforms = platforms.linux;
   };
 }

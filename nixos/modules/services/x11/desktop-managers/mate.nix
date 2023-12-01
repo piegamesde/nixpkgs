@@ -28,7 +28,7 @@ in
     };
 
     environment.mate.excludePackages = mkOption {
-      default = [ ];
+      default = [];
       example = literalExpression "[ pkgs.mate.mate-terminal pkgs.mate.pluma ]";
       type = types.listOf types.package;
       description = lib.mdDoc "Which MATE packages to exclude from the default environment";
@@ -37,7 +37,7 @@ in
 
   config = mkIf cfg.enable {
 
-    services.xserver.displayManager.sessionPackages = [ pkgs.mate.mate-session-manager ];
+    services.xserver.displayManager.sessionPackages = [pkgs.mate.mate-session-manager];
 
     # Let caja find extensions
     environment.sessionVariables.CAJA_EXTENSION_DIRS = [
@@ -77,13 +77,13 @@ in
 
     services.gnome.at-spi2-core.enable = true;
     services.gnome.gnome-keyring.enable = true;
-    services.udev.packages = [ pkgs.mate.mate-settings-daemon ];
+    services.udev.packages = [pkgs.mate.mate-settings-daemon];
     services.gvfs.enable = true;
     services.upower.enable = config.powerManagement.enable;
     services.xserver.libinput.enable = mkDefault true;
 
     security.pam.services.mate-screensaver.unixAuth = true;
 
-    environment.pathsToLink = [ "/share" ];
+    environment.pathsToLink = ["/share"];
   };
 }

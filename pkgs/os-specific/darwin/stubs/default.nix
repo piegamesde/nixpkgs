@@ -13,7 +13,7 @@ let
         echo >&2 "Faking call to ${name} with arguments:"
         echo >&2 "$@"
       '')
-      (drv: { name = "${name}-stub"; });
+      (drv: {name = "${name}-stub";});
 in
 
 {

@@ -22,7 +22,7 @@ mkDerivation rec {
     hash = "sha256-nedtCa3h62pAmJYGIYp9jkNYiqe9WevVjwNAqVaaFuc=";
   };
 
-  nativeBuildInputs = [ extra-cmake-modules ];
+  nativeBuildInputs = [extra-cmake-modules];
   buildInputs = [
     kiconthemes
     kio
@@ -39,7 +39,7 @@ mkDerivation rec {
     homepage = "https://github.com/jeromerobert/k4dirstat";
     description = "A small utility program that sums up disk usage for directory trees";
     license = licenses.gpl2;
-    maintainers = [ maintainers.raboof ];
+    maintainers = [maintainers.raboof];
     platforms = platforms.linux;
   };
 }

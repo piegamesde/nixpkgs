@@ -29,12 +29,12 @@ python.pkgs.buildPythonApplication rec {
       --replace "requests==2.24.0" "requests>=2.24.0"
   '';
 
-  nativeCheckInputs = with python.pkgs; [ pytestCheckHook ];
+  nativeCheckInputs = with python.pkgs; [pytestCheckHook];
 
   meta = with lib; {
     homepage = "https://github.com/balta2ar/brotab";
     description = "Control your browser's tabs from the command line";
     license = licenses.mit;
-    maintainers = with maintainers; [ doronbehar ];
+    maintainers = with maintainers; [doronbehar];
   };
 }

@@ -32,6 +32,6 @@ buildDunePackage rec {
     homepage = "https://gitlab.com/dannywillems/ocaml-bls12-381";
     description = "Functors to generate BLS12-381 primitives based on stubs";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.ulrikstrid ];
+    maintainers = [lib.maintainers.ulrikstrid];
   };
 }

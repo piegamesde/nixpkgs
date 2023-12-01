@@ -50,7 +50,7 @@ stdenv.mkDerivation rec {
       you downloaded is, in fact, the file you wanted.
     '';
     license = licenses.bsd2;
-    maintainers = with maintainers; [ AndersonTorres ];
+    maintainers = with maintainers; [AndersonTorres];
     platforms = platforms.unix;
   };
 }

@@ -36,7 +36,7 @@ let
     procps
   ];
 
-  mailq = runCommand "mailq-wrapper" { preferLocalBuild = true; } ''
+  mailq = runCommand "mailq-wrapper" {preferLocalBuild = true;} ''
     mkdir -p $out/bin
     ln -s /run/wrappers/bin/sendmail $out/bin/mailq
   '';

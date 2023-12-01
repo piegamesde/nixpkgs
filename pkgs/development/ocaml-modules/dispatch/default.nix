@@ -20,9 +20,9 @@ buildDunePackage rec {
     sha256 = "12r39ylbxc297cbwjadhd1ghxnwwcdzfjk68r97wim8hcgzxyxv4";
   };
 
-  propagatedBuildInputs = [ result ];
+  propagatedBuildInputs = [result];
 
-  checkInputs = [ alcotest ];
+  checkInputs = [alcotest];
 
   doCheck = lib.versionAtLeast ocaml.version "4.08";
 
@@ -30,6 +30,6 @@ buildDunePackage rec {
     inherit (src.meta) homepage;
     license = lib.licenses.bsd3;
     description = "Path-based dispatching for client- and server-side applications";
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
   };
 }

@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
   version = "1.10.11";
 
   src = fetchurl {
-    url = "https://bitbucket.org/sinbad/ogre/get/v${lib.replaceStrings [ "." ] [ "-" ] version}.tar.gz";
+    url = "https://bitbucket.org/sinbad/ogre/get/v${lib.replaceStrings ["."] ["-"] version}.tar.gz";
     sha256 = "1zwvlx5dz9nwjazhnrhzb0w8ilpa84r0hrxrmmy69pgr1p1yif5a";
   };
 
@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
     # aarch64-darwin support
     (fetchpatch {
       url = "https://github.com/OGRECave/ogre/commit/bd5fbe3482c56e58c6c3b3bf439b1eab8c1be258.patch";
-      includes = [ "OgreMain/include/OgrePlatform*.h" ];
+      includes = ["OgreMain/include/OgrePlatform*.h"];
       sha256 = "sha256-ELeCklQkltz7DeDaGl78Jk1H3Wdfu8fMUiMZaJM4s/Y=";
     })
     (fetchpatch {
@@ -94,12 +94,12 @@ stdenv.mkDerivation rec {
       AGL
       Cocoa
     ]
-    ++ lib.optionals withNvidiaCg [ nvidia_cg_toolkit ];
+    ++ lib.optionals withNvidiaCg [nvidia_cg_toolkit];
 
   cmakeFlags = [
     "-DOGRE_BUILD_COMPONENT_OVERLAY_IMGUI=FALSE"
     "-DOGRE_BUILD_SAMPLES=${toString withSamples}"
-  ] ++ lib.optionals stdenv.isDarwin [ "-DOGRE_BUILD_LIBS_AS_FRAMEWORKS=FALSE" ];
+  ] ++ lib.optionals stdenv.isDarwin ["-DOGRE_BUILD_LIBS_AS_FRAMEWORKS=FALSE"];
 
   meta = {
     description = "3D Object-Oriented Graphics Rendering Engine";

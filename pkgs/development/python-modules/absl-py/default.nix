@@ -16,7 +16,7 @@ buildPythonPackage rec {
     hash = "sha256-0sJE0BBIukdufAgL0sbfXhQdIR3oAiNGDVs7iipYQz0=";
   };
 
-  propagatedBuildInputs = [ six ] ++ lib.optionals (pythonOlder "3.4") [ enum34 ];
+  propagatedBuildInputs = [six] ++ lib.optionals (pythonOlder "3.4") [enum34];
 
   # checks use bazel; should be revisited
   doCheck = false;
@@ -25,6 +25,6 @@ buildPythonPackage rec {
     description = "Abseil Python Common Libraries";
     homepage = "https://github.com/abseil/abseil-py";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
   };
 }

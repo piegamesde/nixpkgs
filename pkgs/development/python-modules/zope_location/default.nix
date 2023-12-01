@@ -14,7 +14,7 @@ buildPythonPackage rec {
     hash = "sha256-Fx7tyKIOw6isJxOaqQzyd/93dy6gMrVLaicBp5J7OsU=";
   };
 
-  propagatedBuildInputs = [ zope_proxy ];
+  propagatedBuildInputs = [zope_proxy];
 
   # ignore circular dependency on zope_schema
   preBuild = ''
@@ -27,6 +27,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/zopefoundation/zope.location/";
     description = "Zope Location";
     license = licenses.zpl20;
-    maintainers = with maintainers; [ goibhniu ];
+    maintainers = with maintainers; [goibhniu];
   };
 }

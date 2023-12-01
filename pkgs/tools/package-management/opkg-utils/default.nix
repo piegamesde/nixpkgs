@@ -24,6 +24,6 @@ stdenv.mkDerivation {
     homepage = "http://git.yoctoproject.org/cgit/cgit.cgi/opkg-utils/";
     license = licenses.gpl2;
     platforms = platforms.all;
-    maintainers = [ maintainers.bjornfor ];
+    maintainers = [maintainers.bjornfor];
   };
 }

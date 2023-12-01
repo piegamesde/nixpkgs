@@ -13,11 +13,11 @@ let
     sha256 = "sha256-o/a+6EKPEcE9waXQK3hxtp7FPqokteoUAt0iOJk8bYw=";
   };
 
-  appimageContents = appimageTools.extract { inherit pname version src; };
+  appimageContents = appimageTools.extract {inherit pname version src;};
 in
 appimageTools.wrapType2 rec {
   inherit pname version src;
-  extraPkgs = pkgs: (appimageTools.defaultFhsEnvArgs.multiPkgs pkgs) ++ [ pkgs.libappindicator ];
+  extraPkgs = pkgs: (appimageTools.defaultFhsEnvArgs.multiPkgs pkgs) ++ [pkgs.libappindicator];
 
   extraInstallCommands = ''
     mv $out/bin/{${pname}-${version},${pname}}
@@ -34,8 +34,8 @@ appimageTools.wrapType2 rec {
     description = "Electron wrapper around YouTube Music";
     homepage = "https://th-ch.github.io/youtube-music/";
     license = licenses.mit;
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     platforms = platforms.linux;
-    maintainers = [ maintainers.aacebedo ];
+    maintainers = [maintainers.aacebedo];
   };
 }

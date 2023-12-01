@@ -65,7 +65,7 @@ stdenv.mkDerivation {
     sha256 = "0badnkjsn3zps24r5iggj8k5v4f00npc77wqg92pcn1q5z8r677y";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     libX11
     libXt
@@ -102,9 +102,9 @@ stdenv.mkDerivation {
           })
         ]
       else
-        [ ./patches/9.06-font-width.patch ]
+        [./patches/9.06-font-width.patch]
     )
-    ++ [ ./patches/256-color-resources.patch ]
+    ++ [./patches/256-color-resources.patch]
     ++ optional stdenv.isDarwin ./patches/makefile-phony.patch;
 
   configureFlags = [
@@ -119,7 +119,7 @@ stdenv.mkDerivation {
     "-lXrender"
     "-lpthread"
   ];
-  CFLAGS = [ "-I${freetype.dev}/include/freetype2" ];
+  CFLAGS = ["-I${freetype.dev}/include/freetype2"];
 
   preConfigure =
     ''
@@ -146,7 +146,7 @@ stdenv.mkDerivation {
     inherit description;
     homepage = "http://software.schmorp.de/pkg/rxvt-unicode.html";
     downloadPage = "http://dist.schmorp.de/rxvt-unicode/Attic/";
-    maintainers = with maintainers; [ rnhmjoj ];
+    maintainers = with maintainers; [rnhmjoj];
     platforms = platforms.unix;
     license = licenses.gpl3;
   };

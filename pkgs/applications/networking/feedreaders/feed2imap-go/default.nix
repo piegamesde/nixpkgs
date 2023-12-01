@@ -26,6 +26,6 @@ buildGoModule rec {
     description = "Uploads rss feeds as e-mails onto an IMAP server";
     homepage = "https://github.com/Necoro/feed2imap-go";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ nomeata ];
+    maintainers = with maintainers; [nomeata];
   };
 }

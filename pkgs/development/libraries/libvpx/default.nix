@@ -129,7 +129,7 @@ stdenv.mkDerivation rec {
   ];
   setOutputFlags = false;
 
-  configurePlatforms = [ ];
+  configurePlatforms = [];
   configureFlags =
     [
       (enableFeature (vp8EncoderSupport || vp8DecoderSupport) "vp8")
@@ -208,7 +208,7 @@ stdenv.mkDerivation rec {
   ];
 
   buildInputs =
-    [ ]
+    []
     ++ optionals unitTestsSupport [
       coreutils
       curl
@@ -227,7 +227,7 @@ stdenv.mkDerivation rec {
     homepage = "https://www.webmproject.org/";
     changelog = "https://github.com/webmproject/libvpx/raw/v${version}/CHANGELOG";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ codyopel ];
+    maintainers = with maintainers; [codyopel];
     platforms = platforms.all;
   };
 }

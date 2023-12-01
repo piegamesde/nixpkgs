@@ -16,9 +16,9 @@ stdenv.mkDerivation rec {
     sha256 = "0xksffx1w3pzm18ynf28cx8scrhylcbz43s1rgkkdqnyil1q6cjv";
   };
 
-  patches = [ ./uintptr_t.patch ];
+  patches = [./uintptr_t.patch];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   cmakeFlags =
     lib.optional doCheck "-DUNIT_TESTING=ON"

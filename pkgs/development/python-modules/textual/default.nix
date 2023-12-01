@@ -35,7 +35,7 @@ buildPythonPackage rec {
     hash = "sha256-UT+ApD/TTb5cxIdgK+n3B2J3z/nEwVXtuyPHpGCv6Tg=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   postPatch = ''
     substituteInPlace pyproject.toml \
@@ -52,7 +52,7 @@ buildPythonPackage rec {
     click
     msgpack
     mkdocs-exclude
-  ] ++ lib.optionals (pythonOlder "3.11") [ typing-extensions ];
+  ] ++ lib.optionals (pythonOlder "3.11") [typing-extensions];
 
   nativeCheckInputs = [
     jinja2
@@ -68,12 +68,12 @@ buildPythonPackage rec {
       "tests/snapshot_tests/test_snapshots.py"
     ];
 
-  pythonImportsCheck = [ "textual" ];
+  pythonImportsCheck = ["textual"];
 
   meta = with lib; {
     description = "TUI framework for Python inspired by modern web development";
     homepage = "https://github.com/Textualize/textual";
     license = licenses.mit;
-    maintainers = with maintainers; [ joelkoen ];
+    maintainers = with maintainers; [joelkoen];
   };
 }

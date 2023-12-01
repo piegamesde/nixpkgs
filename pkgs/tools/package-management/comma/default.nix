@@ -22,7 +22,7 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-4Epy5ZPyitRVTHEFVlRo66GvxJVBddlOII/7yqjuK9k=";
 
-  nativeBuildInputs = [ makeBinaryWrapper ];
+  nativeBuildInputs = [makeBinaryWrapper];
 
   postInstall = ''
     wrapProgram $out/bin/comma \
@@ -36,7 +36,7 @@ rustPlatform.buildRustPackage rec {
   '';
 
   passthru.tests = {
-    version = testers.testVersion { package = comma; };
+    version = testers.testVersion {package = comma;};
   };
 
   meta = with lib; {

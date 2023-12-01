@@ -176,7 +176,7 @@ stdenv.mkDerivation rec {
     description = "An open source deep learning framework for on-device inference.";
     homepage = "https://www.tensorflow.org/lite";
     license = licenses.asl20;
-    maintainers = with maintainers; [ cpcloud ];
+    maintainers = with maintainers; [cpcloud];
     platforms = [
       "x86_64-linux"
       "aarch64-linux"

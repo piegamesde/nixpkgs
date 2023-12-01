@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
       })
     ];
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   # tcmalloc uses libunwind in a way that works correctly only on non-ARM dynamically linked linux
   buildInputs =
@@ -56,6 +56,6 @@ stdenv.mkDerivation rec {
     description = "Fast, multi-threaded malloc() and nifty performance analysis tools";
     platforms = platforms.all;
     license = licenses.bsd3;
-    maintainers = with maintainers; [ vcunat ];
+    maintainers = with maintainers; [vcunat];
   };
 }

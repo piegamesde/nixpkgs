@@ -27,7 +27,7 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   postPatch = ''
     substituteInPlace pytest.ini \
@@ -35,12 +35,12 @@ buildPythonPackage rec {
     sed -i '/flake8-ignore/d' pytest.ini
   '';
 
-  pythonImportsCheck = [ "josepy" ];
+  pythonImportsCheck = ["josepy"];
 
   meta = with lib; {
     description = "JOSE protocol implementation in Python";
     homepage = "https://github.com/jezdez/josepy";
     license = licenses.asl20;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

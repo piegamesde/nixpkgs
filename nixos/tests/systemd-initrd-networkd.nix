@@ -1,14 +1,14 @@
 import ./make-test-python.nix (
-  { pkgs, lib, ... }:
+  {pkgs, lib, ...}:
   {
     name = "systemd-initrd-network";
-    meta.maintainers = [ lib.maintainers.elvishjerricco ];
+    meta.maintainers = [lib.maintainers.elvishjerricco];
 
     nodes =
       let
         mkFlushTest =
           flush: script:
-          { ... }:
+          {...}:
           {
             boot.initrd.systemd.enable = true;
             boot.initrd.network = {
@@ -16,7 +16,7 @@ import ./make-test-python.nix (
               flushBeforeStage2 = flush;
             };
             systemd.services.check-flush = {
-              requiredBy = [ "multi-user.target" ];
+              requiredBy = ["multi-user.target"];
               before = [
                 "network-pre.target"
                 "multi-user.target"
@@ -34,7 +34,7 @@ import ./make-test-python.nix (
       in
       {
         basic =
-          { ... }:
+          {...}:
           {
             boot.initrd.network.enable = true;
 
@@ -43,8 +43,8 @@ import ./make-test-python.nix (
               # Enable network-online to fail the test in case of timeout
               network.wait-online.timeout = 10;
               network.wait-online.anyInterface = true;
-              targets.network-online.requiredBy = [ "initrd.target" ];
-              services.systemd-networkd-wait-online.requiredBy = [ "network-online.target" ];
+              targets.network-online.requiredBy = ["initrd.target"];
+              services.systemd-networkd-wait-online.requiredBy = ["network-online.target"];
 
               initrdBin = [
                 pkgs.iproute2
@@ -52,9 +52,9 @@ import ./make-test-python.nix (
                 pkgs.gnugrep
               ];
               services.check = {
-                requiredBy = [ "initrd.target" ];
-                before = [ "initrd.target" ];
-                after = [ "network-online.target" ];
+                requiredBy = ["initrd.target"];
+                before = ["initrd.target"];
+                after = ["network-online.target"];
                 serviceConfig.Type = "oneshot";
                 path = [
                   pkgs.iproute2

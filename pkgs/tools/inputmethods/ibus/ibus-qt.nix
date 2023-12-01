@@ -30,13 +30,13 @@ stdenv.mkDerivation rec {
     icu
   ];
 
-  cmakeFlags = [ "-DQT_PLUGINS_DIR=lib/qt4/plugins" ];
+  cmakeFlags = ["-DQT_PLUGINS_DIR=lib/qt4/plugins"];
 
   meta = with lib; {
     homepage = "https://github.com/ibus/ibus-qt/";
     description = "Qt4 interface to the ibus input method";
     platforms = platforms.linux;
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ gebner ];
+    maintainers = with maintainers; [gebner];
   };
 }

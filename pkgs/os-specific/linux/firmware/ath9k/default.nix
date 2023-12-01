@@ -176,7 +176,7 @@ stdenv.mkDerivation (
            ];
       */
 
-      sourceProvenance = [ lib.sourceTypes.fromSource ];
+      sourceProvenance = [lib.sourceTypes.fromSource];
       homepage = "http://lists.infradead.org/mailman/listinfo/ath9k_htc_fw";
       downloadPage = "https://github.com/qca/open-ath9k-htc-firmware";
       changelog = "https://github.com/qca/open-ath9k-htc-firmware/tags";

@@ -35,14 +35,14 @@ buildPythonPackage rec {
     six
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   postPatch = ''
     substituteInPlace tox.ini \
       --replace " --cov --showlocals --verbose" ""
   '';
 
-  pythonImportsCheck = [ "update_dotdee" ];
+  pythonImportsCheck = ["update_dotdee"];
 
   disabledTests =
     [
@@ -54,6 +54,6 @@ buildPythonPackage rec {
     description = "Generic modularized configuration file manager";
     homepage = "https://github.com/xolox/python-update-dotdee";
     license = licenses.mit;
-    maintainers = with maintainers; [ eyjhb ];
+    maintainers = with maintainers; [eyjhb];
   };
 }

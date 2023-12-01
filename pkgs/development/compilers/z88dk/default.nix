@@ -74,7 +74,7 @@ stdenv.mkDerivation rec {
     homepage = "https://www.z88dk.org";
     description = "z80 Development Kit";
     license = licenses.clArtistic;
-    maintainers = [ maintainers.siraben ];
+    maintainers = [maintainers.siraben];
     platforms = platforms.unix;
   };
 }

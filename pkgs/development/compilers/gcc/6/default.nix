@@ -71,7 +71,7 @@ assert langGo -> langCC;
 assert langAda -> gnat-bootstrap != null;
 
 # threadsCross is just for MinGW
-assert threadsCross != { } -> stdenv.targetPlatform.isWindows;
+assert threadsCross != {} -> stdenv.targetPlatform.isWindows;
 
 # profiledCompiler builds inject non-determinism in one of the compilation stages.
 # If turned on, we can't provide reproducible builds anymore
@@ -87,7 +87,7 @@ let
   inherit (stdenv) buildPlatform hostPlatform targetPlatform;
 
   patches =
-    [ ../9/fix-struct-redefinition-on-glibc-2.36.patch ]
+    [../9/fix-struct-redefinition-on-glibc-2.36.patch]
     ++ optionals (!stdenv.targetPlatform.isRedox) [
       ../use-source-date-epoch.patch
       ./0001-Fix-build-for-glibc-2.31.patch
@@ -118,7 +118,7 @@ let
       }
     )
 
-    ++ [ ../libsanitizer-no-cyclades-9.patch ];
+    ++ [../libsanitizer-no-cyclades-9.patch];
 
   javaEcj = fetchurl {
     # The `$(top_srcdir)/ecj.jar' file is automatically picked up at
@@ -248,7 +248,7 @@ assert x11Support
         libart_lgpl
       ]
       ++ xlibs
-    )) == [ ];
+    )) == [];
 
 stdenv.mkDerivation (
   {
@@ -352,7 +352,7 @@ stdenv.mkDerivation (
       crossMingw
       ;
 
-    inherit (callFile ../common/dependencies.nix { })
+    inherit (callFile ../common/dependencies.nix {})
       depsBuildBuild
       nativeBuildInputs
       depsBuildTarget
@@ -362,7 +362,7 @@ stdenv.mkDerivation (
 
     NIX_LDFLAGS = lib.optionalString hostPlatform.isSunOS "-lm";
 
-    preConfigure = callFile ../common/pre-configure.nix { };
+    preConfigure = callFile ../common/pre-configure.nix {};
 
     dontDisableStatic = true;
 
@@ -372,7 +372,7 @@ stdenv.mkDerivation (
       "target"
     ];
 
-    configureFlags = callFile ../common/configure-flags.nix { };
+    configureFlags = callFile ../common/configure-flags.nix {};
 
     targetConfig = if targetPlatform != hostPlatform then targetPlatform.config else null;
 
@@ -380,7 +380,7 @@ stdenv.mkDerivation (
       if profiledCompiler then "profiledbootstrap" else "bootstrap"
     );
 
-    inherit (callFile ../common/strip-attributes.nix { }) stripDebugList stripDebugListTarget preFixup;
+    inherit (callFile ../common/strip-attributes.nix {}) stripDebugList stripDebugListTarget preFixup;
 
     doCheck = false; # requires a lot of tools, causes a dependency cycle for stdenv
 
@@ -403,7 +403,7 @@ stdenv.mkDerivation (
 
     CPATH = optionals (targetPlatform == hostPlatform) (
       makeSearchPathOutput "dev" "include" (
-        [ ]
+        []
         ++ optional (zlib != null) zlib
         ++ optional langJava boehmgc
         ++ optionals javaAwtGtk xlibs
@@ -416,7 +416,7 @@ stdenv.mkDerivation (
 
     LIBRARY_PATH = optionals (targetPlatform == hostPlatform) (
       makeLibraryPath (
-        [ ]
+        []
         ++ optional (zlib != null) zlib
         ++ optional langJava boehmgc
         ++ optionals javaAwtGtk xlibs
@@ -427,7 +427,7 @@ stdenv.mkDerivation (
       )
     );
 
-    inherit (callFile ../common/extra-target-flags.nix { })
+    inherit (callFile ../common/extra-target-flags.nix {})
       EXTRA_FLAGS_FOR_TARGET
       EXTRA_LDFLAGS_FOR_TARGET
       ;
@@ -444,14 +444,14 @@ stdenv.mkDerivation (
         version
         ;
       isGNU = true;
-      hardeningUnsupportedFlags = [ "fortify3" ];
+      hardeningUnsupportedFlags = ["fortify3"];
     };
 
     enableParallelBuilding = true;
     inherit enableShared enableMultilib;
 
     meta = {
-      inherit (callFile ../common/meta.nix { })
+      inherit (callFile ../common/meta.nix {})
         homepage
         license
         description
@@ -459,7 +459,7 @@ stdenv.mkDerivation (
         platforms
         maintainers
         ;
-      badPlatforms = [ "aarch64-darwin" ];
+      badPlatforms = ["aarch64-darwin"];
     };
   }
 
@@ -474,7 +474,7 @@ stdenv.mkDerivation (
         installTargets = "install-gcc install-target-libgcc";
       }
 
-  // optionalAttrs (enableMultilib) { dontMoveLib64 = true; }
+  // optionalAttrs (enableMultilib) {dontMoveLib64 = true;}
 
   // optionalAttrs (langJava && !stdenv.hostPlatform.isDarwin) {
     postFixup = ''

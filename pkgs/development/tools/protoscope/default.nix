@@ -26,6 +26,6 @@ buildGoModule rec {
     description = "Simple, human-editable language for representing and emitting the Protobuf wire format";
     homepage = "https://github.com/protocolbuffers/protoscope";
     license = licenses.asl20;
-    maintainers = with maintainers; [ aaronjheng ];
+    maintainers = with maintainers; [aaronjheng];
   };
 }

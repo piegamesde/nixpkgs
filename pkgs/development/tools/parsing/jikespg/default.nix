@@ -28,6 +28,6 @@ stdenv.mkDerivation rec {
     description = "The Jikes Parser Generator";
     platforms = platforms.all;
     license = licenses.ipl10;
-    maintainers = with maintainers; [ pSub ];
+    maintainers = with maintainers; [pSub];
   };
 }

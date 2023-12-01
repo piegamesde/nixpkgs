@@ -57,7 +57,7 @@ stdenv.mkDerivation rec {
     description = "a modern web frontend making aria2 easier to use";
     homepage = "http://ariang.mayswind.net/";
     license = licenses.mit;
-    maintainers = with maintainers; [ stunkymonkey ];
+    maintainers = with maintainers; [stunkymonkey];
     platforms = platforms.unix;
   };
 }

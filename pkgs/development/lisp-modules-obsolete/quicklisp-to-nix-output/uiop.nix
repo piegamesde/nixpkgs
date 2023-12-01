@@ -1,12 +1,12 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "uiop";
   version = "3.3.5";
 
   description = "System lacks description";
 
-  deps = [ ];
+  deps = [];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/uiop/2021-08-07/uiop-3.3.5.tgz";
@@ -15,7 +15,7 @@ rec {
 
   packageName = "uiop";
 
-  asdFilesToKeep = [ "uiop.asd" ];
+  asdFilesToKeep = ["uiop.asd"];
   overrides = x: x;
 }
 /* (SYSTEM uiop DESCRIPTION System lacks description SHA256

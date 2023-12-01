@@ -19,10 +19,10 @@ buildPythonPackage rec {
     sha256 = "99b18b28ec414ef9b604ddaed08182e486a400486f31ca56f61d537eed1d17cf";
   };
 
-  nativeBuildInputs = lib.optionals stdenv.isDarwin [ xcbuild ];
+  nativeBuildInputs = lib.optionals stdenv.isDarwin [xcbuild];
 
   propagatedBuildInputs =
-    [ cython ]
+    [cython]
     ++ lib.optionals stdenv.isLinux [
       libusb1
       udev
@@ -42,7 +42,7 @@ buildPythonPackage rec {
     sed -i -e "s|/usr/include/libusb-1.0|$libusb|" setup.py
   '';
 
-  pythonImportsCheck = [ "hid" ];
+  pythonImportsCheck = ["hid"];
 
   meta = with lib; {
     description = "A Cython interface to the hidapi from https://github.com/libusb/hidapi";

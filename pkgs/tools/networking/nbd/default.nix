@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
   buildInputs = [
     glib
     gnutls
-  ] ++ lib.optionals stdenv.isLinux [ linuxHeaders ];
+  ] ++ lib.optionals stdenv.isLinux [linuxHeaders];
 
   nativeBuildInputs = [
     pkg-config

@@ -26,7 +26,7 @@ buildGoModule rec {
     "-X=github.com/robinovitch61/wander/cmd.Version=v${version}"
   ];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = ''
     installShellCompletion --cmd wander \

@@ -10,7 +10,7 @@ let
       projectDir = ./.;
       overrides = [
         poetry2nix.defaultPoetryOverrides
-        (import ./poetry-git-overlay.nix { inherit pkgs; })
+        (import ./poetry-git-overlay.nix {inherit pkgs;})
         (self: super: {
 
           irrd = super.irrd.overridePythonAttrs (
@@ -23,17 +23,17 @@ let
                 description = "Internet Routing Registry daemon version 4 is an IRR database server, processing IRR objects in the RPSL format.";
                 license = lib.licenses.mit;
                 homepage = "https://github.com/irrdnet/irrd";
-                maintainers = [ lib.maintainers.n0emis ];
+                maintainers = [lib.maintainers.n0emis];
               };
             }
           );
 
           coredis = super.coredis.overridePythonAttrs (
-            old: { buildInputs = old.buildInputs ++ [ super.setuptools ]; }
+            old: {buildInputs = old.buildInputs ++ [super.setuptools];}
           );
 
           ariadne = super.ariadne.overridePythonAttrs (
-            old: { buildInputs = old.buildInputs ++ [ super.setuptools ]; }
+            old: {buildInputs = old.buildInputs ++ [super.setuptools];}
           );
         })
       ];

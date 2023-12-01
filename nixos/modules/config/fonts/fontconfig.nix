@@ -36,14 +36,14 @@ let
 
   # configuration file to read fontconfig cache
   # priority 0
-  cacheConf = makeCacheConf { };
+  cacheConf = makeCacheConf {};
 
   # generate the font cache setting file
   # When cross-compiling, we can’t generate the cache, so we skip the
   # <cachedir> part. fontconfig still works but is a little slower in
   # looking things up.
   makeCacheConf =
-    { }:
+    {}:
     let
       makeCache =
         fontconfig:
@@ -113,7 +113,7 @@ let
     let
       genDefault =
         fonts: name:
-        optionalString (fonts != [ ]) ''
+        optionalString (fonts != []) ''
           <alias binding="same">
             <family>${name}</family>
             <prefer>
@@ -195,7 +195,7 @@ let
   '';
 
   # fontconfig configuration package
-  confPkg = pkgs.runCommand "fontconfig-conf" { preferLocalBuild = true; } ''
+  confPkg = pkgs.runCommand "fontconfig-conf" {preferLocalBuild = true;} ''
     dst=$out/etc/fonts/conf.d
     mkdir -p $dst
 
@@ -402,7 +402,7 @@ in
         confPackages = mkOption {
           internal = true;
           type = with types; listOf path;
-          default = [ ];
+          default = [];
           description = lib.mdDoc ''
             Fontconfig configuration packages.
           '';
@@ -430,7 +430,7 @@ in
         defaultFonts = {
           monospace = mkOption {
             type = types.listOf types.str;
-            default = [ "DejaVu Sans Mono" ];
+            default = ["DejaVu Sans Mono"];
             description = lib.mdDoc ''
               System-wide default monospace font(s). Multiple fonts may be
               listed in case multiple languages must be supported.
@@ -439,7 +439,7 @@ in
 
           sansSerif = mkOption {
             type = types.listOf types.str;
-            default = [ "DejaVu Sans" ];
+            default = ["DejaVu Sans"];
             description = lib.mdDoc ''
               System-wide default sans serif font(s). Multiple fonts may be
               listed in case multiple languages must be supported.
@@ -448,7 +448,7 @@ in
 
           serif = mkOption {
             type = types.listOf types.str;
-            default = [ "DejaVu Serif" ];
+            default = ["DejaVu Serif"];
             description = lib.mdDoc ''
               System-wide default serif font(s). Multiple fonts may be listed
               in case multiple languages must be supported.
@@ -457,7 +457,7 @@ in
 
           emoji = mkOption {
             type = types.listOf types.str;
-            default = [ "Noto Color Emoji" ];
+            default = ["Noto Color Emoji"];
             description = lib.mdDoc ''
               System-wide default emoji font(s). Multiple fonts may be listed
               in case a font does not support all emoji.
@@ -599,7 +599,7 @@ in
   };
   config = mkMerge [
     (mkIf cfg.enable {
-      environment.systemPackages = [ pkgs.fontconfig ];
+      environment.systemPackages = [pkgs.fontconfig];
       environment.etc.fonts.source = "${fontconfigEtc}/etc/fonts/";
       security.apparmor.includes."abstractions/fonts" = ''
         # fonts.conf
@@ -636,6 +636,6 @@ in
         ''}
       '';
     })
-    (mkIf cfg.enable { fonts.fontconfig.confPackages = [ confPkg ]; })
+    (mkIf cfg.enable {fonts.fontconfig.confPackages = [confPkg];})
   ];
 }

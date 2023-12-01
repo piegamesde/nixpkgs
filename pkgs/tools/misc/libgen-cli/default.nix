@@ -20,9 +20,9 @@ buildGoModule rec {
 
   doCheck = false;
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   ldflags = [
     "-s"
@@ -45,6 +45,6 @@ buildGoModule rec {
       contents.
     '';
     license = licenses.asl20;
-    maintainers = with maintainers; [ zaninime ];
+    maintainers = with maintainers; [zaninime];
   };
 }

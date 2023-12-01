@@ -1,4 +1,4 @@
-{ lib, kdeIntegration, ... }:
+{lib, kdeIntegration, ...}:
 attrs: {
   postConfigure =
     attrs.postConfigure

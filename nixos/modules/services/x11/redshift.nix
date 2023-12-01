@@ -152,7 +152,7 @@ in
 
     extraOptions = mkOption {
       type = types.listOf types.str;
-      default = [ ];
+      default = [];
       example = [
         "-v"
         "-m randr"
@@ -166,7 +166,7 @@ in
 
   config = mkIf cfg.enable {
     # needed so that .desktop files are installed, which geoclue cares about
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
     services.geoclue2.appConfig.redshift = {
       isAllowed = true;
@@ -183,8 +183,8 @@ in
       in
       {
         description = "Redshift colour temperature adjuster";
-        wantedBy = [ "graphical-session.target" ];
-        partOf = [ "graphical-session.target" ];
+        wantedBy = ["graphical-session.target"];
+        partOf = ["graphical-session.target"];
         serviceConfig = {
           ExecStart = ''
             ${cfg.package}${cfg.executable} \

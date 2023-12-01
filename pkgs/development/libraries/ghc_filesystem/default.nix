@@ -16,12 +16,12 @@ stdenv.mkDerivation rec {
     hash = "sha256-j4RE5Ach7C7Kef4+H9AHSXa2L8OVyJljDwBduKcC4eE=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   meta = with lib; {
     description = "header-only single-file C++ std::filesystem compatible helper library";
     homepage = "https://github.com/gulrak/filesystem";
     license = licenses.mit;
-    maintainers = with maintainers; [ lourkeur ];
+    maintainers = with maintainers; [lourkeur];
   };
 }

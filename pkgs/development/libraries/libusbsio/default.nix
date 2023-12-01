@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
     rm -r bin/*
   '';
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     libusb1
     systemdMinimal # libudev

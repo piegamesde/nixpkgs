@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   dontConfigure = true;
 
@@ -33,6 +33,6 @@ stdenv.mkDerivation rec {
     description = "A programming language for several LEGO MINDSTORMS products including the RCX, CyberMaster, and Scout";
     platforms = platforms.linux;
     license = licenses.mpl10;
-    maintainers = with maintainers; [ christophcharles ];
+    maintainers = with maintainers; [christophcharles];
   };
 }

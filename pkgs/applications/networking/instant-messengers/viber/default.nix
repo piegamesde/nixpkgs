@@ -41,8 +41,8 @@ stdenv.mkDerivation {
     sha256 = "sha256-hOz+EQc2OOlLTPa2kOefPJMUyWvSvrgqgPgBKjWE3p8=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ dpkg ];
+  nativeBuildInputs = [makeWrapper];
+  buildInputs = [dpkg];
 
   dontUnpack = true;
 
@@ -128,9 +128,9 @@ stdenv.mkDerivation {
   meta = {
     homepage = "https://www.viber.com";
     description = "An instant messaging and Voice over IP (VoIP) app";
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
     license = lib.licenses.unfree;
-    platforms = [ "x86_64-linux" ];
-    maintainers = with lib.maintainers; [ jagajaga ];
+    platforms = ["x86_64-linux"];
+    maintainers = with lib.maintainers; [jagajaga];
   };
 }

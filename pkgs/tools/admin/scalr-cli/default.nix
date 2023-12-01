@@ -38,7 +38,7 @@ buildGoModule rec {
     homepage = "https://github.com/Scalr/scalr-cli";
     changelog = "https://github.com/Scalr/scalr-cli/releases/tag/v${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ dylanmtaylor ];
+    maintainers = with maintainers; [dylanmtaylor];
     mainProgram = "scalr";
     platforms = platforms.unix;
   };

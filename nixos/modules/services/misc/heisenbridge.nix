@@ -13,7 +13,7 @@ let
   pkg = config.services.heisenbridge.package;
   bin = "${pkg}/bin/heisenbridge";
 
-  jsonType = (pkgs.formats.json { }).type;
+  jsonType = (pkgs.formats.json {}).type;
 
   registrationFile = "/var/lib/heisenbridge/registration.yml";
   # JSON is a proper subset of YAML
@@ -89,7 +89,7 @@ in
     namespaces = mkOption {
       description = lib.mdDoc "Configure the 'namespaces' section of the registration.yml for the bridge and the server";
       # TODO link to Matrix documentation of the format
-      type = types.submodule { freeformType = jsonType; };
+      type = types.submodule {freeformType = jsonType;};
 
       default = {
         users = [
@@ -98,8 +98,8 @@ in
             exclusive = true;
           }
         ];
-        aliases = [ ];
-        rooms = [ ];
+        aliases = [];
+        rooms = [];
       };
     };
 
@@ -113,15 +113,15 @@ in
     extraArgs = mkOption {
       type = types.listOf types.str;
       description = lib.mdDoc "Heisenbridge is configured over the command line. Append extra arguments here";
-      default = [ ];
+      default = [];
     };
   };
 
   config = mkIf cfg.enable {
     systemd.services.heisenbridge = {
       description = "Matrix<->IRC bridge";
-      before = [ "matrix-synapse.service" ]; # So the registration file can be used by Synapse
-      wantedBy = [ "multi-user.target" ];
+      before = ["matrix-synapse.service"]; # So the registration file can be used by Synapse
+      wantedBy = ["multi-user.target"];
 
       preStart = ''
         umask 077
@@ -170,7 +170,7 @@ in
             "--identd-port"
             (toString cfg.identd.port)
           ])
-          ++ [ (lib.escapeShellArg cfg.homeserver) ]
+          ++ [(lib.escapeShellArg cfg.homeserver)]
           ++ (map (lib.escapeShellArg) cfg.extraArgs)
         );
 
@@ -202,7 +202,7 @@ in
         UMask = "0077";
 
         CapabilityBoundingSet =
-          [ "CAP_CHOWN" ]
+          ["CAP_CHOWN"]
           ++ optional (cfg.port < 1024 || (cfg.identd.enable && cfg.identd.port < 1024))
             "CAP_NET_BIND_SERVICE";
         AmbientCapabilities = CapabilityBoundingSet;
@@ -219,7 +219,7 @@ in
       };
     };
 
-    users.groups.heisenbridge = { };
+    users.groups.heisenbridge = {};
     users.users.heisenbridge = {
       description = "Service user for the Heisenbridge";
       group = "heisenbridge";
@@ -227,5 +227,5 @@ in
     };
   };
 
-  meta.maintainers = [ lib.maintainers.piegames ];
+  meta.maintainers = [lib.maintainers.piegames];
 }

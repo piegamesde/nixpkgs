@@ -82,7 +82,7 @@ stdenv.mkDerivation rec {
     "FPC=${startFPC}/bin/fpc"
   ];
 
-  installFlags = [ "INSTALL_PREFIX=\${out}" ];
+  installFlags = ["INSTALL_PREFIX=\${out}"];
 
   postInstall = ''
     for i in $out/lib/fpc/*/ppc*; do
@@ -104,7 +104,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Free Pascal Compiler from a source distribution";
     homepage = "https://www.freepascal.org";
-    maintainers = [ maintainers.raskin ];
+    maintainers = [maintainers.raskin];
     license = with licenses; [
       gpl2
       lgpl2

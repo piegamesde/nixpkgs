@@ -50,9 +50,9 @@ mkDerivation rec {
 
   sourceRoot = "source";
 
-  nativeBuildInputs = [ qmake ];
+  nativeBuildInputs = [qmake];
 
-  buildInputs = [ qtwebengine ];
+  buildInputs = [qtwebengine];
 
   postUnpack = ''
     for dep in AuxiliarCustomWidgets QPinnableTabWidget QLogger git; do
@@ -61,15 +61,15 @@ mkDerivation rec {
     done
   '';
 
-  qmakeFlags = [ "GitQlient.pro" ];
+  qmakeFlags = ["GitQlient.pro"];
 
-  passthru.updateScript = gitUpdater { rev-prefix = "v"; };
+  passthru.updateScript = gitUpdater {rev-prefix = "v";};
 
   meta = with lib; {
     homepage = "https://github.com/francescmm/GitQlient";
     description = "Multi-platform Git client written with Qt";
     license = licenses.lgpl2Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ romildo ];
+    maintainers = with maintainers; [romildo];
   };
 }

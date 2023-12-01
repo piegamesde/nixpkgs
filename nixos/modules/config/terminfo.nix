@@ -39,14 +39,14 @@ with lib;
       )
     );
 
-    environment.pathsToLink = [ "/share/terminfo" ];
+    environment.pathsToLink = ["/share/terminfo"];
 
     environment.etc.terminfo = {
       source = "${config.system.path}/share/terminfo";
     };
 
     environment.profileRelativeSessionVariables = {
-      TERMINFO_DIRS = [ "/share/terminfo" ];
+      TERMINFO_DIRS = ["/share/terminfo"];
     };
 
     environment.extraInit = ''

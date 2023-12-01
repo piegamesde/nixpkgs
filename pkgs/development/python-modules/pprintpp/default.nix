@@ -44,13 +44,13 @@ buildPythonPackage rec {
     ${python.interpreter} test.py
   '';
 
-  pythonImportsCheck = [ "pprintpp" ];
+  pythonImportsCheck = ["pprintpp"];
 
   meta = with lib; {
     description = "A drop-in replacement for pprint that's actually pretty";
     homepage = "https://github.com/wolever/pprintpp";
     changelog = "https://github.com/wolever/pprintpp/blob/${version}/CHANGELOG.txt";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ jakewaksbaum ];
+    maintainers = with maintainers; [jakewaksbaum];
   };
 }

@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-kehkMCYBfj0AiKZxD7EcT2F0d+gm6+TF/lhqpjFH/JI=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   propagatedBuildInputs = [
     erlang
@@ -38,8 +38,8 @@ stdenv.mkDerivation rec {
 
     # Add Template Toolkit and gnuplot to tsung_stats.pl
     wrapProgram $out/bin/tsung_stats.pl \
-        --prefix PATH : ${lib.makeBinPath [ gnuplot ]} \
-        --set PERL5LIB "${perlPackages.makePerlPath [ perlPackages.TemplateToolkit ]}"
+        --prefix PATH : ${lib.makeBinPath [gnuplot]} \
+        --set PERL5LIB "${perlPackages.makePerlPath [perlPackages.TemplateToolkit]}"
   '';
 
   meta = with lib; {
@@ -52,7 +52,7 @@ stdenv.mkDerivation rec {
       AMQP, MQTT, LDAP and Jabber/XMPP servers.
     '';
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ uskudnik ];
+    maintainers = with maintainers; [uskudnik];
     platforms = platforms.unix;
   };
 }

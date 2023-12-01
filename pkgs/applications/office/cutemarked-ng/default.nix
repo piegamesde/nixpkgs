@@ -52,7 +52,7 @@ stdenv.mkDerivation rec {
     description = "A Qt-based, free and open source markdown editor";
     homepage = "https://github.com/Waqar144/CuteMarkEd-NG";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ rewine ];
+    maintainers = with maintainers; [rewine];
     platforms = platforms.linux;
   };
 }

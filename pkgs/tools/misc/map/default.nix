@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-yGzmhZwv1qKy0JNcSzqL996APQO8OGWQ1GBkEkKTOXA=";
   };
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   postInstall = ''
     mkdir -p "$out/share/doc/${pname}"
@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
     description = "Map lines from stdin to commands";
     homepage = "https://github.com/soveran/map";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ pogobanane ];
+    maintainers = with maintainers; [pogobanane];
     platforms = platforms.unix;
   };
 }

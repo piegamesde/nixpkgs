@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
     sha256 = "0w8rxh1sa5amxr87qmzs4m2p06b1b36wn2q127mg427sbkh1rwni";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
   buildInputs = [
     cups
     ghostscript
@@ -93,10 +93,10 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "http://www.brother.com/";
     description = "Brother HL-L2390DW combined print driver";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.unfree;
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
     downloadPage = "http://support.brother.com/g/b/downloadlist.aspx?c=us_ot&lang=en&prod=hll2390dw_us&os=128";
-    maintainers = [ maintainers.samueldr ];
+    maintainers = [maintainers.samueldr];
   };
 }

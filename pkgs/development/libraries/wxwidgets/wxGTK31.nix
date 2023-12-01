@@ -50,7 +50,7 @@ stdenv.mkDerivation rec {
       ./patches/0001-fix-assertion-using-hide-in-destroy.patch
     ];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs =
     [
@@ -143,7 +143,7 @@ stdenv.mkDerivation rec {
       database support, HTML viewing and printing, and much more.
     '';
     license = licenses.wxWindows;
-    maintainers = with maintainers; [ tfmoraes ];
+    maintainers = with maintainers; [tfmoraes];
     platforms = platforms.unix;
   };
 }

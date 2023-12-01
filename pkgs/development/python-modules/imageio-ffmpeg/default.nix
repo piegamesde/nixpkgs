@@ -37,12 +37,12 @@ buildPythonPackage rec {
     runHook postCheck
   '';
 
-  pythonImportsCheck = [ "imageio_ffmpeg" ];
+  pythonImportsCheck = ["imageio_ffmpeg"];
 
   meta = with lib; {
     description = "FFMPEG wrapper for Python";
     homepage = "https://github.com/imageio/imageio-ffmpeg";
     license = licenses.bsd2;
-    maintainers = [ maintainers.pmiddend ];
+    maintainers = [maintainers.pmiddend];
   };
 }

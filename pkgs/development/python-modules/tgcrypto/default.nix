@@ -22,16 +22,16 @@ buildPythonPackage rec {
     hash = "sha256-u+mXzkmM79NBi4oHnb32RbN9WPnba/cm1q2Ko0uNEZg=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "tgcrypto" ];
+  pythonImportsCheck = ["tgcrypto"];
 
   meta = with lib; {
     description = "Fast and Portable Telegram Crypto Library for Python";
     homepage = "https://github.com/pyrogram/tgcrypto";
     license = licenses.lgpl3Plus;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

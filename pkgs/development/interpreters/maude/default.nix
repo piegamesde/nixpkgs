@@ -45,7 +45,7 @@ stdenv.mkDerivation {
   ];
 
   hardeningDisable =
-    [ "stackprotector" ]
+    ["stackprotector"]
     ++ lib.optionals stdenv.isi686 [
       "pic"
       "fortify"
@@ -53,7 +53,7 @@ stdenv.mkDerivation {
 
   # Fix for glibc-2.34, see
   # https://gitweb.gentoo.org/repo/gentoo.git/commit/dev-lang/maude/maude-3.1-r1.ebuild?id=f021cc6cfa1e35eb9c59955830f1fd89bfcb26b4
-  configureFlags = [ "--without-libsigsegv" ];
+  configureFlags = ["--without-libsigsegv"];
 
   # Certain tests (in particular, Misc/fileTest) expect us to build in a subdirectory
   # We'll use the directory Opt/ as suggested in INSTALL
@@ -93,6 +93,6 @@ stdenv.mkDerivation {
     '';
 
     platforms = lib.platforms.unix;
-    maintainers = [ lib.maintainers.peti ];
+    maintainers = [lib.maintainers.peti];
   };
 }

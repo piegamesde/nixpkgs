@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-9obo897Td9e8h9IWqQ6elRLfQVbnWwbGVaFmSK6HZbI=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   buildCommand = ''
     jar=$out/share/java/cfr_${version}.jar
@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
       entirely in Java 6.
     '';
     homepage = "http://www.benf.org/other/cfr/";
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with sourceTypes; [binaryBytecode];
     license = licenses.mit;
     platforms = platforms.all;
   };

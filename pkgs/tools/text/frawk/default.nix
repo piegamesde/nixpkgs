@@ -5,7 +5,7 @@
   libxml2,
   ncurses,
   zlib,
-  features ? [ "default" ],
+  features ? ["default"],
   llvmPackages_12,
 }:
 
@@ -48,6 +48,6 @@ rustPlatform.buildRustPackage rec {
       mit # or
       asl20
     ];
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
   };
 }

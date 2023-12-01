@@ -23,7 +23,7 @@ in
 
 let
   polymlEnableShared =
-    with pkgs; lib.overrideDerivation polyml (attrs: { configureFlags = [ "--enable-shared" ]; });
+    with pkgs; lib.overrideDerivation polyml (attrs: {configureFlags = ["--enable-shared"];});
 in
 
 stdenv.mkDerivation {
@@ -95,6 +95,6 @@ stdenv.mkDerivation {
     homepage = "http://hol.sourceforge.net/";
     license = licenses.bsd3;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ mudri ];
+    maintainers = with maintainers; [mudri];
   };
 }

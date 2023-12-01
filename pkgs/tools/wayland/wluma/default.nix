@@ -42,7 +42,7 @@ rustPlatform.buildRustPackage rec {
 
   postInstall = ''
     wrapProgram $out/bin/wluma \
-      --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [ vulkan-loader ]}"
+      --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [vulkan-loader]}"
   '';
 
   meta = with lib; {

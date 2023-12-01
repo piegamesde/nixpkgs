@@ -14,14 +14,14 @@ buildPythonPackage rec {
     hash = "sha256-3YqHlEuOKFcuPRJr+yyBopSFlFdfUjfu/TZRrgtIcVU=";
   };
 
-  propagatedBuildInputs = [ pyyaml ];
+  propagatedBuildInputs = [pyyaml];
 
-  pythonImportsCheck = [ "pyngrok" ];
+  pythonImportsCheck = ["pyngrok"];
 
   meta = with lib; {
     homepage = "https://github.com/alexdlaird/pyngrok";
     description = "A Python wrapper for ngrok";
     license = licenses.mit;
-    maintainers = with maintainers; [ wegank ];
+    maintainers = with maintainers; [wegank];
   };
 }

@@ -11,7 +11,7 @@ with lib;
 
 let
   # the demo agent isn't built by default, but we need it here
-  package = pkgs.geoclue2.override { withDemoAgent = config.services.geoclue2.enableDemoAgent; };
+  package = pkgs.geoclue2.override {withDemoAgent = config.services.geoclue2.enableDemoAgent;};
 
   cfg = config.services.geoclue2;
 
@@ -21,7 +21,7 @@ let
   ];
 
   appConfigModule = types.submodule (
-    { name, ... }:
+    {name, ...}:
     {
       options = {
         desktopID = mkOption {
@@ -45,7 +45,7 @@ let
 
         users = mkOption {
           type = types.listOf types.str;
-          default = [ ];
+          default = [];
           description = lib.mdDoc ''
             List of UIDs of all users for which this application is allowed location
             info access, Defaults to an empty string to allow it for all users.
@@ -178,7 +178,7 @@ in
 
       appConfig = mkOption {
         type = types.attrsOf appConfigModule;
-        default = { };
+        default = {};
         example = literalExpression ''
           "com.github.app" = {
             isAllowed = true;
@@ -196,11 +196,11 @@ in
   ###### implementation
   config = mkIf cfg.enable {
 
-    environment.systemPackages = [ package ];
+    environment.systemPackages = [package];
 
-    services.dbus.packages = [ package ];
+    services.dbus.packages = [package];
 
-    systemd.packages = [ package ];
+    systemd.packages = [package];
 
     # we cannot use DynamicUser as we need the the geoclue user to exist for the
     # dbus policy to work
@@ -212,13 +212,13 @@ in
         description = "Geoinformation service";
       };
 
-      groups.geoclue = { };
+      groups.geoclue = {};
     };
 
     systemd.services.geoclue = {
-      after = lib.optionals cfg.enableWifi [ "network-online.target" ];
+      after = lib.optionals cfg.enableWifi ["network-online.target"];
       # restart geoclue service when the configuration changes
-      restartTriggers = [ config.environment.etc."geoclue/geoclue.conf".source ];
+      restartTriggers = [config.environment.etc."geoclue/geoclue.conf".source];
       serviceConfig.StateDirectory = "geoclue";
     };
 
@@ -230,8 +230,8 @@ in
         # this should really be `partOf = [ "geoclue.service" ]`, but
         # we can't be part of a system service, and the agent should
         # be okay with the main service coming and going
-        wantedBy = [ "default.target" ];
-        after = lib.optionals cfg.enableWifi [ "network-online.target" ];
+        wantedBy = ["default.target"];
+        after = lib.optionals cfg.enableWifi ["network-online.target"];
         unitConfig.ConditionUser = "!@system";
         serviceConfig = {
           Type = "exec";
@@ -252,7 +252,7 @@ in
       isSystem = false;
     };
 
-    environment.etc."geoclue/geoclue.conf".text = generators.toINI { } (
+    environment.etc."geoclue/geoclue.conf".text = generators.toINI {} (
       {
         agent = {
           whitelist = concatStringsSep ";" (
@@ -283,5 +283,5 @@ in
     );
   };
 
-  meta = with lib; { maintainers = with maintainers; [ ] ++ teams.pantheon.members; };
+  meta = with lib; {maintainers = with maintainers; [] ++ teams.pantheon.members;};
 }

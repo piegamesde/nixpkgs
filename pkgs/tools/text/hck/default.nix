@@ -18,7 +18,7 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-TpwUO0BL8kambnxAUE9+l6YYkNL1WzmkTYn1YxjufdY=";
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   meta = with lib; {
     description = "A close to drop in replacement for cut that can use a regex delimiter instead of a fixed string";
@@ -28,6 +28,6 @@ rustPlatform.buildRustPackage rec {
       mit # or
       unlicense
     ];
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
   };
 }

@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
     sha256 = "0fkhvfraijbrw806pgij41bn1hc3r7l7l3snkicmshxj83lmsd5k";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     install -Dm755 imgur-screenshot $out/bin/imgur-screenshot
@@ -46,6 +46,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/jomo/imgur-screenshot/";
     platforms = platforms.linux;
     license = licenses.mit;
-    maintainers = with maintainers; [ lw ];
+    maintainers = with maintainers; [lw];
   };
 }

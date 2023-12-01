@@ -9,9 +9,9 @@ buildPythonPackage rec {
   pname = "mysqlclient";
   version = "2.1.1";
 
-  nativeBuildInputs = [ libmysqlclient ];
+  nativeBuildInputs = [libmysqlclient];
 
-  buildInputs = [ libmysqlclient ];
+  buildInputs = [libmysqlclient];
 
   # Tests need a MySQL database
   doCheck = false;
@@ -25,6 +25,6 @@ buildPythonPackage rec {
     description = "Python interface to MySQL";
     homepage = "https://github.com/PyMySQL/mysqlclient-python";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ y0no ];
+    maintainers = with maintainers; [y0no];
   };
 }

@@ -55,7 +55,7 @@ let
       gradle
       perl
     ];
-    patches = [ ./0001-Fetch-buildconfig-during-gradle-build-inside-Nix-FOD.patch ];
+    patches = [./0001-Fetch-buildconfig-during-gradle-build-inside-Nix-FOD.patch];
     buildPhase = ''
       export GRADLE_USER_HOME=$(mktemp -d)
       gradle --no-daemon build
@@ -86,7 +86,7 @@ let
         $out/com/fasterxml/jackson/dataformat/jackson-dataformat-toml/2.14.0/jackson-dataformat-toml-2.14.0.jar
     '';
     # Don't move info to share/
-    forceShare = [ "dummy" ];
+    forceShare = ["dummy"];
     outputHashAlgo = "sha256";
     outputHashMode = "recursive";
     # Downloaded jars differ by platform
@@ -129,7 +129,7 @@ stdenv.mkDerivation {
     mkdir -p $out
     tar xvf ./build/distributions/signald.tar --strip-components=1 --directory $out/
     wrapProgram $out/bin/signald \
-      --prefix PATH : ${lib.makeBinPath [ coreutils ]} \
+      --prefix PATH : ${lib.makeBinPath [coreutils]} \
       --set JAVA_HOME "${jre'}"
 
     runHook postInstall

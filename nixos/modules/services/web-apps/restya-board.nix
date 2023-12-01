@@ -268,11 +268,9 @@ in
       serviceConfig.Type = "oneshot";
       serviceConfig.RemainAfterExit = true;
 
-      wantedBy = [ "multi-user.target" ];
-      requires = if cfg.database.host == null then [ ] else [ "postgresql.service" ];
-      after = [
-        "network.target"
-      ] ++ (if cfg.database.host == null then [ ] else [ "postgresql.service" ]);
+      wantedBy = ["multi-user.target"];
+      requires = if cfg.database.host == null then [] else ["postgresql.service"];
+      after = ["network.target"] ++ (if cfg.database.host == null then [] else ["postgresql.service"]);
 
       script = ''
         rm -rf "${runDir}"
@@ -341,9 +339,9 @@ in
 
     systemd.timers.restya-board = {
       description = "restya-board scripts for e.g. email notification";
-      wantedBy = [ "timers.target" ];
-      after = [ "restya-board-init.service" ];
-      requires = [ "restya-board-init.service" ];
+      wantedBy = ["timers.target"];
+      after = ["restya-board-init.service"];
+      requires = ["restya-board-init.service"];
       timerConfig = {
         OnUnitInactiveSec = "60s";
         Unit = "restya-board-timers.service";
@@ -355,8 +353,8 @@ in
       serviceConfig.Type = "oneshot";
       serviceConfig.User = cfg.user;
 
-      after = [ "restya-board-init.service" ];
-      requires = [ "restya-board-init.service" ];
+      after = ["restya-board-init.service"];
+      requires = ["restya-board-init.service"];
 
       script = ''
         /bin/sh ${runDir}/server/php/shell/instant_email_notification.sh 2> /dev/null || true
@@ -373,7 +371,7 @@ in
       home = runDir;
       group = "restya-board";
     };
-    users.groups.restya-board = { };
+    users.groups.restya-board = {};
 
     services.postgresql.enable = mkIf (cfg.database.host == null) true;
 

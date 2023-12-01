@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
     serialdv
   ];
 
-  cmakeFlags = [ "-DUSE_MBELIB=ON" ];
+  cmakeFlags = ["-DUSE_MBELIB=ON"];
 
   postFixup = ''
     substituteInPlace "$out"/lib/pkgconfig/libdsdcc.pc \
@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
     description = "Digital Speech Decoder (DSD) rewritten as a C++ library";
     homepage = "https://github.com/f4exb/dsdcc";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ alexwinter ];
+    maintainers = with maintainers; [alexwinter];
     platforms = platforms.unix;
   };
 }

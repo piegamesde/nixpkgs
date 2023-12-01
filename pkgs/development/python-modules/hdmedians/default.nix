@@ -21,7 +21,7 @@ buildPythonPackage rec {
     cython
     nose
   ];
-  propagatedBuildInputs = [ numpy ];
+  propagatedBuildInputs = [numpy];
 
   # cannot resolve path for packages in tests
   doCheck = false;
@@ -34,6 +34,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/daleroberts/hdmedians";
     description = "High-dimensional medians";
     license = licenses.gpl3;
-    maintainers = [ maintainers.costrouc ];
+    maintainers = [maintainers.costrouc];
   };
 }

@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
     screen
   ];
 
-  configureFlags = [ "--disable-history" ];
+  configureFlags = ["--disable-history"];
 
   prePatch = ''
     substituteInPlace etc/Makefile.am \
@@ -62,6 +62,6 @@ stdenv.mkDerivation rec {
       as well as rug (e.g. openSUSE) and yum (e.g. CentOS) based systems.
     '';
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ c0bw3b ];
+    maintainers = with maintainers; [c0bw3b];
   };
 }

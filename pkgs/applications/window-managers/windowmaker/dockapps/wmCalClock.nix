@@ -36,13 +36,13 @@ stdenv.mkDerivation rec {
     install -d ${placeholder "out"}/man/man1
   '';
 
-  installFlags = [ "DESTDIR=${placeholder "out"}" ];
+  installFlags = ["DESTDIR=${placeholder "out"}"];
 
   meta = with lib; {
     description = "A Calendar clock with antialiased text";
     homepage = "https://www.dockapps.net/wmcalclock";
     license = licenses.gpl2Plus;
-    maintainers = [ maintainers.bstrik ];
+    maintainers = [maintainers.bstrik];
     platforms = platforms.linux;
   };
 }

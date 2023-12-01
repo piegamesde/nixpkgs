@@ -11,7 +11,7 @@
 
 sbt.overrideDerivation (
   old: {
-    nativeBuildInputs = [ makeWrapper ];
+    nativeBuildInputs = [makeWrapper];
 
     version = "0.13.16";
 

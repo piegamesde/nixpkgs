@@ -41,7 +41,7 @@ stdenvNoCC.mkDerivation (
         packaging process into a single, easy-to-use command.
       '';
       license = licenses.mit;
-      maintainers = with maintainers; [ ken-matsui ];
+      maintainers = with maintainers; [ken-matsui];
       platforms = platforms.all;
     };
   }

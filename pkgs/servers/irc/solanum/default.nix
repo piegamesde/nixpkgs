@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-g8hXmxTfcPDmQ/cu4AI/iJfrhPLaQJEAeMdDhNDsVXs=";
   };
 
-  patches = [ ./dont-create-logdir.patch ];
+  patches = [./dont-create-logdir.patch];
 
   postPatch = ''
     substituteInPlace include/defaults.h --replace 'ETCPATH "' '"/etc/solanum'
@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
     "--localstatedir=/var/lib"
     "--with-rundir=/run"
     "--with-logdir=/var/log"
-  ] ++ lib.optionals (stdenv.isLinux) [ "--enable-sctp=${lksctp-tools.out}/lib" ];
+  ] ++ lib.optionals (stdenv.isLinux) ["--enable-sctp=${lksctp-tools.out}/lib"];
 
   nativeBuildInputs = [
     autoreconfHook
@@ -65,7 +65,7 @@ stdenv.mkDerivation rec {
     description = "An IRCd for unified networks";
     homepage = "https://github.com/solanum-ircd/solanum";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
     platforms = platforms.unix;
   };
 }

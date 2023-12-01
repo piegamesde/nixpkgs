@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
     valgrind
     sourceHighlight
   ];
-  buildInputs = [ libtraceevent ];
+  buildInputs = [libtraceevent];
   makeFlags = [
     "prefix=${placeholder "out"}"
     "doc" # build docs
@@ -61,6 +61,6 @@ stdenv.mkDerivation rec {
     homepage = "https://git.kernel.org/pub/scm/libs/libtrace/libtracefs.git/";
     license = licenses.lgpl21Only;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ wentasah ];
+    maintainers = with maintainers; [wentasah];
   };
 }

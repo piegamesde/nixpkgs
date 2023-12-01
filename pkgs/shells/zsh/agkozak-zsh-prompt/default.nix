@@ -31,6 +31,6 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://github.com/agkozak/agkozak-zsh-prompt";
     license = licenses.mit;
     platforms = platforms.all;
-    maintainers = with maintainers; [ ambroisie ];
+    maintainers = with maintainers; [ambroisie];
   };
 }

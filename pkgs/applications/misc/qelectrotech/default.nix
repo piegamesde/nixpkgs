@@ -42,7 +42,7 @@ mkDerivation rec {
     qtbase
   ];
 
-  qmakeFlags = [ "INSTALLROOT=$(out)" ];
+  qmakeFlags = ["INSTALLROOT=$(out)"];
 
   installPhase = ''
     runHook preInstall
@@ -70,7 +70,7 @@ mkDerivation rec {
     description = "Free software to create electric diagrams";
     homepage = "https://qelectrotech.org/";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ yvesf ];
+    maintainers = with maintainers; [yvesf];
     platforms = qtbase.meta.platforms;
     broken = stdenv.isDarwin;
   };

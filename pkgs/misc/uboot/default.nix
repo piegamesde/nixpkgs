@@ -38,9 +38,9 @@ let
       installDir ? "$out",
       defconfig,
       extraConfig ? "",
-      extraPatches ? [ ],
-      extraMakeFlags ? [ ],
-      extraMeta ? { },
+      extraPatches ? [],
+      extraMakeFlags ? [],
+      extraMeta ? {},
       ...
     }@args:
     stdenv.mkDerivation (
@@ -81,7 +81,7 @@ let
           swig
           which # for scripts/dtc-version.sh
         ];
-        depsBuildBuild = [ buildPackages.stdenv.cc ];
+        depsBuildBuild = [buildPackages.stdenv.cc];
 
         buildInputs = [
           ncurses # tools/kwboot
@@ -89,7 +89,7 @@ let
           gnutls # tools/mkeficapsule
         ];
 
-        hardeningDisable = [ "all" ];
+        hardeningDisable = ["all"];
 
         enableParallelBuilding = true;
 
@@ -98,7 +98,7 @@ let
           "CROSS_COMPILE=${stdenv.cc.targetPrefix}"
         ] ++ extraMakeFlags;
 
-        passAsFile = [ "extraConfig" ];
+        passAsFile = ["extraConfig"];
 
         configurePhase = ''
           runHook preConfigure
@@ -143,7 +143,7 @@ let
           }
           // extraMeta;
       }
-      // removeAttrs args [ "extraMeta" ]
+      // removeAttrs args ["extraMeta"]
     )
   );
 in
@@ -153,7 +153,7 @@ in
   ubootTools = buildUBoot {
     defconfig = "tools-only_defconfig";
     installDir = "$out/bin";
-    hardeningDisable = [ ];
+    hardeningDisable = [];
     dontStrip = false;
     extraMeta.platforms = lib.platforms.linux;
     extraMakeFlags = [
@@ -173,19 +173,19 @@ in
 
   ubootA20OlinuxinoLime = buildUBoot {
     defconfig = "A20-OLinuXino-Lime_defconfig";
-    extraMeta.platforms = [ "armv7l-linux" ];
-    filesToInstall = [ "u-boot-sunxi-with-spl.bin" ];
+    extraMeta.platforms = ["armv7l-linux"];
+    filesToInstall = ["u-boot-sunxi-with-spl.bin"];
   };
 
   ubootA20OlinuxinoLime2EMMC = buildUBoot {
     defconfig = "A20-OLinuXino-Lime2-eMMC_defconfig";
-    extraMeta.platforms = [ "armv7l-linux" ];
-    filesToInstall = [ "u-boot-sunxi-with-spl.bin" ];
+    extraMeta.platforms = ["armv7l-linux"];
+    filesToInstall = ["u-boot-sunxi-with-spl.bin"];
   };
 
   ubootAmx335xEVM = buildUBoot {
     defconfig = "am335x_evm_defconfig";
-    extraMeta.platforms = [ "armv7l-linux" ];
+    extraMeta.platforms = ["armv7l-linux"];
     filesToInstall = [
       "MLO"
       "u-boot.img"
@@ -194,45 +194,45 @@ in
 
   ubootBananaPi = buildUBoot {
     defconfig = "Bananapi_defconfig";
-    extraMeta.platforms = [ "armv7l-linux" ];
-    filesToInstall = [ "u-boot-sunxi-with-spl.bin" ];
+    extraMeta.platforms = ["armv7l-linux"];
+    filesToInstall = ["u-boot-sunxi-with-spl.bin"];
   };
 
   ubootBananaPim3 = buildUBoot {
     defconfig = "Sinovoip_BPI_M3_defconfig";
-    extraMeta.platforms = [ "armv7l-linux" ];
-    filesToInstall = [ "u-boot-sunxi-with-spl.bin" ];
+    extraMeta.platforms = ["armv7l-linux"];
+    filesToInstall = ["u-boot-sunxi-with-spl.bin"];
   };
 
   ubootBananaPim64 = buildUBoot {
     defconfig = "bananapi_m64_defconfig";
-    extraMeta.platforms = [ "aarch64-linux" ];
+    extraMeta.platforms = ["aarch64-linux"];
     BL31 = "${armTrustedFirmwareAllwinner}/bl31.bin";
-    filesToInstall = [ "u-boot-sunxi-with-spl.bin" ];
+    filesToInstall = ["u-boot-sunxi-with-spl.bin"];
   };
 
   # http://git.denx.de/?p=u-boot.git;a=blob;f=board/solidrun/clearfog/README;hb=refs/heads/master
   ubootClearfog = buildUBoot {
     defconfig = "clearfog_defconfig";
-    extraMeta.platforms = [ "armv7l-linux" ];
-    filesToInstall = [ "u-boot-spl.kwb" ];
+    extraMeta.platforms = ["armv7l-linux"];
+    filesToInstall = ["u-boot-spl.kwb"];
   };
 
   ubootCubieboard2 = buildUBoot {
     defconfig = "Cubieboard2_defconfig";
-    extraMeta.platforms = [ "armv7l-linux" ];
-    filesToInstall = [ "u-boot-sunxi-with-spl.bin" ];
+    extraMeta.platforms = ["armv7l-linux"];
+    filesToInstall = ["u-boot-sunxi-with-spl.bin"];
   };
 
   ubootGuruplug = buildUBoot {
     defconfig = "guruplug_defconfig";
-    extraMeta.platforms = [ "armv5tel-linux" ];
-    filesToInstall = [ "u-boot.bin" ];
+    extraMeta.platforms = ["armv5tel-linux"];
+    filesToInstall = ["u-boot.bin"];
   };
 
   ubootJetsonTK1 = buildUBoot {
     defconfig = "jetson-tk1_defconfig";
-    extraMeta.platforms = [ "armv7l-linux" ];
+    extraMeta.platforms = ["armv7l-linux"];
     filesToInstall = [
       "u-boot"
       "u-boot.dtb"
@@ -262,8 +262,8 @@ in
     assert stdenv.buildPlatform.system == "x86_64-linux"; # aml_encrypt_gxl is a x86_64 binary
     buildUBoot {
       defconfig = "libretech-cc_defconfig";
-      extraMeta.platforms = [ "aarch64-linux" ];
-      filesToInstall = [ "u-boot.bin" ];
+      extraMeta.platforms = ["aarch64-linux"];
+      filesToInstall = ["u-boot.bin"];
       postBuild = ''
         # Copy binary files & tools from LibreELEC/amlogic-boot-fip, and u-boot build to working dir
         mkdir $out tmp
@@ -299,7 +299,7 @@ in
     defconfig = "nanopc-t4-rk3399_defconfig";
 
     extraMeta = {
-      platforms = [ "aarch64-linux" ];
+      platforms = ["aarch64-linux"];
       license = lib.licenses.unfreeRedistributableFirmware;
     };
     BL31 = "${armTrustedFirmwareRK3399}/bl31.elf";
@@ -315,7 +315,7 @@ in
 
   ubootNovena = buildUBoot {
     defconfig = "novena_defconfig";
-    extraMeta.platforms = [ "armv7l-linux" ];
+    extraMeta.platforms = ["armv7l-linux"];
     filesToInstall = [
       "u-boot-dtb.img"
       "SPL"
@@ -338,7 +338,7 @@ in
     in
     buildUBoot {
       defconfig = "odroid-c2_defconfig";
-      extraMeta.platforms = [ "aarch64-linux" ];
+      extraMeta.platforms = ["aarch64-linux"];
       filesToInstall = [
         "u-boot.bin"
         "u-boot.gxbb"
@@ -376,80 +376,80 @@ in
 
   ubootOdroidXU3 = buildUBoot {
     defconfig = "odroid-xu3_defconfig";
-    extraMeta.platforms = [ "armv7l-linux" ];
-    filesToInstall = [ "u-boot-dtb.bin" ];
+    extraMeta.platforms = ["armv7l-linux"];
+    filesToInstall = ["u-boot-dtb.bin"];
   };
 
   ubootOlimexA64Olinuxino = buildUBoot {
     defconfig = "a64-olinuxino-emmc_defconfig";
-    extraMeta.platforms = [ "aarch64-linux" ];
+    extraMeta.platforms = ["aarch64-linux"];
     BL31 = "${armTrustedFirmwareAllwinner}/bl31.bin";
-    filesToInstall = [ "u-boot-sunxi-with-spl.bin" ];
+    filesToInstall = ["u-boot-sunxi-with-spl.bin"];
   };
 
   ubootOrangePiPc = buildUBoot {
     defconfig = "orangepi_pc_defconfig";
-    extraMeta.platforms = [ "armv7l-linux" ];
-    filesToInstall = [ "u-boot-sunxi-with-spl.bin" ];
+    extraMeta.platforms = ["armv7l-linux"];
+    filesToInstall = ["u-boot-sunxi-with-spl.bin"];
   };
 
   ubootOrangePiZeroPlus2H5 = buildUBoot {
     defconfig = "orangepi_zero_plus2_defconfig";
-    extraMeta.platforms = [ "aarch64-linux" ];
+    extraMeta.platforms = ["aarch64-linux"];
     BL31 = "${armTrustedFirmwareAllwinner}/bl31.bin";
-    filesToInstall = [ "u-boot-sunxi-with-spl.bin" ];
+    filesToInstall = ["u-boot-sunxi-with-spl.bin"];
   };
 
   ubootOrangePiZero = buildUBoot {
     defconfig = "orangepi_zero_defconfig";
-    extraMeta.platforms = [ "armv7l-linux" ];
-    filesToInstall = [ "u-boot-sunxi-with-spl.bin" ];
+    extraMeta.platforms = ["armv7l-linux"];
+    filesToInstall = ["u-boot-sunxi-with-spl.bin"];
   };
 
   ubootOrangePiZero2 = buildUBoot {
     defconfig = "orangepi_zero2_defconfig";
-    extraMeta.platforms = [ "aarch64-linux" ];
+    extraMeta.platforms = ["aarch64-linux"];
     BL31 = "${armTrustedFirmwareAllwinnerH616}/bl31.bin";
-    filesToInstall = [ "u-boot-sunxi-with-spl.bin" ];
+    filesToInstall = ["u-boot-sunxi-with-spl.bin"];
   };
 
   ubootOrangePi3 = buildUBoot {
     defconfig = "orangepi_3_defconfig";
-    extraMeta.platforms = [ "aarch64-linux" ];
+    extraMeta.platforms = ["aarch64-linux"];
     BL31 = "${armTrustedFirmwareAllwinnerH6}/bl31.bin";
-    filesToInstall = [ "u-boot-sunxi-with-spl.bin" ];
+    filesToInstall = ["u-boot-sunxi-with-spl.bin"];
   };
 
   ubootPcduino3Nano = buildUBoot {
     defconfig = "Linksprite_pcDuino3_Nano_defconfig";
-    extraMeta.platforms = [ "armv7l-linux" ];
-    filesToInstall = [ "u-boot-sunxi-with-spl.bin" ];
+    extraMeta.platforms = ["armv7l-linux"];
+    filesToInstall = ["u-boot-sunxi-with-spl.bin"];
   };
 
   ubootPine64 = buildUBoot {
     defconfig = "pine64_plus_defconfig";
-    extraMeta.platforms = [ "aarch64-linux" ];
+    extraMeta.platforms = ["aarch64-linux"];
     BL31 = "${armTrustedFirmwareAllwinner}/bl31.bin";
-    filesToInstall = [ "u-boot-sunxi-with-spl.bin" ];
+    filesToInstall = ["u-boot-sunxi-with-spl.bin"];
   };
 
   ubootPine64LTS = buildUBoot {
     defconfig = "pine64-lts_defconfig";
-    extraMeta.platforms = [ "aarch64-linux" ];
+    extraMeta.platforms = ["aarch64-linux"];
     BL31 = "${armTrustedFirmwareAllwinner}/bl31.bin";
-    filesToInstall = [ "u-boot-sunxi-with-spl.bin" ];
+    filesToInstall = ["u-boot-sunxi-with-spl.bin"];
   };
 
   ubootPinebook = buildUBoot {
     defconfig = "pinebook_defconfig";
-    extraMeta.platforms = [ "aarch64-linux" ];
+    extraMeta.platforms = ["aarch64-linux"];
     BL31 = "${armTrustedFirmwareAllwinner}/bl31.bin";
-    filesToInstall = [ "u-boot-sunxi-with-spl.bin" ];
+    filesToInstall = ["u-boot-sunxi-with-spl.bin"];
   };
 
   ubootPinebookPro = buildUBoot {
     defconfig = "pinebook-pro-rk3399_defconfig";
-    extraMeta.platforms = [ "aarch64-linux" ];
+    extraMeta.platforms = ["aarch64-linux"];
     BL31 = "${armTrustedFirmwareRK3399}/bl31.elf";
     filesToInstall = [
       "u-boot.itb"
@@ -459,20 +459,20 @@ in
 
   ubootQemuAarch64 = buildUBoot {
     defconfig = "qemu_arm64_defconfig";
-    extraMeta.platforms = [ "aarch64-linux" ];
-    filesToInstall = [ "u-boot.bin" ];
+    extraMeta.platforms = ["aarch64-linux"];
+    filesToInstall = ["u-boot.bin"];
   };
 
   ubootQemuArm = buildUBoot {
     defconfig = "qemu_arm_defconfig";
-    extraMeta.platforms = [ "armv7l-linux" ];
-    filesToInstall = [ "u-boot.bin" ];
+    extraMeta.platforms = ["armv7l-linux"];
+    filesToInstall = ["u-boot.bin"];
   };
 
   ubootQemuRiscv64Smode = buildUBoot {
     defconfig = "qemu-riscv64_smode_defconfig";
-    extraMeta.platforms = [ "riscv64-linux" ];
-    filesToInstall = [ "u-boot.bin" ];
+    extraMeta.platforms = ["riscv64-linux"];
+    filesToInstall = ["u-boot.bin"];
   };
 
   ubootQemuX86 = buildUBoot {
@@ -487,49 +487,49 @@ in
       "i686-linux"
       "x86_64-linux"
     ];
-    filesToInstall = [ "u-boot.rom" ];
+    filesToInstall = ["u-boot.rom"];
   };
 
   ubootRaspberryPi = buildUBoot {
     defconfig = "rpi_defconfig";
-    extraMeta.platforms = [ "armv6l-linux" ];
-    filesToInstall = [ "u-boot.bin" ];
+    extraMeta.platforms = ["armv6l-linux"];
+    filesToInstall = ["u-boot.bin"];
   };
 
   ubootRaspberryPi2 = buildUBoot {
     defconfig = "rpi_2_defconfig";
-    extraMeta.platforms = [ "armv7l-linux" ];
-    filesToInstall = [ "u-boot.bin" ];
+    extraMeta.platforms = ["armv7l-linux"];
+    filesToInstall = ["u-boot.bin"];
   };
 
   ubootRaspberryPi3_32bit = buildUBoot {
     defconfig = "rpi_3_32b_defconfig";
-    extraMeta.platforms = [ "armv7l-linux" ];
-    filesToInstall = [ "u-boot.bin" ];
+    extraMeta.platforms = ["armv7l-linux"];
+    filesToInstall = ["u-boot.bin"];
   };
 
   ubootRaspberryPi3_64bit = buildUBoot {
     defconfig = "rpi_3_defconfig";
-    extraMeta.platforms = [ "aarch64-linux" ];
-    filesToInstall = [ "u-boot.bin" ];
+    extraMeta.platforms = ["aarch64-linux"];
+    filesToInstall = ["u-boot.bin"];
   };
 
   ubootRaspberryPi4_32bit = buildUBoot {
     defconfig = "rpi_4_32b_defconfig";
-    extraMeta.platforms = [ "armv7l-linux" ];
-    filesToInstall = [ "u-boot.bin" ];
+    extraMeta.platforms = ["armv7l-linux"];
+    filesToInstall = ["u-boot.bin"];
   };
 
   ubootRaspberryPi4_64bit = buildUBoot {
     defconfig = "rpi_4_defconfig";
-    extraMeta.platforms = [ "aarch64-linux" ];
-    filesToInstall = [ "u-boot.bin" ];
+    extraMeta.platforms = ["aarch64-linux"];
+    filesToInstall = ["u-boot.bin"];
   };
 
   ubootRaspberryPiZero = buildUBoot {
     defconfig = "rpi_0_w_defconfig";
-    extraMeta.platforms = [ "armv6l-linux" ];
-    filesToInstall = [ "u-boot.bin" ];
+    extraMeta.platforms = ["armv6l-linux"];
+    filesToInstall = ["u-boot.bin"];
   };
 
   ubootRock64 =
@@ -548,7 +548,7 @@ in
       ];
       defconfig = "rock64-rk3328_defconfig";
       extraMeta = {
-        platforms = [ "aarch64-linux" ];
+        platforms = ["aarch64-linux"];
         license = lib.licenses.unfreeRedistributableFirmware;
       };
       BL31 = "${armTrustedFirmwareRK3328}/bl31.elf";
@@ -583,7 +583,7 @@ in
         })
       ];
     defconfig = "rockpro64-rk3399_defconfig";
-    extraMeta.platforms = [ "aarch64-linux" ];
+    extraMeta.platforms = ["aarch64-linux"];
     BL31 = "${armTrustedFirmwareRK3399}/bl31.elf";
     filesToInstall = [
       "u-boot.itb"
@@ -593,7 +593,7 @@ in
 
   ubootROCPCRK3399 = buildUBoot {
     defconfig = "roc-pc-rk3399_defconfig";
-    extraMeta.platforms = [ "aarch64-linux" ];
+    extraMeta.platforms = ["aarch64-linux"];
     filesToInstall = [
       "spl/u-boot-spl.bin"
       "u-boot.itb"
@@ -604,22 +604,22 @@ in
 
   ubootSheevaplug = buildUBoot {
     defconfig = "sheevaplug_defconfig";
-    extraMeta.platforms = [ "armv5tel-linux" ];
-    filesToInstall = [ "u-boot.kwb" ];
+    extraMeta.platforms = ["armv5tel-linux"];
+    filesToInstall = ["u-boot.kwb"];
   };
 
   ubootSopine = buildUBoot {
     defconfig = "sopine_baseboard_defconfig";
-    extraMeta.platforms = [ "aarch64-linux" ];
+    extraMeta.platforms = ["aarch64-linux"];
     BL31 = "${armTrustedFirmwareAllwinner}/bl31.bin";
-    filesToInstall = [ "u-boot-sunxi-with-spl.bin" ];
+    filesToInstall = ["u-boot-sunxi-with-spl.bin"];
   };
 
   ubootUtilite = buildUBoot {
     defconfig = "cm_fx6_defconfig";
-    extraMeta.platforms = [ "armv7l-linux" ];
-    filesToInstall = [ "u-boot-with-nand-spl.imx" ];
-    buildFlags = [ "u-boot-with-nand-spl.imx" ];
+    extraMeta.platforms = ["armv7l-linux"];
+    filesToInstall = ["u-boot-with-nand-spl.imx"];
+    buildFlags = ["u-boot-with-nand-spl.imx"];
     extraConfig = ''
       CONFIG_CMD_SETEXPR=y
     '';
@@ -629,7 +629,7 @@ in
 
   ubootWandboard = buildUBoot {
     defconfig = "wandboard_defconfig";
-    extraMeta.platforms = [ "armv7l-linux" ];
+    extraMeta.platforms = ["armv7l-linux"];
     filesToInstall = [
       "u-boot.img"
       "SPL"
@@ -638,7 +638,7 @@ in
 
   ubootRockPi4 = buildUBoot {
     defconfig = "rock-pi-4-rk3399_defconfig";
-    extraMeta.platforms = [ "aarch64-linux" ];
+    extraMeta.platforms = ["aarch64-linux"];
     BL31 = "${armTrustedFirmwareRK3399}/bl31.elf";
     filesToInstall = [
       "u-boot.itb"

@@ -21,12 +21,12 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-m4nXtU9+9StCvVGmoKLTsbBszjld8smdjx9H+TVeK+4=";
   };
 
-  nativeBuildInputs = [ erlang ];
+  nativeBuildInputs = [erlang];
   buildInputs = [
     icu
     openssl
     spidermonkey_91
-    (python3.withPackages (ps: with ps; [ requests ]))
+    (python3.withPackages (ps: with ps; [requests]))
   ];
   postPatch = ''
     substituteInPlace src/couch/rebar.config.script --replace '/usr/include/mozjs-91' "${spidermonkey_91.dev}/include/mozjs-91"
@@ -34,8 +34,8 @@ stdenv.mkDerivation rec {
   '';
 
   dontAddPrefix = "True";
-  configureFlags = [ "--spidermonkey-version=91" ];
-  buildFlags = [ "release" ];
+  configureFlags = ["--spidermonkey-version=91"];
+  buildFlags = ["release"];
 
   installPhase = ''
     mkdir -p $out
@@ -51,6 +51,6 @@ stdenv.mkDerivation rec {
     homepage = "https://couchdb.apache.org";
     license = licenses.asl20;
     platforms = platforms.all;
-    maintainers = with maintainers; [ lostnet ];
+    maintainers = with maintainers; [lostnet];
   };
 }

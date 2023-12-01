@@ -14,9 +14,9 @@ stdenv.mkDerivation rec {
     sha256 = "0k1b59wdv9h50gbyy88qw3cnpdm8hv0nrl0znm92h9a11i5b39ip";
   };
 
-  buildInputs = [ which ];
+  buildInputs = [which];
 
-  patches = [ ./no-root.patch ];
+  patches = [./no-root.patch];
 
   # Workaround build failure on -fno-common toolchains like upstream
   # gcc-10. Otherwise build fails as:
@@ -43,7 +43,7 @@ stdenv.mkDerivation rec {
     description = "Open source host-based instrusion detection system";
     homepage = "https://www.ossec.net";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     platforms = platforms.linux;
   };
 }

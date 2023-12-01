@@ -12,7 +12,7 @@ stdenv.mkDerivation rec {
   pname = "pws";
   version = (import ./gemset.nix).pws.version;
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   dontUnpack = true;
 

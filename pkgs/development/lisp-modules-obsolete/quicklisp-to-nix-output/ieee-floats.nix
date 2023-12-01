@@ -1,14 +1,14 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "ieee-floats";
   version = "20170830-git";
 
-  parasites = [ "ieee-floats-tests" ];
+  parasites = ["ieee-floats-tests"];
 
   description = "Convert floating point values to IEEE 754 binary representation";
 
-  deps = [ args."fiveam" ];
+  deps = [args."fiveam"];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/ieee-floats/2017-08-30/ieee-floats-20170830-git.tgz";
@@ -17,7 +17,7 @@ rec {
 
   packageName = "ieee-floats";
 
-  asdFilesToKeep = [ "ieee-floats.asd" ];
+  asdFilesToKeep = ["ieee-floats.asd"];
   overrides = x: x;
 }
 /* (SYSTEM ieee-floats DESCRIPTION

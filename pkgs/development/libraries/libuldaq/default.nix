@@ -24,9 +24,9 @@ stdenv.mkDerivation rec {
       ./0001-uldaq.patch
     ];
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
-  buildInputs = [ libusb1 ];
+  buildInputs = [libusb1];
 
   meta = with lib; {
     description = "Library to talk to uldaq devices";
@@ -37,6 +37,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/mccdaq/uldaq";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = [ maintainers.simonkampe ];
+    maintainers = [maintainers.simonkampe];
   };
 }

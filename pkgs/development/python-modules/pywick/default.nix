@@ -62,13 +62,13 @@ buildPythonPackage rec {
     yacs
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = {
     description = "High-level training framework for Pytorch";
     homepage = "https://github.com/achaiah/pywick";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ bcdarwin ];
+    maintainers = with lib.maintainers; [bcdarwin];
     broken = true; # Nixpkgs missing `albumentations` and `prodict`
   };
 }

@@ -27,10 +27,10 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-tbDlWP0sUIa0W9HhdYNOvo9cGeqFemclhA7quh7f/Rw=";
 
-  nativeBuildInputs = [ pkg-config ] ++ lib.optionals stdenv.isDarwin [ rustPlatform.bindgenHook ];
+  nativeBuildInputs = [pkg-config] ++ lib.optionals stdenv.isDarwin [rustPlatform.bindgenHook];
 
   buildInputs =
-    [ openssl ]
+    [openssl]
     ++ lib.optional withALSA alsa-lib
     ++ lib.optional withPortAudio portaudio
     ++ lib.optional withPulseAudio libpulseaudio;
@@ -46,7 +46,7 @@ rustPlatform.buildRustPackage rec {
     description = "Open Source Spotify client library and playback daemon";
     homepage = "https://github.com/librespot-org/librespot";
     changelog = "https://github.com/librespot-org/librespot/blob/v${version}/CHANGELOG.md";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ bennofs ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [bennofs];
   };
 }

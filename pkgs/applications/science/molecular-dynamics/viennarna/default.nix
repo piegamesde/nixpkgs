@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
     description = "Prediction and comparison of RNA secondary structures";
     homepage = "https://www.tbi.univie.ac.at/RNA/";
     license = licenses.unfree;
-    maintainers = with maintainers; [ prusnak ];
+    maintainers = with maintainers; [prusnak];
     platforms = platforms.unix;
   };
 }

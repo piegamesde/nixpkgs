@@ -59,19 +59,19 @@ buildPythonPackage rec {
   ];
 
   passthru.optional-dependencies = {
-    aiohttp = [ aiohttp ];
-    beam = [ apache-beam ];
-    bottle = [ bottle ];
-    celery = [ celery ];
-    chalice = [ chalice ];
-    django = [ django ];
-    falcon = [ falcon ];
+    aiohttp = [aiohttp];
+    beam = [apache-beam];
+    bottle = [bottle];
+    celery = [celery];
+    chalice = [chalice];
+    django = [django];
+    falcon = [falcon];
     flask = [
       flask
       blinker
     ];
-    httpx = [ httpx ];
-    pyspark = [ pyspark ];
+    httpx = [httpx];
+    pyspark = [pyspark];
     pure_eval = [
       asttokens
       executing
@@ -82,10 +82,10 @@ buildPythonPackage rec {
         # quart missing
         blinker
       ];
-    rq = [ rq ];
-    sanic = [ sanic ];
-    sqlalchemy = [ sqlalchemy ];
-    tornado = [ tornado ];
+    rq = [rq];
+    sanic = [sanic];
+    sqlalchemy = [sqlalchemy];
+    tornado = [tornado];
   };
 
   nativeCheckInputs = [
@@ -122,7 +122,7 @@ buildPythonPackage rec {
         "tests/test_transport.py"
       ];
 
-  pythonImportsCheck = [ "sentry_sdk" ];
+  pythonImportsCheck = ["sentry_sdk"];
 
   meta = with lib; {
     description = "Python SDK for Sentry.io";

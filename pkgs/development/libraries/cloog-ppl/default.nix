@@ -15,13 +15,13 @@ stdenv.mkDerivation rec {
     sha256 = "0psdm0bn5gx60glfh955x5b3b23zqrd92idmjr0b00dlnb839mkw";
   };
 
-  propagatedBuildInputs = [ ppl ];
+  propagatedBuildInputs = [ppl];
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
-  patches = [ ./fix-ppl-version.patch ];
+  patches = [./fix-ppl-version.patch];
 
-  configureFlags = [ "--with-ppl=${ppl}" ];
+  configureFlags = ["--with-ppl=${ppl}"];
 
   preAutoreconf = ''
     touch NEWS ChangeLog AUTHORS
@@ -51,7 +51,7 @@ stdenv.mkDerivation rec {
 
     license = lib.licenses.gpl2Plus;
 
-    maintainers = [ ];
+    maintainers = [];
 
     /* Leads to an ICE on Cygwin:
 

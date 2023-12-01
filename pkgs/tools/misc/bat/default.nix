@@ -43,7 +43,7 @@ rustPlatform.buildRustPackage rec {
   # expected with certain flag combinations.
   postFixup = ''
     wrapProgram "$out/bin/bat" \
-      --prefix PATH : "${lib.makeBinPath [ less ]}"
+      --prefix PATH : "${lib.makeBinPath [less]}"
   '';
 
   checkFlags = [

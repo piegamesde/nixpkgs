@@ -52,11 +52,11 @@ buildPythonPackage rec {
     pyusb
     pyyaml
     typing-extensions
-  ] ++ lib.optionals (!stdenv.isLinux) [ hidapi ];
+  ] ++ lib.optionals (!stdenv.isLinux) [hidapi];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "pyocd" ];
+  pythonImportsCheck = ["pyocd"];
 
   postPatch = ''
     substituteInPlace setup.cfg \

@@ -93,9 +93,9 @@ buildPythonPackage rec {
     ];
   };
 
-  nativeCheckInputs = [ pytestCheckHook ] ++ passthru.optional-dependencies.full;
+  nativeCheckInputs = [pytestCheckHook] ++ passthru.optional-dependencies.full;
 
-  pythonImportsCheck = [ "dissect.target" ];
+  pythonImportsCheck = ["dissect.target"];
 
   disabledTests = [
     # Test requires rdump
@@ -117,6 +117,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/fox-it/dissect.target";
     changelog = "https://github.com/fox-it/dissect.target/releases/tag/${version}";
     license = licenses.agpl3Only;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

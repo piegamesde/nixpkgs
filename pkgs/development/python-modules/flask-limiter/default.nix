@@ -84,12 +84,12 @@ buildPythonPackage rec {
       "tests/test_storage.py"
     ];
 
-  pythonImportsCheck = [ "flask_limiter" ];
+  pythonImportsCheck = ["flask_limiter"];
 
   meta = with lib; {
     description = "Rate limiting for flask applications";
     homepage = "https://flask-limiter.readthedocs.org/";
     license = licenses.mit;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

@@ -1,4 +1,4 @@
-{ version, hash }:
+{version, hash}:
 {
   lib,
   stdenv,
@@ -20,7 +20,7 @@
 }:
 
 let
-  underscoreVersion = lib.replaceStrings [ "." ] [ "_" ] version;
+  underscoreVersion = lib.replaceStrings ["."] ["_"] version;
 in
 stdenv.mkDerivation rec {
   pname = "nss";
@@ -31,13 +31,13 @@ stdenv.mkDerivation rec {
     inherit hash;
   };
 
-  depsBuildBuild = [ buildPackages.stdenv.cc ];
+  depsBuildBuild = [buildPackages.stdenv.cc];
 
   nativeBuildInputs =
     [
       perl
       ninja
-      (buildPackages.python3.withPackages (ps: with ps; [ gyp ]))
+      (buildPackages.python3.withPackages (ps: with ps; [gyp]))
     ]
     ++ lib.optionals stdenv.hostPlatform.isDarwin [
       darwin.cctools
@@ -49,7 +49,7 @@ stdenv.mkDerivation rec {
     sqlite
   ];
 
-  propagatedBuildInputs = [ nspr ];
+  propagatedBuildInputs = [nspr];
 
   patches = [
     # Based on http://patch-tracker.debian.org/patch/series/dl/nss/2:3.15.4-1/85_security_load.patch
@@ -62,7 +62,7 @@ stdenv.mkDerivation rec {
     ./fix-cross-compilation.patch
   ];
 
-  patchFlags = [ "-p0" ];
+  patchFlags = ["-p0"];
 
   postPatch =
     ''
@@ -132,7 +132,7 @@ stdenv.mkDerivation rec {
       "-Wno-error"
       ''-DNIX_NSS_LIBDIR="${placeholder "out"}/lib/"''
     ]
-    ++ lib.optionals stdenv.hostPlatform.is64bit [ "-DNSS_USE_64=1" ]
+    ++ lib.optionals stdenv.hostPlatform.is64bit ["-DNSS_USE_64=1"]
     ++ lib.optionals stdenv.hostPlatform.isILP32 [
       "-DNS_PTR_LE_32=1" # See RNG_RandomUpdate() in drdbg.c
     ]
@@ -213,7 +213,7 @@ stdenv.mkDerivation rec {
   passthru.updateScript = ./update.sh;
 
   passthru.tests =
-    lib.optionalAttrs (lib.versionOlder version "3.69") { inherit (nixosTests) firefox-esr-91; }
+    lib.optionalAttrs (lib.versionOlder version "3.69") {inherit (nixosTests) firefox-esr-91;}
     // lib.optionalAttrs (lib.versionAtLeast version "3.69") {
       inherit (nixosTests) firefox firefox-esr-102;
     };

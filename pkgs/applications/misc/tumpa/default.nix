@@ -22,7 +22,7 @@ python3.pkgs.buildPythonApplication rec {
     pyside2
   ];
 
-  nativeBuildInputs = [ wrapQtAppsHook ];
+  nativeBuildInputs = [wrapQtAppsHook];
 
   dontWrapQtApps = true;
   preFixup = ''
@@ -35,7 +35,7 @@ python3.pkgs.buildPythonApplication rec {
     description = "OpenPGP key creation and smartcard access";
     homepage = "https://github.com/kushaldas/tumpa";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ _0x4A6F ];
+    maintainers = with maintainers; [_0x4A6F];
     broken = true;
   };
 }

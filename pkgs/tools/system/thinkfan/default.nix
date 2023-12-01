@@ -47,7 +47,7 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  buildInputs = [ yaml-cpp ] ++ lib.optional smartSupport libatasmart;
+  buildInputs = [yaml-cpp] ++ lib.optional smartSupport libatasmart;
 
   meta = {
     description = "A simple, lightweight fan control program";

@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
     stripRoot = false;
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
   buildInputs = [
     ncurses
     libX11
@@ -79,7 +79,7 @@ stdenv.mkDerivation rec {
   '';
 
   passthru.tests = {
-    saveDirCreation = pkgs.runCommand "save-dir-creation" { } ''
+    saveDirCreation = pkgs.runCommand "save-dir-creation" {} ''
       HOME=$(pwd) ${lib.getExe pkgs.sil} --help
       test -d .sil && touch $out
     '';

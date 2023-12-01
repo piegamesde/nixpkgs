@@ -64,9 +64,9 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://www.authy.com";
     description = "Twilio Authy two factor authentication desktop application";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.unfree;
-    maintainers = with maintainers; [ iammrinal0 ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with maintainers; [iammrinal0];
+    platforms = ["x86_64-linux"];
   };
 }

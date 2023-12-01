@@ -7,13 +7,13 @@
 #
 # Issue: https://github.com/NixOS/nixpkgs/issues/195660
 import ./make-test-python.nix (
-  { lib, pkgs, ... }:
+  {lib, pkgs, ...}:
   {
     name = "btrbk-section-order";
-    meta.maintainers = with lib.maintainers; [ oxalica ];
+    meta.maintainers = with lib.maintainers; [oxalica];
 
     nodes.machine =
-      { ... }:
+      {...}:
       {
         services.btrbk.instances.local = {
           onCalendar = null;

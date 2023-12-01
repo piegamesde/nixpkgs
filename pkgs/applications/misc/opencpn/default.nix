@@ -70,7 +70,7 @@ stdenv.mkDerivation rec {
       cmake
       pkg-config
     ]
-    ++ lib.optionals stdenv.isLinux [ lsb-release ]
+    ++ lib.optionals stdenv.isLinux [lsb-release]
     ++ lib.optionals stdenv.isDarwin [
       DarwinTools
       makeWrapper
@@ -122,10 +122,10 @@ stdenv.mkDerivation rec {
       xorg.libXtst
     ];
 
-  cmakeFlags = [ "-DOCPN_BUNDLE_DOCS=true" ];
+  cmakeFlags = ["-DOCPN_BUNDLE_DOCS=true"];
 
   env.NIX_CFLAGS_COMPILE = toString (
-    lib.optionals (!stdenv.hostPlatform.isx86) [ "-DSQUISH_USE_SSE=0" ]
+    lib.optionals (!stdenv.hostPlatform.isx86) ["-DSQUISH_USE_SSE=0"]
   );
 
   postInstall = lib.optionals stdenv.isDarwin ''

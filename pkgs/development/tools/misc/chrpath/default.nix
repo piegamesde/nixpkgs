@@ -23,6 +23,6 @@ stdenv.mkDerivation rec {
     homepage = "https://tracker.debian.org/pkg/chrpath";
     license = licenses.gpl2;
     platforms = platforms.linux;
-    maintainers = [ maintainers.bjornfor ];
+    maintainers = [maintainers.bjornfor];
   };
 }

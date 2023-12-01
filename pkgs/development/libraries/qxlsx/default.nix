@@ -17,8 +17,8 @@ stdenv.mkDerivation rec {
     hash = "sha256-T+PUeml4O6uwY6DCAsBer4gDo+nrSGGus+yQv02CJcE=";
   };
 
-  nativeBuildInputs = [ cmake ];
-  buildInputs = [ qtbase ];
+  nativeBuildInputs = [cmake];
+  buildInputs = [qtbase];
 
   preConfigure = ''
     cd QXlsx
@@ -30,6 +30,6 @@ stdenv.mkDerivation rec {
     description = "Excel file(*.xlsx) reader/writer library using Qt 5 or 6";
     homepage = "https://qtexcel.github.io/QXlsx";
     license = licenses.mit;
-    maintainers = with maintainers; [ nickcao ];
+    maintainers = with maintainers; [nickcao];
   };
 }

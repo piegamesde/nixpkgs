@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
     "doc"
   ];
 
-  nativeBuildInputs = [ autoPatchelfHook ];
+  nativeBuildInputs = [autoPatchelfHook];
 
   buildInputs = [
     # Load-time libraries (loaded from DT_NEEDED section in ELF binary)
@@ -71,7 +71,7 @@ stdenv.mkDerivation rec {
     description = "Clone of Guitar Hero and Rockband-style games";
     homepage = "https://clonehero.net";
     license = licenses.unfree;
-    maintainers = with maintainers; [ kira-bruneau ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with maintainers; [kira-bruneau];
+    platforms = ["x86_64-linux"];
   };
 }

@@ -41,9 +41,9 @@ in
   doCheck = false;
 
   BUILD_REV_COUNT = src.revCount or 1;
-  RUN_TIME_CLOSURE = pkgs.callPackage ./runtime.nix { };
+  RUN_TIME_CLOSURE = pkgs.callPackage ./runtime.nix {};
 
-  nativeBuildInputs = [ rustPackages.rustfmt ];
+  nativeBuildInputs = [rustPackages.rustfmt];
   buildInputs = lib.optionals stdenv.isDarwin [
     CoreServices
     Security

@@ -33,7 +33,7 @@ rustPlatform.buildRustPackage {
     pkg-config
   ];
 
-  buildInputs = [ oniguruma ];
+  buildInputs = [oniguruma];
 
   env = {
     RUSTONIG_SYSTEM_LIBONIG = true;
@@ -53,6 +53,6 @@ rustPlatform.buildRustPackage {
     description = "Create a video of how a git repository's code changes over time";
     homepage = "https://github.com/sloganking/codemov";
     license = licenses.mit;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
   };
 }

@@ -28,15 +28,15 @@ stdenv.mkDerivation rec {
   #     `ptr'; main.o:/build/btar-1.1.1/loadindex.h:12: first defined here
   env.NIX_CFLAGS_COMPILE = "-fcommon";
 
-  buildInputs = [ librsync ];
+  buildInputs = [librsync];
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   meta = with lib; {
     description = "Tar-compatible block-based archiver";
     license = lib.licenses.gpl3Plus;
     homepage = "https://viric.name/cgi-bin/btar";
     platforms = platforms.all;
-    maintainers = with maintainers; [ viric ];
+    maintainers = with maintainers; [viric];
   };
 }

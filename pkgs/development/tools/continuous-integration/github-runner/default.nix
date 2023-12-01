@@ -72,10 +72,10 @@ buildDotnetModule rec {
       git
       which
     ]
-    ++ lib.optionals stdenv.isLinux [ autoPatchelfHook ]
-    ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [ autoSignDarwinBinariesHook ];
+    ++ lib.optionals stdenv.isLinux [autoPatchelfHook]
+    ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [autoSignDarwinBinariesHook];
 
-  buildInputs = [ stdenv.cc.cc.lib ];
+  buildInputs = [stdenv.cc.cc.lib];
 
   dotnet-sdk = dotnetCorePackages.sdk_6_0;
   dotnet-runtime = dotnetCorePackages.runtime_6_0;
@@ -102,7 +102,7 @@ buildDotnetModule rec {
 
   # Fully qualified name of disabled tests
   disabledTests =
-    [ "GitHub.Runner.Common.Tests.Listener.SelfUpdaterL0.TestSelfUpdateAsync" ]
+    ["GitHub.Runner.Common.Tests.Listener.SelfUpdaterL0.TestSelfUpdateAsync"]
     ++ map (x: "GitHub.Runner.Common.Tests.Listener.SelfUpdaterL0.TestSelfUpdateAsync_${x}") [
       "Cancel_CloneHashTask_WhenNotNeeded"
       "CloneHash_RuntimeAndExternals"
@@ -137,7 +137,7 @@ buildDotnetModule rec {
       "EnsureDotnetsdkBashDownloadScriptUpToDate"
       "EnsureDotnetsdkPowershellDownloadScriptUpToDate"
     ]
-    ++ [ "GitHub.Runner.Common.Tests.Listener.RunnerL0.TestRunOnceHandleUpdateMessage" ]
+    ++ ["GitHub.Runner.Common.Tests.Listener.RunnerL0.TestRunOnceHandleUpdateMessage"]
     # Tests for trimmed runner packages which aim at reducing the update size. Not relevant for Nix.
     ++ map (x: "GitHub.Runner.Common.Tests.PackagesTrimL0.${x}") [
       "RunnerLayoutParts_CheckExternalsHash"
@@ -157,7 +157,7 @@ buildDotnetModule rec {
       "GitHub.Runner.Common.Tests.Worker.WorkerL0.DispatchRunNewJob"
     ];
 
-  testProjectFile = [ "src/Test/Test.csproj" ];
+  testProjectFile = ["src/Test/Test.csproj"];
 
   preCheck = ''
     mkdir -p _layout/externals
@@ -284,6 +284,6 @@ buildDotnetModule rec {
       "x86_64-darwin"
       "aarch64-darwin"
     ];
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
   };
 }

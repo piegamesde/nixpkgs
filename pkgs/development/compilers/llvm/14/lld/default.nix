@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
   inherit version;
 
   # Blank llvm dir just so relative path works
-  src = runCommand "${pname}-src-${version}" { } ''
+  src = runCommand "${pname}-src-${version}" {} ''
     mkdir -p "$out"
     cp -r ${monorepoSrc}/cmake "$out"
     cp -r ${monorepoSrc}/${pname} "$out"
@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
     ./fix-root-src-dir.patch
   ];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     libllvm
     libxml2

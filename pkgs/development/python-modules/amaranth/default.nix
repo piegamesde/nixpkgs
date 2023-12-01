@@ -41,7 +41,7 @@ buildPythonPackage rec {
       # This commit removes support for Python 3.6, which is unnecessary to fix
       # the build when using new setuptools. Include only one file, which has a
       # harmless comment change so that the subsequent patch applies cleanly.
-      includes = [ "amaranth/_toolchain/cxx.py" ];
+      includes = ["amaranth/_toolchain/cxx.py"];
     })
     (fetchpatch {
       name = "fix-for-setuptools-64.0.2.patch";
@@ -90,7 +90,7 @@ buildPythonPackage rec {
       --replace "@jinja2.contextfunction" "@jinja2.pass_context"
   '';
 
-  pythonImportsCheck = [ "amaranth" ];
+  pythonImportsCheck = ["amaranth"];
 
   meta = with lib; {
     description = "A modern hardware definition language and toolchain based on Python";

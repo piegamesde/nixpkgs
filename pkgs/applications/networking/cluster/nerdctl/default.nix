@@ -6,7 +6,7 @@
   installShellFiles,
   buildkit,
   cni-plugins,
-  extraPackages ? [ ],
+  extraPackages ? [],
 }:
 
 buildGoModule rec {
@@ -43,7 +43,7 @@ buildGoModule rec {
 
   postInstall = ''
     wrapProgram $out/bin/nerdctl \
-      --prefix PATH : "${lib.makeBinPath ([ buildkit ] ++ extraPackages)}" \
+      --prefix PATH : "${lib.makeBinPath ([buildkit] ++ extraPackages)}" \
       --prefix CNI_PATH : "${cni-plugins}/bin"
 
     installShellCompletion --cmd nerdctl \

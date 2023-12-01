@@ -25,7 +25,7 @@ buildPythonPackage rec {
   # Tests require InfluxDB server
   doCheck = false;
 
-  pythonImportsCheck = [ "aioinflux" ];
+  pythonImportsCheck = ["aioinflux"];
 
   meta = with lib; {
     description = "Asynchronous Python client for InfluxDB";

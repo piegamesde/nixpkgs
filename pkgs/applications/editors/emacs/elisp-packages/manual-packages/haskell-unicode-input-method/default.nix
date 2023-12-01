@@ -27,7 +27,7 @@ melpaBuild {
      :fetcher github)
   '';
 
-  packageRequires = [ ];
+  packageRequires = [];
 
   meta = {
     homepage = "https://melpa.org/#haskell-unicode-input-method/";

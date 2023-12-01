@@ -29,8 +29,8 @@ with lib;
 
   config = mkIf config.services.hardware.bolt.enable {
 
-    environment.systemPackages = [ pkgs.bolt ];
-    services.udev.packages = [ pkgs.bolt ];
-    systemd.packages = [ pkgs.bolt ];
+    environment.systemPackages = [pkgs.bolt];
+    services.udev.packages = [pkgs.bolt];
+    systemd.packages = [pkgs.bolt];
   };
 }

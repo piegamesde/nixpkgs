@@ -21,7 +21,7 @@ import ./base.nix
           sha256 = "1awfa98ljcf95a85cssahw6bvdnpbq5brf1kgspy14w4mlmhd0jb";
         })
       ];
-    patchFlags = [ "-p3" ];
+    patchFlags = ["-p3"];
   }
   {
     inherit

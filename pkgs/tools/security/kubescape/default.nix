@@ -19,7 +19,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-SPIMI9HJRF9r5wZfdynwcTTZiZ7SxuJjfcfPg6dMsGo=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   ldflags = [
     "-s"
@@ -27,7 +27,7 @@ buildGoModule rec {
     "-X github.com/kubescape/kubescape/v2/core/cautils.BuildNumber=v${version}"
   ];
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   preCheck = ''
     # Feed in all but the integration tests for testing

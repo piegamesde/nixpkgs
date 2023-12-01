@@ -73,9 +73,9 @@ stdenv.mkDerivation {
       stripLen = 5;
     })
   ];
-  patchFlags = [ "-p0" ];
+  patchFlags = ["-p0"];
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
   buildInputs = [
     giflib
     libjpeg
@@ -106,7 +106,7 @@ stdenv.mkDerivation {
     homepage = "http://www.afterstep.org/afterimage/";
     description = "A generic image manipulation library";
     platforms = platforms.unix;
-    maintainers = [ maintainers.veprbl ];
+    maintainers = [maintainers.veprbl];
     license = licenses.lgpl21;
   };
 }

@@ -13,7 +13,7 @@
   ncurses,
 
   # the default test target is sse4, but that is not supported by all Hydra agents
-  testedTargets ? if stdenv.isAarch64 || stdenv.isAarch32 then [ "neon-i32x4" ] else [ "sse2-i32x4" ],
+  testedTargets ? if stdenv.isAarch64 || stdenv.isAarch32 then ["neon-i32x4"] else ["sse2-i32x4"],
 }:
 
 stdenv.mkDerivation rec {
@@ -59,7 +59,7 @@ stdenv.mkDerivation rec {
   # hilariously this is something of a double negative: 'disable' the
   # 'strictoverflow' hardening protection actually means we *allow* the compiler
   # to do strict overflow optimization. somewhat misleading...
-  hardeningDisable = [ "strictoverflow" ];
+  hardeningDisable = ["strictoverflow"];
 
   checkPhase = ''
     export ISPC_HOME=$PWD/bin

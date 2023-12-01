@@ -10,8 +10,8 @@
     p.constraints
     p.linear
   ];
-  extraDependencies = p: { libraryHaskellDepends = [ p.releaser ]; };
-  nativeBuildInputs = [ cabal-install ];
+  extraDependencies = p: {libraryHaskellDepends = [p.releaser];};
+  nativeBuildInputs = [cabal-install];
   phases = [
     "unpackPhase"
     "buildPhase"
@@ -49,9 +49,9 @@
     oldAttrs: {
       meta =
         let
-          oldMeta = oldAttrs.meta or { };
-          oldMaintainers = oldMeta.maintainers or [ ];
-          additionalMaintainers = with lib.maintainers; [ cdepillabout ];
+          oldMeta = oldAttrs.meta or {};
+          oldMaintainers = oldMeta.maintainers or [];
+          additionalMaintainers = with lib.maintainers; [cdepillabout];
           allMaintainers = oldMaintainers ++ additionalMaintainers;
         in
         oldMeta

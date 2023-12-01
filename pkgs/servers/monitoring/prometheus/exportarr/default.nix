@@ -18,7 +18,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-2Eb8FhbRu5M5u8HGa2bgAvZZkwHycBu8UiNKHG5/fFw=";
 
-  subPackages = [ "cmd/exportarr" ];
+  subPackages = ["cmd/exportarr"];
 
   CGO_ENABLE = 0;
 
@@ -27,7 +27,7 @@ buildGoModule rec {
     "-w"
   ];
 
-  tags = lib.optionals stdenv.isLinux [ "netgo" ];
+  tags = lib.optionals stdenv.isLinux ["netgo"];
 
   preCheck = ''
     # Run all tests.
@@ -39,6 +39,6 @@ buildGoModule rec {
     homepage = "https://github.com/onedr0p/exportarr";
     changelog = "https://github.com/onedr0p/exportarr/releases/tag/${src.rev}";
     license = licenses.mit;
-    maintainers = with maintainers; [ azahi ];
+    maintainers = with maintainers; [azahi];
   };
 }

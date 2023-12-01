@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
     patchShebangs scripts tests/scripts
   '';
 
-  cmakeFlags = [ "-DHILTI_DEV_PRECOMPILE_HEADERS=OFF" ];
+  cmakeFlags = ["-DHILTI_DEV_PRECOMPILE_HEADERS=OFF"];
 
   preFixup = ''
     for b in $out/bin/*
@@ -66,6 +66,6 @@ stdenv.mkDerivation rec {
       for all your parsing needs.
     '';
     license = licenses.bsd3;
-    maintainers = with maintainers; [ tobim ];
+    maintainers = with maintainers; [tobim];
   };
 }

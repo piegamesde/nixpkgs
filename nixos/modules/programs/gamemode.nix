@@ -9,7 +9,7 @@ with lib;
 
 let
   cfg = config.programs.gamemode;
-  settingsFormat = pkgs.formats.ini { };
+  settingsFormat = pkgs.formats.ini {};
   configFile = settingsFormat.generate "gamemode.ini" cfg.settings;
 in
 {
@@ -25,7 +25,7 @@ in
 
       settings = mkOption {
         type = settingsFormat.type;
-        default = { };
+        default = {};
         description = lib.mdDoc ''
           System-wide configuration for GameMode (/etc/gamemode.ini).
           See gamemoded(8) man page for available settings.
@@ -55,7 +55,7 @@ in
 
   config = mkIf cfg.enable {
     environment = {
-      systemPackages = [ pkgs.gamemode ];
+      systemPackages = [pkgs.gamemode];
       etc."gamemode.ini".source = configFile;
     };
 
@@ -72,11 +72,11 @@ in
     };
 
     systemd = {
-      packages = [ pkgs.gamemode ];
+      packages = [pkgs.gamemode];
       user.services.gamemoded = {
         # The upstream service already defines this, but doesn't get applied.
         # See https://github.com/NixOS/nixpkgs/issues/81138
-        wantedBy = [ "default.target" ];
+        wantedBy = ["default.target"];
 
         # Use pkexec from the security wrappers to allow users to
         # run libexec/cpugovctl & libexec/gpuclockctl as root with
@@ -102,6 +102,6 @@ in
   };
 
   meta = {
-    maintainers = with maintainers; [ kira-bruneau ];
+    maintainers = with maintainers; [kira-bruneau];
   };
 }

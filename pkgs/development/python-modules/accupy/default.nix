@@ -27,9 +27,9 @@ buildPythonPackage rec {
     sha256 = "0sxkwpp2xy2jgakhdxr4nh1cspqv8l89kz6s832h05pbpyc0n767";
   };
 
-  nativeBuildInputs = [ pybind11 ];
+  nativeBuildInputs = [pybind11];
 
-  buildInputs = [ eigen ];
+  buildInputs = [eigen];
 
   propagatedBuildInputs = [
     mpmath
@@ -64,12 +64,12 @@ buildPythonPackage rec {
     "test_speed_comparison1"
     "test_speed_comparison2"
   ];
-  pythonImportsCheck = [ "accupy" ];
+  pythonImportsCheck = ["accupy"];
 
   meta = with lib; {
     description = "Accurate sums and dot products for Python";
     homepage = "https://github.com/nschloe/accupy";
     license = licenses.mit;
-    maintainers = [ maintainers.costrouc ];
+    maintainers = [maintainers.costrouc];
   };
 }

@@ -1,8 +1,8 @@
 import ../make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   {
     name = "peertube";
-    meta.maintainers = with pkgs.lib.maintainers; [ izorkin ];
+    meta.maintainers = with pkgs.lib.maintainers; [izorkin];
 
     nodes = {
       database = {
@@ -46,7 +46,7 @@ import ../make-test-python.nix (
       };
 
       server =
-        { pkgs, ... }:
+        {pkgs, ...}:
         {
           environment = {
             etc = {
@@ -74,7 +74,7 @@ import ../make-test-python.nix (
             extraHosts = ''
               192.168.2.11 peertube.local
             '';
-            firewall.allowedTCPPorts = [ 9000 ];
+            firewall.allowedTCPPorts = [9000];
           };
 
           services.peertube = {
@@ -111,7 +111,7 @@ import ../make-test-python.nix (
         };
 
       client = {
-        environment.systemPackages = [ pkgs.jq ];
+        environment.systemPackages = [pkgs.jq];
         networking = {
           interfaces.eth1 = {
             ipv4.addresses = [

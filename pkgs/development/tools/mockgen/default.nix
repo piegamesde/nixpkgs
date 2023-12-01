@@ -17,7 +17,7 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-5gkrn+OxbNN8J1lbgbxM8jACtKA7t07sbfJ7gVJWpJM=";
 
-  subPackages = [ "mockgen" ];
+  subPackages = ["mockgen"];
 
   preCheck = ''
     export GOROOT="$(go env GOROOT)"
@@ -27,6 +27,6 @@ buildGoModule rec {
     description = "GoMock is a mocking framework for the Go programming language";
     homepage = "https://github.com/golang/mock";
     license = licenses.asl20;
-    maintainers = with maintainers; [ bouk ];
+    maintainers = with maintainers; [bouk];
   };
 }

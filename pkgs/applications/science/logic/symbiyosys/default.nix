@@ -22,7 +22,7 @@ stdenv.mkDerivation {
     hash = "sha256-S7of2upntiMkSdh4kf1RsrjriS31Eh8iEcVvG36isQg=";
   };
 
-  buildInputs = [ ];
+  buildInputs = [];
   patchPhase = ''
     patchShebangs .
 

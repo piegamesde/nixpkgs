@@ -20,7 +20,7 @@ stdenv.mkDerivation {
     sha256 = "134fq84896w5vp8vg4qg0ybpb466njibigyd7bqqm1xydr07qrgn";
   };
 
-  nativeBuildInputs = [ unzip ];
+  nativeBuildInputs = [unzip];
   buildInputs = [
     libxml2
     file
@@ -28,7 +28,7 @@ stdenv.mkDerivation {
     unrar
   ];
   buildFlags = lib.optional stdenv.cc.isClang "CC=clang";
-  installFlags = [ "PREFIX=\${out}" ];
+  installFlags = ["PREFIX=\${out}"];
 
   patchPhase = ''
     substituteInPlace rarcrack.c --replace "file -i" "${file}/bin/file -i"
@@ -47,7 +47,7 @@ stdenv.mkDerivation {
     '';
     homepage = "https://github.com/jaredsburrows/Rarcrack";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ davidak ];
+    maintainers = with maintainers; [davidak];
     platforms = with platforms; unix;
   };
 }

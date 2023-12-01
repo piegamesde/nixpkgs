@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
     "dev"
   ];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   cmakeFlags =
     [
@@ -35,6 +35,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/EHfive/ldacBT";
     license = licenses.asl20;
     platforms = platforms.all;
-    maintainers = with maintainers; [ adisbladis ];
+    maintainers = with maintainers; [adisbladis];
   };
 }

@@ -39,7 +39,7 @@ stdenvNoCC.mkDerivation (
         of the desktop environment spectrum.
       '';
       license = licenses.bsd3;
-      maintainers = with maintainers; [ AndersonTorres ];
+      maintainers = with maintainers; [AndersonTorres];
       platforms = platforms.all;
     };
   }

@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
     "man"
   ];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs =
     [
@@ -61,7 +61,7 @@ stdenv.mkDerivation rec {
     patchShebangs test
   '';
 
-  hardeningEnable = [ "pie" ];
+  hardeningEnable = ["pie"];
 
   meta = with lib; {
     description = "Sets your computer's clock from time servers on the Net";

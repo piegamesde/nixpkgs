@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-4D2Fezej0ioOOupw3kgMT5VLs+/jXQjwvek6v0AVMzI=";
   };
 
-  nativeBuildInputs = [ dtc ];
+  nativeBuildInputs = [dtc];
   enableParallelBuilding = true;
 
   postPatch = ''
@@ -52,6 +52,6 @@ stdenv.mkDerivation rec {
       "x86_64-linux"
       "aarch64-linux"
     ];
-    maintainers = with maintainers; [ blitz ];
+    maintainers = with maintainers; [blitz];
   };
 }

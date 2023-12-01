@@ -22,13 +22,13 @@ buildPythonPackage rec {
     hash = "sha256-oF2wuvyLYwObVJ4fhJl9b/sdfmQ2ahgKkfd9ZwObfPw=";
   };
 
-  nativeBuildInputs = [ flit-core ];
+  nativeBuildInputs = [flit-core];
 
-  propagatedBuildInputs = [ rich ];
+  propagatedBuildInputs = [rich];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "rich_argparse_plus" ];
+  pythonImportsCheck = ["rich_argparse_plus"];
 
   disabledTests = [
     # Tests are comparing CLI output
@@ -45,6 +45,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/michelcrypt4d4mus/rich-argparse-plus";
     changelog = "https://github.com/michelcrypt4d4mus/rich-argparse-plus/blob/${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

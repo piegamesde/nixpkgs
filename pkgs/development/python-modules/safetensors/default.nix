@@ -54,7 +54,7 @@ buildPythonPackage rec {
     cargoSetupHook
   ];
 
-  buildInputs = lib.optionals stdenv.isDarwin [ libiconv ];
+  buildInputs = lib.optionals stdenv.isDarwin [libiconv];
 
   nativeCheckInputs = [
     h5py
@@ -62,7 +62,7 @@ buildPythonPackage rec {
     pytestCheckHook
     torch
   ];
-  pytestFlagsArray = [ "tests" ];
+  pytestFlagsArray = ["tests"];
   # don't require PaddlePaddle (not in Nixpkgs), Flax, or Tensorflow (onerous) to run tests:
   disabledTestPaths = [
     "tests/test_flax_comparison.py"
@@ -70,13 +70,13 @@ buildPythonPackage rec {
     "tests/test_tf_comparison.py"
   ];
 
-  pythonImportsCheck = [ "safetensors" ];
+  pythonImportsCheck = ["safetensors"];
 
   meta = with lib; {
     homepage = "https://github.com/huggingface/safetensors";
     description = "Fast (zero-copy) and safe (unlike pickle) format for storing tensors";
     changelog = "https://github.com/huggingface/safetensors/releases/tag/v${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ bcdarwin ];
+    maintainers = with maintainers; [bcdarwin];
   };
 }

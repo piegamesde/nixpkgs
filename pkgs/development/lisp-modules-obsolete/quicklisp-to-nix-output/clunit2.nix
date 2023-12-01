@@ -1,12 +1,12 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "clunit2";
   version = "20211020-git";
 
   description = "CLUnit is a Common Lisp unit testing framework.";
 
-  deps = [ ];
+  deps = [];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/clunit2/2021-10-20/clunit2-20211020-git.tgz";
@@ -15,7 +15,7 @@ rec {
 
   packageName = "clunit2";
 
-  asdFilesToKeep = [ "clunit2.asd" ];
+  asdFilesToKeep = ["clunit2.asd"];
   overrides = x: x;
 }
 /* (SYSTEM clunit2 DESCRIPTION CLUnit is a Common Lisp unit testing framework.

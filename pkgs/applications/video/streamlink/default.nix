@@ -23,7 +23,7 @@ python3Packages.buildPythonApplication rec {
     pytest-asyncio
   ];
 
-  nativeBuildInputs = with python3Packages; [ versioningit ];
+  nativeBuildInputs = with python3Packages; [versioningit];
 
   propagatedBuildInputs =
     (
@@ -39,7 +39,7 @@ python3Packages.buildPythonApplication rec {
         certifi
       ]
     )
-    ++ [ ffmpeg ];
+    ++ [ffmpeg];
 
   meta = with lib; {
     homepage = "https://streamlink.github.io/";

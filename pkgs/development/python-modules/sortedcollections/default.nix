@@ -18,19 +18,19 @@ buildPythonPackage rec {
     hash = "sha256-GkZO8afUAgDpDjIa3dhO6nxykqrljeKldunKMODSXfg=";
   };
 
-  propagatedBuildInputs = [ sortedcontainers ];
+  propagatedBuildInputs = [sortedcontainers];
 
   nativeCheckInputs = [
     pytest-cov
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "sortedcollections" ];
+  pythonImportsCheck = ["sortedcollections"];
 
   meta = with lib; {
     description = "Python Sorted Collections";
     homepage = "http://www.grantjenks.com/docs/sortedcollections/";
-    license = with licenses; [ asl20 ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [asl20];
+    maintainers = with maintainers; [fab];
   };
 }

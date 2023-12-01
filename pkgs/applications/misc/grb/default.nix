@@ -15,12 +15,12 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-hQ21DXnkBJVCgGXQKDR+DjaDC3RXS2pNmSLDoHvHA4E=";
   };
 
-  makeFlags = [ "PREFIX=${placeholder "out"}" ];
+  makeFlags = ["PREFIX=${placeholder "out"}"];
 
   meta = with lib; {
     description = "A cli-accessible Greek Bible with the Septuagint, SBL and Apocrypha";
     homepage = "https://github.com/LukeSmithxyz/grb";
     license = licenses.publicDomain;
-    maintainers = [ maintainers.cafkafk ];
+    maintainers = [maintainers.cafkafk];
   };
 }

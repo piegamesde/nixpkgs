@@ -29,7 +29,7 @@ buildPythonPackage rec {
     protobuf
   ];
 
-  nativeCheckInputs = [ pytest ];
+  nativeCheckInputs = [pytest];
 
   # tests requires hardware
   doCheck = false;
@@ -41,6 +41,6 @@ buildPythonPackage rec {
     description = "KeepKey Python client";
     homepage = "https://github.com/keepkey/python-keepkey";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ np ];
+    maintainers = with maintainers; [np];
   };
 }

@@ -61,7 +61,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://partclone.org";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ marcweber ];
+    maintainers = with maintainers; [marcweber];
     platforms = platforms.linux;
   };
 }

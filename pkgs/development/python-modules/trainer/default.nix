@@ -54,7 +54,7 @@ buildPythonPackage {
     torchvision-bin
   ];
 
-  pythonImportsCheck = [ "trainer" ];
+  pythonImportsCheck = ["trainer"];
 
   meta = with lib; {
     description = "A general purpose model trainer, as flexible as it gets";

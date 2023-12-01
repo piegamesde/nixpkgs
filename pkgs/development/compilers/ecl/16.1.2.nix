@@ -71,7 +71,7 @@ stdenv.mkDerivation rec {
     ./ecl-1.16.2-libffi-3.3-abi.patch
   ];
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   postInstall =
     ''

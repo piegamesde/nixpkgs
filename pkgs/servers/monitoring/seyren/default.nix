@@ -17,8 +17,8 @@ stdenv.mkDerivation rec {
 
   dontUnpack = true;
 
-  nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ jre ];
+  nativeBuildInputs = [makeWrapper];
+  buildInputs = [jre];
 
   installPhase = ''
     mkdir -p "$out"/bin
@@ -28,9 +28,9 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "An alerting dashboard for Graphite";
     homepage = "https://github.com/scobal/seyren";
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with sourceTypes; [binaryBytecode];
     license = licenses.asl20;
-    maintainers = [ maintainers.offline ];
+    maintainers = [maintainers.offline];
     platforms = platforms.all;
   };
 }

@@ -31,13 +31,13 @@ buildPythonPackage rec {
     hash = "sha256-U3U/L8UuYrfpm4KwVNmViTbam7QdZd2vp1p+ENtOJlw=";
   };
 
-  propagatedBuildInputs = [ six ];
+  propagatedBuildInputs = [six];
 
   passthru.optional-dependencies = {
-    aiohttp = [ aiohttp ];
-    pydantic = [ pydantic ];
-    flask = [ flask ];
-    yaml = [ pyyaml ];
+    aiohttp = [aiohttp];
+    pydantic = [pydantic];
+    flask = [flask];
+    yaml = [pyyaml];
   };
 
   nativeCheckInputs =
@@ -55,7 +55,7 @@ buildPythonPackage rec {
     ++ passthru.optional-dependencies.yaml
     ++ passthru.optional-dependencies.flask;
 
-  pythonImportsCheck = [ "dependency_injector" ];
+  pythonImportsCheck = ["dependency_injector"];
 
   disabledTestPaths = [
     # Exclude tests for EOL Python releases
@@ -68,6 +68,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/ets-labs/python-dependency-injector";
     changelog = "https://github.com/ets-labs/python-dependency-injector/blob/${version}/docs/main/changelog.rst";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ gerschtli ];
+    maintainers = with maintainers; [gerschtli];
   };
 }

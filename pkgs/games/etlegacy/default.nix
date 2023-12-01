@@ -29,7 +29,7 @@ let
   pkgname = "etlegacy";
   mirror = "https://mirror.etlegacy.com";
   fetchAsset =
-    { asset, sha256 }:
+    {asset, sha256}:
     fetchurl {
       url = mirror + "/etmain/" + asset;
       inherit sha256;
@@ -135,6 +135,6 @@ stdenv.mkDerivation rec {
       licenses.cc-by-nc-sa-30
     ];
     inherit mainProgram;
-    maintainers = with maintainers; [ ashleyghooper ];
+    maintainers = with maintainers; [ashleyghooper];
   };
 }

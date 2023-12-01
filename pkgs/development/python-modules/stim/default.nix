@@ -48,11 +48,11 @@ buildPythonPackage rec {
   meta = {
     description = "A tool for high performance simulation and analysis of quantum stabilizer circuits, especially quantum error correction (QEC) circuits.";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ chrispattison ];
+    maintainers = with lib.maintainers; [chrispattison];
     homepage = "https://github.com/quantumlib/stim";
   };
 
-  pythonImportsCheck = [ "stim" ];
+  pythonImportsCheck = ["stim"];
 
   enableParallelBuilding = true;
 

@@ -19,22 +19,22 @@ buildPythonPackage rec {
     domain = "gitlab.mpcdf.mpg.de";
     owner = "mtr";
     repo = "ducc";
-    rev = "ducc0_${lib.replaceStrings [ "." ] [ "_" ] version}";
+    rev = "ducc0_${lib.replaceStrings ["."] ["_"] version}";
     hash = "sha256-xYjgJGtWl9AjnzlFvdj/0chnIUDmoH85AtKXsNBwWUU=";
   };
 
-  buildInputs = [ pybind11 ];
-  propagatedBuildInputs = [ numpy ];
+  buildInputs = [pybind11];
+  propagatedBuildInputs = [numpy];
 
-  nativeCheckInputs = [ pytestCheckHook ];
-  pytestFlagsArray = [ "python/test" ];
-  pythonImportsCheck = [ "ducc0" ];
+  nativeCheckInputs = [pytestCheckHook];
+  pytestFlagsArray = ["python/test"];
+  pythonImportsCheck = ["ducc0"];
 
   meta = with lib; {
     broken = stdenv.isDarwin;
     homepage = "https://gitlab.mpcdf.mpg.de/mtr/ducc";
     description = "Efficient algorithms for Fast Fourier transforms and more";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ parras ];
+    maintainers = with maintainers; [parras];
   };
 }

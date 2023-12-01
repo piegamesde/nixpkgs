@@ -60,7 +60,7 @@ stdenv.mkDerivation rec {
     patchShebangs --build doc/manual-src/en/mkapiref.py
   '';
 
-  nativeCheckInputs = [ cppunit ];
+  nativeCheckInputs = [cppunit];
   doCheck = false; # needs the net
 
   enableParallelBuilding = true;

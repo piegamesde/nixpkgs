@@ -70,7 +70,7 @@ stdenv.mkDerivation rec {
       perlPackages.Po4a
       w3m
     ]
-    ++ lib.optionals withNLS [ gettext ];
+    ++ lib.optionals withNLS [gettext];
 
   cmakeFlags = [
     "-DBERKELEY_INCLUDE_DIRS=${db.dev}/include"
@@ -86,6 +86,6 @@ stdenv.mkDerivation rec {
     description = "Command-line package management tools used on Debian-based systems";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ cstrahan ];
+    maintainers = with maintainers; [cstrahan];
   };
 }

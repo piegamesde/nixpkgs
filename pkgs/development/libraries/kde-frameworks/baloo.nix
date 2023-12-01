@@ -19,7 +19,7 @@
 
 mkDerivation {
   pname = "baloo";
-  nativeBuildInputs = [ extra-cmake-modules ];
+  nativeBuildInputs = [extra-cmake-modules];
   buildInputs = [
     kauth
     kconfig

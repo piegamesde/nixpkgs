@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-FQgy2+g3AyRVJeniqPQj0KNeHgPdza2pmEIXqSyYry4=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   cmakeFlags =
     [
@@ -31,6 +31,6 @@ stdenv.mkDerivation rec {
     changelog = "https://github.com/akheron/jansson/raw/v${version}/CHANGES";
     license = licenses.mit;
     platforms = platforms.all;
-    maintainers = [ maintainers.marsam ];
+    maintainers = [maintainers.marsam];
   };
 }

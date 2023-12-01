@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "MapServer";
     repo = pname;
-    rev = "rel-${lib.replaceStrings [ "." ] [ "-" ] version}";
+    rev = "rel-${lib.replaceStrings ["."] ["-"] version}";
     sha256 = "sha256-+QP4xXhP+MNqnhMUtMdtKrcuJ0M2BXWu3mbxXzj5ybc=";
   };
 
@@ -75,7 +75,7 @@ stdenv.mkDerivation rec {
     homepage = "https://mapserver.org/mapcache/";
     changelog = "https://www.mapserver.org/development/changelog/mapcache/";
     license = licenses.mit;
-    maintainers = with maintainers; [ sikmir ];
+    maintainers = with maintainers; [sikmir];
     platforms = platforms.unix;
   };
 }

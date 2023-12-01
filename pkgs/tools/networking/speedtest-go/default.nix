@@ -17,7 +17,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-wQqAX7YuxxTiMWmV9LRoXunGMMzs12UyHbf4VvbQF1E=";
 
-  excludedPackages = [ "example" ];
+  excludedPackages = ["example"];
 
   # test suite requires network
   doCheck = false;
@@ -27,6 +27,6 @@ buildGoModule rec {
     homepage = "https://github.com/showwin/speedtest-go";
     changelog = "https://github.com/showwin/speedtest-go/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ aleksana ];
+    maintainers = with maintainers; [aleksana];
   };
 }

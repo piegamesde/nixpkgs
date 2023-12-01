@@ -21,7 +21,7 @@
   enableShared ? !stdenv.hostPlatform.isStatic,
   enableStatic ? stdenv.hostPlatform.isStatic,
   webUISupport ? false,
-  extraGrammars ? { },
+  extraGrammars ? {},
 }:
 
 let
@@ -42,7 +42,7 @@ let
     fetchSubmodules = true;
   };
 
-  update-all-grammars = callPackage ./update.nix { };
+  update-all-grammars = callPackage ./update.nix {};
 
   fetchGrammar =
     (
@@ -57,7 +57,7 @@ let
       }
     );
 
-  grammars = runCommand "grammars" { } (
+  grammars = runCommand "grammars" {} (
     ''
       mkdir $out
     ''
@@ -66,11 +66,11 @@ let
         (name: grammar: ''
           ln -s ${if grammar ? src then grammar.src else fetchGrammar grammar} $out/${name}
         '')
-        (import ./grammars { inherit lib; })
+        (import ./grammars {inherit lib;})
     ))
   );
 
-  buildGrammar = callPackage ./grammar.nix { };
+  buildGrammar = callPackage ./grammar.nix {};
 
   builtGrammars =
     let
@@ -82,7 +82,7 @@ let
           src = grammar.src or (fetchGrammar grammar);
           location = grammar.location or null;
         };
-      grammars' = import ./grammars { inherit lib; } // extraGrammars;
+      grammars' = import ./grammars {inherit lib;} // extraGrammars;
       grammars =
         grammars'
         // {
@@ -145,7 +145,7 @@ let
           in
           {
             name =
-              (lib.strings.replaceStrings [ "-" ] [ "_" ] (
+              (lib.strings.replaceStrings ["-"] ["_"] (
                 lib.strings.removePrefix "tree-sitter-" (lib.strings.removeSuffix "-grammar" name)
               ))
               + ".so";
@@ -165,7 +165,7 @@ rustPlatform.buildRustPackage {
     Security
     CoreServices
   ];
-  nativeBuildInputs = [ which ] ++ lib.optionals webUISupport [ emscripten ];
+  nativeBuildInputs = [which] ++ lib.optionals webUISupport [emscripten];
 
   postPatch = lib.optionalString (!webUISupport) ''
     # remove web interface

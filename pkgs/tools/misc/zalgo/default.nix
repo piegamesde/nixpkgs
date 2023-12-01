@@ -24,6 +24,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/lunasorcery/zalgo";
     license = licenses.unfree;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ djanatyn ];
+    maintainers = with maintainers; [djanatyn];
   };
 }

@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-OMK0ROrbuMDKt42QpE7D6/9CvUEMW4SpEBjO5+tk0rs=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     gperf
     guile
@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
 
   GUILE_SITE = "${guile-lib}/share/guile/site";
 
-  configureFlags = [ "--with-guilemoduledir=$(out)/share/guile/site" ];
+  configureFlags = ["--with-guilemoduledir=$(out)/share/guile/site"];
 
   meta = with lib; {
     homepage = "https://www.nongnu.org/guile-reader/";
@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
       R5RS-derived document syntax.
     '';
     license = licenses.lgpl3Plus;
-    maintainers = with maintainers; [ AndersonTorres ];
+    maintainers = with maintainers; [AndersonTorres];
     platforms = platforms.gnu;
   };
 }

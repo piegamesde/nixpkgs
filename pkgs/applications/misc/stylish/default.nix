@@ -14,7 +14,7 @@ stdenvNoCC.mkDerivation rec {
   pname = "stylish";
   version = "unstable-2022-12-05";
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   src = fetchFromGitHub {
     owner = "thevinter";
@@ -56,6 +56,6 @@ stdenvNoCC.mkDerivation rec {
       can set automatically your terminal colors.
     '';
     license = licenses.mit;
-    maintainers = with maintainers; [ tchab ];
+    maintainers = with maintainers; [tchab];
   };
 }

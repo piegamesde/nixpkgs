@@ -57,7 +57,7 @@ stdenv.mkDerivation (
       description = "A bastard hacked offspring of Blackbox";
       homepage = "https://github.com/museoa/hackedbox/";
       license = licenses.gpl2Plus;
-      maintainers = with maintainers; [ AndersonTorres ];
+      maintainers = with maintainers; [AndersonTorres];
       inherit (libX11.meta) platforms;
     };
   }

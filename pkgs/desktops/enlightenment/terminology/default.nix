@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
     python3
   ];
 
-  buildInputs = [ efl ];
+  buildInputs = [efl];
 
   postPatch = ''
     patchShebangs data/colorschemes/*.py
@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
 
   passthru.tests.test = nixosTests.terminal-emulators.terminology;
 
-  passthru.updateScript = directoryListingUpdater { };
+  passthru.updateScript = directoryListingUpdater {};
 
   meta = with lib; {
     description = "Powerful terminal emulator based on EFL";

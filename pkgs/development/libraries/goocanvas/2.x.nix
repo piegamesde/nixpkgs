@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
     gobject-introspection
   ];
 
-  configureFlags = [ "--disable-python" ];
+  configureFlags = ["--disable-python"];
   PKG_CONFIG_GOBJECT_INTROSPECTION_1_0_GIRDIR = "$(dev)/share/gir-1.0";
   PKG_CONFIG_GOBJECT_INTROSPECTION_1_0_TYPELIBDIR = "$(out)/lib/girepository-1.0";
 
@@ -58,7 +58,7 @@ stdenv.mkDerivation rec {
     description = "Canvas widget for GTK based on the the Cairo 2D library";
     homepage = "https://wiki.gnome.org/Projects/GooCanvas";
     license = licenses.lgpl2;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     platforms = platforms.unix;
   };
 }

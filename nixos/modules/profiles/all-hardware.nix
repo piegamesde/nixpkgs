@@ -3,7 +3,7 @@
 # enabled in the initrd.  Its primary use is in the NixOS installation
 # CDs.
 
-{ pkgs, lib, ... }:
+{pkgs, lib, ...}:
 let
   platform = pkgs.stdenv.hostPlatform;
 in
@@ -169,5 +169,5 @@ in
   # Include lots of firmware.
   hardware.enableRedistributableFirmware = true;
 
-  imports = [ ../hardware/network/zydas-zd1211.nix ];
+  imports = [../hardware/network/zydas-zd1211.nix];
 }

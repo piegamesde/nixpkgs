@@ -3,7 +3,7 @@
   backendStdenv,
   fetchFromGitHub,
   which,
-  cudaPackages ? { },
+  cudaPackages ? {},
   addOpenGLRunpath,
 }:
 
@@ -35,9 +35,7 @@ backendStdenv.mkDerivation rec {
     cuda_nvcc
   ];
 
-  buildInputs = [
-    cuda_cudart
-  ] ++ lib.optionals (lib.versionAtLeast cudaVersion "12.0.0") [ cuda_cccl ];
+  buildInputs = [cuda_cudart] ++ lib.optionals (lib.versionAtLeast cudaVersion "12.0.0") [cuda_cccl];
 
   preConfigure = ''
     patchShebangs src/collectives/device/gen_rules.sh
@@ -61,7 +59,7 @@ backendStdenv.mkDerivation rec {
     addOpenGLRunpath $out/lib/lib*.so
   '';
 
-  env.NIX_CFLAGS_COMPILE = toString [ "-Wno-unused-function" ];
+  env.NIX_CFLAGS_COMPILE = toString ["-Wno-unused-function"];
 
   enableParallelBuilding = true;
 
@@ -73,7 +71,7 @@ backendStdenv.mkDerivation rec {
     description = "Multi-GPU and multi-node collective communication primitives for NVIDIA GPUs";
     homepage = "https://developer.nvidia.com/nccl";
     license = licenses.bsd3;
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
     maintainers = with maintainers; [
       mdaiter
       orivej

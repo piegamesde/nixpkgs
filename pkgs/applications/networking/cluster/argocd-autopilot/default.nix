@@ -35,7 +35,7 @@ buildGoModule rec {
       "-X ${package_url}.installationManifestsNamespacedURL=github.com/argoproj-labs/argocd-autopilot/manifests/insecure?ref=${src.rev}"
     ];
 
-  subPackages = [ "cmd" ];
+  subPackages = ["cmd"];
 
   doInstallCheck = true;
   installCheckPhase = ''

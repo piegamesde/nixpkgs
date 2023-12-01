@@ -23,7 +23,7 @@
   tensileSepArch ? true,
   tensileLazyLib ? true,
   tensileLibFormat ? "msgpack",
-  gpuTargets ? [ "all" ],
+  gpuTargets ? ["all"],
 }:
 
 stdenv.mkDerivation (
@@ -33,7 +33,7 @@ stdenv.mkDerivation (
 
     outputs = [
       "out"
-    ] ++ lib.optionals buildTests [ "test" ] ++ lib.optionals buildBenchmarks [ "benchmark" ];
+    ] ++ lib.optionals buildTests ["test"] ++ lib.optionals buildBenchmarks ["benchmark"];
 
     src = fetchFromGitHub {
       owner = "ROCmSoftwarePlatform";
@@ -49,19 +49,19 @@ stdenv.mkDerivation (
     ];
 
     buildInputs =
-      [ python3 ]
+      [python3]
       ++ lib.optionals buildTensile [
         msgpack
         libxml2
         python3Packages.msgpack
       ]
-      ++ lib.optionals buildTests [ gtest ]
+      ++ lib.optionals buildTests [gtest]
       ++ lib.optionals (buildTests || buildBenchmarks) [
         gfortran
         openmp
         amd-blis
       ]
-      ++ lib.optionals (buildTensile || buildTests || buildBenchmarks) [ python3Packages.pyyaml ];
+      ++ lib.optionals (buildTensile || buildTests || buildBenchmarks) [python3Packages.pyyaml];
 
     cmakeFlags =
       [
@@ -86,9 +86,9 @@ stdenv.mkDerivation (
         "-DTensile_LAZY_LIBRARY_LOADING=${if tensileLazyLib then "ON" else "OFF"}"
         "-DTensile_LIBRARY_FORMAT=${tensileLibFormat}"
       ]
-      ++ lib.optionals buildTests [ "-DBUILD_CLIENTS_TESTS=ON" ]
-      ++ lib.optionals buildBenchmarks [ "-DBUILD_CLIENTS_BENCHMARKS=ON" ]
-      ++ lib.optionals (buildTests || buildBenchmarks) [ "-DCMAKE_CXX_FLAGS=-I${amd-blis}/include/blis" ];
+      ++ lib.optionals buildTests ["-DBUILD_CLIENTS_TESTS=ON"]
+      ++ lib.optionals buildBenchmarks ["-DBUILD_CLIENTS_BENCHMARKS=ON"]
+      ++ lib.optionals (buildTests || buildBenchmarks) ["-DCMAKE_CXX_FLAGS=-I${amd-blis}/include/blis"];
 
     # Tensile REALLY wants to write to the nix directory if we include it normally
     postPatch = lib.optionalString buildTensile ''
@@ -128,7 +128,7 @@ stdenv.mkDerivation (
     meta = with lib; {
       description = "BLAS implementation for ROCm platform";
       homepage = "https://github.com/ROCmSoftwarePlatform/rocBLAS";
-      license = with licenses; [ mit ];
+      license = with licenses; [mit];
       maintainers = teams.rocm.members;
       platforms = platforms.linux;
       broken = versions.minor finalAttrs.version != versions.minor hip.version;

@@ -57,6 +57,6 @@ stdenv.mkDerivation rec {
     homepage = "https://www.disneyanimation.com/technology/partio.html";
     license = licenses.bsd3;
     platforms = platforms.linux;
-    maintainers = [ maintainers.guibou ];
+    maintainers = [maintainers.guibou];
   };
 }

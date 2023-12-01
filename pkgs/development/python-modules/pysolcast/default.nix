@@ -27,7 +27,7 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
   propagatedBuildInputs = [
     isodate
@@ -45,13 +45,13 @@ buildPythonPackage rec {
       --replace "pytest-runner" ""
   '';
 
-  pythonImportsCheck = [ "pysolcast" ];
+  pythonImportsCheck = ["pysolcast"];
 
   meta = with lib; {
     description = "Python library for interacting with the Solcast API";
     homepage = "https://github.com/mcaulifn/solcast";
     changelog = "https://github.com/mcaulifn/solcast/releases/tag/v${version}";
-    license = with licenses; [ asl20 ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [asl20];
+    maintainers = with maintainers; [fab];
   };
 }

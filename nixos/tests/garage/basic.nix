@@ -1,14 +1,14 @@
-args@{ mkNode, ... }:
+args@{mkNode, ...}:
 (import ../make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   {
     name = "garage-basic";
     meta = {
-      maintainers = with pkgs.lib.maintainers; [ raitobezarius ];
+      maintainers = with pkgs.lib.maintainers; [raitobezarius];
     };
 
     nodes = {
-      single_node = mkNode { replicationMode = "none"; };
+      single_node = mkNode {replicationMode = "none";};
     };
 
     testScript = ''

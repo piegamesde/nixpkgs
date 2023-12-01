@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://grisbi.org";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ layus ];
+    maintainers = with maintainers; [layus];
     platforms = platforms.linux;
   };
 }

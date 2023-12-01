@@ -17,13 +17,13 @@ buildDunePackage rec {
 
   useDune2 = true;
 
-  propagatedBuildInputs = [ lwt ];
+  propagatedBuildInputs = [lwt];
 
   doCheck = true;
 
   meta = {
     description = "One-to-many broadcast in Lwt";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.ulrikstrid ];
+    maintainers = [lib.maintainers.ulrikstrid];
   };
 }

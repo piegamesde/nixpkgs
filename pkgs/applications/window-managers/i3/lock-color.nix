@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
     xcbutilxrm
   ];
 
-  makeFlags = [ "all" ];
+  makeFlags = ["all"];
   preInstall = ''
     mkdir -p $out/share/man/man1
   '';
@@ -85,7 +85,7 @@ stdenv.mkDerivation rec {
         - keyboard-layout
     '';
     homepage = "https://github.com/PandorasFox/i3lock-color";
-    maintainers = with maintainers; [ malyn ];
+    maintainers = with maintainers; [malyn];
     license = licenses.bsd3;
 
     platforms = platforms.all;

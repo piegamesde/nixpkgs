@@ -14,7 +14,7 @@ stdenv.mkDerivation rec {
     sha256 = "1fhaimci80xmihg84bgrml61zr56pi9rkxfbs13vvw9dwjf031k0";
   };
 
-  buildInputs = [ (python3.withPackages (ps: with ps; [ pyusb ])) ];
+  buildInputs = [(python3.withPackages (ps: with ps; [pyusb]))];
 
   postPatch = ''
     patchShebangs g203-led.py
@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
       Inspired by and based on g810-led.
     '';
     license = licenses.mit;
-    maintainers = with maintainers; [ r-burns ];
+    maintainers = with maintainers; [r-burns];
     homepage = "https://github.com/smasty/g203-led";
     platforms = platforms.linux;
   };

@@ -14,8 +14,8 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-Vl72vibFjvdQZcVRnq6N1VuuMUKShhlpayjSQrc0k/c=";
   };
 
-  buildInputs = [ openssl ];
-  configureFlags = [ "--with-openssl=${openssl.dev}" ];
+  buildInputs = [openssl];
+  configureFlags = ["--with-openssl=${openssl.dev}"];
 
   patches = [
     (fetchurl {
@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "CLI email sending tool";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ raskin ];
+    maintainers = with maintainers; [raskin];
     platforms = platforms.linux;
     homepage = "https://github.com/muquit/mailsend";
     downloadPage = "https://github.com/muquit/mailsend/releases";

@@ -62,12 +62,12 @@ stdenv.mkDerivation rec {
     libadwaita
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = {
     description = "A program for comparing multiple versions of an image or video";
     homepage = "https://gitlab.gnome.org/YaLTeR/identity";
-    maintainers = [ lib.maintainers.paveloom ];
+    maintainers = [lib.maintainers.paveloom];
     license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.linux;
   };

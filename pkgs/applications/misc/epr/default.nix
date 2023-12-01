@@ -19,7 +19,7 @@ python3Packages.buildPythonApplication rec {
     description = "CLI Epub Reader";
     homepage = "https://github.com/wustho/epr";
     license = licenses.mit;
-    maintainers = [ maintainers.Br1ght0ne ];
+    maintainers = [maintainers.Br1ght0ne];
     platforms = platforms.all;
   };
 }

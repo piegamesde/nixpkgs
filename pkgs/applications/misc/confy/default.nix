@@ -56,6 +56,6 @@ stdenv.mkDerivation rec {
     homepage = "https://confy.kirgroup.net/";
     changelog = "https://git.sr.ht/~fabrixxm/confy/refs/${version}";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ michaelgrahamevans ];
+    maintainers = with maintainers; [michaelgrahamevans];
   };
 }

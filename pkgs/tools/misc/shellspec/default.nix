@@ -17,8 +17,8 @@ stdenv.mkDerivation rec {
   };
 
   strictDeps = true;
-  buildInputs = [ bash ];
-  makeFlags = [ "PREFIX=${placeholder "out"}" ];
+  buildInputs = [bash];
+  makeFlags = ["PREFIX=${placeholder "out"}"];
 
   checkPhase = ''
     ./shellspec --no-banner --task fixture:stat:prepare
@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
     homepage = "https://shellspec.info/";
     changelog = "https://github.com/shellspec/shellspec/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ j0hax ];
+    maintainers = with maintainers; [j0hax];
     platforms = platforms.unix;
   };
 }

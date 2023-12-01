@@ -18,7 +18,7 @@ buildPythonApplication rec {
     sha256 = "sha256-An9JKnS/Uor7iZ+lbBGR3eOkxOgV+SjnCWN/QmqFI/I=";
   };
 
-  propagatedBuildInputs = [ pyxdg ];
+  propagatedBuildInputs = [pyxdg];
   nativeCheckInputs = [
     pytest
     pytest-mock

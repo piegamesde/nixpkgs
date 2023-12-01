@@ -26,13 +26,13 @@ rustPlatform.buildRustPackage rec {
   ];
 
   buildInputs =
-    lib.optionals stdenv.isLinux [ alsa-lib ]
-    ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.AudioUnit ];
+    lib.optionals stdenv.isLinux [alsa-lib]
+    ++ lib.optionals stdenv.isDarwin [darwin.apple_sdk.frameworks.AudioUnit];
 
   meta = with lib; {
     description = "Terminal Music Player TUI written in Rust";
     homepage = "https://github.com/tramhao/termusic";
-    license = with licenses; [ gpl3Only ];
-    maintainers = with maintainers; [ devhell ];
+    license = with licenses; [gpl3Only];
+    maintainers = with maintainers; [devhell];
   };
 }

@@ -51,10 +51,10 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = (lib.optionals stdenv.isDarwin [ fixDarwinDylibNames ]);
+  nativeBuildInputs = (lib.optionals stdenv.isDarwin [fixDarwinDylibNames]);
 
   makeFlags =
-    lib.optionals stdenv.cc.isClang [ "compiler=clang" ]
+    lib.optionals stdenv.cc.isClang ["compiler=clang"]
     ++ (lib.optional (stdenv.buildPlatform != stdenv.hostPlatform) (
       if stdenv.hostPlatform.isAarch64 then
         "arch=arm64"

@@ -16,7 +16,7 @@ let
   cfg = config.services.sourcehut;
   domain = cfg.settings."sr.ht".global-domain;
   settingsFormat = pkgs.formats.ini {
-    listToValue = concatMapStringsSep "," (generators.mkValueStringDefault { });
+    listToValue = concatMapStringsSep "," (generators.mkValueStringDefault {});
     mkKeyValue =
       k: v:
       if v == null then
@@ -31,7 +31,7 @@ let
               else if v == false then
                 "no"
               else
-                generators.mkValueStringDefault { } v;
+                generators.mkValueStringDefault {} v;
           }
           "="
           k
@@ -55,7 +55,7 @@ let
               then
                 v
               # Enable Web links and integrations between services.
-              else if tail srvMatch == [ null ] && elem (head srvMatch) cfg.services then
+              else if tail srvMatch == [null] && elem (head srvMatch) cfg.services then
                 {
                   inherit (v) origin;
                   # mansrht crashes without it
@@ -204,7 +204,7 @@ in
       enable = mkEnableOption (lib.mdDoc "local nginx integration");
       virtualHost = mkOption {
         type = types.attrs;
-        default = { };
+        default = {};
         description = lib.mdDoc "Virtual-host configuration merged with all Sourcehut's virtual-hosts.";
       };
     };
@@ -502,7 +502,7 @@ in
           };
         };
 
-        options."hub.sr.ht" = commonServiceSettings "hub" // { };
+        options."hub.sr.ht" = commonServiceSettings "hub" // {};
 
         options."lists.sr.ht" = commonServiceSettings "lists" // {
           allow-new-lists = mkEnableOption (lib.mdDoc "Allow creation of new lists");
@@ -537,7 +537,7 @@ in
               Uses fnmatch for wildcard expansion.
             '';
             type = with types; listOf str;
-            default = [ "text/html" ];
+            default = ["text/html"];
           };
           reject-url = mkOption {
             description = lib.mdDoc "Reject URL.";
@@ -562,7 +562,7 @@ in
           };
         };
 
-        options."man.sr.ht" = commonServiceSettings "man" // { };
+        options."man.sr.ht" = commonServiceSettings "man" // {};
 
         options."meta.sr.ht" =
           removeAttrs (commonServiceSettings "meta") [
@@ -601,7 +601,7 @@ in
         options."meta.sr.ht::aliases" = mkOption {
           description = lib.mdDoc "Aliases for the client IDs of commonly used OAuth clients.";
           type = with types; attrsOf int;
-          default = { };
+          default = {};
           example = {
             "git.sr.ht" = 12345;
           };
@@ -674,7 +674,7 @@ in
           };
         };
 
-        options."paste.sr.ht" = commonServiceSettings "paste" // { };
+        options."paste.sr.ht" = commonServiceSettings "paste" // {};
 
         options."todo.sr.ht" = commonServiceSettings "todo" // {
           notify-from = mkOption {
@@ -712,7 +712,7 @@ in
           };
         };
       };
-      default = { };
+      default = {};
       description = lib.mdDoc ''
         The configuration for the sourcehut network.
       '';
@@ -735,7 +735,7 @@ in
 
       images = mkOption {
         type = with types; attrsOf (attrsOf (attrsOf package));
-        default = { };
+        default = {};
         example = lib.literalExpression ''
           (let
                       # Pinning unstable to allow usage with flakes and limit rebuilds.
@@ -816,7 +816,7 @@ in
   config = mkIf cfg.enable (
     mkMerge [
       {
-        environment.systemPackages = [ pkgs.sourcehut.coresrht ];
+        environment.systemPackages = [pkgs.sourcehut.coresrht];
 
         services.sourcehut.settings = {
           "git.sr.ht".outgoing-domain = mkDefault "https://git.${domain}";
@@ -845,7 +845,7 @@ in
         # Needed for sharing the LMTP sockets with JoinsNamespaceOf=
         systemd.services.postfix.serviceConfig.PrivateTmp = true;
       })
-      (mkIf cfg.redis.enable { services.redis.vmOverCommit = mkDefault true; })
+      (mkIf cfg.redis.enable {services.redis.vmOverCommit = mkDefault true;})
       (mkIf cfg.nginx.enable {
         assertions = [
           {
@@ -1006,7 +1006,7 @@ in
                 pkgs.dockerTools.streamLayeredImage {
                   name = "qemu";
                   tag = "latest";
-                  contents = [ qemuPackage ];
+                  contents = [qemuPackage];
                 }
               } | docker load
               # Mark down current package version
@@ -1015,10 +1015,10 @@ in
           '';
           serviceConfig = {
             ExecStart = "${pkgs.sourcehut.buildsrht}/bin/buildsrht-worker";
-            BindPaths = [ cfg.settings."builds.sr.ht::worker".buildlogs ];
-            LogsDirectory = [ "sourcehut/${serviceName}" ];
-            RuntimeDirectory = [ "sourcehut/${serviceName}/subdir" ];
-            StateDirectory = [ "sourcehut/${serviceName}" ];
+            BindPaths = [cfg.settings."builds.sr.ht::worker".buildlogs];
+            LogsDirectory = ["sourcehut/${serviceName}"];
+            RuntimeDirectory = ["sourcehut/${serviceName}/subdir"];
+            StateDirectory = ["sourcehut/${serviceName}"];
             TimeoutStartSec = "1800s";
             # buildsrht-worker looks up ../config.ini
             WorkingDirectory = "-" + "/run/sourcehut/${serviceName}/subdir";
@@ -1036,7 +1036,7 @@ in
                     mapAttrsToList
                       (
                         arch: image:
-                        pkgs.runCommand "buildsrht-images" { } ''
+                        pkgs.runCommand "buildsrht-images" {} ''
                           mkdir -p $out/${distro}/${rev}/${arch}
                           ln -s ${image}/*.qcow2 $out/${distro}/${rev}/${arch}/root.img.qcow2
                         ''
@@ -1053,7 +1053,7 @@ in
             # FIXME: not working, apparently because ubuntu/latest is a broken link
             # ++ [ "${pkgs.sourcehut.buildsrht}/lib/images" ];
           };
-          image_dir = pkgs.runCommand "buildsrht-worker-images" { } ''
+          image_dir = pkgs.runCommand "buildsrht-worker-images" {} ''
             mkdir -p $out/images
             cp -Lr ${image_dir_pre}/* $out/images
           '';
@@ -1079,14 +1079,14 @@ in
           }
           (mkIf cfg.builds.enableWorker {
             users.groups = {
-              docker.members = [ cfg.builds.user ];
+              docker.members = [cfg.builds.user];
             };
           })
           (mkIf (cfg.builds.enableWorker && cfg.nginx.enable) {
             # Allow nginx access to buildlogs
-            users.users.${nginx.user}.extraGroups = [ cfg.builds.group ];
+            users.users.${nginx.user}.extraGroups = [cfg.builds.group];
             systemd.services.nginx = {
-              serviceConfig.BindReadOnlyPaths = [ cfg.settings."builds.sr.ht::worker".buildlogs ];
+              serviceConfig.BindReadOnlyPaths = [cfg.settings."builds.sr.ht::worker".buildlogs];
             };
             services.nginx.virtualHosts."logs.${domain}" = mkMerge [
               {
@@ -1107,8 +1107,8 @@ in
     (import ./service.nix "git" (
       let
         baseService = {
-          path = [ cfg.git.package ];
-          serviceConfig.BindPaths = [ "${cfg.settings."git.sr.ht".repos}:/var/lib/sourcehut/gitsrht/repos" ];
+          path = [cfg.git.package];
+          serviceConfig.BindPaths = ["${cfg.settings."git.sr.ht".repos}:/var/lib/sourcehut/gitsrht/repos"];
         };
       in
       {
@@ -1137,7 +1137,7 @@ in
         webhooks = true;
         extraTimers.gitsrht-periodic = {
           service = baseService;
-          timerConfig.OnCalendar = [ "*:0/20" ];
+          timerConfig.OnCalendar = ["*:0/20"];
         };
         extraConfig = mkMerge [
           {
@@ -1176,7 +1176,7 @@ in
               };
             };
             systemd.sockets.gitsrht-fcgiwrap = {
-              before = [ "nginx.service" ];
+              before = ["nginx.service"];
               wantedBy = [
                 "sockets.target"
                 "gitsrht.service"
@@ -1198,17 +1198,17 @@ in
             # Socket is passed by gitsrht-fcgiwrap.socket
             ExecStart = "${pkgs.fcgiwrap}/sbin/fcgiwrap -c ${toString cfg.git.fcgiwrap.preforkProcess}";
             # No need for config.ini
-            ExecStartPre = mkForce [ ];
+            ExecStartPre = mkForce [];
             User = null;
             DynamicUser = true;
-            BindReadOnlyPaths = [ "${cfg.settings."git.sr.ht".repos}:/var/lib/sourcehut/gitsrht/repos" ];
+            BindReadOnlyPaths = ["${cfg.settings."git.sr.ht".repos}:/var/lib/sourcehut/gitsrht/repos"];
             IPAddressDeny = "any";
             InaccessiblePaths = [
               "-+/run/postgresql"
               "-+/run/redis-sourcehut"
             ];
             PrivateNetwork = true;
-            RestrictAddressFamilies = mkForce [ "none" ];
+            RestrictAddressFamilies = mkForce ["none"];
             SystemCallFilter = mkForce [
               "@system-service"
               "~@aio"
@@ -1227,8 +1227,8 @@ in
     (import ./service.nix "hg" (
       let
         baseService = {
-          path = [ cfg.hg.package ];
-          serviceConfig.BindPaths = [ "${cfg.settings."hg.sr.ht".repos}:/var/lib/sourcehut/hgsrht/repos" ];
+          path = [cfg.hg.package];
+          serviceConfig.BindPaths = ["${cfg.settings."hg.sr.ht".repos}:/var/lib/sourcehut/hgsrht/repos"];
         };
       in
       {
@@ -1246,11 +1246,11 @@ in
         webhooks = true;
         extraTimers.hgsrht-periodic = {
           service = baseService;
-          timerConfig.OnCalendar = [ "*:0/20" ];
+          timerConfig.OnCalendar = ["*:0/20"];
         };
         extraTimers.hgsrht-clonebundles = mkIf cfg.hg.cloneBundles {
           service = baseService;
-          timerConfig.OnCalendar = [ "daily" ];
+          timerConfig.OnCalendar = ["daily"];
           timerConfig.AccuracySec = "1h";
         };
         extraServices.hgsrht-api = {
@@ -1270,7 +1270,7 @@ in
           }
           (mkIf cfg.nginx.enable {
             # Allow nginx access to repositories
-            users.users.${nginx.user}.extraGroups = [ cfg.hg.group ];
+            users.users.${nginx.user}.extraGroups = [cfg.hg.group];
             services.nginx.virtualHosts."hg.${domain}" = {
               locations."/authorize" = {
                 proxyPass = "http://${cfg.listenAddress}:${toString cfg.hg.port}";
@@ -1293,9 +1293,7 @@ in
               };
             };
             systemd.services.nginx = {
-              serviceConfig.BindReadOnlyPaths = [
-                "${cfg.settings."hg.sr.ht".repos}:/var/lib/nginx/hgsrht/repos"
-              ];
+              serviceConfig.BindReadOnlyPaths = ["${cfg.settings."hg.sr.ht".repos}:/var/lib/nginx/hgsrht/repos"];
             };
           })
         ];
@@ -1308,7 +1306,7 @@ in
       extraConfig = {
         services.nginx = mkIf cfg.nginx.enable {
           virtualHosts."hub.${domain}" = mkMerge [
-            { serverAliases = [ domain ]; }
+            {serverAliases = [domain];}
             cfg.nginx.virtualHost
           ];
         };
@@ -1332,7 +1330,7 @@ in
         };
         # Receive the mail from Postfix and enqueue them into Redis and PostgreSQL
         extraServices.listssrht-lmtp = {
-          wants = [ "postfix.service" ];
+          wants = ["postfix.service"];
           unitConfig.JoinsNamespaceOf = optional cfg.postfix.enable "postfix.service";
           serviceConfig.ExecStart = "${cfg.python}/bin/listssrht-lmtp";
           # Avoid crashing: os.chown(sock, os.getuid(), sock_gid)
@@ -1353,17 +1351,17 @@ in
           };
         };
         extraConfig = mkIf cfg.postfix.enable {
-          users.groups.${postfix.group}.members = [ cfg.lists.user ];
+          users.groups.${postfix.group}.members = [cfg.lists.user];
           services.sourcehut.settings."lists.sr.ht::mail".sock-group = postfix.group;
           services.postfix = {
-            destination = [ "lists.${domain}" ];
+            destination = ["lists.${domain}"];
             # FIXME: an accurate recipient list should be queried
             # from the lists.sr.ht PostgreSQL database to avoid backscattering.
             # But usernames are unfortunately not in that database but in meta.sr.ht.
             # Note that two syntaxes are allowed:
             # - ~username/list-name@lists.${domain}
             # - u.username.list-name@lists.${domain}
-            localRecipients = [ "@lists.${domain}" ];
+            localRecipients = ["@lists.${domain}"];
             transport = ''
               lists.${domain} lmtp:unix:${cfg.settings."lists.sr.ht::worker".sock}
             '';
@@ -1382,7 +1380,7 @@ in
       port = 5000;
       webhooks = true;
       extraTimers.metasrht-daily.timerConfig = {
-        OnCalendar = [ "daily" ];
+        OnCalendar = ["daily"];
         AccuracySec = "1h";
       };
       extraServices.metasrht-api = {
@@ -1524,24 +1522,24 @@ in
         serviceConfig.ExecStart = "${pkgs.sourcehut.todosrht}/bin/todosrht-api -b ${cfg.listenAddress}:${toString (cfg.todo.port + 100)}";
       };
       extraServices.todosrht-lmtp = {
-        wants = [ "postfix.service" ];
+        wants = ["postfix.service"];
         unitConfig.JoinsNamespaceOf = optional cfg.postfix.enable "postfix.service";
         serviceConfig.ExecStart = "${cfg.python}/bin/todosrht-lmtp";
         # Avoid crashing: os.chown(sock, os.getuid(), sock_gid)
         serviceConfig.PrivateUsers = mkForce false;
       };
       extraConfig = mkIf cfg.postfix.enable {
-        users.groups.${postfix.group}.members = [ cfg.todo.user ];
+        users.groups.${postfix.group}.members = [cfg.todo.user];
         services.sourcehut.settings."todo.sr.ht::mail".sock-group = postfix.group;
         services.postfix = {
-          destination = [ "todo.${domain}" ];
+          destination = ["todo.${domain}"];
           # FIXME: an accurate recipient list should be queried
           # from the todo.sr.ht PostgreSQL database to avoid backscattering.
           # But usernames are unfortunately not in that database but in meta.sr.ht.
           # Note that two syntaxes are allowed:
           # - ~username/tracker-name@todo.${domain}
           # - u.username.tracker-name@todo.${domain}
-          localRecipients = [ "@todo.${domain}" ];
+          localRecipients = ["@todo.${domain}"];
           transport = ''
             todo.${domain} lmtp:unix:${cfg.settings."todo.sr.ht::mail".sock}
           '';
@@ -1590,5 +1588,5 @@ in
   ];
 
   meta.doc = ./default.md;
-  meta.maintainers = with maintainers; [ tomberek ];
+  meta.maintainers = with maintainers; [tomberek];
 }

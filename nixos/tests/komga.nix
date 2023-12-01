@@ -1,14 +1,14 @@
 import ./make-test-python.nix (
-  { lib, ... }:
+  {lib, ...}:
 
   with lib;
 
   {
     name = "komga";
-    meta.maintainers = with maintainers; [ govanify ];
+    meta.maintainers = with maintainers; [govanify];
 
     nodes.machine =
-      { pkgs, ... }:
+      {pkgs, ...}:
       {
         services.komga = {
           enable = true;

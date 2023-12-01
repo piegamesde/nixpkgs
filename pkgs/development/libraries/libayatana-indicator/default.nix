@@ -24,16 +24,16 @@ stdenv.mkDerivation rec {
     cmake
   ];
 
-  buildInputs = [ gtk3 ];
+  buildInputs = [gtk3];
 
-  propagatedBuildInputs = [ ayatana-ido ];
+  propagatedBuildInputs = [ayatana-ido];
 
   meta = with lib; {
     description = "Ayatana Indicators Shared Library";
     homepage = "https://github.com/AyatanaIndicators/libayatana-indicator";
     changelog = "https://github.com/AyatanaIndicators/libayatana-indicator/blob/${version}/ChangeLog";
     license = licenses.gpl3Plus;
-    maintainers = [ maintainers.nickhu ];
+    maintainers = [maintainers.nickhu];
     platforms = platforms.linux;
   };
 }

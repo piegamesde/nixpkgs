@@ -4,7 +4,7 @@
 # This test shows that an alias with a high priority is able to override
 # a non-aliased option.
 
-{ config, lib, ... }:
+{config, lib, ...}:
 
 with lib;
 
@@ -23,9 +23,9 @@ with lib;
     # mkAliasOptionModule sets warnings, so this has to be defined.
     warnings = mkOption {
       internal = true;
-      default = [ ];
+      default = [];
       type = types.listOf types.str;
-      example = [ "The `foo' service is deprecated and will go away soon!" ];
+      example = ["The `foo' service is deprecated and will go away soon!"];
       description = ''
         This option allows modules to show warnings to users during
         the evaluation of the system configuration.
@@ -35,13 +35,13 @@ with lib;
 
   imports = [
     # Create an alias for the "enable" option.
-    (mkAliasOptionModule [ "enableAlias" ] [ "enable" ])
+    (mkAliasOptionModule ["enableAlias"] ["enable"])
 
     # Disable the aliased option with a high priority so it
     # should override the next import.
-    ({ config, lib, ... }: { enableAlias = lib.mkForce false; })
+    ({config, lib, ...}: {enableAlias = lib.mkForce false;})
 
     # Enable the normal (non-aliased) option.
-    ({ config, lib, ... }: { enable = true; })
+    ({config, lib, ...}: {enable = true;})
   ];
 }

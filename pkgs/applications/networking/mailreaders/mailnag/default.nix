@@ -18,8 +18,8 @@
   # Used in the withPlugins interface at passthru, can be overrided directly, or
   # prefarably via e.g: `mailnag.withPlugins([mailnag.availablePlugins.goa])`
   mailnag,
-  userPlugins ? [ ],
-  pluginsDeps ? [ ],
+  userPlugins ? [],
+  pluginsDeps ? [],
 }:
 
 python3Packages.buildPythonApplication rec {
@@ -103,7 +103,7 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://github.com/pulb/mailnag";
     license = licenses.gpl2;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ doronbehar ];
+    maintainers = with maintainers; [doronbehar];
     broken = true; # at 2022-09-23
   };
 }

@@ -1,11 +1,11 @@
 import ./make-test-python.nix (
-  { pkgs, lib, ... }:
+  {pkgs, lib, ...}:
   {
     name = "minecraft";
-    meta = with lib.maintainers; { maintainers = [ nequissimus ]; };
+    meta = with lib.maintainers; {maintainers = [nequissimus];};
 
     nodes.client =
-      { nodes, ... }:
+      {nodes, ...}:
       let
         user = nodes.client.config.users.users.alice;
       in
@@ -15,7 +15,7 @@ import ./make-test-python.nix (
           ./common/x11.nix
         ];
 
-        environment.systemPackages = [ pkgs.minecraft ];
+        environment.systemPackages = [pkgs.minecraft];
 
         nixpkgs.config.allowUnfree = true;
 
@@ -25,7 +25,7 @@ import ./make-test-python.nix (
     enableOCR = true;
 
     testScript =
-      { nodes, ... }:
+      {nodes, ...}:
       let
         user = nodes.client.config.users.users.alice;
       in

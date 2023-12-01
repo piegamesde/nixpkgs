@@ -18,6 +18,6 @@ build-idris-package {
     description = "Type-safe way of working with permutations in Idris";
     homepage = "https://github.com/vmchale/permutations";
     license = lib.licenses.bsd3;
-    maintainers = [ lib.maintainers.brainrape ];
+    maintainers = [lib.maintainers.brainrape];
   };
 }

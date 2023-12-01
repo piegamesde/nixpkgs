@@ -63,7 +63,7 @@ let
           lttng-ust
         ]
       else
-        [ darwin.Libsystem ]
+        [darwin.Libsystem]
     );
 in
 stdenv.mkDerivation rec {
@@ -77,8 +77,8 @@ stdenv.mkDerivation rec {
   };
 
   strictDeps = true;
-  buildInputs = [ less ] ++ libraries;
-  nativeBuildInputs = [ makeWrapper ] ++ lib.optional stdenv.isLinux autoPatchelfHook;
+  buildInputs = [less] ++ libraries;
+  nativeBuildInputs = [makeWrapper] ++ lib.optional stdenv.isLinux autoPatchelfHook;
 
   installPhase =
     let
@@ -141,7 +141,7 @@ stdenv.mkDerivation rec {
       "aarch64-linux"
       "aarch64-darwin"
     ];
-    license = with licenses; [ mit ];
+    license = with licenses; [mit];
   };
 
   passthru = {

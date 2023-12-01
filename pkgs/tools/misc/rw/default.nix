@@ -14,7 +14,7 @@ stdenv.mkDerivation rec {
     sha256 = "50009730e36991dfe579716f91f4f616f5ba05ffb7bf69c03d41bf305ed93b6d";
   };
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   meta = with lib; {
     homepage = "https://sortix.org/rw";
@@ -25,6 +25,6 @@ stdenv.mkDerivation rec {
       dd with standard style command line flags.
     '';
     license = licenses.isc;
-    maintainers = with maintainers; [ dtzWill ];
+    maintainers = with maintainers; [dtzWill];
   };
 }

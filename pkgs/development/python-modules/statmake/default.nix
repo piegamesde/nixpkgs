@@ -29,7 +29,7 @@ buildPythonPackage rec {
     hash = "sha256-3BZ71JVvj7GCojM8ycu160viPj8BLJ1SiW86Df2fzsw=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   propagatedBuildInputs =
     [
@@ -39,8 +39,8 @@ buildPythonPackage rec {
       # required by fonttools[ufo]
       fs
     ]
-    ++ lib.optionals (pythonOlder "3.11") [ exceptiongroup ]
-    ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
+    ++ lib.optionals (pythonOlder "3.11") [exceptiongroup]
+    ++ lib.optionals (pythonOlder "3.8") [importlib-metadata];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -48,7 +48,7 @@ buildPythonPackage rec {
     ufoLib2
   ];
 
-  pythonImportsCheck = [ "statmake" ];
+  pythonImportsCheck = ["statmake"];
 
   disabledTests =
     [
@@ -62,6 +62,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/daltonmaag/statmake";
     changelog = "https://github.com/daltonmaag/statmake/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ jtojnar ];
+    maintainers = with maintainers; [jtojnar];
   };
 }

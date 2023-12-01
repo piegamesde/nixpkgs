@@ -21,6 +21,6 @@ buildGoModule rec {
   meta = with lib; {
     description = "The Go language implementation of gRPC. HTTP/2 based RPC";
     license = licenses.asl20;
-    maintainers = [ maintainers.raboof ];
+    maintainers = [maintainers.raboof];
   };
 }

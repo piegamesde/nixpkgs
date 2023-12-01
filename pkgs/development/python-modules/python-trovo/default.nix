@@ -17,17 +17,17 @@ buildPythonPackage rec {
     hash = "sha256-g1RDHSNGbGT1G2ej7A8WzyR17FaNPySfsAuKbHddmtQ=";
   };
 
-  propagatedBuildInputs = [ requests ];
+  propagatedBuildInputs = [requests];
 
   # No tests found
   doCheck = false;
 
-  pythonImportsCheck = [ "trovoApi" ];
+  pythonImportsCheck = ["trovoApi"];
 
   meta = with lib; {
     description = "A Python wrapper for the Trovo API";
     homepage = "https://codeberg.org/wolfangaukang/python-trovo";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ wolfangaukang ];
+    maintainers = with maintainers; [wolfangaukang];
   };
 }

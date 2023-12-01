@@ -7,7 +7,7 @@
 
 let
   # Earlier llvm than 9 segfaults
-  gnustep' = gnustep.override { llvmPackages = llvmPackages_9; };
+  gnustep' = gnustep.override {llvmPackages = llvmPackages_9;};
 in
 gnustep'.gsmakeDerivation rec {
   pname = "pikopixel";
@@ -42,7 +42,7 @@ gnustep'.gsmakeDerivation rec {
     homepage = "http://twilightedge.com/mac/pikopixel/";
     downloadPage = "http://twilightedge.com/mac/pikopixel/";
     license = licenses.agpl3;
-    maintainers = with maintainers; [ fgaz ];
+    maintainers = with maintainers; [fgaz];
     platforms = platforms.all;
   };
 }

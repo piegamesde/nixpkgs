@@ -21,9 +21,9 @@ pythonPackages.buildPythonApplication rec {
     sha256 = "0akgwzrsx094jj30n4bd2ilwgva4qxx38v3bgm69iqfxi8c2bqbk";
   };
 
-  nativeBuildInputs = with pythonPackages; [ pandoc ];
+  nativeBuildInputs = with pythonPackages; [pandoc];
 
-  buildInputs = with pythonPackages; [ glibcLocales ];
+  buildInputs = with pythonPackages; [glibcLocales];
 
   propagatedBuildInputs = with pythonPackages; [
     attrs
@@ -70,7 +70,7 @@ pythonPackages.buildPythonApplication rec {
     description = "CLI for downloading Coursera.org videos and naming them";
     homepage = "https://github.com/coursera-dl/coursera-dl";
     license = licenses.lgpl3Plus;
-    maintainers = with maintainers; [ alexfmpe ];
+    maintainers = with maintainers; [alexfmpe];
     platforms = platforms.darwin ++ platforms.linux;
   };
 }

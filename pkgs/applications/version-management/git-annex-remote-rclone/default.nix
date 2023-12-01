@@ -17,12 +17,12 @@ stdenvNoCC.mkDerivation rec {
     sha256 = "sha256-H2C4zjM+kbC9qPl1F+bSnepuqANjZd1sz6XxOTkVVkU=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     install -Dm755 -t $out/bin git-annex-remote-rclone
     wrapProgram "$out/bin/git-annex-remote-rclone" \
-      --prefix PATH ":" "${lib.makeBinPath [ rclone ]}"
+      --prefix PATH ":" "${lib.makeBinPath [rclone]}"
   '';
 
   meta = with lib; {
@@ -30,6 +30,6 @@ stdenvNoCC.mkDerivation rec {
     description = "Use rclone supported cloud storage providers with git-annex";
     license = licenses.gpl3Only;
     platforms = platforms.all;
-    maintainers = [ maintainers.montag451 ];
+    maintainers = [maintainers.montag451];
   };
 }

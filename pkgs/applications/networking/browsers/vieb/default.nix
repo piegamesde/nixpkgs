@@ -28,7 +28,7 @@ buildNpmPackage rec {
   npmDepsHash = "sha256-RUpeqbb8bnSQ6sCYH8O9mL3Rpb+ZlcPi7fq6LlbkSic=";
   dontNpmBuild = true;
 
-  nativeBuildInputs = [ makeWrapper ] ++ lib.optional stdenv.isAarch64 python3;
+  nativeBuildInputs = [makeWrapper] ++ lib.optional stdenv.isAarch64 python3;
 
   desktopItem = makeDesktopItem {
     name = "vieb";
@@ -64,7 +64,7 @@ buildNpmPackage rec {
 
   distPhase = ":"; # disable useless $out/tarballs directory
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     homepage = "https://vieb.dev/";

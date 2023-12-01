@@ -87,7 +87,7 @@ stdenv.mkDerivation {
     '';
     homepage = "https://github.com/skk-dev/dict";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ yuriaisaka ];
+    maintainers = with maintainers; [yuriaisaka];
     platforms = platforms.all;
   };
 }

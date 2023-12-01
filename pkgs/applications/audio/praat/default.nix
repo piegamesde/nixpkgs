@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
     cp makefiles/makefile.defs.linux.pulse makefile.defs
   '';
 
-  makeFlags = [ "AR=${stdenv.cc.targetPrefix}ar" ];
+  makeFlags = ["AR=${stdenv.cc.targetPrefix}ar"];
 
   installPhase = ''
     install -Dt $out/bin praat
@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
     description = "Doing phonetics by computer";
     homepage = "https://www.fon.hum.uva.nl/praat/";
     license = licenses.gpl2Plus; # Has some 3rd-party code in it though
-    maintainers = with maintainers; [ orivej ];
+    maintainers = with maintainers; [orivej];
     platforms = platforms.linux;
   };
 }

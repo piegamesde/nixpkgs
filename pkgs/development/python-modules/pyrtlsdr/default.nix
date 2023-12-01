@@ -29,7 +29,7 @@ buildPythonPackage rec {
     })
   ];
 
-  nativeBuildInputs = [ m2r ];
+  nativeBuildInputs = [m2r];
 
   postPatch = ''
     sed "s|driver_files =.*|driver_files = ['${rtl-sdr}/lib/librtlsdr.so']|" -i rtlsdr/librtlsdr.py
@@ -43,6 +43,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/roger-/pyrtlsdr";
     license = licenses.gpl3;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ bjornfor ];
+    maintainers = with maintainers; [bjornfor];
   };
 }

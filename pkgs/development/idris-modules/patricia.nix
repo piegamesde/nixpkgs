@@ -8,7 +8,7 @@ build-idris-package {
   pname = "patricia";
   version = "2017-10-27";
 
-  idrisDeps = [ specdris ];
+  idrisDeps = [specdris];
 
   src = fetchFromGitHub {
     owner = "ChShersh";
@@ -21,6 +21,6 @@ build-idris-package {
     description = "Immutable map from integer keys to values based on patricia tree. Basically persistent array.";
     homepage = "https://github.com/ChShersh/idris-patricia";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.brainrape ];
+    maintainers = [lib.maintainers.brainrape];
   };
 }

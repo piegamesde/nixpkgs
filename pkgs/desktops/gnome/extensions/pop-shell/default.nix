@@ -24,11 +24,11 @@ stdenv.mkDerivation rec {
     gjs
   ];
 
-  buildInputs = [ gjs ];
+  buildInputs = [gjs];
 
-  patches = [ ./fix-gjs.patch ];
+  patches = [./fix-gjs.patch];
 
-  makeFlags = [ "XDG_DATA_HOME=$(out)/share" ];
+  makeFlags = ["XDG_DATA_HOME=$(out)/share"];
 
   passthru = {
     extensionUuid = "pop-shell@system76.com";
@@ -49,7 +49,7 @@ stdenv.mkDerivation rec {
     description = "Keyboard-driven layer for GNOME Shell";
     license = licenses.gpl3Only;
     platforms = platforms.linux;
-    maintainers = [ maintainers.genofire ];
+    maintainers = [maintainers.genofire];
     homepage = "https://github.com/pop-os/shell";
   };
 }

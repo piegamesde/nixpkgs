@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
       exec = "ClassiCube";
       icon = "CCicon";
       comment = "Minecraft Classic inspired sandbox game";
-      categories = [ "Game" ];
+      categories = ["Game"];
     })
   ];
 
@@ -112,6 +112,6 @@ stdenv.mkDerivation rec {
     description = "A lightweight, custom Minecraft Classic/ClassiCube client with optional additions written from scratch in C";
     license = licenses.bsd3;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ _360ied ];
+    maintainers = with maintainers; [_360ied];
   };
 }

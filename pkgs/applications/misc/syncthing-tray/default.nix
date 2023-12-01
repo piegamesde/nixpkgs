@@ -21,13 +21,13 @@ buildGoPackage rec {
 
   goDeps = ./deps.nix;
 
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ libappindicator-gtk3 ];
+  nativeBuildInputs = [pkg-config];
+  buildInputs = [libappindicator-gtk3];
 
   meta = with lib; {
     description = "Simple application tray for syncthing";
     homepage = "https://github.com/alex2108/syncthing-tray";
     license = licenses.mit;
-    maintainers = with maintainers; [ nickhu ];
+    maintainers = with maintainers; [nickhu];
   };
 }

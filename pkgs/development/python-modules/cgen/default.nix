@@ -16,7 +16,7 @@ buildPythonPackage rec {
     sha256 = "4ec99d0c832d9f95f5e51dd18a629ad50df0b5464ce557ef42c6e0cd9478bfcf";
   };
 
-  nativeCheckInputs = [ pytest ];
+  nativeCheckInputs = [pytest];
   propagatedBuildInputs = [
     pytools
     numpy
@@ -30,6 +30,6 @@ buildPythonPackage rec {
     description = "C/C++ source generation from an AST";
     homepage = "https://github.com/inducer/cgen";
     license = licenses.mit;
-    maintainers = [ maintainers.costrouc ];
+    maintainers = [maintainers.costrouc];
   };
 }

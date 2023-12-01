@@ -25,16 +25,16 @@ stdenv.mkDerivation rec {
     autoconf-archive # this can be removed with the next release
     autoreconfHook
     libtool
-  ] ++ lib.optionals guiSupport [ pkg-config ];
+  ] ++ lib.optionals guiSupport [pkg-config];
 
-  buildInputs = lib.optionals guiSupport [ gtk3 ];
+  buildInputs = lib.optionals guiSupport [gtk3];
 
   configureFlags = lib.optional guiSupport "--enable-gui";
 
   meta = with lib; {
     description = "Zoned block device manipulation library and tools";
     homepage = "https://github.com/westerndigitalcorporation/libzbd";
-    maintainers = with maintainers; [ zseri ];
+    maintainers = with maintainers; [zseri];
     license = with licenses; [
       lgpl3Plus
       gpl3Plus

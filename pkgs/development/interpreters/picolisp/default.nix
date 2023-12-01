@@ -15,8 +15,8 @@ stdenv.mkDerivation rec {
     url = "https://www.software-lab.de/${pname}-${version}.tgz";
     sha256 = "0l51x98bn1hh6kv40sdgp0x09pzg5i8yxbcjvm9n5bxsd6bbk5w2";
   };
-  nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ openssl ] ++ lib.optional stdenv.is64bit jdk;
+  nativeBuildInputs = [makeWrapper];
+  buildInputs = [openssl] ++ lib.optional stdenv.is64bit jdk;
   patchPhase = ''
     sed -i "s/which java/command -v java/g" mkAsm
 
@@ -62,7 +62,7 @@ stdenv.mkDerivation rec {
     description = "A simple Lisp with an integrated database";
     homepage = "https://picolisp.com/";
     license = licenses.mit;
-    maintainers = with maintainers; [ raskin ];
+    maintainers = with maintainers; [raskin];
     platforms = platforms.all;
   };
 

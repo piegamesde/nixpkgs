@@ -29,10 +29,10 @@ with lib;
 
     # !!! Hack - attributes expected by other modules.
     environment.systemPackages =
-      [ pkgs.grub2_efi ]
+      [pkgs.grub2_efi]
       ++ (
         if pkgs.stdenv.hostPlatform.system == "aarch64-linux" then
-          [ ]
+          []
         else
           [
             pkgs.grub2
@@ -42,7 +42,7 @@ with lib;
 
     fileSystems."/" = mkImageMediaOverride {
       fsType = "tmpfs";
-      options = [ "mode=0755" ];
+      options = ["mode=0755"];
     };
 
     # In stage 1, mount a tmpfs on top of /nix/store (the squashfs
@@ -50,13 +50,13 @@ with lib;
     fileSystems."/nix/.ro-store" = mkImageMediaOverride {
       fsType = "squashfs";
       device = "../nix-store.squashfs";
-      options = [ "loop" ];
+      options = ["loop"];
       neededForBoot = true;
     };
 
     fileSystems."/nix/.rw-store" = mkImageMediaOverride {
       fsType = "tmpfs";
-      options = [ "mode=0755" ];
+      options = ["mode=0755"];
       neededForBoot = true;
     };
 
@@ -88,7 +88,7 @@ with lib;
 
     # Closures to be copied to the Nix store, namely the init
     # script and the top-level system configuration directory.
-    netboot.storeContents = [ config.system.build.toplevel ];
+    netboot.storeContents = [config.system.build.toplevel];
 
     # Create the squashfs image that contains the Nix store.
     system.build.squashfsStore = pkgs.callPackage ../../../lib/make-squashfs.nix {
@@ -98,7 +98,7 @@ with lib;
     # Create the initrd
     system.build.netbootRamdisk = pkgs.makeInitrdNG {
       inherit (config.boot.initrd) compressor;
-      prepend = [ "${config.system.build.initialRamdisk}/initrd" ];
+      prepend = ["${config.system.build.initialRamdisk}/initrd"];
 
       contents = [
         {

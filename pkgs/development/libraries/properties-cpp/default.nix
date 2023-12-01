@@ -43,6 +43,6 @@ stdenv.mkDerivation rec {
     homepage = "https://launchpad.net/properties-cpp";
     description = "A very simple convenience library for handling properties and signals in C++11";
     license = licenses.lgpl3Only;
-    maintainers = with maintainers; [ edwtjo ];
+    maintainers = with maintainers; [edwtjo];
   };
 }

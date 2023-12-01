@@ -32,9 +32,9 @@ stdenv.mkDerivation rec {
     substituteInPlace steamtinkerlaunch --replace 'PROGCMD="''${0##*/}"' 'PROGCMD="steamtinkerlaunch"'
   '';
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
-  installFlags = [ "PREFIX=\${out}" ];
+  installFlags = ["PREFIX=\${out}"];
 
   postInstall = ''
     wrapProgram $out/bin/steamtinkerlaunch --prefix PATH : ${
@@ -59,7 +59,7 @@ stdenv.mkDerivation rec {
     description = "Linux wrapper tool for use with the Steam client for custom launch options and 3rd party programs";
     homepage = "https://github.com/sonic2kk/steamtinkerlaunch";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ urandom ];
+    maintainers = with maintainers; [urandom];
     platforms = lib.platforms.linux;
   };
 }

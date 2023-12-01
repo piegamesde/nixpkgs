@@ -53,7 +53,7 @@ stdenv.mkDerivation (
     pname = "migraphx";
     version = "5.4.3";
 
-    outputs = [ "out" ] ++ lib.optionals buildDocs [ "doc" ] ++ lib.optionals buildTests [ "test" ];
+    outputs = ["out"] ++ lib.optionals buildDocs ["doc"] ++ lib.optionals buildTests ["test"];
 
     src = fetchFromGitHub {
       owner = "ROCmSoftwarePlatform";
@@ -158,7 +158,7 @@ stdenv.mkDerivation (
     meta = with lib; {
       description = "AMD's graph optimization engine";
       homepage = "https://github.com/ROCmSoftwarePlatform/AMDMIGraphX";
-      license = with licenses; [ mit ];
+      license = with licenses; [mit];
       maintainers = teams.rocm.members;
       platforms = platforms.linux;
       broken = versions.minor finalAttrs.version != versions.minor hip.version;

@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
       --replace "/usr/bin/install" "install"
   '';
 
-  makeFlags = [ "CC=${stdenv.cc.targetPrefix}cc" ];
+  makeFlags = ["CC=${stdenv.cc.targetPrefix}cc"];
 
   installPhase = ''
     runHook preInstall
@@ -41,12 +41,12 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  installFlags = [ "PREFIX=${placeholder "out"}/bin" ];
+  installFlags = ["PREFIX=${placeholder "out"}/bin"];
 
   meta = with lib; {
     description = "System monitor for Windowmaker";
     homepage = "https://www.dockapps.net/wmsmapp";
     license = licenses.gpl2;
-    maintainers = [ maintainers.bstrik ];
+    maintainers = [maintainers.bstrik];
   };
 }

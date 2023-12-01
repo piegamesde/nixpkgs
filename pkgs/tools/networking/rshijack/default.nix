@@ -21,7 +21,7 @@ rustPlatform.buildRustPackage rec {
     description = "TCP connection hijacker";
     homepage = "https://github.com/kpcyrd/rshijack";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ xrelkd ];
+    maintainers = with maintainers; [xrelkd];
     platforms = platforms.unix;
   };
 }

@@ -54,7 +54,7 @@ stdenv.mkDerivation {
     ocaml
     camlp5
   ];
-  propagatedBuildInputs = [ num ];
+  propagatedBuildInputs = [num];
 
   installPhase = ''
     mkdir -p "$out/lib/hol_light" "$out/bin"

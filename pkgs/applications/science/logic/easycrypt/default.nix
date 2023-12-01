@@ -45,7 +45,7 @@ stdenv.mkDerivation rec {
     zarith
   ];
 
-  propagatedBuildInputs = [ why3 ];
+  propagatedBuildInputs = [why3];
 
   strictDeps = true;
 
@@ -62,7 +62,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
     platforms = lib.platforms.all;
     homepage = "https://easycrypt.info/";
     description = "Computer-Aided Cryptographic Proofs";

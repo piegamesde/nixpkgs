@@ -38,7 +38,7 @@ stdenvNoCC.mkDerivation rec {
       icon = "rfb64";
       desktopName = "Imposto de Renda Pessoa Física";
       comment = "Programa Oficial da Receita para elaboração do IRPF";
-      categories = [ "Office" ];
+      categories = ["Office"];
     })
   ];
 
@@ -58,7 +58,7 @@ stdenvNoCC.mkDerivation rec {
       --add-flags "-Dawt.useSystemAAFontSettings=on" \
       --add-flags "-Dswing.aatext=true" \
       --add-flags "-jar $BASEDIR/${pname}.jar" \
-      --suffix PATH : ${lib.makeBinPath [ xdg-utils ]} \
+      --suffix PATH : ${lib.makeBinPath [xdg-utils]} \
       --set _JAVA_AWT_WM_NONREPARENTING 1 \
       --set AWT_TOOLKIT MToolkit
 
@@ -78,7 +78,7 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://www.gov.br/receitafederal/pt-br";
     license = licenses.unfree;
     platforms = platforms.all;
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
-    maintainers = with maintainers; [ atila ];
+    sourceProvenance = with sourceTypes; [binaryBytecode];
+    maintainers = with maintainers; [atila];
   };
 }

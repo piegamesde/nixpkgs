@@ -29,7 +29,7 @@ stdenvNoCC.mkDerivation rec {
   meta = with lib; {
     homepage = "http://www.i18nguy.com/unicode/unicode-font.html";
     description = "Unicode Plane 1 Osmanya script font";
-    maintainers = with maintainers; [ raskin ];
+    maintainers = with maintainers; [raskin];
     license = "unknown";
     platforms = platforms.all;
   };

@@ -18,13 +18,13 @@ buildPythonPackage rec {
 
   disabled = pythonOlder "3.6";
 
-  buildInputs = [ pytest ];
-  propagatedBuildInputs = [ heapdict ];
+  buildInputs = [pytest];
+  propagatedBuildInputs = [heapdict];
 
   meta = with lib; {
     description = "Mutable mapping tools.";
     homepage = "https://github.com/dask/zict";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ teh ];
+    maintainers = with maintainers; [teh];
   };
 }

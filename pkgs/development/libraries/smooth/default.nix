@@ -20,9 +20,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-J2Do1iAbE1GBC8co/4nxOzeGJQiPRc+21fgMDpzKX+A=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  makeFlags = [ "prefix=$(out)" ];
+  makeFlags = ["prefix=$(out)"];
 
   buildInputs = [
     gtk3
@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
     description = "The smooth Class Library";
     license = licenses.artistic2;
     homepage = "http://www.smooth-project.org/";
-    maintainers = with maintainers; [ shamilton ];
+    maintainers = with maintainers; [shamilton];
     platforms = platforms.linux;
   };
 }

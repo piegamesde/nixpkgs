@@ -18,7 +18,7 @@ mkDerivation {
       --replace 'target.path = $$[QT_INSTALL_LIBS]' "target.path = $out/lib"
   '';
 
-  nativeBuildInputs = [ qmake ];
+  nativeBuildInputs = [qmake];
 
   buildInputs = [
     qtbase
@@ -28,7 +28,7 @@ mkDerivation {
   meta = with lib; {
     description = "Free Pascal Qt5 binding library";
     homepage = "https://wiki.freepascal.org/Qt5_Interface#libqt5pas";
-    maintainers = with maintainers; [ sikmir ];
+    maintainers = with maintainers; [sikmir];
     inherit (lazarus.meta) license platforms;
   };
 }

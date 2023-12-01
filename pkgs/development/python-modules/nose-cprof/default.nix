@@ -14,7 +14,7 @@ buildPythonPackage rec {
     sha256 = "0178834759b63dc50388444d4ff8d1ae84e1ba110bb167419afee6bf4699b119";
   };
 
-  buildInputs = [ nose ];
+  buildInputs = [nose];
 
   meta = with lib; {
     description = "A python nose plugin to profile using cProfile rather than the default Hotshot profiler";

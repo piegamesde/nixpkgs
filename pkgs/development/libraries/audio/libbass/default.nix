@@ -50,7 +50,7 @@ let
         ${unzip}/bin/unzip $curSrc -d out
       '';
 
-      lpropagatedBuildInputs = [ unzip ];
+      lpropagatedBuildInputs = [unzip];
       dontBuild = true;
       installPhase =
         let

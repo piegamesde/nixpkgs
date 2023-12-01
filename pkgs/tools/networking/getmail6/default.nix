@@ -18,7 +18,7 @@ python3.pkgs.buildPythonApplication rec {
   # needs a Docker setup
   doCheck = false;
 
-  pythonImportsCheck = [ "getmailcore" ];
+  pythonImportsCheck = ["getmailcore"];
 
   postPatch = ''
     # getmail spends a lot of effort to build an absolute path for

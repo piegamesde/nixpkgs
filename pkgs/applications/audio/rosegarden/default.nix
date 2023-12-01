@@ -71,7 +71,7 @@ stdenv.mkDerivation rec {
       ideal for composers, musicians, music students, and small studio or home
       recording environments.
     '';
-    maintainers = with maintainers; [ lebastr ];
+    maintainers = with maintainers; [lebastr];
     license = licenses.lgpl2Plus;
     platforms = platforms.linux;
   };

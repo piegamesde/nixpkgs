@@ -67,9 +67,9 @@ stdenv.mkDerivation rec {
       introspective tooling, cluster navigation, and object management along
       with a plugin system to further extend its capabilities.
     '';
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.asl20;
-    maintainers = with maintainers; [ jk ];
+    maintainers = with maintainers; [jk];
     platforms = [
       "x86_64-linux"
       "aarch64-linux"

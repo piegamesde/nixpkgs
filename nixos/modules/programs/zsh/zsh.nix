@@ -60,7 +60,7 @@ in
       };
 
       shellAliases = mkOption {
-        default = { };
+        default = {};
         description = lib.mdDoc ''
           Set of aliases for zsh shell, which overrides {option}`environment.shellAliases`.
           See {option}`environment.shellAliases` for an option format description.
@@ -235,7 +235,7 @@ in
       if [ -n "$__ETC_ZSHRC_SOURCED" -o -n "$NOSYSZSHRC" ]; then return; fi
       __ETC_ZSHRC_SOURCED=1
 
-      ${optionalString (cfg.setOptions != [ ]) ''
+      ${optionalString (cfg.setOptions != []) ''
         # Set zsh options.
         setopt ${concatStringsSep " " cfg.setOptions}
       ''}
@@ -292,7 +292,7 @@ in
     # see https://github.com/NixOS/nixpkgs/issues/132732
     environment.etc.zinputrc.text = builtins.readFile ./zinputrc;
 
-    environment.systemPackages = [ pkgs.zsh ] ++ optional cfg.enableCompletion pkgs.nix-zsh-completions;
+    environment.systemPackages = [pkgs.zsh] ++ optional cfg.enableCompletion pkgs.nix-zsh-completions;
 
     environment.pathsToLink = optional cfg.enableCompletion "/share/zsh";
 

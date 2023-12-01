@@ -27,14 +27,14 @@ buildPythonPackage rec {
     pymorphy3-dicts-uk
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "pymorphy3" ];
+  pythonImportsCheck = ["pymorphy3"];
 
   meta = with lib; {
     description = "Morphological analyzer/inflection engine for Russian and Ukrainian";
     homepage = "https://github.com/no-plagiarism/pymorphy3";
     license = licenses.mit;
-    maintainers = with maintainers; [ jboy ];
+    maintainers = with maintainers; [jboy];
   };
 }

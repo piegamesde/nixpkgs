@@ -22,14 +22,14 @@ mkCoqDerivation {
   release."1.4.4".sha256 = "114q2hgw64j6kqa9mg3qcp1nlf0ia46z2xadq81fnkxqm856ml7l";
   releaseRev = v: "gappalib-coq-${v}";
 
-  nativeBuildInputs = [ autoconf ];
+  nativeBuildInputs = [autoconf];
   mlPlugin = true;
-  propagatedBuildInputs = [ flocq ];
+  propagatedBuildInputs = [flocq];
   useMelquiondRemake.logpath = "Gappa";
 
   meta = with lib; {
     description = "Coq support library for Gappa";
     license = licenses.lgpl21;
-    maintainers = [ maintainers.vbgl ];
+    maintainers = [maintainers.vbgl];
   };
 }

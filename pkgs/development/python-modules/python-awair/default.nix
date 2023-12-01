@@ -24,7 +24,7 @@ buildPythonPackage rec {
     hash = "sha256-zdZyA6adM4bfEYupdZl7CzMjwyfRkQBrntNh0MusynE=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   propagatedBuildInputs = [
     aiohttp
@@ -37,12 +37,12 @@ buildPythonPackage rec {
     vcrpy
   ];
 
-  pythonImportsCheck = [ "python_awair" ];
+  pythonImportsCheck = ["python_awair"];
 
   meta = with lib; {
     description = "Python library for the Awair API";
     homepage = "https://github.com/ahayworth/python_awair";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

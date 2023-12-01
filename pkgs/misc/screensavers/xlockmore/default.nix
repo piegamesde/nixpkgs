@@ -30,11 +30,11 @@ stdenv.mkDerivation rec {
     libXdmcp
     libXt
   ];
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   # Don't try to install `xlock' setuid. Password authentication works
   # fine via PAM without super user privileges.
-  configureFlags = [ "--disable-setuid" ] ++ (lib.optional (pam != null) "--enable-pam");
+  configureFlags = ["--disable-setuid"] ++ (lib.optional (pam != null) "--enable-pam");
 
   postPatch =
     let
@@ -47,13 +47,13 @@ stdenv.mkDerivation rec {
       configureFlags+=" --enable-appdefaultdir=$out/share/X11/app-defaults"
     '';
 
-  hardeningDisable = [ "format" ]; # no build output otherwise
+  hardeningDisable = ["format"]; # no build output otherwise
 
   meta = with lib; {
     description = "Screen locker for the X Window System";
     homepage = "http://sillycycle.com/xlockmore.html";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ pSub ];
+    maintainers = with maintainers; [pSub];
     platforms = platforms.linux;
   };
 }

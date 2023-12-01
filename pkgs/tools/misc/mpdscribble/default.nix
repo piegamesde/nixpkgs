@@ -51,7 +51,7 @@ stdenv.mkDerivation rec {
     description = "A MPD client which submits info about tracks being played to a scrobbler";
     homepage = "https://www.musicpd.org/clients/mpdscribble/";
     license = licenses.gpl2Plus;
-    maintainers = [ maintainers.sohalt ];
+    maintainers = [maintainers.sohalt];
     platforms = platforms.unix;
   };
 }

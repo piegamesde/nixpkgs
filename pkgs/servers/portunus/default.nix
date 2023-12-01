@@ -27,6 +27,6 @@ buildGoModule rec {
     homepage = "https://github.com/majewsky/portunus";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ majewsky ] ++ teams.c3d2.members;
+    maintainers = with maintainers; [majewsky] ++ teams.c3d2.members;
   };
 }

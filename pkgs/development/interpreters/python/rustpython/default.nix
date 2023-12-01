@@ -36,16 +36,16 @@ rustPlatform.buildRustPackage rec {
     ];
 
   # freeze the stdlib into the rustpython binary
-  cargoBuildFlags = [ "--features=freeze-stdlib" ];
+  cargoBuildFlags = ["--features=freeze-stdlib"];
 
-  buildInputs = lib.optionals stdenv.isDarwin [ SystemConfiguration ];
+  buildInputs = lib.optionals stdenv.isDarwin [SystemConfiguration];
 
-  nativeCheckInputs = [ python3 ];
+  nativeCheckInputs = [python3];
 
   meta = with lib; {
     description = "Python 3 interpreter in written Rust";
     homepage = "https://rustpython.github.io";
     license = licenses.mit;
-    maintainers = with maintainers; [ prusnak ];
+    maintainers = with maintainers; [prusnak];
   };
 }

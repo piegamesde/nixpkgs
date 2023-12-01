@@ -33,7 +33,7 @@ buildPythonPackage rec {
       --replace 'websockets = ">=11.0.1"' 'websockets = "*"'
   '';
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   propagatedBuildInputs = [
     aiohttp
@@ -50,15 +50,15 @@ buildPythonPackage rec {
   ];
 
   # Ignore the examples directory as the files are prefixed with test_
-  disabledTestPaths = [ "examples/" ];
+  disabledTestPaths = ["examples/"];
 
-  pythonImportsCheck = [ "aioambient" ];
+  pythonImportsCheck = ["aioambient"];
 
   meta = with lib; {
     description = "Python library for the Ambient Weather API";
     homepage = "https://github.com/bachya/aioambient";
     changelog = "https://github.com/bachya/aioambient/releases/tag/${version}";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

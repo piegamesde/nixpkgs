@@ -27,6 +27,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/ddccontrol/ddccontrol-db";
     license = licenses.gpl2;
     platforms = platforms.linux;
-    maintainers = [ lib.maintainers.pakhfn ];
+    maintainers = [lib.maintainers.pakhfn];
   };
 }

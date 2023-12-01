@@ -21,12 +21,12 @@ pythonPackages.buildPythonApplication rec {
     pythonPackages.py-sonic
   ];
 
-  nativeCheckInputs = with pythonPackages; [ pytestCheckHook ];
+  nativeCheckInputs = with pythonPackages; [pytestCheckHook];
 
   meta = with lib; {
     homepage = "https://www.mopidy.com/";
     description = "Mopidy extension for playing music from a Subsonic-compatible Music Server";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ wenngle ];
+    maintainers = with maintainers; [wenngle];
   };
 }

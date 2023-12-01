@@ -31,7 +31,7 @@ let
     overrideFunc (
       oldAttrs: rec {
         inherit version;
-        src = oldAttrs.src.override { inherit version hash; };
+        src = oldAttrs.src.override {inherit version hash;};
       }
     );
 
@@ -84,7 +84,7 @@ buildPythonApplication rec {
       --replace "termcolor == 1.1.0" "termcolor>=2.0.0,<3"
   '';
 
-  buildInputs = [ glibcLocales ];
+  buildInputs = [glibcLocales];
 
   nativeCheckInputs = [
     pytest

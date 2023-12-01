@@ -14,11 +14,11 @@ buildPythonPackage rec {
     cd python
   '';
 
-  buildInputs = [ pybind11 ];
+  buildInputs = [pybind11];
 
   # No tests are included upstream
   doCheck = false;
-  pythonImportsCheck = [ "tinyobjloader" ];
+  pythonImportsCheck = ["tinyobjloader"];
 
   meta =
     with lib;

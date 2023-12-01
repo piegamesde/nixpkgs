@@ -16,13 +16,13 @@ stdenv.mkDerivation rec {
     sha256 = "1si3ila7137c7x4mp3jv1q1mh3jp0p4khir1yz1rwy0mp3znwv7d";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     gtk2
     pcre
   ];
 
-  makeFlags = [ "DESTDIR=$(out)" ];
+  makeFlags = ["DESTDIR=$(out)"];
 
   patchPhase = ''
     sed -i 's/ `dpkg-buildflags[^`]*`//g;
@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
     description = "A program to help create and publish crosswords";
     homepage = "https://www.quinapalus.com/qxw.html";
     license = licenses.gpl2;
-    maintainers = [ maintainers.tckmn ];
+    maintainers = [maintainers.tckmn];
     platforms = platforms.linux;
   };
 }

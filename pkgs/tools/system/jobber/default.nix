@@ -18,7 +18,7 @@ buildGoModule rec {
 
   vendorHash = null;
 
-  nativeBuildInputs = [ gotools ];
+  nativeBuildInputs = [gotools];
 
   postConfigure = "go generate ./...";
 
@@ -40,6 +40,6 @@ buildGoModule rec {
     changelog = "https://github.com/dshearer/jobber/releases/tag/v${version}";
     description = "An alternative to cron, with sophisticated status-reporting and error-handling";
     license = licenses.mit;
-    maintainers = with maintainers; [ urandom ];
+    maintainers = with maintainers; [urandom];
   };
 }

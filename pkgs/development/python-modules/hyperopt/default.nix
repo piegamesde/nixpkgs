@@ -40,13 +40,13 @@ buildPythonPackage rec {
   # tries to use /homeless-shelter to mimic container usage, etc
   doCheck = false;
 
-  pythonImportsCheck = [ "hyperopt" ];
+  pythonImportsCheck = ["hyperopt"];
 
   meta = with lib; {
     description = "Distributed Asynchronous Hyperparameter Optimization";
     homepage = "http://hyperopt.github.io/hyperopt/";
     license = licenses.bsd2;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ freezeboy ];
+    maintainers = with maintainers; [freezeboy];
   };
 }

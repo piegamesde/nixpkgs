@@ -17,7 +17,7 @@ buildGoModule rec {
   };
   vendorHash = "sha256-SB7gGgm7BwMSo4ocKX4UGB+OdjVY92S5YZfOmTl4VEk=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   ldflags = [
     "-s"
@@ -44,7 +44,7 @@ buildGoModule rec {
       likelihood that a compromised Operator would be able to obtain full
       cluster permissions.
     '';
-    license = with licenses; [ asl20 ];
-    maintainers = with maintainers; [ jk ];
+    license = with licenses; [asl20];
+    maintainers = with maintainers; [jk];
   };
 }

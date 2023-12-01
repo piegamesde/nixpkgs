@@ -52,7 +52,7 @@ let
       xorg.libxcb
       xorg.libX11
     ];
-    wayland = [ wayland ];
+    wayland = [wayland];
   };
 
   backends = {

@@ -85,13 +85,13 @@ buildPythonPackage rec {
     rm $out/lib/python*/site-packages/LICENSE
   '';
 
-  pythonImportsCheck = [ "ansiblelater" ];
+  pythonImportsCheck = ["ansiblelater"];
 
   meta = with lib; {
     description = "Best practice scanner for Ansible roles and playbooks";
     homepage = "https://github.com/thegeeklab/ansible-later";
     changelog = "https://github.com/thegeeklab/ansible-later/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ tboerger ];
+    maintainers = with maintainers; [tboerger];
   };
 }

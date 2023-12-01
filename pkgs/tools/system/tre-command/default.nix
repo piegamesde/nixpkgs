@@ -18,7 +18,7 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-b3fScJMG/CIkMrahbELLQp1otmT5En+p8kQsip05SOc=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   preFixup = ''
     installManPage manual/tre.1
@@ -36,7 +36,7 @@ rustPlatform.buildRustPackage rec {
     description = "Tree command, improved";
     homepage = "https://github.com/dduan/tre";
     license = licenses.mit;
-    maintainers = [ maintainers.dduan ];
+    maintainers = [maintainers.dduan];
     mainProgram = "tre";
   };
 }

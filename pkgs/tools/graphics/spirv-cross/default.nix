@@ -29,7 +29,7 @@ stdenv.mkDerivation (
       changelog = "https://github.com/KhronosGroup/SPIRV-Cross/releases/tag/${version}";
       platforms = platforms.all;
       license = licenses.asl20;
-      maintainers = with maintainers; [ Flakebi ];
+      maintainers = with maintainers; [Flakebi];
     };
   }
 )

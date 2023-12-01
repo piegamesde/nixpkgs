@@ -16,9 +16,9 @@ buildPythonPackage rec {
     sha256 = "902b1b88936918f9b2a19e0e5eb7ccb430ae45cde4f39ea4b36932920d33952d";
   };
 
-  buildInputs = [ pytest ];
+  buildInputs = [pytest];
 
-  propagatedBuildInputs = [ sortedcontainers ];
+  propagatedBuildInputs = [sortedcontainers];
 
   checkPhase = ''
     runHook preCheck
@@ -30,7 +30,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Editable interval tree data structure for Python 2 and 3";
     homepage = "https://github.com/chaimleib/intervaltree";
-    license = [ licenses.asl20 ];
-    maintainers = [ maintainers.bennofs ];
+    license = [licenses.asl20];
+    maintainers = [maintainers.bennofs];
   };
 }

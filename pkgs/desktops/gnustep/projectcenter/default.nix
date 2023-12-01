@@ -19,7 +19,7 @@ gsmakeDerivation {
   src = fetchFromGitHub {
     owner = "gnustep";
     repo = "apps-projectcenter";
-    rev = "projectcenter-${lib.replaceStrings [ "." ] [ "_" ] version}";
+    rev = "projectcenter-${lib.replaceStrings ["."] ["_"] version}";
     hash = "sha256-uXT2UUvMZNc6Fqi2BUXQimbZk8b3IqXzB+A2btBOmms=";
   };
 

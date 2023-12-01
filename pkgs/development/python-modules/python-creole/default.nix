@@ -28,7 +28,7 @@ buildPythonPackage rec {
     hash = "sha256-8pXOnLNjhIv0d+BqjW8wlb6BT6CmFHSsxn5wLOv3LBQ=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   postPatch = ''
     substituteInPlace pyproject.toml \
@@ -40,9 +40,9 @@ buildPythonPackage rec {
     sed -i "/-cov/d" pytest.ini
   '';
 
-  propagatedBuildInputs = [ docutils ];
+  propagatedBuildInputs = [docutils];
 
-  pythonImportsCheck = [ "creole" ];
+  pythonImportsCheck = ["creole"];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -79,6 +79,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/jedie/python-creole";
     changelog = "https://github.com/jedie/python-creole/releases/tag/v${version}";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

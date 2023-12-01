@@ -103,7 +103,7 @@ stdenv.mkDerivation (
         ]
       );
 
-    passthru.updateScript = gitUpdater { rev-prefix = "v."; };
+    passthru.updateScript = gitUpdater {rev-prefix = "v.";};
 
     meta = with lib; {
       description = "A modern feed reader designed for the GNOME desktop";

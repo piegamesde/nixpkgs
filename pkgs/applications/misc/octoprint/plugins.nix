@@ -16,7 +16,7 @@ let
       // {
         pname = "octoprint-plugin-${args.pname}";
         inherit (args) version;
-        propagatedBuildInputs = (args.propagatedBuildInputs or [ ]) ++ [ super.octoprint ];
+        propagatedBuildInputs = (args.propagatedBuildInputs or []) ++ [super.octoprint];
         # none of the following have tests
         doCheck = false;
       }
@@ -40,7 +40,7 @@ in
       description = ''Changes the "Motors off" button in octoprint's control tab to issue an M84 command to allow compatibility with Repetier firmware Resources'';
       homepage = "https://github.com/ntoff/OctoPrint-M84MotOff";
       license = licenses.agpl3Only;
-      maintainers = with maintainers; [ stunkymonkey ];
+      maintainers = with maintainers; [stunkymonkey];
     };
   };
 
@@ -60,7 +60,7 @@ in
       description = "Marlin auto bed leveling control, mesh correction, and z probe handling";
       homepage = "https://framagit.org/razer/Octoprint_ABL_Expert/";
       license = licenses.agpl3;
-      maintainers = with maintainers; [ WhittlesJr ];
+      maintainers = with maintainers; [WhittlesJr];
     };
   };
 
@@ -75,13 +75,13 @@ in
       sha256 = "sha256-SKrhtTGyDuvbDmUCXSx83Y+C83ZzVHA78TwMYwE6tcc=";
     };
 
-    propagatedBuildInputs = with super; [ numpy ];
+    propagatedBuildInputs = with super; [numpy];
 
     meta = with lib; {
       description = "Displays 3D mesh of bed topography report";
       homepage = "https://github.com/jneilliii/OctoPrint-BedLevelVisualizer";
       license = licenses.agpl3;
-      maintainers = with maintainers; [ lovesegfault ];
+      maintainers = with maintainers; [lovesegfault];
     };
   };
 
@@ -100,7 +100,7 @@ in
       description = "Plugin to display the estimated print cost for the loaded model.";
       homepage = "https://github.com/OllisGit/OctoPrint-CostEstimation";
       license = licenses.agpl3Only;
-      maintainers = with maintainers; [ stunkymonkey ];
+      maintainers = with maintainers; [stunkymonkey];
     };
   };
 
@@ -119,7 +119,7 @@ in
       description = "Plugin for slicing via Cura Legacy from within OctoPrint";
       homepage = "https://github.com/OctoPrint/OctoPrint-CuraEngineLegacy";
       license = licenses.agpl3;
-      maintainers = with maintainers; [ gebner ];
+      maintainers = with maintainers; [gebner];
     };
   };
 
@@ -138,7 +138,7 @@ in
       description = "Displays the job progress on the printer's display";
       homepage = "https://github.com/OctoPrint/OctoPrint-DisplayProgress";
       license = licenses.agpl3Only;
-      maintainers = with maintainers; [ stunkymonkey ];
+      maintainers = with maintainers; [stunkymonkey];
     };
   };
 
@@ -157,7 +157,7 @@ in
       description = "OctoPrint-Plugin that sends the current progress of a print via M117 command";
       homepage = "https://github.com/OllisGit/OctoPrint-DisplayLayerProgress";
       license = licenses.agpl3;
-      maintainers = with maintainers; [ j0hax ];
+      maintainers = with maintainers; [j0hax];
     };
   };
 
@@ -176,7 +176,7 @@ in
       description = "Fixes the double temperature reporting from the Creality Ender-3 v2 printer";
       homepage = "https://github.com/SimplyPrint/OctoPrint-Creality2xTemperatureReportingFix";
       license = licenses.mit;
-      maintainers = with maintainers; [ illustris ];
+      maintainers = with maintainers; [illustris];
     };
   };
 
@@ -195,7 +195,7 @@ in
       description = "Edit gcode on OctoPrint";
       homepage = "https://github.com/ieatacid/OctoPrint-GcodeEditor";
       license = licenses.agpl3;
-      maintainers = with maintainers; [ WhittlesJr ];
+      maintainers = with maintainers; [WhittlesJr];
     };
   };
 
@@ -214,7 +214,7 @@ in
       description = "Displays GCode documentation for Marlin in the Octoprint terminal command line";
       homepage = "https://github.com/costas-basdekis/MarlinGcodeDocumentation";
       license = licenses.agpl3;
-      maintainers = with maintainers; [ lovesegfault ];
+      maintainers = with maintainers; [lovesegfault];
     };
   };
 
@@ -229,13 +229,13 @@ in
       sha256 = "sha256-nvEUvN/SdUE1tQkLbxMkZ8xxeUIZiNNirIfWLeH1Kfg=";
     };
 
-    propagatedBuildInputs = with super; [ paho-mqtt ];
+    propagatedBuildInputs = with super; [paho-mqtt];
 
     meta = with lib; {
       description = "Publish printer status MQTT";
       homepage = "https://github.com/OctoPrint/OctoPrint-MQTT";
       license = licenses.agpl3;
-      maintainers = with maintainers; [ peterhoeg ];
+      maintainers = with maintainers; [peterhoeg];
     };
   };
 
@@ -265,7 +265,7 @@ in
       description = "Better print time estimation for OctoPrint";
       homepage = "https://github.com/eyal0/OctoPrint-PrintTimeGenius";
       license = licenses.agpl3;
-      maintainers = with maintainers; [ gebner ];
+      maintainers = with maintainers; [gebner];
     };
   };
 
@@ -280,7 +280,7 @@ in
       sha256 = "sha256-S+lPm85+ZEO/3BXYsrxE4FU29EGWzWrSw3y1DLdByrM=";
     };
 
-    propagatedBuildInputs = with super; [ python-periphery ];
+    propagatedBuildInputs = with super; [python-periphery];
 
     preConfigure = ''
       # optional; RPi.GPIO is broken on vanilla kernels
@@ -291,7 +291,7 @@ in
       description = "OctoPrint plugin to control ATX/AUX power supply";
       homepage = "https://github.com/kantlivelong/OctoPrint-PSUControl";
       license = licenses.agpl3;
-      maintainers = with maintainers; [ gebner ];
+      maintainers = with maintainers; [gebner];
     };
   };
 
@@ -310,7 +310,7 @@ in
       description = "A simple plugin that add an emergency stop buton on NavBar of OctoPrint";
       homepage = "https://github.com/Sebclem/OctoPrint-SimpleEmergencyStop";
       license = licenses.agpl3;
-      maintainers = with maintainers; [ WhittlesJr ];
+      maintainers = with maintainers; [WhittlesJr];
     };
   };
 
@@ -329,7 +329,7 @@ in
       description = "A simple stl viewer tab for OctoPrint";
       homepage = "https://github.com/jneilliii/Octoprint-STLViewer";
       license = licenses.agpl3;
-      maintainers = with maintainers; [ abbradar ];
+      maintainers = with maintainers; [abbradar];
     };
   };
 
@@ -344,13 +344,13 @@ in
       sha256 = "sha256-SckJCbPNCflgGYLHFiXy0juCtpvo8YS1BQsFpc1f5rg=";
     };
 
-    propagatedBuildInputs = with super; [ pillow ];
+    propagatedBuildInputs = with super; [pillow];
 
     meta = with lib; {
       description = "Plugin to send status messages and receive commands via Telegram messenger.";
       homepage = "https://github.com/fabianonline/OctoPrint-Telegram";
       license = licenses.agpl3Only;
-      maintainers = with maintainers; [ stunkymonkey ];
+      maintainers = with maintainers; [stunkymonkey];
     };
   };
 
@@ -369,7 +369,7 @@ in
       description = "Beautiful themes for OctoPrint";
       homepage = "https://github.com/birkbjo/OctoPrint-Themeify";
       license = licenses.agpl3;
-      maintainers = with maintainers; [ lovesegfault ];
+      maintainers = with maintainers; [lovesegfault];
     };
   };
 
@@ -388,7 +388,7 @@ in
       description = "Show printers status in window title";
       homepage = "https://github.com/MoonshineSG/OctoPrint-TitleStatus";
       license = licenses.agpl3;
-      maintainers = with maintainers; [ abbradar ];
+      maintainers = with maintainers; [abbradar];
     };
   };
 
@@ -407,7 +407,7 @@ in
       description = "Touch friendly interface for a small TFT module or phone for OctoPrint";
       homepage = "https://github.com/BillyBlaze/OctoPrint-TouchUI";
       license = licenses.agpl3;
-      maintainers = with maintainers; [ gebner ];
+      maintainers = with maintainers; [gebner];
     };
   };
 
@@ -426,7 +426,7 @@ in
       description = "A plugin for a better integration of Klipper into OctoPrint";
       homepage = "https://github.com/AliceGrey/OctoprintKlipperPlugin";
       license = licenses.agpl3;
-      maintainers = with maintainers; [ lovesegfault ];
+      maintainers = with maintainers; [lovesegfault];
     };
   };
 
@@ -493,8 +493,8 @@ in
       description = "A dashboard for Octoprint";
       homepage = "https://github.com/StefanCohen/OctoPrint-Dashboard";
       license = licenses.agpl3;
-      maintainers = with maintainers; [ j0hax ];
+      maintainers = with maintainers; [j0hax];
     };
   };
 }
-// lib.optionalAttrs config.allowAliases { octoprint-dashboard = self.dashboard; }
+// lib.optionalAttrs config.allowAliases {octoprint-dashboard = self.dashboard;}

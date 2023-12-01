@@ -10,11 +10,11 @@ buildGoModule rec {
   pname = "wally-cli";
   version = "2.0.1";
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  buildInputs = [ libusb1 ];
+  buildInputs = [libusb1];
 
   src = fetchFromGitHub {
     owner = "zsa";

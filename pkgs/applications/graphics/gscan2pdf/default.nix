@@ -33,7 +33,7 @@ perlPackages.buildPerlPackage rec {
     hash = "sha256-NGz6DUa7TdChpgwmD9pcGdvYr3R+Ft3jPPSJpybCW4Q=";
   };
 
-  nativeBuildInputs = [ wrapGAppsHook ];
+  nativeBuildInputs = [wrapGAppsHook];
 
   buildInputs =
     [
@@ -105,7 +105,7 @@ perlPackages.buildPerlPackage rec {
 
   enableParallelBuilding = true;
 
-  installTargets = [ "install" ];
+  installTargets = ["install"];
 
   outputs = [
     "out"
@@ -124,7 +124,7 @@ perlPackages.buildPerlPackage rec {
     xvfb-run
     file
     tesseract # tests are expecting tesseract 3.x precisely
-  ] ++ (with perlPackages; [ TestPod ]);
+  ] ++ (with perlPackages; [TestPod]);
 
   checkPhase = ''
     # Temporarily disable a test failing after a patch imagemagick update.
@@ -169,6 +169,6 @@ perlPackages.buildPerlPackage rec {
     description = "A GUI to produce PDFs or DjVus from scanned documents";
     homepage = "https://gscan2pdf.sourceforge.net/";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ pacien ];
+    maintainers = with maintainers; [pacien];
   };
 }

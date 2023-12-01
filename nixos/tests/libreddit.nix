@@ -1,11 +1,11 @@
 import ./make-test-python.nix (
-  { lib, ... }:
+  {lib, ...}:
 
   with lib;
 
   {
     name = "libreddit";
-    meta.maintainers = with maintainers; [ fab ];
+    meta.maintainers = with maintainers; [fab];
 
     nodes.machine = {
       services.libreddit.enable = true;

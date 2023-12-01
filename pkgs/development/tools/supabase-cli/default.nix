@@ -29,7 +29,7 @@ buildGoModule rec {
 
   doCheck = false; # tests are trying to connect to localhost
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = ''
     rm $out/bin/{codegen,docs,listdep}
@@ -42,15 +42,15 @@ buildGoModule rec {
   '';
 
   passthru = {
-    tests.version = testers.testVersion { package = supabase-cli; };
-    updateScript = nix-update-script { };
+    tests.version = testers.testVersion {package = supabase-cli;};
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {
     description = "A CLI for interacting with supabase";
     homepage = "https://github.com/supabase/cli";
     license = licenses.mit;
-    maintainers = with maintainers; [ gerschtli ];
+    maintainers = with maintainers; [gerschtli];
     mainProgram = "supabase";
   };
 }

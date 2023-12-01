@@ -104,7 +104,7 @@ stdenv.mkDerivation rec {
     xorg.libXtst
   ];
 
-  cmakeFlags = [ "-DKWIN_BUILD_RUNNERS=OFF" ];
+  cmakeFlags = ["-DKWIN_BUILD_RUNNERS=OFF"];
 
   outputs = [
     "out"

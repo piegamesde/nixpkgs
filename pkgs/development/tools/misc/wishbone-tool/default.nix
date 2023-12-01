@@ -26,13 +26,13 @@ rustPlatform.buildRustPackage {
   '';
   cargoSha256 = "1b12wpmzv7wxidc4hd8hmp8iwqhqlycxh8bdv3rf701sqsazkc5x";
 
-  buildInputs = [ libusb-compat-0_1 ];
+  buildInputs = [libusb-compat-0_1];
 
   meta = with lib; {
     description = "Manipulate a Wishbone device over some sort of bridge";
     homepage = "https://github.com/litex-hub/wishbone-utils";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ edef ];
+    maintainers = with maintainers; [edef];
     platforms = platforms.linux;
   };
 }

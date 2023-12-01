@@ -17,7 +17,7 @@
 }:
 mkDerivation {
   pname = "plasma-bigscreen";
-  nativeBuildInputs = [ extra-cmake-modules ];
+  nativeBuildInputs = [extra-cmake-modules];
   buildInputs = [
     kactivities
     kactivities-stats

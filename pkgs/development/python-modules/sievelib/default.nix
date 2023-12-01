@@ -17,14 +17,14 @@ buildPythonPackage rec {
     hash = "sha256-7cubQWqYWjzFt9f01+wBPjcuv5DmTJ2eAOIDEpmvOP0=";
   };
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
   nativeCheckInputs = [
     mock
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "sievelib" ];
+  pythonImportsCheck = ["sievelib"];
 
   meta = with lib; {
     description = "Client-side Sieve and Managesieve library written in Python";
@@ -41,6 +41,6 @@ buildPythonPackage rec {
     '';
     homepage = "https://github.com/tonioo/sievelib";
     license = licenses.mit;
-    maintainers = with maintainers; [ leenaars ];
+    maintainers = with maintainers; [leenaars];
   };
 }

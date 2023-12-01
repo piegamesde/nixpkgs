@@ -19,15 +19,15 @@ buildPythonPackage rec {
     hash = "sha256-hH9XoEOlhAjyRnCuAYT/bt+1/VcxdDIIIowCjdxRRDg=";
   };
 
-  nativeBuildInputs = [ flit ];
+  nativeBuildInputs = [flit];
 
   preCheck = ''
     sed -i '/addopts/d' pyproject.toml
   '';
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "pyphen" ];
+  pythonImportsCheck = ["pyphen"];
 
   meta = with lib; {
     description = "Module to hyphenate text";
@@ -38,6 +38,6 @@ buildPythonPackage rec {
       lgpl21
       mpl20
     ];
-    maintainers = with maintainers; [ rvl ];
+    maintainers = with maintainers; [rvl];
   };
 }

@@ -14,12 +14,12 @@ let
     name = "Anytype-${version}.AppImage";
     sha256 = "sha256-s8al0R9G478A+PymQcdcdRpw6tpKkG+WIZsXZYEvf/o=";
   };
-  appimageContents = appimageTools.extractType2 { inherit name src; };
+  appimageContents = appimageTools.extractType2 {inherit name src;};
 in
 appimageTools.wrapType2 {
   inherit name src;
 
-  extraPkgs = pkgs: (appimageTools.defaultFhsEnvArgs.multiPkgs pkgs) ++ [ pkgs.libsecret ];
+  extraPkgs = pkgs: (appimageTools.defaultFhsEnvArgs.multiPkgs pkgs) ++ [pkgs.libsecret];
 
   extraInstallCommands = ''
     mv $out/bin/${name} $out/bin/${pname}
@@ -34,7 +34,7 @@ appimageTools.wrapType2 {
     description = "P2P note-taking tool";
     homepage = "https://anytype.io/";
     license = licenses.unfree;
-    maintainers = with maintainers; [ bbigras ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with maintainers; [bbigras];
+    platforms = ["x86_64-linux"];
   };
 }

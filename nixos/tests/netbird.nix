@@ -1,12 +1,12 @@
 import ./make-test-python.nix (
-  { pkgs, lib, ... }:
+  {pkgs, lib, ...}:
   {
     name = "netbird";
 
-    meta = with pkgs.lib.maintainers; { maintainers = [ misuzu ]; };
+    meta = with pkgs.lib.maintainers; {maintainers = [misuzu];};
 
     nodes = {
-      node = { ... }: { services.netbird.enable = true; };
+      node = {...}: {services.netbird.enable = true;};
     };
 
     testScript = ''

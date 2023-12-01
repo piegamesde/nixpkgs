@@ -54,6 +54,6 @@ stdenv.mkDerivation rec {
       "i686-linux"
       "x86_64-linux"
     ];
-    maintainers = [ maintainers.nixinator ];
+    maintainers = [maintainers.nixinator];
   };
 }

@@ -16,13 +16,13 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-9LfLQ17IRsbEwGQJZzhW2Av4en1KuJVicLrS2AyjUZY=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   meta = with lib; {
     description = "Pretty Fast FFT (PFFFT) library";
     homepage = "https://github.com/marton78/pffft";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ sikmir ];
+    maintainers = with maintainers; [sikmir];
     platforms = platforms.unix;
   };
 }

@@ -26,17 +26,17 @@ buildPythonPackage rec {
     azure-common
     azure-mgmt-core
     msrest
-  ] ++ lib.optionals (pythonOlder "3.8") [ typing-extensions ];
+  ] ++ lib.optionals (pythonOlder "3.8") [typing-extensions];
 
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "azure.mgmt.search" ];
+  pythonImportsCheck = ["azure.mgmt.search"];
 
   meta = with lib; {
     description = "This is the Microsoft Azure Search Management Client Library";
     homepage = "https://github.com/Azure/azure-sdk-for-python";
     license = licenses.mit;
-    maintainers = with maintainers; [ maxwilson ];
+    maintainers = with maintainers; [maxwilson];
   };
 }

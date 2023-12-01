@@ -8,7 +8,7 @@
 
 let
   generic =
-    { version, hash }:
+    {version, hash}:
     stdenv.mkDerivation rec {
       inherit version;
       pname = "h3";
@@ -20,7 +20,7 @@ let
         inherit hash;
       };
 
-      nativeBuildInputs = [ cmake ];
+      nativeBuildInputs = [cmake];
 
       cmakeFlags = [
         "-DBUILD_SHARED_LIBS=${if static then "OFF" else "ON"}"

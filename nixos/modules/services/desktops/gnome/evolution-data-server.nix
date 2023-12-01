@@ -57,7 +57,7 @@ with lib;
       );
       plugins = mkOption {
         type = types.listOf types.package;
-        default = [ ];
+        default = [];
         description = lib.mdDoc "Plugins for Evolution Data Server.";
       };
     };
@@ -67,7 +67,7 @@ with lib;
       );
       plugins = mkOption {
         type = types.listOf types.package;
-        default = [ ];
+        default = [];
         example = literalExpression "[ pkgs.evolution-ews ]";
         description = lib.mdDoc "Plugins for Evolution.";
       };
@@ -84,16 +84,16 @@ with lib;
     in
     mkMerge [
       (mkIf config.services.gnome.evolution-data-server.enable {
-        environment.systemPackages = [ bundle ];
+        environment.systemPackages = [bundle];
 
-        services.dbus.packages = [ bundle ];
+        services.dbus.packages = [bundle];
 
-        systemd.packages = [ bundle ];
+        systemd.packages = [bundle];
       })
       (mkIf config.programs.evolution.enable {
         services.gnome.evolution-data-server = {
           enable = true;
-          plugins = [ pkgs.evolution ] ++ config.programs.evolution.plugins;
+          plugins = [pkgs.evolution] ++ config.programs.evolution.plugins;
         };
         services.gnome.gnome-keyring.enable = true;
       })

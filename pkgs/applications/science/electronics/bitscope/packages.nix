@@ -1,7 +1,7 @@
-{ callPackage, fetchurl }:
+{callPackage, fetchurl}:
 
 let
-  mkBitscope = callPackage (import ./common.nix) { };
+  mkBitscope = callPackage (import ./common.nix) {};
 in
 {
   chart =

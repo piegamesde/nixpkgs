@@ -1,5 +1,5 @@
-{ lib, ... }:
+{lib, ...}:
 
 {
-  disabledModules = [ ./define-enable.nix ];
+  disabledModules = [./define-enable.nix];
 }

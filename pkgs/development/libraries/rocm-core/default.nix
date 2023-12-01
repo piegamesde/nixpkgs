@@ -37,14 +37,14 @@ stdenv.mkDerivation (
           src = ./src/rocm_version.h;
         };
       in
-      runCommand "rocm-core-${finalAttrs.version}-source" { preferLocalBuild = true; } ''
+      runCommand "rocm-core-${finalAttrs.version}-source" {preferLocalBuild = true;} ''
         mkdir -p $out/rocm-core
         ln -s ${cmake_lists} $out/CMakeLists.txt
         ln -s ${version_c} $out/rocm_version.c
         ln -s ${version_h} $out/rocm-core/rocm_version.h
       '';
 
-    nativeBuildInputs = [ cmake ];
+    nativeBuildInputs = [cmake];
 
     postInstall = ''
       mkdir -p $out/include
@@ -56,7 +56,7 @@ stdenv.mkDerivation (
     meta = with lib; {
       description = "ROCm core";
       homepage = "https://docs.amd.com";
-      license = with licenses; [ ncsa ]; # See src/rocm_version.h
+      license = with licenses; [ncsa]; # See src/rocm_version.h
       maintainers = teams.rocm.members;
       platforms = platforms.linux;
     };

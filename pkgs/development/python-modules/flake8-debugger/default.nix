@@ -25,14 +25,14 @@ buildPythonPackage rec {
     pycodestyle
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "flake8_debugger" ];
+  pythonImportsCheck = ["flake8_debugger"];
 
   meta = with lib; {
     description = "ipdb/pdb statement checker plugin for flake8";
     homepage = "https://github.com/jbkahn/flake8-debugger";
     license = licenses.mit;
-    maintainers = with maintainers; [ johbo ];
+    maintainers = with maintainers; [johbo];
   };
 }

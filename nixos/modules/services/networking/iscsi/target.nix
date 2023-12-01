@@ -18,7 +18,7 @@ in
 
       config = mkOption {
         type = attrs;
-        default = { };
+        default = {};
         description = lib.mdDoc ''
           Content of /etc/target/saveconfig.json
           This file is normally read and written by targetcli
@@ -34,7 +34,7 @@ in
       mode = "0600";
     };
 
-    environment.systemPackages = with pkgs; [ targetcli ];
+    environment.systemPackages = with pkgs; [targetcli];
 
     boot.kernelModules = [
       "configfs"
@@ -48,8 +48,8 @@ in
         "network.target"
         "local-fs.target"
       ];
-      requires = [ "sys-kernel-config.mount" ];
-      wantedBy = [ "multi-user.target" ];
+      requires = ["sys-kernel-config.mount"];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         Type = "oneshot";
         ExecStart = "${pkgs.python3.pkgs.rtslib}/bin/targetctl restore";
@@ -58,6 +58,6 @@ in
       };
     };
 
-    systemd.tmpfiles.rules = [ "d /etc/target 0700 root root - -" ];
+    systemd.tmpfiles.rules = ["d /etc/target 0700 root root - -"];
   };
 }

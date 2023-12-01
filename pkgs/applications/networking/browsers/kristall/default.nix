@@ -27,9 +27,9 @@ stdenv.mkDerivation rec {
     qmake
   ];
 
-  buildInputs = [ qtmultimedia ];
+  buildInputs = [qtmultimedia];
 
-  qmakeFlags = [ "src/kristall.pro" ];
+  qmakeFlags = ["src/kristall.pro"];
 
   installPhase =
     if stdenv.isDarwin then
@@ -50,7 +50,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Graphical small-internet client, supports gemini, http, https, gopher, finger";
     homepage = "https://random-projects.net/projects/kristall.gemini";
-    maintainers = with maintainers; [ ehmry ];
+    maintainers = with maintainers; [ehmry];
     license = licenses.gpl3Only;
     inherit (qtmultimedia.meta) platforms;
   };

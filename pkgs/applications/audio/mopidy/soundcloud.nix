@@ -16,13 +16,13 @@ pythonPackages.buildPythonApplication rec {
     sha256 = "18wiiv4rca9vibvnc27f3q4apf8n61kbp7mdbm2pmz86qwmd47pa";
   };
 
-  propagatedBuildInputs = [ mopidy ];
+  propagatedBuildInputs = [mopidy];
 
   doCheck = false;
 
   meta = with lib; {
     description = "Mopidy extension for playing music from SoundCloud";
     license = licenses.mit;
-    maintainers = [ maintainers.spwhitt ];
+    maintainers = [maintainers.spwhitt];
   };
 }

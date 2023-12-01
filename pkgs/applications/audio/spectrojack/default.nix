@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     url = "http://sed.free.fr/spectrojack/${pname}-${version}.tar.gz";
     sha256 = "1kiwx0kag7kq7rhg0bvckfm8r7pqmbk76ppa39cq2980jb5v8rfp";
   };
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     libjack2
     fftwFloat
@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
     description = "A little spectrogram/audiogram/sonogram/whatever for JACK";
     homepage = "http://sed.free.fr/spectrojack";
     license = lib.licenses.publicDomain;
-    maintainers = with lib.maintainers; [ sleexyz ];
+    maintainers = with lib.maintainers; [sleexyz];
     platforms = with lib.platforms; linux;
   };
 }

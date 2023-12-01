@@ -54,7 +54,7 @@ stdenv.mkDerivation rec {
     description = "Ibus Hangul engine";
     homepage = "https://github.com/choehwanjin/ibus-hangul";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ ericsagnes ];
+    maintainers = with maintainers; [ericsagnes];
     platforms = platforms.linux;
   };
 }

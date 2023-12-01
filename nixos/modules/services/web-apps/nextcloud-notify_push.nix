@@ -66,9 +66,9 @@ in
       in
       {
         description = "Push daemon for Nextcloud clients";
-        documentation = [ "https://github.com/nextcloud/notify_push" ];
-        after = [ "phpfpm-nextcloud.service" ];
-        wantedBy = [ "multi-user.target" ];
+        documentation = ["https://github.com/nextcloud/notify_push"];
+        after = ["phpfpm-nextcloud.service"];
+        wantedBy = ["multi-user.target"];
         environment = {
           NEXTCLOUD_URL = nextcloudUrl;
           SOCKET_PATH = cfg.socketPath;
@@ -110,7 +110,7 @@ in
         serviceConfig = {
           User = "nextcloud";
           Group = "nextcloud";
-          RuntimeDirectory = [ "nextcloud-notify_push" ];
+          RuntimeDirectory = ["nextcloud-notify_push"];
           Restart = "on-failure";
           RestartSec = "5s";
         };

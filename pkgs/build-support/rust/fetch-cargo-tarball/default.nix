@@ -10,10 +10,10 @@ let
   cargo-vendor-normalise = stdenv.mkDerivation {
     name = "cargo-vendor-normalise";
     src = ./cargo-vendor-normalise.py;
-    nativeBuildInputs = [ python3.pkgs.wrapPython ];
+    nativeBuildInputs = [python3.pkgs.wrapPython];
     dontUnpack = true;
     installPhase = "install -D $src $out/bin/cargo-vendor-normalise";
-    pythonPath = [ python3.pkgs.toml ];
+    pythonPath = [python3.pkgs.toml];
     postFixup = "wrapPythonPrograms";
     doInstallCheck = true;
     installCheckPhase = ''
@@ -28,11 +28,11 @@ in
 {
   name ? "cargo-deps",
   src ? null,
-  srcs ? [ ],
-  patches ? [ ],
+  srcs ? [],
+  patches ? [],
   sourceRoot ? "",
   cargoUpdateHook ? "",
-  nativeBuildInputs ? [ ],
+  nativeBuildInputs ? [],
   ...
 }@args:
 
@@ -136,7 +136,7 @@ stdenv.mkDerivation (
 
     inherit (hash_) outputHashAlgo outputHash;
 
-    impureEnvVars = lib.fetchers.proxyImpureEnvVars ++ [ "NIX_CRATES_INDEX" ];
+    impureEnvVars = lib.fetchers.proxyImpureEnvVars ++ ["NIX_CRATES_INDEX"];
   }
   // (builtins.removeAttrs args [
     "name"

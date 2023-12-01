@@ -41,13 +41,13 @@ stdenv.mkDerivation rec {
     help2man
     pkg-config
   ];
-  buildInputs = [ boehmgc ];
+  buildInputs = [boehmgc];
 
   meta = {
     homepage = "https://github.com/rrthomas/mmv";
     description = "Utility for wildcard renaming, copying, etc";
     license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.all;
-    maintainers = with lib.maintainers; [ siraben ];
+    maintainers = with lib.maintainers; [siraben];
   };
 }

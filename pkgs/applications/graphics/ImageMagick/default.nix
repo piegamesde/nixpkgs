@@ -122,7 +122,7 @@ stdenv.mkDerivation (
     ];
 
     buildInputs =
-      [ potrace ]
+      [potrace]
       ++ lib.optional zlibSupport zlib
       ++ lib.optional fontconfigSupport fontconfig
       ++ lib.optional ghostscriptSupport ghostscript
@@ -146,7 +146,7 @@ stdenv.mkDerivation (
       ];
 
     propagatedBuildInputs =
-      [ curl ]
+      [curl]
       ++ lib.optional bzip2Support bzip2
       ++ lib.optional freetypeSupport freetype
       ++ lib.optional libjpegSupport libjpeg
@@ -172,7 +172,7 @@ stdenv.mkDerivation (
       '';
 
     passthru.tests = {
-      version = testers.testVersion { package = imagemagick; };
+      version = testers.testVersion {package = imagemagick;};
       inherit (python3.pkgs) img2pdf;
       pkg-config = testers.testMetaPkgConfig finalAttrs.finalPackage;
     };

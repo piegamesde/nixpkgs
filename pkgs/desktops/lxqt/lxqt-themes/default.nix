@@ -23,7 +23,7 @@ mkDerivation rec {
     lxqt-build-tools
   ];
 
-  passthru.updateScript = gitUpdater { };
+  passthru.updateScript = gitUpdater {};
 
   meta = with lib; {
     homepage = "https://github.com/lxqt/lxqt-themes";

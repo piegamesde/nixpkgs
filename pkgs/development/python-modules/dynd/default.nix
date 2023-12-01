@@ -32,7 +32,7 @@ buildPythonPackage rec {
   # Python 3 works but has a broken import test that I couldn't
   # figure out.
   doCheck = !isPy3k;
-  nativeBuildInputs = [ pkgs.cmake ];
+  nativeBuildInputs = [pkgs.cmake];
   buildInputs = [
     pkgs.libdynd.dev
     cython
@@ -46,6 +46,6 @@ buildPythonPackage rec {
     homepage = "http://libdynd.org";
     license = licenses.bsd2;
     description = "Python exposure of dynd";
-    maintainers = with maintainers; [ teh ];
+    maintainers = with maintainers; [teh];
   };
 }

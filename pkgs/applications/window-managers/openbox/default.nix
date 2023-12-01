@@ -47,7 +47,7 @@ stdenv.mkDerivation rec {
     imlib2
   ];
 
-  pythonPath = with python3.pkgs; [ pyxdg ];
+  pythonPath = with python3.pkgs; [pyxdg];
 
   src = fetchurl {
     url = "http://openbox.org/dist/openbox/${pname}-${version}.tar.gz";

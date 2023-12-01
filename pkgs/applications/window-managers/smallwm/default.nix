@@ -51,7 +51,7 @@ stdenv.mkDerivation rec {
     description = "A small X window manager, extended from tinywm";
     homepage = "https://github.com/adamnew123456/SmallWM";
     license = licenses.bsd2;
-    maintainers = [ maintainers.AndersonTorres ];
+    maintainers = [maintainers.AndersonTorres];
     platforms = platforms.linux;
   };
 }

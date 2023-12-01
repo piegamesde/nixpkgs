@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
     sha256 = "0rj1bmr9kngrgbxrjbn4f4f9pww0wmf6viflinq7ava7zdav4hkk";
   };
 
-  patches = [ ./pkg-config.patch ];
+  patches = [./pkg-config.patch];
 
   postPatch = ''
     substituteInPlace configure.ac --replace "-Werror" "-Wno-error"
@@ -40,6 +40,6 @@ stdenv.mkDerivation rec {
     description = "A rendering library for Kate streams using Pango and Cairo";
     platforms = lib.platforms.unix;
     license = lib.licenses.lgpl21Plus;
-    maintainers = with lib.maintainers; [ matthewbauer ];
+    maintainers = with lib.maintainers; [matthewbauer];
   };
 }

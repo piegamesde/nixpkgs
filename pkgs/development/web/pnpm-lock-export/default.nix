@@ -30,6 +30,6 @@ buildNpmPackage rec {
     description = "A utility for converting pnpm-lock.yaml to other lockfile formats";
     homepage = "https://github.com/cvent/pnpm-lock-export";
     license = licenses.mit;
-    maintainers = with maintainers; [ ambroisie ];
+    maintainers = with maintainers; [ambroisie];
   };
 }

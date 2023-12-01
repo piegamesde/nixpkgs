@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
     wrapQtAppsHook
   ];
 
-  buildInputs = [ qtbase ];
+  buildInputs = [qtbase];
 
   mesonFlags = [
     "-Dgtk=false"

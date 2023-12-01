@@ -14,7 +14,7 @@ nimPackages.buildNimPackage rec {
     rev = "62f19dba573b924703829847feb1bfee68885514";
     sha256 = "sha256-YGDVcfFcI9cRCCZ4BrO5xTuI9mrGq1lfbEITB7o3vQQ=";
   };
-  buildInputs = with nimPackages; [ tempfile ];
+  buildInputs = with nimPackages; [tempfile];
 
   installPhase = ''
     mkdir -p "$out/lib/mozilla/native-messaging-hosts"

@@ -40,7 +40,7 @@ stdenvNoCC.mkDerivation rec {
        the license is available in LICENSE.md" (From the GitHub page)
     */
     license = licenses.free;
-    maintainers = with maintainers; [ dywedir ];
+    maintainers = with maintainers; [dywedir];
     platforms = platforms.all;
   };
 }

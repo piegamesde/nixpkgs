@@ -32,7 +32,7 @@ rustPlatform.buildRustPackage rec {
     installShellFiles
     mdbook
   ];
-  buildInputs = lib.optionals stdenv.isDarwin [ libiconv ];
+  buildInputs = lib.optionals stdenv.isDarwin [libiconv];
 
   preCheck = ''
     # USER must not be empty

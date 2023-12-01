@@ -46,6 +46,6 @@ stdenv.mkDerivation rec {
     license = licenses.gpl2Plus;
     homepage = "https://github.com/raboof/nethogs#readme";
     platforms = platforms.linux;
-    maintainers = [ maintainers.rycee ];
+    maintainers = [maintainers.rycee];
   };
 }

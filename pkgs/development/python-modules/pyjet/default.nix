@@ -21,10 +21,10 @@ buildPythonPackage rec {
     hash = "sha256-0g0fCf0FIwde5Vsc/BJxjgMcs5llpD8JqOgFbMjOooc=";
   };
 
-  nativeBuildInputs = [ cython ];
-  propagatedBuildInputs = [ numpy ] ++ lib.optionals (pythonOlder "3.9") [ importlib-resources ];
+  nativeBuildInputs = [cython];
+  propagatedBuildInputs = [numpy] ++ lib.optionals (pythonOlder "3.9") [importlib-resources];
 
-  nativeCheckInputs = [ pytest ];
+  nativeCheckInputs = [pytest];
   checkPhase = ''
     mv pyjet _pyjet
     pytest tests/
@@ -34,6 +34,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/scikit-hep/pyjet";
     description = "The interface between FastJet and NumPy";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ veprbl ];
+    maintainers = with maintainers; [veprbl];
   };
 }

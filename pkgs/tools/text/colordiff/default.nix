@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
     xmlto
   ];
 
-  buildInputs = [ perl ];
+  buildInputs = [perl];
 
   postPatch = ''
     substituteInPlace Makefile \
@@ -50,6 +50,6 @@ stdenv.mkDerivation rec {
     homepage = "https://www.colordiff.org/";
     license = licenses.gpl2Plus;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ SuperSandro2000 ];
+    maintainers = with maintainers; [SuperSandro2000];
   };
 }

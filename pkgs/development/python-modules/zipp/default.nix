@@ -21,7 +21,7 @@ let
       hash = "sha256-ESkprWSdqUHCPeUPNWorVXDJVLZRUGQrzN1mvxlNIks=";
     };
 
-    nativeBuildInputs = [ setuptools-scm ];
+    nativeBuildInputs = [setuptools-scm];
 
     # Prevent infinite recursion with pytest
     doCheck = false;
@@ -31,17 +31,17 @@ let
       jaraco_itertools
     ];
 
-    pythonImportsCheck = [ "zipp" ];
+    pythonImportsCheck = ["zipp"];
 
     passthru.tests = {
-      check = zipp.overridePythonAttrs (_: { doCheck = true; });
+      check = zipp.overridePythonAttrs (_: {doCheck = true;});
     };
 
     meta = with lib; {
       description = "Pathlib-compatible object wrapper for zip files";
       homepage = "https://github.com/jaraco/zipp";
       license = licenses.mit;
-      maintainers = with maintainers; [ SuperSandro2000 ];
+      maintainers = with maintainers; [SuperSandro2000];
     };
   };
 in

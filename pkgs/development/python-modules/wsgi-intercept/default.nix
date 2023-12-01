@@ -24,7 +24,7 @@ buildPythonPackage rec {
     hash = "sha256-KvrZs+EgeK7Du7ni6icKHfcF0W0RDde0W6Aj/EPZ2Hw=";
   };
 
-  propagatedBuildInputs = [ six ];
+  propagatedBuildInputs = [six];
 
   nativeCheckInputs = [
     httplib2
@@ -40,12 +40,12 @@ buildPythonPackage rec {
     "test_https_no_ssl_verification_not_intercepted"
   ];
 
-  pythonImportsCheck = [ "wsgi_intercept" ];
+  pythonImportsCheck = ["wsgi_intercept"];
 
   meta = with lib; {
     description = "Module that acts as a WSGI application in place of a real URI for testing";
     homepage = "https://github.com/cdent/wsgi-intercept";
     license = licenses.mit;
-    maintainers = with maintainers; [ SuperSandro2000 ];
+    maintainers = with maintainers; [SuperSandro2000];
   };
 }

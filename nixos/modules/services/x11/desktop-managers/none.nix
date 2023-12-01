@@ -50,7 +50,7 @@ in
           "xdg-desktop-autostart.target"
           "graphical-session.target"
         ];
-        bindsTo = [ "graphical-session.target" ];
+        bindsTo = ["graphical-session.target"];
       };
     })
   ];

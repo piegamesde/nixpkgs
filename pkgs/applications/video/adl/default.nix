@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-huGpDtkWrhZyKDNKXat8T3qtAyMjBaq8HFd1w1ThUVk=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   # https://github.com/RaitaroH/adl#requirements
   buildInputs = with pkgs; [
@@ -45,6 +45,6 @@ stdenv.mkDerivation rec {
     description = "popcorn anime-downloader + trackma wrapper";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ WeebSorceress ];
+    maintainers = with maintainers; [WeebSorceress];
   };
 }

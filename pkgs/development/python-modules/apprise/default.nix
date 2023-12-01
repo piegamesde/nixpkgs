@@ -30,7 +30,7 @@ buildPythonPackage rec {
     hash = "sha256-LFDBml3UExex9lnFKyGpkP6+bBXghGQiihzo5gmPEb8=";
   };
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   propagatedBuildInputs = [
     click
@@ -65,13 +65,13 @@ buildPythonPackage rec {
     installManPage packaging/man/apprise.1
   '';
 
-  pythonImportsCheck = [ "apprise" ];
+  pythonImportsCheck = ["apprise"];
 
   meta = with lib; {
     description = "Push Notifications that work with just about every platform";
     homepage = "https://github.com/caronc/apprise";
     changelog = "https://github.com/caronc/apprise/releases/tag/v${version}";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ marsam ];
+    maintainers = with maintainers; [marsam];
   };
 }

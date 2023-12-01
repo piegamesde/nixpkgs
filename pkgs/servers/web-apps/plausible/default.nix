@@ -53,7 +53,7 @@ beamPackages.mixRelease {
     mixFodDeps
     ;
 
-  nativeBuildInputs = [ nodejs ];
+  nativeBuildInputs = [nodejs];
 
   # https://github.com/whitfin/cachex/issues/205
   stripDebug = false;
@@ -80,7 +80,7 @@ beamPackages.mixRelease {
     license = licenses.agpl3Plus;
     homepage = "https://plausible.io/";
     description = " Simple, open-source, lightweight (< 1 KB) and privacy-friendly web analytics alternative to Google Analytics.";
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     platforms = platforms.unix;
   };
 }

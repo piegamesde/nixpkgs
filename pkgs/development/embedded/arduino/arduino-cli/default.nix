@@ -21,11 +21,11 @@ let
       hash = "sha256-Em8L2ZYS1rgW46/MP5hs/EBWGcb5GP3EDEzWi072F/I=";
     };
 
-    nativeBuildInputs = [ installShellFiles ];
+    nativeBuildInputs = [installShellFiles];
 
-    nativeCheckInputs = [ go-task ];
+    nativeCheckInputs = [go-task];
 
-    subPackages = [ "." ];
+    subPackages = ["."];
 
     vendorSha256 = "sha256-+5Cj6wdX25fK+Y9czTwRRqCdY+0iarvii9nD3QMDh+c=";
 
@@ -60,7 +60,7 @@ let
       "-w"
       "-X github.com/arduino/arduino-cli/version.versionString=${version}"
       "-X github.com/arduino/arduino-cli/version.commit=unknown"
-    ] ++ lib.optionals stdenv.isLinux [ "-extldflags '-static'" ];
+    ] ++ lib.optionals stdenv.isLinux ["-extldflags '-static'"];
 
     postInstall = ''
       export HOME="$(mktemp -d)"
@@ -76,7 +76,7 @@ let
       description = "Arduino from the command line";
       changelog = "https://github.com/arduino/arduino-cli/releases/tag/${version}";
       license = licenses.gpl3Only;
-      maintainers = with maintainers; [ ryantm ];
+      maintainers = with maintainers; [ryantm];
     };
   };
 in
@@ -95,7 +95,7 @@ if stdenv.isLinux then
     '';
     passthru.pureGoPkg = pkg;
 
-    targetPkgs = pkgs: with pkgs; [ zlib ];
+    targetPkgs = pkgs: with pkgs; [zlib];
   }
 else
   pkg

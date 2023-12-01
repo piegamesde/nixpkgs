@@ -32,8 +32,8 @@ stdenv.mkDerivation rec {
 
   sourceRoot = "source/pdftoipe";
 
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ poppler ];
+  nativeBuildInputs = [pkg-config];
+  buildInputs = [poppler];
 
   installPhase = ''
     install -D pdftoipe $out/bin/pdftoipe
@@ -43,6 +43,6 @@ stdenv.mkDerivation rec {
     description = "A program that tries to convert arbitrary PDF documents to Ipe files";
     homepage = "https://github.com/otfried/ipe-tools";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ yrd ];
+    maintainers = with maintainers; [yrd];
   };
 }

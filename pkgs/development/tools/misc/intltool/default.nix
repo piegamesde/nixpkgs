@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
     XMLParser
   ];
   propagatedBuildInputs =
-    [ gettext ]
+    [gettext]
     ++ (
       with perlPackages; [
         perl
@@ -51,7 +51,7 @@ stdenv.mkDerivation rec {
     description = "Translation helper tool";
     homepage = "https://launchpad.net/intltool/";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ raskin ];
+    maintainers = with maintainers; [raskin];
     platforms = platforms.unix;
   };
 }

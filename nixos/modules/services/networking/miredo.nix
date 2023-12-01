@@ -80,8 +80,8 @@ in
   config = mkIf cfg.enable {
 
     systemd.services.miredo = {
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
       description = "Teredo IPv6 Tunneling Daemon";
       serviceConfig = {
         Restart = "always";

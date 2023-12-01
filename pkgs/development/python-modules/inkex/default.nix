@@ -35,7 +35,7 @@ buildPythonPackage rec {
       --replace 'scour = "^0.37"' 'scour = ">=0.37"'
   '';
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   propagatedBuildInputs = [
     cssselect
@@ -48,14 +48,14 @@ buildPythonPackage rec {
     scour
   ];
 
-  pythonImportsCheck = [ "inkex" ];
+  pythonImportsCheck = ["inkex"];
 
   nativeCheckInputs = [
     gobject-introspection
     pytestCheckHook
   ];
 
-  checkInputs = [ gtk3 ];
+  checkInputs = [gtk3];
 
   disabledTests = [
     "test_extract_multiple"
@@ -75,6 +75,6 @@ buildPythonPackage rec {
     description = "Library for manipulating SVG documents which is the basis for Inkscape extensions";
     homepage = "https://gitlab.com/inkscape/extensions";
     license = lib.licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

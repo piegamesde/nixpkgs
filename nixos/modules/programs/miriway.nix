@@ -49,7 +49,7 @@ in
 
   config = lib.mkIf cfg.enable {
     environment = {
-      systemPackages = [ pkgs.miriway ];
+      systemPackages = [pkgs.miriway];
       etc = {
         "xdg/xdg-miriway/miriway-shell.config".text = cfg.config;
       };
@@ -61,8 +61,8 @@ in
     programs.xwayland.enable = lib.mkDefault true;
 
     # To make the Miriway session available if a display manager like SDDM is enabled:
-    services.xserver.displayManager.sessionPackages = [ pkgs.miriway ];
+    services.xserver.displayManager.sessionPackages = [pkgs.miriway];
   };
 
-  meta.maintainers = with lib.maintainers; [ OPNA2608 ];
+  meta.maintainers = with lib.maintainers; [OPNA2608];
 }

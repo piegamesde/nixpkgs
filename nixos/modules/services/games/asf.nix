@@ -10,7 +10,7 @@ with lib;
 let
   cfg = config.services.archisteamfarm;
 
-  format = pkgs.formats.json { };
+  format = pkgs.formats.json {};
 
   asf-config = format.generate "ASF.json" (
     cfg.settings
@@ -21,7 +21,7 @@ let
       UpdateChannel = 0;
       Headless = true;
     }
-    // lib.optionalAttrs (cfg.ipcPasswordFile != null) { IPCPassword = "#ipcPassword#"; }
+    // lib.optionalAttrs (cfg.ipcPasswordFile != null) {IPCPassword = "#ipcPassword#";}
   );
 
   ipc-config = format.generate "IPC.config" cfg.ipcSettings;
@@ -101,7 +101,7 @@ in
       example = {
         Statistics = false;
       };
-      default = { };
+      default = {};
     };
 
     ipcPasswordFile = mkOption {
@@ -125,7 +125,7 @@ in
           };
         };
       };
-      default = { };
+      default = {};
     };
 
     bots = mkOption {
@@ -151,7 +151,7 @@ in
               description = lib.mdDoc ''
                 Additional settings that are documented [here](https://github.com/JustArchiNET/ArchiSteamFarm/wiki/Configuration#bot-config).
               '';
-              default = { };
+              default = {};
             };
           };
         }
@@ -168,7 +168,7 @@ in
           };
         };
       };
-      default = { };
+      default = {};
     };
   };
 
@@ -181,14 +181,14 @@ in
         group = "asf";
         description = "Archis-Steam-Farm service user";
       };
-      groups.asf = { };
+      groups.asf = {};
     };
 
     systemd.services = {
       asf = {
         description = "Archis-Steam-Farm Service";
-        after = [ "network.target" ];
-        wantedBy = [ "multi-user.target" ];
+        after = ["network.target"];
+        wantedBy = ["multi-user.target"];
 
         serviceConfig = mkMerge [
           (mkIf (cfg.dataDir == "/var/lib/asf") {
@@ -228,7 +228,7 @@ in
 
         preStart =
           let
-            createBotsScript = pkgs.runCommandLocal "ASF-bots" { } ''
+            createBotsScript = pkgs.runCommandLocal "ASF-bots" {} ''
               mkdir -p $out
               # clean potential removed bots
               rm -rf $out/*.json
@@ -252,11 +252,11 @@ in
               ${replaceSecretBin} '#ipcPassword#' '${cfg.ipcPasswordFile}' config/ASF.json
             ''}
 
-            ${optionalString (cfg.ipcSettings != { }) ''
+            ${optionalString (cfg.ipcSettings != {}) ''
               ln -fs ${ipc-config} config/IPC.config
             ''}
 
-            ${optionalString (cfg.ipcSettings != { }) ''
+            ${optionalString (cfg.ipcSettings != {}) ''
               ln -fs ${createBotsScript}/* config/
             ''}
 

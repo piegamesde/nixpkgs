@@ -28,15 +28,15 @@ let
     else if isList v then
       (concatMapStringsSep "\n" (toConf indent n) v)
     else if isAttrs v then
-      (concatStringsSep "\n" ([ "${indent}${n}:" ] ++ (mapAttrsToList (toConf "${indent}  ") v)))
+      (concatStringsSep "\n" (["${indent}${n}:"] ++ (mapAttrsToList (toConf "${indent}  ") v)))
     else
       throw (traceSeq v "services.unbound.settings: unexpected type");
 
   confNoServer = concatStringsSep "\n" (
-    (mapAttrsToList (toConf "") (builtins.removeAttrs cfg.settings [ "server" ])) ++ [ "" ]
+    (mapAttrsToList (toConf "") (builtins.removeAttrs cfg.settings ["server"])) ++ [""]
   );
   confServer = concatStringsSep "\n" (
-    mapAttrsToList (toConf "  ") (builtins.removeAttrs cfg.settings.server [ "define-tag" ])
+    mapAttrsToList (toConf "  ") (builtins.removeAttrs cfg.settings.server ["define-tag"])
   );
 
   confFile = pkgs.writeText "unbound.conf" ''
@@ -122,7 +122,7 @@ in
       };
 
       settings = mkOption {
-        default = { };
+        default = {};
         type =
           with types;
           submodule {
@@ -209,9 +209,9 @@ in
         pidfile = ''""'';
         # when running under systemd there is no need to daemonize
         do-daemonize = false;
-        interface = mkDefault ([ "127.0.0.1" ] ++ (optional config.networking.enableIPv6 "::1"));
+        interface = mkDefault (["127.0.0.1"] ++ (optional config.networking.enableIPv6 "::1"));
         access-control = mkDefault (
-          [ "127.0.0.0/8 allow" ] ++ (optional config.networking.enableIPv6 "::1/128 allow")
+          ["127.0.0.0/8 allow"] ++ (optional config.networking.enableIPv6 "::1/128 allow")
         );
         auto-trust-anchor-file = mkIf cfg.enableRootTrustAnchor rootTrustAnchorFile;
         tls-cert-bundle = mkDefault "/etc/ssl/certs/ca-certificates.crt";
@@ -223,7 +223,7 @@ in
       remote-control =
         {
           control-enable = mkDefault false;
-          control-interface = mkDefault ([ "127.0.0.1" ] ++ (optional config.networking.enableIPv6 "::1"));
+          control-interface = mkDefault (["127.0.0.1"] ++ (optional config.networking.enableIPv6 "::1"));
           server-key-file = mkDefault "${cfg.stateDir}/unbound_server.key";
           server-cert-file = mkDefault "${cfg.stateDir}/unbound_server.pem";
           control-key-file = mkDefault "${cfg.stateDir}/unbound_control.key";
@@ -235,7 +235,7 @@ in
         };
     };
 
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
     users.users = mkIf (cfg.user == "unbound") {
       unbound = {
@@ -245,7 +245,7 @@ in
       };
     };
 
-    users.groups = mkIf (cfg.group == "unbound") { unbound = { }; };
+    users.groups = mkIf (cfg.group == "unbound") {unbound = {};};
 
     networking = mkIf cfg.resolveLocalQueries {
       resolvconf = {
@@ -259,14 +259,14 @@ in
 
     systemd.services.unbound = {
       description = "Unbound recursive Domain Name Server";
-      after = [ "network.target" ];
-      before = [ "nss-lookup.target" ];
+      after = ["network.target"];
+      before = ["nss-lookup.target"];
       wantedBy = [
         "multi-user.target"
         "nss-lookup.target"
       ];
 
-      path = mkIf cfg.settings.remote-control.control-enable [ pkgs.openssl ];
+      path = mkIf cfg.settings.remote-control.control-enable [pkgs.openssl];
 
       preStart = ''
         ${optionalString cfg.enableRootTrustAnchor ''
@@ -277,7 +277,7 @@ in
         ''}
       '';
 
-      restartTriggers = [ confFile ];
+      restartTriggers = [confFile];
 
       serviceConfig = {
         ExecStart = "${cfg.package}/bin/unbound -p -d -c /etc/unbound/unbound.conf";
@@ -332,7 +332,7 @@ in
         LockPersonality = true;
         RestrictSUIDSGID = true;
 
-        ReadWritePaths = [ cfg.stateDir ];
+        ReadWritePaths = [cfg.stateDir];
 
         Restart = "on-failure";
         RestartSec = "5s";

@@ -31,7 +31,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = [ pkgs.torque ];
+    environment.systemPackages = [pkgs.torque];
 
     systemd.services.torque-mom-init = {
       path = with pkgs; [
@@ -53,10 +53,10 @@ in
     };
 
     systemd.services.torque-mom = {
-      path = [ torque ];
+      path = [torque];
 
-      wantedBy = [ "multi-user.target" ];
-      requires = [ "torque-mom-init.service" ];
+      wantedBy = ["multi-user.target"];
+      requires = ["torque-mom-init.service"];
       after = [
         "torque-mom-init.service"
         "network.target"

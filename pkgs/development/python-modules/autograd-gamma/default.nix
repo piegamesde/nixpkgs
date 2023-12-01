@@ -23,14 +23,14 @@ buildPythonPackage rec {
     scipy
   ];
 
-  pythonImportsCheck = [ "autograd_gamma" ];
+  pythonImportsCheck = ["autograd_gamma"];
 
-  checkInputs = [ pytestCheckHook ];
+  checkInputs = [pytestCheckHook];
 
   meta = {
     homepage = "https://github.com/CamDavidsonPilon/autograd-gamma";
     description = "Autograd compatible approximations to the gamma family of functions";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ swflint ];
+    maintainers = with lib.maintainers; [swflint];
   };
 }

@@ -83,7 +83,7 @@ buildPythonPackage rec {
     ")
   '';
 
-  pythonImportsCheck = [ "tempest" ];
+  pythonImportsCheck = ["tempest"];
 
   meta = with lib; {
     description = "An OpenStack integration test suite that runs against live OpenStack cluster and validates an OpenStack deployment";

@@ -29,9 +29,9 @@ toPythonModule (
       hash = "sha256-gjmZf66AcNaAMqyLerBgRu5RUzV6qrT7DigTNE39AwI=";
     };
 
-    cmakeFlags = [ "-DPYGMO_INSTALL_PATH=${placeholder "out"}/lib/${python.libPrefix}/site-packages" ];
+    cmakeFlags = ["-DPYGMO_INSTALL_PATH=${placeholder "out"}/lib/${python.libPrefix}/site-packages"];
 
-    nativeBuildInputs = [ cmake ];
+    nativeBuildInputs = [cmake];
 
     propagatedBuildInputs = [
       cloudpickle
@@ -56,7 +56,7 @@ toPythonModule (
       description = "Parallel optimisation for Python";
       homepage = "https://github.com/esa/pygmo2";
       license = licenses.gpl3Plus;
-      maintainers = [ maintainers.costrouc ];
+      maintainers = [maintainers.costrouc];
     };
   }
 )

@@ -29,7 +29,7 @@ rustPlatform.buildRustPackage rec {
           {
             CC = stdenv.cc;
             patchelf = patchelf;
-            libPath = "$ORIGIN/../lib:${lib.makeLibraryPath [ zlib ]}";
+            libPath = "$ORIGIN/../lib:${lib.makeLibraryPath [zlib]}";
           }
           ''
             export dynamicLinker=$(cat $CC/nix-support/dynamic-linker)
@@ -39,10 +39,10 @@ rustPlatform.buildRustPackage rec {
               --subst-var libPath
           '';
     in
-    lib.optionals stdenv.isLinux [ patchelfPatch ];
+    lib.optionals stdenv.isLinux [patchelfPatch];
 
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ openssl ] ++ lib.optionals stdenv.isDarwin [ Security ];
+  nativeBuildInputs = [pkg-config];
+  buildInputs = [openssl] ++ lib.optionals stdenv.isDarwin [Security];
 
   cargoSha256 = "n7t8Ap9hdhrjmtKjfdyozf26J7yhu57pedm19CunLF4=";
 
@@ -50,6 +50,6 @@ rustPlatform.buildRustPackage rec {
     description = "Install a rustc master toolchain usable from rustup";
     homepage = "https://github.com/kennytm/rustup-toolchain-install-master";
     license = licenses.mit;
-    maintainers = with maintainers; [ davidtwco ];
+    maintainers = with maintainers; [davidtwco];
   };
 }

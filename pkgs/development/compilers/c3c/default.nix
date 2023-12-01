@@ -17,14 +17,14 @@ llvmPackages.stdenv.mkDerivation rec {
     sha256 = "VdMKdQsedDQCnsmTxO4HnBj5GH/EThspnotvrAscSqE=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   buildInputs = [
     llvmPackages.llvm
     llvmPackages.lld
   ];
 
-  nativeCheckInputs = [ python3 ];
+  nativeCheckInputs = [python3];
 
   doCheck = true;
 
@@ -42,7 +42,7 @@ llvmPackages.stdenv.mkDerivation rec {
     description = "Compiler for the C3 language";
     homepage = "https://github.com/c3lang/c3c";
     license = licenses.lgpl3Only;
-    maintainers = with maintainers; [ luc65r ];
+    maintainers = with maintainers; [luc65r];
     platforms = platforms.all;
   };
 }

@@ -23,7 +23,7 @@ let
   };
 in
 builtins.concatLists [
-  (test.run "bundlerEnv { name }" justName { name = should.equal "test-0.1.2"; })
+  (test.run "bundlerEnv { name }" justName {name = should.equal "test-0.1.2";})
   (test.run "bundlerEnv { pname }" pnamed [
     (should.haveKeys [
       "name"

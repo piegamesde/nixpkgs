@@ -41,7 +41,7 @@ stdenvNoCC.mkDerivation {
       ;
   };
 
-  nativeBuildInputs = [ undmg ];
+  nativeBuildInputs = [undmg];
   sourceRoot = "${appName}";
 
   installPhase = ''
@@ -79,7 +79,7 @@ stdenvNoCC.mkDerivation {
     description = "Comprehensive, professional-quality productivity suite, a variant of openoffice.org";
     homepage = "https://libreoffice.org/";
     license = licenses.lgpl3;
-    maintainers = with maintainers; [ tricktron ];
+    maintainers = with maintainers; [tricktron];
     platforms = [
       "x86_64-darwin"
       "aarch64-darwin"

@@ -29,12 +29,12 @@ buildPythonPackage rec {
     pywavelets
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = with lib; {
     description = "A Python Perceptual Image Hashing Module";
     homepage = "https://github.com/JohannesBuchner/imagehash";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ e1mo ];
+    maintainers = with maintainers; [e1mo];
   };
 }

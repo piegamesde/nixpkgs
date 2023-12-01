@@ -61,11 +61,11 @@ in
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
     systemd.services.ckb-next = {
       description = "Corsair Keyboards and Mice Daemon";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         ExecStart = "${cfg.package}/bin/ckb-next-daemon ${
           optionalString (cfg.gid != null) "--gid=${builtins.toString cfg.gid}"
@@ -76,6 +76,6 @@ in
   };
 
   meta = {
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
   };
 }

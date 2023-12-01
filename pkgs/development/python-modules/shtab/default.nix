@@ -25,7 +25,7 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
   nativeCheckInputs = [
     bashInteractive
@@ -38,13 +38,13 @@ buildPythonPackage rec {
       --replace " --cov=shtab --cov-report=term-missing --cov-report=xml" ""
   '';
 
-  pythonImportsCheck = [ "shtab" ];
+  pythonImportsCheck = ["shtab"];
 
   meta = with lib; {
     description = "Module for shell tab completion of Python CLI applications";
     homepage = "https://docs.iterative.ai/shtab/";
     changelog = "https://github.com/iterative/shtab/releases/tag/v${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

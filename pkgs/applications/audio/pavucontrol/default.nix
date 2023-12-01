@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
     wrapGAppsHook
   ];
 
-  configureFlags = [ "--disable-lynx" ];
+  configureFlags = ["--disable-lynx"];
 
   enableParallelBuilding = true;
 

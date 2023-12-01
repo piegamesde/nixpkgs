@@ -29,11 +29,11 @@ mkDerivation {
   meta = with lib; {
     homepage = "https://kde.org/applications/en/multimedia/org.kde.kwave";
     description = "A simple media player";
-    maintainers = with maintainers; [ freezeboy ];
+    maintainers = with maintainers; [freezeboy];
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
   };
-  nativeBuildInputs = [ extra-cmake-modules ];
+  nativeBuildInputs = [extra-cmake-modules];
   buildInputs = [
     alsa-lib
     audiofile

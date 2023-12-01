@@ -1,10 +1,10 @@
 {
   system ? builtins.currentSystem,
-  config ? { },
-  pkgs ? import ../.. { inherit system config; },
+  config ? {},
+  pkgs ? import ../.. {inherit system config;},
 }:
 
-with import ../lib/testing-python.nix { inherit system pkgs; };
+with import ../lib/testing-python.nix {inherit system pkgs;};
 
 builtins.listToAttrs (
   builtins.map
@@ -14,7 +14,7 @@ builtins.listToAttrs (
         name = "nginx-variant-${nginxName}";
 
         nodes.machine =
-          { pkgs, ... }:
+          {pkgs, ...}:
           {
             services.nginx = {
               enable = true;

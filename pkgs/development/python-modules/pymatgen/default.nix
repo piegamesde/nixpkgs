@@ -64,12 +64,12 @@ buildPythonPackage rec {
   # Tests are not detected by pytest
   doCheck = false;
 
-  pythonImportsCheck = [ "pymatgen" ];
+  pythonImportsCheck = ["pymatgen"];
 
   meta = with lib; {
     description = "A robust materials analysis code that defines core object representations for structures and molecules";
     homepage = "https://pymatgen.org/";
     license = licenses.mit;
-    maintainers = with maintainers; [ psyanticy ];
+    maintainers = with maintainers; [psyanticy];
   };
 }

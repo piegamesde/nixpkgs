@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl sonarScannerArchPackage.${stdenv.hostPlatform.system};
 
-  nativeBuildInputs = [ unzip ];
+  nativeBuildInputs = [unzip];
 
   installPhase = ''
     mkdir -p $out/lib
@@ -47,7 +47,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/SonarSource/sonar-scanner-cli";
     description = "SonarQube Scanner used to start code analysis";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ peterromfeldhk ];
+    maintainers = with maintainers; [peterromfeldhk];
     platforms = builtins.attrNames sonarScannerArchPackage;
   };
 }

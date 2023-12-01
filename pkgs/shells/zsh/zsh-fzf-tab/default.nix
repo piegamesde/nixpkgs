@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
   };
 
   strictDeps = true;
-  buildInputs = [ ncurses ];
+  buildInputs = [ncurses];
 
   postConfigure = ''
     pushd modules
@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/Aloxaf/fzf-tab";
     description = "Replace zsh's default completion selection menu with fzf!";
     license = licenses.mit;
-    maintainers = with maintainers; [ vonfry ];
+    maintainers = with maintainers; [vonfry];
     platforms = platforms.unix;
   };
 }

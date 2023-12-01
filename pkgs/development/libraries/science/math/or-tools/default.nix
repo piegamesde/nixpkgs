@@ -62,7 +62,7 @@ stdenv.mkDerivation rec {
     "-DUSE_GLPK=ON"
     "-DUSE_SCIP=OFF"
     "-DPython3_EXECUTABLE=${python.pythonForBuild.interpreter}"
-  ] ++ lib.optionals stdenv.isDarwin [ "-DCMAKE_MACOSX_RPATH=OFF" ];
+  ] ++ lib.optionals stdenv.isDarwin ["-DCMAKE_MACOSX_RPATH=OFF"];
   nativeBuildInputs =
     [
       cmake
@@ -126,7 +126,7 @@ stdenv.mkDerivation rec {
     description = ''
       Google's software suite for combinatorial optimization.
     '';
-    maintainers = with maintainers; [ andersk ];
+    maintainers = with maintainers; [andersk];
     platforms = with platforms; linux ++ darwin;
   };
 }

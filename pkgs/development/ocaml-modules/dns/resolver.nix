@@ -41,7 +41,7 @@ buildDunePackage {
   ];
 
   doCheck = true;
-  checkInputs = [ alcotest ];
+  checkInputs = [alcotest];
 
   meta = dns.meta // {
     description = "DNS resolver business logic";

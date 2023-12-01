@@ -17,7 +17,7 @@ let
     else if value == false then
       "no"
     else
-      generators.mkValueStringDefault { } value;
+      generators.mkValueStringDefault {} value;
 
   redisConfig =
     settings:
@@ -25,7 +25,7 @@ let
       generators.toKeyValue
         {
           listsAsDuplicateKeys = true;
-          mkKeyValue = generators.mkKeyValueDefault { inherit mkValueString; } " ";
+          mkKeyValue = generators.mkKeyValueDefault {inherit mkValueString;} " ";
         }
         settings
     );
@@ -403,7 +403,7 @@ in
           with types;
           attrsOf (
             submodule (
-              { config, name, ... }:
+              {config, name, ...}:
               {
                 options = {
                   enable = mkEnableOption (
@@ -446,9 +446,9 @@ in
 
                   extraParams = mkOption {
                     type = with types; listOf str;
-                    default = [ ];
+                    default = [];
                     description = lib.mdDoc "Extra parameters to append to redis-server invocation";
-                    example = [ "--sentinel" ];
+                    example = ["--sentinel"];
                   };
 
                   bind = mkOption {
@@ -537,7 +537,7 @@ in
                       with types;
                       nullOr (
                         submodule (
-                          { ... }:
+                          {...}:
                           {
                             options = {
                               ip = mkOption {
@@ -628,7 +628,7 @@ in
                           (listOf str)
                         ]
                       );
-                    default = { };
+                    default = {};
                     description = lib.mdDoc ''
                       Redis configuration. Refer to
                       <https://redis.io/topics/config>
@@ -655,7 +655,7 @@ in
                     loglevel = config.logLevel;
                     syslog-enabled = config.syslog;
                     save =
-                      if config.save == [ ] then
+                      if config.save == [] then
                         ''""'' # Disable saving with `save = ""`
                       else
                         map (d: "${toString (builtins.elemAt d 0)} ${toString (builtins.elemAt d 1)}") config.save;
@@ -665,29 +665,27 @@ in
                     slowlog-log-slower-than = config.slowLogLogSlowerThan;
                     slowlog-max-len = config.slowLogMaxLen;
                   }
-                  (mkIf (config.bind != null) { inherit (config) bind; })
+                  (mkIf (config.bind != null) {inherit (config) bind;})
                   (mkIf (config.unixSocket != null) {
                     unixsocket = config.unixSocket;
                     unixsocketperm = toString config.unixSocketPerm;
                   })
-                  (mkIf (config.slaveOf != null) {
-                    slaveof = "${config.slaveOf.ip} ${toString config.slaveOf.port}";
-                  })
-                  (mkIf (config.masterAuth != null) { masterauth = config.masterAuth; })
-                  (mkIf (config.requirePass != null) { requirepass = config.requirePass; })
+                  (mkIf (config.slaveOf != null) {slaveof = "${config.slaveOf.ip} ${toString config.slaveOf.port}";})
+                  (mkIf (config.masterAuth != null) {masterauth = config.masterAuth;})
+                  (mkIf (config.requirePass != null) {requirepass = config.requirePass;})
                 ];
               }
             )
           );
         description = lib.mdDoc "Configuration of multiple `redis-server` instances.";
-        default = { };
+        default = {};
       };
     };
   };
 
   ###### implementation
 
-  config = mkIf (enabledServers != { }) {
+  config = mkIf (enabledServers != {}) {
 
     assertions = attrValues (
       mapAttrs
@@ -702,15 +700,15 @@ in
     );
 
     boot.kernel.sysctl = mkMerge [
-      { "vm.nr_hugepages" = "0"; }
-      (mkIf cfg.vmOverCommit { "vm.overcommit_memory" = "1"; })
+      {"vm.nr_hugepages" = "0";}
+      (mkIf cfg.vmOverCommit {"vm.overcommit_memory" = "1";})
     ];
 
     networking.firewall.allowedTCPPorts = concatMap (conf: optional conf.openFirewall conf.port) (
       attrValues enabledServers
     );
 
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
     users.users =
       mapAttrs'
@@ -723,7 +721,7 @@ in
           }
         )
         enabledServers;
-    users.groups = mapAttrs' (name: conf: nameValuePair (redisName name) { }) enabledServers;
+    users.groups = mapAttrs' (name: conf: nameValuePair (redisName name) {}) enabledServers;
 
     systemd.services =
       mapAttrs'
@@ -732,8 +730,8 @@ in
           nameValuePair (redisName name) {
             description = "Redis Server - ${redisName name}";
 
-            wantedBy = [ "multi-user.target" ];
-            after = [ "network.target" ];
+            wantedBy = ["multi-user.target"];
+            after = ["network.target"];
 
             serviceConfig = {
               ExecStart = "${cfg.package}/bin/redis-server /var/lib/${redisName name}/redis.conf ${escapeShellArgs conf.extraParams}";

@@ -60,6 +60,6 @@ stdenv.mkDerivation rec {
     #    restrictions)
     license = licenses.gpl2;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ bjornfor ];
+    maintainers = with maintainers; [bjornfor];
   };
 }

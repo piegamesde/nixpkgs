@@ -12,7 +12,7 @@ let
 
   meta = with lib; {
     license = licenses.agpl3Plus;
-    maintainers = with maintainers; [ davidak ];
+    maintainers = with maintainers; [davidak];
     platforms = platforms.linux;
     description = "Speech synthesizer based on the concatenation of diphones";
     homepage = "https://github.com/numediart/MBROLA";
@@ -56,7 +56,7 @@ let
     };
 
     # required for cross compilation
-    makeFlags = [ "CC=${stdenv.cc.targetPrefix}cc" ];
+    makeFlags = ["CC=${stdenv.cc.targetPrefix}cc"];
 
     installPhase = ''
       runHook preInstall

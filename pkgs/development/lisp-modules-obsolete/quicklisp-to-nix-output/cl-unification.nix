@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "cl-unification";
   version = "20200925-git";
@@ -9,7 +9,7 @@ rec {
 
     The system contains the definitions for the 'unification' machinery.'';
 
-  deps = [ ];
+  deps = [];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/cl-unification/2020-09-25/cl-unification-20200925-git.tgz";
@@ -18,7 +18,7 @@ rec {
 
   packageName = "cl-unification";
 
-  asdFilesToKeep = [ "cl-unification.asd" ];
+  asdFilesToKeep = ["cl-unification.asd"];
   overrides = x: x;
 }
 /* (SYSTEM cl-unification DESCRIPTION The CL-UNIFICATION system.

@@ -42,7 +42,7 @@ in
   ### Implementation
 
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
     systemd.user.services."onedrive@" = {
       description = "Onedrive sync service";
@@ -59,7 +59,7 @@ in
     };
 
     systemd.user.services.onedrive-launcher = {
-      wantedBy = [ "default.target" ];
+      wantedBy = ["default.target"];
       serviceConfig = {
         Type = "oneshot";
         ExecStart = "${onedriveLauncher}/bin/onedrive-launcher";

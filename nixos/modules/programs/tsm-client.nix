@@ -48,7 +48,7 @@ let
   servernameType = strMatching ".{1,64}";
 
   serverOptions =
-    { name, config, ... }:
+    {name, config, ...}:
     {
       options.name = mkOption {
         type = servernameType;
@@ -138,7 +138,7 @@ let
         # we have to ensure there are no keys that
         # differ only by upper and lower case.
         type = addCheck (attrsOf (nullOr str)) (attrs: checkIUnique (attrNames attrs));
-        default = { };
+        default = {};
         example.compression = "yes";
         example.passwordaccess = null;
         description = lib.mdDoc ''
@@ -206,8 +206,8 @@ let
       ''
     );
     servers = mkOption {
-      type = attrsOf (submodule [ serverOptions ]);
-      default = { };
+      type = attrsOf (submodule [serverOptions]);
+      default = {};
       example.mainTsmServer = {
         server = "tsmserver.company.com";
         node = "MY-TSM-NODE";
@@ -306,8 +306,8 @@ in
       dsmSysCli = pkgs.writeText "dsm.sys" cfg.dsmSysText;
       dsmSysApi = dsmSysCli;
     };
-    environment.systemPackages = [ cfg.wrappedPackage ];
+    environment.systemPackages = [cfg.wrappedPackage];
   };
 
-  meta.maintainers = [ lib.maintainers.yarny ];
+  meta.maintainers = [lib.maintainers.yarny];
 }

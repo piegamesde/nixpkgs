@@ -20,7 +20,7 @@ buildPythonPackage rec {
     hash = "sha256-UCJ1PknnWQiFciTEMxTUqDzz0Z8HEWycLuQqYeyQhoM=";
   };
 
-  buildInputs = [ mpv ];
+  buildInputs = [mpv];
 
   postPatch = ''
     substituteInPlace mpv.py \
@@ -30,7 +30,7 @@ buildPythonPackage rec {
 
   # tests impure, will error if it can't load libmpv.so
   doCheck = false;
-  pythonImportsCheck = [ "mpv" ];
+  pythonImportsCheck = ["mpv"];
 
   meta = with lib; {
     description = "A python interface to the mpv media player";

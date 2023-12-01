@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
   pname = "uniscribe";
   version = (import ./gemset.nix).uniscribe.version;
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   dontUnpack = true;
 
@@ -31,6 +31,6 @@ stdenv.mkDerivation rec {
     description = "Explains Unicode characters/code points: Displays their name, category, and shows compositions";
     homepage = "https://github.com/janlelis/uniscribe";
     license = licenses.mit;
-    maintainers = with maintainers; [ kjeremy ];
+    maintainers = with maintainers; [kjeremy];
   };
 }

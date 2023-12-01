@@ -16,7 +16,7 @@ buildPythonPackage rec {
     sha256 = "c006a85e7c60107c7cc6da1b184b5c719f6dd7202098196dfa6e55df669b59bf";
   };
 
-  propagatedBuildInputs = [ httplib2 ];
+  propagatedBuildInputs = [httplib2];
   buildInputs = [
     mock
     coverage
@@ -29,7 +29,7 @@ buildPythonPackage rec {
     homepage = "https://github.com/simplegeo/python-oauth2";
     description = "Library for OAuth version 1.0";
     license = licenses.mit;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     platforms = platforms.unix;
   };
 }

@@ -10,11 +10,11 @@
   sha512,
   type ? "jar",
   suffix ? "",
-  sourceProvenance ? (lib.optionals (type == "jar") [ lib.sourceTypes.binaryBytecode ]),
+  sourceProvenance ? (lib.optionals (type == "jar") [lib.sourceTypes.binaryBytecode]),
 }:
 
 let
-  m2Path = "${builtins.replaceStrings [ "." ] [ "/" ] groupId}/${artifactId}/${version}";
+  m2Path = "${builtins.replaceStrings ["."] ["/"] groupId}/${artifactId}/${version}";
   m2File = "${artifactId}-${version}${suffix}.${type}";
   src = fetchurl {
     inherit sha512;

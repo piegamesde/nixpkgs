@@ -35,14 +35,14 @@ stdenv.mkDerivation rec {
     vala
   ];
 
-  buildInputs = [ gtk3 ];
+  buildInputs = [gtk3];
 
   propagatedBuildInputs = [
     libarchive
     glib
   ];
 
-  mesonFlags = [ "-Dvapi=true" ];
+  mesonFlags = ["-Dvapi=true"];
 
   passthru = {
     updateScript = gnome.updateScript {

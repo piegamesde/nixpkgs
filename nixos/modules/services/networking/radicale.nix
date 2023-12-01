@@ -11,13 +11,13 @@ let
   cfg = config.services.radicale;
 
   format = pkgs.formats.ini {
-    listToValue = concatMapStringsSep ", " (generators.mkValueStringDefault { });
+    listToValue = concatMapStringsSep ", " (generators.mkValueStringDefault {});
   };
 
   pkg = if cfg.package == null then pkgs.radicale else cfg.package;
 
   confFile =
-    if cfg.settings == { } then
+    if cfg.settings == {} then
       pkgs.writeText "radicale.conf" cfg.config
     else
       format.generate "radicale.conf" cfg.settings;
@@ -25,7 +25,7 @@ let
   rightsFile = format.generate "radicale.rights" cfg.rights;
 
   bindLocalhost =
-    cfg.settings != { }
+    cfg.settings != {}
     && !hasAttrByPath
         [
           "server"
@@ -41,7 +41,7 @@ in
       description = lib.mdDoc "Radicale package to use.";
       # Default cannot be pkgs.radicale because non-null values suppress
       # warnings about incompatible configuration and storage formats.
-      type = with types; nullOr package // { inherit (package) description; };
+      type = with types; nullOr package // {inherit (package) description;};
       default = null;
       defaultText = literalExpression "pkgs.radicale";
     };
@@ -59,7 +59,7 @@ in
 
     settings = mkOption {
       type = format.type;
-      default = { };
+      default = {};
       description = lib.mdDoc ''
         Configuration for Radicale. See
         <https://radicale.org/3.0.html#documentation/configuration>.
@@ -89,7 +89,7 @@ in
         Setting this will also set {option}`settings.rights.type` and
         {option}`settings.rights.file` to appropriate values.
       '';
-      default = { };
+      default = {};
       example = literalExpression ''
         root = {
           user = ".+";
@@ -111,7 +111,7 @@ in
 
     extraArgs = mkOption {
       type = types.listOf types.str;
-      default = [ ];
+      default = [];
       description = lib.mdDoc "Extra arguments passed to the Radicale daemon.";
     };
   };
@@ -119,7 +119,7 @@ in
   config = mkIf cfg.enable {
     assertions = [
       {
-        assertion = cfg.settings == { } || cfg.config == "";
+        assertion = cfg.settings == {} || cfg.config == "";
         message = ''
           The options services.radicale.config and services.radicale.settings
           are mutually exclusive.
@@ -146,25 +146,25 @@ in
         Use services.radicale.settings instead.
       '';
 
-    services.radicale.settings.rights = mkIf (cfg.rights != { }) {
+    services.radicale.settings.rights = mkIf (cfg.rights != {}) {
       type = "from_file";
       file = toString rightsFile;
     };
 
-    environment.systemPackages = [ pkg ];
+    environment.systemPackages = [pkg];
 
     users.users.radicale = {
       isSystemUser = true;
       group = "radicale";
     };
 
-    users.groups.radicale = { };
+    users.groups.radicale = {};
 
     systemd.services.radicale = {
       description = "A Simple Calendar and Contact Server";
-      after = [ "network.target" ];
-      requires = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      requires = ["network.target"];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         ExecStart = concatStringsSep " " (
           [
@@ -179,7 +179,7 @@ in
         StateDirectory = "radicale/collections";
         StateDirectoryMode = "0750";
         # Hardening
-        CapabilityBoundingSet = [ "" ];
+        CapabilityBoundingSet = [""];
         DeviceAllow = [
           "/dev/stdin"
           "/dev/urandom"

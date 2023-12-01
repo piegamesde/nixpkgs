@@ -10,7 +10,7 @@ bundlerApp rec {
 
   pname = "terraforming";
   gemdir = ./.;
-  exes = [ "terraforming" ];
+  exes = ["terraforming"];
 
   passthru.updateScript = bundlerUpdateScript "terraforming";
 
@@ -20,6 +20,6 @@ bundlerApp rec {
     description = "Export existing AWS resources to Terraform style (tf, tfstate)";
     homepage = "https://github.com/dtan4/terraforming";
     license = with licenses; mit;
-    maintainers = with maintainers; [ kalbasit ];
+    maintainers = with maintainers; [kalbasit];
   };
 }

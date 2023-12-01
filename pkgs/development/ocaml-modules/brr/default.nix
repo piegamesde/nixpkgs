@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
     homepage = "https://erratique.ch/software/brr";
     description = "A toolkit for programming browsers in OCaml";
     license = lib.licenses.isc;
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
     inherit (ocaml.meta) platforms;
   };
 }

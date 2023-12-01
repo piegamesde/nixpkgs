@@ -7,10 +7,10 @@
   jdupes,
   librsvg,
   libxml2,
-  buttonVariants ? [ ], # default to all
-  colorVariants ? [ ], # default to all
-  opacityVariants ? [ ], # default to all
-  sizeVariants ? [ ], # default to all
+  buttonVariants ? [], # default to all
+  colorVariants ? [], # default to all
+  opacityVariants ? [], # default to all
+  sizeVariants ? [], # default to all
 }:
 
 let
@@ -66,7 +66,7 @@ lib.checkListOfEnum "${pname}: button variants"
       librsvg
     ];
 
-    propagatedUserEnvPkgs = [ gtk-engine-murrine ];
+    propagatedUserEnvPkgs = [gtk-engine-murrine];
 
     installPhase = ''
       runHook preInstall
@@ -75,10 +75,10 @@ lib.checkListOfEnum "${pname}: button variants"
 
       mkdir -p $out/share/themes
       name= ./install.sh --dest $out/share/themes \
-        ${lib.optionalString (buttonVariants != [ ]) "--alt " + builtins.toString buttonVariants} \
-        ${lib.optionalString (colorVariants != [ ]) "--color " + builtins.toString colorVariants} \
-        ${lib.optionalString (opacityVariants != [ ]) "--opacity " + builtins.toString opacityVariants} \
-        ${lib.optionalString (sizeVariants != [ ]) "--flat " + builtins.toString sizeVariants}
+        ${lib.optionalString (buttonVariants != []) "--alt " + builtins.toString buttonVariants} \
+        ${lib.optionalString (colorVariants != []) "--color " + builtins.toString colorVariants} \
+        ${lib.optionalString (opacityVariants != []) "--opacity " + builtins.toString opacityVariants} \
+        ${lib.optionalString (sizeVariants != []) "--flat " + builtins.toString sizeVariants}
 
       # Replace duplicate files with hardlinks to the first file in each
       # set of duplicates, reducing the installed size in about 79%
@@ -92,6 +92,6 @@ lib.checkListOfEnum "${pname}: button variants"
       homepage = "https://github.com/vinceliuice/Sierra-gtk-theme";
       license = licenses.gpl3;
       platforms = platforms.unix;
-      maintainers = [ maintainers.romildo ];
+      maintainers = [maintainers.romildo];
     };
   }

@@ -16,7 +16,7 @@ mkDerivation {
       lgpl21Plus
       fdl12Plus
     ];
-    maintainers = with lib.maintainers; [ bkchr ];
+    maintainers = with lib.maintainers; [bkchr];
   };
   nativeBuildInputs = [
     extra-cmake-modules

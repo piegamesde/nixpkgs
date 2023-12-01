@@ -96,13 +96,13 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "NoMachine remote desktop client (nxplayer)";
     homepage = "https://www.nomachine.com/";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = {
       fullName = "NoMachine 7 End-User License Agreement";
       url = "https://www.nomachine.com/licensing-7";
       free = false;
     };
-    maintainers = with maintainers; [ talyz ];
+    maintainers = with maintainers; [talyz];
     platforms = [
       "x86_64-linux"
       "i686-linux"

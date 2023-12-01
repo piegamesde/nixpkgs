@@ -41,6 +41,6 @@ else
       '';
       license = lib.licenses.mit;
       inherit (ocaml.meta) platforms;
-      maintainers = [ lib.maintainers.maggesi ];
+      maintainers = [lib.maintainers.maggesi];
     };
   }

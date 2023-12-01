@@ -22,6 +22,6 @@ buildGoModule rec {
     description = "Prometheus exporter for OpenVPN";
     broken = true;
     license = licenses.asl20;
-    maintainers = with maintainers; [ globin ];
+    maintainers = with maintainers; [globin];
   };
 }

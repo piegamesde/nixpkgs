@@ -16,7 +16,7 @@ buildPythonPackage rec {
   };
 
   # disable tests broken with python3.6: https://github.com/berkerpeksag/astor/issues/89
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTests = [
     # https://github.com/berkerpeksag/astor/issues/196
@@ -29,6 +29,6 @@ buildPythonPackage rec {
     description = "Library for reading, writing and rewriting python AST";
     homepage = "https://github.com/berkerpeksag/astor";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ nixy ];
+    maintainers = with maintainers; [nixy];
   };
 }

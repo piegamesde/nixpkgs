@@ -18,7 +18,7 @@ buildPythonPackage rec {
     sha256 = "1X9gAux9w/mCEVmE3Yqvvq3kU7hu4iAFaZWNZZZxt3E=";
   };
 
-  buildInputs = [ libgbinder ];
+  buildInputs = [libgbinder];
 
   nativeBuildInputs = [
     cython
@@ -30,13 +30,13 @@ buildPythonPackage rec {
     substituteInPlace setup.py --replace "pkg-config" "$PKG_CONFIG"
   '';
 
-  setupPyGlobalFlags = [ "--cython" ];
+  setupPyGlobalFlags = ["--cython"];
 
   meta = with lib; {
     description = "Python bindings for libgbinder";
     homepage = "https://github.com/erfanoabdi/gbinder-python";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ mcaju ];
+    maintainers = with maintainers; [mcaju];
     platforms = platforms.linux;
   };
 }

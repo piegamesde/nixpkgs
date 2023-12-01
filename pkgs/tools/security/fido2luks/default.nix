@@ -25,7 +25,7 @@ rustPlatform.buildRustPackage rec {
     clang
   ];
 
-  buildInputs = [ cryptsetup ];
+  buildInputs = [cryptsetup];
 
   configurePhase = ''
     export LIBCLANG_PATH="${llvmPackages.libclang.lib}/lib"

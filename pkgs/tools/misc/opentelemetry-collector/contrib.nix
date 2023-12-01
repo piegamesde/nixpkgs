@@ -19,7 +19,7 @@ buildGoModule rec {
   proxyVendor = true;
   vendorSha256 = "sha256-65bfTCMRJ8iL5ABGPqvkayw4zSn4KkCriEkWYa0Pe68=";
 
-  subPackages = [ "cmd/otelcontribcol" ];
+  subPackages = ["cmd/otelcontribcol"];
 
   # CGO_ENABLED=0 required for mac - "error: 'TARGET_OS_MAC' is not defined, evaluates to 0"
   # https://github.com/shirou/gopsutil/issues/976

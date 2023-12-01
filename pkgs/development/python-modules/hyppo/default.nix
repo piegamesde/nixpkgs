@@ -49,6 +49,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/neurodata/hyppo";
     description = "Python package for multivariate hypothesis testing";
     license = licenses.mit;
-    maintainers = with maintainers; [ bcdarwin ];
+    maintainers = with maintainers; [bcdarwin];
   };
 }

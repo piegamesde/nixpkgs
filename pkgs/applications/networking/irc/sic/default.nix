@@ -13,9 +13,9 @@ stdenv.mkDerivation rec {
     hash = "sha256-MEePqz68dfLrXQjLtbL+3K9IkRbnWi3XGX4+nHM9ZdI=";
   };
 
-  makeFlags = [ "CC:=$(CC)" ];
+  makeFlags = ["CC:=$(CC)"];
 
-  installFlags = [ "PREFIX=$(out)" ];
+  installFlags = ["PREFIX=$(out)"];
 
   meta = {
     description = "Simple IRC client";

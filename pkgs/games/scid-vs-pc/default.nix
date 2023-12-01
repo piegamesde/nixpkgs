@@ -18,7 +18,7 @@ tcl.mkTclDerivation rec {
     sha256 = "sha256-PSHDPrfhJI/DyEVQLo8Ckargqf/iUG5PgvUbO/4WNJM=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
   buildInputs = [
     tk
     libX11
@@ -48,9 +48,9 @@ tcl.mkTclDerivation rec {
         FONTDIR=$out/fonts"
   '';
 
-  patches = [ ./0001-put-fonts-in-out.patch ];
+  patches = [./0001-put-fonts-in-out.patch];
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   dontPatchShebangs = true;
 
@@ -90,7 +90,7 @@ tcl.mkTclDerivation rec {
     description = "Chess database with play and training functionality";
     homepage = "https://scidvspc.sourceforge.net/";
     license = lib.licenses.gpl2;
-    maintainers = [ maintainers.paraseba ];
+    maintainers = [maintainers.paraseba];
     platforms = lib.platforms.linux;
   };
 }

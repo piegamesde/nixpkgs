@@ -1,5 +1,5 @@
 import ./make-test-python.nix (
-  { lib, pkgs, ... }:
+  {lib, pkgs, ...}:
   let
     fakeReply = pkgs.writeText "namecoin-reply.json" ''
       { "error": null,
@@ -24,12 +24,12 @@ import ./make-test-python.nix (
 
   {
     name = "ncdns";
-    meta = with pkgs.lib.maintainers; { maintainers = [ rnhmjoj ]; };
+    meta = with pkgs.lib.maintainers; {maintainers = [rnhmjoj];};
 
     nodes.server =
-      { ... }:
+      {...}:
       {
-        networking.nameservers = [ "::1" ];
+        networking.nameservers = ["::1"];
 
         services.namecoind.rpc = {
           address = "::1";
@@ -41,7 +41,7 @@ import ./make-test-python.nix (
         # Fake namecoin RPC server because we can't
         # run a full node in a test.
         systemd.services.namecoind = {
-          wantedBy = [ "multi-user.target" ];
+          wantedBy = ["multi-user.target"];
           script = ''
             while true; do
               echo -e "HTTP/1.1 200 OK\n\n $(<${fakeReply})\n" \
@@ -61,7 +61,7 @@ import ./make-test-python.nix (
         services.pdns-recursor.enable = true;
         services.pdns-recursor.resolveNamecoin = true;
 
-        environment.systemPackages = [ pkgs.dnsutils ];
+        environment.systemPackages = [pkgs.dnsutils];
       };
 
     testScript =

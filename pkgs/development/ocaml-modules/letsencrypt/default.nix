@@ -53,12 +53,12 @@ buildDunePackage rec {
   ];
 
   doCheck = true;
-  checkInputs = [ ounit ];
+  checkInputs = [ounit];
 
   meta = {
     description = "ACME implementation in OCaml";
     license = lib.licenses.bsd2;
-    maintainers = [ lib.maintainers.sternenseemann ];
+    maintainers = [lib.maintainers.sternenseemann];
     homepage = "https://github.com/mmaker/ocaml-letsencrypt";
   };
 }

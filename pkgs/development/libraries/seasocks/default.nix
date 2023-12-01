@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
     cp ${catch2}/include/catch2/catch.hpp src/test/c/catch/catch2/catch.hpp
   '';
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     zlib
     python3
@@ -36,6 +36,6 @@ stdenv.mkDerivation rec {
     description = "Tiny embeddable C++ HTTP and WebSocket server";
     license = licenses.bsd2;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ fredeb ];
+    maintainers = with maintainers; [fredeb];
   };
 }

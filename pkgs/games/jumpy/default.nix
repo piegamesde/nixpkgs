@@ -40,7 +40,7 @@ rustPlatform.buildRustPackage rec {
   ];
 
   buildInputs =
-    [ zstd ]
+    [zstd]
     ++ lib.optionals stdenv.isLinux [
       alsa-lib
       libxkbcommon
@@ -75,7 +75,7 @@ rustPlatform.buildRustPackage rec {
 
   postFixup = lib.optionalString stdenv.isLinux ''
     patchelf $out/bin/.jumpy-wrapped \
-      --add-rpath ${lib.makeLibraryPath [ vulkan-loader ]}
+      --add-rpath ${lib.makeLibraryPath [vulkan-loader]}
   '';
 
   meta = with lib; {
@@ -86,6 +86,6 @@ rustPlatform.buildRustPackage rec {
       mit # or
       asl20
     ];
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
   };
 }

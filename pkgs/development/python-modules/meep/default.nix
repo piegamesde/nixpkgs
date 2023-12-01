@@ -78,7 +78,7 @@ buildPythonPackage rec {
     mpi4py
   ];
 
-  propagatedUserEnvPkgs = [ mpi ];
+  propagatedUserEnvPkgs = [mpi];
 
   dontUseSetuptoolsBuild = true;
   dontUsePipInstall = true;

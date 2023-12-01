@@ -18,6 +18,6 @@ stdenv.mkDerivation rec {
     description = "a userspace library for anyone who wants to use the ALSA compressed APIs";
     license = licenses.bsd3;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ k900 ];
+    maintainers = with maintainers; [k900];
   };
 }

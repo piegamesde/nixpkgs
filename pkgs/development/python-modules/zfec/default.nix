@@ -15,13 +15,13 @@ buildPythonPackage rec {
     hash = "sha256-TuUZvg3MfaLohIK8/Av5d6Ql4dfoJ4z1u7uNAPiir7Y=";
   };
 
-  propagatedBuildInputs = [ pyutil ];
+  propagatedBuildInputs = [pyutil];
 
-  nativeCheckInputs = [ twisted ];
+  nativeCheckInputs = [twisted];
 
   checkPhase = "trial zfec";
 
-  pythonImportsCheck = [ "zfec" ];
+  pythonImportsCheck = ["zfec"];
 
   meta = with lib; {
     homepage = "https://github.com/tahoe-lafs/zfec";
@@ -35,6 +35,6 @@ buildPythonPackage rec {
       and Haskell API.
     '';
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ prusnak ];
+    maintainers = with maintainers; [prusnak];
   };
 }

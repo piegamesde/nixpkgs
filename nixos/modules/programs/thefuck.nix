@@ -36,7 +36,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = with pkgs; [ thefuck ];
+    environment.systemPackages = with pkgs; [thefuck];
 
     programs.bash.interactiveShellInit = bashAndZshInitScript;
     programs.zsh.interactiveShellInit = mkIf prg.zsh.enable bashAndZshInitScript;

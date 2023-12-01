@@ -47,7 +47,7 @@ buildPythonPackage rec {
       --replace " --cov --cov-config .coveragerc --flake8" ""
   '';
 
-  pythonImportsCheck = [ "mechanicalsoup" ];
+  pythonImportsCheck = ["mechanicalsoup"];
 
   meta = with lib; {
     description = "Python library for automating interaction with websites";

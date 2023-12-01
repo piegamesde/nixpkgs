@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
   ];
 
   buildInputs = lib.optionals stdenv.isDarwin (
-    with darwin.apple_sdk.frameworks; [ ApplicationServices ]
+    with darwin.apple_sdk.frameworks; [ApplicationServices]
   );
 
   patchPhase = lib.optionalString stdenv.hostPlatform.isMusl ''

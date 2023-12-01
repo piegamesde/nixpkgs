@@ -50,6 +50,6 @@ stdenv.mkDerivation rec {
     description = "Free standalone ini file parsing library";
     license = licenses.mit;
     platforms = platforms.unix;
-    maintainers = [ maintainers.primeos ];
+    maintainers = [maintainers.primeos];
   };
 }

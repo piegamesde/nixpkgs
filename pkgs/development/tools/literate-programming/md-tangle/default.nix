@@ -24,6 +24,6 @@ python3.pkgs.buildPythonPackage rec {
     homepage = "https://github.com/joakimmj/md-tangle/";
     description = ''Generates ("tangles") source code from Markdown documents'';
     license = licenses.mit;
-    maintainers = with maintainers; [ AndersonTorres ];
+    maintainers = with maintainers; [AndersonTorres];
   };
 }

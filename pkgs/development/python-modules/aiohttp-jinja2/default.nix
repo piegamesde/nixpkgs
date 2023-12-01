@@ -41,7 +41,7 @@ buildPythonPackage rec {
     "ignore::DeprecationWarning"
   ];
 
-  pythonImportsCheck = [ "aiohttp_jinja2" ];
+  pythonImportsCheck = ["aiohttp_jinja2"];
 
   # Tests are outdated (1.5)
   # pytest.PytestUnhandledCoroutineWarning: async def functions...
@@ -51,6 +51,6 @@ buildPythonPackage rec {
     description = "Jinja2 support for aiohttp";
     homepage = "https://github.com/aio-libs/aiohttp_jinja2";
     license = licenses.asl20;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

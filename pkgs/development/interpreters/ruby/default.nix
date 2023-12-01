@@ -39,11 +39,11 @@ let
   op = lib.optional;
   ops = lib.optionals;
   opString = lib.optionalString;
-  config = import ./config.nix { inherit fetchFromSavannah; };
-  rubygems = import ./rubygems { inherit stdenv lib fetchurl; };
+  config = import ./config.nix {inherit fetchFromSavannah;};
+  rubygems = import ./rubygems {inherit stdenv lib fetchurl;};
 
   # Contains the ruby version heuristics
-  rubyVersion = import ./ruby-version.nix { inherit lib; };
+  rubyVersion = import ./ruby-version.nix {inherit lib;};
 
   generic =
     {
@@ -140,7 +140,7 @@ let
               # Have `configure' avoid `/usr/bin/nroff' in non-chroot builds.
               NROFF = if docSupport then "${groff}/bin/nroff" else null;
 
-              outputs = [ "out" ] ++ lib.optional docSupport "devdoc";
+              outputs = ["out"] ++ lib.optional docSupport "devdoc";
 
               strictDeps = true;
 
@@ -161,7 +161,7 @@ let
                 ]
                 ++ op useBaseRuby baseRuby;
               buildInputs =
-                [ autoconf ]
+                [autoconf]
                 ++ (op fiddleSupport libffi)
                 ++ (ops cursesSupport [
                   ncurses
@@ -277,7 +277,7 @@ let
                   # needed for `_FORTIFY_SOURCE`.
                 ]
                 ++ lib.optional stdenv.cc.isGNU "CFLAGS=-O3"
-                ++ [ ]
+                ++ []
                 ++ ops stdenv.isDarwin [
                   # on darwin, we have /usr/include/tk.h -- so the configure script detects
                   # that tk is installed
@@ -421,7 +421,7 @@ let
                   buildGems
                   gems
                   ;
-              } // lib.optionalAttrs useBaseRuby { inherit baseRuby; };
+              } // lib.optionalAttrs useBaseRuby {inherit baseRuby;};
             }
           )
           args;

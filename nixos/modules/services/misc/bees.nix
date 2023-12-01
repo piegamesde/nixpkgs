@@ -70,7 +70,7 @@ let
     };
     options.extraOptions = mkOption {
       type = listOf str;
-      default = [ ];
+      default = [];
       description = lib.mdDoc ''
         Extra command-line options passed to the daemon. See upstream bees documentation.
       '';
@@ -86,7 +86,7 @@ in
     filesystems = mkOption {
       type = with types; attrsOf (submodule fsOptions);
       description = lib.mdDoc "BTRFS filesystems to run block-level deduplication on.";
-      default = { };
+      default = {};
       example = literalExpression ''
         {
           root = {
@@ -106,7 +106,7 @@ in
           name: fs:
           nameValuePair "beesd@${name}" {
             description = "Block-level BTRFS deduplication for %i";
-            after = [ "sysinit.target" ];
+            after = ["sysinit.target"];
 
             serviceConfig =
               let
@@ -138,7 +138,7 @@ in
                 SyslogIdentifier = "beesd"; # would otherwise be "bees-service-wrapper"
               };
             unitConfig.RequiresMountsFor = lib.mkIf (lib.hasPrefix "/" fs.spec) fs.spec;
-            wantedBy = [ "multi-user.target" ];
+            wantedBy = ["multi-user.target"];
           }
         )
         cfg.filesystems;

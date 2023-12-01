@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-xQQRhrbO1m80cgtO3JD4Nq42lh4HGA+a+yZvFYvbyaQ=";
   };
 
-  patches = [ ./respect-xml-catalog-files-var.patch ];
+  patches = [./respect-xml-catalog-files-var.patch];
 
   postPatch =
     ''
@@ -109,6 +109,6 @@ stdenv.mkDerivation rec {
     description = "Firewall daemon with D-Bus interface";
     homepage = "https://github.com/firewalld/firewalld";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ SuperSandro2000 ];
+    maintainers = with maintainers; [SuperSandro2000];
   };
 }

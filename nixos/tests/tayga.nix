@@ -23,11 +23,11 @@
 #        +------
 
 import ./make-test-python.nix (
-  { pkgs, lib, ... }:
+  {pkgs, lib, ...}:
 
   {
     name = "tayga";
-    meta = with pkgs.lib.maintainers; { maintainers = [ hax404 ]; };
+    meta = with pkgs.lib.maintainers; {maintainers = [hax404];};
 
     nodes = {
       # The server is configured with static IPv4 addresses. RFC 6052 Section 3.1
@@ -44,13 +44,13 @@ import ./make-test-python.nix (
         ];
         networking = {
           useDHCP = false;
-          interfaces.eth1 = lib.mkForce { };
+          interfaces.eth1 = lib.mkForce {};
         };
         systemd.network = {
           enable = true;
           networks."vlan1" = {
             matchConfig.Name = "eth1";
-            address = [ "100.64.0.2/24" ];
+            address = ["100.64.0.2/24"];
             routes = [
               {
                 routeConfig = {
@@ -206,14 +206,14 @@ import ./make-test-python.nix (
 
         networking = {
           useDHCP = false;
-          interfaces.eth1 = lib.mkForce { };
+          interfaces.eth1 = lib.mkForce {};
         };
 
         systemd.network = {
           enable = true;
           networks."vlan1" = {
             matchConfig.Name = "eth1";
-            address = [ "2001:db8::2/64" ];
+            address = ["2001:db8::2/64"];
             routes = [
               {
                 routeConfig = {
@@ -224,7 +224,7 @@ import ./make-test-python.nix (
             ];
           };
         };
-        environment.systemPackages = [ pkgs.mtr ];
+        environment.systemPackages = [pkgs.mtr];
       };
     };
 

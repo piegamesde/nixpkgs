@@ -40,7 +40,7 @@ mkDerivation rec {
   meta = with lib; {
     description = "Look at your windows and desktops from above.";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     inherit (src.meta) homepage;
     inherit (kwindowsystem.meta) platforms;
   };

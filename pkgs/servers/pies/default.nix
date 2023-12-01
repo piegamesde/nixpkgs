@@ -14,11 +14,11 @@ stdenv.mkDerivation rec {
     sha256 = "12r7rjjyibjdj08dvwbp0iflfpzl4s0zhn6cr6zj3hwf9gbzgl1g";
   };
 
-  buildInputs = [ libxcrypt ];
+  buildInputs = [libxcrypt];
 
-  configureFlags = [ "--sysconfdir=/etc" ];
+  configureFlags = ["--sysconfdir=/etc"];
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   doCheck = true;
 
@@ -51,6 +51,6 @@ stdenv.mkDerivation rec {
     homepage = "https://www.gnu.org/software/pies/";
 
     platforms = lib.platforms.gnu ++ lib.platforms.linux;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

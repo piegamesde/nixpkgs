@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
     wxGTK
   ];
 
-  buildInputs = lib.optionals stdenv.cc.isClang [ openmp ] ++ lib.optionals stdenv.isDarwin [ Cocoa ];
+  buildInputs = lib.optionals stdenv.cc.isClang [openmp] ++ lib.optionals stdenv.isDarwin [Cocoa];
 
   preConfigure = "patchShebangs .";
 
@@ -57,7 +57,7 @@ stdenv.mkDerivation rec {
     ./missing-semicolon.patch
   ];
 
-  makeFlags = lib.optionals stdenv.cc.isGNU [ "OPTFLAGS=-fopenmp" ];
+  makeFlags = lib.optionals stdenv.cc.isGNU ["OPTFLAGS=-fopenmp"];
 
   meta = {
     description = "Hex Editor / Disk Editor for Huge Files or Devices";
@@ -74,6 +74,6 @@ stdenv.mkDerivation rec {
     homepage = "http://www.wxhexeditor.org/";
     license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ wegank ];
+    maintainers = with lib.maintainers; [wegank];
   };
 }

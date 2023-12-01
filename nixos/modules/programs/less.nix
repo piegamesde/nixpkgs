@@ -58,7 +58,7 @@ in
 
       commands = mkOption {
         type = types.attrsOf types.str;
-        default = { };
+        default = {};
         example = {
           h = "noaction 5\\e(";
           l = "noaction 5\\e)";
@@ -78,7 +78,7 @@ in
 
       lineEditingKeys = mkOption {
         type = types.attrsOf types.str;
-        default = { };
+        default = {};
         example = {
           e = "abort";
         };
@@ -118,14 +118,14 @@ in
 
   config = mkIf cfg.enable {
 
-    environment.systemPackages = [ pkgs.less ];
+    environment.systemPackages = [pkgs.less];
 
     environment.variables =
       {
         LESSKEYIN_SYSTEM = toString lessKey;
       }
-      // optionalAttrs (cfg.lessopen != null) { LESSOPEN = cfg.lessopen; }
-      // optionalAttrs (cfg.lessclose != null) { LESSCLOSE = cfg.lessclose; };
+      // optionalAttrs (cfg.lessopen != null) {LESSOPEN = cfg.lessopen;}
+      // optionalAttrs (cfg.lessclose != null) {LESSCLOSE = cfg.lessclose;};
 
     warnings =
       optional (cfg.clearDefaultCommands && (all (x: x != "quit") (attrValues cfg.commands)))
@@ -135,5 +135,5 @@ in
         '';
   };
 
-  meta.maintainers = with maintainers; [ johnazoidberg ];
+  meta.maintainers = with maintainers; [johnazoidberg];
 }

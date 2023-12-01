@@ -27,14 +27,14 @@ stdenv.mkDerivation rec {
     gpgme
   ];
 
-  configureFlags = [ "--with-plugins" ];
+  configureFlags = ["--with-plugins"];
 
   meta = with lib; {
     description = "A modular and multi processing pass phrase cracking tool";
     homepage = "https://leidecker.info/projects/phrasendrescher/index.shtml";
     license = licenses.gpl2Plus;
     platforms = platforms.all;
-    maintainers = with maintainers; [ bjornfor ];
+    maintainers = with maintainers; [bjornfor];
     mainProgram = "pd";
   };
 }

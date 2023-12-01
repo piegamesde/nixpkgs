@@ -35,7 +35,7 @@ buildPythonPackage rec {
     homepage = "https://github.com/robgolding/tasklib";
     description = "Library for interacting with taskwarrior databases";
     changelog = "https://github.com/GothenburgBitFactory/tasklib/releases/tag/${version}";
-    maintainers = with maintainers; [ arcnmx ];
+    maintainers = with maintainers; [arcnmx];
     platforms = platforms.all;
     license = licenses.bsd3;
   };

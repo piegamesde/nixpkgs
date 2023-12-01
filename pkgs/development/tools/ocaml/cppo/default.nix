@@ -17,7 +17,7 @@ let
       Cppo is an equivalent of the C preprocessor targeted at the OCaml language and its variants.
     '';
     homepage = "https://github.com/ocaml-community/${pname}";
-    maintainers = [ maintainers.vbgl ];
+    maintainers = [maintainers.vbgl];
     license = licenses.bsd3;
   };
 in
@@ -71,7 +71,7 @@ else
 
     createFindlibDestdir = true;
 
-    makeFlags = [ "PREFIX=$(out)" ];
+    makeFlags = ["PREFIX=$(out)"];
 
     preBuild = ''
       mkdir -p $out/bin

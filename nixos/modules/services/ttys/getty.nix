@@ -92,11 +92,11 @@ in
 
       extraArgs = mkOption {
         type = types.listOf types.str;
-        default = [ ];
+        default = [];
         description = lib.mdDoc ''
           Additional arguments passed to agetty.
         '';
-        example = [ "--nohostname" ];
+        example = ["--nohostname"];
       };
 
       greetingLine = mkOption {

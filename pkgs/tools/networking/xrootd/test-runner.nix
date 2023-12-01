@@ -9,7 +9,7 @@
 runCommand "${xrootd.pname}-run-tests-${xrootd.version}"
   {
     testRunnerPath = "${xrootd}/bin/test-runner";
-    testLibraries = [ "XrdClTests" ];
+    testLibraries = ["XrdClTests"];
     XrdClTestsSuites = [
       "UtilsTest"
       "SocketTest"

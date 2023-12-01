@@ -85,7 +85,7 @@ gcc10Stdenv.mkDerivation rec {
     homepage = "https://www.arangodb.com";
     description = "A native multi-model database with flexible data models for documents, graphs, and key-values";
     license = licenses.asl20;
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
     maintainers = with maintainers; [
       flosse
       jsoo1

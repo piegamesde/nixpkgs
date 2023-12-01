@@ -8,7 +8,7 @@ buildGoModule rec {
   pname = "kapowbang";
   version = "0.7.1";
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   src = fetchFromGitHub {
     owner = "BBVA";
@@ -25,7 +25,7 @@ buildGoModule rec {
     homepage = "https://github.com/BBVA/kapow";
     description = "Expose command-line tools over HTTP";
     license = licenses.asl20;
-    maintainers = with maintainers; [ nilp0inter ];
+    maintainers = with maintainers; [nilp0inter];
     mainProgram = "kapow";
   };
 }

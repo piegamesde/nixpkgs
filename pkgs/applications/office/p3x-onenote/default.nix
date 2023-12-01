@@ -31,7 +31,7 @@ let
     inherit sha256;
   };
 
-  appimageContents = appimageTools.extractType2 { inherit name src; };
+  appimageContents = appimageTools.extractType2 {inherit name src;};
 in
 appimageTools.wrapType2 rec {
   inherit name src;
@@ -53,7 +53,7 @@ appimageTools.wrapType2 rec {
     homepage = "https://github.com/patrikx3/onenote";
     description = "Linux Electron Onenote - A Linux compatible version of OneNote";
     license = licenses.mit;
-    maintainers = with maintainers; [ tiagolobocastro ];
+    maintainers = with maintainers; [tiagolobocastro];
     platforms = [
       "x86_64-linux"
       "aarch64-linux"

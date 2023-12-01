@@ -33,7 +33,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "sockio" ];
+  pythonImportsCheck = ["sockio"];
 
   disabledTests = [
     # Tests require network access
@@ -74,7 +74,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Implementation of the Modbus protocol";
     homepage = "https://tiagocoutinho.github.io/sockio/";
-    license = with licenses; [ gpl3Plus ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [gpl3Plus];
+    maintainers = with maintainers; [fab];
   };
 }

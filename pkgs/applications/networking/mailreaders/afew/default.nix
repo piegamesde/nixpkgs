@@ -30,7 +30,7 @@ python3Packages.buildPythonApplication rec {
     notmuch
   ];
 
-  makeWrapperArgs = [ ''--prefix PATH ':' "${notmuch}/bin"'' ];
+  makeWrapperArgs = [''--prefix PATH ':' "${notmuch}/bin"''];
 
   outputs = [
     "out"
@@ -51,6 +51,6 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://github.com/afewmail/afew";
     description = "An initial tagging script for notmuch mail";
     license = licenses.isc;
-    maintainers = with maintainers; [ flokli ];
+    maintainers = with maintainers; [flokli];
   };
 }

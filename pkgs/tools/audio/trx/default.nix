@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
 
   # Makefile is currently missing -lbctoolbox so the build fails when linking
   # the libraries. This patch adds that flag.
-  patches = [ ./add_bctoolbox_ldlib.patch ];
+  patches = [./add_bctoolbox_ldlib.patch];
 
   buildInputs = [
     alsa-lib
@@ -27,13 +27,13 @@ stdenv.mkDerivation rec {
     ortp
     bctoolbox
   ];
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   meta = with lib; {
     description = "A simple toolset for broadcasting live audio using RTP/UDP and Opus";
     homepage = "http://www.pogo.org.uk/~mark/trx/";
     license = licenses.gpl2;
-    maintainers = [ maintainers.hansjoergschurr ];
+    maintainers = [maintainers.hansjoergschurr];
     platforms = platforms.linux;
   };
 }

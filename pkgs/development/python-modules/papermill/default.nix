@@ -51,10 +51,10 @@ buildPythonPackage rec {
       azure-datalake-store
       azure-storage-blob
     ];
-    gcs = [ gcsfs ];
-    github = [ pygithub ];
-    hdfs = [ pyarrow ];
-    s3 = [ boto3 ];
+    gcs = [gcsfs];
+    github = [pygithub];
+    hdfs = [pyarrow];
+    s3 = [boto3];
   };
 
   nativeCheckInputs = [
@@ -69,12 +69,12 @@ buildPythonPackage rec {
   # The test suite depends on cloud resources azure/aws
   doCheck = false;
 
-  pythonImportsCheck = [ "papermill" ];
+  pythonImportsCheck = ["papermill"];
 
   meta = with lib; {
     description = "Parametrize and run Jupyter and interact with notebooks";
     homepage = "https://github.com/nteract/papermill";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ costrouc ];
+    maintainers = with maintainers; [costrouc];
   };
 }

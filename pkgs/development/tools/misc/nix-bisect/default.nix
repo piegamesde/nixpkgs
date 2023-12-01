@@ -45,6 +45,6 @@ python3.pkgs.buildPythonApplication {
     description = "Bisect nix builds";
     homepage = "https://github.com/timokau/nix-bisect";
     license = licenses.mit;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

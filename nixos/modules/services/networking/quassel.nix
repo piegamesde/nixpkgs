@@ -52,7 +52,7 @@ in
 
       interfaces = mkOption {
         type = types.listOf types.str;
-        default = [ "127.0.0.1" ];
+        default = ["127.0.0.1"];
         description = lib.mdDoc ''
           The interfaces the Quassel daemon will be listening to.  If `[ 127.0.0.1 ]`,
           only clients on the local host can connect to it; if `[ 0.0.0.0 ]`, clients
@@ -115,14 +115,14 @@ in
       };
     };
 
-    systemd.tmpfiles.rules = [ "d '${cfg.dataDir}' - ${user} - - -" ];
+    systemd.tmpfiles.rules = ["d '${cfg.dataDir}' - ${user} - - -"];
 
     systemd.services.quassel = {
       description = "Quassel IRC client daemon";
 
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       after =
-        [ "network.target" ]
+        ["network.target"]
         ++ optional config.services.postgresql.enable "postgresql.service"
         ++ optional config.services.mysql.enable "mysql.service";
 

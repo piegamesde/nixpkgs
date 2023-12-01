@@ -74,7 +74,7 @@ in
     serviceConfig = {
       DynamicUser = false;
       User = mkIf cfg.runAsLocalSuperUser (mkForce "postgres");
-      EnvironmentFile = mkIf (cfg.environmentFile != null) [ cfg.environmentFile ];
+      EnvironmentFile = mkIf (cfg.environmentFile != null) [cfg.environmentFile];
       ExecStart = ''
         ${pkgs.prometheus-postgres-exporter}/bin/postgres_exporter \
           --web.listen-address ${cfg.listenAddress}:${toString cfg.port} \

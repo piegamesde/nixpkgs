@@ -35,18 +35,18 @@ stdenvNoCC.mkDerivation rec {
     "LIBDIR=${placeholder "out"}/lib"
   ];
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   postFixup = ''
     wrapProgram $out/bin/oil \
-        --prefix PATH : ${lib.makeBinPath [ peco ]}
+        --prefix PATH : ${lib.makeBinPath [peco]}
   '';
 
   meta = with lib; {
     description = "Search-as-you-type cli frontend for the buku bookmarks manager using peco";
     homepage = "https://github.com/AndreiUlmeyda/oil";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ atila ];
+    maintainers = with maintainers; [atila];
     mainProgram = "oil";
     platforms = platforms.unix;
   };

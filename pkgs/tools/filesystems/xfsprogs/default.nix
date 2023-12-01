@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
     "doc"
   ];
 
-  depsBuildBuild = [ buildPackages.stdenv.cc ];
+  depsBuildBuild = [buildPackages.stdenv.cc];
   nativeBuildInputs = [
     autoconf
     automake
@@ -47,7 +47,7 @@ stdenv.mkDerivation rec {
     inih
     liburcu
   ];
-  propagatedBuildInputs = [ libuuid ]; # Dev headers include <uuid/uuid.h>
+  propagatedBuildInputs = [libuuid]; # Dev headers include <uuid/uuid.h>
 
   enableParallelBuilding = true;
   # Install fails as:
@@ -69,7 +69,7 @@ stdenv.mkDerivation rec {
     "--with-systemd-unit-dir=${placeholder "out"}/lib/systemd/system"
   ];
 
-  installFlags = [ "install-dev" ];
+  installFlags = ["install-dev"];
 
   # FIXME: forbidden rpath
   postInstall = ''

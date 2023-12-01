@@ -20,7 +20,7 @@
 }:
 
 let
-  get-nix-license = import ./get-nix-license.nix { inherit lib writeText; };
+  get-nix-license = import ./get-nix-license.nix {inherit lib writeText;};
 in
 
 rustPlatform.buildRustPackage rec {
@@ -52,10 +52,8 @@ rustPlatform.buildRustPackage rec {
       zlib
       zstd
     ]
-    ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Security ]
-    ++ lib.optionals (stdenv.isDarwin && stdenv.isx86_64) [
-      darwin.apple_sdk.frameworks.CoreFoundation
-    ];
+    ++ lib.optionals stdenv.isDarwin [darwin.apple_sdk.frameworks.Security]
+    ++ lib.optionals (stdenv.isDarwin && stdenv.isx86_64) [darwin.apple_sdk.frameworks.CoreFoundation];
 
   buildNoDefaultFeatures = true;
 
@@ -98,6 +96,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/nix-community/nix-init";
     changelog = "https://github.com/nix-community/nix-init/blob/${src.rev}/CHANGELOG.md";
     license = licenses.mpl20;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
   };
 }

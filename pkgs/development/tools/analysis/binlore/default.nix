@@ -99,9 +99,9 @@ rec {
     {
       lore ? loreDef,
       drvs,
-      strip ? [ ],
+      strip ? [],
     }:
-    (runCommand "more-binlore" { } ''
+    (runCommand "more-binlore" {} ''
       mkdir $out
       for lorefile in ${toString lore.types}; do
         cat ${

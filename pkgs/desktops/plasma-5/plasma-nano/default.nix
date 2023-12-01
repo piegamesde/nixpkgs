@@ -6,6 +6,6 @@
 
 mkDerivation {
   pname = "plasma-nano";
-  nativeBuildInputs = [ extra-cmake-modules ];
-  buildInputs = [ plasma-framework ];
+  nativeBuildInputs = [extra-cmake-modules];
+  buildInputs = [plasma-framework];
 }

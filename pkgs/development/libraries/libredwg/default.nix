@@ -51,8 +51,8 @@ stdenv.mkDerivation rec {
   ] ++ lib.optional enablePython swig;
 
   buildInputs =
-    [ pcre2 ]
-    ++ lib.optionals enablePython [ python ]
+    [pcre2]
+    ++ lib.optionals enablePython [python]
     # configurePhase fails with python 3 when ncurses is missing
     ++ lib.optional isPython3 ncurses;
 
@@ -70,7 +70,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Free implementation of the DWG file format";
     homepage = "https://savannah.gnu.org/projects/libredwg/";
-    maintainers = with maintainers; [ tweber ];
+    maintainers = with maintainers; [tweber];
     license = licenses.gpl3Plus;
     platforms = platforms.all;
   };

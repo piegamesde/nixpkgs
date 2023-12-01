@@ -21,7 +21,7 @@
 
 let
   libsFor = {
-    gnatcoll_db2ada = [ gnatcoll-sql ];
+    gnatcoll_db2ada = [gnatcoll-sql];
     gnatinspect = [
       gnatcoll-sqlite
       gnatcoll-readline
@@ -51,10 +51,7 @@ in
 stdenv.mkDerivation rec {
   # executables don't adhere to the string gnatcoll-* scheme
   pname =
-    if onlyExecutable then
-      builtins.replaceStrings [ "_" ] [ "-" ] component
-    else
-      "gnatcoll-${component}";
+    if onlyExecutable then builtins.replaceStrings ["_"] ["-"] component else "gnatcoll-${component}";
   version = "23.0.0";
 
   src = fetchFromGitHub {
@@ -84,7 +81,7 @@ stdenv.mkDerivation rec {
   # the closure size dramatically
   ${if onlyExecutable then "buildInputs" else "propagatedBuildInputs"} = [
     gnatcoll-core
-  ] ++ libsFor."${component}" or [ ];
+  ] ++ libsFor."${component}" or [];
 
   makeFlags =
     [
@@ -105,7 +102,7 @@ stdenv.mkDerivation rec {
     description = "GNAT Components Collection - Database packages";
     homepage = "https://github.com/AdaCore/gnatcoll-db";
     license = licenses.gpl3Plus;
-    maintainers = [ maintainers.sternenseemann ];
+    maintainers = [maintainers.sternenseemann];
     platforms = platforms.all;
   };
 }

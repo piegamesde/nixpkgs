@@ -21,16 +21,16 @@ buildPythonPackage rec {
   };
 
   propagatedBuildInputs =
-    lib.optionals (pythonOlder "3.5") [ typing ]
-    ++ lib.optionals (pythonOlder "3.4") [ funcsigs ];
+    lib.optionals (pythonOlder "3.5") [typing]
+    ++ lib.optionals (pythonOlder "3.4") [funcsigs];
 
-  nativeCheckInputs = [ pytest ];
+  nativeCheckInputs = [pytest];
   checkPhase = "pytest";
 
   meta = with lib; {
     description = "Tools for generators, generator functions, and generator-based coroutines";
     license = licenses.mit;
     homepage = "https://gentools.readthedocs.io/";
-    maintainers = with maintainers; [ mredaelli ];
+    maintainers = with maintainers; [mredaelli];
   };
 }

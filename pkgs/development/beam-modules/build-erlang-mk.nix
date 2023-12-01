@@ -14,16 +14,16 @@
   version,
   src,
   setupHook ? null,
-  buildInputs ? [ ],
-  beamDeps ? [ ],
+  buildInputs ? [],
+  beamDeps ? [],
   postPatch ? "",
   compilePorts ? false,
   installPhase ? null,
   buildPhase ? null,
   configurePhase ? null,
-  meta ? { },
+  meta ? {},
   enableDebugInfo ? false,
-  buildFlags ? [ ],
+  buildFlags ? [],
   ...
 }@attrs:
 
@@ -34,7 +34,7 @@ let
     drv:
     stdenv.mkDerivation {
       name = "interactive-shell-${drv.name}";
-      buildInputs = [ drv ];
+      buildInputs = [drv];
     };
 
   pkg =
@@ -68,7 +68,7 @@ let
         propagatedBuildInputs = beamDeps;
 
         buildFlags =
-          [ "SKIP_DEPS=1" ]
+          ["SKIP_DEPS=1"]
           ++ lib.optional (enableDebugInfo || erlang.debugInfo) ''ERL_OPTS="$ERL_OPTS +debug_info"''
           ++ buildFlags;
 

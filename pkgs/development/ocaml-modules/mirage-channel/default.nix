@@ -38,7 +38,7 @@ buildDunePackage rec {
   meta = {
     description = "Buffered channels for MirageOS FLOW types";
     license = lib.licenses.isc;
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
     homepage = "https://github.com/mirage/mirage-channel";
   };
 }

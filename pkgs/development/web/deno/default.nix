@@ -8,7 +8,7 @@
   tinycc,
   libiconv,
   darwin,
-  librusty_v8 ? callPackage ./librusty_v8.nix { },
+  librusty_v8 ? callPackage ./librusty_v8.nix {},
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -29,7 +29,7 @@ rustPlatform.buildRustPackage rec {
     substituteInPlace .cargo/config.toml --replace '"-C", "link-arg=-fuse-ld=lld"' ""
   '';
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
   buildInputs = lib.optionals stdenv.isDarwin (
     [
       libiconv
@@ -57,10 +57,10 @@ rustPlatform.buildRustPackage rec {
   # In the future tinycc will be replaced with asm
   libtcc = tinycc.overrideAttrs (
     oa: {
-      makeFlags = [ "libtcc.a" ];
+      makeFlags = ["libtcc.a"];
       # tests want tcc binary
       doCheck = false;
-      outputs = [ "out" ];
+      outputs = ["out"];
       installPhase = ''
         mkdir -p $out/lib/
         mv libtcc.a $out/lib/
@@ -96,7 +96,7 @@ rustPlatform.buildRustPackage rec {
   '';
 
   passthru.updateScript = ./update/update.ts;
-  passthru.tests = callPackage ./tests { };
+  passthru.tests = callPackage ./tests {};
 
   meta = with lib; {
     homepage = "https://deno.land/";
@@ -112,7 +112,7 @@ rustPlatform.buildRustPackage rec {
       bash or python.
     '';
     license = licenses.mit;
-    maintainers = with maintainers; [ jk ];
+    maintainers = with maintainers; [jk];
     platforms = [
       "x86_64-linux"
       "aarch64-linux"

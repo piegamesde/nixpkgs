@@ -40,8 +40,8 @@ stdenv.mkDerivation {
 
   meta = {
     description = "Linux command line tool for setting up USB gadgets using configfs";
-    license = with lib.licenses; [ asl20 ];
-    maintainers = with lib.maintainers; [ lheckemann ];
+    license = with lib.licenses; [asl20];
+    maintainers = with lib.maintainers; [lheckemann];
     platforms = lib.platforms.linux;
   };
 }

@@ -19,7 +19,7 @@ stdenv.mkDerivation {
     owner = "yuejia";
   };
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   preConfigure = ''
     sed -i 's#/usr/bin/##g' Makefile
@@ -44,6 +44,6 @@ stdenv.mkDerivation {
     homepage = "https://github.com/yuejia/Milu";
     license = lib.licenses.bsd2;
     platforms = lib.platforms.linux;
-    maintainers = [ lib.maintainers.vrthra ];
+    maintainers = [lib.maintainers.vrthra];
   };
 }

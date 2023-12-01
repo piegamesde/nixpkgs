@@ -37,12 +37,12 @@ buildPythonPackage rec {
   # tests just hang most likely due to something with subprocesses and cli
   doCheck = false;
 
-  pythonImportsCheck = [ "ase" ];
+  pythonImportsCheck = ["ase"];
 
   meta = with lib; {
     description = "Atomic Simulation Environment";
     homepage = "https://wiki.fysik.dtu.dk/ase/";
     license = licenses.lgpl21Plus;
-    maintainers = with maintainers; [ costrouc ];
+    maintainers = with maintainers; [costrouc];
   };
 }

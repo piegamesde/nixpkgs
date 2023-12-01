@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
     lapack
   ];
 
-  patches = [ ./math-constants.patch ];
+  patches = [./math-constants.patch];
 
   postPatch = ''
     patchShebangs ./test
@@ -43,7 +43,7 @@ stdenv.mkDerivation rec {
     description = "Quantum chemistry program for large-scale self-consistent field calculations";
     homepage = "http://www.ergoscf.org";
     license = licenses.gpl3Plus;
-    maintainers = [ maintainers.markuskowa ];
+    maintainers = [maintainers.markuskowa];
     platforms = platforms.linux;
   };
 }

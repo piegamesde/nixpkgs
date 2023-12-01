@@ -51,7 +51,7 @@ stdenv.mkDerivation rec {
     export GOPATH=$TMP/go
   '';
 
-  makeFlags = [ "HOME=$TMP" ];
+  makeFlags = ["HOME=$TMP"];
 
   installPhase = ''
     runHook preInstall
@@ -69,6 +69,6 @@ stdenv.mkDerivation rec {
     downloadPage = "https://github.com/liamg/darktile/releases";
     changelog = "https://github.com/liamg/darktile/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ flexagoon ];
+    maintainers = with maintainers; [flexagoon];
   };
 }

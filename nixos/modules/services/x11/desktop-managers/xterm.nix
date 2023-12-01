@@ -34,6 +34,6 @@ in
       '';
     };
 
-    environment.systemPackages = [ pkgs.xterm ];
+    environment.systemPackages = [pkgs.xterm];
   };
 }

@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
     xorg.libSM
   ];
 
-  configureFlags = [ "--with-app-defaults-dir=$out/etc/X11/app-defaults" ];
+  configureFlags = ["--with-app-defaults-dir=$out/etc/X11/app-defaults"];
 
   dontUseImakeConfigure = true;
   postConfigure = ''

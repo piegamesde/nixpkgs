@@ -6,8 +6,8 @@
   retroarch,
   zlib,
   makefile ? "Makefile.libretro",
-  extraBuildInputs ? [ ],
-  extraNativeBuildInputs ? [ ],
+  extraBuildInputs ? [],
+  extraNativeBuildInputs ? [],
   # Location of resulting RetroArch core on $out
   libretroCore ? "/lib/retroarch/cores",
   # The core filename is derivated from the core name
@@ -17,7 +17,7 @@
 }@args:
 
 let
-  d2u = if normalizeCore then (lib.replaceStrings [ "-" ] [ "_" ]) else (x: x);
+  d2u = if normalizeCore then (lib.replaceStrings ["-"] ["_"]) else (x: x);
   coreDir = placeholder "out" + libretroCore;
   coreFilename = "${d2u core}_libretro${stdenv.hostPlatform.extensions.sharedLibrary}";
   mainProgram = "retroarch-${core}";
@@ -41,8 +41,8 @@ stdenv.mkDerivation (
   {
     pname = "libretro-${core}";
 
-    buildInputs = [ zlib ] ++ extraBuildInputs;
-    nativeBuildInputs = [ makeWrapper ] ++ extraNativeBuildInputs;
+    buildInputs = [zlib] ++ extraBuildInputs;
+    nativeBuildInputs = [makeWrapper] ++ extraNativeBuildInputs;
 
     inherit makefile;
 
@@ -64,7 +64,7 @@ stdenv.mkDerivation (
         }
         .${stdenv.hostPlatform.parsed.cpu.name} or stdenv.hostPlatform.parsed.cpu.name
       }"
-    ] ++ (args.makeFlags or [ ]);
+    ] ++ (args.makeFlags or []);
 
     installPhase = ''
       runHook preInstall
@@ -88,9 +88,9 @@ stdenv.mkDerivation (
         inherit mainProgram;
         inherit (retroarch.meta) platforms;
         homepage = "https://www.libretro.com/";
-        maintainers = with maintainers; teams.libretro.members ++ [ hrdinka ];
+        maintainers = with maintainers; teams.libretro.members ++ [hrdinka];
       }
-      // (args.meta or { });
+      // (args.meta or {});
   }
   // extraArgs
 )

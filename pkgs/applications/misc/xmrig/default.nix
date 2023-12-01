@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-m8ot/IbpxdzHOyJymzZ7MWt4p78GTUuTjYZ9P1oGpWI=";
   };
 
-  patches = [ ./donate-level.patch ];
+  patches = [./donate-level.patch];
 
   postPatch = ''
     substituteAllInPlace src/donate.h
@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
       --replace "set(OPENSSL_USE_STATIC_LIBS TRUE)" "set(OPENSSL_USE_STATIC_LIBS FALSE)"
   '';
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   buildInputs =
     [
@@ -63,6 +63,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/xmrig/xmrig";
     license = licenses.gpl3Plus;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ kim0 ];
+    maintainers = with maintainers; [kim0];
   };
 }

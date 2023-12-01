@@ -26,7 +26,7 @@ buildPythonPackage rec {
     hash = "sha256-13pMfRe2McWDpBTlJy/TBT0W5wyd0EXDoocxeIzmqCo=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   propagatedBuildInputs = [
     pdfrw
@@ -39,12 +39,12 @@ buildPythonPackage rec {
   # upstream has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "rmrl" ];
+  pythonImportsCheck = ["rmrl"];
 
   meta = {
     description = "Render reMarkable documents to PDF";
     homepage = "https://github.com/naturale0/rmrl";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

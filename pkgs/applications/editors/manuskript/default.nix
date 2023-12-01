@@ -19,7 +19,7 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-mWLkah4eO1i5sp79xGLCIkr26TpbXxuVxIJ6gudKGWI=";
   };
 
-  nativeBuildInputs = [ wrapQtAppsHook ];
+  nativeBuildInputs = [wrapQtAppsHook];
 
   propagatedBuildInputs = [
     python3Packages.pyqt5
@@ -62,7 +62,7 @@ python3Packages.buildPythonApplication rec {
       characters live in.
     '';
     license = lib.licenses.gpl3;
-    maintainers = [ ];
+    maintainers = [];
     platforms = lib.platforms.unix;
   };
 }

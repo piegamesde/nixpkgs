@@ -1,5 +1,5 @@
 import ./make-test-python.nix (
-  { pkgs, lib, ... }:
+  {pkgs, lib, ...}:
   let
     host = "smoke.test";
     port = "8065";
@@ -8,7 +8,7 @@ import ./make-test-python.nix (
 
     makeMattermost =
       mattermostConfig:
-      { config, ... }:
+      {config, ...}:
       {
         environment.systemPackages = [
           pkgs.mattermost
@@ -16,7 +16,7 @@ import ./make-test-python.nix (
           pkgs.jq
         ];
         networking.hosts = {
-          "127.0.0.1" = [ host ];
+          "127.0.0.1" = [host];
         };
         services.mattermost =
           lib.recursiveUpdate
@@ -50,7 +50,7 @@ import ./make-test-python.nix (
               sha256 = "1h4qi34gcxcx63z8wiqcf2aaywmvv8lys5g8gvsk13kkqhlmag25";
             };
           in
-          [ mattermostDemoPlugin ];
+          [mattermostDemoPlugin];
       };
       immutable = makeMattermost {
         mutableConfig = false;

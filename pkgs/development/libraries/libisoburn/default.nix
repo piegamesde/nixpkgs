@@ -24,13 +24,13 @@ stdenv.mkDerivation rec {
     libburn
     libisofs
   ];
-  propagatedBuildInputs = [ acl ];
+  propagatedBuildInputs = [acl];
 
   meta = with lib; {
     homepage = "http://libburnia-project.org/";
     description = "Enables creation and expansion of ISO-9660 filesystems on CD/DVD/BD ";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ vrthra ];
+    maintainers = with maintainers; [vrthra];
     platforms = with platforms; linux;
   };
 }

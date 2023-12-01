@@ -19,8 +19,8 @@ stdenv.mkDerivation rec {
 
   dontBuild = true;
 
-  nativeBuildInputs = [ python3.pkgs.wrapPython ];
-  buildInputs = [ python3 ];
+  nativeBuildInputs = [python3.pkgs.wrapPython];
+  buildInputs = [python3];
 
   installPhase = ''
     runHook preInstall
@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/ghedo/knot_exporter";
     description = " Prometheus exporter for Knot DNS";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ ma27 ];
+    maintainers = with maintainers; [ma27];
     platforms = platforms.linux;
   };
 }

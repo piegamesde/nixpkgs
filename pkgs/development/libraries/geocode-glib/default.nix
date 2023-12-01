@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
     sha256 = "LZpoJtFYRwRJoXOHEiFZbaD4Pr3P+YuQxwSQiQVqN6o=";
   };
 
-  patches = [ ./installed-tests-path.patch ];
+  patches = [./installed-tests-path.patch];
 
   nativeBuildInputs = [
     meson
@@ -43,7 +43,7 @@ stdenv.mkDerivation rec {
     gtk-doc
     docbook-xsl-nons
     gobject-introspection
-  ] ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [ mesonEmulatorHook ];
+  ] ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [mesonEmulatorHook];
 
   buildInputs = [
     glib
@@ -57,7 +57,7 @@ stdenv.mkDerivation rec {
   ];
 
   passthru = {
-    updateScript = gnome.updateScript { packageName = pname; };
+    updateScript = gnome.updateScript {packageName = pname;};
     tests = {
       installed-tests = nixosTests.installed-tests.geocode-glib;
     };

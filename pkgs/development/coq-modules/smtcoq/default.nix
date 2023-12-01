@@ -23,7 +23,7 @@ let
       meta.broken = false;
     }
   );
-  cvc4 = pkgs.callPackage ./cvc4.nix { stdenv = gcc10StdenvCompat; };
+  cvc4 = pkgs.callPackage ./cvc4.nix {stdenv = gcc10StdenvCompat;};
 in
 
 mkCoqDerivation {
@@ -59,7 +59,7 @@ mkCoqDerivation {
       ]
     );
   mlPlugin = true;
-  nativeBuildInputs = (with pkgs; [ gnumake42 ]) ++ (with coq.ocamlPackages; [ ocamlbuild ]);
+  nativeBuildInputs = (with pkgs; [gnumake42]) ++ (with coq.ocamlPackages; [ocamlbuild]);
 
   # This is meant to ease future troubleshooting of cvc4 build failures
   passthru = {
@@ -68,7 +68,7 @@ mkCoqDerivation {
 
   meta = with lib; {
     description = "Communication between Coq and SAT/SMT solvers ";
-    maintainers = with maintainers; [ siraben ];
+    maintainers = with maintainers; [siraben];
     license = licenses.cecill-b;
     platforms = platforms.unix;
   };

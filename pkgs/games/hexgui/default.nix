@@ -29,13 +29,13 @@ stdenv.mkDerivation {
   installPhase = ''
     mkdir $out
     mv bin lib $out
-    wrapProgram $out/bin/hexgui --prefix PATH : ${lib.makeBinPath [ jdk ]}
+    wrapProgram $out/bin/hexgui --prefix PATH : ${lib.makeBinPath [jdk]}
   '';
 
   meta = {
     description = "GUI for the board game Hex";
     homepage = "https://github.com/selinger/hexgui";
     license = lib.licenses.gpl3;
-    maintainers = [ lib.maintainers.ursi ];
+    maintainers = [lib.maintainers.ursi];
   };
 }

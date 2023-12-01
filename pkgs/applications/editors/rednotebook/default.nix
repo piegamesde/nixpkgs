@@ -27,7 +27,7 @@ buildPythonApplication rec {
   # We have not packaged tests.
   doCheck = false;
 
-  nativeBuildInputs = [ gobject-introspection ];
+  nativeBuildInputs = [gobject-introspection];
 
   propagatedBuildInputs = [
     gdk-pixbuf
@@ -51,6 +51,6 @@ buildPythonApplication rec {
     changelog = "https://github.com/jendrikseipp/rednotebook/blob/v${version}/CHANGELOG.md";
     description = "A modern journal that includes a calendar navigation, customizable templates, export functionality and word clouds";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ orivej ];
+    maintainers = with maintainers; [orivej];
   };
 }

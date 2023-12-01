@@ -26,7 +26,7 @@ buildGoModule rec {
 
   postInstall = ''
     # make xdg-open overrideable at runtime
-    wrapProgram $out/bin/aws-vault --suffix PATH : ${lib.makeBinPath [ xdg-utils ]}
+    wrapProgram $out/bin/aws-vault --suffix PATH : ${lib.makeBinPath [xdg-utils]}
     installShellCompletion --cmd aws-vault \
       --bash $src/contrib/completions/bash/aws-vault.bash \
       --fish $src/contrib/completions/fish/aws-vault.fish \
@@ -35,10 +35,10 @@ buildGoModule rec {
 
   doCheck = false;
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   # set the version. see: aws-vault's Makefile
-  ldflags = [ "-X main.Version=v${version}" ];
+  ldflags = ["-X main.Version=v${version}"];
 
   doInstallCheck = true;
 
@@ -50,6 +50,6 @@ buildGoModule rec {
     description = "A vault for securely storing and accessing AWS credentials in development environments";
     homepage = "https://github.com/99designs/aws-vault";
     license = licenses.mit;
-    maintainers = with maintainers; [ zimbatm ];
+    maintainers = with maintainers; [zimbatm];
   };
 }

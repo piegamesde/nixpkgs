@@ -45,7 +45,7 @@ let
   # nslcd normally reads configuration from /etc/nslcd.conf.
   # this file might contain secrets. We append those at runtime,
   # so redirect its location to something more temporary.
-  nslcdWrapped = runCommand "nslcd-wrapped" { nativeBuildInputs = [ makeWrapper ]; } ''
+  nslcdWrapped = runCommand "nslcd-wrapped" {nativeBuildInputs = [makeWrapper];} ''
     mkdir -p $out/bin
     makeWrapper ${nss_pam_ldapd}/sbin/nslcd $out/bin/nslcd \
       --set LD_PRELOAD    "${pkgs.libredirect}/lib/libredirect.so" \
@@ -226,7 +226,7 @@ in
 
   config = mkIf cfg.enable {
 
-    environment.etc = optionalAttrs (!cfg.daemon.enable) { "ldap.conf" = ldapConfig; };
+    environment.etc = optionalAttrs (!cfg.daemon.enable) {"ldap.conf" = ldapConfig;};
 
     system.activationScripts = mkIf (!cfg.daemon.enable) {
       ldap =
@@ -269,7 +269,7 @@ in
 
     systemd.services = mkIf cfg.daemon.enable {
       nslcd = {
-        wantedBy = [ "multi-user.target" ];
+        wantedBy = ["multi-user.target"];
 
         preStart = ''
           umask 0077
@@ -296,7 +296,7 @@ in
           Restart = "always";
           User = "nslcd";
           Group = "nslcd";
-          RuntimeDirectory = [ "nslcd" ];
+          RuntimeDirectory = ["nslcd"];
           PIDFile = "/run/nslcd/nslcd.pid";
           AmbientCapabilities = "CAP_SYS_RESOURCE";
         };

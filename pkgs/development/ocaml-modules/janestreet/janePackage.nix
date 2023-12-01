@@ -9,7 +9,7 @@
   pname,
   version ? defaultVersion,
   hash,
-  buildInputs ? [ ],
+  buildInputs ? [],
   ...
 }@args:
 

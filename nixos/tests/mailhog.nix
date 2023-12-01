@@ -1,15 +1,15 @@
 import ./make-test-python.nix (
-  { lib, ... }:
+  {lib, ...}:
   {
     name = "mailhog";
-    meta.maintainers = with lib.maintainers; [ jojosch ];
+    meta.maintainers = with lib.maintainers; [jojosch];
 
     nodes.machine =
-      { pkgs, ... }:
+      {pkgs, ...}:
       {
         services.mailhog.enable = true;
 
-        environment.systemPackages = with pkgs; [ swaks ];
+        environment.systemPackages = with pkgs; [swaks];
       };
 
     testScript = ''

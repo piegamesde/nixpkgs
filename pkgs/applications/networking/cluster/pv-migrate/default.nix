@@ -15,7 +15,7 @@ buildGoModule rec {
     sha256 = "sha256-M+M2tK40d05AxBmTjYKv5rrebX7g+Za8KX+/Q3aVLwE=";
   };
 
-  subPackages = [ "cmd/pv-migrate" ];
+  subPackages = ["cmd/pv-migrate"];
 
   vendorHash = "sha256-3uqN6RmkctlE4GuYZQbY6wbHyPBJP15O4Bm0kTtW8qo=";
 
@@ -32,6 +32,6 @@ buildGoModule rec {
     homepage = "https://github.com/utkuozdemir/pv-migrate";
     changelog = "https://github.com/utkuozdemir/pv-migrate/releases/tag/${version}";
     license = licenses.afl20;
-    maintainers = [ maintainers.ivankovnatsky ];
+    maintainers = [maintainers.ivankovnatsky];
   };
 }

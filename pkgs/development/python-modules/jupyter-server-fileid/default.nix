@@ -25,14 +25,14 @@ buildPythonPackage rec {
     hash = "sha256-3dwj8GV0FmbhSsC2uWOLcU5ofrvBBGJ/2F/noFh4RCU=";
   };
 
-  nativeBuildInputs = [ hatchling ];
+  nativeBuildInputs = [hatchling];
 
   propagatedBuildInputs = [
     jupyter-events
     jupyter-server
   ];
 
-  pythonImportsCheck = [ "jupyter_server_fileid" ];
+  pythonImportsCheck = ["jupyter_server_fileid"];
 
   checkInputs = [
     pytest-jupyter
@@ -48,6 +48,6 @@ buildPythonPackage rec {
     description = "An extension that maintains file IDs for documents in a running Jupyter Server";
     homepage = "https://github.com/jupyter-server/jupyter_server_fileid";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

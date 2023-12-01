@@ -20,7 +20,7 @@ buildGoModule rec {
 
   doCheck = false;
 
-  subPackages = [ "cmd/eksctl" ];
+  subPackages = ["cmd/eksctl"];
 
   tags = [
     "netgo"
@@ -34,7 +34,7 @@ buildGoModule rec {
     "-X github.com/weaveworks/eksctl/pkg/version.buildDate=19700101-00:00:00"
   ];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = ''
     installShellCompletion --cmd eksctl \

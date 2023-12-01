@@ -56,7 +56,7 @@ stdenv.mkDerivation rec {
       --set-default LANG en_US.UTF-8 \
       --prefix PATH : ${
         lib.makeBinPath (
-          lib.optionals stdenv.isLinux [ vlc ]
+          lib.optionals stdenv.isLinux [vlc]
           ++ [
             bash
             coreutils-prefixed
@@ -77,7 +77,7 @@ stdenv.mkDerivation rec {
     description = "Terminal user interface for Twitch";
     homepage = "https://github.com/krathalan/wtwitch";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ urandom ];
+    maintainers = with maintainers; [urandom];
     platforms = platforms.all;
   };
 }

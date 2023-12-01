@@ -30,6 +30,6 @@ buildGoModule rec {
     homepage = "https://github.com/lighttiger2505/sqls";
     description = "SQL language server written in Go";
     license = licenses.mit;
-    maintainers = [ maintainers.marsam ];
+    maintainers = [maintainers.marsam];
   };
 }

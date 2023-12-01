@@ -25,7 +25,7 @@ stdenv.mkDerivation {
     install -Dm 444 docs/* -t "$out/doc"
   '';
 
-  makeFlags = [ "CC=${stdenv.cc.targetPrefix}cc" ];
+  makeFlags = ["CC=${stdenv.cc.targetPrefix}cc"];
 
   meta = with lib; {
     description = "Approximate grep for fast fuzzy string searching";

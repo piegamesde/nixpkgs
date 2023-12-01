@@ -31,7 +31,7 @@ stdenvNoCC.mkDerivation rec {
       Medium, and Bold.
     '';
     license = licenses.ofl;
-    maintainers = [ maintainers.rycee ];
+    maintainers = [maintainers.rycee];
     platforms = platforms.all;
   };
 }

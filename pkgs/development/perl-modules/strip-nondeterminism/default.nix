@@ -28,13 +28,13 @@ buildPerlPackage rec {
   };
 
   strictDeps = true;
-  nativeBuildInputs = lib.optionals stdenv.isDarwin [ shortenPerlShebang ];
+  nativeBuildInputs = lib.optionals stdenv.isDarwin [shortenPerlShebang];
   buildInputs = [
     ArchiveZip
     ArchiveCpio
   ];
 
-  nativeCheckInputs = [ SubOverride ];
+  nativeCheckInputs = [SubOverride];
 
   postPatch = ''
     substituteInPlace lib/File/StripNondeterminism.pm \

@@ -60,7 +60,7 @@ let
   ];
 in
 {
-  meta.maintainers = with lib.maintainers; [ peterhoeg ];
+  meta.maintainers = with lib.maintainers; [peterhoeg];
 
   ###### interface
 
@@ -121,7 +121,7 @@ in
     extraArgs = mkOption {
       description = lib.mdDoc "Additional arguments to pass to the process.";
       type = types.listOf types.str;
-      default = [ "-v" ];
+      default = ["-v"];
     };
   };
 
@@ -130,11 +130,11 @@ in
   config = lib.mkIf cfg.enable {
     systemd.services.https-dns-proxy = {
       description = "DNS to DNS over HTTPS (DoH) proxy";
-      requires = [ "network.target" ];
-      after = [ "network.target" ];
-      wants = [ "nss-lookup.target" ];
-      before = [ "nss-lookup.target" ];
-      wantedBy = [ "multi-user.target" ];
+      requires = ["network.target"];
+      after = ["network.target"];
+      wants = ["nss-lookup.target"];
+      before = ["nss-lookup.target"];
+      wantedBy = ["multi-user.target"];
       serviceConfig = rec {
         Type = "exec";
         DynamicUser = true;

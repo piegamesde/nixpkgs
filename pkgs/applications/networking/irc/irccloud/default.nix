@@ -14,12 +14,12 @@ let
     sha256 = "sha256-/hMPvYdnVB1XjKgU2v47HnVvW4+uC3rhRjbucqin4iI=";
   };
 
-  appimageContents = appimageTools.extractType2 { inherit name src; };
+  appimageContents = appimageTools.extractType2 {inherit name src;};
 in
 appimageTools.wrapType2 {
   inherit name src;
 
-  extraPkgs = pkgs: with pkgs; [ at-spi2-core ];
+  extraPkgs = pkgs: with pkgs; [at-spi2-core];
 
   extraInstallCommands = ''
     mv $out/bin/${name} $out/bin/${pname}
@@ -34,7 +34,7 @@ appimageTools.wrapType2 {
     description = "A desktop client for IRCCloud";
     homepage = "https://www.irccloud.com";
     license = licenses.asl20;
-    platforms = [ "x86_64-linux" ];
-    maintainers = with maintainers; [ lightbulbjim ];
+    platforms = ["x86_64-linux"];
+    maintainers = with maintainers; [lightbulbjim];
   };
 }

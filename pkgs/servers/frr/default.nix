@@ -65,7 +65,7 @@ stdenv.mkDerivation rec {
     python3
     readline
     rtrlib
-  ] ++ lib.optionals stdenv.isLinux [ libcap ];
+  ] ++ lib.optionals stdenv.isLinux [libcap];
 
   configureFlags = [
     "--disable-exampledir"
@@ -125,7 +125,7 @@ stdenv.mkDerivation rec {
       gpl2Plus
       lgpl21Plus
     ];
-    maintainers = with maintainers; [ woffs ];
+    maintainers = with maintainers; [woffs];
     platforms = platforms.unix;
   };
 

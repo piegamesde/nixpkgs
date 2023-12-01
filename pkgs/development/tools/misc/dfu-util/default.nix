@@ -10,8 +10,8 @@ stdenv.mkDerivation rec {
   pname = "dfu-util";
   version = "0.11";
 
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ libusb1 ];
+  nativeBuildInputs = [pkg-config];
+  buildInputs = [libusb1];
 
   src = fetchurl {
     url = "https://dfu-util.sourceforge.net/releases/${pname}-${version}.tar.gz";
@@ -32,6 +32,6 @@ stdenv.mkDerivation rec {
     homepage = "https://dfu-util.sourceforge.net";
     license = licenses.gpl2Plus;
     platforms = platforms.unix;
-    maintainers = [ maintainers.fpletz ];
+    maintainers = [maintainers.fpletz];
   };
 }

@@ -21,11 +21,11 @@ stdenv.mkDerivation rec {
     patchShebangs configure
   '';
 
-  configureFlags = [ "--thread" ];
+  configureFlags = ["--thread"];
 
-  makeFlags = [ "DESTDIR=$(out)" ];
+  makeFlags = ["DESTDIR=$(out)"];
 
-  buildInputs = [ zlib ];
+  buildInputs = [zlib];
 
   installTargets = [
     "install"
@@ -44,6 +44,6 @@ stdenv.mkDerivation rec {
     description = "Scripting language and C library useful for building DSLs";
     license = licenses.lgpl3Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ mausch ];
+    maintainers = with maintainers; [mausch];
   };
 }

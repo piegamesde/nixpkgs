@@ -104,7 +104,7 @@ stdenv.mkDerivation rec {
         xorgproto
       ]
     )
-    ++ lib.optionals withGTK3 [ gtk3 ];
+    ++ lib.optionals withGTK3 [gtk3];
 
   enableParallelBuilding = true;
 
@@ -127,7 +127,7 @@ stdenv.mkDerivation rec {
 
     export build64=${lib.optionalString stdenv.hostPlatform.is64bit "1"}
     export gtkversion=${if withGTK3 then "3" else "2"}
-    export xlibs=${lib.makeLibraryPath [ xorg.libX11 ]}
+    export xlibs=${lib.makeLibraryPath [xorg.libX11]}
     export prefix=$out
     export mozmakeflags="-j$jobs"
     export autoconf=${autoconf213}/bin/autoconf
@@ -223,6 +223,6 @@ stdenv.mkDerivation rec {
       )"
       update-source-version ${pname} "$version"
     '';
-    tests.version = testers.testVersion { package = palemoon; };
+    tests.version = testers.testVersion {package = palemoon;};
   };
 }

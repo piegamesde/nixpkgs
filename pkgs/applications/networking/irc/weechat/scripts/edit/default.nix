@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
 
   dontBuild = true;
 
-  passthru.scripts = [ "edit.py" ];
+  passthru.scripts = ["edit.py"];
 
   installPhase = ''
     runHook preInstall
@@ -30,6 +30,6 @@ stdenv.mkDerivation rec {
     inherit (weechat.meta) platforms;
     description = "This simple weechat plugin allows you to compose messages in your $EDITOR.";
     license = licenses.mit;
-    maintainers = with maintainers; [ eraserhd ];
+    maintainers = with maintainers; [eraserhd];
   };
 }

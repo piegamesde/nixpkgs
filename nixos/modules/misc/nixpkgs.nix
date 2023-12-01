@@ -19,19 +19,18 @@ let
   mergeConfig =
     lhs_: rhs_:
     let
-      lhs = optCall lhs_ { inherit pkgs; };
-      rhs = optCall rhs_ { inherit pkgs; };
+      lhs = optCall lhs_ {inherit pkgs;};
+      rhs = optCall rhs_ {inherit pkgs;};
     in
     recursiveUpdate lhs rhs
     // optionalAttrs (lhs ? packageOverrides) {
       packageOverrides =
-        pkgs: optCall lhs.packageOverrides pkgs // optCall (attrByPath [ "packageOverrides" ] { } rhs) pkgs;
+        pkgs: optCall lhs.packageOverrides pkgs // optCall (attrByPath ["packageOverrides"] {} rhs) pkgs;
     }
     // optionalAttrs (lhs ? perlPackageOverrides) {
       perlPackageOverrides =
         pkgs:
-        optCall lhs.perlPackageOverrides pkgs
-        // optCall (attrByPath [ "perlPackageOverrides" ] { } rhs) pkgs;
+        optCall lhs.perlPackageOverrides pkgs // optCall (attrByPath ["perlPackageOverrides"] {} rhs) pkgs;
     };
 
   configType = mkOptionType {
@@ -43,7 +42,7 @@ let
         traceXIfNot = c: if c x then true else lib.traceSeqN 1 x false;
       in
       traceXIfNot isConfig;
-    merge = args: foldr (def: mergeConfig def.value) { };
+    merge = args: foldr (def: mergeConfig def.value) {};
   };
 
   overlayType = mkOptionType {
@@ -64,7 +63,7 @@ let
   # is defined elsewhere does not seem feasible.
   constructedByMe = !opt.pkgs.isDefined;
 
-  hasBuildPlatform = opt.buildPlatform.highestPrio < (mkOptionDefault { }).priority;
+  hasBuildPlatform = opt.buildPlatform.highestPrio < (mkOptionDefault {}).priority;
   hasHostPlatform = opt.hostPlatform.isDefined;
   hasPlatform = hasHostPlatform || hasBuildPlatform;
 
@@ -73,9 +72,9 @@ let
   buildPlatformLine = optionalString hasBuildPlatform "${showOptionWithDefLocs opt.buildPlatform}";
 
   legacyOptionsDefined =
-    optional (opt.localSystem.highestPrio < (mkDefault { }).priority) opt.system
-    ++ optional (opt.localSystem.highestPrio < (mkOptionDefault { }).priority) opt.localSystem
-    ++ optional (opt.crossSystem.highestPrio < (mkOptionDefault { }).priority) opt.crossSystem;
+    optional (opt.localSystem.highestPrio < (mkDefault {}).priority) opt.system
+    ++ optional (opt.localSystem.highestPrio < (mkOptionDefault {}).priority) opt.localSystem
+    ++ optional (opt.crossSystem.highestPrio < (mkOptionDefault {}).priority) opt.crossSystem;
 
   defaultPkgs =
     if opt.hostPlatform.isDefined then
@@ -88,9 +87,9 @@ let
               crossSystem = cfg.hostPlatform;
             }
           else
-            { localSystem = cfg.hostPlatform; };
+            {localSystem = cfg.hostPlatform;};
       in
-      import ../../.. ({ inherit (cfg) config overlays; } // systemArgs)
+      import ../../.. ({inherit (cfg) config overlays;} // systemArgs)
     else
       import ../../.. {
         inherit (cfg)
@@ -161,7 +160,7 @@ in
     };
 
     config = mkOption {
-      default = { };
+      default = {};
       example = literalExpression ''
         { allowBroken = true; allowUnfree = true; }
       '';
@@ -176,7 +175,7 @@ in
     };
 
     overlays = mkOption {
-      default = [ ];
+      default = [];
       example = literalExpression ''
         [
           (self: super: {
@@ -380,7 +379,7 @@ in
         }
       )
       {
-        assertion = constructedByMe -> hasPlatform -> legacyOptionsDefined == [ ];
+        assertion = constructedByMe -> hasPlatform -> legacyOptionsDefined == [];
         message = ''
           Your system configures nixpkgs with the platform parameter${optionalString hasBuildPlatform "s"}:
           ${hostPlatformLine}${buildPlatformLine}

@@ -72,7 +72,7 @@ buildPythonPackage rec {
     webob
   ];
 
-  disabledTests = [ "elasticapm_client" ];
+  disabledTests = ["elasticapm_client"];
 
   disabledTestPaths =
     [
@@ -85,14 +85,14 @@ buildPythonPackage rec {
         "tests/utils/threading_tests.py"
       ];
 
-  pythonImportsCheck = [ "elasticapm" ];
+  pythonImportsCheck = ["elasticapm"];
 
   meta = with lib; {
     description = "Python agent for the Elastic APM";
     homepage = "https://github.com/elastic/apm-agent-python";
     changelog = "https://github.com/elastic/apm-agent-python/releases/tag/v${version}";
-    license = with licenses; [ bsd3 ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [bsd3];
+    maintainers = with maintainers; [fab];
     mainProgram = "elasticapm-run";
   };
 }

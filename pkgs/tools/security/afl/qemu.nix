@@ -98,7 +98,7 @@ stdenv.mkDerivation rec {
     homepage = "http://www.qemu.org/";
     description = "Fork of QEMU with AFL instrumentation support";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ thoughtpolice ];
+    maintainers = with maintainers; [thoughtpolice];
     platforms = platforms.linux;
   };
 }

@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
     description = "TETR.IO customization toolkit";
     homepage = "https://gitlab.com/UniQMG/tetrio-plus";
     license = licenses.mit;
-    maintainers = with maintainers; [ huantian ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with maintainers; [huantian];
+    platforms = ["x86_64-linux"];
   };
 }

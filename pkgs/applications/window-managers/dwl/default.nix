@@ -101,7 +101,7 @@ stdenv.mkDerivation (
       '';
       changelog = "https://github.com/djpohly/dwl/releases/tag/v${finalAttrs.version}";
       license = lib.licenses.gpl3Only;
-      maintainers = [ lib.maintainers.AndersonTorres ];
+      maintainers = [lib.maintainers.AndersonTorres];
       inherit (wayland.meta) platforms;
     };
   }

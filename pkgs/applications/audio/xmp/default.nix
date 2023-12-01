@@ -18,10 +18,10 @@ stdenv.mkDerivation rec {
     sha256 = "17i8fc7x7yn3z1x963xp9iv108gxfakxmdgmpv3mlm438w3n3g8x";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs =
-    [ libxmp ]
-    ++ lib.optionals stdenv.isLinux [ alsa-lib ]
+    [libxmp]
+    ++ lib.optionals stdenv.isLinux [alsa-lib]
     ++ lib.optionals stdenv.isDarwin [
       AudioUnit
       CoreAudio

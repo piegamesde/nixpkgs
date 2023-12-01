@@ -15,8 +15,8 @@ stdenv.mkDerivation rec {
     sha256 = "099224v5y0y1ggqrfc8vga8afr3nb93iicn7cj8xxgsrwa83s5nr";
   };
 
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ m4 ];
+  nativeBuildInputs = [pkg-config];
+  buildInputs = [m4];
 
   meta = with lib; {
     broken = stdenv.isDarwin;

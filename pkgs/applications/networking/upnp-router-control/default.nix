@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
       It can manage port forwarding through a simple GUI interface.
     '';
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ fgaz ];
+    maintainers = with maintainers; [fgaz];
     platforms = platforms.all;
   };
 }

@@ -30,7 +30,7 @@ in
         }
       '';
       type = types.attrs;
-      default = { };
+      default = {};
     };
 
     upstreamDefaults = mkOption {
@@ -54,7 +54,7 @@ in
         pkgs.runCommand "dnscrypt-proxy.toml"
           {
             json = builtins.toJSON cfg.settings;
-            passAsFile = [ "json" ];
+            passAsFile = ["json"];
           }
           ''
             ${if cfg.upstreamDefaults then
@@ -74,7 +74,7 @@ in
 
   config = mkIf cfg.enable {
 
-    networking.nameservers = lib.mkDefault [ "127.0.0.1" ];
+    networking.nameservers = lib.mkDefault ["127.0.0.1"];
 
     systemd.services.dnscrypt-proxy2 = {
       description = "DNSCrypt-proxy client";
@@ -82,8 +82,8 @@ in
         "network-online.target"
         "nss-lookup.target"
       ];
-      before = [ "nss-lookup.target" ];
-      wantedBy = [ "multi-user.target" ];
+      before = ["nss-lookup.target"];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         AmbientCapabilities = "CAP_NET_BIND_SERVICE";
         CacheDirectory = "dnscrypt-proxy";

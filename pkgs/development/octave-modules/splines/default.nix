@@ -19,7 +19,7 @@ buildOctavePackage rec {
       gpl3Plus
       publicDomain
     ];
-    maintainers = with maintainers; [ KarlJoad ];
+    maintainers = with maintainers; [KarlJoad];
     description = "Additional spline functions";
   };
 }

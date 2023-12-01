@@ -28,13 +28,13 @@ stdenv.mkDerivation rec {
     perl
   ];
 
-  buildInputs = [ readline ];
+  buildInputs = [readline];
 
   meta = with lib; {
     description = "Readline wrapper for console programs";
     homepage = "https://github.com/hanslub42/rlwrap";
     license = licenses.gpl2Plus;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ srapenne ];
+    maintainers = with maintainers; [srapenne];
   };
 }

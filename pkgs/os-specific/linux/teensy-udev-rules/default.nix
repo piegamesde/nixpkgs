@@ -13,7 +13,7 @@ stdenv.mkDerivation {
 
   dontUnpack = true;
 
-  runtimeDeps = [ coreutils ];
+  runtimeDeps = [coreutils];
 
   installPhase = ''
     install -D $src $out/etc/udev/rules.d/70-teensy.rules
@@ -33,6 +33,6 @@ stdenv.mkDerivation {
     '';
     platforms = platforms.linux;
     license = "unknown";
-    maintainers = with maintainers; [ aidalgol ];
+    maintainers = with maintainers; [aidalgol];
   };
 }

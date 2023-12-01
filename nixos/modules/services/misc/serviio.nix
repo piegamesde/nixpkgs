@@ -56,9 +56,9 @@ in
   config = mkIf cfg.enable {
     systemd.services.serviio = {
       description = "Serviio Media Server";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
-      path = [ pkgs.serviio ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
+      path = [pkgs.serviio];
       serviceConfig = {
         User = "serviio";
         Group = "serviio";
@@ -75,7 +75,7 @@ in
       isSystemUser = true;
     };
 
-    users.groups.serviio = { };
+    users.groups.serviio = {};
 
     networking.firewall = {
       allowedTCPPorts = [

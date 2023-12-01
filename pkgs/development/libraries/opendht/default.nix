@@ -52,14 +52,14 @@ stdenv.mkDerivation rec {
       openssl
       fmt
     ]
-    ++ lib.optionals stdenv.isDarwin [ Security ];
+    ++ lib.optionals stdenv.isDarwin [Security];
 
   cmakeFlags =
     lib.optionals enableProxyServerAndClient [
       "-DOPENDHT_PROXY_SERVER=ON"
       "-DOPENDHT_PROXY_CLIENT=ON"
     ]
-    ++ lib.optionals enablePushNotifications [ "-DOPENDHT_PUSH_NOTIFICATIONS=ON" ];
+    ++ lib.optionals enablePushNotifications ["-DOPENDHT_PUSH_NOTIFICATIONS=ON"];
 
   # https://github.com/savoirfairelinux/opendht/issues/612
   postPatch = ''

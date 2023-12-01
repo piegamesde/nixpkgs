@@ -35,7 +35,7 @@ buildPythonPackage rec {
       modRoot = "api";
       vendorSha256 = "sha256-uIP3W7UJkP68HJUF33kz5xfg/KBiaSwMozFYmQJQkys=";
     }
-    // import ./fix-gqlgen-trimpath.nix { inherit unzip; }
+    // import ./fix-gqlgen-trimpath.nix {inherit unzip;}
   );
 
   hgsrht-keys = buildGoModule {
@@ -62,12 +62,12 @@ buildPythonPackage rec {
     ln -s ${hgsrht-keys}/bin/hgsrht-keys $out/bin/hgsrht-keys
   '';
 
-  pythonImportsCheck = [ "hgsrht" ];
+  pythonImportsCheck = ["hgsrht"];
 
   meta = with lib; {
     homepage = "https://git.sr.ht/~sircmpwn/hg.sr.ht";
     description = "Mercurial repository hosting service for the sr.ht network";
     license = licenses.agpl3Only;
-    maintainers = with maintainers; [ eadwu ];
+    maintainers = with maintainers; [eadwu];
   };
 }

@@ -48,7 +48,7 @@ stdenv.mkDerivation (
     # Reference: src/Makefile, directive gmic_stdlib.h
     gmic_stdlib = fetchurl {
       name = "gmic_stdlib.h";
-      url = "http://gmic.eu/gmic_stdlib${lib.replaceStrings [ "." ] [ "" ] finalAttrs.version}.h";
+      url = "http://gmic.eu/gmic_stdlib${lib.replaceStrings ["."] [""] finalAttrs.version}.h";
       hash = "sha256-ExMCxFkkctqrdSy5M/TXD5GBRmRA9YEdsYW8nWiTEYY=";
     };
 
@@ -132,7 +132,7 @@ stdenv.mkDerivation (
       homepage = "https://gmic.eu/";
       description = "Open and full-featured framework for image processing";
       license = lib.licenses.cecill21;
-      maintainers = [ lib.maintainers.lilyinstarlight ];
+      maintainers = [lib.maintainers.lilyinstarlight];
       platforms = lib.platforms.unix;
     };
   }

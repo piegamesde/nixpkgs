@@ -17,12 +17,12 @@ buildPythonPackage rec {
   # Module doesn't have tests
   doCheck = false;
 
-  pythonImportsCheck = [ "psutil-stubs" ];
+  pythonImportsCheck = ["psutil-stubs"];
 
   meta = with lib; {
     description = "Typing stubs for psutil";
     homepage = "https://github.com/python/typeshed";
     license = licenses.asl20;
-    maintainers = with maintainers; [ anselmschueler ];
+    maintainers = with maintainers; [anselmschueler];
   };
 }

@@ -17,9 +17,9 @@ mkDerivation rec {
     sha256 = "sha256-xM0nroWs4WByc2O469zVeAlzKn6LLr+8WDlEdSjtRYI=";
   };
 
-  buildInputs = [ qtbase ];
+  buildInputs = [qtbase];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   meta = with lib; {
     license = licenses.gpl2Only;

@@ -22,11 +22,11 @@ let
   # needs to be in a specific order
   activatedHosts =
     with cfg;
-    [ ]
-    ++ optionals (elem "fakenews" block) [ "fakenews" ]
-    ++ optionals (elem "gambling" block) [ "gambling" ]
-    ++ optionals (elem "porn" block) [ "porn" ]
-    ++ optionals (elem "social" block) [ "social" ];
+    []
+    ++ optionals (elem "fakenews" block) ["fakenews"]
+    ++ optionals (elem "gambling" block) ["gambling"]
+    ++ optionals (elem "porn" block) ["porn"]
+    ++ optionals (elem "social" block) ["social"];
 
   hostsPath =
     "${pkgs.stevenblack-blocklist}/alternates/" + concatStringsSep "-" activatedHosts + "/hosts";
@@ -44,16 +44,16 @@ in
           "social"
         ]
       );
-      default = [ ];
+      default = [];
       description = mdDoc "Additional blocklist extensions.";
     };
   };
 
   config = mkIf cfg.enable {
     networking.hostFiles =
-      [ ]
-      ++ optionals (activatedHosts != [ ]) [ hostsPath ]
-      ++ optionals (activatedHosts == [ ]) [ "${pkgs.stevenblack-blocklist}/hosts" ];
+      []
+      ++ optionals (activatedHosts != []) [hostsPath]
+      ++ optionals (activatedHosts == []) ["${pkgs.stevenblack-blocklist}/hosts"];
   };
 
   meta.maintainers = [

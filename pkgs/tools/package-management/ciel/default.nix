@@ -80,6 +80,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/AOSC-Dev/ciel-rs";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ yisuidenghua ];
+    maintainers = with maintainers; [yisuidenghua];
   };
 }

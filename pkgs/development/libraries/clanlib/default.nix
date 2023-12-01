@@ -43,7 +43,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/sphair/ClanLib";
     description = "A cross platform toolkit library with a primary focus on game creation";
     license = licenses.mit;
-    maintainers = with maintainers; [ nixinator ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with maintainers; [nixinator];
+    platforms = ["x86_64-linux"];
   };
 }

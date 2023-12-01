@@ -18,7 +18,7 @@ mkDerivation rec {
 
   # The cubical library has several `Everything.agda` files, which are
   # compiled through the make file they provide.
-  nativeBuildInputs = [ ghc ];
+  nativeBuildInputs = [ghc];
   buildPhase = ''
     runHook preBuild
     make

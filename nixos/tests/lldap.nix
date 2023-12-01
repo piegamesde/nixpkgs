@@ -1,10 +1,10 @@
 import ./make-test-python.nix (
-  { ... }:
+  {...}:
   {
     name = "lldap";
 
     nodes.machine =
-      { pkgs, ... }:
+      {pkgs, ...}:
       {
         services.lldap = {
           enable = true;
@@ -13,7 +13,7 @@ import ./make-test-python.nix (
             ldap_base_dn = "dc=example,dc=com";
           };
         };
-        environment.systemPackages = [ pkgs.openldap ];
+        environment.systemPackages = [pkgs.openldap];
       };
 
     testScript = ''

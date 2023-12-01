@@ -55,6 +55,6 @@ mkCoqDerivation rec {
 
   meta = {
     description = "Micromega tactics for Mathematical Components";
-    maintainers = with lib.maintainers; [ cohencyril ];
+    maintainers = with lib.maintainers; [cohencyril];
   };
 }

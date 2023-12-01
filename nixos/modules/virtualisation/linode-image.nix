@@ -17,7 +17,7 @@ let
   '';
 in
 {
-  imports = [ ./linode-config.nix ];
+  imports = [./linode-config.nix];
 
   options = {
     virtualisation.linodeImage.diskSize = mkOption {
@@ -67,5 +67,5 @@ in
     };
   };
 
-  meta.maintainers = with maintainers; [ cyntheticfox ];
+  meta.maintainers = with maintainers; [cyntheticfox];
 }

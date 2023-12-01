@@ -14,7 +14,7 @@ stdenv.mkDerivation rec {
     sha256 = "d91275471ef69d488b05cf15c60e1cd65e17648bfc692b405787419f47ca424a";
   };
 
-  buildInputs = [ libdvdcss ];
+  buildInputs = [libdvdcss];
 
   NIX_LDFLAGS = "-ldvdcss";
 
@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
     homepage = "http://dvdnav.mplayerhq.hu/";
     description = "A library for reading DVDs";
     license = lib.licenses.gpl2;
-    maintainers = [ lib.maintainers.wmertens ];
+    maintainers = [lib.maintainers.wmertens];
     platforms = lib.platforms.linux;
   };
 }

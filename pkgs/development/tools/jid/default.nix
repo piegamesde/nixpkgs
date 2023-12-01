@@ -39,6 +39,6 @@ buildGoModule rec {
     description = "A command-line tool to incrementally drill down JSON";
     homepage = "https://github.com/simeji/jid";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ stesie ];
+    maintainers = with lib.maintainers; [stesie];
   };
 }

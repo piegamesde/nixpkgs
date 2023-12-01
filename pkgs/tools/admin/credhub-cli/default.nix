@@ -42,7 +42,7 @@ buildGoModule rec {
   meta = with lib; {
     description = "Provides a command line interface to interact with CredHub servers";
     homepage = "https://github.com/cloudfoundry-incubator/credhub-cli";
-    maintainers = with maintainers; [ ris ];
+    maintainers = with maintainers; [ris];
     license = licenses.asl20;
   };
 }

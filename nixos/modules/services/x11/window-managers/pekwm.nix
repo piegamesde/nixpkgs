@@ -25,6 +25,6 @@ in
         waitPID=$!
       '';
     };
-    environment.systemPackages = [ pkgs.pekwm ];
+    environment.systemPackages = [pkgs.pekwm];
   };
 }

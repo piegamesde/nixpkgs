@@ -84,7 +84,7 @@ stdenv.mkDerivation rec {
     cd source
   '';
 
-  makeFlags = [ "PREFIX=$(bin)" ];
+  makeFlags = ["PREFIX=$(bin)"];
 
   postInstall = ''
     mkdir -p $doc/share/doc/jconvolver
@@ -125,7 +125,7 @@ stdenv.mkDerivation rec {
     description = "A JACK client and audio file convolver with reverb samples";
     homepage = "https://kokkinizita.linuxaudio.org/linuxaudio/";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ orivej ];
+    maintainers = with maintainers; [orivej];
     platforms = platforms.linux;
   };
 }

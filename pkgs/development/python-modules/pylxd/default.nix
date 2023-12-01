@@ -44,12 +44,12 @@ buildPythonPackage rec {
     "migration"
   ];
 
-  pythonImportsCheck = [ "pylxd" ];
+  pythonImportsCheck = ["pylxd"];
 
   meta = with lib; {
     description = "A Python library for interacting with the LXD REST API";
     homepage = "https://pylxd.readthedocs.io/en/latest/";
     license = licenses.asl20;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

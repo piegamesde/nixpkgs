@@ -1,14 +1,14 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "simple-date";
   version = "postmodern-20211209-git";
 
-  parasites = [ "simple-date/tests" ];
+  parasites = ["simple-date/tests"];
 
   description = "Simple date library that can be used with postmodern";
 
-  deps = [ args."fiveam" ];
+  deps = [args."fiveam"];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/postmodern/2021-12-09/postmodern-20211209-git.tgz";
@@ -17,7 +17,7 @@ rec {
 
   packageName = "simple-date";
 
-  asdFilesToKeep = [ "simple-date.asd" ];
+  asdFilesToKeep = ["simple-date.asd"];
   overrides = x: x;
 }
 /* (SYSTEM simple-date DESCRIPTION

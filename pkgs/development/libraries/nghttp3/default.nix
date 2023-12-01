@@ -25,13 +25,13 @@ stdenv.mkDerivation rec {
     "doc"
   ];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   nativeCheckInputs = [
     cunit
     ncurses
   ];
 
-  cmakeFlags = [ "-DENABLE_STATIC_LIB=OFF" ];
+  cmakeFlags = ["-DENABLE_STATIC_LIB=OFF"];
 
   doCheck = true;
   enableParallelBuilding = true;
@@ -45,6 +45,6 @@ stdenv.mkDerivation rec {
     description = "nghttp3 is an implementation of HTTP/3 mapping over QUIC and QPACK in C.";
     license = licenses.mit;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ izorkin ];
+    maintainers = with maintainers; [izorkin];
   };
 }

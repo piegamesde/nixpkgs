@@ -23,6 +23,6 @@ buildGoModule rec {
     description = "A tool to list and diagnose Go processes currently running on your system";
     homepage = "https://github.com/google/gops";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ pborzenkov ];
+    maintainers = with maintainers; [pborzenkov];
   };
 }

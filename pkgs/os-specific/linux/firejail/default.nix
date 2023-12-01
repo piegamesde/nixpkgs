@@ -21,14 +21,14 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-XAlb6SSyY2S1iWDaulIlghQ16OGvT/wBCog95/nxkog=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     libapparmor
     which
   ];
 
-  configureFlags = [ "--enable-apparmor" ];
+  configureFlags = ["--enable-apparmor"];
 
   patches = [
     # Adds the /nix directory when using an overlay.
@@ -93,7 +93,7 @@ stdenv.mkDerivation rec {
   meta = {
     description = "Namespace-based sandboxing tool for Linux";
     license = lib.licenses.gpl2Plus;
-    maintainers = [ lib.maintainers.raskin ];
+    maintainers = [lib.maintainers.raskin];
     platforms = lib.platforms.linux;
     homepage = "https://firejail.wordpress.com/";
   };

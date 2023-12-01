@@ -57,7 +57,7 @@ stdenv.mkDerivation {
   ];
   buildInputs = [
     libuuid
-  ] ++ lib.optionals stdenv.isDarwin [ libobjc ] ++ lib.optional enableTapiSupport libtapi;
+  ] ++ lib.optionals stdenv.isDarwin [libobjc] ++ lib.optional enableTapiSupport libtapi;
 
   patches = [
     ./ld-ignore-rpath-link.patch
@@ -86,7 +86,7 @@ stdenv.mkDerivation {
     "host"
   ] ++ lib.optional (stdenv.targetPlatform != stdenv.hostPlatform) "target";
   configureFlags =
-    [ "--disable-clang-as" ]
+    ["--disable-clang-as"]
     ++ lib.optionals enableTapiSupport [
       "--enable-tapi-support"
       "--with-libtapi=${libtapi}"
@@ -208,6 +208,6 @@ stdenv.mkDerivation {
     homepage = "http://www.opensource.apple.com/source/cctools/";
     description = "MacOS Compiler Tools (cross-platform port)";
     license = lib.licenses.apsl20;
-    maintainers = with lib.maintainers; [ matthewbauer ];
+    maintainers = with lib.maintainers; [matthewbauer];
   };
 }

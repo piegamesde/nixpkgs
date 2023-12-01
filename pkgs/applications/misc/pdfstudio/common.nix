@@ -7,7 +7,7 @@
   desktopName,
   longDescription,
   buildFHSEnv,
-  extraBuildInputs ? [ ],
+  extraBuildInputs ? [],
   jdk,
   stdenv,
   lib,
@@ -41,8 +41,8 @@ let
         exec = "${pname} %f";
         icon = "${pname}";
         comment = "Views and edits PDF files";
-        mimeTypes = [ "application/pdf" ];
-        categories = [ "Office" ];
+        mimeTypes = ["application/pdf"];
+        categories = ["Office"];
       })
     ];
 
@@ -95,6 +95,6 @@ buildFHSEnv {
     license = licenses.unfree;
     platforms = platforms.linux;
     mainProgram = pname;
-    maintainers = [ maintainers.pwoelfel ];
+    maintainers = [maintainers.pwoelfel];
   };
 }

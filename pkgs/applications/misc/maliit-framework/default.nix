@@ -74,6 +74,6 @@ mkDerivation rec {
     description = "Core libraries of Maliit and server";
     homepage = "http://maliit.github.io/";
     license = licenses.lgpl21Plus;
-    maintainers = with maintainers; [ samueldr ];
+    maintainers = with maintainers; [samueldr];
   };
 }

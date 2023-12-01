@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
   '';
 
   # Fix build on Linux kernel >= 5.18
-  env.NIX_CFLAGS_COMPILE = toString [ "-Wno-error=implicit-fallthrough" ];
+  env.NIX_CFLAGS_COMPILE = toString ["-Wno-error=implicit-fallthrough"];
 
   nativeBuildInputs = kernel.moduleBuildDependencies;
 
@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
     description = "DIGImend graphics tablet drivers for the Linux kernel";
     homepage = "https://digimend.github.io/";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ gebner ];
+    maintainers = with maintainers; [gebner];
     platforms = platforms.linux;
   };
 }

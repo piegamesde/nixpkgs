@@ -30,7 +30,7 @@ stdenv.mkDerivation {
     makeWrapper
     setJavaClassPath
   ];
-  buildInputs = [ deps ];
+  buildInputs = [deps];
 
   dontUnpack = true;
 
@@ -51,6 +51,6 @@ stdenv.mkDerivation {
     description = "Opinionated code formatter for Scala";
     homepage = "http://scalameta.org/scalafmt";
     license = licenses.asl20;
-    maintainers = [ maintainers.markus1189 ];
+    maintainers = [maintainers.markus1189];
   };
 }

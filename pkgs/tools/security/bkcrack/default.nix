@@ -17,8 +17,8 @@ stdenv.mkDerivation rec {
     hash = "sha256-iyx4mOTr6MHECk9S9zrIAE5pt+cxWnOKS7iQPUyWfzs=";
   };
 
-  nativeBuildInputs = [ cmake ];
-  buildInputs = [ openmp ];
+  nativeBuildInputs = [cmake];
+  buildInputs = [openmp];
 
   postInstall = ''
     mkdir -p $out/bin $out/share/licenses/bkcrack
@@ -32,6 +32,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/kimci86/bkcrack";
     license = licenses.zlib;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ erdnaxe ];
+    maintainers = with maintainers; [erdnaxe];
   };
 }

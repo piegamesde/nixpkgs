@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
     makeWrapper
     asciidoc
   ];
-  buildInputs = [ python3 ];
+  buildInputs = [python3];
 
   postPatch = ''
     patchShebangs .
@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
   '';
 
   postInstall = ''
-    wrapProgram $out/bin/cvssync --prefix PATH : ${lib.makeBinPath [ rsync ]}
+    wrapProgram $out/bin/cvssync --prefix PATH : ${lib.makeBinPath [rsync]}
     wrapProgram $out/bin/cvsconvert --prefix PATH : $out/bin:${
       lib.makeBinPath [
         coreutils
@@ -59,7 +59,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Export an RCS or CVS history as a fast-import stream";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ dfoxfranke ];
+    maintainers = with maintainers; [dfoxfranke];
     homepage = "http://www.catb.org/esr/cvs-fast-export/";
     platforms = platforms.unix;
   };

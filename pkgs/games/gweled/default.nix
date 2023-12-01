@@ -44,13 +44,13 @@ stdenv.mkDerivation rec {
     libcanberra-gtk2
   ];
 
-  configureFlags = [ "--disable-setgid" ];
+  configureFlags = ["--disable-setgid"];
 
   meta = with lib; {
     description = "Bejeweled clone game";
     homepage = "https://gweled.org";
     license = licenses.gpl2;
     platforms = platforms.linux;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

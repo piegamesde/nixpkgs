@@ -1,12 +1,12 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "moptilities";
   version = "20170403-git";
 
   description = "Common Lisp MOP utilities";
 
-  deps = [ args."closer-mop" ];
+  deps = [args."closer-mop"];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/moptilities/2017-04-03/moptilities-20170403-git.tgz";
@@ -15,7 +15,7 @@ rec {
 
   packageName = "moptilities";
 
-  asdFilesToKeep = [ "moptilities.asd" ];
+  asdFilesToKeep = ["moptilities.asd"];
   overrides = x: x;
 }
 /* (SYSTEM moptilities DESCRIPTION Common Lisp MOP utilities SHA256

@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
       (fetchpatch {
         name = "pkg-config-paths.patch";
         url = "https://github.com/opencollab/arpack-ng/commit/47fc83cb371a9cc8a8c058097de5e0298cd548f5.patch";
-        excludes = [ "CHANGES" ];
+        excludes = ["CHANGES"];
         sha256 = "1aijvrfsxkgzqmkzq2dmaj8q3jdpg2hwlqpfl8ddk9scv17gh9m8";
       })
     ];

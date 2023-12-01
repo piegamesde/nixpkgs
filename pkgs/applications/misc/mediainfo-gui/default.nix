@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
     desktop-file-utils
     libSM
     imagemagick
-  ] ++ lib.optionals stdenv.isDarwin [ Cocoa ];
+  ] ++ lib.optionals stdenv.isDarwin [Cocoa];
 
   sourceRoot = "./MediaInfo/Project/GNU/GUI/";
 
@@ -50,6 +50,6 @@ stdenv.mkDerivation rec {
     homepage = "https://mediaarea.net/";
     license = licenses.bsd2;
     platforms = platforms.unix;
-    maintainers = [ maintainers.devhell ];
+    maintainers = [maintainers.devhell];
   };
 }

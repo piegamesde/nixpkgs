@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
     sha256 = "0ak0bha37dfpj9kmyw1r8fj8nva639aw5xr66wr5gd3l1rqf5xhg";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   # Note: Glib support is optional, but it's quite useful (e.g., it's used by
   # Guile-GNOME).
@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
     guile-lib
   ];
 
-  propagatedBuildInputs = [ libffi ];
+  propagatedBuildInputs = [libffi];
 
   doCheck = true;
 
@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://www.nongnu.org/g-wrap/";
     license = licenses.lgpl2Plus;
-    maintainers = with maintainers; [ vyp ];
+    maintainers = with maintainers; [vyp];
     platforms = platforms.linux;
   };
 }

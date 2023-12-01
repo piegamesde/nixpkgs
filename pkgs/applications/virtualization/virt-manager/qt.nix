@@ -78,7 +78,7 @@ mkDerivation rec {
       manages Xen and LXC (linux containers).
     '';
     license = licenses.gpl2;
-    maintainers = with maintainers; [ peterhoeg ];
+    maintainers = with maintainers; [peterhoeg];
     inherit (qtbase.meta) platforms;
   };
 }

@@ -24,7 +24,7 @@
 assert (wine != null) -> (stdenv.targetPlatform.system == "i686-linux");
 
 let
-  aflplusplus-qemu = callPackage ./qemu.nix { inherit aflplusplus; };
+  aflplusplus-qemu = callPackage ./qemu.nix {inherit aflplusplus;};
   qemu-exe-name =
     if stdenv.targetPlatform.system == "x86_64-linux" then
       "qemu-x86_64"
@@ -32,8 +32,8 @@ let
       "qemu-i386"
     else
       throw "aflplusplus: no support for ${stdenv.targetPlatform.system}!";
-  libdislocator = callPackage ./libdislocator.nix { inherit aflplusplus; };
-  libtokencap = callPackage ./libtokencap.nix { inherit aflplusplus; };
+  libdislocator = callPackage ./libdislocator.nix {inherit aflplusplus;};
+  libtokencap = callPackage ./libtokencap.nix {inherit aflplusplus;};
   aflplusplus = stdenvNoCC.mkDerivation rec {
     pname = "aflplusplus";
     version = "2.65c";
@@ -84,7 +84,7 @@ let
           "-Wno-error=use-after-free"
         ];
 
-    makeFlags = [ "PREFIX=$(out)" ];
+    makeFlags = ["PREFIX=$(out)"];
     buildPhase = ''
       common="$makeFlags -j$NIX_BUILD_CORES"
       make all $common

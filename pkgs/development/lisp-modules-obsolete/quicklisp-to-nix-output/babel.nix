@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "babel";
   version = "20200925-git";
@@ -18,7 +18,7 @@ rec {
 
   packageName = "babel";
 
-  asdFilesToKeep = [ "babel.asd" ];
+  asdFilesToKeep = ["babel.asd"];
   overrides = x: x;
 }
 /* (SYSTEM babel DESCRIPTION Babel, a charset conversion library. SHA256

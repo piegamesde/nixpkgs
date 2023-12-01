@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-ywir6wLZCTgb7SurJ5S/1UIV1Lw4/Er1wwdgl630Eso=";
   };
 
-  configureFlags = [ "--with-openssl" ];
+  configureFlags = ["--with-openssl"];
 
   nativeBuildInputs = [
     asciidoc
@@ -38,6 +38,6 @@ stdenv.mkDerivation rec {
     description = "ACMEv2 client written in plain C with minimal dependencies";
     homepage = "https://github.com/ndilieto/uacme";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ malte-v ];
+    maintainers = with maintainers; [malte-v];
   };
 }

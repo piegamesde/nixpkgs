@@ -69,7 +69,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://ardupilot.org/planner/";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ wucke13 ];
+    maintainers = with maintainers; [wucke13];
     platforms = platforms.all;
   };
 }

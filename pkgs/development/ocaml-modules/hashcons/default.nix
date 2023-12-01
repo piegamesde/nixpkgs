@@ -22,6 +22,6 @@ buildDunePackage rec {
   meta = {
     description = "OCaml hash-consing library";
     license = lib.licenses.lgpl21;
-    maintainers = [ lib.maintainers.ulrikstrid ];
+    maintainers = [lib.maintainers.ulrikstrid];
   };
 }

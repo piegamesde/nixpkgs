@@ -16,7 +16,7 @@ let
     hash = "sha256-RDygYQzK6NLWrOug7EqnkpuH7Wz1T2Zq/tGNZjoYo5U=";
   };
 
-  ini = (formats.ini { }).generate "php.ini" {
+  ini = (formats.ini {}).generate "php.ini" {
     PHP.memory_limit = -1; # no limit as composer uses a lot of memory
     Phar."phar.readonly" = "Off";
   };
@@ -55,7 +55,7 @@ stdenv.mkDerivation rec {
     description = "A command line interface for WordPress";
     homepage = "https://wp-cli.org";
     license = licenses.mit;
-    maintainers = with maintainers; [ peterhoeg ];
+    maintainers = with maintainers; [peterhoeg];
     platforms = platforms.all;
     mainProgram = "wp";
   };

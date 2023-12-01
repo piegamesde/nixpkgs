@@ -8,10 +8,10 @@
 
 mkDerivation {
   pname = "kdbusaddons";
-  nativeBuildInputs = [ extra-cmake-modules ];
+  nativeBuildInputs = [extra-cmake-modules];
   buildInputs = [
     qttools
     qtx11extras
   ];
-  propagatedBuildInputs = [ qtbase ];
+  propagatedBuildInputs = [qtbase];
 }

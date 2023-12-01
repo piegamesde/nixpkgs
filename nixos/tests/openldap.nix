@@ -1,5 +1,5 @@
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   let
     dbContents = ''
       dn: dc=example
@@ -54,7 +54,7 @@ import ./make-test-python.nix (
     name = "openldap";
 
     nodes.machine =
-      { pkgs, ... }:
+      {pkgs, ...}:
       {
         environment.etc."openldap/root_password".text = "notapassword";
 
@@ -76,7 +76,7 @@ import ./make-test-python.nix (
               ];
               "olcDatabase={0}config" = {
                 attrs = {
-                  objectClass = [ "olcDatabaseConfig" ];
+                  objectClass = ["olcDatabaseConfig"];
                   olcDatabase = "{0}config";
                   olcRootDN = "cn=root,cn=config";
                   olcRootPW = "configpassword";
@@ -107,9 +107,9 @@ import ./make-test-python.nix (
 
         specialisation = {
           declarativeContents.configuration =
-            { ... }: { services.openldap.declarativeContents."dc=example" = dbContents; };
+            {...}: {services.openldap.declarativeContents."dc=example" = dbContents;};
           mutableConfig.configuration =
-            { ... }:
+            {...}:
             {
               services.openldap = {
                 declarativeContents."dc=example" = dbContents;
@@ -119,7 +119,7 @@ import ./make-test-python.nix (
           manualConfigDir = {
             inheritParentConfig = false;
             configuration =
-              { ... }:
+              {...}:
               {
                 users.ldap = ldapClientConfig;
                 services.openldap = {
@@ -131,7 +131,7 @@ import ./make-test-python.nix (
         };
       };
     testScript =
-      { nodes, ... }:
+      {nodes, ...}:
       let
         specializations = "${nodes.machine.system.build.toplevel}/specialisation";
         changeRootPw = ''

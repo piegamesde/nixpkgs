@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
     libpng
     libtiff
   ];
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   # one of the tests succeeds on my machine but fails on Hydra (no idea why)
   #doCheck = true;

@@ -20,6 +20,6 @@ rustPlatform.buildRustPackage rec {
     description = "Nix code formatter for nixpkgs";
     homepage = "https://nix-community.github.io/nixpkgs-fmt";
     license = licenses.asl20;
-    maintainers = with maintainers; [ zimbatm ];
+    maintainers = with maintainers; [zimbatm];
   };
 }

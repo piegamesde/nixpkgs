@@ -56,9 +56,9 @@ buildPythonPackage rec {
     hash = "sha256-L8zgT7M7N+P5/9FQgf6ab7afUQXC1afzwUjAp6yKxC8=";
   };
 
-  patches = [ ./dont-clear-pythonpath.patch ];
+  patches = [./dont-clear-pythonpath.patch];
 
-  nativeBuildInputs = [ pyqtwebengine.wrapQtAppsHook ];
+  nativeBuildInputs = [pyqtwebengine.wrapQtAppsHook];
 
   propagatedBuildInputs = [
     atomicwrites
@@ -133,7 +133,7 @@ buildPythonPackage rec {
     downloadPage = "https://github.com/spyder-ide/spyder/releases";
     changelog = "https://github.com/spyder-ide/spyder/blob/master/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ gebner ];
+    maintainers = with maintainers; [gebner];
     platforms = platforms.linux;
   };
 }

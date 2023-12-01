@@ -40,9 +40,9 @@ buildPythonPackage rec {
   ];
 
   passthru.optional-dependencies = {
-    security = [ ];
-    socks = [ pysocks ];
-    use_chardet_on_py3 = [ chardet ];
+    security = [];
+    socks = [pysocks];
+    use_chardet_on_py3 = [chardet];
   };
 
   nativeCheckInputs = [
@@ -80,13 +80,13 @@ buildPythonPackage rec {
         "tests/test_lowlevel.py"
       ];
 
-  pythonImportsCheck = [ "requests" ];
+  pythonImportsCheck = ["requests"];
 
   meta = with lib; {
     description = "HTTP library for Python";
     homepage = "http://docs.python-requests.org/";
     changelog = "https://github.com/psf/requests/blob/v${version}/HISTORY.md";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

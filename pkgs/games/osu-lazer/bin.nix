@@ -38,11 +38,11 @@ let
 
     src = fetchurl (osu-lazer-bin-src);
 
-    extraPkgs = pkgs: with pkgs; [ icu ];
+    extraPkgs = pkgs: with pkgs; [icu];
 
     extraInstallCommands =
       let
-        contents = appimageTools.extract { inherit pname version src; };
+        contents = appimageTools.extract {inherit pname version src;};
       in
       ''
         mv -v $out/bin/${pname}-${version} $out/bin/osu\!
@@ -61,7 +61,7 @@ let
       meta
       ;
 
-    src = fetchzip (osu-lazer-bin-src // { stripRoot = false; });
+    src = fetchzip (osu-lazer-bin-src // {stripRoot = false;});
 
     dontBuild = true;
     dontFixup = true;
@@ -83,7 +83,7 @@ let
       cc-by-nc-40
       unfreeRedistributable # osu-framework contains libbass.so in repository
     ];
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     maintainers = with maintainers; [
       delan
       stepbrobd

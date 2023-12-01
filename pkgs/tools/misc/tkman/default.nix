@@ -66,7 +66,7 @@ stdenv.mkDerivation rec {
       icon = "tkman";
       terminal = false;
       type = "Application";
-      categories = [ "Utility" ];
+      categories = ["Utility"];
     })
   ];
 
@@ -87,6 +87,6 @@ stdenv.mkDerivation rec {
     homepage = "https://tkman.sourceforge.net/index.html";
     license = licenses.artistic1;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ fgaz ];
+    maintainers = with maintainers; [fgaz];
   };
 }

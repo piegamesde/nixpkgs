@@ -92,8 +92,8 @@ in
     systemd.services.journaldriver = {
       description = "Stackdriver Logging journal forwarder";
       script = "${pkgs.journaldriver}/bin/journaldriver";
-      after = [ "network-online.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network-online.target"];
+      wantedBy = ["multi-user.target"];
 
       serviceConfig = {
         Restart = "always";

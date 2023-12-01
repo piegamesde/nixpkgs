@@ -23,9 +23,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-Fp3BGCZYYdQCKXOLYsT4zzlibNRlbELZi26ofrbGGPQ=";
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
   buildInputs =
-    [ ncurses5 ]
+    [ncurses5]
     ++ lib.optionals enableSdl2 [
       SDL2
       SDL2_image
@@ -36,12 +36,12 @@ stdenv.mkDerivation rec {
 
   configureFlags = lib.optional enableSdl2 "--enable-sdl2";
 
-  installFlags = [ "bindir=$(out)/bin" ];
+  installFlags = ["bindir=$(out)/bin"];
 
   meta = with lib; {
     homepage = "https://angband.github.io/angband";
     description = "A single-player roguelike dungeon exploration game";
-    maintainers = [ maintainers.kenran ];
+    maintainers = [maintainers.kenran];
     license = licenses.gpl2;
   };
 }

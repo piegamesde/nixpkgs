@@ -21,7 +21,7 @@ stdenvNoCC.mkDerivation {
     sha256 = "sha256-IymFjyfqNycTLalZBiqmjJP5U6AFefe9BSWn3Mpoz4c=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     install -Dm755 -t $out/bin smart-wallpaper
@@ -41,7 +41,7 @@ stdenvNoCC.mkDerivation {
     homepage = "https://github.com/Baitinq/smart-wallpaper";
     description = "A simple bash script that automatically changes your wallpaper depending on if its daytime or nighttime";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ baitinq ];
+    maintainers = with maintainers; [baitinq];
     platforms = platforms.linux;
   };
 }

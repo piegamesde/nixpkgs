@@ -2,10 +2,10 @@ import ../make-test-python.nix {
   name = "lorri";
 
   nodes.machine =
-    { pkgs, ... }:
+    {pkgs, ...}:
     {
-      imports = [ ../../modules/profiles/minimal.nix ];
-      environment.systemPackages = [ pkgs.lorri ];
+      imports = [../../modules/profiles/minimal.nix];
+      environment.systemPackages = [pkgs.lorri];
     };
 
   testScript = ''

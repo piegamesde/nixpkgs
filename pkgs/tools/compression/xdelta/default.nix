@@ -23,14 +23,14 @@ stdenv.mkDerivation rec {
     owner = "jmacd";
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
-  buildInputs = [ ] ++ lib.optionals lzmaSupport [ xz ];
+  nativeBuildInputs = [autoreconfHook];
+  buildInputs = [] ++ lib.optionals lzmaSupport [xz];
 
   postPatch = ''
     cd xdelta3
   '';
 
-  configureFlags = [ (mkWith lzmaSupport "liblzma") ];
+  configureFlags = [(mkWith lzmaSupport "liblzma")];
 
   enableParallelBuilding = true;
 

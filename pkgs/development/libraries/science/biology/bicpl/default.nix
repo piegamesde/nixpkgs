@@ -19,13 +19,13 @@ stdenv.mkDerivation rec {
     sha256 = "0iw0pmr8xrifbx5l8a0xidfqbm1v8hwzqrw0lcmimxlzdihyri0g";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     libminc
     netpbm
   ];
 
-  cmakeFlags = [ "-DLIBMINC_DIR=${libminc}/lib/cmake" ];
+  cmakeFlags = ["-DLIBMINC_DIR=${libminc}/lib/cmake"];
 
   doCheck = false;
   # internal_volume_io.h: No such file or directory
@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://github.com/BIC-MNI/bicpl";
     description = "Brain Imaging Centre programming library";
-    maintainers = with maintainers; [ bcdarwin ];
+    maintainers = with maintainers; [bcdarwin];
     platforms = platforms.unix;
     license = licenses.free;
   };

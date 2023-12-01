@@ -16,7 +16,7 @@ stdenv.mkDerivation {
   inherit version;
   meta = {
     homepage = "https://tamentis.com/projects/mdp/";
-    license = [ lib.licenses.isc ];
+    license = [lib.licenses.isc];
     description = "Manage your passwords with GnuPG and a text editor";
   };
   src = fetchurl {
@@ -33,7 +33,7 @@ stdenv.mkDerivation {
         sha256 = "1j6yvjzkx31b758yav4arhlm5ig7phl8mgx4fcwj7lm2pfvzwcsz";
       })
     ];
-  buildInputs = [ ncurses ];
+  buildInputs = [ncurses];
   prePatch = ''
     substituteInPlace ./configure \
       --replace "alias echo=/bin/echo" ""

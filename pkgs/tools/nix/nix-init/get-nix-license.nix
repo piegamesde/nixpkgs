@@ -1,6 +1,6 @@
 # vendored from src/get-nix-license.nix
 
-{ lib, writeText }:
+{lib, writeText}:
 
 let
   inherit (lib)
@@ -19,7 +19,7 @@ let
     ;
 
   licenseMap = flip concatMapAttrs licenses (
-    k: v: optionalAttrs (v ? spdxId && !v.deprecated) { ${v.spdxId} = k; }
+    k: v: optionalAttrs (v ? spdxId && !v.deprecated) {${v.spdxId} = k;}
   );
 
   deprecatedAliases = {
@@ -52,7 +52,7 @@ let
   };
 
   lint = flip pipe (
-    flip mapAttrsToList lints (k: v: if v == [ ] then id else warn "${k}: ${concatStringsSep ", " v}")
+    flip mapAttrsToList lints (k: v: if v == [] then id else warn "${k}: ${concatStringsSep ", " v}")
   );
 
   arms = lint (

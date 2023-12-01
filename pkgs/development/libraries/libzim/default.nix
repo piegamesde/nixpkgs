@@ -56,6 +56,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/openzim/libzim";
     changelog = "https://github.com/openzim/libzim/releases/tag/${version}";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

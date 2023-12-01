@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
     sha256 = "1s4nlffp683binbdxwwzbsci61kbjylbcr1jf44sv1h1r5d5js05";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     jansson
     libsailing
@@ -51,7 +51,7 @@ stdenv.mkDerivation rec {
       Sails is a simulator designed to test the AI of autonomous sailing
       robots. It emulates the basic physics of sailing a small single sail
       boat'';
-    maintainers = with maintainers; [ kragniz ];
+    maintainers = with maintainers; [kragniz];
     platforms = platforms.all;
   };
 }

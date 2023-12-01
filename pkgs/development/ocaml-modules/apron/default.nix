@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
     ppl
     camlidl
   ];
-  propagatedBuildInputs = [ mlgmpidl ];
+  propagatedBuildInputs = [mlgmpidl];
 
   # TODO: Doesn't produce the library correctly if true
   strictDeps = false;
@@ -64,7 +64,7 @@ stdenv.mkDerivation rec {
   meta = {
     license = lib.licenses.lgpl21;
     homepage = "http://apron.cri.ensmp.fr/library/";
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
     description = "Numerical abstract domain library";
     inherit (ocaml.meta) platforms;
   };

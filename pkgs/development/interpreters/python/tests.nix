@@ -23,13 +23,13 @@ let
       envs =
         let
           inherit python;
-          pythonEnv = python.withPackages (ps: with ps; [ ]);
+          pythonEnv = python.withPackages (ps: with ps; []);
           pythonVirtualEnv =
             if python.isPy3k then
-              python.withPackages (ps: with ps; [ virtualenv ])
+              python.withPackages (ps: with ps; [virtualenv])
             else
               python.buildEnv.override {
-                extraLibs = with python.pkgs; [ virtualenv ];
+                extraLibs = with python.pkgs; [virtualenv];
                 # Collisions because of namespaces __init__.py
                 ignoreCollisions = true;
               };
@@ -47,7 +47,7 @@ let
         // lib.optionalAttrs (!python.isPyPy) {
           # Use virtualenv from a Nix env.
           nixenv-virtualenv = rec {
-            env = runCommand "${python.name}-virtualenv" { } ''
+            env = runCommand "${python.name}-virtualenv" {} ''
               ${pythonVirtualEnv.interpreter} -m virtualenv venv
               mv venv $out
             '';
@@ -72,7 +72,7 @@ let
           # Python 2 does not support venv
           # TODO: PyPy executable name is incorrect, it should be pypy-c or pypy-3c instead of pypy and pypy3.
           plain-venv = rec {
-            env = runCommand "${python.name}-venv" { } ''
+            env = runCommand "${python.name}-venv" {} ''
               ${python.interpreter} -m venv $out
             '';
             interpreter = "${env}/bin/${python.executable}";
@@ -86,7 +86,7 @@ let
           # TODO: Cannot create venv from a  nix env
           # Error: Command '['/nix/store/ddc8nqx73pda86ibvhzdmvdsqmwnbjf7-python3-3.7.6-venv/bin/python3.7', '-Im', 'ensurepip', '--upgrade', '--default-pip']' returned non-zero exit status 1.
           nixenv-venv = rec {
-            env = runCommand "${python.name}-venv" { } ''
+            env = runCommand "${python.name}-venv" {} ''
               ${pythonEnv.interpreter} -m venv $out
             '';
             interpreter = "${env}/bin/${pythonEnv.executable}";
@@ -98,7 +98,7 @@ let
 
       testfun =
         name: attrs:
-        runCommand "${python.name}-tests-${name}" ({ inherit (python) pythonVersion; } // attrs) ''
+        runCommand "${python.name}-tests-${name}" ({inherit (python) pythonVersion;} // attrs) ''
           cp -r ${./tests/test_environments} tests
           chmod -R +w tests
           substituteAllInPlace tests/test_python.py
@@ -114,18 +114,18 @@ let
   integrationTests = lib.optionalAttrs (!python.isPyPy) (
     lib.optionalAttrs (python.isPy3k && !stdenv.isDarwin) {
       # darwin has no split-debug
-      cpython-gdb = callPackage ./tests/test_cpython_gdb { interpreter = python; };
+      cpython-gdb = callPackage ./tests/test_cpython_gdb {interpreter = python;};
     }
     // lib.optionalAttrs (python.pythonAtLeast "3.7") rec {
       # Before the addition of NIX_PYTHONPREFIX mypy was broken with typed packages
-      nix-pythonprefix-mypy = callPackage ./tests/test_nix_pythonprefix { interpreter = python; };
+      nix-pythonprefix-mypy = callPackage ./tests/test_nix_pythonprefix {interpreter = python;};
     }
   );
 
   # Tests to ensure overriding works as expected.
   overrideTests =
     let
-      extension = self: super: { foobar = super.numpy; };
+      extension = self: super: {foobar = super.numpy;};
     in
     {
       test-packageOverrides =
@@ -140,7 +140,7 @@ let
             self;
         in
         assert myPython.pkgs.foobar == myPython.pkgs.numpy;
-        myPython.withPackages (ps: with ps; [ foobar ]);
+        myPython.withPackages (ps: with ps; [foobar]);
       # overrideScope is broken currently
       # test-overrideScope = let
       #  myPackages = python.pkgs.overrideScope extension;
@@ -153,7 +153,7 @@ let
           pkgs_ = pkgs.extend (
             final: prev: {
               pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [
-                (python-final: python-prev: { foo = python-prev.setuptools; })
+                (python-final: python-prev: {foo = python-prev.setuptools;})
               ];
             }
           );
@@ -180,14 +180,14 @@ let
                 sha256 = "02qzaf6gwsqbcs69pix1fnjxzgnngwzvrsy65h1d521g750mjvvp";
               };
               nativeBuildInputs =
-                [ autoPatchelfHook ]
+                [autoPatchelfHook]
                 ++ (
                   with python.pkgs; [
                     condaUnpackHook
                     condaInstallHook
                   ]
                 );
-              buildInputs = [ pythonCondaPackages.condaPatchelfLibs ];
+              buildInputs = [pythonCondaPackages.condaPatchelfLibs];
               propagatedBuildInputs = with python.pkgs; [
                 chardet
                 idna
@@ -196,11 +196,11 @@ let
               ];
             }
           )
-          { };
-      pythonWithRequests = requests.pythonModule.withPackages (ps: [ requests ]);
+          {};
+      pythonWithRequests = requests.pythonModule.withPackages (ps: [requests]);
     in
     lib.optionalAttrs stdenv.isLinux {
-      condaExamplePackage = runCommand "import-requests" { } ''
+      condaExamplePackage = runCommand "import-requests" {} ''
         ${pythonWithRequests.interpreter} -c "import requests" > $out
       '';
     };

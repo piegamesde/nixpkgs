@@ -16,11 +16,11 @@ stdenv.mkDerivation rec {
     sha256 = "10w9qfgn26lj3zqjksf2r1wsjpf5xy4dx22jay9l6idy9q62mxsn";
   };
 
-  buildInputs = [ puredata ];
+  buildInputs = [puredata];
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
-  makeFlags = [ "prefix=$(out)" ];
+  makeFlags = ["prefix=$(out)"];
 
   postInstall = ''
     mv $out/lib/pd-externals/maxlib/ $out
@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
     description = "A library of non-tilde externals for puredata, by Miller Puckette";
     homepage = "http://puredata.info/downloads/maxlib";
     license = lib.licenses.gpl2;
-    maintainers = [ lib.maintainers.magnetophon ];
+    maintainers = [lib.maintainers.magnetophon];
     platforms = lib.platforms.linux;
   };
 }

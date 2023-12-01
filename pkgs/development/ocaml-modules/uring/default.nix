@@ -27,11 +27,11 @@ buildDunePackage rec {
     optint
   ];
 
-  buildInputs = [ dune-configurator ];
+  buildInputs = [dune-configurator];
 
-  checkInputs = [ mdx ];
+  checkInputs = [mdx];
 
-  nativeCheckInputs = [ mdx.bin ];
+  nativeCheckInputs = [mdx.bin];
 
   doCheck = true;
 
@@ -46,6 +46,6 @@ buildDunePackage rec {
       mit
     ];
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ toastal ];
+    maintainers = with lib.maintainers; [toastal];
   };
 }

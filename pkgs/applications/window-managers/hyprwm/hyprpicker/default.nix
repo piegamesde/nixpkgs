@@ -90,7 +90,7 @@ stdenv.mkDerivation {
     description = "A wlroots-compatible Wayland color picker that does not suck";
     homepage = "https://github.com/hyprwm/hyprpicker";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ fufexan ];
+    maintainers = with maintainers; [fufexan];
     platforms = wayland.meta.platforms;
   };
 }

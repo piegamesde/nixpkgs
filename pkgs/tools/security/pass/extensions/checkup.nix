@@ -23,7 +23,7 @@ stdenv.mkDerivation {
     sha256 = "1p65yxr00k35g4bnagszp8i03pmhnrcmipgrdsawps2ba8faqp6r";
   };
 
-  nativeBuildInputs = [ shellcheck ];
+  nativeBuildInputs = [shellcheck];
 
   postPatch = ''
     substituteInPlace checkup.bash \
@@ -45,7 +45,7 @@ stdenv.mkDerivation {
     description = "A pass extension to check against the Have I been pwned API to see if your passwords are publicly leaked or not";
     homepage = "https://github.com/etu/pass-checkup";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ etu ];
+    maintainers = with maintainers; [etu];
     platforms = platforms.unix;
   };
 }

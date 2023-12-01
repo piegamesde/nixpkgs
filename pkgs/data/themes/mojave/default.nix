@@ -12,11 +12,11 @@
   optipng,
   sassc,
   which,
-  buttonSizeVariants ? [ ], # default to standard
-  buttonVariants ? [ ], # default to all
-  colorVariants ? [ ], # default to all
-  opacityVariants ? [ ], # default to all
-  themeVariants ? [ ], # default to MacOS blue
+  buttonSizeVariants ? [], # default to standard
+  buttonVariants ? [], # default to all
+  colorVariants ? [], # default to all
+  opacityVariants ? [], # default to all
+  themeVariants ? [], # default to MacOS blue
   wallpapers ? false,
   gitUpdater,
 }:
@@ -100,9 +100,9 @@ lib.checkListOfEnum "${pname}: button size variants"
       which
     ];
 
-    buildInputs = [ gtk_engines ];
+    buildInputs = [gtk_engines];
 
-    propagatedUserEnvPkgs = [ gtk-engine-murrine ];
+    propagatedUserEnvPkgs = [gtk-engine-murrine];
 
     # These fixup steps are slow and unnecessary.
     dontPatchELF = true;
@@ -139,12 +139,12 @@ lib.checkListOfEnum "${pname}: button size variants"
 
       name= ./install.sh \
         ${
-          lib.optionalString (buttonSizeVariants != [ ]) "--small " + builtins.toString buttonSizeVariants
+          lib.optionalString (buttonSizeVariants != []) "--small " + builtins.toString buttonSizeVariants
         } \
-        ${lib.optionalString (buttonVariants != [ ]) "--alt " + builtins.toString buttonVariants} \
-        ${lib.optionalString (colorVariants != [ ]) "--color " + builtins.toString colorVariants} \
-        ${lib.optionalString (opacityVariants != [ ]) "--opacity " + builtins.toString opacityVariants} \
-        ${lib.optionalString (themeVariants != [ ]) "--theme " + builtins.toString themeVariants} \
+        ${lib.optionalString (buttonVariants != []) "--alt " + builtins.toString buttonVariants} \
+        ${lib.optionalString (colorVariants != []) "--color " + builtins.toString colorVariants} \
+        ${lib.optionalString (opacityVariants != []) "--opacity " + builtins.toString opacityVariants} \
+        ${lib.optionalString (themeVariants != []) "--theme " + builtins.toString themeVariants} \
         --dest $out/share/themes
 
       ${lib.optionalString wallpapers ''
@@ -158,13 +158,13 @@ lib.checkListOfEnum "${pname}: button size variants"
       runHook postInstall
     '';
 
-    passthru.updateScript = gitUpdater { };
+    passthru.updateScript = gitUpdater {};
 
     meta = with lib; {
       description = "Mac OSX Mojave like theme for GTK based desktop environments";
       homepage = "https://github.com/vinceliuice/Mojave-gtk-theme";
       license = licenses.gpl3Only;
       platforms = platforms.unix;
-      maintainers = [ maintainers.romildo ];
+      maintainers = [maintainers.romildo];
     };
   }

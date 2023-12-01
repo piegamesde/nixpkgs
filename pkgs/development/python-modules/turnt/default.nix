@@ -29,12 +29,12 @@ buildPythonPackage rec {
     runHook postCheck
   '';
 
-  pythonImportsCheck = [ "turnt" ];
+  pythonImportsCheck = ["turnt"];
 
   meta = with lib; {
     description = "Snapshot testing tool";
     homepage = "https://github.com/cucapra/turnt";
     license = licenses.mit;
-    maintainers = with maintainers; [ leungbk ];
+    maintainers = with maintainers; [leungbk];
   };
 }

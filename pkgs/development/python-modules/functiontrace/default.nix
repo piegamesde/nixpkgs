@@ -21,12 +21,12 @@ buildPythonPackage rec {
     toml
   ];
 
-  pythonImportsCheck = [ "functiontrace" ];
+  pythonImportsCheck = ["functiontrace"];
 
   meta = with lib; {
     homepage = "https://functiontrace.com";
     description = "The Python module for Functiontrace";
     license = licenses.prosperity30;
-    maintainers = with maintainers; [ mathiassven ];
+    maintainers = with maintainers; [mathiassven];
   };
 }

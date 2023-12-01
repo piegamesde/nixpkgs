@@ -64,7 +64,7 @@ gccStdenv.mkDerivation rec {
     autoupdate
   '';
 
-  hardeningDisable = lib.optionals (stdenv.isAarch64 && stdenv.isDarwin) [ "stackprotector" ];
+  hardeningDisable = lib.optionals (stdenv.isAarch64 && stdenv.isDarwin) ["stackprotector"];
 
   postInstall = ''
     mkdir $out/share/7kaa/MUSIC
@@ -80,6 +80,6 @@ gccStdenv.mkDerivation rec {
     description = "GPL release of the Seven Kingdoms with multiplayer (available only on x86 platforms)";
     license = licenses.gpl2Only;
     platforms = platforms.x86_64 ++ platforms.aarch64;
-    maintainers = with maintainers; [ _1000101 ];
+    maintainers = with maintainers; [_1000101];
   };
 }

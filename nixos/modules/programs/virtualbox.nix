@@ -5,6 +5,6 @@ let
     + "instead.";
 in
 {
-  config.warnings = [ msg ];
+  config.warnings = [msg];
   config.virtualisation.virtualbox.host.enable = true;
 }

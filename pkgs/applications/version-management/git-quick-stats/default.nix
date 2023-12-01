@@ -22,9 +22,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-QmHb5MWZpbZjc93XgdPFabgzT7S522ZN27p6tdL46Y0=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
-  installFlags = [ "PREFIX=${builtins.placeholder "out"}" ];
+  installFlags = ["PREFIX=${builtins.placeholder "out"}"];
 
   postInstall =
     let
@@ -45,7 +45,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/arzzen/git-quick-stats";
     description = "A simple and efficient way to access various statistics in git repository";
     platforms = platforms.all;
-    maintainers = [ maintainers.kmein ];
+    maintainers = [maintainers.kmein];
     license = licenses.mit;
   };
 }

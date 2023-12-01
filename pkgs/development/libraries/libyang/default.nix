@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  buildInputs = [ pcre2 ];
+  buildInputs = [pcre2];
 
   cmakeFlags = [
     "-DCMAKE_INSTALL_LIBDIR=lib"
@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
     "-DCMAKE_BUILD_TYPE:String=Release"
   ];
 
-  passthru.updateScript = gitUpdater { rev-prefix = "v"; };
+  passthru.updateScript = gitUpdater {rev-prefix = "v";};
 
   meta = with lib; {
     description = "YANG data modelling language parser and toolkit";
@@ -48,8 +48,8 @@ stdenv.mkDerivation rec {
       sysrepo or FRRouting projects.
     '';
     homepage = "https://github.com/CESNET/libyang";
-    license = with licenses; [ bsd3 ];
+    license = with licenses; [bsd3];
     platforms = platforms.unix;
-    maintainers = with maintainers; [ woffs ];
+    maintainers = with maintainers; [woffs];
   };
 }

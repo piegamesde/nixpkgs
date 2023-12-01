@@ -24,7 +24,7 @@ let
     comment = "Arcade-style fire fighting game";
     desktopName = "Mr. Rescue";
     genericName = "mrrescue";
-    categories = [ "Game" ];
+    categories = ["Game"];
   };
 in
 
@@ -59,7 +59,7 @@ stdenv.mkDerivation {
 
   meta = with lib; {
     description = "Arcade-style fire fighting game";
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     platforms = platforms.linux;
     license = licenses.zlib;
     downloadPage = "http://tangramgames.dk/games/mrrescue";

@@ -44,12 +44,12 @@ buildPythonPackage rec {
   # require buildinga npm project
   doCheck = false;
 
-  pythonImportsCheck = [ "eth_account" ];
+  pythonImportsCheck = ["eth_account"];
 
   meta = with lib; {
     description = "Account abstraction library for web3.py";
     homepage = "https://github.com/ethereum/eth-account";
     license = licenses.mit;
-    maintainers = with maintainers; [ SuperSandro2000 ];
+    maintainers = with maintainers; [SuperSandro2000];
   };
 }

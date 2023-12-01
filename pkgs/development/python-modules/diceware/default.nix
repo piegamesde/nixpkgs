@@ -17,9 +17,9 @@ buildPythonPackage rec {
     hash = "sha256-srTMm1n1aNLvUb/fn34a+UHSX7j1wl8XAZHburzpZWk=";
   };
 
-  nativeBuildInputs = [ pytest-runner ];
+  nativeBuildInputs = [pytest-runner];
 
-  propagatedBuildInputs = [ setuptools ];
+  propagatedBuildInputs = [setuptools];
 
   nativeCheckInputs = [
     coverage
@@ -35,6 +35,6 @@ buildPythonPackage rec {
     description = "Generates passphrases by concatenating words randomly picked from wordlists";
     homepage = "https://github.com/ulif/diceware";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ asymmetric ];
+    maintainers = with maintainers; [asymmetric];
   };
 }

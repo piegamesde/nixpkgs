@@ -17,12 +17,12 @@ buildGoModule {
 
   vendorSha256 = "sha256-WISWuq1neVX4xQkoamc6FznZahOQHwgkYmERJF40OFQ=";
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   meta = with lib; {
     description = "Protobuf Plugin for Generating a Twirp Typescript Client";
     homepage = "https://github.com/larrymyers/protoc-gen-twirp_typescript";
     license = licenses.mit;
-    maintainers = with maintainers; [ jojosch ];
+    maintainers = with maintainers; [jojosch];
   };
 }

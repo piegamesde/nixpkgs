@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
     makeWrapper
   ];
 
-  buildInputs = [ luaEnv ];
+  buildInputs = [luaEnv];
 
   makeFlags = [
     "LUA=${luaEnv}/bin/lua"
@@ -78,7 +78,7 @@ stdenv.mkDerivation rec {
       mit
       cc-by-sa-40
     ];
-    maintainers = with maintainers; [ zane ];
+    maintainers = with maintainers; [zane];
     mainProgram = "openrussian";
     platforms = platforms.unix;
   };

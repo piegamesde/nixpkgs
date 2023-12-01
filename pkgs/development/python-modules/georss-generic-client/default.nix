@@ -19,16 +19,16 @@ buildPythonPackage rec {
     hash = "sha256-58NpACrJK29NUnx3RrsLFPPo+6A/JlIlkrv8N9juMu0=";
   };
 
-  propagatedBuildInputs = [ georss-client ];
+  propagatedBuildInputs = [georss-client];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "georss_generic_client" ];
+  pythonImportsCheck = ["georss_generic_client"];
 
   meta = with lib; {
     description = "Python library for accessing generic GeoRSS feeds";
     homepage = "https://github.com/exxamalte/python-georss-generic-client";
-    license = with licenses; [ asl20 ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [asl20];
+    maintainers = with maintainers; [fab];
   };
 }

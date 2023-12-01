@@ -19,7 +19,7 @@ stdenv.mkDerivation (
 
     outputs = [
       "out"
-    ] ++ lib.optionals buildTests [ "test" ] ++ lib.optionals buildBenchmarks [ "benchmark" ];
+    ] ++ lib.optionals buildTests ["test"] ++ lib.optionals buildBenchmarks ["benchmark"];
 
     src = fetchFromGitHub {
       owner = "ROCmSoftwarePlatform";
@@ -34,7 +34,7 @@ stdenv.mkDerivation (
       hip
     ];
 
-    buildInputs = lib.optionals buildTests [ gtest ] ++ lib.optionals buildBenchmarks [ gbenchmark ];
+    buildInputs = lib.optionals buildTests [gtest] ++ lib.optionals buildBenchmarks [gbenchmark];
 
     cmakeFlags =
       [
@@ -45,8 +45,8 @@ stdenv.mkDerivation (
         "-DCMAKE_INSTALL_LIBDIR=lib"
         "-DCMAKE_INSTALL_INCLUDEDIR=include"
       ]
-      ++ lib.optionals buildTests [ "-DBUILD_TEST=ON" ]
-      ++ lib.optionals buildBenchmarks [ "-DBUILD_BENCHMARK=ON" ];
+      ++ lib.optionals buildTests ["-DBUILD_TEST=ON"]
+      ++ lib.optionals buildBenchmarks ["-DBUILD_BENCHMARK=ON"];
 
     postInstall =
       lib.optionalString buildTests ''
@@ -70,7 +70,7 @@ stdenv.mkDerivation (
     meta = with lib; {
       description = "ROCm parallel primitives";
       homepage = "https://github.com/ROCmSoftwarePlatform/rocPRIM";
-      license = with licenses; [ mit ];
+      license = with licenses; [mit];
       maintainers = teams.rocm.members;
       platforms = platforms.linux;
       broken = versions.minor finalAttrs.version != versions.minor hip.version;

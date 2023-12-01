@@ -29,6 +29,6 @@ buildPythonApplication rec {
     description = "A high level MITM framework";
     homepage = "https://github.com/f4rih/websploit";
     license = licenses.mit;
-    maintainers = with maintainers; [ emilytrau ];
+    maintainers = with maintainers; [emilytrau];
   };
 }

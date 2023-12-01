@@ -19,7 +19,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-gAjR1MoudBAx1dxGObIVPqJdfehWkKckKtwM7sTP0w4=";
 
-  buildInputs = [ libpcap ];
+  buildInputs = [libpcap];
 
   ldflags = [
     "-s"
@@ -32,7 +32,7 @@ buildGoModule rec {
     homepage = "https://github.com/mosajjal/dnsmonster";
     changelog = "https://github.com/mosajjal/dnsmonster/releases/tag/v${version}";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
     broken = stdenv.isDarwin;
   };
 }

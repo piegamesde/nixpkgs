@@ -37,12 +37,12 @@ buildPythonPackage rec {
 
   # Tests are only present in repo, https://github.com/etheralm/libpurecool/issues/36
   doCheck = false;
-  pythonImportsCheck = [ "libpurecool" ];
+  pythonImportsCheck = ["libpurecool"];
 
   meta = with lib; {
     description = "Python library for Dyson devices";
     homepage = "http://libpurecool.readthedocs.io";
-    license = with licenses; [ asl20 ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [asl20];
+    maintainers = with maintainers; [fab];
   };
 }

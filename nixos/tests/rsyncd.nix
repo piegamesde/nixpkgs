@@ -1,16 +1,16 @@
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   {
     name = "rsyncd";
-    meta.maintainers = with pkgs.lib.maintainers; [ ehmry ];
+    meta.maintainers = with pkgs.lib.maintainers; [ehmry];
 
     nodes =
       let
         mkNode =
           socketActivated:
-          { config, ... }:
+          {config, ...}:
           {
-            networking.firewall.allowedTCPPorts = [ config.services.rsyncd.port ];
+            networking.firewall.allowedTCPPorts = [config.services.rsyncd.port];
             services.rsyncd = {
               enable = true;
               inherit socketActivated;

@@ -1,13 +1,13 @@
 import ./make-test-python.nix (
-  { pkgs, lib, ... }:
+  {pkgs, lib, ...}:
   {
     name = "containers-names";
     meta = {
-      maintainers = with lib.maintainers; [ patryk27 ];
+      maintainers = with lib.maintainers; [patryk27];
     };
 
     nodes.machine =
-      { ... }:
+      {...}:
       {
         # We're using the newest kernel, so that we can test containers with long names.
         # Please see https://github.com/NixOS/nixpkgs/issues/38509 for details.
@@ -20,7 +20,7 @@ import ./make-test-python.nix (
               privateNetwork = true;
               hostAddress = "192.168.${subnet}.1";
               localAddress = "192.168.${subnet}.2";
-              config = { };
+              config = {};
             };
           in
           {

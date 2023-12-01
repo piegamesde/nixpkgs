@@ -26,9 +26,9 @@ stdenv.mkDerivation rec {
     rm -rf m4
   '';
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
-  buildInputs = [ pam ];
+  buildInputs = [pam];
 
   enableParallelBuilding = true;
 
@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
     homepage = "https://tracker.debian.org/pkg/pam-tmpdir";
     description = "PAM module for creating safe per-user temporary directories";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ peterhoeg ];
+    maintainers = with maintainers; [peterhoeg];
     platforms = platforms.linux;
   };
 }

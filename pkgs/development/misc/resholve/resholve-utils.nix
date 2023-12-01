@@ -119,7 +119,7 @@ rec {
   # Pull out specific solution keys to build CLI argstring
   phraseArgs =
     {
-      flags ? [ ],
+      flags ? [],
       scripts,
       ...
     }:
@@ -131,8 +131,8 @@ rec {
       hasUnresholved = builtins.hasAttr "unresholved" value;
     in
     {
-      drvs = value.inputs ++ lib.optionals hasUnresholved [ value.unresholved ];
-      strip = if hasUnresholved then [ value.unresholved ] else [ ];
+      drvs = value.inputs ++ lib.optionals hasUnresholved [value.unresholved];
+      strip = if hasUnresholved then [value.unresholved] else [];
     };
 
   # Build a single resholve invocation
@@ -148,7 +148,7 @@ rec {
 
   injectUnresholved =
     solutions: unresholved:
-    (builtins.mapAttrs (name: value: value // { inherit unresholved; }) solutions);
+    (builtins.mapAttrs (name: value: value // {inherit unresholved;}) solutions);
 
   # Build resholve invocation for each solution.
   phraseCommands =
@@ -181,7 +181,7 @@ rec {
       inherit invokable;
       prep = "";
     };
-  phraseContextForOut = invokable: phraseContext { inherit invokable; };
+  phraseContextForOut = invokable: phraseContext {inherit invokable;};
 
   phraseSolution = name: solution: (phraseContextForOut (phraseInvocation name solution));
   phraseSolutions =
@@ -195,7 +195,7 @@ rec {
       checkPhase =
         ''
           ${(phraseContextForPWD (
-            phraseInvocation name (partialSolution // { scripts = [ "${placeholder "out"}" ]; })
+            phraseInvocation name (partialSolution // {scripts = ["${placeholder "out"}"];})
           ))}
         ''
         + lib.optionalString (partialSolution.interpreter != "none") ''
@@ -210,7 +210,7 @@ rec {
       destination = "/bin/${name}";
       checkPhase =
         ''
-          ${phraseContextForOut (phraseInvocation name (partialSolution // { scripts = [ "bin/${name}" ]; }))}
+          ${phraseContextForOut (phraseInvocation name (partialSolution // {scripts = ["bin/${name}"];}))}
         ''
         + lib.optionalString (partialSolution.interpreter != "none") ''
           ${partialSolution.interpreter} -n $out/bin/${name}
@@ -221,7 +221,7 @@ rec {
       pname,
       src,
       version,
-      passthru ? { },
+      passthru ? {},
       solutions,
       ...
     }@attrs:
@@ -235,7 +235,7 @@ rec {
       */
       unresholved =
         (stdenv.mkDerivation (
-          (removeAttrs attrs [ "solutions" ])
+          (removeAttrs attrs ["solutions"])
           // {
             inherit version src;
             pname = "${pname}-unresholved";
@@ -251,8 +251,8 @@ rec {
       stdenv.mkDerivation {
         src = unresholved;
         inherit version pname;
-        buildInputs = [ resholve ];
-        disallowedReferences = [ resholve ];
+        buildInputs = [resholve];
+        disallowedReferences = [resholve];
 
         # retain a reference to the base
         passthru = unresholved.passthru // {

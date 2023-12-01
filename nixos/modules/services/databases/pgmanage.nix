@@ -61,7 +61,7 @@ in
 
     connections = mkOption {
       type = types.attrsOf types.str;
-      default = { };
+      default = {};
       example = {
         nuc-server = "hostaddr=192.168.0.100 port=5432 dbname=postgres";
         mini-server = "hostaddr=127.0.0.1 port=5432 dbname=postgres sslmode=require";
@@ -192,9 +192,9 @@ in
   config = mkIf cfg.enable {
     systemd.services.pgmanage = {
       description = "pgmanage - PostgreSQL Administration for the web";
-      wants = [ "postgresql.service" ];
-      after = [ "postgresql.service" ];
-      wantedBy = [ "multi-user.target" ];
+      wants = ["postgresql.service"];
+      after = ["postgresql.service"];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         User = pgmanage;
         Group = pgmanage;

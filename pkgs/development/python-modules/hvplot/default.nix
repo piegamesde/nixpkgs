@@ -31,13 +31,13 @@ buildPythonPackage rec {
   # Many tests require a network connection
   doCheck = false;
 
-  pythonImportsCheck = [ "hvplot.pandas" ];
+  pythonImportsCheck = ["hvplot.pandas"];
 
   meta = with lib; {
     description = "A high-level plotting API for the PyData ecosystem built on HoloViews";
     homepage = "https://hvplot.pyviz.org";
     changelog = "https://github.com/holoviz/hvplot/releases/tag/v${version}";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ costrouc ];
+    maintainers = with maintainers; [costrouc];
   };
 }

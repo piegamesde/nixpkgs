@@ -8,7 +8,7 @@
   cargo-pgx_0_6_1,
 }:
 
-(buildPgxExtension.override { cargo-pgx = cargo-pgx_0_6_1; }) rec {
+(buildPgxExtension.override {cargo-pgx = cargo-pgx_0_6_1;}) rec {
   inherit postgresql;
 
   pname = "timescaledb_toolkit";
@@ -34,7 +34,7 @@
   meta = with lib; {
     description = "Provide additional tools to ease all things analytic when using TimescaleDB";
     homepage = "https://github.com/timescale/timescaledb-toolkit";
-    maintainers = with maintainers; [ typetetris ];
+    maintainers = with maintainers; [typetetris];
     platforms = postgresql.meta.platforms;
     license = licenses.asl20;
 

@@ -22,14 +22,14 @@ buildDunePackage rec {
     hash = "sha256-HXPjnE56auy2MI6HV2XuBX/VeqsO50HFzTul17lKEqE=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
-  checkInputs = [ alcotest ];
+  nativeBuildInputs = [pkg-config];
+  checkInputs = [alcotest];
   doCheck = true;
 
   meta = {
     description = "Bigstring intrinsics and fast blits based on memcpy/memmove";
     license = lib.licenses.bsd3;
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
     inherit (src.meta) homepage;
   };
 }

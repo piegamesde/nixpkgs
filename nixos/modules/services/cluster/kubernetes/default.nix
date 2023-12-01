@@ -74,14 +74,14 @@ let
 
   caCert = secret "ca";
 
-  etcdEndpoints = [ "https://${cfg.masterAddress}:2379" ];
+  etcdEndpoints = ["https://${cfg.masterAddress}:2379"];
 
   mkCert =
     {
       name,
       CN,
-      hosts ? [ ],
-      fields ? { },
+      hosts ? [],
+      fields ? {},
       action ? "",
       privateKeyOwner ? "kubernetes",
     }:
@@ -165,7 +165,7 @@ in
         addon manager, flannel and proxy services.
         Node role will enable flannel, docker, kubelet and proxy services.
       '';
-      default = [ ];
+      default = [];
       type = types.listOf (
         types.enum [
           "master"
@@ -212,7 +212,7 @@ in
 
     featureGates = mkOption {
       description = lib.mdDoc "List set of feature gates.";
-      default = [ ];
+      default = [];
       type = types.listOf types.str;
     };
 
@@ -225,7 +225,7 @@ in
     path = mkOption {
       description = lib.mdDoc "Packages added to the services' PATH environment variable. Both the bin and sbin subdirectories of each package are added.";
       type = types.listOf types.package;
-      default = [ ];
+      default = [];
     };
 
     clusterCidr = mkOption {
@@ -293,7 +293,7 @@ in
     })
 
     # Using "services.kubernetes.roles" will automatically enable easyCerts and flannel
-    (mkIf (cfg.roles != [ ]) {
+    (mkIf (cfg.roles != []) {
       services.kubernetes.flannel.enable = mkDefault true;
       services.flannel.etcd.endpoints = mkDefault etcdEndpoints;
       services.kubernetes.easyCerts = mkDefault true;
@@ -337,7 +337,7 @@ in
       {
         systemd.targets.kubernetes = {
           description = "Kubernetes";
-          wantedBy = [ "multi-user.target" ];
+          wantedBy = ["multi-user.target"];
         };
 
         systemd.tmpfiles.rules = [

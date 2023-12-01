@@ -19,12 +19,12 @@ buildGoModule rec {
 
   doCheck = false;
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   meta = with lib; {
     description = "A first-come-first-serve single-fire HTTP server";
     homepage = "https://github.com/raphaelreyna/oneshot";
     license = licenses.mit;
-    maintainers = with maintainers; [ milibopp ];
+    maintainers = with maintainers; [milibopp];
   };
 }

@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     sha256 = "0ma2cl677l7s0n5sffh66cy9lxp5wycm50f121g8rx85p95vkgwv";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   postFixup = ''
     substituteInPlace $out/lib/cmake/bpp-core/bpp-core-targets.cmake  \
@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
     homepage = "http://biopp.univ-montp2.fr/wiki/index.php/Main_Page";
     changelog = "https://github.com/BioPP/bpp-core/blob/master/ChangeLog";
     description = "C++ bioinformatics libraries and tools";
-    maintainers = with maintainers; [ bcdarwin ];
+    maintainers = with maintainers; [bcdarwin];
     license = licenses.cecill20;
   };
 }

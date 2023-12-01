@@ -9,9 +9,9 @@ stdenv.mkDerivation rec {
   pname = "qemu-utils";
   inherit (qemu) version;
 
-  nativeBuildInputs = [ installShellFiles ];
-  buildInputs = [ qemu ];
-  disallowedRequisites = [ qemu ];
+  nativeBuildInputs = [installShellFiles];
+  buildInputs = [qemu];
+  disallowedRequisites = [qemu];
   unpackPhase = "true";
 
   installPhase = ''

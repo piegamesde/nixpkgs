@@ -34,7 +34,7 @@
 # Consider supporting the developer: https://aseprite.org/#buy
 
 let
-  skia = callPackage ./skia.nix { };
+  skia = callPackage ./skia.nix {};
 in
 stdenv.mkDerivation rec {
   pname = "aseprite";
@@ -55,7 +55,7 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [
     cmake
     pkg-config
-  ] ++ lib.optionals unfree [ ninja ];
+  ] ++ lib.optionals unfree [ninja];
 
   buildInputs =
     [
@@ -85,7 +85,7 @@ stdenv.mkDerivation rec {
 
   patches =
     if !unfree then
-      [ ./allegro-glibc-2.30.patch ]
+      [./allegro-glibc-2.30.patch]
     else
       [
         (fetchpatch {
@@ -170,7 +170,7 @@ stdenv.mkDerivation rec {
         This version is not redistributable: https://dev.aseprite.org/2016/09/01/new-source-code-license/
         Consider supporting the developer: https://aseprite.org/#buy
       '';
-    maintainers = with maintainers; [ orivej ];
+    maintainers = with maintainers; [orivej];
     platforms = platforms.linux;
   };
 }

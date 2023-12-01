@@ -16,7 +16,7 @@ buildKodiAddon rec {
 
   passthru = {
     pythonPath = "lib";
-    updateScript = addonUpdateScript { attrPath = "kodi.packages.chardet"; };
+    updateScript = addonUpdateScript {attrPath = "kodi.packages.chardet";};
   };
 
   meta = with lib; {

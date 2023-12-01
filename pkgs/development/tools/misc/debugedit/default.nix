@@ -18,8 +18,8 @@ stdenv.mkDerivation rec {
     pkg-config
     help2man
   ];
-  buildInputs = [ elfutils ];
-  nativeCheckInputs = [ util-linux ]; # Tests use `rev`
+  buildInputs = [elfutils];
+  nativeCheckInputs = [util-linux]; # Tests use `rev`
 
   src = fetchgit {
     url = "git://sourceware.org/git/debugedit.git";
@@ -38,6 +38,6 @@ stdenv.mkDerivation rec {
     homepage = "https://sourceware.org/debugedit/";
     license = licenses.gpl3Plus;
     platforms = platforms.all;
-    maintainers = with maintainers; [ deliciouslytyped ];
+    maintainers = with maintainers; [deliciouslytyped];
   };
 }

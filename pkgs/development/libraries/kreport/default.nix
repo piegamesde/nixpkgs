@@ -23,7 +23,7 @@ mkDerivation rec {
     sha256 = "1mycsvkz5rphi9df2i4ch4ykvprd4m76acsdzs3zis2ljrqnsw92";
   };
 
-  nativeBuildInputs = [ extra-cmake-modules ];
+  nativeBuildInputs = [extra-cmake-modules];
 
   buildInputs = [
     qtdeclarative
@@ -41,6 +41,6 @@ mkDerivation rec {
     description = "A framework for creation and generation of reports in multiple formats";
     license = licenses.lgpl2;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ zraexy ];
+    maintainers = with maintainers; [zraexy];
   };
 }

@@ -49,6 +49,6 @@ stdenv.mkDerivation rec {
     description = "Instant Terminal Sharing";
     license = licenses.mit;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ ck3d ];
+    maintainers = with maintainers; [ck3d];
   };
 }

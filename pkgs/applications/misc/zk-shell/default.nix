@@ -31,7 +31,7 @@ python3Packages.buildPythonApplication rec {
     description = "A powerful & scriptable shell for Apache ZooKeeper";
     homepage = "https://github.com/rgs1/zk_shell";
     license = licenses.asl20;
-    maintainers = [ maintainers.mahe ];
+    maintainers = [maintainers.mahe];
     platforms = platforms.all;
   };
 }

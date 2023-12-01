@@ -63,7 +63,7 @@ clangStdenv.mkDerivation rec {
     '';
     homepage = "https://dseams.info";
     license = licenses.gpl3Plus;
-    platforms = [ "x86_64-linux" ];
-    maintainers = [ maintainers.HaoZeke ];
+    platforms = ["x86_64-linux"];
+    maintainers = [maintainers.HaoZeke];
   };
 }

@@ -16,12 +16,12 @@ buildPythonPackage rec {
   # test data not included on pypi
   doCheck = false;
 
-  pythonImportsCheck = [ "get_image_size" ];
+  pythonImportsCheck = ["get_image_size"];
 
   meta = with lib; {
     description = "Get image width and height given a file path using minimal dependencies";
     license = licenses.mit;
     homepage = "https://github.com/opsdroid/image_size";
-    maintainers = with maintainers; [ globin ];
+    maintainers = with maintainers; [globin];
   };
 }

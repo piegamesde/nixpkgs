@@ -17,8 +17,8 @@ stdenvNoLibs.mkDerivation rec {
   ];
 
   strictDeps = true;
-  depsBuildBuild = [ buildPackages.stdenv.cc ];
-  nativeBuildInputs = [ libiberty ];
+  depsBuildBuild = [buildPackages.stdenv.cc];
+  nativeBuildInputs = [libiberty];
 
   postUnpack = ''
     mkdir -p ./build
@@ -29,7 +29,7 @@ stdenvNoLibs.mkDerivation rec {
     sourceRoot=$(readlink -e "./libgcc")
   '';
 
-  hardeningDisable = [ "pie" ];
+  hardeningDisable = ["pie"];
 
   preConfigure =
     ''
@@ -156,7 +156,7 @@ stdenvNoLibs.mkDerivation rec {
     "--disable-shared"
   ];
 
-  makeFlags = [ "MULTIBUILDTOP:=../" ];
+  makeFlags = ["MULTIBUILDTOP:=../"];
 
   postInstall = ''
     moveToOutput "lib/gcc/${stdenvNoLibs.hostPlatform.config}/${version}/include" "$dev"

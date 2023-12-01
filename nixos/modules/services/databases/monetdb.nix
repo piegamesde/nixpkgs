@@ -75,16 +75,16 @@ in
 
     users.groups.monetdb = mkIf (cfg.group == "monetdb") {
       gid = config.ids.gids.monetdb;
-      members = [ cfg.user ];
+      members = [cfg.user];
     };
 
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
     systemd.services.monetdb = {
       description = "MonetDB database server";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
-      path = [ cfg.package ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
+      path = [cfg.package];
       unitConfig.RequiresMountsFor = "${cfg.dataDir}";
       serviceConfig = {
         User = cfg.user;

@@ -17,13 +17,13 @@ stdenv.mkDerivation rec {
     rev = "v${version}";
     sha256 = "sha256-wyzpx0WjQLA8UKx4S6QOETMehf51Af5napZsxMXttmM=";
   };
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     zlib
     openssl
     libre
   ];
-  cmakeFlags = [ "-DRE_INCLUDE_DIR=${libre}/include/re" ];
+  cmakeFlags = ["-DRE_INCLUDE_DIR=${libre}/include/re"];
   makeFlags =
     [
       "LIBRE_MK=${libre}/share/re/re.mk"

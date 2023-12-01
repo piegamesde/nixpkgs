@@ -73,7 +73,7 @@ in
 
       extraGroups = mkOption {
         type = types.listOf types.str;
-        default = [ ];
+        default = [];
         description = lib.mdDoc "List of extra groups that the Buildbot Worker user should be a part of.";
       };
 
@@ -143,7 +143,7 @@ in
       };
 
       packages = mkOption {
-        default = with pkgs; [ git ];
+        default = with pkgs; [git];
         defaultText = literalExpression "[ pkgs.git ]";
         type = types.listOf types.package;
         description = lib.mdDoc "Packages to add to PATH for the buildbot process.";
@@ -156,7 +156,7 @@ in
       pkgs.writeText "buildbot-worker-password" cfg.workerPass
     );
 
-    users.groups = optionalAttrs (cfg.group == "bbworker") { bbworker = { }; };
+    users.groups = optionalAttrs (cfg.group == "bbworker") {bbworker = {};};
 
     users.users = optionalAttrs (cfg.user == "bbworker") {
       bbworker = {
@@ -176,9 +176,9 @@ in
         "network.target"
         "buildbot-master.service"
       ];
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       path = cfg.packages;
-      environment.PYTHONPATH = "${python.withPackages (p: [ package ])}/${python.sitePackages}";
+      environment.PYTHONPATH = "${python.withPackages (p: [package])}/${python.sitePackages}";
 
       preStart = ''
         mkdir -vp "${cfg.buildbotDir}/info"
@@ -202,5 +202,5 @@ in
     };
   };
 
-  meta.maintainers = with lib.maintainers; [ ];
+  meta.maintainers = with lib.maintainers; [];
 }

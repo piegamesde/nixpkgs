@@ -21,7 +21,7 @@ stdenv.mkDerivation {
       findutils
       gnugrep
     ]
-    ++ (lib.optionals stdenv.isDarwin [ darwin.DarwinTools ])
+    ++ (lib.optionals stdenv.isDarwin [darwin.DarwinTools])
   );
   is_darwin = if stdenv.isDarwin then "yes" else "no";
 
@@ -40,8 +40,8 @@ stdenv.mkDerivation {
 
   inherit doCheck;
   strictDeps = true;
-  nativeCheckInputs = [ shellcheck ];
-  buildInputs = [ bash ];
+  nativeCheckInputs = [shellcheck];
+  buildInputs = [bash];
 
   checkPhase = ''
     shellcheck ./nix-info

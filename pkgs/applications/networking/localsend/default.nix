@@ -23,7 +23,7 @@ let
   src =
     srcs.${stdenv.hostPlatform.system} or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
 
-  appimageContents = appimageTools.extract { inherit pname version src; };
+  appimageContents = appimageTools.extract {inherit pname version src;};
 
   linux = appimageTools.wrapType2 rec {
     inherit
@@ -63,7 +63,7 @@ let
       meta
       ;
 
-    nativeBuildInputs = [ undmg ];
+    nativeBuildInputs = [undmg];
 
     sourceRoot = ".";
 
@@ -76,9 +76,9 @@ let
   meta = with lib; {
     description = "An open source cross-platform alternative to AirDrop";
     homepage = "https://localsend.org/";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.mit;
-    maintainers = with maintainers; [ sikmir ];
+    maintainers = with maintainers; [sikmir];
     platforms = builtins.attrNames srcs;
   };
 in

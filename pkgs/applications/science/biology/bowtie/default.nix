@@ -37,15 +37,15 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  buildInputs = [ zlib ];
+  buildInputs = [zlib];
 
-  installFlags = [ "prefix=$(out)" ];
+  installFlags = ["prefix=$(out)"];
 
   meta = with lib; {
     description = "An ultrafast memory-efficient short read aligner";
     license = licenses.artistic2;
     homepage = "https://bowtie-bio.sourceforge.net";
-    maintainers = with maintainers; [ prusnak ];
+    maintainers = with maintainers; [prusnak];
     platforms = platforms.all;
   };
 }

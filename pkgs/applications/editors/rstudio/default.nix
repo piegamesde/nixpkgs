@@ -94,7 +94,7 @@ in
       makeWrapper
       pandoc
       nodejs
-    ] ++ lib.optionals (!server) [ copyDesktopItems ];
+    ] ++ lib.optionals (!server) [copyDesktopItems];
 
     buildInputs =
       [
@@ -132,7 +132,7 @@ in
       "-DQUARTO_ENABLED=FALSE"
       "-DPANDOC_VERSION=${pandoc.version}"
       "-DCMAKE_INSTALL_PREFIX=${placeholder "out"}/lib/rstudio"
-    ] ++ lib.optionals (!server) [ "-DQT_QMAKE_EXECUTABLE=${qmake}/bin/qmake" ];
+    ] ++ lib.optionals (!server) ["-DQT_QMAKE_EXECUTABLE=${qmake}/bin/qmake"];
 
     # Hack RStudio to only use the input R and provided libclang.
     patches = [
@@ -236,7 +236,7 @@ in
     };
   }
   // lib.optionalAttrs (!server) {
-    qtWrapperArgs = [ "--suffix PATH : ${lib.makeBinPath [ gnumake ]}" ];
+    qtWrapperArgs = ["--suffix PATH : ${lib.makeBinPath [gnumake]}"];
 
     desktopItems = [
       (makeDesktopItem {
@@ -246,7 +246,7 @@ in
         desktopName = "RStudio";
         genericName = "IDE";
         comment = description;
-        categories = [ "Development" ];
+        categories = ["Development"];
         mimeTypes = [
           "text/x-r-source"
           "text/x-r"

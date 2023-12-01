@@ -11,7 +11,7 @@ stdenvNoCC.mkDerivation {
   dontBuild = true;
   dontUnpack = true;
 
-  nativeBuildInputs = [ buildPackages.darwin.rewrite-tbd ];
+  nativeBuildInputs = [buildPackages.darwin.rewrite-tbd];
 
   includeDirs =
     [

@@ -35,10 +35,10 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [
     pkg-config
     autoreconfHook
-  ] ++ lib.optionals withJava [ ant ];
+  ] ++ lib.optionals withJava [ant];
 
   buildInputs =
-    [ fontconfig ]
+    [fontconfig]
     ++ lib.optional withJava jdk
     ++ lib.optional withMetadata libxml2
     ++ lib.optional withFonts freetype
@@ -63,7 +63,7 @@ stdenv.mkDerivation rec {
     homepage = "http://www.videolan.org/developers/libbluray.html";
     description = "Library to access Blu-Ray disks for video playback";
     license = licenses.lgpl21;
-    maintainers = with maintainers; [ abbradar ];
+    maintainers = with maintainers; [abbradar];
     platforms = platforms.unix;
   };
 }

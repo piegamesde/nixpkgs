@@ -18,7 +18,7 @@ buildGoModule rec {
   vendorSha256 = null;
 
   # scc has a scripts/ sub-package that's for testing.
-  excludedPackages = [ "scripts" ];
+  excludedPackages = ["scripts"];
 
   meta = with lib; {
     homepage = "https://github.com/boyter/scc";

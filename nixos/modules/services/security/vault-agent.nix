@@ -8,14 +8,14 @@
 with lib;
 
 let
-  format = pkgs.formats.json { };
+  format = pkgs.formats.json {};
   commonOptions =
     {
       pkgName,
       flavour ? pkgName,
     }:
     mkOption {
-      default = { };
+      default = {};
       description = mdDoc ''
         Attribute set of ${flavour} instances.
         Creates independent `${flavour}-''${name}.service` systemd units for each instance defined here.
@@ -24,14 +24,14 @@ let
         with types;
         attrsOf (
           submodule (
-            { name, ... }:
+            {name, ...}:
             {
               options = {
                 enable = mkEnableOption (mdDoc "this ${flavour} instance") // {
                   default = true;
                 };
 
-                package = mkPackageOptionMD pkgs pkgName { };
+                package = mkPackageOptionMD pkgs pkgName {};
 
                 user = mkOption {
                   type = types.str;
@@ -63,7 +63,7 @@ let
                       };
 
                       template = mkOption {
-                        default = [ ];
+                        default = [];
                         type = with types; listOf (attrsOf anything);
                         description =
                           let
@@ -81,7 +81,7 @@ let
                     };
                   };
 
-                  default = { };
+                  default = {};
 
                   description =
                     let
@@ -118,9 +118,9 @@ let
     in
     mkIf (instance.enable) {
       description = "${flavour} daemon - ${name}";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
-      path = [ pkgs.getent ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
+      path = [pkgs.getent];
       startLimitIntervalSec = 60;
       startLimitBurst = 3;
       serviceConfig = {
@@ -139,7 +139,7 @@ let
 in
 {
   options = {
-    services.consul-template.instances = commonOptions { pkgName = "consul-template"; };
+    services.consul-template.instances = commonOptions {pkgName = "consul-template";};
     services.vault-agent.instances = commonOptions {
       pkgName = "vault";
       flavour = "vault-agent";
@@ -153,12 +153,12 @@ in
         let
           cfg = config.services.${flavour};
         in
-        mkIf (cfg.instances != { }) {
+        mkIf (cfg.instances != {}) {
           systemd.services =
             mapAttrs'
               (
                 name: instance:
-                nameValuePair "${flavour}-${name}" (createAgentInstance { inherit name instance flavour; })
+                nameValuePair "${flavour}-${name}" (createAgentInstance {inherit name instance flavour;})
               )
               cfg.instances;
         }

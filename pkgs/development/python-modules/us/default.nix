@@ -9,7 +9,7 @@ buildPythonPackage rec {
   pname = "us";
   version = "2.0.2";
 
-  propagatedBuildInputs = [ jellyfish ];
+  propagatedBuildInputs = [jellyfish];
 
   src = fetchPypi {
     inherit pname version;

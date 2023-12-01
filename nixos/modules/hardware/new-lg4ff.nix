@@ -26,10 +26,10 @@ in
 
   config = lib.mkIf cfg.enable {
     boot = {
-      extraModulePackages = [ kernelPackages.new-lg4ff ];
-      kernelModules = [ "hid-logitech-new" ];
+      extraModulePackages = [kernelPackages.new-lg4ff];
+      kernelModules = ["hid-logitech-new"];
     };
   };
 
-  meta.maintainers = with lib.maintainers; [ matthiasbenaets ];
+  meta.maintainers = with lib.maintainers; [matthiasbenaets];
 }

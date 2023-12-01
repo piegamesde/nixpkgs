@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-XejI4pqqP7nMa0e7JymfJxNU67clFOOsytx9OLW7qnI=";
   };
 
-  patches = [ ./fix-tests-when-building-without-regex-supports.patch ];
+  patches = [./fix-tests-when-building-without-regex-supports.patch];
 
   outputs = [
     "bin"
@@ -43,8 +43,8 @@ stdenv.mkDerivation rec {
     rm -r ./modules/oniguruma
   '';
 
-  buildInputs = lib.optionals onigurumaSupport [ oniguruma ];
-  nativeBuildInputs = [ autoreconfHook ];
+  buildInputs = lib.optionals onigurumaSupport [oniguruma];
+  nativeBuildInputs = [autoreconfHook];
 
   configureFlags =
     [

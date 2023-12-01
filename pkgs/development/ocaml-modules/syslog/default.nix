@@ -37,6 +37,6 @@ stdenv.mkDerivation rec {
     description = "Simple wrapper to access the system logger from OCaml";
     license = licenses.lgpl21Plus;
     inherit (ocaml.meta) platforms;
-    maintainers = [ maintainers.rixed ];
+    maintainers = [maintainers.rixed];
   };
 }

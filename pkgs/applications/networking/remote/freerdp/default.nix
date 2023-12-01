@@ -161,7 +161,7 @@ stdenv.mkDerivation rec {
       Cocoa
       CoreMedia
     ]
-    ++ optionals withUnfree [ faac ];
+    ++ optionals withUnfree [faac];
 
   nativeBuildInputs = [
     cmake
@@ -206,7 +206,7 @@ stdenv.mkDerivation rec {
     ]
   );
 
-  NIX_LDFLAGS = lib.optionals stdenv.isDarwin [ "-framework AudioToolbox" ];
+  NIX_LDFLAGS = lib.optionals stdenv.isDarwin ["-framework AudioToolbox"];
 
   meta = with lib; {
     description = "A Remote Desktop Protocol Client";

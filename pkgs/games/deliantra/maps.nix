@@ -28,6 +28,6 @@ stdenv.mkDerivation rec {
       agpl3Plus
     ];
     platforms = platforms.linux;
-    maintainers = with maintainers; [ ToxicFrog ];
+    maintainers = with maintainers; [ToxicFrog];
   };
 }

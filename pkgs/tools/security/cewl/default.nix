@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-5LTZUr3OMeu1NODhIgBiVqtQnUWYfZTm73q61vT3rXc=";
   };
 
-  buildInputs = [ rubyEnv.wrappedRuby ];
+  buildInputs = [rubyEnv.wrappedRuby];
 
   installPhase = ''
     mkdir -p $out/bin
@@ -33,6 +33,6 @@ stdenv.mkDerivation rec {
     description = "Custom wordlist generator";
     homepage = "https://digi.ninja/projects/cewl.php/";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ elohmeier ];
+    maintainers = with maintainers; [elohmeier];
   };
 }

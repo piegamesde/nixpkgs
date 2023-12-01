@@ -69,7 +69,7 @@ stdenv.mkDerivation (
       ++ optional jxlSupport libjxl
       ++ optional psSupport libspectre;
 
-    nativeBuildInputs = [ pkg-config ];
+    nativeBuildInputs = [pkg-config];
 
     enableParallelBuilding = true;
 
@@ -115,9 +115,9 @@ stdenv.mkDerivation (
       homepage = "https://docs.enlightenment.org/api/imlib2/html";
       changelog = "https://git.enlightenment.org/legacy/imlib2.git/plain/ChangeLog?h=v${version}";
       license = licenses.imlib2;
-      pkgConfigModules = [ "imlib2" ];
+      pkgConfigModules = ["imlib2"];
       platforms = platforms.unix;
-      maintainers = with maintainers; [ spwhitt ];
+      maintainers = with maintainers; [spwhitt];
     };
   }
 )

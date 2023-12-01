@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-gZiyPOW2PeTMILcPiUTqPUGRNlMM5mI1z9563v4SgEs=";
   };
 
-  patches = [ ./libgl-path.patch ];
+  patches = [./libgl-path.patch];
 
   postPatch =
     ''
@@ -87,7 +87,7 @@ stdenv.mkDerivation rec {
     description = "A library for handling OpenGL function pointer management";
     homepage = "https://github.com/anholt/libepoxy";
     license = licenses.mit;
-    maintainers = with maintainers; [ goibhniu ];
+    maintainers = with maintainers; [goibhniu];
     platforms = platforms.unix;
   };
 }

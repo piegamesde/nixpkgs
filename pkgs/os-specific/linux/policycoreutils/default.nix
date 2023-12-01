@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
     sed -i -e '39i#include <crypt.h>' run_init/run_init.c
   '';
 
-  nativeBuildInputs = [ gettext ];
+  nativeBuildInputs = [gettext];
   buildInputs = [
     libsepol
     libselinux

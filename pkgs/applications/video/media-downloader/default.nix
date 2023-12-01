@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
     wrapQtAppsHook
   ];
 
-  buildInputs = [ qtbase ];
+  buildInputs = [qtbase];
 
   qtWrapperArgs = [
     "--prefix PATH : ${
@@ -45,6 +45,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/mhogomchungu/media-downloader";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ zendo ];
+    maintainers = with maintainers; [zendo];
   };
 }

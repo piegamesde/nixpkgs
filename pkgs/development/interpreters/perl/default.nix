@@ -1,4 +1,4 @@
-{ callPackage }:
+{callPackage}:
 
 let
   # Common passthru for all perl interpreters.
@@ -43,21 +43,21 @@ let
                 selfBuildHost = perlOnBuildForHost.pkgs;
                 selfBuildTarget = perlOnBuildForTarget.pkgs;
                 selfHostHost = perlOnHostForHost.pkgs;
-                selfTargetTarget = perlOnTargetForTarget.pkgs or { };
+                selfTargetTarget = perlOnTargetForTarget.pkgs or {};
               };
-              keep = self: { };
-              extra = spliced0: { };
+              keep = self: {};
+              extra = spliced0: {};
             in
             makeScopeWithSplicing otherSplices keep extra perlPackagesFun
           )
-          { perl = self; };
+          {perl = self;};
     in
     rec {
       buildEnv = callPackage ./wrapper.nix {
         perl = self;
         inherit (pkgs) requiredPerlModules;
       };
-      withPackages = f: buildEnv.override { extraLibs = f pkgs; };
+      withPackages = f: buildEnv.override {extraLibs = f pkgs;};
       pkgs = perlPackages // (overrides pkgs);
       interpreter = "${self}/bin/perl";
       libPrefix = "lib/perl5/site_perl";

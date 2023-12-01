@@ -23,12 +23,12 @@ buildGoModule rec {
     "-X main.version=${version}"
   ];
 
-  excludedPackages = [ "kobotest" ];
+  excludedPackages = ["kobotest"];
 
   meta = with lib; {
     description = "EPUB to KEPUB converter";
     homepage = "https://pgaskin.net/kepubify";
     license = licenses.mit;
-    maintainers = with maintainers; [ zowoq ];
+    maintainers = with maintainers; [zowoq];
   };
 }

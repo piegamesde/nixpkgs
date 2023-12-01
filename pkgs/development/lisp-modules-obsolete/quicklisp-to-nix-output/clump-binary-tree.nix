@@ -1,12 +1,12 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "clump-binary-tree";
   version = "clump-20160825-git";
 
   description = "System lacks description";
 
-  deps = [ args."acclimation" ];
+  deps = [args."acclimation"];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/clump/2016-08-25/clump-20160825-git.tgz";
@@ -15,7 +15,7 @@ rec {
 
   packageName = "clump-binary-tree";
 
-  asdFilesToKeep = [ "clump-binary-tree.asd" ];
+  asdFilesToKeep = ["clump-binary-tree.asd"];
   overrides = x: x;
 }
 /* (SYSTEM clump-binary-tree DESCRIPTION System lacks description SHA256

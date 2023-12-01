@@ -28,7 +28,7 @@ buildPythonPackage rec {
     sqlalchemy
   ];
 
-  pythonImportsCheck = [ "marshmallow_sqlalchemy" ];
+  pythonImportsCheck = ["marshmallow_sqlalchemy"];
 
   nativeCheckInputs = [
     pytest-lazy-fixture
@@ -40,6 +40,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/marshmallow-code/marshmallow-sqlalchemy";
     changelog = "https://github.com/marshmallow-code/marshmallow-sqlalchemy/blob/${version}/CHANGELOG.rst";
     license = licenses.mit;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

@@ -30,9 +30,9 @@ buildPythonPackage rec {
     sed -e 's,ffi\.dlopen(,&"${xorg.libxcb.out}/lib/" + ,' -i xcffib/__init__.py
   '';
 
-  propagatedBuildInputs = [ cffi ];
+  propagatedBuildInputs = [cffi];
 
-  propagatedNativeBuildInputs = [ cffi ];
+  propagatedNativeBuildInputs = [cffi];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -45,12 +45,12 @@ buildPythonPackage rec {
     rm -r xcffib
   '';
 
-  pythonImportsCheck = [ "xcffib" ];
+  pythonImportsCheck = ["xcffib"];
 
   meta = with lib; {
     description = "A drop in replacement for xpyb, an XCB python binding";
     homepage = "https://github.com/tych0/xcffib";
     license = licenses.asl20;
-    maintainers = with maintainers; [ kamilchm ];
+    maintainers = with maintainers; [kamilchm];
   };
 }

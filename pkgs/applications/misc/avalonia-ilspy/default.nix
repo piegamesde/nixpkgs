@@ -81,7 +81,7 @@ stdenv.mkDerivation rec {
       exec = "ILSpy";
       icon = "ILSpy";
       comment = ".NET assembly browser and decompiler";
-      categories = [ "Development" ];
+      categories = ["Development"];
       keywords = [
         ".net"
         "il"
@@ -94,7 +94,7 @@ stdenv.mkDerivation rec {
     description = ".NET assembly browser and decompiler";
     homepage = "https://github.com/icsharpcode/AvaloniaILSpy";
     license = licenses.mit;
-    platforms = [ "x86_64-linux" ];
-    maintainers = with lib.maintainers; [ AngryAnt ];
+    platforms = ["x86_64-linux"];
+    maintainers = with lib.maintainers; [AngryAnt];
   };
 }

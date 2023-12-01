@@ -19,8 +19,8 @@ stdenv.mkDerivation rec {
     hash = "sha256-ZhIfyYdzrzPTAYevOz5I6tAcUiLRMV8HENKX9jychEY=";
   };
 
-  buildInputs = [ boost ];
-  nativeBuildInputs = [ cmake ];
+  buildInputs = [boost];
+  nativeBuildInputs = [cmake];
 
   cmakeFlags = [
     "-DSML_BUILD_BENCHMARKS=OFF"
@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
     description = "Header only state machine library with no dependencies";
     homepage = "https://github.com/boost-ext/sml";
     license = licenses.boost;
-    maintainers = with maintainers; [ prtzl ];
+    maintainers = with maintainers; [prtzl];
     platforms = platforms.all;
   };
 }

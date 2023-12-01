@@ -10,7 +10,7 @@
   CoreAudio,
   AudioToolbox,
   # Allow building a limited set of APIs, e.g. ["s3" "ec2"].
-  apis ? [ "*" ],
+  apis ? ["*"],
   # Whether to enable AWS' custom memory management.
   customMemoryManagement ? true,
 }:
@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-C1PdLNagoIMk9/AAV2Pp7kWcspasJtN9Tx679FnEprc=";
   };
 
-  patches = [ ./cmake-dirs.patch ];
+  patches = [./cmake-dirs.patch];
 
   postPatch =
     ''
@@ -87,12 +87,12 @@ stdenv.mkDerivation rec {
       ];
 
   # propagation is needed for Security.framework to be available when linking
-  propagatedBuildInputs = [ aws-crt-cpp ];
+  propagatedBuildInputs = [aws-crt-cpp];
   # Ensure the linker is using atomic when compiling for RISC-V, otherwise fails
   LDFLAGS = lib.optionalString stdenv.hostPlatform.isRiscV "-latomic";
 
   cmakeFlags =
-    [ "-DBUILD_DEPS=OFF" ]
+    ["-DBUILD_DEPS=OFF"]
     ++ lib.optional (!customMemoryManagement) "-DCUSTOM_MEMORY_MANAGEMENT=0"
     ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [
       "-DENABLE_TESTING=OFF"
@@ -100,7 +100,7 @@ stdenv.mkDerivation rec {
       "-DCURL_HAS_TLS_PROXY=1"
       "-DTARGET_ARCH=${host_os}"
     ]
-    ++ lib.optional (apis != [ "*" ]) "-DBUILD_ONLY=${lib.concatStringsSep ";" apis}";
+    ++ lib.optional (apis != ["*"]) "-DBUILD_ONLY=${lib.concatStringsSep ";" apis}";
 
   env.NIX_CFLAGS_COMPILE =
     toString
@@ -123,7 +123,7 @@ stdenv.mkDerivation rec {
   __darwinAllowLocalNetworking = true;
 
   # Builds in 2+h with 2 cores, and ~10m with a big-parallel builder.
-  requiredSystemFeatures = [ "big-parallel" ];
+  requiredSystemFeatures = ["big-parallel"];
 
   meta = with lib; {
     description = "A C++ interface for Amazon Web Services";

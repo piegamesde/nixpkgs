@@ -44,6 +44,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/ChristophHaag/vkdisplayinfo";
     platforms = platforms.linux;
     license = licenses.boost;
-    maintainers = [ maintainers.LunNova ];
+    maintainers = [maintainers.LunNova];
   };
 }

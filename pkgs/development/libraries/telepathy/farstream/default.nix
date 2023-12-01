@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
     sha256 = "02ky12bb92prr5f6xmvmfq4yz2lj33li6nj4829a98hk5pr9k83g";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   propagatedBuildInputs = [
     dbus-glib
     telepathy-glib

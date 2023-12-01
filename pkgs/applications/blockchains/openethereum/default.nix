@@ -41,9 +41,9 @@ rustPlatform.buildRustPackage rec {
 
   buildInputs = [
     openssl
-  ] ++ lib.optionals stdenv.isLinux [ systemd ] ++ lib.optionals stdenv.isDarwin [ darwin.Security ];
+  ] ++ lib.optionals stdenv.isLinux [systemd] ++ lib.optionals stdenv.isDarwin [darwin.Security];
 
-  buildFeatures = [ "final" ];
+  buildFeatures = ["final"];
 
   # Fix tests by preventing them from writing to /homeless-shelter.
   preCheck = ''
@@ -62,7 +62,7 @@ rustPlatform.buildRustPackage rec {
     description = "Fast, light, robust Ethereum implementation";
     homepage = "http://parity.io/ethereum";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ akru ];
+    maintainers = with maintainers; [akru];
     platforms = lib.platforms.unix;
   };
 }

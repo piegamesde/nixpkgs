@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
 
   sourceRoot = "Shortcat.app";
 
-  nativeBuildInputs = [ unzip ];
+  nativeBuildInputs = [unzip];
 
   installPhase = ''
     mkdir -p $out/Applications/Shortcat.app
@@ -27,9 +27,9 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Manipulate macOS masterfully, minus the mouse";
     homepage = "https://shortcat.app/";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     platforms = platforms.darwin;
-    maintainers = with maintainers; [ Enzime ];
+    maintainers = with maintainers; [Enzime];
     license = licenses.unfreeRedistributable;
   };
 }

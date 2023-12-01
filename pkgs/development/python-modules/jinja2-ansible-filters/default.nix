@@ -23,12 +23,12 @@ buildPythonPackage rec {
   # no tests include in sdist, and source not available
   doCheck = false;
 
-  pythonImportsCheck = [ "jinja2_ansible_filters" ];
+  pythonImportsCheck = ["jinja2_ansible_filters"];
 
   meta = with lib; {
     description = "Jinja2 Ansible Filters";
     homepage = "https://pypi.org/project/jinja2-ansible-filters/";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ jonringer ];
+    maintainers = with maintainers; [jonringer];
   };
 }

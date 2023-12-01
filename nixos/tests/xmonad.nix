@@ -1,5 +1,5 @@
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
 
   let
     mkConfig = name: keys: ''
@@ -64,7 +64,7 @@ import ./make-test-python.nix (
     };
 
     nodes.machine =
-      { pkgs, ... }:
+      {pkgs, ...}:
       {
         imports = [
           ./common/x11.nix
@@ -76,13 +76,13 @@ import ./make-test-python.nix (
           enable = true;
           enableConfiguredRecompile = true;
           enableContribAndExtras = true;
-          extraPackages = with pkgs.haskellPackages; haskellPackages: [ xmobar ];
+          extraPackages = with pkgs.haskellPackages; haskellPackages: [xmobar];
           config = mkConfig "oldXMonad" oldKeys;
         };
       };
 
     testScript =
-      { nodes, ... }:
+      {nodes, ...}:
       let
         user = nodes.machine.config.users.users.alice;
       in

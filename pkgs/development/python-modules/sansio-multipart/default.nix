@@ -22,12 +22,12 @@ buildPythonPackage rec {
   # upstream has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "sansio_multipart" ];
+  pythonImportsCheck = ["sansio_multipart"];
 
   meta = {
     description = "Parser for multipart/form-data";
     homepage = "https://github.com/theelous3/sansio-multipart-parser";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

@@ -33,7 +33,7 @@ assert mysqlSupport || postgresSupport;
 mkDerivation {
   pname = "akonadi";
   meta = {
-    license = [ lib.licenses.lgpl21 ];
+    license = [lib.licenses.lgpl21];
     maintainers = kdepimTeam;
   };
   patches = [

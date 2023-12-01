@@ -26,7 +26,7 @@ python3Packages.buildPythonApplication rec {
     packaging
   ];
 
-  nativeCheckInputs = with python3Packages; [ pytestCheckHook ];
+  nativeCheckInputs = with python3Packages; [pytestCheckHook];
 
   disabledTestPaths = [
     # tests below require dbus daemon
@@ -34,7 +34,7 @@ python3Packages.buildPythonApplication rec {
     "tests/whitebox/monkey_patching"
   ];
 
-  pythonImportsCheck = [ "stratis_cli" ];
+  pythonImportsCheck = ["stratis_cli"];
 
   passthru.tests = nixosTests.stratis;
 
@@ -42,6 +42,6 @@ python3Packages.buildPythonApplication rec {
     description = "CLI for the Stratis project";
     homepage = "https://stratis-storage.github.io";
     license = licenses.asl20;
-    maintainers = with maintainers; [ nickcao ];
+    maintainers = with maintainers; [nickcao];
   };
 }

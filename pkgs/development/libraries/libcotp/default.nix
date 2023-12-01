@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
       --replace "add_link_options(-Wl," "# add_link_options(-Wl,"
   '';
 
-  buildInputs = [ libgcrypt ];
+  buildInputs = [libgcrypt];
   nativeBuildInputs = [
     cmake
     pkg-config
@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
     description = "C library that generates TOTP and HOTP";
     homepage = "https://github.com/paolostivanin/libcotp";
     license = licenses.asl20;
-    maintainers = with maintainers; [ alexbakker ];
+    maintainers = with maintainers; [alexbakker];
     platforms = platforms.all;
   };
 }

@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-OpwzISZ5iZNQvJAX7UJJ4gELEaVfcQgY9cqMM0YvBzc=";
   };
 
-  buildInputs = [ libcap ];
+  buildInputs = [libcap];
 
   makeFlags = [
     "ECHO=echo"

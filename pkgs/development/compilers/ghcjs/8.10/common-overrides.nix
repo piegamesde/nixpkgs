@@ -20,7 +20,7 @@ self: super: {
       (drv: {
         # Jailbreak and patch can be dropped after https://github.com/ghcjs/ghcjs/pull/833
         jailbreak = true;
-        patches = drv.patches or [ ] ++ [
+        patches = drv.patches or [] ++ [
           (fetchpatch {
             name = "ghcjs-aeson-2.0.patch";
             url = "https://github.com/ghcjs/ghcjs/commit/9ef1f92d740e8503d15d91699f57db147f0474cc.patch";

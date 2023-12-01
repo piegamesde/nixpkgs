@@ -14,9 +14,9 @@ stdenv.mkDerivation rec {
     sha256 = "0jkrnn3i8gbsl48k3civjmvxyv9rbm1qjha2cf2macdc439qfi3y";
   };
 
-  nativeBuildInputs = [ groff ];
+  nativeBuildInputs = [groff];
 
-  installFlags = [ "DESTDIR=$(out)" ];
+  installFlags = ["DESTDIR=$(out)"];
 
   postConfigure = ''
     sed -e s@/usr/man/@/share/man/@ -i Makefile

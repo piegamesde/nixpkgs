@@ -128,7 +128,7 @@ stdenv.mkDerivation rec {
       ];
 
   buildInputs =
-    [ ]
+    []
     ++ optional aclSupport acl
     ++ optional attrSupport attr
     ++ optional gmpSupport gmp
@@ -141,7 +141,7 @@ stdenv.mkDerivation rec {
     ++ optional (isCross && stdenv.hostPlatform.libc != "glibc") libiconv;
 
   configureFlags =
-    [ "--with-packager=https://nixos.org" ]
+    ["--with-packager=https://nixos.org"]
     ++ optional (singleBinary != false) (
       "--enable-single-binary" + optionalString (isString singleBinary) "=${singleBinary}"
     )
@@ -184,7 +184,7 @@ stdenv.mkDerivation rec {
   NIX_LDFLAGS = optionalString selinuxSupport "-lsepol";
   FORCE_UNSAFE_CONFIGURE = optionalString stdenv.hostPlatform.isSunOS "1";
   env.NIX_CFLAGS_COMPILE = toString (
-    [ ]
+    []
     # Work around a bogus warning in conjunction with musl.
     ++ optional stdenv.hostPlatform.isMusl "-Wno-error"
     ++ optional stdenv.hostPlatform.isAndroid "-D__USE_FORTIFY_LEVEL=0"
@@ -215,7 +215,7 @@ stdenv.mkDerivation rec {
       are expected to exist on every operating system.
     '';
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ das_j ];
+    maintainers = with maintainers; [das_j];
     platforms = with platforms; unix ++ windows;
     priority = 10;
   };

@@ -1,9 +1,9 @@
 # Test Authelia as an auth server for Traefik as a reverse proxy of a local web service
 import ./make-test-python.nix (
-  { lib, ... }:
+  {lib, ...}:
   {
     name = "authelia";
-    meta.maintainers = with lib.maintainers; [ jk ];
+    meta.maintainers = with lib.maintainers; [jk];
 
     nodes = {
       authelia =
@@ -62,7 +62,7 @@ import ./make-test-python.nix (
             dynamicConfigOptions = {
               tls.certificates =
                 let
-                  certDir = pkgs.runCommand "selfSignedCerts" { buildInputs = [ pkgs.openssl ]; } ''
+                  certDir = pkgs.runCommand "selfSignedCerts" {buildInputs = [pkgs.openssl];} ''
                     openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -nodes -subj '/CN=example.com/CN=auth.example.com/CN=static.example.com' -days 36500
                     mkdir -p $out
                     cp key.pem cert.pem $out
@@ -106,11 +106,11 @@ import ./make-test-python.nix (
                 tls = true;
                 entryPoints = "web";
                 service = "simplehttp";
-                middlewares = [ "authelia-basic@file" ];
+                middlewares = ["authelia-basic@file"];
               };
 
               http.services.simplehttp = {
-                loadBalancer.servers = [ { url = "http://localhost:8000"; } ];
+                loadBalancer.servers = [{url = "http://localhost:8000";}];
               };
 
               http.routers.authelia = {
@@ -121,7 +121,7 @@ import ./make-test-python.nix (
               };
 
               http.services.authelia = {
-                loadBalancer.servers = [ { url = "http://localhost:9091"; } ];
+                loadBalancer.servers = [{url = "http://localhost:9091";}];
               };
             };
 
@@ -142,7 +142,7 @@ import ./make-test-python.nix (
             {
               script = "${pkgs.python3}/bin/python -m http.server --directory ${fakeWebPageDir} 8000";
               serviceConfig.Type = "simple";
-              wantedBy = [ "multi-user.target" ];
+              wantedBy = ["multi-user.target"];
             };
         };
     };

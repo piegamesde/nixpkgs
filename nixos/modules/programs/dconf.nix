@@ -38,14 +38,14 @@ in
 
       profiles = mkOption {
         type = types.attrsOf types.path;
-        default = { };
+        default = {};
         description = lib.mdDoc "Set of dconf profile files, installed at {file}`/etc/dconf/profiles/«name»`.";
         internal = true;
       };
 
       packages = mkOption {
         type = types.listOf types.package;
-        default = [ ];
+        default = [];
         description = lib.mdDoc "A list of packages which provide dconf profiles and databases in {file}`/etc/dconf`.";
       };
     };
@@ -53,15 +53,15 @@ in
 
   ###### implementation
 
-  config = mkIf (cfg.profiles != { } || cfg.enable) {
-    environment.etc.dconf = mkIf (cfg.profiles != { } || cfg.packages != [ ]) { source = cfgDir; };
+  config = mkIf (cfg.profiles != {} || cfg.enable) {
+    environment.etc.dconf = mkIf (cfg.profiles != {} || cfg.packages != []) {source = cfgDir;};
 
-    services.dbus.packages = [ pkgs.dconf ];
+    services.dbus.packages = [pkgs.dconf];
 
-    systemd.packages = [ pkgs.dconf ];
+    systemd.packages = [pkgs.dconf];
 
     # For dconf executable
-    environment.systemPackages = [ pkgs.dconf ];
+    environment.systemPackages = [pkgs.dconf];
 
     # Needed for unwrapped applications
     environment.sessionVariables.GIO_EXTRA_MODULES = mkIf cfg.enable [

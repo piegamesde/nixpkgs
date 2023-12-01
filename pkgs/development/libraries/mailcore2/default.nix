@@ -55,7 +55,7 @@ stdenv.mkDerivation rec {
       --replace buffio.h tidybuffio.h
   '';
 
-  cmakeFlags = [ "-DBUILD_SHARED_LIBS=ON" ];
+  cmakeFlags = ["-DBUILD_SHARED_LIBS=ON"];
 
   installPhase = ''
     mkdir $out
@@ -77,6 +77,6 @@ stdenv.mkDerivation rec {
     description = "A simple and asynchronous API to work with e-mail protocols IMAP, POP and SMTP";
     homepage = "http://libmailcore.com";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ cstrahan ];
+    maintainers = with maintainers; [cstrahan];
   };
 }

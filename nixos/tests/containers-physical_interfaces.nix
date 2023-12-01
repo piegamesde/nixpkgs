@@ -1,20 +1,20 @@
 import ./make-test-python.nix (
-  { pkgs, lib, ... }:
+  {pkgs, lib, ...}:
   {
     name = "containers-physical_interfaces";
     meta = {
-      maintainers = with lib.maintainers; [ kampfschlaefer ];
+      maintainers = with lib.maintainers; [kampfschlaefer];
     };
 
     nodes = {
       server =
-        { ... }:
+        {...}:
         {
-          virtualisation.vlans = [ 1 ];
+          virtualisation.vlans = [1];
 
           containers.server = {
             privateNetwork = true;
-            interfaces = [ "eth1" ];
+            interfaces = ["eth1"];
 
             config = {
               networking.interfaces.eth1.ipv4.addresses = [
@@ -28,16 +28,16 @@ import ./make-test-python.nix (
           };
         };
       bridged =
-        { ... }:
+        {...}:
         {
-          virtualisation.vlans = [ 1 ];
+          virtualisation.vlans = [1];
 
           containers.bridged = {
             privateNetwork = true;
-            interfaces = [ "eth1" ];
+            interfaces = ["eth1"];
 
             config = {
-              networking.bridges.br0.interfaces = [ "eth1" ];
+              networking.bridges.br0.interfaces = ["eth1"];
               networking.interfaces.br0.ipv4.addresses = [
                 {
                   address = "10.10.0.2";
@@ -50,17 +50,17 @@ import ./make-test-python.nix (
         };
 
       bonded =
-        { ... }:
+        {...}:
         {
-          virtualisation.vlans = [ 1 ];
+          virtualisation.vlans = [1];
 
           containers.bonded = {
             privateNetwork = true;
-            interfaces = [ "eth1" ];
+            interfaces = ["eth1"];
 
             config = {
               networking.bonds.bond0 = {
-                interfaces = [ "eth1" ];
+                interfaces = ["eth1"];
                 driverOptions.mode = "active-backup";
               };
               networking.interfaces.bond0.ipv4.addresses = [
@@ -75,20 +75,20 @@ import ./make-test-python.nix (
         };
 
       bridgedbond =
-        { ... }:
+        {...}:
         {
-          virtualisation.vlans = [ 1 ];
+          virtualisation.vlans = [1];
 
           containers.bridgedbond = {
             privateNetwork = true;
-            interfaces = [ "eth1" ];
+            interfaces = ["eth1"];
 
             config = {
               networking.bonds.bond0 = {
-                interfaces = [ "eth1" ];
+                interfaces = ["eth1"];
                 driverOptions.mode = "active-backup";
               };
-              networking.bridges.br0.interfaces = [ "bond0" ];
+              networking.bridges.br0.interfaces = ["bond0"];
               networking.interfaces.br0.ipv4.addresses = [
                 {
                   address = "10.10.0.4";

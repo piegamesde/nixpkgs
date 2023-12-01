@@ -34,7 +34,7 @@ buildPythonPackage rec {
     hash = "sha256-4USWfYvPxR+LzPELRTDg0Jl4K5yBnumYKfXT84FWctg=";
   };
 
-  nativeBuildInputs = [ hatchling ];
+  nativeBuildInputs = [hatchling];
 
   postPatch = ''
     substituteInPlace pyproject.toml \
@@ -92,12 +92,12 @@ buildPythonPackage rec {
     "test_warn_duplicate_operation_id"
   ];
 
-  pythonImportsCheck = [ "fastapi" ];
+  pythonImportsCheck = ["fastapi"];
 
   meta = with lib; {
     description = "Web framework for building APIs";
     homepage = "https://github.com/tiangolo/fastapi";
     license = licenses.mit;
-    maintainers = with maintainers; [ wd15 ];
+    maintainers = with maintainers; [wd15];
   };
 }

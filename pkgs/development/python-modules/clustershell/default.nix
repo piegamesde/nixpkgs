@@ -46,7 +46,7 @@ buildPythonPackage rec {
       --replace "currentThread" "current_thread"
   '';
 
-  propagatedBuildInputs = [ pyyaml ];
+  propagatedBuildInputs = [pyyaml];
 
   nativeCheckInputs = [
     bc
@@ -54,7 +54,7 @@ buildPythonPackage rec {
     nose
   ];
 
-  pythonImportsCheck = [ "ClusterShell" ];
+  pythonImportsCheck = ["ClusterShell"];
 
   # Many tests want to open network connections
   # https://github.com/cea-hpc/clustershell#test-suite
@@ -103,6 +103,6 @@ buildPythonPackage rec {
     description = "Scalable Python framework for cluster administration";
     homepage = "https://cea-hpc.github.io/clustershell";
     license = licenses.lgpl21;
-    maintainers = [ maintainers.alexvorobiev ];
+    maintainers = [maintainers.alexvorobiev];
   };
 }

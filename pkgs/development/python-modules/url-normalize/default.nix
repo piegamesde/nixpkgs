@@ -23,9 +23,9 @@ buildPythonPackage rec {
     hash = "sha256-WE3MM9B/voI23taFbLp2FYhl0uxOfuUWsaCTBG1hyiY=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
-  propagatedBuildInputs = [ six ];
+  propagatedBuildInputs = [six];
 
   nativeCheckInputs = [
     pytest-flakes
@@ -49,12 +49,12 @@ buildPythonPackage rec {
     sed -i "/--flakes/d" tox.ini
   '';
 
-  pythonImportsCheck = [ "url_normalize" ];
+  pythonImportsCheck = ["url_normalize"];
 
   meta = with lib; {
     description = "URL normalization for Python";
     homepage = "https://github.com/niksite/url-normalize";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

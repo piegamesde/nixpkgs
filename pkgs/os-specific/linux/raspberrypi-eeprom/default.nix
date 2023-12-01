@@ -21,8 +21,8 @@ stdenvNoCC.mkDerivation rec {
     hash = "sha256-z3VyqdSkvxAgVmtMI/Is9qYrOeDXlyVLwHSSC2+AxcA=";
   };
 
-  buildInputs = [ python3 ];
-  nativeBuildInputs = [ makeWrapper ];
+  buildInputs = [python3];
+  nativeBuildInputs = [makeWrapper];
 
   postPatch = ''
     # Don't try to verify md5 signatures from /var/lib/dpkg and
@@ -55,7 +55,7 @@ stdenvNoCC.mkDerivation rec {
               pciutils
               (placeholder "out")
             ]
-            ++ lib.optionals stdenvNoCC.isAarch64 [ libraspberrypi ]
+            ++ lib.optionals stdenvNoCC.isAarch64 [libraspberrypi]
           )
         }"
     done
@@ -68,6 +68,6 @@ stdenvNoCC.mkDerivation rec {
       bsd3
       unfreeRedistributableFirmware
     ];
-    maintainers = with maintainers; [ das_j ];
+    maintainers = with maintainers; [das_j];
   };
 }

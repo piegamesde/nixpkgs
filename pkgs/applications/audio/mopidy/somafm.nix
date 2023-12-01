@@ -14,7 +14,7 @@ python3Packages.buildPythonApplication rec {
     sha256 = "DC0emxkoWfjGHih2C8nINBFByf521Xf+3Ks4JRxNPLM=";
   };
 
-  propagatedBuildInputs = [ mopidy ];
+  propagatedBuildInputs = [mopidy];
 
   doCheck = false;
 
@@ -22,6 +22,6 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://www.mopidy.com/";
     description = "Mopidy extension for playing music from SomaFM";
     license = licenses.mit;
-    maintainers = [ maintainers.nickhu ];
+    maintainers = [maintainers.nickhu];
   };
 }

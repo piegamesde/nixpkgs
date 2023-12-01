@@ -33,6 +33,6 @@ buildGoModule rec {
     description = "Declarative edge routing platform that automates route optimization and control plane configuration";
     homepage = "https://pathvector.io";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ matthewpi ];
+    maintainers = with maintainers; [matthewpi];
   };
 }

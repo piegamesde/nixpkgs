@@ -23,7 +23,7 @@ perl.pkgs.toPerlModule (
       sha256 = "1nsqra0g2nja19akmf9x5y9hhgc35ml3w9dcdz2ayz7zgvmzm6d1";
     };
 
-    nativeBuildInputs = [ pkg-config ];
+    nativeBuildInputs = [pkg-config];
 
     buildInputs =
       [
@@ -50,7 +50,7 @@ perl.pkgs.toPerlModule (
       description = "High performance logging in Round Robin Databases";
       license = licenses.gpl2;
       platforms = platforms.linux ++ platforms.darwin;
-      maintainers = with maintainers; [ pSub ];
+      maintainers = with maintainers; [pSub];
     };
   }
 )

@@ -50,6 +50,6 @@ stdenv.mkDerivation rec {
     homepage = "http://www.gphoto.org/";
     license = licenses.gpl2Plus;
     platforms = platforms.unix;
-    maintainers = [ maintainers.jcumming ];
+    maintainers = [maintainers.jcumming];
   };
 }

@@ -37,7 +37,7 @@ buildPythonPackage rec {
     substituteInPlace setup.py --replace "regex ==" "regex >="
   '';
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
   disabledTests = [
     # These languages require additional dictionaries that aren't packaged
     "test_languages"
@@ -49,6 +49,6 @@ buildPythonPackage rec {
     description = "A library for looking up the frequencies of words in many languages, based on many sources of data";
     homepage = "https://github.com/LuminosoInsight/wordfreq/";
     license = licenses.mit;
-    maintainers = with maintainers; [ ixxie ];
+    maintainers = with maintainers; [ixxie];
   };
 }

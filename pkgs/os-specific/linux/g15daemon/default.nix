@@ -10,7 +10,7 @@
 }:
 let
   license = lib.licenses.gpl2;
-  maintainers = with lib.maintainers; [ peterhoeg ];
+  maintainers = with lib.maintainers; [peterhoeg];
 
   g15src =
     {
@@ -32,7 +32,7 @@ let
       sha256 = "1mkrf622n0cmz57lj8w9q82a9dcr1lmyyxbnrghrxzb6gvifnbqk";
     };
 
-    buildInputs = [ libusb-compat-0_1 ];
+    buildInputs = [libusb-compat-0_1];
 
     enableParallelBuilding = true;
 
@@ -51,7 +51,7 @@ let
       sha256 = "03yjb78j1fnr2fwklxy54sdljwi0imvp29m8kmwl9v0pdapka8yj";
     };
 
-    buildInputs = [ libg15 ];
+    buildInputs = [libg15];
 
     enableParallelBuilding = true;
 

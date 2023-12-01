@@ -51,7 +51,7 @@ stdenv.mkDerivation rec {
     fftw
     netcdf
     arpack
-    (python3.withPackages (ps: [ ps.pyyaml ]))
+    (python3.withPackages (ps: [ps.pyyaml]))
   ];
 
   configureFlags =
@@ -86,13 +86,13 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Real-space time dependent density-functional theory code";
     homepage = "https://octopus-code.org";
-    maintainers = with maintainers; [ markuskowa ];
+    maintainers = with maintainers; [markuskowa];
     license = with licenses; [
       gpl2Only
       asl20
       lgpl3Plus
       bsd3
     ];
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
   };
 }

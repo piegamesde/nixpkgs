@@ -25,7 +25,7 @@ stdenv.mkDerivation {
     "man"
   ];
 
-  buildInputs = [ libX11 ];
+  buildInputs = [libX11];
 
   meta = {
     description = "X utility for querying xrdb";

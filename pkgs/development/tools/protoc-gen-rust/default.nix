@@ -22,12 +22,12 @@ rustPlatform.buildRustPackage rec {
     pname
   ];
 
-  nativeBuildInputs = [ protobuf ];
+  nativeBuildInputs = [protobuf];
 
   meta = with lib; {
     description = "Protobuf plugin for generating Rust code";
     homepage = "https://github.com/stepancheg/rust-protobuf";
     license = licenses.mit;
-    maintainers = with maintainers; [ lucperkins ];
+    maintainers = with maintainers; [lucperkins];
   };
 }

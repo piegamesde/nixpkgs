@@ -17,17 +17,17 @@ python3.pkgs.buildPythonApplication rec {
     sha256 = "13p3inw7v55na8438awr692v9vb7zgf5ggxpha9r3m8vfm3sb4iz";
   };
 
-  propagatedBuildInputs = with python3.pkgs; [ adb-shell ];
+  propagatedBuildInputs = with python3.pkgs; [adb-shell];
 
   # Project has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "ghost" ];
+  pythonImportsCheck = ["ghost"];
 
   meta = with lib; {
     description = "Android post-exploitation framework";
     homepage = "https://github.com/EntySec/ghost";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

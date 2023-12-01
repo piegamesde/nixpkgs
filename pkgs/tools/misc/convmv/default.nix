@@ -26,12 +26,12 @@ stdenv.mkDerivation rec {
   doCheck = true;
   checkTarget = "test";
 
-  buildInputs = [ perl ];
+  buildInputs = [perl];
 
   meta = with lib; {
     description = "Converts filenames from one encoding to another";
     platforms = platforms.linux ++ platforms.freebsd ++ platforms.cygwin;
-    maintainers = [ ];
+    maintainers = [];
     license = licenses.gpl2Plus;
   };
 }

@@ -55,7 +55,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/tvraman/emacspeak/";
     description = "Emacs extension that provides spoken output";
     license = licenses.gpl2Plus;
-    maintainers = [ maintainers.AndersonTorres ];
+    maintainers = [maintainers.AndersonTorres];
     platforms = platforms.linux;
   };
 }

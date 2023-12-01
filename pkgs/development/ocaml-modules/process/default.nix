@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
   meta = {
     description = "Easy process control in OCaml";
     license = lib.licenses.isc;
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
     inherit (src.meta) homepage;
     inherit (ocaml.meta) platforms;
   };

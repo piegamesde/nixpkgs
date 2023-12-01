@@ -44,7 +44,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pytestFlagsArray = [ "src/blockdiag/tests/" ];
+  pytestFlagsArray = ["src/blockdiag/tests/"];
 
   disabledTests =
     [
@@ -52,7 +52,7 @@ buildPythonPackage rec {
       "test_app_cleans_up_images"
     ];
 
-  pythonImportsCheck = [ "blockdiag" ];
+  pythonImportsCheck = ["blockdiag"];
 
   meta = with lib; {
     description = "Generate block-diagram image from spec-text file (similar to Graphviz)";

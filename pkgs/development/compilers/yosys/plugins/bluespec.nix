@@ -27,7 +27,7 @@ stdenv.mkDerivation {
     zlib
     bluespec
   ];
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   doCheck = true;
   makeFlags = [
@@ -40,6 +40,6 @@ stdenv.mkDerivation {
     description = "Bluespec plugin for Yosys";
     license = licenses.isc;
     platforms = platforms.all;
-    maintainers = with maintainers; [ thoughtpolice ];
+    maintainers = with maintainers; [thoughtpolice];
   };
 }

@@ -25,7 +25,7 @@ let
         rev = "0bca6e76d24647427356dc242b0adbf3b5f1a8d9";
         sha256 = "1802rr14a03zl1wa5a0x1fa412kcvbgprgkadfj5s6s3agnn11rx";
       };
-      buildInputs = [ zlib ];
+      buildInputs = [zlib];
     }
   );
 in
@@ -108,7 +108,7 @@ stdenv.mkDerivation rec {
     description = "Speech Recognition Toolkit";
     homepage = "https://kaldi-asr.org";
     license = licenses.mit;
-    maintainers = with maintainers; [ ckie ];
+    maintainers = with maintainers; [ckie];
     platforms = platforms.linux;
   };
 }

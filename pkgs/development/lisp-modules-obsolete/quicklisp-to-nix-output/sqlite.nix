@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "sqlite";
   version = "cl-20190813-git";
@@ -21,7 +21,7 @@ rec {
 
   packageName = "sqlite";
 
-  asdFilesToKeep = [ "sqlite.asd" ];
+  asdFilesToKeep = ["sqlite.asd"];
   overrides = x: x;
 }
 /* (SYSTEM sqlite DESCRIPTION

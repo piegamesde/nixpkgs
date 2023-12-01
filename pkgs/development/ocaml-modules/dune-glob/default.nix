@@ -13,7 +13,7 @@ buildDunePackage rec {
 
   dontAddPrefix = true;
 
-  propagatedBuildInputs = [ dune-private-libs ];
+  propagatedBuildInputs = [dune-private-libs];
 
   preBuild = ''
     rm -r vendor/csexp
@@ -22,7 +22,7 @@ buildDunePackage rec {
   meta = with lib; {
     inherit (dune_3.meta) homepage;
     description = "Glob string matching language supported by dune";
-    maintainers = [ maintainers.marsam ];
+    maintainers = [maintainers.marsam];
     license = licenses.mit;
   };
 }

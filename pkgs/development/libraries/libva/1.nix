@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
   ];
 
   buildInputs =
-    [ libdrm ]
+    [libdrm]
     ++ lib.optionals (!minimal) [
       libva1-minimal
       libX11
@@ -56,15 +56,15 @@ stdenv.mkDerivation rec {
   # Add FHS paths for non-NixOS applications.
   configureFlags = [
     "--with-drivers-path=${mesa.drivers.driverLink}/lib/dri:/usr/lib/dri:/usr/lib32/dri"
-  ] ++ lib.optionals (!minimal) [ "--enable-glx" ];
+  ] ++ lib.optionals (!minimal) ["--enable-glx"];
 
-  installFlags = [ "dummy_drv_video_ladir=$(out)/lib/dri" ];
+  installFlags = ["dummy_drv_video_ladir=$(out)/lib/dri"];
 
   meta = with lib; {
     homepage = "https://www.freedesktop.org/wiki/Software/vaapi/";
     license = licenses.mit;
     description = "VAAPI library: Video Acceleration API";
     platforms = platforms.unix;
-    maintainers = with maintainers; [ SuperSandro2000 ];
+    maintainers = with maintainers; [SuperSandro2000];
   };
 }

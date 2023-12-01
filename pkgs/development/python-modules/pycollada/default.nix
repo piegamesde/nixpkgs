@@ -29,6 +29,6 @@ buildPythonPackage rec {
     homepage = "http://pycollada.github.io/";
     license = "BSD"; # they don't specify which BSD variant
     platforms = with platforms; linux ++ darwin;
-    maintainers = with maintainers; [ bjornfor ];
+    maintainers = with maintainers; [bjornfor];
   };
 }

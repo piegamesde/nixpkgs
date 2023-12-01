@@ -13,20 +13,20 @@
     "aarch64-linux"
     "x86_64-linux"
   ],
-  limitedSupportedSystems ? [ "i686-linux" ],
+  limitedSupportedSystems ? ["i686-linux"],
 }:
 
 let
 
   nixpkgsSrc = nixpkgs; # urgh
 
-  pkgs = import ./.. { };
+  pkgs = import ./.. {};
 
   removeMaintainers =
     set:
     if builtins.isAttrs set then
       if (set.type or "") == "derivation" then
-        set // { meta = builtins.removeAttrs (set.meta or { }) [ "maintainers" ]; }
+        set // {meta = builtins.removeAttrs (set.meta or {}) ["maintainers"];}
       else
         pkgs.lib.mapAttrs (n: v: removeMaintainers v) set
     else
@@ -50,7 +50,7 @@ rec {
           nixpkgs = nixpkgsSrc;
         }
       ))
-      [ "unstable" ];
+      ["unstable"];
 
   tested =
     let
@@ -66,10 +66,10 @@ rec {
       name = "nixos-${nixos.channel.version}";
       meta = {
         description = "Release-critical builds for the NixOS channel";
-        maintainers = with pkgs.lib.maintainers; [ eelco ];
+        maintainers = with pkgs.lib.maintainers; [eelco];
       };
       constituents = pkgs.lib.concatLists [
-        [ "nixos.channel" ]
+        ["nixos.channel"]
         (onFullSupported "nixos.dummy")
         (onAllSupported "nixos.iso_minimal")
         (onSystems
@@ -82,18 +82,18 @@ rec {
         (onFullSupported "nixos.iso_plasma5")
         (onFullSupported "nixos.iso_gnome")
         (onFullSupported "nixos.manual")
-        (onSystems [ "x86_64-linux" ] "nixos.ova")
-        (onSystems [ "aarch64-linux" ] "nixos.sd_image")
+        (onSystems ["x86_64-linux"] "nixos.ova")
+        (onSystems ["aarch64-linux"] "nixos.sd_image")
         (onFullSupported "nixos.tests.acme")
-        (onSystems [ "x86_64-linux" ] "nixos.tests.boot.biosCdrom")
-        (onSystems [ "x86_64-linux" ] "nixos.tests.boot.biosUsb")
+        (onSystems ["x86_64-linux"] "nixos.tests.boot.biosCdrom")
+        (onSystems ["x86_64-linux"] "nixos.tests.boot.biosUsb")
         (onFullSupported "nixos.tests.boot-stage1")
         (onFullSupported "nixos.tests.boot.uefiCdrom")
         (onFullSupported "nixos.tests.boot.uefiUsb")
         (onFullSupported "nixos.tests.chromium")
         (onFullSupported "nixos.tests.containers-imperative")
         (onFullSupported "nixos.tests.containers-ip")
-        (onSystems [ "x86_64-linux" ] "nixos.tests.docker")
+        (onSystems ["x86_64-linux"] "nixos.tests.docker")
         (onFullSupported "nixos.tests.ecryptfs")
         (onFullSupported "nixos.tests.env")
         (onFullSupported "nixos.tests.firefox-esr")
@@ -102,21 +102,21 @@ rec {
         (onFullSupported "nixos.tests.fontconfig-default-fonts")
         (onFullSupported "nixos.tests.gnome")
         (onFullSupported "nixos.tests.gnome-xorg")
-        (onSystems [ "x86_64-linux" ] "nixos.tests.hibernate")
+        (onSystems ["x86_64-linux"] "nixos.tests.hibernate")
         (onFullSupported "nixos.tests.i3wm")
-        (onSystems [ "x86_64-linux" ] "nixos.tests.installer.btrfsSimple")
-        (onSystems [ "x86_64-linux" ] "nixos.tests.installer.btrfsSubvolDefault")
-        (onSystems [ "x86_64-linux" ] "nixos.tests.installer.btrfsSubvolEscape")
-        (onSystems [ "x86_64-linux" ] "nixos.tests.installer.btrfsSubvols")
-        (onSystems [ "x86_64-linux" ] "nixos.tests.installer.luksroot")
-        (onSystems [ "x86_64-linux" ] "nixos.tests.installer.lvm")
-        (onSystems [ "x86_64-linux" ] "nixos.tests.installer.separateBootFat")
-        (onSystems [ "x86_64-linux" ] "nixos.tests.installer.separateBoot")
-        (onSystems [ "x86_64-linux" ] "nixos.tests.installer.simpleLabels")
-        (onSystems [ "x86_64-linux" ] "nixos.tests.installer.simpleProvided")
-        (onSystems [ "x86_64-linux" ] "nixos.tests.installer.simpleUefiSystemdBoot")
-        (onSystems [ "x86_64-linux" ] "nixos.tests.installer.simple")
-        (onSystems [ "x86_64-linux" ] "nixos.tests.installer.swraid")
+        (onSystems ["x86_64-linux"] "nixos.tests.installer.btrfsSimple")
+        (onSystems ["x86_64-linux"] "nixos.tests.installer.btrfsSubvolDefault")
+        (onSystems ["x86_64-linux"] "nixos.tests.installer.btrfsSubvolEscape")
+        (onSystems ["x86_64-linux"] "nixos.tests.installer.btrfsSubvols")
+        (onSystems ["x86_64-linux"] "nixos.tests.installer.luksroot")
+        (onSystems ["x86_64-linux"] "nixos.tests.installer.lvm")
+        (onSystems ["x86_64-linux"] "nixos.tests.installer.separateBootFat")
+        (onSystems ["x86_64-linux"] "nixos.tests.installer.separateBoot")
+        (onSystems ["x86_64-linux"] "nixos.tests.installer.simpleLabels")
+        (onSystems ["x86_64-linux"] "nixos.tests.installer.simpleProvided")
+        (onSystems ["x86_64-linux"] "nixos.tests.installer.simpleUefiSystemdBoot")
+        (onSystems ["x86_64-linux"] "nixos.tests.installer.simple")
+        (onSystems ["x86_64-linux"] "nixos.tests.installer.swraid")
         (onFullSupported "nixos.tests.ipv6")
         (onFullSupported "nixos.tests.keymap.azerty")
         (onFullSupported "nixos.tests.keymap.colemak")
@@ -161,14 +161,14 @@ rec {
         (onFullSupported "nixos.tests.systemd-networkd-ipv6-prefix-delegation")
         (onFullSupported "nixos.tests.nfs3.simple")
         (onFullSupported "nixos.tests.nfs4.simple")
-        (onSystems [ "x86_64-linux" ] "nixos.tests.oci-containers.podman")
+        (onSystems ["x86_64-linux"] "nixos.tests.oci-containers.podman")
         (onFullSupported "nixos.tests.openssh")
         (onFullSupported "nixos.tests.pantheon")
         (onFullSupported "nixos.tests.php.fpm")
         (onFullSupported "nixos.tests.php.httpd")
         (onFullSupported "nixos.tests.php.pcre")
         (onFullSupported "nixos.tests.plasma5")
-        (onSystems [ "x86_64-linux" ] "nixos.tests.podman")
+        (onSystems ["x86_64-linux"] "nixos.tests.podman")
         (onFullSupported "nixos.tests.predictable-interface-names.predictableNetworkd")
         (onFullSupported "nixos.tests.predictable-interface-names.predictable")
         (onFullSupported "nixos.tests.predictable-interface-names.unpredictableNetworkd")
@@ -183,10 +183,10 @@ rec {
         (onFullSupported "nixos.tests.switchTest")
         (onFullSupported "nixos.tests.udisks2")
         (onFullSupported "nixos.tests.xfce")
-        (onSystems [ "i686-linux" ] "nixos.tests.zfs.installer")
+        (onSystems ["i686-linux"] "nixos.tests.zfs.installer")
         (onFullSupported "nixpkgs.emacs")
         (onFullSupported "nixpkgs.jdk")
-        [ "nixpkgs.tarball" ]
+        ["nixpkgs.tarball"]
       ];
     };
 }

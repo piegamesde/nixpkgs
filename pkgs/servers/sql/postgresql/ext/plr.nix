@@ -14,11 +14,11 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "postgres-plr";
     repo = "plr";
-    rev = "REL${builtins.replaceStrings [ "." ] [ "_" ] version}";
+    rev = "REL${builtins.replaceStrings ["."] ["_"] version}";
     sha256 = "sha256-G/V3I1JI6dWto/hK6lfOTBYEvbmkovvnvk2TwSQq4no=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     R
     postgresql
@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "PL/R - R Procedural Language for PostgreSQL";
     homepage = "https://github.com/postgres-plr/plr";
-    maintainers = with maintainers; [ qoelet ];
+    maintainers = with maintainers; [qoelet];
     platforms = postgresql.meta.platforms;
     license = licenses.gpl2Only;
   };

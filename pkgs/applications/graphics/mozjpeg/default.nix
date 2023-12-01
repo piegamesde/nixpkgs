@@ -45,7 +45,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://github.com/mozilla/mozjpeg";
     license = lib.licenses.bsd3;
-    maintainers = [ lib.maintainers.aristid ];
+    maintainers = [lib.maintainers.aristid];
     platforms = lib.platforms.all;
   };
 }

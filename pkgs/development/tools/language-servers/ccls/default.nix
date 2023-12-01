@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
     rapidjson
   ];
 
-  cmakeFlags = [ "-DCCLS_VERSION=${version}" ];
+  cmakeFlags = ["-DCCLS_VERSION=${version}"];
 
   preConfigure = ''
     cmakeFlagsArray+=(-DCMAKE_CXX_FLAGS="-fvisibility=hidden -fno-rtti")

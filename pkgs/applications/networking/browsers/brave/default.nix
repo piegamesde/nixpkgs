@@ -152,7 +152,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [
     dpkg
-    (wrapGAppsHook.override { inherit makeWrapper; })
+    (wrapGAppsHook.override {inherit makeWrapper;})
   ];
 
   buildInputs = [
@@ -220,14 +220,14 @@ stdenv.mkDerivation rec {
     gappsWrapperArgs+=(
       --prefix LD_LIBRARY_PATH : ${rpath}
       --prefix PATH : ${binpath}
-      --suffix PATH : ${lib.makeBinPath [ xdg-utils ]}
+      --suffix PATH : ${lib.makeBinPath [xdg-utils]}
       ${
-        optionalString (enableFeatures != [ ]) ''
+        optionalString (enableFeatures != []) ''
           --add-flags "--enable-features=${strings.concatStringsSep "," enableFeatures}"
         ''
       }
       ${
-        optionalString (disableFeatures != [ ]) ''
+        optionalString (disableFeatures != []) ''
           --add-flags "--disable-features=${strings.concatStringsSep "," disableFeatures}"
         ''
       }
@@ -251,13 +251,13 @@ stdenv.mkDerivation rec {
     description = "Privacy-oriented browser for Desktop and Laptop computers";
     changelog =
       "https://github.com/brave/brave-browser/blob/master/CHANGELOG_DESKTOP.md#"
-      + replaceStrings [ "." ] [ "" ] version;
+      + replaceStrings ["."] [""] version;
     longDescription = ''
       Brave browser blocks the ads and trackers that slow you down,
       chew up your bandwidth, and invade your privacy. Brave lets you
       contribute to your favorite creators automatically.
     '';
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.mpl20;
     maintainers = with maintainers; [
       uskudnik
@@ -265,6 +265,6 @@ stdenv.mkDerivation rec {
       jefflabonte
       nasirhm
     ];
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
   };
 }

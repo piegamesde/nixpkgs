@@ -26,7 +26,7 @@ buildPythonPackage rec {
     hash = "sha256-hiQSsQHq1hoCQhoWU50i2NXYR/LaTHAize9cfr1uZsY=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   propagatedBuildInputs = [
     async-timeout
@@ -45,7 +45,7 @@ buildPythonPackage rec {
       --replace \"bluetoothctl\" \"${bluez}/bin/bluetoothctl\"
   '';
 
-  pythonImportsCheck = [ "bleak" ];
+  pythonImportsCheck = ["bleak"];
 
   meta = with lib; {
     description = "Bluetooth Low Energy platform agnostic client";
@@ -53,6 +53,6 @@ buildPythonPackage rec {
     changelog = "https://github.com/hbldh/bleak/blob/v${version}/CHANGELOG.rst";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ oxzi ];
+    maintainers = with maintainers; [oxzi];
   };
 }

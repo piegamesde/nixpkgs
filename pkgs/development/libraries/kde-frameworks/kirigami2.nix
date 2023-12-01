@@ -9,7 +9,7 @@
 
 mkDerivation {
   pname = "kirigami2";
-  nativeBuildInputs = [ extra-cmake-modules ];
+  nativeBuildInputs = [extra-cmake-modules];
   buildInputs = [
     qtbase
     qtquickcontrols2

@@ -24,12 +24,12 @@ buildDotnetModule rec {
 
   dotnet-runtime = dotnetCorePackages.aspnetcore_6_0;
 
-  dotnetInstallFlags = [ "-p:TargetFramework=net6.0" ];
+  dotnetInstallFlags = ["-p:TargetFramework=net6.0"];
 
-  runtimeDeps = [ openssl ];
+  runtimeDeps = [openssl];
 
   doCheck = !(stdenv.isDarwin && stdenv.isAarch64); # mono is not available on aarch64-darwin
-  nativeCheckInputs = [ mono ];
+  nativeCheckInputs = [mono];
   testProjectFile = "src/Jackett.Test/Jackett.Test.csproj";
 
   postFixup = ''

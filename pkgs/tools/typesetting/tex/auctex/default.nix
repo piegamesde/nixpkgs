@@ -28,7 +28,7 @@ let
     buildInputs = [
       emacs
       ghostscript
-      (texlive.combine { inherit (texlive) scheme-basic hypdoc; })
+      (texlive.combine {inherit (texlive) scheme-basic hypdoc;})
     ];
 
     preConfigure = ''
@@ -48,4 +48,4 @@ let
     };
   });
 in
-auctex // { pkgs = [ auctex.tex ]; }
+auctex // {pkgs = [auctex.tex];}

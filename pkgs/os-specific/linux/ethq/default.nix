@@ -12,11 +12,11 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "isc-projects";
     repo = "ethq";
-    rev = "refs/tags/v${builtins.replaceStrings [ "." ] [ "_" ] version}";
+    rev = "refs/tags/v${builtins.replaceStrings ["."] ["_"] version}";
     hash = "sha256-luvvNdH4kERAMy242kLCqlnGmfPjSjvoHa6J2J7BFi4=";
   };
 
-  buildInputs = [ ncurses ];
+  buildInputs = [ncurses];
 
   installPhase = ''
     runHook preInstall
@@ -32,6 +32,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/isc-projects/ethq";
     license = licenses.mpl20;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ delroth ];
+    maintainers = with maintainers; [delroth];
   };
 }

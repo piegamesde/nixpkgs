@@ -39,14 +39,14 @@ stdenv.mkDerivation rec {
     "man"
   ];
 
-  cmakeFlags = [ "-DCMAKE_INSTALL_SYSCONF_PREFIX=${placeholder "out"}/etc" ];
+  cmakeFlags = ["-DCMAKE_INSTALL_SYSCONF_PREFIX=${placeholder "out"}/etc"];
 
   nativeBuildInputs = [
     cmake
     pkg-config
   ];
 
-  depsBuildBuild = [ asciidoc ];
+  depsBuildBuild = [asciidoc];
 
   buildInputs = [
     libX11
@@ -106,7 +106,7 @@ stdenv.mkDerivation rec {
     export PYTHONPATH="$PYTHONPATH:../python"
   '';
 
-  pytestFlagsArray = [ "../tests" ];
+  pytestFlagsArray = ["../tests"];
   disabledTests = [
     "test_autostart" # $PATH problems
     "test_wmexec_to_other" # timeouts in sandbox
@@ -122,6 +122,6 @@ stdenv.mkDerivation rec {
     homepage = "https://herbstluftwm.org/";
     license = licenses.bsd2;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ thibautmarty ];
+    maintainers = with maintainers; [thibautmarty];
   };
 }

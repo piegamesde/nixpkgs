@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
     export ac_cv_func_realloc_0_nonnull=yes
   '';
 
-  nativeBuildInputs = [ openssh ];
+  nativeBuildInputs = [openssh];
 
   installPhase = ''
     install -D -m755 autossh      $out/bin/autossh                          || return 1
@@ -35,6 +35,6 @@ stdenv.mkDerivation rec {
     description = "Automatically restart SSH sessions and tunnels";
     license = licenses.bsd1;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ pSub ];
+    maintainers = with maintainers; [pSub];
   };
 }

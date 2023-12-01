@@ -18,7 +18,7 @@ stdenv.mkDerivation (
 
     src = fetchurl {
       url = "mirror://sourceforge/ploticus/ploticus/${finalAttrs.version}/ploticus${
-        lib.replaceStrings [ "." ] [ "" ] finalAttrs.version
+        lib.replaceStrings ["."] [""] finalAttrs.version
       }_src.tar.gz";
       sha256 = "PynkufQFIDqT7+yQDlgW2eG0OBghiB4kHAjKt91m4LA=";
     };
@@ -45,7 +45,7 @@ stdenv.mkDerivation (
       libjpeg
     ];
 
-    hardeningDisable = [ "format" ];
+    hardeningDisable = ["format"];
 
     postPatch = ''
       substituteInPlace src/pl.h --subst-var out
@@ -54,7 +54,7 @@ stdenv.mkDerivation (
     preBuild = ''
       cd src
     '';
-    makeFlags = [ "CC=cc" ];
+    makeFlags = ["CC=cc"];
 
     preInstall = ''
       mkdir -p "$out/bin"
@@ -72,7 +72,7 @@ stdenv.mkDerivation (
     '';
 
     passthru.tests = {
-      prefab = runCommand "ploticus-prefab-test" { buildInputs = [ finalAttrs.finalPackage ]; } ''
+      prefab = runCommand "ploticus-prefab-test" {buildInputs = [finalAttrs.finalPackage];} ''
         # trivial test to see if the prefab path munging works
         mkdir $out/
         pl -prefab scat inlinedata="A 1 2" x=2 y=3 -png -o $out/out.png
@@ -90,7 +90,7 @@ stdenv.mkDerivation (
         over colors, styles, options and details.
       '';
       license = licenses.gpl2Plus;
-      maintainers = with maintainers; [ pSub ];
+      maintainers = with maintainers; [pSub];
       homepage = "https://ploticus.sourceforge.net/";
       platforms = with platforms; linux ++ darwin;
     };

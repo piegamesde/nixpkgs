@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
     unixtools.xxd
   ];
 
-  makeFlags = [ "PREFIX=${placeholder "out"}" ];
+  makeFlags = ["PREFIX=${placeholder "out"}"];
 
   meta = with lib; {
     homepage = "https://ryansuchocki.github.io/microscheme/";
@@ -37,6 +37,6 @@ stdenv.mkDerivation rec {
     '';
     license = licenses.mit;
     platforms = platforms.all;
-    maintainers = with maintainers; [ ardumont ];
+    maintainers = with maintainers; [ardumont];
   };
 }

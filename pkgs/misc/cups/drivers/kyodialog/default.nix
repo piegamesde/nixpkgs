@@ -66,9 +66,9 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [
     autoPatchelfHook
     python3Packages.wrapPython
-  ] ++ lib.optionals withQtGui [ qt5.wrapQtAppsHook ];
+  ] ++ lib.optionals withQtGui [qt5.wrapQtAppsHook];
 
-  buildInputs = [ cups ] ++ lib.optionals withQtGui [ qt5.qtbase ];
+  buildInputs = [cups] ++ lib.optionals withQtGui [qt5.qtbase];
 
   # For lib/cups/filter/kyofilter_pre_H.
   # The source already contains a copy of pypdf3, but we use the Nix package
@@ -111,9 +111,9 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "CUPS drivers for several Kyocera printers";
     homepage = "https://www.kyoceradocumentsolutions.com";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.unfree;
-    maintainers = [ maintainers.steveej ];
+    maintainers = [maintainers.steveej];
     platforms = [
       "i686-linux"
       "x86_64-linux"

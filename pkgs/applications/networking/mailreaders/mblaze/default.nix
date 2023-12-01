@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-LCyw3xGsYjsbExueRHVRqoJYluji9MmZq5zGclvSSDk=";
   };
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   enableParallelBuilding = true;
 
@@ -74,6 +74,6 @@ stdenv.mkDerivation rec {
     description = "Unix utilities for processing and interacting with mail messages which are stored in maildir folders";
     license = licenses.cc0;
     platforms = platforms.all;
-    maintainers = [ maintainers.ajgrf ];
+    maintainers = [maintainers.ajgrf];
   };
 }

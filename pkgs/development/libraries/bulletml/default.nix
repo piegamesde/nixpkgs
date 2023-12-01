@@ -44,12 +44,12 @@ stdenv.mkDerivation {
     (debianPatch "includes" "1n11j5695hs9pspslf748w2cq5d78s6bwhyl476wp6gcq6jw20bw")
   ];
 
-  makeFlags = [ "-C src" ];
+  makeFlags = ["-C src"];
   nativeBuildInputs = [
     bison
     perl
   ];
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   installPhase = ''
     install -D -m 644 src/bulletml.d "$out"/include/d/bulletml.d
@@ -76,7 +76,7 @@ stdenv.mkDerivation {
     '';
     homepage = "http://www.asahi-net.or.jp/~cs8k-cyu/bulletml/index_e.html";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ fgaz ];
+    maintainers = with maintainers; [fgaz];
     # See https://github.com/NixOS/nixpkgs/pull/35482
     # for some attempts in getting it to build on darwin
     platforms = platforms.linux;

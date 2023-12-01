@@ -10,7 +10,7 @@
 stdenv.mkDerivation {
   pname = "rtl-ais";
   version = "0.8.1";
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     rtl-sdr
     libusb1
@@ -23,13 +23,13 @@ stdenv.mkDerivation {
     sha256 = "0wm4zai1vs89mf0zgz52q5w5rj8f3i3v6zg42hfb7aqabi25r3jf";
   };
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   meta = with lib; {
     description = "A simple AIS tuner and generic dual-frequency FM demodulator";
     homepage = "https://github.com/dgiardini/rtl-ais";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ mgdm ];
+    maintainers = with maintainers; [mgdm];
     mainProgram = "rtl_ais";
     platforms = platforms.unix;
   };

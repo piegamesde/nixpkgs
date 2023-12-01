@@ -4,14 +4,14 @@
   quicklisp-to-nix-packages,
 }:
 let
-  addNativeLibs = libs: x: { propagatedBuildInputs = libs; };
-  skipBuildPhase = x: { overrides = y: ((x.overrides y) // { buildPhase = "true"; }); };
+  addNativeLibs = libs: x: {propagatedBuildInputs = libs;};
+  skipBuildPhase = x: {overrides = y: ((x.overrides y) // {buildPhase = "true";});};
   multiOverride =
-    l: x: if l == [ ] then { } else ((builtins.head l) x) // (multiOverride (builtins.tail l) x);
+    l: x: if l == [] then {} else ((builtins.head l) x) // (multiOverride (builtins.tail l) x);
   lispName = (clwrapper.lisp.pname or (builtins.parseDrvName clwrapper.lisp.name).name);
-  ifLispIn = l: f: if (pkgs.lib.elem lispName l) then f else (x: { });
-  ifLispNotIn = l: f: if !(pkgs.lib.elem lispName l) then f else (x: { });
-  extraLispDeps = l: x: { deps = x.deps ++ l; };
+  ifLispIn = l: f: if (pkgs.lib.elem lispName l) then f else (x: {});
+  ifLispNotIn = l: f: if !(pkgs.lib.elem lispName l) then f else (x: {});
+  extraLispDeps = l: x: {deps = x.deps ++ l;};
 in
 {
   stumpwm = x: {
@@ -19,7 +19,7 @@ in
       y:
       (x.overrides y)
       // {
-        linkedSystems = [ ];
+        linkedSystems = [];
         preConfigure = ''
           export configureFlags="$configureFlags --with-$NIX_LISP=common-lisp.sh";
         '';
@@ -39,11 +39,11 @@ in
         "sbcl"
         "gcl"
       ]
-      (x: { parasites = [ ]; })
+      (x: {parasites = [];})
     )
   ];
   cl-fuse = x: {
-    propagatedBuildInputs = [ pkgs.fuse ];
+    propagatedBuildInputs = [pkgs.fuse];
     overrides =
       y:
       (x.overrides y)
@@ -59,10 +59,10 @@ in
         '';
       };
   };
-  hunchentoot = addNativeLibs [ pkgs.openssl ];
+  hunchentoot = addNativeLibs [pkgs.openssl];
   iolib = x: {
     propagatedBuildInputs =
-      (x.propagatedBuildInputs or [ ])
+      (x.propagatedBuildInputs or [])
       ++ (
         with pkgs; [
           libfixposix
@@ -87,9 +87,9 @@ in
       openssl
     ]
   );
-  lev = addNativeLibs [ pkgs.libev ];
+  lev = addNativeLibs [pkgs.libev];
   cl_plus_ssl = x: rec {
-    propagatedBuildInputs = [ pkgs.openssl ];
+    propagatedBuildInputs = [pkgs.openssl];
     overrides =
       y:
       (x.overrides y)
@@ -100,12 +100,12 @@ in
       };
   };
   cl-colors = skipBuildPhase;
-  cl-libuv = addNativeLibs [ pkgs.libuv ];
+  cl-libuv = addNativeLibs [pkgs.libuv];
   cl-async-ssl = addNativeLibs [
     pkgs.openssl
     (import ./openssl-lib-marked.nix)
   ];
-  cl-async-test = addNativeLibs [ pkgs.openssl ];
+  cl-async-test = addNativeLibs [pkgs.openssl];
   clsql = multiOverride [
     (x: {
       propagatedBuildInputs = with pkgs; [
@@ -134,7 +134,7 @@ in
       (
         x: {
           deps = pkgs.lib.filter (x: x.outPath != quicklisp-to-nix-packages.uffi.outPath) (
-            x.deps ++ (with quicklisp-to-nix-packages; [ cffi-uffi-compat ])
+            x.deps ++ (with quicklisp-to-nix-packages; [cffi-uffi-compat])
           );
           overrides =
             y:
@@ -157,7 +157,7 @@ in
       (
         x: {
           deps = pkgs.lib.filter (x: x.outPath != quicklisp-to-nix-packages.uffi.outPath) (
-            x.deps ++ (with quicklisp-to-nix-packages; [ cffi-uffi-compat ])
+            x.deps ++ (with quicklisp-to-nix-packages; [cffi-uffi-compat])
           );
           overrides =
             y:
@@ -175,7 +175,7 @@ in
       y:
       (x.overrides y)
       // {
-        linkedSystems = [ ];
+        linkedSystems = [];
         postInstall =
           ((x.overrides y).postInstall or "")
           + ''
@@ -189,9 +189,9 @@ in
           '';
       };
   };
-  cffi = addNativeLibs [ pkgs.libffi ];
+  cffi = addNativeLibs [pkgs.libffi];
   cl-mysql = x: {
-    propagatedBuildInputs = [ pkgs.libmysqlclient ];
+    propagatedBuildInputs = [pkgs.libmysqlclient];
     overrides =
       y:
       (x.overrides y)
@@ -214,7 +214,7 @@ in
       };
   };
   sqlite = x: {
-    propagatedBuildInputs = [ pkgs.sqlite ];
+    propagatedBuildInputs = [pkgs.sqlite];
     overrides =
       y:
       (x.overrides y)
@@ -274,9 +274,9 @@ in
           '';
       };
   };
-  cl-containers = x: { overrides = y: (x.overrides y) // { postConfigure = "rm GNUmakefile"; }; };
-  mssql = addNativeLibs [ pkgs.freetds ];
-  cl-unification = x: { asdFilesToKeep = (x.asdFilesToKeep or [ ]) ++ [ "cl-unification-lib.asd" ]; };
+  cl-containers = x: {overrides = y: (x.overrides y) // {postConfigure = "rm GNUmakefile";};};
+  mssql = addNativeLibs [pkgs.freetds];
+  cl-unification = x: {asdFilesToKeep = (x.asdFilesToKeep or []) ++ ["cl-unification-lib.asd"];};
   simple-date = x: {
     deps = with quicklisp-to-nix-packages; [
       fiveam
@@ -291,18 +291,18 @@ in
   };
   cl-postgres = x: {
     deps = pkgs.lib.filter (x: x.outPath != quicklisp-to-nix-packages.simple-date.outPath) x.deps;
-    parasites = (x.parasites or [ ]) ++ [
+    parasites = (x.parasites or []) ++ [
       "simple-date"
       "simple-date/postgres-glue"
     ];
-    asdFilesToKeep = x.asdFilesToKeep ++ [ "simple-date.asd" ];
+    asdFilesToKeep = x.asdFilesToKeep ++ ["simple-date.asd"];
   };
   buildnode = x: {
     deps = pkgs.lib.filter (x: x.name != quicklisp-to-nix-packages.buildnode-xhtml.name) x.deps;
     parasites = pkgs.lib.filter (x: x != "buildnode-test") x.parasites;
   };
   postmodern = x: {
-    asdFilesToKeep = (x.asdFilesToKeep or [ ]) ++ [
+    asdFilesToKeep = (x.asdFilesToKeep or []) ++ [
       "postmodern.asd"
       "simple-date.asd"
     ];
@@ -336,7 +336,7 @@ in
       };
   };
   dbi = x: {
-    parasites = [ ];
+    parasites = [];
     deps =
       pkgs.lib.filter
         (
@@ -351,13 +351,13 @@ in
         )
         x.deps;
   };
-  cl-cffi-gtk-glib = addNativeLibs [ pkgs.glib ];
-  cl-cffi-gtk-gdk-pixbuf = addNativeLibs [ pkgs.gdk-pixbuf ];
-  cl-cffi-gtk-cairo = addNativeLibs [ pkgs.cairo ];
-  cl-cffi-gtk-pango = addNativeLibs [ pkgs.pango ];
-  cl-cffi-gtk-gdk = addNativeLibs [ pkgs.gtk3 ];
-  cl-cffi-gtk-gtk3 = addNativeLibs [ pkgs.gtk3 ];
-  cl-webkit2 = addNativeLibs [ pkgs.webkitgtk ];
+  cl-cffi-gtk-glib = addNativeLibs [pkgs.glib];
+  cl-cffi-gtk-gdk-pixbuf = addNativeLibs [pkgs.gdk-pixbuf];
+  cl-cffi-gtk-cairo = addNativeLibs [pkgs.cairo];
+  cl-cffi-gtk-pango = addNativeLibs [pkgs.pango];
+  cl-cffi-gtk-gdk = addNativeLibs [pkgs.gtk3];
+  cl-cffi-gtk-gtk3 = addNativeLibs [pkgs.gtk3];
+  cl-webkit2 = addNativeLibs [pkgs.webkitgtk];
   clfswm = x: {
     overrides =
       y:
@@ -377,7 +377,7 @@ in
         "sbcl"
         "gcl"
       ]
-      (extraLispDeps (with quicklisp-to-nix-packages; [ cl-speedy-queue ]));
+      (extraLispDeps (with quicklisp-to-nix-packages; [cl-speedy-queue]));
   cl-syslog = x: {
     overrides =
       y:
@@ -394,7 +394,7 @@ in
         "sbcl"
         "gcl"
       ]
-      (extraLispDeps (with quicklisp-to-nix-packages; [ cl-syslog ]));
+      (extraLispDeps (with quicklisp-to-nix-packages; [cl-syslog]));
   md5 =
     ifLispNotIn
       [
@@ -402,20 +402,20 @@ in
         "ccl"
         "gcl"
       ]
-      (extraLispDeps (with quicklisp-to-nix-packages; [ flexi-streams ]));
+      (extraLispDeps (with quicklisp-to-nix-packages; [flexi-streams]));
   cl-gobject-introspection = addNativeLibs (
     with pkgs; [
       glib
       gobject-introspection
     ]
   );
-  generic-cl = x: { parasites = [ ]; };
+  generic-cl = x: {parasites = [];};
   static-dispatch = x: {
     overrides =
       y:
       (x.overrides y)
       // {
-        parasites = [ ];
+        parasites = [];
         # workaround for https://github.com/alex-gutev/static-dispatch/issues/12
         postUnpack = ''
           sed -e '/^(in-package / a (eval-when (:compile-toplevel :load-toplevel :execute)' \
@@ -424,6 +424,6 @@ in
         '';
       };
   };
-  lla = addNativeLibs [ pkgs.openblas ];
+  lla = addNativeLibs [pkgs.openblas];
   #  cl-opengl = addNativeLibs [ pkgs.libGL pkgs.glfw ];
 }

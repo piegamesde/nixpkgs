@@ -27,11 +27,11 @@ buildPythonPackage rec {
       ./0001-python-enum-fix-build-for-Python-3.11.patch
     ];
 
-  propagatedBuildInputs = [ pillow ];
+  propagatedBuildInputs = [pillow];
 
-  buildInputs = [ zbar ];
+  buildInputs = [zbar];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   preBuild = ''
     cd python
@@ -46,12 +46,12 @@ buildPythonPackage rec {
     "test_processing"
   ];
 
-  pythonImportsCheck = [ "zbar" ];
+  pythonImportsCheck = ["zbar"];
 
   meta = with lib; {
     description = "Python bindings for zbar";
     homepage = "https://github.com/mchehab/zbar";
     license = licenses.lgpl21Only;
-    maintainers = with maintainers; [ wolfangaukang ];
+    maintainers = with maintainers; [wolfangaukang];
   };
 }

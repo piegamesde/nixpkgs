@@ -35,18 +35,18 @@ with lib;
   ###### implementation
 
   config = mkIf config.services.tinydns.enable {
-    environment.systemPackages = [ pkgs.djbdns ];
+    environment.systemPackages = [pkgs.djbdns];
 
     users.users.tinydns = {
       isSystemUser = true;
       group = "tinydns";
     };
-    users.groups.tinydns = { };
+    users.groups.tinydns = {};
 
     systemd.services.tinydns = {
       description = "djbdns tinydns server";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
       path = with pkgs; [
         daemontools
         djbdns

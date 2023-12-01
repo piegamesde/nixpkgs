@@ -71,7 +71,7 @@ stdenv.mkDerivation rec {
     description = "Backend-agnostic network configuration in YAML";
     homepage = "https://netplan.io";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ mkg20001 ];
+    maintainers = with maintainers; [mkg20001];
     platforms = platforms.linux;
   };
 }

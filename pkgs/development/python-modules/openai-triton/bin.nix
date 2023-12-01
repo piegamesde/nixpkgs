@@ -24,7 +24,7 @@ buildPythonPackage rec {
 
   src =
     let
-      pyVerNoDot = lib.replaceStrings [ "." ] [ "" ] python.pythonVersion;
+      pyVerNoDot = lib.replaceStrings ["."] [""] python.pythonVersion;
       unsupported = throw "Unsupported system";
       srcs = (import ./binary-hashes.nix version)."${stdenv.system}-${pyVerNoDot}" or unsupported;
     in
@@ -37,7 +37,7 @@ buildPythonPackage rec {
     "torch"
   ];
 
-  buildInputs = [ zlib ];
+  buildInputs = [zlib];
 
   nativeBuildInputs = [
     pythonRelaxDepsHook # torch and triton refer to each other so this hook is included to mitigate that.
@@ -62,7 +62,7 @@ buildPythonPackage rec {
         # Bash was getting weird without linting,
         # but basically upstream contains [cc, ..., "-lcuda", ...]
         # and we replace it with [..., "-lcuda", "-L/run/opengl-driver/lib", "-L$stubs", ...]
-        old = [ "-lcuda" ];
+        old = ["-lcuda"];
         new = [
           "-lcuda"
           "-L${addOpenGLRunpath.driverLink}"
@@ -91,8 +91,8 @@ buildPythonPackage rec {
       unfreeRedistributable
       mit
     ];
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
-    platforms = [ "x86_64-linux" ];
-    maintainers = with maintainers; [ junjihashimoto ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
+    platforms = ["x86_64-linux"];
+    maintainers = with maintainers; [junjihashimoto];
   };
 }

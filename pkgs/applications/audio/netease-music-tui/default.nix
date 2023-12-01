@@ -26,7 +26,7 @@ rustPlatform.buildRustPackage rec {
     ln -s ${./Cargo.lock} Cargo.lock
   '';
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     alsa-lib
     openssl
@@ -37,7 +37,7 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     homepage = "https://github.com/betta-cyber/netease-music-tui";
     description = "netease cloud music terminal client by rust";
-    maintainers = with maintainers; [ vonfry ];
+    maintainers = with maintainers; [vonfry];
     license = licenses.mit;
   };
 }

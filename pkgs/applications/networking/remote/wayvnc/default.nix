@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  depsBuildBuild = [ pkg-config ];
+  depsBuildBuild = [pkg-config];
 
   nativeBuildInputs = [
     meson
@@ -51,7 +51,7 @@ stdenv.mkDerivation rec {
     wayland
   ];
 
-  mesonFlags = [ (lib.mesonBool "tests" true) ];
+  mesonFlags = [(lib.mesonBool "tests" true)];
 
   doCheck = true;
 
@@ -68,6 +68,6 @@ stdenv.mkDerivation rec {
     changelog = "https://github.com/any1/wayvnc/releases/tag/v${version}";
     license = licenses.isc;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ nickcao ];
+    maintainers = with maintainers; [nickcao];
   };
 }

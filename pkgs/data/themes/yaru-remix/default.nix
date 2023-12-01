@@ -50,6 +50,6 @@ stdenv.mkDerivation rec {
       lgpl3Only
     ];
     platforms = platforms.linux;
-    maintainers = with maintainers; [ hoppla20 ];
+    maintainers = with maintainers; [hoppla20];
   };
 }

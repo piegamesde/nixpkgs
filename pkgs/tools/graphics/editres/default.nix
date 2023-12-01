@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-LVbWB3vHZ6+n4DD+ssNy/mvok/7EApoj9FodVZ/YRq4=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     libXt
     libXaw
@@ -26,9 +26,9 @@ stdenv.mkDerivation rec {
     utilmacros
   ];
 
-  configureFlags = [ "--with-appdefaultdir=$(out)/share/X11/app-defaults/editres" ];
+  configureFlags = ["--with-appdefaultdir=$(out)/share/X11/app-defaults/editres"];
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   meta = with lib; {
     homepage = "https://cgit.freedesktop.org/xorg/app/editres/";

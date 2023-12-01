@@ -73,7 +73,7 @@ mkDerivation rec {
     description = "Open source video mapping software";
     homepage = "https://github.com/mapmapteam/mapmap";
     license = licenses.gpl3;
-    maintainers = [ maintainers.erictapen ];
+    maintainers = [maintainers.erictapen];
     platforms = platforms.linux;
   };
 }

@@ -1,4 +1,4 @@
-{ grafanaPlugin, lib }:
+{grafanaPlugin, lib}:
 
 grafanaPlugin rec {
   pname = "grafana-clock-panel";
@@ -7,7 +7,7 @@ grafanaPlugin rec {
   meta = with lib; {
     description = "Clock panel for Grafana";
     license = licenses.mit;
-    maintainers = with maintainers; [ lukegb ];
+    maintainers = with maintainers; [lukegb];
     platforms = platforms.unix;
   };
 }

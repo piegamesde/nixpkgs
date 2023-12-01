@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
     json_c
   ];
 
-  env.NIX_CFLAGS_COMPILE = toString [ "-I${json_c.dev}/include/json-c" ];
+  env.NIX_CFLAGS_COMPILE = toString ["-I${json_c.dev}/include/json-c"];
 
   makeFlags = [
     "VERSION=${version}"
@@ -58,6 +58,6 @@ stdenv.mkDerivation rec {
     description = "OS Login Guest Environment for Google Compute Engine";
     license = licenses.asl20;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ flokli ];
+    maintainers = with maintainers; [flokli];
   };
 }

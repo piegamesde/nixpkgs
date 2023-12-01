@@ -35,11 +35,11 @@ stdenv.mkDerivation rec {
     perl # For generating the man pages with pod2man
   ];
 
-  buildInputs = [ ncurses5 ];
+  buildInputs = [ncurses5];
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
-  buildFlags = [ "VERSION=${version}" ];
+  buildFlags = ["VERSION=${version}"];
 
   installPhase = ''
     mkdir -p $out/bin/

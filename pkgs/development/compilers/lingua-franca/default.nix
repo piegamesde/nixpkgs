@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-jSINlwHfSOPbti3LJTXpSk6lcUtwKfz7CMLtq2OuNns=";
   };
 
-  buildInputs = [ jdk17_headless ];
+  buildInputs = [jdk17_headless];
 
   _JAVA_HOME = "${jdk17_headless}/";
 
@@ -38,9 +38,9 @@ stdenv.mkDerivation rec {
       embedded code to distributed cloud and edge applications.
     '';
     homepage = "https://github.com/lf-lang/lingua-franca";
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with sourceTypes; [binaryBytecode];
     license = licenses.bsd2;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ revol-xut ];
+    maintainers = with maintainers; [revol-xut];
   };
 }

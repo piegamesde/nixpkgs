@@ -29,7 +29,7 @@ python3Packages.buildPythonApplication rec {
     libxslt
     libxml2
   ];
-  propagatedBuildInputs = with python3Packages; [ mercurial ];
+  propagatedBuildInputs = with python3Packages; [mercurial];
 
   postInstall = ''
     make install-doc prefix=$out
@@ -39,7 +39,7 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://github.com/mnauw/git-remote-hg";
     description = "Semi-official Mercurial bridge from Git project";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ qyliss ];
+    maintainers = with maintainers; [qyliss];
     platforms = platforms.unix;
   };
 }

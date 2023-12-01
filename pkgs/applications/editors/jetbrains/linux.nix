@@ -25,8 +25,8 @@
   wmClass,
   jdk,
   meta,
-  extraLdPath ? [ ],
-  extraWrapperArgs ? [ ],
+  extraLdPath ? [],
+  extraWrapperArgs ? [],
 }@args:
 
 let
@@ -46,10 +46,10 @@ lib.makeOverridable mkDerivation (
     desktopItem = makeDesktopItem {
       name = pname;
       exec = pname;
-      comment = lib.replaceStrings [ "\n" ] [ " " ] meta.longDescription;
+      comment = lib.replaceStrings ["\n"] [" "] meta.longDescription;
       desktopName = product;
       genericName = meta.description;
-      categories = [ "Development" ];
+      categories = ["Development"];
       icon = pname;
       startupWMClass = wmClass;
     };
@@ -136,5 +136,5 @@ lib.makeOverridable mkDerivation (
       runHook postInstall
     '';
   }
-  // lib.optionalAttrs (!(meta.license.free or true)) { preferLocalBuild = true; }
+  // lib.optionalAttrs (!(meta.license.free or true)) {preferLocalBuild = true;}
 )

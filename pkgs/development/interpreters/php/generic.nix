@@ -35,9 +35,9 @@ let
 
       version,
       hash,
-      extraPatches ? [ ],
-      packageOverrides ? (final: prev: { }),
-      phpAttrsOverrides ? (attrs: { }),
+      extraPatches ? [],
+      packageOverrides ? (final: prev: {}),
+      phpAttrsOverrides ? (attrs: {}),
 
       # Sapi flags
       cgiSupport ? true,
@@ -81,7 +81,7 @@ let
         prevArgs: prevExtensionFunctions:
         lib.makeOverridable (
           {
-            extensions ? ({ enabled, ... }: enabled),
+            extensions ? ({enabled, ...}: enabled),
             extraConfig ? "",
             ...
           }@innerArgs:
@@ -94,10 +94,10 @@ let
             php = generic filteredArgs;
 
             php-packages =
-              (callPackage ../../../top-level/php-packages.nix { phpPackage = phpWithExtensions; }).overrideScope'
+              (callPackage ../../../top-level/php-packages.nix {phpPackage = phpWithExtensions;}).overrideScope'
                 packageOverrides;
 
-            allExtensionFunctions = prevExtensionFunctions ++ [ extensions ];
+            allExtensionFunctions = prevExtensionFunctions ++ [extensions];
             enabledExtensions =
               builtins.foldl'
                 (
@@ -107,7 +107,7 @@ let
                     all = php-packages.extensions;
                   }
                 )
-                [ ]
+                []
                 allExtensionFunctions;
 
             getExtName = ext: ext.extensionName;
@@ -117,9 +117,9 @@ let
             getDepsRecursively =
               extensions:
               let
-                deps = lib.concatMap (ext: (ext.internalDeps or [ ]) ++ (ext.peclDeps or [ ])) extensions;
+                deps = lib.concatMap (ext: (ext.internalDeps or []) ++ (ext.peclDeps or [])) extensions;
               in
-              if !(deps == [ ]) then deps ++ (getDepsRecursively deps) else deps;
+              if !(deps == []) then deps ++ (getDepsRecursively deps) else deps;
 
             # Generate extension load configuration snippets from the
             # extension parameter. This is an attrset suitable for use
@@ -133,7 +133,7 @@ let
                   ext:
                   let
                     extName = getExtName ext;
-                    phpDeps = (ext.internalDeps or [ ]) ++ (ext.peclDeps or [ ]);
+                    phpDeps = (ext.internalDeps or []) ++ (ext.peclDeps or []);
                     type = "${lib.optionalString (ext.zendExtension or false) "zend_"}extension";
                   in
                   lib.nameValuePair extName {
@@ -153,33 +153,33 @@ let
             phpWithExtensions = symlinkJoin {
               name = "php-with-extensions-${version}";
               inherit (php) version;
-              nativeBuildInputs = [ makeWrapper ];
+              nativeBuildInputs = [makeWrapper];
               passthru = php.passthru // {
                 buildEnv = mkBuildEnv allArgs allExtensionFunctions;
                 withExtensions = mkWithExtensions allArgs allExtensionFunctions;
                 overrideAttrs =
                   f:
                   let
-                    newPhpAttrsOverrides = composeOverrides (filteredArgs.phpAttrsOverrides or (attrs: { })) f;
-                    php = generic (filteredArgs // { phpAttrsOverrides = newPhpAttrsOverrides; });
+                    newPhpAttrsOverrides = composeOverrides (filteredArgs.phpAttrsOverrides or (attrs: {})) f;
+                    php = generic (filteredArgs // {phpAttrsOverrides = newPhpAttrsOverrides;});
                   in
-                  php.buildEnv { inherit extensions extraConfig; };
+                  php.buildEnv {inherit extensions extraConfig;};
                 phpIni = "${phpWithExtensions}/lib/php.ini";
                 unwrapped = php;
                 # Select the right php tests for the php version
                 tests = {
                   nixos =
                     lib.recurseIntoAttrs
-                      nixosTests."php${lib.strings.replaceStrings [ "." ] [ "" ] (lib.versions.majorMinor php.version)}";
+                      nixosTests."php${lib.strings.replaceStrings ["."] [""] (lib.versions.majorMinor php.version)}";
                   package = tests.php;
                 };
                 inherit (php-packages) extensions buildPecl mkExtension;
                 packages = php-packages.tools;
                 meta = php.meta // {
-                  outputsToInstall = [ "out" ];
+                  outputsToInstall = ["out"];
                 };
               };
-              paths = [ php ];
+              paths = [php];
               postBuild = ''
                 ln -s ${extraInit} $out/lib/php.ini
 
@@ -206,7 +206,7 @@ let
 
       mkWithExtensions =
         prevArgs: prevExtensionFunctions: extensions:
-        mkBuildEnv prevArgs prevExtensionFunctions { inherit extensions; };
+        mkBuildEnv prevArgs prevExtensionFunctions {inherit extensions;};
     in
     stdenv.mkDerivation (
       let
@@ -229,10 +229,10 @@ let
 
           buildInputs =
             # PCRE extension
-            [ pcre2 ]
+            [pcre2]
 
             # Enable sapis
-            ++ lib.optionals pearSupport [ libxml2.dev ]
+            ++ lib.optionals pearSupport [libxml2.dev]
 
             # Misc deps
             ++ lib.optional apxs2Support apacheHttpd
@@ -245,10 +245,10 @@ let
 
           configureFlags =
             # Disable all extensions
-            [ "--disable-all" ]
+            ["--disable-all"]
 
             # PCRE
-            ++ [ "--with-external-pcre=${pcre2.dev}" ]
+            ++ ["--with-external-pcre=${pcre2.dev}"]
 
             # Enable sapis
             ++ lib.optional (!cgiSupport) "--disable-cgi"
@@ -274,9 +274,9 @@ let
             ++ lib.optional (ztsSupport && (lib.versionAtLeast version "8.0")) "--enable-zts"
 
             # Sendmail
-            ++ [ "PROG_SENDMAIL=${system-sendmail}/bin/sendmail" ];
+            ++ ["PROG_SENDMAIL=${system-sendmail}/bin/sendmail"];
 
-          hardeningDisable = [ "bindnow" ];
+          hardeningDisable = ["bindnow"];
 
           preConfigure =
             # Don't record the configure flags since this causes unnecessary
@@ -319,7 +319,7 @@ let
             inherit hash;
           };
 
-          patches = [ ./fix-paths-php7.patch ] ++ extraPatches;
+          patches = [./fix-paths-php7.patch] ++ extraPatches;
 
           separateDebugInfo = true;
 
@@ -349,13 +349,13 @@ let
                 # Passed as an argument so that update.nix can ensure it does not become a store path.
                 (./. + "/${lib.versions.majorMinor version}.nix")
               ];
-            buildEnv = mkBuildEnv { } [ ];
-            withExtensions = mkWithExtensions { } [ ];
+            buildEnv = mkBuildEnv {} [];
+            withExtensions = mkWithExtensions {} [];
             overrideAttrs =
               f:
               let
                 newPhpAttrsOverrides = composeOverrides phpAttrsOverrides f;
-                php = generic (args // { phpAttrsOverrides = newPhpAttrsOverrides; });
+                php = generic (args // {phpAttrsOverrides = newPhpAttrsOverrides;});
               in
               php;
             inherit ztsSupport;

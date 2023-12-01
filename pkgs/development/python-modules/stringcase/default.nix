@@ -20,6 +20,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/okunishinishi/python-stringcase";
     description = "Convert string cases between camel case, pascal case, snake case etc…";
     license = licenses.mit;
-    maintainers = with maintainers; [ alunduil ];
+    maintainers = with maintainers; [alunduil];
   };
 }

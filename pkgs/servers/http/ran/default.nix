@@ -29,7 +29,7 @@ buildGoModule rec {
   ];
 
   passthru.tests = {
-    simple = runCommand "ran-test" { } ''
+    simple = runCommand "ran-test" {} ''
       echo hello world > index.html
       ${ran}/bin/ran &
       # Allow ran to fully initialize
@@ -44,6 +44,6 @@ buildGoModule rec {
     homepage = "https://github.com/m3ng9i/ran";
     description = "Ran is a simple web server for serving static files";
     license = licenses.mit;
-    maintainers = with maintainers; [ tomberek ];
+    maintainers = with maintainers; [tomberek];
   };
 }

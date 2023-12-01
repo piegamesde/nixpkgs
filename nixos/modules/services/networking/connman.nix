@@ -93,8 +93,8 @@ in
 
       extraFlags = mkOption {
         type = with types; listOf str;
-        default = [ ];
-        example = [ "--nodnsproxy" ];
+        default = [];
+        example = ["--nodnsproxy"];
         description = lib.mdDoc ''
           Extra flags to pass to connmand
         '';
@@ -127,12 +127,12 @@ in
       }
     ];
 
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
     systemd.services.connman = {
       description = "Connection service";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "syslog.target" ] ++ optional enableIwd "iwd.service";
+      wantedBy = ["multi-user.target"];
+      after = ["syslog.target"] ++ optional enableIwd "iwd.service";
       requires = optional enableIwd "iwd.service";
       serviceConfig = {
         Type = "dbus";
@@ -153,9 +153,9 @@ in
 
     systemd.services.connman-vpn = mkIf cfg.enableVPN {
       description = "ConnMan VPN service";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "syslog.target" ];
-      before = [ "connman.service" ];
+      wantedBy = ["multi-user.target"];
+      after = ["syslog.target"];
+      before = ["connman.service"];
       serviceConfig = {
         Type = "dbus";
         BusName = "net.connman.vpn";
@@ -168,7 +168,7 @@ in
       description = "D-BUS Service";
       serviceConfig = {
         Name = "net.connman.vpn";
-        before = [ "connman.service" ];
+        before = ["connman.service"];
         ExecStart = "${cfg.package}/sbin/connman-vpnd -n";
         User = "root";
         SystemdService = "connman-vpn.service";
@@ -180,7 +180,7 @@ in
       wireless = {
         enable = mkIf (!enableIwd) true;
         dbusControlled = true;
-        iwd = mkIf enableIwd { enable = true; };
+        iwd = mkIf enableIwd {enable = true;};
       };
       networkmanager.enable = false;
     };

@@ -53,13 +53,13 @@ stdenv.mkDerivation rec {
   '';
 
   # RPATH of binary /nix/store/.../bin/... contains a forbidden reference to /build/
-  cmakeFlags = [ "-DCMAKE_SKIP_BUILD_RPATH=ON" ];
+  cmakeFlags = ["-DCMAKE_SKIP_BUILD_RPATH=ON"];
 
   meta = with lib; {
     description = "A real-time pitch and formant tracking software";
     homepage = "https://github.com/in-formant/in-formant";
     license = licenses.asl20;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ ckie ];
+    maintainers = with maintainers; [ckie];
   };
 }

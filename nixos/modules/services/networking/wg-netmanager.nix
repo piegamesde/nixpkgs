@@ -23,8 +23,8 @@ in
     # NOTE: wg-netmanager runs as root
     systemd.services.wg-netmanager = {
       description = "Wireguard network manager";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
       path = with pkgs; [
         wireguard-tools
         iproute2
@@ -50,5 +50,5 @@ in
     };
   };
 
-  meta.maintainers = with maintainers; [ gin66 ];
+  meta.maintainers = with maintainers; [gin66];
 }

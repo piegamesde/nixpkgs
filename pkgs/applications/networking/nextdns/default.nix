@@ -27,6 +27,6 @@ buildGoModule rec {
     description = "NextDNS DNS/53 to DoH Proxy";
     homepage = "https://nextdns.io";
     license = licenses.mit;
-    maintainers = with maintainers; [ pnelson ];
+    maintainers = with maintainers; [pnelson];
   };
 }

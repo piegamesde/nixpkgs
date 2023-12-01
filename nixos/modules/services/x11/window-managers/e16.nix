@@ -26,6 +26,6 @@ in
       '';
     };
 
-    environment.systemPackages = [ pkgs.e16 ];
+    environment.systemPackages = [pkgs.e16];
   };
 }

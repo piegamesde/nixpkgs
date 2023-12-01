@@ -1,12 +1,12 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "trivial-clipboard";
   version = "20210228-git";
 
   description = "trivial-clipboard let access system clipboard.";
 
-  deps = [ args."uiop" ];
+  deps = [args."uiop"];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/trivial-clipboard/2021-02-28/trivial-clipboard-20210228-git.tgz";
@@ -15,7 +15,7 @@ rec {
 
   packageName = "trivial-clipboard";
 
-  asdFilesToKeep = [ "trivial-clipboard.asd" ];
+  asdFilesToKeep = ["trivial-clipboard.asd"];
   overrides = x: x;
 }
 /* (SYSTEM trivial-clipboard DESCRIPTION

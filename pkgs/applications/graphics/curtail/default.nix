@@ -47,7 +47,7 @@ python3.pkgs.buildPythonApplication rec {
     gtk3
   ];
 
-  propagatedBuildInputs = [ python3.pkgs.pygobject3 ];
+  propagatedBuildInputs = [python3.pkgs.pygobject3];
 
   preInstall = ''
     patchShebangs ../build-aux/meson/postinstall.py
@@ -73,6 +73,6 @@ python3.pkgs.buildPythonApplication rec {
     description = "Simple & useful image compressor";
     homepage = "https://github.com/Huluti/Curtail";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ anselmschueler ];
+    maintainers = with maintainers; [anselmschueler];
   };
 }

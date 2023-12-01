@@ -56,10 +56,10 @@ buildPythonPackage rec {
   # check in passthru.tests.pytest to escape infinite recursion with stestr
   doCheck = false;
 
-  pythonImportsCheck = [ "cliff" ];
+  pythonImportsCheck = ["cliff"];
 
   passthru.tests = {
-    pytest = callPackage ./tests.nix { };
+    pytest = callPackage ./tests.nix {};
   };
 
   meta = with lib; {

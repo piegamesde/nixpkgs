@@ -56,6 +56,6 @@ stdenv.mkDerivation rec {
     ];
     platforms = platforms.unix;
     broken = stdenv.isDarwin;
-    maintainers = with maintainers; [ devhell ];
+    maintainers = with maintainers; [devhell];
   };
 }

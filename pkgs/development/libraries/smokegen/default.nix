@@ -20,13 +20,13 @@ stdenv.mkDerivation rec {
     cmake
     qt4
   ];
-  buildInputs = [ qt4 ];
+  buildInputs = [qt4];
 
   meta = with lib; {
     description = "A general purpose C++ parser with a plugin infrastructure";
     homepage = "https://invent.kde.org/unmaintained/smokegen";
     license = licenses.gpl2Only;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ uthar ];
+    maintainers = with maintainers; [uthar];
   };
 }

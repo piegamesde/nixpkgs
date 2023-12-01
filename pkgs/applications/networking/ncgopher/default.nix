@@ -21,7 +21,7 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-Zft/ip+/uJbUIqCDDEa4hchmZZiYWGdaVnzWC74FgU8=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     ncurses6
     openssl
@@ -32,7 +32,7 @@ rustPlatform.buildRustPackage rec {
     description = "A gopher and gemini client for the modern internet";
     homepage = "https://github.com/jansc/ncgopher";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ shamilton ];
+    maintainers = with maintainers; [shamilton];
     platforms = platforms.linux;
   };
 }

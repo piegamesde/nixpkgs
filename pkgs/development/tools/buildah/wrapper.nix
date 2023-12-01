@@ -5,7 +5,7 @@
   symlinkJoin,
   lib,
   stdenv,
-  extraPackages ? [ ],
+  extraPackages ? [],
   runc, # Default container runtime
   crun, # Container runtime (default with cgroups v2 for podman/buildah)
   conmon, # Container runtime monitor
@@ -19,7 +19,7 @@
 
 let
   binPath = lib.makeBinPath (
-    [ ]
+    []
     ++ lib.optionals stdenv.isLinux [
       runc
       crun
@@ -37,7 +37,7 @@ let
 
     # this only works for some binaries, others may need to be be added to `binPath` or in the modules
     paths =
-      [ ]
+      []
       ++ lib.optionals stdenv.isLinux [
         aardvark-dns
         netavark
@@ -51,14 +51,14 @@ runCommand buildah-unwrapped.name
 
     preferLocalBuild = true;
 
-    meta = builtins.removeAttrs buildah-unwrapped.meta [ "outputsToInstall" ];
+    meta = builtins.removeAttrs buildah-unwrapped.meta ["outputsToInstall"];
 
     outputs = [
       "out"
       "man"
     ];
 
-    nativeBuildInputs = [ makeWrapper ];
+    nativeBuildInputs = [makeWrapper];
   }
   ''
     ln -s ${buildah-unwrapped.man} $man

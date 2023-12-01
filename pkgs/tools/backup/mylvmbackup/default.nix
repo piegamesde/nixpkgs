@@ -15,8 +15,8 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-vb7M3EPIrxIz6jUwm241fzaEz2czqdCObrFgSOSgJRU=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ perlPackages.perl ];
+  nativeBuildInputs = [makeWrapper];
+  buildInputs = [perlPackages.perl];
 
   dontConfigure = true;
 
@@ -47,7 +47,7 @@ stdenv.mkDerivation rec {
     homepage = "https://www.lenzg.net/mylvmbackup/";
     description = "a tool for quickly creating full physical backups of a MySQL server's data files";
     license = lib.licenses.gpl2Only;
-    maintainers = with lib.maintainers; [ ryantm ];
+    maintainers = with lib.maintainers; [ryantm];
     platforms = with lib.platforms; linux;
   };
 }

@@ -45,8 +45,8 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-1gGvdc6TJrkFIrN+TUL/7EejApgpgAQxnQbp8RMknHQ=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ pythonEnv ];
+  nativeBuildInputs = [makeWrapper];
+  buildInputs = [pythonEnv];
 
   installPhase = ''
     runHook preInstall

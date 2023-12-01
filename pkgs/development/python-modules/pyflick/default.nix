@@ -36,6 +36,6 @@ buildPythonPackage rec {
     description = "Python API For Flick Electric in New Zealand";
     homepage = "https://github.com/ZephireNZ/PyFlick";
     license = licenses.mit;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

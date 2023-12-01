@@ -22,13 +22,13 @@ buildPythonPackage rec {
     py.test test
   '';
 
-  nativeBuildInputs = [ zetup ];
+  nativeBuildInputs = [zetup];
   nativeCheckInputs = [
     six
     path
     pytest
   ];
-  propagatedBuildInputs = [ decorator ];
+  propagatedBuildInputs = [decorator];
 
   meta = with lib; {
     description = ''

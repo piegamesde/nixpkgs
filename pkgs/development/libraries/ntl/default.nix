@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-IQ0GwxMGy8bq9oFEU8Vsd22djo3zbXTrMG9qUj0caoo=";
   };
 
-  buildInputs = [ gmp ];
+  buildInputs = [gmp];
 
   nativeBuildInputs = [
     perl # needed for ./configure
@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
   # Written in perl, does not support autoconf-style
   # --build=/--host= options:
   #   Error: unrecognized option: --build=x86_64-unknown-linux-gnu
-  configurePlatforms = [ ];
+  configurePlatforms = [];
 
   # reference: http://shoup.net/ntl/doc/tour-unix.html
   configureFlags =

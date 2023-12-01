@@ -35,6 +35,6 @@ stdenv.mkDerivation rec {
     homepage = "http://linuxpps.org/";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ sorki ];
+    maintainers = with maintainers; [sorki];
   };
 }

@@ -16,13 +16,13 @@ stdenv.mkDerivation rec {
     sha256 = "0hcxv8di83fk41zjh0v592qm7c0v37a3m3n3lxavd643gff1k99w";
   };
 
-  patches = [ ./uvcdynctrl_symlink_support_and_take_data_dir_from_env.patch ];
+  patches = [./uvcdynctrl_symlink_support_and_take_data_dir_from_env.patch];
 
   nativeBuildInputs = [
     cmake
     pkg-config
   ];
-  buildInputs = [ libxml2 ];
+  buildInputs = [libxml2];
 
   postPatch = ''
     substituteInPlace ./uvcdynctrl/CMakeLists.txt \
@@ -47,6 +47,6 @@ stdenv.mkDerivation rec {
     description = "The webcam-tools package";
     platforms = platforms.linux;
     license = licenses.lgpl3;
-    maintainers = with maintainers; [ jraygauthier ];
+    maintainers = with maintainers; [jraygauthier];
   };
 }

@@ -51,6 +51,6 @@ stdenv.mkDerivation {
     homepage = "https://github.com/smerritt/flockit";
     license = licenses.asl20;
     platforms = platforms.linux;
-    maintainers = [ maintainers.basvandijk ];
+    maintainers = [maintainers.basvandijk];
   };
 }

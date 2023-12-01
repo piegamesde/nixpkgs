@@ -63,10 +63,10 @@ buildPythonPackage rec {
   doCheck = false;
 
   passthru.tests = {
-    tests = callPackage ./tests.nix { };
+    tests = callPackage ./tests.nix {};
   };
 
-  pythonImportsCheck = [ "manilaclient" ];
+  pythonImportsCheck = ["manilaclient"];
 
   meta = with lib; {
     description = "Client library for OpenStack Manila API";

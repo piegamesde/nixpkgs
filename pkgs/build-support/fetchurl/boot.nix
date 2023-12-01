@@ -2,11 +2,11 @@ let
   mirrors = import ./mirrors.nix;
 in
 
-{ system }:
+{system}:
 
 {
   url ? builtins.head urls,
-  urls ? [ ],
+  urls ? [],
   sha256 ? "",
   hash ? "",
   name ? baseNameOf (toString url),

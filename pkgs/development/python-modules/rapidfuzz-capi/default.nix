@@ -18,12 +18,12 @@ buildPythonPackage rec {
   # upstream has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "rapidfuzz_capi" ];
+  pythonImportsCheck = ["rapidfuzz_capi"];
 
   meta = with lib; {
     description = "C-API of RapidFuzz, which can be used to extend RapidFuzz from separate packages";
     homepage = "https://github.com/maxbachmann/rapidfuzz_capi";
     license = licenses.mit;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

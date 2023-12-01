@@ -13,17 +13,17 @@ let
     {
       callPackage = newScope self;
 
-      python3 = callPackage ./python.nix { inherit python3; };
+      python3 = callPackage ./python.nix {inherit python3;};
 
-      hyperkitty = callPackage ./hyperkitty.nix { };
+      hyperkitty = callPackage ./hyperkitty.nix {};
 
-      mailman = callPackage ./package.nix { };
+      mailman = callPackage ./package.nix {};
 
-      mailman-hyperkitty = callPackage ./mailman-hyperkitty.nix { };
+      mailman-hyperkitty = callPackage ./mailman-hyperkitty.nix {};
 
-      postorius = callPackage ./postorius.nix { };
+      postorius = callPackage ./postorius.nix {};
 
-      web = callPackage ./web.nix { };
+      web = callPackage ./web.nix {};
 
       buildEnvs =
         {

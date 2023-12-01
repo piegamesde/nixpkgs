@@ -25,25 +25,23 @@ buildPythonPackage rec {
     hash = "sha256-YciNwiLb/1fUYmlWtDRaJgtkgJi1mMt2FgeJKQi9yRg=";
   };
 
-  propagatedBuildInputs = [
-    cfn-flip
-  ] ++ lib.lists.optionals (pythonOlder "3.8") [ typing-extensions ];
+  propagatedBuildInputs = [cfn-flip] ++ lib.lists.optionals (pythonOlder "3.8") [typing-extensions];
 
-  nativeCheckInputs = [ awacs ];
+  nativeCheckInputs = [awacs];
 
   passthru.optional-dependencies = {
-    policy = [ awacs ];
+    policy = [awacs];
   };
 
   checkPhase = ''
     ${python.interpreter} -m unittest discover
   '';
 
-  pythonImportsCheck = [ "troposphere" ];
+  pythonImportsCheck = ["troposphere"];
 
   meta = with lib; {
     description = "Library to create AWS CloudFormation descriptions";
-    maintainers = with maintainers; [ jlesquembre ];
+    maintainers = with maintainers; [jlesquembre];
     license = licenses.bsd2;
     homepage = "https://github.com/cloudtools/troposphere";
     changelog = "https://github.com/cloudtools/troposphere/blob/${version}/CHANGELOG.rst";

@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
     else
       throw "System not supported";
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
   buildInputs = [
     allegro
     libjpeg
@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
     sed -i s,/usr/share,$out/share, src/HGFX.cpp src/STDH.cpp
   '';
 
-  patches = [ ./mkdir.patch ];
+  patches = [./mkdir.patch];
 
   meta = {
     description = "Car racing game";

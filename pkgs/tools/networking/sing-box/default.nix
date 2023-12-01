@@ -36,11 +36,11 @@ buildGoModule rec {
     "with_gvisor"
   ];
 
-  subPackages = [ "cmd/sing-box" ];
+  subPackages = ["cmd/sing-box"];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
-  ldflags = [ "-X=github.com/sagernet/sing-box/constant.Version=${version}" ];
+  ldflags = ["-X=github.com/sagernet/sing-box/constant.Version=${version}"];
 
   postInstall =
     let
@@ -53,12 +53,12 @@ buildGoModule rec {
         --zsh  <(${emulator} $out/bin/sing-box completion zsh )
     '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     homepage = "https://sing-box.sagernet.org";
     description = "The universal proxy platform";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ nickcao ];
+    maintainers = with maintainers; [nickcao];
   };
 }

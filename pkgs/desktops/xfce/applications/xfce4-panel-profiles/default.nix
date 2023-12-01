@@ -14,7 +14,7 @@
 }:
 
 let
-  pythonEnv = python3.withPackages (ps: [ ps.pygobject3 ]);
+  pythonEnv = python3.withPackages (ps: [ps.pygobject3]);
   makeTypelibPath = lib.makeSearchPathOutput "lib/girepository-1.0" "lib/girepository-1.0";
 in
 mkXfceDerivation {
@@ -28,7 +28,7 @@ mkXfceDerivation {
     intltool
     gettext
   ];
-  propagatedBuildInputs = [ pythonEnv ];
+  propagatedBuildInputs = [pythonEnv];
 
   configurePhase = ''
     ./configure --prefix=$out
@@ -51,6 +51,6 @@ mkXfceDerivation {
 
   meta = with lib; {
     description = "Simple application to manage Xfce panel layouts";
-    maintainers = with maintainers; [ ] ++ teams.xfce.members;
+    maintainers = with maintainers; [] ++ teams.xfce.members;
   };
 }

@@ -28,7 +28,7 @@ in
 
       fileSystems = mkOption {
         type = types.listOf types.path;
-        example = [ "/" ];
+        example = ["/"];
         description = lib.mdDoc ''
           List of paths to btrfs filesystems to regularily call {command}`btrfs scrub` on.
           Defaults to all mount points with btrfs filesystems.
@@ -55,11 +55,11 @@ in
 
   config = mkMerge [
     (mkIf enableBtrfs {
-      system.fsPackages = [ pkgs.btrfs-progs ];
+      system.fsPackages = [pkgs.btrfs-progs];
 
-      boot.initrd.kernelModules = mkIf inInitrd [ "btrfs" ];
+      boot.initrd.kernelModules = mkIf inInitrd ["btrfs"];
       boot.initrd.availableKernelModules = mkIf inInitrd (
-        [ "crc32c" ]
+        ["crc32c"]
         ++ optionals (config.boot.kernelPackages.kernel.kernelAtLeast "5.5") [
           # Needed for mounting filesystems with new checksums
           "xxhash_generic"
@@ -86,7 +86,7 @@ in
     (mkIf enableAutoScrub {
       assertions = [
         {
-          assertion = cfgScrub.enable -> (cfgScrub.fileSystems != [ ]);
+          assertion = cfgScrub.enable -> (cfgScrub.fileSystems != []);
           message = ''
             If 'services.btrfs.autoScrub' is enabled, you need to have at least one
             btrfs file system mounted via 'fileSystems' or specify a list manually
@@ -119,7 +119,7 @@ in
             nameValuePair "btrfs-scrub-${fs'}" {
               description = "regular btrfs scrub timer on ${fs}";
 
-              wantedBy = [ "timers.target" ];
+              wantedBy = ["timers.target"];
               timerConfig = {
                 OnCalendar = cfgScrub.interval;
                 AccuracySec = "1d";

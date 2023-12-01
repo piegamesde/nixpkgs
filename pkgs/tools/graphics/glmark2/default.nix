@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-WCvc5GqrAdpIKQ4LVqwO6ZGbzBgLCl49NxiGJynIjSQ=";
   };
 
-  depsBuildBuild = [ pkg-config ];
+  depsBuildBuild = [pkg-config];
   nativeBuildInputs = [
     pkg-config
     makeWrapper
@@ -69,6 +69,6 @@ stdenv.mkDerivation rec {
       the OpenGL 2.0 API that is compatible with OpenGL ES 2.0.
     '';
     platforms = platforms.linux;
-    maintainers = [ maintainers.wmertens ];
+    maintainers = [maintainers.wmertens];
   };
 }

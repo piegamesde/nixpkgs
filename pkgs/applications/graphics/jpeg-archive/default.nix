@@ -22,8 +22,8 @@ stdenv.mkDerivation {
     sha256 = "1639y9qp2ls80fzimwmwds792q8rq5p6c14c0r4jswx4yp6dcs33";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ mozjpeg ];
+  nativeBuildInputs = [makeWrapper];
+  buildInputs = [mozjpeg];
 
   prePatch = ''
     # allow override LIBJPEG
@@ -52,7 +52,7 @@ stdenv.mkDerivation {
     description = "Utilities for archiving photos for saving to long term storage or serving over the web";
     homepage = "https://github.com/danielgtaylor/jpeg-archive";
     license = licenses.mit;
-    maintainers = [ maintainers.srghma ];
+    maintainers = [maintainers.srghma];
     platforms = platforms.all;
   };
 }

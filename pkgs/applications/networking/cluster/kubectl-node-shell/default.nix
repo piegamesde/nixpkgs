@@ -17,7 +17,7 @@ stdenvNoCC.mkDerivation rec {
   };
 
   strictDeps = true;
-  buildInputs = [ bash ];
+  buildInputs = [bash];
 
   installPhase = ''
     runHook preInstall
@@ -31,7 +31,7 @@ stdenvNoCC.mkDerivation rec {
     description = "Exec into node via kubectl";
     homepage = "https://github.com/kvaps/kubectl-node-shell";
     license = licenses.asl20;
-    maintainers = with maintainers; [ jocelynthode ];
+    maintainers = with maintainers; [jocelynthode];
     platforms = platforms.linux;
   };
 }

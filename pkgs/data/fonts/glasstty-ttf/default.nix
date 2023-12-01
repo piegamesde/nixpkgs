@@ -10,7 +10,7 @@ runCommand "glasstty-ttf"
       sha256 = "sha256-2NYJaSWNr1Seuqdd7nLjA7tAMs/SAvl3uAe3uDoLLO4=";
     };
     meta = with lib; {
-      maintainers = [ maintainers.pkharvey ];
+      maintainers = [maintainers.pkharvey];
       homepage = "https://github.com/svofski/glasstty";
       license = licenses.unlicense;
       platforms = platforms.all;

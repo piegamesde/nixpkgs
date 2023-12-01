@@ -130,7 +130,7 @@ in
 
     forwardZones = mkOption {
       type = types.attrs;
-      default = { };
+      default = {};
       description = lib.mdDoc ''
         DNS zones to be forwarded to other authoritative servers.
       '';
@@ -141,7 +141,7 @@ in
       example = {
         eth = "[::1]:5353";
       };
-      default = { };
+      default = {};
       description = lib.mdDoc ''
         DNS zones to be forwarded to other recursive servers.
       '';
@@ -176,7 +176,7 @@ in
 
     settings = mkOption {
       type = configType;
-      default = { };
+      default = {};
       example = literalExpression ''
         {
           loglevel = 8;
@@ -226,10 +226,10 @@ in
       disable-syslog = true;
     };
 
-    systemd.packages = [ pkgs.pdns-recursor ];
+    systemd.packages = [pkgs.pdns-recursor];
 
     systemd.services.pdns-recursor = {
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
 
       serviceConfig = {
         ExecStart = [
@@ -245,7 +245,7 @@ in
       description = "PowerDNS Recursor daemon user";
     };
 
-    users.groups.pdns-recursor = { };
+    users.groups.pdns-recursor = {};
   };
 
   imports = [
@@ -259,5 +259,5 @@ in
     )
   ];
 
-  meta.maintainers = with lib.maintainers; [ rnhmjoj ];
+  meta.maintainers = with lib.maintainers; [rnhmjoj];
 }

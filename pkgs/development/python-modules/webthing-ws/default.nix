@@ -30,13 +30,13 @@ buildPythonPackage rec {
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "webthing_ws" ];
+  pythonImportsCheck = ["webthing_ws"];
 
   meta = with lib; {
     description = "WebThing WebSocket consumer and API client";
     homepage = "https://github.com/home-assistant-ecosystem/webthing-ws";
     changelog = "https://github.com/home-assistant-ecosystem/webthing-ws/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -19,7 +19,7 @@ mkDerivation {
   meta = {
     description = "Disk usage statistics";
     homepage = "https://apps.kde.org/filelight/";
-    license = with lib.licenses; [ gpl2 ];
+    license = with lib.licenses; [gpl2];
     maintainers = with lib.maintainers; [
       fridh
       vcunat

@@ -10,7 +10,7 @@ mkDerivation {
   src = ./.;
   isLibrary = false;
   isExecutable = true;
-  executableHaskellDepends = [ base ];
+  executableHaskellDepends = [base];
   description = "Nixpkgs test case";
   license = lib.licenses.mit;
 }

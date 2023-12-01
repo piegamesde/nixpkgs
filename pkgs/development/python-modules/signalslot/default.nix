@@ -28,7 +28,7 @@ buildPythonPackage rec {
       --replace "--cov-report html" ""
   '';
 
-  nativeBuildInputs = [ pythonRelaxDepsHook ];
+  nativeBuildInputs = [pythonRelaxDepsHook];
 
   propagatedBuildInputs = [
     contexter
@@ -46,12 +46,12 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "signalslot" ];
+  pythonImportsCheck = ["signalslot"];
 
   meta = with lib; {
     description = "Simple Signal/Slot implementation";
     homepage = "https://github.com/numergy/signalslot";
     license = licenses.mit;
-    maintainers = with maintainers; [ myaats ];
+    maintainers = with maintainers; [myaats];
   };
 }

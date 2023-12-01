@@ -24,14 +24,14 @@ stdenv.mkDerivation rec {
     hash = "sha256-v4GEZEcQP3+oiT66sgysIZ2PdLSidyYjecb3TmcHG2Y=";
   };
 
-  patches = [ ./fix-pkgconfig.patch ];
+  patches = [./fix-pkgconfig.patch];
 
   nativeBuildInputs = [
     cmake
     pkg-config
   ];
   buildInputs =
-    [ vulkan-headers ]
+    [vulkan-headers]
     ++ lib.optionals (!stdenv.isDarwin) [
       libX11
       libxcb
@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
     ];
 
   cmakeFlags =
-    [ "-DCMAKE_INSTALL_INCLUDEDIR=${vulkan-headers}/include" ]
+    ["-DCMAKE_INSTALL_INCLUDEDIR=${vulkan-headers}/include"]
     ++ lib.optional stdenv.isDarwin "-DSYSCONFDIR=${moltenvk}/share"
     ++ lib.optional stdenv.isLinux "-DSYSCONFDIR=${addOpenGLRunpath.driverLink}/share"
     ++ lib.optional (stdenv.buildPlatform != stdenv.hostPlatform) "-DUSE_GAS=OFF";
@@ -64,7 +64,7 @@ stdenv.mkDerivation rec {
     homepage = "https://www.lunarg.com";
     platforms = platforms.unix;
     license = licenses.asl20;
-    maintainers = [ maintainers.ralith ];
+    maintainers = [maintainers.ralith];
     broken = (version != vulkan-headers.version);
   };
 }

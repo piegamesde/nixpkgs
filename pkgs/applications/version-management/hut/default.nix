@@ -18,9 +18,9 @@ buildGoModule rec {
 
   vendorHash = "sha256-aoqGb7g8UEC/ydmL3GbWGy3HDD1kfDJOMeUP4nO9waA=";
 
-  nativeBuildInputs = [ scdoc ];
+  nativeBuildInputs = [scdoc];
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   postBuild = ''
     make $makeFlags completions doc/hut.1
@@ -34,6 +34,6 @@ buildGoModule rec {
     homepage = "https://sr.ht/~emersion/hut/";
     description = "A CLI tool for Sourcehut / sr.ht";
     license = licenses.agpl3Only;
-    maintainers = with maintainers; [ fgaz ];
+    maintainers = with maintainers; [fgaz];
   };
 }

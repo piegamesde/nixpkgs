@@ -27,6 +27,6 @@ python3Packages.buildPythonApplication rec {
     description = "An architecture-level energy/area estimator for accelerator designs";
     license = licenses.mit;
     homepage = "https://accelergy.mit.edu/";
-    maintainers = with maintainers; [ gdinh ];
+    maintainers = with maintainers; [gdinh];
   };
 }

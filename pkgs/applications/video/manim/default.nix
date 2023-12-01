@@ -158,7 +158,7 @@ python3.pkgs.buildPythonApplication rec {
     sha256 = "sha256-iXiPnI6lTP51P1X3iLp75ArRP66o8WAANBLoStPrz4M=";
   };
 
-  nativeBuildInputs = [ python3.pkgs.poetry-core ];
+  nativeBuildInputs = [python3.pkgs.poetry-core];
 
   postPatch = ''
     substituteInPlace pyproject.toml \
@@ -168,7 +168,7 @@ python3.pkgs.buildPythonApplication rec {
       --replace 'click = ">=7.2<=9.0"' 'click = ">=7.2,<=9.0"' # https://github.com/ManimCommunity/manim/pull/2954
   '';
 
-  buildInputs = [ cairo ];
+  buildInputs = [cairo];
 
   propagatedBuildInputs = with python3.pkgs; [
     click
@@ -221,7 +221,7 @@ python3.pkgs.buildPythonApplication rec {
   # about 55 of ~600 tests failing mostly due to demand for display
   disabledTests = import ./failing_tests.nix;
 
-  pythonImportsCheck = [ "manim" ];
+  pythonImportsCheck = ["manim"];
 
   meta = with lib; {
     description = "Animation engine for explanatory math videos - Community version";
@@ -233,6 +233,6 @@ python3.pkgs.buildPythonApplication rec {
     '';
     homepage = "https://github.com/ManimCommunity/manim";
     license = licenses.mit;
-    maintainers = with maintainers; [ friedelino ];
+    maintainers = with maintainers; [friedelino];
   };
 }

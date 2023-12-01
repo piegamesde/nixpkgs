@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "jpl-queues";
   version = "0.1";
@@ -21,7 +21,7 @@ rec {
 
   packageName = "jpl-queues";
 
-  asdFilesToKeep = [ "jpl-queues.asd" ];
+  asdFilesToKeep = ["jpl-queues.asd"];
   overrides = x: x;
 }
 /* (SYSTEM jpl-queues DESCRIPTION A few different kinds of queues, with optional

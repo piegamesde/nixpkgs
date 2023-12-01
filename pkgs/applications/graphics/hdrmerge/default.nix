@@ -41,7 +41,7 @@ mkDerivation rec {
     alglib
   ];
 
-  cmakeFlags = [ "-DALGLIB_DIR:PATH=${alglib}" ];
+  cmakeFlags = ["-DALGLIB_DIR:PATH=${alglib}"];
 
   patches = [
     (fetchpatch {
@@ -66,7 +66,7 @@ mkDerivation rec {
       comment = meta.description;
       icon = "hdrmerge";
       exec = "hdrmerge %F";
-      categories = [ "Graphics" ];
+      categories = ["Graphics"];
       mimeTypes = [
         "image/x-dcraw"
         "image/x-adobe-dng"
@@ -84,6 +84,6 @@ mkDerivation rec {
     description = "Combines two or more raw images into an HDR";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    maintainers = [ maintainers.paperdigits ];
+    maintainers = [maintainers.paperdigits];
   };
 }

@@ -43,7 +43,7 @@ stdenv.mkDerivation rec {
     homepage = "http://wpitchoune.net/ptask/";
     description = "GTK-based GUI for taskwarrior";
     license = licenses.gpl2;
-    maintainers = [ maintainers.spacefrogg ];
+    maintainers = [maintainers.spacefrogg];
     platforms = platforms.linux;
   };
 }

@@ -1,4 +1,4 @@
-{ lib, python3 }:
+{lib, python3}:
 
 with python3.pkgs;
 
@@ -22,13 +22,13 @@ buildPythonApplication rec {
     $out/bin/pew > /dev/null
   '';
 
-  pythonImportsCheck = [ "pew" ];
+  pythonImportsCheck = ["pew"];
 
   meta = with lib; {
     homepage = "https://github.com/berdario/pew";
     description = "Tools to manage multiple virtualenvs written in pure python";
     license = licenses.mit;
     platforms = platforms.all;
-    maintainers = with maintainers; [ berdario ];
+    maintainers = with maintainers; [berdario];
   };
 }

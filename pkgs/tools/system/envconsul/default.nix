@@ -28,6 +28,6 @@ buildGoModule rec {
     description = "Read and set environmental variables for processes from Consul";
     platforms = platforms.linux ++ platforms.darwin;
     license = licenses.mpl20;
-    maintainers = with maintainers; [ pradeepchhetri ];
+    maintainers = with maintainers; [pradeepchhetri];
   };
 }

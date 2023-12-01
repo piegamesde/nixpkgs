@@ -73,7 +73,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "A GTK-based Usenet newsreader good at both text and binaries";
     homepage = "http://pan.rebelbase.com/";
-    maintainers = [ maintainers.eelco ];
+    maintainers = [maintainers.eelco];
     platforms = platforms.linux;
     license = with licenses; [
       gpl2Only

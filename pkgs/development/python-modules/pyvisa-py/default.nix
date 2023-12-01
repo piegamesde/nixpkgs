@@ -25,7 +25,7 @@ buildPythonPackage rec {
     hash = "sha256-bRO2xO3Q9ruu5KY9SHwdhDU3DoZfW98uYiEFv5P0Fqc=";
   };
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
   propagatedBuildInputs = [
     pyserial
@@ -34,7 +34,7 @@ buildPythonPackage rec {
     typing-extensions
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   postConfigure = ''
     export SETUPTOOLS_SCM_PRETEND_VERSION="v${version}"
@@ -45,6 +45,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/pyvisa/pyvisa-py";
     changelog = "https://github.com/pyvisa/pyvisa-py/blob/${version}/CHANGES";
     license = licenses.mit;
-    maintainers = with maintainers; [ mvnetbiz ];
+    maintainers = with maintainers; [mvnetbiz];
   };
 }

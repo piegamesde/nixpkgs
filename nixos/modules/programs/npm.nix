@@ -53,6 +53,6 @@ in
 
     environment.variables.NPM_CONFIG_GLOBALCONFIG = "/etc/npmrc";
 
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
   };
 }

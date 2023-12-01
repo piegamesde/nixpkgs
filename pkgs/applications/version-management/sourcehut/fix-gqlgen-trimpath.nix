@@ -19,7 +19,7 @@
   #   graph/generate.go:10: running "go": exit status 1
   proxyVendor = true;
 
-  nativeBuildInputs = [ unzip ];
+  nativeBuildInputs = [unzip];
 
   # Workaround -trimpath in the package derivation:
   # https://github.com/99designs/gqlgen/issues/1537

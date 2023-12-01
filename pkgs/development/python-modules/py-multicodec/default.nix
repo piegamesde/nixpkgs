@@ -28,7 +28,7 @@ buildPythonPackage rec {
     substituteInPlace setup.cfg --replace "[pytest]" "[tool:pytest]"
   '';
 
-  nativeBuildInputs = [ pytest-runner ];
+  nativeBuildInputs = [pytest-runner];
 
   propagatedBuildInputs = [
     varint
@@ -36,14 +36,14 @@ buildPythonPackage rec {
     morphys
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "multicodec" ];
+  pythonImportsCheck = ["multicodec"];
 
   meta = with lib; {
     description = "Compact self-describing codecs";
     homepage = "https://github.com/multiformats/py-multicodec";
     license = licenses.mit;
-    maintainers = with maintainers; [ Luflosi ];
+    maintainers = with maintainers; [Luflosi];
   };
 }

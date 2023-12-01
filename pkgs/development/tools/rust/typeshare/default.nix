@@ -18,9 +18,9 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-3vF7bgN2qhzgYIjH1rSfEwOLqR4VR4IQvVtNjwBS6+M=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
-  buildFeatures = [ "go" ];
+  buildFeatures = ["go"];
 
   postInstall = ''
     installShellCompletion --cmd typeshare \
@@ -37,6 +37,6 @@ rustPlatform.buildRustPackage rec {
       asl20 # or
       mit
     ];
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
   };
 }

@@ -18,24 +18,24 @@ buildPythonPackage rec {
     hash = "sha256-PTX5huYdusPV6xCBW+8sFwusuPtZBH1vVApvcQU7Dlc=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   postPatch = ''
     patchShebangs manage.py
   '';
 
-  propagatedBuildInputs = [ djangorestframework ];
+  propagatedBuildInputs = [djangorestframework];
 
   checkPhase = ''
     ./manage.py test
   '';
 
-  pythonImportsCheck = [ "rest_framework_dataclasses" ];
+  pythonImportsCheck = ["rest_framework_dataclasses"];
 
   meta = with lib; {
     description = " Dataclasses serializer for Django REST framework";
     homepage = "https://github.com/oxan/djangorestframework-dataclasses";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ SuperSandro2000 ];
+    maintainers = with maintainers; [SuperSandro2000];
   };
 }

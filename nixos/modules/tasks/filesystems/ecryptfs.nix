@@ -10,7 +10,7 @@ with lib;
 
 {
   config = mkIf (any (fs: fs == "ecryptfs") config.boot.supportedFilesystems) {
-    system.fsPackages = [ pkgs.ecryptfs ];
+    system.fsPackages = [pkgs.ecryptfs];
     security.wrappers = {
       "mount.ecryptfs_private" = {
         setuid = true;

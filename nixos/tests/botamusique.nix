@@ -1,13 +1,13 @@
 import ./make-test-python.nix (
-  { pkgs, lib, ... }:
+  {pkgs, lib, ...}:
 
   {
     name = "botamusique";
-    meta.maintainers = with lib.maintainers; [ hexa ];
+    meta.maintainers = with lib.maintainers; [hexa];
 
     nodes = {
       machine =
-        { config, ... }:
+        {config, ...}:
         {
           networking.extraHosts = ''
             127.0.0.1 all.api.radio-browser.info

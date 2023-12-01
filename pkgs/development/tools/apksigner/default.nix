@@ -60,7 +60,7 @@ stdenv.mkDerivation rec {
         | sh
     '';
     # Don't move info to share/
-    forceShare = [ "dummy" ];
+    forceShare = ["dummy"];
     outputHashMode = "recursive";
     # Downloaded jars differ by platform
     outputHash = "sha256-cs95YI0SpvzCo5x5trMXlVUGepNKIH9oZ95AfLErKIU=";
@@ -95,7 +95,7 @@ stdenv.mkDerivation rec {
     description = "Command line tool to sign and verify Android APKs";
     homepage = "https://developer.android.com/studio/command-line/apksigner";
     license = licenses.asl20;
-    maintainers = with maintainers; [ linsui ];
+    maintainers = with maintainers; [linsui];
     platforms = platforms.unix;
   };
 }

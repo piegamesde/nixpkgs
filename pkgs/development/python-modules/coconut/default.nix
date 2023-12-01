@@ -40,14 +40,14 @@ buildPythonPackage rec {
   ];
 
   # Currently most tests have performance issues
-  pytestFlagsArray = [ "coconut/tests/constants_test.py" ];
+  pytestFlagsArray = ["coconut/tests/constants_test.py"];
 
-  pythonImportsCheck = [ "coconut" ];
+  pythonImportsCheck = ["coconut"];
 
   meta = with lib; {
     homepage = "http://coconut-lang.org/";
     description = "Simple, elegant, Pythonic functional programming";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fabianhjr ];
+    maintainers = with maintainers; [fabianhjr];
   };
 }

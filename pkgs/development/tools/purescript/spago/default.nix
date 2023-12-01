@@ -15,7 +15,7 @@ let
     haskell.lib.compose.justStaticExecutables
     (haskell.lib.compose.overrideCabal (
       oldAttrs: {
-        maintainers = (oldAttrs.maintainers or [ ]) ++ [ lib.maintainers.cdepillabout ];
+        maintainers = (oldAttrs.maintainers or []) ++ [lib.maintainers.cdepillabout];
         changelog = "https://github.com/purescript/spago/releases/tag/${oldAttrs.version}";
       }
     ))
@@ -26,7 +26,7 @@ in
 
 spago.overrideAttrs (
   oldAttrs: {
-    passthru = (oldAttrs.passthru or { }) // {
+    passthru = (oldAttrs.passthru or {}) // {
       updateScript = ./update.sh;
 
       # These tests can be run with the following command.  The tests access the

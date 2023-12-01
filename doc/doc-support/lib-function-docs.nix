@@ -11,7 +11,7 @@ stdenv.mkDerivation {
   name = "nixpkgs-lib-docs";
   src = ../../lib;
 
-  buildInputs = [ nixdoc ];
+  buildInputs = [nixdoc];
   installPhase = ''
     function docgen {
       # TODO: wrap lib.$1 in <literal>, make nixdoc not escape it
@@ -32,7 +32,7 @@ stdenv.mkDerivation {
 
     ${lib.concatMapStrings
       (
-        { name, description }:
+        {name, description}:
         ''
           docgen ${name} ${lib.escapeShellArg description}
         ''

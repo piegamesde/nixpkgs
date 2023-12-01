@@ -82,7 +82,7 @@ stdenv.mkDerivation rec {
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {
@@ -92,7 +92,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://github.com/needle-and-thread/vocal";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ ] ++ teams.pantheon.members;
+    maintainers = with maintainers; [] ++ teams.pantheon.members;
     platforms = platforms.linux;
     mainProgram = "com.github.needleandthread.vocal";
   };

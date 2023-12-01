@@ -43,7 +43,7 @@ stdenv.mkDerivation rec {
     description = "Telescope is a w3m-like browser for Gemini";
     homepage = "https://telescope.omarpolo.com/";
     license = licenses.isc;
-    maintainers = with maintainers; [ heph2 ];
+    maintainers = with maintainers; [heph2];
     platforms = platforms.unix;
   };
 }

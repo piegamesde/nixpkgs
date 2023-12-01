@@ -21,7 +21,7 @@ python3.pkgs.buildPythonApplication rec {
     update-dotdee
   ];
 
-  nativeCheckInputs = with python3.pkgs; [ pytestCheckHook ];
+  nativeCheckInputs = with python3.pkgs; [pytestCheckHook];
 
   disabledTests =
     [
@@ -33,6 +33,6 @@ python3.pkgs.buildPythonApplication rec {
     description = "Simple command line interface for backup rotation";
     homepage = "https://github.com/xolox/python-rotate-backups";
     license = licenses.mit;
-    maintainers = with maintainers; [ eyjhb ];
+    maintainers = with maintainers; [eyjhb];
   };
 }

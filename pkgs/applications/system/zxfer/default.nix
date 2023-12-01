@@ -25,7 +25,7 @@ resholve.mkDerivation rec {
     hash = "sha256-11SQJcD3GqPYBIgaycyKkc62/diVKPuuj2Or97j+NZY=";
   };
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   # these may point to paths on remote systems, calculated at runtime, thus we cannot fix them
   # we can only set their initial values, and let them remain dynamic
@@ -45,7 +45,7 @@ resholve.mkDerivation rec {
   '';
 
   solutions.default = {
-    scripts = [ "bin/zxfer" ];
+    scripts = ["bin/zxfer"];
     interpreter = "${bash}/bin/sh";
     inputs = [
       coreutils
@@ -71,10 +71,10 @@ resholve.mkDerivation rec {
       "$option_T" = true;
     };
     fix = {
-      "$AWK" = [ "awk" ];
-      "$RSYNC" = [ "rsync" ];
+      "$AWK" = ["awk"];
+      "$RSYNC" = ["rsync"];
     };
-    execer = [ "cannot:${rsync}/bin/rsync" ];
+    execer = ["cannot:${rsync}/bin/rsync"];
   };
 
   meta = with lib; {
@@ -82,6 +82,6 @@ resholve.mkDerivation rec {
     homepage = "https://github.com/allanjude/zxfer";
     changelog = "https://github.com/allanjude/zxfer/releases/tag/v${version}";
     license = licenses.bsd2;
-    maintainers = with lib.maintainers; [ urandom ];
+    maintainers = with lib.maintainers; [urandom];
   };
 }

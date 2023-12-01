@@ -23,7 +23,7 @@ buildPythonPackage rec {
     azure-mgmt-datalake-nspkg
   ];
 
-  pythonNamespaces = [ "azure.mgmt.datalake" ];
+  pythonNamespaces = ["azure.mgmt.datalake"];
 
   # has no tests
   doCheck = false;
@@ -32,6 +32,6 @@ buildPythonPackage rec {
     description = "This is the Microsoft Azure Data Lake Analytics Management Client Library";
     homepage = "https://github.com/Azure/azure-sdk-for-python";
     license = licenses.mit;
-    maintainers = with maintainers; [ maxwilson ];
+    maintainers = with maintainers; [maxwilson];
   };
 }

@@ -73,7 +73,7 @@ in
       "/share/locale"
     ];
 
-    services.xserver.displayManager.sessionPackages = [ pkgs.enlightenment.enlightenment ];
+    services.xserver.displayManager.sessionPackages = [pkgs.enlightenment.enlightenment];
 
     services.xserver.displayManager.sessionCommands = ''
       if test "$XDG_CURRENT_DESKTOP" = "Enlightenment"; then
@@ -120,7 +120,7 @@ in
     services.upower.enable = config.powerManagement.enable;
     services.xserver.libinput.enable = mkDefault true;
 
-    services.dbus.packages = [ e.efl ];
+    services.dbus.packages = [e.efl];
 
     systemd.user.services.efreet = {
       enable = true;

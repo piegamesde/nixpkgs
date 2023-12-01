@@ -49,7 +49,7 @@ buildPythonPackage {
     description = "Python wrapper to libcangjie";
     homepage = "http://cangjians.github.io/projects/pycangjie/";
     license = licenses.lgpl3Plus;
-    maintainers = [ maintainers.linquize ];
+    maintainers = [maintainers.linquize];
     platforms = platforms.all;
   };
 }

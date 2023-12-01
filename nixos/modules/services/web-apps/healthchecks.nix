@@ -20,7 +20,7 @@ let
   } // cfg.settings;
 
   environmentFile = pkgs.writeText "healthchecks-environment" (
-    lib.generators.toKeyValue { } environment
+    lib.generators.toKeyValue {} environment
   );
 
   healthchecksManageScript = pkgs.writeShellScriptBin "healthchecks-manage" ''
@@ -121,7 +121,7 @@ in
         options = {
           ALLOWED_HOSTS = lib.mkOption {
             type = types.listOf types.str;
-            default = [ "*" ];
+            default = ["*"];
             description = lib.mdDoc "The host/domain names that this site can serve.";
             apply = lib.concatStringsSep ",";
           };
@@ -157,11 +157,11 @@ in
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = [ healthchecksManageScript ];
+    environment.systemPackages = [healthchecksManageScript];
 
     systemd.targets.healthchecks = {
       description = "Target for all Healthchecks services";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       after = [
         "network.target"
         "network-online.target"
@@ -174,7 +174,7 @@ in
           WorkingDirectory = cfg.dataDir;
           User = cfg.user;
           Group = cfg.group;
-          EnvironmentFile = [ environmentFile ];
+          EnvironmentFile = [environmentFile];
           StateDirectory = mkIf (cfg.dataDir == "/var/lib/healthchecks") "healthchecks";
           StateDirectoryMode = mkIf (cfg.dataDir == "/var/lib/healthchecks") "0750";
         };
@@ -182,7 +182,7 @@ in
       {
         healthchecks-migration = {
           description = "Healthchecks migrations";
-          wantedBy = [ "healthchecks.target" ];
+          wantedBy = ["healthchecks.target"];
 
           serviceConfig = commonConfig // {
             Restart = "on-failure";
@@ -195,8 +195,8 @@ in
 
         healthchecks = {
           description = "Healthchecks WSGI Service";
-          wantedBy = [ "healthchecks.target" ];
-          after = [ "healthchecks-migration.service" ];
+          wantedBy = ["healthchecks.target"];
+          after = ["healthchecks-migration.service"];
 
           preStart = ''
             ${pkg}/opt/healthchecks/manage.py collectstatic --no-input
@@ -216,8 +216,8 @@ in
 
         healthchecks-sendalerts = {
           description = "Healthchecks Alert Service";
-          wantedBy = [ "healthchecks.target" ];
-          after = [ "healthchecks.service" ];
+          wantedBy = ["healthchecks.target"];
+          after = ["healthchecks.service"];
 
           serviceConfig = commonConfig // {
             Restart = "always";
@@ -229,8 +229,8 @@ in
 
         healthchecks-sendreports = {
           description = "Healthchecks Reporting Service";
-          wantedBy = [ "healthchecks.target" ];
-          after = [ "healthchecks.service" ];
+          wantedBy = ["healthchecks.target"];
+          after = ["healthchecks.service"];
 
           serviceConfig = commonConfig // {
             Restart = "always";
@@ -251,7 +251,7 @@ in
 
     users.groups = optionalAttrs (cfg.user == defaultUser) {
       ${defaultUser} = {
-        members = [ defaultUser ];
+        members = [defaultUser];
       };
     };
   };

@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
   buildInputs = [
     blas
     lapack
-  ] ++ lib.optionals enableAMPL [ libamplsolver ];
+  ] ++ lib.optionals enableAMPL [libamplsolver];
 
   enableParallelBuilding = true;
 
@@ -50,6 +50,6 @@ stdenv.mkDerivation rec {
     homepage = "https://projects.coin-or.org/Ipopt";
     license = licenses.epl10;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ abbradar ];
+    maintainers = with maintainers; [abbradar];
   };
 }

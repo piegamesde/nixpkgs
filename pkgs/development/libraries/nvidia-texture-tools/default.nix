@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-BYNm8CxPQbfmnnzNmOQ2Dc8HSyO8mkqzYsBZ5T80398=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   outputs = [
     "out"
@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
       sed -i '/libsquish/d;/CMP_Core/d' extern/CMakeLists.txt
     '';
 
-  cmakeFlags = [ "-DNVTT_SHARED=TRUE" ];
+  cmakeFlags = ["-DNVTT_SHARED=TRUE"];
 
   postInstall = ''
     moveToOutput include "$dev"
@@ -49,6 +49,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/castano/nvidia-texture-tools";
     license = licenses.mit;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ wegank ];
+    maintainers = with maintainers; [wegank];
   };
 }

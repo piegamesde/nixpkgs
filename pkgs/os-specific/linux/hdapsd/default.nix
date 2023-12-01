@@ -20,6 +20,6 @@ stdenv.mkDerivation rec {
     homepage = "http://hdaps.sf.net/";
     license = licenses.gpl2;
     platforms = platforms.linux;
-    maintainers = [ maintainers.ehmry ];
+    maintainers = [maintainers.ehmry];
   };
 }

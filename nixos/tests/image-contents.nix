@@ -2,14 +2,14 @@
 # including its user, group, and mode attributes.
 {
   system ? builtins.currentSystem,
-  config ? { },
-  pkgs ? import ../.. { inherit system config; },
+  config ? {},
+  pkgs ? import ../.. {inherit system config;},
 }:
 
-with import ../lib/testing-python.nix { inherit system pkgs; };
+with import ../lib/testing-python.nix {inherit system pkgs;};
 with pkgs.lib;
 
-with import common/ec2.nix { inherit makeTest pkgs; };
+with import common/ec2.nix {inherit makeTest pkgs;};
 
 let
   config =

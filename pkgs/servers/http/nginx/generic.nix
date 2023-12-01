@@ -22,7 +22,7 @@ outer@{
   withMail ? false,
   withPerl ? true,
   withSlice ? false,
-  modules ? [ ],
+  modules ? [],
   ...
 }:
 
@@ -32,17 +32,17 @@ outer@{
   nginxVersion ? version,
   src ? null, # defaults to upstream nginx ${version}
   hash ? null, # when not specifying src
-  configureFlags ? [ ],
-  nativeBuildInputs ? [ ],
-  buildInputs ? [ ],
-  extraPatches ? [ ],
+  configureFlags ? [],
+  nativeBuildInputs ? [],
+  buildInputs ? [],
+  extraPatches ? [],
   fixPatch ? p: p,
   postPatch ? "",
   preConfigure ? "",
   postInstall ? "",
   meta ? null,
   nginx-doc ? outer.nginx-doc,
-  passthru ? { tests = { }; },
+  passthru ? {tests = {};},
 }:
 
 let
@@ -65,7 +65,7 @@ let
         supports = mod.supports or (_: true);
       in
       if supports nginxVersion then
-        mod.${attrPath} or [ ]
+        mod.${attrPath} or []
       else
         throw "Module at ${toString mod.src} does not support nginx version ${nginxVersion}!"
     );
@@ -91,7 +91,7 @@ stdenv.mkDerivation {
         inherit hash;
       };
 
-  nativeBuildInputs = [ removeReferencesTo ] ++ nativeBuildInputs;
+  nativeBuildInputs = [removeReferencesTo] ++ nativeBuildInputs;
 
   buildInputs = [
     openssl
@@ -133,8 +133,8 @@ stdenv.mkDerivation {
       "--http-uwsgi-temp-path=/tmp/nginx_uwsgi"
       "--http-scgi-temp-path=/tmp/nginx_scgi"
     ]
-    ++ lib.optionals withDebug [ "--with-debug" ]
-    ++ lib.optionals withKTLS [ "--with-openssl-opt=enable-ktls" ]
+    ++ lib.optionals withDebug ["--with-debug"]
+    ++ lib.optionals withKTLS ["--with-openssl-opt=enable-ktls"]
     ++ lib.optionals withStream [
       "--with-stream"
       "--with-stream_realip_module"
@@ -172,7 +172,7 @@ stdenv.mkDerivation {
     ++ lib.optional stdenv.isDarwin "-Wno-error=deprecated-declarations"
   );
 
-  configurePlatforms = [ ];
+  configurePlatforms = [];
 
   # Disable _multioutConfig hook which adds --bindir=$out/bin into configureFlags,
   # which breaks build, since nginx does not actually use autoconf.
@@ -261,7 +261,7 @@ stdenv.mkDerivation {
       with lib; {
         description = "A reverse proxy and lightweight webserver";
         homepage = "http://nginx.org";
-        license = [ licenses.bsd2 ] ++ concatMap (m: m.meta.license) modules;
+        license = [licenses.bsd2] ++ concatMap (m: m.meta.license) modules;
         platforms = platforms.all;
         maintainers = with maintainers; [
           thoughtpolice

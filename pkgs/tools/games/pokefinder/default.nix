@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  patches = [ ./cstddef.patch ];
+  patches = [./cstddef.patch];
 
   postPatch = ''
     patchShebangs Source/Core/Resources/
@@ -45,15 +45,15 @@ stdenv.mkDerivation rec {
   buildInputs = [
     qtbase
     qttools
-  ] ++ lib.optionals stdenv.isLinux [ qtwayland ];
+  ] ++ lib.optionals stdenv.isLinux [qtwayland];
 
-  passthru.updateScript = gitUpdater { };
+  passthru.updateScript = gitUpdater {};
 
   meta = with lib; {
     homepage = "https://github.com/Admiral-Fish/PokeFinder";
     description = "Cross platform Pokémon RNG tool";
     license = licenses.gpl3Only;
     platforms = platforms.all;
-    maintainers = with maintainers; [ leo60228 ];
+    maintainers = with maintainers; [leo60228];
   };
 }

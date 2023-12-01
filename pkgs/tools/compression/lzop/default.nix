@@ -14,12 +14,12 @@ stdenv.mkDerivation rec {
     sha256 = "0h9gb8q7y54m9mvy3jvsmxf21yx8fc3ylzh418hgbbv0i8mbcwky";
   };
 
-  buildInputs = [ lzo ];
+  buildInputs = [lzo];
 
   meta = with lib; {
     homepage = "http://www.lzop.org";
     description = "Fast file compressor";
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     license = licenses.gpl2;
     platforms = platforms.unix;
   };

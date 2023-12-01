@@ -49,7 +49,7 @@ stdenv.mkDerivation rec {
     homepage = "https://gitlab.freedesktop.org/cangjie/libcangjie";
     license = lib.licenses.lgpl3Plus;
 
-    maintainers = [ lib.maintainers.linquize ];
+    maintainers = [lib.maintainers.linquize];
     platforms = lib.platforms.all;
   };
 }

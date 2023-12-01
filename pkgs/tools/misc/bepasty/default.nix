@@ -1,4 +1,4 @@
-{ python3, lib }:
+{python3, lib}:
 
 let
   python = python3.override {
@@ -37,7 +37,7 @@ buildPythonPackage rec {
     xstatic-pygments
   ];
 
-  buildInputs = [ setuptools-scm ];
+  buildInputs = [setuptools-scm];
 
   src = fetchPypi {
     inherit pname version;
@@ -56,6 +56,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/bepasty/bepasty-server";
     description = "Binary pastebin server";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.makefu ];
+    maintainers = [lib.maintainers.makefu];
   };
 }

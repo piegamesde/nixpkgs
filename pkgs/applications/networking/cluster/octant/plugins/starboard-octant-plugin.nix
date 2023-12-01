@@ -31,6 +31,6 @@ buildGoModule rec {
       Kubernetes workloads stored as custom security resources.
     '';
     license = licenses.asl20;
-    maintainers = with maintainers; [ jk ];
+    maintainers = with maintainers; [jk];
   };
 }

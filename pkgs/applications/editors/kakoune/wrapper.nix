@@ -2,21 +2,21 @@
   symlinkJoin,
   makeWrapper,
   kakoune,
-  plugins ? [ ],
-  configure ? { },
+  plugins ? [],
+  configure ? {},
 }:
 
 let
   # "plugins" is the preferred way, but some configurations may be
   # using "configure.plugins", so accept both
-  requestedPlugins = plugins ++ (configure.plugins or [ ]);
+  requestedPlugins = plugins ++ (configure.plugins or []);
 in
 symlinkJoin {
   name = "kakoune-${kakoune.version}";
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
-  paths = [ kakoune ] ++ requestedPlugins;
+  paths = [kakoune] ++ requestedPlugins;
 
   postBuild = ''
     # location of kak binary is used to find ../share/kak/autoload,

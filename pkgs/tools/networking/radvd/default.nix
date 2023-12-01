@@ -24,16 +24,16 @@ stdenv.mkDerivation rec {
     flex
     check
   ];
-  buildInputs = [ libdaemon ];
+  buildInputs = [libdaemon];
 
   # Needed for cross-compilation
-  makeFlags = [ "AR=${stdenv.cc.targetPrefix}ar" ];
+  makeFlags = ["AR=${stdenv.cc.targetPrefix}ar"];
 
   meta = with lib; {
     homepage = "http://www.litech.org/radvd/";
     description = "IPv6 Router Advertisement Daemon";
     platforms = platforms.linux;
     license = licenses.bsdOriginal;
-    maintainers = with maintainers; [ fpletz ];
+    maintainers = with maintainers; [fpletz];
   };
 }

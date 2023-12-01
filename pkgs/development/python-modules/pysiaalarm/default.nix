@@ -30,7 +30,7 @@ buildPythonPackage rec {
       --replace "--cov pysiaalarm --cov-report term-missing" ""
   '';
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
   propagatedBuildInputs = [
     dataclasses-json
@@ -54,6 +54,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/eavanvalkenburg/pysiaalarm";
     changelog = "https://github.com/eavanvalkenburg/pysiaalarm/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

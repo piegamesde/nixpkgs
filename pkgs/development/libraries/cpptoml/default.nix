@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
     sha256 = "0zlgdlk9nsskmr8xc2ajm6mn1x5wz82ssx9w88s02icz71mcihrx";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   cmakeFlags = [
     # If this package is built with clang it will attempt to
@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
     description = "C++ TOML configuration library";
     homepage = "https://github.com/skystrife/cpptoml";
     license = licenses.mit;
-    maintainers = with maintainers; [ photex ];
+    maintainers = with maintainers; [photex];
     platforms = platforms.all;
   };
 }

@@ -20,7 +20,7 @@ in
   options = {
     services.xserver.windowManager.katriawm = {
       enable = mkEnableOption (mdDoc "katriawm");
-      package = mkPackageOptionMD pkgs "katriawm" { };
+      package = mkPackageOptionMD pkgs "katriawm" {};
     };
   };
 
@@ -33,6 +33,6 @@ in
         waitPID=$!
       '';
     };
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
   };
 }

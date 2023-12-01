@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  depsBuildBuild = [ buildPackages.stdenv.cc ];
+  depsBuildBuild = [buildPackages.stdenv.cc];
   nativeBuildInputs = [
     docbook_xml_dtd_44
     docbook_xsl
@@ -35,9 +35,9 @@ stdenv.mkDerivation rec {
     pkg-config
     xmlto
   ];
-  buildInputs = [ libcap ];
+  buildInputs = [libcap];
   # Needed for lddtree
-  propagatedBuildInputs = [ (python3.withPackages (p: with p; [ pyelftools ])) ];
+  propagatedBuildInputs = [(python3.withPackages (p: with p; [pyelftools]))];
 
   passthru.updateScript = gitUpdater {
     url = "https://anongit.gentoo.org/git/proj/pax-utils.git";

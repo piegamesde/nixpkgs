@@ -17,7 +17,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-YeWyMEwatKuT4FWIpaDK6/xo5TG5IOecoYR+uVidOW4=";
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   ldflags = [
     "-s"
@@ -30,6 +30,6 @@ buildGoModule rec {
     description = "RKE2, also known as RKE Government, is Rancher's next-generation Kubernetes distribution.";
     changelog = "https://github.com/rancher/rke2/releases/tag/v${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ zygot ];
+    maintainers = with maintainers; [zygot];
   };
 }

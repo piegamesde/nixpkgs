@@ -80,7 +80,7 @@ stdenv.mkDerivation {
     openblas
     openfst
     icu
-  ] ++ lib.optionals stdenv.isDarwin [ Accelerate ];
+  ] ++ lib.optionals stdenv.isDarwin [Accelerate];
 
   nativeBuildInputs = [
     cmake
@@ -97,7 +97,7 @@ stdenv.mkDerivation {
     description = "Speech Recognition Toolkit";
     homepage = "https://kaldi-asr.org";
     license = licenses.mit;
-    maintainers = with maintainers; [ mic92 ];
+    maintainers = with maintainers; [mic92];
     platforms = platforms.unix;
   };
 }

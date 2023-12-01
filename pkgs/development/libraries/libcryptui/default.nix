@@ -43,7 +43,7 @@ stdenv.mkDerivation rec {
     dbus-glib
     libgnome-keyring
   ];
-  propagatedBuildInputs = [ dbus-glib ];
+  propagatedBuildInputs = [dbus-glib];
 
   enableParallelBuilding = true;
 

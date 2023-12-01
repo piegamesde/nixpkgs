@@ -36,7 +36,7 @@ let
         inherit sha256;
       };
 
-      buildInputs = [ perlPackages.perl ] ++ buildInputs;
+      buildInputs = [perlPackages.perl] ++ buildInputs;
 
       nativeBuildInputs = [
         autoreconfHook
@@ -66,7 +66,7 @@ let
       meta = with lib; {
         homepage = "https://labs.consol.de/";
         license = licenses.gpl2;
-        maintainers = with maintainers; [ peterhoeg ];
+        maintainers = with maintainers; [peterhoeg];
         inherit description;
       };
     };
@@ -77,7 +77,7 @@ in
     version = "2.6.4.15";
     sha256 = "12z0b3c2p18viy7s93r6bbl8fvgsqh80136d07118qhxshp1pwxg";
     description = "Check plugin for Microsoft SQL Server";
-    buildInputs = [ perlPackages.DBDsybase ];
+    buildInputs = [perlPackages.DBDsybase];
   };
 
   check-nwc-health = generic {
@@ -85,7 +85,7 @@ in
     version = "7.10.0.6";
     sha256 = "092rhaqnk3403z0y60x38vgh65gcia3wrd6gp8mr7wszja38kxv2";
     description = "Check plugin for network equipment";
-    buildInputs = [ perlPackages.NetSNMP ];
+    buildInputs = [perlPackages.NetSNMP];
   };
 
   check-ups-health = generic {
@@ -93,6 +93,6 @@ in
     version = "2.8.3.3";
     sha256 = "0qc2aglppwr9ms4p53kh9nr48625sqrbn46xs0k9rx5sv8hil9hm";
     description = "Check plugin for UPSs";
-    buildInputs = [ perlPackages.NetSNMP ];
+    buildInputs = [perlPackages.NetSNMP];
   };
 }

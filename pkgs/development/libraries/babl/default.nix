@@ -33,16 +33,16 @@ stdenv.mkDerivation rec {
     vala
   ];
 
-  buildInputs = [ lcms2 ];
+  buildInputs = [lcms2];
 
   meta = with lib; {
     description = "Image pixel format conversion library";
     homepage = "https://gegl.org/babl/";
     changelog = "https://gitlab.gnome.org/GNOME/babl/-/blob/BABL_${
-      lib.replaceStrings [ "." ] [ "_" ] version
+      lib.replaceStrings ["."] ["_"] version
     }/NEWS";
     license = licenses.lgpl3Plus;
-    maintainers = with maintainers; [ jtojnar ];
+    maintainers = with maintainers; [jtojnar];
     platforms = platforms.unix;
   };
 }

@@ -41,7 +41,7 @@ buildPythonPackage rec {
     uritemplate
   ];
 
-  pythonImportsCheck = [ "rest_framework" ];
+  pythonImportsCheck = ["rest_framework"];
 
   meta = with lib; {
     description = "Web APIs for Django, made easy";

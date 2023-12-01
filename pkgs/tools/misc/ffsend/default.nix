@@ -34,7 +34,7 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-zNLU9QnBGna5qb+iu2imOUvCIw3ZWRFsQlpFo5ECtKo=";
 
-  nativeBuildInputs = [ installShellFiles ] ++ lib.optionals stdenv.isLinux [ pkg-config ];
+  nativeBuildInputs = [installShellFiles] ++ lib.optionals stdenv.isLinux [pkg-config];
   buildInputs =
     if stdenv.isDarwin then
       [
@@ -42,7 +42,7 @@ rustPlatform.buildRustPackage rec {
         AppKit
       ]
     else
-      [ openssl ];
+      [openssl];
 
   preBuild = lib.optionalString (x11Support && usesX11) (
     if preferXsel && xsel != null then

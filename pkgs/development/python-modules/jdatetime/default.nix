@@ -18,14 +18,14 @@ buildPythonPackage rec {
     hash = "sha256-SmeoLuV+NbX2+ff75qDtpj9Wzh3Yr0CbTComozQEV9s=";
   };
 
-  propagatedBuildInputs = [ six ];
+  propagatedBuildInputs = [six];
 
-  pythonImportsCheck = [ "jdatetime" ];
+  pythonImportsCheck = ["jdatetime"];
 
   meta = with lib; {
     description = "Jalali datetime binding";
     homepage = "https://github.com/slashmili/python-jalali";
     license = licenses.psfl;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

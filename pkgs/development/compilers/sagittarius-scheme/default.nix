@@ -69,6 +69,6 @@ stdenv.mkDerivation rec {
     homepage = "https://bitbucket.org/ktakashi/sagittarius-scheme";
     license = licenses.bsd2;
     platforms = platforms.all;
-    maintainers = with maintainers; [ abbe ];
+    maintainers = with maintainers; [abbe];
   };
 }

@@ -29,7 +29,7 @@ buildPythonPackage rec {
   # No tests included nor upstream available.
   doCheck = false;
 
-  pythonImportsCheck = [ "sounddevice" ];
+  pythonImportsCheck = ["sounddevice"];
 
   patches = [
     (substituteAll {
@@ -41,7 +41,7 @@ buildPythonPackage rec {
   meta = {
     description = "Play and Record Sound with Python";
     homepage = "http://python-sounddevice.rtfd.org/";
-    license = with lib.licenses; [ mit ];
-    maintainers = with lib.maintainers; [ fridh ];
+    license = with lib.licenses; [mit];
+    maintainers = with lib.maintainers; [fridh];
   };
 }

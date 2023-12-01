@@ -8,7 +8,7 @@ bundlerApp {
   pname = "sqlint";
   gemdir = ./.;
 
-  exes = [ "sqlint" ];
+  exes = ["sqlint"];
 
   passthru.updateScript = bundlerUpdateScript "sqlint";
 

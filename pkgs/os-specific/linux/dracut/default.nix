@@ -111,13 +111,13 @@ stdenv.mkDerivation rec {
     }
   '';
 
-  passthru.updateScript = gitUpdater { };
+  passthru.updateScript = gitUpdater {};
 
   meta = with lib; {
     homepage = "https://github.com/dracutdevs/dracut/wiki";
     description = "An event driven initramfs infrastructure";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ lilyinstarlight ];
+    maintainers = with maintainers; [lilyinstarlight];
     platforms = platforms.linux;
   };
 }

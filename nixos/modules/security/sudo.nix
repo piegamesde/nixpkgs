@@ -95,7 +95,7 @@ in
         yield the expected behavior. You can use mkBefore/mkAfter to ensure
         this is the case when configuration options are merged.
       '';
-      default = [ ];
+      default = [];
       example = literalExpression ''
         [
           # Allow execution of any command by all users in group sudo,
@@ -125,7 +125,7 @@ in
                 description = lib.mdDoc ''
                   The usernames / UIDs this rule should apply for.
                 '';
-                default = [ ];
+                default = [];
               };
 
               groups = mkOption {
@@ -133,7 +133,7 @@ in
                 description = lib.mdDoc ''
                   The groups / GIDs this rule should apply for.
                 '';
-                default = [ ];
+                default = [];
               };
 
               host = mkOption {
@@ -196,7 +196,7 @@ in
                             description = lib.mdDoc ''
                               Options for running the command. Refer to the [sudo manual](https://www.sudo.ws/man/1.7.10/sudoers.man.html).
                             '';
-                            default = [ ];
+                            default = [];
                           };
                         };
                       }
@@ -225,14 +225,14 @@ in
     # still enough room for a user to `mkBefore` it.
     security.sudo.extraRules = mkOrder 600 [
       {
-        groups = [ "wheel" ];
+        groups = ["wheel"];
         commands = [
           {
             command = "ALL";
             options =
               (
                 if cfg.wheelNeedsPassword then
-                  [ "SETENV" ]
+                  ["SETENV"]
                 else
                   [
                     "NOPASSWD"
@@ -271,7 +271,7 @@ in
                   )
                 ]
               else
-                [ ]
+                []
             )
             cfg.extraRules
         )
@@ -308,7 +308,7 @@ in
         };
       };
 
-    environment.systemPackages = [ sudo ];
+    environment.systemPackages = [sudo];
 
     security.pam.services.sudo = {
       sshAgentAuth = true;

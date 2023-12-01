@@ -36,6 +36,6 @@ buildPythonApplication rec {
     description = "A fully functional Opencast capture agent written in Python";
     homepage = "https://github.com/opencast/pyCA";
     license = licenses.lgpl3;
-    maintainers = with maintainers; [ pmiddend ];
+    maintainers = with maintainers; [pmiddend];
   };
 }

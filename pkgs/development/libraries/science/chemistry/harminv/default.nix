@@ -37,12 +37,12 @@ stdenv.mkDerivation rec {
     lapack
   ];
 
-  configureFlags = [ "--enable-shared" ];
+  configureFlags = ["--enable-shared"];
 
   meta = with lib; {
     description = "Harmonic inversion algorithm of Mandelshtam: decompose signal into sum of decaying sinusoids";
     homepage = "https://github.com/NanoComp/harminv";
-    license = with licenses; [ gpl2Only ];
+    license = with licenses; [gpl2Only];
     maintainers = with maintainers; [
       sheepforce
       markuskowa

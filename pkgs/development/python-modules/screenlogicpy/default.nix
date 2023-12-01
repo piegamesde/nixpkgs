@@ -22,7 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-7w2cg+LfL3w2Xxf8s7lFxE/HkqZ6RBYp8LkZTOwgK+I=";
   };
 
-  propagatedBuildInputs = [ async-timeout ];
+  propagatedBuildInputs = [async-timeout];
 
   nativeCheckInputs = [
     pytest-asyncio
@@ -38,13 +38,13 @@ buildPythonPackage rec {
     "test_asyncio_gateway_discovery"
   ];
 
-  pythonImportsCheck = [ "screenlogicpy" ];
+  pythonImportsCheck = ["screenlogicpy"];
 
   meta = with lib; {
     description = "Python interface for Pentair Screenlogic devices";
     homepage = "https://github.com/dieselrabbit/screenlogicpy";
     changelog = "https://github.com/dieselrabbit/screenlogicpy/releases/tag/v${version}";
-    license = with licenses; [ gpl3Only ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [gpl3Only];
+    maintainers = with maintainers; [fab];
   };
 }

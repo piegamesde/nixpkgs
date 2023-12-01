@@ -44,13 +44,13 @@ buildGoModule rec {
     "-X main.VERSION=${version}"
   ];
 
-  subPackages = [ "cmd/flux" ];
+  subPackages = ["cmd/flux"];
 
   # Required to workaround test error:
   #   panic: mkdir /homeless-shelter: permission denied
   HOME = "$TMPDIR";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   doInstallCheck = true;
   installCheckPhase = ''

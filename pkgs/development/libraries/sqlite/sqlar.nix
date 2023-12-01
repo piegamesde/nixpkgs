@@ -21,7 +21,7 @@ stdenv.mkDerivation {
       --replace 'gcc' '${stdenv.cc.targetPrefix}cc'
   '';
 
-  buildInputs = [ zlib ] ++ lib.optional withFuse fuse;
+  buildInputs = [zlib] ++ lib.optional withFuse fuse;
 
   buildFlags = [
     "CFLAGS=-Wno-error"
@@ -41,6 +41,6 @@ stdenv.mkDerivation {
     description = "SQLite Archive utilities";
     license = licenses.bsd2;
     platforms = platforms.all;
-    maintainers = with maintainers; [ dtzWill ];
+    maintainers = with maintainers; [dtzWill];
   };
 }

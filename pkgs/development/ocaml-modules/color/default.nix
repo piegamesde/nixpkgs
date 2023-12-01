@@ -17,12 +17,12 @@ buildDunePackage rec {
     sha256 = "0wg3a36i1a7fnz5pf57qzbdghwr6dzp7nnxyrz9m9765lxsn65ph";
   };
 
-  propagatedBuildInputs = [ gg ];
+  propagatedBuildInputs = [gg];
 
   meta = with lib; {
     description = "Converts between different color formats";
     license = licenses.mit;
-    maintainers = with maintainers; [ fgaz ];
+    maintainers = with maintainers; [fgaz];
     homepage = "https://github.com/anuragsoni/color";
   };
 }

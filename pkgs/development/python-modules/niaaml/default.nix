@@ -44,14 +44,14 @@ buildPythonPackage rec {
     toml-adapt -path pyproject.toml -a change -dep niapy -ver X
   '';
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "niaaml" ];
+  pythonImportsCheck = ["niaaml"];
 
   meta = with lib; {
     description = "Python automated machine learning framework";
     homepage = "https://github.com/lukapecnik/NiaAML";
     license = licenses.mit;
-    maintainers = with maintainers; [ firefly-cpp ];
+    maintainers = with maintainers; [firefly-cpp];
   };
 }

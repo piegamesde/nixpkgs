@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
       src/integration/malt-{webview,passwd}.sh.in
   '';
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     libelf
     libunwind
@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
     description = "Memory tool to find where you allocate your memory";
     homepage = "https://github.com/memtt/malt";
     license = licenses.cecill-c;
-    maintainers = with maintainers; [ viric ];
+    maintainers = with maintainers; [viric];
     platforms = platforms.linux;
   };
 }

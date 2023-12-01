@@ -25,7 +25,7 @@ buildPythonPackage rec {
 
   dontConfigure = true;
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
   propagatedBuildInputs = [
     click
@@ -38,7 +38,7 @@ buildPythonPackage rec {
     pytest-xdist
   ];
 
-  pythonImportsCheck = [ "plugincode" ];
+  pythonImportsCheck = ["plugincode"];
 
   disabledTests =
     [
@@ -50,6 +50,6 @@ buildPythonPackage rec {
     description = "Library that provides plugin functionality for ScanCode toolkit";
     homepage = "https://github.com/nexB/plugincode";
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

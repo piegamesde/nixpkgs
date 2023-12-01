@@ -2,10 +2,10 @@
   lib,
   buildLinux,
   fetchurl,
-  kernelPatches ? [ ],
-  structuredExtraConfig ? { },
-  extraMeta ? { },
-  argsOverride ? { },
+  kernelPatches ? [],
+  structuredExtraConfig ? {},
+  extraMeta ? {},
+  argsOverride ? {},
   ...
 }@args:
 
@@ -37,7 +37,7 @@ buildLinux (
           };
         };
       in
-      [ rt-patch ] ++ kernelPatches;
+      [rt-patch] ++ kernelPatches;
 
     structuredExtraConfig =
       with lib.kernel;

@@ -39,15 +39,15 @@ stdenv.mkDerivation rec {
     mkdir -p "$out/bin"
     cp RYMCast "$out/bin/"
     wrapProgram "$out/bin/RYMCast" \
-      --set PATH "${lib.makeBinPath [ zenity ]}"
+      --set PATH "${lib.makeBinPath [zenity]}"
   '';
 
   meta = with lib; {
     description = "Player for Mega Drive/Genesis VGM files";
     homepage = "https://www.inphonik.com/products/rymcast-genesis-vgm-player/";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.unfree;
-    platforms = [ "x86_64-linux" ];
-    maintainers = with maintainers; [ astsmtl ];
+    platforms = ["x86_64-linux"];
+    maintainers = with maintainers; [astsmtl];
   };
 }

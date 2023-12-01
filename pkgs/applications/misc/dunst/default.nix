@@ -85,7 +85,7 @@ stdenv.mkDerivation rec {
       --replace "jq -M" "${jq}/bin/jq -M"
   '';
 
-  passthru.tests.version = testers.testVersion { package = dunst; };
+  passthru.tests.version = testers.testVersion {package = dunst;};
 
   meta = with lib; {
     description = "Lightweight and customizable notification daemon";
@@ -93,6 +93,6 @@ stdenv.mkDerivation rec {
     license = licenses.bsd3;
     # NOTE: 'unix' or even 'all' COULD work too, I'm not sure
     platforms = platforms.linux;
-    maintainers = with maintainers; [ domenkozar ];
+    maintainers = with maintainers; [domenkozar];
   };
 }

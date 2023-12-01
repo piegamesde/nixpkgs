@@ -26,13 +26,13 @@ stdenv.mkDerivation rec {
     ninja
     pkg-config
   ];
-  buildInputs = [ libseccomp ];
+  buildInputs = [libseccomp];
 
   meta = {
     homepage = "https://github.com/kwohlfahrt/unstick";
     description = "Silently eats chmod commands forbidden by Nix";
     license = lib.licenses.gpl3;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ kwohlfahrt ];
+    maintainers = with lib.maintainers; [kwohlfahrt];
   };
 }

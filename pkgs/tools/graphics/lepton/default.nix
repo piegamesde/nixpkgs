@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
     cmake
     git
   ];
-  buildInputs = lib.optionals stdenv.isLinux [ glibc.static ];
+  buildInputs = lib.optionals stdenv.isLinux [glibc.static];
 
   meta = with lib; {
     homepage = "https://github.com/dropbox/lepton";
@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
       "x86_64-linux"
       "x86_64-darwin"
     ];
-    maintainers = with maintainers; [ artemist ];
-    knownVulnerabilities = [ "CVE-2022-4104" ];
+    maintainers = with maintainers; [artemist];
+    knownVulnerabilities = ["CVE-2022-4104"];
   };
 }

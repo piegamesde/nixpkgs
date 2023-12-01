@@ -18,9 +18,9 @@ buildPythonApplication rec {
     sha256 = "sha256-FwzsRziY3PoySo9hIFuLw6tOO9oQij6oQEyoY8HgnII=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  propagatedBuildInputs = [ pandoc-xnos ];
+  propagatedBuildInputs = [pandoc-xnos];
 
   # Different pandoc executables are not available
   doCheck = false;
@@ -29,6 +29,6 @@ buildPythonApplication rec {
     description = "Standalone pandoc filter from the pandoc-xnos suite for numbering tables and table references";
     homepage = "https://github.com/tomduck/pandoc-tablenos";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ ppenguin ];
+    maintainers = with maintainers; [ppenguin];
   };
 }

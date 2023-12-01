@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-LVwmbrq78mZcAEuAqjXTqLE5we83H9mcMPtxQx2Tn/c=";
   };
 
-  nativeBuildInputs = [ autoconf ];
+  nativeBuildInputs = [autoconf];
 
   buildInputs = [
     ncurses
@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
       formats (Apache, Postfix, Procmail, etc.).
     '';
     license = licenses.gpl2;
-    maintainers = with maintainers; [ malyn ];
+    maintainers = with maintainers; [malyn];
     platforms = platforms.linux;
   };
 }

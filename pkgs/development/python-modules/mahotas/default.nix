@@ -31,7 +31,7 @@ buildPythonPackage rec {
     scipy
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   postPatch = ''
     substituteInPlace mahotas/io/freeimage.py \
@@ -63,7 +63,7 @@ buildPythonPackage rec {
     broken = (stdenv.isLinux && stdenv.isAarch64);
     description = "Computer vision package based on numpy";
     homepage = "https://mahotas.readthedocs.io/";
-    maintainers = with maintainers; [ luispedro ];
+    maintainers = with maintainers; [luispedro];
     license = licenses.mit;
     platforms = platforms.unix;
   };

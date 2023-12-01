@@ -19,9 +19,9 @@ buildGoModule rec {
 
   vendorHash = "sha256-XW7rEHY3S+M3b6QjmINgrCak+BqCEV3PJP90jz7J47A=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  buildInputs = [ libusb1 ];
+  buildInputs = [libusb1];
 
   ldflags = [
     "-s"
@@ -35,7 +35,7 @@ buildGoModule rec {
   meta = with lib; {
     description = "yubihsm-connector performs the communication between the YubiHSM 2 and applications that use it";
     homepage = "https://developers.yubico.com/yubihsm-connector/";
-    maintainers = with maintainers; [ matthewcroughan ];
+    maintainers = with maintainers; [matthewcroughan];
     license = licenses.asl20;
   };
 }

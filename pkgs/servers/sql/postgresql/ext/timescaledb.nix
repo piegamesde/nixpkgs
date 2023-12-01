@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
   pname = "timescaledb${lib.optionalString (!enableUnfree) "-apache"}";
   version = "2.10.3";
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     postgresql
     openssl
@@ -44,8 +44,8 @@ stdenv.mkDerivation rec {
       "-DREGRESS_CHECKS=OFF"
       "-DTAP_CHECKS=OFF"
     ]
-    ++ lib.optionals (!enableUnfree) [ "-DAPACHE_ONLY=ON" ]
-    ++ lib.optionals stdenv.isDarwin [ "-DLINTER=OFF" ];
+    ++ lib.optionals (!enableUnfree) ["-DAPACHE_ONLY=ON"]
+    ++ lib.optionals stdenv.isDarwin ["-DLINTER=OFF"];
 
   # Fix the install phase which tries to install into the pgsql extension dir,
   # and cannot be manually overridden. This is rather fragile but works OK.
@@ -65,7 +65,7 @@ stdenv.mkDerivation rec {
     description = "Scales PostgreSQL for time-series data via automatic partitioning across time and space";
     homepage = "https://www.timescale.com/";
     changelog = "https://github.com/timescale/timescaledb/raw/${version}/CHANGELOG.md";
-    maintainers = with maintainers; [ marsam ];
+    maintainers = with maintainers; [marsam];
     platforms = postgresql.meta.platforms;
     license = with licenses; if enableUnfree then tsl else asl20;
     broken = versionOlder postgresql.version "12";

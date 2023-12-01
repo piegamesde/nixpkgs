@@ -22,7 +22,7 @@ let
     else if value == false then
       "# setting `${name}` explicitly set to false"
     else
-      generators.mkKeyValueDefault { } "=" name value;
+      generators.mkKeyValueDefault {} "=" name value;
 
   settingsFormat = pkgs.formats.keyValue {
     mkKeyValue = formatKeyValue;
@@ -94,7 +94,7 @@ in
 
           options.server = mkOption {
             type = types.listOf types.str;
-            default = [ ];
+            default = [];
             example = [
               "8.8.8.8"
               "8.8.4.4"
@@ -104,7 +104,7 @@ in
             '';
           };
         };
-        default = { };
+        default = {};
         description = lib.mdDoc ''
           Configuration of dnsmasq. Lists get added one value per line (empty
           lists and false values don't get added, though false values get
@@ -153,14 +153,14 @@ in
 
     networking.nameservers = optional cfg.resolveLocalQueries "127.0.0.1";
 
-    services.dbus.packages = [ dnsmasq ];
+    services.dbus.packages = [dnsmasq];
 
     users.users.dnsmasq = {
       isSystemUser = true;
       group = "dnsmasq";
       description = "Dnsmasq daemon user";
     };
-    users.groups.dnsmasq = { };
+    users.groups.dnsmasq = {};
 
     networking.resolvconf = mkIf cfg.resolveLocalQueries {
       useLocalResolver = mkDefault true;
@@ -177,8 +177,8 @@ in
         "network.target"
         "systemd-resolved.service"
       ];
-      wantedBy = [ "multi-user.target" ];
-      path = [ dnsmasq ];
+      wantedBy = ["multi-user.target"];
+      path = [dnsmasq];
       preStart = ''
         mkdir -m 755 -p ${stateDir}
         touch ${stateDir}/dnsmasq.leases
@@ -196,7 +196,7 @@ in
         ProtectHome = true;
         Restart = if cfg.alwaysKeepRunning then "always" else "on-failure";
       };
-      restartTriggers = [ config.environment.etc.hosts.source ];
+      restartTriggers = [config.environment.etc.hosts.source];
     };
   };
 }

@@ -48,7 +48,7 @@ buildPythonPackage rec {
     torchvision
   ];
 
-  pythonImportsCheck = [ "boxx" ];
+  pythonImportsCheck = ["boxx"];
 
   checkPhase = ''
     xvfb-run ${python.interpreter} -m unittest
@@ -58,6 +58,6 @@ buildPythonPackage rec {
     description = "Tool-box for efficient build and debug for Scientific Computing and Computer Vision";
     homepage = "https://github.com/DIYer22/boxx";
     license = licenses.mit;
-    maintainers = with maintainers; [ lucasew ];
+    maintainers = with maintainers; [lucasew];
   };
 }

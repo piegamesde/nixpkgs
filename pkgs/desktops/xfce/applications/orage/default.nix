@@ -31,6 +31,6 @@ mkXfceDerivation {
 
   meta = with lib; {
     description = "Simple calendar application for Xfce";
-    maintainers = with maintainers; [ ] ++ teams.xfce.members;
+    maintainers = with maintainers; [] ++ teams.xfce.members;
   };
 }

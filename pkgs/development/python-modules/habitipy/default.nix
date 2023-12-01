@@ -37,12 +37,12 @@ buildPythonPackage rec {
     HOME=$TMPDIR nosetests
   '';
 
-  pythonImportsCheck = [ "habitipy" ];
+  pythonImportsCheck = ["habitipy"];
 
   meta = with lib; {
     description = "Tools and library for Habitica restful API";
     homepage = "https://github.com/ASMfreaK/habitipy";
     license = licenses.mit;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

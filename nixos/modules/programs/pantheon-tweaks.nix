@@ -21,6 +21,6 @@ with lib;
 
   ###### implementation
   config = mkIf config.programs.pantheon-tweaks.enable {
-    services.xserver.desktopManager.pantheon.extraSwitchboardPlugs = [ pkgs.pantheon-tweaks ];
+    services.xserver.desktopManager.pantheon.extraSwitchboardPlugs = [pkgs.pantheon-tweaks];
   };
 }

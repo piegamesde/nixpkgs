@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
       })
     ];
 
-  buildInputs = [ zlib ];
+  buildInputs = [zlib];
 
   # Avoid hardcoding gcc to allow environments with a different
   # C compiler to build
@@ -51,7 +51,7 @@ stdenv.mkDerivation rec {
     description = "A software package for mapping low-divergent sequences against a large reference genome, such as the human genome";
     license = licenses.gpl3;
     homepage = "https://bio-bwa.sourceforge.net/";
-    maintainers = with maintainers; [ luispedro ];
+    maintainers = with maintainers; [luispedro];
     platforms = platforms.x86_64;
   };
 }

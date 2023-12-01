@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
   strictDeps = true;
   enableParallelBuilding = true;
 
-  buildInputs = [ xz ];
+  buildInputs = [xz];
 
   meta = with lib; {
     description = "Archive of autoconf m4 macros";

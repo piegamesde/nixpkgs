@@ -23,8 +23,8 @@ let
           "sound.target"
         ];
         description = "${name} liquidsoap stream";
-        wantedBy = [ "multi-user.target" ];
-        path = [ pkgs.wget ];
+        wantedBy = ["multi-user.target"];
+        path = [pkgs.wget];
         serviceConfig = {
           ExecStart = "${pkgs.liquidsoap}/bin/liquidsoap ${stream}";
           User = "liquidsoap";
@@ -46,7 +46,7 @@ in
         one systemd service per stream.
       '';
 
-      default = { };
+      default = {};
 
       example = literalExpression ''
         {
@@ -66,7 +66,7 @@ in
     users.users.liquidsoap = {
       uid = config.ids.uids.liquidsoap;
       group = "liquidsoap";
-      extraGroups = [ "audio" ];
+      extraGroups = ["audio"];
       description = "Liquidsoap streaming user";
       home = "/var/lib/liquidsoap";
       createHome = true;

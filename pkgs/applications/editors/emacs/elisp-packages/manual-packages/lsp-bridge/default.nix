@@ -55,7 +55,7 @@ melpaBuild {
     posframe
   ];
 
-  buildInputs = [ python ];
+  buildInputs = [python];
 
   checkInputs = [
     git
@@ -90,7 +90,7 @@ melpaBuild {
     runHook postCheck
   '';
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   meta = with lib; {
     description = "A blazingly fast LSP client for Emacs";

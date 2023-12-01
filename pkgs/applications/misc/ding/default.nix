@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-aabIH894WihsBTo1LzIBzIZxxyhRYVxLcHpDQwmwmOU=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
   buildInputs = [
     aspellEnv
     fortune
@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
     tre
   ];
 
-  patches = [ ./dict.patch ];
+  patches = [./dict.patch];
 
   installPhase = ''
     mkdir -p $out/bin
@@ -78,6 +78,6 @@ stdenv.mkDerivation rec {
     homepage = "https://www-user.tu-chemnitz.de/~fri/ding/";
     license = licenses.gpl2Plus;
     platforms = platforms.linux; # homepage says: unix-like except darwin
-    maintainers = [ maintainers.exi ];
+    maintainers = [maintainers.exi];
   };
 }

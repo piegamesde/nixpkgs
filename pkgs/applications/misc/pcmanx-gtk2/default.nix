@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
     homepage = "https://pcman.ptt.cc";
     license = licenses.gpl2;
     description = "Telnet BBS browser with GTK interface";
-    maintainers = [ maintainers.sifmelcara ];
+    maintainers = [maintainers.sifmelcara];
     platforms = platforms.linux;
   };
 }

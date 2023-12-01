@@ -106,7 +106,7 @@ stdenv.mkDerivation rec {
                 - Pixel-art specific tools like filled Contour, Polygon, Shading mode, etc.
                 - Onion skinning.
     '';
-    maintainers = with maintainers; [ fgaz ];
+    maintainers = with maintainers; [fgaz];
     platforms = platforms.all;
     # https://github.com/LibreSprite/LibreSprite/issues/308
     broken = stdenv.isDarwin;

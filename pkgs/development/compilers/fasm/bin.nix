@@ -22,7 +22,7 @@ stdenvNoCC.mkDerivation rec {
     description = "x86(-64) macro assembler to binary, MZ, PE, COFF, and ELF";
     homepage = "https://flatassembler.net/download.php";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ orivej ];
+    maintainers = with maintainers; [orivej];
     platforms = [
       "i686-linux"
       "x86_64-linux"

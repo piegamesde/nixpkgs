@@ -40,7 +40,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "trfl" ];
+  pythonImportsCheck = ["trfl"];
 
   # Tests currently fail with assertion errors
   doCheck = false;
@@ -70,6 +70,6 @@ buildPythonPackage rec {
     description = "TensorFlow Reinforcement Learning";
     homepage = "https://github.com/deepmind/trfl";
     license = licenses.asl20;
-    maintainers = with maintainers; [ onny ];
+    maintainers = with maintainers; [onny];
   };
 }

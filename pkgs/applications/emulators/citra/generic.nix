@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [
     cmake
     pkg-config
-  ] ++ lib.optionals enableQt [ wrapQtAppsHook ];
+  ] ++ lib.optionals enableQt [wrapQtAppsHook];
 
   buildInputs =
     [
@@ -104,7 +104,7 @@ stdenv.mkDerivation rec {
   # Fixes https://github.com/NixOS/nixpkgs/issues/171173
   postInstall = lib.optionalString (enableCubeb && enableSdl2) ''
     wrapProgram "$out/bin/citra" \
-      --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ libpulseaudio ]}
+      --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [libpulseaudio]}
   '';
 
   meta = with lib; {

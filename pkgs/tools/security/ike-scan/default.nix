@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
     openssl
   ];
 
-  configureFlags = [ "--with-openssl=${openssl.dev}" ];
+  configureFlags = ["--with-openssl=${openssl.dev}"];
 
   patches =
     [
@@ -44,8 +44,8 @@ stdenv.mkDerivation rec {
       fingerprint and test IPsec VPN servers.
     '';
     homepage = "https://github.com/royhills/ike-scan";
-    license = with licenses; [ gpl3Plus ];
+    license = with licenses; [gpl3Plus];
     platforms = platforms.linux;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

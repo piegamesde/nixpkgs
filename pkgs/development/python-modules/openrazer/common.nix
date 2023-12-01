@@ -1,4 +1,4 @@
-{ lib, fetchFromGitHub }:
+{lib, fetchFromGitHub}:
 rec {
   version = "3.5.1";
 
@@ -12,7 +12,7 @@ rec {
   meta = with lib; {
     homepage = "https://openrazer.github.io/";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ evanjs ] ++ teams.lumiguide.members;
+    maintainers = with maintainers; [evanjs] ++ teams.lumiguide.members;
     platforms = platforms.linux;
   };
 }

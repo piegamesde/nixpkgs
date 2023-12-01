@@ -44,6 +44,6 @@ stdenvNoCC.mkDerivation rec {
     homepage = "http://yann.lecun.com/exdb/mnist/index.html";
     license = licenses.cc-by-sa-30;
     platforms = platforms.all;
-    maintainers = with maintainers; [ cmcdragonkai ];
+    maintainers = with maintainers; [cmcdragonkai];
   };
 }

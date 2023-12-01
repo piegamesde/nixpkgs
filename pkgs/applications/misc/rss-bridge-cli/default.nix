@@ -8,7 +8,7 @@
 let
   phpWithExts =
     (php.withExtensions (
-      { all, ... }:
+      {all, ...}:
       with all; [
         curl
         filter
@@ -32,7 +32,7 @@ in
         description = "Command-line interface for RSS-Bridge";
         homepage = "https://github.com/RSS-Bridge/rss-bridge";
         license = licenses.unlicense;
-        maintainers = with maintainers; [ ymeister ];
+        maintainers = with maintainers; [ymeister];
       };
     }
   )

@@ -22,6 +22,6 @@ buildGoModule rec {
     homepage = "https://github.com/vdjagilev/nmap-formatter";
     changelog = "https://github.com/vdjagilev/nmap-formatter/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

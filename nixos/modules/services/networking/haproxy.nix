@@ -66,8 +66,8 @@ with lib; {
 
     systemd.services.haproxy = {
       description = "HAProxy";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         User = cfg.user;
         Group = cfg.group;
@@ -110,6 +110,6 @@ with lib; {
       };
     };
 
-    users.groups = optionalAttrs (cfg.group == "haproxy") { haproxy = { }; };
+    users.groups = optionalAttrs (cfg.group == "haproxy") {haproxy = {};};
   };
 }

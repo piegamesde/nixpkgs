@@ -17,9 +17,9 @@ buildPythonPackage rec {
 
   disabled = !isPy3k;
 
-  propagatedBuildInputs = [ nose ];
+  propagatedBuildInputs = [nose];
 
-  nativeCheckInputs = [ nose ];
+  nativeCheckInputs = [nose];
   checkPhase = ''
     nosetests -v
   '';

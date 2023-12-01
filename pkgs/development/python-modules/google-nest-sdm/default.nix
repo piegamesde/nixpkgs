@@ -43,7 +43,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "google_nest_sdm" ];
+  pythonImportsCheck = ["google_nest_sdm"];
 
   disabledTests = [
     "test_clip_preview_transcode"
@@ -55,6 +55,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/allenporter/python-google-nest-sdm";
     changelog = "https://github.com/allenporter/python-google-nest-sdm/releases/tag/${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -1,10 +1,10 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "trivial-file-size";
   version = "20200427-git";
 
-  parasites = [ "trivial-file-size/tests" ];
+  parasites = ["trivial-file-size/tests"];
 
   description = "Stat a file's size.";
 
@@ -20,7 +20,7 @@ rec {
 
   packageName = "trivial-file-size";
 
-  asdFilesToKeep = [ "trivial-file-size.asd" ];
+  asdFilesToKeep = ["trivial-file-size.asd"];
   overrides = x: x;
 }
 /* (SYSTEM trivial-file-size DESCRIPTION Stat a file's size. SHA256

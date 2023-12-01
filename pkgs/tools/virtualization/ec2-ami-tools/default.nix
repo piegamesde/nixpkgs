@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
   # the Nix store are read-only, they must be made writable in the
   # tarball uploaded to Amazon S3.  So add a `--mode=0755' flag to the
   # tar invocation.
-  patches = [ ./writable.patch ];
+  patches = [./writable.patch];
 
   installPhase = ''
     mkdir -p $out

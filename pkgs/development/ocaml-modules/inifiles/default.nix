@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
     ocaml
     findlib
   ];
-  propagatedBuildInputs = [ ocaml_pcre ];
+  propagatedBuildInputs = [ocaml_pcre];
 
   strictDeps = true;
 

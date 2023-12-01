@@ -53,12 +53,12 @@ buildPythonPackage rec {
   # No tests for python
   doCheck = false;
 
-  pythonImportsCheck = [ "mkdocs" ];
+  pythonImportsCheck = ["mkdocs"];
 
   meta = with lib; {
     description = "Material for mkdocs";
     homepage = "https://squidfunk.github.io/mkdocs-material/";
     license = licenses.mit;
-    maintainers = with maintainers; [ dandellion ];
+    maintainers = with maintainers; [dandellion];
   };
 }

@@ -41,6 +41,6 @@ buildGoModule rec {
       asl20
       cc-by-nc-sa-40
     ];
-    maintainers = with maintainers; [ ajs124 ];
+    maintainers = with maintainers; [ajs124];
   };
 }

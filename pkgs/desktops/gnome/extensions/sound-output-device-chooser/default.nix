@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
     extensionPortalSlug = "sound-output-device-chooser";
   };
 
-  makeFlags = [ "INSTALL_DIR=${placeholder "out"}/share/gnome-shell/extensions" ];
+  makeFlags = ["INSTALL_DIR=${placeholder "out"}/share/gnome-shell/extensions"];
 
   preInstall = ''
     mkdir -p ${placeholder "out"}/share/gnome-shell/extensions
@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "GNOME Shell extension adding audio device chooser to panel";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     homepage = "https://github.com/kgshank/gse-sound-output-device-chooser";
   };
 }

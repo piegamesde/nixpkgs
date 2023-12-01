@@ -23,9 +23,9 @@ stdenvNoCC.mkDerivation rec {
     sha256 = "0vf14ln53wigaq3dkqdk5avarqplsq751nlv72da04ms6gqjfhdl";
   };
 
-  nativeBuildInputs = [ unzip ];
+  nativeBuildInputs = [unzip];
 
-  buildInputs = [ clickgen ];
+  buildInputs = [clickgen];
 
   buildPhase = ''
     mkdir bitmaps

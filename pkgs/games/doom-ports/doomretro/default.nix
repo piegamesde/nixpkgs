@@ -67,7 +67,7 @@ stdenv.mkDerivation (
       '';
       changelog = "https://github.com/bradharding/doomretro/releases/tag/${finalAttrs.src.rev}";
       license = lib.licenses.gpl3Plus;
-      maintainers = with lib.maintainers; [ AndersonTorres ];
+      maintainers = with lib.maintainers; [AndersonTorres];
       platforms = lib.platforms.unix;
     };
   }

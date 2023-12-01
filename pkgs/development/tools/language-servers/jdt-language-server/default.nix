@@ -18,9 +18,9 @@ stdenv.mkDerivation rec {
 
   sourceRoot = ".";
 
-  buildInputs = [ jdk ];
+  buildInputs = [jdk];
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase =
     let
@@ -91,8 +91,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://github.com/eclipse/eclipse.jdt.ls";
     description = "Java language server";
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with sourceTypes; [binaryBytecode];
     license = licenses.epl20;
-    maintainers = with maintainers; [ matt-snider ];
+    maintainers = with maintainers; [matt-snider];
   };
 }

@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
       Security
     ];
 
-  cmakeFlags = [ "-DSoapySDR_DIR=${soapysdr}/share/cmake/SoapySDR/" ];
+  cmakeFlags = ["-DSoapySDR_DIR=${soapysdr}/share/cmake/SoapySDR/"];
 
   postPatch = ''
     sed -i "s:DESTINATION .*uhd/modules:DESTINATION $out/lib/uhd/modules:" CMakeLists.txt
@@ -49,7 +49,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/pothosware/SoapyAirspy";
     description = "SoapySDR plugin for UHD devices";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ markuskowa ];
+    maintainers = with maintainers; [markuskowa];
     platforms = platforms.unix;
   };
 }

@@ -22,12 +22,12 @@ stdenv.mkDerivation rec {
     scdoc
   ];
 
-  cmakeFlags = [ "-DINSTALL_DOCUMENTATION=ON" ];
+  cmakeFlags = ["-DINSTALL_DOCUMENTATION=ON"];
 
   meta = with lib; {
     homepage = "https://github.com/Ferdi265/pipectl";
     license = licenses.gpl3;
     description = "a simple named pipe management utility";
-    maintainers = with maintainers; [ synthetica ];
+    maintainers = with maintainers; [synthetica];
   };
 }

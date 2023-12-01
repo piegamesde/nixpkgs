@@ -9,10 +9,10 @@ let
   cfg = config.services.patroni;
   defaultUser = "patroni";
   defaultGroup = "patroni";
-  format = pkgs.formats.yaml { };
+  format = pkgs.formats.yaml {};
 
   #boto doesn't support python 3.10 yet
-  patroni = pkgs.patroni.override { pythonPackages = pkgs.python39Packages; };
+  patroni = pkgs.patroni.override {pythonPackages = pkgs.python39Packages;};
 
   configFileName = "patroni-${cfg.scope}-${cfg.name}.yaml";
   configFile = format.generate configFileName cfg.settings;
@@ -158,7 +158,7 @@ in
 
     settings = mkOption {
       type = format.type;
-      default = { };
+      default = {};
       description = mdDoc ''
         The primary patroni configuration. See the [documentation](https://patroni.readthedocs.io/en/latest/SETTINGS.html)
         for possible values.
@@ -178,7 +178,7 @@ in
             ]
           )
         );
-      default = { };
+      default = {};
       example = {
         PATRONI_REPLICATION_PASSWORD = "/secret/file";
         PATRONI_SUPERUSER_PASSWORD = "/secret/file";
@@ -227,15 +227,15 @@ in
           isSystemUser = true;
         };
       };
-      groups = mkIf (cfg.group == defaultGroup) { patroni = { }; };
+      groups = mkIf (cfg.group == defaultGroup) {patroni = {};};
     };
 
     systemd.services = {
       patroni = {
         description = "Runners to orchestrate a high-availability PostgreSQL";
 
-        wantedBy = [ "multi-user.target" ];
-        after = [ "network.target" ];
+        wantedBy = ["multi-user.target"];
+        after = ["network.target"];
 
         script = ''
           ${concatStringsSep "\n" (
@@ -270,7 +270,7 @@ in
       };
     };
 
-    boot.kernelModules = mkIf cfg.softwareWatchdog [ "softdog" ];
+    boot.kernelModules = mkIf cfg.softwareWatchdog ["softdog"];
 
     services.udev.extraRules = mkIf cfg.softwareWatchdog ''
       KERNEL=="watchdog", OWNER="${cfg.user}", GROUP="${cfg.group}", MODE="0600"
@@ -289,5 +289,5 @@ in
     };
   };
 
-  meta.maintainers = [ maintainers.phfroidmont ];
+  meta.maintainers = [maintainers.phfroidmont];
 }

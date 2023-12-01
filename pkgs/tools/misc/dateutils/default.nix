@@ -19,8 +19,8 @@ stdenv.mkDerivation rec {
   # https://github.com/hroptatyr/dateutils/issues/148
   postPatch = "rm test/dzone.008.ctst";
 
-  nativeBuildInputs = [ autoreconfHook ];
-  buildInputs = [ tzdata ]; # needed for datezone
+  nativeBuildInputs = [autoreconfHook];
+  buildInputs = [tzdata]; # needed for datezone
   enableParallelBuilding = true;
 
   doCheck = true;
@@ -30,6 +30,6 @@ stdenv.mkDerivation rec {
     homepage = "http://www.fresse.org/dateutils/";
     license = licenses.bsd3;
     platforms = platforms.unix;
-    maintainers = [ maintainers.paperdigits ];
+    maintainers = [maintainers.paperdigits];
   };
 }

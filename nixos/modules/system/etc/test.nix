@@ -12,7 +12,7 @@
 }:
 let
   node = evalMinimalConfig (
-    { config, ... }:
+    {config, ...}:
     {
       imports = [
         pkgsModule
@@ -38,7 +38,7 @@ let
 in
 lib.recurseIntoAttrs {
   test-etc-vm = vmTools.runInLinuxVM (
-    runCommand "test-etc-vm" { } ''
+    runCommand "test-etc-vm" {} ''
       mkdir -p /etc
       ${node.config.system.build.etcActivationCommands}
       set -x

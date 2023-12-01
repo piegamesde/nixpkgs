@@ -1,12 +1,12 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "lift";
   version = "20211209-git";
 
   description = "LIsp Framework for Testing";
 
-  deps = [ ];
+  deps = [];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/lift/2021-12-09/lift-20211209-git.tgz";
@@ -15,7 +15,7 @@ rec {
 
   packageName = "lift";
 
-  asdFilesToKeep = [ "lift.asd" ];
+  asdFilesToKeep = ["lift.asd"];
   overrides = x: x;
 }
 /* (SYSTEM lift DESCRIPTION LIsp Framework for Testing SHA256

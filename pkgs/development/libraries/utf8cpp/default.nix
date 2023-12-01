@@ -17,9 +17,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-PnHbbjsryRwMMu517ta18qNgwOM6hRnVmXmR3fzS1+4=";
   };
 
-  cmakeFlags = [ "-DCMAKE_INSTALL_LIBDIR=lib" ];
+  cmakeFlags = ["-DCMAKE_INSTALL_LIBDIR=lib"];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   # Tests fail on darwin, probably due to a bug in the test framework:
   # https://github.com/nemtrif/utfcpp/issues/84
@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/nemtrif/utfcpp";
     description = "UTF-8 with C++ in a Portable Way";
     license = licenses.boost;
-    maintainers = with maintainers; [ jobojeha ];
+    maintainers = with maintainers; [jobojeha];
     platforms = platforms.all;
   };
 }

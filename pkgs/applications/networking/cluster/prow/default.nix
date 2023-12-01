@@ -66,7 +66,7 @@ buildGoModule rec {
     '';
     homepage = "https://github.com/kubernetes/test-infra/tree/master/prow";
     license = licenses.asl20;
-    maintainers = with maintainers; [ kalbasit ];
+    maintainers = with maintainers; [kalbasit];
     platforms = platforms.linux ++ platforms.darwin;
   };
 }

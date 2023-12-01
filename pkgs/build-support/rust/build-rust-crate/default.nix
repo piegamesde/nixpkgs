@@ -28,13 +28,13 @@ let
       (
         dep:
         let
-          normalizeName = lib.replaceStrings [ "-" ] [ "_" ];
+          normalizeName = lib.replaceStrings ["-"] ["_"];
           extern = normalizeName dep.libName;
           # Find a choice that matches in name and optionally version.
           findMatchOrUseExtern =
             choices:
             lib.findFirst (choice: (!(choice ? version) || choice.version == dep.version or ""))
-              { rename = extern; }
+              {rename = extern;}
               choices;
           name =
             if lib.hasAttr dep.crateName crateRenames then
@@ -66,7 +66,7 @@ let
   # instability unnecessarily.
   needUnstableCLI = dependencies: lib.any (dep: dep.stdlib or false) dependencies;
 
-  inherit (import ./log.nix { inherit lib; }) noisily echo_colored;
+  inherit (import ./log.nix {inherit lib;}) noisily echo_colored;
 
   configureCrate = import ./configure-crate.nix {
     inherit
@@ -91,7 +91,7 @@ let
       ;
   };
 
-  installCrate = import ./install-crate.nix { inherit stdenv; };
+  installCrate = import ./install-crate.nix {inherit stdenv;};
 
   # Allow access to the rust attribute set from inside buildRustCrate, which
   # has a parameter that shadows the name.
@@ -231,7 +231,7 @@ lib.makeOverridable
     }:
 
     let
-      crate = crate_ // (lib.attrByPath [ crate_.crateName ] (attr: { }) crateOverrides crate_);
+      crate = crate_ // (lib.attrByPath [crate_.crateName] (attr: {}) crateOverrides crate_);
       dependencies_ = dependencies;
       buildDependencies_ = buildDependencies;
       processedAttrs = [
@@ -265,7 +265,7 @@ lib.makeOverridable
       # crate2nix has a hack for the old bash based build script that did split
       # entries at `,`. No we have to work around that hack.
       # https://github.com/kolloch/crate2nix/blame/5b19c1b14e1b0e5522c3e44e300d0b332dc939e7/crate2nix/templates/build.nix.tera#L89
-      crateBin = lib.filter (bin: !(bin ? name && bin.name == ",")) (crate.crateBin or [ ]);
+      crateBin = lib.filter (bin: !(bin ? name && bin.name == ",")) (crate.crateBin or []);
       hasCrateBin = crate ? crateBin;
     in
     stdenv.mkDerivation (
@@ -287,10 +287,10 @@ lib.makeOverridable
           buildTests
           ;
 
-        src = crate.src or (fetchCrate { inherit (crate) crateName version sha256; });
+        src = crate.src or (fetchCrate {inherit (crate) crateName version sha256;});
         name = "rust_${crate.crateName}-${crate.version}${lib.optionalString buildTests_ "-test"}";
         version = crate.version;
-        depsBuildBuild = [ pkgsBuildBuild.stdenv.cc ];
+        depsBuildBuild = [pkgsBuildBuild.stdenv.cc];
         nativeBuildInputs =
           [
             rust
@@ -298,11 +298,10 @@ lib.makeOverridable
             cargo
             jq
           ]
-          ++ lib.optionals stdenv.buildPlatform.isDarwin [ libiconv ]
-          ++ (crate.nativeBuildInputs or [ ])
+          ++ lib.optionals stdenv.buildPlatform.isDarwin [libiconv]
+          ++ (crate.nativeBuildInputs or [])
           ++ nativeBuildInputs_;
-        buildInputs =
-          lib.optionals stdenv.isDarwin [ libiconv ] ++ (crate.buildInputs or [ ]) ++ buildInputs_;
+        buildInputs = lib.optionals stdenv.isDarwin [libiconv] ++ (crate.buildInputs or []) ++ buildInputs_;
         dependencies = map lib.getLib dependencies_;
         buildDependencies = map lib.getLib buildDependencies_;
 
@@ -349,17 +348,17 @@ lib.makeOverridable
         workspace_member = crate.workspace_member or ".";
         crateVersion = crate.version;
         crateDescription = crate.description or "";
-        crateAuthors = if crate ? authors && lib.isList crate.authors then crate.authors else [ ];
+        crateAuthors = if crate ? authors && lib.isList crate.authors then crate.authors else [];
         crateHomepage = crate.homepage or "";
         crateType =
-          if lib.attrByPath [ "procMacro" ] false crate then
-            [ "proc-macro" ]
-          else if lib.attrByPath [ "plugin" ] false crate then
-            [ "dylib" ]
+          if lib.attrByPath ["procMacro"] false crate then
+            ["proc-macro"]
+          else if lib.attrByPath ["plugin"] false crate then
+            ["dylib"]
           else
-            (crate.type or [ "lib" ]);
-        colors = lib.attrByPath [ "colors" ] "always" crate;
-        extraLinkFlags = lib.concatStringsSep " " (crate.extraLinkFlags or [ ]);
+            (crate.type or ["lib"]);
+        colors = lib.attrByPath ["colors"] "always" crate;
+        extraLinkFlags = lib.concatStringsSep " " (crate.extraLinkFlags or []);
         edition = crate.edition or null;
         codegenUnits = if crate ? codegenUnits then crate.codegenUnits else 1;
         extraRustcOpts =
@@ -422,13 +421,13 @@ lib.makeOverridable
         # and libs or just test binaries
         outputs =
           if buildTests then
-            [ "out" ]
+            ["out"]
           else
             [
               "out"
               "lib"
             ];
-        outputDev = if buildTests then [ "out" ] else [ "lib" ];
+        outputDev = if buildTests then ["out"] else ["lib"];
 
         meta = {
           mainProgram = crateName;
@@ -441,16 +440,16 @@ lib.makeOverridable
     rust = rustc;
     release = crate_.release or true;
     verbose = crate_.verbose or true;
-    extraRustcOpts = [ ];
-    extraRustcOptsForBuildRs = [ ];
-    features = [ ];
-    nativeBuildInputs = [ ];
-    buildInputs = [ ];
+    extraRustcOpts = [];
+    extraRustcOptsForBuildRs = [];
+    features = [];
+    nativeBuildInputs = [];
+    buildInputs = [];
     crateOverrides = defaultCrateOverrides;
     preUnpack = crate_.preUnpack or "";
     postUnpack = crate_.postUnpack or "";
     prePatch = crate_.prePatch or "";
-    patches = crate_.patches or [ ];
+    patches = crate_.patches or [];
     postPatch = crate_.postPatch or "";
     preConfigure = crate_.preConfigure or "";
     postConfigure = crate_.postConfigure or "";
@@ -458,8 +457,8 @@ lib.makeOverridable
     postBuild = crate_.postBuild or "";
     preInstall = crate_.preInstall or "";
     postInstall = crate_.postInstall or "";
-    dependencies = crate_.dependencies or [ ];
-    buildDependencies = crate_.buildDependencies or [ ];
-    crateRenames = crate_.crateRenames or { };
+    dependencies = crate_.dependencies or [];
+    buildDependencies = crate_.buildDependencies or [];
+    crateRenames = crate_.crateRenames or {};
     buildTests = crate_.buildTests or false;
   }

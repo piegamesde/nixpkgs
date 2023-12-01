@@ -14,14 +14,14 @@ stdenv.mkDerivation rec {
     sha256 = "1idi4c30pi79g5qfl7rr9s17krbjbg93bi8f2qrbsdlh78ga19ar";
   };
 
-  buildInputs = [ libtool ];
+  buildInputs = [libtool];
   # configureFlags = [ "--datadir=/run/current-system/share/dictd" ];
 
   env.NIX_CFLAGS_COMPILE = "-Wno-error=format-truncation";
 
   meta = with lib; {
     description = "Dict protocol server and client";
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.linux;
   };
 }

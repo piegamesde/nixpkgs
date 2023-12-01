@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-R0Bt4xfzQA1EmZbf7lcWLwSSUayf5Y711QhlAVhiLrY=";
   };
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
   nativeBuildInputs = [
     pkg-config
     scons
@@ -48,7 +48,7 @@ stdenv.mkDerivation rec {
     homepage = "https://xboxdrv.gitlab.io/";
     description = "Xbox/Xbox360 (and more) gamepad driver for Linux that works in userspace";
     license = licenses.gpl3Plus;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.linux;
   };
 }

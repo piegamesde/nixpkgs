@@ -43,7 +43,7 @@ stdenv.mkDerivation rec {
       LDFLAGS="-lncursesw -ltinfo"
     )
   '';
-  installFlags = [ "PREFIX=$(out)" ];
+  installFlags = ["PREFIX=$(out)"];
 
   meta = with lib; {
     homepage = "https://davidgriffith.gitlab.io/frotz/";

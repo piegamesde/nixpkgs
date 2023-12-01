@@ -7,7 +7,7 @@
 }:
 
 let
-  pyEnv = python.withPackages (ps: [ ps.setuptools ]);
+  pyEnv = python.withPackages (ps: [ps.setuptools]);
 in
 stdenv.mkDerivation rec {
   pname = "lief";
@@ -25,11 +25,11 @@ stdenv.mkDerivation rec {
     "py"
   ];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   # Not a propagatedBuildInput because only the $py output needs it; $out is
   # just the library itself (e.g. C/C++ headers).
-  buildInputs = [ python ];
+  buildInputs = [python];
 
   dontUseCmakeConfigure = true;
 
@@ -63,8 +63,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Library to Instrument Executable Formats";
     homepage = "https://lief.quarkslab.com/";
-    license = [ licenses.asl20 ];
+    license = [licenses.asl20];
     platforms = with platforms; linux ++ darwin;
-    maintainers = [ maintainers.lassulus ];
+    maintainers = [maintainers.lassulus];
   };
 }

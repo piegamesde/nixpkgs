@@ -11,7 +11,7 @@ let
     runCommandLocal "install-shell-files--${name}"
       (
         {
-          nativeBuildInputs = [ installShellFiles ];
+          nativeBuildInputs = [installShellFiles];
           meta.platforms = lib.platforms.all;
         }
         // env
@@ -22,7 +22,7 @@ in
 recurseIntoAttrs {
   # installManPage
 
-  install-manpage = runTest "install-manpage" { } ''
+  install-manpage = runTest "install-manpage" {} ''
     mkdir -p doc
     echo foo > doc/foo.1
     echo bar > doc/bar.2.gz
@@ -66,7 +66,7 @@ recurseIntoAttrs {
 
   # installShellCompletion
 
-  install-completion = runTest "install-completion" { } ''
+  install-completion = runTest "install-completion" {} ''
     echo foo > foo
     echo bar > bar
     echo baz > baz
@@ -101,7 +101,7 @@ recurseIntoAttrs {
 
         touch $out
       '';
-  install-completion-name = runTest "install-completion-name" { } ''
+  install-completion-name = runTest "install-completion-name" {} ''
     echo foo > foo
     echo bar > bar
     echo baz > baz
@@ -112,7 +112,7 @@ recurseIntoAttrs {
     cmp bar $out/share/zsh/site-functions/_foobar
     cmp baz $out/share/fish/vendor_completions.d/baz
   '';
-  install-completion-inference = runTest "install-completion-inference" { } ''
+  install-completion-inference = runTest "install-completion-inference" {} ''
     echo foo > foo.bash
     echo bar > bar.zsh
     echo baz > baz.fish
@@ -123,7 +123,7 @@ recurseIntoAttrs {
     cmp bar.zsh $out/share/zsh/site-functions/_bar
     cmp baz.fish $out/share/fish/vendor_completions.d/baz.fish
   '';
-  install-completion-cmd = runTest "install-completion-cmd" { } ''
+  install-completion-cmd = runTest "install-completion-cmd" {} ''
     echo foo > foo.bash
     echo bar > bar.zsh
     echo baz > baz.fish
@@ -136,7 +136,7 @@ recurseIntoAttrs {
     cmp baz.fish $out/share/fish/vendor_completions.d/foobar.fish
     cmp qux.fish $out/share/fish/vendor_completions.d/qux
   '';
-  install-completion-fifo = runTest "install-completion-fifo" { } ''
+  install-completion-fifo = runTest "install-completion-fifo" {} ''
     installShellCompletion \
       --bash --name foo.bash <(echo foo) \
       --zsh --name _foo <(echo bar) \

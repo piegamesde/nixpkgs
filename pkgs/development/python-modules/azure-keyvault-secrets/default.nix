@@ -27,7 +27,7 @@ buildPythonPackage rec {
     msrest
   ];
 
-  pythonNamespaces = [ "azure.keyvault" ];
+  pythonNamespaces = ["azure.keyvault"];
 
   # requires checkout from mono-repo
   doCheck = false;
@@ -36,6 +36,6 @@ buildPythonPackage rec {
     description = "Microsoft Azure Key Vault Secrets Client Library for Python";
     homepage = "https://github.com/Azure/azure-sdk-for-python";
     license = licenses.mit;
-    maintainers = with maintainers; [ jonringer ];
+    maintainers = with maintainers; [jonringer];
   };
 }

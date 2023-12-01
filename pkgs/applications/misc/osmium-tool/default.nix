@@ -56,6 +56,6 @@ stdenv.mkDerivation rec {
       mit
       bsd3
     ];
-    maintainers = with maintainers; [ das-g ];
+    maintainers = with maintainers; [das-g];
   };
 }

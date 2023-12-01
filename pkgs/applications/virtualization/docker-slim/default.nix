@@ -23,7 +23,7 @@ buildGoModule rec {
     "cmd/slim-sensor"
   ];
 
-  nativeBuildInputs = [ makeBinaryWrapper ];
+  nativeBuildInputs = [makeBinaryWrapper];
 
   ldflags = [
     "-s"

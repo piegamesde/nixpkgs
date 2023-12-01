@@ -45,7 +45,7 @@ buildPythonPackage rec {
   propagatedBuildInputs = [
     idna
     sniffio
-  ] ++ lib.optionals (pythonOlder "3.8") [ typing-extensions ];
+  ] ++ lib.optionals (pythonOlder "3.8") [typing-extensions];
 
   # trustme uses pyopenssl
   doCheck = !(stdenv.isDarwin && stdenv.isAarch64);
@@ -59,7 +59,7 @@ buildPythonPackage rec {
     trio
     trustme
     uvloop
-  ] ++ lib.optionals (pythonOlder "3.8") [ mock ];
+  ] ++ lib.optionals (pythonOlder "3.8") [mock];
 
   pytestFlagsArray = [
     "-W"
@@ -90,13 +90,13 @@ buildPythonPackage rec {
         "tests/streams/test_tls.py"
       ];
 
-  pythonImportsCheck = [ "anyio" ];
+  pythonImportsCheck = ["anyio"];
 
   meta = with lib; {
     changelog = "https://github.com/agronholm/anyio/blob/${src.rev}/docs/versionhistory.rst";
     description = "High level compatibility layer for multiple asynchronous event loop implementations on Python";
     homepage = "https://github.com/agronholm/anyio";
     license = licenses.mit;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

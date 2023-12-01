@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
   separateDebugInfo = stdenv.isLinux;
 
   buildInputs =
-    [ zlib ]
+    [zlib]
     ++ lib.optionals interactive [
       readline
       ncurses
@@ -52,7 +52,7 @@ stdenv.mkDerivation rec {
     patchShebangs configure
   '';
 
-  configureFlags = [ "--enable-threadsafe" ] ++ lib.optional interactive "--enable-readline";
+  configureFlags = ["--enable-threadsafe"] ++ lib.optional interactive "--enable-readline";
 
   env.NIX_CFLAGS_COMPILE = toString (
     [
@@ -116,7 +116,7 @@ stdenv.mkDerivation rec {
   };
 
   meta = with lib; {
-    changelog = "https://www.sqlite.org/releaselog/${lib.replaceStrings [ "." ] [ "_" ] version}.html";
+    changelog = "https://www.sqlite.org/releaselog/${lib.replaceStrings ["."] ["_"] version}.html";
     description = "A self-contained, serverless, zero-configuration, transactional SQL database engine";
     downloadPage = "https://sqlite.org/download.html";
     homepage = "https://www.sqlite.org/";

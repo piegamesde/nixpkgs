@@ -89,12 +89,12 @@ rustPlatform.buildRustPackage rec {
   # Browser tests time out with chromium and google-chrome
   doCheck = false;
 
-  passthru.tests.version = testers.testVersion { package = turbo; };
+  passthru.tests.version = testers.testVersion {package = turbo;};
 
   meta = with lib; {
     description = "High-performance build system for JavaScript and TypeScript codebases";
     homepage = "https://turbo.build/";
-    maintainers = with maintainers; [ dlip ];
+    maintainers = with maintainers; [dlip];
     license = licenses.mpl20;
   };
 }

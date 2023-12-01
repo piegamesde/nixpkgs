@@ -59,7 +59,7 @@ stdenv.mkDerivation (
     preFixup =
       if stdenv.isLinux then
         let
-          libPath = lib.makeLibraryPath [ stdenv.cc.cc ];
+          libPath = lib.makeLibraryPath [stdenv.cc.cc];
         in
         ''
           orig_size=$(stat --printf=%s $out/balena)
@@ -108,9 +108,9 @@ stdenv.mkDerivation (
       homepage = "https://github.com/balena-io/balena-cli";
       changelog = "https://github.com/balena-io/balena-cli/blob/v${version}/CHANGELOG.md";
       license = licenses.asl20;
-      maintainers = [ maintainers.kalebpace ];
+      maintainers = [maintainers.kalebpace];
       platforms = platforms.linux ++ platforms.darwin;
-      sourceProvenance = [ sourceTypes.binaryNativeCode ];
+      sourceProvenance = [sourceTypes.binaryNativeCode];
       mainProgram = "balena";
     };
   }

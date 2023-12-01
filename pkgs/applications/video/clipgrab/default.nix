@@ -39,7 +39,7 @@ mkDerivation rec {
     qttools
   ];
 
-  patches = [ ./yt-dlp-path.patch ];
+  patches = [./yt-dlp-path.patch];
 
   postPatch =
     ''
@@ -53,7 +53,7 @@ mkDerivation rec {
         --replace '"ffmpeg ' '"${ffmpeg.bin}/bin/ffmpeg '
     '';
 
-  qmakeFlags = [ "clipgrab.pro" ];
+  qmakeFlags = ["clipgrab.pro"];
 
   desktopItem = makeDesktopItem rec {
     name = "clipgrab";

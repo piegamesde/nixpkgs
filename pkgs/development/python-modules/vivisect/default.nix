@@ -37,7 +37,7 @@ buildPythonPackage rec {
       --replace 'cxxfilt>=0.2.1,<0.3.0' 'cxxfilt'
   '';
 
-  nativeBuildInputs = [ wrapQtAppsHook ];
+  nativeBuildInputs = [wrapQtAppsHook];
 
   propagatedBuildInputs = [
     pyasn1
@@ -59,13 +59,13 @@ buildPythonPackage rec {
   # requires another repo for test files
   doCheck = false;
 
-  pythonImportsCheck = [ "vivisect" ];
+  pythonImportsCheck = ["vivisect"];
 
   meta = with lib; {
     description = "Pure python disassembler, debugger, emulator, and static analysis framework";
     homepage = "https://github.com/vivisect/vivisect";
     changelog = "https://github.com/vivisect/vivisect/blob/v${version}/CHANGELOG.rst";
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

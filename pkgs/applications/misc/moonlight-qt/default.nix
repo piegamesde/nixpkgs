@@ -56,7 +56,7 @@ stdenv.mkDerivation rec {
     description = "Play your PC games on almost any device";
     homepage = "https://moonlight-stream.org";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ luc65r ];
+    maintainers = with maintainers; [luc65r];
     platforms = platforms.all;
     mainProgram = "moonlight";
   };

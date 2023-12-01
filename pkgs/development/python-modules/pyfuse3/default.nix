@@ -38,9 +38,9 @@ buildPythonPackage rec {
     pkg-config
   ];
 
-  buildInputs = [ fuse3 ];
+  buildInputs = [fuse3];
 
-  propagatedBuildInputs = [ trio ];
+  propagatedBuildInputs = [trio];
 
   preBuild = ''
     ${python.pythonForBuild.interpreter} setup.py build_cython
@@ -54,7 +54,7 @@ buildPythonPackage rec {
   ];
 
   # Checks if a /usr/bin directory exists, can't work on NixOS
-  disabledTests = [ "test_listdir" ];
+  disabledTests = ["test_listdir"];
 
   pythonImportsCheck = [
     "pyfuse3"

@@ -22,7 +22,7 @@ buildPythonPackage rec {
     sphinx
   ];
 
-  pythonImportsCheck = [ "pallets_sphinx_themes" ];
+  pythonImportsCheck = ["pallets_sphinx_themes"];
 
   doCheck = false;
 
@@ -30,6 +30,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/pallets/pallets-sphinx-themes";
     description = "Sphinx theme for Pallets projects";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ kaction ];
+    maintainers = with maintainers; [kaction];
   };
 }

@@ -39,7 +39,7 @@ python3Packages.buildPythonApplication rec {
     '';
     homepage = "http://harelba.github.io/q/";
     license = licenses.gpl3;
-    maintainers = [ maintainers.taneb ];
+    maintainers = [maintainers.taneb];
     platforms = platforms.all;
   };
 }

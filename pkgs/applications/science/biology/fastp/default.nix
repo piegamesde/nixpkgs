@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
     description = "Ultra-fast all-in-one FASTQ preprocessor";
     license = licenses.mit;
     homepage = "https://github.com/OpenGene/fastp";
-    maintainers = with maintainers; [ jbedo ];
+    maintainers = with maintainers; [jbedo];
     platforms = platforms.x86_64;
   };
 }

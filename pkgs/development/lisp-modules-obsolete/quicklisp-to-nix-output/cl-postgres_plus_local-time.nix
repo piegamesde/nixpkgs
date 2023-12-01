@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "cl-postgres_plus_local-time";
   version = "local-time-20210124-git";
@@ -27,7 +27,7 @@ rec {
 
   packageName = "cl-postgres+local-time";
 
-  asdFilesToKeep = [ "cl-postgres+local-time.asd" ];
+  asdFilesToKeep = ["cl-postgres+local-time.asd"];
   overrides = x: x;
 }
 /* (SYSTEM cl-postgres+local-time DESCRIPTION

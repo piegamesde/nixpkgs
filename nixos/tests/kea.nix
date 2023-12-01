@@ -6,21 +6,21 @@
 # address.
 
 import ./make-test-python.nix (
-  { pkgs, lib, ... }:
+  {pkgs, lib, ...}:
   {
-    meta.maintainers = with lib.maintainers; [ hexa ];
+    meta.maintainers = with lib.maintainers; [hexa];
 
     name = "kea";
 
     nodes = {
       router =
-        { config, pkgs, ... }:
+        {config, pkgs, ...}:
         {
-          virtualisation.vlans = [ 1 ];
+          virtualisation.vlans = [1];
 
           networking = {
             useDHCP = false;
-            firewall.allowedUDPPorts = [ 67 ];
+            firewall.allowedUDPPorts = [67];
           };
 
           systemd.network = {
@@ -50,13 +50,13 @@ import ./make-test-python.nix (
 
               interfaces-config = {
                 dhcp-socket-type = "raw";
-                interfaces = [ "eth1" ];
+                interfaces = ["eth1"];
               };
 
               subnet4 = [
                 {
                   subnet = "10.0.0.0/29";
-                  pools = [ { pool = "10.0.0.3 - 10.0.0.3"; } ];
+                  pools = [{pool = "10.0.0.3 - 10.0.0.3";}];
                 }
               ];
 
@@ -98,13 +98,13 @@ import ./make-test-python.nix (
         };
 
       nameserver =
-        { config, pkgs, ... }:
+        {config, pkgs, ...}:
         {
-          virtualisation.vlans = [ 1 ];
+          virtualisation.vlans = [1];
 
           networking = {
             useDHCP = false;
-            firewall.allowedUDPPorts = [ 53 ];
+            firewall.allowedUDPPorts = [53];
           };
 
           systemd.network = {
@@ -136,12 +136,12 @@ import ./make-test-python.nix (
               '';
               zonesDir = pkgs.buildEnv {
                 name = "knot-zones";
-                paths = [ zone ];
+                paths = [zone];
               };
             in
             {
               enable = true;
-              extraArgs = [ "-v" ];
+              extraArgs = ["-v"];
               extraConfig = ''
                 server:
                     listen: 0.0.0.0@53
@@ -171,9 +171,9 @@ import ./make-test-python.nix (
         };
 
       client =
-        { config, pkgs, ... }:
+        {config, pkgs, ...}:
         {
-          virtualisation.vlans = [ 1 ];
+          virtualisation.vlans = [1];
           systemd.services.systemd-networkd.environment.SYSTEMD_LOG_LEVEL = "debug";
           networking = {
             useNetworkd = true;
@@ -184,7 +184,7 @@ import ./make-test-python.nix (
         };
     };
     testScript =
-      { ... }:
+      {...}:
       ''
         start_all()
         router.wait_for_unit("kea-dhcp4-server.service")

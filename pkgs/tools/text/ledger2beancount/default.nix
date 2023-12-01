@@ -33,14 +33,14 @@ stdenv.mkDerivation rec {
 
   dontBuild = true;
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
   buildInputs = [
     perlPackages.perl
     beancount
   ] ++ perlDeps;
 
-  makeFlags = [ "prefix=$(out)" ];
-  installFlags = [ "INSTALL=install" ];
+  makeFlags = ["prefix=$(out)"];
+  installFlags = ["INSTALL=install"];
 
   installPhase = ''
     mkdir -p $out
@@ -62,6 +62,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/beancount/ledger2beancount";
     license = licenses.gpl3Plus;
     platforms = platforms.all;
-    maintainers = with maintainers; [ pablovsky ];
+    maintainers = with maintainers; [pablovsky];
   };
 }

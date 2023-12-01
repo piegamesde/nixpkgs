@@ -19,9 +19,9 @@ buildPythonPackage rec {
     hash = "sha256-5O4Er3jNUFy83m/K0HzYR+fHcSDqF/3M+fXaFZY8zEg=";
   };
 
-  buildInputs = [ libsass ];
+  buildInputs = [libsass];
 
-  propagatedBuildInputs = [ six ];
+  propagatedBuildInputs = [six];
 
   preBuild = ''
     export SYSTEM_SASS=true;
@@ -32,14 +32,14 @@ buildPythonPackage rec {
     werkzeug
   ];
 
-  pytestFlagsArray = [ "sasstests.py" ];
+  pytestFlagsArray = ["sasstests.py"];
 
-  pythonImportsCheck = [ "sass" ];
+  pythonImportsCheck = ["sass"];
 
   meta = with lib; {
     description = "Python binding for libsass to compile Sass/SCSS";
     homepage = "https://sass.github.io/libsass-python/";
     license = licenses.mit;
-    maintainers = with maintainers; [ SuperSandro2000 ];
+    maintainers = with maintainers; [SuperSandro2000];
   };
 }

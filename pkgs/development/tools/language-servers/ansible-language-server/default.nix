@@ -31,14 +31,14 @@ buildNpmPackage rec {
     sed -i '/"prepack"/d' package.json
   '';
 
-  npmPackFlags = [ "--ignore-scripts" ];
-  passthru.updateScript = nix-update-script { };
+  npmPackFlags = ["--ignore-scripts"];
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     changelog = "https://github.com/ansible/ansible-language-server/releases/tag/v${version}";
     description = "Ansible Language Server";
     homepage = "https://github.com/ansible/ansible-language-server";
     license = licenses.mit;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

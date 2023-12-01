@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
     sha256 = "15pg9j27mjzl78mpzkdqd84kdafj0g6j72f8wgjrpp2qkxjy2ddi";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   configureFlags = [
     "--enable-padlock"
@@ -25,14 +25,14 @@ stdenv.mkDerivation rec {
   postInstall = ''
     cp bz2aespipe $out/bin
     wrapProgram $out/bin/bz2aespipe \
-     --prefix PATH : $out/bin:${lib.makeBinPath [ sharutils ]}
+     --prefix PATH : $out/bin:${lib.makeBinPath [sharutils]}
   '';
 
   meta = with lib; {
     description = "AES encrypting or decrypting pipe";
     homepage = "https://loop-aes.sourceforge.net/aespipe.README";
     license = licenses.gpl2;
-    maintainers = [ maintainers.goibhniu ];
+    maintainers = [maintainers.goibhniu];
     platforms = platforms.unix;
   };
 }

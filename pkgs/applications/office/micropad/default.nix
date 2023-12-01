@@ -36,7 +36,7 @@ mkYarnPackage rec {
   nativeBuildInputs = [
     copyDesktopItems
     makeWrapper
-  ] ++ lib.optionals stdenv.isDarwin [ desktopToDarwinBundle ];
+  ] ++ lib.optionals stdenv.isDarwin [desktopToDarwinBundle];
 
   buildPhase = ''
     runHook preBuild
@@ -83,7 +83,7 @@ mkYarnPackage rec {
       desktopName = "µPad";
       startupWMClass = "µPad";
       comment = meta.description;
-      categories = [ "Office" ];
+      categories = ["Office"];
     })
   ];
 
@@ -93,7 +93,7 @@ mkYarnPackage rec {
     description = "A powerful note-taking app that helps you organise + take notes without restrictions";
     homepage = "https://getmicropad.com/";
     license = licenses.mpl20;
-    maintainers = with maintainers; [ rhysmdnz ];
+    maintainers = with maintainers; [rhysmdnz];
     inherit (electron.meta) platforms;
   };
 }

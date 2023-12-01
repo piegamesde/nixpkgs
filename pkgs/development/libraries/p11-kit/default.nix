@@ -85,7 +85,7 @@ stdenv.mkDerivation rec {
 
   doCheck = !stdenv.isDarwin;
 
-  installFlags = [ "exampledir=${placeholder "out"}/etc/pkcs11" ];
+  installFlags = ["exampledir=${placeholder "out"}/etc/pkcs11"];
 
   postInstall = ''
     installShellCompletion --bash bash-completion/{p11-kit,trust}

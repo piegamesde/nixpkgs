@@ -55,13 +55,13 @@ mkDerivation {
     zlib
   ];
 
-  runtimeDependencies = [ (lib.getLib curl) ];
+  runtimeDependencies = [(lib.getLib curl)];
 
   qtWrapperArgs =
     let
-      binPath = lib.makeBinPath [ jre_headless ];
+      binPath = lib.makeBinPath [jre_headless];
     in
-    lib.optionals withJava [ "--prefix PATH : ${binPath}" ];
+    lib.optionals withJava ["--prefix PATH : ${binPath}"];
 
   installPhase = ''
     runHook preInstall
@@ -90,10 +90,10 @@ mkDerivation {
       can always download the latest version from makemkv.com that will reset the
       expiration date.
     '';
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.unfree;
     homepage = "http://makemkv.com";
-    platforms = [ "x86_64-linux" ];
-    maintainers = with maintainers; [ titanous ];
+    platforms = ["x86_64-linux"];
+    maintainers = with maintainers; [titanous];
   };
 }

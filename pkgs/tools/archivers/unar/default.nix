@@ -54,7 +54,7 @@ stdenv.mkDerivation rec {
       wavpack
       zlib
     ]
-    ++ lib.optionals stdenv.isLinux [ gnustep.base ]
+    ++ lib.optionals stdenv.isLinux [gnustep.base]
     ++ lib.optionals stdenv.isDarwin [
       Foundation
       AppKit
@@ -62,7 +62,7 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [
     installShellFiles
-  ] ++ lib.optionals stdenv.isLinux [ gnustep.make ] ++ lib.optionals stdenv.isDarwin [ xcbuildHook ];
+  ] ++ lib.optionals stdenv.isLinux [gnustep.make] ++ lib.optionals stdenv.isDarwin [xcbuildHook];
 
   xcbuildFlags = lib.optionals stdenv.isDarwin [
     "-target unar"

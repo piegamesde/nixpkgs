@@ -25,15 +25,15 @@ buildPythonPackage rec {
       --replace "sphinx>=4,<5.1" "sphinx"
   '';
 
-  propagatedBuildInputs = [ sphinx ] ++ lib.optionals (pythonOlder "3.9") [ importlib-resources ];
+  propagatedBuildInputs = [sphinx] ++ lib.optionals (pythonOlder "3.9") [importlib-resources];
 
-  pythonImportsCheck = [ "sphinx_jupyterbook_latex" ];
+  pythonImportsCheck = ["sphinx_jupyterbook_latex"];
 
   meta = with lib; {
     description = "Latex specific features for jupyter book";
     homepage = "https://github.com/executablebooks/sphinx-jupyterbook-latex";
     changelog = "https://github.com/executablebooks/sphinx-jupyterbook-latex/raw/v${version}/CHANGELOG.md";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ marsam ];
+    maintainers = with maintainers; [marsam];
   };
 }

@@ -32,8 +32,8 @@ in
 
     systemd.user.services.canto-daemon = {
       description = "Canto RSS Daemon";
-      after = [ "network.target" ];
-      wantedBy = [ "default.target" ];
+      after = ["network.target"];
+      wantedBy = ["default.target"];
       serviceConfig.ExecStart = "${pkgs.canto-daemon}/bin/canto-daemon";
     };
   };

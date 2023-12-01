@@ -19,7 +19,7 @@ mkDerivation rec {
     sha256 = "sha256-osJvoi7oyZupJ/bnqpm0TdZ5cMYEeOw9DHOIAzONKLg=";
   };
 
-  nativeBuildInputs = [ qmake ];
+  nativeBuildInputs = [qmake];
 
   buildInputs = [
     qtbase
@@ -30,7 +30,7 @@ mkDerivation rec {
     homepage = "https://vnotex.github.io/vnote";
     description = "A pleasant note-taking platform";
     license = licenses.mit;
-    maintainers = with maintainers; [ AndersonTorres ];
+    maintainers = with maintainers; [AndersonTorres];
     platforms = platforms.linux;
   };
 }

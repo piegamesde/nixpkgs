@@ -39,6 +39,6 @@ python3Packages.buildPythonApplication rec {
     description = "A command line interface for audible package. With the cli you can download your Audible books, cover, chapter files";
     license = licenses.agpl3;
     homepage = "https://github.com/mkb79/audible-cli";
-    maintainers = with maintainers; [ jvanbruegge ];
+    maintainers = with maintainers; [jvanbruegge];
   };
 }

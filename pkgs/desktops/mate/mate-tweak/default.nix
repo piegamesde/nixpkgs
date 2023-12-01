@@ -74,14 +74,14 @@ python3Packages.buildPythonApplication rec {
     done
   '';
 
-  passthru.updateScript = gitUpdater { };
+  passthru.updateScript = gitUpdater {};
 
   meta = with lib; {
     description = "Tweak tool for the MATE Desktop";
     homepage = "https://github.com/ubuntu-mate/mate-tweak";
     changelog = "https://github.com/ubuntu-mate/mate-tweak/releases/tag/${version}";
-    license = [ licenses.gpl2Plus ];
+    license = [licenses.gpl2Plus];
     platforms = platforms.linux;
-    maintainers = teams.mate.members ++ (with maintainers; [ luc65r ]);
+    maintainers = teams.mate.members ++ (with maintainers; [luc65r]);
   };
 }

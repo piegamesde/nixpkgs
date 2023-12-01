@@ -27,7 +27,7 @@ buildPythonPackage rec {
     torchvision
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTests = [
     # Skip as it downloads pretrained weights (require network access)
@@ -42,12 +42,12 @@ buildPythonPackage rec {
       "tests/torchinfo_xl_test.py"
     ];
 
-  pythonImportsCheck = [ "torchinfo" ];
+  pythonImportsCheck = ["torchinfo"];
 
   meta = with lib; {
     description = "API to visualize pytorch models";
     homepage = "https://github.com/TylerYep/torchinfo";
     license = licenses.mit;
-    maintainers = with maintainers; [ petterstorvik ];
+    maintainers = with maintainers; [petterstorvik];
   };
 }

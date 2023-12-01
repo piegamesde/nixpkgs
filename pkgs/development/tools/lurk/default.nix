@@ -21,7 +21,7 @@ rustPlatform.buildRustPackage rec {
     description = "A simple and pretty alternative to strace";
     homepage = "https://github.com/jakwai01/lurk";
     license = licenses.agpl3Only;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
     platforms = [
       "i686-linux"
       "x86_64-linux"

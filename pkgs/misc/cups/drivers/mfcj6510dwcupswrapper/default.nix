@@ -15,8 +15,8 @@ stdenv.mkDerivation rec {
     sha256 = "0y5iffybxjin8injrdmc9n9hl4s6b8n6ck76m1z78bzi88vwmhai";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ mfcj6510dwlpr ];
+  nativeBuildInputs = [makeWrapper];
+  buildInputs = [mfcj6510dwlpr];
 
   buildPhase = ''
     cd brcupsconfig
@@ -66,6 +66,6 @@ stdenv.mkDerivation rec {
     license = with licenses; gpl2;
     platforms = with platforms; linux;
     downloadPage = "http://support.brother.com/g/b/downloadlist.aspx?c=us&lang=en&prod=mfcj6510dw_all&os=128";
-    maintainers = with maintainers; [ ramkromberg ];
+    maintainers = with maintainers; [ramkromberg];
   };
 }

@@ -36,17 +36,17 @@ buildPythonPackage rec {
     mock
   ];
 
-  nativeCheckInputs = [ rednose ];
+  nativeCheckInputs = [rednose];
 
   doCheck = pythonOlder "3.11";
 
-  pythonImportsCheck = [ "sure" ];
+  pythonImportsCheck = ["sure"];
 
   meta = with lib; {
     description = "Utility belt for automated testing";
     homepage = "https://sure.readthedocs.io/";
     changelog = "https://github.com/gabrielfalcao/sure/blob/${version}/CHANGELOG.md";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

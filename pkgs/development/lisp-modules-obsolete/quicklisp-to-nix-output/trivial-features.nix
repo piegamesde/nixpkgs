@@ -1,12 +1,12 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "trivial-features";
   version = "20211209-git";
 
   description = "Ensures consistent *FEATURES* across multiple CLs.";
 
-  deps = [ ];
+  deps = [];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/trivial-features/2021-12-09/trivial-features-20211209-git.tgz";
@@ -15,7 +15,7 @@ rec {
 
   packageName = "trivial-features";
 
-  asdFilesToKeep = [ "trivial-features.asd" ];
+  asdFilesToKeep = ["trivial-features.asd"];
   overrides = x: x;
 }
 /* (SYSTEM trivial-features DESCRIPTION

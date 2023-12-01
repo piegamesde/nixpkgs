@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "cl-cffi-gtk-gdk";
   version = "cl-cffi-gtk-20201220-git";
@@ -30,7 +30,7 @@ rec {
 
   packageName = "cl-cffi-gtk-gdk";
 
-  asdFilesToKeep = [ "cl-cffi-gtk-gdk.asd" ];
+  asdFilesToKeep = ["cl-cffi-gtk-gdk.asd"];
   overrides = x: x;
 }
 /* (SYSTEM cl-cffi-gtk-gdk DESCRIPTION A Lisp binding to GDK 3 SHA256

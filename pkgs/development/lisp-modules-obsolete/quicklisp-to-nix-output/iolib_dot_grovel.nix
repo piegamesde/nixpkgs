@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "iolib_dot_grovel";
   version = "iolib-v0.8.3";
@@ -26,7 +26,7 @@ rec {
 
   packageName = "iolib.grovel";
 
-  asdFilesToKeep = [ "iolib.grovel.asd" ];
+  asdFilesToKeep = ["iolib.grovel.asd"];
   overrides = x: x;
 }
 /* (SYSTEM iolib.grovel DESCRIPTION The CFFI Groveller SHA256

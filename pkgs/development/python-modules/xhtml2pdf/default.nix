@@ -41,14 +41,14 @@ buildPythonPackage rec {
     svglib
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "xhtml2pdf" ];
+  pythonImportsCheck = ["xhtml2pdf"];
 
   meta = with lib; {
     description = "A PDF generator using HTML and CSS";
     homepage = "https://github.com/xhtml2pdf/xhtml2pdf";
     license = licenses.asl20;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

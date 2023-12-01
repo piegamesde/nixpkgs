@@ -8,7 +8,7 @@
   # a b2 matching their version (by overriding this
   # argument). Infinite recursion is not an issue
   # since we only look at src and version of boost.
-  useBoost ? { },
+  useBoost ? {},
 }:
 
 let
@@ -32,7 +32,7 @@ stdenv.mkDerivation {
     sourceRoot="$sourceRoot/tools/build"
   '';
 
-  patches = useBoost.boostBuildPatches or [ ];
+  patches = useBoost.boostBuildPatches or [];
 
   # Upstream defaults to gcc on darwin, but we use clang.
   postPatch =
@@ -44,7 +44,7 @@ stdenv.mkDerivation {
       patchShebangs --build src/engine/build.sh
     '';
 
-  nativeBuildInputs = [ bison ];
+  nativeBuildInputs = [bison];
 
   buildPhase = ''
     runHook preBuild
@@ -68,6 +68,6 @@ stdenv.mkDerivation {
     homepage = "https://www.boost.org/build/";
     license = lib.licenses.boost;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ ivan-tkatchev ];
+    maintainers = with maintainers; [ivan-tkatchev];
   };
 }

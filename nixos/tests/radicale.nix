@@ -1,5 +1,5 @@
 import ./make-test-python.nix (
-  { lib, pkgs, ... }:
+  {lib, pkgs, ...}:
 
   let
     user = "someuser";
@@ -11,10 +11,10 @@ import ./make-test-python.nix (
   in
   {
     name = "radicale3";
-    meta.maintainers = with lib.maintainers; [ dotlambda ];
+    meta.maintainers = with lib.maintainers; [dotlambda];
 
     nodes.machine =
-      { pkgs, ... }:
+      {pkgs, ...}:
       {
         services.radicale = {
           enable = true;
@@ -43,12 +43,12 @@ import ./make-test-python.nix (
             };
           };
         };
-        systemd.services.radicale.path = [ pkgs.git ];
-        environment.systemPackages = [ pkgs.git ];
-        systemd.tmpfiles.rules = [ "d ${filesystem_folder} 0750 radicale radicale -" ];
+        systemd.services.radicale.path = [pkgs.git];
+        environment.systemPackages = [pkgs.git];
+        systemd.tmpfiles.rules = ["d ${filesystem_folder} 0750 radicale radicale -"];
         # WARNING: DON'T DO THIS IN PRODUCTION!
         # This puts unhashed secrets directly into the Nix store for ease of testing.
-        environment.etc."radicale/users".source = pkgs.runCommand "htpasswd" { } ''
+        environment.etc."radicale/users".source = pkgs.runCommand "htpasswd" {} ''
           ${pkgs.apacheHttpd}/bin/htpasswd -bcB "$out" ${user} ${password}
         '';
       };

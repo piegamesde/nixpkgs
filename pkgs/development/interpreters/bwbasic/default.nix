@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
     chmod +x configure
   '';
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   preInstall = ''
     mkdir -p $out/bin
@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Bywater BASIC Interpreter";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ irenes ];
+    maintainers = with maintainers; [irenes];
     platforms = platforms.all;
     homepage = "https://sourceforge.net/projects/bwbasic/";
   };

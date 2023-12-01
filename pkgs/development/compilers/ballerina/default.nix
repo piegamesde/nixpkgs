@@ -21,7 +21,7 @@ stdenv.mkDerivation {
     sha256 = "sha256-6UpUKoUHkYW9aPo2AbpP5uC1rCv578ultG9II1jZPRE=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     runHook preInstall
@@ -41,7 +41,7 @@ stdenv.mkDerivation {
         }
       '';
     in
-    runCommand "ballerina-${version}-smoketest" { } ''
+    runCommand "ballerina-${version}-smoketest" {} ''
       ${ballerina}/bin/bal run ${helloWorld} >$out
       read result <$out
       [[ $result = "Hello, World!" ]]
@@ -51,7 +51,7 @@ stdenv.mkDerivation {
     description = "An open-source programming language for the cloud";
     license = licenses.asl20;
     platforms = openjdk.meta.platforms;
-    maintainers = with maintainers; [ eigengrau ];
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
+    maintainers = with maintainers; [eigengrau];
+    sourceProvenance = with sourceTypes; [binaryBytecode];
   };
 }

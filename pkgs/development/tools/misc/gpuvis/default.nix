@@ -45,7 +45,7 @@ stdenv.mkDerivation rec {
     description = "GPU Trace Visualizer";
     homepage = "https://github.com/mikesart/gpuvis";
     license = licenses.mit;
-    maintainers = with maintainers; [ emantor ];
+    maintainers = with maintainers; [emantor];
     platforms = with platforms; linux;
   };
 }

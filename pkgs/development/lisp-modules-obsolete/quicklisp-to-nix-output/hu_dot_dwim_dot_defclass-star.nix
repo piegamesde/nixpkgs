@@ -1,10 +1,10 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "hu_dot_dwim_dot_defclass-star";
   version = "stable-git";
 
-  parasites = [ "hu.dwim.defclass-star/test" ];
+  parasites = ["hu.dwim.defclass-star/test"];
 
   description = "Simplify class like definitions with defclass* and friends.";
 
@@ -21,7 +21,7 @@ rec {
 
   packageName = "hu.dwim.defclass-star";
 
-  asdFilesToKeep = [ "hu.dwim.defclass-star.asd" ];
+  asdFilesToKeep = ["hu.dwim.defclass-star.asd"];
   overrides = x: x;
 }
 /* (SYSTEM hu.dwim.defclass-star DESCRIPTION

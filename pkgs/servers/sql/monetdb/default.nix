@@ -52,6 +52,6 @@ stdenv.mkDerivation rec {
     homepage = "https://www.monetdb.org/";
     license = licenses.mpl20;
     platforms = platforms.unix;
-    maintainers = [ maintainers.StillerHarpo ];
+    maintainers = [maintainers.StillerHarpo];
   };
 }

@@ -26,8 +26,8 @@ in
   config = mkIf cfg.enable {
     systemd.user.services.xbanish = {
       description = "xbanish hides the mouse pointer";
-      wantedBy = [ "graphical-session.target" ];
-      partOf = [ "graphical-session.target" ];
+      wantedBy = ["graphical-session.target"];
+      partOf = ["graphical-session.target"];
       serviceConfig.ExecStart = ''
         ${pkgs.xbanish}/bin/xbanish ${cfg.arguments}
       '';

@@ -35,12 +35,12 @@ in
     _: compressor,
   _compressorExecutable ? _compressorFunction pkgsBuildHost,
   _compressorName ? compressorName _compressorExecutable,
-  _compressorMeta ? compressors.${_compressorName} or { },
+  _compressorMeta ? compressors.${_compressorName} or {},
 
   # List of arguments to pass to the compressor program, or null to use its defaults
   compressorArgs ? null,
   _compressorArgsReal ?
-    if compressorArgs == null then _compressorMeta.defaultArgs or [ ] else compressorArgs,
+    if compressorArgs == null then _compressorMeta.defaultArgs or [] else compressorArgs,
 
   # Filename extension to use for the compressed initramfs. This is
   # included for clarity, but $out/initrd will always be a symlink to
@@ -57,7 +57,7 @@ in
   # List of uncompressed cpio files to prepend to the initramfs. This
   # can be used to add files in specified paths without them becoming
   # symlinks to store paths.
-  prepend ? [ ],
+  prepend ? [],
 
   # Whether to wrap the initramfs in a u-boot image.
   makeUInitrd ? stdenvNoCC.hostPlatform.linux-kernel.target == "uImage",
@@ -90,11 +90,11 @@ runCommand name
       ;
     ${if makeUInitrd then "uInitrdCompression" else null} = uInitrdCompression;
 
-    passAsFile = [ "contents" ];
+    passAsFile = ["contents"];
     contents =
       lib.concatMapStringsSep "\n"
         (
-          { object, symlink, ... }:
+          {object, symlink, ...}:
           ''
             ${object}
             ${if symlink == null then "" else symlink}''

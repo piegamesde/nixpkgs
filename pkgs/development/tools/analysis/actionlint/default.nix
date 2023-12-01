@@ -13,7 +13,7 @@ buildGoModule rec {
   pname = "actionlint";
   version = "1.6.24";
 
-  subPackages = [ "cmd/actionlint" ];
+  subPackages = ["cmd/actionlint"];
 
   src = fetchFromGitHub {
     owner = "rhysd";
@@ -53,7 +53,7 @@ buildGoModule rec {
     description = "Static checker for GitHub Actions workflow files";
     changelog = "https://github.com/rhysd/actionlint/raw/v${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = [ maintainers.marsam ];
+    maintainers = [maintainers.marsam];
     mainProgram = "actionlint";
   };
 }

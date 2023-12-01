@@ -65,13 +65,13 @@ buildPythonPackage rec {
     })
   ];
 
-  pythonImportsCheck = [ "emborg" ];
+  pythonImportsCheck = ["emborg"];
 
   meta = with lib; {
     description = "Interactive command line interface to Borg Backup";
     homepage = "https://github.com/KenKundert/emborg";
     changelog = "https://github.com/KenKundert/emborg/releases/tag/v${version}";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ jpetrucciani ];
+    maintainers = with maintainers; [jpetrucciani];
   };
 }

@@ -38,6 +38,6 @@ mkXfceDerivation {
 
   meta = with lib; {
     description = "Autoconf macros and scripts to augment app build systems";
-    maintainers = with maintainers; [ ] ++ teams.xfce.members;
+    maintainers = with maintainers; [] ++ teams.xfce.members;
   };
 }

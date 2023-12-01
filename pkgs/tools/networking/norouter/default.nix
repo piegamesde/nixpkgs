@@ -17,7 +17,7 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-RxrmYfEm1Maq8byoLXUr5RfXcwgqpCcAq5enMnl9V9E=";
 
-  subPackages = [ "cmd/norouter" ];
+  subPackages = ["cmd/norouter"];
   doInstallCheck = true;
   installCheckPhase = ''
     runHook preInstallCheck
@@ -31,6 +31,6 @@ buildGoModule rec {
     description = "Tool to handle unprivileged networking by using multiple loopback addresses";
     homepage = "https://github.com/norouter/norouter";
     license = licenses.asl20;
-    maintainers = with maintainers; [ blaggacao ];
+    maintainers = with maintainers; [blaggacao];
   };
 }

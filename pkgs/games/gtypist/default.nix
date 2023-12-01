@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
     sha256 = "0xzrkkmj0b1dw3yr0m9hml2y634cc4h61im6zwcq57s7285z8fn1";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
   buildInputs = [
     ncurses
     perl
@@ -35,6 +35,6 @@ stdenv.mkDerivation rec {
     description = "Universal typing tutor";
     license = licenses.gpl3Plus;
     platforms = platforms.linux ++ platforms.darwin;
-    maintainers = with maintainers; [ pSub ];
+    maintainers = with maintainers; [pSub];
   };
 }

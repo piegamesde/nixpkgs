@@ -28,6 +28,6 @@ buildGoModule rec {
     description = "Bridge to robustirc.net-IRC-Network";
     homepage = "https://robustirc.net/";
     license = licenses.bsd3;
-    maintainers = [ maintainers.hax404 ];
+    maintainers = [maintainers.hax404];
   };
 }

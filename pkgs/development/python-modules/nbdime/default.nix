@@ -39,7 +39,7 @@ buildPythonPackage rec {
     hash = "sha256-Z3ZzIOlxN09wGhdapZq9OlVHIwOdOfrpCOctFjMNZIs=";
   };
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
   propagatedBuildInputs = [
     attrs
@@ -82,13 +82,13 @@ buildPythonPackage rec {
 
   __darwinAllowLocalNetworking = true;
 
-  pythonImportsCheck = [ "nbdime" ];
+  pythonImportsCheck = ["nbdime"];
 
   meta = with lib; {
     homepage = "https://github.com/jupyter/nbdime";
     description = "Tools for diffing and merging of Jupyter notebooks.";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ tbenst ];
+    maintainers = with maintainers; [tbenst];
     # https://github.com/jupyter/nbdime/issues/645
     broken = lib.versionAtLeast jupyter-server.version "2";
   };

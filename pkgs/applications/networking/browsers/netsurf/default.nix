@@ -1,4 +1,4 @@
-{ lib, pkgs }:
+{lib, pkgs}:
 
 lib.makeScope pkgs.newScope (
   self:
@@ -22,22 +22,22 @@ lib.makeScope pkgs.newScope (
       else
         null;
 
-    browser = callPackage ./browser.nix { };
+    browser = callPackage ./browser.nix {};
 
-    buildsystem = callPackage ./buildsystem.nix { };
-    libcss = callPackage ./libcss.nix { };
-    libdom = callPackage ./libdom.nix { };
-    libhubbub = callPackage ./libhubbub.nix { };
-    libnsbmp = callPackage ./libnsbmp.nix { };
-    libnsfb = callPackage ./libnsfb.nix { };
-    libnsgif = callPackage ./libnsgif.nix { };
-    libnslog = callPackage ./libnslog.nix { };
-    libnspsl = callPackage ./libnspsl.nix { };
-    libnsutils = callPackage ./libnsutils.nix { };
-    libparserutils = callPackage ./libparserutils.nix { };
-    libsvgtiny = callPackage ./libsvgtiny.nix { };
-    libutf8proc = callPackage ./libutf8proc.nix { };
-    libwapcaplet = callPackage ./libwapcaplet.nix { };
-    nsgenbind = callPackage ./nsgenbind.nix { };
+    buildsystem = callPackage ./buildsystem.nix {};
+    libcss = callPackage ./libcss.nix {};
+    libdom = callPackage ./libdom.nix {};
+    libhubbub = callPackage ./libhubbub.nix {};
+    libnsbmp = callPackage ./libnsbmp.nix {};
+    libnsfb = callPackage ./libnsfb.nix {};
+    libnsgif = callPackage ./libnsgif.nix {};
+    libnslog = callPackage ./libnslog.nix {};
+    libnspsl = callPackage ./libnspsl.nix {};
+    libnsutils = callPackage ./libnsutils.nix {};
+    libparserutils = callPackage ./libparserutils.nix {};
+    libsvgtiny = callPackage ./libsvgtiny.nix {};
+    libutf8proc = callPackage ./libutf8proc.nix {};
+    libwapcaplet = callPackage ./libwapcaplet.nix {};
+    nsgenbind = callPackage ./nsgenbind.nix {};
   }
 )

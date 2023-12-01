@@ -46,8 +46,7 @@ stdenv.mkDerivation rec {
   '';
 
   env.NIX_CFLAGS_COMPILE = toString (
-    [ "-Wno-error=maybe-uninitialized" ]
-    ++ lib.optionals stdenv.cc.isGNU [ "-Wno-error=deprecated-copy" ]
+    ["-Wno-error=maybe-uninitialized"] ++ lib.optionals stdenv.cc.isGNU ["-Wno-error=deprecated-copy"]
   );
 
   meta = with lib; {
@@ -55,6 +54,6 @@ stdenv.mkDerivation rec {
     description = "An AMQP message broker and a C++ messaging API";
     license = licenses.asl20;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ cpages ];
+    maintainers = with maintainers; [cpages];
   };
 }

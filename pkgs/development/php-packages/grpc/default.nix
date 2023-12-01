@@ -13,7 +13,7 @@ buildPecl {
   doCheck = true;
   checkTarget = "test";
 
-  nativeBuildInputs = [ zlib ];
+  nativeBuildInputs = [zlib];
 
   meta = with lib; {
     description = "A high performance, open source, general RPC framework that puts mobile and HTTP/2 first.";

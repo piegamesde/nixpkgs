@@ -8,9 +8,9 @@
 bundlerApp {
   pname = "fastlane";
   gemdir = ./.;
-  exes = [ "fastlane" ];
+  exes = ["fastlane"];
 
-  buildInputs = [ makeBinaryWrapper ];
+  buildInputs = [makeBinaryWrapper];
 
   postBuild = ''
     wrapProgram $out/bin/fastlane --set FASTLANE_SKIP_UPDATE_CHECK 1

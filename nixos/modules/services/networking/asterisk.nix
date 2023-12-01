@@ -54,9 +54,9 @@ let
         syslog.local0 => notice,warning,error
       '';
     }
-    // mapAttrs (name: text: { inherit text; }) cfg.confFiles
+    // mapAttrs (name: text: {inherit text;}) cfg.confFiles
     // listToAttrs (
-      map (x: nameValuePair x { source = cfg.package + "/etc/asterisk/" + x; }) defaultConfFiles
+      map (x: nameValuePair x {source = cfg.package + "/etc/asterisk/" + x;}) defaultConfFiles
     );
 in
 
@@ -86,7 +86,7 @@ in
       };
 
       confFiles = mkOption {
-        default = { };
+        default = {};
         type = types.attrsOf types.str;
         example = literalExpression ''
           {
@@ -192,7 +192,7 @@ in
       };
 
       extraArguments = mkOption {
-        default = [ ];
+        default = [];
         type = types.listOf types.str;
         example = [
           "-vvvddd"
@@ -213,7 +213,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
     environment.etc = mapAttrs' (name: value: nameValuePair "asterisk/${name}" value) allConfFiles;
 
@@ -235,7 +235,7 @@ in
         Asterisk PBX server
       '';
 
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
 
       # Do not restart, to avoid disruption of running calls. Restart unit by yourself!
       restartIfChanged = false;

@@ -19,7 +19,7 @@ rustPlatform.buildRustPackage rec {
     hash = "sha256-urDC/Tm+ZwEbf0orZzKSET5ljQGVcKPGxscctKOM/FU=";
   };
 
-  propagatedBuildInputs = lib.optionals stdenv.isDarwin [ Security ];
+  propagatedBuildInputs = lib.optionals stdenv.isDarwin [Security];
 
   cargoLock.lockFile = ./Cargo.lock;
   postPatch = ''
@@ -35,7 +35,7 @@ rustPlatform.buildRustPackage rec {
   '';
 
   passthru.tests = {
-    apacheHttpd = apacheHttpd.override { modTlsSupport = true; };
+    apacheHttpd = apacheHttpd.override {modTlsSupport = true;};
     curl = curl.override {
       opensslSupport = false;
       rustlsSupport = true;
@@ -50,6 +50,6 @@ rustPlatform.buildRustPackage rec {
       asl20
       isc
     ];
-    maintainers = [ maintainers.lesuisse ];
+    maintainers = [maintainers.lesuisse];
   };
 }

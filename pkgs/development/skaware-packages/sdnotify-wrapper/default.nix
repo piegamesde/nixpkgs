@@ -26,7 +26,7 @@ runCommandCC "sdnotify-wrapper"
       description = "Use systemd sd_notify without having to link against libsystemd";
       platforms = lib.platforms.linux;
       license = lib.licenses.isc;
-      maintainers = with lib.maintainers; [ Profpatsch ];
+      maintainers = with lib.maintainers; [Profpatsch];
     };
   }
   ''

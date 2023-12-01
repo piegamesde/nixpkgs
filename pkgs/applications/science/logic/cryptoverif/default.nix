@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  nativeBuildInputs = [ ocaml ];
+  nativeBuildInputs = [ocaml];
 
   # Fix up the frontend to load the 'default' cryptoverif library
   #* from under $out/libexec. By default, it expects to find the files
@@ -39,6 +39,6 @@ stdenv.mkDerivation rec {
     homepage = "https://prosecco.gforge.inria.fr/personal/bblanche/cryptoverif/";
     license = lib.licenses.cecill-b;
     platforms = lib.platforms.unix;
-    maintainers = [ lib.maintainers.thoughtpolice ];
+    maintainers = [lib.maintainers.thoughtpolice];
   };
 }

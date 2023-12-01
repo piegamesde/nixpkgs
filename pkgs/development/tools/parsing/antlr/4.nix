@@ -25,8 +25,8 @@ let
       version,
       sourceSha256,
       jarSha256,
-      extraCppBuildInputs ? [ ],
-      extraCppCmakeFlags ? [ ],
+      extraCppBuildInputs ? [],
+      extraCppCmakeFlags ? [],
     }:
     rec {
       source = fetchFromGitHub {
@@ -82,7 +82,7 @@ let
             walk parse trees.
           '';
           homepage = "https://www.antlr.org/";
-          sourceProvenance = with sourceTypes; [ binaryBytecode ];
+          sourceProvenance = with sourceTypes; [binaryBytecode];
           license = licenses.bsd3;
           platforms = platforms.unix;
         };
@@ -168,7 +168,7 @@ in
       version = "4.9.3";
       sourceSha256 = "1af3cfqwk7lq1b5qsh1am0922fyhy7wmlpnrqdnvch3zzza9n1qm";
       jarSha256 = "0dnz2x54kigc58bxnynjhmr5iq49f938vj6p50gdir1xdna41kdg";
-      extraCppBuildInputs = [ utf8cpp ] ++ lib.optional stdenv.isLinux libuuid;
+      extraCppBuildInputs = [utf8cpp] ++ lib.optional stdenv.isLinux libuuid;
     }).antlr;
 
   antlr4_8 =
@@ -177,6 +177,6 @@ in
       sourceSha256 = "1qal3add26qxskm85nk7r758arladn5rcyjinmhlhznmpbbv9j8m";
       jarSha256 = "0nms976cnqyr1ndng3haxkmknpdq6xli4cpf4x4al0yr21l9v93k";
       extraCppBuildInputs = lib.optional stdenv.isLinux libuuid;
-      extraCppCmakeFlags = [ "-DANTLR4_INSTALL=ON" ];
+      extraCppCmakeFlags = ["-DANTLR4_INSTALL=ON"];
     }).antlr;
 }

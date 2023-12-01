@@ -61,7 +61,7 @@ stdenv.mkDerivation {
     "postInstall"
   ];
 
-  buildInputs = [ ];
+  buildInputs = [];
 
   installPhase = ''
     mkdir -p "$out/opt/moneyplex"
@@ -143,8 +143,8 @@ stdenv.mkDerivation {
 
   meta = with lib; {
     description = "Moneyplex online banking software";
-    maintainers = with maintainers; [ ];
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    maintainers = with maintainers; [];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     platforms = platforms.linux;
     license = licenses.unfree;
     downloadPage = "http://matrica.de/download/download.html";

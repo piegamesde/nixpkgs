@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "vecto";
   version = "1.5";
@@ -23,7 +23,7 @@ rec {
 
   packageName = "vecto";
 
-  asdFilesToKeep = [ "vecto.asd" ];
+  asdFilesToKeep = ["vecto.asd"];
   overrides = x: x;
 }
 /* (SYSTEM vecto DESCRIPTION Create vector graphics in PNG files. SHA256

@@ -19,6 +19,6 @@ buildDunePackage rec {
     description = "Compatibility Semaphore module";
     homepage = "https://github.com/mirage/semaphore-compat";
     license = licenses.lgpl21Only;
-    maintainers = [ maintainers.sternenseemann ];
+    maintainers = [maintainers.sternenseemann];
   };
 }

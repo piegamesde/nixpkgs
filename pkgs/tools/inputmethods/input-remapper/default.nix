@@ -58,7 +58,7 @@ in
     '';
 
   doCheck = withDoCheck;
-  nativeCheckInputs = [ psutil ];
+  nativeCheckInputs = [psutil];
   pythonImportsCheck = [
     "evdev"
     "inputremapper"
@@ -151,7 +151,7 @@ in
     homepage = "https://github.com/sezanzeb/input-remapper";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ LunNova ];
+    maintainers = with maintainers; [LunNova];
     mainProgram = "input-remapper-gtk";
   };
 }).overrideAttrs

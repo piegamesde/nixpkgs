@@ -16,7 +16,7 @@ let
     };
   };
 in
-runCommand "test" { } ''
+runCommand "test" {} ''
   ${hello-logging}/bin/hello &>/dev/stdout | grep "Hello, world!"
   touch $out
 ''

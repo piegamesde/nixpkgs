@@ -17,14 +17,14 @@ stdenv.mkDerivation rec {
     sha256 = "RAFl/+I+usUfeG/l17F3ltThK7G4+TekyQGwzQIgeH8=";
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
-  buildInputs = [ libiconv ];
+  nativeBuildInputs = [autoreconfHook];
+  buildInputs = [libiconv];
 
   meta = with lib; {
     description = "A iconv based simplified-traditional chinese conversion tool";
     homepage = "https://github.com/xiaoyjy/cconv";
     license = licenses.mit;
     platforms = platforms.all;
-    maintainers = [ maintainers.redfish64 ];
+    maintainers = [maintainers.redfish64];
   };
 }

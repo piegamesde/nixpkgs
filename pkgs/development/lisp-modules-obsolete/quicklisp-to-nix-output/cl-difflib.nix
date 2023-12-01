@@ -1,12 +1,12 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "cl-difflib";
   version = "20130128-git";
 
   description = "A Lisp library for computing differences between sequences.";
 
-  deps = [ ];
+  deps = [];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/cl-difflib/2013-01-28/cl-difflib-20130128-git.tgz";
@@ -15,7 +15,7 @@ rec {
 
   packageName = "cl-difflib";
 
-  asdFilesToKeep = [ "cl-difflib.asd" ];
+  asdFilesToKeep = ["cl-difflib.asd"];
   overrides = x: x;
 }
 /* (SYSTEM cl-difflib DESCRIPTION

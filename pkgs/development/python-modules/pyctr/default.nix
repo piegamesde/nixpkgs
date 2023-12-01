@@ -16,14 +16,14 @@ buildPythonPackage rec {
     hash = "sha256-05lMcsIeJIHI3LwHQTjr4M+bn1FG+GQscuGq34XxjK8=";
   };
 
-  propagatedBuildInputs = [ pycryptodomex ];
+  propagatedBuildInputs = [pycryptodomex];
 
-  pythonImportsCheck = [ "pyctr" ];
+  pythonImportsCheck = ["pyctr"];
 
   meta = with lib; {
     description = "Python library to interact with Nintendo 3DS files";
     license = licenses.mit;
-    maintainers = with maintainers; [ rileyinman ];
+    maintainers = with maintainers; [rileyinman];
     homepage = "https://github.com/ihaveamac/pyctr";
   };
 }

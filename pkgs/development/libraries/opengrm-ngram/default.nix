@@ -15,9 +15,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-ivMPDy6CPM17hWCToLOVzUgcWZiEt2pjYeizeBLYnYc=";
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
-  buildInputs = [ openfst ];
+  buildInputs = [openfst];
 
   enableParallelBuilding = true;
 
@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
     description = "Library to make and modify n-gram language models encoded as weighted finite-state transducers";
     homepage = "https://www.openfst.org/twiki/bin/view/GRM/NGramLibrary";
     license = licenses.asl20;
-    maintainers = with maintainers; [ mic92 ];
+    maintainers = with maintainers; [mic92];
     platforms = platforms.unix;
   };
 }

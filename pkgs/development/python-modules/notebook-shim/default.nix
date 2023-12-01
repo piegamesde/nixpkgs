@@ -20,8 +20,8 @@ buildPythonPackage rec {
     hash = "sha256-/z4vXSBqeL2wSqJ0kFNgU0TSGUGByhxHNya8EO55+7s=";
   };
 
-  nativeBuildInputs = [ hatchling ];
-  propagatedBuildInputs = [ jupyter-server ];
+  nativeBuildInputs = [hatchling];
+  propagatedBuildInputs = [jupyter-server];
 
   preCheck = ''
     mv notebook_shim/conftest.py notebook_shim/tests
@@ -37,7 +37,7 @@ buildPythonPackage rec {
     pytest-tornasync
   ];
 
-  pythonImportsCheck = [ "notebook_shim" ];
+  pythonImportsCheck = ["notebook_shim"];
 
   meta = with lib; {
     description = "Switch frontends to Jupyter Server";
@@ -47,6 +47,6 @@ buildPythonPackage rec {
     '';
     homepage = "https://github.com/jupyter/notebook_shim";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ friedelino ];
+    maintainers = with maintainers; [friedelino];
   };
 }

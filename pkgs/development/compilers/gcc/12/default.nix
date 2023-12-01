@@ -59,7 +59,7 @@ assert langAda -> gnat-bootstrap != null;
 assert !langD;
 
 # threadsCross is just for MinGW
-assert threadsCross != { } -> stdenv.targetPlatform.isWindows;
+assert threadsCross != {} -> stdenv.targetPlatform.isWindows;
 
 # profiledCompiler builds inject non-determinism in one of the compilation stages.
 # If turned on, we can't provide reproducible builds anymore
@@ -106,32 +106,32 @@ let
     # backport fixes to build gccgo with musl libc
     ++ optionals (langGo && stdenv.hostPlatform.isMusl) [
       (fetchpatch {
-        excludes = [ "gcc/go/gofrontend/MERGE" ];
+        excludes = ["gcc/go/gofrontend/MERGE"];
         url = "https://github.com/gcc-mirror/gcc/commit/cf79b1117bd177d3d4c6ed24b6fa243c3628ac2d.diff";
         hash = "sha256-mS5ZiYi5D8CpGXrWg3tXlbhp4o86ew1imCTwaHLfl+I=";
       })
       (fetchpatch {
-        excludes = [ "gcc/go/gofrontend/MERGE" ];
+        excludes = ["gcc/go/gofrontend/MERGE"];
         url = "https://github.com/gcc-mirror/gcc/commit/7f195a2270910a6ed08bd76e3a16b0a6503f9faf.diff";
         hash = "sha256-Ze/cFM0dQofKH00PWPDoklXUlwWhwA1nyTuiDAZ6FKo=";
       })
       (fetchpatch {
-        excludes = [ "gcc/go/gofrontend/MERGE" ];
+        excludes = ["gcc/go/gofrontend/MERGE"];
         url = "https://github.com/gcc-mirror/gcc/commit/762fd5e5547e464e25b4bee435db6df4eda0de90.diff";
         hash = "sha256-o28upwTcHAnHG2Iq0OewzwSBEhHs+XpBGdIfZdT81pk=";
       })
       (fetchpatch {
-        excludes = [ "gcc/go/gofrontend/MERGE" ];
+        excludes = ["gcc/go/gofrontend/MERGE"];
         url = "https://github.com/gcc-mirror/gcc/commit/e73d9fcafbd07bc3714fbaf8a82db71d50015c92.diff";
         hash = "sha256-1SjYCVHLEUihdON2TOC3Z2ufM+jf2vH0LvYtZL+c1Fo=";
       })
       (fetchpatch {
-        excludes = [ "gcc/go/gofrontend/MERGE" ];
+        excludes = ["gcc/go/gofrontend/MERGE"];
         url = "https://github.com/gcc-mirror/gcc/commit/b6c6a3d64f2e4e9347733290aca3c75898c44b2e.diff";
         hash = "sha256-RycJ3YCHd3MXtYFjxP0zY2Wuw7/C4bWoBAQtTKJZPOQ=";
       })
       (fetchpatch {
-        excludes = [ "gcc/go/gofrontend/MERGE" ];
+        excludes = ["gcc/go/gofrontend/MERGE"];
         url = "https://github.com/gcc-mirror/gcc/commit/2b1a604a9b28fbf4f382060bebd04adb83acc2f9.diff";
         hash = "sha256-WiBQG0Xbk75rHk+AMDvsbrm+dc7lDH0EONJXSdEeMGE=";
       })
@@ -314,7 +314,7 @@ lib.pipe
         crossMingw
         ;
 
-      inherit (callFile ../common/dependencies.nix { })
+      inherit (callFile ../common/dependencies.nix {})
         depsBuildBuild
         nativeBuildInputs
         depsBuildTarget
@@ -325,7 +325,7 @@ lib.pipe
       NIX_LDFLAGS = lib.optionalString hostPlatform.isSunOS "-lm";
 
       preConfigure =
-        (callFile ../common/pre-configure.nix { })
+        (callFile ../common/pre-configure.nix {})
         + ''
           ln -sf ${libxcrypt}/include/crypt.h libsanitizer/sanitizer_common/crypt.h
         '';
@@ -338,7 +338,7 @@ lib.pipe
         "target"
       ];
 
-      configureFlags = callFile ../common/configure-flags.nix { };
+      configureFlags = callFile ../common/configure-flags.nix {};
 
       targetConfig = if targetPlatform != hostPlatform then targetPlatform.config else null;
 
@@ -355,7 +355,7 @@ lib.pipe
         in
         lib.optional (target != "") target;
 
-      inherit (callFile ../common/strip-attributes.nix { }) stripDebugList stripDebugListTarget preFixup;
+      inherit (callFile ../common/strip-attributes.nix {}) stripDebugList stripDebugListTarget preFixup;
 
       # https://gcc.gnu.org/install/specific.html#x86-64-x-solaris210
       ${if hostPlatform.system == "x86_64-solaris" then "CC" else null} = "gcc -m64";
@@ -370,14 +370,14 @@ lib.pipe
       # LIBRARY_PATH= makes gcc read the specs from ., and the build breaks.
 
       CPATH = optionals (targetPlatform == hostPlatform) (
-        makeSearchPathOutput "dev" "include" ([ ] ++ optional (zlib != null) zlib)
+        makeSearchPathOutput "dev" "include" ([] ++ optional (zlib != null) zlib)
       );
 
       LIBRARY_PATH = optionals (targetPlatform == hostPlatform) (
         makeLibraryPath (optional (zlib != null) zlib)
       );
 
-      inherit (callFile ../common/extra-target-flags.nix { })
+      inherit (callFile ../common/extra-target-flags.nix {})
         EXTRA_FLAGS_FOR_TARGET
         EXTRA_LDFLAGS_FOR_TARGET
         ;
@@ -401,7 +401,7 @@ lib.pipe
       inherit enableShared enableMultilib;
 
       meta = {
-        inherit (callFile ../common/meta.nix { })
+        inherit (callFile ../common/meta.nix {})
           homepage
           license
           description
@@ -423,9 +423,9 @@ lib.pipe
           installTargets = "install-gcc install-target-libgcc";
         }
 
-    // optionalAttrs (enableMultilib) { dontMoveLib64 = true; }
+    // optionalAttrs (enableMultilib) {dontMoveLib64 = true;}
   ))
   [
-    (callPackage ../common/libgcc.nix { inherit langC langCC langJit; })
-    (callPackage ../common/checksum.nix { inherit langC langCC; })
+    (callPackage ../common/libgcc.nix {inherit langC langCC langJit;})
+    (callPackage ../common/checksum.nix {inherit langC langCC;})
   ]

@@ -69,7 +69,7 @@ stdenv.mkDerivation rec {
       desktopName = "Protege Desktop";
       icon = "protege";
       comment = "OWL2 ontology editor";
-      categories = [ "Development" ];
+      categories = ["Development"];
       exec = "run-protege";
     })
   ];
@@ -78,7 +78,7 @@ stdenv.mkDerivation rec {
     description = "The OWL2 ontology editor from Stanford, with third-party plugins included";
     homepage = "https://protege.stanford.edu/";
     downloadPage = "https://protege.stanford.edu/products.php#desktop-protege";
-    maintainers = with maintainers; [ nessdoor ];
+    maintainers = with maintainers; [nessdoor];
     license = with licenses; [
       asl20
       bsd2

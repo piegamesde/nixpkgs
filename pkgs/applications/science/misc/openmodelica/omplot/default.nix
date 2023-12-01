@@ -11,7 +11,7 @@
 mkOpenModelicaDerivation rec {
   pname = "omplot";
   omdir = "OMPlot";
-  omdeps = [ openmodelica.omcompiler ];
+  omdeps = [openmodelica.omcompiler];
   omautoconf = true;
 
   nativeBuildInputs = [

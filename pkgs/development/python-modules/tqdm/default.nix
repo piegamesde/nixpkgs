@@ -22,7 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-X09oKgBJUcG0ULx1PHEOkoDFdGzm/+3uJT3by/VM8eQ=";
   };
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
   nativeCheckInputs =
     [
@@ -46,17 +46,17 @@ buildPythonPackage rec {
 
   # Remove performance testing.
   # Too sensitive for on Hydra.
-  disabledTests = [ "perf" ];
+  disabledTests = ["perf"];
 
   LC_ALL = "en_US.UTF-8";
 
-  pythonImportsCheck = [ "tqdm" ];
+  pythonImportsCheck = ["tqdm"];
 
   meta = with lib; {
     description = "A Fast, Extensible Progress Meter";
     homepage = "https://github.com/tqdm/tqdm";
     changelog = "https://tqdm.github.io/releases/";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fridh ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fridh];
   };
 }

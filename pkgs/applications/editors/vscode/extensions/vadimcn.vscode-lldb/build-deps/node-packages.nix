@@ -7,7 +7,7 @@
   nix-gitignore,
   stdenv,
   lib,
-  globalBuildInputs ? [ ],
+  globalBuildInputs ? [],
 }:
 
 let
@@ -2852,7 +2852,7 @@ let
       sources."base64-js-1.5.1"
       sources."big.js-5.2.2"
       sources."binary-extensions-2.2.0"
-      (sources."bl-4.1.0" // { dependencies = [ sources."readable-stream-3.6.0" ]; })
+      (sources."bl-4.1.0" // {dependencies = [sources."readable-stream-3.6.0"];})
       sources."boolbase-1.0.0"
       sources."brace-expansion-1.1.11"
       sources."braces-3.0.2"
@@ -2864,7 +2864,7 @@ let
       sources."call-bind-1.0.2"
       sources."camelcase-6.3.0"
       sources."caniuse-lite-1.0.30001368"
-      (sources."chalk-4.1.2" // { dependencies = [ sources."supports-color-7.2.0" ]; })
+      (sources."chalk-4.1.2" // {dependencies = [sources."supports-color-7.2.0"];})
       sources."cheerio-1.0.0-rc.12"
       sources."cheerio-select-2.1.0"
       sources."chokidar-3.5.1"
@@ -2891,7 +2891,7 @@ let
       sources."cross-spawn-7.0.3"
       sources."css-select-5.1.0"
       sources."css-what-6.1.0"
-      (sources."debug-4.3.1" // { dependencies = [ sources."ms-2.1.2" ]; })
+      (sources."debug-4.3.1" // {dependencies = [sources."ms-2.1.2"];})
       sources."decamelize-4.0.0"
       sources."decompress-response-6.0.0"
       sources."deep-extend-0.6.0"
@@ -2913,7 +2913,7 @@ let
       sources."escalade-3.1.1"
       sources."escape-string-regexp-4.0.0"
       sources."eslint-scope-5.1.1"
-      (sources."esrecurse-4.3.0" // { dependencies = [ sources."estraverse-5.3.0" ]; })
+      (sources."esrecurse-4.3.0" // {dependencies = [sources."estraverse-5.3.0"];})
       sources."estraverse-4.3.0"
       sources."events-3.3.0"
       sources."expand-template-2.0.3"
@@ -2973,7 +2973,7 @@ let
       sources."locate-path-6.0.0"
       sources."log-symbols-4.0.0"
       sources."lru-cache-6.0.0"
-      (sources."markdown-it-12.3.2" // { dependencies = [ sources."entities-2.1.0" ]; })
+      (sources."markdown-it-12.3.2" // {dependencies = [sources."entities-2.1.0"];})
       sources."mdurl-1.0.1"
       sources."memory-fs-0.5.0"
       sources."merge-stream-2.0.0"
@@ -3002,7 +3002,7 @@ let
       sources."p-limit-3.1.0"
       sources."p-locate-5.0.0"
       sources."p-try-2.2.0"
-      (sources."parse-semver-1.1.1" // { dependencies = [ sources."semver-5.7.1" ]; })
+      (sources."parse-semver-1.1.1" // {dependencies = [sources."semver-5.7.1"];})
       sources."parse5-7.0.0"
       sources."parse5-htmlparser2-tree-adapter-7.0.0"
       sources."path-exists-4.0.0"
@@ -3030,9 +3030,9 @@ let
       sources."punycode-2.1.1"
       sources."qs-6.11.0"
       sources."randombytes-2.1.0"
-      (sources."rc-1.2.8" // { dependencies = [ sources."strip-json-comments-2.0.1" ]; })
+      (sources."rc-1.2.8" // {dependencies = [sources."strip-json-comments-2.0.1"];})
       sources."read-1.0.7"
-      (sources."readable-stream-2.3.7" // { dependencies = [ sources."safe-buffer-5.1.2" ]; })
+      (sources."readable-stream-2.3.7" // {dependencies = [sources."safe-buffer-5.1.2"];})
       sources."readdirp-3.5.0"
       sources."rechoir-0.7.1"
       sources."require-directory-2.1.1"
@@ -3055,21 +3055,16 @@ let
       sources."source-map-support-0.5.21"
       sources."string-argv-0.3.1"
       sources."string-width-2.1.1"
-      (sources."string_decoder-1.1.1" // { dependencies = [ sources."safe-buffer-5.1.2" ]; })
+      (sources."string_decoder-1.1.1" // {dependencies = [sources."safe-buffer-5.1.2"];})
       sources."strip-ansi-4.0.0"
       sources."strip-json-comments-3.1.1"
       sources."supports-color-8.1.1"
       sources."supports-preserve-symlinks-flag-1.0.0"
       sources."tapable-1.1.3"
       sources."tar-fs-2.1.1"
-      (sources."tar-stream-2.2.0" // { dependencies = [ sources."readable-stream-3.6.0" ]; })
-      (sources."terser-5.14.2" // { dependencies = [ sources."commander-2.20.3" ]; })
-      (
-        sources."terser-webpack-plugin-5.3.3"
-        // {
-          dependencies = [ sources."serialize-javascript-6.0.0" ];
-        }
-      )
+      (sources."tar-stream-2.2.0" // {dependencies = [sources."readable-stream-3.6.0"];})
+      (sources."terser-5.14.2" // {dependencies = [sources."commander-2.20.3"];})
+      (sources."terser-webpack-plugin-5.3.3" // {dependencies = [sources."serialize-javascript-6.0.0"];})
       sources."tmp-0.2.1"
       sources."to-regex-range-5.0.1"
       sources."ts-loader-8.4.0"
@@ -3108,7 +3103,7 @@ let
           ];
         }
       )
-      (sources."webpack-cli-4.10.0" // { dependencies = [ sources."commander-7.2.0" ]; })
+      (sources."webpack-cli-4.10.0" // {dependencies = [sources."commander-7.2.0"];})
       sources."webpack-merge-5.8.0"
       sources."webpack-sources-3.2.3"
       sources."which-2.0.2"

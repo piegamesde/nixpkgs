@@ -22,19 +22,19 @@ buildPythonPackage rec {
     extension = "zip";
   };
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
   propagatedBuildInputs = [
     fonttools
   ] ++ fonttools.optional-dependencies.ufo ++ fonttools.optional-dependencies.unicode;
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "defcon" ];
+  pythonImportsCheck = ["defcon"];
 
   passthru.optional-dependencies = {
-    pens = [ fontpens ];
-    lxml = [ fonttools ] ++ fonttools.optional-dependencies.lxml;
+    pens = [fontpens];
+    lxml = [fonttools] ++ fonttools.optional-dependencies.lxml;
   };
 
   meta = with lib; {
@@ -42,6 +42,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/robotools/defcon";
     changelog = "https://github.com/robotools/defcon/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ sternenseemann ];
+    maintainers = with maintainers; [sternenseemann];
   };
 }

@@ -16,12 +16,12 @@ buildDunePackage rec {
     hash = "sha256-7A4oqUasaBf5XVhU8FqZYa46hAi7YQ55z60BubJV3+A=";
   };
 
-  propagatedBuildInputs = [ cstruct ];
+  propagatedBuildInputs = [cstruct];
 
   meta = {
     description = "Constant time equal function to avoid timing attacks in OCaml";
     homepage = "https://github.com/mirage/eqaf";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
   };
 }

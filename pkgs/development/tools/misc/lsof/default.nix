@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-DQLY0a0sOCZFEJA4Y4b18OcWZw47RyqKZ0mVG0CDVTI=";
   };
 
-  patches = [ ./no-build-info.patch ];
+  patches = [./no-build-info.patch];
 
   postPatch =
     lib.optionalString stdenv.hostPlatform.isMusl ''
@@ -33,12 +33,12 @@ stdenv.mkDerivation rec {
       sed -i 's|lcurses|lncurses|g' Configure
     '';
 
-  depsBuildBuild = [ buildPackages.stdenv.cc ];
+  depsBuildBuild = [buildPackages.stdenv.cc];
   nativeBuildInputs = [
     perl
     which
   ];
-  buildInputs = [ ncurses ];
+  buildInputs = [ncurses];
 
   # Stop build scripts from searching global include paths
   LSOF_INCLUDE = "${lib.getDev stdenv.cc.libc}/include";
@@ -69,7 +69,7 @@ stdenv.mkDerivation rec {
       from it).
     '';
     license = licenses.purdueBsd;
-    maintainers = with maintainers; [ dezgeg ];
+    maintainers = with maintainers; [dezgeg];
     platforms = platforms.unix;
   };
 }

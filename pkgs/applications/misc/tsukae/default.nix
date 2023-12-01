@@ -22,6 +22,6 @@ buildGoModule rec {
     homepage = "https://github.com/irevenko/tsukae";
     license = licenses.mit;
     mainProgram = pname;
-    maintainers = with maintainers; [ l3af ];
+    maintainers = with maintainers; [l3af];
   };
 }

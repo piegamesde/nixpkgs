@@ -33,9 +33,9 @@ stdenv.mkDerivation (
         (PMU) of modern processors.
       '';
       license = licenses.gpl2;
-      maintainers = [ maintainers.pierron ];
+      maintainers = [maintainers.pierron];
       platforms = platforms.linux;
     };
   }
-  // lib.optionalAttrs (!enableShared) { CONFIG_PFMLIB_SHARED = "n"; }
+  // lib.optionalAttrs (!enableShared) {CONFIG_PFMLIB_SHARED = "n";}
 )

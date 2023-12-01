@@ -20,7 +20,7 @@ symlinkJoin {
     omshell
   ];
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   postBuild = ''
     wrapProgram $out/bin/OMEdit \

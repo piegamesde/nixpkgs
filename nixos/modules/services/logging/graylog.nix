@@ -117,7 +117,7 @@ in
 
       plugins = mkOption {
         description = lib.mdDoc "Extra graylog plugins";
-        default = [ ];
+        default = [];
         type = types.listOf types.package;
       };
     };
@@ -134,13 +134,13 @@ in
         description = "Graylog server daemon user";
       };
     };
-    users.groups = mkIf (cfg.user == "graylog") { graylog = { }; };
+    users.groups = mkIf (cfg.user == "graylog") {graylog = {};};
 
-    systemd.tmpfiles.rules = [ "d '${cfg.messageJournalDir}' - ${cfg.user} - - -" ];
+    systemd.tmpfiles.rules = ["d '${cfg.messageJournalDir}' - ${cfg.user} - - -"];
 
     systemd.services.graylog = {
       description = "Graylog Server";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       environment = {
         GRAYLOG_CONF = "${confFile}";
       };

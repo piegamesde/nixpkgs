@@ -191,7 +191,7 @@ stdenv.mkDerivation (
       libdir = "${finalAttrs.finalPackage}/lib/mutter-12";
 
       tests = {
-        libdirExists = runCommand "mutter-libdir-exists" { } ''
+        libdirExists = runCommand "mutter-libdir-exists" {} ''
           if [[ ! -d ${finalAttrs.finalPackage.libdir} ]]; then
             echo "passthru.libdir should contain a directory, “${finalAttrs.finalPackage.libdir}” is not one."
             exit 1

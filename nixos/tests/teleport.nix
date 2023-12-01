@@ -1,11 +1,11 @@
 {
   system ? builtins.currentSystem,
-  config ? { },
-  pkgs ? import ../.. { inherit system config; },
+  config ? {},
+  pkgs ? import ../.. {inherit system config;},
   lib ? pkgs.lib,
 }:
 
-with import ../lib/testing-python.nix { inherit system pkgs; };
+with import ../lib/testing-python.nix {inherit system pkgs;};
 
 let
   packages = with pkgs; {
@@ -29,7 +29,7 @@ let
           nodename = "client";
           advertise_ip = "192.168.1.20";
           auth_token = "8d1957b2-2ded-40e6-8297-d48156a898a9";
-          auth_servers = [ "192.168.1.10:3025" ];
+          auth_servers = ["192.168.1.10:3025"];
           log.severity = "DEBUG";
         };
         ssh_service = {
@@ -63,14 +63,14 @@ let
         proxy_service.enabled = true;
         auth_service = {
           enabled = true;
-          tokens = [ "node:8d1957b2-2ded-40e6-8297-d48156a898a9" ];
+          tokens = ["node:8d1957b2-2ded-40e6-8297-d48156a898a9"];
         };
       };
       diag.enable = true;
       insecure.enable = true;
     };
     networking = {
-      firewall.allowedTCPPorts = [ 3025 ];
+      firewall.allowedTCPPorts = [3025];
       interfaces.eth1.ipv4.addresses = [
         {
           address = "192.168.1.10";
@@ -85,7 +85,7 @@ lib.concatMapAttrs
     "minimal_${name}" = makeTest {
       # minimal setup should always work
       name = "teleport-minimal-setup";
-      meta.maintainers = with pkgs.lib.maintainers; [ justinas ];
+      meta.maintainers = with pkgs.lib.maintainers; [justinas];
       nodes.minimal = minimal package;
 
       testScript = ''
@@ -98,7 +98,7 @@ lib.concatMapAttrs
     "basic_${name}" = makeTest {
       # basic server and client test
       name = "teleport-server-client";
-      meta.maintainers = with pkgs.lib.maintainers; [ justinas ];
+      meta.maintainers = with pkgs.lib.maintainers; [justinas];
       nodes = {
         server = server package;
         client = client package;

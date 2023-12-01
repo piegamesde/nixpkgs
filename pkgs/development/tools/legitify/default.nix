@@ -28,6 +28,6 @@ buildGoModule rec {
     homepage = "https://github.com/Legit-Labs/legitify";
     changelog = "https://github.com/Legit-Labs/legitify/releases/tag/v${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

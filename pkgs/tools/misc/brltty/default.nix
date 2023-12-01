@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
     python3.pkgs.cython
     tcl
   ];
-  buildInputs = [ bluez ] ++ lib.optional alsaSupport alsa-lib ++ lib.optional systemdSupport systemd;
+  buildInputs = [bluez] ++ lib.optional alsaSupport alsa-lib ++ lib.optional systemdSupport systemd;
 
   meta = {
     description = "Access software for a blind person using a braille display";
@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://brltty.app";
     license = lib.licenses.gpl2Plus;
-    maintainers = [ lib.maintainers.bramd ];
+    maintainers = [lib.maintainers.bramd];
     platforms = lib.platforms.all;
   };
 

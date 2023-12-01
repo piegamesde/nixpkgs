@@ -27,7 +27,7 @@ let
       clang
       cmake
     ];
-    buildInputs = [ llvmPackages.libclang ] ++ lib.optional stdenv.isDarwin Security;
+    buildInputs = [llvmPackages.libclang] ++ lib.optional stdenv.isDarwin Security;
 
     cargoLock = {
       lockFile = ./Cargo.lock;
@@ -38,13 +38,13 @@ let
 
     LIBCLANG_PATH = "${llvmPackages.libclang.lib}/lib";
 
-    passthru.tests.version = testers.testVersion { inherit package; };
+    passthru.tests.version = testers.testVersion {inherit package;};
 
     meta = with lib; {
       description = "An interface to send PartiQL statements to Amazon Quantum Ledger Database (QLDB)";
       homepage = "https://github.com/awslabs/amazon-qldb-shell";
       license = licenses.asl20;
-      maintainers = [ maintainers.terlar ];
+      maintainers = [maintainers.terlar];
       mainProgram = "qldb";
     };
   };

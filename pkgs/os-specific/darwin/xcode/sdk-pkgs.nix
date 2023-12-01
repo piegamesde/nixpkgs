@@ -39,7 +39,7 @@ rec {
       cc = clang-unwrapped;
       bintools = binutils;
       libc = targetIosSdkPkgs.libraries;
-      extraPackages = [ "${sdk}/System" ];
+      extraPackages = ["${sdk}/System"];
       extraBuildCommands = ''
         tr '\n' ' ' < $out/nix-support/cc-cflags > cc-cflags.tmp
         mv cc-cflags.tmp $out/nix-support/cc-cflags

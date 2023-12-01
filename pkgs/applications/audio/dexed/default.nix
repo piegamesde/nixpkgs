@@ -120,6 +120,6 @@ stdenv.mkDerivation rec {
     homepage = "https://asb2m10.github.io/dexed";
     license = licenses.gpl3Only;
     platforms = platforms.all;
-    maintainers = with maintainers; [ OPNA2608 ];
+    maintainers = with maintainers; [OPNA2608];
   };
 }

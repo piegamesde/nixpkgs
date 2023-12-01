@@ -19,6 +19,6 @@ buildDunePackage {
   meta = with lib; {
     inherit (functoria.meta) homepage license;
     description = "Runtime support library for functoria-generated code";
-    maintainers = [ maintainers.sternenseemann ];
+    maintainers = [maintainers.sternenseemann];
   };
 }

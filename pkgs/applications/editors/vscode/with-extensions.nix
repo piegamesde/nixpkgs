@@ -7,7 +7,7 @@
   vscode-utils,
   makeWrapper,
   writeTextFile,
-  vscodeExtensions ? [ ],
+  vscodeExtensions ? [],
 }:
 
 /* `vscodeExtensions`
@@ -62,7 +62,7 @@ let
 
   combinedExtensionsDrv = buildEnv {
     name = "vscode-extensions";
-    paths = vscodeExtensions ++ [ extensionJsonFile ];
+    paths = vscodeExtensions ++ [extensionJsonFile];
   };
 
   extensionsFlag = ''
@@ -72,8 +72,8 @@ in
 
 runCommand "${wrappedPkgName}-with-extensions-${wrappedPkgVersion}"
   {
-    nativeBuildInputs = [ makeWrapper ];
-    buildInputs = [ vscode ];
+    nativeBuildInputs = [makeWrapper];
+    buildInputs = [vscode];
     dontPatchELF = true;
     dontStrip = true;
     meta = vscode.meta;

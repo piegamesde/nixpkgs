@@ -18,5 +18,5 @@ qtModule {
     wayland
     libdrm
   ];
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 }

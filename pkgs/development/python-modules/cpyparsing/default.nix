@@ -22,20 +22,20 @@ buildPythonPackage rec {
     hash = "sha256-cb0Lx+S9WnPa9veHJaYEU7pFCtB6pG/GKf4HK/UbmtU=";
   };
 
-  nativeBuildInputs = [ cython ];
+  nativeBuildInputs = [cython];
 
-  nativeCheckInputs = [ pexpect ];
+  nativeCheckInputs = [pexpect];
 
   checkPhase = ''
     ${python.interpreter} tests/cPyparsing_test.py
   '';
 
-  pythonImportsCheck = [ "cPyparsing" ];
+  pythonImportsCheck = ["cPyparsing"];
 
   meta = with lib; {
     description = "Cython PyParsing implementation";
     homepage = "https://github.com/evhub/cpyparsing";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fabianhjr ];
+    maintainers = with maintainers; [fabianhjr];
   };
 }

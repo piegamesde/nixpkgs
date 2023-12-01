@@ -202,7 +202,7 @@ let
       ncurses5
 
       # Flutter can only search for certs Fedora-way.
-      (runCommand "fedoracert" { } ''
+      (runCommand "fedoracert" {} ''
         mkdir -p $out/etc/pki/tls/
         ln -s ${cacert}/etc/ssl/certs $out/etc/pki/tls/certs
       '')
@@ -242,13 +242,13 @@ runCommand drvName
       # Also: For actual development the Android SDK is required and the Google
       # binaries are also distributed as proprietary software (unlike the
       # source-code itself).
-      platforms = [ "x86_64-linux" ];
+      platforms = ["x86_64-linux"];
       maintainers =
         with maintainers;
         rec {
-          stable = [ alapshin ];
-          beta = [ alapshin ];
-          canary = [ alapshin ];
+          stable = [alapshin];
+          beta = [alapshin];
+          canary = [alapshin];
           dev = canary;
         }
         ."${channel}";

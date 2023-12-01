@@ -135,8 +135,8 @@ in
   config = mkIf cfg.enable {
     systemd.services.documize-server = {
       description = "Documize Wiki";
-      documentation = [ "https://documize.com/" ];
-      wantedBy = [ "multi-user.target" ];
+      documentation = ["https://documize.com/"];
+      wantedBy = ["multi-user.target"];
 
       serviceConfig = {
         ExecStart = concatStringsSep " " [

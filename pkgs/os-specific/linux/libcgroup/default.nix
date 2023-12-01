@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
     bison
     flex
   ];
-  buildInputs = [ pam ];
+  buildInputs = [pam];
 
   postPatch = ''
     substituteInPlace src/tools/Makefile.am \
@@ -37,6 +37,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/libcgroup/libcgroup";
     license = lib.licenses.lgpl2;
     platforms = lib.platforms.linux;
-    maintainers = [ lib.maintainers.thoughtpolice ];
+    maintainers = [lib.maintainers.thoughtpolice];
   };
 }

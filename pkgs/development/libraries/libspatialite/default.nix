@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
     minizip
     proj
     sqlite
-  ] ++ lib.optionals stdenv.isDarwin [ libiconv ];
+  ] ++ lib.optionals stdenv.isDarwin [libiconv];
 
   enableParallelBuilding = true;
 
@@ -70,6 +70,6 @@ stdenv.mkDerivation rec {
       mpl11
     ];
     platforms = platforms.unix;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

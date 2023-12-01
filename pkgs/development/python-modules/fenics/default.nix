@@ -45,7 +45,7 @@ let
       numpy
       six
     ];
-    nativeCheckInputs = [ pytest ];
+    nativeCheckInputs = [pytest];
     preCheck = ''
       export HOME=$PWD
     '';
@@ -74,7 +74,7 @@ let
       six
       sympy
     ];
-    nativeCheckInputs = [ pytest ];
+    nativeCheckInputs = [pytest];
 
     preCheck = ''
       # Workaround pytest 4.6.3 issue.
@@ -107,7 +107,7 @@ let
       numpy
       six
     ];
-    nativeCheckInputs = [ pytest ];
+    nativeCheckInputs = [pytest];
     checkPhase = ''
       runHook preCheck
       py.test test/
@@ -128,7 +128,7 @@ let
       url = "https://bitbucket.org/fenics-project/ffc/downloads/ffc-${version}.tar.gz";
       sha256 = "1zdg6pziss4va74pd7jjl8sc3ya2gmhpypccmyd8p7c66ji23y2g";
     };
-    nativeBuildInputs = [ pybind11 ];
+    nativeBuildInputs = [pybind11];
     propagatedBuildInputs = [
       dijitso
       fiat
@@ -138,7 +138,7 @@ let
       ufl
       setuptools
     ];
-    nativeCheckInputs = [ pytest ];
+    nativeCheckInputs = [pytest];
     preCheck = ''
       export HOME=$PWD
       rm test/unit/ufc/finite_element/test_evaluate.py

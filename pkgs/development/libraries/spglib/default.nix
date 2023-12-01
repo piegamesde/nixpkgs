@@ -17,16 +17,16 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-8Voepj35CMbboL3Dc55Gc4+OLPTTSgqVQuvNcRQsqmU=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
-  buildInputs = lib.optionals stdenv.isDarwin [ openmp ];
+  buildInputs = lib.optionals stdenv.isDarwin [openmp];
 
   meta = with lib; {
     description = "C library for finding and handling crystal symmetries";
     homepage = "https://spglib.github.io/spglib/";
     changelog = "https://github.com/spglib/spglib/raw/v${version}/ChangeLog";
     license = licenses.bsd3;
-    maintainers = [ maintainers.markuskowa ];
+    maintainers = [maintainers.markuskowa];
     platforms = platforms.all;
   };
 }

@@ -15,7 +15,7 @@
   gobject-introspection,
   wrapGAppsHook,
   tesseract4,
-  extraOcrEngines ? [ ], # other supported engines are: ocrad gocr cuneiform
+  extraOcrEngines ? [], # other supported engines are: ocrad gocr cuneiform
 }:
 
 stdenv.mkDerivation rec {
@@ -60,7 +60,7 @@ stdenv.mkDerivation rec {
       ./fix-launch.diff
     ];
 
-  enginesPath = lib.makeBinPath ([ tesseract4 ] ++ extraOcrEngines);
+  enginesPath = lib.makeBinPath ([tesseract4] ++ extraOcrEngines);
 
   preFixup = ''
     gappsWrapperArgs+=(--prefix PATH : "${enginesPath}")
@@ -70,7 +70,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://wiki.gnome.org/Apps/OCRFeeder";
     description = "Complete Optical Character Recognition and Document Analysis and Recognition program";
-    maintainers = with maintainers; [ doronbehar ];
+    maintainers = with maintainers; [doronbehar];
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
   };

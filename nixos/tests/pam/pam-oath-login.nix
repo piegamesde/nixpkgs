@@ -1,5 +1,5 @@
 import ../make-test-python.nix (
-  { ... }:
+  {...}:
 
   let
     oathSnakeoilSecret = "cdd4083ef8ff1fa9178c6d46bfb1a3";
@@ -22,7 +22,7 @@ import ../make-test-python.nix (
     name = "pam-oath-login";
 
     nodes.machine =
-      { ... }:
+      {...}:
       {
         security.pam.oath = {
           enable = true;
@@ -33,14 +33,14 @@ import ../make-test-python.nix (
           name = "alice";
           uid = 1000;
           hashedPassword = hashedAlicePassword;
-          extraGroups = [ "wheel" ];
+          extraGroups = ["wheel"];
           createHome = true;
           home = "/home/alice";
         };
 
         systemd.services.setupOathSnakeoilFile = {
-          wantedBy = [ "default.target" ];
-          before = [ "default.target" ];
+          wantedBy = ["default.target"];
+          before = ["default.target"];
           unitConfig = {
             type = "oneshot";
             RemainAfterExit = true;

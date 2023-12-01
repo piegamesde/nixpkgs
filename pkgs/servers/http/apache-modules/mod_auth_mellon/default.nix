@@ -64,6 +64,6 @@ stdenv.mkDerivation rec {
     description = "An Apache module with a simple SAML 2.0 service provider";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ womfoo ];
+    maintainers = with maintainers; [womfoo];
   };
 }

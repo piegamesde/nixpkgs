@@ -42,7 +42,7 @@ buildPythonPackage rec {
     "test_no_debug_logging"
   ];
 
-  pythonImportsCheck = [ "anymail" ];
+  pythonImportsCheck = ["anymail"];
 
   DJANGO_SETTINGS_MODULE = "tests.test_settings.settings_3_2";
 
@@ -50,6 +50,6 @@ buildPythonPackage rec {
     description = "Django email backends and webhooks for Mailgun";
     homepage = "https://github.com/anymail/django-anymail";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ onny ];
+    maintainers = with maintainers; [onny];
   };
 }

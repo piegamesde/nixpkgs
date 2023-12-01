@@ -60,7 +60,7 @@ stdenv.mkDerivation rec {
       * Generate random puzzles of chosen difficulty
     '';
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ fgaz ];
+    maintainers = with maintainers; [fgaz];
     homepage = "https://github.com/jeremypw/gnonograms";
     platforms = platforms.all;
   };

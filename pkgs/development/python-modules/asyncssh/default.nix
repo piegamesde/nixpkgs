@@ -39,12 +39,12 @@ buildPythonPackage rec {
   ];
 
   passthru.optional-dependencies = {
-    bcrypt = [ bcrypt ];
-    fido2 = [ fido2 ];
-    gssapi = [ gssapi ];
-    libnacl = [ libnacl ];
-    pkcs11 = [ python-pkcs11 ];
-    pyOpenSSL = [ pyopenssl ];
+    bcrypt = [bcrypt];
+    fido2 = [fido2];
+    gssapi = [gssapi];
+    libnacl = [libnacl];
+    pkcs11 = [python-pkcs11];
+    pyOpenSSL = [pyopenssl];
   };
 
   nativeCheckInputs = [
@@ -79,13 +79,13 @@ buildPythonPackage rec {
     "test_forward_remote"
   ];
 
-  pythonImportsCheck = [ "asyncssh" ];
+  pythonImportsCheck = ["asyncssh"];
 
   meta = with lib; {
     description = "Asynchronous SSHv2 Python client and server library";
     homepage = "https://asyncssh.readthedocs.io/";
     changelog = "https://github.com/ronf/asyncssh/blob/v${version}/docs/changes.rst";
     license = licenses.epl20;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

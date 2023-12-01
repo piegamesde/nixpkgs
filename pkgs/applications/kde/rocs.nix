@@ -29,7 +29,7 @@ mkDerivation {
       fdl12Plus
     ];
     platforms = lib.platforms.linux;
-    maintainers = with maintainers; [ knairda ];
+    maintainers = with maintainers; [knairda];
   };
 
   nativeBuildInputs = [

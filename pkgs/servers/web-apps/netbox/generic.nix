@@ -5,10 +5,10 @@
   python3,
   version,
   hash,
-  plugins ? ps: [ ],
-  extraPatches ? [ ],
-  tests ? { },
-  maintainers ? [ ],
+  plugins ? ps: [],
+  extraPatches ? [],
+  tests ? {},
+  maintainers ? [],
   eol ? false,
 }:
 let
@@ -105,7 +105,7 @@ py.pkgs.buildPythonApplication rec {
     mkdocstrings-python
   ];
 
-  nativeBuildInputs = [ py.pkgs.mkdocs ];
+  nativeBuildInputs = [py.pkgs.mkdocs];
 
   postBuild = ''
     PYTHONPATH=$PYTHONPATH:netbox/

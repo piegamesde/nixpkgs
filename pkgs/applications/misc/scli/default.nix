@@ -56,6 +56,6 @@ python3.pkgs.buildPythonApplication rec {
     description = "Simple terminal user interface for Signal";
     homepage = "https://github.com/isamert/scli";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ alexeyre ];
+    maintainers = with maintainers; [alexeyre];
   };
 }

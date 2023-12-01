@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
   ];
 
   buildInputs =
-    [ ]
+    []
     ++ lib.optional usePulseAudio libpulseaudio
     ++ lib.optionals stdenv.isLinux [
       alsa-lib
@@ -63,7 +63,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://xiph.org/ao/";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     platforms = with platforms; unix;
   };
 }

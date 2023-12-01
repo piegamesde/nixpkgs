@@ -22,9 +22,9 @@ stdenv.mkDerivation rec {
       substituteInPlace Makefile --replace "-static" ""
     '';
 
-  buildInputs = lib.optionals stdenv.hostPlatform.isGnu [ stdenv.cc.libc.static ];
+  buildInputs = lib.optionals stdenv.hostPlatform.isGnu [stdenv.cc.libc.static];
 
-  makeFlags = [ "CC=${stdenv.cc.targetPrefix}cc" ];
+  makeFlags = ["CC=${stdenv.cc.targetPrefix}cc"];
 
   installPhase = ''
     mkdir -p $out/bin
@@ -36,6 +36,6 @@ stdenv.mkDerivation rec {
     homepage = "https://www.math.utah.edu/~mayer/linux/bmark.html";
     description = "A synthetic computing benchmark program";
     platforms = platforms.unix;
-    maintainers = with lib.maintainers; [ bennofs ];
+    maintainers = with lib.maintainers; [bennofs];
   };
 }

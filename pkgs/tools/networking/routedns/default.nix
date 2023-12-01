@@ -17,7 +17,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-XqrV/eBpKzFgNSG9yoP8iqzIEifXEMOCCfPbHo3YKZw=";
 
-  subPackages = [ "./cmd/routedns" ];
+  subPackages = ["./cmd/routedns"];
 
   ldflags = [
     "-s"
@@ -28,6 +28,6 @@ buildGoModule rec {
     homepage = "https://github.com/folbricht/routedns";
     description = "DNS stub resolver, proxy and router";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ jsimonetti ];
+    maintainers = with maintainers; [jsimonetti];
   };
 }

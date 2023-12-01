@@ -55,6 +55,6 @@ rustPlatform.buildRustPackage rec {
       semiautomatically.
     '';
     license = licenses.agpl3Only;
-    maintainers = with maintainers; [ jk ];
+    maintainers = with maintainers; [jk];
   };
 }

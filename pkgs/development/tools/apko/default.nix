@@ -27,7 +27,7 @@ buildGoModule rec {
   };
   vendorSha256 = "sha256-3gRECgKvGqkgBzB3SSxm6/LxZG8RxhjoC6Q7DZj/Has=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   ldflags = [
     "-s"
@@ -68,6 +68,6 @@ buildGoModule rec {
     changelog = "https://github.com/chainguard-dev/apko/blob/main/NEWS.md";
     description = "Build OCI images using APK directly without Dockerfile";
     license = licenses.asl20;
-    maintainers = with maintainers; [ jk ];
+    maintainers = with maintainers; [jk];
   };
 }

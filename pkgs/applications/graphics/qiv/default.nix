@@ -19,7 +19,7 @@ stdenv.mkDerivation (rec {
     sha256 = "sha256-7whf/eLUiwWzZlk55a4eNZ06OBAI+4J2hPfW/UxTNwQ=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     gtk2
     imlib2

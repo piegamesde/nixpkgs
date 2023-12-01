@@ -117,9 +117,9 @@ stdenv.mkDerivation (
       description = "JACK audio connection kit, version 2 with jackdbus";
       homepage = "https://jackaudio.org";
       license = licenses.gpl2Plus;
-      pkgConfigModules = [ "jack" ];
+      pkgConfigModules = ["jack"];
       platforms = platforms.unix;
-      maintainers = with maintainers; [ goibhniu ];
+      maintainers = with maintainers; [goibhniu];
     };
   }
 )

@@ -42,6 +42,6 @@ else
       license = licenses.isc;
       description = "OCaml Format pretty-printer combinators";
       inherit (ocaml.meta) platforms;
-      maintainers = [ maintainers.vbgl ];
+      maintainers = [maintainers.vbgl];
     };
   }

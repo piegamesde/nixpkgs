@@ -24,10 +24,10 @@
   extraConfig ? "",
 
   # Additional make flags passed to kbuild
-  extraMakeFlags ? [ ]
+  extraMakeFlags ? []
 
   , # kernel intermediate config overrides, as a set
-  structuredExtraConfig ? { },
+  structuredExtraConfig ? {},
 
   # The version number used for the module directory
   # If unspecified, this is determined automatically from the version.
@@ -37,7 +37,7 @@
   # certain features in this kernel.  E.g. `{iwlwifi = true;}'
   # indicates a kernel that provides Intel wireless support.  Used in
   # NixOS to implement kernel-specific behaviour.
-  features ? { },
+  features ? {},
 
   # Custom seed used for CONFIG_GCC_PLUGIN_RANDSTRUCT if enabled. This is
   # automatically extended with extra per-version and per-config values.
@@ -47,10 +47,10 @@
   # should be an attribute set {name, patch} where `name' is a
   # symbolic name and `patch' is the actual patch.  The patch may
   # optionally be compressed with gzip or bzip2.
-  kernelPatches ? [ ],
+  kernelPatches ? [],
   ignoreConfigErrors ?
     stdenv.hostPlatform.linux-kernel.name != "pc" || stdenv.hostPlatform != stdenv.buildPlatform,
-  extraMeta ? { },
+  extraMeta ? {},
 
   isZen ? false,
   isLibre ? false,
@@ -60,7 +60,7 @@
   autoModules ? stdenv.hostPlatform.linux-kernel.autoModules,
   preferBuiltin ? stdenv.hostPlatform.linux-kernel.preferBuiltin or false,
   kernelArch ? stdenv.hostPlatform.linuxArch,
-  kernelTests ? [ ],
+  kernelTests ? [],
   nixosTests,
   ...
 }@args:
@@ -95,7 +95,7 @@ let
 
   # Combine the `features' attribute sets of all the kernel patches.
   kernelFeatures =
-    lib.foldr (x: y: (x.features or { }) // y)
+    lib.foldr (x: y: (x.features or {}) // y)
       (
         {
           iwlwifi = true;
@@ -124,7 +124,7 @@ let
     map
       (
         {
-          extraStructuredConfig ? { },
+          extraStructuredConfig ? {},
           ...
         }:
         {
@@ -148,7 +148,7 @@ let
           )
           kernelPatches;
     in
-    lib.concatStringsSep "\n" ([ baseConfigStr ] ++ configFromPatches);
+    lib.concatStringsSep "\n" ([baseConfigStr] ++ configFromPatches);
 
   configfile = stdenv.mkDerivation {
     inherit
@@ -164,9 +164,9 @@ let
     generateConfig = ./generate-config.pl;
 
     kernelConfig = kernelConfigFun intermediateNixConfig;
-    passAsFile = [ "kernelConfig" ];
+    passAsFile = ["kernelConfig"];
 
-    depsBuildBuild = [ buildPackages.stdenv.cc ];
+    depsBuildBuild = [buildPackages.stdenv.cc];
     nativeBuildInputs =
       [
         perl
@@ -256,7 +256,7 @@ let
     };
   }; # end of configfile derivation
 
-  kernel = (callPackage ./manual-config.nix { inherit lib stdenv buildPackages; }) (
+  kernel = (callPackage ./manual-config.nix {inherit lib stdenv buildPackages;}) (
     basicArgs
     // {
       inherit
@@ -273,7 +273,7 @@ let
         CONFIG_FW_LOADER = "m";
       };
     }
-    // lib.optionalAttrs (modDirVersion != null) { inherit modDirVersion; }
+    // lib.optionalAttrs (modDirVersion != null) {inherit modDirVersion;}
   );
 
   passthru = basicArgs // {
@@ -293,7 +293,7 @@ let
     configEnv = kernel.overrideAttrs (
       old: {
         nativeBuildInputs =
-          old.nativeBuildInputs or [ ]
+          old.nativeBuildInputs or []
           ++ (
             with buildPackages; [
               pkg-config
@@ -303,7 +303,7 @@ let
       }
     );
 
-    passthru = kernel.passthru // (removeAttrs passthru [ "passthru" ]);
+    passthru = kernel.passthru // (removeAttrs passthru ["passthru"]);
     tests =
       let
         overridableKernel = finalKernel // {
@@ -312,12 +312,12 @@ let
             lib.warn
               (
                 "override is stubbed for NixOS kernel tests, not applying changes these arguments: "
-                + toString (lib.attrNames (if lib.isAttrs args then args else args { }))
+                + toString (lib.attrNames (if lib.isAttrs args then args else args {}))
               )
               overridableKernel;
         };
       in
-      [ (nixosTests.kernel-generic.testsForKernel overridableKernel) ] ++ kernelTests;
+      [(nixosTests.kernel-generic.testsForKernel overridableKernel)] ++ kernelTests;
   };
 
   finalKernel = lib.extendDerivation true passthru kernel;

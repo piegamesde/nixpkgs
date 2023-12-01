@@ -28,6 +28,6 @@ stdenvNoCC.mkDerivation {
     homepage = "https://jansa-tp.github.io/linja-pi-pu-lukin/";
     license = licenses.unfree; # license is unspecified in repository
     platforms = platforms.all;
-    maintainers = with maintainers; [ somasis ];
+    maintainers = with maintainers; [somasis];
   };
 }

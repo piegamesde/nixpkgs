@@ -23,11 +23,11 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "gphoto";
     repo = "libgphoto2";
-    rev = "libgphoto2-${builtins.replaceStrings [ "." ] [ "_" ] version}-release";
+    rev = "libgphoto2-${builtins.replaceStrings ["."] ["_"] version}-release";
     sha256 = "sha256-4UwD283mKhZwC7setBU0BLRLsyfjD/6m/InSedrqgAU=";
   };
 
-  depsBuildBuild = [ pkg-config ];
+  depsBuildBuild = [pkg-config];
 
   nativeBuildInputs = [
     autoreconfHook
@@ -46,9 +46,9 @@ stdenv.mkDerivation rec {
   ];
 
   # These are mentioned in the Requires line of libgphoto's pkg-config file.
-  propagatedBuildInputs = [ libexif ];
+  propagatedBuildInputs = [libexif];
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   postInstall =
     let
@@ -76,6 +76,6 @@ stdenv.mkDerivation rec {
     # XXX: the homepage claims LGPL, but several src files are lgpl21Plus
     license = lib.licenses.lgpl21Plus;
     platforms = with lib.platforms; unix;
-    maintainers = with lib.maintainers; [ jcumming ];
+    maintainers = with lib.maintainers; [jcumming];
   };
 }

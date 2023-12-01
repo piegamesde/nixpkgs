@@ -17,7 +17,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-KUkh5yx+v5g0N4yIpgpt3i+uCtOtR0Jvf2PFQcGWtm8=";
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   doInstallCheck = true;
   installCheckPhase = ''
@@ -28,6 +28,6 @@ buildGoModule rec {
     homepage = "https://github.com/runatlantis/atlantis";
     description = "Terraform Pull Request Automation";
     license = licenses.asl20;
-    maintainers = with maintainers; [ jpotier ];
+    maintainers = with maintainers; [jpotier];
   };
 }

@@ -124,7 +124,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/Mastermindzh/tidal-hifi";
     changelog = "https://github.com/Mastermindzh/tidal-hifi/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ qbit ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with maintainers; [qbit];
+    platforms = ["x86_64-linux"];
   };
 }

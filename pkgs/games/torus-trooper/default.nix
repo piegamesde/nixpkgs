@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
   version = "0.22";
 
   src = fetchurl {
-    url = "http://abagames.sakura.ne.jp/windows/tt${lib.replaceStrings [ "." ] [ "_" ] version}.zip";
+    url = "http://abagames.sakura.ne.jp/windows/tt${lib.replaceStrings ["."] ["_"] version}.zip";
     sha256 = "1yhki1fdp3fi4y2iq12vca69f6k38dqjaw9z4lwcxky5kbgb7jvg";
   };
 
@@ -73,7 +73,7 @@ stdenv.mkDerivation rec {
     homepage = "http://www.asahi-net.or.jp/~cs8k-cyu/windows/tt_e.html";
     description = "Fast-paced abstract scrolling shooter game";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ fgaz ];
+    maintainers = with maintainers; [fgaz];
     platforms = platforms.all;
   };
 }

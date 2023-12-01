@@ -21,7 +21,7 @@ let
   python = python310.override {
     packageOverrides =
       (self: super: {
-        matplotlib = super.matplotlib.override { enableGtk3 = true; };
+        matplotlib = super.matplotlib.override {enableGtk3 = true;};
         sqlalchemy = super.sqlalchemy.overridePythonAttrs (
           old: rec {
             version = "1.4.46";

@@ -24,7 +24,7 @@ buildPythonPackage rec {
     substituteInPlace setup.cfg --replace "python_classes = *TestCase" ""
   '';
 
-  nativeBuildInputs = [ pytest-runner ];
+  nativeBuildInputs = [pytest-runner];
 
   propagatedBuildInputs = [
     morphys
@@ -32,12 +32,12 @@ buildPythonPackage rec {
     python-baseconv
   ];
 
-  nativeCheckInputs = [ pytest ];
+  nativeCheckInputs = [pytest];
 
   meta = with lib; {
     description = "Multibase is a protocol for distinguishing base encodings and other simple string encodings";
     homepage = "https://github.com/multiformats/py-multibase";
     license = licenses.mit;
-    maintainers = with maintainers; [ rakesh4g ];
+    maintainers = with maintainers; [rakesh4g];
   };
 }

@@ -8,7 +8,7 @@ let
   bName = "check_esxi_hardware";
 in
 python3Packages.buildPythonApplication rec {
-  pname = lib.replaceStrings [ "_" ] [ "-" ] bName;
+  pname = lib.replaceStrings ["_"] ["-"] bName;
   version = "20200710";
   format = "other";
 
@@ -40,6 +40,6 @@ python3Packages.buildPythonApplication rec {
   meta = with lib; {
     homepage = "https://www.claudiokuenzler.com/nagios-plugins/";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ peterhoeg ];
+    maintainers = with maintainers; [peterhoeg];
   };
 }

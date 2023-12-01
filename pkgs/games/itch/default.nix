@@ -46,7 +46,7 @@ stdenvNoCC.mkDerivation rec {
       repo = pname;
       rev = "v${version}";
       hash = "sha256-DZBmf8fe0zw5uiQjNKXw8g/vU2hjNDa87z/7XuhyXog=";
-      sparseCheckout = [ sparseCheckout ];
+      sparseCheckout = [sparseCheckout];
     }
     + sparseCheckout;
 
@@ -67,7 +67,7 @@ stdenvNoCC.mkDerivation rec {
         "x-scheme-handler/itch"
       ];
       comment = "Install and play itch.io games easily";
-      categories = [ "Game" ];
+      categories = ["Game"];
     })
   ];
 
@@ -105,7 +105,7 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://github.com/itchio/itch";
     license = licenses.mit;
     platforms = platforms.linux;
-    sourceProvenance = [ lib.sourceTypes.binaryBytecode ];
-    maintainers = with maintainers; [ pasqui23 ];
+    sourceProvenance = [lib.sourceTypes.binaryBytecode];
+    maintainers = with maintainers; [pasqui23];
   };
 }

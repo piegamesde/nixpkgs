@@ -1,4 +1,4 @@
-{ skawarePackages }:
+{skawarePackages}:
 
 with skawarePackages;
 

@@ -50,7 +50,7 @@ stdenv.mkDerivation rec {
   ];
 
   # Somehow this does not get set automatically
-  cmakeFlags = [ "-DSDL2MAIN_LIBRARY=${SDL2}/lib/libSDL2.so" ];
+  cmakeFlags = ["-DSDL2MAIN_LIBRARY=${SDL2}/lib/libSDL2.so"];
 
   postInstall = ''
     install -Dm644 $src/resources/milkytracker.desktop $out/share/applications/milkytracker.desktop
@@ -66,6 +66,6 @@ stdenv.mkDerivation rec {
       "x86_64-linux"
       "i686-linux"
     ];
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

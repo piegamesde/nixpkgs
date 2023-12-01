@@ -42,7 +42,7 @@ buildGoModule rec {
 
   postInstall = ''
     wrapProgram "$out/bin/k3sup" \
-      --prefix PATH : ${lib.makeBinPath [ openssh ]}
+      --prefix PATH : ${lib.makeBinPath [openssh]}
 
     installShellCompletion --cmd k3sup \
       --bash <($out/bin/k3sup completion bash) \
@@ -54,6 +54,6 @@ buildGoModule rec {
     homepage = "https://github.com/alexellis/k3sup";
     description = "Bootstrap Kubernetes with k3s over SSH";
     license = licenses.mit;
-    maintainers = with maintainers; [ welteki ];
+    maintainers = with maintainers; [welteki];
   };
 }

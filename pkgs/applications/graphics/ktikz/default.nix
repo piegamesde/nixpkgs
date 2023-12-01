@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/fhackenberger/ktikz";
     license = licenses.gpl2;
     platforms = platforms.linux;
-    maintainers = [ maintainers.layus ];
+    maintainers = [maintainers.layus];
     longDescription = ''
       You will also need a working *tex installation in your PATH, containing at least `preview` and `pgf`.
     '';
@@ -72,5 +72,5 @@ stdenv.mkDerivation rec {
     "QCOLLECTIONGENERATORCOMMAND=qhelpgenerator"
   ];
 
-  qtWrapperArgs = [ ''--prefix PATH : "${gnuplot}/bin"'' ];
+  qtWrapperArgs = [''--prefix PATH : "${gnuplot}/bin"''];
 }

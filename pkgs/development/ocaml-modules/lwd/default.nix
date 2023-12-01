@@ -17,12 +17,12 @@ buildDunePackage rec {
     sha256 = "sha256-H/vyW2tn2OBuWwcmPs8NcINXgFe93MSxRd8dzeoXARI=";
   };
 
-  propagatedBuildInputs = [ seq ];
+  propagatedBuildInputs = [seq];
 
   meta = with lib; {
     description = "Lightweight reactive documents";
     license = licenses.mit;
-    maintainers = [ maintainers.alizter ];
+    maintainers = [maintainers.alizter];
     homepage = "https://github.com/let-def/lwd";
   };
 }

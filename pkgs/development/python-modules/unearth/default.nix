@@ -26,12 +26,12 @@ buildPythonPackage rec {
     hash = "sha256-TOdHdw9sVxaYx2VCdt3QIEyBx9mkcPAKjEAdh7umdSQ=";
   };
 
-  nativeBuildInputs = [ pdm-pep517 ];
+  nativeBuildInputs = [pdm-pep517];
 
   propagatedBuildInputs = [
     packaging
     requests
-  ] ++ lib.optionals (pythonOlder "3.8") [ cached-property ];
+  ] ++ lib.optionals (pythonOlder "3.8") [cached-property];
 
   nativeCheckInputs = [
     flask
@@ -41,13 +41,13 @@ buildPythonPackage rec {
     trustme
   ];
 
-  pythonImportsCheck = [ "unearth" ];
+  pythonImportsCheck = ["unearth"];
 
   meta = with lib; {
     description = "A utility to fetch and download Python packages";
     homepage = "https://github.com/frostming/unearth";
     changelog = "https://github.com/frostming/unearth/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ betaboon ];
+    maintainers = with maintainers; [betaboon];
   };
 }

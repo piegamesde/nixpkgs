@@ -43,7 +43,7 @@ buildPythonPackage rec {
 
   dontUseCmakeConfigure = true;
 
-  buildInputs = [ libxcrypt ];
+  buildInputs = [libxcrypt];
 
   nativeBuildInputs = [
     cmake
@@ -51,19 +51,19 @@ buildPythonPackage rec {
     gtest
   ];
 
-  setupPyBuildFlags = [ "--with-unit-tests" ];
+  setupPyBuildFlags = ["--with-unit-tests"];
 
-  checkInputs = [ pytestCheckHook ];
+  checkInputs = [pytestCheckHook];
 
-  pytestFlagsArray = [ "tests/" ];
+  pytestFlagsArray = ["tests/"];
 
-  pythonImportsCheck = [ "yaramod" ];
+  pythonImportsCheck = ["yaramod"];
 
   meta = with lib; {
     description = "Parsing of YARA rules into AST and building new rulesets in C++";
     homepage = "https://github.com/avast/yaramod";
     changelog = "https://github.com/avast/yaramod/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ msm ];
+    maintainers = with maintainers; [msm];
   };
 }

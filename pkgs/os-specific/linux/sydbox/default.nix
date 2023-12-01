@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
   ];
 
   buildInputs =
-    [ libseccomp ]
+    [libseccomp]
     ++ lib.optional debugBuild libunwind
     ++ lib.optionals installTests [
       gnumake
@@ -56,14 +56,14 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   configureFlags =
-    [ ]
+    []
     ++ lib.optionals installTests [
       "--enable-installed-tests"
       "--libexecdir=${placeholder "installedTests"}/libexec"
     ]
     ++ lib.optional debugBuild "--enable-debug";
 
-  makeFlags = [ "SYD_INCLUDEDIR=${stdenv.cc.libc.dev}/include" ];
+  makeFlags = ["SYD_INCLUDEDIR=${stdenv.cc.libc.dev}/include"];
 
   doCheck = true;
   checkPhase = ''
@@ -87,6 +87,6 @@ stdenv.mkDerivation rec {
     description = "seccomp-based application sandbox";
     license = licenses.gpl2;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ mvs ];
+    maintainers = with maintainers; [mvs];
   };
 }

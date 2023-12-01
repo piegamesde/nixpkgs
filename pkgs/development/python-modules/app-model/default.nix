@@ -40,15 +40,15 @@ buildPythonPackage rec {
     typing-extensions
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "app_model" ];
+  pythonImportsCheck = ["app_model"];
 
   meta = with lib; {
     description = "Module to implement generic application schema";
     homepage = "https://github.com/pyapp-kit/app-model";
     changelog = "https://github.com/pyapp-kit/app-model/blob/v${version}/CHANGELOG.md";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

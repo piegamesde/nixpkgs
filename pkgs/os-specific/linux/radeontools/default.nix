@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
     autoreconfHook
     pkg-config
   ];
-  buildInputs = [ xorg.libpciaccess ];
+  buildInputs = [xorg.libpciaccess];
 
   meta = with lib; {
     description = "Lowlevel tools to tweak register and dump state on radeon GPUs";

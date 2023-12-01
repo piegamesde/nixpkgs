@@ -26,8 +26,8 @@ stdenv.mkDerivation rec {
     ocamlbuild
     topkg
   ];
-  buildInputs = [ topkg ];
-  propagatedBuildInputs = [ re ];
+  buildInputs = [topkg];
+  propagatedBuildInputs = [re];
 
   strictDeps = true;
 
@@ -37,6 +37,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/gjaldon/simple_diff";
     description = "Simple_diff is a pure OCaml diffing algorithm";
     license = licenses.isc;
-    maintainers = with maintainers; [ ulrikstrid ];
+    maintainers = with maintainers; [ulrikstrid];
   };
 }

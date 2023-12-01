@@ -34,18 +34,18 @@ buildPythonPackage rec {
         # pycha
         pyyaml
       ];
-    fodt = [ python-magic ];
+    fodt = [python-magic];
   };
 
-  nativeCheckInputs = [ pytestCheckHook ] ++ passthru.optional-dependencies.fodt;
+  nativeCheckInputs = [pytestCheckHook] ++ passthru.optional-dependencies.fodt;
 
-  pythonImportsCheck = [ "relatorio" ];
+  pythonImportsCheck = ["relatorio"];
 
   meta = {
     homepage = "https://relatorio.tryton.org/";
     changelog = "https://hg.tryton.org/relatorio/file/${version}/CHANGELOG";
     description = "A templating library able to output odt and pdf files";
-    maintainers = with lib.maintainers; [ johbo ];
+    maintainers = with lib.maintainers; [johbo];
     license = lib.licenses.gpl2Plus;
   };
 }

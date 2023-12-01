@@ -84,7 +84,7 @@ stdenv.mkDerivation rec {
   # friends
   setOutputFlags = false;
   enableParallelBuilding = true;
-  makeFlags = [ "V=1" ];
+  makeFlags = ["V=1"];
 
   postConfigure = ''
     mkdir ${placeholder "bindingconfig"}
@@ -142,7 +142,7 @@ stdenv.mkDerivation rec {
 
   passthru = {
     pythonSourceRoot = "notmuch-${version}/bindings/python";
-    tests.version = testers.testVersion { package = notmuch; };
+    tests.version = testers.testVersion {package = notmuch;};
     inherit version;
   };
 

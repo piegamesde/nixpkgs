@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
     sourceRoot=$(echo */skypeweb)
   '';
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     pidgin
     json-glib
@@ -36,6 +36,6 @@ stdenv.mkDerivation rec {
     description = "SkypeWeb plugin for Pidgin";
     license = licenses.gpl3;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

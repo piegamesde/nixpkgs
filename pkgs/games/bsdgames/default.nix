@@ -35,9 +35,9 @@ stdenv.mkDerivation rec {
       })
     ];
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
-  makeFlags = [ "STRIP=" ];
+  makeFlags = ["STRIP="];
 
   preConfigure = ''
     cat > config.params << EOF
@@ -79,7 +79,7 @@ stdenv.mkDerivation rec {
     homepage = "http://www.t2-project.org/packages/bsd-games.html";
     description = "Ports of all the games from NetBSD-current that are free";
     license = lib.licenses.free;
-    maintainers = with lib.maintainers; [ viric ];
+    maintainers = with lib.maintainers; [viric];
     platforms = with lib.platforms; linux;
   };
 }

@@ -33,7 +33,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "sparse" ];
+  pythonImportsCheck = ["sparse"];
 
   meta = with lib; {
     description = "Sparse n-dimensional arrays computations";
@@ -41,6 +41,6 @@ buildPythonPackage rec {
     changelog = "https://sparse.pydata.org/en/stable/changelog.html";
     downloadPage = "https://github.com/pydata/sparse/releases/tag/${version}";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ costrouc ];
+    maintainers = with maintainers; [costrouc];
   };
 }

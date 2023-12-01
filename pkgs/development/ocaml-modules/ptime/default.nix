@@ -27,7 +27,7 @@ lib.throwIfNot (lib.versionAtLeast ocaml.version "4.08")
       ocamlbuild
       topkg
     ];
-    buildInputs = [ topkg ];
+    buildInputs = [topkg];
 
     strictDeps = true;
 
@@ -49,6 +49,6 @@ lib.throwIfNot (lib.versionAtLeast ocaml.version "4.08")
         Ptime is not a calendar library.
       '';
       license = lib.licenses.isc;
-      maintainers = with lib.maintainers; [ sternenseemann ];
+      maintainers = with lib.maintainers; [sternenseemann];
     };
   }

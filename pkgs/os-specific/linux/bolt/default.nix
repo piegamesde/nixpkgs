@@ -45,7 +45,7 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  depsBuildBuild = [ pkg-config ];
+  depsBuildBuild = [pkg-config];
 
   nativeBuildInputs = [
     asciidoc
@@ -88,7 +88,7 @@ stdenv.mkDerivation rec {
     patchShebangs scripts tests
   '';
 
-  mesonFlags = [ "-Dlocalstatedir=/var" ];
+  mesonFlags = ["-Dlocalstatedir=/var"];
 
   PKG_CONFIG_SYSTEMD_SYSTEMDSYSTEMUNITDIR = "${placeholder "out"}/lib/systemd/system";
   PKG_CONFIG_UDEV_UDEVDIR = "${placeholder "out"}/lib/udev";
@@ -97,7 +97,7 @@ stdenv.mkDerivation rec {
     description = "Thunderbolt 3 device management daemon";
     homepage = "https://gitlab.freedesktop.org/bolt/bolt";
     license = licenses.lgpl21Plus;
-    maintainers = with maintainers; [ callahad ];
+    maintainers = with maintainers; [callahad];
     platforms = platforms.linux;
   };
 }

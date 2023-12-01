@@ -26,7 +26,7 @@ rustPlatform.buildRustPackage rec {
     pkg-config
     protobuf
   ];
-  buildInputs = [ dbus ];
+  buildInputs = [dbus];
 
   meta = with lib; {
     description = "Control Google Pixel Buds Pro from the Linux command line.";
@@ -35,7 +35,7 @@ rustPlatform.buildRustPackage rec {
       asl20
       mit
     ];
-    maintainers = [ maintainers.vanilla ];
+    maintainers = [maintainers.vanilla];
     platforms = platforms.linux;
   };
 }

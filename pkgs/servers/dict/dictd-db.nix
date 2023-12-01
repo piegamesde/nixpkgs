@@ -157,6 +157,6 @@ rec {
     dbName = "mueller-names";
     locale = "en_UK";
   };
-  wordnet = callPackage ./dictd-wordnet.nix { };
-  wiktionary = callPackage ./wiktionary { };
+  wordnet = callPackage ./dictd-wordnet.nix {};
+  wiktionary = callPackage ./wiktionary {};
 }

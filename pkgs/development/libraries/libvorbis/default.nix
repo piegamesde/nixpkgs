@@ -21,8 +21,8 @@ stdenv.mkDerivation rec {
     "doc"
   ];
 
-  nativeBuildInputs = [ pkg-config ];
-  propagatedBuildInputs = [ libogg ];
+  nativeBuildInputs = [pkg-config];
+  propagatedBuildInputs = [libogg];
 
   doCheck = true;
 
@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
     description = "Vorbis audio compression reference implementation";
     homepage = "https://xiph.org/vorbis/";
     license = licenses.bsd3;
-    maintainers = [ maintainers.ehmry ];
+    maintainers = [maintainers.ehmry];
     platforms = platforms.all;
   };
 }

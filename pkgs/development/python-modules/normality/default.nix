@@ -26,14 +26,14 @@ buildPythonPackage rec {
     pyicu
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "normality" ];
+  pythonImportsCheck = ["normality"];
 
   meta = with lib; {
     description = "Micro-library to normalize text strings";
     homepage = "https://github.com/pudo/normality";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

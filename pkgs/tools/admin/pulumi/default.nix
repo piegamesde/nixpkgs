@@ -33,7 +33,7 @@ buildGoModule rec {
 
   sourceRoot = "${src.name}/pkg";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   # Bundle release metadata
   ldflags = [
@@ -43,7 +43,7 @@ buildGoModule rec {
     "-w"
   ] ++ importpathFlags;
 
-  importpathFlags = [ "-X github.com/pulumi/pulumi/pkg/v3/version.Version=v${version}" ];
+  importpathFlags = ["-X github.com/pulumi/pulumi/pkg/v3/version.Version=v${version}"];
 
   doCheck = true;
 
@@ -53,7 +53,7 @@ buildGoModule rec {
       "TestPendingDeleteOrder"
     ];
 
-  nativeCheckInputs = [ git ];
+  nativeCheckInputs = [git];
 
   preCheck =
     ''
@@ -99,7 +99,7 @@ buildGoModule rec {
     pkgs = pulumiPackages;
     withPackages =
       f:
-      runCommand "${pulumi.name}-with-packages" { nativeBuildInputs = [ makeWrapper ]; } ''
+      runCommand "${pulumi.name}-with-packages" {nativeBuildInputs = [makeWrapper];} ''
         mkdir -p $out/bin
         makeWrapper ${pulumi}/bin/pulumi $out/bin/pulumi \
           --suffix PATH : ${lib.makeSearchPath "bin" (f pulumiPackages)}
@@ -109,7 +109,7 @@ buildGoModule rec {
   meta = with lib; {
     homepage = "https://pulumi.io/";
     description = "Pulumi is a cloud development platform that makes creating cloud programs easy and productive";
-    sourceProvenance = [ sourceTypes.fromSource ];
+    sourceProvenance = [sourceTypes.fromSource];
     license = licenses.asl20;
     platforms = platforms.unix;
     maintainers = with maintainers; [

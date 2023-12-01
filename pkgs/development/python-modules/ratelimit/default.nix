@@ -20,16 +20,16 @@ buildPythonPackage rec {
     sed -i "/--cov/d" pytest.ini
   '';
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pytestFlagsArray = [ "tests" ];
+  pytestFlagsArray = ["tests"];
 
-  pythonImportsCheck = [ "ratelimit" ];
+  pythonImportsCheck = ["ratelimit"];
 
   meta = with lib; {
     description = "Python API Rate Limit Decorator";
     homepage = "https://github.com/tomasbasham/ratelimit";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

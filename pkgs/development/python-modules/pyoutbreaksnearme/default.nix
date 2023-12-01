@@ -26,7 +26,7 @@ buildPythonPackage rec {
     hash = "sha256-D7oXkKDSg+yF+j1WyG/VVY12hLU6oyhEtxLrF6IkMSA=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   propagatedBuildInputs = [
     aiohttp
@@ -46,13 +46,13 @@ buildPythonPackage rec {
       "examples/"
     ];
 
-  pythonImportsCheck = [ "pyoutbreaksnearme" ];
+  pythonImportsCheck = ["pyoutbreaksnearme"];
 
   meta = with lib; {
     description = "Library for retrieving data from for Outbreaks Near Me";
     homepage = "https://github.com/bachya/pyoutbreaksnearme";
     changelog = "https://github.com/bachya/pyoutbreaksnearme/releases/tag/${version}";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

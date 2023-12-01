@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-erlKIiYYlWnhoeD3FnKdxnHjfGmmJVXk44DUja5Unig=";
   };
 
-  nativeBuildInputs = [ zig ];
+  nativeBuildInputs = [zig];
 
   # Builds and installs (at the same time) with Zig.
   dontConfigure = true;
@@ -35,12 +35,12 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  passthru.tests.version = testers.testVersion { package = findup; };
+  passthru.tests.version = testers.testVersion {package = findup;};
 
   meta = with lib; {
     homepage = "https://github.com/hiljusti/findup";
     description = "Search parent directories for sentinel files";
     license = licenses.mit;
-    maintainers = with maintainers; [ hiljusti ];
+    maintainers = with maintainers; [hiljusti];
   };
 }

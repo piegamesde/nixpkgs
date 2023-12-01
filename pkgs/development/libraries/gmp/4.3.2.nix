@@ -26,7 +26,7 @@ let
     ];
     passthru.static = self.out;
 
-    nativeBuildInputs = [ m4 ];
+    nativeBuildInputs = [m4];
 
     # Prevent the build system from using sub-architecture-specific
     # instructions (e.g., SSE2 on i686).
@@ -41,7 +41,7 @@ let
         ''echo "Darwin host is `./config.guess`."'';
 
     configureFlags =
-      [ (lib.enableFeature cxx "cxx") ]
+      [(lib.enableFeature cxx "cxx")]
       ++ lib.optionals stdenv.isDarwin [
         "ac_cv_build=x86_64-apple-darwin13.4.0"
         "ac_cv_host=x86_64-apple-darwin13.4.0"
@@ -80,9 +80,9 @@ let
       homepage = "https://gmplib.org/";
       license = lib.licenses.lgpl3Plus;
 
-      maintainers = [ ];
+      maintainers = [];
       platforms = lib.platforms.all;
-      badPlatforms = [ "x86_64-darwin" ];
+      badPlatforms = ["x86_64-darwin"];
       # never built on aarch64-darwin, aarch64-linux since first introduction in nixpkgs
       broken = (stdenv.isDarwin && stdenv.isAarch64) || (stdenv.isLinux && stdenv.isAarch64);
     };

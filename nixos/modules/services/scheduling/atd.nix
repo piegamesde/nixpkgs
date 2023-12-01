@@ -65,9 +65,9 @@ in
         ]
     );
 
-    environment.systemPackages = [ at ];
+    environment.systemPackages = [at];
 
-    security.pam.services.atd = { };
+    security.pam.services.atd = {};
 
     users.users.atd = {
       uid = config.ids.uids.atd;
@@ -80,9 +80,9 @@ in
 
     systemd.services.atd = {
       description = "Job Execution Daemon (atd)";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
 
-      path = [ at ];
+      path = [at];
 
       preStart = ''
         # Snippets taken and adapted from the original `install' rule of

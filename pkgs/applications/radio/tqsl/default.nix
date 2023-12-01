@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
     openssl
     zlib
     db
-    (curl.override { inherit openssl; })
+    (curl.override {inherit openssl;})
     wxGTK32
   ];
 
@@ -39,6 +39,6 @@ stdenv.mkDerivation rec {
     homepage = "https://www.arrl.org/tqsl-download";
     license = licenses.bsd3;
     platforms = platforms.linux;
-    maintainers = [ maintainers.dpflug ];
+    maintainers = [maintainers.dpflug];
   };
 }

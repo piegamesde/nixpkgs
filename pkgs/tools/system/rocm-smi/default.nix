@@ -28,7 +28,7 @@ stdenv.mkDerivation (
       wrapPython
     ];
 
-    patches = [ ./cmake.patch ];
+    patches = [./cmake.patch];
 
     postInstall = ''
       wrapPythonProgramsIn $out
@@ -43,9 +43,9 @@ stdenv.mkDerivation (
     meta = with lib; {
       description = "System management interface for AMD GPUs supported by ROCm";
       homepage = "https://github.com/RadeonOpenCompute/rocm_smi_lib";
-      license = with licenses; [ mit ];
-      maintainers = with maintainers; [ lovesegfault ] ++ teams.rocm.members;
-      platforms = [ "x86_64-linux" ];
+      license = with licenses; [mit];
+      maintainers = with maintainers; [lovesegfault] ++ teams.rocm.members;
+      platforms = ["x86_64-linux"];
       broken = versions.minor finalAttrs.version != versions.minor stdenv.cc.version;
     };
   }

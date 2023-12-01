@@ -17,12 +17,12 @@ buildPythonPackage rec {
   # no tests implemented
   doCheck = false;
 
-  propagatedBuildInputs = [ xstatic-jquery ];
+  propagatedBuildInputs = [xstatic-jquery];
 
   meta = with lib; {
     homepage = "https://jqueryui.com/";
     description = "jquery-ui packaged static files for python";
     license = licenses.mit;
-    maintainers = with maintainers; [ makefu ];
+    maintainers = with maintainers; [makefu];
   };
 }

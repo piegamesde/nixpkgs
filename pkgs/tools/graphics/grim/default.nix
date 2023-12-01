@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-lwJn1Lysv1qLauqmrduUlzdoKUrUM5uBjv+dWSsrM6w=";
   };
 
-  mesonFlags = [ "-Dwerror=false" ];
+  mesonFlags = ["-Dwerror=false"];
 
   patches =
     [
@@ -59,6 +59,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/emersion/grim";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ buffet ];
+    maintainers = with maintainers; [buffet];
   };
 }

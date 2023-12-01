@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-3+ve5cPt4As6Hfvxw77waJgl2Imi9LpredFkYzTchbQ=";
   };
 
-  hardeningEnable = [ "pie" ];
+  hardeningEnable = ["pie"];
 
   nativeBuildInputs = [
     cmake

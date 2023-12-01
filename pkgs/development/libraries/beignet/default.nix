@@ -30,14 +30,14 @@ stdenv.mkDerivation rec {
     sha256 = "1z64v69w7f52jrskh1jfyh1x46mzfhjrqxj9hhgzh3xxv9yla32h";
   };
 
-  patches = [ ./clang_llvm.patch ];
+  patches = [./clang_llvm.patch];
 
   postPatch = ''
     substituteInPlace CMakeLists.txt --replace /etc/OpenCL/vendors "\''${CMAKE_INSTALL_PREFIX}/etc/OpenCL/vendors"
     patchShebangs src/git_sha1.sh
   '';
 
-  cmakeFlags = [ "-DCLANG_LIBRARY_DIR=${libclang.lib}/lib" ];
+  cmakeFlags = ["-DCLANG_LIBRARY_DIR=${libclang.lib}/lib"];
 
   buildInputs = [
     libllvm
@@ -73,7 +73,7 @@ stdenv.mkDerivation rec {
       makeWrapper
     ];
 
-    buildInputs = [ ocl-icd ];
+    buildInputs = [ocl-icd];
 
     installPhase = ''
       wrapBin() {
@@ -110,6 +110,6 @@ stdenv.mkDerivation rec {
     ];
     platforms = platforms.linux;
     # Requires libdrm_intel
-    badPlatforms = [ "aarch64-linux" ];
+    badPlatforms = ["aarch64-linux"];
   };
 }

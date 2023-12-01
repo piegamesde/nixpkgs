@@ -32,7 +32,7 @@ pythonPackages.buildPythonApplication rec {
     description = "A status monitor for the desktop";
     homepage = "https://nagstamon.ifw-dresden.de/";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ pSub ];
+    maintainers = with maintainers; [pSub];
     # fails to install with:
     # TypeError: cannot unpack non-iterable bool object
     broken = true;

@@ -37,7 +37,7 @@ let
     icon = "ghidra";
     desktopName = "Ghidra";
     genericName = "Ghidra Software Reverse Engineering Suite";
-    categories = [ "Development" ];
+    categories = ["Development"];
   };
 
   # postPatch scripts.
@@ -82,7 +82,7 @@ let
     pname = "${pname}-deps";
     inherit version src;
 
-    patches = [ ./0001-Use-protobuf-gradle-plugin.patch ];
+    patches = [./0001-Use-protobuf-gradle-plugin.patch];
     postPatch = fixProtoc + addResolveStep;
 
     nativeBuildInputs = [
@@ -125,7 +125,7 @@ stdenv.mkDerivation rec {
 
   dontStrip = true;
 
-  patches = [ ./0001-Use-protobuf-gradle-plugin.patch ];
+  patches = [./0001-Use-protobuf-gradle-plugin.patch];
   postPatch = fixProtoc;
 
   buildPhase = ''
@@ -165,7 +165,7 @@ stdenv.mkDerivation rec {
     mkdir -p "$out/bin"
     ln -s "${pkg_path}/ghidraRun" "$out/bin/ghidra"
     wrapProgram "${pkg_path}/support/launch.sh" \
-      --prefix PATH : ${lib.makeBinPath [ openjdk17 ]}
+      --prefix PATH : ${lib.makeBinPath [openjdk17]}
   '';
 
   meta = with lib; {
@@ -181,6 +181,6 @@ stdenv.mkDerivation rec {
       binaryBytecode # deps
     ];
     license = licenses.asl20;
-    maintainers = with maintainers; [ roblabla ];
+    maintainers = with maintainers; [roblabla];
   };
 }

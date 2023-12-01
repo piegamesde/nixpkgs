@@ -77,7 +77,7 @@ stdenv.mkDerivation rec {
     ];
 
   CXXFLAGS = "-fno-rtti";
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   cmakeFlags =
     [

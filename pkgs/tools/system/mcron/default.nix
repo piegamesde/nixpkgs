@@ -20,8 +20,8 @@ stdenv.mkDerivation rec {
     sed -E -i '/chmod u\+s/d' Makefile.in
   '';
 
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ guile ];
+  nativeBuildInputs = [pkg-config];
+  buildInputs = [guile];
 
   doCheck = true;
 

@@ -55,9 +55,9 @@ buildPythonPackage rec {
       --replace 'wandb = { version = "^0.12.10", optional = true }' ""
   '';
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
-  buildInputs = [ jaxlib ];
+  buildInputs = [jaxlib];
 
   propagatedBuildInputs = [
     cloudpickle
@@ -73,7 +73,7 @@ buildPythonPackage rec {
     typing-extensions
   ];
 
-  pythonImportsCheck = [ "elegy" ];
+  pythonImportsCheck = ["elegy"];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -95,6 +95,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/poets-ai/elegy";
     changelog = "https://github.com/poets-ai/elegy/releases/tag/${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ ndl ];
+    maintainers = with maintainers; [ndl];
   };
 }

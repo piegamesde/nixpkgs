@@ -33,10 +33,10 @@ stdenv.mkDerivation {
     perl
     gnum4
   ];
-  propagatedBuildInputs = [ gmpxx ];
+  propagatedBuildInputs = [gmpxx];
 
   configureFlags =
-    [ "--disable-watchdog" ]
+    ["--disable-watchdog"]
     ++ lib.optionals stdenv.isDarwin [
       "CPPFLAGS=-fexceptions"
       "--disable-ppl_lcdd"
@@ -73,7 +73,7 @@ stdenv.mkDerivation {
 
     license = lib.licenses.gpl3Plus;
 
-    maintainers = [ ];
+    maintainers = [];
     platforms = lib.platforms.unix;
   };
 }

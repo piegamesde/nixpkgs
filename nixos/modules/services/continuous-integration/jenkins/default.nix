@@ -39,7 +39,7 @@ in
 
       extraGroups = mkOption {
         type = types.listOf types.str;
-        default = [ ];
+        default = [];
         example = [
           "wheel"
           "dialout"
@@ -111,7 +111,7 @@ in
       };
 
       environment = mkOption {
-        default = { };
+        default = {};
         type = with types; attrsOf str;
         description = lib.mdDoc ''
           Additional environment variables to be passed to the jenkins process.
@@ -142,8 +142,8 @@ in
 
       extraOptions = mkOption {
         type = types.listOf types.str;
-        default = [ ];
-        example = [ "--debug=9" ];
+        default = [];
+        example = ["--debug=9"];
         description = lib.mdDoc ''
           Additional command line arguments to pass to Jenkins.
         '';
@@ -151,8 +151,8 @@ in
 
       extraJavaOptions = mkOption {
         type = types.listOf types.str;
-        default = [ ];
-        example = [ "-Xmx80m" ];
+        default = [];
+        example = ["-Xmx80m"];
         description = lib.mdDoc ''
           Additional command line arguments to pass to the Java run time (as opposed to Jenkins).
         '';
@@ -175,17 +175,17 @@ in
   config = mkIf cfg.enable {
     environment = {
       # server references the dejavu fonts
-      systemPackages = [ pkgs.dejavu_fonts ] ++ optional cfg.withCLI cfg.package;
+      systemPackages = [pkgs.dejavu_fonts] ++ optional cfg.withCLI cfg.package;
 
       variables =
-        { }
+        {}
         // optionalAttrs cfg.withCLI {
           # Make it more convenient to use the `jenkins-cli`.
           JENKINS_URL = jenkinsUrl;
         };
     };
 
-    users.groups = optionalAttrs (cfg.group == "jenkins") { jenkins.gid = config.ids.gids.jenkins; };
+    users.groups = optionalAttrs (cfg.group == "jenkins") {jenkins.gid = config.ids.gids.jenkins;};
 
     users.users = optionalAttrs (cfg.user == "jenkins") {
       jenkins = {
@@ -201,13 +201,13 @@ in
 
     systemd.services.jenkins = {
       description = "Jenkins Continuous Integration Server";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
 
       environment =
         let
           selectedSessionVars =
-            lib.filterAttrs (n: v: builtins.elem n [ "NIX_PATH" ])
+            lib.filterAttrs (n: v: builtins.elem n ["NIX_PATH"])
               config.environment.sessionVariables;
         in
         selectedSessionVars

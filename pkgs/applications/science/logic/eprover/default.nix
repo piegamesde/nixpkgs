@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-qh896qIpFR5g1gdWAwGkbNJLBqUQCeCpuoYHHkDXPt0=";
   };
 
-  buildInputs = [ which ];
+  buildInputs = [which];
 
   preConfigure = ''
     sed -e 's/ *CC *= *gcc$//' -i Makefile.vars
@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
   configureFlags = [
     "--exec-prefix=$(out)"
     "--man-prefix=$(out)/share/man"
-  ] ++ lib.optionals enableHO [ "--enable-ho" ];
+  ] ++ lib.optionals enableHO ["--enable-ho"];
 
   meta = with lib; {
     description = "Automated theorem prover for full first-order logic with equality";

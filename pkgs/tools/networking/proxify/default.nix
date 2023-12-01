@@ -28,6 +28,6 @@ buildGoModule rec {
     homepage = "https://github.com/projectdiscovery/proxify";
     changelog = "https://github.com/projectdiscovery/proxify/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

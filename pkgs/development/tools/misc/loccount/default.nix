@@ -19,7 +19,7 @@ buildGoModule rec {
 
   excludedPackages = "tests";
 
-  nativeBuildInputs = [ python3 ];
+  nativeBuildInputs = [python3];
 
   ldflags = [
     "-s"
@@ -48,6 +48,6 @@ buildGoModule rec {
     homepage = "https://gitlab.com/esr/loccount";
     downloadPage = "https://gitlab.com/esr/loccount/tree/master";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ calvertvl ];
+    maintainers = with maintainers; [calvertvl];
   };
 }

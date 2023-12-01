@@ -76,8 +76,8 @@ python3.pkgs.buildPythonApplication rec {
       # python>=3.8
       distro
     ]
-    ++ lib.optionals stdenv.hostPlatform.isWindows [ colorama ]
-    ++ lib.optionals (python3.pythonOlder "3.10") [ importlib-metadata ];
+    ++ lib.optionals stdenv.hostPlatform.isWindows [colorama]
+    ++ lib.optionals (python3.pythonOlder "3.10") [importlib-metadata];
 
   postInstall = ''
     installShellCompletion --cmd datalad \
@@ -89,12 +89,12 @@ python3.pkgs.buildPythonApplication rec {
   # no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "datalad" ];
+  pythonImportsCheck = ["datalad"];
 
   meta = with lib; {
     description = "Keep code, data, containers under control with git and git-annex";
     homepage = "https://www.datalad.org";
     license = licenses.mit;
-    maintainers = with maintainers; [ renesat ];
+    maintainers = with maintainers; [renesat];
   };
 }

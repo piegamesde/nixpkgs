@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
     yoda
   ];
 
-  CPPFLAGS = [ "-I${eigen}/include/eigen3" ];
+  CPPFLAGS = ["-I${eigen}/include/eigen3"];
   PREFIX = placeholder "out";
 
   postInstall = ''
@@ -53,7 +53,7 @@ stdenv.mkDerivation rec {
     description = "A tuning tool for Monte Carlo event generators";
     homepage = "https://professor.hepforge.org/";
     license = licenses.unfree; # no license specified
-    maintainers = [ maintainers.veprbl ];
+    maintainers = [maintainers.veprbl];
     platforms = platforms.unix;
   };
 }

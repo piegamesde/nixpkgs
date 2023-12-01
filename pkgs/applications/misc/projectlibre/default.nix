@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
     sha256 = "0vy5vgbp45ai957gaby2dj1hvmbxfdlfnwcanwqm9f8q16qipdbq";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
   buildInputs = [
     ant
     jdk
@@ -52,7 +52,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://www.projectlibre.com/";
     description = "Project-Management Software similar to MS-Project";
-    maintainers = [ maintainers.Mogria ];
+    maintainers = [maintainers.Mogria];
     license = licenses.cpal10;
   };
 }

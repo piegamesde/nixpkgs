@@ -14,17 +14,17 @@ stdenv.mkDerivation rec {
     sha512 = "3lGAa7BCrspGBcQqjduBkIACpf3u/CkeSCBnaJ3rrz3OIidn4o4dNwZNe7u8swaJxN2dhDSKKeVT3RnFQUaXdg==";
   };
 
-  buildInputs = [ libressl ];
+  buildInputs = [libressl];
 
-  patches = lib.optionals stdenv.isDarwin [ ./modification-time.patch ];
+  patches = lib.optionals stdenv.isDarwin [./modification-time.patch];
 
-  makeFlags = [ "PREFIX=${placeholder "out"}" ];
+  makeFlags = ["PREFIX=${placeholder "out"}"];
 
   meta = with lib; {
     description = "A gopher daemon for Linux/BSD";
     homepage = "gopher://bitreich.org/1/scm/geomyidae";
     license = licenses.mit;
-    maintainers = [ maintainers.athas ];
+    maintainers = [maintainers.athas];
     platforms = platforms.unix;
   };
 }

@@ -26,16 +26,16 @@ rustPlatform.buildRustPackage rec {
     };
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     bzip2
     zstd
   ];
 
-  nativeCheckInputs = [ zoxide ];
+  nativeCheckInputs = [zoxide];
 
-  buildFeatures = [ "zstd/pkg-config" ];
+  buildFeatures = ["zstd/pkg-config"];
 
   checkFlags = [
     # extra test files not shipped with the repository
@@ -49,7 +49,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/kyoheiu/felix";
     changelog = "https://github.com/kyoheiu/felix/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
     mainProgram = "fx";
   };
 }

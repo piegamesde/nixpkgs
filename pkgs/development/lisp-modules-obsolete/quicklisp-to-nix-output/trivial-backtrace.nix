@@ -1,12 +1,12 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "trivial-backtrace";
   version = "20200610-git";
 
   description = "trivial-backtrace";
 
-  deps = [ ];
+  deps = [];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/trivial-backtrace/2020-06-10/trivial-backtrace-20200610-git.tgz";
@@ -15,7 +15,7 @@ rec {
 
   packageName = "trivial-backtrace";
 
-  asdFilesToKeep = [ "trivial-backtrace.asd" ];
+  asdFilesToKeep = ["trivial-backtrace.asd"];
   overrides = x: x;
 }
 /* (SYSTEM trivial-backtrace DESCRIPTION trivial-backtrace SHA256

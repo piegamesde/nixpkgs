@@ -32,7 +32,7 @@ buildPythonPackage rec {
       --replace "==" ">=" \
   '';
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   propagatedBuildInputs = [
     appdirs
@@ -46,6 +46,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/tgalal/yowsup";
     description = "The python WhatsApp library";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ SuperSandro2000 ];
+    maintainers = with maintainers; [SuperSandro2000];
   };
 }

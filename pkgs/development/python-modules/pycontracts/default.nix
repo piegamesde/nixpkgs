@@ -18,7 +18,7 @@ buildPythonPackage rec {
     sha256 = "03q5m595ysjrc9h57m7prrca6b9l4yrzvdijnzxnhd61p7jzbh49";
   };
 
-  buildInputs = [ nose ];
+  buildInputs = [nose];
   propagatedBuildInputs = [
     pyparsing
     decorator

@@ -9,19 +9,19 @@
 {
   name ? "${args'.pname}-${args'.version}",
   src,
-  buildInputs ? [ ],
-  nativeBuildInputs ? [ ],
-  passthru ? { },
-  patches ? [ ],
+  buildInputs ? [],
+  nativeBuildInputs ? [],
+  passthru ? {},
+  patches ? [],
 
   # Go linker flags, passed to go via -ldflags
-  ldflags ? [ ],
+  ldflags ? [],
 
   # Go tags, passed to go via -tag
-  tags ? [ ],
+  tags ? [],
 
   # A function to override the go-modules derivation
-  overrideModAttrs ? (_oldAttrs: { }),
+  overrideModAttrs ? (_oldAttrs: {}),
 
   # path to go.mod and go.sum directory
   modRoot ? "./",
@@ -51,7 +51,7 @@
 
   CGO_ENABLED ? go.CGO_ENABLED,
 
-  meta ? { },
+  meta ? {},
 
   # Not needed with buildGoModule
   goPackagePath ? "",
@@ -95,7 +95,7 @@ let
 
             name = "${name}-go-modules";
 
-            nativeBuildInputs = (args.nativeBuildInputs or [ ]) ++ [
+            nativeBuildInputs = (args.nativeBuildInputs or []) ++ [
               go
               git
               cacert
@@ -109,8 +109,8 @@ let
             # out in the wild. In anycase, it's documented in:
             # doc/languages-frameworks/go.section.md
             prePatch = args.prePatch or "";
-            patches = args.patches or [ ];
-            patchFlags = args.patchFlags or [ ];
+            patches = args.patches or [];
+            patchFlags = args.patchFlags or [];
             postPatch = args.postPatch or "";
             preBuild = args.preBuild or "";
             postBuild = args.modPostBuild or "";
@@ -208,9 +208,9 @@ let
                 outputHash = vendorSha256;
               }
             else
-              { outputHash = vendorHash; }
+              {outputHash = vendorHash;}
           )
-          // (lib.optionalAttrs (vendorHashType == "sri" && vendorHash == "") { outputHashAlgo = "sha256"; })
+          // (lib.optionalAttrs (vendorHashType == "sri" && vendorHash == "") {outputHashAlgo = "sha256";})
         )
         // overrideModAttrs modArgs
       )
@@ -220,14 +220,14 @@ let
   package = stdenv.mkDerivation (
     args
     // {
-      nativeBuildInputs = [ go ] ++ nativeBuildInputs;
+      nativeBuildInputs = [go] ++ nativeBuildInputs;
 
       inherit (go) GOOS GOARCH;
 
       GO111MODULE = "on";
       GOFLAGS =
-        lib.optionals (!proxyVendor) [ "-mod=vendor" ]
-        ++ lib.optionals (!allowGoReference) [ "-trimpath" ];
+        lib.optionals (!proxyVendor) ["-mod=vendor"]
+        ++ lib.optionals (!allowGoReference) ["-trimpath"];
       inherit CGO_ENABLED enableParallelBuilding;
 
       configurePhase =

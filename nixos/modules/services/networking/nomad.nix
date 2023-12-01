@@ -7,7 +7,7 @@
 with lib;
 let
   cfg = config.services.nomad;
-  format = pkgs.formats.json { };
+  format = pkgs.formats.json {};
 in
 {
   ##### interface
@@ -28,7 +28,7 @@ in
 
       extraPackages = mkOption {
         type = types.listOf types.package;
-        default = [ ];
+        default = [];
         description = lib.mdDoc ''
           Extra packages to add to {env}`PATH` for the Nomad agent process.
         '';
@@ -58,7 +58,7 @@ in
 
       extraSettingsPaths = mkOption {
         type = types.listOf types.path;
-        default = [ ];
+        default = [];
         description = lib.mdDoc ''
           Additional settings paths used to configure nomad. These can be files or directories.
         '';
@@ -69,7 +69,7 @@ in
 
       extraSettingsPlugins = mkOption {
         type = types.listOf (types.either types.package types.path);
-        default = [ ];
+        default = [];
         description = lib.mdDoc ''
           Additional plugins dir used to configure nomad.
         '';
@@ -83,7 +83,7 @@ in
           Credentials envs used to configure nomad secrets.
         '';
         type = types.attrsOf types.str;
-        default = { };
+        default = {};
 
         example = {
           logs_remote_write_password = "/run/keys/nomad_write_password";
@@ -92,7 +92,7 @@ in
 
       settings = mkOption {
         type = format.type;
-        default = { };
+        default = {};
         description = lib.mdDoc ''
           Configuration for Nomad. See the [documentation](https://www.nomadproject.io/docs/configuration)
           for supported values.
@@ -136,15 +136,15 @@ in
 
     environment = {
       etc."nomad.json".source = format.generate "nomad.json" cfg.settings;
-      systemPackages = [ cfg.package ];
+      systemPackages = [cfg.package];
     };
 
     systemd.services.nomad = {
       description = "Nomad";
-      wantedBy = [ "multi-user.target" ];
-      wants = [ "network-online.target" ];
-      after = [ "network-online.target" ];
-      restartTriggers = [ config.environment.etc."nomad.json".source ];
+      wantedBy = ["multi-user.target"];
+      wants = ["network-online.target"];
+      after = ["network-online.target"];
+      restartTriggers = [config.environment.etc."nomad.json".source];
 
       path =
         cfg.extraPackages
@@ -186,7 +186,7 @@ in
         (mkIf cfg.enableDocker {
           SupplementaryGroups = "docker"; # space-separated string
         })
-        (mkIf (cfg.settings.data_dir == "/var/lib/nomad") { StateDirectory = "nomad"; })
+        (mkIf (cfg.settings.data_dir == "/var/lib/nomad") {StateDirectory = "nomad";})
       ];
 
       unitConfig = {

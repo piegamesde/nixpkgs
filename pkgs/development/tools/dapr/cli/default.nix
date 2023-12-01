@@ -20,9 +20,9 @@ buildGoModule rec {
 
   proxyVendor = true;
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   preCheck = ''
     export HOME=$(mktemp -d)

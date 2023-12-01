@@ -19,15 +19,15 @@ buildPythonPackage rec {
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  pythonImportsCheck = [ "tree_sitter" ];
+  pythonImportsCheck = ["tree_sitter"];
 
   meta = with lib; {
     homepage = "https://github.com/tree-sitter/py-tree-sitter";
     description = "Python bindings for tree-sitter";
     license = licenses.mit;
-    maintainers = with maintainers; [ siraben ];
+    maintainers = with maintainers; [siraben];
     platforms = platforms.unix;
   };
 }

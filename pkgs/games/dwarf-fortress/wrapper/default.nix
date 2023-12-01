@@ -16,9 +16,9 @@
   enableStoneSense ? false,
   enableTWBT ? false,
   twbt,
-  themes ? { },
+  themes ? {},
   theme ? null,
-  extraPackages ? [ ],
+  extraPackages ? [],
   # General config options:
   enableIntro ? true,
   enableTruetype ? null, # defaults to 24, see init.txt
@@ -27,12 +27,12 @@
   enableSound ? true,
   # An attribute set of settings to override in data/init/*.txt.
   # For example, `init.FOO = true;` is translated to `[FOO:YES]` in init.txt
-  settings ? { },
+  settings ? {},
 # TODO world-gen.txt, interface.txt require special logic
 }:
 
 let
-  dfhack_ = dfhack.override { inherit enableStoneSense; };
+  dfhack_ = dfhack.override {inherit enableStoneSense;};
 
   ptheme = if builtins.isString theme then builtins.getAttr theme themes else theme;
 
@@ -49,7 +49,7 @@ let
         twbt.lib
         twbt.art
       ]
-      ++ [ dwarf-fortress ];
+      ++ [dwarf-fortress];
 
     ignoreCollisions = true;
   };
@@ -88,7 +88,7 @@ let
     else
       throw "dwarf-fortress: unsupported configuration value ${toString v}";
 
-  config = runCommand "dwarf-fortress-config" { nativeBuildInputs = [ gawk ]; } (
+  config = runCommand "dwarf-fortress-config" {nativeBuildInputs = [gawk];} (
     ''
       mkdir -p $out/data/init
 

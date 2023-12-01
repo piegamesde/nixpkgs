@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "trivia_dot_level1";
   version = "trivia-20211020-git";
@@ -18,7 +18,7 @@ rec {
 
   packageName = "trivia.level1";
 
-  asdFilesToKeep = [ "trivia.level1.asd" ];
+  asdFilesToKeep = ["trivia.level1.asd"];
   overrides = x: x;
 }
 /* (SYSTEM trivia.level1 DESCRIPTION Core patterns of Trivia SHA256

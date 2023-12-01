@@ -45,8 +45,8 @@ stdenv.mkDerivation rec {
     "man"
   ];
 
-  buildInputs = [ pythonEnv ];
-  nativeBuildInputs = [ makeWrapper ];
+  buildInputs = [pythonEnv];
+  nativeBuildInputs = [makeWrapper];
 
   # Tests freeze on darwin with: pass-audit-1.1 (checkPhase): EOFError
   doCheck = !stdenv.isDarwin;
@@ -74,6 +74,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/roddhjav/pass-audit";
     license = licenses.gpl3Plus;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ ma27 ];
+    maintainers = with maintainers; [ma27];
   };
 }

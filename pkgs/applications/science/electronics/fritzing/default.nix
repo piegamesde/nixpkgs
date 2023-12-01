@@ -77,7 +77,7 @@ stdenv.mkDerivation rec {
 
   env.NIX_CFLAGS_COMPILE = "-I${lib.getDev quazip}/include/QuaZip-Qt${lib.versions.major qtbase.version}-${quazip.version}/quazip";
 
-  qmakeFlags = [ "phoenix.pro" ];
+  qmakeFlags = ["phoenix.pro"];
 
   postFixup = ''
     # generate the parts.db file

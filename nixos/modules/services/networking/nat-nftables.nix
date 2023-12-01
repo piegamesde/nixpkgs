@@ -15,7 +15,7 @@ let
   destIPv6 = mkDest cfg.externalIPv6;
 
   toNftSet = list: concatStringsSep ", " list;
-  toNftRange = ports: replaceStrings [ ":" ] [ "-" ] (toString ports);
+  toNftRange = ports: replaceStrings [":"] ["-"] (toString ports);
 
   ifaceSet = toNftSet (map (x: ''"${x}"'') cfg.internalInterfaces);
   ipSet = toNftSet cfg.internalIPs;

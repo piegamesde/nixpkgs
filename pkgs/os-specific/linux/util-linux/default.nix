@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-YEkqGbRObPmj3f9oMlszO4tStsWc4+vWoOyqTFEX6E8=";
   };
 
-  patches = [ ./rtcwake-search-PATH-for-shutdown.patch ];
+  patches = [./rtcwake-search-PATH-for-shutdown.patch];
 
   outputs = [
     "bin"
@@ -79,17 +79,17 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [
     pkg-config
     installShellFiles
-  ] ++ lib.optionals translateManpages [ po4a ];
+  ] ++ lib.optionals translateManpages [po4a];
 
   buildInputs =
     [
       zlib
       libxcrypt
     ]
-    ++ lib.optionals pamSupport [ pam ]
-    ++ lib.optionals capabilitiesSupport [ libcap_ng ]
-    ++ lib.optionals ncursesSupport [ ncurses ]
-    ++ lib.optionals systemdSupport [ systemd ];
+    ++ lib.optionals pamSupport [pam]
+    ++ lib.optionals capabilitiesSupport [libcap_ng]
+    ++ lib.optionals ncursesSupport [ncurses]
+    ++ lib.optionals systemdSupport [systemd];
 
   doCheck = false; # "For development purpose only. Don't execute on production system!"
 

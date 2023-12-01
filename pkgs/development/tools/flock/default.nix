@@ -18,8 +18,8 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-cCpckORtogs6Nt7c5q2+z0acXAnALdLV6uzxa5ng3s4=";
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
-  buildInputs = [ ronn ];
+  nativeBuildInputs = [autoreconfHook];
+  buildInputs = [ronn];
 
   patches = [
     (fetchpatch {

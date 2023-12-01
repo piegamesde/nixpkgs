@@ -52,6 +52,6 @@ stdenv.mkDerivation rec {
     description = "A small screenlocker for Wayland compositors";
     license = licenses.isc;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ jordanisaacs ];
+    maintainers = with maintainers; [jordanisaacs];
   };
 }

@@ -36,10 +36,10 @@ stdenv.mkDerivation rec {
       sha256 = "sha256-g6CuruqyoMJxU/hlNoALx1QnFM8BlTsTd0pwlVrco3I=";
     })
   ];
-  cmakeFlags = [ "-DJPP_ENABLE_TESTS=OFF" ];
+  cmakeFlags = ["-DJPP_ENABLE_TESTS=OFF"];
 
-  nativeBuildInputs = [ cmake ];
-  buildInputs = [ protobuf ] ++ lib.optional stdenv.isDarwin libiconv;
+  nativeBuildInputs = [cmake];
+  buildInputs = [protobuf] ++ lib.optional stdenv.isDarwin libiconv;
 
   meta = with lib; {
     description = "A Japanese morphological analyser using a recurrent neural network language model (RNNLM)";
@@ -50,7 +50,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://nlp.ist.i.kyoto-u.ac.jp/index.php?JUMAN++";
     license = licenses.asl20;
-    maintainers = with maintainers; [ mt-caret ];
+    maintainers = with maintainers; [mt-caret];
     platforms = platforms.all;
   };
 }

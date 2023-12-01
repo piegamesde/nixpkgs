@@ -30,13 +30,13 @@ stdenv.mkDerivation rec {
 
   CXXFLAGS = "-DSHNTOOL";
 
-  nativeBuildInputs = [ yasm ];
+  nativeBuildInputs = [yasm];
 
   meta = with lib; {
     description = "APE codec and decompressor";
     homepage = "https://www.deb-multimedia.org/dists/testing/main/binary-amd64/package/monkeys-audio.php";
     license = licenses.unfreeRedistributable;
-    platforms = [ "x86_64-linux" ];
-    maintainers = with maintainers; [ jfrankenau ];
+    platforms = ["x86_64-linux"];
+    maintainers = with maintainers; [jfrankenau];
   };
 }

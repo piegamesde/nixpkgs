@@ -28,14 +28,14 @@ buildPythonPackage rec {
     rlp
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ] ++ eth-hash.optional-dependencies.pycryptodome;
+  nativeCheckInputs = [pytestCheckHook] ++ eth-hash.optional-dependencies.pycryptodome;
 
-  pythonImportsCheck = [ "eth_rlp" ];
+  pythonImportsCheck = ["eth_rlp"];
 
   meta = with lib; {
     description = "RLP definitions for common Ethereum objects";
     homepage = "https://github.com/ethereum/eth-rlp";
     license = licenses.mit;
-    maintainers = with maintainers; [ SuperSandro2000 ];
+    maintainers = with maintainers; [SuperSandro2000];
   };
 }

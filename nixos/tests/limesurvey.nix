@@ -1,11 +1,11 @@
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   {
     name = "limesurvey";
-    meta.maintainers = [ pkgs.lib.maintainers.aanderse ];
+    meta.maintainers = [pkgs.lib.maintainers.aanderse];
 
     nodes.machine =
-      { ... }:
+      {...}:
       {
         services.limesurvey = {
           enable = true;
@@ -16,7 +16,7 @@ import ./make-test-python.nix (
         };
 
         # limesurvey won't work without a dot in the hostname
-        networking.hosts."127.0.0.1" = [ "example.local" ];
+        networking.hosts."127.0.0.1" = ["example.local"];
       };
 
     testScript = ''

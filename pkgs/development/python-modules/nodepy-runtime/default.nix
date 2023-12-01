@@ -22,7 +22,7 @@ buildPythonPackage rec {
     six
   ];
 
-  pythonImportsCheck = [ "nodepy" ];
+  pythonImportsCheck = ["nodepy"];
 
   meta = with lib; {
     homepage = "https://github.com/nodepy/nodepy";
@@ -41,6 +41,6 @@ buildPythonPackage rec {
       extra.
     '';
     license = licenses.mit;
-    maintainers = with maintainers; [ AndersonTorres ];
+    maintainers = with maintainers; [AndersonTorres];
   };
 }

@@ -18,7 +18,7 @@ buildPythonPackage rec {
     hash = "sha256-F+uj7kSz6iSb0Vg00VfJ5GcxghooNDKa75S/ZgU7WgI=";
   };
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
@@ -27,9 +27,9 @@ buildPythonPackage rec {
       --replace 'version=get_version(),' 'version="${version}",'
   '';
 
-  propagatedBuildInputs = [ pydantic ] ++ pydantic.optional-dependencies.email;
+  propagatedBuildInputs = [pydantic] ++ pydantic.optional-dependencies.email;
 
-  pythonImportsCheck = [ "pydanticscim" ];
+  pythonImportsCheck = ["pydanticscim"];
 
   # no tests
   doCheck = false;
@@ -38,6 +38,6 @@ buildPythonPackage rec {
     description = "Pydantic types for SCIM";
     homepage = "https://github.com/chalk-ai/pydantic-scim";
     license = licenses.asl20;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

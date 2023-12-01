@@ -32,7 +32,7 @@ stdenv.mkDerivation {
     description = "Text to speech voice sinthesizer from SVox";
     homepage = "https://github.com/naggety/picotts";
     license = lib.licenses.asl20;
-    maintainers = [ lib.maintainers.canndrew ];
+    maintainers = [lib.maintainers.canndrew];
     platforms = lib.platforms.linux;
   };
 }

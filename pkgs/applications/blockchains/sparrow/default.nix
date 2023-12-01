@@ -73,7 +73,7 @@ let
 
   jdk-modules = stdenv.mkDerivation {
     name = "jdk-modules";
-    nativeBuildInputs = [ openjdk ];
+    nativeBuildInputs = [openjdk];
     dontUnpack = true;
 
     buildPhase = ''
@@ -200,7 +200,7 @@ stdenv.mkDerivation rec {
   sparrow-icons = stdenv.mkDerivation {
     inherit version src;
     pname = "sparrow-icons";
-    nativeBuildInputs = [ imagemagick ];
+    nativeBuildInputs = [imagemagick];
 
     installPhase = ''
       for n in 16 24 32 48 64 96 128 256; do
@@ -243,6 +243,6 @@ stdenv.mkDerivation rec {
       emmanuelrosa
       _1000101
     ];
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
   };
 }

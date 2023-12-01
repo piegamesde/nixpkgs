@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
   ];
   # TODO: doxygen (currently only HTML and not build by default).
   buildInputs =
-    [ xxHash ]
+    [xxHash]
     ++ lib.optional withExamples SDL2
     ++ lib.optionals useVulkan [
       libplacebo
@@ -65,6 +65,6 @@ stdenv.mkDerivation rec {
     # More technical: https://code.videolan.org/videolan/dav1d/blob/${version}/NEWS
     license = licenses.bsd2;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ primeos ];
+    maintainers = with maintainers; [primeos];
   };
 }

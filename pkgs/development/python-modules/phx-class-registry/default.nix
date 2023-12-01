@@ -18,9 +18,9 @@ buildPythonPackage rec {
     hash = "sha256-kSEHgzBgnAq5rMv2HbmGl+9CUzsmzUzPQWr+5q8mcsA=";
   };
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "class_registry" ];
+  pythonImportsCheck = ["class_registry"];
 
   meta = with lib; {
     description = "Factory and registry pattern for Python classes";

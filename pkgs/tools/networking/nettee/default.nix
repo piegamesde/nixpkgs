@@ -22,7 +22,7 @@ stdenv.mkDerivation {
     homepage = "http://saf.bio.caltech.edu/nettee.html";
     description = ''Network "tee" program'';
     license = lib.licenses.gpl2;
-    maintainers = with lib.maintainers; [ Profpatsch ];
+    maintainers = with lib.maintainers; [Profpatsch];
     platforms = lib.platforms.linux;
   };
 

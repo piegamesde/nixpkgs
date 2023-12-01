@@ -17,16 +17,16 @@ buildPythonPackage rec {
     hash = "sha256-BAygCLBLxZ033ZWRFSR52dSM2nPY8jXplDXQ8WW3KPo=";
   };
 
-  propagatedBuildInputs = [ html5lib ];
+  propagatedBuildInputs = [html5lib];
 
-  nativeCheckInputs = [ unittestCheckHook ];
+  nativeCheckInputs = [unittestCheckHook];
 
-  pythonImportsCheck = [ "microdata" ];
+  pythonImportsCheck = ["microdata"];
 
   meta = with lib; {
     description = "Library for extracting html microdata";
     homepage = "https://github.com/edsu/microdata";
     license = licenses.cc0;
-    maintainers = with maintainers; [ ambroisie ];
+    maintainers = with maintainers; [ambroisie];
   };
 }

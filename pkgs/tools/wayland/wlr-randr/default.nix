@@ -27,13 +27,13 @@ stdenv.mkDerivation rec {
     pkg-config
     wayland-scanner
   ];
-  buildInputs = [ wayland ];
+  buildInputs = [wayland];
 
   meta = with lib; {
     description = "An xrandr clone for wlroots compositors";
     homepage = "https://git.sr.ht/~emersion/wlr-randr";
     license = licenses.mit;
-    maintainers = with maintainers; [ ma27 ];
+    maintainers = with maintainers; [ma27];
     platforms = platforms.linux;
   };
 }

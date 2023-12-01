@@ -19,11 +19,11 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-eK+oQbOQj8pKiOTXzIgRjzVB7Js8MMa9V6cF9D98Ftc=";
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   postInstall = ''
     wrapProgram $out/bin/fornalder \
-      --suffix PATH : ${lib.makeBinPath [ gnuplot ]}
+      --suffix PATH : ${lib.makeBinPath [gnuplot]}
   '';
 
   meta = with lib; {

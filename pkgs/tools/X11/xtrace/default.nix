@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
     autoreconfHook
     makeWrapper
   ];
-  buildInputs = [ libX11 ];
+  buildInputs = [libX11];
 
   postInstall = ''
     wrapProgram "$out/bin/xtrace" \
@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
     homepage = "https://salsa.debian.org/debian/xtrace";
     description = "Tool to trace X11 protocol connections";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ viric ];
+    maintainers = with maintainers; [viric];
     platforms = with platforms; linux;
   };
 }

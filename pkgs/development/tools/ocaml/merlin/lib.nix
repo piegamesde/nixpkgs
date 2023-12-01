@@ -11,7 +11,7 @@ buildDunePackage {
 
   minimalOCamlVersion = "4.14";
 
-  propagatedBuildInputs = [ csexp ];
+  propagatedBuildInputs = [csexp];
 
   meta = merlin.meta // {
     description = "Merlin’s libraries";

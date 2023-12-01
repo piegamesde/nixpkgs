@@ -17,15 +17,15 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-HaJmMo4jYmO/j53/nHrL3bvdQMAvp4Nuhhe8Yc7pL88=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
-  propagatedBuildInputs = [ eigen ];
+  propagatedBuildInputs = [eigen];
 
   meta = with lib; {
     homepage = "https://spectralib.org/";
     description = "A C++ library for large scale eigenvalue problems, built on top of Eigen";
     license = licenses.mpl20;
-    maintainers = with maintainers; [ vonfry ];
+    maintainers = with maintainers; [vonfry];
     platforms = platforms.unix;
   };
 }

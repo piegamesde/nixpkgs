@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-CSA1CmPvXuOl9PzX97/soGRq2HHBcYuA5PepOVMaMWU=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   buildInputs = [
     python
@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
     patchShebangs .
   '';
 
-  makeFlags = [ "prefix=${placeholder "out"}" ];
+  makeFlags = ["prefix=${placeholder "out"}"];
 
   postInstall = ''
     wrapProgram $out/bin/src \

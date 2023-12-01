@@ -27,7 +27,7 @@ buildPythonApplication rec {
     sha256 = "0jd9xrhcyk8d2plbjnrlpn87536zr6n708797n0k5blf109q3c1z";
   };
 
-  patches = [ ./set_resource_path.patch ];
+  patches = [./set_resource_path.patch];
 
   postPatch = ''
     substituteInPlace sonota.py --subst-var out
@@ -56,6 +56,6 @@ buildPythonApplication rec {
     description = "Flash Itead Sonoff devices with custom firmware via original OTA mechanism";
     homepage = src.meta.homepage;
     license = licenses.gpl2;
-    maintainers = with maintainers; [ peterhoeg ];
+    maintainers = with maintainers; [peterhoeg];
   };
 }

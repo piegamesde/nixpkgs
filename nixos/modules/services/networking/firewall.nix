@@ -16,7 +16,7 @@ let
   commonOptions = {
     allowedTCPPorts = mkOption {
       type = types.listOf types.port;
-      default = [ ];
+      default = [];
       apply = canonicalizePortList;
       example = [
         22
@@ -30,7 +30,7 @@ let
 
     allowedTCPPortRanges = mkOption {
       type = types.listOf (types.attrsOf types.port);
-      default = [ ];
+      default = [];
       example = [
         {
           from = 8999;
@@ -45,9 +45,9 @@ let
 
     allowedUDPPorts = mkOption {
       type = types.listOf types.port;
-      default = [ ];
+      default = [];
       apply = canonicalizePortList;
-      example = [ 53 ];
+      example = [53];
       description = lib.mdDoc ''
         List of open UDP ports.
       '';
@@ -55,7 +55,7 @@ let
 
     allowedUDPPortRanges = mkOption {
       type = types.listOf (types.attrsOf types.port);
-      default = [ ];
+      default = [];
       example = [
         {
           from = 60000;
@@ -141,8 +141,8 @@ in
 
       trustedInterfaces = mkOption {
         type = types.listOf types.str;
-        default = [ ];
-        example = [ "enp0s2" ];
+        default = [];
+        example = ["enp0s2"];
         description = lib.mdDoc ''
           Traffic coming in from these interfaces will be accepted
           unconditionally.  Traffic from the loopback (lo) interface
@@ -222,7 +222,7 @@ in
 
       connectionTrackingModules = mkOption {
         type = types.listOf types.str;
-        default = [ ];
+        default = [];
         example = [
           "ftp"
           "irc"
@@ -264,7 +264,7 @@ in
 
       extraPackages = mkOption {
         type = types.listOf types.package;
-        default = [ ];
+        default = [];
         example = literalExpression "[ pkgs.ipset ]";
         description = lib.mdDoc ''
           Additional packages to be included in the environment of the system
@@ -273,8 +273,8 @@ in
       };
 
       interfaces = mkOption {
-        default = { };
-        type = with types; attrsOf (submodule [ { options = commonOptions; } ]);
+        default = {};
+        type = with types; attrsOf (submodule [{options = commonOptions;}]);
         description = lib.mdDoc ''
           Interface-specific open ports.
         '';
@@ -286,7 +286,7 @@ in
         default = {
           default = mapAttrs (name: value: cfg.${name}) commonOptions;
         } // cfg.interfaces;
-        type = with types; attrsOf (submodule [ { options = commonOptions; } ]);
+        type = with types; attrsOf (submodule [{options = commonOptions;}]);
         description = lib.mdDoc ''
           All open ports.
         '';
@@ -308,9 +308,9 @@ in
       }
     ];
 
-    networking.firewall.trustedInterfaces = [ "lo" ];
+    networking.firewall.trustedInterfaces = ["lo"];
 
-    environment.systemPackages = [ cfg.package ] ++ cfg.extraPackages;
+    environment.systemPackages = [cfg.package] ++ cfg.extraPackages;
 
     boot.kernelModules =
       (optional cfg.autoLoadConntrackHelpers "nf_conntrack")

@@ -59,13 +59,13 @@ in
   ###### implementation
 
   config = mkIf cfg.enable {
-    environment.systemPackages = [ pkgs.lxc ];
+    environment.systemPackages = [pkgs.lxc];
     environment.etc."lxc/lxc.conf".text = cfg.systemConfig;
     environment.etc."lxc/lxc-usernet".text = cfg.usernetConfig;
     environment.etc."lxc/default.conf".text = cfg.defaultConfig;
-    systemd.tmpfiles.rules = [ "d /var/lib/lxc/rootfs 0755 root root -" ];
+    systemd.tmpfiles.rules = ["d /var/lib/lxc/rootfs 0755 root root -"];
 
-    security.apparmor.packages = [ pkgs.lxc ];
+    security.apparmor.packages = [pkgs.lxc];
     security.apparmor.policies = {
       "bin.lxc-start".profile = ''
         include ${pkgs.lxc}/etc/apparmor.d/usr.bin.lxc-start

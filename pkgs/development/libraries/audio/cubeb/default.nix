@@ -42,7 +42,7 @@ stdenv.mkDerivation {
   ];
 
   buildInputs =
-    [ speexdsp ]
+    [speexdsp]
     ++ (
       if stdenv.isDarwin then
         [
@@ -74,6 +74,6 @@ stdenv.mkDerivation {
     homepage = "https://github.com/mozilla/cubeb";
     license = licenses.isc;
     platforms = platforms.linux ++ platforms.darwin;
-    maintainers = with maintainers; [ zhaofengli ];
+    maintainers = with maintainers; [zhaofengli];
   };
 }

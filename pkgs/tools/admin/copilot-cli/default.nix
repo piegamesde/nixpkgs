@@ -20,7 +20,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-ali7zvLLLB5kQCU9r2o/dO0g5CQxv/kVVz3iJ56fqYY=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   # follow LINKER_FLAGS in Makefile
   ldflags = [
@@ -30,7 +30,7 @@ buildGoModule rec {
     "-X github.com/aws/copilot-cli/internal/pkg/cli.binaryS3BucketPath=https://ecs-cli-v2-release.s3.amazonaws.com"
   ];
 
-  subPackages = [ "./cmd/copilot" ];
+  subPackages = ["./cmd/copilot"];
 
   postInstall = ''
     installShellCompletion --cmd copilot \
@@ -49,6 +49,6 @@ buildGoModule rec {
     homepage = "https://github.com/aws/copilot-cli";
     changelog = "https://github.com/aws/copilot-cli/releases/tag/v${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ jiegec ];
+    maintainers = with maintainers; [jiegec];
   };
 }

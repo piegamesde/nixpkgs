@@ -26,7 +26,7 @@ python2Packages.buildPythonApplication rec {
   meta = with lib; {
     homepage = "https://www.volatilityfoundation.org/";
     description = "Advanced memory forensics framework";
-    maintainers = with maintainers; [ bosu ];
+    maintainers = with maintainers; [bosu];
     license = lib.licenses.gpl2Plus;
   };
 }

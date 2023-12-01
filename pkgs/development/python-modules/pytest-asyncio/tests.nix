@@ -16,7 +16,7 @@ buildPythonPackage rec {
   dontBuild = true;
   dontInstall = true;
 
-  propagatedBuildInputs = [ pytest-asyncio ];
+  propagatedBuildInputs = [pytest-asyncio];
 
   nativeCheckInputs = [
     flaky

@@ -84,6 +84,6 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://usbguard.github.io/";
     license = licenses.gpl2Plus;
-    maintainers = [ maintainers.tnias ];
+    maintainers = [maintainers.tnias];
   };
 }

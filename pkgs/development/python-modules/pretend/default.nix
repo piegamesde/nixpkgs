@@ -20,14 +20,14 @@ buildPythonPackage rec {
     hash = "sha256-OqMfeIMFNBBLq6ejR3uOCIHZ9aA4zew7iefVlAsy1JQ=";
   };
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "pretend" ];
+  pythonImportsCheck = ["pretend"];
 
   meta = with lib; {
     description = "Module for stubbing";
     homepage = "https://github.com/alex/pretend";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

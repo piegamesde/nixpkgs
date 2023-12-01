@@ -10,7 +10,7 @@ with lib;
 let
   cfg = config.services.zigbee2mqtt;
 
-  format = pkgs.formats.yaml { };
+  format = pkgs.formats.yaml {};
   configFile = format.generate "zigbee2mqtt.yaml" cfg.settings;
 in
 {
@@ -56,7 +56,7 @@ in
 
     settings = mkOption {
       type = format.type;
-      default = { };
+      default = {};
       example = literalExpression ''
         {
           homeassistant = config.services.home-assistant.enable;
@@ -92,8 +92,8 @@ in
 
     systemd.services.zigbee2mqtt = {
       description = "Zigbee2mqtt Service";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
       environment.ZIGBEE2MQTT_DATA = cfg.dataDir;
       serviceConfig = {
         ExecStart = "${cfg.package}/bin/zigbee2mqtt";
@@ -104,7 +104,7 @@ in
 
         # Hardening
         CapabilityBoundingSet = "";
-        DeviceAllow = [ config.services.zigbee2mqtt.settings.serial.port ];
+        DeviceAllow = [config.services.zigbee2mqtt.settings.serial.port];
         DevicePolicy = "closed";
         LockPersonality = true;
         MemoryDenyWriteExecute = false;
@@ -131,7 +131,7 @@ in
         RestrictNamespaces = true;
         RestrictRealtime = true;
         RestrictSUIDSGID = true;
-        SupplementaryGroups = [ "dialout" ];
+        SupplementaryGroups = ["dialout"];
         SystemCallArchitectures = "native";
         SystemCallFilter = [
           "@system-service @pkey"

@@ -1,10 +1,10 @@
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   {
     name = "oh-my-zsh";
 
     nodes.machine =
-      { pkgs, ... }:
+      {pkgs, ...}:
 
       {
         programs.zsh = {

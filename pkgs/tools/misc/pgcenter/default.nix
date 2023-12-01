@@ -17,7 +17,7 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-9hYiyZ34atmSL7JvuXyiGU7HR4E6qN7bGZlyU+hP+FU=";
 
-  subPackages = [ "cmd" ];
+  subPackages = ["cmd"];
 
   ldflags = [
     "-w"
@@ -38,6 +38,6 @@ buildGoModule rec {
     changelog = "https://github.com/lesovsky/pgcenter/raw/v${version}/doc/Changelog";
     description = "Command-line admin tool for observing and troubleshooting PostgreSQL";
     license = licenses.bsd3;
-    maintainers = [ maintainers.marsam ];
+    maintainers = [maintainers.marsam];
   };
 }

@@ -47,10 +47,10 @@ stdenv.mkDerivation rec {
       autoreconfHook
       pkg-config
     ]
-    ++ lib.optionals stdenv.isLinux [ util-linux ]
-    ++ lib.optionals stdenv.isDarwin [ hexdump ]
-    ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [ autoSignDarwinBinariesHook ]
-    ++ lib.optionals withGui [ wrapQtAppsHook ];
+    ++ lib.optionals stdenv.isLinux [util-linux]
+    ++ lib.optionals stdenv.isDarwin [hexdump]
+    ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [autoSignDarwinBinariesHook]
+    ++ lib.optionals withGui [wrapQtAppsHook];
 
   buildInputs =
     [
@@ -81,16 +81,16 @@ stdenv.mkDerivation rec {
       "--with-boost-libdir=${boost.out}/lib"
       "--disable-bench"
     ]
-    ++ lib.optionals (!withWallet) [ "--disable-wallet" ]
+    ++ lib.optionals (!withWallet) ["--disable-wallet"]
     ++ lib.optionals withGui [
       "--with-gui=qt5"
       "--with-qt-bindir=${qtbase.dev}/bin:${qttools.dev}/bin"
     ];
 
-  nativeCheckInputs = [ python3 ];
+  nativeCheckInputs = [python3];
 
   checkFlags =
-    [ "LC_ALL=en_US.UTF-8" ]
+    ["LC_ALL=en_US.UTF-8"]
     # QT_PLUGIN_PATH needs to be set when executing QT, which is needed when testing Groestlcoin's GUI.
     # See also https://github.com/NixOS/nixpkgs/issues/24256
     ++ lib.optional withGui "QT_PLUGIN_PATH=${qtbase}/${qtbase.qtPluginPrefix}";
@@ -107,7 +107,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://groestlcoin.org/";
     downloadPage = "https://github.com/Groestlcoin/groestlcoin/releases/tag/v{version}/";
-    maintainers = with maintainers; [ gruve-p ];
+    maintainers = with maintainers; [gruve-p];
     license = licenses.mit;
     platforms = platforms.unix;
   };

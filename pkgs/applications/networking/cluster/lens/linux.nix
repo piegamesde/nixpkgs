@@ -18,7 +18,7 @@ let
     name = "${pname}.AppImage";
   };
 
-  appimageContents = appimageTools.extractType2 { inherit name src; };
+  appimageContents = appimageTools.extractType2 {inherit name src;};
 in
 appimageTools.wrapType2 {
   inherit name src;
@@ -44,6 +44,6 @@ appimageTools.wrapType2 {
       dbirks
       RossComputerGuy
     ];
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
   };
 }

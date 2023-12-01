@@ -13,7 +13,7 @@ stdenv.mkDerivation rec {
     sha256 = "1bz9gjpvby4mnvny0nmxgd81rim26mqlcnjlznnxxk99575pfa4i";
   };
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   preConfigure = ''
     substituteInPlace Makefile \
@@ -30,6 +30,6 @@ stdenv.mkDerivation rec {
     homepage = "http://www.lsv.ens-cachan.fr/~gastin/ltl2ba";
     license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.darwin ++ lib.platforms.linux;
-    maintainers = [ lib.maintainers.thoughtpolice ];
+    maintainers = [lib.maintainers.thoughtpolice];
   };
 }

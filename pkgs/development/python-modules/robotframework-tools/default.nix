@@ -20,7 +20,7 @@ buildPythonPackage rec {
     sha256 = "0377ikajf6c3zcy3lc0kh4w9zmlqyplk2c2hb0yyc7h3jnfnya96";
   };
 
-  nativeBuildInputs = [ zetup ];
+  nativeBuildInputs = [zetup];
 
   propagatedBuildInputs = [
     robotframework
@@ -37,14 +37,14 @@ buildPythonPackage rec {
       "setup_requires=SETUP_REQUIRES + (zfg.SETUP_REQUIRES or [])," ""
   '';
 
-  nativeCheckInputs = [ pytestCheckHook ];
-  pytestFlagsArray = [ "test" ];
-  pythonImportsCheck = [ "robottools" ];
+  nativeCheckInputs = [pytestCheckHook];
+  pytestFlagsArray = ["test"];
+  pythonImportsCheck = ["robottools"];
 
   meta = with lib; {
     description = "Python Tools for Robot Framework and Test Libraries";
     homepage = "https://github.com/userzimmermann/robotframework-tools";
     license = licenses.gpl3Plus;
-    maintainers = [ maintainers.costrouc ];
+    maintainers = [maintainers.costrouc];
   };
 }

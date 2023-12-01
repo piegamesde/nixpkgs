@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
     sha256 = "05zbdkb9s6sfkni6k927795w2fqdhnf3i7kgl27715sdmmdab05d";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   env.NIX_CFLAGS_COMPILE = toString (
     lib.optionals stdenv.cc.isGNU
@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
     description = "Manipulating CPC dsk images and files";
     homepage = "https://github.com/cpcsdk/idsk";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
     mainProgram = "iDSK";
     platforms = platforms.all;
   };

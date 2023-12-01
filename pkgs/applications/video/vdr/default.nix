@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
     "i18n"
   ] ++ lib.optional enableSystemd "SDNOTIFY=1" ++ lib.optional enableBidi "BIDI=1";
 
-  nativeBuildInputs = [ perl ];
+  nativeBuildInputs = [perl];
 
   # plugins uses the same build environment as vdr
   propagatedNativeBuildInputs = [
@@ -78,7 +78,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "http://www.tvdr.de/";
     description = "Video Disc Recorder";
-    maintainers = [ maintainers.ck3d ];
+    maintainers = [maintainers.ck3d];
     platforms = platforms.linux;
     license = licenses.gpl2Plus;
   };

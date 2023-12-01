@@ -78,7 +78,7 @@ mkDerivation rec {
     postgresql
   ];
 
-  propagatedUserEnvPkgs = [ kproperty ];
+  propagatedUserEnvPkgs = [kproperty];
 
   patches =
     [
@@ -103,7 +103,7 @@ mkDerivation rec {
       making it easy to share data and design.
     '';
     homepage = "https://kexi-project.org/";
-    maintainers = with maintainers; [ zraexy ];
+    maintainers = with maintainers; [zraexy];
     platforms = platforms.linux;
     license = with licenses; [
       gpl2

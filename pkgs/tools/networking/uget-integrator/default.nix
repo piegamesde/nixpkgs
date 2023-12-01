@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
     sha256 = "0bfqwbpprxp5sy49p2hqcjdfj7zamnp2hhcnnyccffkn7pghx8pp";
   };
 
-  nativeBuildInputs = [ python3Packages.wrapPython ];
+  nativeBuildInputs = [python3Packages.wrapPython];
 
   buildInputs = [
     uget
@@ -43,6 +43,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/ugetdm/uget-integrator";
     license = licenses.gpl3;
     platforms = platforms.linux;
-    maintainers = [ maintainers.romildo ];
+    maintainers = [maintainers.romildo];
   };
 }

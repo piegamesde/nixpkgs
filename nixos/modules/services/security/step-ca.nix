@@ -6,10 +6,10 @@
 }:
 let
   cfg = config.services.step-ca;
-  settingsFormat = (pkgs.formats.json { });
+  settingsFormat = (pkgs.formats.json {});
 in
 {
-  meta.maintainers = with lib.maintainers; [ mohe2015 ];
+  meta.maintainers = with lib.maintainers; [mohe2015];
 
   options = {
     services.step-ca = {
@@ -79,7 +79,7 @@ in
   config = lib.mkIf config.services.step-ca.enable (
     let
       configFile = settingsFormat.generate "ca.json" (
-        cfg.settings // { address = cfg.address + ":" + toString cfg.port; }
+        cfg.settings // {address = cfg.address + ":" + toString cfg.port;}
       );
     in
     {
@@ -94,14 +94,14 @@ in
         }
       ];
 
-      systemd.packages = [ cfg.package ];
+      systemd.packages = [cfg.package];
 
       # configuration file indirection is needed to support reloading
       environment.etc."smallstep/ca.json".source = configFile;
 
       systemd.services."step-ca" = {
-        wantedBy = [ "multi-user.target" ];
-        restartTriggers = [ configFile ];
+        wantedBy = ["multi-user.target"];
+        restartTriggers = [configFile];
         unitConfig = {
           ConditionFileNotEmpty = ""; # override upstream
         };
@@ -136,9 +136,9 @@ in
         isSystemUser = true;
       };
 
-      users.groups.step-ca = { };
+      users.groups.step-ca = {};
 
-      networking.firewall = lib.mkIf cfg.openFirewall { allowedTCPPorts = [ cfg.port ]; };
+      networking.firewall = lib.mkIf cfg.openFirewall {allowedTCPPorts = [cfg.port];};
     }
   );
 }

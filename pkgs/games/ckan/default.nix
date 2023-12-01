@@ -19,8 +19,8 @@ stdenv.mkDerivation rec {
 
   dontUnpack = true;
 
-  nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ mono ];
+  nativeBuildInputs = [makeWrapper];
+  buildInputs = [mono];
 
   libraries = lib.makeLibraryPath [
     gtk2

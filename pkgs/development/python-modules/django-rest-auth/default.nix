@@ -41,12 +41,12 @@ buildPythonPackage rec {
   # tests are icnompatible with current django version
   doCheck = false;
 
-  pythonImportsCheck = [ "rest_auth" ];
+  pythonImportsCheck = ["rest_auth"];
 
   meta = with lib; {
     description = "Django app that makes registration and authentication easy";
     homepage = "https://github.com/Tivix/django-rest-auth";
     license = licenses.mit;
-    maintainers = with maintainers; [ SuperSandro2000 ];
+    maintainers = with maintainers; [SuperSandro2000];
   };
 }

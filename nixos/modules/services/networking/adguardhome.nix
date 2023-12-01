@@ -38,7 +38,7 @@ in
     [
       (mkRenamedOptionModuleWith {
         sinceRelease = 2211;
-        from = cfgPath ++ [ "host" ];
+        from = cfgPath ++ ["host"];
         to = cfgPath ++ [
           "settings"
           "bind_host"
@@ -46,7 +46,7 @@ in
       })
       (mkRenamedOptionModuleWith {
         sinceRelease = 2211;
-        from = cfgPath ++ [ "port" ];
+        from = cfgPath ++ ["port"];
         to = cfgPath ++ [
           "settings"
           "bind_port"
@@ -79,7 +79,7 @@ in
       default = null;
       type = nullOr (
         submodule {
-          freeformType = (pkgs.formats.yaml { }).type;
+          freeformType = (pkgs.formats.yaml {}).type;
           options = {
             schema_version = mkOption {
               default = pkgs.adguardhome.schema_version;
@@ -125,7 +125,7 @@ in
     };
 
     extraArgs = mkOption {
-      default = [ ];
+      default = [];
       type = listOf str;
       description = lib.mdDoc ''
         Extra command line parameters to be passed to the adguardhome binary.
@@ -174,8 +174,8 @@ in
 
     systemd.services.adguardhome = {
       description = "AdGuard Home: Network-level blocker";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
       unitConfig = {
         StartLimitIntervalSec = 5;
         StartLimitBurst = 10;
@@ -196,7 +196,7 @@ in
       serviceConfig = {
         DynamicUser = true;
         ExecStart = "${pkgs.adguardhome}/bin/adguardhome ${args}";
-        AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ];
+        AmbientCapabilities = ["CAP_NET_BIND_SERVICE"];
         Restart = "always";
         RestartSec = 10;
         RuntimeDirectory = "AdGuardHome";
@@ -204,6 +204,6 @@ in
       };
     };
 
-    networking.firewall.allowedTCPPorts = mkIf cfg.openFirewall [ cfg.settings.bind_port ];
+    networking.firewall.allowedTCPPorts = mkIf cfg.openFirewall [cfg.settings.bind_port];
   };
 }

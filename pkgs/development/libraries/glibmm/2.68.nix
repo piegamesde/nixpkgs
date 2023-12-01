@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
     glib # for glib-compile-schemas
   ];
 
-  buildInputs = lib.optionals stdenv.isDarwin [ Cocoa ];
+  buildInputs = lib.optionals stdenv.isDarwin [Cocoa];
 
   propagatedBuildInputs = [
     glib
@@ -55,7 +55,7 @@ stdenv.mkDerivation rec {
     description = "C++ interface to the GLib library";
     homepage = "https://gtkmm.org/";
     license = licenses.lgpl2Plus;
-    maintainers = teams.gnome.members ++ (with maintainers; [ raskin ]);
+    maintainers = teams.gnome.members ++ (with maintainers; [raskin]);
     platforms = platforms.unix;
   };
 }

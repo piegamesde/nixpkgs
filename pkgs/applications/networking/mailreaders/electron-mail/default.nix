@@ -15,7 +15,7 @@ let
     sha256 = "sha256-lsXVsx7U43czWFWxAgwTUYTnUXSL4KPFnXLzUklieAo=";
   };
 
-  appimageContents = appimageTools.extract { inherit name src; };
+  appimageContents = appimageTools.extract {inherit name src;};
 in
 appimageTools.wrapType2 {
   inherit name src;
@@ -39,7 +39,7 @@ appimageTools.wrapType2 {
     description = "ElectronMail is an Electron-based unofficial desktop client for ProtonMail";
     homepage = "https://github.com/vladimiry/ElectronMail";
     license = licenses.gpl3;
-    maintainers = [ maintainers.princemachiavelli ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = [maintainers.princemachiavelli];
+    platforms = ["x86_64-linux"];
   };
 }

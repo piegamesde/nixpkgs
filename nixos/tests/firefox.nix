@@ -1,10 +1,10 @@
 import ./make-test-python.nix (
-  { pkgs, firefoxPackage, ... }:
+  {pkgs, firefoxPackage, ...}:
   let
     firefoxPackage' = firefoxPackage.override (
       args: {
         extraPrefsFiles =
-          (args.extraPrefsFiles or [ ])
+          (args.extraPrefsFiles or [])
           ++ [
             # make sure that autoplay is enabled by default for the audio test
             (builtins.toString (
@@ -24,10 +24,10 @@ import ./make-test-python.nix (
     };
 
     nodes.machine =
-      { pkgs, ... }:
+      {pkgs, ...}:
 
       {
-        imports = [ ./common/x11.nix ];
+        imports = [./common/x11.nix];
         environment.systemPackages = [
           firefoxPackage'
           pkgs.xdotool
@@ -35,7 +35,7 @@ import ./make-test-python.nix (
 
         # Create a virtual sound device, with mixing
         # and all, for recording audio.
-        boot.kernelModules = [ "snd-aloop" ];
+        boot.kernelModules = ["snd-aloop"];
         sound.enable = true;
         sound.extraConfig = ''
           pcm.!default {

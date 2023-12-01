@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
     sed -e 's/char \*tok/const char \*tok/' -i graphics/window.cpp
   '';
 
-  patches = [ ./glibc29.patch ];
+  patches = [./glibc29.patch];
 
   meta = {
     homepage = "http://olofson.net/kobodl/";

@@ -20,7 +20,7 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "Print a list of paths as a tree of paths";
     homepage = "https://github.com/jez/as-tree";
-    license = with licenses; [ blueOak100 ];
-    maintainers = with maintainers; [ jshholland ];
+    license = with licenses; [blueOak100];
+    maintainers = with maintainers; [jshholland];
   };
 }

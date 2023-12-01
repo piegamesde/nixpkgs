@@ -1,5 +1,5 @@
 import ./make-test-python.nix (
-  { pkgs, lib, ... }:
+  {pkgs, lib, ...}:
   let
     track = pkgs.fetchurl {
       # Sourced from http://freemusicarchive.org/music/Blue_Wave_Theory/Surf_Music_Month_Challenge/Skyhawk_Beach_fade_in
@@ -35,9 +35,9 @@ import ./make-test-python.nix (
       }:
       {
         description = "Sets up the music file(s) for MPD to use.";
-        requires = [ "mpd.service" ];
-        after = [ "mpd.service" ];
-        wantedBy = [ "default.target" ];
+        requires = ["mpd.service"];
+        after = ["mpd.service"];
+        wantedBy = ["default.target"];
         script = ''
           cp ${track} ${musicDirectory}
         '';
@@ -48,9 +48,9 @@ import ./make-test-python.nix (
       };
 
     mkServer =
-      { mpd, musicService }:
+      {mpd, musicService}:
       {
-        boot.kernelModules = [ "snd-dummy" ];
+        boot.kernelModules = ["snd-dummy"];
         sound.enable = true;
         services.mpd = mpd;
         systemd.services.musicService = musicService;
@@ -58,13 +58,13 @@ import ./make-test-python.nix (
   in
   {
     name = "mpd";
-    meta = with pkgs.lib.maintainers; { maintainers = [ emmanuelrosa ]; };
+    meta = with pkgs.lib.maintainers; {maintainers = [emmanuelrosa];};
 
     nodes = {
-      client = { ... }: { };
+      client = {...}: {};
 
       serverALSA =
-        { ... }:
+        {...}:
         lib.mkMerge [
           (mkServer {
             mpd = defaultMpdCfg // {
@@ -77,13 +77,13 @@ import ./make-test-python.nix (
                 }
               '';
             };
-            musicService = with defaultMpdCfg; musicService { inherit user group musicDirectory; };
+            musicService = with defaultMpdCfg; musicService {inherit user group musicDirectory;};
           })
-          { networking.firewall.allowedTCPPorts = [ 6600 ]; }
+          {networking.firewall.allowedTCPPorts = [6600];}
         ];
 
       serverPulseAudio =
-        { ... }:
+        {...}:
         lib.mkMerge [
           (mkServer {
             mpd = defaultMpdCfg // {
@@ -95,7 +95,7 @@ import ./make-test-python.nix (
               '';
             };
 
-            musicService = with defaultCfg; musicService { inherit user group musicDirectory; };
+            musicService = with defaultCfg; musicService {inherit user group musicDirectory;};
           })
           {
             hardware.pulseaudio = {

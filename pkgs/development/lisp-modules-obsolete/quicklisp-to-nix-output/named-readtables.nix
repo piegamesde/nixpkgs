@@ -1,16 +1,16 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "named-readtables";
   version = "20211209-git";
 
-  parasites = [ "named-readtables/test" ];
+  parasites = ["named-readtables/test"];
 
   description = ''
     Library that creates a namespace for named readtable
       akin to the namespace of packages.'';
 
-  deps = [ ];
+  deps = [];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/named-readtables/2021-12-09/named-readtables-20211209-git.tgz";
@@ -19,7 +19,7 @@ rec {
 
   packageName = "named-readtables";
 
-  asdFilesToKeep = [ "named-readtables.asd" ];
+  asdFilesToKeep = ["named-readtables.asd"];
   overrides = x: x;
 }
 /* (SYSTEM named-readtables DESCRIPTION

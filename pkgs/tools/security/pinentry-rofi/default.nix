@@ -28,15 +28,15 @@ stdenv.mkDerivation rec {
     texinfo
   ];
 
-  buildInputs = [ guile ];
+  buildInputs = [guile];
 
-  propagatedBuildInputs = [ rofi ];
+  propagatedBuildInputs = [rofi];
 
   meta = with lib; {
     description = "Rofi frontend to pinentry";
     homepage = "https://github.com/plattfot/pinentry-rofi";
     license = licenses.gpl3Plus;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ seqizz ];
+    maintainers = with maintainers; [seqizz];
   };
 }

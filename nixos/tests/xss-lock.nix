@@ -1,11 +1,11 @@
 import ./make-test-python.nix (
-  { pkgs, lib, ... }:
+  {pkgs, lib, ...}:
 
   with lib;
 
   {
     name = "xss-lock";
-    meta.maintainers = with pkgs.lib.maintainers; [ ];
+    meta.maintainers = with pkgs.lib.maintainers; [];
 
     nodes = {
       simple = {
@@ -18,7 +18,7 @@ import ./make-test-python.nix (
       };
 
       custom_lockcmd =
-        { pkgs, ... }:
+        {pkgs, ...}:
         {
           imports = [
             ./common/x11.nix

@@ -20,7 +20,7 @@ mkDerivation rec {
 
   sourceRoot = "source/src-qt5";
 
-  nativeBuildInputs = [ qmake ];
+  nativeBuildInputs = [qmake];
 
   buildInputs = [
     qtbase
@@ -36,6 +36,6 @@ mkDerivation rec {
     homepage = "https://github.com/project-trident/qsudo";
     license = licenses.bsd2;
     platforms = platforms.linux;
-    maintainers = [ maintainers.romildo ];
+    maintainers = [maintainers.romildo];
   };
 }

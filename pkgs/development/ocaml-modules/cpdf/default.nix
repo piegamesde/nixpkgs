@@ -27,8 +27,8 @@ else
       ocaml
       findlib
     ];
-    buildInputs = [ ncurses ];
-    propagatedBuildInputs = [ camlpdf ];
+    buildInputs = [ncurses];
+    propagatedBuildInputs = [camlpdf];
 
     strictDeps = true;
 
@@ -45,7 +45,7 @@ else
       description = "PDF Command Line Tools";
       homepage = "https://www.coherentpdf.com/";
       license = licenses.unfree;
-      maintainers = [ maintainers.vbgl ];
+      maintainers = [maintainers.vbgl];
       mainProgram = "cpdf";
       inherit (ocaml.meta) platforms;
     };

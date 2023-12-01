@@ -16,7 +16,7 @@ stdenvNoCC.mkDerivation rec {
     sha256 = "xF9OTFFe8godW4+z9MFaFEkjE9FB42bKWwdl9xRcmEo=";
   };
 
-  buildInputs = [ python3 ];
+  buildInputs = [python3];
 
   installPhase = ''
     runHook preInstall
@@ -31,6 +31,6 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://github.com/reyammer/shellnoob";
     mainProgram = "snoob";
     license = licenses.mit;
-    maintainers = with maintainers; [ emilytrau ];
+    maintainers = with maintainers; [emilytrau];
   };
 }

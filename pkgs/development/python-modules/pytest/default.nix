@@ -35,7 +35,7 @@ buildPythonPackage rec {
     "testout"
   ];
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
   propagatedBuildInputs = [
     attrs
@@ -44,7 +44,7 @@ buildPythonPackage rec {
     pluggy
     py
     tomli
-  ] ++ lib.optionals (pythonOlder "3.11") [ exceptiongroup ];
+  ] ++ lib.optionals (pythonOlder "3.11") [exceptiongroup];
 
   postInstall = ''
     mkdir $testout
@@ -52,7 +52,7 @@ buildPythonPackage rec {
   '';
 
   doCheck = false;
-  passthru.tests.pytest = callPackage ./tests.nix { };
+  passthru.tests.pytest = callPackage ./tests.nix {};
 
   # Remove .pytest_cache when using py.test in a Nix build
   setupHook = writeText "pytest-hook" ''
@@ -75,7 +75,7 @@ buildPythonPackage rec {
     preDistPhases+=" pytestRemoveBytecodePhase"
   '';
 
-  pythonImportsCheck = [ "pytest" ];
+  pythonImportsCheck = ["pytest"];
 
   meta = with lib; {
     description = "Framework for writing tests";

@@ -41,6 +41,6 @@ python3Packages.buildPythonApplication rec {
     description = "Vulnerability fingerprinting and vulnerability finder for Wordpress blog engine";
     homepage = "https://github.com/iniqua/plecost";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ emilytrau ];
+    maintainers = with maintainers; [emilytrau];
   };
 }

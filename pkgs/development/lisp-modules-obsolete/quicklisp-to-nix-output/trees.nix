@@ -1,14 +1,14 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "trees";
   version = "20180131-git";
 
-  parasites = [ "trees-tests" ];
+  parasites = ["trees-tests"];
 
   description = "A library for binary trees in normal and balanced flavors";
 
-  deps = [ ];
+  deps = [];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/trees/2018-01-31/trees-20180131-git.tgz";
@@ -17,7 +17,7 @@ rec {
 
   packageName = "trees";
 
-  asdFilesToKeep = [ "trees.asd" ];
+  asdFilesToKeep = ["trees.asd"];
   overrides = x: x;
 }
 /* (SYSTEM trees DESCRIPTION

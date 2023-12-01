@@ -22,20 +22,20 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "0sy0vlpkj967g9lyyh7ska8cpw5xh0g04kj071a32idrqc3dcjb1";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs =
-    [ openssl ]
+    [openssl]
     ++ lib.optionals stdenv.isDarwin [
       CoreServices
       Security
     ];
 
-  cargoBuildFlags = [ "--all" ];
+  cargoBuildFlags = ["--all"];
 
   meta = with lib; {
     description = "Flexible and fast BitTorrent daemon";
     homepage = "https://synapse-bt.org/";
     license = licenses.isc;
-    maintainers = with maintainers; [ dywedir ];
+    maintainers = with maintainers; [dywedir];
   };
 }

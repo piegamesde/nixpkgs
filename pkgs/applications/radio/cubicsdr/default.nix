@@ -51,13 +51,13 @@ stdenv.mkDerivation rec {
       WebKit
     ];
 
-  cmakeFlags = [ "-DUSE_HAMLIB=ON" ] ++ lib.optional enableDigitalLab "-DENABLE_DIGITAL_LAB=ON";
+  cmakeFlags = ["-DUSE_HAMLIB=ON"] ++ lib.optional enableDigitalLab "-DENABLE_DIGITAL_LAB=ON";
 
   meta = with lib; {
     homepage = "https://cubicsdr.com";
     description = "Software Defined Radio application";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ lasandell ];
+    maintainers = with maintainers; [lasandell];
     platforms = platforms.unix;
   };
 }

@@ -56,6 +56,6 @@ stdenv.mkDerivation rec {
     description = "Backup tool for KDE";
     homepage = "https://apps.kde.org/kup";
     license = licenses.gpl2Plus;
-    maintainers = [ maintainers.pwoelfel ];
+    maintainers = [maintainers.pwoelfel];
   };
 }

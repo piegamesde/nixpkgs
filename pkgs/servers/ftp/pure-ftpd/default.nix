@@ -22,13 +22,13 @@ stdenv.mkDerivation rec {
     libxcrypt
   ];
 
-  configureFlags = [ "--with-tls" ];
+  configureFlags = ["--with-tls"];
 
   meta = with lib; {
     description = "A free, secure, production-quality and standard-conformant FTP server";
     homepage = "https://www.pureftpd.org";
     license = licenses.isc; # with some parts covered by BSD3(?)
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.unix;
   };
 }

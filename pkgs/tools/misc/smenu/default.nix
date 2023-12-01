@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-DfND2lIHQc+7+8lM86MMOdFKhbUAOnSlkpLwxo10EI4=";
   };
 
-  buildInputs = [ ncurses ];
+  buildInputs = [ncurses];
 
   meta = with lib; {
     homepage = "https://github.com/p-gen/smenu";

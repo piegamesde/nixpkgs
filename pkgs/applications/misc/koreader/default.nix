@@ -14,7 +14,7 @@
   nerdfonts,
 }:
 let
-  font-droid = nerdfonts.override { fonts = [ "DroidSansMono" ]; };
+  font-droid = nerdfonts.override {fonts = ["DroidSansMono"];};
 in
 stdenv.mkDerivation rec {
   pname = "koreader";
@@ -66,7 +66,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://github.com/koreader/koreader";
     description = "An ebook reader application supporting PDF, DjVu, EPUB, FB2 and many more formats, running on Cervantes, Kindle, Kobo, PocketBook and Android devices";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     platforms = intersectLists platforms.x86_64 platforms.linux;
     license = licenses.agpl3Only;
     maintainers = with maintainers; [

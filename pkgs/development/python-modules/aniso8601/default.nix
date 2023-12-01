@@ -17,16 +17,16 @@ buildPythonPackage rec {
     hash = "sha256-cuMRdmfu32aVG7LZP0KWpWuUsHioqVkFoFJhH7PxuXM=";
   };
 
-  propagatedBuildInputs = [ python-dateutil ];
+  propagatedBuildInputs = [python-dateutil];
 
-  nativeCheckInputs = [ pytestCheckHook ] ++ lib.optional (!isPy3k) mock;
+  nativeCheckInputs = [pytestCheckHook] ++ lib.optional (!isPy3k) mock;
 
-  pythonImportsCheck = [ "aniso8601" ];
+  pythonImportsCheck = ["aniso8601"];
 
   meta = with lib; {
     description = "Python Parser for ISO 8601 strings";
     homepage = "https://bitbucket.org/nielsenb/aniso8601";
-    license = with licenses; [ bsd3 ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [bsd3];
+    maintainers = with maintainers; [fab];
   };
 }

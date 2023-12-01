@@ -1,12 +1,12 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "introspect-environment";
   version = "20210807-git";
 
   description = "Small interface to portable but nonstandard introspection of CL environments.";
 
-  deps = [ ];
+  deps = [];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/introspect-environment/2021-08-07/introspect-environment-20210807-git.tgz";
@@ -15,7 +15,7 @@ rec {
 
   packageName = "introspect-environment";
 
-  asdFilesToKeep = [ "introspect-environment.asd" ];
+  asdFilesToKeep = ["introspect-environment.asd"];
   overrides = x: x;
 }
 /* (SYSTEM introspect-environment DESCRIPTION

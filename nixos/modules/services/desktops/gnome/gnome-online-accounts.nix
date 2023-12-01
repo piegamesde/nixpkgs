@@ -54,8 +54,8 @@ with lib;
 
   config = mkIf config.services.gnome.gnome-online-accounts.enable {
 
-    environment.systemPackages = [ pkgs.gnome-online-accounts ];
+    environment.systemPackages = [pkgs.gnome-online-accounts];
 
-    services.dbus.packages = [ pkgs.gnome-online-accounts ];
+    services.dbus.packages = [pkgs.gnome-online-accounts];
   };
 }

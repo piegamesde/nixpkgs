@@ -1,4 +1,4 @@
-{ lib, python3 }:
+{lib, python3}:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "s3bro";
@@ -25,12 +25,12 @@ python3.pkgs.buildPythonApplication rec {
   # No tests
   doCheck = false;
 
-  pythonImportsCheck = [ "s3bro" ];
+  pythonImportsCheck = ["s3bro"];
 
   meta = with lib; {
     description = "s3 CLI tool";
     homepage = "https://github.com/rsavordelli/s3bro";
     license = licenses.mit;
-    maintainers = with maintainers; [ psyanticy ];
+    maintainers = with maintainers; [psyanticy];
   };
 }

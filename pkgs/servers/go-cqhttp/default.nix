@@ -21,6 +21,6 @@ buildGoModule rec {
     description = "The Golang implementation of OneBot based on Mirai and MiraiGo";
     homepage = "https://github.com/Mrs4s/go-cqhttp";
     license = licenses.agpl3Only;
-    maintainers = with maintainers; [ Anillc ];
+    maintainers = with maintainers; [Anillc];
   };
 }

@@ -30,16 +30,16 @@ buildPythonPackage rec {
     hash = "sha256-1soeb3aD4wB4stILvfOga/YZtyH6jd0XvnxkLmbW4G0=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   propagatedBuildInputs = [
     markdown-it-py
     pygments
-  ] ++ lib.optionals (pythonOlder "3.9") [ typing-extensions ];
+  ] ++ lib.optionals (pythonOlder "3.9") [typing-extensions];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "rich" ];
+  pythonImportsCheck = ["rich"];
 
   passthru.tests = {
     inherit

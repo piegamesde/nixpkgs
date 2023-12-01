@@ -22,7 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-Q5u0guAqDVhf6bvJTzNvCpWbIzjxxAjE7s0OuXj9T4Q=";
   };
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   # On Darwin sysctl is used to read CPU information.
   postPatch = lib.optionalString stdenv.isDarwin ''
@@ -31,7 +31,7 @@ buildPythonPackage rec {
       --replace "_run_and_get_stdout(['sysctl'" "_run_and_get_stdout(['${sysctl}/bin/sysctl'"
   '';
 
-  pythonImportsCheck = [ "cpuinfo" ];
+  pythonImportsCheck = ["cpuinfo"];
 
   meta = with lib; {
     description = "Get CPU info with pure Python";
@@ -44,6 +44,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/workhorsy/py-cpuinfo";
     changelog = "https://github.com/workhorsy/py-cpuinfo/blob/v${version}/ChangeLog";
     license = licenses.mit;
-    maintainers = with maintainers; [ costrouc ];
+    maintainers = with maintainers; [costrouc];
   };
 }

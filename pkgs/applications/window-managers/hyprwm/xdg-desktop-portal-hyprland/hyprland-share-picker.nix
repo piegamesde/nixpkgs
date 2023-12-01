@@ -12,7 +12,7 @@
   wayland,
 }:
 let
-  source = import ./source.nix { inherit lib fetchFromGitHub wayland; };
+  source = import ./source.nix {inherit lib fetchFromGitHub wayland;};
 in
 stdenv.mkDerivation {
   pname = "hyprland-share-picker";
@@ -25,7 +25,7 @@ stdenv.mkDerivation {
     wrapQtAppsHook
     makeShellWrapper
   ];
-  buildInputs = [ qtbase ];
+  buildInputs = [qtbase];
 
   dontWrapQtApps = true;
 

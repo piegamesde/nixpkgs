@@ -57,7 +57,7 @@ in
     };
 
     services.xinetd.services = mkOption {
-      default = [ ];
+      default = [];
       description = lib.mdDoc ''
         A list of services provided by xinetd.
       '';
@@ -138,9 +138,9 @@ in
   config = mkIf cfg.enable {
     systemd.services.xinetd = {
       description = "xinetd server";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
-      path = [ pkgs.xinetd ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
+      path = [pkgs.xinetd];
       script = "exec xinetd -syslog daemon -dontfork -stayalive -f ${configFile}";
     };
   };

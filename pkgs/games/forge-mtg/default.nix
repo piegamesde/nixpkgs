@@ -20,13 +20,13 @@ let
   };
 
   # launch4j downloads and runs a native binary during the package phase.
-  patches = [ ./no-launch4j.patch ];
+  patches = [./no-launch4j.patch];
 
   mavenRepository = stdenv.mkDerivation {
     pname = "forge-mtg-maven-repository";
     inherit version src patches;
 
-    nativeBuildInputs = [ maven ];
+    nativeBuildInputs = [maven];
 
     buildPhase = ''
       runHook preBuild
@@ -100,6 +100,6 @@ stdenv.mkDerivation {
     homepage = "https://www.slightlymagic.net/forum/viewforum.php?f=26";
     platforms = openjdk.meta.platforms;
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ eigengrau ];
+    maintainers = with maintainers; [eigengrau];
   };
 }

@@ -20,17 +20,17 @@ buildPythonPackage rec {
     python-magic
   ];
 
-  nativeCheckInputs = [ django ];
+  nativeCheckInputs = [django];
 
   # tests not included with pypi release
   doCheck = false;
 
-  pythonImportsCheck = [ "versatileimagefield" ];
+  pythonImportsCheck = ["versatileimagefield"];
 
   meta = with lib; {
     description = "Replaces django's ImageField with a more flexible interface";
     homepage = "https://github.com/respondcreate/django-versatileimagefield/";
     license = licenses.mit;
-    maintainers = with maintainers; [ mmai ];
+    maintainers = with maintainers; [mmai];
   };
 }

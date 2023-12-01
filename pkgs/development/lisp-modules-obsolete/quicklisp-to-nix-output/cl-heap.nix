@@ -1,12 +1,12 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "cl-heap";
   version = "0.1.6";
 
   description = "An implementation of heap and priority queue data structures.";
 
-  deps = [ ];
+  deps = [];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/cl-heap/2013-03-12/cl-heap-0.1.6.tgz";
@@ -15,7 +15,7 @@ rec {
 
   packageName = "cl-heap";
 
-  asdFilesToKeep = [ "cl-heap.asd" ];
+  asdFilesToKeep = ["cl-heap.asd"];
   overrides = x: x;
 }
 /* (SYSTEM cl-heap DESCRIPTION

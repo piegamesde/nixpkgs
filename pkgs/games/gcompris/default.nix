@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-WopJB9p7GnfCtUoEKxtzzRXCogcx03ofRjGLhkvW0Rs=";
   };
 
-  cmakeFlags = [ "-DQML_BOX2D_LIBRARY=${qmlbox2d}/${qtbase.qtQmlPrefix}/Box2D.2.1" ];
+  cmakeFlags = ["-DQML_BOX2D_LIBRARY=${qmlbox2d}/${qtbase.qtQmlPrefix}/Box2D.2.1"];
 
   nativeBuildInputs = [
     cmake
@@ -72,7 +72,7 @@ stdenv.mkDerivation rec {
     homepage = "https://gcompris.net/";
     license = licenses.gpl3Plus;
     mainProgram = "gcompris-qt";
-    maintainers = with maintainers; [ guibou ];
+    maintainers = with maintainers; [guibou];
     platforms = platforms.linux;
   };
 }

@@ -18,14 +18,14 @@ buildPythonPackage rec {
     hash = "sha256-xOL0uwv/xDf1GtIXSoo+cd+Bu8L2iUYE5gSvGPvmh8M=";
   };
 
-  nativeBuildInputs = [ setuptools-scm ];
-  buildInputs = [ pytest ];
-  propagatedBuildInputs = [ pytest-metadata ];
+  nativeBuildInputs = [setuptools-scm];
+  buildInputs = [pytest];
+  propagatedBuildInputs = [pytest-metadata];
 
   meta = with lib; {
     description = "Plugin for generating HTML reports";
     homepage = "https://github.com/pytest-dev/pytest-html";
     license = licenses.mpl20;
-    maintainers = with maintainers; [ mpoquet ];
+    maintainers = with maintainers; [mpoquet];
   };
 }

@@ -18,18 +18,18 @@ let
   knownVideoDrivers = {
     # Alias so people can keep using "virtualbox" instead of "vboxvideo".
     virtualbox = {
-      modules = [ xorg.xf86videovboxvideo ];
+      modules = [xorg.xf86videovboxvideo];
       driverName = "vboxvideo";
     };
 
     # Alias so that "radeon" uses the xf86-video-ati driver.
     radeon = {
-      modules = [ xorg.xf86videoati ];
+      modules = [xorg.xf86videoati];
       driverName = "ati";
     };
 
     # modesetting does not have a xf86videomodesetting package as it is included in xorgserver
-    modesetting = { };
+    modesetting = {};
   };
 
   fontsForXServer = config.fonts.fonts ++
@@ -116,7 +116,7 @@ let
                 ''
               }
               ${
-                optionalString (previous != [ ]) ''
+                optionalString (previous != []) ''
                   Option "RightOf" "${(head previous).name}"
                 ''
               }
@@ -125,7 +125,7 @@ let
           '';
         }
         ++ previous;
-      monitors = reverseList (foldl mkMonitor [ ] xrandrHeads);
+      monitors = reverseList (foldl mkMonitor [] xrandrHeads);
     in
     concatMapStrings (getAttr "value") monitors;
 
@@ -252,7 +252,7 @@ in
       };
 
       excludePackages = mkOption {
-        default = [ ];
+        default = [];
         example = literalExpression "[ pkgs.xterm ]";
         type = types.listOf types.package;
         description = lib.mdDoc "Which X11 packages to exclude from the default environment";
@@ -293,7 +293,7 @@ in
 
       inputClassSections = mkOption {
         type = types.listOf types.lines;
-        default = [ ];
+        default = [];
         example = literalExpression ''
           [ '''
               Identifier      "Trackpoint Wheel Emulation"
@@ -309,14 +309,14 @@ in
 
       modules = mkOption {
         type = types.listOf types.path;
-        default = [ ];
+        default = [];
         example = literalExpression "[ pkgs.xf86_input_wacom ]";
         description = lib.mdDoc "Packages to be added to the module search path of the X server.";
       };
 
       resolutions = mkOption {
         type = types.listOf types.attrs;
-        default = [ ];
+        default = [];
         example = [
           {
             x = 1600;
@@ -509,7 +509,7 @@ in
       };
 
       xrandrHeads = mkOption {
-        default = [ ];
+        default = [];
         example = [
           "HDMI-0"
           {
@@ -523,7 +523,7 @@ in
         ];
         type =
           with types;
-          listOf (coercedTo str (output: { inherit output; }) (submodule { options = xrandrOptions; }));
+          listOf (coercedTo str (output: {inherit output;}) (submodule {options = xrandrOptions;}));
         # Set primary to true for the first head if no other has been set
         # primary already.
         apply =
@@ -535,7 +535,7 @@ in
             };
             newHeads = singleton firstPrimary ++ tail heads;
           in
-          if heads != [ ] && !hasPrimary then newHeads else heads;
+          if heads != [] && !hasPrimary then newHeads else heads;
         description = lib.mdDoc ''
           Multiple monitor configuration, just specify a list of XRandR
           outputs. The individual elements should be either simple strings or
@@ -723,21 +723,21 @@ in
 
     hardware.opengl.enable = mkDefault true;
 
-    services.xserver.videoDrivers = mkIf (cfg.videoDriver != null) [ cfg.videoDriver ];
+    services.xserver.videoDrivers = mkIf (cfg.videoDriver != null) [cfg.videoDriver];
 
     # FIXME: somehow check for unknown driver names.
     services.xserver.drivers = flip concatMap cfg.videoDrivers (
       name:
       let
         driver =
-          attrByPath [ name ]
-            (if xorg ? ${"xf86video" + name} then { modules = [ xorg.${"xf86video" + name} ]; } else null)
+          attrByPath [name]
+            (if xorg ? ${"xf86video" + name} then {modules = [xorg.${"xf86video" + name}];} else null)
             knownVideoDrivers;
       in
       optional (driver != null) (
         {
           inherit name;
-          modules = [ ];
+          modules = [];
           driverName = name;
           display = true;
         }
@@ -816,7 +816,7 @@ in
         config.services.xserver.excludePackages
       ++ optional (elem "virtualbox" cfg.videoDrivers) xorg.xrefresh;
 
-    environment.pathsToLink = [ "/share/X11" ];
+    environment.pathsToLink = ["/share/X11"];
 
     xdg = {
       autostart.enable = true;
@@ -846,7 +846,7 @@ in
 
       environment =
         optionalAttrs config.hardware.opengl.setLdLibraryPath {
-          LD_LIBRARY_PATH = lib.makeLibraryPath [ pkgs.addOpenGLRunpath.driverLink ];
+          LD_LIBRARY_PATH = lib.makeLibraryPath [pkgs.addOpenGLRunpath.driverLink];
         }
         // cfg.displayManager.job.environment;
 
@@ -902,7 +902,7 @@ in
             xkbVariant
             xkbOptions
             ;
-          nativeBuildInputs = with pkgs.buildPackages; [ xkbvalidate ];
+          nativeBuildInputs = with pkgs.buildPackages; [xkbvalidate];
           preferLocalBuild = true;
         }
         ''
@@ -989,7 +989,7 @@ in
                 optionalString
                   (
                     driver.name != "virtualbox"
-                    && (cfg.resolutions != [ ] || cfg.extraDisplaySettings != "" || cfg.virtualScreen != null)
+                    && (cfg.resolutions != [] || cfg.extraDisplaySettings != "" || cfg.virtualScreen != null)
                   )
                   (
                     let
@@ -997,7 +997,7 @@ in
                         SubSection "Display"
                           Depth ${toString depth}
                           ${
-                            optionalString (cfg.resolutions != [ ])
+                            optionalString (cfg.resolutions != [])
                               "Modes ${concatMapStrings (res: ''"${toString res.x}x${toString res.y}"'') cfg.resolutions}"
                           }
                         ${indent cfg.extraDisplaySettings}

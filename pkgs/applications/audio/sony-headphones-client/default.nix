@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
 
   sourceRoot = "./source/Client";
 
-  cmakeFlags = [ "-Wno-dev" ];
+  cmakeFlags = ["-Wno-dev"];
 
   postPatch = ''
     substituteInPlace Constants.h \
@@ -71,7 +71,7 @@ stdenv.mkDerivation rec {
     description = "A client recreating the functionality of the Sony Headphones app";
     homepage = "https://github.com/Plutoberth/SonyHeadphonesClient";
     license = licenses.mit;
-    maintainers = with maintainers; [ stunkymonkey ];
+    maintainers = with maintainers; [stunkymonkey];
     platforms = platforms.linux;
   };
 }

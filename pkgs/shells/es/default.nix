@@ -24,10 +24,10 @@ stdenv.mkDerivation rec {
   '';
 
   strictDeps = true;
-  nativeBuildInputs = [ bison ];
-  buildInputs = [ readline ];
+  nativeBuildInputs = [bison];
+  buildInputs = [readline];
 
-  configureFlags = [ "--with-readline" ];
+  configureFlags = ["--with-readline"];
 
   meta = with lib; {
     description = "An extensible shell with higher order functions";

@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
     description = "Tiny script to extract archives by their extensions";
     homepage = "https://github.com/figsoda/xtrt";
     license = licenses.unlicense;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
     mainProgram = "xtrt";
   };
 }

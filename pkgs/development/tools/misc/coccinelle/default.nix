@@ -104,6 +104,6 @@ stdenv.mkDerivation rec {
     homepage = "https://coccinelle.gitlabpages.inria.fr/website/";
     license = lib.licenses.gpl2Only;
     platforms = lib.platforms.unix;
-    maintainers = [ lib.maintainers.thoughtpolice ];
+    maintainers = [lib.maintainers.thoughtpolice];
   };
 }

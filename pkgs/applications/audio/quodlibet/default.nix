@@ -100,7 +100,7 @@ python3.pkgs.buildPythonApplication rec {
       libsoup
       webkitgtk
     ]
-    ++ lib.optionals (withXineBackend) [ xine-lib ]
+    ++ lib.optionals (withXineBackend) [xine-lib]
     ++ lib.optionals (withGstreamerBackend) (
       with gst_all_1;
       [
@@ -124,12 +124,12 @@ python3.pkgs.buildPythonApplication rec {
       pycairo
       pygobject3
     ]
-    ++ lib.optionals withDbusPython [ dbus-python ]
-    ++ lib.optionals withPypresence [ pypresence ]
-    ++ lib.optionals withPyInotify [ pyinotify ]
-    ++ lib.optionals withMusicBrainzNgs [ musicbrainzngs ]
-    ++ lib.optionals withPahoMqtt [ paho-mqtt ]
-    ++ lib.optionals withSoco [ soco ];
+    ++ lib.optionals withDbusPython [dbus-python]
+    ++ lib.optionals withPypresence [pypresence]
+    ++ lib.optionals withPyInotify [pyinotify]
+    ++ lib.optionals withMusicBrainzNgs [musicbrainzngs]
+    ++ lib.optionals withPahoMqtt [paho-mqtt]
+    ++ lib.optionals withSoco [soco];
 
   LC_ALL = "en_US.UTF-8";
 
@@ -161,9 +161,7 @@ python3.pkgs.buildPythonApplication rec {
       # https://github.com/NixOS/nixpkgs/pull/77796#issuecomment-575841355
       "--ignore=tests/test_operon.py"
     ]
-    ++ lib.optionals (withXineBackend || !withGstPlugins) [
-      "--ignore=tests/plugin/test_replaygain.py"
-    ];
+    ++ lib.optionals (withXineBackend || !withGstPlugins) ["--ignore=tests/plugin/test_replaygain.py"];
 
   preCheck = ''
     export XDG_DATA_DIRS="$out/share:${gtk3}/share/gsettings-schemas/${gtk3.name}:$XDG_ICON_DIRS:$XDG_DATA_DIRS"

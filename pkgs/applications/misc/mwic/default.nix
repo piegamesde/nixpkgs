@@ -14,9 +14,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-dmIHPehkxpSb78ymVpcPCu4L41coskrHQOg067dprOo=";
   };
 
-  makeFlags = [ "PREFIX=\${out}" ];
+  makeFlags = ["PREFIX=\${out}"];
 
-  nativeBuildInputs = [ pythonPackages.wrapPython ];
+  nativeBuildInputs = [pythonPackages.wrapPython];
 
   propagatedBuildInputs = with pythonPackages; [
     pyenchant
@@ -31,6 +31,6 @@ stdenv.mkDerivation rec {
     homepage = "http://jwilk.net/software/mwic";
     description = "spell-checker that groups possible misspellings and shows them in their contexts";
     license = licenses.mit;
-    maintainers = with maintainers; [ matthiasbeyer ];
+    maintainers = with maintainers; [matthiasbeyer];
   };
 }

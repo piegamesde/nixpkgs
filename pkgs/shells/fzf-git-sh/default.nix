@@ -59,7 +59,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/junegunn/fzf-git.sh";
     description = "Bash and zsh key bindings for Git objects, powered by fzf";
     license = licenses.mit;
-    maintainers = with maintainers; [ deejayem ];
+    maintainers = with maintainers; [deejayem];
     platforms = platforms.all;
   };
 }

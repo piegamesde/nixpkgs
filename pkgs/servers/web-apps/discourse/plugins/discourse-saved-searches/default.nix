@@ -14,7 +14,7 @@ mkDiscoursePlugin {
   };
   meta = with lib; {
     homepage = "https://github.com/discourse/discourse-saved-searches";
-    maintainers = with maintainers; [ dpausp ];
+    maintainers = with maintainers; [dpausp];
     license = licenses.mit;
     description = "Allow users to save searches and be notified of new results";
   };

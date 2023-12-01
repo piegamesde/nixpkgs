@@ -17,8 +17,8 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-z7j2yceiUyJNdyoVXAPiINln2/MUMqVJh+VwQnmzO2A=";
   };
 
-  nativeBuildInputs = [ go-md2man ];
-  makeFlags = [ "PREFIX=$(out)" ];
+  nativeBuildInputs = [go-md2man];
+  makeFlags = ["PREFIX=$(out)"];
 
   patches = [
     (fetchpatch {
@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/bbonev/yascreen";
     description = "Yet Another Screen Library (curses replacement for daemons and embedded apps)";
     license = licenses.lgpl3;
-    maintainers = [ maintainers.arezvov ];
+    maintainers = [maintainers.arezvov];
     platforms = platforms.linux;
   };
 }

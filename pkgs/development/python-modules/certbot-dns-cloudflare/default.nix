@@ -19,9 +19,9 @@ buildPythonPackage rec {
     cloudflare
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pytestFlagsArray = [ "-o cache_dir=$(mktemp -d)" ];
+  pytestFlagsArray = ["-o cache_dir=$(mktemp -d)"];
 
   sourceRoot = "source/certbot-dns-cloudflare";
 

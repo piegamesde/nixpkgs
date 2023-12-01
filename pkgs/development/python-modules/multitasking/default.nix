@@ -15,12 +15,12 @@ buildPythonPackage rec {
   };
 
   doCheck = false; # No tests included
-  pythonImportsCheck = [ "multitasking" ];
+  pythonImportsCheck = ["multitasking"];
 
   meta = with lib; {
     description = "Non-blocking Python methods using decorators";
     homepage = "https://github.com/ranaroussi/multitasking";
     license = licenses.asl20;
-    maintainers = with maintainers; [ drewrisinger ];
+    maintainers = with maintainers; [drewrisinger];
   };
 }

@@ -21,9 +21,9 @@ buildPythonPackage rec {
       "--cov-report term-missing" ""
   '';
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pytestFlagsArray = [ "tests" ];
+  pytestFlagsArray = ["tests"];
 
   meta = with lib; {
     description = "Chinese Characters to Pinyin - 汉字转拼音";

@@ -37,16 +37,16 @@ buildPythonPackage rec {
     ${lib.optionalString isPyPy "rm -v testing/test_multi.py"}
   '';
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
-  propagatedBuildInputs = [ apipkg ];
+  propagatedBuildInputs = [apipkg];
 
   nativeCheckInputs = [
     py
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "execnet" ];
+  pythonImportsCheck = ["execnet"];
 
   __darwinAllowLocalNetworking = true;
 
@@ -55,6 +55,6 @@ buildPythonPackage rec {
     description = "Distributed Python deployment and communication";
     homepage = "https://execnet.readthedocs.io/";
     license = licenses.mit;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

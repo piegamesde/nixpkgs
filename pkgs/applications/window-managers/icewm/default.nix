@@ -121,7 +121,7 @@ stdenv.mkDerivation (
         a simple session manager and a system tray.
       '';
       license = licenses.lgpl2Only;
-      maintainers = [ maintainers.AndersonTorres ];
+      maintainers = [maintainers.AndersonTorres];
       platforms = platforms.linux;
     };
   }

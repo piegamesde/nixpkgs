@@ -22,6 +22,6 @@ buildGoModule rec {
     homepage = "https://github.com/miconda/sipexer";
     changelog = "https://github.com/miconda/sipexer/releases/tag/v${version}";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ astro ];
+    maintainers = with maintainers; [astro];
   };
 }

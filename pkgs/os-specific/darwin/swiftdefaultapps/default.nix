@@ -26,7 +26,7 @@ stdenvNoCC.mkDerivation rec {
     description = "View and change the default application for url schemes and UTIs";
     homepage = "https://github.com/Lord-Kamina/SwiftDefaultApps";
     license = licenses.beerware;
-    maintainers = [ maintainers.malo ];
+    maintainers = [maintainers.malo];
     platforms = platforms.darwin;
     mainProgram = "swda";
   };

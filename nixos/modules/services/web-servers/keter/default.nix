@@ -9,7 +9,7 @@ let
 in
 {
   meta = {
-    maintainers = with lib.maintainers; [ jappie ];
+    maintainers = with lib.maintainers; [jappie];
   };
 
   options.services.keter = {
@@ -103,7 +103,7 @@ in
 
       globalKeterConfigFile = pkgs.writeTextFile {
         name = "keter-config.yml";
-        text = (lib.generators.toYAML { } (cfg.globalKeterConfig // { root = cfg.keterRoot; }));
+        text = (lib.generators.toYAML {} (cfg.globalKeterConfig // {root = cfg.keterRoot;}));
       };
 
       # If things are expected to change often, put it in the bundle!
@@ -159,8 +159,8 @@ in
       # we inherit nix based cache busting.
       systemd.services.load-keter-bundle = {
         description = "load keter bundle into incoming folder";
-        after = [ "keter.service" ];
-        wantedBy = [ "multi-user.target" ];
+        after = ["keter.service"];
+        wantedBy = ["multi-user.target"];
         # we can't override keter bundles because it'll stop the previous app
         # https://github.com/snoyberg/keter#deploying
         script = ''

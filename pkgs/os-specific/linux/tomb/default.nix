@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
     pinentry
   ];
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   postPatch = ''
     # if not, it shows .tomb-wrapped when running
@@ -62,7 +62,7 @@ stdenv.mkDerivation rec {
     description = "File encryption on GNU/Linux";
     homepage = "https://www.dyne.org/software/tomb/";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ peterhoeg ];
+    maintainers = with maintainers; [peterhoeg];
     platforms = platforms.linux;
   };
 }

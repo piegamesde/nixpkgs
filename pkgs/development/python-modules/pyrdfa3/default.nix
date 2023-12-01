@@ -41,12 +41,12 @@ buildPythonPackage rec {
   # Does not work with python3
   doCheck = false;
 
-  pythonImportsCheck = [ "pyRdfa" ];
+  pythonImportsCheck = ["pyRdfa"];
 
   meta = with lib; {
     description = "RDFa 1.1 distiller/parser library";
     homepage = "https://www.w3.org/2012/pyRdfa/";
     license = licenses.w3c;
-    maintainers = with maintainers; [ ambroisie ];
+    maintainers = with maintainers; [ambroisie];
   };
 }

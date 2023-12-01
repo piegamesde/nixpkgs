@@ -34,7 +34,7 @@ buildPythonPackage rec {
       })
     ];
 
-  propagatedBuildInputs = [ pycodestyle ] ++ lib.optionals (pythonOlder "3.11") [ tomli ];
+  propagatedBuildInputs = [pycodestyle] ++ lib.optionals (pythonOlder "3.11") [tomli];
 
   nativeCheckInputs = [
     glibcLocales
@@ -48,6 +48,6 @@ buildPythonPackage rec {
     description = "A tool that automatically formats Python code to conform to the PEP 8 style guide";
     homepage = "https://github.com/hhatto/autopep8";
     license = licenses.mit;
-    maintainers = with maintainers; [ bjornfor ];
+    maintainers = with maintainers; [bjornfor];
   };
 }

@@ -48,7 +48,7 @@ stdenv.mkDerivation (
     pname = "rdc";
     version = "5.4.2";
 
-    outputs = [ "out" ] ++ lib.optionals buildDocs [ "doc" ] ++ lib.optionals buildTests [ "test" ];
+    outputs = ["out"] ++ lib.optionals buildDocs ["doc"] ++ lib.optionals buildTests ["test"];
 
     src = fetchFromGitHub {
       owner = "RadeonOpenCompute";
@@ -74,7 +74,7 @@ stdenv.mkDerivation (
       libcap
       grpc
       openssl
-    ] ++ lib.optionals buildTests [ gtest ];
+    ] ++ lib.optionals buildTests [gtest];
 
     cmakeFlags = [
       "-DCMAKE_VERBOSE_MAKEFILE=OFF"
@@ -90,7 +90,7 @@ stdenv.mkDerivation (
       "-DCMAKE_INSTALL_INCLUDEDIR=include"
       "-DCMAKE_INSTALL_LIBEXECDIR=libexec"
       "-DCMAKE_INSTALL_DOCDIR=doc"
-    ] ++ lib.optionals buildTests [ "-DBUILD_TESTS=ON" ];
+    ] ++ lib.optionals buildTests ["-DBUILD_TESTS=ON"];
 
     postPatch = ''
       substituteInPlace CMakeLists.txt \
@@ -116,7 +116,7 @@ stdenv.mkDerivation (
     meta = with lib; {
       description = "Simplifies administration and addresses infrastructure challenges in cluster and datacenter environments";
       homepage = "https://github.com/RadeonOpenCompute/rdc";
-      license = with licenses; [ mit ];
+      license = with licenses; [mit];
       maintainers = teams.rocm.members;
       platforms = platforms.linux;
       broken = versions.minor finalAttrs.version != versions.minor rocm-smi.version;

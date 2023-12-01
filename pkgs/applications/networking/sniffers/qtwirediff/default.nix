@@ -25,7 +25,7 @@ stdenv.mkDerivation {
     wrapQtAppsHook
   ];
 
-  buildInputs = [ qtbase ] ++ lib.optionals stdenv.isLinux [ qtwayland ];
+  buildInputs = [qtbase] ++ lib.optionals stdenv.isLinux [qtwayland];
 
   installPhase =
     ''
@@ -39,7 +39,7 @@ stdenv.mkDerivation {
     + lib.optionalString stdenv.isLinux ''
       install -Dm755 -T qtwirediff $out/bin/qtwirediff
       wrapProgram $out/bin/qtwirediff \
-        --prefix PATH : "${lib.makeBinPath [ wireshark-cli ]}"
+        --prefix PATH : "${lib.makeBinPath [wireshark-cli]}"
     ''
     + ''
       runHook postInstall
@@ -49,6 +49,6 @@ stdenv.mkDerivation {
     description = "Debugging tool to diff network traffic leveraging Wireshark";
     homepage = "https://github.com/aaptel/qtwirediff";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ janik ];
+    maintainers = with lib.maintainers; [janik];
   };
 }

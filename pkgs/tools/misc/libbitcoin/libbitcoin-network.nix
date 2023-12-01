@@ -44,7 +44,7 @@ stdenv.mkDerivation {
     description = "Bitcoin P2P Network Library";
     homepage = "https://libbitcoin.info/";
     platforms = platforms.linux ++ platforms.darwin;
-    maintainers = with maintainers; [ asymmetric ];
+    maintainers = with maintainers; [asymmetric];
 
     # AGPL with a lesser clause
     license = licenses.agpl3;

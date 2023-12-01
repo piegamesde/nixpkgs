@@ -50,6 +50,6 @@ python3.pkgs.buildPythonApplication rec {
       gpl2Only
       gpl3Plus
     ];
-    maintainers = with maintainers; [ ambroisie ];
+    maintainers = with maintainers; [ambroisie];
   };
 }

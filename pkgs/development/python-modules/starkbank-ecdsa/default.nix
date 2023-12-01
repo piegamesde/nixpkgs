@@ -20,7 +20,7 @@ buildPythonPackage rec {
     hash = "sha256-HarlCDE2qOLbyhMLOE++bTC+7srJqwmohM6vrJkJ/gc=";
   };
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   preCheck = ''
     cd tests
@@ -31,12 +31,12 @@ buildPythonPackage rec {
     "*.py"
   ];
 
-  pythonImportsCheck = [ "ellipticcurve" ];
+  pythonImportsCheck = ["ellipticcurve"];
 
   meta = with lib; {
     description = "Python ECDSA library";
     homepage = "https://github.com/starkbank/ecdsa-python";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

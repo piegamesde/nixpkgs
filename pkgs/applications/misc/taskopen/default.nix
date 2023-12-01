@@ -25,9 +25,9 @@ stdenv.mkDerivation rec {
     sed 's|$(DESTDIR)/||' -i Makefile
   '';
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
   buildInputs =
-    [ which ]
+    [which]
     ++ (
       with perlPackages; [
         JSON
@@ -50,6 +50,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/ValiValpas/taskopen";
     platforms = platforms.linux;
     license = licenses.free;
-    maintainers = [ maintainers.winpat ];
+    maintainers = [maintainers.winpat];
   };
 }

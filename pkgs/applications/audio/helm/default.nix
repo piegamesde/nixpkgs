@@ -41,11 +41,11 @@ stdenv.mkDerivation {
     libGL
     lv2
   ];
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   CXXFLAGS = "-DHAVE_LROUND";
   enableParallelBuilding = true;
-  makeFlags = [ "DESTDIR=$(out)" ];
+  makeFlags = ["DESTDIR=$(out)"];
 
   patches =
     [
@@ -82,7 +82,7 @@ stdenv.mkDerivation {
         Effects: Formant filter, stutter, delay
     '';
     license = lib.licenses.gpl3Plus;
-    maintainers = [ maintainers.magnetophon ];
+    maintainers = [maintainers.magnetophon];
     platforms = platforms.linux;
   };
 }

@@ -1,8 +1,8 @@
-{ fetchurl }:
+{fetchurl}:
 
 rec {
   fetchSrc =
-    { name, hash }:
+    {name, hash}:
     fetchurl {
       url = "https://download.documentfoundation.org/libreoffice/src/${subdir}/libreoffice-${name}-${version}.tar.xz";
       inherit hash;

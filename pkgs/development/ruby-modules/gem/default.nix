@@ -36,7 +36,7 @@ lib.makeOverridable (
     gemName,
     version ? null,
     type ? "gem",
-    document ? [ ], # e.g. [ "ri" "rdoc" ]
+    document ? [], # e.g. [ "ri" "rdoc" ]
     platform ? "ruby",
     ruby ? defs.ruby,
     stdenv ? ruby.stdenv,
@@ -46,21 +46,21 @@ lib.makeOverridable (
       in
       "${rubyName.name}${rubyName.version}-"
     ),
-    nativeBuildInputs ? [ ],
-    buildInputs ? [ ],
-    meta ? { },
-    patches ? [ ],
-    gemPath ? [ ],
+    nativeBuildInputs ? [],
+    buildInputs ? [],
+    meta ? {},
+    patches ? [],
+    gemPath ? [],
     dontStrip ? false,
     # Assume we don't have to build unless strictly necessary (e.g. the source is a
     # git checkout).
     # If you need to apply patches, make sure to set `dontBuild = false`;
     dontBuild ? true,
     dontInstallManpages ? false,
-    propagatedBuildInputs ? [ ],
-    propagatedUserEnvPkgs ? [ ],
-    buildFlags ? [ ],
-    passthru ? { },
+    propagatedBuildInputs ? [],
+    propagatedUserEnvPkgs ? [],
+    buildFlags ? [],
+    passthru ? {},
     # bundler expects gems to be stored in the cache directory for certain actions
     # such as `bundler install --redownload`.
     # At the cost of increasing the store size, you can keep the gems to have closer
@@ -75,7 +75,7 @@ lib.makeOverridable (
         if type == "gem" then
           fetchurl {
             urls = map (remote: "${remote}/gems/${gemName}-${version}.gem") (
-              attrs.source.remotes or [ "https://rubygems.org" ]
+              attrs.source.remotes or ["https://rubygems.org"]
             );
             inherit (attrs.source) sha256;
           }
@@ -93,11 +93,11 @@ lib.makeOverridable (
         else
           throw ''buildRubyGem: don't know how to build a gem of type "${type}"''
       );
-    documentFlag = if document == [ ] then "-N" else "--document ${lib.concatStringsSep "," document}";
+    documentFlag = if document == [] then "-N" else "--document ${lib.concatStringsSep "," document}";
   in
 
   stdenv.mkDerivation (
-    (builtins.removeAttrs attrs [ "source" ])
+    (builtins.removeAttrs attrs ["source"])
     // {
       inherit ruby;
       inherit dontBuild;
@@ -109,11 +109,11 @@ lib.makeOverridable (
           ruby
           makeWrapper
         ]
-        ++ lib.optionals (type == "git") [ gitMinimal ]
-        ++ lib.optionals (type != "gem") [ bundler ]
+        ++ lib.optionals (type == "git") [gitMinimal]
+        ++ lib.optionals (type != "gem") [bundler]
         ++ nativeBuildInputs;
 
-      buildInputs = [ ruby ] ++ lib.optionals stdenv.isDarwin [ libobjc ] ++ buildInputs;
+      buildInputs = [ruby] ++ lib.optionals stdenv.isDarwin [libobjc] ++ buildInputs;
 
       #name = builtins.trace (attrs.name or "no attr.name" ) "${namePrefix}${gemName}-${version}";
       name = attrs.name or "${namePrefix}${gemName}-${version}";
@@ -153,7 +153,7 @@ lib.makeOverridable (
       # As of ruby 3.0, ruby headers require -fdeclspec when building with clang
       # Introduced in https://github.com/ruby/ruby/commit/0958e19ffb047781fe1506760c7cbd8d7fe74e57
       env.NIX_CFLAGS_COMPILE = toString (
-        lib.optionals (stdenv.cc.isClang && lib.versionAtLeast ruby.version.major "3") [ "-fdeclspec" ]
+        lib.optionals (stdenv.cc.isClang && lib.versionAtLeast ruby.version.major "3") ["-fdeclspec"]
       );
 
       buildPhase =

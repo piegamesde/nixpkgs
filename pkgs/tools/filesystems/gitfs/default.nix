@@ -51,6 +51,6 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://github.com/PressLabs/gitfs";
     license = lib.licenses.asl20;
     platforms = lib.platforms.unix;
-    maintainers = [ lib.maintainers.robbinch ];
+    maintainers = [lib.maintainers.robbinch];
   };
 }

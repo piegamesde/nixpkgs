@@ -30,7 +30,7 @@ buildPythonPackage rec {
     zope_interface
   ] ++ twisted.optional-dependencies.tls;
 
-  nativeCheckInputs = [ twisted ];
+  nativeCheckInputs = [twisted];
 
   # Test creates an excessive amount of temporary files (order of millions).
   # Cleaning up those files already took over 15 hours already on my zfs
@@ -45,6 +45,6 @@ buildPythonPackage rec {
     description = "A Pure-Python Twisted library for LDAP";
     homepage = "https://github.com/twisted/ldaptor";
     license = licenses.mit;
-    maintainers = with maintainers; [ SuperSandro2000 ];
+    maintainers = with maintainers; [SuperSandro2000];
   };
 }

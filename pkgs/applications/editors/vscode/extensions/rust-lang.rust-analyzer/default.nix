@@ -99,7 +99,7 @@ vscode-utils.buildVscodeExtension {
       lib.licenses.mit
       lib.licenses.asl20
     ];
-    maintainers = [ ];
+    maintainers = [];
     platforms = lib.platforms.all;
   };
 }

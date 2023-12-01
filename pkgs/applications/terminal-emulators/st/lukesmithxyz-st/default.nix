@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-WwjuNxWoeR/ppJxJgqD20kzrn1kIfgDarkTOedX/W4k=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     fontconfig
     harfbuzz
@@ -50,7 +50,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/LukeSmithxyz/st";
     description = "Luke Smith's fork of st";
     license = licenses.mit;
-    maintainers = with maintainers; [ AndersonTorres ];
+    maintainers = with maintainers; [AndersonTorres];
     platforms = platforms.linux;
   };
 }

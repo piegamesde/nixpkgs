@@ -56,7 +56,7 @@ stdenv.mkDerivation rec {
     stdenv.cc.cc.lib
     zlib
   ];
-  propagatedBuildInputs = [ jre ];
+  propagatedBuildInputs = [jre];
 
   installPhase = ''
     runHook preInstall
@@ -75,7 +75,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     homepage = "https://scalacenter.github.io/bloop/";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.asl20;
     description = "A Scala build server and command-line tool to make the compile and test developer workflows fast and productive in a build-tool-agnostic way";
     platforms = [

@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "cl-syntax-annot";
   version = "cl-syntax-20150407-git";
@@ -21,7 +21,7 @@ rec {
 
   packageName = "cl-syntax-annot";
 
-  asdFilesToKeep = [ "cl-syntax-annot.asd" ];
+  asdFilesToKeep = ["cl-syntax-annot.asd"];
   overrides = x: x;
 }
 /* (SYSTEM cl-syntax-annot DESCRIPTION CL-Syntax Reader Syntax for cl-annot

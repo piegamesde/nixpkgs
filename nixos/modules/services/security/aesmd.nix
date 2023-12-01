@@ -10,7 +10,7 @@ let
   cfg = config.services.aesmd;
   opt = options.services.aesmd;
 
-  sgx-psw = pkgs.sgx-psw.override { inherit (cfg) debug; };
+  sgx-psw = pkgs.sgx-psw.override {inherit (cfg) debug;};
 
   configFile =
     with cfg.settings;
@@ -22,7 +22,7 @@ let
         ++ optional (defaultQuotingType != null) "default quoting type = ${defaultQuotingType}"
         ++
           # Newline at end of file
-          [ "" ]
+          [""]
       )
     );
 in
@@ -38,7 +38,7 @@ in
     };
     environment = mkOption {
       type = with types; attrsOf str;
-      default = { };
+      default = {};
       description = mdDoc "Additional environment variables to pass to the AESM service.";
       # Example environment variable for `sgx-azure-dcap-client` provider library
       example = {
@@ -54,7 +54,7 @@ in
     };
     settings = mkOption {
       description = lib.mdDoc "AESM configuration";
-      default = { };
+      default = {};
       type = types.submodule {
         options.whitelistUrl = mkOption {
           type = with types; nullOr str;
@@ -131,7 +131,7 @@ in
       in
       {
         description = "Intel Architectural Enclave Service Manager";
-        wantedBy = [ "multi-user.target" ];
+        wantedBy = ["multi-user.target"];
 
         after = [
           "auditd.service"
@@ -142,7 +142,7 @@ in
         environment = {
           NAME = "aesm_service";
           AESM_PATH = storeAesmFolder;
-          LD_LIBRARY_PATH = makeLibraryPath [ cfg.quoteProviderLibrary ];
+          LD_LIBRARY_PATH = makeLibraryPath [cfg.quoteProviderLibrary];
         } // cfg.environment;
 
         # Make sure any of the SGX application enclave devices is available
@@ -173,7 +173,7 @@ in
 
           DynamicUser = true;
           Group = "sgx";
-          SupplementaryGroups = [ config.hardware.cpu.intel.sgx.provision.group ];
+          SupplementaryGroups = [config.hardware.cpu.intel.sgx.provision.group];
 
           Type = "simple";
 

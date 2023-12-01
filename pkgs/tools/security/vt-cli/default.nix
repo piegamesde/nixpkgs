@@ -17,9 +17,9 @@ buildGoModule rec {
 
   vendorHash = "sha256-XN6dJpoJe9nJn+Tr9SYD64LE0XFiO2vlpdyI9SrZZjQ=";
 
-  ldflags = [ "-X github.com/VirusTotal/vt-cli/cmd.Version=${version}" ];
+  ldflags = ["-X github.com/VirusTotal/vt-cli/cmd.Version=${version}"];
 
-  subPackages = [ "vt" ];
+  subPackages = ["vt"];
 
   meta = with lib; {
     description = "VirusTotal Command Line Interface";
@@ -27,6 +27,6 @@ buildGoModule rec {
     changelog = "https://github.com/VirusTotal/vt-cli/releases/tag/${version}";
     license = licenses.asl20;
     mainProgram = "vt";
-    maintainers = with maintainers; [ dit7ya ];
+    maintainers = with maintainers; [dit7ya];
   };
 }

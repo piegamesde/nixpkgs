@@ -47,8 +47,8 @@ stdenv.mkDerivation (
         readline
         wget
       ]
-      ++ lib.optionals enableSDL2 [ SDL2 ]
-      ++ lib.optionals enableTerm [ ncurses ]
+      ++ lib.optionals enableSDL2 [SDL2]
+      ++ lib.optionals enableTerm [ncurses]
       ++ lib.optionals enableWx [
         gtk3
         wxGTK
@@ -59,7 +59,7 @@ stdenv.mkDerivation (
         libX11
         libXpm
       ]
-      ++ lib.optionals stdenv.isDarwin [ libobjc ];
+      ++ lib.optionals stdenv.isDarwin [libobjc];
 
     configureFlags =
       [
@@ -118,9 +118,9 @@ stdenv.mkDerivation (
         "--enable-x86-64"
         "--enable-x86-debugger"
       ]
-      ++ lib.optionals enableSDL2 [ "--with-sdl2" ]
-      ++ lib.optionals enableTerm [ "--with-term" ]
-      ++ lib.optionals enableWx [ "--with-wx" ]
+      ++ lib.optionals enableSDL2 ["--with-sdl2"]
+      ++ lib.optionals enableTerm ["--with-term"]
+      ++ lib.optionals enableWx ["--with-wx"]
       ++ lib.optionals enableX11 [
         "--with-x"
         "--with-x11"
@@ -145,7 +145,7 @@ stdenv.mkDerivation (
         Intel x86 CPU, common I/O devices, and a custom BIOS.
       '';
       license = licenses.lgpl2Plus;
-      maintainers = with maintainers; [ AndersonTorres ];
+      maintainers = with maintainers; [AndersonTorres];
       platforms = platforms.unix;
     };
   }

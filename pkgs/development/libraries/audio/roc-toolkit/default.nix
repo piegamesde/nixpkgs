@@ -66,7 +66,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional (!pulseaudioSupport) "--disable-pulseaudio"
     ++ (
       if (!openfecSupport) then
-        [ "--disable-openfec" ]
+        ["--disable-openfec"]
       else
         [
           "--with-libraries=${openfec}/lib"
@@ -78,7 +78,7 @@ stdenv.mkDerivation rec {
     description = "Roc is a toolkit for real-time audio streaming over the network";
     homepage = "https://github.com/roc-streaming/roc-toolkit";
     license = licenses.mpl20;
-    maintainers = with maintainers; [ bgamari ];
+    maintainers = with maintainers; [bgamari];
     platforms = platforms.unix;
   };
 }

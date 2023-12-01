@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
     ./hardcoded-compiler.patch
     ./bin-ext.patch
   ];
-  patchFlags = [ "-p3" ];
+  patchFlags = ["-p3"];
 
   outputs = [
     "bin"

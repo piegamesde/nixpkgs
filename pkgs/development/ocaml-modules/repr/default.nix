@@ -38,6 +38,6 @@ buildDunePackage rec {
     description = "Dynamic type representations. Provides no stability guarantee";
     homepage = "https://github.com/mirage/repr";
     license = licenses.isc;
-    maintainers = with maintainers; [ sternenseemann ];
+    maintainers = with maintainers; [sternenseemann];
   };
 }

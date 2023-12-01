@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "optima";
   version = "20150709-git";
@@ -18,7 +18,7 @@ rec {
 
   packageName = "optima";
 
-  asdFilesToKeep = [ "optima.asd" ];
+  asdFilesToKeep = ["optima.asd"];
   overrides = x: x;
 }
 /* (SYSTEM optima DESCRIPTION Optimized Pattern Matching Library SHA256

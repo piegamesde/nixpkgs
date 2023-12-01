@@ -12,7 +12,7 @@
   websocket,
 }:
 let
-  python = kodi.pythonPackages.python.withPackages (p: with p; [ pyyaml ]);
+  python = kodi.pythonPackages.python.withPackages (p: with p; [pyyaml]);
 in
 buildKodiAddon rec {
   pname = "jellyfin";
@@ -26,7 +26,7 @@ buildKodiAddon rec {
     sha256 = "sha256-hR4cJEpP/RZH24M4Ma33ZUe9oydRg7CyP1hHncvDW8Y=";
   };
 
-  nativeBuildInputs = [ python ];
+  nativeBuildInputs = [python];
 
   prePatch = ''
     # ZIP does not support timestamps before 1980 - https://bugs.python.org/issue34097

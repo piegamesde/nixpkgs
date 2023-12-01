@@ -171,7 +171,7 @@ in
       description = "Statically typed, imperative programming language";
       homepage = "https://nim-lang.org/";
       license = licenses.mit;
-      maintainers = with maintainers; [ ehmry ];
+      maintainers = with maintainers; [ehmry];
     };
   };
 
@@ -187,8 +187,8 @@ in
       hash = "sha256-8b5yKvEl7c7wA/8cpdaN2CSvawQJzuRce6mULj3z/mI=";
     };
 
-    depsBuildBuild = [ nim-unwrapped ];
-    buildInputs = [ openssl ] ++ lib.optional stdenv.isDarwin Security;
+    depsBuildBuild = [nim-unwrapped];
+    buildInputs = [openssl] ++ lib.optional stdenv.isDarwin Security;
 
     nimFlags = [
       "--cpu:${nimHost.cpu}"
@@ -212,7 +212,7 @@ in
       description = "Package manager for the Nim programming language";
       homepage = "https://github.com/nim-lang/nimble";
       license = licenses.bsd3;
-      maintainers = with maintainers; [ ehmry ];
+      maintainers = with maintainers; [ehmry];
       mainProgram = "nimble";
     };
   };
@@ -228,7 +228,7 @@ in
         preferLocalBuild = true;
         strictDeps = true;
 
-        nativeBuildInputs = [ makeWrapper ];
+        nativeBuildInputs = [makeWrapper];
 
         # Needed for any nim package that uses the standard library's
         # 'std/sysrand' module.
@@ -296,7 +296,7 @@ in
           '';
 
         wrapperArgs = lib.optionals (!(stdenv.isDarwin && stdenv.isAarch64)) [
-          "--prefix PATH : ${lib.makeBinPath [ buildPackages.gdb ]}:${placeholder "out"}/bin"
+          "--prefix PATH : ${lib.makeBinPath [buildPackages.gdb]}:${placeholder "out"}/bin"
           # Used by nim-gdb
 
           "--prefix LD_LIBRARY_PATH : ${
@@ -362,5 +362,5 @@ in
         };
       };
     in
-    self // { pkgs = callPackage ../../../top-level/nim-packages.nix { nim = self; }; };
+    self // {pkgs = callPackage ../../../top-level/nim-packages.nix {nim = self;};};
 }

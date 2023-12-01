@@ -1,10 +1,10 @@
 import ./make-test-python.nix (
-  { lib, pkgs, ... }:
+  {lib, pkgs, ...}:
 
   let
     # Note: For some reason Privoxy can't issue valid
     # certificates if the CA is generated using gnutls :(
-    certs = pkgs.runCommand "example-certs" { buildInputs = [ pkgs.openssl ]; } ''
+    certs = pkgs.runCommand "example-certs" {buildInputs = [pkgs.openssl];} ''
       mkdir $out
 
       # generate CA keypair
@@ -28,10 +28,10 @@ import ./make-test-python.nix (
 
   {
     name = "privoxy";
-    meta = with lib.maintainers; { maintainers = [ rnhmjoj ]; };
+    meta = with lib.maintainers; {maintainers = [rnhmjoj];};
 
     nodes.machine =
-      { ... }:
+      {...}:
       {
         services.nginx.enable = true;
         services.nginx.virtualHosts."example.com" = {
@@ -71,9 +71,9 @@ import ./make-test-python.nix (
           '';
         };
 
-        security.pki.certificateFiles = [ "${certs}/ca.crt" ];
+        security.pki.certificateFiles = ["${certs}/ca.crt"];
 
-        networking.hosts."::1" = [ "example.com" ];
+        networking.hosts."::1" = ["example.com"];
         networking.proxy.httpProxy = "http://localhost:8118";
         networking.proxy.httpsProxy = "http://localhost:8118";
       };

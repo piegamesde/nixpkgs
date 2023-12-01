@@ -25,7 +25,7 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-NtXjlGkX8AzSw98xHPymzdnTipMIunyDbpSr4eVowa0=";
 
-  nativeBuildInputs = [ installShellFiles ] ++ lib.optional stdenv.isLinux pkg-config;
+  nativeBuildInputs = [installShellFiles] ++ lib.optional stdenv.isLinux pkg-config;
 
   buildInputs =
     lib.optional withSixel libsixel
@@ -56,6 +56,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://menyoki.cli.rs/";
     changelog = "https://github.com/orhun/menyoki/blob/v${version}/CHANGELOG.md";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
   };
 }

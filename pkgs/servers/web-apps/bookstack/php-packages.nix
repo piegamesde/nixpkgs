@@ -1040,7 +1040,7 @@ let
       };
     };
   };
-  devPackages = { };
+  devPackages = {};
 in
 composerEnv.buildPackage {
   inherit packages devPackages noDev;

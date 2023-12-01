@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-+ZU8J4rOyRMSZP+CUyLeOhRI2fKiw2s31coTYAoReWM=";
   };
 
-  patches = [ ./deps.patch ];
+  patches = [./deps.patch];
 
   offlineCache = fetchYarnDeps {
     yarnLock = ./yarn.lock;
@@ -85,6 +85,6 @@ stdenv.mkDerivation rec {
     description = "Admin interface for Akkoma";
     homepage = "https://akkoma.dev/AkkomaGang/akkoma-fe/";
     license = licenses.agpl3;
-    maintainers = with maintainers; [ mvs ];
+    maintainers = with maintainers; [mvs];
   };
 }

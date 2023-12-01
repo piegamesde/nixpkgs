@@ -29,6 +29,6 @@ buildGoModule rec {
     homepage = "https://github.com/projectdiscovery/tlsx";
     changelog = "https://github.com/projectdiscovery/tlsx/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

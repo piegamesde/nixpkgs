@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-t5Nep99dH/TvJzI9woLSuBrAWSqXZvLncXl7/43Z7sA=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   installPhase = ''
     install -D -t $out/bin uARMSolver
@@ -27,6 +27,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/firefly-cpp/uARMSolver";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ firefly-cpp ];
+    maintainers = with maintainers; [firefly-cpp];
   };
 }

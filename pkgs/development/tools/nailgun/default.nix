@@ -22,14 +22,14 @@ let
     license = lib.licenses.asl20;
     homepage = "http://www.martiansoftware.com/nailgun/";
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
   };
 
   server = stdenvNoCC.mkDerivation {
     pname = "nailgun-server";
     inherit version;
 
-    nativeBuildInputs = [ makeWrapper ];
+    nativeBuildInputs = [makeWrapper];
 
     dontUnpack = true;
     installPhase = ''
@@ -43,7 +43,7 @@ let
 
     meta = commonMeta // {
       description = "Server for running Java programs from the command line without incurring the JVM startup overhead";
-      sourceProvenance = with lib.sourceTypes; [ binaryBytecode ];
+      sourceProvenance = with lib.sourceTypes; [binaryBytecode];
     };
   };
 
@@ -58,7 +58,7 @@ let
       sha256 = "1syyk4ss5vq1zf0ma00svn56lal53ffpikgqgzngzbwyksnfdlh6";
     };
 
-    makeFlags = [ "PREFIX=$(out)" ];
+    makeFlags = ["PREFIX=$(out)"];
 
     meta = commonMeta // {
       description = "Client for running Java programs from the command line without incurring the JVM startup overhead";

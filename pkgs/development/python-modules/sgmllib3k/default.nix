@@ -21,16 +21,16 @@ buildPythonPackage rec {
     sha256 = "0bzf6pv85dzfxfysm6zbj8m40hp0xzr9h8qlk4hp3nmy88rznqvr";
   };
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  disabledTests = lib.optionals (pythonAtLeast "3.10") [ "test_declaration_junk_chars" ];
+  disabledTests = lib.optionals (pythonAtLeast "3.10") ["test_declaration_junk_chars"];
 
-  pythonImportsCheck = [ "sgmllib" ];
+  pythonImportsCheck = ["sgmllib"];
 
   meta = with lib; {
     homepage = "https://pypi.org/project/sgmllib3k/";
     description = "Python 3 port of sgmllib";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ lovesegfault ];
+    maintainers = with maintainers; [lovesegfault];
   };
 }

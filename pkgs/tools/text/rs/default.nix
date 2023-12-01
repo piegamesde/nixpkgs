@@ -15,9 +15,9 @@ stdenv.mkDerivation rec {
     sha256 = "0gxwlfk7bzivpp2260w2r6gkyl7vdi05cggn1fijfnp8kzf1b4li";
   };
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
-  buildInputs = [ libbsd ];
+  buildInputs = [libbsd];
 
   buildPhase = ''
     runHook preBuild
@@ -61,7 +61,7 @@ stdenv.mkDerivation rec {
       the rows and columns.
     '';
     license = licenses.bsd3;
-    maintainers = with maintainers; [ AndersonTorres ];
+    maintainers = with maintainers; [AndersonTorres];
     platforms = platforms.unix;
   };
 }

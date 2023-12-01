@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
     url = "mirror://sourceforge/swingsane/swingsane-${version}-bin.zip";
   };
 
-  nativeBuildInputs = [ unzip ];
+  nativeBuildInputs = [unzip];
 
   dontConfigure = true;
 
@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
         desktopName = "SwingSane";
         genericName = "Scan from local or remote SANE servers";
         comment = meta.description;
-        categories = [ "Office" ];
+        categories = ["Office"];
       };
     in
     ''
@@ -64,7 +64,7 @@ stdenv.mkDerivation rec {
       crop, etc), PDF and PNG output.
     '';
     homepage = "http://swingsane.com/";
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with sourceTypes; [binaryBytecode];
     license = licenses.asl20;
     platforms = platforms.all;
   };

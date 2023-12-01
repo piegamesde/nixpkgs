@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  nativeCheckInputs = [ gnuplot ];
+  nativeCheckInputs = [gnuplot];
 
   postPatch = ''
     substituteInPlace doc/info/Makefile.am --replace "/usr/bin/env perl" "${perl}/bin/perl"
@@ -117,7 +117,7 @@ stdenv.mkDerivation rec {
       DOE-MACSYMA and licensed under the GPL. Its abilities include
       symbolic integration, 3D plotting, and an ODE solver.
     '';
-    maintainers = with maintainers; [ doronbehar ];
+    maintainers = with maintainers; [doronbehar];
     platforms = platforms.unix;
   };
 }

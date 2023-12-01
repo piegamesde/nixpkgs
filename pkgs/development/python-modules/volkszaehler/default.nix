@@ -29,13 +29,13 @@ buildPythonPackage rec {
   # no tests are present
   doCheck = false;
 
-  pythonImportsCheck = [ "volkszaehler" ];
+  pythonImportsCheck = ["volkszaehler"];
 
   meta = with lib; {
     description = "Python module for interacting with the Volkszahler API";
     homepage = "https://github.com/home-assistant-ecosystem/python-volkszaehler";
     changelog = "https://github.com/home-assistant-ecosystem/python-volkszaehler/releases/tag/${version}";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

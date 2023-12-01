@@ -87,23 +87,23 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  depsBuildBuild = [ pkg-config ];
+  depsBuildBuild = [pkg-config];
 
   nativeBuildInputs =
-    [ pkg-config ]
+    [pkg-config]
     ++ lib.optionals waylandSupport [
       wayland
       wayland-scanner
     ];
 
   dlopenPropagatedBuildInputs =
-    [ ]
+    []
     # Propagated for #include <GLES/gl.h> in SDL_opengles.h.
     ++ lib.optional openglSupport libGL
     # Propagated for #include <X11/Xlib.h> and <X11/Xatom.h> in SDL_syswm.h.
-    ++ lib.optionals x11Support [ libX11 ];
+    ++ lib.optionals x11Support [libX11];
 
-  propagatedBuildInputs = lib.optionals x11Support [ xorgproto ] ++ dlopenPropagatedBuildInputs;
+  propagatedBuildInputs = lib.optionals x11Support [xorgproto] ++ dlopenPropagatedBuildInputs;
 
   dlopenBuildInputs =
     lib.optionals alsaSupport [
@@ -135,10 +135,10 @@ stdenv.mkDerivation rec {
     ];
 
   buildInputs =
-    [ libiconv ]
+    [libiconv]
     ++ dlopenBuildInputs
     ++ lib.optional ibusSupport ibus
-    ++ lib.optionals waylandSupport [ wayland-protocols ]
+    ++ lib.optionals waylandSupport [wayland-protocols]
     ++ lib.optionals stdenv.isDarwin [
       AudioUnit
       Cocoa
@@ -151,7 +151,7 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   configureFlags =
-    [ "--disable-oss" ]
+    ["--disable-oss"]
     ++ lib.optional (!x11Support) "--without-x"
     ++ lib.optional alsaSupport "--with-alsa-prefix=${alsa-lib.out}/lib"
     ++ lib.optional stdenv.targetPlatform.isWindows "--disable-video-opengles"
@@ -212,6 +212,6 @@ stdenv.mkDerivation rec {
     changelog = "https://github.com/libsdl-org/SDL/releases/tag/release-${version}";
     license = licenses.zlib;
     platforms = platforms.all;
-    maintainers = with maintainers; [ cpages ];
+    maintainers = with maintainers; [cpages];
   };
 }

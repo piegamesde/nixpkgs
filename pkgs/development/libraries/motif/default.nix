@@ -75,7 +75,7 @@ stdenv.mkDerivation rec {
     homepage = "https://motif.ics.com";
     description = "Unix standard widget-toolkit and window-manager";
     platforms = platforms.unix;
-    license = with licenses; [ lgpl21Plus ];
-    maintainers = with maintainers; [ qyliss ];
+    license = with licenses; [lgpl21Plus];
+    maintainers = with maintainers; [qyliss];
   };
 }

@@ -48,19 +48,19 @@ let
           Output name to EDID mapping.
           Use `autorandr --fingerprint` to get current setup values.
         '';
-        default = { };
+        default = {};
       };
 
       config = mkOption {
         type = types.attrsOf configModule;
         description = lib.mdDoc "Per output profile configuration.";
-        default = { };
+        default = {};
       };
 
       hooks = mkOption {
         type = hooksModule;
         description = lib.mdDoc "Profile hook scripts.";
-        default = { };
+        default = {};
       };
     };
   };
@@ -208,13 +208,13 @@ let
       postswitch = mkOption {
         type = types.attrsOf hookType;
         description = lib.mdDoc "Postswitch hook executed after mode switch.";
-        default = { };
+        default = {};
       };
 
       preswitch = mkOption {
         type = types.attrsOf hookType;
         description = lib.mdDoc "Preswitch hook executed before mode switch.";
-        default = { };
+        default = {};
       };
 
       predetect = mkOption {
@@ -222,7 +222,7 @@ let
         description = lib.mdDoc ''
           Predetect hook executed before autorandr attempts to run xrandr.
         '';
-        default = { };
+        default = {};
       };
     };
   };
@@ -253,7 +253,7 @@ let
     name: config:
     if config.enable then
       concatStringsSep "\n" (
-        [ "output ${name}" ]
+        ["output ${name}"]
         ++ optional (config.position != "") "pos ${config.position}"
         ++ optional (config.crtc != null) "crtc ${toString config.crtc}"
         ++ optional config.primary "primary"
@@ -302,7 +302,7 @@ in
       hooks = mkOption {
         type = hooksModule;
         description = lib.mdDoc "Global hook scripts";
-        default = { };
+        default = {};
         example = literalExpression ''
           {
             postswitch = {
@@ -332,7 +332,7 @@ in
       profiles = mkOption {
         type = types.attrsOf profileModule;
         description = lib.mdDoc "Autorandr profiles specification.";
-        default = { };
+        default = {};
         example = literalExpression ''
           {
             "work" = {
@@ -363,10 +363,10 @@ in
 
   config = mkIf cfg.enable {
 
-    services.udev.packages = [ pkgs.autorandr ];
+    services.udev.packages = [pkgs.autorandr];
 
     environment = {
-      systemPackages = [ pkgs.autorandr ];
+      systemPackages = [pkgs.autorandr];
       etc = mkMerge ([
         (mapAttrs' (hookToFile "postswitch.d") cfg.hooks.postswitch)
         (mapAttrs' (hookToFile "preswitch.d") cfg.hooks.preswitch)
@@ -376,9 +376,9 @@ in
     };
 
     systemd.services.autorandr = {
-      wantedBy = [ "sleep.target" ];
+      wantedBy = ["sleep.target"];
       description = "Autorandr execution hook";
-      after = [ "sleep.target" ];
+      after = ["sleep.target"];
 
       startLimitIntervalSec = 5;
       startLimitBurst = 1;
@@ -397,5 +397,5 @@ in
     };
   };
 
-  meta.maintainers = with maintainers; [ alexnortung ];
+  meta.maintainers = with maintainers; [alexnortung];
 }

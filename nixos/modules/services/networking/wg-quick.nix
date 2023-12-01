@@ -14,7 +14,7 @@ let
   # interface options
 
   interfaceOpts =
-    { ... }:
+    {...}:
     {
       options = {
 
@@ -30,8 +30,8 @@ let
         };
 
         address = mkOption {
-          example = [ "192.168.2.1/24" ];
-          default = [ ];
+          example = ["192.168.2.1/24"];
+          default = [];
           type = with types; listOf str;
           description = lib.mdDoc "The IP addresses of the interface.";
         };
@@ -44,8 +44,8 @@ let
         };
 
         dns = mkOption {
-          example = [ "192.168.2.2" ];
-          default = [ ];
+          example = ["192.168.2.2"];
+          default = [];
           type = with types; listOf str;
           description = lib.mdDoc "The IP addresses of DNS servers to configure.";
         };
@@ -143,7 +143,7 @@ let
         };
 
         peers = mkOption {
-          default = [ ];
+          default = [];
           description = lib.mdDoc "Peers linked to the interface.";
           type = with types; listOf (submodule peerOpts);
         };
@@ -249,7 +249,7 @@ let
         )
         ++ optional (values.postUp != "") values.postUp;
       postUpFile =
-        if postUp != [ ] then
+        if postUp != [] then
           writeScriptFile "postUp.sh" (concatMapStringsSep "\n" (line: line) postUp)
         else
           null;
@@ -311,7 +311,7 @@ let
                 + optionalString (peer.persistentKeepalive != null) ''
                   PersistentKeepalive = ${toString peer.persistentKeepalive}
                 ''
-                + optionalString (peer.allowedIPs != [ ]) ''
+                + optionalString (peer.allowedIPs != []) ''
                   AllowedIPs = ${concatStringsSep "," peer.allowedIPs}
                 ''
               )
@@ -326,7 +326,7 @@ let
     in
     nameValuePair "wg-quick-${name}" {
       description = "wg-quick WireGuard Tunnel - ${name}";
-      requires = [ "network-online.target" ];
+      requires = ["network-online.target"];
       after = [
         "network.target"
         "network-online.target"
@@ -370,14 +370,14 @@ in
     networking.wg-quick = {
       interfaces = mkOption {
         description = lib.mdDoc "Wireguard interfaces.";
-        default = { };
+        default = {};
         example = {
           wg0 = {
-            address = [ "192.168.20.4/24" ];
+            address = ["192.168.20.4/24"];
             privateKey = "yAnz5TF+lXXJte14tji3zlMNq+hd2rYUIgJBgB3fBmk=";
             peers = [
               {
-                allowedIPs = [ "192.168.20.1/32" ];
+                allowedIPs = ["192.168.20.1/32"];
                 publicKey = "xTIBA5rboUvnH4htodjb6e697QjLERt1NAB4mZqp8Dg=";
                 endpoint = "demo.wireguard.io:12913";
               }
@@ -391,9 +391,9 @@ in
 
   ###### implementation
 
-  config = mkIf (cfg.interfaces != { }) {
+  config = mkIf (cfg.interfaces != {}) {
     boot.extraModulePackages = optional (versionOlder kernel.kernel.version "5.6") kernel.wireguard;
-    environment.systemPackages = [ pkgs.wireguard-tools ];
+    environment.systemPackages = [pkgs.wireguard-tools];
     systemd.services = mapAttrs' generateUnit cfg.interfaces;
 
     # Prevent networkd from clearing the rules set by wg-quick when restarted (e.g. when waking up from suspend).

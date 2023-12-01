@@ -23,7 +23,7 @@ mkDerivation rec {
     homepage = "https://kde.org/applications/utilities/kronometer/";
     description = "A stopwatch application";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ peterhoeg ];
+    maintainers = with maintainers; [peterhoeg];
   };
   nativeBuildInputs = [
     extra-cmake-modules

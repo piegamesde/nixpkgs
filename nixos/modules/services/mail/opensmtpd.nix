@@ -13,7 +13,7 @@ let
   conf = pkgs.writeText "smtpd.conf" cfg.serverConfiguration;
   args = concatStringsSep " " cfg.extraServerArgs;
 
-  sendmail = pkgs.runCommand "opensmtpd-sendmail" { preferLocalBuild = true; } ''
+  sendmail = pkgs.runCommand "opensmtpd-sendmail" {preferLocalBuild = true;} ''
     mkdir -p $out/bin
     ln -s ${cfg.package}/sbin/smtpctl $out/bin/sendmail
   '';
@@ -62,7 +62,7 @@ in
 
       extraServerArgs = mkOption {
         type = types.listOf types.str;
-        default = [ ];
+        default = [];
         example = [
           "-v"
           "-P mta"
@@ -87,7 +87,7 @@ in
 
       procPackages = mkOption {
         type = types.listOf types.package;
-        default = [ ];
+        default = [];
         description = lib.mdDoc ''
           Packages to search for filters, tables, queues, and schedulers.
 
@@ -128,7 +128,7 @@ in
     };
 
     services.mail.sendmailSetuidWrapper = mkIf cfg.setSendmail (
-      security.wrappers.smtpctl // { program = "sendmail"; }
+      security.wrappers.smtpctl // {program = "sendmail";}
     );
 
     systemd.tmpfiles.rules = [
@@ -141,13 +141,13 @@ in
       let
         procEnv = pkgs.buildEnv {
           name = "opensmtpd-procs";
-          paths = [ cfg.package ] ++ cfg.procPackages;
-          pathsToLink = [ "/libexec/opensmtpd" ];
+          paths = [cfg.package] ++ cfg.procPackages;
+          pathsToLink = ["/libexec/opensmtpd"];
         };
       in
       {
-        wantedBy = [ "multi-user.target" ];
-        after = [ "network.target" ];
+        wantedBy = ["multi-user.target"];
+        after = ["network.target"];
         serviceConfig.ExecStart = "${cfg.package}/sbin/smtpd -d -f ${conf} ${args}";
         environment.OPENSMTPD_PROC_PATH = "${procEnv}/libexec/opensmtpd";
       };

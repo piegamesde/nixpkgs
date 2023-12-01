@@ -32,7 +32,7 @@ stdenv.mkDerivation (
     src = fetchFromGitHub {
       owner = "TASVideos";
       repo = "desmume";
-      rev = "release_${lib.replaceStrings [ "." ] [ "_" ] finalAttrs.version}";
+      rev = "release_${lib.replaceStrings ["."] ["_"] finalAttrs.version}";
       hash = "sha256-vmjKXa/iXLTwtqnG+ZUvOnOQPZROeMpfM5J3Jh/Ynfo=";
     };
 
@@ -70,7 +70,7 @@ stdenv.mkDerivation (
       zlib
     ];
 
-    hardeningDisable = [ "format" ];
+    hardeningDisable = ["format"];
 
     preConfigure = ''
       cd desmume/src/frontend/posix
@@ -93,7 +93,7 @@ stdenv.mkDerivation (
         commercial nds rom titles which other DS Emulators aren't.
       '';
       license = licenses.gpl2Plus;
-      maintainers = [ maintainers.AndersonTorres ];
+      maintainers = [maintainers.AndersonTorres];
       platforms = platforms.unix;
     };
   }

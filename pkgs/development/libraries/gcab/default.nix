@@ -58,7 +58,7 @@ stdenv.mkDerivation rec {
   ];
 
   # required by libgcab-1.0.pc
-  propagatedBuildInputs = [ glib ];
+  propagatedBuildInputs = [glib];
 
   mesonFlags = [
     "-Dinstalled_tests=true"

@@ -12,7 +12,7 @@
 with lib;
 
 let
-  qemu-common = import ../../lib/qemu-common.nix { inherit lib pkgs; };
+  qemu-common = import ../../lib/qemu-common.nix {inherit lib pkgs;};
 in
 
 {
@@ -20,7 +20,7 @@ in
   config = {
 
     systemd.services.backdoor = {
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       requires = [
         "dev-hvc0.device"
         "dev-${qemu-common.qemuSerialDevice}.device"
@@ -71,7 +71,7 @@ in
         #       we avoid defining consoles if not possible.
         # TODO: refactor such that test-instrumentation can import qemu-vm
         #       or declare virtualisation.qemu.console option in a module that's always imported
-        consoles = [ qemu-common.qemuSerialDevice ];
+        consoles = [qemu-common.qemuSerialDevice];
         package = lib.mkDefault pkgs.qemu_test;
       };
     };
@@ -99,7 +99,7 @@ in
     ];
 
     # `xwininfo' is used by the test driver to query open windows.
-    environment.systemPackages = [ pkgs.xorg.xwininfo ];
+    environment.systemPackages = [pkgs.xorg.xwininfo];
 
     # Log everything to the serial console.
     services.journald.extraConfig = ''
@@ -130,7 +130,7 @@ in
 
     # Prevent tests from accessing the Internet.
     networking.defaultGateway = mkOverride 150 "";
-    networking.nameservers = mkOverride 150 [ ];
+    networking.nameservers = mkOverride 150 [];
 
     system.requiredKernelConfig = with config.lib.kernelConfig; [
       (isYes "SERIAL_8250_CONSOLE")

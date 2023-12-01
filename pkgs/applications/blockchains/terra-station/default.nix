@@ -21,7 +21,7 @@ let
     }
     ."${system}" or throwSystem;
 
-  arch = { "x86_64-linux" = "amd64"; }."${system}" or throwSystem;
+  arch = {"x86_64-linux" = "amd64";}."${system}" or throwSystem;
 in
 
 stdenv.mkDerivation rec {
@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
     inherit sha256;
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   dontConfigure = true;
   dontBuild = true;
@@ -59,14 +59,14 @@ stdenv.mkDerivation rec {
   postFixup = ''
     makeWrapper ${electron}/bin/electron $out/bin/${pname} \
       --add-flags $out/share/${pname}/resources/app.asar \
-      --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [ gcc-unwrapped.lib ]}"
+      --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [gcc-unwrapped.lib]}"
   '';
 
   meta = with lib; {
     description = "Terra station is the official wallet of the Terra blockchain.";
     homepage = "https://docs.terra.money/docs/learn/terra-station/README.html";
     license = licenses.isc;
-    maintainers = [ maintainers.peterwilli ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = [maintainers.peterwilli];
+    platforms = ["x86_64-linux"];
   };
 }

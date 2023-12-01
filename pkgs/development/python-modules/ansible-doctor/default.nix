@@ -63,13 +63,13 @@ buildPythonPackage rec {
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "ansibledoctor" ];
+  pythonImportsCheck = ["ansibledoctor"];
 
   meta = with lib; {
     description = "Annotation based documentation for your Ansible roles";
     homepage = "https://github.com/thegeeklab/ansible-doctor";
     changelog = "https://github.com/thegeeklab/ansible-doctor/releases/tag/v${version}";
     license = licenses.lgpl3Only;
-    maintainers = with maintainers; [ tboerger ];
+    maintainers = with maintainers; [tboerger];
   };
 }

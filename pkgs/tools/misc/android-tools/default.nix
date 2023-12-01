@@ -19,7 +19,7 @@
 }:
 
 let
-  pythonEnv = python3.withPackages (ps: [ ps.protobuf ]);
+  pythonEnv = python3.withPackages (ps: [ps.protobuf]);
 in
 
 stdenv.mkDerivation rec {
@@ -47,10 +47,10 @@ stdenv.mkDerivation rec {
     libusb1
     pcre2
   ];
-  propagatedBuildInputs = [ pythonEnv ];
+  propagatedBuildInputs = [pythonEnv];
 
   # Don't try to fetch any Go modules via the network:
-  GOFLAGS = [ "-mod=vendor" ];
+  GOFLAGS = ["-mod=vendor"];
 
   preConfigure = ''
     export GOCACHE=$TMPDIR/go-cache
@@ -81,6 +81,6 @@ stdenv.mkDerivation rec {
       unicode-dfs-2015
     ];
     platforms = platforms.unix;
-    maintainers = with maintainers; [ primeos ];
+    maintainers = with maintainers; [primeos];
   };
 }

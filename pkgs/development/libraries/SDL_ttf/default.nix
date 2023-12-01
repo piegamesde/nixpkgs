@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
       })
     ];
 
-  patchFlags = [ "-p0" ];
+  patchFlags = ["-p0"];
 
   buildInputs = [
     SDL
@@ -39,6 +39,6 @@ stdenv.mkDerivation rec {
     license = licenses.zlib;
     platforms = platforms.all;
     homepage = "https://www.libsdl.org/projects/SDL_ttf/release-1.2.html";
-    maintainers = with maintainers; [ abbradar ];
+    maintainers = with maintainers; [abbradar];
   };
 }

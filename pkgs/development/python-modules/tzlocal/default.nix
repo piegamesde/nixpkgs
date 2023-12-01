@@ -20,7 +20,7 @@ buildPythonPackage rec {
     sha256 = "ee5842fa3a795f023514ac2d801c4a81d1743bbe642e3940143326b3a00addd7";
   };
 
-  propagatedBuildInputs = [ pytz-deprecation-shim ];
+  propagatedBuildInputs = [pytz-deprecation-shim];
 
   nativeCheckInputs = [
     pytest-mock
@@ -33,13 +33,13 @@ buildPythonPackage rec {
     "test_symlink_localtime"
   ] ++ lib.optional stdenv.isDarwin "test_assert_tz_offset";
 
-  pythonImportsCheck = [ "tzlocal" ];
+  pythonImportsCheck = ["tzlocal"];
 
   meta = with lib; {
     description = "Tzinfo object for the local timezone";
     homepage = "https://github.com/regebro/tzlocal";
     changelog = "https://github.com/regebro/tzlocal/blob/${version}/CHANGES.txt";
     license = licenses.cddl;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

@@ -1,6 +1,6 @@
 # cd nixpkgs
 # nix-build -A tests.pkg-config
-{ lib, stdenv, ... }:
+{lib, stdenv, ...}:
 
 let
   # defaultPkgConfigPackages test needs a Nixpkgs with allowUnsupportedPlatform
@@ -13,9 +13,9 @@ let
     config = {
       allowUnsupportedSystem = true;
     };
-    overlays = [ ];
+    overlays = [];
   };
 in
 lib.recurseIntoAttrs {
-  defaultPkgConfigPackages = allPkgs.callPackage ./test-defaultPkgConfigPackages.nix { };
+  defaultPkgConfigPackages = allPkgs.callPackage ./test-defaultPkgConfigPackages.nix {};
 }

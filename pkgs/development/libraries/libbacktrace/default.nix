@@ -33,7 +33,7 @@ stdenv.mkDerivation {
     ./0004-libbacktrace-Support-NIX_DEBUG_INFO_DIRS-environment.patch
   ];
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   configureFlags = [
     (lib.enableFeature enableStatic "static")
@@ -43,13 +43,13 @@ stdenv.mkDerivation {
   doCheck = stdenv.isLinux;
 
   passthru = {
-    updateScript = unstableGitUpdater { };
+    updateScript = unstableGitUpdater {};
   };
 
   meta = with lib; {
     description = "A C library that may be linked into a C/C++ program to produce symbolic backtraces";
     homepage = "https://github.com/ianlancetaylor/libbacktrace";
-    maintainers = with maintainers; [ twey ];
-    license = with licenses; [ bsd3 ];
+    maintainers = with maintainers; [twey];
+    license = with licenses; [bsd3];
   };
 }

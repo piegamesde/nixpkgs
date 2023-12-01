@@ -30,6 +30,6 @@ buildDunePackage rec {
     homepage = "https://github.com/mirage/irmin-watcher";
     description = "Portable Irmin watch backends using FSevents or Inotify";
     license = lib.licenses.isc;
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
   };
 }

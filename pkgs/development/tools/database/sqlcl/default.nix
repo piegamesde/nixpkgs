@@ -74,7 +74,7 @@ stdenv.mkDerivation {
     '';
     homepage = "https://www.oracle.com/database/sqldeveloper/technologies/sqlcl/";
     license = licenses.unfree;
-    platforms = [ "x86_64-linux" ];
-    maintainers = with maintainers; [ misterio77 ];
+    platforms = ["x86_64-linux"];
+    maintainers = with maintainers; [misterio77];
   };
 }

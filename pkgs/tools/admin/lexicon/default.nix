@@ -18,7 +18,7 @@ buildPythonApplication rec {
     hash = "sha256-TySgIxBEl2RolndAkEN4vCIDKaI48vrh2ocd+CTn7Ow=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   propagatedBuildInputs = [
     beautifulsoup4
@@ -30,12 +30,12 @@ buildPythonApplication rec {
   ];
 
   passthru.optional-dependencies = {
-    route53 = [ boto3 ];
-    localzone = [ localzone ];
-    softlayer = [ softlayer ];
-    gransy = [ zeep ];
-    ddns = [ dnspython ];
-    oci = [ oci ];
+    route53 = [boto3];
+    localzone = [localzone];
+    softlayer = [softlayer];
+    gransy = [zeep];
+    ddns = [dnspython];
+    oci = [oci];
     full = [
       boto3
       dnspython
@@ -60,13 +60,13 @@ buildPythonApplication rec {
     "lexicon/tests/providers/test_localzone.py"
   ];
 
-  pythonImportsCheck = [ "lexicon" ];
+  pythonImportsCheck = ["lexicon"];
 
   meta = with lib; {
     description = "Manipulate DNS records of various DNS providers in a standardized way";
     homepage = "https://github.com/AnalogJ/lexicon";
     changelog = "https://github.com/AnalogJ/lexicon/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ flyfloh ];
+    maintainers = with maintainers; [flyfloh];
   };
 }

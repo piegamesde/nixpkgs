@@ -65,7 +65,7 @@ stdenv.mkDerivation rec {
   prefixKey = "--prefix ";
   dontDisableStatic = true;
 
-  nativeBuildInputs = [ which ];
+  nativeBuildInputs = [which];
   buildInputs = [
     openssl
     readline

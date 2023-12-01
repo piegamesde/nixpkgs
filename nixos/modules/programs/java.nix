@@ -71,7 +71,7 @@ in
       };
     };
 
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
     environment.shellInit = ''
       test -e ${cfg.package}/nix-support/setup-hook && source ${cfg.package}/nix-support/setup-hook

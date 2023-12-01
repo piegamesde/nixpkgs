@@ -18,12 +18,12 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-aiX+NGUsFK0N9vC5baAHHMr28CbF5Xa4WgYLFFLBYTs=";
 
-  buildInputs = [ libpcap ];
+  buildInputs = [libpcap];
 
   meta = with lib; {
     description = "Tool to collect DNS traffic";
     homepage = "https://github.com/jonpulsifer/dnsmon-go";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

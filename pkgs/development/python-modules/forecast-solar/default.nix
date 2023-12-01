@@ -27,16 +27,16 @@ buildPythonPackage rec {
   propagatedBuildInputs = [
     aiodns
     aiohttp
-  ] ++ lib.optionals (pythonOlder "3.9") [ backports-zoneinfo ];
+  ] ++ lib.optionals (pythonOlder "3.9") [backports-zoneinfo];
 
-  pythonImportsCheck = [ "forecast_solar" ];
+  pythonImportsCheck = ["forecast_solar"];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = with lib; {
     description = "Asynchronous Python client for getting forecast solar information";
     homepage = "https://github.com/home-assistant-libs/forecast_solar";
     license = licenses.mit;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

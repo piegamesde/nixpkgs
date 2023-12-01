@@ -18,16 +18,16 @@ self:
 let
   inherit (self) callPackage;
 
-  buildLuaApplication = args: buildLuarocksPackage ({ namePrefix = ""; } // args);
+  buildLuaApplication = args: buildLuarocksPackage ({namePrefix = "";} // args);
 
   buildLuarocksPackage = lib.makeOverridable (
-    callPackage ../development/interpreters/lua-5/build-lua-package.nix { }
+    callPackage ../development/interpreters/lua-5/build-lua-package.nix {}
   );
 
-  luaLib = callPackage ../development/lua-modules/lib.nix { };
+  luaLib = callPackage ../development/lua-modules/lib.nix {};
 
   #define build lua package function
-  buildLuaPackage = callPackage ../development/lua-modules/generic { };
+  buildLuaPackage = callPackage ../development/lua-modules/generic {};
 
   getPath =
     drv: pathListForVersion: lib.concatMapStringsSep ";" (path: "${drv}/${path}") pathListForVersion;
@@ -43,7 +43,7 @@ rec {
   getLuaPath = drv: getPath drv luaLib.luaPathList;
   getLuaCPath = drv: getPath drv luaLib.luaCPathList;
 
-  inherit (callPackage ../development/interpreters/lua-5/hooks { })
+  inherit (callPackage ../development/interpreters/lua-5/hooks {})
     luarocksMoveDataFolder
     luarocksCheckHook
     lua-setup-hook
@@ -68,15 +68,15 @@ rec {
     inherit (pkgs.buildPackages) makeSetupHook makeWrapper;
   };
 
-  luarocks = callPackage ../development/tools/misc/luarocks/default.nix { };
+  luarocks = callPackage ../development/tools/misc/luarocks/default.nix {};
 
   # a fork of luarocks used to generate nix lua derivations from rockspecs
-  luarocks-nix = callPackage ../development/tools/misc/luarocks/luarocks-nix.nix { };
+  luarocks-nix = callPackage ../development/tools/misc/luarocks/luarocks-nix.nix {};
 
   lua-resty-core =
     callPackage
       (
-        { fetchFromGitHub }:
+        {fetchFromGitHub}:
         buildLuaPackage rec {
           pname = "lua-resty-core";
           version = "0.1.24";
@@ -88,22 +88,22 @@ rec {
             sha256 = "sha256-obwyxHSot1Lb2c1dNqJor3inPou+UIBrqldbkNBCQQk=";
           };
 
-          propagatedBuildInputs = [ lua-resty-lrucache ];
+          propagatedBuildInputs = [lua-resty-lrucache];
 
           meta = with lib; {
             description = "New FFI-based API for lua-nginx-module";
             homepage = "https://github.com/openresty/lua-resty-core";
             license = licenses.bsd3;
-            maintainers = with maintainers; [ SuperSandro2000 ];
+            maintainers = with maintainers; [SuperSandro2000];
           };
         }
       )
-      { };
+      {};
 
   lua-resty-lrucache =
     callPackage
       (
-        { fetchFromGitHub }:
+        {fetchFromGitHub}:
         buildLuaPackage rec {
           pname = "lua-resty-lrucache";
           version = "0.13";
@@ -119,11 +119,11 @@ rec {
             description = "Lua-land LRU Cache based on LuaJIT FFI";
             homepage = "https://github.com/openresty/lua-resty-lrucache";
             license = licenses.bsd3;
-            maintainers = with maintainers; [ SuperSandro2000 ];
+            maintainers = with maintainers; [SuperSandro2000];
           };
         }
       )
-      { };
+      {};
 
   luxio =
     callPackage
@@ -165,12 +165,12 @@ rec {
             description = "Lightweight UNIX I/O and POSIX binding for Lua";
             homepage = "https://www.gitano.org.uk/luxio/";
             license = licenses.mit;
-            maintainers = with maintainers; [ richardipsum ];
+            maintainers = with maintainers; [richardipsum];
             platforms = platforms.unix;
           };
         }
       )
-      { };
+      {};
 
   nfd = callPackage ../development/lua-modules/nfd {
     inherit (pkgs.gnome) zenity;
@@ -180,7 +180,7 @@ rec {
   vicious =
     callPackage
       (
-        { fetchFromGitHub }:
+        {fetchFromGitHub}:
         stdenv.mkDerivation rec {
           pname = "vicious";
           version = "2.6.0";
@@ -192,7 +192,7 @@ rec {
             sha256 = "sha256-VlJ2hNou2+t7eSyHmFkC2xJ92OH/uJ/ewYHkFLQjUPQ=";
           };
 
-          buildInputs = [ lua ];
+          buildInputs = [lua];
 
           installPhase = ''
             mkdir -p $out/lib/lua/${lua.luaversion}/
@@ -214,5 +214,5 @@ rec {
           };
         }
       )
-      { };
+      {};
 }

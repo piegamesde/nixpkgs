@@ -45,7 +45,7 @@ stdenv.mkDerivation rec {
     description = "Small and made-easy HTTP/HTTPS server based on Jef Poskanzer's thttpd";
     homepage = "https://troglobit.com/projects/merecat/";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ fgaz ];
+    maintainers = with maintainers; [fgaz];
     platforms = platforms.all;
     # Strange header and/or linker errors
     broken = stdenv.isDarwin;

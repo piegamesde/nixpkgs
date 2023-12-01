@@ -6,60 +6,58 @@ self: super:
 
 with self;
 with super; {
-  attrs = callPackage ../development/python2-modules/attrs { };
+  attrs = callPackage ../development/python2-modules/attrs {};
 
-  bootstrapped-pip = toPythonModule (callPackage ../development/python2-modules/bootstrapped-pip { });
+  bootstrapped-pip = toPythonModule (callPackage ../development/python2-modules/bootstrapped-pip {});
 
-  cffi = callPackage ../development/python2-modules/cffi { inherit cffi; };
+  cffi = callPackage ../development/python2-modules/cffi {inherit cffi;};
 
-  configparser = callPackage ../development/python2-modules/configparser { };
+  configparser = callPackage ../development/python2-modules/configparser {};
 
-  contextlib2 = callPackage ../development/python2-modules/contextlib2 { };
+  contextlib2 = callPackage ../development/python2-modules/contextlib2 {};
 
-  coverage = callPackage ../development/python2-modules/coverage { };
+  coverage = callPackage ../development/python2-modules/coverage {};
 
-  enum = callPackage ../development/python2-modules/enum { };
+  enum = callPackage ../development/python2-modules/enum {};
 
-  filelock = callPackage ../development/python2-modules/filelock { };
+  filelock = callPackage ../development/python2-modules/filelock {};
 
-  futures = callPackage ../development/python2-modules/futures { };
+  futures = callPackage ../development/python2-modules/futures {};
 
-  hypothesis = callPackage ../development/python2-modules/hypothesis { };
+  hypothesis = callPackage ../development/python2-modules/hypothesis {};
 
-  importlib-metadata = callPackage ../development/python2-modules/importlib-metadata { };
+  importlib-metadata = callPackage ../development/python2-modules/importlib-metadata {};
 
-  jinja2 = callPackage ../development/python2-modules/jinja2 { };
+  jinja2 = callPackage ../development/python2-modules/jinja2 {};
 
-  markupsafe = callPackage ../development/python2-modules/markupsafe { };
+  markupsafe = callPackage ../development/python2-modules/markupsafe {};
 
-  mock = callPackage ../development/python2-modules/mock { };
+  mock = callPackage ../development/python2-modules/mock {};
 
-  more-itertools = callPackage ../development/python2-modules/more-itertools { };
+  more-itertools = callPackage ../development/python2-modules/more-itertools {};
 
-  packaging = callPackage ../development/python2-modules/packaging { };
+  packaging = callPackage ../development/python2-modules/packaging {};
 
-  pip = callPackage ../development/python2-modules/pip { };
+  pip = callPackage ../development/python2-modules/pip {};
 
-  pluggy = callPackage ../development/python2-modules/pluggy { };
+  pluggy = callPackage ../development/python2-modules/pluggy {};
 
-  pycairo = callPackage ../development/python2-modules/pycairo {
-    inherit (pkgs.buildPackages) meson;
-  };
+  pycairo = callPackage ../development/python2-modules/pycairo {inherit (pkgs.buildPackages) meson;};
 
-  pygobject2 = callPackage ../development/python2-modules/pygobject { };
+  pygobject2 = callPackage ../development/python2-modules/pygobject {};
 
-  pygtk = callPackage ../development/python2-modules/pygtk { };
+  pygtk = callPackage ../development/python2-modules/pygtk {};
 
-  pyparsing = callPackage ../development/python2-modules/pyparsing { };
+  pyparsing = callPackage ../development/python2-modules/pyparsing {};
 
   pytest = pytest_4;
 
   pytest_4 = callPackage ../development/python2-modules/pytest {
     # hypothesis tests require pytest that causes dependency cycle
-    hypothesis = self.hypothesis.override { doCheck = false; };
+    hypothesis = self.hypothesis.override {doCheck = false;};
   };
 
-  pytest-xdist = callPackage ../development/python2-modules/pytest-xdist { };
+  pytest-xdist = callPackage ../development/python2-modules/pytest-xdist {};
 
   recoll = disabled super.recoll;
 
@@ -67,15 +65,15 @@ with super; {
 
   rpm = disabled super.rpm;
 
-  scandir = callPackage ../development/python2-modules/scandir { };
+  scandir = callPackage ../development/python2-modules/scandir {};
 
   sequoia = disabled super.sequoia;
 
-  setuptools = callPackage ../development/python2-modules/setuptools { };
+  setuptools = callPackage ../development/python2-modules/setuptools {};
 
-  setuptools-scm = callPackage ../development/python2-modules/setuptools-scm { };
+  setuptools-scm = callPackage ../development/python2-modules/setuptools-scm {};
 
-  typing = callPackage ../development/python2-modules/typing { };
+  typing = callPackage ../development/python2-modules/typing {};
 
   six = super.six.overridePythonAttrs (
     _: {
@@ -83,9 +81,9 @@ with super; {
     }
   );
 
-  wheel = callPackage ../development/python2-modules/wheel { };
+  wheel = callPackage ../development/python2-modules/wheel {};
 
   zeek = disabled super.zeek;
 
-  zipp = callPackage ../development/python2-modules/zipp { };
+  zipp = callPackage ../development/python2-modules/zipp {};
 }

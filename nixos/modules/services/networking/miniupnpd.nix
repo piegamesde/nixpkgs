@@ -77,8 +77,8 @@ in
 
     systemd.services.miniupnpd = {
       description = "MiniUPnP daemon";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         ExecStart = "${pkgs.miniupnpd}/bin/miniupnpd -f ${configFile}";
         PIDFile = "/run/miniupnpd.pid";

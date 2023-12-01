@@ -19,7 +19,7 @@ let
     option = options.services.mirakurun.unixSocket;
   };
 
-  yaml = pkgs.formats.yaml { };
+  yaml = pkgs.formats.yaml {};
   settingsTemplate = yaml.generate "config.yml" cfg.settings;
   preStartScript = pkgs.writeScript "epgstation-prestart" ''
     #!${pkgs.runtimeShell}
@@ -55,19 +55,19 @@ let
     appenders.stdout.type = "stdout";
     categories = {
       default = {
-        appenders = [ "stdout" ];
+        appenders = ["stdout"];
         level = "info";
       };
       system = {
-        appenders = [ "stdout" ];
+        appenders = ["stdout"];
         level = "info";
       };
       access = {
-        appenders = [ "stdout" ];
+        appenders = ["stdout"];
         level = "info";
       };
       stream = {
-        appenders = [ "stdout" ];
+        appenders = ["stdout"];
         level = "info";
       };
     };
@@ -106,13 +106,13 @@ let
       instruction;
 in
 {
-  meta.maintainers = with lib.maintainers; [ midchildan ];
+  meta.maintainers = with lib.maintainers; [midchildan];
 
   imports = [
-    (deprecateTopLevelOption [ "port" ])
-    (deprecateTopLevelOption [ "socketioPort" ])
-    (deprecateTopLevelOption [ "clientSocketioPort" ])
-    (removeOption [ "basicAuth" ] "Use a TLS-terminated reverse proxy with authentication instead.")
+    (deprecateTopLevelOption ["port"])
+    (deprecateTopLevelOption ["socketioPort"])
+    (deprecateTopLevelOption ["clientSocketioPort"])
+    (removeOption ["basicAuth"] "Use a TLS-terminated reverse proxy with authentication instead.")
   ];
 
   options.services.epgstation = {
@@ -187,7 +187,7 @@ in
         <https://github.com/l3tnun/EPGStation/blob/master/doc/conf-manual.md>
       '';
 
-      default = { };
+      default = {};
       example = {
         recPriority = 20;
         conflictPriority = 10;
@@ -229,7 +229,7 @@ in
           with mirakurun;
           lib.mkOption {
             type = lib.types.str;
-            default = "http+unix://${lib.replaceStrings [ "/" ] [ "%2F" ] sock}";
+            default = "http+unix://${lib.replaceStrings ["/"] ["%2F"] sock}";
             defaultText = lib.literalExpression ''
               "http+unix://''${lib.replaceStrings ["/"] ["%2F"] config.${option}}"
             '';
@@ -309,14 +309,14 @@ in
       isSystemUser = true;
     };
 
-    users.groups.epgstation = { };
+    users.groups.epgstation = {};
 
     services.mirakurun.enable = lib.mkDefault true;
 
     services.mysql = {
       enable = lib.mkDefault true;
       package = lib.mkDefault pkgs.mariadb;
-      ensureDatabases = [ cfg.database.name ];
+      ensureDatabases = [cfg.database.name];
       # FIXME: enable once mysqljs supports auth_socket
       # ensureUsers = [ {
       #   name = username;
@@ -356,9 +356,9 @@ in
     systemd.services.epgstation = {
       inherit description;
 
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       after =
-        [ "network.target" ]
+        ["network.target"]
         ++ lib.optional config.services.mirakurun.enable "mirakurun.service"
         ++ lib.optional config.services.mysql.enable "mysql.service";
 

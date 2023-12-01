@@ -24,16 +24,16 @@ buildPythonPackage rec {
     hash = "sha256-Zu7/zx3FTVJVGpAdRDdnLBokeodspZg6ou/GBaqz4XY=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
-  propagatedBuildInputs = [ click ];
+  propagatedBuildInputs = [click];
 
   nativeCheckInputs = [
     pytestCheckHook
     jsonschema
   ];
 
-  pythonImportsCheck = [ "archspec" ];
+  pythonImportsCheck = ["archspec"];
 
   meta = with lib; {
     description = "Library for detecting, labeling, and reasoning about microarchitectures";
@@ -43,6 +43,6 @@ buildPythonPackage rec {
       mit
       asl20
     ];
-    maintainers = with maintainers; [ atila ];
+    maintainers = with maintainers; [atila];
   };
 }

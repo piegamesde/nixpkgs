@@ -31,6 +31,6 @@ stdenv.mkDerivation rec {
     license = lib.licenses.free;
 
     platforms = lib.platforms.unix;
-    maintainers = [ lib.maintainers.olejorgenb ];
+    maintainers = [lib.maintainers.olejorgenb];
   };
 }

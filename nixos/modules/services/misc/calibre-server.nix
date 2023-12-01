@@ -37,7 +37,7 @@ in
               ]
               config;
         in
-        [ libraryDir ]
+        [libraryDir]
       )
     )
   ];
@@ -76,8 +76,8 @@ in
 
     systemd.services.calibre-server = {
       description = "Calibre Server";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         User = cfg.user;
         Restart = "always";
@@ -85,7 +85,7 @@ in
       };
     };
 
-    environment.systemPackages = [ pkgs.calibre ];
+    environment.systemPackages = [pkgs.calibre];
 
     users.users = optionalAttrs (cfg.user == "calibre-server") {
       calibre-server = {

@@ -40,7 +40,7 @@ buildPythonPackage rec {
     "test_exec_worker"
   ];
 
-  pythonImportsCheck = [ "daemonocle" ];
+  pythonImportsCheck = ["daemonocle"];
 
   meta = with lib; {
     description = "A Python library for creating super fancy Unix daemons";
@@ -52,7 +52,7 @@ buildPythonPackage rec {
     '';
     homepage = "https://github.com/jnrbsn/daemonocle";
     license = licenses.mit;
-    maintainers = with maintainers; [ AluisioASG ];
+    maintainers = with maintainers; [AluisioASG];
     platforms = platforms.unix;
   };
 }

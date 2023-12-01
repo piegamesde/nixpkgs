@@ -20,7 +20,7 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-V7bT1uwSk9IW5rhKHW+6yHv+o+H3w7O/yuRpPDrcFic=";
 
-  buildInputs = lib.optionals stdenv.isDarwin [ Security ];
+  buildInputs = lib.optionals stdenv.isDarwin [Security];
 
   passthru.tests = {
     inherit (nixosTests) libreddit;
@@ -30,7 +30,7 @@ rustPlatform.buildRustPackage rec {
     description = "Private front-end for Reddit";
     homepage = "https://github.com/libreddit/libreddit";
     changelog = "https://github.com/libreddit/libreddit/releases/tag/v${version}";
-    license = with licenses; [ agpl3Only ];
+    license = with licenses; [agpl3Only];
     maintainers = with maintainers; [
       fab
       jojosch

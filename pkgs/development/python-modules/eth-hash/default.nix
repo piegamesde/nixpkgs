@@ -31,14 +31,14 @@ buildPythonPackage rec {
   '';
 
   passthru.optional-dependencies = {
-    pycryptodome = [ pycryptodome ];
-    pysha3 = if pythonOlder "3.9" then [ pysha3 ] else [ safe-pysha3 ];
+    pycryptodome = [pycryptodome];
+    pysha3 = if pythonOlder "3.9" then [pysha3] else [safe-pysha3];
   };
 
   meta = with lib; {
     description = "The Ethereum hashing function keccak256";
     homepage = "https://github.com/ethereum/eth-hash";
     license = licenses.mit;
-    maintainers = with maintainers; [ SuperSandro2000 ];
+    maintainers = with maintainers; [SuperSandro2000];
   };
 }

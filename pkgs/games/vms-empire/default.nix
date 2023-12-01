@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-XETIbt/qVU+TpamPc2WQynqqUuZqkTUnItBprjg+gPk=";
   };
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
   buildInputs = [
     ncurses
     xmlto
@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   meta = with lib; {
     homepage = "http://catb.org/~esr/vms-empire/";
@@ -56,7 +56,7 @@ stdenv.mkDerivation rec {
       Master of Orion.
     '';
     license = licenses.gpl2Only;
-    maintainers = [ maintainers.AndersonTorres ];
+    maintainers = [maintainers.AndersonTorres];
     platforms = platforms.unix;
   };
 }

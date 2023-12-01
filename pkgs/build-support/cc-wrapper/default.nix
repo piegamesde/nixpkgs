@@ -20,15 +20,15 @@
   nativeLibc,
   nativePrefix ? "",
   propagateDoc ? cc != null && cc ? man,
-  extraTools ? [ ],
-  extraPackages ? [ ],
+  extraTools ? [],
+  extraPackages ? [],
   extraBuildCommands ? "",
-  nixSupport ? { },
+  nixSupport ? {},
   isGNU ? false,
   isClang ? cc.isClang or false,
   isCcache ? cc.isCcache or false,
   gnugrep ? null,
-  buildPackages ? { },
+  buildPackages ? {},
   libcxx ? null,
 
   # Whether or not to add `-B` and `-L` to `nix-support/cc-{c,ld}flags`
@@ -119,7 +119,7 @@ let
 
   expand-response-params =
     lib.optionalString ((buildPackages.stdenv.hasCC or false) && buildPackages.stdenv.cc != "/dev/null")
-      (import ../expand-response-params { inherit (buildPackages) stdenv; });
+      (import ../expand-response-params {inherit (buildPackages) stdenv;});
 
   useGccForLibs =
     useCcForLibs
@@ -198,7 +198,7 @@ stdenv.mkDerivation {
   preferLocalBuild = true;
 
   outputs =
-    [ "out" ]
+    ["out"]
     ++ optionals propagateDoc [
       "man"
       "info"
@@ -353,11 +353,11 @@ stdenv.mkDerivation {
     '';
 
   strictDeps = true;
-  propagatedBuildInputs = [ bintools ] ++ extraTools ++ optionals cc.langD or false [ zlib ];
+  propagatedBuildInputs = [bintools] ++ extraTools ++ optionals cc.langD or false [zlib];
   depsTargetTargetPropagated = optional (libcxx != null) libcxx ++ extraPackages;
 
   setupHooks =
-    [ ../setup-hooks/role.bash ]
+    [../setup-hooks/role.bash]
     ++ lib.optional (cc.langC or true) ./setup-hook.sh
     ++ lib.optional (cc.langFortran or false) ./fortran-hook.sh;
 
@@ -550,7 +550,7 @@ stdenv.mkDerivation {
     ##
     + ''
       export hardening_unsupported_flags="${
-        builtins.concatStringsSep " " (cc.hardeningUnsupportedFlags or [ ])
+        builtins.concatStringsSep " " (cc.hardeningUnsupportedFlags or [])
       }"
     ''
 
@@ -702,9 +702,9 @@ stdenv.mkDerivation {
 
   meta =
     let
-      cc_ = if cc != null then cc else { };
+      cc_ = if cc != null then cc else {};
     in
-    (if cc_ ? meta then removeAttrs cc.meta [ "priority" ] else { })
+    (if cc_ ? meta then removeAttrs cc.meta ["priority"] else {})
     // {
       description =
         lib.attrByPath

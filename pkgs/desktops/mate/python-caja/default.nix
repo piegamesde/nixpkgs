@@ -32,16 +32,16 @@ stdenv.mkDerivation rec {
     python3Packages.pygobject3
   ];
 
-  configureFlags = [ "--with-cajadir=$$out/lib/caja/extensions-2.0" ];
+  configureFlags = ["--with-cajadir=$$out/lib/caja/extensions-2.0"];
 
   enableParallelBuilding = true;
 
-  passthru.updateScript = mateUpdateScript { inherit pname; };
+  passthru.updateScript = mateUpdateScript {inherit pname;};
 
   meta = with lib; {
     description = "Python binding for Caja components";
     homepage = "https://github.com/mate-desktop/python-caja";
-    license = [ licenses.gpl2Plus ];
+    license = [licenses.gpl2Plus];
     platforms = platforms.unix;
     maintainers = teams.mate.members;
   };

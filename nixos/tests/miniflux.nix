@@ -1,5 +1,5 @@
 import ./make-test-python.nix (
-  { pkgs, lib, ... }:
+  {pkgs, lib, ...}:
 
   let
     port = 3142;
@@ -19,11 +19,11 @@ import ./make-test-python.nix (
   in
   with lib; {
     name = "miniflux";
-    meta.maintainers = with pkgs.lib.maintainers; [ ];
+    meta.maintainers = with pkgs.lib.maintainers; [];
 
     nodes = {
       default =
-        { ... }:
+        {...}:
         {
           services.miniflux = {
             enable = true;
@@ -32,7 +32,7 @@ import ./make-test-python.nix (
         };
 
       withoutSudo =
-        { ... }:
+        {...}:
         {
           services.miniflux = {
             enable = true;
@@ -42,7 +42,7 @@ import ./make-test-python.nix (
         };
 
       customized =
-        { ... }:
+        {...}:
         {
           services.miniflux = {
             enable = true;

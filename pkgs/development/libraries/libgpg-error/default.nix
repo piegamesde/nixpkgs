@@ -18,7 +18,7 @@ let
       install -m755 gen-posix-lock-obj $out/bin
     '';
 
-    outputs = [ "out" ];
+    outputs = ["out"];
     outputBin = "out";
   };
 in
@@ -51,8 +51,8 @@ stdenv.mkDerivation (
 
     # If architecture-dependent MO files aren't available, they're generated
     # during build, so we need gettext for cross-builds.
-    depsBuildBuild = [ buildPackages.stdenv.cc ];
-    nativeBuildInputs = [ gettext ];
+    depsBuildBuild = [buildPackages.stdenv.cc];
+    nativeBuildInputs = [gettext];
 
     postConfigure =
       # For some reason, /bin/sh on OpenIndiana leads to this at the end of the
@@ -87,7 +87,7 @@ stdenv.mkDerivation (
 
       license = licenses.lgpl2Plus;
       platforms = platforms.all;
-      maintainers = [ maintainers.vrthra ];
+      maintainers = [maintainers.vrthra];
     };
   }
   // genPosixLockObjOnlyAttrs

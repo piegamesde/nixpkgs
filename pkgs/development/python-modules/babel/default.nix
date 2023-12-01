@@ -24,7 +24,7 @@ buildPythonPackage rec {
     hash = "sha256-zC2ZmZzQHURCCuclohyeNxGzqtx5dtYUf2IthYGWNFU=";
   };
 
-  propagatedBuildInputs = lib.optionals (pythonOlder "3.9") [ pytz ];
+  propagatedBuildInputs = lib.optionals (pythonOlder "3.9") [pytz];
 
   # including backports.zoneinfo for python<3.9 yields infinite recursion
   doCheck = pythonAtLeast "3.9";
@@ -49,6 +49,6 @@ buildPythonPackage rec {
     changelog = "https://github.com/python-babel/babel/releases/tag/v${version}";
     description = "Collection of internationalizing tools";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ SuperSandro2000 ];
+    maintainers = with maintainers; [SuperSandro2000];
   };
 }

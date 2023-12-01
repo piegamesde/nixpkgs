@@ -86,8 +86,8 @@ rustPlatform.buildRustPackage rec {
     };
   };
 
-  cargoBuildFlags = [ "--features=ffmpeg-system" ];
-  cargoTestFlags = [ "--features=ffmpeg-system" ];
+  cargoBuildFlags = ["--features=ffmpeg-system"];
+  cargoTestFlags = ["--features=ffmpeg-system"];
 
   postFixup =
     let
@@ -108,7 +108,7 @@ rustPlatform.buildRustPackage rec {
     broken = stdenv.isDarwin;
     description = "Use your tablet as graphic tablet/touch screen on your computer";
     homepage = "https://github.com/H-M-H/Weylus";
-    license = with licenses; [ agpl3Only ];
-    maintainers = with maintainers; [ lom ];
+    license = with licenses; [agpl3Only];
+    maintainers = with maintainers; [lom];
   };
 }

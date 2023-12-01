@@ -26,6 +26,6 @@ buildGoModule rec {
     description = "Prometheus exporter for the bird routing daemon";
     homepage = "https://github.com/czerwonk/bird_exporter";
     license = licenses.mit;
-    maintainers = with maintainers; [ lukegb ];
+    maintainers = with maintainers; [lukegb];
   };
 }

@@ -107,9 +107,9 @@ mkDerivation {
       libplist
       usbmuxd
     ]
-    ++ lib.optionals (withMTP) [ libmtp ]
-    ++ lib.optionals (withCD) [ libcdio ]
-    ++ lib.optionals (withCloud) [ sparsehash ];
+    ++ lib.optionals (withMTP) [libmtp]
+    ++ lib.optionals (withCD) [libcdio]
+    ++ lib.optionals (withCloud) [sparsehash];
 
   postPatch = ''
     sed -i src/CMakeLists.txt \
@@ -139,6 +139,6 @@ mkDerivation {
     description = "A multiplatform music player";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    maintainers = [ maintainers.ttuegel ];
+    maintainers = [maintainers.ttuegel];
   };
 }

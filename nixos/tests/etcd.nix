@@ -1,14 +1,14 @@
 # This test runs simple etcd node
 
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   {
     name = "etcd";
 
-    meta = with pkgs.lib.maintainers; { maintainers = [ offline ]; };
+    meta = with pkgs.lib.maintainers; {maintainers = [offline];};
 
     nodes = {
-      node = { ... }: { services.etcd.enable = true; };
+      node = {...}: {services.etcd.enable = true;};
     };
 
     testScript = ''

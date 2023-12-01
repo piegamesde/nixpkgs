@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
     description = "input method development support for xcb";
     homepage = "https://github.com/fcitx/xcb-imdkit";
     license = licenses.lgpl21Plus;
-    maintainers = with maintainers; [ poscat ];
+    maintainers = with maintainers; [poscat];
     platforms = platforms.linux;
   };
 }

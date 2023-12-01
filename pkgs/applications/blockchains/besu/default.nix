@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-PTpwmjqrmToIAbQSpHGddOMZ+ULdwT+w8ws8SlTRJTg=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     mkdir -p $out/bin
@@ -29,8 +29,8 @@ stdenv.mkDerivation rec {
     description = "An enterprise-grade Java-based, Apache 2.0 licensed Ethereum client";
     homepage = "https://www.hyperledger.org/projects/besu";
     license = licenses.asl20;
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with sourceTypes; [binaryBytecode];
     platforms = platforms.all;
-    maintainers = with maintainers; [ mmahut ];
+    maintainers = with maintainers; [mmahut];
   };
 }

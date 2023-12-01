@@ -34,6 +34,6 @@ buildGoModule rec {
     description = "The Transifex command-line client";
     homepage = "https://github.com/transifex/transifex-cli";
     license = licenses.asl20;
-    maintainers = with maintainers; [ thornycrackers ];
+    maintainers = with maintainers; [thornycrackers];
   };
 }

@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "cl-prevalence";
   version = "20210531-git";
@@ -23,7 +23,7 @@ rec {
 
   packageName = "cl-prevalence";
 
-  asdFilesToKeep = [ "cl-prevalence.asd" ];
+  asdFilesToKeep = ["cl-prevalence.asd"];
   overrides = x: x;
 }
 /* (SYSTEM cl-prevalence DESCRIPTION Common Lisp Prevalence Package SHA256

@@ -21,8 +21,8 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-j+lW9WFdjwIlP24/GUZsezyMf7/31XTfkuY2WGLdaeA=";
   };
 
-  nativeBuildInputs = [ build2 ];
-  build2ConfigureFlags = [ "config.bin.lib=${build2.configSharedStatic enableShared enableStatic}" ];
+  nativeBuildInputs = [build2];
+  build2ConfigureFlags = ["config.bin.lib=${build2.configSharedStatic enableShared enableStatic}"];
 
   doCheck = true;
 
@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
     homepage = "https://www.codesynthesis.com/products/odb/";
     changelog = "https://git.codesynthesis.com/cgit/odb/libodb/tree/NEWS";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ r-burns ];
+    maintainers = with maintainers; [r-burns];
     platforms = platforms.all;
   };
 }

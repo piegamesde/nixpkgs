@@ -26,7 +26,7 @@ buildGoModule rec {
 
   meta = with lib; {
     mainProgram = "act_runner";
-    maintainers = with maintainers; [ techknowlogick ];
+    maintainers = with maintainers; [techknowlogick];
     license = licenses.mit;
     changelog = "https://gitea.com/gitea/act_runner/releases/tag/v${version}";
     homepage = "https://gitea.com/gitea/act_runner";

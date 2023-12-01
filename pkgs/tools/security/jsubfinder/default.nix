@@ -21,6 +21,6 @@ buildGoModule rec {
     description = "Tool to search for in Javascript hidden subdomains and secrets";
     homepage = "https://github.com/ThreatUnkown/jsubfinder";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -1,14 +1,14 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "anaphora";
   version = "20211209-git";
 
-  parasites = [ "anaphora/test" ];
+  parasites = ["anaphora/test"];
 
   description = "The Anaphoric Macro Package from Hell";
 
-  deps = [ args."rt" ];
+  deps = [args."rt"];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/anaphora/2021-12-09/anaphora-20211209-git.tgz";
@@ -17,7 +17,7 @@ rec {
 
   packageName = "anaphora";
 
-  asdFilesToKeep = [ "anaphora.asd" ];
+  asdFilesToKeep = ["anaphora.asd"];
   overrides = x: x;
 }
 /* (SYSTEM anaphora DESCRIPTION The Anaphoric Macro Package from Hell SHA256

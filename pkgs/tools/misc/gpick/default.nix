@@ -49,7 +49,7 @@ stdenv.mkDerivation rec {
     description = "Advanced color picker written in C++ using GTK+ toolkit";
     homepage = "http://www.gpick.org/";
     license = licenses.bsd3;
-    maintainers = [ maintainers.vanilla ];
+    maintainers = [maintainers.vanilla];
     platforms = platforms.linux;
   };
 }

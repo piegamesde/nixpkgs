@@ -44,6 +44,6 @@ stdenv.mkDerivation rec {
     license = licenses.bsd3;
     homepage = "https://blogc.rgm.io";
     platforms = platforms.unix;
-    maintainers = with maintainers; [ sikmir ];
+    maintainers = with maintainers; [sikmir];
   };
 }

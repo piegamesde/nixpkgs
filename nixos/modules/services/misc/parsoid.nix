@@ -23,7 +23,7 @@ let
         module = "lib/index.js";
         entrypoint = "apiServiceWorker";
         conf = {
-          mwApis = map (x: if isAttrs x then x else { uri = x; }) cfg.wikis;
+          mwApis = map (x: if isAttrs x then x else {uri = x;}) cfg.wikis;
           serverInterface = cfg.interface;
           serverPort = cfg.port;
         };
@@ -62,7 +62,7 @@ in
 
       wikis = mkOption {
         type = types.listOf (types.either types.str types.attrs);
-        example = [ "http://localhost/api.php" ];
+        example = ["http://localhost/api.php"];
         description = lib.mdDoc ''
           Used MediaWiki API endpoints.
         '';
@@ -94,7 +94,7 @@ in
 
       extraConfig = mkOption {
         type = types.attrs;
-        default = { };
+        default = {};
         description = lib.mdDoc ''
           Extra configuration to add to parsoid configuration.
         '';
@@ -108,8 +108,8 @@ in
 
     systemd.services.parsoid = {
       description = "Bidirectional wikitext parser";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
       serviceConfig = {
         ExecStart = "${parsoid}/lib/node_modules/parsoid/bin/server.js -c ${confFile} -n ${toString cfg.workers}";
 

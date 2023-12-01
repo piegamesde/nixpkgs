@@ -8,7 +8,7 @@ build-idris-package {
   pname = "farrp";
   version = "2018-02-13";
 
-  idrisDeps = [ effects ];
+  idrisDeps = [effects];
 
   src = fetchFromGitHub {
     owner = "lambda-11235";
@@ -21,6 +21,6 @@ build-idris-package {
     description = "Arrowized FRP library for Idris with static safety guarantees";
     homepage = "https://github.com/lambda-11235/FarRP";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.brainrape ];
+    maintainers = [lib.maintainers.brainrape];
   };
 }

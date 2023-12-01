@@ -9,7 +9,7 @@ with lib;
 
 let
   cfg = config.services.mackerel-agent;
-  settingsFmt = pkgs.formats.toml { };
+  settingsFmt = pkgs.formats.toml {};
 in
 {
   options.services.mackerel-agent = {
@@ -44,7 +44,7 @@ in
         <https://mackerel.io/docs/entry/spec/agent>
       '';
 
-      default = { };
+      default = {};
       example = {
         verbose = false;
         silent = false;
@@ -82,7 +82,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = with pkgs; [ mackerel-agent ];
+    environment.systemPackages = with pkgs; [mackerel-agent];
 
     environment.etc = {
       "mackerel-agent/mackerel-agent.conf".source = settingsFmt.generate "mackerel-agent.conf" cfg.settings;
@@ -104,7 +104,7 @@ in
         "network-online.target"
         "nss-lookup.target"
       ];
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       environment = {
         MACKEREL_PLUGIN_WORKDIR = mkDefault "%C/mackerel-agent";
       };
@@ -121,7 +121,7 @@ in
         LimitNOFILE = mkDefault 65536;
         LimitNPROC = mkDefault 65536;
       };
-      restartTriggers = [ config.environment.etc."mackerel-agent/mackerel-agent.conf".source ];
+      restartTriggers = [config.environment.etc."mackerel-agent/mackerel-agent.conf".source];
     };
   };
 }

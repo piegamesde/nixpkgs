@@ -27,12 +27,12 @@ buildPythonPackage rec {
   # Project has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "mypy_boto3_s3" ];
+  pythonImportsCheck = ["mypy_boto3_s3"];
 
   meta = with lib; {
     description = "Type annotations for boto3.s3";
     homepage = "https://github.com/youtype/mypy_boto3_builder";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

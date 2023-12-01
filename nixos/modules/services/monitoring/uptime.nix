@@ -19,7 +19,7 @@ let
   cfg = config.services.uptime;
   opt = options.services.uptime;
 
-  configDir = pkgs.runCommand "config" { preferLocalBuild = true; } (
+  configDir = pkgs.runCommand "config" {preferLocalBuild = true;} (
     if cfg.configFile != null then
       ''
         mkdir $out
@@ -90,7 +90,7 @@ in
     (mkIf cfg.enableWebService {
       systemd.services.uptime = {
         description = "uptime web service";
-        wantedBy = [ "multi-user.target" ];
+        wantedBy = ["multi-user.target"];
         environment = {
           NODE_CONFIG_DIR = configDir;
           NODE_ENV = cfg.nodeEnv;
@@ -105,7 +105,7 @@ in
     (mkIf cfg.enableSeparateMonitoringService {
       systemd.services.uptime-monitor = {
         description = "uptime monitoring service";
-        wantedBy = [ "multi-user.target" ];
+        wantedBy = ["multi-user.target"];
         requires = optional cfg.enableWebService "uptime.service";
         after = optional cfg.enableWebService "uptime.service";
         environment = {

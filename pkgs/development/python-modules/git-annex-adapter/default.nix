@@ -60,12 +60,12 @@ buildPythonPackage rec {
   checkPhase = ''
     ${python.interpreter} -m unittest
   '';
-  pythonImportsCheck = [ "git_annex_adapter" ];
+  pythonImportsCheck = ["git_annex_adapter"];
 
   meta = with lib; {
     homepage = "https://github.com/alpernebbi/git-annex-adapter";
     description = "Call git-annex commands from Python";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

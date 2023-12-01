@@ -110,7 +110,7 @@ buildDotnetModule rec {
     glew
   ];
 
-  executables = [ "SS14.Launcher" ];
+  executables = ["SS14.Launcher"];
 
   desktopItems = [
     (makeDesktopItem {
@@ -119,7 +119,7 @@ buildDotnetModule rec {
       icon = pname;
       desktopName = "Space Station 14 Launcher";
       comment = meta.description;
-      categories = [ "Game" ];
+      categories = ["Game"];
       startupWMClass = meta.mainProgram;
     })
   ];
@@ -141,8 +141,8 @@ buildDotnetModule rec {
     description = "Launcher for Space Station 14, a multiplayer game about paranoia and disaster";
     homepage = "https://spacestation14.io";
     license = licenses.mit;
-    maintainers = [ maintainers.zumorica ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = [maintainers.zumorica];
+    platforms = ["x86_64-linux"];
     mainProgram = "SS14.Launcher";
   };
 }

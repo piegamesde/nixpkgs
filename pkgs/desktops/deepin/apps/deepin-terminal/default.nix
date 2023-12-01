@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-pRTdvR3hyiJVpi38Ex58X74ns+rSWuytsOXemvdW1Rk=";
   };
 
-  cmakeFlags = [ "-DVERSION=${version}" ];
+  cmakeFlags = ["-DVERSION=${version}"];
 
   nativeBuildInputs = [
     cmake

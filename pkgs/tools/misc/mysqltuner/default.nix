@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
       --replace '/usr/share' "$out/share"
   '';
 
-  buildInputs = [ perl ];
+  buildInputs = [perl];
 
   installPhase = ''
     runHook preInstall

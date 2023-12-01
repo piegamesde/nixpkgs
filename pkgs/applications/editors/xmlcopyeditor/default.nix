@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-6HHKl7hqyvF3gJ9vmjLjTT49prJ8KhEEV0qPsJfQfJE=";
   };
 
-  patches = [ ./xmlcopyeditor.patch ];
+  patches = [./xmlcopyeditor.patch];
 
   nativeBuildInputs = [
     intltool
@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
     pcre2
     wxGTK32
     xercesc
-  ] ++ lib.optionals stdenv.isDarwin [ Cocoa ];
+  ] ++ lib.optionals stdenv.isDarwin [Cocoa];
 
   enableParallelBuilding = true;
 

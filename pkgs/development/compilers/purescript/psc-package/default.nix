@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
     gmp
     zlib
   ];
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   libPath = lib.makeLibraryPath buildInputs;
 
@@ -70,7 +70,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "A package manager for PureScript based on package sets";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ Profpatsch ];
+    maintainers = with maintainers; [Profpatsch];
     platforms = [
       "x86_64-darwin"
       "x86_64-linux"

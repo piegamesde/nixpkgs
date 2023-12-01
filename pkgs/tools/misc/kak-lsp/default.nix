@@ -32,6 +32,6 @@ rustPlatform.buildRustPackage rec {
       unlicense # or
       mit
     ];
-    maintainers = [ maintainers.spacekookie ];
+    maintainers = [maintainers.spacekookie];
   };
 }

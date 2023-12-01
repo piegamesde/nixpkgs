@@ -65,7 +65,7 @@ mkDerivation {
   homepage = "https://github.com/hasura/graphql-parser-hs";
   description = "A native Haskell GraphQL parser";
   license = lib.licenses.bsd3;
-  maintainers = with lib.maintainers; [ lassulus ];
+  maintainers = with lib.maintainers; [lassulus];
 
   # Needs to be updated for aeson-2.0
   # https://github.com/hasura/graphql-engine/issues/8369

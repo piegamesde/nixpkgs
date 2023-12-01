@@ -18,7 +18,7 @@ let
     ${pkgs.lsof}/bin/lsof | ${pkgs.gnugrep}/bin/grep $MNTPT | ${pkgs.gawk}/bin/awk '{print $2}' | ${pkgs.findutils}/bin/xargs ${pkgs.util-linux}/bin/kill -$SIGNAL
   '';
 
-  anyPamMount = any (attrByPath [ "pamMount" ] false) (attrValues config.security.pam.services);
+  anyPamMount = any (attrByPath ["pamMount"] false) (attrValues config.security.pam.services);
 in
 
 {
@@ -35,7 +35,7 @@ in
 
       extraVolumes = mkOption {
         type = types.listOf types.str;
-        default = [ ];
+        default = [];
         description = lib.mdDoc ''
           List of volume definitions for pam_mount.
           For more information, visit <http://pam-mount.sourceforge.net/pam_mount.conf.5.html>.
@@ -44,7 +44,7 @@ in
 
       additionalSearchPaths = mkOption {
         type = types.listOf types.package;
-        default = [ ];
+        default = [];
         example = literalExpression "[ pkgs.bindfs ]";
         description = lib.mdDoc ''
           Additional programs to include in the search path of pam_mount.
@@ -54,7 +54,7 @@ in
 
       fuseMountOptions = mkOption {
         type = types.listOf types.str;
-        default = [ ];
+        default = [];
         example = literalExpression ''
           [ "nodev" "nosuid" "force-user=%(USER)" "gid=%(USERGID)" "perms=0700" "chmod-deny" "chown-deny" "chgrp-deny" ]
         '';
@@ -131,12 +131,12 @@ in
 
   config = mkIf (cfg.enable || anyPamMount) {
 
-    environment.systemPackages = [ pkgs.pam_mount ];
+    environment.systemPackages = [pkgs.pam_mount];
     environment.etc."security/pam_mount.conf.xml" = {
       source =
         let
           extraUserVolumes =
-            filterAttrs (n: u: u.cryptHomeLuks != null || u.pamMount != { })
+            filterAttrs (n: u: u.cryptHomeLuks != null || u.pamMount != {})
               config.users.users;
           mkAttr = k: v: ''${k}="${v}"'';
           userVolumeEntry =
@@ -163,14 +163,14 @@ in
             if cfg.logoutTerm then "yes" else "no"
           }" kill="${if cfg.logoutKill then "yes" else "no"}" />
           <!-- set PATH variable for pam_mount module -->
-          <path>${makeBinPath ([ pkgs.util-linux ] ++ cfg.additionalSearchPaths)}</path>
+          <path>${makeBinPath ([pkgs.util-linux] ++ cfg.additionalSearchPaths)}</path>
           <!-- create mount point if not present -->
           <mkmountpoint enable="${if cfg.createMountPoints then "1" else "0"}" remove="${
             if cfg.removeCreatedMountPoints then "true" else "false"
           }" />
           <!-- specify the binaries to be called -->
           <fusemount>${pkgs.fuse}/bin/mount.fuse %(VOLUME) %(MNTPT) -o ${
-            concatStringsSep "," (cfg.fuseMountOptions ++ [ "%(OPTIONS)" ])
+            concatStringsSep "," (cfg.fuseMountOptions ++ ["%(OPTIONS)"])
           }</fusemount>
           <fuseumount>${pkgs.fuse}/bin/fusermount -u %(MNTPT)</fuseumount>
           <cryptmount>${pkgs.pam_mount}/bin/mount.crypt %(VOLUME) %(MNTPT)</cryptmount>

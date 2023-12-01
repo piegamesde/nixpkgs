@@ -19,7 +19,7 @@ buildDunePackage rec {
 
   duneVersion = "3";
 
-  nativeBuildInputs = [ ocaml-crunch ];
+  nativeBuildInputs = [ocaml-crunch];
   propagatedBuildInputs = [
     astring
     cohttp

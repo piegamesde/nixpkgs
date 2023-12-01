@@ -51,7 +51,7 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  depsBuildBuild = [ pkg-config ];
+  depsBuildBuild = [pkg-config];
 
   nativeBuildInputs = [
     meson
@@ -78,7 +78,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "A library to create panels and other desktop components for Wayland using the Layer Shell protocol";
     license = licenses.lgpl3Plus;
-    maintainers = with maintainers; [ eonpatapon ];
+    maintainers = with maintainers; [eonpatapon];
     platforms = platforms.linux;
   };
 }

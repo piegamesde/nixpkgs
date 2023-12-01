@@ -34,7 +34,7 @@ buildPythonPackage rec {
     sed -i '/setup(/a \     version="${version}",' setup.py
   '';
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
   propagatedBuildInputs = [
     fonttools
@@ -62,13 +62,13 @@ buildPythonPackage rec {
   ];
 
   passthru.tests = {
-    fullTestsuite = psautohint.override { runAllTests = true; };
+    fullTestsuite = psautohint.override {runAllTests = true;};
   };
 
   meta = with lib; {
     description = "Script to normalize the XML and other data inside of a UFO";
     homepage = "https://github.com/adobe-type-tools/psautohint";
     license = licenses.bsd3;
-    maintainers = [ maintainers.sternenseemann ];
+    maintainers = [maintainers.sternenseemann];
   };
 }

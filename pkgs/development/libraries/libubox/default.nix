@@ -30,9 +30,7 @@ stdenv.mkDerivation {
     cmake
     pkg-config
   ];
-  buildInputs = [
-    json_c
-  ] ++ lib.optional with_lua lua5_1 ++ lib.optional with_ustream_ssl ustream-ssl;
+  buildInputs = [json_c] ++ lib.optional with_lua lua5_1 ++ lib.optional with_ustream_ssl ustream-ssl;
 
   postInstall = lib.optionalString with_ustream_ssl ''
     for fin in $(find ${ustream-ssl} -type f); do
@@ -45,7 +43,7 @@ stdenv.mkDerivation {
     description = "C utility functions for OpenWrt";
     homepage = "https://git.openwrt.org/?p=project/libubox.git;a=summary";
     license = licenses.isc;
-    maintainers = with maintainers; [ fpletz ];
+    maintainers = with maintainers; [fpletz];
     mainProgram = "jshn";
     platforms = platforms.all;
   };

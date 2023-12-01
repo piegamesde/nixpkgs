@@ -49,7 +49,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-WybWWyRPreokjUAdWfZ2MUjgZhF1GTncpbLajQ3rh0E=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   dontBuild = true;
 
@@ -86,7 +86,7 @@ stdenv.mkDerivation rec {
     description = "Tool to create a Debian system in a chroot";
     homepage = "https://wiki.debian.org/Debootstrap";
     license = licenses.mit;
-    maintainers = with maintainers; [ marcweber ];
+    maintainers = with maintainers; [marcweber];
     platforms = platforms.linux;
   };
 }

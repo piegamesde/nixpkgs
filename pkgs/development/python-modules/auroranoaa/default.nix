@@ -18,16 +18,16 @@ buildPythonPackage rec {
     hash = "sha256-ho0O5aEHCKaTuWh2eW2kY5a7dVGIGBLm4nKxAMq0bZ4=";
   };
 
-  propagatedBuildInputs = [ aiohttp ];
+  propagatedBuildInputs = [aiohttp];
 
   # Project has no tests
   doCheck = false;
-  pythonImportsCheck = [ "auroranoaa" ];
+  pythonImportsCheck = ["auroranoaa"];
 
   meta = with lib; {
     description = "Python wrapper for the Aurora API";
     homepage = "https://github.com/djtimca/aurora-api";
-    license = with licenses; [ asl20 ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [asl20];
+    maintainers = with maintainers; [fab];
   };
 }

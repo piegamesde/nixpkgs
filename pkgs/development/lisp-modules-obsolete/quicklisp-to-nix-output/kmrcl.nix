@@ -1,14 +1,14 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "kmrcl";
   version = "20201016-git";
 
-  parasites = [ "kmrcl/test" ];
+  parasites = ["kmrcl/test"];
 
   description = "System lacks description";
 
-  deps = [ args."rt" ];
+  deps = [args."rt"];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/kmrcl/2020-10-16/kmrcl-20201016-git.tgz";
@@ -17,7 +17,7 @@ rec {
 
   packageName = "kmrcl";
 
-  asdFilesToKeep = [ "kmrcl.asd" ];
+  asdFilesToKeep = ["kmrcl.asd"];
   overrides = x: x;
 }
 /* (SYSTEM kmrcl DESCRIPTION System lacks description SHA256

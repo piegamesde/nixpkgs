@@ -36,6 +36,6 @@ stdenv.mkDerivation {
     '';
     platforms = postgresql.meta.platforms;
     license = lib.licenses.gpl2;
-    maintainers = with lib.maintainers; [ danbst ];
+    maintainers = with lib.maintainers; [danbst];
   };
 }

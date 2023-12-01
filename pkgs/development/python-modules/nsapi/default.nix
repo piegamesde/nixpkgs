@@ -27,12 +27,12 @@ buildPythonPackage rec {
   # Project has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "ns_api" ];
+  pythonImportsCheck = ["ns_api"];
 
   meta = with lib; {
     description = "Python module to query routes of the Dutch railways";
     homepage = "https://github.com/aquatix/ns-api/";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

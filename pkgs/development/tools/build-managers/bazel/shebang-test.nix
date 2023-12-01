@@ -13,7 +13,7 @@
 
 let
 
-  workspaceDir = runLocal "our_workspace" { } "mkdir $out";
+  workspaceDir = runLocal "our_workspace" {} "mkdir $out";
 
   testBazel = bazelTest {
     name = "bazel-test-shebangs";
@@ -43,7 +43,7 @@ let
         exit 1
       fi
     '';
-    buildInputs = [ unzip ];
+    buildInputs = [unzip];
   };
 in
 testBazel

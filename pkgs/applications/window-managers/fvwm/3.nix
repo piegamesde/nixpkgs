@@ -75,9 +75,9 @@ stdenv.mkDerivation (
       sharutils
     ];
 
-    pythonPath = [ python3Packages.pyxdg ];
+    pythonPath = [python3Packages.pyxdg];
 
-    configureFlags = [ "--enable-mandoc" ];
+    configureFlags = ["--enable-mandoc"];
 
     postFixup = ''
       wrapPythonPrograms
@@ -89,7 +89,7 @@ stdenv.mkDerivation (
       homepage = "http://fvwm.org";
       description = "A multiple large virtual desktop window manager - Version 3";
       license = licenses.gpl2Plus;
-      maintainers = with maintainers; [ AndersonTorres ];
+      maintainers = with maintainers; [AndersonTorres];
       inherit (libX11.meta) platforms;
     };
   }

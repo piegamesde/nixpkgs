@@ -22,12 +22,12 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-iD3SBSny0mYpmVEInYaylHn0AbtIqTOwJHdFeq3UBaM=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     libgit2
     openssl
-  ] ++ lib.optionals stdenv.isDarwin [ Security ];
+  ] ++ lib.optionals stdenv.isDarwin [Security];
 
   OPENSSL_NO_VENDOR = 1;
   USER = "nixbld";
@@ -36,6 +36,6 @@ rustPlatform.buildRustPackage rec {
     description = "A workspace productivity booster";
     homepage = "https://github.com/brocode/fw";
     license = licenses.wtfpl;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
   };
 }

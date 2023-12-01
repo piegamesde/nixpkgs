@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-cjYMaHVIXrTfQJ2o+PUrF4k/BeTZmFKcI4gUSA4RUiA=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     libfido2
     pam
@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
     changelog = "https://github.com/Yubico/pam-u2f/raw/pam_u2f-${version}/NEWS";
     license = licenses.bsd2;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ philandstuff ];
+    maintainers = with maintainers; [philandstuff];
     mainProgram = "pamu2fcfg";
   };
 }

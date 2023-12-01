@@ -29,6 +29,6 @@ buildGoModule rec {
     description = "Prometheus time-series DB exporter for rtl_433 433MHz radio packet decoder";
     homepage = "https://github.com/mhansen/rtl_433_prometheus";
     license = licenses.mit;
-    maintainers = with maintainers; [ zopieux ];
+    maintainers = with maintainers; [zopieux];
   };
 }

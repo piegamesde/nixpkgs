@@ -105,7 +105,7 @@ let
   replaceSec =
     let
       replaceSec' =
-        { }@args:
+        {}@args:
         v:
         if isAttrs v then
           if v ? _secret then
@@ -120,7 +120,7 @@ let
         else
           v;
     in
-    replaceSec' { };
+    replaceSec' {};
 
   # Erlang/Elixir uses a somewhat special format for IP addresses
   erlAddr =
@@ -128,19 +128,19 @@ let
     fileContents (
       pkgs.runCommand addr
         {
-          nativeBuildInputs = with pkgs; [ elixir ];
+          nativeBuildInputs = with pkgs; [elixir];
           code = ''
             case :inet.parse_address('${addr}') do
               {:ok, addr} -> IO.inspect addr
               {:error, _} -> System.halt(65)
             end
           '';
-          passAsFile = [ "code" ];
+          passAsFile = ["code"];
         }
         ''elixir "$codePath" >"$out"''
     );
 
-  format = pkgs.formats.elixirConf { };
+  format = pkgs.formats.elixirConf {};
   configFile = format.generate "config.exs" (
     replaceSec (
       attrsets.updateManyAttrsByPath
@@ -171,9 +171,9 @@ let
     {
       name,
       text,
-      runtimeInputs ? [ ],
+      runtimeInputs ? [],
     }:
-    pkgs.writeShellApplication { inherit name text runtimeInputs; } + "/bin/${name}";
+    pkgs.writeShellApplication {inherit name text runtimeInputs;} + "/bin/${name}";
 
   genScript = writeShell {
     name = "akkoma-gen-cookie";
@@ -192,7 +192,7 @@ let
 
   copyScript = writeShell {
     name = "akkoma-copy-cookie";
-    runtimeInputs = with pkgs; [ coreutils ];
+    runtimeInputs = with pkgs; [coreutils];
     text = ''
       install -m 0400 \
         -o ${escapeShellArg cfg.user} \
@@ -298,8 +298,8 @@ let
     else
       null;
 
-  escapeSqlId = x: ''"${replaceStrings [ ''"'' ] [ ''""'' ] x}"'';
-  escapeSqlStr = x: "'${replaceStrings [ "'" ] [ "''" ] x}'";
+  escapeSqlId = x: ''"${replaceStrings [''"''] [''""''] x}"'';
+  escapeSqlStr = x: "'${replaceStrings ["'"] ["''"] x}'";
 
   setupSql = pkgs.writeText "setup.psql" ''
     \set ON_ERROR_STOP on
@@ -407,7 +407,7 @@ let
         '';
       };
     in
-    pkgs.runCommandLocal "akkoma-env" { } ''
+    pkgs.runCommandLocal "akkoma-env" {} ''
       mkdir -p "$out/bin"
 
       ln -r -s ${escapeShellArg script} "$out/bin/pleroma"
@@ -455,7 +455,7 @@ let
   staticDir = ex.":pleroma".":instance".static_dir;
   uploadDir = ex.":pleroma".":instance".upload_dir;
 
-  staticFiles = pkgs.runCommandLocal "akkoma-static" { } ''
+  staticFiles = pkgs.runCommandLocal "akkoma-static" {} ''
     ${concatStringsSep "\n" (
       mapAttrsToList
         (key: val: ''
@@ -931,7 +931,7 @@ in
             };
 
             ":web_push_encryption" = mkOption {
-              default = { };
+              default = {};
               description = mdDoc ''
                 Web Push Notifications configuration.
 
@@ -1049,7 +1049,7 @@ in
       nginx = mkOption {
         type =
           with types;
-          nullOr (submodule (import ../web-servers/nginx/vhost-options.nix { inherit config lib; }));
+          nullOr (submodule (import ../web-servers/nginx/vhost-options.nix {inherit config lib;}));
         default = null;
         description = mdDoc ''
           Extra configuration for the nginx virtual host of Akkoma.
@@ -1074,7 +1074,7 @@ in
         group = cfg.group;
         isSystemUser = true;
       };
-      groups."${cfg.group}" = { };
+      groups."${cfg.group}" = {};
     };
 
     # Confinement of the main service unit requires separation of the
@@ -1082,9 +1082,9 @@ in
     # residing outside of the chroot.
     systemd.services.akkoma-config = {
       description = "Akkoma social network configuration";
-      reloadTriggers = [ configFile ] ++ secretPaths;
+      reloadTriggers = [configFile] ++ secretPaths;
 
-      unitConfig.PropagatesReloadTo = [ "akkoma.service" ];
+      unitConfig.PropagatesReloadTo = ["akkoma.service"];
       serviceConfig = {
         Type = "oneshot";
         RemainAfterExit = true;
@@ -1093,28 +1093,28 @@ in
         RuntimeDirectory = "akkoma";
 
         ExecStart = mkMerge [
-          (mkIf (cfg.dist.cookie == null) [ genScript ])
-          (mkIf (cfg.dist.cookie != null) [ copyScript ])
-          (mkIf cfg.initSecrets [ initSecretsScript ])
-          [ configScript ]
+          (mkIf (cfg.dist.cookie == null) [genScript])
+          (mkIf (cfg.dist.cookie != null) [copyScript])
+          (mkIf cfg.initSecrets [initSecretsScript])
+          [configScript]
         ];
 
         ExecReload = mkMerge [
-          (mkIf cfg.initSecrets [ initSecretsScript ])
-          [ configScript ]
+          (mkIf cfg.initSecrets [initSecretsScript])
+          [configScript]
         ];
       };
     };
 
     systemd.services.akkoma-initdb = mkIf cfg.initDb.enable {
       description = "Akkoma social network database setup";
-      requires = [ "akkoma-config.service" ];
-      requiredBy = [ "akkoma.service" ];
+      requires = ["akkoma-config.service"];
+      requiredBy = ["akkoma.service"];
       after = [
         "akkoma-config.service"
         "postgresql.service"
       ];
-      before = [ "akkoma.service" ];
+      before = ["akkoma.service"];
 
       serviceConfig = {
         Type = "oneshot";
@@ -1139,13 +1139,13 @@ in
       in
       {
         description = "Akkoma social network";
-        documentation = [ "https://docs.akkoma.dev/stable/" ];
+        documentation = ["https://docs.akkoma.dev/stable/"];
 
         # This service depends on network-online.target and is sequenced after
         # it because it requires access to the Internet to function properly.
-        bindsTo = [ "akkoma-config.service" ];
-        wants = [ "network-online.service" ];
-        wantedBy = [ "multi-user.target" ];
+        bindsTo = ["akkoma-config.service"];
+        wants = ["network-online.service"];
+        wantedBy = ["multi-user.target"];
         after = [
           "akkoma-config.target"
           "network.target"
@@ -1168,9 +1168,9 @@ in
 
           CacheDirectory = "akkoma";
 
-          BindPaths = [ "${uploadDir}:${uploadDir}:norbind" ];
+          BindPaths = ["${uploadDir}:${uploadDir}:norbind"];
           BindReadOnlyPaths = mkMerge [
-            (mkIf (!isStorePath staticDir) [ "${staticDir}:${staticDir}:norbind" ])
+            (mkIf (!isStorePath staticDir) ["${staticDir}:${staticDir}:norbind"])
             (mkIf isConfined (
               mkMerge [
                 [
@@ -1179,11 +1179,11 @@ in
                 ]
                 (mkIf (isStorePath staticDir) (
                   map (dir: "${dir}:${dir}:norbind") (
-                    splitString "\n" (readFile ((pkgs.closureInfo { rootPaths = staticDir; }) + "/store-paths"))
+                    splitString "\n" (readFile ((pkgs.closureInfo {rootPaths = staticDir;}) + "/store-paths"))
                   )
                 ))
-                (mkIf (db ? socket_dir) [ "${db.socket_dir}:${db.socket_dir}:norbind" ])
-                (mkIf (db ? socket) [ "${db.socket}:${db.socket}:norbind" ])
+                (mkIf (db ? socket_dir) ["${db.socket_dir}:${db.socket_dir}:norbind"])
+                (mkIf (db ? socket) ["${db.socket}:${db.socket}:norbind"])
               ]
             ))
           ];
@@ -1226,7 +1226,7 @@ in
                 cfg.dist.epmdPort
                 cfg.dist.portMin
               ])
-              [ "CAP_NET_BIND_SERVICE" ];
+              ["CAP_NET_BIND_SERVICE"];
 
           NoNewPrivileges = true;
           SystemCallFilter = [
@@ -1246,7 +1246,7 @@ in
                 "tcp:${toString cfg.dist.epmdPort}"
                 "tcp:${toString cfg.dist.portMin}-${toString cfg.dist.portMax}"
               ]
-              (mkIf (web.http.port != 0) [ "tcp:${toString web.http.port}" ])
+              (mkIf (web.http.port != 0) ["tcp:${toString web.http.port}"])
             ]
           );
           SocketBindDeny = mkIf (!hasSmtp) "any";
@@ -1258,7 +1258,7 @@ in
       "Z ${uploadDir} ~0700 ${cfg.user} ${cfg.group} - -"
     ];
 
-    environment.systemPackages = mkIf (cfg.installWrapper) [ userWrapper ];
+    environment.systemPackages = mkIf (cfg.installWrapper) [userWrapper];
 
     services.nginx.virtualHosts = mkIf (cfg.nginx != null) {
       ${web.url.host} = mkMerge [
@@ -1281,6 +1281,6 @@ in
     };
   };
 
-  meta.maintainers = with maintainers; [ mvs ];
+  meta.maintainers = with maintainers; [mvs];
   meta.doc = ./akkoma.md;
 }

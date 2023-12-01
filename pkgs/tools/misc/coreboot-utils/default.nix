@@ -61,7 +61,7 @@ let
 
         meta = commonMeta // args.meta;
       }
-      // (removeAttrs args [ "meta" ])
+      // (removeAttrs args ["meta"])
     );
 
   utils = {
@@ -138,8 +138,8 @@ let
     amdfwtool = generic {
       pname = "amdfwtool";
       meta.description = "Create AMD firmware combination";
-      buildInputs = [ openssl ];
-      nativeBuildInputs = [ pkg-config ];
+      buildInputs = [openssl];
+      nativeBuildInputs = [pkg-config];
       installPhase = ''
         runHook preInstall
 
@@ -152,7 +152,7 @@ let
       pname = "acpidump-all";
       path = "util/acpi";
       meta.description = "Walk through all ACPI tables with their addresses";
-      nativeBuildInputs = [ makeWrapper ];
+      nativeBuildInputs = [makeWrapper];
       dontBuild = true;
       installPhase = ''
         runHook preInstall

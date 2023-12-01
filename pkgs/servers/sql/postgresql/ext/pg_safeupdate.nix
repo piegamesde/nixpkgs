@@ -9,7 +9,7 @@ stdenv.mkDerivation rec {
   pname = "pg-safeupdate";
   version = "1.4";
 
-  buildInputs = [ postgresql ];
+  buildInputs = [postgresql];
 
   src = fetchFromGitHub {
     owner = "eradman";

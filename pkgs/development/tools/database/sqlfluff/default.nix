@@ -61,13 +61,13 @@ python3.pkgs.buildPythonApplication rec {
     "test__rules__std_file_dbt"
   ];
 
-  pythonImportsCheck = [ "sqlfluff" ];
+  pythonImportsCheck = ["sqlfluff"];
 
   meta = with lib; {
     description = "SQL linter and auto-formatter";
     homepage = "https://www.sqlfluff.com/";
     changelog = "https://github.com/sqlfluff/sqlfluff/blob/${version}/CHANGELOG.md";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -2,7 +2,7 @@
   stdenv,
   makeWrapper,
   haskellPackages,
-  packages ? (pkgs: [ ]),
+  packages ? (pkgs: []),
 }:
 
 let
@@ -20,7 +20,7 @@ stdenv.mkDerivation {
 
   inherit (haskellPackages) mueval;
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   buildCommand = ''
     mkdir -p $out/bin

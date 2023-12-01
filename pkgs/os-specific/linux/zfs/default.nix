@@ -49,7 +49,7 @@ let
     makeBinPath
     ;
 
-  smartmon = smartmontools.override { inherit enableMail; };
+  smartmon = smartmontools.override {inherit enableMail;};
 
   buildKernel = any (n: n == configFile) [
     "kernel"
@@ -72,7 +72,7 @@ let
     {
       version,
       sha256,
-      extraPatches ? [ ],
+      extraPatches ? [],
       rev ? "zfs-${version}",
       isUnstable ? false,
       latestCompatibleLinuxPackages,
@@ -110,7 +110,7 @@ let
             # We don't *need* python support, but we set it like this to minimize closure size:
             # If it's disabled by default, no need to enable it, even if we have python enabled
             # And if it's enabled by default, only change that if we explicitly disable python to remove python from the closure
-            nfs-utils.override (old: { enablePython = old.enablePython or true && enablePython; })
+            nfs-utils.override (old: {enablePython = old.enablePython or true && enablePython;})
           }/bin/exportfs"
           substituteInPlace ./lib/libshare/smb.h        --replace "/usr/bin/net"            "${samba}/bin/net"
           # Disable dynamic loading of libcurl
@@ -158,7 +158,7 @@ let
           autoreconfHook269
           nukeReferences
         ]
-        ++ optionals buildKernel (kernel.moduleBuildDependencies ++ [ perl ])
+        ++ optionals buildKernel (kernel.moduleBuildDependencies ++ [perl])
         ++ optional buildUser pkg-config;
       buildInputs =
         optionals buildUser [
@@ -267,14 +267,14 @@ let
           done
         '';
 
-      outputs = [ "out" ] ++ optionals buildUser [ "dev" ];
+      outputs = ["out"] ++ optionals buildUser ["dev"];
 
       passthru = {
         inherit enableMail latestCompatibleLinuxPackages;
 
         tests =
           if isUnstable then
-            [ nixosTests.zfs.unstable ]
+            [nixosTests.zfs.unstable]
           else
             [
               nixosTests.zfs.installer

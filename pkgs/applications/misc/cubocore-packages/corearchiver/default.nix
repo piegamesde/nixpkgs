@@ -39,7 +39,7 @@ mkDerivation rec {
     description = "Archiver from the C Suite to create and extract archives";
     homepage = "https://gitlab.com/cubocore/coreapps/corearchiver";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ dan4ik605743 ];
+    maintainers = with maintainers; [dan4ik605743];
     platforms = platforms.linux;
   };
 }

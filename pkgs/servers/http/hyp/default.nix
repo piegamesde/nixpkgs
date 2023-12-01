@@ -20,7 +20,7 @@ python3Packages.buildPythonPackage rec {
       gpl3Plus
       mit
     ];
-    maintainers = with maintainers; [ rnhmjoj ];
+    maintainers = with maintainers; [rnhmjoj];
     platforms = platforms.unix;
   };
 }

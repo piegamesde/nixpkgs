@@ -69,6 +69,6 @@ stdenv.mkDerivation rec {
     homepage = "https://mimic.mycroft.ai/";
     license = lib.licenses.free;
     platforms = lib.platforms.linux;
-    maintainers = [ lib.maintainers.noneucat ];
+    maintainers = [lib.maintainers.noneucat];
   };
 }

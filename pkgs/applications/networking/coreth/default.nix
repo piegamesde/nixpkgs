@@ -41,7 +41,7 @@ buildGoModule rec {
     homepage = "https://github.com/ava-labs/coreth";
     changelog = "https://github.com/ava-labs/coreth/releases/tag/v${version}";
     license = licenses.lgpl3Only;
-    maintainers = with maintainers; [ urandom ];
+    maintainers = with maintainers; [urandom];
     # In file included from ../go/pkg/mod/github.com/zondax/hid@v0.9.1-0.20220302062450-5552068d2266/hid_enabled.go:38:
     # ./hidapi/mac/hid.c:693:34: error: use of undeclared identifier 'kIOMainPortDefault'
     #     entry = IORegistryEntryFromPath(kIOMainPortDefault, path);

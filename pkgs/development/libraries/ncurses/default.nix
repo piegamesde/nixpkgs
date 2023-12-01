@@ -68,11 +68,11 @@ stdenv.mkDerivation (
     CFLAGS = lib.optionalString stdenv.isSunOS "-D_XOPEN_SOURCE_EXTENDED";
 
     strictDeps = true;
-    depsBuildBuild = [ buildPackages.stdenv.cc ];
+    depsBuildBuild = [buildPackages.stdenv.cc];
 
     nativeBuildInputs = [
       pkg-config
-    ] ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [ buildPackages.ncurses ];
+    ] ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [buildPackages.ncurses];
 
     buildInputs = lib.optional (mouseSupport && stdenv.isLinux) gpm;
 

@@ -59,7 +59,7 @@ stdenv.mkDerivation rec {
     description = "Terminal-based chat client with support for Telegram and WhatsApp";
     homepage = "https://github.com/d99kris/nchat";
     license = licenses.mit;
-    maintainers = with maintainers; [ sikmir ];
+    maintainers = with maintainers; [sikmir];
     platforms = platforms.unix;
   };
 }

@@ -17,7 +17,7 @@ import ../make-test-python.nix (
         ...
       }:
       {
-        environment.systemPackages = [ php ];
+        environment.systemPackages = [php];
 
         services.nginx = {
           enable = true;
@@ -58,7 +58,7 @@ import ../make-test-python.nix (
         };
       };
     testScript =
-      { ... }:
+      {...}:
       ''
         machine.wait_for_unit("nginx.service")
         machine.wait_for_unit("phpfpm-foobar.service")

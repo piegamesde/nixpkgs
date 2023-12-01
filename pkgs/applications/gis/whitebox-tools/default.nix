@@ -27,6 +27,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://jblindsay.github.io/ghrg/WhiteboxTools/index.html";
     description = "An advanced geospatial data analysis platform";
     license = licenses.mit;
-    maintainers = [ maintainers.mpickering ];
+    maintainers = [maintainers.mpickering];
   };
 }

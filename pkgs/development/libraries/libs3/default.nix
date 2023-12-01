@@ -31,7 +31,7 @@ stdenv.mkDerivation {
     libxml2
   ];
 
-  makeFlags = [ "DESTDIR=${placeholder "out"}" ];
+  makeFlags = ["DESTDIR=${placeholder "out"}"];
 
   meta = with lib; {
     homepage = "https://github.com/bji/libs3";

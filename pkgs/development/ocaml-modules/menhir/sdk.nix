@@ -12,6 +12,6 @@ buildDunePackage rec {
 
   meta = menhirLib.meta // {
     description = "Compile-time library for auxiliary tools related to Menhir";
-    license = with lib.licenses; [ gpl2Only ];
+    license = with lib.licenses; [gpl2Only];
   };
 }

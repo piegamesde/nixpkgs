@@ -19,14 +19,14 @@ buildPecl {
     sha256 = "sha256-L4a+/kWT95a1Km+FzFNiAaBw8enU6k4ZiCFRErjj9o8=";
   };
 
-  buildInputs = [ pcre2 ];
+  buildInputs = [pcre2];
   doCheck = true;
   checkTarget = "test";
   checkFlagsArray = [
     "REPORT_EXIT_STATUS=1"
     "NO_INTERACTION=1"
   ];
-  makeFlags = [ "phpincludedir=$(dev)/include" ];
+  makeFlags = ["phpincludedir=$(dev)/include"];
   outputs = [
     "out"
     "dev"

@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
       curl
       mit
     ];
-    maintainers = with maintainers; [ deliciouslytyped ];
+    maintainers = with maintainers; [deliciouslytyped];
     platforms = platforms.linux; # TODO I'm unsure about the restrictions here, feel free to expand the platforms it if it works elsewhere.
   };
 }

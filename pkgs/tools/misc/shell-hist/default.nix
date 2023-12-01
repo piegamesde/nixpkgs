@@ -24,6 +24,6 @@ rustPlatform.buildRustPackage {
       mit # or
       asl20
     ];
-    maintainers = [ maintainers.spacekookie ];
+    maintainers = [maintainers.spacekookie];
   };
 }

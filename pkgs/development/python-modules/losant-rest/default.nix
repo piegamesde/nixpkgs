@@ -22,21 +22,21 @@ buildPythonPackage rec {
     hash = "sha256-S4ypZ4yTncoyKi4INpXg0UtcD+CmKRwr3c/FuSoXVKs=";
   };
 
-  propagatedBuildInputs = [ requests ];
+  propagatedBuildInputs = [requests];
 
   nativeCheckInputs = [
     pytestCheckHook
     requests-mock
   ];
 
-  pytestFlagsArray = [ "tests/losantrest_tests.py" ];
+  pytestFlagsArray = ["tests/losantrest_tests.py"];
 
-  pythonImportsCheck = [ "losantrest" ];
+  pythonImportsCheck = ["losantrest"];
 
   meta = with lib; {
     description = "Python module for consuming the Losant IoT Platform API";
     homepage = "https://github.com/Losant/losant-rest-python";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

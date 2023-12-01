@@ -31,12 +31,12 @@ buildGoModule rec {
       "-X ${PKG}/pkg.CommitID=${version}"
     ];
 
-  subPackages = [ "cmd/aws-iam-authenticator" ];
+  subPackages = ["cmd/aws-iam-authenticator"];
 
   meta = with lib; {
     homepage = "https://github.com/kubernetes-sigs/aws-iam-authenticator";
     description = "AWS IAM credentials for Kubernetes authentication";
     license = licenses.asl20;
-    maintainers = [ maintainers.srhb ];
+    maintainers = [maintainers.srhb];
   };
 }

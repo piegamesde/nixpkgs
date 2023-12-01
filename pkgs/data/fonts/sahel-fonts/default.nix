@@ -28,6 +28,6 @@ stdenvNoCC.mkDerivation rec {
     description = "A Persian (farsi) Font - فونت (قلم) فارسی ساحل";
     license = licenses.ofl;
     platforms = platforms.all;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

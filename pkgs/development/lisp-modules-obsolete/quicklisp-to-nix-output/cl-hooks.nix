@@ -1,10 +1,10 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "cl-hooks";
   version = "architecture.hooks-20181210-git";
 
-  parasites = [ "cl-hooks/test" ];
+  parasites = ["cl-hooks/test"];
 
   description = ''
     This system provides the hooks extension point
@@ -26,7 +26,7 @@ rec {
 
   packageName = "cl-hooks";
 
-  asdFilesToKeep = [ "cl-hooks.asd" ];
+  asdFilesToKeep = ["cl-hooks.asd"];
   overrides = x: x;
 }
 /* (SYSTEM cl-hooks DESCRIPTION This system provides the hooks extension point

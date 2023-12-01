@@ -33,14 +33,14 @@ buildPythonPackage rec {
     urllib3
   ];
 
-  nativeCheckInputs = [ nose ];
+  nativeCheckInputs = [nose];
 
-  pythonImportsCheck = [ "youless_api" ];
+  pythonImportsCheck = ["youless_api"];
 
   meta = with lib; {
     description = "Python library for YouLess sensors";
     homepage = "https://pypi.org/project/youless-api/";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

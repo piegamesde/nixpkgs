@@ -43,6 +43,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/ueno/ibus-kkc";
     license = licenses.gpl2;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ vanzef ];
+    maintainers = with maintainers; [vanzef];
   };
 }

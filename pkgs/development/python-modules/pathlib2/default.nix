@@ -20,12 +20,12 @@ buildPythonPackage rec {
   };
 
   propagatedBuildInputs =
-    [ six ]
+    [six]
     ++ lib.optionals (pythonOlder "3.5") [
       scandir
       typing
     ];
-  nativeCheckInputs = [ glibcLocales ] ++ lib.optional (pythonOlder "3.3") mock;
+  nativeCheckInputs = [glibcLocales] ++ lib.optional (pythonOlder "3.3") mock;
 
   preCheck = ''
     export LC_ALL="en_US.UTF-8"
@@ -34,7 +34,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "This module offers classes representing filesystem paths with semantics appropriate for different operating systems.";
     homepage = "https://pypi.org/project/pathlib2/";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ SuperSandro2000 ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [SuperSandro2000];
   };
 }

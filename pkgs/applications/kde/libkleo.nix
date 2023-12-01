@@ -43,7 +43,7 @@ mkDerivation {
     kwidgetsaddons
     kwindowsystem
   ];
-  propagatedBuildInputs = [ qgpgme ];
+  propagatedBuildInputs = [qgpgme];
   outputs = [
     "out"
     "dev"

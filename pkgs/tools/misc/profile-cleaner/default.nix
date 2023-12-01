@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-OkrZb8skglczJEjwJSZINELeStdsILQO4GfZ1uLSnQY=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     PREFIX=\"\" DESTDIR=$out make install
@@ -46,6 +46,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/graysky2/profile-cleaner";
     license = lib.licenses.mit;
     platforms = lib.platforms.all;
-    maintainers = [ lib.maintainers.devhell ];
+    maintainers = [lib.maintainers.devhell];
   };
 }

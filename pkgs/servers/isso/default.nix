@@ -29,7 +29,7 @@ let
     inherit nodeEnv;
   };
 
-  nodeDependencies = (nodePackages.shell.override (old: { })).nodeDependencies;
+  nodeDependencies = (nodePackages.shell.override (old: {})).nodeDependencies;
 in
 with python3Packages;
 buildPythonApplication rec {
@@ -83,6 +83,6 @@ buildPythonApplication rec {
     description = "A commenting server similar to Disqus";
     homepage = "https://posativ.org/isso/";
     license = licenses.mit;
-    maintainers = with maintainers; [ fgaz ];
+    maintainers = with maintainers; [fgaz];
   };
 }

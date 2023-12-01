@@ -69,6 +69,6 @@ python3.pkgs.buildPythonApplication rec {
     description = "Command line management for Google Workspace";
     homepage = "https://github.com/GAM-team/GAM/wiki";
     license = licenses.asl20;
-    maintainers = with maintainers; [ thanegill ];
+    maintainers = with maintainers; [thanegill];
   };
 }

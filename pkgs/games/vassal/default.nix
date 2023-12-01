@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-hm1tgkF/SYRnoq1+ZxlgriLMQm3IX+UBR2bPYpBVp5k=";
   };
 
-  buildInputs = [ glib ];
+  buildInputs = [glib];
 
   nativeBuildInputs = [
     makeWrapper
@@ -49,9 +49,9 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "A free, open-source boardgame engine";
     homepage = "https://vassalengine.org/";
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with sourceTypes; [binaryBytecode];
     license = licenses.lgpl21Only;
-    maintainers = with maintainers; [ tvestelind ];
+    maintainers = with maintainers; [tvestelind];
     platforms = platforms.unix;
     mainProgram = "vassal";
   };

@@ -1,8 +1,8 @@
-{ lib, ... }:
+{lib, ...}:
 
 let
   submod =
-    { ... }:
+    {...}:
     {
       options = {
         enable = lib.mkOption {
@@ -20,9 +20,9 @@ in
 {
   options = {
     attrsOfSub = lib.mkOption {
-      default = { };
-      example = { };
-      type = lib.types.attrsOf (lib.types.submodule [ submod ]);
+      default = {};
+      example = {};
+      type = lib.types.attrsOf (lib.types.submodule [submod]);
       description = ''
         Some descriptive text
       '';

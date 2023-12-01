@@ -38,7 +38,7 @@ mkDerivation rec {
     "man"
   ];
 
-  cmakeFlags = [ "-DWITH_MATLAB=false" ];
+  cmakeFlags = ["-DWITH_MATLAB=false"];
 
   preConfigure = ''
     sed -e 's|#include( ''${PROJECT_SRC_DIR}/cmake/FindNETPBM.cmake )|include( ''${PROJECT_SOURCE_DIR}/cmake/FindNETPBM.cmake )|' -i CMakeLists.txt
@@ -83,7 +83,7 @@ mkDerivation rec {
           freeglut
         ]
     )
-    ++ lib.optional enableUnfree (opencv2.override { enableUnfree = true; });
+    ++ lib.optional enableUnfree (opencv2.override {enableUnfree = true;});
 
   patches = [
     ./glut.patch
@@ -97,6 +97,6 @@ mkDerivation rec {
     description = "Toolkit for manipulation of HDR images";
     platforms = platforms.linux;
     license = licenses.lgpl2;
-    maintainers = [ maintainers.juliendehos ];
+    maintainers = [maintainers.juliendehos];
   };
 }

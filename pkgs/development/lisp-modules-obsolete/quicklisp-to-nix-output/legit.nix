@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "legit";
   version = "20190710-git";
@@ -24,7 +24,7 @@ rec {
 
   packageName = "legit";
 
-  asdFilesToKeep = [ "legit.asd" ];
+  asdFilesToKeep = ["legit.asd"];
   overrides = x: x;
 }
 /* (SYSTEM legit DESCRIPTION CL interface to the GIT binary. SHA256

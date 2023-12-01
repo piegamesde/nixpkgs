@@ -21,7 +21,7 @@ buildGoModule rec {
   # Change the default location of the management socket on Linux
   # systems so that the yggdrasil system service unit does not have to
   # be granted write permission to /run.
-  patches = [ ./change-runtime-dir.patch ];
+  patches = [./change-runtime-dir.patch];
 
   subPackages = [
     "cmd/genkeys"

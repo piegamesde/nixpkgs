@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
     texinfo
   ];
 
-  buildInputs = [ guile ];
+  buildInputs = [guile];
 
   enableParallelBuilding = true;
 
@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
     description = "Configuration management library for GNU Guile";
     homepage = "https://gitlab.com/a-sassmannshausen/guile-config";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ sikmir ];
+    maintainers = with maintainers; [sikmir];
     platforms = guile.meta.platforms;
   };
 }

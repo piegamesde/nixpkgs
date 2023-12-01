@@ -86,6 +86,6 @@ stdenv.mkDerivation rec {
       "armv7l-linux"
       "mipsel-linux"
     ];
-    maintainers = with maintainers; [ expipiplus1 ];
+    maintainers = with maintainers; [expipiplus1];
   };
 }

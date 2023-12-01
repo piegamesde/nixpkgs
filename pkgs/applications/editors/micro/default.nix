@@ -17,9 +17,9 @@ buildGoModule rec {
     sha256 = "sha256-3Rppi8UcAc4zdXOd81Y+sb5Psezx2TQsNw73WdPVMgE=";
   };
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
-  subPackages = [ "cmd/micro" ];
+  subPackages = ["cmd/micro"];
 
   vendorSha256 = "sha256-/bWIn5joZOTOtuAbljOc0NgBfjrFkbFZih+cPNHnS9w=";
 
@@ -44,12 +44,12 @@ buildGoModule rec {
     install -Dm644 assets/micro-logo-mark.svg $out/share/icons/hicolor/scalable/apps/micro.svg
   '';
 
-  passthru.tests.expect = callPackage ./test-with-expect.nix { };
+  passthru.tests.expect = callPackage ./test-with-expect.nix {};
 
   meta = with lib; {
     homepage = "https://micro-editor.github.io";
     description = "Modern and intuitive terminal-based text editor";
     license = licenses.mit;
-    maintainers = with maintainers; [ dtzWill ];
+    maintainers = with maintainers; [dtzWill];
   };
 }

@@ -79,7 +79,7 @@ stdenv.mkDerivation rec {
     "-DCLANGTOOLING_LINK_CLANG_DYLIB=ON"
   ];
 
-  qtWrapperArgs = [ "--set-default PERFPROFILER_PARSER_FILEPATH ${lib.getBin perf}/bin" ];
+  qtWrapperArgs = ["--set-default PERFPROFILER_PARSER_FILEPATH ${lib.getBin perf}/bin"];
 
   postInstall = ''
     substituteInPlace $out/share/applications/org.qt-project.qtcreator.desktop \
@@ -95,7 +95,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://wiki.qt.io/Qt_Creator";
     license = licenses.lgpl3Plus;
-    maintainers = [ maintainers.rewine ];
+    maintainers = [maintainers.rewine];
     platforms = platforms.linux;
   };
 }

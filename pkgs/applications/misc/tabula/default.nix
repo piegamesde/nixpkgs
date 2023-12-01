@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
     sha256 = "0lkpv8hkji81fanyxm7ph8421fr9a6phqc3pbhw2bc4gljg7sgxi";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     mkdir -pv $out/share/tabula
@@ -33,9 +33,9 @@ stdenv.mkDerivation rec {
       Microsoft Excel spreadsheet using a simple, easy-to-use interface.
     '';
     homepage = "https://tabula.technology/";
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with sourceTypes; [binaryBytecode];
     license = licenses.mit;
-    maintainers = [ maintainers.dpaetzel ];
+    maintainers = [maintainers.dpaetzel];
     platforms = platforms.all;
     broken = true; # on 2022-11-23 this package builds, but produces an executable that fails immediately
   };

@@ -22,13 +22,13 @@ stdenv.mkDerivation rec {
     pkg-config
     autoreconfHook
   ];
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
 
   meta = with lib; {
     description = "Bitcoin Script Debugger";
     homepage = "https://github.com/bitcoin-core/btcdeb";
     license = licenses.mit;
-    maintainers = with maintainers; [ akru ];
+    maintainers = with maintainers; [akru];
     platforms = platforms.unix;
   };
 }

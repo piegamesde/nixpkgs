@@ -45,7 +45,7 @@ stdenv.mkDerivation rec {
     description = "Open source wireless development platform suitable for Bluetooth experimentation";
     homepage = "https://github.com/greatscottgadgets/ubertooth";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ oxzi ];
+    maintainers = with maintainers; [oxzi];
     platforms = platforms.linux;
   };
 }

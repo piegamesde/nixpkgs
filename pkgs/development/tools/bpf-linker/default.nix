@@ -23,9 +23,9 @@ rustPlatform.buildRustPackage rec {
   cargoHash = "sha256-s8cW7lXtvgemuQueTtAywewnDVJ/WDcz8SBqsC/tO80=";
 
   buildNoDefaultFeatures = true;
-  buildFeatures = [ "system-llvm" ];
+  buildFeatures = ["system-llvm"];
 
-  nativeBuildInputs = [ llvmPackages_15.llvm ];
+  nativeBuildInputs = [llvmPackages_15.llvm];
   buildInputs = [
     zlib
     ncurses
@@ -43,7 +43,7 @@ rustPlatform.buildRustPackage rec {
       asl20
       mit
     ];
-    maintainers = with maintainers; [ nickcao ];
+    maintainers = with maintainers; [nickcao];
     # llvm-sys crate locates llvm by calling llvm-config
     # which is not available when cross compiling
     broken = stdenv.buildPlatform != stdenv.hostPlatform;

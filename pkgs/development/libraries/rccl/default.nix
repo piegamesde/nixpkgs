@@ -17,7 +17,7 @@ stdenv.mkDerivation (
     pname = "rccl";
     version = "5.4.3";
 
-    outputs = [ "out" ] ++ lib.optionals buildTests [ "test" ];
+    outputs = ["out"] ++ lib.optionals buildTests ["test"];
 
     src = fetchFromGitHub {
       owner = "ROCmSoftwarePlatform";
@@ -35,7 +35,7 @@ stdenv.mkDerivation (
     buildInputs = [
       rocm-smi
       gtest
-    ] ++ lib.optionals buildTests [ chrpath ];
+    ] ++ lib.optionals buildTests [chrpath];
 
     cmakeFlags = [
       "-DCMAKE_C_COMPILER=hipcc"
@@ -45,7 +45,7 @@ stdenv.mkDerivation (
       "-DCMAKE_INSTALL_BINDIR=bin"
       "-DCMAKE_INSTALL_LIBDIR=lib"
       "-DCMAKE_INSTALL_INCLUDEDIR=include"
-    ] ++ lib.optionals buildTests [ "-DBUILD_TESTS=ON" ];
+    ] ++ lib.optionals buildTests ["-DBUILD_TESTS=ON"];
 
     # Replace the manually set parallel jobs to NIX_BUILD_CORES
     postPatch = ''

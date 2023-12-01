@@ -27,6 +27,6 @@ stdenv.mkDerivation rec {
     homepage = "http://caca.zoy.org/wiki/zzuf";
     license = licenses.wtfpl;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ lihop ];
+    maintainers = with maintainers; [lihop];
   };
 }

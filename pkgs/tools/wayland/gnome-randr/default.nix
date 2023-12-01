@@ -21,15 +21,15 @@ rustPlatform.buildRustPackage {
 
   cargoSha256 = "sha256-rk8/sg5rSNS741QOWoAGIloqph+ZdBjl/xUaFl0A3Bs=";
 
-  buildInputs = [ dbus ];
+  buildInputs = [dbus];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   meta = with lib; {
     description = "An xrandr-like CLI for configuring displays on GNOME/Wayland, on distros that don't support `wlr-randr`";
     homepage = "https://github.com/maxwellainatchi/gnome-randr-rust";
     license = licenses.mit;
-    maintainers = [ maintainers.roberth ];
+    maintainers = [maintainers.roberth];
     platforms = platforms.linux;
   };
 }

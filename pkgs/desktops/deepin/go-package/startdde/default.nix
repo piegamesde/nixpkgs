@@ -34,7 +34,7 @@ buildGoPackage rec {
     sha256 = "sha256-dbTcYS7dEvT0eP45jKE8WiG9Pm4LU6jvR8hjMQv/yxU=";
   };
 
-  patches = [ ./0001-avoid-use-hardcode-path.patch ];
+  patches = [./0001-avoid-use-hardcode-path.patch];
 
   postPatch = ''
     substituteInPlace display/manager.go session.go \
@@ -85,7 +85,7 @@ buildGoPackage rec {
     make install DESTDIR="$out" PREFIX="/" -C go/src/${goPackagePath}
   '';
 
-  passthru.providedSessions = [ "deepin" ];
+  passthru.providedSessions = ["deepin"];
 
   meta = with lib; {
     description = "Starter of deepin desktop environment";

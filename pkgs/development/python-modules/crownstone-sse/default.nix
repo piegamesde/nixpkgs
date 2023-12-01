@@ -29,12 +29,12 @@ buildPythonPackage rec {
   # Tests are only providing coverage
   doCheck = false;
 
-  pythonImportsCheck = [ "crownstone_sse" ];
+  pythonImportsCheck = ["crownstone_sse"];
 
   meta = with lib; {
     description = "Python module for listening to Crownstone SSE events";
     homepage = "https://github.com/crownstone/crownstone-lib-python-sse";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

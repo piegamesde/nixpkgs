@@ -3,7 +3,7 @@
   lib,
   stdenvNoCC,
   monotone,
-  defaultDBMirrors ? [ ],
+  defaultDBMirrors ? [],
   cacheDB ? "./mtn-checkout.db",
 }:
 # dbs is a list of strings
@@ -13,7 +13,7 @@
 #
 {
   name ? "mtn-checkout",
-  dbs ? [ ],
+  dbs ? [],
   sha256,
   selector ? "h:" + branch,
   branch,
@@ -21,7 +21,7 @@
 
 stdenvNoCC.mkDerivation {
   builder = ./builder.sh;
-  nativeBuildInputs = [ monotone ];
+  nativeBuildInputs = [monotone];
 
   outputHashAlgo = "sha256";
   outputHashMode = "recursive";

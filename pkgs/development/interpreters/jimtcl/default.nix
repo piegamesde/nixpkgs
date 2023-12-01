@@ -62,7 +62,7 @@ stdenv.mkDerivation rec {
   '';
 
   # test posix-1.6 needs the "hostname" command
-  nativeCheckInputs = [ inetutils ];
+  nativeCheckInputs = [inetutils];
 
   meta = {
     description = "An open source small-footprint implementation of the Tcl programming language";

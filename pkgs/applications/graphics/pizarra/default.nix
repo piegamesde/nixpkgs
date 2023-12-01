@@ -54,6 +54,6 @@ rustPlatform.buildRustPackage rec {
     '';
     homepage = "https://pizarra.categulario.xyz/en/";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ mglolenstine ];
+    maintainers = with maintainers; [mglolenstine];
   };
 }

@@ -28,6 +28,6 @@ buildDunePackage rec {
     description = "Polynomials over finite field";
     license = lib.licenses.mit;
     homepage = "https://gitlab.com/nomadic-labs/ocaml-polynomial";
-    maintainers = [ lib.maintainers.ulrikstrid ];
+    maintainers = [lib.maintainers.ulrikstrid];
   };
 }

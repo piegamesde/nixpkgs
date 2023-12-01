@@ -46,6 +46,6 @@ python3Packages.buildPythonApplication rec {
     description = "Simple yet powerful PDF reader designed for dual-screen presentations";
     license = licenses.gpl2Plus;
     homepage = "https://cimbali.github.io/pympress/";
-    maintainers = [ maintainers.tbenst ];
+    maintainers = [maintainers.tbenst];
   };
 }

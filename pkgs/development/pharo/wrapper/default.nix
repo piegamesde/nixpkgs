@@ -25,8 +25,8 @@ stdenv.mkDerivation rec {
     exec = "pharo %F";
     icon = "pharo";
     startupNotify = false;
-    categories = [ "Development" ];
-    mimeTypes = [ "application/x-pharo-image" ];
+    categories = ["Development"];
+    mimeTypes = ["application/x-pharo-image"];
   };
   unpackPhase = ''
     cp $src ./pharo-vm.sh
@@ -62,10 +62,10 @@ stdenv.mkDerivation rec {
 
     homepage = "http://pharo.org";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.lukego ];
+    maintainers = [lib.maintainers.lukego];
     # Pharo VM sources are packaged separately for darwin (OS X)
     platforms =
-      lib.filter (system: with lib.systems.elaborate { inherit system; }; isUnix && !isDarwin)
+      lib.filter (system: with lib.systems.elaborate {inherit system;}; isUnix && !isDarwin)
         lib.platforms.mesaPlatforms;
   };
 }

@@ -22,21 +22,21 @@ buildPythonPackage rec {
     hash = "sha256-K6PVZEG6Bjf1+cCWBo9nAQrART+dC2Jt4qowGTU7ZDE=";
   };
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
-  propagatedBuildInputs = [ six ];
+  propagatedBuildInputs = [six];
 
   nativeCheckInputs = [
     pytestCheckHook
     keyring
   ];
 
-  pythonImportsCheck = [ "keyrings.alt" ];
+  pythonImportsCheck = ["keyrings.alt"];
 
   meta = with lib; {
     license = licenses.mit;
     description = "Alternate keyring implementations";
     homepage = "https://github.com/jaraco/keyrings.alt";
-    maintainers = with maintainers; [ nyarly ];
+    maintainers = with maintainers; [nyarly];
   };
 }

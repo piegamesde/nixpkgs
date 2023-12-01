@@ -57,9 +57,9 @@ buildPythonPackage rec {
   ];
 
   passthru.optional-dependencies = {
-    ipython = [ ipython ];
-    plot = [ matplotlib ];
-    s3 = [ boto3 ];
+    ipython = [ipython];
+    plot = [matplotlib];
+    s3 = [boto3];
   };
 
   nativeCheckInputs = [
@@ -70,11 +70,11 @@ buildPythonPackage rec {
     shapely
   ];
 
-  pytestFlagsArray = [ "-m 'not network'" ];
+  pytestFlagsArray = ["-m 'not network'"];
 
-  disabledTests = lib.optionals stdenv.isDarwin [ "test_reproject_error_propagation" ];
+  disabledTests = lib.optionals stdenv.isDarwin ["test_reproject_error_propagation"];
 
-  pythonImportsCheck = [ "rasterio" ];
+  pythonImportsCheck = ["rasterio"];
 
   doInstallCheck = true;
 

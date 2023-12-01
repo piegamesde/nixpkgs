@@ -16,12 +16,12 @@ buildPythonPackage rec {
 
   doCheck = false;
 
-  pythonImportsCheck = [ "ujson-stubs" ];
+  pythonImportsCheck = ["ujson-stubs"];
 
   meta = with lib; {
     description = "Typing stubs for ujson";
     homepage = "https://github.com/python/typeshed";
     license = licenses.asl20;
-    maintainers = with maintainers; [ centromere ];
+    maintainers = with maintainers; [centromere];
   };
 }

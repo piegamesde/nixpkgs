@@ -17,14 +17,14 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-1bFkeOOrRHNeJCg9LYldLJyAE5yVIo3zvbKsRGOV+vk=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   postInstall = ''
     wrapProgram $out/bin/sgrep \
-      --prefix PATH : ${lib.makeBinPath [ m4 ]}
+      --prefix PATH : ${lib.makeBinPath [m4]}
   '';
 
-  passthru.tests.smokeTest = runCommand "test-sgrep" { } ''
+  passthru.tests.smokeTest = runCommand "test-sgrep" {} ''
     expr='"<foo>" __ "</foo>"'
     data="<foo>1</foo><bar>2</bar>"
     ${sgrep}/bin/sgrep "$expr" <<<$data >$out
@@ -42,6 +42,6 @@ stdenv.mkDerivation rec {
     '';
     platforms = platforms.unix;
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ eigengrau ];
+    maintainers = with maintainers; [eigengrau];
   };
 }

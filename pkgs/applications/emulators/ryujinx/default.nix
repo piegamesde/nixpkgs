@@ -44,7 +44,7 @@ buildDotnetModule rec {
 
   nugetDeps = ./deps.nix;
 
-  nativeBuildInputs = [ wrapGAppsHook ];
+  nativeBuildInputs = [wrapGAppsHook];
 
   buildInputs = [
     gtk3
@@ -82,7 +82,7 @@ buildDotnetModule rec {
   testProjectFile = "Ryujinx.Tests/Ryujinx.Tests.csproj";
   doCheck = true;
 
-  dotnetFlags = [ "/p:ExtraDefineConstants=DISABLE_UPDATER%2CFORCE_EXTERNAL_BASE_DIR" ];
+  dotnetFlags = ["/p:ExtraDefineConstants=DISABLE_UPDATER%2CFORCE_EXTERNAL_BASE_DIR"];
 
   executables = [
     "Ryujinx.Headless.SDL2"
@@ -136,7 +136,7 @@ buildDotnetModule rec {
       ivar
       jk
     ];
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
     mainProgram = "Ryujinx";
   };
 }

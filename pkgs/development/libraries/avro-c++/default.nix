@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
     cmake
     python3
   ];
-  buildInputs = [ boost ];
+  buildInputs = [boost];
 
   preConfigure = ''
     substituteInPlace test/SchemaTests.cc --replace "BOOST_CHECKPOINT" "BOOST_TEST_CHECKPOINT"
@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
     description = "A C++ library which implements parts of the Avro Specification";
     homepage = "https://avro.apache.org/";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ rasendubi ];
+    maintainers = with lib.maintainers; [rasendubi];
     platforms = lib.platforms.all;
   };
 }

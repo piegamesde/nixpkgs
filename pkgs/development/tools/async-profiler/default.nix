@@ -17,9 +17,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-ngLUg6Fq6Ay06klGa/y8lod8W6rYMqhMhXFn5OBCSpk=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
-  buildInputs = [ jdk ];
+  buildInputs = [jdk];
 
   installPhase = ''
     runHook preInstall
@@ -37,14 +37,14 @@ stdenv.mkDerivation rec {
       --replace 'PROFILER=$SCRIPT_DIR/build/libasyncProfiler.so' \
                 'PROFILER=${placeholder "out"}/lib/libasyncProfiler.so'
 
-    wrapProgram $out/bin/async-profiler --prefix PATH : ${lib.makeBinPath [ jdk ]}
+    wrapProgram $out/bin/async-profiler --prefix PATH : ${lib.makeBinPath [jdk]}
   '';
 
   meta = with lib; {
     description = "A low overhead sampling profiler for Java that does not suffer from Safepoint bias problem";
     homepage = "https://github.com/jvm-profiling-tools/async-profiler";
     license = licenses.asl20;
-    maintainers = with maintainers; [ mschuwalow ];
+    maintainers = with maintainers; [mschuwalow];
     platforms = platforms.all;
   };
 }

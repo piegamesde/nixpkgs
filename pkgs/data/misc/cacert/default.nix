@@ -4,9 +4,9 @@
   writeText,
   fetchurl,
   buildcatrust,
-  blacklist ? [ ],
-  extraCertificateFiles ? [ ],
-  extraCertificateStrings ? [ ],
+  blacklist ? [],
+  extraCertificateFiles ? [],
+  extraCertificateStrings ? [],
 
   # Used by update.sh
   nssOverride ? null,
@@ -60,7 +60,7 @@ let
       else
         fetchurl {
           url = "mirror://mozilla/security/nss/releases/NSS_${
-            lib.replaceStrings [ "." ] [ "_" ] version
+            lib.replaceStrings ["."] ["_"] version
           }_RTM/src/nss-${version}.tar.gz";
           sha256 = "sha256-PzhfxoZHa7uoEQNfpoIbVCR11VdHsYwgwiHU1mVzuXU=";
         };
@@ -91,7 +91,7 @@ stdenv.mkDerivation rec {
     "p11kit"
   ];
 
-  nativeBuildInputs = [ buildcatrust ];
+  nativeBuildInputs = [buildcatrust];
 
   buildPhase = ''
     mkdir unbundled
@@ -157,9 +157,9 @@ stdenv.mkDerivation rec {
             {
               cacert = cacert.unbundled;
               cacertWithExcludes =
-                (cacert.override { blacklist = builtins.attrNames blacklistCAToFingerprint; }).unbundled;
+                (cacert.override {blacklist = builtins.attrNames blacklistCAToFingerprint;}).unbundled;
 
-              nativeBuildInputs = [ openssl ];
+              nativeBuildInputs = [openssl];
             }
             ''
               ${isTrusted}
@@ -220,11 +220,11 @@ stdenv.mkDerivation rec {
               cacert = cacert.unbundled;
               cacertWithExtras =
                 (cacert.override {
-                  extraCertificateStrings = [ extraCertificateStr ];
-                  extraCertificateFiles = [ extraCertificateFile ];
+                  extraCertificateStrings = [extraCertificateStr];
+                  extraCertificateFiles = [extraCertificateFile];
                 }).unbundled;
 
-              nativeBuildInputs = [ openssl ];
+              nativeBuildInputs = [openssl];
             }
             ''
               ${isTrusted}

@@ -21,7 +21,7 @@ let
       instruction;
 in
 {
-  imports = [ (removeOption [ "docker" ] "k3s docker option is no longer supported.") ];
+  imports = [(removeOption ["docker"] "k3s docker option is no longer supported.")];
 
   # interface
   options.services.k3s = {
@@ -159,7 +159,7 @@ in
       }
     ];
 
-    environment.systemPackages = [ config.services.k3s.package ];
+    environment.systemPackages = [config.services.k3s.package];
 
     systemd.services.k3s = {
       description = "k3s service";
@@ -171,7 +171,7 @@ in
         "firewall.service"
         "network-online.target"
       ];
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       path = optional config.boot.zfs.enabled config.boot.zfs.package;
       serviceConfig = {
         # See: https://github.com/rancher/k3s/blob/dddbd16305284ae4bd14c0aade892412310d7edc/install.sh#L197
@@ -186,14 +186,14 @@ in
         TasksMax = "infinity";
         EnvironmentFile = cfg.environmentFile;
         ExecStart = concatStringsSep " \\\n " (
-          [ "${cfg.package}/bin/k3s ${cfg.role}" ]
+          ["${cfg.package}/bin/k3s ${cfg.role}"]
           ++ (optional cfg.clusterInit "--cluster-init")
           ++ (optional cfg.disableAgent "--disable-agent")
           ++ (optional (cfg.serverAddr != "") "--server ${cfg.serverAddr}")
           ++ (optional (cfg.token != "") "--token ${cfg.token}")
           ++ (optional (cfg.tokenFile != null) "--token-file ${cfg.tokenFile}")
           ++ (optional (cfg.configPath != null) "--config ${cfg.configPath}")
-          ++ [ cfg.extraFlags ]
+          ++ [cfg.extraFlags]
         );
       };
     };

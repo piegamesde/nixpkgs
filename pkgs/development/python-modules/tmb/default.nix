@@ -22,9 +22,9 @@ buildPythonPackage rec {
 
   VERSION = version;
 
-  propagatedBuildInputs = [ requests ];
+  propagatedBuildInputs = [requests];
 
-  pythonImportsCheck = [ "tmb" ];
+  pythonImportsCheck = ["tmb"];
 
   # Project has no tests
   doCheck = false;
@@ -32,7 +32,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "Python library that interacts with TMB API";
     homepage = "https://github.com/alemuro/tmb";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

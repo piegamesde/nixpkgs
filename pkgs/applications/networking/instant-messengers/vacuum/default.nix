@@ -37,17 +37,17 @@ stdenv.mkDerivation {
   # should be an upstream issue but it's easy to fix
   NIX_LDFLAGS = "-lz";
 
-  nativeBuildInputs = [ qmake4Hook ];
+  nativeBuildInputs = [qmake4Hook];
 
   preConfigure = ''
     qmakeFlags="$qmakeFlags INSTALL_PREFIX=$out"
   '';
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   meta = with lib; {
     description = "An XMPP client fully composed of plugins";
-    maintainers = [ maintainers.raskin ];
+    maintainers = [maintainers.raskin];
     platforms = platforms.linux;
     license = licenses.gpl3;
     homepage = "http://www.vacuum-im.org";

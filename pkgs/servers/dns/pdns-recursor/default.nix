@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-8KY/0I4D2oL6INMz6lF50bkln0JkVGz0mVKGZ32UWMc=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     boost
     openssl
@@ -50,6 +50,6 @@ stdenv.mkDerivation rec {
       "i686-linux" # a 64-bit time_t is needed
     ];
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ rnhmjoj ];
+    maintainers = with maintainers; [rnhmjoj];
   };
 }

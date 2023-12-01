@@ -42,7 +42,7 @@ nimPackages.buildNimPackage rec {
     src.meta
     // {
       description = "Nim based tiling window manager";
-      license = [ licenses.gpl2 ];
-      maintainers = [ maintainers.marcusramberg ];
+      license = [licenses.gpl2];
+      maintainers = [maintainers.marcusramberg];
     };
 }

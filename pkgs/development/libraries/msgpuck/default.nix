@@ -32,6 +32,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/rtsisyk/msgpuck";
     license = licenses.bsd2;
     platforms = platforms.all;
-    maintainers = with maintainers; [ izorkin ];
+    maintainers = with maintainers; [izorkin];
   };
 }

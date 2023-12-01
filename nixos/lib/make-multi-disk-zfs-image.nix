@@ -40,7 +40,7 @@
   rootPoolName ? "tank",
 
   # zpool properties
-  rootPoolProperties ? { autoexpand = "on"; },
+  rootPoolProperties ? {autoexpand = "on";},
   # pool-wide filesystem properties
   rootPoolFilesystemProperties ? {
     acltype = "posixacl";
@@ -56,13 +56,13 @@
   # Notes:
   # 1. datasets will be created from shorter to longer names as a simple topo-sort
   # 2. you should define a root's dataset's mount for `/`
-  datasets ? { },
+  datasets ? {},
 
   # The files and directories to be placed in the target file system.
   # This is a list of attribute sets {source, target} where `source'
   # is the file system object (regular file or directory) to be
   # grafted in the file system at path `target'.
-  contents ? [ ],
+  contents ? [],
 
   # The initial NixOS configuration file to be copied to
   # /etc/nixos/configuration.nix. This configuration will be embedded
@@ -105,7 +105,7 @@ let
     let
       nixpkgs = lib.cleanSource pkgs.path;
     in
-    pkgs.runCommand "nixos-${config.system.nixos.version}" { } ''
+    pkgs.runCommand "nixos-${config.system.nixos.version}" {} ''
       mkdir -p $out
       cp -prd ${nixpkgs.outPath} $out/nixos
       chmod -R u+w $out/nixos
@@ -117,7 +117,7 @@ let
     '';
 
   closureInfo = pkgs.closureInfo {
-    rootPaths = [ config.system.build.toplevel ] ++ (lib.optional includeChannel channelSources);
+    rootPaths = [config.system.build.toplevel] ++ (lib.optional includeChannel channelSources);
   };
 
   modulesTree = pkgs.aggregateModules (
@@ -158,9 +158,9 @@ let
         lib.sort (left: right: (lib.stringLength left.name) < (lib.stringLength right.name))
           datasetlist;
       cmd =
-        { name, value }:
+        {name, value}:
         let
-          properties = stringifyProperties "-o" (value.properties or { });
+          properties = stringifyProperties "-o" (value.properties or {});
         in
         "zfs create -p ${properties} ${name}";
     in
@@ -169,12 +169,12 @@ let
   mountDatasets =
     let
       datasetlist = lib.mapAttrsToList lib.nameValuePair datasets;
-      mounts = lib.filter ({ value, ... }: hasDefinedMount value) datasetlist;
+      mounts = lib.filter ({value, ...}: hasDefinedMount value) datasetlist;
       sorted =
         lib.sort (left: right: (lib.stringLength left.value.mount) < (lib.stringLength right.value.mount))
           mounts;
       cmd =
-        { name, value }:
+        {name, value}:
         ''
           mkdir -p /mnt${lib.escapeShellArg value.mount}
           mount -t zfs ${name} /mnt${lib.escapeShellArg value.mount}
@@ -185,12 +185,12 @@ let
   unmountDatasets =
     let
       datasetlist = lib.mapAttrsToList lib.nameValuePair datasets;
-      mounts = lib.filter ({ value, ... }: hasDefinedMount value) datasetlist;
+      mounts = lib.filter ({value, ...}: hasDefinedMount value) datasetlist;
       sorted =
         lib.sort (left: right: (lib.stringLength left.value.mount) > (lib.stringLength right.value.mount))
           mounts;
       cmd =
-        { name, value }:
+        {name, value}:
         ''
           umount /mnt${lib.escapeShellArg value.mount}
         '';
@@ -219,7 +219,7 @@ let
               })
               mountable;
         };
-        passAsFile = [ "filesystems" ];
+        passAsFile = ["filesystems"];
       }
       ''
         (
@@ -235,7 +235,7 @@ let
     if configFile == null then
       fileSystemsCfgFile
     else
-      pkgs.runCommand "configuration.nix" { buildInputs = with pkgs; [ nixpkgs-fmt ]; } ''
+      pkgs.runCommand "configuration.nix" {buildInputs = with pkgs; [nixpkgs-fmt];} ''
         (
           echo '{ imports = ['
           printf "(%s)\n" "$(cat ${fileSystemsCfgFile})";

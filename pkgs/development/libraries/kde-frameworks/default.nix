@@ -56,7 +56,7 @@ let
         }:
         mkDerivation
       )
-      { };
+      {};
 
   packages =
     self:
@@ -68,7 +68,7 @@ let
         out:
         let
           setupHook =
-            { writeScript }:
+            {writeScript}:
             writeScript "setup-hook" ''
               if [ "''${hookName:-}" != postHook ]; then
                   postHooks+=("source @dev@/nix-support/setup-hook")
@@ -81,7 +81,7 @@ let
               fi
             '';
         in
-        callPackage setupHook { };
+        callPackage setupHook {};
 
       propagateBin = propagate "bin";
 
@@ -109,13 +109,13 @@ let
 
             meta =
               let
-                meta = args.meta or { };
+                meta = args.meta or {};
               in
               meta
               // {
                 homepage = meta.homepage or "https://kde.org";
                 license = meta.license or license;
-                maintainers = (meta.maintainers or [ ]) ++ maintainers;
+                maintainers = (meta.maintainers or []) ++ maintainers;
                 platforms = meta.platforms or lib.platforms.linux;
               };
           in
@@ -135,98 +135,98 @@ let
       };
     in
     {
-      extra-cmake-modules = callPackage ./extra-cmake-modules { };
+      extra-cmake-modules = callPackage ./extra-cmake-modules {};
 
       # TIER 1
-      attica = callPackage ./attica.nix { };
-      bluez-qt = callPackage ./bluez-qt.nix { };
-      breeze-icons = callPackage ./breeze-icons.nix { };
-      kapidox = callPackage ./kapidox.nix { };
-      karchive = callPackage ./karchive.nix { };
-      kcalendarcore = callPackage ./kcalendarcore.nix { };
-      kcodecs = callPackage ./kcodecs.nix { };
-      kconfig = callPackage ./kconfig.nix { };
-      kcoreaddons = callPackage ./kcoreaddons.nix { };
-      kdbusaddons = callPackage ./kdbusaddons.nix { };
-      kdnssd = callPackage ./kdnssd.nix { };
-      kguiaddons = callPackage ./kguiaddons.nix { };
-      kholidays = callPackage ./kholidays.nix { };
-      ki18n = callPackage ./ki18n.nix { };
-      kidletime = callPackage ./kidletime.nix { };
-      kirigami2 = callPackage ./kirigami2.nix { };
-      kitemmodels = callPackage ./kitemmodels.nix { };
-      kitemviews = callPackage ./kitemviews.nix { };
-      kplotting = callPackage ./kplotting.nix { };
-      kquickcharts = callPackage ./kquickcharts.nix { };
-      kwayland = callPackage ./kwayland.nix { };
-      kwidgetsaddons = callPackage ./kwidgetsaddons.nix { };
-      kwindowsystem = callPackage ./kwindowsystem { };
-      modemmanager-qt = callPackage ./modemmanager-qt.nix { };
-      networkmanager-qt = callPackage ./networkmanager-qt.nix { };
-      oxygen-icons5 = callPackage ./oxygen-icons5.nix { };
-      prison = callPackage ./prison.nix { };
-      qqc2-desktop-style = callPackage ./qqc2-desktop-style.nix { };
-      solid = callPackage ./solid { };
-      sonnet = callPackage ./sonnet.nix { };
-      syntax-highlighting = callPackage ./syntax-highlighting.nix { };
-      threadweaver = callPackage ./threadweaver.nix { };
+      attica = callPackage ./attica.nix {};
+      bluez-qt = callPackage ./bluez-qt.nix {};
+      breeze-icons = callPackage ./breeze-icons.nix {};
+      kapidox = callPackage ./kapidox.nix {};
+      karchive = callPackage ./karchive.nix {};
+      kcalendarcore = callPackage ./kcalendarcore.nix {};
+      kcodecs = callPackage ./kcodecs.nix {};
+      kconfig = callPackage ./kconfig.nix {};
+      kcoreaddons = callPackage ./kcoreaddons.nix {};
+      kdbusaddons = callPackage ./kdbusaddons.nix {};
+      kdnssd = callPackage ./kdnssd.nix {};
+      kguiaddons = callPackage ./kguiaddons.nix {};
+      kholidays = callPackage ./kholidays.nix {};
+      ki18n = callPackage ./ki18n.nix {};
+      kidletime = callPackage ./kidletime.nix {};
+      kirigami2 = callPackage ./kirigami2.nix {};
+      kitemmodels = callPackage ./kitemmodels.nix {};
+      kitemviews = callPackage ./kitemviews.nix {};
+      kplotting = callPackage ./kplotting.nix {};
+      kquickcharts = callPackage ./kquickcharts.nix {};
+      kwayland = callPackage ./kwayland.nix {};
+      kwidgetsaddons = callPackage ./kwidgetsaddons.nix {};
+      kwindowsystem = callPackage ./kwindowsystem {};
+      modemmanager-qt = callPackage ./modemmanager-qt.nix {};
+      networkmanager-qt = callPackage ./networkmanager-qt.nix {};
+      oxygen-icons5 = callPackage ./oxygen-icons5.nix {};
+      prison = callPackage ./prison.nix {};
+      qqc2-desktop-style = callPackage ./qqc2-desktop-style.nix {};
+      solid = callPackage ./solid {};
+      sonnet = callPackage ./sonnet.nix {};
+      syntax-highlighting = callPackage ./syntax-highlighting.nix {};
+      threadweaver = callPackage ./threadweaver.nix {};
 
       # TIER 2
-      kactivities = callPackage ./kactivities.nix { };
-      kauth = callPackage ./kauth { };
-      kcompletion = callPackage ./kcompletion.nix { };
-      kcontacts = callPackage ./kcontacts.nix { };
-      kcrash = callPackage ./kcrash.nix { };
-      kdoctools = callPackage ./kdoctools { };
-      kfilemetadata = callPackage ./kfilemetadata { };
-      kimageformats = callPackage ./kimageformats.nix { };
-      kjobwidgets = callPackage ./kjobwidgets.nix { };
-      knotifications = callPackage ./knotifications.nix { };
-      kpackage = callPackage ./kpackage { };
-      kpeople = callPackage ./kpeople.nix { };
-      kpty = callPackage ./kpty.nix { };
-      kunitconversion = callPackage ./kunitconversion.nix { };
-      syndication = callPackage ./syndication.nix { };
+      kactivities = callPackage ./kactivities.nix {};
+      kauth = callPackage ./kauth {};
+      kcompletion = callPackage ./kcompletion.nix {};
+      kcontacts = callPackage ./kcontacts.nix {};
+      kcrash = callPackage ./kcrash.nix {};
+      kdoctools = callPackage ./kdoctools {};
+      kfilemetadata = callPackage ./kfilemetadata {};
+      kimageformats = callPackage ./kimageformats.nix {};
+      kjobwidgets = callPackage ./kjobwidgets.nix {};
+      knotifications = callPackage ./knotifications.nix {};
+      kpackage = callPackage ./kpackage {};
+      kpeople = callPackage ./kpeople.nix {};
+      kpty = callPackage ./kpty.nix {};
+      kunitconversion = callPackage ./kunitconversion.nix {};
+      syndication = callPackage ./syndication.nix {};
 
       # TIER 3
-      baloo = callPackage ./baloo.nix { };
-      kactivities-stats = callPackage ./kactivities-stats.nix { };
-      kbookmarks = callPackage ./kbookmarks.nix { };
-      kcmutils = callPackage ./kcmutils.nix { };
-      kconfigwidgets = callPackage ./kconfigwidgets.nix { };
-      kdav = callPackage ./kdav.nix { };
-      kdeclarative = callPackage ./kdeclarative.nix { };
-      kded = callPackage ./kded.nix { };
-      kdesu = callPackage ./kdesu { };
-      kemoticons = callPackage ./kemoticons.nix { };
-      kglobalaccel = callPackage ./kglobalaccel.nix { };
-      kiconthemes = callPackage ./kiconthemes { };
-      kinit = callPackage ./kinit { };
-      kio = callPackage ./kio { };
-      knewstuff = callPackage ./knewstuff { };
-      knotifyconfig = callPackage ./knotifyconfig.nix { };
-      kparts = callPackage ./kparts.nix { };
-      krunner = callPackage ./krunner.nix { };
-      kservice = callPackage ./kservice { };
-      ktexteditor = callPackage ./ktexteditor.nix { };
-      ktextwidgets = callPackage ./ktextwidgets.nix { };
-      kwallet = callPackage ./kwallet.nix { };
-      kxmlgui = callPackage ./kxmlgui.nix { };
-      plasma-framework = callPackage ./plasma-framework.nix { };
-      kpurpose = callPackage ./purpose.nix { };
+      baloo = callPackage ./baloo.nix {};
+      kactivities-stats = callPackage ./kactivities-stats.nix {};
+      kbookmarks = callPackage ./kbookmarks.nix {};
+      kcmutils = callPackage ./kcmutils.nix {};
+      kconfigwidgets = callPackage ./kconfigwidgets.nix {};
+      kdav = callPackage ./kdav.nix {};
+      kdeclarative = callPackage ./kdeclarative.nix {};
+      kded = callPackage ./kded.nix {};
+      kdesu = callPackage ./kdesu {};
+      kemoticons = callPackage ./kemoticons.nix {};
+      kglobalaccel = callPackage ./kglobalaccel.nix {};
+      kiconthemes = callPackage ./kiconthemes {};
+      kinit = callPackage ./kinit {};
+      kio = callPackage ./kio {};
+      knewstuff = callPackage ./knewstuff {};
+      knotifyconfig = callPackage ./knotifyconfig.nix {};
+      kparts = callPackage ./kparts.nix {};
+      krunner = callPackage ./krunner.nix {};
+      kservice = callPackage ./kservice {};
+      ktexteditor = callPackage ./ktexteditor.nix {};
+      ktextwidgets = callPackage ./ktextwidgets.nix {};
+      kwallet = callPackage ./kwallet.nix {};
+      kxmlgui = callPackage ./kxmlgui.nix {};
+      plasma-framework = callPackage ./plasma-framework.nix {};
+      kpurpose = callPackage ./purpose.nix {};
 
       # TIER 4
-      frameworkintegration = callPackage ./frameworkintegration.nix { };
+      frameworkintegration = callPackage ./frameworkintegration.nix {};
 
       # PORTING AIDS
-      kdelibs4support = callPackage ./kdelibs4support { };
-      kdesignerplugin = callPackage ./kdesignerplugin.nix { };
-      khtml = callPackage ./khtml.nix { };
-      kjs = callPackage ./kjs.nix { };
-      kjsembed = callPackage ./kjsembed.nix { };
-      kmediaplayer = callPackage ./kmediaplayer.nix { };
-      kross = callPackage ./kross.nix { };
-      kxmlrpcclient = callPackage ./kxmlrpcclient.nix { };
+      kdelibs4support = callPackage ./kdelibs4support {};
+      kdesignerplugin = callPackage ./kdesignerplugin.nix {};
+      khtml = callPackage ./khtml.nix {};
+      kjs = callPackage ./kjs.nix {};
+      kjsembed = callPackage ./kjsembed.nix {};
+      kmediaplayer = callPackage ./kmediaplayer.nix {};
+      kross = callPackage ./kross.nix {};
+      kxmlrpcclient = callPackage ./kxmlrpcclient.nix {};
     };
 in
 lib.makeScope libsForQt5.newScope packages

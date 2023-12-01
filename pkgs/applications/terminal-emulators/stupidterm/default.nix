@@ -13,7 +13,7 @@ stdenv.mkDerivation {
   pname = "stupidterm";
   version = "2019-03-26";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     vte
@@ -48,7 +48,7 @@ stdenv.mkDerivation {
     description = "Simple wrapper around the VTE terminal emulator widget for GTK";
     homepage = "https://github.com/esmil/stupidterm";
     license = licenses.lgpl3Plus;
-    maintainers = [ maintainers.etu ];
+    maintainers = [maintainers.etu];
     platforms = platforms.linux;
   };
 }

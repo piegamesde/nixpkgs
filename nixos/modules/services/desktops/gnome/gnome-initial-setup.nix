@@ -90,7 +90,7 @@ in
       pkgs.gnome.gnome-initial-setup
     ] ++ optional (versionOlder config.system.stateVersion "20.03") createGisStampFilesAutostart;
 
-    systemd.packages = [ pkgs.gnome.gnome-initial-setup ];
+    systemd.packages = [pkgs.gnome.gnome-initial-setup];
 
     systemd.user.targets."gnome-session".wants = [
       "gnome-initial-setup-copy-worker.service"
@@ -98,6 +98,6 @@ in
       "gnome-welcome-tour.service"
     ];
 
-    systemd.user.targets."gnome-session@gnome-initial-setup".wants = [ "gnome-initial-setup.service" ];
+    systemd.user.targets."gnome-session@gnome-initial-setup".wants = ["gnome-initial-setup.service"];
   };
 }

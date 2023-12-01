@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-+cJ7GIORShsdSWX0xJsr5QLiqfyd0/YRI6vq6YnDVLw=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     boost
     lua
@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "http://www.andre-simon.de/doku/ansifilter/en/ansifilter.php";
     license = licenses.gpl3;
-    maintainers = [ maintainers.Adjective-Object ];
+    maintainers = [maintainers.Adjective-Object];
     platforms = platforms.linux ++ platforms.darwin;
   };
 }

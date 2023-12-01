@@ -11,13 +11,13 @@
   abiVersion ? "armeabi-v7a",
   systemImageType ? "default",
   enableGPU ? false,
-  extraAVDFiles ? [ ],
+  extraAVDFiles ? [],
   package ? null,
   activity ? null,
   androidUserHome ? null,
   avdHomeDir ? null, # Support old variable with non-standard naming!
   androidAvdHome ? avdHomeDir,
-  sdkExtraArgs ? { },
+  sdkExtraArgs ? {},
   androidAvdFlags ? null,
   androidEmulatorFlags ? null,
 }:
@@ -31,9 +31,9 @@ let
     // sdkExtraArgs
     // {
       cmdLineToolsVersion = "8.0";
-      platformVersions = [ platformVersion ];
-      systemImageTypes = [ systemImageType ];
-      abiVersions = [ abiVersion ];
+      platformVersions = [platformVersion];
+      systemImageTypes = [systemImageType];
+      abiVersions = [abiVersion];
     };
 
   sdk = (composeAndroidPackages sdkArgs).androidsdk;

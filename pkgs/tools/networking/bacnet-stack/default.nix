@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
     sha256 = "078p7qsy9v6fl7pzwgcr72pgjqxfxmfxyqajih2zqlb5g5sf88vh";
   };
 
-  hardeningDisable = [ "all" ];
+  hardeningDisable = ["all"];
 
   buildPhase = ''
     make BUILD=debug BACNET_PORT=linux BACDL_DEFINE=-DBACDL_BIP=1 BACNET_DEFINES=" -DPRINT_ENABLED=1 -DBACFILE -DBACAPP_ALL -DBACNET_PROPERTY_LISTS"
@@ -30,6 +30,6 @@ stdenv.mkDerivation rec {
     description = "BACnet open source protocol stack for embedded systems, Linux, and Windows";
     platforms = platforms.linux;
     license = licenses.gpl2;
-    maintainers = with maintainers; [ WhittlesJr ];
+    maintainers = with maintainers; [WhittlesJr];
   };
 }

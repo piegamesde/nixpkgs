@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
     description = "Multimedia Messaging Service Daemon";
     homepage = "https://01.org/ofono";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     platforms = platforms.linux;
   };
 }

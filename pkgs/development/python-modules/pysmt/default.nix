@@ -20,14 +20,14 @@ buildPythonPackage rec {
     hash = "sha256-cE+WmKzggYof/olxQb5M7xPsBONr39KdjOTG4ofYPUM=";
   };
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "pysmt" ];
+  pythonImportsCheck = ["pysmt"];
 
   meta = with lib; {
     description = "Python library for SMT formulae manipulation and solving";
     homepage = "https://github.com/pysmt/pysmt";
-    license = with licenses; [ asl20 ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [asl20];
+    maintainers = with maintainers; [fab];
   };
 }

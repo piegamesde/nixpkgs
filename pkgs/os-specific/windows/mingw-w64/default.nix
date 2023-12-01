@@ -45,8 +45,8 @@ stdenv.mkDerivation {
 
   enableParallelBuilding = true;
 
-  nativeBuildInputs = [ autoreconfHook ];
-  buildInputs = [ windows.mingw_w64_headers ];
+  nativeBuildInputs = [autoreconfHook];
+  buildInputs = [windows.mingw_w64_headers];
   hardeningDisable = [
     "stackprotector"
     "fortify"

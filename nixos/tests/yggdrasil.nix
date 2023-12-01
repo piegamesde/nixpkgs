@@ -8,7 +8,7 @@ let
   bobPrefix = "302:a483:73a4:9f2d";
   bobConfig = {
     InterfacePeers = {
-      eth1 = [ "tcp://192.168.1.200:12345" ];
+      eth1 = ["tcp://192.168.1.200:12345"];
     };
     MulticastInterfaces = [
       {
@@ -25,17 +25,17 @@ let
   danIp6 = bobPrefix + "::2";
 in
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   {
     name = "yggdrasil";
-    meta = with pkgs.lib.maintainers; { maintainers = [ gazally ]; };
+    meta = with pkgs.lib.maintainers; {maintainers = [gazally];};
 
     nodes = rec {
       # Alice is listening for peerings on a specified port,
       # but has multicast peering disabled.  Alice has part of her
       # yggdrasil config in Nix and part of it in a file.
       alice =
-        { ... }:
+        {...}:
         {
           networking = {
             interfaces.eth1.ipv4.addresses = [
@@ -55,8 +55,8 @@ import ./make-test-python.nix (
           services.yggdrasil = {
             enable = true;
             settings = {
-              Listen = [ "tcp://0.0.0.0:12345" ];
-              MulticastInterfaces = [ ];
+              Listen = ["tcp://0.0.0.0:12345"];
+              MulticastInterfaces = [];
             };
             configFile = toString (
               pkgs.writeTextFile {
@@ -70,9 +70,9 @@ import ./make-test-python.nix (
       # Bob is set up to peer with Alice, and also to do local multicast
       # peering.  Bob's yggdrasil config is in a file.
       bob =
-        { ... }:
+        {...}:
         {
-          networking.firewall.allowedTCPPorts = [ 54321 ];
+          networking.firewall.allowedTCPPorts = [54321];
           services.yggdrasil = {
             enable = true;
             openMulticastPort = true;
@@ -87,7 +87,7 @@ import ./make-test-python.nix (
           boot.kernel.sysctl."net.ipv6.conf.all.forwarding" = 1;
 
           networking = {
-            bridges.br0.interfaces = [ ];
+            bridges.br0.interfaces = [];
             interfaces.br0 = {
               ipv6.addresses = [
                 {
@@ -104,7 +104,7 @@ import ./make-test-python.nix (
             privateNetwork = true;
             hostBridge = "br0";
             config =
-              { config, pkgs, ... }:
+              {config, pkgs, ...}:
               {
                 networking.interfaces.eth0.ipv6 = {
                   addresses = [
@@ -123,23 +123,23 @@ import ./make-test-python.nix (
                 };
                 services.httpd.enable = true;
                 services.httpd.adminAddr = "foo@example.org";
-                networking.firewall.allowedTCPPorts = [ 80 ];
+                networking.firewall.allowedTCPPorts = [80];
               };
           };
         };
 
       # Carol only does local peering.  Carol's yggdrasil config is all Nix.
       carol =
-        { ... }:
+        {...}:
         {
-          networking.firewall.allowedTCPPorts = [ 43210 ];
+          networking.firewall.allowedTCPPorts = [43210];
           services.yggdrasil = {
             enable = true;
-            denyDhcpcdInterfaces = [ "ygg0" ];
+            denyDhcpcdInterfaces = ["ygg0"];
             settings = {
               IfTAPMode = true;
               IfName = "ygg0";
-              MulticastInterfaces = [ { Port = 43210; } ];
+              MulticastInterfaces = [{Port = 43210;}];
               openMulticastPort = true;
             };
             persistentKeys = true;

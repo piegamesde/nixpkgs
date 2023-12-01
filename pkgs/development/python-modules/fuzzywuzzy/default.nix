@@ -17,7 +17,7 @@ buildPythonPackage rec {
     sha256 = "1s00zn75y2dkxgnbw8kl8dw4p1mc77cv78fwfa4yb0274s96w0a5";
   };
 
-  propagatedBuildInputs = [ levenshtein ];
+  propagatedBuildInputs = [levenshtein];
   nativeCheckInputs = [
     pycodestyle
     hypothesis
@@ -28,6 +28,6 @@ buildPythonPackage rec {
     description = "Fuzzy string matching for Python";
     homepage = "https://github.com/seatgeek/fuzzywuzzy";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ erikarvstedt ];
+    maintainers = with maintainers; [erikarvstedt];
   };
 }

@@ -69,7 +69,7 @@ stdenv.mkDerivation (
       homepage = "https://doublecmd.sourceforge.io/";
       description = "Two-panel graphical file manager written in Pascal";
       license = licenses.gpl2Plus;
-      maintainers = with maintainers; [ AndersonTorres ];
+      maintainers = with maintainers; [AndersonTorres];
       platforms = with platforms; linux;
     };
   }

@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
     sed -i '/^#if __has_include (<immintrin\.h>)/,/^#endif/d' taskflow/utility/os.hpp
   '';
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   doCheck = true;
 
@@ -41,11 +41,11 @@ stdenv.mkDerivation rec {
     homepage = "https://taskflow.github.io/";
     changelog =
       let
-        release = lib.replaceStrings [ "." ] [ "-" ] version;
+        release = lib.replaceStrings ["."] ["-"] version;
       in
       "https://taskflow.github.io/taskflow/release-${release}.html";
     license = lib.licenses.mit;
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

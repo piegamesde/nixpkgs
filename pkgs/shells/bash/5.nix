@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
   };
 
   hardeningDisable =
-    [ "format" ]
+    ["format"]
     # bionic libc is super weird and has issues with fortify outside of its own libc, check this comment:
     # https://github.com/NixOS/nixpkgs/pull/192630#discussion_r978985593
     # or you can check libc/include/sys/cdefs.h in bionic source code
@@ -68,7 +68,7 @@ stdenv.mkDerivation rec {
       -DSSH_SOURCE_BASHRC
     '';
 
-  patchFlags = [ "-p0" ];
+  patchFlags = ["-p0"];
 
   patches = upstreamPatches ++ [
     ./pgrp-pipe-5.patch
@@ -80,7 +80,7 @@ stdenv.mkDerivation rec {
   ];
 
   configureFlags =
-    [ (if interactive then "--with-installed-readline" else "--disable-readline") ]
+    [(if interactive then "--with-installed-readline" else "--disable-readline")]
     ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
       "bash_cv_job_control_missing=nomissing"
       "bash_cv_sys_named_pipes=nomissing"
@@ -101,7 +101,7 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
   # Note: Bison is needed because the patches above modify parse.y.
-  depsBuildBuild = [ buildPackages.stdenv.cc ];
+  depsBuildBuild = [buildPackages.stdenv.cc];
   nativeBuildInputs = [
     bison
   ] ++ lib.optional withDocs texinfo ++ lib.optional stdenv.hostPlatform.isDarwin binutils;
@@ -115,7 +115,7 @@ stdenv.mkDerivation rec {
     "SHOBJ_LIBS=-lbash"
   ];
 
-  nativeCheckInputs = [ util-linux ];
+  nativeCheckInputs = [util-linux];
   doCheck = false; # dependency cycle, needs to be interactive
 
   postInstall = ''
@@ -157,7 +157,7 @@ stdenv.mkDerivation rec {
     '';
     license = licenses.gpl3Plus;
     platforms = platforms.all;
-    maintainers = with maintainers; [ dtzWill ];
+    maintainers = with maintainers; [dtzWill];
     mainProgram = "bash";
   };
 }

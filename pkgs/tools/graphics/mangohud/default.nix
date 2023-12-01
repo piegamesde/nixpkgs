@@ -135,8 +135,7 @@ stdenv.mkDerivation (
       substituteInPlace bin/mangohud.in \
         --subst-var-by libraryPath ${
           lib.makeSearchPath "lib/mangohud" (
-            [ (placeholder "out") ]
-            ++ lib.optionals (stdenv.hostPlatform.system == "x86_64-linux") [ mangohud32 ]
+            [(placeholder "out")] ++ lib.optionals (stdenv.hostPlatform.system == "x86_64-linux") [mangohud32]
           )
         } \
         --subst-var-by dataDir ${placeholder "out"}/share
@@ -190,7 +189,7 @@ stdenv.mkDerivation (
 
     doCheck = true;
 
-    nativeCheckInputs = [ appstream ];
+    nativeCheckInputs = [appstream];
 
     # Support 32bit Vulkan applications by linking in 32bit Vulkan layers
     # This is needed for the same reason the 32bit preload workaround is needed.
@@ -216,7 +215,7 @@ stdenv.mkDerivation (
       ''}
     '';
 
-    passthru.updateScript = nix-update-script { };
+    passthru.updateScript = nix-update-script {};
 
     meta = with lib; {
       description = "A Vulkan and OpenGL overlay for monitoring FPS, temperatures, CPU/GPU load and more";

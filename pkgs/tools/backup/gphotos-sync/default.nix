@@ -36,7 +36,7 @@ py.pkgs.buildPythonApplication rec {
     sha256 = "0mnlnqmlh3n1b6fjwpx2byl1z41vgghjb95598kz5gvdi95iirrs";
   };
 
-  patches = [ ./skip-network-tests.patch ];
+  patches = [./skip-network-tests.patch];
 
   propagatedBuildInputs = with py.pkgs; [
     appdirs
@@ -56,7 +56,7 @@ py.pkgs.buildPythonApplication rec {
       --replace " @ https://github.com/gilesknap/google-auth-library-python-oauthlib/archive/refs/tags/v0.5.2b1.zip" ""
   '';
 
-  buildInputs = [ ffmpeg ];
+  buildInputs = [ffmpeg];
 
   nativeCheckInputs = with py.pkgs; [
     mock
@@ -74,6 +74,6 @@ py.pkgs.buildPythonApplication rec {
     description = "Google Photos and Albums backup with Google Photos Library API";
     homepage = "https://github.com/gilesknap/gphotos-sync";
     license = licenses.asl20;
-    maintainers = with maintainers; [ dnr ];
+    maintainers = with maintainers; [dnr];
   };
 }

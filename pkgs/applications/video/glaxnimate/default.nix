@@ -70,7 +70,7 @@ stdenv.mkDerivation rec {
     python3WithLibs
   ];
 
-  qtWrapperArgs = [ "--prefix PATH : ${python3WithLibs}/bin" ];
+  qtWrapperArgs = ["--prefix PATH : ${python3WithLibs}/bin"];
 
   passthru.tests.version = lib.optionalAttrs stdenv.isLinux (
     testers.testVersion {
@@ -83,6 +83,6 @@ stdenv.mkDerivation rec {
     homepage = "https://gitlab.com/mattbas/glaxnimate";
     description = "Simple vector animation program.";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ tobiasBora ];
+    maintainers = with maintainers; [tobiasBora];
   };
 }

@@ -60,7 +60,7 @@ buildPythonPackage rec {
     ]
   );
 
-  propagatedBuildInputs = [ numpy ];
+  propagatedBuildInputs = [numpy];
 
   preCheck = ''
     export RAPIDFUZZ_IMPLEMENTATION=cpp
@@ -91,6 +91,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/maxbachmann/RapidFuzz";
     changelog = "https://github.com/maxbachmann/RapidFuzz/blob/${src.rev}/CHANGELOG.rst";
     license = licenses.mit;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

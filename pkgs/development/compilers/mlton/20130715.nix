@@ -49,10 +49,10 @@ stdenv.mkDerivation rec {
 
   sourceRoot = "${pname}-${version}";
 
-  buildInputs = [ gmp ];
+  buildInputs = [gmp];
   nativeBuildInputs = lib.optional stdenv.isLinux patchelf;
 
-  makeFlags = [ "all-no-docs" ];
+  makeFlags = ["all-no-docs"];
 
   configurePhase =
     ''
@@ -112,7 +112,7 @@ stdenv.mkDerivation rec {
 
   doCheck = true;
 
-  installTargets = [ "install-no-docs" ];
+  installTargets = ["install-no-docs"];
 
   postInstall = ''
     # Fix path to mlton libraries.

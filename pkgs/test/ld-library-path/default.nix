@@ -1,4 +1,4 @@
-{ lib, stdenv }:
+{lib, stdenv}:
 
 # This tests that libraries listed in LD_LIBRARY_PATH take precedence over those listed in RPATH.
 
@@ -36,7 +36,7 @@ let
   testProgram = stdenv.mkDerivation {
     name = "greeting-test";
 
-    buildInputs = [ libgreeting ];
+    buildInputs = [libgreeting];
 
     code = ''
       #include <stdio.h>
@@ -74,7 +74,7 @@ let
 in
 stdenv.mkDerivation {
   name = "test-LD_LIBRARY_PATH";
-  nativeBuildInputs = [ testProgram ];
+  nativeBuildInputs = [testProgram];
 
   buildCommand = ''
     # And for good measure, repeat the tests again from a separate derivation,

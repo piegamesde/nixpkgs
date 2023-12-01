@@ -23,7 +23,7 @@ python3.pkgs.buildPythonApplication rec {
       --replace "awscli>=1.19<2.0" ""
   '';
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   propagatedBuildInputs = with python3.pkgs; [
     setuptools
@@ -36,13 +36,13 @@ python3.pkgs.buildPythonApplication rec {
 
   # nimbo tests require an AWS instance
   doCheck = false;
-  pythonImportsCheck = [ "nimbo" ];
+  pythonImportsCheck = ["nimbo"];
 
   makeWrapperArgs = [
     "--prefix"
     "PATH"
     ":"
-    (lib.makeBinPath [ awscli ])
+    (lib.makeBinPath [awscli])
   ];
 
   postInstall = ''

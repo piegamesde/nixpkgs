@@ -41,6 +41,6 @@ stdenv.mkDerivation rec {
     description = "A high-quality Japanese font based on M+ fonts and IPA fonts";
     homepage = "http://mix-mplus-ipa.osdn.jp/migmix";
     license = licenses.ipa;
-    maintainers = [ maintainers.mikoim ];
+    maintainers = [maintainers.mikoim];
   };
 }

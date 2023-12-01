@@ -66,7 +66,7 @@
 # - https://github.com/void-linux/void-packages/blob/master/srcpkgs/telegram-desktop/template
 
 let
-  tg_owt = callPackage ./tg_owt.nix { abseil-cpp = abseil-cpp.override { cxxStandard = "20"; }; };
+  tg_owt = callPackage ./tg_owt.nix {abseil-cpp = abseil-cpp.override {cxxStandard = "20";};};
 in
 stdenv.mkDerivation rec {
   pname = "telegram-desktop";
@@ -179,7 +179,7 @@ stdenv.mkDerivation rec {
       "''${gappsWrapperArgs[@]}" \
       "''${qtWrapperArgs[@]}" \
       --prefix LD_LIBRARY_PATH : "${xorg.libXcursor}/lib" \
-      --suffix PATH : ${lib.makeBinPath [ xdg-utils ]}
+      --suffix PATH : ${lib.makeBinPath [xdg-utils]}
   '';
 
   passthru = {
@@ -197,6 +197,6 @@ stdenv.mkDerivation rec {
     platforms = platforms.linux;
     homepage = "https://desktop.telegram.org/";
     changelog = "https://github.com/telegramdesktop/tdesktop/releases/tag/v${version}";
-    maintainers = with maintainers; [ nickcao ];
+    maintainers = with maintainers; [nickcao];
   };
 }

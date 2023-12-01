@@ -14,12 +14,12 @@ stdenv.mkDerivation rec {
     # download, but that is actually a graphical installer that is much harder
     # to unpack than the deb.
     url = "https://www.greenfoot.org/download/files/Greenfoot-linux-${
-      builtins.replaceStrings [ "." ] [ "" ] version
+      builtins.replaceStrings ["."] [""] version
     }.deb";
     sha256 = "sha256-wGgKDsA/2luw+Nzs9dWb/HRHMx/0S0CFfoI53OCzxug=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   unpackPhase = ''
     ar xf $src
@@ -39,9 +39,9 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "A simple integrated development environment for Java";
     homepage = "https://www.greenfoot.org/";
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with sourceTypes; [binaryBytecode];
     license = licenses.gpl2ClasspathPlus;
-    maintainers = [ maintainers.chvp ];
+    maintainers = [maintainers.chvp];
     platforms = platforms.unix;
   };
 }

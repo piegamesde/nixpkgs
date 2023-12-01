@@ -1,14 +1,14 @@
 import ./make-test-python.nix (
-  { lib, ... }:
+  {lib, ...}:
 
   with lib;
 
   {
     name = "jirafeau";
-    meta.maintainers = with maintainers; [ davidtwco ];
+    meta.maintainers = with maintainers; [davidtwco];
 
     nodes.machine =
-      { pkgs, ... }:
+      {pkgs, ...}:
       {
         services.jirafeau = {
           enable = true;

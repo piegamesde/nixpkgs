@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
   };
 
   # required for build time tool `./tools/translate.c`
-  depsBuildBuild = [ buildPackages.stdenv.cc ];
+  depsBuildBuild = [buildPackages.stdenv.cc];
 
   nativeBuildInputs = [
     installShellFiles

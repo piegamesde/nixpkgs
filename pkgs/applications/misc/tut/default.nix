@@ -21,7 +21,7 @@ buildGoModule rec {
     description = "A TUI for Mastodon with vim inspired keys";
     homepage = "https://github.com/RasmusLindroth/tut";
     license = licenses.mit;
-    maintainers = with maintainers; [ equirosa ];
+    maintainers = with maintainers; [equirosa];
     platforms = platforms.unix;
   };
 }

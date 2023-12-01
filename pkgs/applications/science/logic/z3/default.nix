@@ -24,7 +24,7 @@ let
     {
       version,
       sha256,
-      patches ? [ ],
+      patches ? [],
       tag ? "z3",
     }:
     stdenv.mkDerivation rec {
@@ -40,14 +40,14 @@ let
       strictDeps = true;
 
       nativeBuildInputs =
-        [ python ]
+        [python]
         ++ optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames
         ++ optional javaBindings jdk
         ++ optionals ocamlBindings [
           ocaml
           findlib
         ];
-      propagatedBuildInputs = [ python.pkgs.setuptools ] ++ optionals ocamlBindings [ zarith ];
+      propagatedBuildInputs = [python.pkgs.setuptools] ++ optionals ocamlBindings [zarith];
       enableParallelBuilding = true;
 
       postPatch = optionalString ocamlBindings ''
@@ -57,7 +57,7 @@ let
 
       configurePhase =
         concatStringsSep " " (
-          [ "${python.pythonForBuild.interpreter} scripts/mk_make.py --prefix=$out" ]
+          ["${python.pythonForBuild.interpreter} scripts/mk_make.py --prefix=$out"]
           ++ optional javaBindings "--java"
           ++ optional ocamlBindings "--ml"
           ++ optional pythonBindings "--python --pypkgdir=$out/${python.sitePackages}"

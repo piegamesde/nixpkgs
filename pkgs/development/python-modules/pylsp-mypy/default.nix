@@ -30,9 +30,9 @@ buildPythonPackage rec {
     toml
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "pylsp_mypy" ];
+  pythonImportsCheck = ["pylsp_mypy"];
 
   disabledTests =
     [
@@ -44,6 +44,6 @@ buildPythonPackage rec {
     description = "Mypy plugin for the Python LSP Server";
     homepage = "https://github.com/Richardk2n/pylsp-mypy";
     license = licenses.mit;
-    maintainers = with maintainers; [ cpcloud ];
+    maintainers = with maintainers; [cpcloud];
   };
 }

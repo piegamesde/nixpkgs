@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-vzarUg4lBEXYkH+n9SY8SYr0gHUX94PSTDmKd957gyc=";
   };
 
-  patches = [ ./add-option-for-installation-sysconfdir.patch ];
+  patches = [./add-option-for-installation-sysconfdir.patch];
 
   nativeBuildInputs = [
     pkg-config
@@ -59,7 +59,7 @@ stdenv.mkDerivation rec {
     gtk-doc
     docbook-xsl-nons
     docbook_xml_dtd_412
-  ] ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [ mesonEmulatorHook ];
+  ] ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [mesonEmulatorHook];
 
   buildInputs =
     [
@@ -73,7 +73,7 @@ stdenv.mkDerivation rec {
       libnotify
       gdk-pixbuf
     ]
-    ++ lib.optionals (!stdenv.isDarwin) [ modemmanager ];
+    ++ lib.optionals (!stdenv.isDarwin) [modemmanager];
 
   propagatedBuildInputs = [
     glib

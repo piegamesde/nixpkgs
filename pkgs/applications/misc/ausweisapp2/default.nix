@@ -42,7 +42,7 @@ mkDerivation rec {
     downloadPage = "https://github.com/Governikus/AusweisApp2/releases";
     homepage = "https://www.ausweisapp.bund.de/ausweisapp2/";
     license = licenses.eupl12;
-    maintainers = with maintainers; [ b4dm4n ];
+    maintainers = with maintainers; [b4dm4n];
     platforms = platforms.linux;
   };
 }

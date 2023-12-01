@@ -83,7 +83,7 @@ stdenv.mkDerivation rec {
       various devices like: lights, switches, various sensors/meters like
       temperature, rain, wind, UV, electra, gas, water and much more
     '';
-    maintainers = with maintainers; [ edcragg ];
+    maintainers = with maintainers; [edcragg];
     homepage = "https://www.domoticz.com/";
     changelog = "https://github.com/domoticz/domoticz/blob/${version}/History.txt";
     license = licenses.gpl3Plus;

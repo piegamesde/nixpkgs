@@ -22,18 +22,18 @@ buildPythonPackage rec {
     sha256 = "sha256-h03gkRAMmOq35zzAq/OuctJwPAbP0Idu4Lmeu0RycDc=";
   };
 
-  nativeCheckInputs = [ nose ];
+  nativeCheckInputs = [nose];
 
   checkPhase = ''
     nosetests -v -e "^TestExport_MissingName" -e "^TestRemoveexportdirectory"
   '';
 
-  pythonImportsCheck = [ "annexremote" ];
+  pythonImportsCheck = ["annexremote"];
 
   meta = with lib; {
     description = "Helper module to easily develop git-annex remotes";
     homepage = "https://github.com/Lykos153/AnnexRemote";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ montag451 ];
+    maintainers = with maintainers; [montag451];
   };
 }

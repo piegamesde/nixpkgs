@@ -33,5 +33,5 @@ in
         source ${pkgs.fzf}/share/fzf/key-bindings.zsh
       '';
   };
-  meta.maintainers = with maintainers; [ laalsaas ];
+  meta.maintainers = with maintainers; [laalsaas];
 }

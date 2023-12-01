@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
     cp mencal $out/bin/
   '';
 
-  buildInputs = [ perl ];
+  buildInputs = [perl];
 
   meta = with lib; {
     description = "Menstruation calendar";
@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "http://www.kyberdigi.cz/projects/mencal/english.html";
     license = licenses.gpl2;
-    maintainers = [ maintainers.mmahut ];
+    maintainers = [maintainers.mmahut];
     platforms = platforms.all;
   };
 }

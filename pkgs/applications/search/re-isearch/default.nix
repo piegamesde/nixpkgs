@@ -50,6 +50,6 @@ stdenv.mkDerivation rec {
     description = "Novel multimodal search and retrieval engine";
     homepage = "https://github.com/re-Isearch/";
     license = licenses.asl20;
-    maintainers = [ maintainers.astro ];
+    maintainers = [maintainers.astro];
   };
 }

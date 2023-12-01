@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
     sha256 = "117cj5sfzl18gan53ld8lxb0wycizcp9jcakcs3nsvnss99rw3a6";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs =
     [
       zlib
@@ -50,7 +50,7 @@ stdenv.mkDerivation rec {
     homepage = "https://michaelrsweet.github.io/htmldoc";
     changelog = "https://github.com/michaelrsweet/htmldoc/releases/tag/v${version}";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     platforms = platforms.unix;
 
     longDescription = ''

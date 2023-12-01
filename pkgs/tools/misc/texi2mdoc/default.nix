@@ -13,13 +13,13 @@ stdenv.mkDerivation rec {
     sha256 = "1zjb61ymwfkw6z5g0aqmsn6qpw895zdxv7fv3059gj3wqa3zsibs";
   };
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   meta = with lib; {
     homepage = "http://mdocml.bsd.lv/";
     description = "converter from Texinfo into mdoc";
     license = licenses.isc;
     platforms = platforms.all;
-    maintainers = with maintainers; [ ramkromberg ];
+    maintainers = with maintainers; [ramkromberg];
   };
 }

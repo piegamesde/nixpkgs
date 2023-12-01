@@ -16,8 +16,8 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-cgNOz7an1tZ+OE4Z+27/8yNspPftTFGNfbZJxEfh/9Y=";
   };
 
-  buildInputs = [ openssl ] ++ lib.optionals stdenv.isLinux [ lksctp-tools ];
-  configureFlags = [ "--with-openssl=${openssl.dev}" ];
+  buildInputs = [openssl] ++ lib.optionals stdenv.isLinux [lksctp-tools];
+  configureFlags = ["--with-openssl=${openssl.dev}"];
 
   outputs = [
     "out"
@@ -42,6 +42,6 @@ stdenv.mkDerivation rec {
     description = "Tool to measure IP bandwidth using UDP or TCP";
     platforms = platforms.unix;
     license = licenses.bsd3;
-    maintainers = with maintainers; [ fpletz ];
+    maintainers = with maintainers; [fpletz];
   };
 }

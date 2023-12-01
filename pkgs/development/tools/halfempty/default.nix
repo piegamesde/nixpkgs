@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
     pkg-config
     util-linux
   ];
-  buildInputs = [ glib ];
+  buildInputs = [glib];
 
   enableParallelBuilding = true;
 
@@ -51,7 +51,7 @@ stdenv.mkDerivation rec {
   meta = {
     description = "Fast, parallel test case minimization tool";
     homepage = "https://github.com/googleprojectzero/halfempty/";
-    maintainers = with lib.maintainers; [ fpletz ];
-    license = with lib.licenses; [ asl20 ];
+    maintainers = with lib.maintainers; [fpletz];
+    license = with lib.licenses; [asl20];
   };
 }

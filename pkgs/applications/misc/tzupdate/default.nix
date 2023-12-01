@@ -1,4 +1,4 @@
-{ lib, python3 }:
+{lib, python3}:
 
 let
   inherit (python3.pkgs) buildPythonApplication fetchPypi requests;
@@ -12,12 +12,12 @@ buildPythonApplication rec {
     sha256 = "5b55795c390e4ccc90e649c8cc387447daaf30a21d68f7196b49824cbcba8adc";
   };
 
-  propagatedBuildInputs = [ requests ];
+  propagatedBuildInputs = [requests];
 
   meta = with lib; {
     description = "Update timezone information based on geoip";
     homepage = "https://github.com/cdown/tzupdate";
-    maintainers = [ maintainers.michaelpj ];
+    maintainers = [maintainers.michaelpj];
     license = licenses.unlicense;
   };
 }

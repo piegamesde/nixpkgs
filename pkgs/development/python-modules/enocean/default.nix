@@ -25,7 +25,7 @@ buildPythonPackage rec {
     pyserial
   ];
 
-  nativeCheckInputs = [ nose ];
+  nativeCheckInputs = [nose];
 
   checkPhase = ''
     runHook preCheck
@@ -45,6 +45,6 @@ buildPythonPackage rec {
     description = "EnOcean serial protocol implementation";
     homepage = "https://github.com/kipe/enocean";
     license = licenses.mit;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

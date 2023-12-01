@@ -100,7 +100,7 @@ else
     meta = {
       description = "Comprehensive ppx tool set";
       license = lib.licenses.mit;
-      maintainers = [ lib.maintainers.vbgl ];
+      maintainers = [lib.maintainers.vbgl];
       homepage = "https://github.com/ocaml-ppx/ppxlib";
     };
   }

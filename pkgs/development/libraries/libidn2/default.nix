@@ -43,8 +43,8 @@ stdenv.mkDerivation rec {
     help2man
     texinfo
   ];
-  buildInputs = [ libunistring ] ++ lib.optional stdenv.isDarwin libiconv;
-  depsBuildBuild = [ buildPackages.stdenv.cc ];
+  buildInputs = [libunistring] ++ lib.optional stdenv.isDarwin libiconv;
+  depsBuildBuild = [buildPackages.stdenv.cc];
 
   meta = {
     homepage = "https://www.gnu.org/software/libidn/#libidn2";
@@ -65,6 +65,6 @@ stdenv.mkDerivation rec {
       gpl3Plus
     ];
     platforms = lib.platforms.all;
-    maintainers = with lib.maintainers; [ fpletz ];
+    maintainers = with lib.maintainers; [fpletz];
   };
 }

@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
     sed '1i#include <algorithm>' -i src/stringHelper.h # gcc12
   '';
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   installPhase = ''
     install -D justify $out/bin/justify
@@ -33,6 +33,6 @@ stdenv.mkDerivation rec {
     license = licenses.gpl3Only;
     platforms = platforms.unix;
     mainProgram = "justify";
-    maintainers = with maintainers; [ xfnw ];
+    maintainers = with maintainers; [xfnw];
   };
 }

@@ -17,13 +17,13 @@ let
   # overlays can use the outputs to replace the originals in FHS environments.
   #
   # This doesn't work in general because of missing development information.
-  jack-libs = pkgs.runCommand "jack-libs" { } ''
+  jack-libs = pkgs.runCommand "jack-libs" {} ''
     mkdir -p "$out/lib"
     ln -s "${cfg.package.jack}/lib" "$out/lib/pipewire"
   '';
 in
 {
-  meta.maintainers = teams.freedesktop.members ++ [ lib.maintainers.k900 ];
+  meta.maintainers = teams.freedesktop.members ++ [lib.maintainers.k900];
 
   ###### interface
   options = {
@@ -131,14 +131,14 @@ in
       }
     ];
 
-    environment.systemPackages = [ cfg.package ] ++ lib.optional cfg.jack.enable jack-libs;
+    environment.systemPackages = [cfg.package] ++ lib.optional cfg.jack.enable jack-libs;
 
-    systemd.packages = [ cfg.package ] ++ lib.optional cfg.pulse.enable cfg.package.pulse;
+    systemd.packages = [cfg.package] ++ lib.optional cfg.pulse.enable cfg.package.pulse;
 
     # PipeWire depends on DBUS but doesn't list it. Without this booting
     # into a terminal results in the service crashing with an error.
-    systemd.services.pipewire.bindsTo = [ "dbus.service" ];
-    systemd.user.services.pipewire.bindsTo = [ "dbus.service" ];
+    systemd.services.pipewire.bindsTo = ["dbus.service"];
+    systemd.user.services.pipewire.bindsTo = ["dbus.service"];
 
     # Enable either system or user units.  Note that for pipewire-pulse there
     # are only user units, which work in both cases.
@@ -147,13 +147,13 @@ in
     systemd.user.sockets.pipewire.enable = !cfg.systemWide;
     systemd.user.services.pipewire.enable = !cfg.systemWide;
 
-    systemd.sockets.pipewire.wantedBy = lib.mkIf cfg.socketActivation [ "sockets.target" ];
-    systemd.user.sockets.pipewire.wantedBy = lib.mkIf cfg.socketActivation [ "sockets.target" ];
+    systemd.sockets.pipewire.wantedBy = lib.mkIf cfg.socketActivation ["sockets.target"];
+    systemd.user.sockets.pipewire.wantedBy = lib.mkIf cfg.socketActivation ["sockets.target"];
     systemd.user.sockets.pipewire-pulse.wantedBy = lib.mkIf (cfg.socketActivation && cfg.pulse.enable) [
       "sockets.target"
     ];
 
-    services.udev.packages = [ cfg.package ];
+    services.udev.packages = [cfg.package];
 
     # If any paths are updated here they must also be updated in the package test.
     environment.etc."alsa/conf.d/49-pipewire-modules.conf" = mkIf cfg.alsa.enable {
@@ -175,9 +175,7 @@ in
       source = "${cfg.package}/share/alsa/alsa.conf.d/99-pipewire-default.conf";
     };
 
-    environment.sessionVariables.LD_LIBRARY_PATH = lib.mkIf cfg.jack.enable [
-      "${cfg.package.jack}/lib"
-    ];
+    environment.sessionVariables.LD_LIBRARY_PATH = lib.mkIf cfg.jack.enable ["${cfg.package.jack}/lib"];
 
     users = lib.mkIf cfg.systemWide {
       users.pipewire = {

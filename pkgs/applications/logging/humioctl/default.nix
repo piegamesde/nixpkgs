@@ -26,9 +26,9 @@ buildGoModule {
     sha256 = sha256;
   };
 
-  ldflags = [ "-X main.version=${humioCtlVersion}" ];
+  ldflags = ["-X main.version=${humioCtlVersion}"];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = ''
     $out/bin/humioctl completion bash > humioctl.bash
@@ -40,6 +40,6 @@ buildGoModule {
     homepage = "https://github.com/humio/cli";
     description = "A CLI for managing and sending data to Humio";
     license = licenses.asl20;
-    maintainers = with maintainers; [ lucperkins ];
+    maintainers = with maintainers; [lucperkins];
   };
 }

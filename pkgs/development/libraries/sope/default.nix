@@ -35,8 +35,8 @@ gnustep.stdenv.mkDerivation rec {
     })
   ];
 
-  hardeningDisable = [ "format" ];
-  nativeBuildInputs = [ gnustep.make ];
+  hardeningDisable = ["format"];
+  nativeBuildInputs = [gnustep.make];
   buildInputs =
     [
       gnustep.base

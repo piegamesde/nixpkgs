@@ -63,7 +63,7 @@ stdenv.mkDerivation rec {
       game. This game was ported from the Commodore Amiga.
     '';
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ fgaz ];
+    maintainers = with maintainers; [fgaz];
     platforms = platforms.all;
   };
 }

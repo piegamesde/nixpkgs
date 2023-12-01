@@ -1,4 +1,4 @@
-{ stdenv, lib }:
+{stdenv, lib}:
 
 let
   variant = if stdenv.hostPlatform.isMusl then "alpine_linux" else "linux";
@@ -11,10 +11,6 @@ in
   jre-hotspot = import ./jdk-linux-base.nix {
     sourcePerArch = sources.openjdk16.${variant}.jre.hotspot;
   };
-  jdk-openj9 = import ./jdk-linux-base.nix {
-    sourcePerArch = sources.openjdk16.${variant}.jdk.openj9;
-  };
-  jre-openj9 = import ./jdk-linux-base.nix {
-    sourcePerArch = sources.openjdk16.${variant}.jre.openj9;
-  };
+  jdk-openj9 = import ./jdk-linux-base.nix {sourcePerArch = sources.openjdk16.${variant}.jdk.openj9;};
+  jre-openj9 = import ./jdk-linux-base.nix {sourcePerArch = sources.openjdk16.${variant}.jre.openj9;};
 }

@@ -40,12 +40,12 @@ buildPythonPackage rec {
   '';
 
   doCheck = false; # no tests
-  pythonImportsCheck = [ "n3fit" ];
+  pythonImportsCheck = ["n3fit"];
 
   meta = with lib; {
     description = "NNPDF fitting framework";
     homepage = "https://docs.nnpdf.science";
     inherit (nnpdf.meta) license;
-    maintainers = with maintainers; [ veprbl ];
+    maintainers = with maintainers; [veprbl];
   };
 }

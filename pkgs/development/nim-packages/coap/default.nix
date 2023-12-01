@@ -15,10 +15,10 @@ buildNimPackage rec {
     rev = version;
     hash = "sha256-wlDyqRxXTrX+zXDIe2o9FTU2o26LO/6m7H/FGok1JDw=";
   };
-  propagatedBuildInputs = [ taps ];
+  propagatedBuildInputs = [taps];
   meta = src.meta // {
     description = "Nim implementation of the Constrained Application Protocol (CoAP) over TCP";
     license = lib.licenses.agpl3Plus;
-    maintainers = with lib.maintainers; [ ehmry ];
+    maintainers = with lib.maintainers; [ehmry];
   };
 }

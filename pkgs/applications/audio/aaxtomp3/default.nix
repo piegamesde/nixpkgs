@@ -63,10 +63,10 @@ resholve.mkDerivation rec {
     ];
     keep."$call" = true;
     fix = {
-      "$AAXTOMP3" = [ "${placeholder "out"}/bin/aaxtomp3" ];
-      "$FIND" = [ "find" ];
-      "$GREP" = [ "grep" ];
-      "$SED" = [ "sed" ];
+      "$AAXTOMP3" = ["${placeholder "out"}/bin/aaxtomp3"];
+      "$FIND" = ["find"];
+      "$GREP" = ["grep"];
+      "$SED" = ["sed"];
     };
   };
 
@@ -74,6 +74,6 @@ resholve.mkDerivation rec {
     description = "Convert Audible's .aax filetype to MP3, FLAC, M4A, or OPUS";
     homepage = "https://krumpetpirate.github.io/AAXtoMP3";
     license = licenses.wtfpl;
-    maintainers = with maintainers; [ urandom ];
+    maintainers = with maintainers; [urandom];
   };
 }

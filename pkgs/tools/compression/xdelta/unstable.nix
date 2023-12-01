@@ -23,8 +23,8 @@ stdenv.mkDerivation rec {
     owner = "jmacd";
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
-  buildInputs = [ ] ++ lib.optionals lzmaSupport [ xz ];
+  nativeBuildInputs = [autoreconfHook];
+  buildInputs = [] ++ lib.optionals lzmaSupport [xz];
 
   postPatch = ''
     cd xdelta3
@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
       "common_CFLAGS = -DXD3_USE_LARGESIZET=1"
   '';
 
-  configureFlags = [ (mkWith lzmaSupport "liblzma") ];
+  configureFlags = [(mkWith lzmaSupport "liblzma")];
 
   enableParallelBuilding = true;
 

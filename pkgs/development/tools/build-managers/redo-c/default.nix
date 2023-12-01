@@ -23,6 +23,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/leahneukirchen/redo-c";
     license = licenses.cc0;
     platforms = platforms.all;
-    maintainers = with maintainers; [ ck3d ];
+    maintainers = with maintainers; [ck3d];
   };
 }

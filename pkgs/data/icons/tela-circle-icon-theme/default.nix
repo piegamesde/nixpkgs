@@ -10,7 +10,7 @@
   gitUpdater,
   allColorVariants ? false,
   circularFolder ? false,
-  colorVariants ? [ ], # default is standard
+  colorVariants ? [], # default is standard
 }:
 
 let
@@ -82,13 +82,13 @@ lib.checkListOfEnum "${pname}: color variants"
       runHook postInstall
     '';
 
-    passthru.updateScript = gitUpdater { };
+    passthru.updateScript = gitUpdater {};
 
     meta = with lib; {
       description = "Flat and colorful personality icon theme";
       homepage = "https://github.com/vinceliuice/Tela-circle-icon-theme";
       license = licenses.gpl3Only;
       platforms = platforms.linux; # darwin use case-insensitive filesystems that cause hash mismatches
-      maintainers = with maintainers; [ romildo ];
+      maintainers = with maintainers; [romildo];
     };
   }

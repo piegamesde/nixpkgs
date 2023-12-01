@@ -78,7 +78,7 @@ stdenv.mkDerivation rec {
       libtiff
       libxml2
     ]
-    ++ lib.optionals withSpiro [ libspiro ]
+    ++ lib.optionals withSpiro [libspiro]
     ++ lib.optionals withGUI [
       gtk3
       cairo
@@ -90,7 +90,7 @@ stdenv.mkDerivation rec {
     ];
 
   cmakeFlags =
-    [ "-DCMAKE_BUILD_WITH_INSTALL_RPATH=ON" ]
+    ["-DCMAKE_BUILD_WITH_INSTALL_RPATH=ON"]
     ++ lib.optional (!withSpiro) "-DENABLE_LIBSPIRO=OFF"
     ++ lib.optional (!withGUI) "-DENABLE_GUI=OFF"
     ++ lib.optional (!withGTK) "-DENABLE_X11=ON"
@@ -112,6 +112,6 @@ stdenv.mkDerivation rec {
     homepage = "https://fontforge.github.io";
     platforms = platforms.all;
     license = licenses.bsd3;
-    maintainers = [ maintainers.erictapen ];
+    maintainers = [maintainers.erictapen];
   };
 }

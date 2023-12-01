@@ -16,9 +16,9 @@ stdenv.mkDerivation rec {
     hash = "sha256-oDg9OSvi9aQsZ2SQm02NKAcppE0w5SGZaI13gdp7gv4=";
   };
 
-  buildInputs = [ libpcap ];
+  buildInputs = [libpcap];
 
-  makeFlags = [ "PREFIX=${placeholder "out"}" ];
+  makeFlags = ["PREFIX=${placeholder "out"}"];
 
   meta = with lib; {
     homepage = "https://gitlab.com/post-factum/pcapc";

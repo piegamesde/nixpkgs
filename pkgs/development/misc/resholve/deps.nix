@@ -35,7 +35,7 @@ rec {
 
     doCheck = false;
 
-    pythonImportsCheck = [ "configargparse" ];
+    pythonImportsCheck = ["configargparse"];
 
     meta = with lib; {
       description = "A drop-in replacement for argparse";

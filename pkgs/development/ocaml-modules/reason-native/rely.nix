@@ -10,7 +10,7 @@
 {
   pname = "rely";
 
-  nativeBuildInputs = [ reason ];
+  nativeBuildInputs = [reason];
 
   propagatedBuildInputs = [
     re

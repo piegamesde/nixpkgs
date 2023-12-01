@@ -17,7 +17,7 @@ let
       assert asserts.assertMsg (limit != null && window != null)
           "Both power limit and window must be set";
       "${toString limit} ${toString window}";
-  cliArgs = lib.cli.toGNUCommandLine { } {
+  cliArgs = lib.cli.toGNUCommandLine {} {
     inherit (cfg) verbose temp;
     # `core` and `cache` are both intentionally set to `cfg.coreOffset` as according to the undervolt docs:
     #
@@ -181,9 +181,9 @@ in
   };
 
   config = mkIf cfg.enable {
-    boot.kernelModules = [ "msr" ];
+    boot.kernelModules = ["msr"];
 
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
     systemd.services.undervolt = {
       description = "Intel Undervolting Service";
@@ -193,7 +193,7 @@ in
         "multi-user.target"
         "post-resume.target"
       ];
-      after = [ "post-resume.target" ]; # Not sure why but it won't work without this
+      after = ["post-resume.target"]; # Not sure why but it won't work without this
 
       serviceConfig = {
         Type = "oneshot";
@@ -204,8 +204,8 @@ in
 
     systemd.timers.undervolt = mkIf cfg.useTimer {
       description = "Undervolt timer to ensure voltage settings are always applied";
-      partOf = [ "undervolt.service" ];
-      wantedBy = [ "multi-user.target" ];
+      partOf = ["undervolt.service"];
+      wantedBy = ["multi-user.target"];
       timerConfig = {
         OnBootSec = "2min";
         OnUnitActiveSec = "30";

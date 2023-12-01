@@ -24,6 +24,6 @@ buildDunePackage rec {
     description = "Timed references for imperative state";
     homepage = "https://github.com/rlepigre/ocaml-timed";
     license = licenses.mit;
-    maintainers = with maintainers; [ bcdarwin ];
+    maintainers = with maintainers; [bcdarwin];
   };
 }

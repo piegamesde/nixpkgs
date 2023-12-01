@@ -20,7 +20,7 @@ let
     libunwind
     libedit
   ];
-  linuxDeps = [ ncurses6 ];
+  linuxDeps = [ncurses6];
 
   buildInputs = if stdenv.isDarwin then darwinDeps else linuxDeps;
   nativeBuildInputs = [

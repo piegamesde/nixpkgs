@@ -35,14 +35,14 @@ with self;
     meta.description = "Automated S-expression conversion";
     version = "0.10.0";
     hash = "1agw649n0rnf6h4y2dr1zs1970nncxgjmf90848vbxv8y9im4yy2";
-    buildInputs = [ num ];
+    buildInputs = [num];
   };
 
   base = janePackage {
     pname = "base";
     version = "0.9.4";
     hash = "0x85xi66b4zwlbdwmyc99zcmawgpp75gxqbl55rr67awavw162rw";
-    propagatedBuildInputs = [ sexplib ];
+    propagatedBuildInputs = [sexplib];
     meta.description = "Full standard library replacement for OCaml";
   };
 
@@ -85,7 +85,7 @@ with self;
     pname = "stdio";
     version = "0.9.1";
     hash = "13rj3ii0rvmklfim9ild0ib44ssdadig7a9ccjbz22m0pw84a1sx";
-    propagatedBuildInputs = [ base ];
+    propagatedBuildInputs = [base];
     meta.description = "Standard IO library for OCaml";
   };
 
@@ -105,7 +105,7 @@ with self;
   ppx_optcomp = janePackage {
     pname = "ppx_optcomp";
     hash = "1wfj6fnh92s81yncq7yyhmax7j6zpjj1sg1f3qa1f9c5kf4kkzrd";
-    propagatedBuildInputs = [ ppx_core ];
+    propagatedBuildInputs = [ppx_core];
     meta.description = "Optional compilation for OCaml";
   };
 
@@ -113,15 +113,15 @@ with self;
     pname = "ppx_driver";
     version = "0.9.1";
     hash = "1amz49x6v4sh1v2my6618cah0zv5i7jmsapbk9ydps6419g5asay";
-    buildInputs = [ ocamlbuild ];
-    propagatedBuildInputs = [ ppx_optcomp ];
+    buildInputs = [ocamlbuild];
+    propagatedBuildInputs = [ppx_optcomp];
     meta.description = "Feature-full driver for OCaml AST transformers";
   };
 
   ppx_metaquot = janePackage {
     pname = "ppx_metaquot";
     hash = "15qfd3s4x2pz006nx5316laxd3gqqi472x432qg4rfx4yh3vn31k";
-    propagatedBuildInputs = [ ppx_driver ];
+    propagatedBuildInputs = [ppx_driver];
     meta.description = "Metaquotations for ppx_ast";
   };
 
@@ -148,14 +148,14 @@ with self;
   ppx_compare = janePackage {
     pname = "ppx_compare";
     hash = "0wrszpvn1nms5sb5rb29p7z1wmqyd15gfzdj4ax8f843p5ywx3w9";
-    propagatedBuildInputs = [ ppx_type_conv ];
+    propagatedBuildInputs = [ppx_type_conv];
     meta.description = "Generation of comparison functions from types";
   };
 
   ppx_enumerate = janePackage {
     pname = "ppx_enumerate";
     hash = "1dfy86j2z12p5n9yrwaakx1ngphs5246vxy279kz6i6j34cwxm46";
-    propagatedBuildInputs = [ ppx_type_conv ];
+    propagatedBuildInputs = [ppx_type_conv];
     meta.description = "Generate a list containing all values of a finite type";
   };
 
@@ -195,21 +195,21 @@ with self;
   fieldslib = janePackage {
     pname = "fieldslib";
     hash = "1wxh59888l1bfz9ipnbcas58gwg744icaixzdbsg4v8f7wymc501";
-    propagatedBuildInputs = [ ppx_driver ];
+    propagatedBuildInputs = [ppx_driver];
     meta.description = "OCaml record fields as first class values";
   };
 
   variantslib = janePackage {
     pname = "variantslib";
     hash = "0kj53n62193j58q9vip8lfhhyf6w9d25wyvxzc163hx5m68yw0fz";
-    propagatedBuildInputs = [ ppx_driver ];
+    propagatedBuildInputs = [ppx_driver];
     meta.description = "OCaml variants as first class values";
   };
 
   ppx_traverse = janePackage {
     pname = "ppx_traverse";
     hash = "1sdqgwyq0w71i03vhc5jq4jk6rsbgwhvain48fnrllpkb5kj2la2";
-    propagatedBuildInputs = [ ppx_type_conv ];
+    propagatedBuildInputs = [ppx_type_conv];
     meta.description = "Automatic generation of open recursion classes";
   };
 
@@ -259,7 +259,7 @@ with self;
   ppx_here = janePackage {
     pname = "ppx_here";
     hash = "0pjscw5ydxgy4fcxakgsazpp09ka057w5n2fp2dpkv2k5gil6rzh";
-    propagatedBuildInputs = [ ppx_driver ];
+    propagatedBuildInputs = [ppx_driver];
     meta.description = "Expands [%here] into its location";
   };
 
@@ -290,21 +290,21 @@ with self;
     pname = "ppx_inline_test";
     version = "0.9.2";
     hash = "17j36ihiqprbpa2bk02449k93vaidid2sly5djrk848ccjq8n5aa";
-    propagatedBuildInputs = [ ppx_metaquot ];
+    propagatedBuildInputs = [ppx_metaquot];
     meta.description = "Syntax extension for writing in-line tests in OCaml code";
   };
 
   typerep = janePackage {
     pname = "typerep";
     hash = "0hlc0xiznli1k6azv2mhm1s4xghhxqqd957np7828bfp7r8n2jy3";
-    propagatedBuildInputs = [ base ];
+    propagatedBuildInputs = [base];
     meta.description = "Runtime types for OCaml";
   };
 
   ppx_bench = janePackage {
     pname = "ppx_bench";
     hash = "1qk4y6c2mpw7bqjppi2nam74vs2sc89wzq162j92wsqxyqsv4p93";
-    propagatedBuildInputs = [ ppx_inline_test ];
+    propagatedBuildInputs = [ppx_inline_test];
     meta.description = "Syntax extension for writing in-line benchmarks in OCaml code";
   };
 
@@ -335,21 +335,21 @@ with self;
   ppx_let = janePackage {
     pname = "ppx_let";
     hash = "1b914a5nynwxjvfx42v61yigvjhnd548m4yqjfchf38dmqi1f4nr";
-    propagatedBuildInputs = [ ppx_driver ];
+    propagatedBuildInputs = [ppx_driver];
     meta.description = "Monadic let-bindings";
   };
 
   ppx_optional = janePackage {
     pname = "ppx_optional";
     hash = "1vknsarxba0zcp5k2jb31wfpvqrv3bpanxbahfl5s2fwspsfdc82";
-    propagatedBuildInputs = [ ppx_metaquot ];
+    propagatedBuildInputs = [ppx_metaquot];
     meta.description = "Pattern matching on flat options";
   };
 
   ppx_pipebang = janePackage {
     pname = "ppx_pipebang";
     hash = "1wyfyyjvyi94ds1p90l60wdr85q2v3fq1qdf3gnv9zjfy6sb0g9h";
-    propagatedBuildInputs = [ ppx_metaquot ];
+    propagatedBuildInputs = [ppx_metaquot];
     meta.description = "A ppx rewriter that inlines reverse application operators |> and |!";
   };
 
@@ -408,7 +408,7 @@ with self;
     pname = "configurator";
     version = "0.9.1";
     hash = "1q0s0ghcrcrxdj6zr9zr27g7sr4qr9l14kizjphwqwwvgbzawdix";
-    propagatedBuildInputs = [ ppx_base ];
+    propagatedBuildInputs = [ppx_base];
     meta.description = "Helper library for gathering system configuration";
   };
 
@@ -451,7 +451,7 @@ with self;
   re2 = janePackage {
     pname = "re2";
     hash = "1qmhl3yd6y0lq401rz72b1bsbpglb0wighpxn3x8y1ixq415p4xi";
-    propagatedBuildInputs = [ core_kernel ];
+    propagatedBuildInputs = [core_kernel];
     meta = {
       description = "OCaml bindings for RE2";
       broken = stdenv.isDarwin;
@@ -461,7 +461,7 @@ with self;
   textutils = janePackage {
     pname = "textutils";
     hash = "1y6j2qw7rc8d80343lfv1dygnfrhn2qllz57mx28pl5kan743f6d";
-    propagatedBuildInputs = [ core ];
+    propagatedBuildInputs = [core];
     meta.description = "Text output utilities";
   };
 
@@ -486,7 +486,7 @@ with self;
   async_kernel = janePackage {
     pname = "async_kernel";
     hash = "1zwxhzy7f9900rcjls2fql9cpfmwrcah3fazzdz4h2i51f41w62x";
-    propagatedBuildInputs = [ core_kernel ];
+    propagatedBuildInputs = [core_kernel];
     meta.description = "Jane Street Capital's asynchronous execution library (core)";
   };
 
@@ -523,28 +523,28 @@ with self;
   async = janePackage {
     pname = "async";
     hash = "10ykzym19srgdiikj0s74dndx5nk15hjq1r2hc61iz48f6caxkb1";
-    propagatedBuildInputs = [ async_extra ];
+    propagatedBuildInputs = [async_extra];
     meta.description = "Jane Street Capital's asynchronous execution library";
   };
 
   async_find = janePackage {
     pname = "async_find";
     hash = "11dmhdzgf5kn4m0cm6zr28wpwhi2kr4lak9nmgxbrxsq28bcncxq";
-    propagatedBuildInputs = [ async ];
+    propagatedBuildInputs = [async];
     meta.description = "Directory traversal with Async";
   };
 
   async_interactive = janePackage {
     pname = "async_interactive";
     hash = "1mmqqp6bi2wg7bmgf0sw34jn3iyl5kbm200dax8yqq6rfprcs49j";
-    propagatedBuildInputs = [ async ];
+    propagatedBuildInputs = [async];
     meta.description = "Utilities for building simple command-line based user interfaces";
   };
 
   async_parallel = janePackage {
     pname = "async_parallel";
     hash = "0mdprhr1pv4g65g10gr3gaifrzknsdgarwfdbjlvhzfs86075kyn";
-    propagatedBuildInputs = [ async ];
+    propagatedBuildInputs = [async];
     meta.description = "Distributed computing library";
   };
 
@@ -618,21 +618,21 @@ with self;
   cinaps = janePackage {
     pname = "cinaps";
     hash = "02fpjiwrygkpx2q4jfldhbqh0mqxmf955wizr8k4vmsq4wsis0p5";
-    propagatedBuildInputs = [ re ];
+    propagatedBuildInputs = [re];
     meta.description = "Trivial Metaprogramming tool using the OCaml toplevel";
   };
 
   command_rpc = janePackage {
     pname = "command_rpc";
     hash = "0w58z9jkz5qzbvf33wrzhfshzdvnrphj6dq8dmi52ykhfvxm7824";
-    propagatedBuildInputs = [ async ];
+    propagatedBuildInputs = [async];
     meta.description = "Utilities for Versioned RPC communication with a child process over stdin and stdout";
   };
 
   core_bench = janePackage {
     pname = "core_bench";
     hash = "1m2q7217nmcsck29i59djkm0h6z3aj0i01niijzr5f6ilbnmyd3h";
-    propagatedBuildInputs = [ core_extended ];
+    propagatedBuildInputs = [core_extended];
     meta = {
       description = "Micro-benchmarking library for OCaml";
     };
@@ -641,7 +641,7 @@ with self;
   core_profiler = janePackage {
     pname = "core_profiler";
     hash = "1ir2v3wdfbf5xzqcma16asc73mkx2q6dzq5y1bx6q1rpa7iznx44";
-    propagatedBuildInputs = [ core_extended ];
+    propagatedBuildInputs = [core_extended];
     meta = {
       description = "Profiling library";
     };
@@ -650,14 +650,14 @@ with self;
   csvfields = janePackage {
     pname = "csvfields";
     hash = "0lbvs1kwl22ryxhw6s089f6683hj2920bn518mvr22rnv7qijy0v";
-    propagatedBuildInputs = [ core ];
+    propagatedBuildInputs = [core];
     meta.description = "Runtime support for ppx_xml_conv and ppx_csv_conv";
   };
 
   ecaml = janePackage {
     pname = "ecaml";
     hash = "1a2534bzbwgpm71aj3sm71sm0lkcjdfjj1mk91p1pg9kxn8c5x4i";
-    propagatedBuildInputs = [ async ];
+    propagatedBuildInputs = [async];
     meta.description = "Writing Emacs plugin in OCaml";
   };
 
@@ -679,7 +679,7 @@ with self;
   incremental_kernel = janePackage {
     pname = "incremental_kernel";
     hash = "0zq48wbgqcflh84n10iygi8aa3f0zzmgc7r0jwvsyg7i8zccgvf5";
-    propagatedBuildInputs = [ core_kernel ];
+    propagatedBuildInputs = [core_kernel];
     meta.description = "Library for incremental computations depending only on core_kernel";
   };
 
@@ -696,15 +696,15 @@ with self;
   incr_map = janePackage {
     pname = "incr_map";
     hash = "0358qg9irxbbhn18laqww3mn43mdwvlbr0h2mvg3vdbb2c5jp4fv";
-    propagatedBuildInputs = [ incremental_kernel ];
+    propagatedBuildInputs = [incremental_kernel];
     meta.description = "Helpers for incremental operations on map like data structures";
   };
 
   ocaml_plugin = janePackage {
     pname = "ocaml_plugin";
     hash = "0q33swnlx9p1gcn1aj95501kapb7cnbzbsavid69csczwmzcxr14";
-    buildInputs = [ ocamlbuild ];
-    propagatedBuildInputs = [ async ];
+    buildInputs = [ocamlbuild];
+    propagatedBuildInputs = [async];
     meta.description = "Automatically build and dynlink ocaml source files";
   };
 
@@ -723,21 +723,21 @@ with self;
   parsexp_io = janePackage {
     pname = "parsexp_io";
     hash = "0gcmh4dg48xgszladq92yhk1hf492zf0smz462xrwknzlfdkz6a5";
-    propagatedBuildInputs = [ parsexp ];
+    propagatedBuildInputs = [parsexp];
     meta.description = "S-expression parsing library (IO functions)";
   };
 
   patience_diff = janePackage {
     pname = "patience_diff";
     hash = "0vpx9xj1ich5qmj3m26vlmix3nsdj7pd1xzhqwbc7ad2kqwy3grg";
-    propagatedBuildInputs = [ core_kernel ];
+    propagatedBuildInputs = [core_kernel];
     meta.description = "Tool and library implementing patience diff";
   };
 
   posixat = janePackage {
     pname = "posixat";
     hash = "0ak93dyzi6sc6gb0j07fj85b24d8bv6g2hm7jj5xwb39kjwh51jl";
-    propagatedBuildInputs = [ ppx_sexp_conv ];
+    propagatedBuildInputs = [ppx_sexp_conv];
     meta.description = "Binding to the posix *at functions";
     meta.broken = lib.versionAtLeast ocaml.version "4.05";
   };
@@ -745,7 +745,7 @@ with self;
   rpc_parallel = janePackage {
     pname = "rpc_parallel";
     hash = "0s72msl2p27bz0knjlpgy5qwp0w4z76cq801ps0sab35f8jjfs38";
-    propagatedBuildInputs = [ async ];
+    propagatedBuildInputs = [async];
     meta.description = "Type-safe library for building parallel applications";
   };
 
@@ -762,14 +762,14 @@ with self;
   topological_sort = janePackage {
     pname = "topological_sort";
     hash = "1d64fyq0clsgham9p1f5rk01z8pxalglp92xmqw2iznyw0vxhvsy";
-    propagatedBuildInputs = [ core_kernel ];
+    propagatedBuildInputs = [core_kernel];
     meta.description = "Topological sort algorithm";
   };
 
   typerep_extended = janePackage {
     pname = "typerep_extended";
     hash = "15gq8mrvlipd616rffr3f0wqw5d0ijnnizix610g2d5viirh0j9p";
-    propagatedBuildInputs = [ core_kernel ];
+    propagatedBuildInputs = [core_kernel];
     meta.description = "Runtime types for OCaml (Extended)";
   };
 }

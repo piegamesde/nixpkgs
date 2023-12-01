@@ -1,14 +1,14 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "cl-ppcre";
   version = "20190521-git";
 
-  parasites = [ "cl-ppcre-test" ];
+  parasites = ["cl-ppcre-test"];
 
   description = "Perl-compatible regular expression library";
 
-  deps = [ args."flexi-streams" ];
+  deps = [args."flexi-streams"];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/cl-ppcre/2019-05-21/cl-ppcre-20190521-git.tgz";
@@ -17,7 +17,7 @@ rec {
 
   packageName = "cl-ppcre";
 
-  asdFilesToKeep = [ "cl-ppcre.asd" ];
+  asdFilesToKeep = ["cl-ppcre.asd"];
   overrides = x: x;
 }
 /* (SYSTEM cl-ppcre DESCRIPTION Perl-compatible regular expression library

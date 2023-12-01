@@ -22,6 +22,6 @@ rustPlatform.buildRustPackage rec {
     description = "Cargo tool for monitoring ESP32/ESP8266 execution";
     homepage = "https://github.com/esp-rs/espmonitor";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ xanderio ];
+    maintainers = with maintainers; [xanderio];
   };
 }

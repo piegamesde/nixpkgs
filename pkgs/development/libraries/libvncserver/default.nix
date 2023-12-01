@@ -29,22 +29,22 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-kqVZeCTp+Z6BtB6nzkwmtkJ4wtmjlSQBg05lD02cVvQ=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   buildInputs = [
     libjpeg
     openssl
     libgcrypt
     libpng
-  ] ++ lib.optionals stdenv.isLinux [ systemd ] ++ lib.optionals stdenv.isDarwin [ Carbon ];
+  ] ++ lib.optionals stdenv.isLinux [systemd] ++ lib.optionals stdenv.isDarwin [Carbon];
 
-  propagatedBuildInputs = [ zlib ];
+  propagatedBuildInputs = [zlib];
 
   meta = with lib; {
     description = "VNC server library";
     homepage = "https://libvnc.github.io/";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ raskin ];
+    maintainers = with maintainers; [raskin];
     platforms = platforms.unix;
   };
 }

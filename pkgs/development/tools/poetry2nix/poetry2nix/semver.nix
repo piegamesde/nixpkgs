@@ -1,4 +1,4 @@
-{ lib, ireplace }:
+{lib, ireplace}:
 let
   inherit (builtins) elemAt match;
   operators =
@@ -61,7 +61,7 @@ let
   parseConstraint =
     constraint:
     let
-      constraintStr = builtins.replaceStrings [ " " ] [ "" ] constraint;
+      constraintStr = builtins.replaceStrings [" "] [""] constraint;
       # The common prefix operators
       mPre = match "${re.operators} *${re.version}" constraintStr;
       # There is also an infix operator to match ranges

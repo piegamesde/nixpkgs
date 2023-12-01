@@ -29,8 +29,8 @@ stdenv.mkDerivation {
   pname = "sage-tests";
   inherit src;
 
-  nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ sage-with-env ];
+  nativeBuildInputs = [makeWrapper];
+  buildInputs = [sage-with-env];
 
   dontUnpack = true;
   configurePhase = "#do nothing";

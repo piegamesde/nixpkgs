@@ -31,6 +31,6 @@ stdenv.mkDerivation rec {
     description = "Plugin for SLURM for SSH tunneling and port forwarding support";
     platforms = platforms.linux;
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ markuskowa ];
+    maintainers = with maintainers; [markuskowa];
   };
 }

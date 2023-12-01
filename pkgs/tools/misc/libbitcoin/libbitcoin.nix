@@ -24,11 +24,11 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  propagatedBuildInputs = [ secp256k1 ];
+  propagatedBuildInputs = [secp256k1];
 
   enableParallelBuilding = true;
 
-  patches = [ ./fix-gcc11-compilation.patch ];
+  patches = [./fix-gcc11-compilation.patch];
 
   configureFlags = [
     "--with-tests=no"
@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
     description = "C++ library for building bitcoin applications";
     homepage = "https://libbitcoin.info/";
     platforms = platforms.linux ++ platforms.darwin;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     # AGPL with a lesser clause
     license = licenses.agpl3;
   };

@@ -21,7 +21,7 @@ buildTileSet {
     description = "Cataclysm DDA tileset based on MSX++ tileset";
     homepage = "https://github.com/SomeDeadGuy/UndeadPeopleTileset";
     license = licenses.unfree;
-    maintainers = with maintainers; [ mnacamura ];
+    maintainers = with maintainers; [mnacamura];
     platforms = platforms.all;
   };
 }

@@ -19,7 +19,7 @@ buildPythonPackage rec {
     sha256 = "15gv78m17g958gfka6rr3rg230g6b5ssgk8bfpsp7k2iajhxdbhs";
   };
 
-  propagatedBuildInputs = [ requests ];
+  propagatedBuildInputs = [requests];
   nativeCheckInputs = [
     flake8
     mock
@@ -35,6 +35,6 @@ buildPythonPackage rec {
     description = "Python wrapper for the Yandex MyStem 3.1 morpholocial analyzer of the Russian language";
     homepage = "https://github.com/nlpub/pymystem3";
     license = licenses.mit;
-    maintainers = with maintainers; [ abbradar ];
+    maintainers = with maintainers; [abbradar];
   };
 }

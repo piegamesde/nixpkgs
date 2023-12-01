@@ -1,5 +1,5 @@
 import ../make-test-python.nix (
-  { lib, ... }:
+  {lib, ...}:
 
   {
     name = "initrd-network-ssh";
@@ -12,16 +12,16 @@ import ../make-test-python.nix (
 
     nodes = with lib; {
       server =
-        { config, ... }:
+        {config, ...}:
         {
-          boot.kernelParams = [ "ip=${config.networking.primaryIPAddress}:::255.255.255.0::eth1:none" ];
+          boot.kernelParams = ["ip=${config.networking.primaryIPAddress}:::255.255.255.0::eth1:none"];
           boot.initrd.network = {
             enable = true;
             ssh = {
               enable = true;
-              authorizedKeys = [ (readFile ./id_ed25519.pub) ];
+              authorizedKeys = [(readFile ./id_ed25519.pub)];
               port = 22;
-              hostKeys = [ ./ssh_host_ed25519_key ];
+              hostKeys = [./ssh_host_ed25519_key];
             };
           };
           boot.initrd.preLVMCommands = ''
@@ -35,7 +35,7 @@ import ../make-test-python.nix (
         };
 
       client =
-        { config, ... }:
+        {config, ...}:
         {
           environment.etc = {
             knownHosts = {

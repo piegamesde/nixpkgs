@@ -31,12 +31,12 @@ buildPythonPackage rec {
     mkdir $HOME/.config
   '';
 
-  pythonImportsCheck = [ "upass" ];
+  pythonImportsCheck = ["upass"];
 
   meta = with lib; {
     description = "Console UI for pass";
     homepage = "https://github.com/Kwpolska/upass";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

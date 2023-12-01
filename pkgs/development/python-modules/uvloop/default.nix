@@ -28,10 +28,10 @@ buildPythonPackage rec {
     hash = "sha256-Dd9rr5zxGhoixxSH858Vss9461vefltF+7meip2RueE=";
   };
 
-  nativeBuildInputs = [ cython ];
+  nativeBuildInputs = [cython];
 
   buildInputs =
-    [ libuv ]
+    [libuv]
     ++ lib.optionals stdenv.isDarwin [
       CoreServices
       ApplicationServices
@@ -42,7 +42,7 @@ buildPythonPackage rec {
     pytest-forked
     pytestCheckHook
     psutil
-  ] ++ lib.optionals (pythonOlder "3.11") [ aiohttp ];
+  ] ++ lib.optionals (pythonOlder "3.11") [aiohttp];
 
   LIBUV_CONFIGURE_HOST = stdenv.hostPlatform.config;
 
@@ -119,6 +119,6 @@ buildPythonPackage rec {
     description = "Fast implementation of asyncio event loop on top of libuv";
     homepage = "https://github.com/MagicStack/uvloop";
     license = licenses.mit;
-    maintainers = with maintainers; [ costrouc ];
+    maintainers = with maintainers; [costrouc];
   };
 }

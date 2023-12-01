@@ -20,9 +20,9 @@ stdenv.mkDerivation {
     libxpdf
   ];
 
-  patches = [ ./pdf2xml.patch ];
+  patches = [./pdf2xml.patch];
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   preBuild = ''
     cp Makefile.linux Makefile

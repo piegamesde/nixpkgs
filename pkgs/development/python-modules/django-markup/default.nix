@@ -34,7 +34,7 @@ buildPythonPackage rec {
     sed -i "/--cov/d" setup.cfg
   '';
 
-  buildInputs = [ django ];
+  buildInputs = [django];
 
   passthru.optional-dependencies = {
     all_filter_dependencies = [
@@ -48,7 +48,7 @@ buildPythonPackage rec {
     ];
   };
 
-  pythonImportsCheck = [ "django_markup" ];
+  pythonImportsCheck = ["django_markup"];
 
   nativeCheckInputs = [
     pytest-django
@@ -62,6 +62,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/bartTC/django-markup";
     changelog = "https://github.com/bartTC/django-markup/blob/v${version}/CHANGELOG.rst";
     license = licenses.mit;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

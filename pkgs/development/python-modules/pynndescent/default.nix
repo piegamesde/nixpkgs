@@ -43,9 +43,9 @@ buildPythonPackage rec {
     numba
     scikit-learn
     scipy
-  ] ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
+  ] ++ lib.optionals (pythonOlder "3.8") [importlib-metadata];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTests = [
     # numpy.core._exceptions._UFuncNoLoopError
@@ -57,12 +57,12 @@ buildPythonPackage rec {
     "test_weighted_minkowski"
   ];
 
-  pythonImportsCheck = [ "pynndescent" ];
+  pythonImportsCheck = ["pynndescent"];
 
   meta = with lib; {
     description = "Nearest Neighbor Descent";
     homepage = "https://github.com/lmcinnes/pynndescent";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ mic92 ];
+    maintainers = with maintainers; [mic92];
   };
 }

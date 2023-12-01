@@ -43,7 +43,7 @@ buildPythonPackage rec {
     libGL
   ];
 
-  makeFlags = [ "QT_PLUGIN_PATH=${pysideShiboken}/lib/generatorrunner" ];
+  makeFlags = ["QT_PLUGIN_PATH=${pysideShiboken}/lib/generatorrunner"];
 
   dontWrapQtApps = true;
 

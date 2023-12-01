@@ -13,7 +13,7 @@ stdenv.mkDerivation rec {
     sha256 = "0apr1pxifw6f1rbbsdrrwzs1dnhybg4hda3qqhqcw7p14r5xnbx5";
   };
 
-  patches = [ ./header-order.patch ];
+  patches = [./header-order.patch];
 
   meta = with lib; {
     description = ''
@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
                          anti-virus software'';
     homepage = "http://thewalter.net/stef/software/clamsmtp/";
     license = licenses.bsd3;
-    maintainers = [ maintainers.ekleog ];
+    maintainers = [maintainers.ekleog];
     mainProgram = "clamsmtpd";
     platforms = platforms.all;
   };

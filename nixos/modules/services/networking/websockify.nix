@@ -35,7 +35,7 @@ in
 
       portMap = mkOption {
         description = lib.mdDoc "Ports to map by default.";
-        default = { };
+        default = {};
         type = types.attrsOf types.int;
       };
     };
@@ -56,7 +56,7 @@ in
       description = "Target to start all default websockify@ services";
       unitConfig.X-StopOnReconfiguration = true;
       wants = mapAttrsToList (name: value: "websockify@${name}:${toString value}.service") cfg.portMap;
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
     };
   };
 }

@@ -27,11 +27,11 @@ rustPlatform.buildRustPackage rec {
     asciidoctor
     installShellFiles
   ];
-  buildInputs = [ openssl ] ++ lib.optional stdenv.isDarwin Security;
+  buildInputs = [openssl] ++ lib.optional stdenv.isDarwin Security;
 
   cargoSha256 = "sha256-g/Il3Sff9NtEfGTXBOGyRw6/GXje9kVwco0URyhv4TI=";
 
-  nativeCheckInputs = [ ansi2html ];
+  nativeCheckInputs = [ansi2html];
   # Skip tests that use the network and that include files.
   checkFlags = [
     "--skip magic::tests::detect_mimetype_of_larger_than_magic_param_bytes_max_length"
@@ -59,7 +59,7 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "cat for markdown";
     homepage = "https://github.com/swsnr/mdcat";
-    license = with licenses; [ mpl20 ];
-    maintainers = with maintainers; [ SuperSandro2000 ];
+    license = with licenses; [mpl20];
+    maintainers = with maintainers; [SuperSandro2000];
   };
 }

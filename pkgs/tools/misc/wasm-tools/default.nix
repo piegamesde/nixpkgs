@@ -26,12 +26,12 @@ rustPlatform.buildRustPackage rec {
     "wasm-tools"
   ];
 
-  cargoTestFlags = [ "--all" ];
+  cargoTestFlags = ["--all"];
 
   meta = with lib; {
     description = "Low level tooling for WebAssembly in Rust";
     homepage = "https://github.com/bytecodealliance/wasm-tools";
     license = licenses.asl20;
-    maintainers = with maintainers; [ ereslibre ];
+    maintainers = with maintainers; [ereslibre];
   };
 }

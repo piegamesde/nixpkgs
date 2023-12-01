@@ -44,6 +44,6 @@ buildDunePackage rec {
     description = "Mirage-nat is a library for network address translation to be used with MirageOS";
     homepage = "https://github.com/mirage/${pname}";
     license = licenses.isc;
-    maintainers = [ maintainers.sternenseemann ];
+    maintainers = [maintainers.sternenseemann];
   };
 }

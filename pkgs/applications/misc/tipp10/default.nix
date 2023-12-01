@@ -23,13 +23,13 @@ mkDerivation rec {
     cmake
     qttools
   ];
-  buildInputs = [ qtmultimedia ];
+  buildInputs = [qtmultimedia];
 
   meta = with lib; {
     description = "Learn and train typing with the ten-finger system";
     homepage = "https://gitlab.com/tipp10/tipp10";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     platforms = platforms.all;
   };
 }

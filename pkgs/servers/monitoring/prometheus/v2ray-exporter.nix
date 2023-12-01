@@ -21,6 +21,6 @@ buildGoModule rec {
     description = "Prometheus exporter for V2Ray daemon";
     homepage = "https://github.com/wi1dcard/v2ray-exporter";
     license = licenses.mit;
-    maintainers = with maintainers; [ jqqqqqqqqqq ];
+    maintainers = with maintainers; [jqqqqqqqqqq];
   };
 }

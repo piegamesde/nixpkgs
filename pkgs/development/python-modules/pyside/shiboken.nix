@@ -77,7 +77,7 @@ buildPythonPackage rec {
     description = "Plugin (front-end) for pyside-generatorrunner, that generates bindings for C++ libraries using CPython source code";
     license = licenses.gpl2;
     homepage = "http://www.pyside.org/";
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.all;
   };
 }

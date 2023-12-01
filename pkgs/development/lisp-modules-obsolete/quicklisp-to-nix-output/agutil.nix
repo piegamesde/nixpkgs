@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "agutil";
   version = "20210531-git";
@@ -19,7 +19,7 @@ rec {
 
   packageName = "agutil";
 
-  asdFilesToKeep = [ "agutil.asd" ];
+  asdFilesToKeep = ["agutil.asd"];
   overrides = x: x;
 }
 /* (SYSTEM agutil DESCRIPTION

@@ -4,7 +4,7 @@
   nodejs,
 }:
 
-runCommand "purescript-test-minimal-module" { } ''
+runCommand "purescript-test-minimal-module" {} ''
   ${purescript}/bin/purs compile -o ./output ${./.}/Main.purs
 
   echo 'import {main} from "./output/Main/index.js"; main()' > node.mjs

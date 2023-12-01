@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
     homepage = "http://code.google.com/p/mid2key/";
     description = "A simple tool which maps midi notes to simulated keystrokes";
     license = licenses.gpl3;
-    maintainers = [ maintainers.goibhniu ];
+    maintainers = [maintainers.goibhniu];
     platforms = platforms.linux;
   };
 }

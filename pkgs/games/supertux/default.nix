@@ -57,7 +57,7 @@ stdenv.mkDerivation rec {
     libvorbis
   ];
 
-  cmakeFlags = [ "-DENABLE_BOOST_STATIC_LIBS=OFF" ];
+  cmakeFlags = ["-DENABLE_BOOST_STATIC_LIBS=OFF"];
 
   postInstall = ''
     mkdir $out/bin
@@ -68,7 +68,7 @@ stdenv.mkDerivation rec {
     description = "Classic 2D jump'n run sidescroller game";
     homepage = "https://supertux.github.io/";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ pSub ];
+    maintainers = with maintainers; [pSub];
     platforms = with platforms; linux;
     mainProgram = "supertux2";
   };

@@ -25,7 +25,7 @@ buildPythonPackage rec {
     hash = "sha256-WkPYlEkUH1xvGjBVr6JkLx5CfIPvAa9vX50OjCOmTME=";
   };
 
-  nativeBuildInputs = [ hatchling ];
+  nativeBuildInputs = [hatchling];
 
   propagatedBuildInputs = [
     bluetooth-data-tools
@@ -34,19 +34,19 @@ buildPythonPackage rec {
     sensor-state-data
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   postPatch = ''
     substituteInPlace pyproject.toml \
       --replace " --cov=ruuvitag_ble --cov-report=term-missing:skip-covered" ""
   '';
 
-  pythonImportsCheck = [ "ruuvitag_ble" ];
+  pythonImportsCheck = ["ruuvitag_ble"];
 
   meta = with lib; {
     description = "Library for Ruuvitag BLE devices";
     homepage = "https://github.com/Bluetooth-Devices/ruuvitag-ble";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

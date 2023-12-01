@@ -39,8 +39,8 @@ buildPythonPackage rec {
       packaging
       setuptools
     ]
-    ++ lib.optionals (pythonOlder "3.10") [ importlib-metadata ]
-    ++ lib.optionals (pythonOlder "3.11") [ tomli ];
+    ++ lib.optionals (pythonOlder "3.10") [importlib-metadata]
+    ++ lib.optionals (pythonOlder "3.11") [tomli];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -57,13 +57,13 @@ buildPythonPackage rec {
       "test_editable_mode"
     ];
 
-  pythonImportsCheck = [ "versioningit" ];
+  pythonImportsCheck = ["versioningit"];
 
   meta = with lib; {
     description = "setuptools plugin for determining package version from VCS";
     homepage = "https://github.com/jwodder/versioningit";
     changelog = "https://versioningit.readthedocs.io/en/latest/changelog.html";
     license = licenses.mit;
-    maintainers = with maintainers; [ DeeUnderscore ];
+    maintainers = with maintainers; [DeeUnderscore];
   };
 }

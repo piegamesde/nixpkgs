@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
     "host"
   ];
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   buildInputs = [
     stdenv.cc.libc
@@ -43,6 +43,6 @@ stdenv.mkDerivation rec {
     homepage = "https://wiki.yoctoproject.org/wiki/Cross-Prelink";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ artturin ];
+    maintainers = with maintainers; [artturin];
   };
 }

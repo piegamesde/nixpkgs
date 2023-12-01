@@ -21,9 +21,9 @@ buildPythonApplication rec {
   };
 
   # https://github.com/transifex/transifex-client/issues/323
-  nativeBuildInputs = [ pythonRelaxDepsHook ];
+  nativeBuildInputs = [pythonRelaxDepsHook];
 
-  pythonRelaxDeps = [ "python-slugify" ];
+  pythonRelaxDeps = ["python-slugify"];
 
   propagatedBuildInputs = [
     gitpython
@@ -41,6 +41,6 @@ buildPythonApplication rec {
     description = "Transifex translation service client";
     homepage = "https://www.transifex.com/";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ sikmir ];
+    maintainers = with maintainers; [sikmir];
   };
 }

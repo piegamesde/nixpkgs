@@ -20,7 +20,7 @@ buildPythonPackage rec {
   };
 
   # Needed only for the tests
-  nativeCheckInputs = [ networkx ];
+  nativeCheckInputs = [networkx];
 
   propagatedBuildInputs = [
     numpy
@@ -35,6 +35,6 @@ buildPythonPackage rec {
     description = "A Python interface to conic optimization solvers";
     homepage = "https://gitlab.com/picos-api/picos";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ tobiasBora ];
+    maintainers = with maintainers; [tobiasBora];
   };
 }

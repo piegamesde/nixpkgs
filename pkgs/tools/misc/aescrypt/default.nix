@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
     cp aescrypt_keygen $out/bin
   '';
 
-  buildInputs = [ libiconv ];
+  buildInputs = [libiconv];
 
   meta = with lib; {
     description = "Encrypt files with Advanced Encryption Standard (AES)";

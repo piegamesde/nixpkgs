@@ -31,6 +31,6 @@ stdenv.mkDerivation rec {
     description = "Picoprobe udev rules list";
     platforms = platforms.linux;
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ mglolenstine ];
+    maintainers = with maintainers; [mglolenstine];
   };
 }

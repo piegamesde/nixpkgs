@@ -18,14 +18,14 @@ buildPythonPackage rec {
     hash = "sha256-f5wZfisKz9WGdq6u0rd/zg2CfMwWvQeR8xZQNbD7KfU=";
   };
 
-  pythonImportsCheck = [ "classify_imports" ];
+  pythonImportsCheck = ["classify_imports"];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = with lib; {
     description = "Utilities for refactoring imports in python-like syntax";
     homepage = "https://github.com/asottile/classify-imports";
     license = licenses.mit;
-    maintainers = with maintainers; [ gador ];
+    maintainers = with maintainers; [gador];
   };
 }

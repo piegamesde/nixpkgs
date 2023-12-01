@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
     "man"
     "dev"
   ];
-  propagatedBuildOutputs = [ ];
+  propagatedBuildOutputs = [];
 
   makeFlags =
     [

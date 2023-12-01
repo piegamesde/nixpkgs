@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-HlmIocum+HZEKNiS5BUwEIswRfTMUhD1vCPibAuAK0Q=";
   };
 
-  buildInputs = [ perl ];
+  buildInputs = [perl];
 
   postPatch = ''
     substituteInPlace eeprom/decode-edid \
@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
       --replace "/sbin/" ""
   '';
 
-  makeFlags = [ "PREFIX=${placeholder "out"}" ];
+  makeFlags = ["PREFIX=${placeholder "out"}"];
 
   outputs = [
     "out"
@@ -45,7 +45,7 @@ stdenv.mkDerivation rec {
       lgpl21Plus
       gpl2Plus
     ];
-    maintainers = [ maintainers.dezgeg ];
+    maintainers = [maintainers.dezgeg];
     platforms = platforms.linux;
   };
 }

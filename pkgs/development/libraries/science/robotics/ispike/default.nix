@@ -15,14 +15,14 @@ stdenv.mkDerivation rec {
     sha256 = "0khrxp43bi5kisr8j4lp9fl4r5marzf7b4inys62ac108sfb28lp";
   };
 
-  nativeBuildInputs = [ cmake ];
-  buildInputs = [ boost ];
+  nativeBuildInputs = [cmake];
+  buildInputs = [boost];
 
   meta = {
     description = "Spiking neural interface between iCub and a spiking neural simulator";
     homepage = "https://sourceforge.net/projects/ispike/";
     license = lib.licenses.lgpl3;
     platforms = lib.platforms.linux;
-    maintainers = [ lib.maintainers.nico202 ];
+    maintainers = [lib.maintainers.nico202];
   };
 }

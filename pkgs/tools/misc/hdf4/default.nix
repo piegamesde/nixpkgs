@@ -47,7 +47,7 @@ stdenv.mkDerivation rec {
     ./darwin-aarch64.patch
   ];
 
-  nativeBuildInputs = [ cmake ] ++ lib.optionals stdenv.isDarwin [ fixDarwinDylibNames ];
+  nativeBuildInputs = [cmake] ++ lib.optionals stdenv.isDarwin [fixDarwinDylibNames];
 
   buildInputs =
     [
@@ -102,7 +102,7 @@ stdenv.mkDerivation rec {
   checkPhase =
     let
       excludedTestsRegex =
-        lib.optionalString (excludedTests != [ ])
+        lib.optionalString (excludedTests != [])
           "(${lib.concatStringsSep "|" excludedTests})";
     in
     ''
@@ -135,7 +135,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Data model, library, and file format for storing and managing data";
     homepage = "https://support.hdfgroup.org/products/hdf4/";
-    maintainers = with maintainers; [ knedlsepp ];
+    maintainers = with maintainers; [knedlsepp];
     platforms = platforms.unix;
     license = licenses.bsdOriginal;
   };

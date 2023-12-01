@@ -48,7 +48,7 @@ buildPythonPackage rec {
     })
   ];
 
-  nativeBuildInputs = [ flit-core ];
+  nativeBuildInputs = [flit-core];
 
   propagatedBuildInputs = [
     cffi
@@ -79,7 +79,7 @@ buildPythonPackage rec {
   FONTCONFIG_FILE = "${fontconfig.out}/etc/fonts/fonts.conf";
 
   # Fontconfig error: Cannot load default config file: No such file: (null)
-  makeWrapperArgs = [ "--set FONTCONFIG_FILE ${FONTCONFIG_FILE}" ];
+  makeWrapperArgs = ["--set FONTCONFIG_FILE ${FONTCONFIG_FILE}"];
 
   postPatch = ''
     substituteInPlace pyproject.toml \
@@ -91,12 +91,12 @@ buildPythonPackage rec {
     export HOME=$TMPDIR
   '';
 
-  pythonImportsCheck = [ "weasyprint" ];
+  pythonImportsCheck = ["weasyprint"];
 
   meta = with lib; {
     description = "Converts web documents to PDF";
     homepage = "https://weasyprint.org/";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ elohmeier ];
+    maintainers = with maintainers; [elohmeier];
   };
 }

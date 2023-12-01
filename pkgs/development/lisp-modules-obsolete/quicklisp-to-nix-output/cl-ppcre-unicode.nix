@@ -1,10 +1,10 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "cl-ppcre-unicode";
   version = "cl-ppcre-20190521-git";
 
-  parasites = [ "cl-ppcre-unicode-test" ];
+  parasites = ["cl-ppcre-unicode-test"];
 
   description = "Perl-compatible regular expression library (Unicode)";
 
@@ -22,7 +22,7 @@ rec {
 
   packageName = "cl-ppcre-unicode";
 
-  asdFilesToKeep = [ "cl-ppcre-unicode.asd" ];
+  asdFilesToKeep = ["cl-ppcre-unicode.asd"];
   overrides = x: x;
 }
 /* (SYSTEM cl-ppcre-unicode DESCRIPTION

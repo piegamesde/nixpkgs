@@ -16,21 +16,21 @@ stdenv.mkDerivation rec {
 
   # CramFs is unmaintained upstream: https://tracker.debian.org/pkg/cramfs.
   # So patch the "missing include" bug ourselves.
-  patches = [ ./include-sysmacros.patch ];
+  patches = [./include-sysmacros.patch];
 
-  makeFlags = [ "CC=${stdenv.cc.targetPrefix}cc" ];
+  makeFlags = ["CC=${stdenv.cc.targetPrefix}cc"];
 
   installPhase = ''
     install --target $out/bin -D cramfsck mkcramfs
   '';
 
-  buildInputs = [ zlib ];
+  buildInputs = [zlib];
 
   meta = with lib; {
     description = "Tools to create, check, and extract content of CramFs images";
     homepage = "https://packages.debian.org/jessie/cramfsprogs";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ pamplemousse ];
+    maintainers = with maintainers; [pamplemousse];
     platforms = platforms.linux;
   };
 }

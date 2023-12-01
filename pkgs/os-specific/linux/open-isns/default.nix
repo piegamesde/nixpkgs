@@ -16,14 +16,14 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-Vz6VqqvEr0f8AdN9NcVnruapswmoOgvAXxXSfrM3yRA=";
   };
 
-  propagatedBuildInputs = [ openssl ];
+  propagatedBuildInputs = [openssl];
   outputs = [
     "out"
     "lib"
   ];
   outputInclude = "lib";
 
-  configureFlags = [ "--enable-shared" ];
+  configureFlags = ["--enable-shared"];
 
   installFlags = [
     "etcdir=$(out)/etc"
@@ -40,6 +40,6 @@ stdenv.mkDerivation rec {
     license = licenses.lgpl21Only;
     homepage = "https://github.com/open-iscsi/open-isns";
     platforms = platforms.linux;
-    maintainers = [ maintainers.markuskowa ];
+    maintainers = [maintainers.markuskowa];
   };
 }

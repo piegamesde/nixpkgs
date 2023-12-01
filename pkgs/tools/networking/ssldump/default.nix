@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-BFE42wWqnGGTTjwej3LkH4XW2M4jP7XNSKHLnF2GFJo=";
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   buildInputs = [
     json_c
@@ -45,7 +45,7 @@ stdenv.mkDerivation rec {
     description = "An SSLv3/TLS network protocol analyzer";
     homepage = "https://ssldump.sourceforge.net";
     license = "BSD-style";
-    maintainers = with maintainers; [ aycanirican ];
+    maintainers = with maintainers; [aycanirican];
     platforms = platforms.unix;
   };
 }

@@ -44,6 +44,6 @@ mkDerivation rec {
     homepage = "http://linuxstopmotion.org/";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = [ maintainers.bjornfor ];
+    maintainers = [maintainers.bjornfor];
   };
 }

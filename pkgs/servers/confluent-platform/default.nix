@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-j120gSIky0CHNgzaVnodMAniecRX0RpU6+il86nxdrQ=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
   buildInputs = [
     jre
     bash
@@ -50,7 +50,7 @@ stdenv.mkDerivation rec {
     homepage = "https://www.confluent.io/";
     description = "Confluent event streaming platform based on Apache Kafka";
     license = licenses.asl20;
-    maintainers = with maintainers; [ zoedsoupe ];
+    maintainers = with maintainers; [zoedsoupe];
     platforms = platforms.unix;
   };
 }

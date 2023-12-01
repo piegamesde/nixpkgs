@@ -56,7 +56,7 @@ stdenv.mkDerivation (
       gtksourceview5
       libadwaita
       poppler
-    ] ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Foundation ];
+    ] ++ lib.optionals stdenv.isDarwin [darwin.apple_sdk.frameworks.Foundation];
 
     doCheck = true;
 
@@ -69,7 +69,7 @@ stdenv.mkDerivation (
       description = "Manage your bibliographies using the BibTeX format";
       homepage = "https://apps.gnome.org/app/org.gnome.World.Citations";
       license = licenses.gpl3Plus;
-      maintainers = with maintainers; [ benediktbroich ];
+      maintainers = with maintainers; [benediktbroich];
       platforms = platforms.unix;
     };
   }

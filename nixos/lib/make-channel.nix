@@ -16,7 +16,7 @@ pkgs.releaseTools.makeSourceTarball {
   officialRelease = false; # FIXME: fix this in makeSourceTarball
   inherit version versionSuffix;
 
-  buildInputs = [ pkgs.nix ];
+  buildInputs = [pkgs.nix];
 
   distPhase = ''
     rm -rf .git

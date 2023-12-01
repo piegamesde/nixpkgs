@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "lev";
   version = "20150505-git";
@@ -20,7 +20,7 @@ rec {
 
   packageName = "lev";
 
-  asdFilesToKeep = [ "lev.asd" ];
+  asdFilesToKeep = ["lev.asd"];
   overrides = x: x;
 }
 /* (SYSTEM lev DESCRIPTION libev bindings for Common Lisp SHA256

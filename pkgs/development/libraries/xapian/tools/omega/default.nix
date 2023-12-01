@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
     zlib
     libmagic
   ];
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   meta = with lib; {
     description = "Indexer and CGI search front-end built on Xapian library";

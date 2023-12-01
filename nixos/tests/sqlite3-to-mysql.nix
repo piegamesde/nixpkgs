@@ -1,5 +1,5 @@
 import ./make-test-python.nix (
-  { pkgs, lib, ... }:
+  {pkgs, lib, ...}:
 
   /* This test suite replaces the typical pytestCheckHook function in
      sqlite3-to-mysql due to the need of a running mysql instance.
@@ -7,10 +7,10 @@ import ./make-test-python.nix (
 
   {
     name = "sqlite3-to-mysql";
-    meta.maintainers = with lib.maintainers; [ gador ];
+    meta.maintainers = with lib.maintainers; [gador];
 
     nodes.machine =
-      { pkgs, ... }:
+      {pkgs, ...}:
       {
         environment.systemPackages = with pkgs; [
           sqlite3-to-mysql

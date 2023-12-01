@@ -62,6 +62,6 @@ stdenv.mkDerivation rec {
     description = "Crossplatform access to image scanners (paper eaters only)";
     homepage = "https://openpaper.work/en/projects/";
     license = lib.licenses.lgpl3Plus;
-    maintainers = [ lib.maintainers.symphorien ];
+    maintainers = [lib.maintainers.symphorien];
   };
 }

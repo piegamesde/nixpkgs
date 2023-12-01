@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
     description = "A multiplayer X11 space combat game";
     homepage = "http://xpilot.sf.net/";
     license = licenses.gpl2Plus;
-    maintainers = [ maintainers.raskin ];
+    maintainers = [maintainers.raskin];
     platforms = platforms.linux;
   };
 }

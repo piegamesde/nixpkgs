@@ -34,7 +34,7 @@ buildPythonPackage rec {
     sha256 = "0z2vkllw8bvzxripwb6l757r7av5qwhzsiy4061gmlhq8z8gq961";
   };
 
-  propagatedBuildInputs = [ requests ];
+  propagatedBuildInputs = [requests];
 
   # Unfortunately PyLD does not pass all testcases in the JSON-LD corpus. We
   # check for at least a minimum amount of successful tests so we know it's not
@@ -57,6 +57,6 @@ buildPythonPackage rec {
     description = "Python implementation of the JSON-LD API";
     homepage = "https://github.com/digitalbazaar/pyld";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ apeschar ];
+    maintainers = with maintainers; [apeschar];
   };
 }

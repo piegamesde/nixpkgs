@@ -34,7 +34,7 @@ let
 
     cargoHash = "sha256-3EfMMpSWSYsB3nXaoGGDuKQ9duyCKzbrT6oeATnzqLE=";
 
-    nativeBuildInputs = [ python3Packages.python ];
+    nativeBuildInputs = [python3Packages.python];
 
     doCheck = false;
   };
@@ -80,7 +80,7 @@ python3Packages.buildPythonApplication rec {
     fasteners
   ];
 
-  nativeCheckInputs = with python3Packages; [ pytestCheckHook ] ++ bin-programs;
+  nativeCheckInputs = with python3Packages; [pytestCheckHook] ++ bin-programs;
 
   preCheck = ''
     cp ${portmod-rust}/lib/libportmod.so portmodlib/portmod.so
@@ -111,6 +111,6 @@ python3Packages.buildPythonApplication rec {
     description = "mod manager for openMW based on portage";
     homepage = "https://gitlab.com/portmod/portmod";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ marius851000 ];
+    maintainers = with maintainers; [marius851000];
   };
 }

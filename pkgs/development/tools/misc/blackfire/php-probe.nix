@@ -60,7 +60,7 @@ let
   };
 
   makeSource =
-    { system, phpMajor }:
+    {system, phpMajor}:
 
     let
       isLinux = builtins.match ".+-linux" system != null;
@@ -69,7 +69,7 @@ let
     fetchurl {
       url = "https://packages.blackfire.io/binaries/blackfire-php/${version}/blackfire-php-${
         if isLinux then "linux" else "darwin"
-      }_${hashes.${system}.system}-php-${builtins.replaceStrings [ "." ] [ "" ] phpMajor}.so";
+      }_${hashes.${system}.system}-php-${builtins.replaceStrings ["."] [""] phpMajor}.so";
       sha256 = hashes.${system}.sha256.${phpMajor};
     };
   self = stdenv.mkDerivation rec {
@@ -83,7 +83,7 @@ let
       inherit (php);
     };
 
-    nativeBuildInputs = lib.optionals stdenv.isLinux [ autoPatchelfHook ];
+    nativeBuildInputs = lib.optionals stdenv.isLinux [autoPatchelfHook];
 
     setSourceRoot = "sourceRoot=`pwd`";
 
@@ -126,7 +126,7 @@ let
           createName =
             path:
 
-            builtins.replaceStrings [ "." ] [ "_" ] (lib.concatStringsSep "_" path);
+            builtins.replaceStrings ["."] ["_"] (lib.concatStringsSep "_" path);
 
           createSourceParams =
             path:
@@ -145,7 +145,7 @@ let
             path: _value:
 
             lib.nameValuePair (createName path) (
-              self.overrideAttrs (attrs: { src = makeSource (createSourceParams path); })
+              self.overrideAttrs (attrs: {src = makeSource (createSourceParams path);})
             );
 
           hashesOnly =
@@ -162,9 +162,9 @@ let
     meta = with lib; {
       description = "Blackfire Profiler PHP module";
       homepage = "https://blackfire.io/";
-      sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+      sourceProvenance = with sourceTypes; [binaryNativeCode];
       license = licenses.unfree;
-      maintainers = with maintainers; [ shyim ];
+      maintainers = with maintainers; [shyim];
       platforms = [
         "x86_64-linux"
         "aarch64-linux"

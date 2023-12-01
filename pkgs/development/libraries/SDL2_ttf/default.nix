@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
 
   configureFlags = lib.optional stdenv.isDarwin "--disable-sdltest";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     SDL2

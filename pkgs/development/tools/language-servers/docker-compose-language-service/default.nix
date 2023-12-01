@@ -5,7 +5,7 @@
   fetchFromGitHub,
 }:
 let
-  buildNpmPackage' = buildNpmPackage.override { nodejs = nodejs_16; };
+  buildNpmPackage' = buildNpmPackage.override {nodejs = nodejs_16;};
 in
 buildNpmPackage' rec {
   pname = "docker-compose-language-service";
@@ -25,7 +25,7 @@ buildNpmPackage' rec {
     homepage = "https://github.com/microsoft/compose-language-service";
     changelog = "https://github.com/microsoft/compose-language-service/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ natsukium ];
+    maintainers = with maintainers; [natsukium];
     mainProgram = "docker-compose-langserver";
   };
 }

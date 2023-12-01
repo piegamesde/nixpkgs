@@ -76,22 +76,22 @@ in
             };
             rules = [
               {
-                apiGroups = [ "" ];
-                resources = [ "pods" ];
-                verbs = [ "get" ];
+                apiGroups = [""];
+                resources = ["pods"];
+                verbs = ["get"];
               }
               {
-                apiGroups = [ "" ];
-                resources = [ "nodes" ];
+                apiGroups = [""];
+                resources = ["nodes"];
                 verbs = [
                   "list"
                   "watch"
                 ];
               }
               {
-                apiGroups = [ "" ];
-                resources = [ "nodes/status" ];
-                verbs = [ "patch" ];
+                apiGroups = [""];
+                resources = ["nodes/status"];
+                verbs = ["patch"];
               }
             ];
           };

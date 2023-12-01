@@ -30,6 +30,6 @@ buildGoModule rec {
     description = "Client for accessing to JFrog's Artifactory and Mission Control through their respective REST APIs";
     license = licenses.asl20;
     mainProgram = "jf";
-    maintainers = [ maintainers.detegr ];
+    maintainers = [maintainers.detegr];
   };
 }

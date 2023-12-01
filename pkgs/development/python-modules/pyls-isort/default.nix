@@ -20,7 +20,7 @@ buildPythonPackage rec {
   # no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "pyls_isort" ];
+  pythonImportsCheck = ["pyls_isort"];
 
   propagatedBuildInputs = [
     isort
@@ -31,6 +31,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/paradoxxxzero/pyls-isort";
     description = "Isort plugin for python-lsp-server";
     license = licenses.mit;
-    maintainers = with maintainers; [ cpcloud ];
+    maintainers = with maintainers; [cpcloud];
   };
 }

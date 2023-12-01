@@ -88,6 +88,6 @@ stdenv.mkDerivation rec {
       uses across an entire homeserver.
     '';
     license = licenses.asl20;
-    maintainers = with maintainers; [ jojosch ];
+    maintainers = with maintainers; [jojosch];
   };
 }

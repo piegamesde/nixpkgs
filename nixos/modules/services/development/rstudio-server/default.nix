@@ -77,8 +77,8 @@ in
     systemd.services.rstudio-server = {
       description = "Rstudio server";
 
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
       restartTriggers = [
         rserver-conf
         rsession-conf
@@ -98,7 +98,7 @@ in
       "rstudio/rsession.conf".source = rsession-conf;
       "pam.d/rstudio".source = "/etc/pam.d/login";
     };
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
     users = {
       users.rstudio-server = {

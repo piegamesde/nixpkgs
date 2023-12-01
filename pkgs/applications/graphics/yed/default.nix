@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
     wrapGAppsHook
   ];
   # For wrapGAppsHook setup hook
-  buildInputs = [ (jre.gtk3 or null) ];
+  buildInputs = [(jre.gtk3 or null)];
 
   dontConfigure = true;
   dontBuild = true;
@@ -43,10 +43,10 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     license = licenses.unfree;
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with sourceTypes; [binaryBytecode];
     homepage = "https://www.yworks.com/products/yed";
     description = "A powerful desktop application that can be used to quickly and effectively generate high-quality diagrams";
     platforms = jre.meta.platforms;
-    maintainers = with maintainers; [ abbradar ];
+    maintainers = with maintainers; [abbradar];
   };
 }

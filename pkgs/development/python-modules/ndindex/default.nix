@@ -27,16 +27,16 @@ buildPythonPackage rec {
     hash = "sha256-QLWGgbF5nNTa1SsSkupo+fAs9K7eTexTK9n9yDLVgrQ=";
   };
 
-  nativeBuildInputs = [ cython ];
+  nativeBuildInputs = [cython];
 
   postPatch = ''
     substituteInPlace pytest.ini \
       --replace "--cov=ndindex/ --cov-report=term-missing --flakes" ""
   '';
 
-  passthru.optional-dependencies.arrays = [ numpy ];
+  passthru.optional-dependencies.arrays = [numpy];
 
-  pythonImportsCheck = [ "ndindex" ];
+  pythonImportsCheck = ["ndindex"];
 
   nativeCheckInputs = [
     hypothesis
@@ -55,6 +55,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/Quansight-Labs/ndindex";
     changelog = "https://github.com/Quansight-Labs/ndindex/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

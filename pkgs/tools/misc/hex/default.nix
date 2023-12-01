@@ -30,6 +30,6 @@ rustPlatform.buildRustPackage rec {
     changelog = "https://github.com/sitkevij/hex/releases/tag/v${version}";
     mainProgram = "hx";
     license = licenses.mit;
-    maintainers = with maintainers; [ ivar ];
+    maintainers = with maintainers; [ivar];
   };
 }

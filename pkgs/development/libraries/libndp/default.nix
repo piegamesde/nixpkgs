@@ -14,13 +14,13 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-iP+2buLrUn8Ub1wC9cy8OLqX0rDVfrRr+6SIghqwwCs=";
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   meta = with lib; {
     homepage = "http://libndp.org/";
     description = "Library for Neighbor Discovery Protocol";
     platforms = platforms.linux;
-    maintainers = [ ];
+    maintainers = [];
     license = licenses.lgpl21;
   };
 }

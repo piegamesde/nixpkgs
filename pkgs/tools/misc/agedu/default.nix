@@ -40,7 +40,7 @@ stdenv.mkDerivation {
     '';
     homepage = "https://www.chiark.greenend.org.uk/~sgtatham/agedu/";
     license = licenses.mit;
-    maintainers = with maintainers; [ symphorien ];
+    maintainers = with maintainers; [symphorien];
     platforms = platforms.unix;
   };
 }

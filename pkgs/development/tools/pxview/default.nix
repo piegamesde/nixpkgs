@@ -19,20 +19,20 @@ stdenv.mkDerivation rec {
   buildInputs = [
     pxlib
     perl
-  ] ++ (with perlPackages; [ libxml_perl ]);
-  nativeBuildInputs = [ pkg-config ];
+  ] ++ (with perlPackages; [libxml_perl]);
+  nativeBuildInputs = [pkg-config];
 
-  configureFlags = [ "--with-pxlib=${pxlib.out}" ];
+  configureFlags = ["--with-pxlib=${pxlib.out}"];
 
   # https://sourceforge.net/p/pxlib/bugs/12/
   LDFLAGS = "-lm";
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   meta = with lib; {
     description = "Program to convert Paradox databases";
     homepage = "https://pxlib.sourceforge.net/pxview/";
     license = licenses.gpl2;
     platforms = platforms.linux;
-    maintainers = [ maintainers.winpat ];
+    maintainers = [maintainers.winpat];
   };
 }

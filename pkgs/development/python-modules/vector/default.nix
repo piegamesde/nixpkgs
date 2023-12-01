@@ -44,7 +44,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "vector" ];
+  pythonImportsCheck = ["vector"];
 
   __darwinAllowLocalNetworking = true;
 
@@ -52,7 +52,7 @@ buildPythonPackage rec {
     description = "Library for 2D, 3D, and Lorentz vectors, especially arrays of vectors, to solve common physics problems in a NumPy-like way";
     homepage = "https://github.com/scikit-hep/vector";
     changelog = "https://github.com/scikit-hep/vector/releases/tag/v${version}";
-    license = with licenses; [ bsd3 ];
-    maintainers = with maintainers; [ veprbl ];
+    license = with licenses; [bsd3];
+    maintainers = with maintainers; [veprbl];
   };
 }

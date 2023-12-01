@@ -47,12 +47,12 @@ in
   ###### implementation
 
   config = mkIf cfg.enable {
-    systemd.tmpfiles.rules = [ "d '${cfg.stateDir}' - peerflix - - -" ];
+    systemd.tmpfiles.rules = ["d '${cfg.stateDir}' - peerflix - - -"];
 
     systemd.services.peerflix = {
       description = "Peerflix Daemon";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
       environment.HOME = cfg.stateDir;
 
       preStart = ''
@@ -70,6 +70,6 @@ in
       isSystemUser = true;
       group = "peerflix";
     };
-    users.groups.peerflix = { };
+    users.groups.peerflix = {};
   };
 }

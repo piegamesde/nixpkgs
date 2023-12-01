@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
   };
 
   # See: https://gitlab.com/accounts-sso/libaccounts-glib/merge_requests/22
-  patches = [ ./py-override.patch ];
+  patches = [./py-override.patch];
 
   nativeBuildInputs = [
     check
@@ -52,7 +52,7 @@ stdenv.mkDerivation rec {
     ninja
     pkg-config
     vala
-  ] ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [ mesonEmulatorHook ];
+  ] ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [mesonEmulatorHook];
 
   buildInputs = [
     glib
@@ -70,7 +70,7 @@ stdenv.mkDerivation rec {
 
   LC_ALL = "en_US.UTF-8";
 
-  mesonFlags = [ "-Dpy-overrides-dir=${placeholder "py"}/${python3.sitePackages}/gi/overrides" ];
+  mesonFlags = ["-Dpy-overrides-dir=${placeholder "py"}/${python3.sitePackages}/gi/overrides"];
 
   meta = with lib; {
     description = "Library for managing accounts which can be used from GLib applications";

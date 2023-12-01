@@ -114,7 +114,7 @@ stdenv.mkDerivation rec {
   postInstall = ''
     installShellCompletion --bash scripts/pacman --zsh scripts/_pacman
     wrapProgram $out/bin/makepkg \
-      --prefix PATH : ${lib.makeBinPath [ binutils ]}
+      --prefix PATH : ${lib.makeBinPath [binutils]}
     wrapProgram $out/bin/pacman-key \
       --prefix PATH : ${
         lib.makeBinPath [
@@ -134,6 +134,6 @@ stdenv.mkDerivation rec {
     changelog = "https://gitlab.archlinux.org/pacman/pacman/-/raw/v${version}/NEWS";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ samlukeyes123 ];
+    maintainers = with maintainers; [samlukeyes123];
   };
 }

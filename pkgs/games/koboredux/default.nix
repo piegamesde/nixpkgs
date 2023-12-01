@@ -91,6 +91,6 @@ stdenv.mkDerivation rec {
     homepage = "https://olofson.itch.io/kobo-redux";
     license = with licenses; if useProprietaryAssets then unfree else gpl2;
     platforms = platforms.all;
-    maintainers = with maintainers; [ fgaz ];
+    maintainers = with maintainers; [fgaz];
   };
 }

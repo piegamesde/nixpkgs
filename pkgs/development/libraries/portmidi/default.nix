@@ -48,7 +48,7 @@ stdenv.mkDerivation rec {
     cmake
   ];
   buildInputs =
-    lib.optionals stdenv.isLinux [ alsa-lib ]
+    lib.optionals stdenv.isLinux [alsa-lib]
     ++ lib.optionals stdenv.isDarwin [
       Carbon
       CoreAudio
@@ -57,13 +57,13 @@ stdenv.mkDerivation rec {
       CoreServices
     ];
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   meta = with lib; {
     homepage = "https://github.com/PortMidi/portmidi";
     description = "Platform independent library for MIDI I/O";
     license = licenses.mit;
-    maintainers = with maintainers; [ emilytrau ];
+    maintainers = with maintainers; [emilytrau];
     platforms = platforms.unix;
   };
 }

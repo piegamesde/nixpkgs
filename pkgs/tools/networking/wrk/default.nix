@@ -54,7 +54,7 @@ stdenv.mkDerivation rec {
       systems such as epoll and kqueue.
     '';
     license = licenses.asl20;
-    maintainers = with maintainers; [ ragge ];
+    maintainers = with maintainers; [ragge];
     platforms = platforms.unix;
   };
 }

@@ -183,8 +183,8 @@ in
 
     systemd.services.cfssl = {
       description = "CFSSL CA API server";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
 
       serviceConfig = lib.mkMerge [
         {

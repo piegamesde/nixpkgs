@@ -1,7 +1,7 @@
 {
   lib,
   stdenv,
-  supportedGhcVersions ? [ "92" ],
+  supportedGhcVersions ? ["92"],
   dynamic ? true,
   haskellPackages,
   haskell,
@@ -45,21 +45,21 @@ let
         ))
         ((if dynamic then enableCabalFlag else disableCabalFlag) "dynamic")
       ]
-      ++ optionals (!dynamic) [ justStaticExecutables ]
+      ++ optionals (!dynamic) [justStaticExecutables]
     );
   targets =
     version:
     let
       packages = getPackages version;
     in
-    [ "haskell-language-server-${packages.ghc.version}" ];
+    ["haskell-language-server-${packages.ghc.version}"];
   makeSymlinks =
     version:
     concatMapStringsSep "\n"
       (x: "ln -s ${tunedHls (getPackages version)}/bin/haskell-language-server $out/bin/${x}")
       (targets version);
 in
-assert supportedGhcVersions != [ ];
+assert supportedGhcVersions != [];
 stdenv.mkDerivation {
   pname = "haskell-language-server";
   version = haskellPackages.haskell-language-server.version;
@@ -71,7 +71,7 @@ stdenv.mkDerivation {
     ${concatMapStringsSep "\n" makeSymlinks supportedGhcVersions}
   '';
   meta = haskellPackages.haskell-language-server.meta // {
-    maintainers = [ lib.maintainers.maralorn ];
+    maintainers = [lib.maintainers.maralorn];
     longDescription = ''
       This package provides the executables ${
         concatMapStringsSep ", " (x: concatStringsSep ", " (targets x)) supportedGhcVersions

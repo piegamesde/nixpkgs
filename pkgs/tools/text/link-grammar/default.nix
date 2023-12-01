@@ -40,7 +40,7 @@ let
       libedit
     ];
 
-    configureFlags = [ "--disable-java-bindings" ];
+    configureFlags = ["--disable-java-bindings"];
 
     doCheck = true;
 
@@ -65,7 +65,7 @@ let
       homepage = "https://www.abisource.com/projects/link-grammar/";
       changelog = "https://github.com/opencog/link-grammar/blob/link-grammar-${version}/ChangeLog";
       license = licenses.lgpl21Only;
-      maintainers = with maintainers; [ jtojnar ];
+      maintainers = with maintainers; [jtojnar];
       platforms = platforms.unix;
     };
   };

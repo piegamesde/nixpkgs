@@ -40,7 +40,7 @@ buildPythonPackage rec {
     description = "A Python module and command line program for processing ID3 tags";
     homepage = "https://eyed3.nicfit.net/";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ lovek323 ];
+    maintainers = with maintainers; [lovek323];
     platforms = platforms.unix;
     longDescription = ''
       eyeD3 is a Python module and command line program for processing ID3

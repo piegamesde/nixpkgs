@@ -16,11 +16,11 @@ let
   # https://github.com/NixOS/rfcs/blob/master/rfcs/0080-nixos-release-schedule.md.
   name = if versionAtLeast config.system.stateVersion "21.03" then "hedgedoc" else "codimd";
 
-  settingsFormat = pkgs.formats.json { };
+  settingsFormat = pkgs.formats.json {};
 
   prettyJSON =
     conf:
-    pkgs.runCommandLocal "hedgedoc-config.json" { nativeBuildInputs = [ pkgs.jq ]; } ''
+    pkgs.runCommandLocal "hedgedoc-config.json" {nativeBuildInputs = [pkgs.jq];} ''
       jq '{production:del(.[]|nulls)|del(.[][]?|nulls)}' \
         < ${settingsFormat.generate "hedgedoc-ugly.json" cfg.settings} \
         > $out
@@ -57,7 +57,7 @@ in
 
     groups = mkOption {
       type = types.listOf types.str;
-      default = [ ];
+      default = [];
       description = lib.mdDoc ''
         Groups to which the service user should be added.
       '';
@@ -116,7 +116,7 @@ in
           };
           allowOrigin = mkOption {
             type = types.listOf types.str;
-            default = [ ];
+            default = [];
             example = [
               "localhost"
               "hedgedoc.org"
@@ -264,7 +264,7 @@ in
           };
           db = mkOption {
             type = types.attrs;
-            default = { };
+            default = {};
             example = literalExpression ''
               {
                 dialect = "sqlite";
@@ -297,8 +297,8 @@ in
           };
           sslCAPath = mkOption {
             type = types.listOf types.str;
-            default = [ ];
-            example = [ "/var/lib/hedgedoc/ca.crt" ];
+            default = [];
+            example = ["/var/lib/hedgedoc/ca.crt"];
             description = lib.mdDoc ''
               SSL ca chain. Needed when {option}`useSSL` is enabled.
             '';
@@ -991,7 +991,7 @@ in
                   };
                   externalGroups = mkOption {
                     type = types.listOf types.str;
-                    default = [ ];
+                    default = [];
                     example = [
                       "Temporary-staff"
                       "External-users"
@@ -1002,8 +1002,8 @@ in
                   };
                   requiredGroups = mkOption {
                     type = types.listOf types.str;
-                    default = [ ];
-                    example = [ "Hedgedoc-Users" ];
+                    default = [];
+                    example = ["Hedgedoc-Users"];
                     description = lib.mdDoc ''
                       Required group names.
                     '';
@@ -1105,11 +1105,11 @@ in
   config = mkIf cfg.enable {
     assertions = [
       {
-        assertion = cfg.settings.db == { } -> (cfg.settings.dbURL != "" && cfg.settings.dbURL != null);
+        assertion = cfg.settings.db == {} -> (cfg.settings.dbURL != "" && cfg.settings.dbURL != null);
         message = "Database configuration for HedgeDoc missing.";
       }
     ];
-    users.groups.${name} = { };
+    users.groups.${name} = {};
     users.users.${name} = {
       description = "HedgeDoc service user";
       group = name;
@@ -1121,8 +1121,8 @@ in
 
     systemd.services.hedgedoc = {
       description = "HedgeDoc Service";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "networking.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["networking.target"];
       preStart = ''
         ${pkgs.envsubst}/bin/envsubst \
           -o ${cfg.workDir}/config.json \
@@ -1136,7 +1136,7 @@ in
           cfg.settings.uploadsPath
         ];
         ExecStart = "${cfg.package}/bin/hedgedoc";
-        EnvironmentFile = mkIf (cfg.environmentFile != null) [ cfg.environmentFile ];
+        EnvironmentFile = mkIf (cfg.environmentFile != null) [cfg.environmentFile];
         Environment = [
           "CMD_CONFIG_FILE=${cfg.workDir}/config.json"
           "NODE_ENV=production"

@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "hunchentoot";
   version = "v1.3.0";
@@ -48,7 +48,7 @@ rec {
 
   packageName = "hunchentoot";
 
-  asdFilesToKeep = [ "hunchentoot.asd" ];
+  asdFilesToKeep = ["hunchentoot.asd"];
   overrides = x: x;
 }
 /* (SYSTEM hunchentoot DESCRIPTION

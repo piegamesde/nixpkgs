@@ -57,7 +57,7 @@ buildPythonPackage {
     requests
   ] ++ matrix-nio.optional-dependencies.e2e;
 
-  passthru.scripts = [ "matrix.py" ];
+  passthru.scripts = ["matrix.py"];
 
   dontBuild = true;
   doCheck = false;

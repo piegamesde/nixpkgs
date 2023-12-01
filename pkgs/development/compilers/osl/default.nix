@@ -20,7 +20,7 @@
 
 let
 
-  boost_static = boost.override { enableStatic = true; };
+  boost_static = boost.override {enableStatic = true;};
 in
 stdenv.mkDerivation rec {
   pname = "openshadinglanguage";
@@ -78,7 +78,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Advanced shading language for production GI renderers";
     homepage = "https://opensource.imageworks.com/osl.html";
-    maintainers = with maintainers; [ hodapp ];
+    maintainers = with maintainers; [hodapp];
     license = licenses.bsd3;
     platforms = platforms.linux;
   };

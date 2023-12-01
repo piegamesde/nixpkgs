@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-JooLvoh9CxLHLOXXxE7zA7R9yglr9BGUwX4nrw2/vIw=";
   };
 
-  buildInputs = [ ncurses ];
+  buildInputs = [ncurses];
 
   makefile =
     if stdenv.hostPlatform.isDarwin then
@@ -75,7 +75,7 @@ stdenv.mkDerivation rec {
     license = {
       url = "https://github.com/blakemcbride/TECOC/tree/master/doc/readme-1st.txt";
     };
-    maintainers = [ maintainers.AndersonTorres ];
+    maintainers = [maintainers.AndersonTorres];
     platforms = platforms.unix;
   };
 }

@@ -27,12 +27,12 @@ in
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = [ pkgs.cpupower-gui ];
-    services.dbus.packages = [ pkgs.cpupower-gui ];
+    environment.systemPackages = [pkgs.cpupower-gui];
+    services.dbus.packages = [pkgs.cpupower-gui];
     systemd.user = {
       services.cpupower-gui-user = {
         description = "Apply cpupower-gui config at user login";
-        wantedBy = [ "graphical-session.target" ];
+        wantedBy = ["graphical-session.target"];
         serviceConfig = {
           Type = "oneshot";
           ExecStart = "${pkgs.cpupower-gui}/bin/cpupower-gui config";
@@ -42,7 +42,7 @@ in
     systemd.services = {
       cpupower-gui = {
         description = "Apply cpupower-gui config at boot";
-        wantedBy = [ "multi-user.target" ];
+        wantedBy = ["multi-user.target"];
         serviceConfig = {
           Type = "oneshot";
           ExecStart = "${pkgs.cpupower-gui}/bin/cpupower-gui config";
@@ -50,7 +50,7 @@ in
       };
       cpupower-gui-helper = {
         description = "cpupower-gui system helper";
-        aliases = [ "dbus-org.rnd2.cpupower_gui.helper.service" ];
+        aliases = ["dbus-org.rnd2.cpupower_gui.helper.service"];
         serviceConfig = {
           Type = "dbus";
           BusName = "org.rnd2.cpupower_gui.helper";

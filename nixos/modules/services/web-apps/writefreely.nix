@@ -42,7 +42,7 @@ let
   hostProtocol = if cfg.acme.enable then "https" else "http";
 
   settings = cfg.settings // {
-    app = cfg.settings.app or { } // {
+    app = cfg.settings.app or {} // {
       host = cfg.settings.app.host or "${hostProtocol}://${cfg.host}";
     };
 
@@ -64,7 +64,7 @@ let
           tls = cfg.database.tls;
         };
 
-    server = cfg.settings.server or { } // {
+    server = cfg.settings.server or {} // {
       bind = cfg.settings.server.bind or "localhost";
       gopher_port = cfg.settings.server.gopher_port or 0;
       autocert = !cfg.nginx.enable && cfg.acme.enable;
@@ -82,7 +82,7 @@ let
 
     inherit (cfg.package) version src;
 
-    nativeBuildInputs = with pkgs.nodePackages; [ less ];
+    nativeBuildInputs = with pkgs.nodePackages; [less];
 
     buildPhase = ''
       mkdir -p $out
@@ -185,7 +185,7 @@ in
     };
 
     settings = mkOption {
-      default = { };
+      default = {};
       description = lib.mdDoc ''
         Writefreely configuration ({file}`config.ini`). Refer to
         <https://writefreely.org/docs/latest/admin/config>
@@ -345,18 +345,18 @@ in
         };
       };
 
-      groups = optionalAttrs (cfg.group == "writefreely") { writefreely = { }; };
+      groups = optionalAttrs (cfg.group == "writefreely") {writefreely = {};};
     };
 
-    systemd.tmpfiles.rules = [ "d '${cfg.stateDir}' 0750 ${cfg.user} ${cfg.group} - -" ];
+    systemd.tmpfiles.rules = ["d '${cfg.stateDir}' 0750 ${cfg.user} ${cfg.group} - -"];
 
     systemd.services.writefreely = {
       after =
-        [ "network.target" ]
+        ["network.target"]
         ++ optional isSqlite "writefreely-sqlite-init.service"
         ++ optional isMysql "writefreely-mysql-init.service"
         ++ optional isMysqlLocal "mysql.service";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
 
       serviceConfig = {
         Type = "simple";
@@ -383,7 +383,7 @@ in
     };
 
     systemd.services.writefreely-sqlite-init = mkIf isSqlite {
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
 
       serviceConfig = {
         Type = "oneshot";
@@ -419,7 +419,7 @@ in
     };
 
     systemd.services.writefreely-mysql-init = mkIf isMysql {
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       after = optional isMysqlLocal "mysql.service";
 
       serviceConfig = {
@@ -469,7 +469,7 @@ in
     services.mysql = mkIf isMysqlLocal {
       enable = true;
       package = mkDefault pkgs.mariadb;
-      ensureDatabases = [ cfg.database.name ];
+      ensureDatabases = [cfg.database.name];
       ensureUsers = [
         {
           name = cfg.database.user;

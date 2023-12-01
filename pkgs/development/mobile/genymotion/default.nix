@@ -49,7 +49,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-8NJgYILOR63tWZc3tHDie79uM1hBnAwJNwGp/h2RHCo=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
   buildInputs = [
     which
     xdg-utils
@@ -110,9 +110,9 @@ stdenv.mkDerivation rec {
       suitable for application testing.
     '';
     homepage = "https://www.genymotion.com/";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.unfree;
-    platforms = [ "x86_64-linux" ];
-    maintainers = [ maintainers.puffnfresh ];
+    platforms = ["x86_64-linux"];
+    maintainers = [maintainers.puffnfresh];
   };
 }

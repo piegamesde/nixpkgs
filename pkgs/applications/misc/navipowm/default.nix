@@ -25,14 +25,14 @@ stdenv.mkDerivation rec {
     cp ../../common/Images/* $out/share/navipowm-${version}
   '';
 
-  buildInputs = [ qt4 ];
-  nativeBuildInputs = [ qmake4Hook ];
+  buildInputs = [qt4];
+  nativeBuildInputs = [qmake4Hook];
 
   meta = {
     homepage = "https://navipowm.sourceforge.net/";
     description = "Car navigation system";
     license = lib.licenses.gpl2;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     platforms = with lib.platforms; linux;
   };
 }

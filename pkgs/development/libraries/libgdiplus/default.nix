@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
     "dev"
   ];
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   nativeBuildInputs = [
     autoreconfHook

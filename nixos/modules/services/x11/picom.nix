@@ -16,7 +16,7 @@ let
   pairOf =
     x:
     with types;
-    addCheck (listOf x) (y: length y == 2) // { description = "pair of ${x.description}"; };
+    addCheck (listOf x) (y: length y == 2) // {description = "pair of ${x.description}";};
 
   mkDefaultAttrs = mapAttrs (n: v: mkDefault v);
 
@@ -30,7 +30,7 @@ let
       let
         sep = if (top && isAttrs v) then ":" else "=";
       in
-      "${escape [ sep ] k}${sep}${mkValueString v};"
+      "${escape [sep] k}${sep}${mkValueString v};"
     );
 
   # This serializes a Nix expression to the libconfig format.
@@ -43,7 +43,7 @@ let
     else if types.float.check v then
       toString v
     else if types.str.check v then
-      ''"${escape [ ''"'' ] v}"''
+      ''"${escape [''"''] v}"''
     else if builtins.isList v then
       "[ ${concatMapStringsSep " , " mkValueString v} ]"
     else if types.attrs.check v then
@@ -138,7 +138,7 @@ in
 
     fadeExclude = mkOption {
       type = types.listOf types.str;
-      default = [ ];
+      default = [];
       example = [
         "window_type *= 'menu'"
         "name ~= 'Firefox$'"
@@ -184,7 +184,7 @@ in
 
     shadowExclude = mkOption {
       type = types.listOf types.str;
-      default = [ ];
+      default = [];
       example = [
         "window_type *= 'menu'"
         "name ~= 'Firefox$'"
@@ -239,7 +239,7 @@ in
           dropdown_menu = { opacity = config.${opt.menuOpacity}; };
         }
       '';
-      example = { };
+      example = {};
       description = lib.mdDoc ''
         Rules for specific window types.
       '';
@@ -247,7 +247,7 @@ in
 
     opacityRules = mkOption {
       type = types.listOf types.str;
-      default = [ ];
+      default = [];
       example = [
         "95:class_g = 'URxvt' && !_NET_WM_STATE@:32a"
         "0:_NET_WM_STATE@:32a *= '_NET_WM_STATE_HIDDEN'"
@@ -336,7 +336,7 @@ in
       in
       mkOption {
         type = topLevel;
-        default = { };
+        default = {};
         example = literalExpression ''
           blur =
             { method = "gaussian";
@@ -383,11 +383,11 @@ in
 
     systemd.user.services.picom = {
       description = "Picom composite manager";
-      wantedBy = [ "graphical-session.target" ];
-      partOf = [ "graphical-session.target" ];
+      wantedBy = ["graphical-session.target"];
+      partOf = ["graphical-session.target"];
 
       # Temporarily fixes corrupt colours with Mesa 18
-      environment = mkIf (cfg.backend == "glx") { allow_rgb10_configs = "false"; };
+      environment = mkIf (cfg.backend == "glx") {allow_rgb10_configs = "false";};
 
       serviceConfig = {
         ExecStart = "${pkgs.picom}/bin/picom --config ${configFile}";
@@ -396,8 +396,8 @@ in
       };
     };
 
-    environment.systemPackages = [ pkgs.picom ];
+    environment.systemPackages = [pkgs.picom];
   };
 
-  meta.maintainers = with lib.maintainers; [ rnhmjoj ];
+  meta.maintainers = with lib.maintainers; [rnhmjoj];
 }

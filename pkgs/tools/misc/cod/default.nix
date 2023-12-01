@@ -25,7 +25,7 @@ buildGoModule rec {
     "-X main.GitSha=${src.rev}"
   ];
 
-  nativeCheckInputs = [ python3 ];
+  nativeCheckInputs = [python3];
 
   preCheck = ''
     pushd test/binaries/
@@ -42,7 +42,7 @@ buildGoModule rec {
     description = "Tool for generating Bash/Fish/Zsh autocompletions based on `--help` output";
     homepage = "https://github.com/dim-an/cod/";
     license = licenses.asl20;
-    maintainers = with maintainers; [ SuperSandro2000 ];
+    maintainers = with maintainers; [SuperSandro2000];
     broken = true;
   };
 }

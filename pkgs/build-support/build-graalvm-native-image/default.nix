@@ -17,12 +17,12 @@
     "--verbose"
   ],
   # Extra arguments to be passed to the native-image
-  extraNativeImageBuildArgs ? [ ],
+  extraNativeImageBuildArgs ? [],
   # XMX size of GraalVM during build
   graalvmXmx ? "-J-Xmx6g",
   # Locale to be used by GraalVM compiler
   LC_ALL ? "en_US.UTF-8",
-  meta ? { },
+  meta ? {},
   ...
 }@args:
 
@@ -44,12 +44,12 @@ stdenv.mkDerivation (
   {
     inherit dontUnpack LC_ALL jar;
 
-    nativeBuildInputs = (args.nativeBuildInputs or [ ]) ++ [
+    nativeBuildInputs = (args.nativeBuildInputs or []) ++ [
       graalvmDrv
       glibcLocales
     ];
 
-    nativeImageBuildArgs = nativeImageBuildArgs ++ extraNativeImageBuildArgs ++ [ graalvmXmx ];
+    nativeImageBuildArgs = nativeImageBuildArgs ++ extraNativeImageBuildArgs ++ [graalvmXmx];
 
     buildPhase =
       args.buildPhase or ''
@@ -69,7 +69,7 @@ stdenv.mkDerivation (
         runHook postInstall
       '';
 
-    disallowedReferences = [ graalvmDrv ];
+    disallowedReferences = [graalvmDrv];
 
     passthru = {
       inherit graalvmDrv;

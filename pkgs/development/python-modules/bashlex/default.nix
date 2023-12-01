@@ -24,14 +24,14 @@ buildPythonPackage rec {
     ${python.pythonForBuild.interpreter} -c 'import bashlex'
   '';
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "bashlex" ];
+  pythonImportsCheck = ["bashlex"];
 
   meta = with lib; {
     description = "Python parser for bash";
     license = licenses.gpl3Plus;
     homepage = "https://github.com/idank/bashlex";
-    maintainers = with maintainers; [ multun ];
+    maintainers = with maintainers; [multun];
   };
 }

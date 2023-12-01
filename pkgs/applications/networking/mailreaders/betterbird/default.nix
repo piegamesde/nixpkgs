@@ -52,7 +52,7 @@
     thunderbird-unwrapped.extraPostPatch or ""
     # bash
     + ''
-      PATH=$PATH:${lib.makeBinPath [ git ]}
+      PATH=$PATH:${lib.makeBinPath [git]}
       patches=$(mktemp -d)
       for dir in branding bugs external features misc; do
         cp -r ${betterbird}/${majVer}/$dir/*.patch $patches/
@@ -87,7 +87,7 @@
       done < <(cat $patches/series $patches/series-M-C)
     '';
 
-  extraBuildInputs = [ libdbusmenu-gtk3 ];
+  extraBuildInputs = [libdbusmenu-gtk3];
 
   extraConfigureFlags = [
     "--enable-application=comm/mail"
@@ -97,7 +97,7 @@
   meta = with lib; {
     description = "Betterbird is a fine-tuned version of Mozilla Thunderbird, Thunderbird on steroids, if you will";
     homepage = "https://www.betterbird.eu/";
-    maintainers = with maintainers; [ SuperSandro2000 ];
+    maintainers = with maintainers; [SuperSandro2000];
     inherit (thunderbird-unwrapped.meta)
       platforms
       badPlatforms
@@ -126,6 +126,6 @@
         '';
 
       doInstallCheck = false;
-      requiredSystemFeatures = [ ];
+      requiredSystemFeatures = [];
     }
   )

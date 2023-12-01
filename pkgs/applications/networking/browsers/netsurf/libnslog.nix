@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
     bison
     flex
   ];
-  buildInputs = [ buildsystem ];
+  buildInputs = [buildsystem];
 
   makeFlags = [
     "PREFIX=$(out)"

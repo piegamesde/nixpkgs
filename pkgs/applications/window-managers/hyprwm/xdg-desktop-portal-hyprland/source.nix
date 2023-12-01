@@ -17,7 +17,7 @@
     description = "xdg-desktop-portal backend for Hyprland";
     homepage = "https://github.com/hyprwm/xdg-desktop-portal-hyprland";
     license = licenses.mit;
-    maintainers = with maintainers; [ fufexan ];
+    maintainers = with maintainers; [fufexan];
     platforms = wayland.meta.platforms;
   };
 }

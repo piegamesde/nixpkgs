@@ -18,17 +18,17 @@ buildPythonPackage rec {
     hash = "sha256-Ik9f5wYYvjhywF393IxFcZHsGHBlRZYnn8we2t6+Pls=";
   };
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "wurlitzer" ];
+  pythonImportsCheck = ["wurlitzer"];
 
-  pytestFlagsArray = [ "test.py" ];
+  pytestFlagsArray = ["test.py"];
 
   meta = with lib; {
     description = "Capture C-level output in context managers";
     homepage = "https://github.com/minrk/wurlitzer";
     changelog = "https://github.com/minrk/wurlitzer/blob/{version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

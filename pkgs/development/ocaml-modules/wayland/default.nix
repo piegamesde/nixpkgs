@@ -35,14 +35,14 @@ buildDunePackage rec {
     xmlm
   ];
 
-  checkInputs = [ alcotest-lwt ];
+  checkInputs = [alcotest-lwt];
   doCheck = true;
 
   meta = {
     description = "Pure OCaml Wayland protocol library";
     homepage = "https://github.com/talex5/ocaml-wayland";
     license = lib.licenses.asl20;
-    maintainers = [ lib.maintainers.sternenseemann ];
+    maintainers = [lib.maintainers.sternenseemann];
     mainProgram = "wayland-scanner-ocaml";
   };
 }

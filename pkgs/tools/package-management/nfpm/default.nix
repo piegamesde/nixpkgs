@@ -26,7 +26,7 @@ buildGoModule rec {
     "-X main.version=${version}"
   ];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall =
     let
@@ -49,6 +49,6 @@ buildGoModule rec {
       techknowlogick
       caarlos0
     ];
-    license = with licenses; [ mit ];
+    license = with licenses; [mit];
   };
 }

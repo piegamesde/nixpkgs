@@ -45,7 +45,7 @@ buildPythonPackage rec {
     tifffile
   ];
 
-  pytestFlagsArray = [ "-m 'not needs_internet'" ];
+  pytestFlagsArray = ["-m 'not needs_internet'"];
 
   preCheck = ''
     export IMAGEIO_USERDIR="$TMP"
@@ -64,6 +64,6 @@ buildPythonPackage rec {
     description = "Library for reading and writing a wide range of image, video, scientific, and volumetric data formats";
     homepage = "http://imageio.github.io/";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ Luflosi ];
+    maintainers = with maintainers; [Luflosi];
   };
 }

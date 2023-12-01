@@ -1,16 +1,16 @@
 import ./make-test-python.nix (
-  { lib, ... }:
+  {lib, ...}:
   {
     name = "pufferpanel";
-    meta.maintainers = [ lib.maintainers.tie ];
+    meta.maintainers = [lib.maintainers.tie];
 
     nodes.machine =
-      { pkgs, ... }:
+      {pkgs, ...}:
       {
-        environment.systemPackages = [ pkgs.pufferpanel ];
+        environment.systemPackages = [pkgs.pufferpanel];
         services.pufferpanel = {
           enable = true;
-          extraPackages = [ pkgs.netcat ];
+          extraPackages = [pkgs.netcat];
           environment = {
             PUFFER_PANEL_REGISTRATIONENABLED = "false";
             PUFFER_PANEL_SETTINGS_COMPANYNAME = "NixOS";

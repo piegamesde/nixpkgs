@@ -21,19 +21,19 @@ buildPythonPackage rec {
     hash = "sha256-nAXI1GxSpmmpJuatPYUeAClA88B9c/buPEWhq7RKvs8=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   nativeCheckInputs = [
     pytest-mock
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "shellingham" ];
+  pythonImportsCheck = ["shellingham"];
 
   meta = with lib; {
     description = "Tool to detect the surrounding shell";
     homepage = "https://github.com/sarugaku/shellingham";
     license = licenses.isc;
-    maintainers = with maintainers; [ mbode ];
+    maintainers = with maintainers; [mbode];
   };
 }

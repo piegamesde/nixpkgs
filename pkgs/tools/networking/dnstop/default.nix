@@ -12,7 +12,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url = "http://dns.measurement-factory.com/tools/dnstop/src/dnstop-${
-      lib.replaceStrings [ "-" ] [ "" ] version
+      lib.replaceStrings ["-"] [""] version
     }.tar.gz";
     sha256 = "0yn5s2825l826506gclbcfk3lzllx9brk9rzja6yj5jv0013vc5l";
   };

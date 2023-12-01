@@ -19,13 +19,13 @@ stdenv.mkDerivation rec {
     name = "${pname}-${version}.AppImage";
   };
 
-  appimageContents = appimageTools.extract { inherit pname src version; };
+  appimageContents = appimageTools.extract {inherit pname src version;};
 
   dontUnpack = true;
   dontConfigure = true;
   dontBuild = true;
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     runHook preInstall
@@ -58,14 +58,14 @@ stdenv.mkDerivation rec {
       --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations}}"
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     description = "A local-first, non-linear, outliner notebook for organizing and sharing your personal knowledge base";
     homepage = "https://github.com/logseq/logseq";
     changelog = "https://github.com/logseq/logseq/releases/tag/${version}";
     license = licenses.agpl3Plus;
-    maintainers = with maintainers; [ ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with maintainers; [];
+    platforms = ["x86_64-linux"];
   };
 }

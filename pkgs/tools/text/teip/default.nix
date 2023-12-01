@@ -20,9 +20,9 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-cBFczgvLja6upuPnXphG2d9Rf1ZpNAVh16NHAHfXxHg=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
-  nativeCheckInputs = [ perl ];
+  nativeCheckInputs = [perl];
 
   # Cargo.lock is outdated
   preConfigure = ''
@@ -47,6 +47,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/greymd/teip";
     changelog = "https://github.com/greymd/teip/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
   };
 }

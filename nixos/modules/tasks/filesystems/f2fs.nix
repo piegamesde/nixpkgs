@@ -14,7 +14,7 @@ in
 {
   config = mkIf (any (fs: fs == "f2fs") config.boot.supportedFilesystems) {
 
-    system.fsPackages = [ pkgs.f2fs-tools ];
+    system.fsPackages = [pkgs.f2fs-tools];
 
     boot.initrd.availableKernelModules = mkIf inInitrd [
       "f2fs"

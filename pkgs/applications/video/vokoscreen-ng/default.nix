@@ -32,7 +32,7 @@ mkDerivation rec {
     sha256 = "sha256-Du/Dq7AUH5CeEKYr0kxcqguAyRVI5Ame41nU3FGvG+U=";
   };
 
-  qmakeFlags = [ "src/vokoscreenNG.pro" ];
+  qmakeFlags = ["src/vokoscreenNG.pro"];
 
   nativeBuildInputs = [
     qttools
@@ -73,7 +73,7 @@ mkDerivation rec {
     description = "User friendly Open Source screencaster for Linux and Windows";
     license = licenses.gpl2Plus;
     homepage = "https://github.com/vkohaupt/vokoscreenNG";
-    maintainers = with maintainers; [ shamilton ];
+    maintainers = with maintainers; [shamilton];
     platforms = platforms.linux;
   };
 }

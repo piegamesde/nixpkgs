@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
       desktopName = "Stegsolve";
       comment = "A steganographic image analyzer, solver and data extractor for challanges";
       exec = pname;
-      categories = [ "Graphics" ];
+      categories = ["Graphics"];
     })
   ];
 
@@ -50,9 +50,9 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "A steganographic image analyzer, solver and data extractor for challanges";
     homepage = "http://www.caesum.com/handbook/stego.htm";
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with sourceTypes; [binaryBytecode];
     license = licenses.unfree;
-    maintainers = with maintainers; [ emilytrau ];
+    maintainers = with maintainers; [emilytrau];
     platforms = platforms.all;
   };
 }

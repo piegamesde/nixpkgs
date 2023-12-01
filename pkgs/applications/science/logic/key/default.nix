@@ -72,7 +72,7 @@ stdenv.mkDerivation rec {
       comment = meta.description;
       desktopName = "KeY";
       genericName = "KeY";
-      categories = [ "Science" ];
+      categories = ["Science"];
     })
   ];
 
@@ -124,7 +124,7 @@ stdenv.mkDerivation rec {
       Dynamic Logic for Java with a user-friendly graphical interface.
     '';
     license = licenses.gpl2;
-    maintainers = with maintainers; [ fgaz ];
+    maintainers = with maintainers; [fgaz];
     mainProgram = executable-name;
     platforms = platforms.all;
   };

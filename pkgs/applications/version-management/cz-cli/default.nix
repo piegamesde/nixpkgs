@@ -17,7 +17,7 @@ nodePackages.commitizen.override {
   meta = with lib; {
     description = "The commitizen command line utility";
     homepage = "https://commitizen.github.io/cz-cli";
-    maintainers = with maintainers; [ freezeboy ];
+    maintainers = with maintainers; [freezeboy];
     license = licenses.mit;
     platforms = platforms.linux ++ platforms.darwin;
   };

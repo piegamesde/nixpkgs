@@ -26,6 +26,6 @@ buildFishPlugin rec {
     description = "A fish plugin for wakatime";
     homepage = "https://github.com/ik11235/wakatime.fish";
     license = licenses.mit;
-    maintainers = with maintainers; [ ocfox ];
+    maintainers = with maintainers; [ocfox];
   };
 }

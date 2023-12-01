@@ -36,9 +36,9 @@ buildPythonPackage rec {
     dissect-util
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "dissect.ntfs" ];
+  pythonImportsCheck = ["dissect.ntfs"];
 
   disabledTestPaths =
     [
@@ -51,6 +51,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/fox-it/dissect.ntfs";
     changelog = "https://github.com/fox-it/dissect.ntfs/releases/tag/${version}";
     license = licenses.agpl3Only;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

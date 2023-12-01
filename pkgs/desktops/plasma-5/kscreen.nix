@@ -22,7 +22,7 @@
 
 mkDerivation {
   pname = "kscreen";
-  nativeBuildInputs = [ extra-cmake-modules ];
+  nativeBuildInputs = [extra-cmake-modules];
   buildInputs = [
     kconfig
     kcmutils

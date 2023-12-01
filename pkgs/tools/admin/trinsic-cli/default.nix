@@ -18,7 +18,7 @@ rustPlatform.buildRustPackage rec {
   cargoVendorDir = "vendor";
   doCheck = false;
 
-  buildInputs = lib.optionals stdenv.isDarwin [ Security ];
+  buildInputs = lib.optionals stdenv.isDarwin [Security];
 
   meta = with lib; {
     description = "Trinsic CLI";
@@ -27,7 +27,7 @@ rustPlatform.buildRustPackage rec {
     '';
     homepage = "https://trinsic.id/";
     license = licenses.asl20;
-    maintainers = with maintainers; [ tmarkovski ];
+    maintainers = with maintainers; [tmarkovski];
     mainProgram = "trinsic";
   };
 }

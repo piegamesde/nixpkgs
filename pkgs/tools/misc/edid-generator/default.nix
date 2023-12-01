@@ -6,7 +6,7 @@
   edid-decode,
   hexdump,
   zsh,
-  modelines ? [ ], # Modeline "1280x800"   83.50  1280 1352 1480 1680  800 803 809 831 -hsync +vsync
+  modelines ? [], # Modeline "1280x800"   83.50  1280 1352 1480 1680  800 803 809 831 -hsync +vsync
   clean ? false, # should it skip all, but explicitly listed modelines?
 }:
 

@@ -46,7 +46,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "monty" ];
+  pythonImportsCheck = ["monty"];
 
   disabledTests = [
     # Test file was removed and re-added after 2022.9.9
@@ -62,6 +62,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/materialsvirtuallab/monty";
     changelog = "https://github.com/materialsvirtuallab/monty/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ psyanticy ];
+    maintainers = with maintainers; [psyanticy];
   };
 }

@@ -20,7 +20,7 @@ python3.pkgs.buildPythonApplication rec {
     requests
   ];
 
-  nativeCheckInputs = with python3.pkgs; [ nose ];
+  nativeCheckInputs = with python3.pkgs; [nose];
 
   checkPhase = ''
     nosetests -v yrd
@@ -28,7 +28,7 @@ python3.pkgs.buildPythonApplication rec {
 
   meta = with lib; {
     description = "Cjdns swiss army knife";
-    maintainers = with maintainers; [ akru ];
+    maintainers = with maintainers; [akru];
     platforms = platforms.linux;
     license = licenses.gpl3Only;
     homepage = "https://github.com/kpcyrd/yrd";

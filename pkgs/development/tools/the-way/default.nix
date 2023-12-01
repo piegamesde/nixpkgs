@@ -18,9 +18,9 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-D0H8vChCzBCRjC/S/ceJbuNNAXISiFMZtgu8TMfic+0=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
-  buildInputs = lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.AppKit ];
+  buildInputs = lib.optionals stdenv.isDarwin [darwin.apple_sdk.frameworks.AppKit];
 
   useNextest = true;
 
@@ -36,7 +36,7 @@ rustPlatform.buildRustPackage rec {
     description = "Terminal code snippets manager";
     homepage = "https://github.com/out-of-cheese-error/the-way";
     changelog = "https://github.com/out-of-cheese-error/the-way/blob/v${version}/CHANGELOG.md";
-    license = with licenses; [ mit ];
+    license = with licenses; [mit];
     maintainers = with maintainers; [
       figsoda
       numkem

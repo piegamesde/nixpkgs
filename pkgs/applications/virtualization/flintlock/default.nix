@@ -33,9 +33,9 @@ buildGoModule rec {
     "-X github.com/weaveworks/flintlock/internal/version.Version=v${version}"
   ];
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
-  buildInputs = [ firecracker ];
+  buildInputs = [firecracker];
 
   postInstall = ''
     for prog in flintlockd flintlock-metrics; do
@@ -58,6 +58,6 @@ buildGoModule rec {
       "x86_64-linux"
       "aarch64-linux"
     ];
-    maintainers = with maintainers; [ techknowlogick ];
+    maintainers = with maintainers; [techknowlogick];
   };
 }

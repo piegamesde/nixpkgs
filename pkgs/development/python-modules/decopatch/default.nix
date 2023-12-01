@@ -19,16 +19,16 @@ buildPythonPackage rec {
     hash = "sha256-lX9JyT9BUBgsI/j7UdE7syE+DxenngnIzKcFdZi1VyA=";
   };
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
-  propagatedBuildInputs = [ makefun ];
+  propagatedBuildInputs = [makefun];
 
   postPatch = ''
     substituteInPlace setup.cfg \
       --replace "pytest-runner" ""
   '';
 
-  pythonImportsCheck = [ "decopatch" ];
+  pythonImportsCheck = ["decopatch"];
 
   # Tests would introduce multiple cirucular dependencies
   # Affected: makefun, pytest-cases
@@ -38,6 +38,6 @@ buildPythonPackage rec {
     description = "Python helper for decorators";
     homepage = "https://github.com/smarie/python-decopatch";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

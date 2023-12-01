@@ -79,7 +79,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://github.com/Rafostar/clapper";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ tomfitzhenry ];
+    maintainers = with maintainers; [tomfitzhenry];
     platforms = platforms.linux;
   };
 }

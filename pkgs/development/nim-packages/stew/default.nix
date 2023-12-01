@@ -20,7 +20,7 @@ buildNimPackage rec {
     src.meta
     // {
       description = "Backports, standard library candidates and small utilities that don't yet deserve their own repository";
-      license = [ lib.licenses.asl20 ];
-      maintainers = [ maintainers.ehmry ];
+      license = [lib.licenses.asl20];
+      maintainers = [maintainers.ehmry];
     };
 }

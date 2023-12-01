@@ -5,18 +5,18 @@ args@{
 }:
 
 (import ../make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   let
     adminpass = "hunter2";
     adminuser = "custom-admin-username";
   in
   {
     name = "nextcloud-with-postgresql-and-redis";
-    meta = with pkgs.lib.maintainers; { maintainers = [ eqyiel ]; };
+    meta = with pkgs.lib.maintainers; {maintainers = [eqyiel];};
 
     nodes = {
       # The only thing the client needs to do is download a file.
-      client = { ... }: { };
+      client = {...}: {};
 
       nextcloud =
         {
@@ -26,7 +26,7 @@ args@{
           ...
         }:
         {
-          networking.firewall.allowedTCPPorts = [ 80 ];
+          networking.firewall.allowedTCPPorts = [80];
 
           services.nextcloud = {
             enable = true;
@@ -45,7 +45,7 @@ args@{
                   ${adminpass}
                 ''
               );
-              trustedProxies = [ "::1" ];
+              trustedProxies = ["::1"];
             };
             notify_push = {
               enable = true;

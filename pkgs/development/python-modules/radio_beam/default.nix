@@ -23,7 +23,7 @@ buildPythonPackage rec {
     sha256 = "e032257f1501303873f251c00c74b1188180785c79677fb4443098d517852309";
   };
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
   propagatedBuildInputs = [
     astropy
@@ -43,6 +43,6 @@ buildPythonPackage rec {
     homepage = "http://radio-astro-tools.github.io";
     license = lib.licenses.bsd3;
     platforms = lib.platforms.all;
-    maintainers = with lib.maintainers; [ smaret ];
+    maintainers = with lib.maintainers; [smaret];
   };
 }

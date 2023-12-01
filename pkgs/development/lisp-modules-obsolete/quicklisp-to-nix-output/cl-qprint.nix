@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "cl-qprint";
   version = "20150804-git";
@@ -18,7 +18,7 @@ rec {
 
   packageName = "cl-qprint";
 
-  asdFilesToKeep = [ "cl-qprint.asd" ];
+  asdFilesToKeep = ["cl-qprint.asd"];
   overrides = x: x;
 }
 /* (SYSTEM cl-qprint DESCRIPTION

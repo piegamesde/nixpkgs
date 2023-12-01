@@ -28,6 +28,6 @@ buildDunePackage rec {
     description = "Stub random device implementation for testing";
     homepage = "https://github.com/mirage/mirage-random";
     license = licenses.isc;
-    maintainers = [ maintainers.sternenseemann ];
+    maintainers = [maintainers.sternenseemann];
   };
 }

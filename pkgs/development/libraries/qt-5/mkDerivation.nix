@@ -15,7 +15,7 @@ args:
 let
   args_ = {
 
-    nativeBuildInputs = (args.nativeBuildInputs or [ ]) ++ [ wrapQtAppsHook ];
+    nativeBuildInputs = (args.nativeBuildInputs or []) ++ [wrapQtAppsHook];
   };
 in
 

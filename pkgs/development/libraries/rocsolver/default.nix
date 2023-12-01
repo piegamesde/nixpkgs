@@ -13,7 +13,7 @@
   lapack-reference,
   buildTests ? false,
   buildBenchmarks ? false,
-  gpuTargets ? [ ], # gpuTargets = [ "gfx803" "gfx900" "gfx906:xnack-" ]
+  gpuTargets ? [], # gpuTargets = [ "gfx803" "gfx900" "gfx906:xnack-" ]
 }:
 
 stdenv.mkDerivation (
@@ -23,7 +23,7 @@ stdenv.mkDerivation (
 
     outputs = [
       "out"
-    ] ++ lib.optionals buildTests [ "test" ] ++ lib.optionals buildBenchmarks [ "benchmark" ];
+    ] ++ lib.optionals buildTests ["test"] ++ lib.optionals buildBenchmarks ["benchmark"];
 
     src = fetchFromGitHub {
       owner = "ROCmSoftwarePlatform";
@@ -36,15 +36,15 @@ stdenv.mkDerivation (
       cmake
       rocm-cmake
       hip
-    ] ++ lib.optionals (buildTests || buildBenchmarks) [ gfortran ];
+    ] ++ lib.optionals (buildTests || buildBenchmarks) [gfortran];
 
     buildInputs =
       [
         rocblas
         fmt
       ]
-      ++ lib.optionals buildTests [ gtest ]
-      ++ lib.optionals (buildTests || buildBenchmarks) [ lapack-reference ];
+      ++ lib.optionals buildTests [gtest]
+      ++ lib.optionals (buildTests || buildBenchmarks) [lapack-reference];
 
     cmakeFlags =
       [
@@ -55,9 +55,9 @@ stdenv.mkDerivation (
         "-DCMAKE_INSTALL_LIBDIR=lib"
         "-DCMAKE_INSTALL_INCLUDEDIR=include"
       ]
-      ++ lib.optionals (gpuTargets != [ ]) [ "-DAMDGPU_TARGETS=${lib.concatStringsSep ";" gpuTargets}" ]
-      ++ lib.optionals buildTests [ "-DBUILD_CLIENTS_TESTS=ON" ]
-      ++ lib.optionals buildBenchmarks [ "-DBUILD_CLIENTS_BENCHMARKS=ON" ];
+      ++ lib.optionals (gpuTargets != []) ["-DAMDGPU_TARGETS=${lib.concatStringsSep ";" gpuTargets}"]
+      ++ lib.optionals buildTests ["-DBUILD_CLIENTS_TESTS=ON"]
+      ++ lib.optionals buildBenchmarks ["-DBUILD_CLIENTS_BENCHMARKS=ON"];
 
     postInstall =
       lib.optionalString buildTests ''
@@ -81,7 +81,7 @@ stdenv.mkDerivation (
     meta = with lib; {
       description = "ROCm LAPACK implementation";
       homepage = "https://github.com/ROCmSoftwarePlatform/rocSOLVER";
-      license = with licenses; [ bsd2 ];
+      license = with licenses; [bsd2];
       maintainers = teams.rocm.members;
       platforms = platforms.linux;
       broken = versions.minor finalAttrs.version != versions.minor hip.version;

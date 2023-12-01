@@ -54,7 +54,7 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     boost
     eigen
@@ -66,9 +66,9 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "FEBio Suite Solver";
-    license = with lib.licenses; [ mit ];
+    license = with lib.licenses; [mit];
     homepage = "https://febio.org/";
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ Scriptkiddi ];
+    maintainers = with lib.maintainers; [Scriptkiddi];
   };
 }

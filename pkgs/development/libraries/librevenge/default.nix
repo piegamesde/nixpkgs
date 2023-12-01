@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-EG0MRLtkCLE0i54EZWZvqDuBYXdmWiLNAX6IbBqu6zQ=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     boost
     cppunit
@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
   # Clang and gcc-7 generate warnings, and
   # -Werror causes these warnings to be interpreted as errors
   # Simplest solution: disable -Werror
-  configureFlags = [ "--disable-werror" ];
+  configureFlags = ["--disable-werror"];
 
   # Fix an issue with boost 1.59
   # This is fixed upstream so please remove this when updating
@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "A base library for writing document import filters";
     license = licenses.mpl20;
-    maintainers = with maintainers; [ raskin ];
+    maintainers = with maintainers; [raskin];
     platforms = platforms.unix;
   };
 }

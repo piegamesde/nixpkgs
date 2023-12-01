@@ -79,11 +79,11 @@ stdenv.mkDerivation {
   meta = with lib; {
     homepage = "https://scala-cli.virtuslab.org";
     downloadPage = "https://github.com/VirtusLab/scala-cli/releases/v${version}";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.asl20;
     description = "Command-line tool to interact with the Scala language";
-    maintainers = [ maintainers.kubukoz ];
+    maintainers = [maintainers.kubukoz];
   };
 
-  passthru.updateScript = callPackage ./update.nix { } { inherit platforms pname version; };
+  passthru.updateScript = callPackage ./update.nix {} {inherit platforms pname version;};
 }

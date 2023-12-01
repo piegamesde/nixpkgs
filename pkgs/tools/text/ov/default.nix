@@ -25,7 +25,7 @@ buildGoModule rec {
     "-X main.Revision=${src.rev}"
   ];
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   nativeBuildInputs = [
     installShellFiles
@@ -59,6 +59,6 @@ buildGoModule rec {
     homepage = "https://noborus.github.io/ov";
     license = licenses.mit;
     platforms = platforms.linux ++ platforms.darwin;
-    maintainers = with maintainers; [ farcaller ];
+    maintainers = with maintainers; [farcaller];
   };
 }

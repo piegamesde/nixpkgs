@@ -82,7 +82,7 @@ python3.pkgs.buildPythonApplication rec {
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   strictDeps = false;
@@ -91,7 +91,7 @@ python3.pkgs.buildPythonApplication rec {
     description = "A new GNOME web browser";
     homepage = "https://wiki.gnome.org/Apps/Eolie";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ samdroid-apps ];
+    maintainers = with maintainers; [samdroid-apps];
     platforms = platforms.linux;
   };
 }

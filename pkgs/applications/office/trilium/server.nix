@@ -16,14 +16,14 @@ stdenv.mkDerivation rec {
   pname = "trilium-server";
   inherit version;
   meta = metaCommon // {
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
   };
 
   src = fetchurl serverSource;
 
-  nativeBuildInputs = [ autoPatchelfHook ];
+  nativeBuildInputs = [autoPatchelfHook];
 
-  buildInputs = [ stdenv.cc.cc.lib ];
+  buildInputs = [stdenv.cc.cc.lib];
 
   patches =
     [

@@ -47,7 +47,7 @@ stdenv.mkDerivation rec {
     libiconv # for 'iconv' binary
   ];
 
-  patches = [ ./systemwide-man-db-conf.patch ];
+  patches = [./systemwide-man-db-conf.patch];
 
   postPatch = ''
     # Remove all mandatory manpaths. Nixpkgs makes no requirements on

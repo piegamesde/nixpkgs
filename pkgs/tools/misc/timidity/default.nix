@@ -19,13 +19,13 @@ stdenv.mkDerivation rec {
     sha256 = "1xf8n6dqzvi6nr2asags12ijbj1lwk1hgl3s27vm2szib8ww07qn";
   };
 
-  patches = [ ./timidity-iA-Oj.patch ];
+  patches = [./timidity-iA-Oj.patch];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     libjack2
     ncurses
-  ] ++ lib.optionals stdenv.isLinux [ alsa-lib ] ++ lib.optionals stdenv.isDarwin [ CoreAudio ];
+  ] ++ lib.optionals stdenv.isLinux [alsa-lib] ++ lib.optionals stdenv.isDarwin [CoreAudio];
 
   configureFlags =
     [
@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
       "lib_cv_va_val_copy=no"
     ];
 
-  makeFlags = [ "AR=${stdenv.cc.targetPrefix}ar" ];
+  makeFlags = ["AR=${stdenv.cc.targetPrefix}ar"];
 
   instruments = fetchurl {
     url = "http://www.csee.umbc.edu/pub/midia/instruments.tar.gz";
@@ -71,7 +71,7 @@ stdenv.mkDerivation rec {
     homepage = "https://sourceforge.net/projects/timidity/";
     license = licenses.gpl2;
     description = "A software MIDI renderer";
-    maintainers = [ maintainers.marcweber ];
+    maintainers = [maintainers.marcweber];
     platforms = platforms.unix;
   };
 }

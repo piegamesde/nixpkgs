@@ -49,7 +49,7 @@ stdenv.mkDerivation rec {
 
   sourceRoot = "source";
 
-  srcs = [ free-src ] ++ lib.optional unfree_assets assets;
+  srcs = [free-src] ++ lib.optional unfree_assets assets;
 
   postUnpack = lib.optionalString unfree_assets ''
     mv data $sourceRoot
@@ -67,7 +67,7 @@ stdenv.mkDerivation rec {
     clang
   ];
 
-  env.NIX_CFLAGS_COMPILE = toString [ "-I${SDL2.dev}/include/SDL2" ];
+  env.NIX_CFLAGS_COMPILE = toString ["-I${SDL2.dev}/include/SDL2"];
 
   enableParallelBuilding = true;
 
@@ -92,7 +92,7 @@ stdenv.mkDerivation rec {
     description = "A dungeon management rogue-like";
     homepage = "https://keeperrl.com/";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ onny ];
+    maintainers = with maintainers; [onny];
     # TODO: Add OS X
     platforms = [
       "i686-linux"

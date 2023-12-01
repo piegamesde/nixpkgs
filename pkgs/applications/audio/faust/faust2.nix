@@ -127,7 +127,7 @@ let
     {
       baseName,
       dir ? "tools/faust2appls",
-      scripts ? [ baseName ],
+      scripts ? [baseName],
       ...
     }@args:
 
@@ -183,7 +183,7 @@ let
   wrapWithBuildEnv =
     {
       baseName,
-      propagatedBuildInputs ? [ ],
+      propagatedBuildInputs ? [],
       ...
     }@args:
 
@@ -196,7 +196,7 @@ let
           makeWrapper
         ];
 
-        propagatedBuildInputs = [ faust ] ++ propagatedBuildInputs;
+        propagatedBuildInputs = [faust] ++ propagatedBuildInputs;
 
         libPath = lib.makeLibraryPath propagatedBuildInputs;
 
@@ -234,19 +234,19 @@ let
   wrap =
     {
       baseName,
-      runtimeInputs ? [ ],
+      runtimeInputs ? [],
       ...
     }@args:
 
     let
 
-      runtimePath = concatStringsSep ":" (map (p: "${p}/bin") ([ faust ] ++ runtimeInputs));
+      runtimePath = concatStringsSep ":" (map (p: "${p}/bin") ([faust] ++ runtimeInputs));
     in
     stdenv.mkDerivation (
       (faust2ApplBase args)
       // {
 
-        nativeBuildInputs = [ makeWrapper ];
+        nativeBuildInputs = [makeWrapper];
 
         postFixup = ''
           for script in "$out"/bin/*; do

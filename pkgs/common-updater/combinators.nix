@@ -1,4 +1,4 @@
-{ lib }:
+{lib}:
 
 /* This is a set of tools to manipulate update scripts as recognized by update.nix.
    It is still very experimental with **instability** almost guaranteed so any use
@@ -47,13 +47,13 @@ let
     arg:
     if builtins.isPath arg then
       {
-        args = args ++ [ { __rawShell = ''"''$${builtins.toString maxArgIndex}"''; } ];
+        args = args ++ [{__rawShell = ''"''$${builtins.toString maxArgIndex}"'';}];
         maxArgIndex = maxArgIndex + 1;
-        paths = paths ++ [ arg ];
+        paths = paths ++ [arg];
       }
     else
       {
-        args = args ++ [ arg ];
+        args = args ++ [arg];
         inherit maxArgIndex paths;
       };
   /* extractPaths : Int → [ (String|FilePath) ] → { maxArgIndex : Int, args : [ShellArg], paths : [FilePath] }
@@ -64,8 +64,8 @@ let
     builtins.foldl' processArg
       {
         inherit maxArgIndex;
-        args = [ ];
-        paths = [ ];
+        args = [];
+        paths = [];
       }
       command;
   /* processCommand : { maxArgIndex : Int, commands : [[ShellArg]], paths : [FilePath] } → [ (String|FilePath) ] → { maxArgIndex : Int, commands : [[ShellArg]], paths : [FilePath] }
@@ -82,7 +82,7 @@ let
       new = extractPaths maxArgIndex command;
     in
     {
-      commands = commands ++ [ new.args ];
+      commands = commands ++ [new.args];
       paths = paths ++ new.paths;
       maxArgIndex = new.maxArgIndex;
     };
@@ -94,8 +94,8 @@ let
     builtins.foldl' processCommand
       {
         inherit maxArgIndex;
-        commands = [ ];
-        paths = [ ];
+        commands = [];
+        paths = [];
       }
       commands;
 
@@ -124,9 +124,9 @@ rec {
     updateScript:
     {
       command = lib.toList (updateScript.command or updateScript);
-      supportedFeatures = updateScript.supportedFeatures or [ ];
+      supportedFeatures = updateScript.supportedFeatures or [];
     }
-    // lib.optionalAttrs (updateScript ? attrPath) { inherit (updateScript) attrPath; };
+    // lib.optionalAttrs (updateScript ? attrPath) {inherit (updateScript) attrPath;};
 
   /* sequence : [UpdateScript] → UpdateScript
      EXPERIMENTAL! Combines multiple update scripts to run in sequence.
@@ -140,13 +140,13 @@ rec {
     let
       scripts = scriptsNormalized;
       hasCommitSupport =
-        lib.findSingle ({ supportedFeatures, ... }: supportedFeatures == [ "commit" ]) null null scripts
+        lib.findSingle ({supportedFeatures, ...}: supportedFeatures == ["commit"]) null null scripts
         != null;
       validateFeatures =
         if hasCommitSupport then
-          ({ supportedFeatures, ... }: supportedFeatures == [ "commit" ] || supportedFeatures == [ "silent" ])
+          ({supportedFeatures, ...}: supportedFeatures == ["commit"] || supportedFeatures == ["silent"])
         else
-          ({ supportedFeatures, ... }: supportedFeatures == [ ]);
+          ({supportedFeatures, ...}: supportedFeatures == []);
     in
 
     assert lib.assertMsg (lib.all validateFeatures scripts)
@@ -170,8 +170,8 @@ rec {
         "Combining update scripts with different attr paths is currently unsupported.";
 
     {
-      command = commandsToShellInvocation (builtins.map ({ command, ... }: command) scripts);
-      supportedFeatures = lib.optionals hasCommitSupport [ "commit" ];
+      command = commandsToShellInvocation (builtins.map ({command, ...}: command) scripts);
+      supportedFeatures = lib.optionals hasCommitSupport ["commit"];
     };
 
   /* copyAttrOutputToFile : String → FilePath → UpdateScript
@@ -186,6 +186,6 @@ rec {
         ''cp --no-preserve=all "$(nix-build -A ${attr})" "$0" > /dev/null''
         path
       ];
-      supportedFeatures = [ "silent" ];
+      supportedFeatures = ["silent"];
     };
 }

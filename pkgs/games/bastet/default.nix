@@ -49,7 +49,7 @@ stdenv.mkDerivation rec {
     description = "Tetris clone with 'bastard' block-choosing AI";
     homepage = "http://fph.altervista.org/prog/bastet.html";
     license = licenses.gpl3;
-    maintainers = [ maintainers.dezgeg ];
+    maintainers = [maintainers.dezgeg];
     platforms = platforms.linux;
   };
 }

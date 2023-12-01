@@ -28,7 +28,7 @@ stdenv.mkDerivation (
       hash = "sha256-ZHWyUV/BqM3ihauXDqDVkZURDDbBiRcEzptyGQmw94I=";
     };
 
-    outputs = [ "out" ] ++ lib.optionals buildDocs [ "man" ];
+    outputs = ["out"] ++ lib.optionals buildDocs ["man"];
 
     nativeBuildInputs =
       [
@@ -36,7 +36,7 @@ stdenv.mkDerivation (
         samurai
       ]
       ++ lib.optionals buildDocs [
-        (python3.withPackages (ps: [ ps.pyyaml ]))
+        (python3.withPackages (ps: [ps.pyyaml]))
         scdoc
       ];
 
@@ -134,7 +134,7 @@ stdenv.mkDerivation (
       homepage = "https://muon.build/";
       description = "An implementation of Meson build system in C99";
       license = licenses.gpl3Only;
-      maintainers = with maintainers; [ AndersonTorres ];
+      maintainers = with maintainers; [AndersonTorres];
       platforms = platforms.unix;
       broken = stdenv.isDarwin; # typical `ar failure`
     };

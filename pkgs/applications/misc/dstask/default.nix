@@ -39,7 +39,7 @@ buildGoModule rec {
     description = "Command line todo list with super-reliable git sync";
     homepage = src.meta.homepage;
     license = licenses.mit;
-    maintainers = with maintainers; [ stianlagstad ];
+    maintainers = with maintainers; [stianlagstad];
     platforms = platforms.linux;
   };
 }

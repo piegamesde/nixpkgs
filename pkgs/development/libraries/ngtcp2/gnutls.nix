@@ -30,13 +30,13 @@ stdenv.mkDerivation rec {
     autoreconfHook
     pkg-config
   ];
-  buildInputs = [ gnutls ];
+  buildInputs = [gnutls];
 
-  configureFlags = [ "--with-gnutls=yes" ];
+  configureFlags = ["--with-gnutls=yes"];
   enableParallelBuilding = true;
 
   doCheck = true;
-  nativeCheckInputs = [ cunit ] ++ lib.optional stdenv.isDarwin ncurses;
+  nativeCheckInputs = [cunit] ++ lib.optional stdenv.isDarwin ncurses;
 
   passthru.tests = knot-dns.passthru.tests; # the only consumer so far
 

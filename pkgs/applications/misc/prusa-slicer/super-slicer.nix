@@ -70,7 +70,7 @@ let
       separateDebugInfo = true;
 
       # See https://github.com/supermerill/SuperSlicer/issues/432
-      cmakeFlags = super.cmakeFlags ++ [ "-DSLIC3R_BUILD_TESTS=0" ];
+      cmakeFlags = super.cmakeFlags ++ ["-DSLIC3R_BUILD_TESTS=0"];
 
       desktopItems = [
         (makeDesktopItem {
@@ -80,7 +80,7 @@ let
           comment = description;
           desktopName = appname;
           genericName = "3D printer tool";
-          categories = [ "Development" ];
+          categories = ["Development"];
         })
       ];
 

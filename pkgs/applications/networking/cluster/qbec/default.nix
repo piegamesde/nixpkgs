@@ -32,6 +32,6 @@ buildGoModule rec {
     description = "Configure kubernetes objects on multiple clusters using jsonnet https://qbec.io";
     homepage = "https://github.com/splunk/qbec";
     license = licenses.asl20;
-    maintainers = with maintainers; [ groodt ];
+    maintainers = with maintainers; [groodt];
   };
 }

@@ -26,7 +26,7 @@ buildPythonPackage rec {
     six
   ];
 
-  pythonImportsCheck = [ "geomet" ];
+  pythonImportsCheck = ["geomet"];
 
   meta = with lib; {
     description = "Convert GeoJSON to WKT/WKB (Well-Known Text/Binary) and vice versa";

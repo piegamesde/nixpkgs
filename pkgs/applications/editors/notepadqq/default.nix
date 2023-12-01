@@ -55,6 +55,6 @@ mkDerivation rec {
     description = "Notepad++-like editor for the Linux desktop";
     license = licenses.gpl3;
     platforms = platforms.linux;
-    maintainers = [ maintainers.rszibele ];
+    maintainers = [maintainers.rszibele];
   };
 }

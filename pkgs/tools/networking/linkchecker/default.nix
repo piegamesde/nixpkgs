@@ -20,7 +20,7 @@ python3.pkgs.buildPythonApplication rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [ gettext ];
+  nativeBuildInputs = [gettext];
 
   propagatedBuildInputs = with python3.pkgs; [
     argcomplete

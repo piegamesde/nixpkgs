@@ -24,14 +24,14 @@ stdenv.mkDerivation rec {
     sha256 = "0gi6y52gkakhhlnzy0p6izc36nqhyfx5830qirhvk3qrzrwxyqrh";
   };
 
-  buildInputs = [ ];
-  makeFlags = [ "dbfile=${dbfile}" ];
+  buildInputs = [];
+  makeFlags = ["dbfile=${dbfile}"];
 
   meta = with lib; {
     description = "Merging locate is an utility to index and quickly search for files";
     homepage = "https://pagure.io/mlocate";
     license = licenses.gpl2;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

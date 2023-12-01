@@ -21,7 +21,7 @@ buildGoModule rec {
     description = "Modern replacement for free";
     homepage = "https://github.com/alexcoder04/frei";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ infinidoge ];
+    maintainers = with maintainers; [infinidoge];
     mainProgram = "frei";
   };
 }

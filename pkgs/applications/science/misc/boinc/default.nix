@@ -73,7 +73,7 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  configureFlags = [ "--disable-server" ];
+  configureFlags = ["--disable-server"];
 
   postInstall = ''
     install --mode=444 -D 'client/scripts/boinc-client.service' "$out/etc/systemd/system/boinc.service"
@@ -84,6 +84,6 @@ stdenv.mkDerivation rec {
     homepage = "https://boinc.berkeley.edu/";
     license = licenses.lgpl2Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ Luflosi ];
+    maintainers = with maintainers; [Luflosi];
   };
 }

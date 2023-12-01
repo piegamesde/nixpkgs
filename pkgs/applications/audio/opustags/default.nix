@@ -23,12 +23,12 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-qxtTJ4Hl2ccL+rhONeoOfV6ZyJaWaVDPMsXYJkXCWkY=";
   };
 
-  buildInputs = [ libogg ];
+  buildInputs = [libogg];
 
   nativeBuildInputs = [
     cmake
     pkg-config
-  ] ++ lib.optionals stdenv.isDarwin [ libiconv ];
+  ] ++ lib.optionals stdenv.isDarwin [libiconv];
 
   doCheck = true;
 
@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
     ffmpeg
     glibcLocales
     perl
-  ] ++ (with perlPackages; [ ListMoreUtils ]);
+  ] ++ (with perlPackages; [ListMoreUtils]);
 
   checkPhase = ''
     export LANG="en_US.UTF-8"

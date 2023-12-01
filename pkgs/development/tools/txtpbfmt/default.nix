@@ -26,6 +26,6 @@ buildGoModule rec {
     description = "Formatter for text proto files";
     homepage = "https://github.com/protocolbuffers/txtpbfmt";
     license = licenses.asl20;
-    maintainers = with maintainers; [ aaronjheng ];
+    maintainers = with maintainers; [aaronjheng];
   };
 }

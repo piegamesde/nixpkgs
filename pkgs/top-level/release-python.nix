@@ -17,7 +17,7 @@
   },
 }:
 
-with import ./release-lib.nix { inherit supportedSystems nixpkgsArgs; };
+with import ./release-lib.nix {inherit supportedSystems nixpkgsArgs;};
 with lib;
 
 let
@@ -26,19 +26,19 @@ let
     let
       res = builtins.tryEval (
         if isDerivation value then
-          value.meta.isBuildPythonPackage or [ ]
+          value.meta.isBuildPythonPackage or []
         else if value.recurseForDerivations or false || value.recurseForRelease or false then
           packagePython value
         else
-          [ ]
+          []
       );
     in
     lib.optionals res.success res.value
   );
 
   jobs = {
-    lib-tests = import ../../lib/tests/release.nix { inherit pkgs; };
-    pkgs-lib-tests = import ../pkgs-lib/tests { inherit pkgs; };
+    lib-tests = import ../../lib/tests/release.nix {inherit pkgs;};
+    pkgs-lib-tests = import ../pkgs-lib/tests {inherit pkgs;};
 
     tested = pkgs.releaseTools.aggregate {
       name = "python-tested";

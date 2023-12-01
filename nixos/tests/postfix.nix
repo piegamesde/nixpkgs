@@ -6,9 +6,9 @@ import ./make-test-python.nix {
   name = "postfix";
 
   nodes.machine =
-    { pkgs, ... }:
+    {pkgs, ...}:
     {
-      imports = [ common/user-account.nix ];
+      imports = [common/user-account.nix];
       services.postfix = {
         enable = true;
         enableSubmission = true;
@@ -23,7 +23,7 @@ import ./make-test-python.nix {
         };
       };
 
-      security.pki.certificateFiles = [ certs.ca.cert ];
+      security.pki.certificateFiles = [certs.ca.cert];
 
       networking.extraHosts = ''
         127.0.0.1 ${domain}

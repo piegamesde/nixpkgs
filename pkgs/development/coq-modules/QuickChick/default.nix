@@ -118,18 +118,18 @@ in
   mlPlugin = true;
   nativeBuildInputs = lib.optional recent coq.ocamlPackages.ocamlbuild;
   propagatedBuildInputs =
-    [ ssreflect ]
+    [ssreflect]
     ++ lib.optionals recent [
       coq-ext-lib
       simple-io
     ];
-  extraInstallFlags = [ "-f Makefile.coq" ];
+  extraInstallFlags = ["-f Makefile.coq"];
 
   enableParallelBuilding = false;
 
   meta = with lib; {
     description = "Randomized property-based testing plugin for Coq; a clone of Haskell QuickCheck";
-    maintainers = with maintainers; [ jwiegley ];
+    maintainers = with maintainers; [jwiegley];
   };
 }).overrideAttrs
   (

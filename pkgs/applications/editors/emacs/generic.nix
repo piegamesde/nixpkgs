@@ -4,7 +4,7 @@
   versionModifier ? "",
   pname ? "emacs",
   name ? "emacs-${version}${versionModifier}",
-  patches ? _: [ ],
+  patches ? _: [],
   macportVersion ? null,
 }:
 {
@@ -128,7 +128,7 @@ let
   libGccJitLibraryPaths = [
     "${lib.getLib libgccjit}/lib/gcc"
     "${lib.getLib stdenv.cc.libc}/lib"
-  ] ++ lib.optionals (stdenv.cc ? cc.libgcc) [ "${lib.getLib stdenv.cc.cc.libgcc}/lib" ];
+  ] ++ lib.optionals (stdenv.cc ? cc.libgcc) ["${lib.getLib stdenv.cc.cc.libgcc}/lib"];
 in
 (if withMacport then llvmPackages_6.stdenv else stdenv).mkDerivation (
   finalAttrs:
@@ -229,8 +229,8 @@ in
           pkg-config
           makeWrapper
         ]
-        ++ lib.optionals (srcRepo || withMacport) [ texinfo ]
-        ++ lib.optionals srcRepo [ autoreconfHook ]
+        ++ lib.optionals (srcRepo || withMacport) [texinfo]
+        ++ lib.optionals srcRepo [autoreconfHook]
         ++ lib.optional (withPgtk || withX && (withGTK3 || withXwidgets)) wrapGAppsHook;
 
       buildInputs =
@@ -250,7 +250,7 @@ in
           acl
           gpm
         ]
-        ++ lib.optionals withSystemd [ systemd ]
+        ++ lib.optionals withSystemd [systemd]
         ++ lib.optionals withX [
           libXaw
           Xaw3d
@@ -264,8 +264,8 @@ in
           giflib
           libtiff
         ]
-        ++ lib.optionals (withX || withNS || withPgtk) [ librsvg ]
-        ++ lib.optionals withImageMagick [ imagemagick ]
+        ++ lib.optionals (withX || withNS || withPgtk) [librsvg]
+        ++ lib.optionals withImageMagick [imagemagick]
         ++ lib.optionals (stdenv.isLinux && withX) [
           m17n_lib
           libotf
@@ -300,11 +300,11 @@ in
           GSS
           ImageIO
         ]
-        ++ lib.optionals stdenv.isDarwin [ sigtool ]
-        ++ lib.optionals nativeComp [ libgccjit ]
-        ++ lib.optionals withTreeSitter [ tree-sitter ];
+        ++ lib.optionals stdenv.isDarwin [sigtool]
+        ++ lib.optionals nativeComp [libgccjit]
+        ++ lib.optionals withTreeSitter [tree-sitter];
 
-      hardeningDisable = [ "format" ];
+      hardeningDisable = ["format"];
 
       configureFlags =
         [
@@ -314,7 +314,7 @@ in
         ++ (lib.optional stdenv.isDarwin (lib.withFeature withNS "ns"))
         ++ (
           if withNS then
-            [ "--disable-ns-self-contained" ]
+            ["--disable-ns-self-contained"]
           else if withX then
             [
               "--with-x-toolkit=${toolkit}"
@@ -322,7 +322,7 @@ in
               "--with-cairo"
             ]
           else if withPgtk then
-            [ "--with-pgtk" ]
+            ["--with-pgtk"]
           else
             [
               "--with-x=no"
@@ -394,7 +394,7 @@ in
         '';
 
       postFixup = lib.optionalString (stdenv.isLinux && withX && toolkit == "lucid") ''
-        patchelf --add-rpath ${lib.makeLibraryPath [ libXcursor ]} $out/bin/emacs
+        patchelf --add-rpath ${lib.makeLibraryPath [libXcursor]} $out/bin/emacs
         patchelf --add-needed "libXcursor.so.1" "$out/bin/emacs"
       '';
 

@@ -31,7 +31,7 @@ rustPlatform.buildRustPackage rec {
     };
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     expat
@@ -61,13 +61,13 @@ rustPlatform.buildRustPackage rec {
 
   # enables pipewire API deprecated in 0.3.64
   # fixes error caused by https://gitlab.freedesktop.org/pipewire/pipewire-rs/-/issues/55
-  env.NIX_CFLAGS_COMPILE = toString [ "-DPW_ENABLE_DEPRECATED" ];
+  env.NIX_CFLAGS_COMPILE = toString ["-DPW_ENABLE_DEPRECATED"];
 
   meta = with lib; {
     description = "A simple and elegant pipewire graph editor ";
     homepage = "https://github.com/ax9d/pw-viz";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
     platforms = platforms.linux;
   };
 }

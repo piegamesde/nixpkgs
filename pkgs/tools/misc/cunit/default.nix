@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
     autoconf
     automake
   ];
-  buildInputs = [ libtool ];
+  buildInputs = [libtool];
 
   src = fetchurl {
     url = "mirror://sourceforge/cunit/CUnit/${version}/${pname}-${version}.tar.bz2";

@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-MjTUrqdi9K71PhpLzR3lqdOiNM7Ilmh8HWf3BUOr+b0=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     substituteInPlace bin/riemann --replace '$top/lib/riemann.jar' "$out/share/java/riemann.jar"
@@ -31,9 +31,9 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "http://riemann.io/";
     description = "A network monitoring system";
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with sourceTypes; [binaryBytecode];
     license = licenses.epl10;
     platforms = platforms.all;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

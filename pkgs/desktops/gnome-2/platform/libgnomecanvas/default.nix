@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
     "dev"
   ];
 
-  buildInputs = [ libglade ];
+  buildInputs = [libglade];
   nativeBuildInputs = [
     pkg-config
     intltool

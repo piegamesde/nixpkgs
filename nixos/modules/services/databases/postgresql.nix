@@ -21,7 +21,7 @@ let
       # works.
       base = if cfg.enableJIT && !cfg.package.jitSupport then cfg.package.withJIT else cfg.package;
     in
-    if cfg.extraPlugins == [ ] then base else base.withPackages (_: cfg.extraPlugins);
+    if cfg.extraPlugins == [] then base else base.withPackages (_: cfg.extraPlugins);
 
   toStr =
     value:
@@ -30,7 +30,7 @@ let
     else if false == value then
       "no"
     else if isString value then
-      "'${lib.replaceStrings [ "'" ] [ "''" ] value}'"
+      "'${lib.replaceStrings ["'"] ["''"] value}'"
     else
       toString value;
 
@@ -39,7 +39,7 @@ let
     concatStringsSep "\n" (mapAttrsToList (n: v: "${n} = ${toStr v}") cfg.settings)
   );
 
-  configFileCheck = pkgs.runCommand "postgresql-configfile-check" { } ''
+  configFileCheck = pkgs.runCommand "postgresql-configfile-check" {} ''
     ${cfg.package}/bin/postgres -D${configFile} -C config_file >/dev/null
     touch $out
   '';
@@ -133,7 +133,7 @@ in
 
       initdbArgs = mkOption {
         type = with types; listOf str;
-        default = [ ];
+        default = [];
         example = [
           "--data-checksums"
           "--allow-group-access"
@@ -154,7 +154,7 @@ in
 
       ensureDatabases = mkOption {
         type = types.listOf types.str;
-        default = [ ];
+        default = [];
         description = lib.mdDoc ''
           Ensures that the specified databases exist.
           This option will never delete existing databases, especially not when the value of this
@@ -180,7 +180,7 @@ in
 
               ensurePermissions = mkOption {
                 type = types.attrsOf types.str;
-                default = { };
+                default = {};
                 description = lib.mdDoc ''
                   Permissions to ensure for the user, specified as an attribute set.
                   The attribute names specify the database and tables to grant the permissions for.
@@ -214,7 +214,7 @@ in
                     createdb = true;
                   }
                 '';
-                default = { };
+                default = {};
                 defaultText = lib.literalMD ''
                   The default, `null`, means that the user created will have the default permissions assigned by PostgreSQL. Subsequent server starts will not set or unset the clause, so imperative changes are preserved.
                 '';
@@ -352,7 +352,7 @@ in
             };
           }
         );
-        default = [ ];
+        default = [];
         description = lib.mdDoc ''
           Ensures that the specified users exist and have at least the ensured permissions.
           The PostgreSQL users will be identified using peer authentication. This authenticates the Unix user with the
@@ -402,7 +402,7 @@ in
 
       extraPlugins = mkOption {
         type = types.listOf types.path;
-        default = [ ];
+        default = [];
         example = literalExpression "with pkgs.postgresql_11.pkgs; [ postgis pg_repack ]";
         description = lib.mdDoc ''
           List of PostgreSQL plugins. PostgreSQL version for each plugin should
@@ -421,7 +421,7 @@ in
               str
             ]
           );
-        default = { };
+        default = {};
         description = lib.mdDoc ''
           PostgreSQL configuration. Refer to
           <https://www.postgresql.org/docs/11/config-setting.html#CONFIG-SETTING-CONFIGURATION-FILE>
@@ -518,9 +518,9 @@ in
 
     users.groups.postgres.gid = config.ids.gids.postgres;
 
-    environment.systemPackages = [ postgresql ];
+    environment.systemPackages = [postgresql];
 
-    environment.pathsToLink = [ "/share/postgresql" ];
+    environment.pathsToLink = ["/share/postgresql"];
 
     system.extraDependencies =
       lib.optional (cfg.checkConfig && pkgs.stdenv.hostPlatform == pkgs.stdenv.buildPlatform)
@@ -529,12 +529,12 @@ in
     systemd.services.postgresql = {
       description = "PostgreSQL Server";
 
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
 
       environment.PGDATA = cfg.dataDir;
 
-      path = [ postgresql ];
+      path = [postgresql];
 
       preStart = ''
         if ! test -e ${cfg.dataDir}/PG_VERSION; then
@@ -574,7 +574,7 @@ in
             rm -f "${cfg.dataDir}/.first_startup"
           fi
         ''
-        + optionalString (cfg.ensureDatabases != [ ]) ''
+        + optionalString (cfg.ensureDatabases != []) ''
           ${concatMapStrings
             (database: ''
               $PSQL -tAc "SELECT 1 FROM pg_database WHERE datname = '${database}'" | grep -q 1 || $PSQL -tAc 'CREATE DATABASE "${database}"'

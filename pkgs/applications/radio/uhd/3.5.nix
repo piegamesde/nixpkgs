@@ -84,13 +84,13 @@ stdenv.mkDerivation rec {
     # TODO: Check if this still needed
     # ABI differences GCC 7.1
     # /nix/store/wd6r25miqbk9ia53pp669gn4wrg9n9cj-gcc-7.3.0/include/c++/7.3.0/bits/vector.tcc:394:7: note: parameter passing for argument of type 'std::vector<uhd::range_t>::iterator {aka __gnu_cxx::__normal_iterator<uhd::range_t*, std::vector<uhd::range_t> >}' changed in GCC 7.1
-    ++ [ (lib.optionalString stdenv.isAarch32 "-DCMAKE_CXX_FLAGS=-Wno-psabi") ];
+    ++ [(lib.optionalString stdenv.isAarch32 "-DCMAKE_CXX_FLAGS=-Wno-psabi")];
 
   # Python + mako are always required for the build itself but not necessary for runtime.
   pythonEnv = python3.withPackages (
     ps:
     with ps;
-    [ mako ]
+    [mako]
     ++ optionals (enableLibuhd_Python_api) [
       numpy
       setuptools
@@ -109,7 +109,7 @@ stdenv.mkDerivation rec {
     # If both enableLibuhd_Python_api and enableUtils are off, we don't need
     # pythonEnv in buildInputs as it's a 'build' dependency and not a runtime
     # dependency
-    ++ optionals (!enableLibuhd_Python_api && !enableUtils) [ pythonEnv ];
+    ++ optionals (!enableLibuhd_Python_api && !enableUtils) [pythonEnv];
   buildInputs =
     [
       boost
@@ -118,9 +118,9 @@ stdenv.mkDerivation rec {
     # However, if enableLibuhd_Python_api *or* enableUtils is on, we need
     # pythonEnv for runtime as well. The utilities' runtime dependencies are
     # handled at the environment
-    ++ optionals (enableLibuhd_Python_api || enableUtils) [ pythonEnv ]
-    ++ optionals (enableLiberio) [ liberio ]
-    ++ optionals (enableDpdk) [ dpdk ];
+    ++ optionals (enableLibuhd_Python_api || enableUtils) [pythonEnv]
+    ++ optionals (enableLiberio) [liberio]
+    ++ optionals (enableDpdk) [dpdk];
 
   doCheck = true;
 
@@ -133,7 +133,7 @@ stdenv.mkDerivation rec {
   postPhases = [
     "installFirmware"
     "removeInstalledTests"
-  ] ++ optionals (enableUtils) [ "moveUdevRules" ];
+  ] ++ optionals (enableUtils) ["moveUdevRules"];
 
   # UHD expects images in `$CMAKE_INSTALL_PREFIX/share/uhd/images`
   installFirmware = ''

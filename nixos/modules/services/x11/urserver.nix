@@ -30,9 +30,9 @@ in
       description = ''
         Server for Unified Remote: The one-and-only remote for your computer.
       '';
-      wantedBy = [ "graphical-session.target" ];
-      partOf = [ "graphical-session.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["graphical-session.target"];
+      partOf = ["graphical-session.target"];
+      after = ["network.target"];
       serviceConfig = {
         Type = "forking";
         ExecStart = ''

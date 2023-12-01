@@ -24,7 +24,7 @@ buildPythonPackage rec {
     hash = "sha256-0+ZJiIFIWrdQ7+QMUniYKpNDvGJ+E3sRrc7WJ3GTCMc=";
   };
 
-  propagatedBuildInputs = [ six ];
+  propagatedBuildInputs = [six];
 
   checkInputs = [
     cogapp
@@ -34,7 +34,7 @@ buildPythonPackage rec {
     virtualenv
   ];
 
-  pythonImportsCheck = [ "paver" ];
+  pythonImportsCheck = ["paver"];
 
   disabledTestPaths =
     [
@@ -46,6 +46,6 @@ buildPythonPackage rec {
     description = "A Python-based build/distribution/deployment scripting tool";
     homepage = "https://github.com/paver/paver";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ lovek323 ];
+    maintainers = with maintainers; [lovek323];
   };
 }

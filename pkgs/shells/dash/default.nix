@@ -20,12 +20,12 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  nativeBuildInputs = lib.optionals stdenv.hostPlatform.isStatic [ pkg-config ];
+  nativeBuildInputs = lib.optionals stdenv.hostPlatform.isStatic [pkg-config];
 
-  depsBuildBuild = [ buildPackages.stdenv.cc ];
-  buildInputs = [ libedit ];
+  depsBuildBuild = [buildPackages.stdenv.cc];
+  buildInputs = [libedit];
 
-  configureFlags = [ "--with-libedit" ];
+  configureFlags = ["--with-libedit"];
   preConfigure = lib.optional stdenv.hostPlatform.isStatic ''
     export LIBS="$(''${PKG_CONFIG:-pkg-config} --libs --static libedit)"
   '';
@@ -45,7 +45,7 @@ stdenv.mkDerivation rec {
   passthru = {
     shellPath = "/bin/dash";
     tests = {
-      "execute-simple-command" = runCommand "${pname}-execute-simple-command" { } ''
+      "execute-simple-command" = runCommand "${pname}-execute-simple-command" {} ''
         mkdir $out
         ${dash}/bin/dash -c 'echo "Hello World!" > $out/success'
         [ -s $out/success ]

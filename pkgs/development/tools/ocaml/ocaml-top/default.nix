@@ -17,7 +17,7 @@ buildDunePackage rec {
     hash = "sha256-xmPGGB/zUpfeAxUIhR1PhfoESAJq7sTpqHuf++EH3Lw=";
   };
 
-  nativeBuildInputs = [ ocp-build ];
+  nativeBuildInputs = [ocp-build];
   buildInputs = [
     ncurses
     lablgtk3-sourceview3
@@ -33,6 +33,6 @@ buildDunePackage rec {
     homepage = "https://www.typerex.org/ocaml-top.html";
     license = lib.licenses.gpl3;
     description = "A simple cross-platform OCaml code editor built for top-level evaluation";
-    maintainers = with lib.maintainers; [ vbgl ];
+    maintainers = with lib.maintainers; [vbgl];
   };
 }

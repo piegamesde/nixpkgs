@@ -52,7 +52,7 @@ buildDunePackage rec {
     eqaf
   ];
 
-  buildInputs = [ ppx_cstruct ];
+  buildInputs = [ppx_cstruct];
 
   doCheck = true;
   checkInputs = [
@@ -66,6 +66,6 @@ buildDunePackage rec {
     homepage = "https://github.com/mirage/awa-ssh";
     changelog = "https://github.com/mirage/awa-ssh/raw/v${version}/CHANGES.md";
     license = licenses.isc;
-    maintainers = [ maintainers.sternenseemann ];
+    maintainers = [maintainers.sternenseemann];
   };
 }

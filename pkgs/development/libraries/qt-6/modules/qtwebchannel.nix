@@ -13,5 +13,5 @@ qtModule {
     qtdeclarative
     qtwebsockets
   ];
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
 }

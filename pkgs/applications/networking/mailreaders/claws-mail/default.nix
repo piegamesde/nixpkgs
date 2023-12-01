@@ -96,40 +96,40 @@ let
 
   features = [
     {
-      flags = [ "acpi_notifier-plugin" ];
+      flags = ["acpi_notifier-plugin"];
       enabled = enablePluginAcpiNotifier;
     }
     {
-      flags = [ "address_keeper-plugin" ];
+      flags = ["address_keeper-plugin"];
       enabled = enablePluginAddressKeeper;
     }
     {
-      flags = [ "archive-plugin" ];
+      flags = ["archive-plugin"];
       enabled = enablePluginArchive;
-      deps = [ libarchive ];
+      deps = [libarchive];
     }
     {
-      flags = [ "att_remover-plugin" ];
+      flags = ["att_remover-plugin"];
       enabled = enablePluginAttRemover;
     }
     {
-      flags = [ "attachwarner-plugin" ];
+      flags = ["attachwarner-plugin"];
       enabled = enablePluginAttachWarner;
     }
     {
-      flags = [ "bogofilter-plugin" ];
+      flags = ["bogofilter-plugin"];
       enabled = enablePluginBogofilter;
     }
     {
-      flags = [ "bsfilter-plugin" ];
+      flags = ["bsfilter-plugin"];
       enabled = enablePluginBsfilter;
     }
     {
-      flags = [ "clamd-plugin" ];
+      flags = ["clamd-plugin"];
       enabled = enablePluginClamd;
     }
     {
-      flags = [ "dbus" ];
+      flags = ["dbus"];
       enabled = enableDbus;
       deps = [
         dbus
@@ -137,16 +137,16 @@ let
       ];
     }
     {
-      flags = [ "dillo-plugin" ];
+      flags = ["dillo-plugin"];
       enabled = enablePluginDillo;
     }
     {
-      flags = [ "enchant" ];
+      flags = ["enchant"];
       enabled = enableEnchant;
-      deps = [ enchant ];
+      deps = [enchant];
     }
     {
-      flags = [ "fancy-plugin" ];
+      flags = ["fancy-plugin"];
       enabled = enablePluginFancy;
       deps = [
         libsoup
@@ -154,73 +154,73 @@ let
       ];
     }
     {
-      flags = [ "fetchinfo-plugin" ];
+      flags = ["fetchinfo-plugin"];
       enabled = enablePluginFetchInfo;
     }
     {
-      flags = [ "keyword_warner-plugin" ];
+      flags = ["keyword_warner-plugin"];
       enabled = enablePluginKeywordWarner;
     }
     {
-      flags = [ "gnutls" ];
+      flags = ["gnutls"];
       enabled = enableGnuTLS;
-      deps = [ gnutls ];
+      deps = [gnutls];
     }
     {
-      flags = [ "ldap" ];
+      flags = ["ldap"];
       enabled = enableLdap;
-      deps = [ openldap ];
+      deps = [openldap];
     }
     {
-      flags = [ "libetpan" ];
+      flags = ["libetpan"];
       enabled = enableLibetpan;
-      deps = [ libetpan ];
+      deps = [libetpan];
     }
     {
-      flags = [ "libravatar-plugin" ];
+      flags = ["libravatar-plugin"];
       enabled = enablePluginLibravatar;
     }
     {
-      flags = [ "libsm" ];
+      flags = ["libsm"];
       enabled = enableLibSM;
-      deps = [ xorg.libSM ];
+      deps = [xorg.libSM];
     }
     {
-      flags = [ "litehtml_viewer-plugin" ];
+      flags = ["litehtml_viewer-plugin"];
       enabled = enablePluginLitehtmlViewer;
-      deps = [ gumbo ];
+      deps = [gumbo];
     }
     {
-      flags = [ "mailmbox-plugin" ];
+      flags = ["mailmbox-plugin"];
       enabled = enablePluginMailmbox;
     }
     {
-      flags = [ "managesieve-plugin" ];
+      flags = ["managesieve-plugin"];
       enabled = enablePluginManageSieve;
     }
     {
-      flags = [ "networkmanager" ];
+      flags = ["networkmanager"];
       enabled = enableNetworkManager;
-      deps = [ networkmanager ];
+      deps = [networkmanager];
     }
     {
-      flags = [ "newmail-plugin" ];
+      flags = ["newmail-plugin"];
       enabled = enablePluginNewMail;
     }
     {
-      flags = [ "notification-plugin" ];
+      flags = ["notification-plugin"];
       enabled = enablePluginNotification;
-      deps = [ libnotify ] ++ [ libcanberra-gtk3 ];
+      deps = [libnotify] ++ [libcanberra-gtk3];
     }
     {
-      flags = [ "pdf_viewer-plugin" ];
+      flags = ["pdf_viewer-plugin"];
       enabled = enablePluginPdfViewer;
-      deps = [ poppler ];
+      deps = [poppler];
     }
     {
-      flags = [ "perl-plugin" ];
+      flags = ["perl-plugin"];
       enabled = enablePluginPerl;
-      deps = [ perl ];
+      deps = [perl];
     }
     {
       flags = [
@@ -235,45 +235,45 @@ let
       ];
     }
     {
-      flags = [ "python-plugin" ];
+      flags = ["python-plugin"];
       enabled = enablePluginPython;
     }
     {
-      flags = [ "rssyl-plugin" ];
+      flags = ["rssyl-plugin"];
       enabled = enablePluginRssyl;
-      deps = [ libxml2 ];
+      deps = [libxml2];
     }
     {
-      flags = [ "smime-plugin" ];
+      flags = ["smime-plugin"];
       enabled = enablePluginSmime;
     }
     {
-      flags = [ "spam_report-plugin" ];
+      flags = ["spam_report-plugin"];
       enabled = enablePluginSpamReport;
     }
     {
-      flags = [ "spamassassin-plugin" ];
+      flags = ["spamassassin-plugin"];
       enabled = enablePluginSpamassassin;
     }
     {
-      flags = [ "svg" ];
+      flags = ["svg"];
       enabled = enableSvg;
-      deps = [ librsvg ];
+      deps = [librsvg];
     }
     {
-      flags = [ "tnef_parse-plugin" ];
+      flags = ["tnef_parse-plugin"];
       enabled = enablePluginTnefParse;
-      deps = [ libytnef ];
+      deps = [libytnef];
     }
     {
-      flags = [ "valgrind" ];
+      flags = ["valgrind"];
       enabled = enableValgrind;
-      deps = [ valgrind ];
+      deps = [valgrind];
     }
     {
-      flags = [ "vcalendar-plugin" ];
+      flags = ["vcalendar-plugin"];
       enabled = enablePluginVcalendar;
-      deps = [ libical ];
+      deps = [libical];
     }
   ];
 in
@@ -291,7 +291,7 @@ stdenv.mkDerivation rec {
     "dev"
   ];
 
-  patches = [ ./mime.patch ];
+  patches = [./mime.patch];
 
   preConfigure = ''
     # autotools check tries to dlopen libpython as a requirement for the python plugin

@@ -49,7 +49,7 @@ mkCoqDerivation {
 
   meta = with lib; {
     description = "Yet Another Coq Library on Machine Words";
-    maintainers = [ maintainers.vbgl ];
+    maintainers = [maintainers.vbgl];
     license = licenses.mit;
   };
 }

@@ -25,7 +25,7 @@ buildGoModule rec {
     "-X github.com/giantswarm/gsctl/buildinfo.Version=${version}"
   ];
 
-  nativeCheckInputs = [ kubectl ];
+  nativeCheckInputs = [kubectl];
 
   doCheck = !stdenv.isDarwin;
 
@@ -33,6 +33,6 @@ buildGoModule rec {
     description = "The Giant Swarm command line interface";
     homepage = "https://github.com/giantswarm/gsctl";
     license = licenses.asl20;
-    maintainers = with maintainers; [ joesalisbury ];
+    maintainers = with maintainers; [joesalisbury];
   };
 }

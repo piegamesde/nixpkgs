@@ -1,7 +1,7 @@
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   let
-    test-certificates = pkgs.runCommandLocal "test-certificates" { } ''
+    test-certificates = pkgs.runCommandLocal "test-certificates" {} ''
       mkdir -p $out
       echo insecure-root-password > $out/root-password-file
       echo insecure-intermediate-password > $out/intermediate-password-file
@@ -13,7 +13,7 @@ import ./make-test-python.nix (
     name = "step-ca";
     nodes = {
       caserver =
-        { config, pkgs, ... }:
+        {config, pkgs, ...}:
         {
           services.step-ca = {
             enable = true;
@@ -22,7 +22,7 @@ import ./make-test-python.nix (
             openFirewall = true;
             intermediatePasswordFile = "${test-certificates}/intermediate-password-file";
             settings = {
-              dnsNames = [ "caserver" ];
+              dnsNames = ["caserver"];
               root = "${test-certificates}/root_ca.crt";
               crt = "${test-certificates}/intermediate_ca.crt";
               key = "${test-certificates}/intermediate_ca.key";
@@ -43,13 +43,13 @@ import ./make-test-python.nix (
         };
 
       caclient =
-        { config, pkgs, ... }:
+        {config, pkgs, ...}:
         {
           security.acme.defaults.server = "https://caserver:8443/acme/acme/directory";
           security.acme.defaults.email = "root@example.org";
           security.acme.acceptTerms = true;
 
-          security.pki.certificateFiles = [ "${test-certificates}/root_ca.crt" ];
+          security.pki.certificateFiles = ["${test-certificates}/root_ca.crt"];
 
           networking.firewall.allowedTCPPorts = [
             80
@@ -68,7 +68,7 @@ import ./make-test-python.nix (
         };
 
       catester =
-        { config, pkgs, ... }: { security.pki.certificateFiles = [ "${test-certificates}/root_ca.crt" ]; };
+        {config, pkgs, ...}: {security.pki.certificateFiles = ["${test-certificates}/root_ca.crt"];};
     };
 
     testScript = ''

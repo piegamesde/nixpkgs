@@ -23,7 +23,7 @@ else
     ];
 
     doCheck = lib.versionAtLeast ocaml.version "4.08";
-    checkInputs = [ ounit ];
+    checkInputs = [ounit];
 
     meta = bitstring.meta // {
       description = "Bitstrings and bitstring matching for OCaml - PPX extension";

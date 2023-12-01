@@ -14,7 +14,7 @@ stdenv.mkDerivation rec {
   };
 
   # Fixes bogus warnings that failed libsemanage
-  patches = [ ./va_args.patch ];
+  patches = [./va_args.patch];
 
   # Work around gcc5 switch to gnu11
   env.NIX_CFLAGS_COMPILE = "-std=gnu89";
@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
     homepage = "http://www.and.org/ustr/";
     description = "Micro String API for C language";
     license = licenses.bsd2;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.linux;
   };
 }

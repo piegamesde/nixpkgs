@@ -21,9 +21,9 @@ buildPythonPackage rec {
     hash = "sha256-Ugl7gHyubXpxe4aots2e9stLuQAZEWsrlDuAHdSC0SA=";
   };
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "ahocorasick" ];
+  pythonImportsCheck = ["ahocorasick"];
 
   meta = with lib; {
     description = "Python module implementing Aho-Corasick algorithm";
@@ -34,7 +34,7 @@ buildPythonPackage rec {
     '';
     homepage = "https://github.com/WojciechMula/pyahocorasick";
     changelog = "https://github.com/WojciechMula/pyahocorasick/blob/${version}/CHANGELOG.rst";
-    license = with licenses; [ bsd3 ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [bsd3];
+    maintainers = with maintainers; [fab];
   };
 }

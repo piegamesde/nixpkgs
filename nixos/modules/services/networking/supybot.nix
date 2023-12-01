@@ -11,7 +11,7 @@ let
   cfg = config.services.supybot;
   isStateDirHome = hasPrefix "/home/" cfg.stateDir;
   isStateDirVar = cfg.stateDir == "/var/lib/supybot";
-  pyEnv = pkgs.python3.withPackages (p: [ p.limnoria ] ++ (cfg.extraPackages p));
+  pyEnv = pkgs.python3.withPackages (p: [p.limnoria] ++ (cfg.extraPackages p));
 in
 {
   options = {
@@ -45,7 +45,7 @@ in
 
       plugins = mkOption {
         type = types.attrsOf types.path;
-        default = { };
+        default = {};
         description = lib.mdDoc ''
           Attribute set of additional plugins that will be symlinked to the
           {file}`plugin` subdirectory.
@@ -69,7 +69,7 @@ in
 
       extraPackages = mkOption {
         type = types.functionTo (types.listOf types.package);
-        default = p: [ ];
+        default = p: [];
         defaultText = literalExpression "p: []";
         description = lib.mdDoc ''
           Extra Python packages available to supybot plugins. The
@@ -83,7 +83,7 @@ in
 
   config = mkIf cfg.enable {
 
-    environment.systemPackages = [ pkgs.python3Packages.limnoria ];
+    environment.systemPackages = [pkgs.python3Packages.limnoria];
 
     users.users.supybot = {
       uid = config.ids.uids.supybot;
@@ -99,9 +99,9 @@ in
 
     systemd.services.supybot = {
       description = "Supybot, an IRC bot";
-      documentation = [ "https://limnoria.readthedocs.io/" ];
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      documentation = ["https://limnoria.readthedocs.io/"];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
       preStart = ''
         # This needs to be created afresh every time
         rm -f '${cfg.stateDir}/supybot.cfg.bak'
@@ -144,7 +144,7 @@ in
           StateDirectory = "supybot";
           ProtectSystem = "strict";
         }
-        // optionalAttrs (!isStateDirHome) { ProtectHome = true; };
+        // optionalAttrs (!isStateDirHome) {ProtectHome = true;};
     };
 
     systemd.tmpfiles.rules =

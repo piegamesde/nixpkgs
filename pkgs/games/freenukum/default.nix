@@ -42,7 +42,7 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-8RfiObWDqZJg+sjjDBk+sRoS5CiECIdNPH79T+O8e8M=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   buildInputs = [
     SDL2
@@ -71,7 +71,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://salsa.debian.org/silwol/freenukum";
     changelog = "https://salsa.debian.org/silwol/freenukum/-/blob/v${version}/CHANGELOG.md";
     license = licenses.agpl3Plus;
-    maintainers = with maintainers; [ _0x4A6F ];
+    maintainers = with maintainers; [_0x4A6F];
     broken = stdenv.isDarwin;
   };
 }

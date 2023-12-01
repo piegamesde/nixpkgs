@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
     python3
   ];
 
-  configureFlags = [ "--with-ssl=${openssl.dev}" ];
+  configureFlags = ["--with-ssl=${openssl.dev}"];
 
   meta = with lib; {
     homepage = "https://www.fetchmail.info/";

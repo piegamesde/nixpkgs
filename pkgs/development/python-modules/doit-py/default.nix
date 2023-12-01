@@ -39,12 +39,12 @@ buildPythonPackage rec {
       "tests/test_pyflakes.py"
     ];
 
-  pythonImportsCheck = [ "doitpy" ];
+  pythonImportsCheck = ["doitpy"];
 
   meta = with lib; {
     description = "doit tasks for python stuff";
     homepage = "http://pythonhosted.org/doit-py";
     license = licenses.mit;
-    maintainers = with maintainers; [ onny ];
+    maintainers = with maintainers; [onny];
   };
 }

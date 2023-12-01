@@ -40,18 +40,18 @@ buildPythonPackage rec {
     certifi
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   postPatch = ''
     sed -i '/codecov/d' requirements.txt
   '';
 
-  pythonImportsCheck = [ "crownstone_cloud" ];
+  pythonImportsCheck = ["crownstone_cloud"];
 
   meta = with lib; {
     description = "Python module for communicating with Crownstone Cloud and devices";
     homepage = "https://github.com/crownstone/crownstone-lib-python-cloud";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

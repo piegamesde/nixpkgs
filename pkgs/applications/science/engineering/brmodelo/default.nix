@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
     copyDesktopItems
   ];
 
-  buildInputs = [ openjdk8 ];
+  buildInputs = [openjdk8];
 
   patches = [
     # Fixes for building with Ant.
@@ -118,6 +118,6 @@ stdenv.mkDerivation rec {
     description = "Entity-relationship diagram tool for making conceptual and logical database models";
     homepage = "https://github.com/chcandido/brModelo";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ yuu ];
+    maintainers = with maintainers; [yuu];
   };
 }

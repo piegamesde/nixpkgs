@@ -16,7 +16,7 @@
 }:
 
 let
-  char2underscore = char: str: lib.replaceStrings [ char ] [ "_" ] str;
+  char2underscore = char: str: lib.replaceStrings [char] ["_"] str;
 in
 mkDerivation rec {
   pname = "mt32emu-qt";
@@ -73,8 +73,8 @@ mkDerivation rec {
       synthesis and conversion of pre-recorded SMF files to WAVE making use of
       the mt32emu library and the Qt framework.
     '';
-    license = with licenses; [ gpl3Plus ];
-    maintainers = with maintainers; [ OPNA2608 ];
+    license = with licenses; [gpl3Plus];
+    maintainers = with maintainers; [OPNA2608];
     platforms = platforms.all;
   };
 }

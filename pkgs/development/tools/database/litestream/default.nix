@@ -26,6 +26,6 @@ buildGoModule rec {
     description = "Streaming replication for SQLite";
     license = licenses.asl20;
     homepage = "https://litestream.io/";
-    maintainers = with maintainers; [ fbrs ];
+    maintainers = with maintainers; [fbrs];
   };
 }

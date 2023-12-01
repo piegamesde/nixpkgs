@@ -208,7 +208,7 @@ let
 
   libPath = lib.makeLibraryPath (
     # Add arch-specific libraries.
-    map ({ nixPackage, ... }: nixPackage) binDistUsed.archSpecificLibraries
+    map ({nixPackage, ...}: nixPackage) binDistUsed.archSpecificLibraries
   );
 
   libEnvVar = lib.optionalString stdenv.hostPlatform.isDarwin "DY" + "LD_LIBRARY_PATH";
@@ -219,7 +219,7 @@ let
       targetPackages.stdenv.cc.bintools
       coreutils # for cat
     ]
-    ++ lib.optionals useLLVM [ (lib.getBin llvmPackages.llvm) ]
+    ++ lib.optionals useLLVM [(lib.getBin llvmPackages.llvm)]
     # On darwin, we need unwrapped bintools as well (for otool)
     ++ lib.optionals (stdenv.targetPlatform.linker == "cctools") [
       targetPackages.stdenv.cc.bintools.bintools
@@ -243,7 +243,7 @@ stdenv.mkDerivation rec {
   #           https://gitlab.haskell.org/ghc/ghc/-/issues/20059
   #       and update this comment accordingly.
 
-  nativeBuildInputs = [ perl ];
+  nativeBuildInputs = [perl];
 
   # Set LD_LIBRARY_PATH or equivalent so that the programs running as part
   # of the bindist installer can find the libraries they expect.
@@ -272,7 +272,7 @@ stdenv.mkDerivation rec {
           '')
           (lib.concatMapStringsSep "\n"
             (
-              { fileToCheckFor, nixPackage }:
+              {fileToCheckFor, nixPackage}:
               lib.optionalString (fileToCheckFor != null) ''
                 echo "Checking bindist for ${fileToCheckFor} to ensure that is still used"
                 if ! readelf -d ${buildExeGlob} | grep "${fileToCheckFor}"; then
@@ -352,7 +352,7 @@ stdenv.mkDerivation rec {
   # fix for `configure: error: Your linker is affected by binutils #16177`
   preConfigure = lib.optionalString stdenv.targetPlatform.isAarch32 "LD=ld.gold";
 
-  configurePlatforms = [ ];
+  configurePlatforms = [];
   configureFlags =
     [
       "--with-gmp-includes=${lib.getDev gmp}/include"

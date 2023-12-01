@@ -16,9 +16,9 @@ stdenvNoCC.mkDerivation rec {
     sha256 = "1411mjlcj1d6kw3d3h1w9zsr0a08bzl5nddkkbv7w7lf67jy9b22";
   };
 
-  propagatedUserEnvPkgs = [ gtk-engine-murrine ];
+  propagatedUserEnvPkgs = [gtk-engine-murrine];
 
-  buildInputs = [ gnome-themes-extra ];
+  buildInputs = [gnome-themes-extra];
 
   dontBuild = true;
 
@@ -34,6 +34,6 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://www.pling.com/p/1681313/";
     license = licenses.gpl3Only;
     platforms = platforms.unix;
-    maintainers = [ maintainers.math-42 ];
+    maintainers = [maintainers.math-42];
   };
 }

@@ -57,7 +57,7 @@ rustPlatform.buildRustPackage rec {
     description = "Mobile-friendly GTK calendar application";
     homepage = "https://gitlab.com/floers/karlender";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ chuangzhu ];
+    maintainers = with maintainers; [chuangzhu];
     platforms = platforms.linux;
   };
 }

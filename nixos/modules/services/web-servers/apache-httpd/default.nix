@@ -17,7 +17,7 @@ let
 
   pkg = cfg.package.out;
 
-  apachectl = pkgs.runCommand "apachectl" { meta.priority = -1; } ''
+  apachectl = pkgs.runCommand "apachectl" {meta.priority = -1;} ''
     mkdir -p $out/bin
     cp ${pkg}/bin/apachectl $out/bin/apachectl
     sed -i $out/bin/apachectl -e 's|$HTTPD -t|$HTTPD -t -f /etc/httpd/httpd.conf|'
@@ -34,7 +34,7 @@ let
     in
     (if majorVersion == "8" then "php" else "php${majorVersion}");
 
-  mod_perl = pkgs.apacheHttpdPackages.mod_perl.override { apacheHttpd = pkg; };
+  mod_perl = pkgs.apacheHttpdPackages.mod_perl.override {apacheHttpd = pkg;};
 
   vhosts = attrValues cfg.virtualHosts;
 
@@ -54,7 +54,7 @@ let
 
   mkListenInfo =
     hostOpts:
-    if hostOpts.listen != [ ] then
+    if hostOpts.listen != [] then
       hostOpts.listen
     else
       optionals (hostOpts.onlySSL || hostOpts.addSSL || hostOpts.forceSSL) (
@@ -100,7 +100,7 @@ let
       "socache_shmcb"
       "mpm_${cfg.mpm}"
     ]
-    ++ (if cfg.mpm == "prefork" then [ "cgi" ] else [ "cgid" ])
+    ++ (if cfg.mpm == "prefork" then ["cgi"] else ["cgid"])
     ++ optional enableHttp2 "http2"
     ++ optional enableSSL "ssl"
     ++ optional enableUserDir "userdir"
@@ -222,7 +222,7 @@ let
         </Directory>
       '';
     in
-    optionalString (listen != [ ]) ''
+    optionalString (listen != []) ''
       <VirtualHost ${concatMapStringsSep " " (listen: "${listen.ip}:${toString listen.port}") listen}>
           ServerName ${hostOpts.hostName}
           ${
@@ -252,7 +252,7 @@ let
           }
       </VirtualHost>
     ''
-    + optionalString (listenSSL != [ ]) ''
+    + optionalString (listenSSL != []) ''
       <VirtualHost ${concatMapStringsSep " " (listen: "${listen.ip}:${toString listen.port}") listenSSL}>
           ServerName ${hostOpts.hostName}
           ${
@@ -309,7 +309,7 @@ let
                 ${config.extraConfig}
               </Location>
             '')
-            (sortProperties (mapAttrsToList (k: v: v // { location = k; }) locations))
+            (sortProperties (mapAttrsToList (k: v: v // {location = k;}) locations))
         );
     in
     ''
@@ -386,7 +386,7 @@ let
     ${let
       toStr =
         listen: "Listen ${listen.ip}:${toString listen.port} ${if listen.ssl then "https" else "http"}";
-      uniqueListen = uniqList { inputList = map toStr listenInfo; };
+      uniqueListen = uniqList {inputList = map toStr listenInfo;};
     in
     concatStringsSep "\n" uniqueListen}
 
@@ -402,7 +402,7 @@ let
             path = "${pkg}/modules/mod_${module}.so";
           }
         else if isAttrs module then
-          { inherit (module) name path; }
+          {inherit (module) name path;}
         else
           throw "Expecting either a string or attribute set including a name and path.";
     in
@@ -646,7 +646,7 @@ in
 
       extraModules = mkOption {
         type = types.listOf types.unspecified;
-        default = [ ];
+        default = [];
         example = literalExpression ''
           [
             "proxy_connect"
@@ -897,7 +897,7 @@ in
         (name: hostOpts: ''
           Using config.services.httpd.virtualHosts."${name}".servedFiles is deprecated and will become unsupported in a future release. Your configuration will continue to work as is but please migrate your configuration to config.services.httpd.virtualHosts."${name}".locations before the 20.09 release of NixOS.
         '')
-        (filterAttrs (name: hostOpts: hostOpts.servedFiles != [ ]) cfg.virtualHosts);
+        (filterAttrs (name: hostOpts: hostOpts.servedFiles != []) cfg.virtualHosts);
 
     users.users = optionalAttrs (cfg.user == "wwwrun") {
       wwwrun = {
@@ -907,7 +907,7 @@ in
       };
     };
 
-    users.groups = optionalAttrs (cfg.group == "wwwrun") { wwwrun.gid = config.ids.gids.wwwrun; };
+    users.groups = optionalAttrs (cfg.group == "wwwrun") {wwwrun.gid = config.ids.gids.wwwrun;};
 
     security.acme.certs =
       let
@@ -1023,13 +1023,13 @@ in
 
     systemd.services.httpd = {
       description = "Apache HTTPD";
-      wantedBy = [ "multi-user.target" ];
-      wants = concatLists (map (certName: [ "acme-finished-${certName}.target" ]) dependentCertNames);
+      wantedBy = ["multi-user.target"];
+      wants = concatLists (map (certName: ["acme-finished-${certName}.target"]) dependentCertNames);
       after = [
         "network.target"
       ] ++ map (certName: "acme-selfsigned-${certName}.service") dependentCertNames;
       before = map (certName: "acme-${certName}.service") dependentCertNames;
-      restartTriggers = [ cfg.configFile ];
+      restartTriggers = [cfg.configFile];
 
       path = [
         pkg
@@ -1038,8 +1038,8 @@ in
       ];
 
       environment =
-        optionalAttrs cfg.enablePHP { PHPRC = phpIni; }
-        // optionalAttrs cfg.enableMellon { LD_LIBRARY_PATH = "${pkgs.xmlsec}/lib"; };
+        optionalAttrs cfg.enablePHP {PHPRC = phpIni;}
+        // optionalAttrs cfg.enableMellon {LD_LIBRARY_PATH = "${pkgs.xmlsec}/lib";};
 
       preStart = ''
         # Get rid of old semaphores.  These tend to accumulate across
@@ -1062,7 +1062,7 @@ in
         RestartSec = "5s";
         RuntimeDirectory = "httpd httpd/runtime";
         RuntimeDirectoryMode = "0750";
-        AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ];
+        AmbientCapabilities = ["CAP_NET_BIND_SERVICE"];
       };
     };
 
@@ -1075,14 +1075,14 @@ in
         sslServices = map (certName: "acme-${certName}.service") dependentCertNames;
         sslTargets = map (certName: "acme-finished-${certName}.target") dependentCertNames;
       in
-      mkIf (sslServices != [ ]) {
-        wantedBy = sslServices ++ [ "multi-user.target" ];
+      mkIf (sslServices != []) {
+        wantedBy = sslServices ++ ["multi-user.target"];
         # Before the finished targets, after the renew services.
         # This service might be needed for HTTP-01 challenges, but we only want to confirm
         # certs are updated _after_ config has been reloaded.
         before = sslTargets;
         after = sslServices;
-        restartTriggers = [ cfg.configFile ];
+        restartTriggers = [cfg.configFile];
         # Block reloading if not all certs exist yet.
         # Happens when config changes add new vhosts/certs.
         unitConfig.ConditionPathExists =

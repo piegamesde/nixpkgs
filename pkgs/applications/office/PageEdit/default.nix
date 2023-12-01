@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
     qtsvg
     qtwebengine
   ];
-  cmakeFlags = [ "-DINSTALL_BUNDLED_DICTS=0" ];
+  cmakeFlags = ["-DINSTALL_BUNDLED_DICTS=0"];
 
   installPhase =
     if stdenv.isDarwin then
@@ -50,7 +50,7 @@ stdenv.mkDerivation rec {
     description = "ePub XHTML Visual Editor";
     homepage = "https://sigil-ebook.com/pageedit/";
     license = licenses.gpl3Plus;
-    maintainers = [ maintainers.pasqui23 ];
+    maintainers = [maintainers.pasqui23];
     platforms = platforms.all;
   };
 }

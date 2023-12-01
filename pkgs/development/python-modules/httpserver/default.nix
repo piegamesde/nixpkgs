@@ -10,7 +10,7 @@ buildPythonPackage rec {
   pname = "httpserver";
   version = "1.1.0";
 
-  buildInputs = [ docopt ];
+  buildInputs = [docopt];
 
   # Tests pull in lots of other dependencies to emulate different web
   # drivers.
@@ -27,6 +27,6 @@ buildPythonPackage rec {
   meta = {
     description = "Asyncio implementation of an HTTP server";
     homepage = "https://github.com/thomwiggers/httpserver";
-    license = with lib.licenses; [ bsd3 ];
+    license = with lib.licenses; [bsd3];
   };
 }

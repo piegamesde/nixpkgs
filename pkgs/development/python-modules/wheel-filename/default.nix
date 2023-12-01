@@ -21,21 +21,21 @@ buildPythonPackage rec {
     hash = "sha256-M3XGHG733X5qKuMS6mvFSFHYOwWPaBMXw+w0eYo6ByE=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   postPatch = ''
     substituteInPlace tox.ini \
       --replace " --cov=wheel_filename --no-cov-on-fail" ""
   '';
 
-  pythonImportsCheck = [ "wheel_filename" ];
+  pythonImportsCheck = ["wheel_filename"];
 
   meta = with lib; {
     description = "Parse wheel filenames";
     homepage = "https://github.com/jwodder/wheel-filename";
-    license = with licenses; [ mit ];
-    maintainers = with lib.maintainers; [ ayazhafiz ];
+    license = with licenses; [mit];
+    maintainers = with lib.maintainers; [ayazhafiz];
   };
 }

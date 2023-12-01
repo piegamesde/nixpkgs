@@ -17,11 +17,11 @@ buildPythonPackage rec {
     sha256 = "02jzd23l4r6fswmwxaica9ldlyc2p6q8dk6dyff7j58fmdzf853d";
   };
 
-  nativeCheckInputs = [ unittestCheckHook ];
+  nativeCheckInputs = [unittestCheckHook];
 
   # We specify the name of the test files to prevent
   # https://github.com/NixOS/nixpkgs/issues/14634
-  unittestFlagsArray = [ "*_test.py" ];
+  unittestFlagsArray = ["*_test.py"];
 
   __darwinAllowLocalNetworking = true;
 

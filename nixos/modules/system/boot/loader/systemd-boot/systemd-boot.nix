@@ -12,7 +12,7 @@ let
 
   efi = config.boot.loader.efi;
 
-  python3 = pkgs.python3.withPackages (ps: [ ps.packaging ]);
+  python3 = pkgs.python3.withPackages (ps: [ps.packaging]);
 
   systemdBootBuilder = pkgs.substituteAll {
     src = ./systemd-boot-builder.py;
@@ -230,7 +230,7 @@ in
 
     extraEntries = mkOption {
       type = types.attrsOf types.lines;
-      default = { };
+      default = {};
       example = literalExpression ''
         { "memtest86.conf" = '''
           title MemTest86
@@ -251,7 +251,7 @@ in
 
     extraFiles = mkOption {
       type = types.attrsOf types.path;
-      default = { };
+      default = {};
       example = literalExpression ''
         { "efi/memtest86/memtest86.efi" = "''${pkgs.memtest86-efi}/BOOTX64.efi"; }
       '';
@@ -283,7 +283,7 @@ in
     assertions =
       [
         {
-          assertion = (config.boot.kernelPackages.kernel.features or { efiBootStub = true; }) ? efiBootStub;
+          assertion = (config.boot.kernelPackages.kernel.features or {efiBootStub = true;}) ? efiBootStub;
           message = "This kernel does not support the EFI boot stub";
         }
       ]
@@ -325,8 +325,8 @@ in
       # TODO: This is hard-coded to use the 64-bit EFI app, but it could probably
       # be updated to use the 32-bit EFI app on 32-bit systems.  The 32-bit EFI
       # app filename is BOOTIA32.efi.
-      (mkIf cfg.memtest86.enable { "efi/memtest86/BOOTX64.efi" = "${pkgs.memtest86-efi}/BOOTX64.efi"; })
-      (mkIf cfg.netbootxyz.enable { "efi/netbootxyz/netboot.xyz.efi" = "${pkgs.netbootxyz-efi}"; })
+      (mkIf cfg.memtest86.enable {"efi/memtest86/BOOTX64.efi" = "${pkgs.memtest86-efi}/BOOTX64.efi";})
+      (mkIf cfg.netbootxyz.enable {"efi/netbootxyz/netboot.xyz.efi" = "${pkgs.netbootxyz-efi}";})
     ];
 
     boot.loader.systemd-boot.extraEntries = mkMerge [
@@ -349,7 +349,7 @@ in
 
       boot.loader.id = "systemd-boot";
 
-      requiredKernelConfig = with config.lib.kernelConfig; [ (isYes "EFI_STUB") ];
+      requiredKernelConfig = with config.lib.kernelConfig; [(isYes "EFI_STUB")];
     };
   };
 }

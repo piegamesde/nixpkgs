@@ -20,19 +20,19 @@ buildPythonPackage rec {
 
   format = "pyproject";
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs = [
     requests
     click
   ];
 
-  pythonImportsCheck = [ "duckduckgo_search" ];
+  pythonImportsCheck = ["duckduckgo_search"];
 
   meta = {
     description = "A python CLI and library for searching for words, documents, images, videos, news, maps and text translation using the DuckDuckGo.com search engine";
     homepage = "https://github.com/deedy5/duckduckgo_search";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
   };
 }

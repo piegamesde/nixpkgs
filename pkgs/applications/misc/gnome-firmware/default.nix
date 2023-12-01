@@ -51,9 +51,9 @@ stdenv.mkDerivation rec {
     systemd
   ];
 
-  mesonFlags = [ "-Dconsolekit=false" ];
+  mesonFlags = ["-Dconsolekit=false"];
 
-  passthru.updateScript = gitUpdater { ignoredVersions = "(alpha|beta|rc).*"; };
+  passthru.updateScript = gitUpdater {ignoredVersions = "(alpha|beta|rc).*";};
 
   meta = with lib; {
     homepage = "https://gitlab.gnome.org/World/gnome-firmware";

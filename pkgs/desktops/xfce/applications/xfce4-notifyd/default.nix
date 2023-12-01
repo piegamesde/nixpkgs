@@ -40,6 +40,6 @@ mkXfceDerivation {
 
   meta = with lib; {
     description = "Simple notification daemon for Xfce";
-    maintainers = with maintainers; [ ] ++ teams.xfce.members;
+    maintainers = with maintainers; [] ++ teams.xfce.members;
   };
 }

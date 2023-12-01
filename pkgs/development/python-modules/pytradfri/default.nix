@@ -23,7 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-CWv3ebDulZuiFP+nJ2Xr7U/HTDFTqA9VYC0USLkpWR0=";
   };
 
-  propagatedBuildInputs = [ pydantic ];
+  propagatedBuildInputs = [pydantic];
 
   passthru.optional-dependencies = {
     async = [
@@ -32,15 +32,15 @@ buildPythonPackage rec {
     ];
   };
 
-  nativeCheckInputs = [ pytestCheckHook ] ++ passthru.optional-dependencies.async;
+  nativeCheckInputs = [pytestCheckHook] ++ passthru.optional-dependencies.async;
 
-  pythonImportsCheck = [ "pytradfri" ];
+  pythonImportsCheck = ["pytradfri"];
 
   meta = with lib; {
     description = "Python package to communicate with the IKEA Trådfri ZigBee Gateway";
     homepage = "https://github.com/home-assistant-libs/pytradfri";
     changelog = "https://github.com/home-assistant-libs/pytradfri/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

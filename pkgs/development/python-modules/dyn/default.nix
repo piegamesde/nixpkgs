@@ -19,7 +19,7 @@ buildPythonPackage rec {
     sha256 = "sha256-933etYrKRgSqJfOMIuIDL4Uv4/RdSEFMNWFtW5qiPpA=";
   };
 
-  buildInputs = [ glibcLocales ];
+  buildInputs = [glibcLocales];
 
   nativeCheckInputs = [
     pytest

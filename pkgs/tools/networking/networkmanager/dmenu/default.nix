@@ -52,7 +52,7 @@ stdenv.mkDerivation rec {
     description = "Small script to manage NetworkManager connections with dmenu instead of nm-applet";
     homepage = "https://github.com/firecat53/networkmanager-dmenu";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.jensbin ];
+    maintainers = [lib.maintainers.jensbin];
     platforms = lib.platforms.all;
   };
 }

@@ -138,8 +138,8 @@ let
       optNss
       optNspr
     ];
-    cryptopp = [ optCryptopp ];
-    none = [ ];
+    cryptopp = [optCryptopp];
+    none = [];
   };
 
   getMeta =
@@ -174,9 +174,9 @@ let
 
       sourceRoot = "ceph-${version}/src/python-common";
 
-      propagatedBuildInputs = [ pyyaml ];
+      propagatedBuildInputs = [pyyaml];
 
-      nativeCheckInputs = [ pytestCheckHook ];
+      nativeCheckInputs = [pytestCheckHook];
 
       disabledTests =
         [
@@ -198,8 +198,8 @@ let
             inherit version;
             hash = "sha256-aRO4JH2KKS74MVFipRkx4rQM6RaB8bbxj2lwRSAMSjA=";
           };
-          nativeCheckInputs = oldAttrs.nativeCheckInputs ++ (with super; [ pytest-xdist ]);
-          disabledTestPaths = (oldAttrs.disabledTestPaths or [ ]) ++ [
+          nativeCheckInputs = oldAttrs.nativeCheckInputs ++ (with super; [pytest-xdist]);
+          disabledTestPaths = (oldAttrs.disabledTestPaths or []) ++ [
             "test/aaa_profiling"
             "test/ext/mypy"
           ];
@@ -277,7 +277,7 @@ rec {
       python.pkgs.python # for the toPythonPath function
       python.pkgs.wrapPython
       which
-      (ensureNewerSourcesHook { year = "1980"; })
+      (ensureNewerSourcesHook {year = "1980";})
       # for building docs/man-pages presumably
       doxygen
       graphviz
@@ -402,7 +402,7 @@ rec {
     doCheck = false; # uses pip to install things from the internet
 
     # Takes 7+h to build with 2 cores.
-    requiredSystemFeatures = [ "big-parallel" ];
+    requiredSystemFeatures = ["big-parallel"];
 
     meta = getMeta "Distributed storage system";
 
@@ -416,7 +416,7 @@ rec {
 
   ceph-client =
     runCommand "ceph-client-${version}"
-      { meta = getMeta "Tools needed to mount Ceph's RADOS Block Devices/Cephfs"; }
+      {meta = getMeta "Tools needed to mount Ceph's RADOS Block Devices/Cephfs";}
       ''
         mkdir -p $out/{bin,etc,${sitePackages},share/bash-completion/completions}
         cp -r ${ceph}/bin/{ceph,.ceph-wrapped,rados,rbd,rbdmap} $out/bin

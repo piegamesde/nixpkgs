@@ -6,7 +6,7 @@
   pname,
   version,
   sha256,
-  metaCommon ? { },
+  metaCommon ? {},
 }:
 
 let
@@ -15,7 +15,7 @@ let
     name = "Caprine-${version}.AppImage";
     inherit sha256;
   };
-  extracted = appimageTools.extractType2 { inherit pname version src; };
+  extracted = appimageTools.extractType2 {inherit pname version src;};
 in
 (appimageTools.wrapType2 {
   inherit pname version src;
@@ -43,7 +43,7 @@ in
   '';
 
   meta = metaCommon // {
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
     mainProgram = "caprine";
   };
 })

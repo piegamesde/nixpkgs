@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-IP/nL4jQ+rIWuUxXUiBtlIKTMZCNelvxgTfTcaB1it0=";
   };
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   buildInputs = [
     libuuid
@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
     python3.pkgs.wrapPython
   ];
 
-  propagatedBuildInputs = with python3.pkgs; [ pyyaml ];
+  propagatedBuildInputs = with python3.pkgs; [pyyaml];
 
   pythonPath = propagatedBuildInputs;
 
@@ -56,7 +56,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/dm-vdo/vdo";
     description = "A set of userspace tools for managing pools of deduplicated and/or compressed block storage";
     platforms = platforms.linux;
-    license = with licenses; [ gpl2Plus ];
-    maintainers = with maintainers; [ ajs124 ];
+    license = with licenses; [gpl2Plus];
+    maintainers = with maintainers; [ajs124];
   };
 }

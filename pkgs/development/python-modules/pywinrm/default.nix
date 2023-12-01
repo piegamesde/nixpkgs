@@ -35,9 +35,9 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "winrm" ];
+  pythonImportsCheck = ["winrm"];
 
-  pytestFlagsArray = [ "winrm/tests/" ];
+  pytestFlagsArray = ["winrm/tests/"];
 
   meta = with lib; {
     description = "Python library for Windows Remote Management";

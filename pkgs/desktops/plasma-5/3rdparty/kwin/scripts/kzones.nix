@@ -41,7 +41,7 @@ mkDerivation rec {
 
   meta = with lib; {
     description = "KWin Script for snapping windows into zones";
-    maintainers = with maintainers; [ matthiasbeyer ];
+    maintainers = with maintainers; [matthiasbeyer];
     license = licenses.gpl3Plus;
     inherit (src.meta) homepage;
     inherit (kwindowsystem.meta) platforms;

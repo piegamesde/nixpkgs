@@ -212,7 +212,7 @@ let
         ];
 
         sectionMACVLAN = checkUnitConfig "MACVLAN" [
-          (assertOnlyFields [ "Mode" ])
+          (assertOnlyFields ["Mode"])
           (assertValueOneOf "Mode" [
             "private"
             "vepa"
@@ -265,7 +265,7 @@ let
           (assertValueOneOf "GenericProtocolExtension" boolValues)
           (assertInt "FlowLabel")
           (assertRange "FlowLabel" 0 1048575)
-          (assertValueOneOf "IPDoNotFragment" (boolValues + [ "inherit" ]))
+          (assertValueOneOf "IPDoNotFragment" (boolValues + ["inherit"]))
         ];
 
         sectionTunnel = checkUnitConfig "Tunnel" [
@@ -522,7 +522,7 @@ let
         ];
 
         sectionVRF = checkUnitConfig "VRF" [
-          (assertOnlyFields [ "Table" ])
+          (assertOnlyFields ["Table"])
           (assertInt "Table")
           (assertMinimum "Table" 0)
         ];
@@ -682,11 +682,11 @@ let
         ])
         (assertValueOneOf "IPv4LLRoute" boolValues)
         (assertValueOneOf "DefaultRouteOnDevice" boolValues)
-        (assertValueOneOf "LLMNR" (boolValues ++ [ "resolve" ]))
-        (assertValueOneOf "MulticastDNS" (boolValues ++ [ "resolve" ]))
-        (assertValueOneOf "DNSOverTLS" (boolValues ++ [ "opportunistic" ]))
-        (assertValueOneOf "DNSSEC" (boolValues ++ [ "allow-downgrade" ]))
-        (assertValueOneOf "LLDP" (boolValues ++ [ "routers-only" ]))
+        (assertValueOneOf "LLMNR" (boolValues ++ ["resolve"]))
+        (assertValueOneOf "MulticastDNS" (boolValues ++ ["resolve"]))
+        (assertValueOneOf "DNSOverTLS" (boolValues ++ ["opportunistic"]))
+        (assertValueOneOf "DNSSEC" (boolValues ++ ["allow-downgrade"]))
+        (assertValueOneOf "LLDP" (boolValues ++ ["routers-only"]))
         (assertValueOneOf "EmitLLDP" (
           boolValues
           ++ [
@@ -921,7 +921,7 @@ let
         (assertValueOneOf "Anonymize" boolValues)
         (assertValueOneOf "SendHostname" boolValues)
         (assertValueOneOf "UseHostname" boolValues)
-        (assertValueOneOf "UseDomains" (boolValues ++ [ "route" ]))
+        (assertValueOneOf "UseDomains" (boolValues ++ ["route"]))
         (assertValueOneOf "UseRoutes" boolValues)
         (assertValueOneOf "UseTimezone" boolValues)
         (assertValueOneOf "ClientIdentifier" [
@@ -1017,11 +1017,11 @@ let
           "Token"
         ])
         (assertValueOneOf "UseDNS" boolValues)
-        (assertValueOneOf "UseDomains" (boolValues ++ [ "route" ]))
+        (assertValueOneOf "UseDomains" (boolValues ++ ["route"]))
         (assertRange "RouteTable" 0 4294967295)
         (assertValueOneOf "UseAutonomousPrefix" boolValues)
         (assertValueOneOf "UseOnLinkPrefix" boolValues)
-        (assertValueOneOf "DHCPv6Client" (boolValues ++ [ "always" ]))
+        (assertValueOneOf "DHCPv6Client" (boolValues ++ ["always"]))
         (assertValueOneOf "UseMTU" boolValues)
         (assertValueOneOf "UseGateway" boolValues)
         (assertValueOneOf "UseRoutePrefix" boolValues)
@@ -1205,7 +1205,7 @@ let
         (assertRange "VLANId" 0 4094)
       ];
 
-      sectionLLDP = checkUnitConfig "LLDP" [ (assertOnlyFields [ "MUDURL" ]) ];
+      sectionLLDP = checkUnitConfig "LLDP" [(assertOnlyFields ["MUDURL"])];
 
       sectionCAN = checkUnitConfig "CAN" [
         (assertOnlyFields [
@@ -1625,7 +1625,7 @@ let
     };
 
     matchConfig = mkOption {
-      default = { };
+      default = {};
       example = {
         Name = "eth0";
       };
@@ -1649,7 +1649,7 @@ let
 
   networkdOptions = {
     networkConfig = mkOption {
-      default = { };
+      default = {};
       example = {
         SpeedMeter = true;
         ManageForeignRoutingPolicyRules = false;
@@ -1663,7 +1663,7 @@ let
     };
 
     dhcpV4Config = mkOption {
-      default = { };
+      default = {};
       example = {
         DUIDType = "vendor";
       };
@@ -1676,7 +1676,7 @@ let
     };
 
     dhcpV6Config = mkOption {
-      default = { };
+      default = {};
       example = {
         DUIDType = "vendor";
       };
@@ -1700,7 +1700,7 @@ let
     };
 
     linkConfig = mkOption {
-      default = { };
+      default = {};
       example = {
         MACAddress = "00:ff:ee:aa:cc:dd";
       };
@@ -1716,7 +1716,7 @@ let
   l2tpSessionOptions = {
     options = {
       l2tpSessionConfig = mkOption {
-        default = { };
+        default = {};
         type = types.addCheck (types.attrsOf unitOption) check.netdev.sectionL2TPSession;
         description = lib.mdDoc ''
           Each attribute in this set specifies an option in the
@@ -1730,7 +1730,7 @@ let
   wireguardPeerOptions = {
     options = {
       wireguardPeerConfig = mkOption {
-        default = { };
+        default = {};
         type = types.addCheck (types.attrsOf unitOption) check.netdev.sectionWireGuardPeer;
         description = lib.mdDoc ''
           Each attribute in this set specifies an option in the
@@ -1757,7 +1757,7 @@ let
     };
 
     vlanConfig = mkOption {
-      default = { };
+      default = {};
       example = {
         Id = 4;
       };
@@ -1770,7 +1770,7 @@ let
     };
 
     macvlanConfig = mkOption {
-      default = { };
+      default = {};
       example = {
         Mode = "private";
       };
@@ -1783,7 +1783,7 @@ let
     };
 
     vxlanConfig = mkOption {
-      default = { };
+      default = {};
       type = types.addCheck (types.attrsOf unitOption) check.netdev.sectionVXLAN;
       description = lib.mdDoc ''
         Each attribute in this set specifies an option in the
@@ -1793,7 +1793,7 @@ let
     };
 
     tunnelConfig = mkOption {
-      default = { };
+      default = {};
       example = {
         Remote = "192.168.1.1";
       };
@@ -1806,7 +1806,7 @@ let
     };
 
     fooOverUDPConfig = mkOption {
-      default = { };
+      default = {};
       example = {
         Port = 9001;
       };
@@ -1819,7 +1819,7 @@ let
     };
 
     peerConfig = mkOption {
-      default = { };
+      default = {};
       example = {
         Name = "veth2";
       };
@@ -1832,7 +1832,7 @@ let
     };
 
     tunConfig = mkOption {
-      default = { };
+      default = {};
       example = {
         User = "openvpn";
       };
@@ -1845,7 +1845,7 @@ let
     };
 
     tapConfig = mkOption {
-      default = { };
+      default = {};
       example = {
         User = "openvpn";
       };
@@ -1858,7 +1858,7 @@ let
     };
 
     l2tpConfig = mkOption {
-      default = { };
+      default = {};
       example = {
         TunnelId = 10;
         PeerTunnelId = 12;
@@ -1875,7 +1875,7 @@ let
     };
 
     l2tpSessions = mkOption {
-      default = [ ];
+      default = [];
       example = [
         {
           l2tpSessionConfig = {
@@ -1894,7 +1894,7 @@ let
     };
 
     wireguardConfig = mkOption {
-      default = { };
+      default = {};
       example = {
         PrivateKeyFile = "/etc/wireguard/secret.key";
         ListenPort = 51820;
@@ -1912,14 +1912,14 @@ let
     };
 
     wireguardPeers = mkOption {
-      default = [ ];
+      default = [];
       example = [
         {
           wireguardPeerConfig = {
             Endpoint = "192.168.1.1:51820";
             PublicKey = "27s0OvaBBdHoJYkH9osZpjpgSOVNw+RaKfboT/Sfq0g=";
             PresharedKeyFile = "/etc/wireguard/psk.key";
-            AllowedIPs = [ "10.0.0.1/32" ];
+            AllowedIPs = ["10.0.0.1/32"];
             PersistentKeepalive = 15;
           };
         }
@@ -1936,7 +1936,7 @@ let
     };
 
     bondConfig = mkOption {
-      default = { };
+      default = {};
       example = {
         Mode = "802.3ad";
       };
@@ -1949,7 +1949,7 @@ let
     };
 
     xfrmConfig = mkOption {
-      default = { };
+      default = {};
       example = {
         InterfaceId = 1;
       };
@@ -1962,7 +1962,7 @@ let
     };
 
     vrfConfig = mkOption {
-      default = { };
+      default = {};
       example = {
         Table = 2342;
       };
@@ -1977,7 +1977,7 @@ let
     };
 
     batmanAdvancedConfig = mkOption {
-      default = { };
+      default = {};
       example = {
         GatewayMode = "server";
         RoutingAlgorithm = "batman-v";
@@ -2010,7 +2010,7 @@ let
   routingPolicyRulesOptions = {
     options = {
       routingPolicyRuleConfig = mkOption {
-        default = { };
+        default = {};
         example = {
           Table = 10;
           IncomingInterface = "eth1";
@@ -2029,7 +2029,7 @@ let
   routeOptions = {
     options = {
       routeConfig = mkOption {
-        default = { };
+        default = {};
         example = {
           Gateway = "192.168.0.1";
         };
@@ -2046,7 +2046,7 @@ let
   ipv6PrefixOptions = {
     options = {
       ipv6PrefixConfig = mkOption {
-        default = { };
+        default = {};
         example = {
           Prefix = "fd00::/64";
         };
@@ -2063,7 +2063,7 @@ let
   ipv6RoutePrefixOptions = {
     options = {
       ipv6RoutePrefixConfig = mkOption {
-        default = { };
+        default = {};
         example = {
           Route = "fd00::/64";
         };
@@ -2080,7 +2080,7 @@ let
   dhcpServerStaticLeaseOptions = {
     options = {
       dhcpServerStaticLeaseConfig = mkOption {
-        default = { };
+        default = {};
         example = {
           MACAddress = "65:43:4a:5b:d8:5f";
           Address = "192.168.1.42";
@@ -2101,7 +2101,7 @@ let
   bridgeFDBOptions = {
     options = {
       bridgeFDBConfig = mkOption {
-        default = { };
+        default = {};
         example = {
           MACAddress = "65:43:4a:5b:d8:5f";
           Destination = "192.168.1.42";
@@ -2120,7 +2120,7 @@ let
   bridgeMDBOptions = {
     options = {
       bridgeMDBConfig = mkOption {
-        default = { };
+        default = {};
         example = {
           MulticastGroupAddress = "ff02::1:2:3:4";
           VLANId = 10;
@@ -2138,7 +2138,7 @@ let
   bridgeVLANOptions = {
     options = {
       bridgeMDBConfig = mkOption {
-        default = { };
+        default = {};
         example = {
           VLAN = 20;
         };
@@ -2155,7 +2155,7 @@ let
   networkOptions = commonNetworkOptions // {
 
     linkConfig = mkOption {
-      default = { };
+      default = {};
       example = {
         Unmanaged = true;
       };
@@ -2168,7 +2168,7 @@ let
     };
 
     networkConfig = mkOption {
-      default = { };
+      default = {};
       example = {
         Description = "My Network";
       };
@@ -2190,7 +2190,7 @@ let
     };
 
     dhcpV4Config = mkOption {
-      default = { };
+      default = {};
       example = {
         UseDNS = true;
         UseRoutes = true;
@@ -2204,7 +2204,7 @@ let
     };
 
     dhcpV6Config = mkOption {
-      default = { };
+      default = {};
       example = {
         UseDNS = true;
       };
@@ -2224,7 +2224,7 @@ let
     };
 
     dhcpPrefixDelegationConfig = mkOption {
-      default = { };
+      default = {};
       example = {
         SubnetId = "auto";
         Announce = true;
@@ -2238,7 +2238,7 @@ let
     };
 
     ipv6AcceptRAConfig = mkOption {
-      default = { };
+      default = {};
       example = {
         UseDNS = true;
         DHCPv6Client = "always";
@@ -2252,7 +2252,7 @@ let
     };
 
     dhcpServerConfig = mkOption {
-      default = { };
+      default = {};
       example = {
         PoolOffset = 50;
         EmitDNS = false;
@@ -2275,7 +2275,7 @@ let
     };
 
     ipv6SendRAConfig = mkOption {
-      default = { };
+      default = {};
       example = {
         EmitDNS = true;
         Managed = true;
@@ -2290,7 +2290,7 @@ let
     };
 
     dhcpServerStaticLeases = mkOption {
-      default = [ ];
+      default = [];
       example = [
         {
           dhcpServerStaticLeaseConfig = {
@@ -2307,7 +2307,7 @@ let
     };
 
     ipv6Prefixes = mkOption {
-      default = [ ];
+      default = [];
       example = [
         {
           ipv6PrefixConfig = {
@@ -2324,7 +2324,7 @@ let
     };
 
     ipv6RoutePrefixes = mkOption {
-      default = [ ];
+      default = [];
       example = [
         {
           ipv6RoutePrefixConfig = {
@@ -2341,7 +2341,7 @@ let
     };
 
     bridgeConfig = mkOption {
-      default = { };
+      default = {};
       example = {
         MulticastFlood = false;
         Cost = 20;
@@ -2355,7 +2355,7 @@ let
     };
 
     bridgeFDBs = mkOption {
-      default = [ ];
+      default = [];
       example = [
         {
           bridgeFDBConfig = {
@@ -2373,7 +2373,7 @@ let
     };
 
     bridgeMDBs = mkOption {
-      default = [ ];
+      default = [];
       example = [
         {
           bridgeMDBConfig = {
@@ -2390,7 +2390,7 @@ let
     };
 
     lldpConfig = mkOption {
-      default = { };
+      default = {};
       example = {
         MUDURL = "https://things.example.org/product_abc123/v5";
       };
@@ -2403,8 +2403,8 @@ let
     };
 
     canConfig = mkOption {
-      default = { };
-      example = { };
+      default = {};
+      example = {};
       type = types.addCheck (types.attrsOf unitOption) check.network.sectionCAN;
       description = lib.mdDoc ''
         Each attribute in this set specifies an option in the
@@ -2414,8 +2414,8 @@ let
     };
 
     ipoIBConfig = mkOption {
-      default = { };
-      example = { };
+      default = {};
+      example = {};
       type = types.addCheck (types.attrsOf unitOption) check.network.sectionIPoIB;
       description = lib.mdDoc ''
         Each attribute in this set specifies an option in the
@@ -2425,7 +2425,7 @@ let
     };
 
     qdiscConfig = mkOption {
-      default = { };
+      default = {};
       example = {
         Parent = "ingress";
       };
@@ -2438,7 +2438,7 @@ let
     };
 
     networkEmulatorConfig = mkOption {
-      default = { };
+      default = {};
       example = {
         Parent = "ingress";
         DelaySec = "20msec";
@@ -2452,7 +2452,7 @@ let
     };
 
     tokenBucketFilterConfig = mkOption {
-      default = { };
+      default = {};
       example = {
         Parent = "ingress";
         Rate = "100k";
@@ -2466,7 +2466,7 @@ let
     };
 
     pieConfig = mkOption {
-      default = { };
+      default = {};
       example = {
         Parent = "ingress";
         PacketLimit = "3847";
@@ -2480,7 +2480,7 @@ let
     };
 
     flowQueuePIEConfig = mkOption {
-      default = { };
+      default = {};
       example = {
         Parent = "ingress";
         PacketLimit = "3847";
@@ -2494,7 +2494,7 @@ let
     };
 
     stochasticFairBlueConfig = mkOption {
-      default = { };
+      default = {};
       example = {
         Parent = "ingress";
         PacketLimit = "3847";
@@ -2508,7 +2508,7 @@ let
     };
 
     stochasticFairnessQueueingConfig = mkOption {
-      default = { };
+      default = {};
       example = {
         Parent = "ingress";
         PerturbPeriodSec = "30";
@@ -2522,7 +2522,7 @@ let
     };
 
     bfifoConfig = mkOption {
-      default = { };
+      default = {};
       example = {
         Parent = "ingress";
         LimitBytes = "20K";
@@ -2536,7 +2536,7 @@ let
     };
 
     pfifoConfig = mkOption {
-      default = { };
+      default = {};
       example = {
         Parent = "ingress";
         PacketLimit = "300";
@@ -2550,7 +2550,7 @@ let
     };
 
     pfifoHeadDropConfig = mkOption {
-      default = { };
+      default = {};
       example = {
         Parent = "ingress";
         PacketLimit = "300";
@@ -2564,7 +2564,7 @@ let
     };
 
     pfifoFastConfig = mkOption {
-      default = { };
+      default = {};
       example = {
         Parent = "ingress";
       };
@@ -2577,7 +2577,7 @@ let
     };
 
     cakeConfig = mkOption {
-      default = { };
+      default = {};
       example = {
         Bandwidth = "40M";
         OverheadBytes = 8;
@@ -2592,7 +2592,7 @@ let
     };
 
     controlledDelayConfig = mkOption {
-      default = { };
+      default = {};
       example = {
         Parent = "ingress";
         TargetSec = "20msec";
@@ -2606,7 +2606,7 @@ let
     };
 
     deficitRoundRobinSchedulerConfig = mkOption {
-      default = { };
+      default = {};
       example = {
         Parent = "root";
       };
@@ -2619,7 +2619,7 @@ let
     };
 
     deficitRoundRobinSchedulerClassConfig = mkOption {
-      default = { };
+      default = {};
       example = {
         Parent = "root";
         QuantumBytes = "300k";
@@ -2635,7 +2635,7 @@ let
     };
 
     enhancedTransmissionSelectionConfig = mkOption {
-      default = { };
+      default = {};
       example = {
         Parent = "root";
         QuantumBytes = "300k";
@@ -2651,7 +2651,7 @@ let
     };
 
     genericRandomEarlyDetectionConfig = mkOption {
-      default = { };
+      default = {};
       example = {
         Parent = "root";
         VirtualQueues = 5;
@@ -2666,7 +2666,7 @@ let
     };
 
     fairQueueingControlledDelayConfig = mkOption {
-      default = { };
+      default = {};
       example = {
         Parent = "root";
         Flows = 5;
@@ -2680,7 +2680,7 @@ let
     };
 
     fairQueueingConfig = mkOption {
-      default = { };
+      default = {};
       example = {
         Parent = "root";
         FlowLimit = 5;
@@ -2694,7 +2694,7 @@ let
     };
 
     trivialLinkEqualizerConfig = mkOption {
-      default = { };
+      default = {};
       example = {
         Parent = "root";
         Id = 0;
@@ -2708,7 +2708,7 @@ let
     };
 
     hierarchyTokenBucketConfig = mkOption {
-      default = { };
+      default = {};
       example = {
         Parent = "root";
       };
@@ -2721,7 +2721,7 @@ let
     };
 
     hierarchyTokenBucketClassConfig = mkOption {
-      default = { };
+      default = {};
       example = {
         Parent = "root";
         Rate = "10M";
@@ -2735,7 +2735,7 @@ let
     };
 
     heavyHitterFilterConfig = mkOption {
-      default = { };
+      default = {};
       example = {
         Parent = "root";
         PacketLimit = 10000;
@@ -2749,7 +2749,7 @@ let
     };
 
     quickFairQueueingConfig = mkOption {
-      default = { };
+      default = {};
       example = {
         Parent = "root";
       };
@@ -2762,7 +2762,7 @@ let
     };
 
     quickFairQueueingConfigClass = mkOption {
-      default = { };
+      default = {};
       example = {
         Parent = "root";
         Weight = 133;
@@ -2776,7 +2776,7 @@ let
     };
 
     bridgeVLANConfig = mkOption {
-      default = { };
+      default = {};
       example = {
         VLAN = "10-20";
       };
@@ -2789,7 +2789,7 @@ let
     };
 
     bridgeVLANs = mkOption {
-      default = [ ];
+      default = [];
       example = [
         {
           bridgeVLANConfig = {
@@ -2829,7 +2829,7 @@ let
     };
 
     address = mkOption {
-      default = [ ];
+      default = [];
       type = types.listOf types.str;
       description = lib.mdDoc ''
         A list of addresses to be added to the network section of the
@@ -2838,7 +2838,7 @@ let
     };
 
     gateway = mkOption {
-      default = [ ];
+      default = [];
       type = types.listOf types.str;
       description = lib.mdDoc ''
         A list of gateways to be added to the network section of the
@@ -2847,7 +2847,7 @@ let
     };
 
     dns = mkOption {
-      default = [ ];
+      default = [];
       type = types.listOf types.str;
       description = lib.mdDoc ''
         A list of dns servers to be added to the network section of the
@@ -2856,7 +2856,7 @@ let
     };
 
     ntp = mkOption {
-      default = [ ];
+      default = [];
       type = types.listOf types.str;
       description = lib.mdDoc ''
         A list of ntp servers to be added to the network section of the
@@ -2865,7 +2865,7 @@ let
     };
 
     bridge = mkOption {
-      default = [ ];
+      default = [];
       type = types.listOf types.str;
       description = lib.mdDoc ''
         A list of bridge interfaces to be added to the network section of the
@@ -2874,7 +2874,7 @@ let
     };
 
     bond = mkOption {
-      default = [ ];
+      default = [];
       type = types.listOf types.str;
       description = lib.mdDoc ''
         A list of bond interfaces to be added to the network section of the
@@ -2883,7 +2883,7 @@ let
     };
 
     vrf = mkOption {
-      default = [ ];
+      default = [];
       type = types.listOf types.str;
       description = lib.mdDoc ''
         A list of vrf interfaces to be added to the network section of the
@@ -2892,7 +2892,7 @@ let
     };
 
     vlan = mkOption {
-      default = [ ];
+      default = [];
       type = types.listOf types.str;
       description = lib.mdDoc ''
         A list of vlan interfaces to be added to the network section of the
@@ -2901,7 +2901,7 @@ let
     };
 
     macvlan = mkOption {
-      default = [ ];
+      default = [];
       type = types.listOf types.str;
       description = lib.mdDoc ''
         A list of macvlan interfaces to be added to the network section of the
@@ -2910,7 +2910,7 @@ let
     };
 
     vxlan = mkOption {
-      default = [ ];
+      default = [];
       type = types.listOf types.str;
       description = lib.mdDoc ''
         A list of vxlan interfaces to be added to the network section of the
@@ -2919,7 +2919,7 @@ let
     };
 
     tunnel = mkOption {
-      default = [ ];
+      default = [];
       type = types.listOf types.str;
       description = lib.mdDoc ''
         A list of tunnel interfaces to be added to the network section of the
@@ -2928,7 +2928,7 @@ let
     };
 
     xfrm = mkOption {
-      default = [ ];
+      default = [];
       type = types.listOf types.str;
       description = lib.mdDoc ''
         A list of xfrm interfaces to be added to the network section of the
@@ -2937,7 +2937,7 @@ let
     };
 
     addresses = mkOption {
-      default = [ ];
+      default = [];
       type = with types; listOf (submodule addressOptions);
       description = lib.mdDoc ''
         A list of address sections to be added to the unit.  See
@@ -2946,7 +2946,7 @@ let
     };
 
     routingPolicyRules = mkOption {
-      default = [ ];
+      default = [];
       type = with types; listOf (submodule routingPolicyRulesOptions);
       description = lib.mdDoc ''
         A list of routing policy rules sections to be added to the unit.  See
@@ -2955,7 +2955,7 @@ let
     };
 
     routes = mkOption {
-      default = [ ];
+      default = [];
       type = with types; listOf (submodule routeOptions);
       description = lib.mdDoc ''
         A list of route sections to be added to the unit.  See
@@ -2965,22 +2965,22 @@ let
   };
 
   networkConfig =
-    { config, ... }:
+    {config, ...}:
     {
       config = {
-        matchConfig = optionalAttrs (config.name != null) { Name = config.name; };
+        matchConfig = optionalAttrs (config.name != null) {Name = config.name;};
         networkConfig =
-          optionalAttrs (config.DHCP != null) { DHCP = config.DHCP; }
-          // optionalAttrs (config.domains != null) { Domains = concatStringsSep " " config.domains; };
+          optionalAttrs (config.DHCP != null) {DHCP = config.DHCP;}
+          // optionalAttrs (config.domains != null) {Domains = concatStringsSep " " config.domains;};
       };
     };
 
   networkdConfig =
-    { config, ... }:
+    {config, ...}:
     {
       options = {
         routeTables = mkOption {
-          default = { };
+          default = {};
           example = {
             foo = 27;
           };
@@ -3003,7 +3003,7 @@ let
       };
 
       config = {
-        networkConfig = optionalAttrs (config.routeTables != { }) {
+        networkConfig = optionalAttrs (config.routeTables != {}) {
           RouteTable = mapAttrsToList (name: number: "${name}:${toString number}") config.routeTables;
         };
       };
@@ -3011,7 +3011,7 @@ let
 
   commonMatchText =
     def:
-    optionalString (def.matchConfig != { }) ''
+    optionalString (def.matchConfig != {}) ''
       [Match]
       ${attrsToSection def.matchConfig}
     '';
@@ -3035,39 +3035,39 @@ let
         [NetDev]
         ${attrsToSection def.netdevConfig}
       ''
-      + optionalString (def.vlanConfig != { }) ''
+      + optionalString (def.vlanConfig != {}) ''
         [VLAN]
         ${attrsToSection def.vlanConfig}
       ''
-      + optionalString (def.macvlanConfig != { }) ''
+      + optionalString (def.macvlanConfig != {}) ''
         [MACVLAN]
         ${attrsToSection def.macvlanConfig}
       ''
-      + optionalString (def.vxlanConfig != { }) ''
+      + optionalString (def.vxlanConfig != {}) ''
         [VXLAN]
         ${attrsToSection def.vxlanConfig}
       ''
-      + optionalString (def.tunnelConfig != { }) ''
+      + optionalString (def.tunnelConfig != {}) ''
         [Tunnel]
         ${attrsToSection def.tunnelConfig}
       ''
-      + optionalString (def.fooOverUDPConfig != { }) ''
+      + optionalString (def.fooOverUDPConfig != {}) ''
         [FooOverUDP]
         ${attrsToSection def.fooOverUDPConfig}
       ''
-      + optionalString (def.peerConfig != { }) ''
+      + optionalString (def.peerConfig != {}) ''
         [Peer]
         ${attrsToSection def.peerConfig}
       ''
-      + optionalString (def.tunConfig != { }) ''
+      + optionalString (def.tunConfig != {}) ''
         [Tun]
         ${attrsToSection def.tunConfig}
       ''
-      + optionalString (def.tapConfig != { }) ''
+      + optionalString (def.tapConfig != {}) ''
         [Tap]
         ${attrsToSection def.tapConfig}
       ''
-      + optionalString (def.l2tpConfig != { }) ''
+      + optionalString (def.l2tpConfig != {}) ''
         [L2TP]
         ${attrsToSection def.l2tpConfig}
       ''
@@ -3077,7 +3077,7 @@ let
           ${attrsToSection x.l2tpSessionConfig}
         ''
       )
-      + optionalString (def.wireguardConfig != { }) ''
+      + optionalString (def.wireguardConfig != {}) ''
         [WireGuard]
         ${attrsToSection def.wireguardConfig}
       ''
@@ -3087,19 +3087,19 @@ let
           ${attrsToSection x.wireguardPeerConfig}
         ''
       )
-      + optionalString (def.bondConfig != { }) ''
+      + optionalString (def.bondConfig != {}) ''
         [Bond]
         ${attrsToSection def.bondConfig}
       ''
-      + optionalString (def.xfrmConfig != { }) ''
+      + optionalString (def.xfrmConfig != {}) ''
         [Xfrm]
         ${attrsToSection def.xfrmConfig}
       ''
-      + optionalString (def.vrfConfig != { }) ''
+      + optionalString (def.vrfConfig != {}) ''
         [VRF]
         ${attrsToSection def.vrfConfig}
       ''
-      + optionalString (def.batmanAdvancedConfig != { }) ''
+      + optionalString (def.batmanAdvancedConfig != {}) ''
         [BatmanAdvanced]
         ${attrsToSection def.batmanAdvancedConfig}
       ''
@@ -3112,11 +3112,11 @@ let
         [Network]
         ${attrsToSection def.networkConfig}
       ''
-      + optionalString (def.dhcpV4Config != { }) ''
+      + optionalString (def.dhcpV4Config != {}) ''
         [DHCPv4]
         ${attrsToSection def.dhcpV4Config}
       ''
-      + optionalString (def.dhcpV6Config != { }) ''
+      + optionalString (def.dhcpV6Config != {}) ''
         [DHCPv6]
         ${attrsToSection def.dhcpV6Config}
       '';
@@ -3126,7 +3126,7 @@ let
     inherit (def) enable;
     text =
       commonMatchText def
-      + optionalString (def.linkConfig != { }) ''
+      + optionalString (def.linkConfig != {}) ''
         [Link]
         ${attrsToSection def.linkConfig}
       ''
@@ -3134,40 +3134,40 @@ let
         [Network]
       ''
       + attrsToSection def.networkConfig
-      + optionalString (def.address != [ ]) ''
+      + optionalString (def.address != []) ''
         ${concatStringsSep "\n" (map (s: "Address=${s}") def.address)}
       ''
-      + optionalString (def.gateway != [ ]) ''
+      + optionalString (def.gateway != []) ''
         ${concatStringsSep "\n" (map (s: "Gateway=${s}") def.gateway)}
       ''
-      + optionalString (def.dns != [ ]) ''
+      + optionalString (def.dns != []) ''
         ${concatStringsSep "\n" (map (s: "DNS=${s}") def.dns)}
       ''
-      + optionalString (def.ntp != [ ]) ''
+      + optionalString (def.ntp != []) ''
         ${concatStringsSep "\n" (map (s: "NTP=${s}") def.ntp)}
       ''
-      + optionalString (def.bridge != [ ]) ''
+      + optionalString (def.bridge != []) ''
         ${concatStringsSep "\n" (map (s: "Bridge=${s}") def.bridge)}
       ''
-      + optionalString (def.bond != [ ]) ''
+      + optionalString (def.bond != []) ''
         ${concatStringsSep "\n" (map (s: "Bond=${s}") def.bond)}
       ''
-      + optionalString (def.vrf != [ ]) ''
+      + optionalString (def.vrf != []) ''
         ${concatStringsSep "\n" (map (s: "VRF=${s}") def.vrf)}
       ''
-      + optionalString (def.vlan != [ ]) ''
+      + optionalString (def.vlan != []) ''
         ${concatStringsSep "\n" (map (s: "VLAN=${s}") def.vlan)}
       ''
-      + optionalString (def.macvlan != [ ]) ''
+      + optionalString (def.macvlan != []) ''
         ${concatStringsSep "\n" (map (s: "MACVLAN=${s}") def.macvlan)}
       ''
-      + optionalString (def.vxlan != [ ]) ''
+      + optionalString (def.vxlan != []) ''
         ${concatStringsSep "\n" (map (s: "VXLAN=${s}") def.vxlan)}
       ''
-      + optionalString (def.tunnel != [ ]) ''
+      + optionalString (def.tunnel != []) ''
         ${concatStringsSep "\n" (map (s: "Tunnel=${s}") def.tunnel)}
       ''
-      + optionalString (def.xfrm != [ ]) ''
+      + optionalString (def.xfrm != []) ''
         ${concatStringsSep "\n" (map (s: "Xfrm=${s}") def.xfrm)}
       ''
       + "\n"
@@ -3189,27 +3189,27 @@ let
           ${attrsToSection x.routeConfig}
         ''
       )
-      + optionalString (def.dhcpV4Config != { }) ''
+      + optionalString (def.dhcpV4Config != {}) ''
         [DHCPv4]
         ${attrsToSection def.dhcpV4Config}
       ''
-      + optionalString (def.dhcpV6Config != { }) ''
+      + optionalString (def.dhcpV6Config != {}) ''
         [DHCPv6]
         ${attrsToSection def.dhcpV6Config}
       ''
-      + optionalString (def.dhcpPrefixDelegationConfig != { }) ''
+      + optionalString (def.dhcpPrefixDelegationConfig != {}) ''
         [DHCPPrefixDelegation]
         ${attrsToSection def.dhcpPrefixDelegationConfig}
       ''
-      + optionalString (def.ipv6AcceptRAConfig != { }) ''
+      + optionalString (def.ipv6AcceptRAConfig != {}) ''
         [IPv6AcceptRA]
         ${attrsToSection def.ipv6AcceptRAConfig}
       ''
-      + optionalString (def.dhcpServerConfig != { }) ''
+      + optionalString (def.dhcpServerConfig != {}) ''
         [DHCPServer]
         ${attrsToSection def.dhcpServerConfig}
       ''
-      + optionalString (def.ipv6SendRAConfig != { }) ''
+      + optionalString (def.ipv6SendRAConfig != {}) ''
         [IPv6SendRA]
         ${attrsToSection def.ipv6SendRAConfig}
       ''
@@ -3231,7 +3231,7 @@ let
           ${attrsToSection x.dhcpServerStaticLeaseConfig}
         ''
       )
-      + optionalString (def.bridgeConfig != { }) ''
+      + optionalString (def.bridgeConfig != {}) ''
         [Bridge]
         ${attrsToSection def.bridgeConfig}
       ''
@@ -3247,115 +3247,115 @@ let
           ${attrsToSection x.bridgeMDBConfig}
         ''
       )
-      + optionalString (def.lldpConfig != { }) ''
+      + optionalString (def.lldpConfig != {}) ''
         [LLDP]
         ${attrsToSection def.lldpConfig}
       ''
-      + optionalString (def.canConfig != { }) ''
+      + optionalString (def.canConfig != {}) ''
         [CAN]
         ${attrsToSection def.canConfig}
       ''
-      + optionalString (def.ipoIBConfig != { }) ''
+      + optionalString (def.ipoIBConfig != {}) ''
         [IPoIB]
         ${attrsToSection def.ipoIBConfig}
       ''
-      + optionalString (def.qdiscConfig != { }) ''
+      + optionalString (def.qdiscConfig != {}) ''
         [QDisc]
         ${attrsToSection def.qdiscConfig}
       ''
-      + optionalString (def.networkEmulatorConfig != { }) ''
+      + optionalString (def.networkEmulatorConfig != {}) ''
         [NetworkEmulator]
         ${attrsToSection def.networkEmulatorConfig}
       ''
-      + optionalString (def.tokenBucketFilterConfig != { }) ''
+      + optionalString (def.tokenBucketFilterConfig != {}) ''
         [TokenBucketFilter]
         ${attrsToSection def.tockenBucketFilterConfig}
       ''
-      + optionalString (def.pieConfig != { }) ''
+      + optionalString (def.pieConfig != {}) ''
         [PIE]
         ${attrsToSection def.pieConfig}
       ''
-      + optionalString (def.flowQueuePIEConfig != { }) ''
+      + optionalString (def.flowQueuePIEConfig != {}) ''
         [FlowQueuePIE]
         ${attrsToSection def.flowQueuePIEConfig}
       ''
-      + optionalString (def.stochasticFairBlueConfig != { }) ''
+      + optionalString (def.stochasticFairBlueConfig != {}) ''
         [StochasticFairBlue]
         ${attrsToSection def.stochasticFairBlueConfig}
       ''
-      + optionalString (def.stochasticFairnessQueueingConfig != { }) ''
+      + optionalString (def.stochasticFairnessQueueingConfig != {}) ''
         [StochasticFairnessQueueing]
         ${attrsToSection def.stochasticFairnessQueueingConfig}
       ''
-      + optionalString (def.bfifoConfig != { }) ''
+      + optionalString (def.bfifoConfig != {}) ''
         [BFIFO]
         ${attrsToSection def.bfifoConfig}
       ''
-      + optionalString (def.pfifoConfig != { }) ''
+      + optionalString (def.pfifoConfig != {}) ''
         [PFIFO]
         ${attrsToSection def.pfifoConfig}
       ''
-      + optionalString (def.pfifoHeadDropConfig != { }) ''
+      + optionalString (def.pfifoHeadDropConfig != {}) ''
         [PFIFOHeadDrop]
         ${attrsToSection def.pfifoHeadDropConfig}
       ''
-      + optionalString (def.pfifoFastConfig != { }) ''
+      + optionalString (def.pfifoFastConfig != {}) ''
         [PFIFOFast]
         ${attrsToSection def.pfifoFastConfig}
       ''
-      + optionalString (def.cakeConfig != { }) ''
+      + optionalString (def.cakeConfig != {}) ''
         [CAKE]
         ${attrsToSection def.cakeConfig}
       ''
-      + optionalString (def.controlledDelayConfig != { }) ''
+      + optionalString (def.controlledDelayConfig != {}) ''
         [ControlledDelay]
         ${attrsToSection def.controlledDelayConfig}
       ''
-      + optionalString (def.deficitRoundRobinSchedulerConfig != { }) ''
+      + optionalString (def.deficitRoundRobinSchedulerConfig != {}) ''
         [DeficitRoundRobinScheduler]
         ${attrsToSection def.deficitRoundRobinSchedulerConfig}
       ''
-      + optionalString (def.deficitRoundRobinSchedulerClassConfig != { }) ''
+      + optionalString (def.deficitRoundRobinSchedulerClassConfig != {}) ''
         [DeficitRoundRobinSchedulerClass]
         ${attrsToSection def.deficitRoundRobinSchedulerClassConfig}
       ''
-      + optionalString (def.enhancedTransmissionSelectionConfig != { }) ''
+      + optionalString (def.enhancedTransmissionSelectionConfig != {}) ''
         [EnhancedTransmissionSelection]
         ${attrsToSection def.enhancedTransmissionSelectionConfig}
       ''
-      + optionalString (def.genericRandomEarlyDetectionConfig != { }) ''
+      + optionalString (def.genericRandomEarlyDetectionConfig != {}) ''
         [GenericRandomEarlyDetection]
         ${attrsToSection def.genericRandomEarlyDetectionConfig}
       ''
-      + optionalString (def.fairQueueingControlledDelayConfig != { }) ''
+      + optionalString (def.fairQueueingControlledDelayConfig != {}) ''
         [FairQueueingControlledDelay]
         ${attrsToSection def.fairQueueingControlledDelayConfig}
       ''
-      + optionalString (def.fairQueueingConfig != { }) ''
+      + optionalString (def.fairQueueingConfig != {}) ''
         [FairQueueing]
         ${attrsToSection def.fairQueueingConfig}
       ''
-      + optionalString (def.trivialLinkEqualizerConfig != { }) ''
+      + optionalString (def.trivialLinkEqualizerConfig != {}) ''
         [TrivialLinkEqualizer]
         ${attrsToSection def.trivialLinkEqualizerConfig}
       ''
-      + optionalString (def.hierarchyTokenBucketConfig != { }) ''
+      + optionalString (def.hierarchyTokenBucketConfig != {}) ''
         [HierarchyTokenBucket]
         ${attrsToSection def.hierarchyTokenBucketConfig}
       ''
-      + optionalString (def.hierarchyTokenBucketClassConfig != { }) ''
+      + optionalString (def.hierarchyTokenBucketClassConfig != {}) ''
         [HierarchyTokenBucketClass]
         ${attrsToSection def.hierarchyTokenBucketClassConfig}
       ''
-      + optionalString (def.heavyHitterFilterConfig != { }) ''
+      + optionalString (def.heavyHitterFilterConfig != {}) ''
         [HeavyHitterFilter]
         ${attrsToSection def.heavyHitterFilterConfig}
       ''
-      + optionalString (def.quickFairQueueingConfig != { }) ''
+      + optionalString (def.quickFairQueueingConfig != {}) ''
         [QuickFairQueueing]
         ${attrsToSection def.quickFairQueueingConfig}
       ''
-      + optionalString (def.quickFairQueueingConfigClass != { }) ''
+      + optionalString (def.quickFairQueueingConfigClass != {}) ''
         [QuickFairQueueingClass]
         ${attrsToSection def.quickFairQueueingConfigClass}
       ''
@@ -3390,27 +3390,27 @@ let
     };
 
     links = mkOption {
-      default = { };
+      default = {};
       inherit visible;
-      type = with types; attrsOf (submodule [ { options = linkOptions; } ]);
+      type = with types; attrsOf (submodule [{options = linkOptions;}]);
       description = lib.mdDoc "Definition of systemd network links.";
     };
 
     netdevs = mkOption {
-      default = { };
+      default = {};
       inherit visible;
-      type = with types; attrsOf (submodule [ { options = netdevOptions; } ]);
+      type = with types; attrsOf (submodule [{options = netdevOptions;}]);
       description = lib.mdDoc "Definition of systemd network devices.";
     };
 
     networks = mkOption {
-      default = { };
+      default = {};
       inherit visible;
       type =
         with types;
         attrsOf (
           submodule [
-            { options = networkOptions; }
+            {options = networkOptions;}
             networkConfig
           ]
         );
@@ -3418,12 +3418,12 @@ let
     };
 
     config = mkOption {
-      default = { };
+      default = {};
       inherit visible;
       type =
         with types;
         submodule [
-          { options = networkdOptions; }
+          {options = networkdOptions;}
           networkdConfig
         ];
       description = lib.mdDoc "Definition of global systemd network config.";
@@ -3431,15 +3431,15 @@ let
 
     units = mkOption {
       description = lib.mdDoc "Definition of networkd units.";
-      default = { };
+      default = {};
       internal = true;
       type =
         with types;
         attrsOf (
           submodule (
-            { name, config, ... }:
+            {name, config, ...}:
             {
-              options = mapAttrs (_: x: x // { internal = true; }) concreteUnitOptions;
+              options = mapAttrs (_: x: x // {internal = true;}) concreteUnitOptions;
               config = {
                 unit = mkDefault (makeUnit name config);
               };
@@ -3477,8 +3477,8 @@ let
           Network interfaces to be ignored when deciding if the system is online.
         '';
         type = with types; listOf str;
-        default = [ ];
-        example = [ "wg0" ];
+        default = [];
+        example = ["wg0"];
       };
 
       timeout = mkOption {
@@ -3498,7 +3498,7 @@ let
           See {manpage}`systemd-networkd-wait-online.service(8)` for all available options.
         '';
         type = with types; listOf str;
-        default = [ ];
+        default = [];
       };
     };
   };
@@ -3515,7 +3515,7 @@ let
         systemd.network.units = mapAttrs' (n: v: nameValuePair "${n}.link" (linkToUnit n v)) cfg.links;
 
         systemd.network.wait-online.extraArgs =
-          [ "--timeout=${toString cfg.wait-online.timeout}" ]
+          ["--timeout=${toString cfg.wait-online.timeout}"]
           ++ optional cfg.wait-online.anyInterface "--any"
           ++ map (i: "--ignore=${i}") cfg.wait-online.ignoredInterfaces;
       }
@@ -3529,11 +3529,11 @@ let
         # systemd-networkd is socket-activated by kernel netlink route change
         # messages. It is important to have systemd buffer those on behalf of
         # networkd.
-        systemd.sockets.systemd-networkd.wantedBy = [ "sockets.target" ];
+        systemd.sockets.systemd-networkd.wantedBy = ["sockets.target"];
 
         systemd.services.systemd-networkd-wait-online = {
           inherit (cfg.wait-online) enable;
-          wantedBy = [ "network-online.target" ];
+          wantedBy = ["network-online.target"];
           serviceConfig.ExecStart = [
             ""
             "${config.systemd.package}/lib/systemd/systemd-networkd-wait-online ${utils.escapeSystemdExecArgs cfg.wait-online.extraArgs}"
@@ -3542,9 +3542,9 @@ let
 
         systemd.services."systemd-network-wait-online@" = {
           description = "Wait for Network Interface %I to be Configured";
-          conflicts = [ "shutdown.target" ];
-          requisite = [ "systemd-networkd.service" ];
-          after = [ "systemd-networkd.service" ];
+          conflicts = ["shutdown.target"];
+          requisite = ["systemd-networkd.service"];
+          after = ["systemd-networkd.service"];
           serviceConfig = {
             Type = "oneshot";
             RemainAfterExit = true;
@@ -3562,7 +3562,7 @@ let
     mkMerge [
       (commonConfig config)
 
-      { environment.etc = unitFiles; }
+      {environment.etc = unitFiles;}
 
       (mkIf config.systemd.network.enable {
 
@@ -3577,14 +3577,14 @@ let
         environment.etc."systemd/networkd.conf" = renderConfig cfg.config;
 
         systemd.services.systemd-networkd = {
-          wantedBy = [ "multi-user.target" ];
+          wantedBy = ["multi-user.target"];
           restartTriggers = map (x: x.source) (attrValues unitFiles) ++ [
             config.environment.etc."systemd/networkd.conf".source
           ];
-          aliases = [ "dbus-org.freedesktop.network1.service" ];
+          aliases = ["dbus-org.freedesktop.network1.service"];
         };
 
-        networking.iproute2 = mkIf (cfg.config.addRouteTablesToIPRoute2 && cfg.config.routeTables != { }) {
+        networking.iproute2 = mkIf (cfg.config.addRouteTablesToIPRoute2 && cfg.config.routeTables != {}) {
           enable = mkDefault true;
           rttablesExtraConfig = ''
 
@@ -3614,9 +3614,7 @@ let
         # This must be done in stage 1 to avoid race conditions between udev and
         # network daemons.
         systemd.network.units = lib.filterAttrs (n: _: hasSuffix ".link" n) config.systemd.network.units;
-        systemd.storePaths = [
-          "${config.boot.initrd.systemd.package}/lib/systemd/network/99-default.link"
-        ];
+        systemd.storePaths = ["${config.boot.initrd.systemd.package}/lib/systemd/network/99-default.link"];
       }
 
       (mkIf cfg.enable {
@@ -3639,24 +3637,24 @@ let
           "remote-fs-pre.target"
           "remote-fs.target"
         ];
-        systemd.users.systemd-network = { };
-        systemd.groups.systemd-network = { };
+        systemd.users.systemd-network = {};
+        systemd.groups.systemd-network = {};
 
         systemd.contents."/etc/systemd/networkd.conf" = renderConfig cfg.config;
 
-        systemd.services.systemd-networkd.wantedBy = [ "initrd.target" ];
-        systemd.services.systemd-network-generator.wantedBy = [ "sysinit.target" ];
+        systemd.services.systemd-networkd.wantedBy = ["initrd.target"];
+        systemd.services.systemd-network-generator.wantedBy = ["sysinit.target"];
 
         systemd.storePaths = [
           "${config.boot.initrd.systemd.package}/lib/systemd/systemd-networkd"
           "${config.boot.initrd.systemd.package}/lib/systemd/systemd-networkd-wait-online"
           "${config.boot.initrd.systemd.package}/lib/systemd/systemd-network-generator"
         ];
-        kernelModules = [ "af_packet" ];
+        kernelModules = ["af_packet"];
 
         systemd.services.nixos-flush-networkd = mkIf config.boot.initrd.network.flushBeforeStage2 {
           description = "Flush Network Configuration";
-          wantedBy = [ "initrd.target" ];
+          wantedBy = ["initrd.target"];
           after = [
             "systemd-networkd.service"
             "dbus.socket"
@@ -3711,7 +3709,7 @@ in
     (mkIf config.boot.initrd.systemd.enable {
       assertions = [
         {
-          assertion = config.boot.initrd.network.udhcpc.extraArgs == [ ];
+          assertion = config.boot.initrd.network.udhcpc.extraArgs == [];
           message = ''
             boot.initrd.network.udhcpc.extraArgs is not supported when
             boot.initrd.systemd.enable is enabled

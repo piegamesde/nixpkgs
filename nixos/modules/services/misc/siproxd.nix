@@ -22,11 +22,11 @@ let
     rtp_port_high   = ${toString cfg.rtpPortHigh}
     rtp_dscp        = ${toString cfg.rtpDscp}
     sip_dscp        = ${toString cfg.sipDscp}
-    ${optionalString (cfg.hostsAllowReg != [ ])
+    ${optionalString (cfg.hostsAllowReg != [])
       "hosts_allow_reg = ${concatStringsSep "," cfg.hostsAllowReg}"}
-    ${optionalString (cfg.hostsAllowSip != [ ])
+    ${optionalString (cfg.hostsAllowSip != [])
       "hosts_allow_sip = ${concatStringsSep "," cfg.hostsAllowSip}"}
-    ${optionalString (cfg.hostsDenySip != [ ])
+    ${optionalString (cfg.hostsDenySip != [])
       "hosts_deny_sip  = ${concatStringsSep "," cfg.hostsDenySip}"}
     ${optionalString (cfg.passwordFile != "") "proxy_auth_pwfile = ${cfg.passwordFile}"}
     ${cfg.extraConfig}
@@ -64,7 +64,7 @@ in
 
       hostsAllowReg = mkOption {
         type = types.listOf types.str;
-        default = [ ];
+        default = [];
         example = [
           "192.168.1.0/24"
           "192.168.2.0/24"
@@ -76,7 +76,7 @@ in
 
       hostsAllowSip = mkOption {
         type = types.listOf types.str;
-        default = [ ];
+        default = [];
         example = [
           "123.45.0.0/16"
           "123.46.0.0/16"
@@ -88,7 +88,7 @@ in
 
       hostsDenySip = mkOption {
         type = types.listOf types.str;
-        default = [ ];
+        default = [];
         example = [
           "10.0.0.0/8"
           "11.0.0.0/8"
@@ -181,8 +181,8 @@ in
 
     systemd.services.siproxd = {
       description = "SIP proxy/masquerading daemon";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
       serviceConfig = {
         ExecStart = "${pkgs.siproxd}/sbin/siproxd -c ${confFile}";
       };

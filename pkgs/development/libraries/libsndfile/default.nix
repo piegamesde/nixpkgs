@@ -43,7 +43,7 @@ stdenv.mkDerivation rec {
       libopus
       libvorbis
     ]
-    ++ lib.optionals stdenv.isLinux [ alsa-lib ]
+    ++ lib.optionals stdenv.isLinux [alsa-lib]
     ++ lib.optionals stdenv.isDarwin [
       Carbon
       AudioToolbox
@@ -73,7 +73,7 @@ stdenv.mkDerivation rec {
     homepage = "https://libsndfile.github.io/libsndfile/";
     changelog = "https://github.com/libsndfile/libsndfile/releases/tag/${version}";
     license = licenses.lgpl2Plus;
-    maintainers = with maintainers; [ lovek323 ];
+    maintainers = with maintainers; [lovek323];
     platforms = platforms.unix;
 
     longDescription = ''

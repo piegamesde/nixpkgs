@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "buildnode-xhtml";
   version = "buildnode-20170403-git";
@@ -36,7 +36,7 @@ rec {
 
   packageName = "buildnode-xhtml";
 
-  asdFilesToKeep = [ "buildnode-xhtml.asd" ];
+  asdFilesToKeep = ["buildnode-xhtml.asd"];
   overrides = x: x;
 }
 /* (SYSTEM buildnode-xhtml DESCRIPTION

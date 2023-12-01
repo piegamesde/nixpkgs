@@ -66,7 +66,7 @@ python3.pkgs.buildPythonApplication rec {
     description = "A free basic image editor, similar to Microsoft Paint, but aiming at the GNOME desktop";
     homepage = "https://maoschanz.github.io/drawing/";
     changelog = "https://github.com/maoschanz/drawing/releases/tag/${version}";
-    maintainers = with maintainers; [ mothsart ];
+    maintainers = with maintainers; [mothsart];
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
   };

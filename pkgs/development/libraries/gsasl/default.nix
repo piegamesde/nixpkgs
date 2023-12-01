@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
     libkrb5
   ];
 
-  configureFlags = [ "--with-gssapi-impl=mit" ];
+  configureFlags = ["--with-gssapi-impl=mit"];
 
   preCheck = ''
     export LOCALDOMAIN="dummydomain"
@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
     homepage = "https://www.gnu.org/software/gsasl/";
     license = lib.licenses.gpl3Plus;
 
-    maintainers = with lib.maintainers; [ shlevy ];
+    maintainers = with lib.maintainers; [shlevy];
     platforms = lib.platforms.all;
   };
 }

@@ -104,7 +104,7 @@ mkDerivation rec {
     addOpenGLRunpath $out/lib/librenderdoc.so
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     description = "A single-frame graphics debugger";
@@ -116,7 +116,7 @@ mkDerivation rec {
       of any application using Vulkan, D3D11, OpenGL or D3D12 across
       Windows 7 - 10, Linux or Android.
     '';
-    maintainers = [ ];
+    maintainers = [];
     platforms = [
       "i686-linux"
       "x86_64-linux"

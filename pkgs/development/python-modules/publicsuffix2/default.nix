@@ -21,12 +21,12 @@ buildPythonPackage rec {
       --replace "'requests >= 2.7.0'," ""
   '';
 
-  pythonImportsCheck = [ "publicsuffix2" ];
+  pythonImportsCheck = ["publicsuffix2"];
 
   meta = with lib; {
     description = "Get a public suffix for a domain name using the Public Suffix List";
     homepage = "https://github.com/nexB/python-publicsuffix2";
     license = licenses.mpl20;
-    maintainers = with maintainers; [ SuperSandro2000 ];
+    maintainers = with maintainers; [SuperSandro2000];
   };
 }

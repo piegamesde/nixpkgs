@@ -1,12 +1,12 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "_1am";
   version = "20141106-git";
 
   description = "A minimal testing framework.";
 
-  deps = [ ];
+  deps = [];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/1am/2014-11-06/1am-20141106-git.tgz";
@@ -15,7 +15,7 @@ rec {
 
   packageName = "1am";
 
-  asdFilesToKeep = [ "1am.asd" ];
+  asdFilesToKeep = ["1am.asd"];
   overrides = x: x;
 }
 /* (SYSTEM 1am DESCRIPTION A minimal testing framework. SHA256

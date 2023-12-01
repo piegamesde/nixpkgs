@@ -39,6 +39,6 @@ python3.pkgs.buildPythonApplication {
     homepage = "https://github.com/pirxthepilot/wtfis";
     description = "Passive hostname, domain and IP lookup tool for non-robots";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.AndersonTorres ];
+    maintainers = [lib.maintainers.AndersonTorres];
   };
 }

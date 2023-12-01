@@ -39,6 +39,6 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "https://github.com/layer8secure/SilentHound";
     # Unknown license, https://github.com/layer8secure/SilentHound/issues/1
     license = licenses.unfree;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

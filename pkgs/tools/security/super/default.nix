@@ -43,7 +43,7 @@ stdenv.mkDerivation rec {
     "--localstatedir=/var"
   ];
 
-  buildInputs = [ libxcrypt ];
+  buildInputs = [libxcrypt];
 
   installFlags = [
     "sysconfdir=$(out)/etc"

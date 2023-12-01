@@ -19,6 +19,6 @@ buildDunePackage rec {
     description = "Compatibility Either module";
     license = licenses.mit;
     homepage = "https://github.com/mirage/either";
-    maintainers = [ maintainers.sternenseemann ];
+    maintainers = [maintainers.sternenseemann];
   };
 }

@@ -62,7 +62,7 @@ stdenv.mkDerivation rec {
     glib
     gst_all_1.gstreamer
     gst_all_1.gst-plugins-base
-    (gst_all_1.gst-plugins-bad.override { enableZbar = true; })
+    (gst_all_1.gst-plugins-bad.override {enableZbar = true;})
     gtk4
     libadwaita
     openssl
@@ -76,7 +76,7 @@ stdenv.mkDerivation rec {
     description = "Two-factor authentication code generator for GNOME";
     homepage = "https://gitlab.gnome.org/World/Authenticator";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ austinbutler ];
+    maintainers = with lib.maintainers; [austinbutler];
     platforms = lib.platforms.linux;
   };
 }

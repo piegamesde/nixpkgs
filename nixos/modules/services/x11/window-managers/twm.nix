@@ -32,6 +32,6 @@ in
       '';
     };
 
-    environment.systemPackages = [ pkgs.xorg.twm ];
+    environment.systemPackages = [pkgs.xorg.twm];
   };
 }

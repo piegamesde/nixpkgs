@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
     url = meta.homepage;
   };
 
-  buildInputs = [ bc ];
+  buildInputs = [bc];
   installPhase = ''
     patchShebangs houdini.install
     mkdir -p $out
@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
     homepage = "https://www.sidefx.com";
     license = licenses.unfree;
     platforms = platforms.linux;
-    hydraPlatforms = [ ]; # requireFile src's should be excluded
+    hydraPlatforms = []; # requireFile src's should be excluded
     maintainers = with maintainers; [
       canndrew
       kwohlfahrt

@@ -33,7 +33,7 @@ stdenv.mkDerivation {
 
   patches = [
     ./gnu-install-dirs.patch
-  ] ++ lib.optionals stdenv.hostPlatform.isMusl [ ../../libcxx-0001-musl-hacks.patch ];
+  ] ++ lib.optionals stdenv.hostPlatform.isMusl [../../libcxx-0001-musl-hacks.patch];
 
   # Prevent errors like "error: 'foo' is unavailable: introduced in macOS yy.zz"
   postPatch = ''
@@ -54,11 +54,11 @@ stdenv.mkDerivation {
       patchShebangs utils/cat_files.py
     '';
   nativeBuildInputs =
-    [ cmake ]
+    [cmake]
     ++ lib.optional (stdenv.hostPlatform.isMusl || stdenv.hostPlatform.isWasi) python3
     ++ lib.optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames;
 
-  buildInputs = [ cxxabi ];
+  buildInputs = [cxxabi];
 
   cmakeFlags =
     [

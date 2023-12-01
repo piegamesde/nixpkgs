@@ -17,11 +17,11 @@ buildPythonPackage rec {
     hash = "sha256-c0/6eopkUoZJbYlbc2+R1rKYiVbi/UI1gSPZPshRm2o=";
   };
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  pythonImportsCheck = [ "screed" ];
-  checkInputs = [ pytestCheckHook ];
+  pythonImportsCheck = ["screed"];
+  checkInputs = [pytestCheckHook];
 
   # These tests use the screed CLI and make assumptions on how screed is
   # installed that break with nix. Can be enabled when upstream is fixed.
@@ -34,7 +34,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "A simple read-only sequence database, designed for short reads";
     homepage = "https://pypi.org/project/screed/";
-    maintainers = with maintainers; [ luizirber ];
+    maintainers = with maintainers; [luizirber];
     license = licenses.bsd3;
   };
 }

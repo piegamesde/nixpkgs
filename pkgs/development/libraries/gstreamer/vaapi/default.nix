@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
     python3
     bzip2
     wayland
-  ] ++ lib.optionals enableDocumentation [ hotdoc ];
+  ] ++ lib.optionals enableDocumentation [hotdoc];
 
   buildInputs = [
     gstreamer
@@ -85,7 +85,7 @@ stdenv.mkDerivation rec {
     description = "Set of VAAPI GStreamer Plug-ins";
     homepage = "https://gstreamer.freedesktop.org";
     license = licenses.lgpl21Plus;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     platforms = platforms.linux;
   };
 }

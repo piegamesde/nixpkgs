@@ -19,9 +19,9 @@ stdenv.mkDerivation rec {
     hash = "sha256-F1qhq0SEChWw/EBodXKWTqMNmGoTwP2JgkmfANUFD9I=";
   };
 
-  configureFlags = [ "--with-extrainclude=${pam}/include/security" ];
+  configureFlags = ["--with-extrainclude=${pam}/include/security"];
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
   buildInputs = [
     erlang
     pam
@@ -37,6 +37,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/erlyaws/yaws";
     license = licenses.bsd2;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ goibhniu ];
+    maintainers = with maintainers; [goibhniu];
   };
 }

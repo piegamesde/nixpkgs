@@ -14,8 +14,8 @@ mkDerivation {
   meta = {
     homepage = "https://apps.kde.org/kruler/";
     description = "Screen ruler";
-    license = with lib.licenses; [ gpl2 ];
-    maintainers = [ lib.maintainers.vandenoever ];
+    license = with lib.licenses; [gpl2];
+    maintainers = [lib.maintainers.vandenoever];
   };
   nativeBuildInputs = [
     extra-cmake-modules

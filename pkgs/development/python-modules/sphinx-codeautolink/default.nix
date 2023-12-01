@@ -47,14 +47,14 @@ buildPythonPackage rec {
     beautifulsoup4
   ];
 
-  nativeCheckInputs = [ pytest ];
+  nativeCheckInputs = [pytest];
 
-  pythonImportsCheck = [ "sphinx_codeautolink" ];
+  pythonImportsCheck = ["sphinx_codeautolink"];
 
   meta = with lib; {
     description = "A sphinx extension that makes code examples clickable";
     homepage = "https://github.com/felix-hilden/sphinx-codeautolink";
     license = licenses.mit;
-    maintainers = with maintainers; [ kaction ];
+    maintainers = with maintainers; [kaction];
   };
 }

@@ -26,7 +26,7 @@ let
   inInitrd = any (fs: fs == "zfs") config.boot.initrd.supportedFilesystems;
   inSystem = any (fs: fs == "zfs") config.boot.supportedFilesystems;
 
-  autosnapPkg = pkgs.zfstools.override { zfs = cfgZfs.package; };
+  autosnapPkg = pkgs.zfstools.override {zfs = cfgZfs.package;};
 
   zfsAutoSnap = "${autosnapPkg}/bin/zfs-auto-snapshot";
 
@@ -127,7 +127,7 @@ let
         keys = filter (x: datasetToPool x == pool) cfgZfs.requestEncryptionCredentials;
       in
       {
-        hasKeys = keys != [ ];
+        hasKeys = keys != [];
         command = "${cfgZfs.package}/sbin/zfs list -Ho name,keylocation,keystatus ${toString keys}";
       };
 
@@ -143,14 +143,14 @@ let
       # we need systemd-udev-settle to ensure devices are available
       # In the future, hopefully someone will complete this:
       # https://github.com/zfsonlinux/zfs/pull/4943
-      requires = [ "systemd-udev-settle.service" ];
+      requires = ["systemd-udev-settle.service"];
       after = [
         "systemd-udev-settle.service"
         "systemd-modules-load.service"
         "systemd-ask-password-console.service"
       ];
-      wantedBy = (getPoolMounts prefix pool) ++ [ "local-fs.target" ];
-      before = (getPoolMounts prefix pool) ++ [ "local-fs.target" ];
+      wantedBy = (getPoolMounts prefix pool) ++ ["local-fs.target"];
+      before = (getPoolMounts prefix pool) ++ ["local-fs.target"];
       unitConfig = {
         DefaultDependencies = "no";
       };
@@ -295,7 +295,7 @@ in
 
       extraPools = mkOption {
         type = types.listOf types.str;
-        default = [ ];
+        default = [];
         example = [
           "tank"
           "data"
@@ -485,9 +485,9 @@ in
       };
 
       pools = mkOption {
-        default = [ ];
+        default = [];
         type = types.listOf types.str;
-        example = [ "tank" ];
+        example = ["tank"];
         description = lib.mdDoc ''
           List of ZFS pools to periodically scrub. If empty, all pools
           will be scrubbed.
@@ -592,11 +592,11 @@ in
       ];
 
       boot = {
-        kernelModules = [ "zfs" ];
+        kernelModules = ["zfs"];
         # https://github.com/openzfs/zfs/issues/260
         # https://github.com/openzfs/zfs/issues/12842
         # https://github.com/NixOS/nixpkgs/issues/106093
-        kernelParams = lib.optionals (!config.boot.zfs.allowHibernation) [ "nohibernate" ];
+        kernelParams = lib.optionals (!config.boot.zfs.allowHibernation) ["nohibernate"];
 
         extraModulePackages = [
           (
@@ -609,7 +609,7 @@ in
       };
 
       boot.initrd = mkIf inInitrd {
-        kernelModules = [ "zfs" ] ++ optional (!cfgZfs.enableUnstable) "spl";
+        kernelModules = ["zfs"] ++ optional (!cfgZfs.enableUnstable) "spl";
         extraUtilsCommands = ''
           copy_bin_and_libs ${cfgZfs.package}/sbin/zfs
           copy_bin_and_libs ${cfgZfs.package}/sbin/zdb
@@ -666,7 +666,7 @@ in
 
         # Systemd in stage 1
         systemd = {
-          packages = [ cfgZfs.package ];
+          packages = [cfgZfs.package];
           services = listToAttrs (
             map
               (
@@ -690,10 +690,10 @@ in
       systemd.shutdownRamfs.contents."/etc/systemd/system-shutdown/zpool".source = pkgs.writeShellScript "zpool-sync-shutdown" ''
         exec ${cfgZfs.package}/bin/zpool sync
       '';
-      systemd.shutdownRamfs.storePaths = [ "${cfgZfs.package}/bin/zpool" ];
+      systemd.shutdownRamfs.storePaths = ["${cfgZfs.package}/bin/zpool"];
 
       # TODO FIXME See https://github.com/NixOS/nixpkgs/pull/99386#issuecomment-798813567. To not break people's bootloader and as probably not everybody would read release notes that thoroughly add inSystem.
-      boot.loader.grub = mkIf (inInitrd || inSystem) { zfsSupport = true; };
+      boot.loader.grub = mkIf (inInitrd || inSystem) {zfsSupport = true;};
 
       services.zfs.zed.settings = {
         ZED_EMAIL_PROG = mkIf cfgZED.enableMail (mkDefault "${pkgs.mailutils}/bin/mail");
@@ -724,17 +724,17 @@ in
             "statechange-notify.sh"
             "vdev_clear-led.sh"
           ])
-          (file: { source = "${cfgZfs.package}/etc/${file}"; })
+          (file: {source = "${cfgZfs.package}/etc/${file}";})
         // {
           "zfs/zed.d/zed.rc".text = zedConf;
           "zfs/zpool.d".source = "${cfgZfs.package}/etc/zfs/zpool.d/";
         };
 
-      system.fsPackages = [ cfgZfs.package ]; # XXX: needed? zfs doesn't have (need) a fsck
-      environment.systemPackages = [ cfgZfs.package ] ++ optional cfgSnapshots.enable autosnapPkg; # so the user can run the command to see flags
+      system.fsPackages = [cfgZfs.package]; # XXX: needed? zfs doesn't have (need) a fsck
+      environment.systemPackages = [cfgZfs.package] ++ optional cfgSnapshots.enable autosnapPkg; # so the user can run the command to see flags
 
-      services.udev.packages = [ cfgZfs.package ]; # to hook zvol naming, etc.
-      systemd.packages = [ cfgZfs.package ];
+      services.udev.packages = [cfgZfs.package]; # to hook zvol naming, etc.
+      systemd.packages = [cfgZfs.package];
 
       systemd.services =
         let
@@ -752,7 +752,7 @@ in
             pool:
             nameValuePair "zfs-sync-${pool}" {
               description = ''Sync ZFS pool "${pool}"'';
-              wantedBy = [ "shutdown.target" ];
+              wantedBy = ["shutdown.target"];
               unitConfig = {
                 DefaultDependencies = false;
               };
@@ -768,8 +768,8 @@ in
           createZfsService =
             serv:
             nameValuePair serv {
-              after = [ "systemd-modules-load.service" ];
-              wantedBy = [ "zfs.target" ];
+              after = ["systemd-modules-load.service"];
+              wantedBy = ["zfs.target"];
             };
         in
         listToAttrs (
@@ -789,16 +789,16 @@ in
         {
           requires = services;
           after = services;
-          wantedBy = [ "zfs.target" ];
+          wantedBy = ["zfs.target"];
         };
 
-      systemd.targets.zfs.wantedBy = [ "multi-user.target" ];
+      systemd.targets.zfs.wantedBy = ["multi-user.target"];
     })
 
     (mkIf (cfgZfs.enabled && cfgExpandOnBoot != "disabled") {
       systemd.services."zpool-expand@" = {
         description = "Expand ZFS pools";
-        after = [ "zfs.target" ];
+        after = ["zfs.target"];
 
         serviceConfig = {
           Type = "oneshot";
@@ -806,7 +806,7 @@ in
         };
 
         scriptArgs = "%i";
-        path = [ cfgZfs.package ];
+        path = [cfgZfs.package];
 
         script = ''
           pool=$1
@@ -832,15 +832,15 @@ in
         in
         {
           description = "Expand specified ZFS pools";
-          wantedBy = [ "default.target" ];
-          after = [ "zfs.target" ];
+          wantedBy = ["default.target"];
+          after = ["zfs.target"];
 
           serviceConfig = {
             Type = "oneshot";
             RemainAfterExit = true;
           };
 
-          path = lib.optionals (cfgExpandOnBoot == "all") [ cfgZfs.package ];
+          path = lib.optionals (cfgExpandOnBoot == "all") [cfgZfs.package];
 
           script = ''
             for pool in ${poolListProvider}; do
@@ -875,7 +875,7 @@ in
               name = "zfs-snapshot-${snapName}";
               value = {
                 description = "ZFS auto-snapshotting every ${descr snapName}";
-                after = [ "zfs-import.target" ];
+                after = ["zfs-import.target"];
                 serviceConfig = {
                   Type = "oneshot";
                   ExecStart = "${zfsAutoSnap} ${cfgSnapFlags} ${snapName} ${toString (numSnapshots snapName)}";
@@ -895,7 +895,7 @@ in
             (snapName: {
               name = "zfs-snapshot-${snapName}";
               value = {
-                wantedBy = [ "timers.target" ];
+                wantedBy = ["timers.target"];
                 timerConfig = {
                   OnCalendar = timer snapName;
                   Persistent = "yes";
@@ -909,13 +909,13 @@ in
     (mkIf (cfgZfs.enabled && cfgScrub.enable) {
       systemd.services.zfs-scrub = {
         description = "ZFS pools scrubbing";
-        after = [ "zfs-import.target" ];
+        after = ["zfs-import.target"];
         serviceConfig = {
           Type = "simple";
         };
         script = ''
           ${cfgZfs.package}/bin/zpool scrub -w ${
-            if cfgScrub.pools != [ ] then
+            if cfgScrub.pools != [] then
               (concatStringsSep " " cfgScrub.pools)
             else
               "$(${cfgZfs.package}/bin/zpool list -H -o name)"
@@ -924,8 +924,8 @@ in
       };
 
       systemd.timers.zfs-scrub = {
-        wantedBy = [ "timers.target" ];
-        after = [ "multi-user.target" ]; # Apparently scrubbing before boot is complete hangs the system? #53583
+        wantedBy = ["timers.target"];
+        after = ["multi-user.target"]; # Apparently scrubbing before boot is complete hangs the system? #53583
         timerConfig = {
           OnCalendar = cfgScrub.interval;
           Persistent = "yes";
@@ -936,8 +936,8 @@ in
     (mkIf (cfgZfs.enabled && cfgTrim.enable) {
       systemd.services.zpool-trim = {
         description = "ZFS pools trim";
-        after = [ "zfs-import.target" ];
-        path = [ cfgZfs.package ];
+        after = ["zfs-import.target"];
+        path = [cfgZfs.package];
         startAt = cfgTrim.interval;
         # By default we ignore errors returned by the trim command, in case:
         # - HDDs are mixed with SSDs

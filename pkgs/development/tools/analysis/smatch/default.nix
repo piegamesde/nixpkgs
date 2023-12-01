@@ -22,12 +22,12 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-Pv3bd2cjnQKnhH7TrkYWfDEeaq6u/q/iK1ZErzn6bME=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     sqlite
     openssl
-  ] ++ lib.optionals buildllvmsparse [ libllvm ] ++ lib.optionals buildc2xml [ libxml2.dev ];
+  ] ++ lib.optionals buildllvmsparse [libllvm] ++ lib.optionals buildc2xml [libxml2.dev];
 
   makeFlags = [
     "PREFIX=${placeholder "out"}"
@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "A semantic analysis tool for C";
     homepage = "https://sparse.docs.kernel.org/";
-    maintainers = with maintainers; [ marsam ];
+    maintainers = with maintainers; [marsam];
     license = licenses.gpl2Plus;
     platforms = platforms.all;
   };

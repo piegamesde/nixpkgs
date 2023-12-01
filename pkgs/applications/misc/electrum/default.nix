@@ -58,7 +58,7 @@ python3.pkgs.buildPythonApplication {
     cp -ar ${tests} $sourceRoot/electrum/tests
   '';
 
-  nativeBuildInputs = lib.optionals enableQt [ wrapQtAppsHook ];
+  nativeBuildInputs = lib.optionals enableQt [wrapQtAppsHook];
 
   propagatedBuildInputs =
     with python3.pkgs;
@@ -131,13 +131,13 @@ python3.pkgs.buildPythonApplication {
     pycryptodomex
   ];
 
-  pytestFlagsArray = [ "electrum/tests" ];
+  pytestFlagsArray = ["electrum/tests"];
 
   postCheck = ''
     $out/bin/electrum help >/dev/null
   '';
 
-  passthru.updateScript = callPackage ./update.nix { };
+  passthru.updateScript = callPackage ./update.nix {};
 
   meta = with lib; {
     description = "Lightweight Bitcoin wallet";

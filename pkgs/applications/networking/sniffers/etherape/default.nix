@@ -37,6 +37,6 @@ stdenv.mkDerivation rec {
     homepage = "http://etherape.sourceforge.net/";
     license = lib.licenses.gpl2Plus;
     platforms = with platforms; linux;
-    maintainers = with maintainers; [ symphorien ];
+    maintainers = with maintainers; [symphorien];
   };
 }

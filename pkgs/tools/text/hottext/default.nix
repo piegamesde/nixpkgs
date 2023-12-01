@@ -25,7 +25,7 @@ nimPackages.buildNimPackage rec {
   HOTTEXT_FONT_PATH = "${gentium}/share/fonts/truetype/GentiumPlus-Regular.ttf";
 
   desktopItem = makeDesktopItem {
-    categories = [ "Utility" ];
+    categories = ["Utility"];
     comment = meta.description;
     desktopName = pname;
     exec = pname;
@@ -41,6 +41,6 @@ nimPackages.buildNimPackage rec {
     description = "Simple RSVP speed-reading utility";
     license = licenses.unlicense;
     homepage = "https://git.sr.ht/~ehmry/hottext";
-    maintainers = with maintainers; [ ehmry ];
+    maintainers = with maintainers; [ehmry];
   };
 }

@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/lcp/mokutil";
     description = "Utility to manipulate machines owner keys";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ nickcao ];
+    maintainers = with maintainers; [nickcao];
     platforms = platforms.linux;
   };
 }

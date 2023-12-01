@@ -46,7 +46,7 @@ python3.pkgs.buildPythonApplication rec {
     webtest
   ];
 
-  buildInputs = [ ];
+  buildInputs = [];
 
   propagatedBuildInputs = with python3.pkgs; [
     decorator
@@ -61,7 +61,7 @@ python3.pkgs.buildPythonApplication rec {
 
   meta = with lib; {
     description = "Self-hosted Anki sync server";
-    maintainers = with maintainers; [ matt-snider ];
+    maintainers = with maintainers; [matt-snider];
     homepage = "https://github.com/ankicommunity/anki-sync-server";
     license = licenses.agpl3Only;
     platforms = platforms.linux;

@@ -32,14 +32,14 @@ buildPythonPackage rec {
       --replace dataclasses ""
   '';
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "more_properties" ];
+  pythonImportsCheck = ["more_properties"];
 
   meta = {
     description = "A collection of property variants";
     homepage = "https://github.com/madman-bob/python-more-properties";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
   };
 }

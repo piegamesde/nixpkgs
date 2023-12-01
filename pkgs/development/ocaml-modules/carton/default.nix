@@ -77,7 +77,7 @@ buildDunePackage rec {
   ];
 
   doCheck = true;
-  nativeBuildInputs = [ findlib ];
+  nativeBuildInputs = [findlib];
   checkInputs = [
     base64
     alcotest
@@ -91,6 +91,6 @@ buildDunePackage rec {
     description = "Implementation of PACKv2 file in OCaml";
     license = licenses.mit;
     homepage = "https://github.com/mirage/ocaml-git";
-    maintainers = [ maintainers.sternenseemann ];
+    maintainers = [maintainers.sternenseemann];
   };
 }

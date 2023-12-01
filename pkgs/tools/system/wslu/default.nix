@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-yhugh836BoSISbTu19ubLOrz5X31Opu5QtCR0DXrbWc=";
   };
 
-  patches = [ ./fallback-conf-nix-store.diff ];
+  patches = [./fallback-conf-nix-store.diff];
 
   postPatch = ''
     substituteInPlace src/wslu-header \
@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/wslutilities/wslu";
     changelog = "https://github.com/wslutilities/wslu/releases/tag/v${version}";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ jamiemagee ];
+    maintainers = with maintainers; [jamiemagee];
     platforms = platforms.linux;
   };
 }

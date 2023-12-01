@@ -33,7 +33,7 @@ buildRubyGem rec {
     '';
     homepage = "https://github.com/akerl/hss";
     license = licenses.mit;
-    maintainers = with maintainers; [ nixy ];
+    maintainers = with maintainers; [nixy];
     platforms = platforms.unix;
   };
 }

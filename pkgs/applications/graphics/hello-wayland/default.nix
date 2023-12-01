@@ -36,12 +36,12 @@ stdenv.mkDerivation {
     runHook postBuild
   '';
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   meta = with lib; {
     description = "Hello world Wayland client";
     homepage = "https://github.com/emersion/hello-wayland";
-    maintainers = with maintainers; [ qyliss ];
+    maintainers = with maintainers; [qyliss];
     license = licenses.mit;
     platforms = platforms.linux;
   };

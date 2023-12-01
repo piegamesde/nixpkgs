@@ -94,7 +94,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Open CASCADE Technology, libraries for 3D modeling and numerical simulation";
     homepage = "https://github.com/tpaviot/oce";
-    maintainers = [ maintainers.viric ];
+    maintainers = [maintainers.viric];
     platforms = platforms.unix;
     license = licenses.lgpl21;
   };

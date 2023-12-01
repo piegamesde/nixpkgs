@@ -24,21 +24,21 @@ let
     stdenv.mkDerivation {
       name = "vdr-${name}-${vdr.version}";
       inherit (vdr) src;
-      buildInputs = [ vdr ];
+      buildInputs = [vdr];
       preConfigure = "cd PLUGINS/src/${name}";
-      installFlags = [ "DESTDIR=$(out)" ];
+      installFlags = ["DESTDIR=$(out)"];
     };
 in
 {
 
-  softhddevice = callPackage ./softhddevice { };
+  softhddevice = callPackage ./softhddevice {};
 
-  streamdev = callPackage ./streamdev { };
+  streamdev = callPackage ./streamdev {};
 
-  xineliboutput = callPackage ./xineliboutput { };
+  xineliboutput = callPackage ./xineliboutput {};
 
   skincurses = (mkPlugin "skincurses").overrideAttrs (
-    oldAttr: { buildInputs = oldAttr.buildInputs ++ [ ncurses ]; }
+    oldAttr: {buildInputs = oldAttr.buildInputs ++ [ncurses];}
   );
 
   inherit
@@ -59,7 +59,7 @@ in
     pname = "vdr-femon";
     version = "2.4.0";
 
-    buildInputs = [ vdr ];
+    buildInputs = [vdr];
 
     src = fetchFromGitHub {
       repo = "vdr-plugin-femon";
@@ -70,12 +70,12 @@ in
 
     postPatch = "substituteInPlace Makefile --replace /bin/true true";
 
-    makeFlags = [ "DESTDIR=$(out)" ];
+    makeFlags = ["DESTDIR=$(out)"];
 
     meta = with lib; {
       inherit (src.meta) homepage;
       description = "DVB Frontend Status Monitor plugin for VDR";
-      maintainers = [ maintainers.ck3d ];
+      maintainers = [maintainers.ck3d];
       license = licenses.gpl2;
       inherit (vdr.meta) platforms;
     };
@@ -123,7 +123,7 @@ in
     meta = with lib; {
       inherit (src.meta) homepage;
       description = "MarkAd marks advertisements in VDR recordings.";
-      maintainers = [ maintainers.ck3d ];
+      maintainers = [maintainers.ck3d];
       license = licenses.gpl2;
       inherit (vdr.meta) platforms;
     };
@@ -162,7 +162,7 @@ in
       "REGEXLIB=pcre"
     ];
 
-    installFlags = [ "DESTDIR=$(out)" ];
+    installFlags = ["DESTDIR=$(out)"];
 
     outputs = [
       "out"
@@ -172,7 +172,7 @@ in
     meta = with lib; {
       inherit (src.meta) homepage;
       description = "Searchtimer and replacement of the VDR program menu";
-      maintainers = [ maintainers.ck3d ];
+      maintainers = [maintainers.ck3d];
       license = licenses.gpl2;
       inherit (vdr.meta) platforms;
     };
@@ -182,9 +182,9 @@ in
     pname = "vdr-vnsiserver";
     version = "1.8.3";
 
-    buildInputs = [ vdr ];
+    buildInputs = [vdr];
 
-    installFlags = [ "DESTDIR=$(out)" ];
+    installFlags = ["DESTDIR=$(out)"];
 
     src = fetchFromGitHub {
       repo = "vdr-plugin-vnsiserver";
@@ -196,7 +196,7 @@ in
     meta = with lib; {
       inherit (src.meta) homepage;
       description = "VDR plugin to handle KODI clients.";
-      maintainers = [ maintainers.ck3d ];
+      maintainers = [maintainers.ck3d];
       license = licenses.gpl2;
       inherit (vdr.meta) platforms;
     };
@@ -235,7 +235,7 @@ in
     meta = with lib; {
       inherit (src.meta) homepage;
       description = "VDR Text2Skin Plugin";
-      maintainers = [ maintainers.ck3d ];
+      maintainers = [maintainers.ck3d];
       license = licenses.gpl2;
       inherit (vdr.meta) platforms;
     };
@@ -259,12 +259,12 @@ in
       libgcrypt
     ];
 
-    installFlags = [ "DESTDIR=$(out)" ];
+    installFlags = ["DESTDIR=$(out)"];
 
     meta = with lib; {
       inherit (src.meta) homepage;
       description = "A plugin for VDR to access AVMs Fritz Box routers";
-      maintainers = [ maintainers.ck3d ];
+      maintainers = [maintainers.ck3d];
       license = licenses.gpl2;
       inherit (vdr.meta) platforms;
     };

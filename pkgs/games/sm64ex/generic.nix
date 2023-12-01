@@ -2,10 +2,10 @@
   pname,
   version,
   src,
-  extraNativeBuildInputs ? [ ],
-  extraBuildInputs ? [ ],
-  extraMeta ? { },
-  compileFlags ? [ ],
+  extraNativeBuildInputs ? [],
+  extraBuildInputs ? [],
+  extraMeta ? {},
+  compileFlags ? [],
   postInstall ? "",
   region ? "us",
 
@@ -57,9 +57,7 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  makeFlags = [
-    "VERSION=${region}"
-  ] ++ lib.optionals stdenv.isDarwin [ "OSX_BUILD=1" ] ++ compileFlags;
+  makeFlags = ["VERSION=${region}"] ++ lib.optionals stdenv.isDarwin ["OSX_BUILD=1"] ++ compileFlags;
 
   preBuild = ''
     patchShebangs extract_assets.py
@@ -88,7 +86,7 @@ stdenv.mkDerivation rec {
         '';
       mainProgram = "sm64ex";
       license = licenses.unfree;
-      maintainers = with maintainers; [ ivar ];
+      maintainers = with maintainers; [ivar];
       platforms = platforms.unix;
     }
     // extraMeta;

@@ -122,8 +122,8 @@ in
       X-RestartIfChanged=false
     '';
 
-    systemd.suppressedSystemUnits = [ "autovt@.service" ];
-    systemd.units."kmsconvt@.service".aliases = [ "autovt@.service" ];
+    systemd.suppressedSystemUnits = ["autovt@.service"];
+    systemd.units."kmsconvt@.service".aliases = ["autovt@.service"];
 
     systemd.services.systemd-vconsole-setup.enable = false;
 

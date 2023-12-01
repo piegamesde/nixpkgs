@@ -52,16 +52,16 @@ let
           python3
           qt5.wrapQtAppsHook
           qt5.qttools
-        ] ++ (overrides.nativeBuildInputs or [ ]);
+        ] ++ (overrides.nativeBuildInputs or []);
 
         buildInputs = [
           avahi
           boost
           poco
           protobuf
-        ] ++ (overrides.buildInputs or [ ]);
+        ] ++ (overrides.buildInputs or []);
 
-        cmakeFlags = [ "-D g15=OFF" ] ++ (overrides.configureFlags or [ ]);
+        cmakeFlags = ["-D g15=OFF"] ++ (overrides.configureFlags or []);
 
         preConfigure = ''
           patchShebangs scripts
@@ -88,7 +88,7 @@ let
       {
         type = "mumble";
 
-        nativeBuildInputs = [ qt5.qttools ];
+        nativeBuildInputs = [qt5.qttools];
         buildInputs =
           [
             flac
@@ -143,7 +143,7 @@ let
         type = "murmur";
 
         configureFlags =
-          [ "-D client=OFF" ]
+          ["-D client=OFF"]
           ++ lib.optional (!iceSupport) "-D ice=OFF"
           ++ lib.optionals iceSupport [
             "-D Ice_HOME=${lib.getDev zeroc-ice};${lib.getLib zeroc-ice}"
@@ -153,7 +153,7 @@ let
           ++ lib.optional grpcSupport "-D grpc=ON";
 
         buildInputs =
-          [ libcap ]
+          [libcap]
           ++ lib.optional iceSupport zeroc-ice
           ++ lib.optionals grpcSupport [
             grpc

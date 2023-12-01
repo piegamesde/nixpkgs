@@ -9,7 +9,7 @@
 stdenv.mkDerivation {
   name = "nixpkgs-lint-1";
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
   buildInputs = [
     perl
     perlPackages.XMLSimple
@@ -25,7 +25,7 @@ stdenv.mkDerivation {
   '';
 
   meta = with lib; {
-    maintainers = [ maintainers.eelco ];
+    maintainers = [maintainers.eelco];
     description = "A utility for Nixpkgs contributors to check Nixpkgs for common errors";
     platforms = platforms.unix;
   };

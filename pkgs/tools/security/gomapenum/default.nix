@@ -24,7 +24,7 @@ buildGoModule rec {
   meta = with lib; {
     description = "Tools for user enumeration and password bruteforce";
     homepage = "https://github.com/nodauf/GoMapEnum";
-    license = with licenses; [ gpl3Only ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [gpl3Only];
+    maintainers = with maintainers; [fab];
   };
 }

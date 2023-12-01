@@ -25,9 +25,9 @@ buildPythonPackage rec {
     hash = "sha256-SFHWhXKC7PIqanJIQyGcpM8klwxOAJPVtzk9w0i2YYA=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
-  propagatedBuildInputs = [ aiohttp ];
+  propagatedBuildInputs = [aiohttp];
 
   nativeCheckInputs = [
     aresponses
@@ -42,7 +42,7 @@ buildPythonPackage rec {
       "examples/"
     ];
 
-  pythonImportsCheck = [ "pytile" ];
+  pythonImportsCheck = ["pytile"];
 
   __darwinAllowLocalNetworking = true;
 
@@ -53,7 +53,7 @@ buildPythonPackage rec {
       Bluetooth trackers (including last location and more).
     '';
     homepage = "https://github.com/bachya/pytile";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

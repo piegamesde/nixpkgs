@@ -14,7 +14,7 @@ let
     inherit pkgs configTxt;
     inherit (cfg) version;
   };
-  builderGeneric = import ./raspberrypi-builder.nix { inherit pkgs configTxt; };
+  builderGeneric = import ./raspberrypi-builder.nix {inherit pkgs configTxt;};
 
   builder =
     if cfg.uboot.enable then

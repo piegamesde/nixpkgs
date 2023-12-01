@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
     sed -i 's/.*(cachedir).*/:/' Makefile.in
   '';
 
-  configureFlags = [ "--enable-ipv6" ];
+  configureFlags = ["--enable-ipv6"];
 
   # fix ipv6 on darwin
   CPPFLAGS = "-D__APPLE_USE_RFC_3542";
@@ -38,6 +38,6 @@ stdenv.mkDerivation rec {
     homepage = "http://members.home.nl/p.a.rombouts/pdnsd";
     license = licenses.gpl3Plus;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ viric ];
+    maintainers = with maintainers; [viric];
   };
 }

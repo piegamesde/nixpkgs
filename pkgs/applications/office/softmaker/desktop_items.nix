@@ -9,7 +9,7 @@
     name = "${pname}-planmaker";
     desktopName = "${suiteName} PlanMaker";
     icon = "${pname}-pml";
-    categories = [ "Office" ];
+    categories = ["Office"];
     exec = "${pname}-planmaker %F";
     tryExec = "${pname}-planmaker";
     mimeTypes = [
@@ -42,7 +42,7 @@
     name = "${pname}-presentations";
     desktopName = "${suiteName} Presentations";
     icon = "${pname}-prl";
-    categories = [ "Office" ];
+    categories = ["Office"];
     exec = "${pname}-presentations %F";
     tryExec = "${pname}-presentations";
     mimeTypes = [
@@ -69,7 +69,7 @@
     name = "${pname}-textmaker";
     desktopName = "${suiteName} TextMaker";
     icon = "${pname}-tml";
-    categories = [ "Office" ];
+    categories = ["Office"];
     exec = "${pname}-textmaker %F";
     tryExec = "${pname}-textmaker";
     mimeTypes = [

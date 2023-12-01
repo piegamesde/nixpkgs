@@ -24,7 +24,7 @@ in
   version = "8.2.0";
   ocaml-version = "4.06.1";
 
-  patches = [ ./jscomp-release-ninja.patch ];
+  patches = [./jscomp-release-ninja.patch];
 
   src = fetchFromGitHub {
     owner = "BuckleScript";

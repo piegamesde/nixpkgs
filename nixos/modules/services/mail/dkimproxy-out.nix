@@ -92,7 +92,7 @@ in
       '';
     in
     mkIf cfg.enable {
-      users.groups.dkimproxy-out = { };
+      users.groups.dkimproxy-out = {};
       users.users.dkimproxy-out = {
         description = "DKIMproxy_out daemon";
         group = "dkimproxy-out";
@@ -101,7 +101,7 @@ in
 
       systemd.services.dkimproxy-out = {
         description = "DKIMproxy_out";
-        wantedBy = [ "multi-user.target" ];
+        wantedBy = ["multi-user.target"];
         preStart = ''
           if [ ! -d "${keydir}" ]; then
             mkdir -p "${keydir}"
@@ -121,5 +121,5 @@ in
       };
     };
 
-  meta.maintainers = with lib.maintainers; [ ekleog ];
+  meta.maintainers = with lib.maintainers; [ekleog];
 }

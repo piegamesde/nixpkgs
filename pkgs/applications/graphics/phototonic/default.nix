@@ -22,7 +22,7 @@ mkDerivation rec {
     qtbase
     exiv2
   ];
-  nativeBuildInputs = [ qmake ];
+  nativeBuildInputs = [qmake];
 
   preConfigure = ''
     sed -i 's;/usr;$$PREFIX/;g' phototonic.pro
@@ -33,6 +33,6 @@ mkDerivation rec {
     homepage = "https://sourceforge.net/projects/phototonic/";
     license = licenses.gpl3;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ pSub ];
+    maintainers = with maintainers; [pSub];
   };
 }

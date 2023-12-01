@@ -35,7 +35,7 @@ in
 
   config = mkIf cfg.enable {
     users = {
-      groups.weechat = { };
+      groups.weechat = {};
       users.weechat = {
         createHome = true;
         group = "weechat";
@@ -52,8 +52,8 @@ in
         RemainAfterExit = "yes";
       };
       script = "exec ${config.security.wrapperDir}/screen -Dm -S ${cfg.sessionName} ${cfg.binary}";
-      wantedBy = [ "multi-user.target" ];
-      wants = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      wants = ["network.target"];
     };
 
     security.wrappers.screen = {

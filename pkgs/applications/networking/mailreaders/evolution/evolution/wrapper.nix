@@ -8,9 +8,9 @@
 
 symlinkJoin {
   name = "evolution-with-plugins";
-  paths = [ gnome.evolution-data-server ] ++ plugins;
+  paths = [gnome.evolution-data-server] ++ plugins;
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   postBuild = ''
     declare -a schemas;

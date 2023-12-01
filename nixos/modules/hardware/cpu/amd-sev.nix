@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{config, lib, ...}:
 with lib;
 let
   cfg = config.hardware.cpu.amd.sev;
@@ -40,7 +40,7 @@ with lib; {
       options kvm_amd sev=1
     '';
 
-    users.groups = optionalAttrs (cfg.group == defaultGroup) { "${cfg.group}" = { }; };
+    users.groups = optionalAttrs (cfg.group == defaultGroup) {"${cfg.group}" = {};};
 
     services.udev.extraRules = with cfg; ''
       KERNEL=="sev", OWNER="${user}", GROUP="${group}", MODE="${mode}"

@@ -26,7 +26,7 @@ buildGoModule rec {
     "cmd/gitsign-credential-cache"
   ];
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   ldflags = [
     "-s"
@@ -42,11 +42,11 @@ buildGoModule rec {
 
   postInstall = ''
     for f in $out/bin/*; do
-      wrapProgram $f --prefix PATH : ${lib.makeBinPath [ gitMinimal ]}
+      wrapProgram $f --prefix PATH : ${lib.makeBinPath [gitMinimal]}
     done
   '';
 
-  passthru.tests.version = testers.testVersion { package = gitsign; };
+  passthru.tests.version = testers.testVersion {package = gitsign;};
 
   meta = {
     homepage = "https://github.com/sigstore/gitsign";

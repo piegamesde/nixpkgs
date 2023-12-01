@@ -62,7 +62,7 @@ stdenv.mkDerivation rec {
       ]
     );
 
-  configureFlags = [ "--with-readline=${readline.dev}" ];
+  configureFlags = ["--with-readline=${readline.dev}"];
 
   LIRC_CFLAGS = "-I${lirc}/include";
   LIRC_LIBS = "-L ${lirc}/lib -llirc_client";
@@ -76,7 +76,7 @@ stdenv.mkDerivation rec {
     homepage = "https://xine.sourceforge.net/";
     description = "Xlib-based frontend for Xine video player";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ AndersonTorres ];
+    maintainers = with maintainers; [AndersonTorres];
     platforms = platforms.linux;
   };
 }

@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  buildInputs = [ kissfft ];
+  buildInputs = [kissfft];
 
   makefile = "build/linux/Makefile.linux32";
 
@@ -47,7 +47,7 @@ stdenv.mkDerivation rec {
     description = "A C++ library of functions for DSP and Music Informatics purposes";
     homepage = "https://code.soundsoftware.ac.uk/projects/qm-dsp";
     license = licenses.gpl2Plus;
-    maintainers = [ maintainers.goibhniu ];
+    maintainers = [maintainers.goibhniu];
     platforms = platforms.unix;
   };
 }

@@ -45,7 +45,7 @@ stdenv.mkDerivation rec {
     owner = "SchedMD";
     repo = "slurm";
     # The release tags use - instead of .
-    rev = "${pname}-${builtins.replaceStrings [ "." ] [ "-" ] version}";
+    rev = "${pname}-${builtins.replaceStrings ["."] ["-"] version}";
     sha256 = "sha256-hNz5QMnxGGZLcLPNE6jH3LTSNb1ZywTcPirY9sxCM7w=";
   };
 
@@ -75,7 +75,7 @@ stdenv.mkDerivation rec {
   # nixos test fails to start slurmd with 'undefined symbol: slurm_job_preempt_mode'
   # https://groups.google.com/forum/#!topic/slurm-devel/QHOajQ84_Es
   # this doesn't fix tests completely at least makes slurmd to launch
-  hardeningDisable = [ "bindnow" ];
+  hardeningDisable = ["bindnow"];
 
   nativeBuildInputs = [
     pkg-config
@@ -105,7 +105,7 @@ stdenv.mkDerivation rec {
     dbus
     libbpf
     http-parser
-  ] ++ lib.optionals enableX11 [ xorg.xauth ] ++ lib.optionals enableGtk2 [ gtk2 ];
+  ] ++ lib.optionals enableX11 [xorg.xauth] ++ lib.optionals enableGtk2 [gtk2];
 
   configureFlags =
     with lib;

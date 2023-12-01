@@ -7,7 +7,7 @@
   writeStringReferencesToFile,
 }:
 let
-  sample = import ./sample.nix { inherit pkgs; };
+  sample = import ./sample.nix {inherit pkgs;};
   samplePaths = lib.unique (lib.attrValues sample);
   stri = x: "${x}";
   sampleText = writeText "sample-text" (
@@ -20,7 +20,7 @@ let
     ''
   );
 in
-runCommand "test-writeStringReferencesToFile" { } ''
+runCommand "test-writeStringReferencesToFile" {} ''
   diff -U3 <(sort ${stringReferencesText}) <(sort ${sampleText})
   touch $out
 ''

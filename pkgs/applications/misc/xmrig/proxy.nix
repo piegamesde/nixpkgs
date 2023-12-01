@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
       --replace "set(OPENSSL_USE_STATIC_LIBS TRUE)" "set(OPENSSL_USE_STATIC_LIBS FALSE)"
   '';
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   buildInputs =
     [
@@ -56,6 +56,6 @@ stdenv.mkDerivation rec {
     description = "Monero (XMR) Stratum protocol proxy";
     homepage = "https://github.com/xmrig/xmrig-proxy";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ aij ];
+    maintainers = with maintainers; [aij];
   };
 }

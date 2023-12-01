@@ -41,12 +41,12 @@ buildPythonPackage rec {
     simplejson
   ];
 
-  pythonImportsCheck = [ "PyViCare" ];
+  pythonImportsCheck = ["PyViCare"];
 
   meta = with lib; {
     description = "Python Library to access Viessmann ViCare API";
     homepage = "https://github.com/somm15/PyViCare";
-    license = with licenses; [ asl20 ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [asl20];
+    maintainers = with maintainers; [fab];
   };
 }

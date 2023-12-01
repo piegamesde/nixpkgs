@@ -65,7 +65,7 @@ stdenv.mkDerivation rec {
       - VGM dumping
     '';
     license = licenses.mit;
-    maintainers = with maintainers; [ AndersonTorres ];
+    maintainers = with maintainers; [AndersonTorres];
     platforms = with platforms; unix;
   };
 }

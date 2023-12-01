@@ -20,13 +20,13 @@ buildPythonPackage rec {
     hash = "sha256-/QIyRQtxLDVW+vcQi5bL8rJ0o3+OhqGhQEALR1YO1pg=";
   };
 
-  patches = [ ./fix-test-yaml.patch ];
+  patches = [./fix-test-yaml.patch];
 
-  propagatedBuildInputs = [ yacs ];
+  propagatedBuildInputs = [yacs];
 
-  pythonImportsCheck = [ "zcs" ];
+  pythonImportsCheck = ["zcs"];
 
-  nativeCheckInputs = [ boxx ];
+  nativeCheckInputs = [boxx];
 
   checkPhase = ''
     ${python.interpreter} test/test_zcs.py
@@ -36,6 +36,6 @@ buildPythonPackage rec {
     description = "Configuration system which takes advantage of both argparse and yacs";
     homepage = "https://github.com/DIYer22/zcs";
     license = licenses.mit;
-    maintainers = with maintainers; [ lucasew ];
+    maintainers = with maintainers; [lucasew];
   };
 }

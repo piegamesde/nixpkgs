@@ -32,6 +32,6 @@ rustPlatform.buildRustPackage rec {
     description = "Language agnostic documentation generator";
     homepage = "https://github.com/daynin/fundoc";
     license = licenses.mit;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
   };
 }

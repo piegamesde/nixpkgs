@@ -29,12 +29,12 @@ buildPythonPackage rec {
     websocket-client
   ];
 
-  pythonImportsCheck = [ "python_mpv_jsonipc" ];
+  pythonImportsCheck = ["python_mpv_jsonipc"];
 
   meta = with lib; {
     homepage = "https://github.com/iwalton3/python-mpv-jsonipc";
     description = "Python API to MPV using JSON IPC";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ colemickens ];
+    maintainers = with maintainers; [colemickens];
   };
 }

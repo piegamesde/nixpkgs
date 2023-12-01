@@ -7,7 +7,7 @@
 bundlerApp {
   pname = "corundum";
   gemdir = ./.;
-  exes = [ "corundum-skel" ];
+  exes = ["corundum-skel"];
 
   passthru.updateScript = bundlerUpdateScript "corundum";
 

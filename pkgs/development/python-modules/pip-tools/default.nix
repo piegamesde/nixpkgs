@@ -27,9 +27,9 @@ buildPythonPackage rec {
     hash = "sha256-YdRr0uuAFu1Kkk4Zbm5bCiaM07q9eeWTBIcg2yNSK7E=";
   };
 
-  patches = [ ./fix-setup-py-bad-syntax-detection.patch ];
+  patches = [./fix-setup-py-bad-syntax-detection.patch];
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
   propagatedBuildInputs = [
     build
@@ -60,13 +60,13 @@ buildPythonPackage rec {
     "test_compile_recursive_extras"
   ];
 
-  pythonImportsCheck = [ "piptools" ];
+  pythonImportsCheck = ["piptools"];
 
   meta = with lib; {
     description = "Keeps your pinned dependencies fresh";
     homepage = "https://github.com/jazzband/pip-tools/";
     changelog = "https://github.com/jazzband/pip-tools/releases/tag/${version}";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ zimbatm ];
+    maintainers = with maintainers; [zimbatm];
   };
 }

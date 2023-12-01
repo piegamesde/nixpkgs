@@ -55,7 +55,7 @@ mkDerivation {
     tasty-hunit
     text
   ];
-  testToolDepends = [ tasty-discover ];
+  testToolDepends = [tasty-discover];
   doHaddock = false;
   description = "Test helpers used by elm-format-tests and elm-refactor-tests";
   license = lib.licenses.bsd3;

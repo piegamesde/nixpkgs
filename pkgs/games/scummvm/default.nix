@@ -37,10 +37,10 @@ stdenv.mkDerivation rec {
     hash = "sha256-kyWgy5Nm8v/zbnhNMUyy/wUIq0I6nQyM9UqympYfwvg=";
   };
 
-  nativeBuildInputs = [ nasm ];
+  nativeBuildInputs = [nasm];
 
   buildInputs =
-    lib.optionals stdenv.isLinux [ alsa-lib ]
+    lib.optionals stdenv.isLinux [alsa-lib]
     ++ lib.optionals stdenv.isDarwin [
       Cocoa
       AudioToolbox
@@ -69,8 +69,8 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  configurePlatforms = [ "host" ];
-  configureFlags = [ "--enable-release" ];
+  configurePlatforms = ["host"];
+  configureFlags = ["--enable-release"];
 
   # They use 'install -s', that calls the native strip instead of the cross
   postConfigure =
@@ -87,7 +87,7 @@ stdenv.mkDerivation rec {
     description = "Program to run certain classic graphical point-and-click adventure games (such as Monkey Island)";
     homepage = "https://www.scummvm.org/";
     license = licenses.gpl2;
-    maintainers = [ maintainers.peterhoeg ];
+    maintainers = [maintainers.peterhoeg];
     platforms = platforms.unix;
   };
 }

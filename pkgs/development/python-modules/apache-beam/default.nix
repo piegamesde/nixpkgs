@@ -124,7 +124,7 @@ buildPythonPackage rec {
 
   enableParallelBuilding = true;
 
-  pythonImportsCheck = [ "apache_beam" ];
+  pythonImportsCheck = ["apache_beam"];
 
   checkInputs = [
     freezegun
@@ -207,6 +207,6 @@ buildPythonPackage rec {
     description = "Unified model for defining both batch and streaming data-parallel processing pipelines";
     homepage = "https://beam.apache.org/";
     license = licenses.asl20;
-    maintainers = with maintainers; [ ndl ];
+    maintainers = with maintainers; [ndl];
   };
 }

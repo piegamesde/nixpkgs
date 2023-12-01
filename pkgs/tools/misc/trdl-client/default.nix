@@ -21,7 +21,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-f7FPeR+us3WvwqzcSQLbkKv905CCIAAm+HNV2FFF8OY=";
 
-  subPackages = [ "cmd/trdl" ];
+  subPackages = ["cmd/trdl"];
 
   CGO_ENABLED = 0;
 
@@ -65,7 +65,7 @@ buildGoModule rec {
     homepage = "https://trdl.dev";
     changelog = "https://github.com/werf/trdl/releases/tag/${src.rev}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ azahi ];
+    maintainers = with maintainers; [azahi];
     mainProgram = "trdl";
   };
 }

@@ -19,7 +19,7 @@ let
       hash = "sha256-s+0GqeismpquWm9dvniopYZV0XtDuTwHjwlN3Edq4pc=";
     };
 
-    propagatedBuildInputs = [ docutils ];
+    propagatedBuildInputs = [docutils];
 
     # circular dependencies if enabled by default
     doCheck = false;
@@ -35,10 +35,10 @@ let
         "tests/examplefiles/bash/ltmain.sh"
       ];
 
-    pythonImportsCheck = [ "pygments" ];
+    pythonImportsCheck = ["pygments"];
 
     passthru.tests = {
-      check = pygments.overridePythonAttrs (_: { doCheck = true; });
+      check = pygments.overridePythonAttrs (_: {doCheck = true;});
     };
 
     meta = with lib; {
@@ -46,7 +46,7 @@ let
       description = "A generic syntax highlighter";
       mainProgram = "pygmentize";
       license = licenses.bsd2;
-      maintainers = with maintainers; [ SuperSandro2000 ];
+      maintainers = with maintainers; [SuperSandro2000];
     };
   };
 in

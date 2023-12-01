@@ -1,4 +1,4 @@
-{ lib, python3Packages }:
+{lib, python3Packages}:
 
 python3Packages.buildPythonApplication rec {
   pname = "doitlive";
@@ -22,6 +22,6 @@ python3Packages.buildPythonApplication rec {
     description = "Tool for live presentations in the terminal";
     homepage = "https://pypi.python.org/pypi/doitlive";
     license = licenses.mit;
-    maintainers = with maintainers; [ mbode ];
+    maintainers = with maintainers; [mbode];
   };
 }

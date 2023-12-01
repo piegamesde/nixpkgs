@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/LuRsT/hr";
     description = "A horizontal bar for your terminal";
     license = licenses.mit;
-    maintainers = [ maintainers.matthiasbeyer ];
+    maintainers = [maintainers.matthiasbeyer];
     platforms = platforms.unix;
   };
 }

@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-kXci/4o7rK1CiLp8alkAGMhxjiQBIPpavS/1/7BBWI8=";
   };
 
-  buildInputs = [ postgresql ];
+  buildInputs = [postgresql];
 
   installPhase = ''
     install -D -t $out/lib *.so
@@ -29,6 +29,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/okbob/plpgsql_check";
     platforms = postgresql.meta.platforms;
     license = licenses.mit;
-    maintainers = [ maintainers.marsam ];
+    maintainers = [maintainers.marsam];
   };
 }

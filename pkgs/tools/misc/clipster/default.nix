@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-MLLkFsBBQtb7RFQN+uoEmuCn5bnbkYsqoyWGZtTCI2U=";
   };
 
-  pythonEnv = python3.withPackages (ps: with ps; [ pygobject3 ]);
+  pythonEnv = python3.withPackages (ps: with ps; [pygobject3]);
 
   buildInputs = [
     pythonEnv
@@ -59,6 +59,6 @@ stdenv.mkDerivation rec {
     license = licenses.agpl3;
     homepage = "https://github.com/mrichar1/clipster";
     platforms = platforms.linux;
-    maintainers = [ maintainers.magnetophon ];
+    maintainers = [maintainers.magnetophon];
   };
 }

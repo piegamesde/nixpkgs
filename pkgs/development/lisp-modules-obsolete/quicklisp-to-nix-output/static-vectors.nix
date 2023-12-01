@@ -1,10 +1,10 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "static-vectors";
   version = "v1.8.9";
 
-  parasites = [ "static-vectors/test" ];
+  parasites = ["static-vectors/test"];
 
   description = "Create vectors allocated in static memory.";
 
@@ -25,7 +25,7 @@ rec {
 
   packageName = "static-vectors";
 
-  asdFilesToKeep = [ "static-vectors.asd" ];
+  asdFilesToKeep = ["static-vectors.asd"];
   overrides = x: x;
 }
 /* (SYSTEM static-vectors DESCRIPTION

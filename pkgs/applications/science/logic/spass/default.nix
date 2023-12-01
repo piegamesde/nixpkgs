@@ -41,7 +41,7 @@ stdenv.mkDerivation {
 
   meta = with lib; {
     description = "Automated theorem prover for first-order logic";
-    maintainers = with maintainers; [ raskin ];
+    maintainers = with maintainers; [raskin];
     platforms = platforms.unix;
     license = licenses.bsd2;
     downloadPage = "http://www.spass-prover.org/download/index.html";

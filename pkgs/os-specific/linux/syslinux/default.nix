@@ -89,7 +89,7 @@ stdenv.mkDerivation {
     makeWrapper
   ];
 
-  buildInputs = [ libuuid ];
+  buildInputs = [libuuid];
 
   # Fails very rarely with 'No rule to make target: ...'
   enableParallelBuilding = false;
@@ -141,7 +141,7 @@ stdenv.mkDerivation {
     homepage = "http://www.syslinux.org/";
     description = "A lightweight bootloader";
     license = licenses.gpl2Plus;
-    maintainers = [ maintainers.samueldr ];
+    maintainers = [maintainers.samueldr];
     platforms = [
       "i686-linux"
       "x86_64-linux"

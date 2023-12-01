@@ -18,9 +18,9 @@ buildPythonPackage rec {
     sha256 = "6ebb3d106c12920aaae42ccb6f787ef5eefdcdd166ea3d628fa8476abe712144";
   };
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "async_generator" ];
+  pythonImportsCheck = ["async_generator"];
 
   meta = with lib; {
     description = "Async generators and context managers for Python 3.5+";
@@ -29,6 +29,6 @@ buildPythonPackage rec {
       mit
       asl20
     ];
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

@@ -38,18 +38,18 @@ stdenv.mkDerivation rec {
 
   prefixKey = "-prefix ";
   configureFlags =
-    [ "-no-tk" ]
+    ["-no-tk"]
     ++ optionals useX11 [
       "-x11lib"
       libX11
     ];
   buildFlags =
-    [ "world" ]
+    ["world"]
     ++ optionals useNativeCompilers [
       "bootstrap"
       "world.opt"
     ];
-  buildInputs = [ ncurses ] ++ optionals useX11 [ libX11 ];
+  buildInputs = [ncurses] ++ optionals useX11 [libX11];
   installTargets = "install" + optionalString useNativeCompilers " installopt";
   preConfigure = ''
     CAT=$(type -tp cat)

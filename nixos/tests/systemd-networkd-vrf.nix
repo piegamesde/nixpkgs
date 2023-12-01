@@ -1,15 +1,15 @@
 import ./make-test-python.nix (
-  { pkgs, lib, ... }:
+  {pkgs, lib, ...}:
   let
     inherit (import ./ssh-keys.nix pkgs) snakeOilPrivateKey snakeOilPublicKey;
   in
   {
     name = "systemd-networkd-vrf";
-    meta.maintainers = with lib.maintainers; [ ma27 ];
+    meta.maintainers = with lib.maintainers; [ma27];
 
     nodes = {
       client =
-        { pkgs, ... }:
+        {pkgs, ...}:
         {
           virtualisation.vlans = [
             1
@@ -89,16 +89,16 @@ import ./make-test-python.nix (
         };
 
       node1 =
-        { pkgs, ... }:
+        {pkgs, ...}:
         {
-          virtualisation.vlans = [ 1 ];
+          virtualisation.vlans = [1];
           networking = {
             useDHCP = false;
             useNetworkd = true;
           };
 
           services.openssh.enable = true;
-          users.users.root.openssh.authorizedKeys.keys = [ snakeOilPublicKey ];
+          users.users.root.openssh.authorizedKeys.keys = [snakeOilPublicKey];
 
           systemd.network = {
             enable = true;
@@ -115,9 +115,9 @@ import ./make-test-python.nix (
         };
 
       node2 =
-        { pkgs, ... }:
+        {pkgs, ...}:
         {
-          virtualisation.vlans = [ 2 ];
+          virtualisation.vlans = [2];
           networking = {
             useDHCP = false;
             useNetworkd = true;
@@ -138,9 +138,9 @@ import ./make-test-python.nix (
         };
 
       node3 =
-        { pkgs, ... }:
+        {pkgs, ...}:
         {
-          virtualisation.vlans = [ 2 ];
+          virtualisation.vlans = [2];
           networking = {
             useDHCP = false;
             useNetworkd = true;

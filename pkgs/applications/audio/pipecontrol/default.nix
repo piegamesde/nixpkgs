@@ -46,6 +46,6 @@ stdenv.mkDerivation rec {
     description = "Pipewire control GUI program in Qt (Kirigami2)";
     homepage = "https://github.com/portaloffreedom/pipecontrol";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ tilcreator ];
+    maintainers = with maintainers; [tilcreator];
   };
 }

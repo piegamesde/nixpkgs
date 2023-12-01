@@ -35,7 +35,7 @@ buildPythonPackage rec {
     xmltodict
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTests = [
     # require network connection
@@ -53,6 +53,6 @@ buildPythonPackage rec {
     description = "Library and CLI tools for interacting with buienradar";
     homepage = "https://github.com/mjj4791/python-buienradar";
     license = licenses.mit;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

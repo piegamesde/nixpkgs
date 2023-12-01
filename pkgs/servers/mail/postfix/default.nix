@@ -91,8 +91,8 @@ stdenv.mkDerivation rec {
     ++ lib.optional withSQLite sqlite
     ++ lib.optional withLDAP openldap;
 
-  hardeningDisable = [ "format" ];
-  hardeningEnable = [ "pie" ];
+  hardeningDisable = ["format"];
+  hardeningEnable = ["pie"];
 
   patches = [
     ./postfix-script-shell.patch
@@ -140,9 +140,9 @@ stdenv.mkDerivation rec {
 
   NIX_LDFLAGS = lib.optionalString withLDAP "-llber";
 
-  installTargets = [ "non-interactive-package" ];
+  installTargets = ["non-interactive-package"];
 
-  installFlags = [ "install_root=installdir" ];
+  installFlags = ["install_root=installdir"];
 
   postInstall = ''
     mkdir -p $out

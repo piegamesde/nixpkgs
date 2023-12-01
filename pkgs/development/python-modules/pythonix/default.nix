@@ -42,13 +42,13 @@ buildPythonPackage rec {
     export PYTHONPATH=$out/${python.sitePackages}:$PYTHONPATH
   '';
 
-  pythonImportsCheck = [ "nix" ];
+  pythonImportsCheck = ["nix"];
 
   meta = with lib; {
     description = ''
       Eval nix code from python.
     '';
-    maintainers = [ ];
+    maintainers = [];
     license = licenses.mit;
   };
 }

@@ -22,7 +22,7 @@ in
 
     services.hans = {
       clients = mkOption {
-        default = { };
+        default = {};
         description = lib.mdDoc ''
           Each attribute of this option defines a systemd service that
           runs hans. Many or none may be defined.
@@ -104,19 +104,19 @@ in
 
   ### implementation
 
-  config = mkIf (cfg.server.enable || cfg.clients != { }) {
+  config = mkIf (cfg.server.enable || cfg.clients != {}) {
     boot.kernel.sysctl = optionalAttrs cfg.server.respondToSystemPings {
       "net.ipv4.icmp_echo_ignore_all" = 1;
     };
 
-    boot.kernelModules = [ "tun" ];
+    boot.kernelModules = ["tun"];
 
     systemd.services =
       let
         createHansClientService = name: cfg: {
           description = "hans client - ${name}";
-          after = [ "network.target" ];
-          wantedBy = [ "multi-user.target" ];
+          after = ["network.target"];
+          wantedBy = ["multi-user.target"];
           script = "${pkgs.hans}/bin/hans -f -u ${hansUser} ${cfg.extraConfig} -c ${cfg.server} ${
             optionalString (cfg.passwordFile != "") ''-p $(cat "${cfg.passwordFile}")''
           }";
@@ -133,8 +133,8 @@ in
       // {
         hans = mkIf (cfg.server.enable) {
           description = "hans, ip over icmp server daemon";
-          after = [ "network.target" ];
-          wantedBy = [ "multi-user.target" ];
+          after = ["network.target"];
+          wantedBy = ["multi-user.target"];
           script = "${pkgs.hans}/bin/hans -f -u ${hansUser} ${cfg.server.extraConfig} -s ${cfg.server.ip} ${optionalString cfg.server.respondToSystemPings "-r"} ${
             optionalString (cfg.server.passwordFile != "") ''-p $(cat "${cfg.server.passwordFile}")''
           }";
@@ -147,5 +147,5 @@ in
     };
   };
 
-  meta.maintainers = with maintainers; [ ];
+  meta.maintainers = with maintainers; [];
 }

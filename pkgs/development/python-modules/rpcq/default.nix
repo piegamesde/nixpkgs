@@ -50,12 +50,12 @@ buildPythonPackage rec {
       "test_client_backlog"
     ];
 
-  pythonImportsCheck = [ "rpcq" ];
+  pythonImportsCheck = ["rpcq"];
 
   meta = with lib; {
     description = "The RPC framework and message specification for rigetti Quantum Cloud services";
     homepage = "https://github.com/rigetti/rpcq";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -33,7 +33,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "kaleidescape" ];
+  pythonImportsCheck = ["kaleidescape"];
 
   disabledTests =
     [
@@ -46,6 +46,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/SteveEasley/pykaleidescape";
     changelog = "https://github.com/SteveEasley/pykaleidescape/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

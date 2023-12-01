@@ -20,15 +20,15 @@ buildPythonPackage rec {
     hash = "sha256-pTjYdezNBFeLCh6cbC+YtHxQB4zrZAFTCjjNQffbHhc=";
   };
 
-  propagatedBuildInputs = [ setuptools ];
+  propagatedBuildInputs = [setuptools];
 
-  pythonImportsCheck = [ "setuptools_gettext" ];
+  pythonImportsCheck = ["setuptools_gettext"];
 
   meta = with lib; {
     changelog = "https://github.com/breezy-team/setuptools-gettext/releases/tag/v${version}";
     description = "setuptools plugin for building mo files";
     homepage = "https://github.com/breezy-team/setuptools-gettext";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

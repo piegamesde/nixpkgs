@@ -73,8 +73,8 @@ let
         cliOptionsCommon
         // cliOptionsPerConfig.${cfg.configType}
         // s3CommonOptions
-        // optionalAttrs cfg.s3Backup { s3backup = "true"; }
-        // optionalAttrs cfg.fileSystemBackup { filesystembackup = "true"; }
+        // optionalAttrs cfg.s3Backup {s3backup = "true";}
+        // optionalAttrs cfg.fileSystemBackup {filesystembackup = "true";}
       )
     )
   );
@@ -241,7 +241,7 @@ in
       };
       zkServersSpec = mkOption {
         type = types.listOf types.str;
-        default = [ ];
+        default = [];
         description = lib.mdDoc ''
           Zookeeper server spec for all servers in the ensemble.
         '';
@@ -396,8 +396,8 @@ in
   config = mkIf cfg.enable {
     systemd.services.exhibitor = {
       description = "Exhibitor Daemon";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
       environment = {
         ZOO_LOG_DIR = cfg.baseDir;
       };

@@ -23,8 +23,8 @@ rustPlatform.buildRustPackage rec {
   buildInputs = [
     openssl
     xz
-  ] ++ lib.optionals stdenv.isDarwin [ Security ];
-  nativeBuildInputs = [ pkg-config ];
+  ] ++ lib.optionals stdenv.isDarwin [Security];
+  nativeBuildInputs = [pkg-config];
   doCheck = false; # there are no tests to run
 
   cargoSha256 = "sha256-LPypmFeF9NZOX1ogpIqc++Pun7pInKzpxYiGUvSUcso=";
@@ -33,7 +33,7 @@ rustPlatform.buildRustPackage rec {
     description = "Automate starting binary exploit challenges";
     homepage = "https://github.com/io12/pwninit";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.scoder12 ];
+    maintainers = [lib.maintainers.scoder12];
     platforms = lib.platforms.all;
   };
 }

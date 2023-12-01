@@ -12,7 +12,7 @@ stdenv.mkDerivation rec {
 
   jarfilename = "${pname}-${version}-executable.jar";
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   src = fetchurl {
     url = "mirror://maven/io/trino/${pname}/${version}/${jarfilename}";

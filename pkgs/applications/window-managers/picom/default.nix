@@ -79,16 +79,16 @@ stdenv.mkDerivation rec {
   mesonBuildType = if withDebug then "debugoptimized" else "release";
   dontStrip = withDebug;
 
-  mesonFlags = [ "-Dwith_docs=true" ];
+  mesonFlags = ["-Dwith_docs=true"];
 
-  installFlags = [ "PREFIX=$(out)" ];
+  installFlags = ["PREFIX=$(out)"];
 
   # In debug mode, also copy src directory to store. If you then run `gdb picom`
   # in the bin directory of picom store path, gdb finds the source files.
   postInstall =
     ''
       wrapProgram $out/bin/picom-trans \
-        --prefix PATH : ${lib.makeBinPath [ xwininfo ]}
+        --prefix PATH : ${lib.makeBinPath [xwininfo]}
     ''
     + lib.optionalString withDebug ''
       cp -r ../src $out/

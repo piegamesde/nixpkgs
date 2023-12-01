@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
   dontBuild = true;
   dontConfigure = true;
 
-  nativeBuildInputs = [ makeWrapper ] ++ (lib.optional (!stdenv.isDarwin) autoPatchelfHook);
+  nativeBuildInputs = [makeWrapper] ++ (lib.optional (!stdenv.isDarwin) autoPatchelfHook);
   buildInputs = lib.optionals (!stdenv.isDarwin) [
     ncurses5
     zlib
@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
     mv ucm $out/bin
     mv ui $out/ui
     wrapProgram $out/bin/ucm \
-      --prefix PATH ":" "${lib.makeBinPath [ less ]}" \
+      --prefix PATH ":" "${lib.makeBinPath [less]}" \
       --set UCM_WEB_UI "$out/ui"
   '';
 
@@ -55,7 +55,7 @@ stdenv.mkDerivation rec {
       mit
       bsd3
     ];
-    maintainers = [ maintainers.virusdave ];
+    maintainers = [maintainers.virusdave];
     platforms = [
       "x86_64-darwin"
       "x86_64-linux"

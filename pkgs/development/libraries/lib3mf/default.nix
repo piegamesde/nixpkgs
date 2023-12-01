@@ -47,7 +47,7 @@ stdenv.mkDerivation rec {
     libzip
     gtest
     openssl
-  ] ++ (if stdenv.isDarwin then [ libossp_uuid ] else [ libuuid ]);
+  ] ++ (if stdenv.isDarwin then [libossp_uuid] else [libuuid]);
 
   postPatch = ''
     # fix libdir=''${exec_prefix}/@CMAKE_INSTALL_LIBDIR@
@@ -64,7 +64,7 @@ stdenv.mkDerivation rec {
     description = "Reference implementation of the 3D Manufacturing Format file standard";
     homepage = "https://3mf.io/";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ gebner ];
+    maintainers = with maintainers; [gebner];
     platforms = platforms.all;
   };
 }

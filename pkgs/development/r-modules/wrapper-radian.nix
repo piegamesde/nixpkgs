@@ -19,7 +19,7 @@ runCommand (radian.name + "-wrapper")
       radian
     ] ++ recommendedPackages ++ packages;
 
-    nativeBuildInputs = [ makeWrapper ];
+    nativeBuildInputs = [makeWrapper];
 
     passthru = {
       inherit recommendedPackages;
@@ -27,7 +27,7 @@ runCommand (radian.name + "-wrapper")
 
     meta = radian.meta // {
       # To prevent builds on hydra
-      hydraPlatforms = [ ];
+      hydraPlatforms = [];
       # prefer wrapper over the package
       priority = (radian.meta.priority or 0) - 1;
     };

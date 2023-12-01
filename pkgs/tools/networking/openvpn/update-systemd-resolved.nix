@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
   };
 
   # set SCRIPT_NAME in case we are wrapped and inject PATH
-  patches = [ ./update-systemd-resolved.patch ];
+  patches = [./update-systemd-resolved.patch];
 
   PREFIX = "${placeholder "out"}/libexec/openvpn";
 
@@ -43,7 +43,7 @@ stdenv.mkDerivation rec {
     description = "Helper script for OpenVPN to directly update the DNS settings of a link through systemd-resolved via DBus";
     homepage = "https://github.com/jonathanio/update-systemd-resolved";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ eadwu ];
+    maintainers = with maintainers; [eadwu];
     platforms = platforms.linux;
   };
 }

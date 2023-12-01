@@ -31,12 +31,12 @@ buildPythonPackage rec {
   # Project has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "dingz" ];
+  pythonImportsCheck = ["dingz"];
 
   meta = with lib; {
     description = "Python API for interacting with Dingz devices";
     homepage = "https://github.com/home-assistant-ecosystem/python-dingz";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

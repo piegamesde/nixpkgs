@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
     autoreconfHook
     pkg-config
   ];
-  buildInputs = [ e2fsprogs ];
+  buildInputs = [e2fsprogs];
 
   enableParallelBuilding = true;
 
@@ -31,6 +31,6 @@ stdenv.mkDerivation rec {
     description = "Utilities to read/write/manipulate files in an ext2/ext3 filesystem";
     license = lib.licenses.gpl2;
     platforms = lib.platforms.linux;
-    maintainers = [ lib.maintainers.leenaars ];
+    maintainers = [lib.maintainers.leenaars];
   };
 }

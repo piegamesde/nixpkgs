@@ -27,11 +27,11 @@ in
     systemd.user.services.clipmenu = {
       enable = true;
       description = "Clipboard management daemon";
-      wantedBy = [ "graphical-session.target" ];
-      after = [ "graphical-session.target" ];
+      wantedBy = ["graphical-session.target"];
+      after = ["graphical-session.target"];
       serviceConfig.ExecStart = "${cfg.package}/bin/clipmenud";
     };
 
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
   };
 }

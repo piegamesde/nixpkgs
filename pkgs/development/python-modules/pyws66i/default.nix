@@ -20,14 +20,14 @@ buildPythonPackage rec {
     hash = "sha256-NTL2+xLqSNsz4YdUTwr0nFjhm1NNgB8qDnWSoE2sizY=";
   };
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "pyws66i" ];
+  pythonImportsCheck = ["pyws66i"];
 
   meta = with lib; {
     description = "Library to interface with WS66i 6-zone amplifier";
     homepage = "https://github.com/bigmoby/pyialarmxr";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

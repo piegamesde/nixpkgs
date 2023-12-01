@@ -37,19 +37,19 @@ buildPythonPackage rec {
     future
   ];
 
-  propagatedNativeBuildInputs = [ argon2-cffi ];
+  propagatedNativeBuildInputs = [argon2-cffi];
 
   checkPhase = ''
     ${python.interpreter} -m unittest tests.tests
   '';
 
-  pythonImportsCheck = [ "pykeepass" ];
+  pythonImportsCheck = ["pykeepass"];
 
   meta = with lib; {
     homepage = "https://github.com/libkeepass/pykeepass";
     changelog = "https://github.com/libkeepass/pykeepass/blob/${src.rev}/CHANGELOG.rst";
     description = "Python library to interact with keepass databases (supports KDBX3 and KDBX4)";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

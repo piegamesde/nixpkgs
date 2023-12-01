@@ -11,7 +11,7 @@ stdenv.mkDerivation {
 
   inherit (kernel) src;
 
-  buildInputs = [ ncurses ];
+  buildInputs = [ncurses];
 
   configurePhase = ''
     cd tools/thermal/tmon

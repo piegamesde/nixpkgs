@@ -11,12 +11,12 @@
 
 bundlerApp rec {
   pname = "gollum";
-  exes = [ "gollum" ];
+  exes = ["gollum"];
 
   inherit ruby;
   gemdir = ./.;
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   passthru.updateScript = bundlerUpdateScript "gollum";
   passthru.tests.gollum = nixosTests.gollum;

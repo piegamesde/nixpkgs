@@ -1,4 +1,4 @@
-{ lib, python3Packages }:
+{lib, python3Packages}:
 
 let
   pythonPackages = python3Packages;
@@ -17,7 +17,7 @@ pythonPackages.buildPythonApplication rec {
     substituteInPlace setup.py --replace "argparse" ""
   '';
 
-  propagatedBuildInputs = with pythonPackages; [ colorama ];
+  propagatedBuildInputs = with pythonPackages; [colorama];
 
   # tests need zfs filesystem
   doCheck = false;
@@ -30,6 +30,6 @@ pythonPackages.buildPythonApplication rec {
     homepage = "https://github.com/psy0rz/zfs_autobackup";
     description = "ZFS backup, replicationand snapshot tool";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

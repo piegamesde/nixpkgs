@@ -1,4 +1,4 @@
-with import <nixpkgs> { };
+with import <nixpkgs> {};
 callPackage (import ./vscodeEnv.nix)
   {
     extensionsFromVscodeMarketplace = vscode-utils.extensionsFromVscodeMarketplace;

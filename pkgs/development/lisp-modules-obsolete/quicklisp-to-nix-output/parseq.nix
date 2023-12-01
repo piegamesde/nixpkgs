@@ -1,14 +1,14 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "parseq";
   version = "20210531-git";
 
-  parasites = [ "parseq/test" ];
+  parasites = ["parseq/test"];
 
   description = "A library for parsing sequences such as strings and lists using parsing expression grammars.";
 
-  deps = [ ];
+  deps = [];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/parseq/2021-05-31/parseq-20210531-git.tgz";
@@ -17,7 +17,7 @@ rec {
 
   packageName = "parseq";
 
-  asdFilesToKeep = [ "parseq.asd" ];
+  asdFilesToKeep = ["parseq.asd"];
   overrides = x: x;
 }
 /* (SYSTEM parseq DESCRIPTION

@@ -16,8 +16,8 @@ let
     url = "https://github.com/oxen-io/session-desktop/releases/download/v${version}/session-desktop-linux-x86_64-${version}.AppImage";
     sha256 = "sha256-r/MQlZ3dmQmQZ/FCYIIF2sh9+VXwG97PFfTIXIQijx8=";
   };
-  appimage = appimageTools.wrapType2 { inherit version pname src; };
-  appimage-contents = appimageTools.extractType2 { inherit version pname src; };
+  appimage = appimageTools.wrapType2 {inherit version pname src;};
+  appimage-contents = appimageTools.extractType2 {inherit version pname src;};
 in
 stdenvNoCC.mkDerivation {
   inherit version pname;
@@ -37,7 +37,7 @@ stdenvNoCC.mkDerivation {
       icon = "${appimage-contents}/session-desktop.png";
       terminal = false;
       type = "Application";
-      categories = [ "Network" ];
+      categories = ["Network"];
     })
   ];
 
@@ -59,8 +59,8 @@ stdenvNoCC.mkDerivation {
     description = "Onion routing based messenger";
     homepage = "https://getsession.org/";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ alexnortung ];
-    platforms = [ "x86_64-linux" ];
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    maintainers = with maintainers; [alexnortung];
+    platforms = ["x86_64-linux"];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
   };
 }

@@ -21,14 +21,14 @@ stdenv.mkDerivation rec {
     "dev"
   ];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   propagatedBuildInputs = [
     nss
     nspr
   ];
 
-  configureFlags = [ "--enable-nss" ];
+  configureFlags = ["--enable-nss"];
 
   postInstall = ''
     substituteInPlace $out/lib/liboauth.la \

@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
     flex
     bison
   ];
-  buildInputs = [ fftw ];
+  buildInputs = [fftw];
 
   configureFlags = [
     "--with-ngshared"
@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
       gpl2Plus
       lgpl2Plus
     ]; # See https://sourceforge.net/p/ngspice/ngspice/ci/master/tree/COPYING
-    maintainers = with maintainers; [ bgamari ];
+    maintainers = with maintainers; [bgamari];
     platforms = platforms.unix;
   };
 }

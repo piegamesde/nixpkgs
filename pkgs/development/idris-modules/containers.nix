@@ -25,6 +25,6 @@ build-idris-package {
     description = "Various data structures for use in the Idris Language.";
     homepage = "https://github.com/jfdm/idris-containers";
     license = lib.licenses.bsd3;
-    maintainers = [ lib.maintainers.brainrape ];
+    maintainers = [lib.maintainers.brainrape];
   };
 }

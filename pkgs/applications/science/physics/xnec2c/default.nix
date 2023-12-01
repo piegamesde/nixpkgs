@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
     homepage = "https://www.xnec2c.org/";
     description = "Graphical antenna simulation";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ mvs ];
+    maintainers = with maintainers; [mvs];
     platforms = platforms.unix;
 
     # Darwin support likely to be fixed upstream in the next release

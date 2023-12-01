@@ -50,7 +50,7 @@ stdenv.mkDerivation {
     description = "OCR tool for scanned PDFs";
     homepage = "http://www.tobias-elze.de/pdfsandwich/";
     license = licenses.gpl2;
-    maintainers = [ maintainers.rps ];
+    maintainers = [maintainers.rps];
     platforms = platforms.linux;
   };
 }

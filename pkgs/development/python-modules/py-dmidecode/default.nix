@@ -14,17 +14,17 @@ buildPythonPackage rec {
     sha256 = "1bv1vmhj8h520kj6slwpz16xfmgp117yjjkfyihkl5ix6mn5zkpa";
   };
 
-  propagatedBuildInputs = [ dmidecode ];
+  propagatedBuildInputs = [dmidecode];
 
   # Project has no tests.
   doCheck = false;
-  pythonImportsCheck = [ "dmidecode" ];
+  pythonImportsCheck = ["dmidecode"];
 
   meta = with lib; {
     homepage = "https://github.com/zaibon/py-dmidecode/";
     description = "Python library that parses the output of dmidecode";
     license = licenses.asl20;
-    maintainers = with maintainers; [ davidtwco ];
+    maintainers = with maintainers; [davidtwco];
     platforms = platforms.linux;
   };
 }

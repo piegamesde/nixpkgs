@@ -18,8 +18,8 @@ buildPythonPackage rec {
   # 4 failing tests, 2to3
   doCheck = false;
 
-  propagatedBuildInputs = [ six ];
-  nativeCheckInputs = [ nose ];
+  propagatedBuildInputs = [six];
+  nativeCheckInputs = [nose];
 
   checkPhase = ''
     nosetests
@@ -29,6 +29,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/erikrose/blessings";
     description = "A thin, practical wrapper around terminal coloring, styling, and positioning";
     license = licenses.mit;
-    maintainers = with maintainers; [ domenkozar ];
+    maintainers = with maintainers; [domenkozar];
   };
 }

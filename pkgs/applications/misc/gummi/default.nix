@@ -48,7 +48,7 @@ stdenv.mkDerivation rec {
     homepage = "https://gummi.app";
     description = "Simple LaTex editor for GTK users";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ flokli ];
+    maintainers = with lib.maintainers; [flokli];
     platforms = with lib.platforms; linux;
   };
 }

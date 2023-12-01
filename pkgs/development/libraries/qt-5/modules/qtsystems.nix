@@ -17,9 +17,9 @@ qtModule {
   outputs = [
     "out"
     "dev"
-  ] ++ lib.optionals stdenv.hostPlatform.isLinux [ "bin" ];
+  ] ++ lib.optionals stdenv.hostPlatform.isLinux ["bin"];
 
-  qtInputs = [ qtbase ];
+  qtInputs = [qtbase];
 
   nativeBuildInputs = [
     pkg-config
@@ -34,7 +34,7 @@ qtModule {
   ];
 
   qmakeFlags =
-    [ "CONFIG+=git_build" ]
+    ["CONFIG+=git_build"]
     ++ lib.optionals stdenv.hostPlatform.isLinux [
       "CONFIG+=ofono"
       "CONFIG+=udisks"
@@ -46,6 +46,6 @@ qtModule {
   '';
 
   meta = {
-    maintainers = with lib.maintainers; [ OPNA2608 ];
+    maintainers = with lib.maintainers; [OPNA2608];
   };
 }

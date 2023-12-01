@@ -23,9 +23,9 @@ stdenv.mkDerivation rec {
     substituteInPlace xargs/xargs.c --replace 'char default_cmd[] = "echo";' 'char default_cmd[] = "${coreutils}/bin/echo";'
   '';
 
-  patches = [ ./no-install-statedir.patch ];
+  patches = [./no-install-statedir.patch];
 
-  buildInputs = [ coreutils ]; # bin/updatedb script needs to call sort
+  buildInputs = [coreutils]; # bin/updatedb script needs to call sort
 
   # Since glibc-2.25 the i686 tests hang reliably right after test-sleep.
   doCheck =

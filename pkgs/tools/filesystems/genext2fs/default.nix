@@ -17,10 +17,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-9LAU5XuCwwEhU985MzZ2X+YYibvyECULQSn9X2jdj5I=";
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
-  buildInputs = [ libarchive ];
+  nativeBuildInputs = [autoreconfHook];
+  buildInputs = [libarchive];
 
-  configureFlags = [ "--enable-libarchive" ];
+  configureFlags = ["--enable-libarchive"];
 
   doCheck = true;
   checkPhase = ''
@@ -32,6 +32,6 @@ stdenv.mkDerivation rec {
     description = "A tool to generate ext2 filesystem images without requiring root privileges";
     license = licenses.gpl2;
     platforms = platforms.all;
-    maintainers = [ maintainers.bjornfor ];
+    maintainers = [maintainers.bjornfor];
   };
 }

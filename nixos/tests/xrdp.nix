@@ -1,35 +1,35 @@
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   {
     name = "xrdp";
-    meta = with pkgs.lib.maintainers; { maintainers = [ ]; };
+    meta = with pkgs.lib.maintainers; {maintainers = [];};
 
     nodes = {
       server =
-        { pkgs, ... }:
+        {pkgs, ...}:
         {
-          imports = [ ./common/user-account.nix ];
+          imports = [./common/user-account.nix];
           services.xrdp.enable = true;
           services.xrdp.defaultWindowManager = "${pkgs.xterm}/bin/xterm";
-          networking.firewall.allowedTCPPorts = [ 3389 ];
+          networking.firewall.allowedTCPPorts = [3389];
         };
 
       client =
-        { pkgs, ... }:
+        {pkgs, ...}:
         {
           imports = [
             ./common/x11.nix
             ./common/user-account.nix
           ];
           test-support.displayManager.auto.user = "alice";
-          environment.systemPackages = [ pkgs.freerdp ];
+          environment.systemPackages = [pkgs.freerdp];
           services.xrdp.enable = true;
           services.xrdp.defaultWindowManager = "${pkgs.icewm}/bin/icewm";
         };
     };
 
     testScript =
-      { nodes, ... }:
+      {nodes, ...}:
       let
         user = nodes.client.config.users.users.alice;
       in

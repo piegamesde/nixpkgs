@@ -23,14 +23,14 @@ buildPythonPackage rec {
     msrest
   ];
 
-  pythonNamespaces = [ "azure.synapse" ];
+  pythonNamespaces = ["azure.synapse"];
 
-  pythonImportsCheck = [ "azure.synapse.managedprivateendpoints" ];
+  pythonImportsCheck = ["azure.synapse.managedprivateendpoints"];
 
   meta = with lib; {
     description = "Microsoft Azure Synapse Managed Private Endpoints Client Library for Python";
     homepage = "https://github.com/Azure/azure-sdk-for-python";
     license = licenses.mit;
-    maintainers = with maintainers; [ jonringer ];
+    maintainers = with maintainers; [jonringer];
   };
 }

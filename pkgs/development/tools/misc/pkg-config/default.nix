@@ -38,10 +38,10 @@ stdenv.mkDerivation rec {
         rm -f check/check-requires-private check/check-gtk check/missing
       '';
 
-  buildInputs = [ libiconv ];
+  buildInputs = [libiconv];
 
   configureFlags =
-    [ "--with-internal-glib" ]
+    ["--with-internal-glib"]
     ++ lib.optionals (stdenv.isSunOS) [
       "--with-libiconv=gnu"
       "--with-system-library-path"

@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
   '';
 
   buildInputs =
-    [ ]
+    []
     ++ lib.optional zlibSupport zlib
     ++ lib.optional sslSupport openssl
     ++ lib.optional idnSupport libidn;
@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
     description = "A portable high-level Jabber/XMPP library for C++";
     homepage = "http://camaya.net/gloox";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     platforms = platforms.unix;
   };
 }

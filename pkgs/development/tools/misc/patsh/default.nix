@@ -10,7 +10,7 @@
 let
   # copied from flake.nix
   # tests require extra setup with nix
-  custom = runCommand "custom" { } ''
+  custom = runCommand "custom" {} ''
     mkdir -p $out/bin
     touch $out/bin/{'foo$','foo"`'}
     chmod +x $out/bin/{'foo$','foo"`'}
@@ -35,7 +35,7 @@ rustPlatform.buildRustPackage rec {
     };
   };
 
-  nativeCheckInputs = [ custom ];
+  nativeCheckInputs = [custom];
 
   # see comment on `custom`
   postPatch = ''
@@ -52,6 +52,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/nix-community/patsh";
     changelog = "https://github.com/nix-community/patsh/blob/v${version}/CHANGELOG.md";
     license = licenses.mpl20;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
   };
 }

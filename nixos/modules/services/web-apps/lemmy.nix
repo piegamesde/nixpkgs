@@ -7,10 +7,10 @@
 with lib;
 let
   cfg = config.services.lemmy;
-  settingsFormat = pkgs.formats.json { };
+  settingsFormat = pkgs.formats.json {};
 in
 {
-  meta.maintainers = with maintainers; [ happysalada ];
+  meta.maintainers = with maintainers; [happysalada];
   meta.doc = ./lemmy.md;
 
   imports = [
@@ -41,7 +41,7 @@ in
     database.createLocally = mkEnableOption (lib.mdDoc "creation of database on the instance");
 
     settings = mkOption {
-      default = { };
+      default = {};
       description = lib.mdDoc "Lemmy configuration";
 
       type = types.submodule {
@@ -114,7 +114,7 @@ in
 
     services.postgresql = mkIf cfg.database.createLocally {
       enable = true;
-      ensureDatabases = [ cfg.settings.database.database ];
+      ensureDatabases = [cfg.settings.database.database];
       ensureUsers = [
         {
           name = cfg.settings.database.user;
@@ -183,11 +183,11 @@ in
         "https://join-lemmy.org/docs/en/"
       ];
 
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
 
-      after = [ "pict-rs.service" ] ++ lib.optionals cfg.database.createLocally [ "postgresql.service" ];
+      after = ["pict-rs.service"] ++ lib.optionals cfg.database.createLocally ["postgresql.service"];
 
-      requires = lib.optionals cfg.database.createLocally [ "postgresql.service" ];
+      requires = lib.optionals cfg.database.createLocally ["postgresql.service"];
 
       serviceConfig = {
         DynamicUser = true;
@@ -212,11 +212,11 @@ in
         "https://join-lemmy.org/docs/en/"
       ];
 
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
 
-      after = [ "lemmy.service" ];
+      after = ["lemmy.service"];
 
-      requires = [ "lemmy.service" ];
+      requires = ["lemmy.service"];
 
       serviceConfig = {
         DynamicUser = true;

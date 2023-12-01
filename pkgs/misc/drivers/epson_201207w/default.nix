@@ -89,7 +89,7 @@ stdenv.mkDerivation {
       lgpl21
       epson
     ];
-    maintainers = [ maintainers.romildo ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = [maintainers.romildo];
+    platforms = ["x86_64-linux"];
   };
 }

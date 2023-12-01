@@ -10,7 +10,7 @@
 }:
 
 let
-  pythonEnv = python3.withPackages (ps: [ ps.psutil ]);
+  pythonEnv = python3.withPackages (ps: [ps.psutil]);
 in
 stdenv.mkDerivation rec {
   pname = "circt";
@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  requiredSystemFeatures = [ "big-parallel" ];
+  requiredSystemFeatures = ["big-parallel"];
 
   nativeBuildInputs = [
     cmake
@@ -76,7 +76,7 @@ stdenv.mkDerivation rec {
     description = "Circuit IR compilers and tools";
     homepage = "https://circt.org/";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ sharzy ];
+    maintainers = with lib.maintainers; [sharzy];
     platforms = lib.platforms.all;
   };
 }

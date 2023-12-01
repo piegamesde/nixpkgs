@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
   buildInputs = lib.optional stdenv.isDarwin libiconv;
 
   nativeBuildInputs =
-    [ cmake ]
+    [cmake]
     ++ (
       with rustPlatform; [
         cargoSetupHook
@@ -44,6 +44,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/corrosion-rs/corrosion";
     changelog = "https://github.com/corrosion-rs/corrosion/blob/${src.rev}/RELEASES.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

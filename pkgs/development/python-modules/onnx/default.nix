@@ -19,7 +19,7 @@
 }:
 
 let
-  gtestStatic = gtest.override { static = true; };
+  gtestStatic = gtest.override {static = true;};
 in
 buildPythonPackage rec {
   pname = "onnx";
@@ -41,7 +41,7 @@ buildPythonPackage rec {
     pybind11
   ];
 
-  pythonRelaxDeps = [ "protobuf" ];
+  pythonRelaxDeps = ["protobuf"];
 
   propagatedBuildInputs = [
     protobuf
@@ -126,12 +126,12 @@ buildPythonPackage rec {
     .setuptools-cmake-build/onnx_gtests
   '';
 
-  pythonImportsCheck = [ "onnx" ];
+  pythonImportsCheck = ["onnx"];
 
   meta = with lib; {
     description = "Open Neural Network Exchange";
     homepage = "https://onnx.ai";
     license = licenses.asl20;
-    maintainers = with maintainers; [ acairncross ];
+    maintainers = with maintainers; [acairncross];
   };
 }

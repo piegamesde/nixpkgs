@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-oU6naDFZ0PQVHZ3brANfMULDqYMYxeJN+MCUCvN/DpU=";
   };
 
-  patches = [ ./upstream-v4l2loopback-compatibility.patch ];
+  patches = [./upstream-v4l2loopback-compatibility.patch];
 
   nativeBuildInputs = [
     autoreconfHook
@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
     description = "Streaming relay for v4l2loopback using GStreamer";
     homepage = "https://git.launchpad.net/v4l2-relayd";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ betaboon ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with maintainers; [betaboon];
+    platforms = ["x86_64-linux"];
   };
 }

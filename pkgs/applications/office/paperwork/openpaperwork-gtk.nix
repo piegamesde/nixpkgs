@@ -16,7 +16,7 @@
 
 buildPythonPackage rec {
   pname = "openpaperwork-gtk";
-  inherit (import ./src.nix { inherit fetchFromGitLab; }) version src;
+  inherit (import ./src.nix {inherit fetchFromGitLab;}) version src;
 
   sourceRoot = "source/openpaperwork-gtk";
 

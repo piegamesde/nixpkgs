@@ -8,7 +8,7 @@ buildPythonPackage {
   inherit (btrfs-progs) version src;
   format = "setuptools";
 
-  buildInputs = [ btrfs-progs ];
+  buildInputs = [btrfs-progs];
 
   preConfigure = ''
     cd libbtrfsutil/python
@@ -16,7 +16,7 @@ buildPythonPackage {
 
   # No tests
   doCheck = false;
-  pythonImportsCheck = [ "btrfsutil" ];
+  pythonImportsCheck = ["btrfsutil"];
 
   meta = with lib; {
     description = "Library for managing Btrfs filesystems";

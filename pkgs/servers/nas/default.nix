@@ -60,7 +60,7 @@ stdenv.mkDerivation (
       homepage = "http://radscan.com/nas.html";
       description = "A network transparent, client/server audio transport system";
       license = lib.licenses.mit;
-      maintainers = [ ];
+      maintainers = [];
       platforms = lib.platforms.linux;
     };
   }

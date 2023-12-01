@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-QBItcrrpOGj22/ShTDdfZjm63bGW2xY4c71R1q8abPE=";
   };
 
-  buildInputs = [ gmp ];
+  buildInputs = [gmp];
 
   nativeBuildInputs = [
     python3 # needed by ./configure to create the makefile
@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
   libbasename = "libzn_poly";
   libext = stdenv.targetPlatform.extensions.sharedLibrary;
 
-  makeFlags = [ "CC=${stdenv.cc.targetPrefix}cc" ];
+  makeFlags = ["CC=${stdenv.cc.targetPrefix}cc"];
 
   # Tuning (either autotuning or with hand-written parameters) is possible
   # but not implemented here.
@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
     "${libbasename}${libext}"
   ];
 
-  configureFlags = lib.optionals (!tune) [ "--disable-tuning" ];
+  configureFlags = lib.optionals (!tune) ["--disable-tuning"];
 
   # `make install` fails to install some header files and the lib file.
   installPhase = ''
@@ -57,7 +57,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://web.maths.unsw.edu.au/~davidharvey/code/zn_poly/";
     description = "Polynomial arithmetic over Z/nZ";
-    license = with licenses; [ gpl3 ];
+    license = with licenses; [gpl3];
     maintainers = teams.sage.members;
     platforms = platforms.unix;
   };

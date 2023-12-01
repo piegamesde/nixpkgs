@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
   # Should be propagatedNativeBuildInputs
   propagatedBuildInputs = [
     # Override to remove dependencies to prevent infinite recursion.
-    (pipInstallHook.override { pip = null; })
+    (pipInstallHook.override {pip = null;})
     (setuptoolsBuildHook.override {
       setuptools = null;
       wheel = null;
@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
     makeWrapper
     unzip
   ];
-  buildInputs = [ python ];
+  buildInputs = [python];
 
   dontBuild = true;
 

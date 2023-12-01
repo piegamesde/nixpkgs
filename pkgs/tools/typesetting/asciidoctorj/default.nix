@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-LUbzS2XYSsSPyJmyvitS5or0S4o9SB2ycMkuAWyVB8w=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     rm bin/asciidoctorj.bat
@@ -35,6 +35,6 @@ stdenv.mkDerivation rec {
     homepage = "https://asciidoctor.org/docs/asciidoctorj/";
     license = licenses.asl20;
     platforms = platforms.all;
-    maintainers = with maintainers; [ moaxcp ];
+    maintainers = with maintainers; [moaxcp];
   };
 }

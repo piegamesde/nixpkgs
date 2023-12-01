@@ -13,12 +13,12 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-7uhQVLC/AEPAPUdm3+vABoIwG4uhNy/EngjsrZjT0Ts=";
   };
 
-  buildInputs = [ zlib ];
+  buildInputs = [zlib];
 
   meta = {
     description = "Software pipeline for building loci from short-read sequences";
     homepage = "http://catchenlab.life.illinois.edu/stacks/";
-    maintainers = [ lib.maintainers.bzizou ];
+    maintainers = [lib.maintainers.bzizou];
     license = lib.licenses.gpl3Plus;
   };
 }

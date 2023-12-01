@@ -95,8 +95,8 @@ in
 
     systemd.services.minetest-server = {
       description = "Minetest Server Service";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
 
       serviceConfig.Restart = "always";
       serviceConfig.User = "minetest";

@@ -45,14 +45,14 @@ mkDerivation {
       darwin.DarwinTools
       darwin.bootstrap_cmds
     ]
-    ++ lib.optionals (!stdenv.isDarwin) [ gnustep.make ];
+    ++ lib.optionals (!stdenv.isDarwin) [gnustep.make];
 
   buildInputs =
     [
       libxkbcommon
       wayland
     ]
-    ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Cocoa ]
+    ++ lib.optionals stdenv.isDarwin [darwin.apple_sdk.frameworks.Cocoa]
     ++ lib.optionals (!stdenv.isDarwin) [
       gnustep.back
       gnustep.base
@@ -83,7 +83,7 @@ mkDerivation {
     description = "A portable Wayland compositor in Objective-C";
     homepage = "https://github.com/owl-compositor/owl";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ wegank ];
+    maintainers = with maintainers; [wegank];
     platforms = platforms.unix;
     mainProgram = "Owl";
   };

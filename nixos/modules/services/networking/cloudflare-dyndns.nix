@@ -27,7 +27,7 @@ in
 
       domains = mkOption {
         type = types.listOf types.str;
-        default = [ ];
+        default = [];
         description = lib.mdDoc ''
           List of domain names to update records for.
         '';
@@ -70,8 +70,8 @@ in
   config = mkIf cfg.enable {
     systemd.services.cloudflare-dyndns = {
       description = "CloudFlare Dynamic DNS Client";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
       startAt = "*:0/5";
 
       environment = {
@@ -86,9 +86,9 @@ in
         ExecStart =
           let
             args =
-              [ "--cache-file /var/lib/cloudflare-dyndns/ip.cache" ]
-              ++ (if cfg.ipv4 then [ "-4" ] else [ "-no-4" ])
-              ++ (if cfg.ipv6 then [ "-6" ] else [ "-no-6" ])
+              ["--cache-file /var/lib/cloudflare-dyndns/ip.cache"]
+              ++ (if cfg.ipv4 then ["-4"] else ["-no-4"])
+              ++ (if cfg.ipv6 then ["-6"] else ["-no-6"])
               ++ optional cfg.deleteMissing "--delete-missing"
               ++ optional cfg.proxied "--proxied";
           in

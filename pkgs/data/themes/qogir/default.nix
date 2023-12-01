@@ -10,9 +10,9 @@
   librsvg,
   sassc,
   which,
-  themeVariants ? [ ], # default: blue
-  colorVariants ? [ ], # default: all
-  tweaks ? [ ],
+  themeVariants ? [], # default: blue
+  colorVariants ? [], # default: all
+  tweaks ? [],
 }:
 
 let
@@ -81,9 +81,9 @@ lib.checkListOfEnum "${pname}: theme variants"
       mkdir -p $out/share/themes
 
       name= HOME="$TMPDIR" ./install.sh \
-        ${lib.optionalString (themeVariants != [ ]) "--theme " + builtins.toString themeVariants} \
-        ${lib.optionalString (colorVariants != [ ]) "--color " + builtins.toString colorVariants} \
-        ${lib.optionalString (tweaks != [ ]) "--tweaks " + builtins.toString tweaks} \
+        ${lib.optionalString (themeVariants != []) "--theme " + builtins.toString themeVariants} \
+        ${lib.optionalString (colorVariants != []) "--color " + builtins.toString colorVariants} \
+        ${lib.optionalString (tweaks != []) "--tweaks " + builtins.toString tweaks} \
         --dest $out/share/themes
 
       mkdir -p $out/share/doc/${pname}
@@ -96,13 +96,13 @@ lib.checkListOfEnum "${pname}: theme variants"
       runHook postInstall
     '';
 
-    passthru.updateScript = gitUpdater { };
+    passthru.updateScript = gitUpdater {};
 
     meta = with lib; {
       description = "Flat Design theme for GTK based desktop environments";
       homepage = "https://github.com/vinceliuice/Qogir-theme";
       license = licenses.gpl3Only;
       platforms = platforms.unix;
-      maintainers = [ maintainers.romildo ];
+      maintainers = [maintainers.romildo];
     };
   }

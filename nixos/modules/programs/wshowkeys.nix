@@ -11,7 +11,7 @@ let
   cfg = config.programs.wshowkeys;
 in
 {
-  meta.maintainers = with maintainers; [ primeos ];
+  meta.maintainers = with maintainers; [primeos];
 
   options = {
     programs.wshowkeys = {

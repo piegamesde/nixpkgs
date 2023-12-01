@@ -16,7 +16,7 @@ let
   ];
 
   buildDemo =
-    { name, src }:
+    {name, src}:
     stdenv.mkDerivation rec {
       inherit name src;
 
@@ -32,7 +32,7 @@ let
           openal
         ]
         + ":"
-        + lib.makeSearchPathOutput "lib" "lib64" [ stdenv.cc.cc ];
+        + lib.makeSearchPathOutput "lib" "lib64" [stdenv.cc.cc];
 
       buildCommand = ''
         mkdir -p "$out"
@@ -66,7 +66,7 @@ let
       meta = {
         description = "Unreal Engine 4 Linux demos";
         homepage = "https://wiki.unrealengine.com/Linux_Demos";
-        platforms = [ "x86_64-linux" ];
+        platforms = ["x86_64-linux"];
         license = lib.licenses.unfree;
       };
     };

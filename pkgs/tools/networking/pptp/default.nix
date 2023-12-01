@@ -44,6 +44,6 @@ stdenv.mkDerivation rec {
     homepage = "https://pptpclient.sourceforge.net/";
     license = licenses.gpl2;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ nickcao ];
+    maintainers = with maintainers; [nickcao];
   };
 }

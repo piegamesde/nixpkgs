@@ -118,7 +118,7 @@ let
                         ++ optional (service.preCloneScript != null) "--pre-clone-script ${service.preCloneScript}"
                         ++ optional (service.preBuildScript != null) "--pre-build-script ${service.preBuildScript}"
                         ++ optional (service.postBuildScript != null) "--post-build-script ${service.postBuildScript}"
-                        ++ optional (service.tagList != [ ]) "--tag-list ${concatStringsSep "," service.tagList}"
+                        ++ optional (service.tagList != []) "--tag-list ${concatStringsSep "," service.tagList}"
                         ++ optional service.runUntagged "--run-untagged"
                         ++ optional service.protected "--access-level ref_protected"
                         ++ optional service.debugTraceDisabled "--debug-trace-disabled"
@@ -129,7 +129,7 @@ let
                           assert (assertMsg (service.dockerImage != null)
                             "dockerImage option is required for ${service.executor} executor (${name})"
                           );
-                          [ "--docker-image ${service.dockerImage}" ]
+                          ["--docker-image ${service.dockerImage}"]
                           ++ optional service.dockerDisableCache "--docker-disable-cache"
                           ++ optional service.dockerPrivileged "--docker-privileged"
                           ++ map (v: "--docker-volumes ${escapeShellArg v}") service.dockerVolumes
@@ -184,8 +184,8 @@ in
       '';
     };
     settings = mkOption {
-      type = types.submodule { freeformType = (pkgs.formats.json { }).type; };
-      default = { };
+      type = types.submodule {freeformType = (pkgs.formats.json {}).type;};
+      default = {};
       description = lib.mdDoc ''
         Global gitlab-runner configuration. See
         <https://docs.gitlab.com/runner/configuration/advanced-configuration.html#the-global-section>
@@ -218,14 +218,14 @@ in
     };
     extraPackages = mkOption {
       type = types.listOf types.package;
-      default = [ ];
+      default = [];
       description = lib.mdDoc ''
         Extra packages to add to PATH for the gitlab-runner process.
       '';
     };
     services = mkOption {
       description = lib.mdDoc "GitLab Runner services.";
-      default = { };
+      default = {};
       example = literalExpression ''
         {
           # runner for building in docker via host's nix-daemon
@@ -325,8 +325,8 @@ in
             };
             registrationFlags = mkOption {
               type = types.listOf types.str;
-              default = [ ];
-              example = [ "--docker-helper-image my/gitlab-runner-helper" ];
+              default = [];
+              example = ["--docker-helper-image my/gitlab-runner-helper"];
               description = lib.mdDoc ''
                 Extra command-line flags passed to
                 `gitlab-runner register`.
@@ -336,7 +336,7 @@ in
             };
             environmentVariables = mkOption {
               type = types.attrsOf types.str;
-              default = { };
+              default = {};
               example = {
                 NAME = "value";
               };
@@ -387,8 +387,8 @@ in
             };
             dockerVolumes = mkOption {
               type = types.listOf types.str;
-              default = [ ];
-              example = [ "/var/run/docker.sock:/var/run/docker.sock" ];
+              default = [];
+              example = ["/var/run/docker.sock:/var/run/docker.sock"];
               description = lib.mdDoc ''
                 Bind-mount a volume and create it
                 if it doesn't exist prior to mounting.
@@ -410,15 +410,15 @@ in
             };
             dockerExtraHosts = mkOption {
               type = types.listOf types.str;
-              default = [ ];
-              example = [ "other-host:127.0.0.1" ];
+              default = [];
+              example = ["other-host:127.0.0.1"];
               description = lib.mdDoc ''
                 Add a custom host-to-IP mapping.
               '';
             };
             dockerAllowedImages = mkOption {
               type = types.listOf types.str;
-              default = [ ];
+              default = [];
               example = [
                 "ruby:*"
                 "python:*"
@@ -431,7 +431,7 @@ in
             };
             dockerAllowedServices = mkOption {
               type = types.listOf types.str;
-              default = [ ];
+              default = [];
               example = [
                 "postgres:9"
                 "redis:*"
@@ -466,7 +466,7 @@ in
             };
             tagList = mkOption {
               type = types.listOf types.str;
-              default = [ ];
+              default = [];
               description = lib.mdDoc ''
                 Tag list.
               '';
@@ -535,8 +535,8 @@ in
 
       flags = mkOption {
         type = types.listOf types.str;
-        default = [ ];
-        example = [ "prune" ];
+        default = [];
+        example = ["prune"];
         description = lib.mdDoc ''
           Any additional flags passed to {command}`clear-docker-cache`.
         '';
@@ -569,13 +569,13 @@ in
         )
         (filterAttrs (n: v: isStorePath v.registrationConfigFile) cfg.services);
 
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
     systemd.services.gitlab-runner = {
       description = "Gitlab Runner";
-      documentation = [ "https://docs.gitlab.com/runner/" ];
-      after = [ "network.target" ] ++ optional hasDocker "docker.service";
+      documentation = ["https://docs.gitlab.com/runner/"];
+      after = ["network.target"] ++ optional hasDocker "docker.service";
       requires = optional hasDocker "docker.service";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       environment = config.networking.proxy.envVars // {
         HOME = "/var/lib/gitlab-runner";
       };

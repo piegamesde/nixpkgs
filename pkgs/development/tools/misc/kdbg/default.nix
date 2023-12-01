@@ -50,6 +50,6 @@ stdenv.mkDerivation rec {
       stepping through code.
     '';
     license = licenses.gpl2;
-    maintainers = [ maintainers.catern ];
+    maintainers = [maintainers.catern];
   };
 }

@@ -9,7 +9,7 @@
   expat,
   zlib,
   # plugins: list of strings, eg. [ "python2" "python3" ]
-  plugins ? [ ],
+  plugins ? [],
   pam,
   withPAM ? stdenv.isLinux,
   systemd,
@@ -52,12 +52,12 @@ let
     (pythonPlugin python3)
     (lib.nameValuePair "rack" {
       path = "plugins/rack";
-      inputs = [ ruby ];
+      inputs = [ruby];
     })
     (lib.nameValuePair "cgi" {
       # usage: https://uwsgi-docs.readthedocs.io/en/latest/CGI.html?highlight=cgi
       path = "plugins/cgi";
-      inputs = [ ];
+      inputs = [];
     })
     (lib.nameValuePair "php" {
       # usage: https://uwsgi-docs.readthedocs.io/en/latest/PHP.html#running-php-apps-with-nginx
@@ -77,7 +77,7 @@ let
       all = lib.concatStringsSep ", " (lib.attrNames available);
     in
     if lib.hasAttr name available then
-      lib.getAttr name available // { inherit name; }
+      lib.getAttr name available // {inherit name;}
     else
       throw "Unknown UWSGI plugin ${name}, available : ${all}";
 

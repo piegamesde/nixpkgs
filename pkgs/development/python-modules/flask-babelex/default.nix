@@ -33,7 +33,7 @@ buildPythonPackage rec {
     pytz
   ];
 
-  pytestFlagsArray = [ "tests/tests.py" ];
+  pytestFlagsArray = ["tests/tests.py"];
 
   disabledTests = [
     # Disabled 3 tests failing due to string representations of dates:
@@ -49,6 +49,6 @@ buildPythonPackage rec {
     description = "Adds i18n/l10n support to Flask applications";
     homepage = "https://github.com/mrjoes/flask-babelex";
     license = licenses.bsd3;
-    maintainers = [ maintainers.costrouc ];
+    maintainers = [maintainers.costrouc];
   };
 }

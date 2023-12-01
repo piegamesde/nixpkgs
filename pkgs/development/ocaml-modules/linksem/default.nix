@@ -27,14 +27,14 @@ lib.throwIfNot (lib.versionAtLeast ocaml.version "4.07")
       ocaml
     ];
 
-    propagatedBuildInputs = [ lem ];
+    propagatedBuildInputs = [lem];
 
     createFindlibDestdir = true;
 
     meta = with lib; {
       homepage = "https://github.com/rems-project/linksem";
       description = "A formalisation of substantial parts of ELF linking and DWARF debug information";
-      maintainers = with maintainers; [ genericnerdyusername ];
+      maintainers = with maintainers; [genericnerdyusername];
       license = licenses.bsd2;
       platforms = ocaml.meta.platforms;
     };

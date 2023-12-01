@@ -44,7 +44,7 @@ in
         PHYLACTERY_LIBRARY = "${cfg.library}";
       };
 
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
 
       serviceConfig = {
         ConditionPathExists = cfg.library;
@@ -54,5 +54,5 @@ in
     };
   };
 
-  meta.maintainers = with maintainers; [ McSinyx ];
+  meta.maintainers = with maintainers; [McSinyx];
 }

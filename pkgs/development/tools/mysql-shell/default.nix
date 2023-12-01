@@ -73,7 +73,7 @@ stdenv.mkDerivation rec {
       bison
       makeWrapper
     ]
-    ++ lib.optionals (!stdenv.isDarwin) [ rpcsvc-proto ]
+    ++ lib.optionals (!stdenv.isDarwin) [rpcsvc-proto]
     ++ lib.optionals stdenv.isDarwin [
       cctools
       developer_cmds
@@ -103,8 +103,8 @@ stdenv.mkDerivation rec {
       antlr.runtime.cpp
     ]
     ++ pythonDeps
-    ++ lib.optionals stdenv.isLinux [ libtirpc ]
-    ++ lib.optionals stdenv.isDarwin [ CoreServices ];
+    ++ lib.optionals stdenv.isLinux [libtirpc]
+    ++ lib.optionals stdenv.isDarwin [CoreServices];
 
   preConfigure = ''
     # Build MySQL
@@ -136,7 +136,7 @@ stdenv.mkDerivation rec {
     homepage = "https://dev.mysql.com/doc/mysql-shell/${lib.versions.majorMinor version}/en/";
     description = "A new command line scriptable shell for MySQL";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ aaronjheng ];
+    maintainers = with maintainers; [aaronjheng];
     mainProgram = "mysqlsh";
   };
 }

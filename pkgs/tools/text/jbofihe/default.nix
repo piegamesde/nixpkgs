@@ -35,6 +35,6 @@ stdenv.mkDerivation rec {
     description = "Parser & analyser for Lojban";
     homepage = "https://github.com/lojban/jbofihe";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ chkno ];
+    maintainers = with maintainers; [chkno];
   };
 }

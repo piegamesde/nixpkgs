@@ -13,7 +13,7 @@ stdenv.mkDerivation rec {
     sha256 = "18bnwkvax02scjdg5z8gvrkvy1lhssfnlpsaqb5kkh30w1vri1i7";
   };
 
-  configureFlags = [ "--enable-resolvconf" ];
+  configureFlags = ["--enable-resolvconf"];
 
   # -fcommon: Workaround build failure on -fno-common toolchains like upstream
   # gcc-10. Otherwise build fails as:
@@ -27,6 +27,6 @@ stdenv.mkDerivation rec {
     homepage = "https://klub.com.pl/dhcpv6/";
     license = licenses.gpl2Only;
     platforms = platforms.all;
-    maintainers = with maintainers; [ fpletz ];
+    maintainers = with maintainers; [fpletz];
   };
 }

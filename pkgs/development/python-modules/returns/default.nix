@@ -31,9 +31,9 @@ buildPythonPackage rec {
     hash = "sha256-28WYjrjmu3hQ8+Snuvl3ykTd86eWYI97AE60p6SVwDQ=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
-  propagatedBuildInputs = [ typing-extensions ];
+  propagatedBuildInputs = [typing-extensions];
 
   nativeCheckInputs = [
     anyio
@@ -51,12 +51,12 @@ buildPythonPackage rec {
     trio
   ];
 
-  pytestFlagsArray = [ "--ignore=typesafety" ];
+  pytestFlagsArray = ["--ignore=typesafety"];
 
   meta = with lib; {
     description = "Make your functions return something meaningful, typed, and safe!";
     homepage = "returns.rtfd.io";
     license = licenses.bsd2;
-    maintainers = [ maintainers.jessemoore ];
+    maintainers = [maintainers.jessemoore];
   };
 }

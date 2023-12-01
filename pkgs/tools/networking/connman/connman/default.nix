@@ -91,10 +91,10 @@ stdenv.mkDerivation rec {
       gnutls
       readline
     ]
-    ++ optionals (enableOpenconnect) [ openconnect ]
-    ++ optionals (firewallType == "iptables") [ iptables ]
-    ++ optionals (firewallType == "nftables") [ libnftnl ]
-    ++ optionals (enablePolkit) [ polkit ]
+    ++ optionals (enableOpenconnect) [openconnect]
+    ++ optionals (firewallType == "iptables") [iptables]
+    ++ optionals (firewallType == "nftables") [libnftnl]
+    ++ optionals (enablePolkit) [polkit]
     ++ optionals (enablePptp) [
       pptp
       ppp
@@ -128,25 +128,25 @@ stdenv.mkDerivation rec {
       # "--enable-tests" # installs the tests, we don't want that
       "--enable-tools"
     ]
-    ++ optionals (!enableLoopback) [ "--disable-loopback" ]
-    ++ optionals (!enableEthernet) [ "--disable-ethernet" ]
-    ++ optionals (!enableWireguard) [ "--disable-wireguard" ]
-    ++ optionals (!enableGadget) [ "--disable-gadget" ]
-    ++ optionals (!enableWifi) [ "--disable-wifi" ]
+    ++ optionals (!enableLoopback) ["--disable-loopback"]
+    ++ optionals (!enableEthernet) ["--disable-ethernet"]
+    ++ optionals (!enableWireguard) ["--disable-wireguard"]
+    ++ optionals (!enableGadget) ["--disable-gadget"]
+    ++ optionals (!enableWifi) ["--disable-wifi"]
     # enable IWD support for wifi as it doesn't require any new dependencies
     # and it's easier for the NixOS module to use only one connman package when
     # IWD is requested
-    ++ optionals (enableWifi) [ "--enable-iwd" ]
-    ++ optionals (!enableBluetooth) [ "--disable-bluetooth" ]
-    ++ optionals (!enableOfono) [ "--disable-ofono" ]
-    ++ optionals (!enableDundee) [ "--disable-dundee" ]
-    ++ optionals (!enablePacrunner) [ "--disable-pacrunner" ]
-    ++ optionals (!enableNeard) [ "--disable-neard" ]
-    ++ optionals (!enableWispr) [ "--disable-wispr" ]
-    ++ optionals (!enableTools) [ "--disable-tools" ]
-    ++ optionals (!enableStats) [ "--disable-stats" ]
-    ++ optionals (!enableClient) [ "--disable-client" ]
-    ++ optionals (!enableDatafiles) [ "--disable-datafiles" ]
+    ++ optionals (enableWifi) ["--enable-iwd"]
+    ++ optionals (!enableBluetooth) ["--disable-bluetooth"]
+    ++ optionals (!enableOfono) ["--disable-ofono"]
+    ++ optionals (!enableDundee) ["--disable-dundee"]
+    ++ optionals (!enablePacrunner) ["--disable-pacrunner"]
+    ++ optionals (!enableNeard) ["--disable-neard"]
+    ++ optionals (!enableWispr) ["--disable-wispr"]
+    ++ optionals (!enableTools) ["--disable-tools"]
+    ++ optionals (!enableStats) ["--disable-stats"]
+    ++ optionals (!enableClient) ["--disable-client"]
+    ++ optionals (!enableDatafiles) ["--disable-datafiles"]
     ++ optionals (enableOpenconnect) [
       "--enable-openconnect=builtin"
       "--with-openconnect=${openconnect}/sbin/openconnect"
@@ -159,17 +159,17 @@ stdenv.mkDerivation rec {
       "--enable-vpnc=builtin"
       "--with-vpnc=${vpnc}/sbin/vpnc"
     ]
-    ++ optionals (enablePolkit) [ "--enable-polkit" ]
+    ++ optionals (enablePolkit) ["--enable-polkit"]
     ++ optionals (enablePptp) [
       "--enable-pptp"
       "--with-pptp=${pptp}/sbin/pptp"
     ]
-    ++ optionals (!enableWireguard) [ "--disable-wireguard" ]
-    ++ optionals (enableNetworkManager) [ "--enable-nmcompat" ]
-    ++ optionals (enableHh2serialGps) [ "--enable-hh2serial-gps" ]
-    ++ optionals (enableL2tp) [ "--enable-l2tp" ]
-    ++ optionals (enableIospm) [ "--enable-iospm" ]
-    ++ optionals (enableTist) [ "--enable-tist" ];
+    ++ optionals (!enableWireguard) ["--disable-wireguard"]
+    ++ optionals (enableNetworkManager) ["--enable-nmcompat"]
+    ++ optionals (enableHh2serialGps) ["--enable-hh2serial-gps"]
+    ++ optionals (enableL2tp) ["--enable-l2tp"]
+    ++ optionals (enableIospm) ["--enable-iospm"]
+    ++ optionals (enableTist) ["--enable-tist"];
 
   doCheck = true;
 
@@ -178,7 +178,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "A daemon for managing internet connections";
     homepage = "https://git.kernel.org/pub/scm/network/connman/connman.git/";
-    maintainers = [ maintainers.matejc ];
+    maintainers = [maintainers.matejc];
     platforms = platforms.linux;
     license = licenses.gpl2Only;
   };

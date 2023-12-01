@@ -34,13 +34,13 @@ rustPlatform.buildRustPackage rec {
 
   # TODO: Cargo.lock is out of date, so fix it. Likely not necessary anymore in
   # the next update.
-  cargoPatches = [ ./Cargo.lock.patch ];
+  cargoPatches = [./Cargo.lock.patch];
 
   meta = with lib; {
     description = "Distributed Stockfish analysis for lichess.org";
     homepage = "https://github.com/niklasf/fishnet";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ tu-maurice ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with maintainers; [tu-maurice];
+    platforms = ["x86_64-linux"];
   };
 }

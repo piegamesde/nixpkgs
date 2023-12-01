@@ -13,13 +13,13 @@ stdenv.mkDerivation rec {
     sha256 = "1yafwz4z5h30hqvk51wpgbjlmq9f2z2znvfim87ydrfrqfjmi6sz";
   };
 
-  nativeBuildInputs = [ intltool ];
+  nativeBuildInputs = [intltool];
 
   meta = with lib; {
     description = "Library to read and write Paradox files";
     homepage = "https://pxlib.sourceforge.net/";
     license = licenses.gpl2;
     platforms = platforms.all;
-    maintainers = [ maintainers.winpat ];
+    maintainers = [maintainers.winpat];
   };
 }

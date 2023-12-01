@@ -103,12 +103,12 @@ in
       };
     };
 
-    users.groups = optionalAttrs (cfg.group == "matterbridge") { matterbridge = { }; };
+    users.groups = optionalAttrs (cfg.group == "matterbridge") {matterbridge = {};};
 
     systemd.services.matterbridge = {
       description = "Matterbridge chat platform bridge";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
 
       serviceConfig = {
         User = cfg.user;

@@ -20,10 +20,10 @@ buildPythonPackage rec {
     sha256 = "1pdmsmwagimn0lsl4x7sg3skcr2fvzqpv2pjd1rh7yrm5gzrxpmq";
   };
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
   propagatedBuildInputs =
-    [ zipp ]
+    [zipp]
     ++ lib.optionals (!isPy3k) [
       pathlib2
       contextlib2
@@ -33,7 +33,7 @@ buildPythonPackage rec {
   # Cyclic dependencies
   doCheck = false;
 
-  pythonImportsCheck = [ "importlib_metadata" ];
+  pythonImportsCheck = ["importlib_metadata"];
 
   meta = with lib; {
     description = "Read metadata from Python packages";

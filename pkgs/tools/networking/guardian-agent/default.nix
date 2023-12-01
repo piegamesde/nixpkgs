@@ -18,7 +18,7 @@ buildGoPackage rec {
     sha256 = "05269y944hcabn6dqa66387rdhx81vcqcyjv6m1hdbz5ba8j7mqn";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   goPackagePath = "github.com/StanfordSNR/guardian-agent";
 
@@ -41,7 +41,7 @@ buildGoPackage rec {
     description = "Secure ssh-agent forwarding for Mosh and SSH";
     homepage = "https://github.com/StanfordSNR/guardian-agent";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ mmahut ];
+    maintainers = with maintainers; [mmahut];
     platforms = platforms.unix;
     broken = stdenv.isDarwin; # x/sys/unix needs an update, but software is unmaintained
   };

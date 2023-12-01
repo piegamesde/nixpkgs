@@ -18,7 +18,7 @@ buildDunePackage rec {
 
   useDune2 = true;
 
-  propagatedBuildInputs = [ cudf ];
+  propagatedBuildInputs = [cudf];
 
   doCheck = true;
 
@@ -30,6 +30,6 @@ buildDunePackage rec {
       lgpl21
       gpl3
     ];
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

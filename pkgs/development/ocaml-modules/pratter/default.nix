@@ -22,7 +22,7 @@ buildDunePackage rec {
     hash = "sha256-QEq8Zt2pfsRT04Zd+ugGKcHdzkqYcDDUg/iAFMMDdEE=";
   };
 
-  propagatedBuildInputs = [ camlp-streams ];
+  propagatedBuildInputs = [camlp-streams];
 
   checkInputs = [
     alcotest
@@ -36,6 +36,6 @@ buildDunePackage rec {
     homepage = "https://github.com/gabrielhdt/pratter";
     license = licenses.bsd3;
     changelog = "https://github.com/gabrielhdt/pratter/raw/${version}/CHANGELOG.md";
-    maintainers = with maintainers; [ bcdarwin ];
+    maintainers = with maintainers; [bcdarwin];
   };
 }

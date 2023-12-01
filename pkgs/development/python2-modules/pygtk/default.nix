@@ -41,8 +41,8 @@ buildPythonPackage rec {
     })
   ];
 
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ pango ];
+  nativeBuildInputs = [pkg-config];
+  buildInputs = [pango];
 
   propagatedBuildInputs = [
     gtk2
@@ -91,6 +91,6 @@ buildPythonPackage rec {
     description = "GTK 2 Python bindings";
     homepage = "https://gitlab.gnome.org/Archive/pygtk";
     platforms = platforms.all;
-    license = with licenses; [ lgpl21Plus ];
+    license = with licenses; [lgpl21Plus];
   };
 }

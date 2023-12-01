@@ -27,7 +27,7 @@ let
       uid = builtins.add config.ids.uids.nixbld nr;
       isSystemUser = true;
       group = "nixbld";
-      extraGroups = [ "nixbld" ];
+      extraGroups = ["nixbld"];
     };
   };
 
@@ -58,9 +58,9 @@ let
         else if strings.isConvertibleWithToString v then
           toString v
         else
-          abort "The nix conf value: ${toPretty { } v} can not be encoded";
+          abort "The nix conf value: ${toPretty {} v} can not be encoded";
 
-      mkKeyValue = k: v: "${escape [ "=" ] k} = ${mkValueString v}";
+      mkKeyValue = k: v: "${escape ["="] k} = ${mkValueString v}";
 
       mkKeyValuePairs = attrs: concatStringsSep "\n" (mapAttrsToList mkKeyValue attrs);
     in
@@ -350,7 +350,7 @@ in
               };
               systems = mkOption {
                 type = types.listOf types.str;
-                default = [ ];
+                default = [];
                 example = [
                   "x86_64-linux"
                   "aarch64-linux"
@@ -408,8 +408,8 @@ in
               };
               mandatoryFeatures = mkOption {
                 type = types.listOf types.str;
-                default = [ ];
-                example = [ "big-parallel" ];
+                default = [];
+                example = ["big-parallel"];
                 description = lib.mdDoc ''
                   A list of features mandatory for this builder. The builder will
                   be ignored for derivations that don't require all features in
@@ -419,7 +419,7 @@ in
               };
               supportedFeatures = mkOption {
                 type = types.listOf types.str;
-                default = [ ];
+                default = [];
                 example = [
                   "kvm"
                   "big-parallel"
@@ -442,7 +442,7 @@ in
             };
           }
         );
-        default = [ ];
+        default = [];
         description = lib.mdDoc ''
           This option lists the machines to be used if distributed builds are
           enabled (see {option}`nix.distributedBuilds`).
@@ -456,7 +456,7 @@ in
       envVars = mkOption {
         type = types.attrs;
         internal = true;
-        default = { };
+        default = {};
         description = lib.mdDoc "Environment variables used by Nix.";
       };
 
@@ -516,7 +516,7 @@ in
                   ]
                 );
             in
-            { config, name, ... }:
+            {config, name, ...}:
             {
               options = {
                 from = mkOption {
@@ -574,7 +574,7 @@ in
             }
           )
         );
-        default = { };
+        default = {};
         description = lib.mdDoc ''
           A system-wide flake registry.
         '';
@@ -596,7 +596,7 @@ in
 
           options = {
             max-jobs = mkOption {
-              type = types.either types.int (types.enum [ "auto" ]);
+              type = types.either types.int (types.enum ["auto"]);
               default = "auto";
               example = 64;
               description = lib.mdDoc ''
@@ -635,7 +635,7 @@ in
             };
 
             sandbox = mkOption {
-              type = types.either types.bool (types.enum [ "relaxed" ]);
+              type = types.either types.bool (types.enum ["relaxed"]);
               default = true;
               description = lib.mdDoc ''
                 If set, Nix will perform builds in a sandboxed environment that it
@@ -651,7 +651,7 @@ in
 
             extra-sandbox-paths = mkOption {
               type = types.listOf types.str;
-              default = [ ];
+              default = [];
               example = [
                 "/dev"
                 "/proc"
@@ -674,8 +674,8 @@ in
 
             trusted-substituters = mkOption {
               type = types.listOf types.str;
-              default = [ ];
-              example = [ "https://hydra.nixos.org/" ];
+              default = [];
+              example = ["https://hydra.nixos.org/"];
               description = lib.mdDoc ''
                 List of binary cache URLs that non-root users can use (in
                 addition to those specified using
@@ -698,7 +698,7 @@ in
 
             trusted-public-keys = mkOption {
               type = types.listOf types.str;
-              example = [ "hydra.nixos.org-1:CNHJZBh9K4tP3EKF6FkkgeVYsS3ohTl+oS0Qa8bezVs=" ];
+              example = ["hydra.nixos.org-1:CNHJZBh9K4tP3EKF6FkkgeVYsS3ohTl+oS0Qa8bezVs="];
               description = lib.mdDoc ''
                 List of public keys used to sign binary caches. If
                 {option}`nix.settings.trusted-public-keys` is enabled,
@@ -711,7 +711,7 @@ in
 
             trusted-users = mkOption {
               type = types.listOf types.str;
-              default = [ "root" ];
+              default = ["root"];
               example = [
                 "root"
                 "alice"
@@ -748,7 +748,7 @@ in
 
             allowed-users = mkOption {
               type = types.listOf types.str;
-              default = [ "*" ];
+              default = ["*"];
               example = [
                 "@wheel"
                 "@builders"
@@ -767,7 +767,7 @@ in
             };
           };
         };
-        default = { };
+        default = {};
         example = literalExpression ''
           {
             use-sandbox = true;
@@ -806,12 +806,12 @@ in
 
     environment.etc."nix/registry.json".text = builtins.toJSON {
       version = 2;
-      flakes = mapAttrsToList (n: v: { inherit (v) from to exact; }) cfg.registry;
+      flakes = mapAttrsToList (n: v: {inherit (v) from to exact;}) cfg.registry;
     };
 
     # List of machines for distributed Nix builds in the format
     # expected by build-remote.pl.
-    environment.etc."nix/machines" = mkIf (cfg.buildMachines != [ ]) {
+    environment.etc."nix/machines" = mkIf (cfg.buildMachines != []) {
       text =
         concatMapStrings
           (
@@ -824,7 +824,7 @@ in
                 (
                   if machine.system != null then
                     machine.system
-                  else if machine.systems != [ ] then
+                  else if machine.systems != [] then
                     concatStringsSep "," machine.systems
                   else
                     "-"
@@ -836,13 +836,13 @@ in
                   let
                     res = (machine.supportedFeatures ++ machine.mandatoryFeatures);
                   in
-                  if (res == [ ]) then "-" else (concatStringsSep "," res)
+                  if (res == []) then "-" else (concatStringsSep "," res)
                 )
                 (
                   let
                     res = machine.mandatoryFeatures;
                   in
-                  if (res == [ ]) then "-" else (concatStringsSep "," machine.mandatoryFeatures)
+                  if (res == []) then "-" else (concatStringsSep "," machine.mandatoryFeatures)
                 )
               ]
               ++ optional (isNixAtLeast "2.4pre") (
@@ -856,7 +856,7 @@ in
 
     assertions =
       let
-        badMachine = m: m.system == null && m.systems == [ ];
+        badMachine = m: m.system == null && m.systems == [];
       in
       [
         {
@@ -872,22 +872,22 @@ in
         }
       ];
 
-    systemd.packages = [ nixPackage ];
+    systemd.packages = [nixPackage];
 
     # Will only work once https://github.com/NixOS/nix/pull/6285 is merged
     # systemd.tmpfiles.packages = [ nixPackage ];
 
     # Can be dropped for Nix > https://github.com/NixOS/nix/pull/6285
-    systemd.tmpfiles.rules = [ "d /nix/var/nix/daemon-socket 0755 root root - -" ];
+    systemd.tmpfiles.rules = ["d /nix/var/nix/daemon-socket 0755 root root - -"];
 
-    systemd.sockets.nix-daemon.wantedBy = [ "sockets.target" ];
+    systemd.sockets.nix-daemon.wantedBy = ["sockets.target"];
 
     systemd.services.nix-daemon = {
       path = [
         nixPackage
         pkgs.util-linux
         config.programs.ssh.package
-      ] ++ optionals cfg.distributedBuilds [ pkgs.gzip ];
+      ] ++ optionals cfg.distributedBuilds [pkgs.gzip];
 
       environment =
         cfg.envVars
@@ -905,7 +905,7 @@ in
         LimitNOFILE = 1048576;
       };
 
-      restartTriggers = [ nixConf ];
+      restartTriggers = [nixConf];
 
       # `stopIfChanged = false` changes to switch behavior
       # from   stop -> update units -> start
@@ -981,8 +981,8 @@ in
     # Legacy configuration conversion.
     nix.settings = mkMerge [
       {
-        trusted-public-keys = [ "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=" ];
-        substituters = mkAfter [ "https://cache.nixos.org/" ];
+        trusted-public-keys = ["cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="];
+        substituters = mkAfter ["https://cache.nixos.org/"];
 
         system-features = mkDefault (
           [
@@ -993,17 +993,17 @@ in
           ]
           ++ optionals (pkgs.stdenv.hostPlatform ? gcc.arch) (
             # a builder can run code for `gcc.arch` and inferior architectures
-            [ "gccarch-${pkgs.stdenv.hostPlatform.gcc.arch}" ]
+            ["gccarch-${pkgs.stdenv.hostPlatform.gcc.arch}"]
             ++ map (x: "gccarch-${x}") (
-              systems.architectures.inferiors.${pkgs.stdenv.hostPlatform.gcc.arch} or [ ]
+              systems.architectures.inferiors.${pkgs.stdenv.hostPlatform.gcc.arch} or []
             )
           )
         );
       }
 
-      (mkIf (!cfg.distributedBuilds) { builders = null; })
+      (mkIf (!cfg.distributedBuilds) {builders = null;})
 
-      (mkIf (isNixAtLeast "2.3pre") { sandbox-fallback = false; })
+      (mkIf (isNixAtLeast "2.3pre") {sandbox-fallback = false;})
     ];
   };
 }

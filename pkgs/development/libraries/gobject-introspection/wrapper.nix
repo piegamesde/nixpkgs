@@ -22,7 +22,7 @@ let
     "gobject-introspection-unwrapped"
   ];
   # passing this stdenv to `targetPackages...` breaks due to splicing not working in `.override``
-  argsForTarget = builtins.removeAttrs args [ "stdenv" ];
+  argsForTarget = builtins.removeAttrs args ["stdenv"];
 
   overriddenUnwrappedGir = gobject-introspection-unwrapped.override args;
   # if we have targetPackages.gobject-introspection then propagate that
@@ -46,7 +46,7 @@ then
         unwrapped = overriddenUnwrappedGir;
       };
       dontStrip = true;
-      depsTargetTargetPropagated = [ overridenTargetUnwrappedGir ];
+      depsTargetTargetPropagated = [overridenTargetUnwrappedGir];
       buildCommand =
         ''
           eval fixupPhase
@@ -105,7 +105,7 @@ else
         unwrapped = overriddenUnwrappedGir;
       };
       dontStrip = true;
-      depsTargetTargetPropagated = [ overridenTargetUnwrappedGir ];
+      depsTargetTargetPropagated = [overridenTargetUnwrappedGir];
       buildCommand = ''
         eval fixupPhase
         ${lib.concatMapStrings

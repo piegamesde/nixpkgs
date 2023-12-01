@@ -29,16 +29,16 @@ stdenv.mkDerivation rec {
   ];
 
   # acinclude.m4 wants headers for tgetent().
-  buildInputs = [ ncurses ] ++ lib.optionals readlineSupport [ readline ];
+  buildInputs = [ncurses] ++ lib.optionals readlineSupport [readline];
 
-  CPPFLAGS = [ "-DSIGCLD=SIGCHLD" ];
+  CPPFLAGS = ["-DSIGCLD=SIGCHLD"];
 
   configureFlags =
     [
       "--enable-def-interp=${stdenv.shell}" # 183
     ]
-    ++ lib.optionals historySupport [ "--with-history" ]
-    ++ lib.optionals readlineSupport [ "--with-edit=readline" ];
+    ++ lib.optionals historySupport ["--with-history"]
+    ++ lib.optionals readlineSupport ["--with-edit=readline"];
 
   #reproducible-build
   postPatch = ''
@@ -56,7 +56,7 @@ stdenv.mkDerivation rec {
     longDescription = "Byron Rakitzis' UNIX reimplementation of Tom Duff's Plan 9 shell";
     homepage = "https://web.archive.org/web/20180820053030/tobold.org/article/rc";
     license = with licenses; zlib;
-    maintainers = with maintainers; [ ramkromberg ];
+    maintainers = with maintainers; [ramkromberg];
     mainProgram = "rc";
     platforms = with platforms; all;
   };

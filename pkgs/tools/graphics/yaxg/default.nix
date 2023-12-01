@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
     sha256 = "01p6ghp1vfrlnrm78bgbl9ppqwsdxh761g0qa172dpvsqg91l1p6";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
   buildInputs = [
     maim
     slop
@@ -59,6 +59,6 @@ stdenv.mkDerivation rec {
     '';
     platforms = platforms.all;
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ neonfuz ];
+    maintainers = with maintainers; [neonfuz];
   };
 }

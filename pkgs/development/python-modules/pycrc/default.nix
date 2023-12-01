@@ -17,6 +17,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/cristianav/PyCRC";
     description = "Python libraries for CRC calculations (it supports CRC-16, CRC-32, CRC-CCITT, etc)";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ guibou ];
+    maintainers = with maintainers; [guibou];
   };
 }

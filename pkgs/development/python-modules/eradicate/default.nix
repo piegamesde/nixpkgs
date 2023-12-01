@@ -20,17 +20,17 @@ buildPythonPackage rec {
     hash = "sha256-pVjvzW3UVeLMLLYcU0SIE19GEHFmouoA/JKSweTZSGo=";
   };
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "eradicate" ];
+  pythonImportsCheck = ["eradicate"];
 
-  pytestFlagsArray = [ "test_eradicate.py" ];
+  pytestFlagsArray = ["test_eradicate.py"];
 
   meta = with lib; {
     description = "Library to remove commented-out code from Python files";
     homepage = "https://github.com/myint/eradicate";
     changelog = "https://github.com/wemake-services/eradicate/releases/tag/${version}";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ mmlb ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [mmlb];
   };
 }

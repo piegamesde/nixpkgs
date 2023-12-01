@@ -11,7 +11,7 @@ let
   cfg = config.services.awstats;
   package = pkgs.awstats;
   configOpts =
-    { name, config, ... }:
+    {name, config, ...}:
     {
       options = {
         type = mkOption {
@@ -60,8 +60,8 @@ let
 
         hostAliases = mkOption {
           type = types.listOf types.str;
-          default = [ ];
-          example = [ "www.example.org" ];
+          default = [];
+          example = ["www.example.org"];
           description = lib.mdDoc ''
             List of aliases the site has.
           '';
@@ -69,7 +69,7 @@ let
 
         extraConfig = mkOption {
           type = types.attrsOf types.str;
-          default = { };
+          default = {};
           example = literalExpression ''
             {
               "ValidHTTPCodes" = "404";
@@ -142,7 +142,7 @@ in
 
     configs = mkOption {
       type = types.attrsOf (types.submodule configOpts);
-      default = { };
+      default = {};
       example = literalExpression ''
         {
           "mysite" = {
@@ -166,14 +166,14 @@ in
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = [ package.bin ];
+    environment.systemPackages = [package.bin];
 
     environment.etc =
       mapAttrs'
         (
           name: opts:
           nameValuePair "awstats/awstats.${name}.conf" {
-            source = pkgs.runCommand "awstats.${name}.conf" { preferLocalBuild = true; } (
+            source = pkgs.runCommand "awstats.${name}.conf" {preferLocalBuild = true;} (
               ''
                 sed \
               ''
@@ -241,9 +241,9 @@ in
 
     # create data directory with the correct permissions
     systemd.tmpfiles.rules =
-      [ "d '${cfg.dataDir}' 755 root root - -" ]
+      ["d '${cfg.dataDir}' 755 root root - -"]
       ++ mapAttrsToList (name: opts: "d '${cfg.dataDir}/${name}' 755 root root - -") cfg.configs
-      ++ [ "Z '${cfg.dataDir}' 755 root root - -" ];
+      ++ ["Z '${cfg.dataDir}' 755 root root - -"];
 
     # nginx options
     services.nginx.virtualHosts =

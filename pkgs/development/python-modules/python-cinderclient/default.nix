@@ -47,7 +47,7 @@ buildPythonPackage rec {
     stestr run
   '';
 
-  pythonImportsCheck = [ "cinderclient" ];
+  pythonImportsCheck = ["cinderclient"];
 
   meta = with lib; {
     description = "OpenStack Block Storage API Client Library";

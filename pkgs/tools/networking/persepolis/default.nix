@@ -46,7 +46,7 @@ buildPythonApplication rec {
 
   # prevent double wrapping
   dontWrapQtApps = true;
-  nativeBuildInputs = [ wrapQtAppsHook ];
+  nativeBuildInputs = [wrapQtAppsHook];
 
   # feed args to wrapPythonApp
   makeWrapperArgs = [
@@ -74,6 +74,6 @@ buildPythonApplication rec {
     description = "Persepolis Download Manager is a GUI for aria2";
     homepage = "https://persepolisdm.github.io/";
     license = licenses.gpl3;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

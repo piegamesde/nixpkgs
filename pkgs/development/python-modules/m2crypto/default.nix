@@ -54,6 +54,6 @@ buildPythonPackage rec {
     description = "A Python crypto and SSL toolkit";
     homepage = "https://gitlab.com/m2crypto/m2crypto";
     license = licenses.mit;
-    maintainers = with maintainers; [ andrew-d ];
+    maintainers = with maintainers; [andrew-d];
   };
 }

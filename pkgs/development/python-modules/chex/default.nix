@@ -33,7 +33,7 @@ buildPythonPackage rec {
     toolz
   ];
 
-  pythonImportsCheck = [ "chex" ];
+  pythonImportsCheck = ["chex"];
 
   nativeCheckInputs = [
     jaxlib
@@ -55,6 +55,6 @@ buildPythonPackage rec {
     description = "Chex is a library of utilities for helping to write reliable JAX code.";
     homepage = "https://github.com/deepmind/chex";
     license = licenses.asl20;
-    maintainers = with maintainers; [ ndl ];
+    maintainers = with maintainers; [ndl];
   };
 }

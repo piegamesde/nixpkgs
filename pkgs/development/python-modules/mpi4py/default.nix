@@ -47,11 +47,11 @@ buildPythonPackage rec {
     export OMPI_MCA_rmaps_base_oversubscribe=yes
   '';
 
-  setupPyBuildFlags = [ "--mpicc=${mpi}/bin/mpicc" ];
+  setupPyBuildFlags = ["--mpicc=${mpi}/bin/mpicc"];
 
-  nativeBuildInputs = [ mpi ];
+  nativeBuildInputs = [mpi];
 
-  nativeCheckInputs = [ openssh ];
+  nativeCheckInputs = [openssh];
 
   meta = with lib; {
     description = "Python bindings for the Message Passing Interface standard";

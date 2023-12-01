@@ -36,31 +36,31 @@ buildPythonPackage rec {
     hash = "sha256-cdZI2kwR3zzS6eiiXGpeHIp+kgPCPEsTOSTV60pODTM=";
   };
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
   passthru.optional-dependencies =
     let
       extras = {
-        ufo = [ fs ];
-        lxml = [ lxml ];
+        ufo = [fs];
+        lxml = [lxml];
         woff = [
           (if isPyPy then brotlicffi else brotli)
           zopfli
         ];
         unicode = lib.optional (pythonOlder "3.11") unicodedata2;
-        graphite = [ lz4 ];
-        interpolatable = [ (if isPyPy then munkres else scipy) ];
-        plot = [ matplotlib ];
-        symfont = [ sympy ];
+        graphite = [lz4];
+        interpolatable = [(if isPyPy then munkres else scipy)];
+        plot = [matplotlib];
+        symfont = [sympy];
         type1 = lib.optional stdenv.isDarwin xattr;
-        pathops = [ skia-pathops ];
-        repacker = [ uharfbuzz ];
+        pathops = [skia-pathops];
+        repacker = [uharfbuzz];
       };
     in
-    extras // { all = lib.concatLists (lib.attrValues extras); };
+    extras // {all = lib.concatLists (lib.attrValues extras);};
 
   nativeCheckInputs =
-    [ pytestCheckHook ]
+    [pytestCheckHook]
     ++ lib.concatLists (
       lib.attrVals
         (
@@ -71,12 +71,12 @@ buildPythonPackage rec {
           ++ lib.optionals (!skia-pathops.meta.broken) [
             "pathops" # broken
           ]
-          ++ [ "repacker" ]
+          ++ ["repacker"]
         )
         passthru.optional-dependencies
     );
 
-  pythonImportsCheck = [ "fontTools" ];
+  pythonImportsCheck = ["fontTools"];
 
   preCheck = ''
     # tests want to execute the "fonttools" executable from $PATH
@@ -103,6 +103,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/fonttools/fonttools";
     description = "A library to manipulate font files from Python";
     license = licenses.mit;
-    maintainers = [ maintainers.sternenseemann ];
+    maintainers = [maintainers.sternenseemann];
   };
 }

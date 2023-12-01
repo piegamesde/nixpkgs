@@ -120,7 +120,7 @@ in
         "[::1]:53"
         "127.0.0.1:53"
       ];
-      example = [ "53" ];
+      example = ["53"];
       description = lib.mdDoc ''
         What addresses and ports the server should listen on.
         For detailed syntax see ListenStream in {manpage}`systemd.socket(5)`.
@@ -128,7 +128,7 @@ in
     };
     listenTLS = mkOption {
       type = with types; listOf str;
-      default = [ ];
+      default = [];
       example = [
         "198.51.100.1:853"
         "[2001:db8::1]:853"
@@ -141,7 +141,7 @@ in
     };
     listenDoH = mkOption {
       type = with types; listOf str;
-      default = [ ];
+      default = [];
       example = [
         "198.51.100.1:443"
         "[2001:db8::1]:443"
@@ -177,14 +177,12 @@ in
     };
     users.groups.knot-resolver.gid = null;
 
-    systemd.packages = [ cfg.package ]; # the units are patched inside the package a bit
+    systemd.packages = [cfg.package]; # the units are patched inside the package a bit
 
     systemd.targets.kresd = {
       # configure units started by default
-      wantedBy = [ "multi-user.target" ];
-      wants = [
-        "kres-cache-gc.service"
-      ] ++ map (i: "kresd@${toString i}.service") (range 1 cfg.instances);
+      wantedBy = ["multi-user.target"];
+      wants = ["kres-cache-gc.service"] ++ map (i: "kresd@${toString i}.service") (range 1 cfg.instances);
     };
     systemd.services."kresd@".serviceConfig = {
       ExecStart =

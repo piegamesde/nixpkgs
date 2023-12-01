@@ -48,7 +48,7 @@ stdenv.mkDerivation rec {
     python3
     python3.pkgs.pyelftools
   ];
-  buildInputs = lib.optionals stdenv.isLinux [ elfutils ];
+  buildInputs = lib.optionals stdenv.isLinux [elfutils];
 
   makeFlags = [
     "PREFIX=${placeholder "out"}"
@@ -64,11 +64,11 @@ stdenv.mkDerivation rec {
       lgpl2Only
       lgpl21Only
     ];
-    maintainers = with maintainers; [ nickcao ];
+    maintainers = with maintainers; [nickcao];
     platforms = [
       "x86_64-linux"
       "aarch64-darwin"
     ];
-    sourceProvenance = with sourceTypes; lib.optionals stdenv.isDarwin [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; lib.optionals stdenv.isDarwin [binaryNativeCode];
   };
 }

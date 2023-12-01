@@ -23,6 +23,6 @@ buildGoPackage rec {
     homepage = "https://github.com/GoogleChromeLabs/simplehttp2server";
     description = "HTTP/2 server for development purposes";
     license = licenses.asl20;
-    maintainers = with maintainers; [ yrashk ];
+    maintainers = with maintainers; [yrashk];
   };
 }

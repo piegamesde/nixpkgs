@@ -16,7 +16,7 @@ stdenvNoCC.mkDerivation {
     sha256 = "sha256-90V55pRfgiaP1huhD+3456ziJ2EU24iNQHt5Ro+g+M0=";
   };
 
-  propagatedUserEnvPkgs = [ gtk-engine-murrine ];
+  propagatedUserEnvPkgs = [gtk-engine-murrine];
 
   dontBuild = true;
 
@@ -32,6 +32,6 @@ stdenvNoCC.mkDerivation {
     homepage = "www.pling.com/p/1681315/";
     license = licenses.gpl3Only;
     platforms = platforms.unix;
-    maintainers = with lib.maintainers; [ garaiza-93 ];
+    maintainers = with lib.maintainers; [garaiza-93];
   };
 }

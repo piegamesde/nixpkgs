@@ -24,7 +24,7 @@ buildGoModule rec {
     description = "Create Mermaid-Js ERD diagrams from existing tables";
     homepage = "https://github.com/KarnerTh/mermerd";
     license = licenses.mit;
-    maintainers = with lib.maintainers; [ austin-artificial ];
+    maintainers = with lib.maintainers; [austin-artificial];
     changelog = "https://github.com/KarnerTh/mermerd/releases/tag/v${version}";
   };
 }

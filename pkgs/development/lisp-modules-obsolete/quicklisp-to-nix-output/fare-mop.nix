@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "fare-mop";
   version = "20151218-git";
@@ -18,7 +18,7 @@ rec {
 
   packageName = "fare-mop";
 
-  asdFilesToKeep = [ "fare-mop.asd" ];
+  asdFilesToKeep = ["fare-mop.asd"];
   overrides = x: x;
 }
 /* (SYSTEM fare-mop DESCRIPTION

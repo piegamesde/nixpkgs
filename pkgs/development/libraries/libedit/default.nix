@@ -22,9 +22,9 @@ stdenv.mkDerivation rec {
   # Have `configure' avoid `/usr/bin/nroff' in non-chroot builds.
   # NROFF = "${groff}/bin/nroff";
 
-  patches = [ ./01-cygwin.patch ];
+  patches = [./01-cygwin.patch];
 
-  propagatedBuildInputs = [ ncurses ];
+  propagatedBuildInputs = [ncurses];
 
   postInstall = ''
     find $out/lib -type f | grep '\.\(la\|pc\)$' | xargs sed -i \

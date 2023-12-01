@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
     sha256 = "156l3wjnh5rcisxb42kcmlf74swf679v4xnj09zy5j74rd4h721z";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     alsa-lib
     audiofile
@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
     libxml2
   ];
 
-  patches = [ ./matFix.patch ];
+  patches = [./matFix.patch];
 
   doCheck = true;
 
@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
     homepage = "http://soundmodem.vk4msl.id.au/";
     downloadPage = "https://archive.org/download/${pname}-${version}/${pname}-${version}.tar.gz";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ ymarkus ];
+    maintainers = with maintainers; [ymarkus];
     platforms = platforms.all;
   };
 }

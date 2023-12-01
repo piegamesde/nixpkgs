@@ -23,22 +23,22 @@ buildPythonPackage rec {
     hash = "sha256-U6Qh/1GklW9ZXBXmjPLuxga0JS/Cyga1iorcMEA+WP8=";
   };
 
-  nativeBuildInputs = [ flit-core ];
+  nativeBuildInputs = [flit-core];
 
-  propagatedBuildInputs = [ markdown-it-py ];
+  propagatedBuildInputs = [markdown-it-py];
 
   nativeCheckInputs = [
     pytestCheckHook
     pytest-regressions
   ];
 
-  pythonImportsCheck = [ "mdit_py_plugins" ];
+  pythonImportsCheck = ["mdit_py_plugins"];
 
   meta = with lib; {
     description = "Collection of core plugins for markdown-it-py";
     homepage = "https://github.com/executablebooks/mdit-py-plugins";
     changelog = "https://github.com/executablebooks/mdit-py-plugins/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ AluisioASG ];
+    maintainers = with maintainers; [AluisioASG];
   };
 }

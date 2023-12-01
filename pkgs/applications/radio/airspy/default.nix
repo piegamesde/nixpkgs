@@ -26,15 +26,15 @@ stdenv.mkDerivation rec {
     cmake
     pkg-config
   ];
-  buildInputs = [ libusb1 ];
+  buildInputs = [libusb1];
 
-  cmakeFlags = lib.optionals stdenv.isLinux [ "-DINSTALL_UDEV_RULES=ON" ];
+  cmakeFlags = lib.optionals stdenv.isLinux ["-DINSTALL_UDEV_RULES=ON"];
 
   meta = with lib; {
     homepage = "https://github.com/airspy/airspyone_host";
     description = "Host tools and driver library for the AirSpy SDR";
     license = licenses.bsd3;
     platforms = with platforms; linux ++ darwin;
-    maintainers = with maintainers; [ markuskowa ];
+    maintainers = with maintainers; [markuskowa];
   };
 }

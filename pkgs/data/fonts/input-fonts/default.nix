@@ -46,12 +46,12 @@ stdenv.mkDerivation rec {
 
       postFetch = ''
         # Reset the timestamp to release date for determinism.
-        PATH=${lib.makeBinPath [ python3.pkgs.fonttools ]}:$PATH
+        PATH=${lib.makeBinPath [python3.pkgs.fonttools]}:$PATH
         for ttf_file in $out/Input_Fonts/*/*/*.ttf; do
           ttx_file=$(dirname "$ttf_file")/$(basename "$ttf_file" .ttf).ttx
           ttx "$ttf_file"
           rm "$ttf_file"
-          touch -m -t ${builtins.replaceStrings [ "-" ] [ "" ] releaseDate}0000 "$ttx_file"
+          touch -m -t ${builtins.replaceStrings ["-"] [""] releaseDate}0000 "$ttx_file"
           ttx --recalc-timestamp "$ttx_file"
           rm "$ttx_file"
         done

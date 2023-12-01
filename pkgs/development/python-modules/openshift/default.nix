@@ -37,7 +37,7 @@ buildPythonPackage rec {
     six
   ];
 
-  pythonImportsCheck = [ "openshift" ];
+  pythonImportsCheck = ["openshift"];
 
   nativeCheckInputs = [
     pytest-bdd
@@ -54,6 +54,6 @@ buildPythonPackage rec {
     description = "Python client for the OpenShift API";
     homepage = "https://github.com/openshift/openshift-restclient-python";
     license = licenses.asl20;
-    maintainers = with maintainers; [ teto ];
+    maintainers = with maintainers; [teto];
   };
 }

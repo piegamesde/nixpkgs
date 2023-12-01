@@ -45,6 +45,6 @@ buildPythonPackage rec {
       program.
     '';
     license = licenses.mit;
-    maintainers = with maintainers; [ newam ];
+    maintainers = with maintainers; [newam];
   };
 }

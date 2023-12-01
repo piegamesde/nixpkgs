@@ -17,7 +17,7 @@ python3.pkgs.buildPythonApplication rec {
     sha256 = "01r5998gdvqjdrahpk0ci27lx9yghbddlanqcspr3qp5y5930i0s";
   };
 
-  nativeBuildInputs = with python3.pkgs; [ poetry-core ];
+  nativeBuildInputs = with python3.pkgs; [poetry-core];
 
   propagatedBuildInputs = with python3.pkgs; [
     aiodns
@@ -32,7 +32,7 @@ python3.pkgs.buildPythonApplication rec {
 
   # Project has no tests
   doCheck = false;
-  pythonImportsCheck = [ "xcat" ];
+  pythonImportsCheck = ["xcat"];
 
   meta = with lib; {
     description = "XPath injection tool";
@@ -43,7 +43,7 @@ python3.pkgs.buildPythonApplication rec {
       and directories.
     '';
     homepage = "https://github.com/orf/xcat";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

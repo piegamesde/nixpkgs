@@ -44,12 +44,12 @@ rec {
     inherit cargo;
   };
 
-  rustcSrc = callPackage ./rust-src.nix { inherit runCommand rustc; };
+  rustcSrc = callPackage ./rust-src.nix {inherit runCommand rustc;};
 
-  rustLibSrc = callPackage ./rust-lib-src.nix { inherit runCommand rustc; };
+  rustLibSrc = callPackage ./rust-lib-src.nix {inherit runCommand rustc;};
 
   # Hooks
-  inherit (callPackage ../../../build-support/rust/hooks { inherit stdenv cargo rustc; })
+  inherit (callPackage ../../../build-support/rust/hooks {inherit stdenv cargo rustc;})
     cargoBuildHook
     cargoCheckHook
     cargoInstallHook

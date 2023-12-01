@@ -56,7 +56,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-0t1ND6LmDcivfrZ8RaEr1vjeS5JtaeWkoHkl2e7Xr5s=";
   };
 
-  patches = [ ./python_prebuild.patch ];
+  patches = [./python_prebuild.patch];
 
   nativeBuildInputs = [
     cmake
@@ -138,14 +138,14 @@ stdenv.mkDerivation rec {
     wrapProgram $out/bin/far2l \
       --argv0 $out/bin/far2l \
       --prefix PATH : ${lib.makeBinPath runtimeDeps} \
-      --suffix PATH : ${lib.makeBinPath [ xdg-utils ]}
+      --suffix PATH : ${lib.makeBinPath [xdg-utils]}
   '';
 
   meta = with lib; {
     description = "Linux port of FAR Manager v2, a program for managing files and archives in Windows operating systems";
     homepage = "https://github.com/elfmz/far2l";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ hypersw ];
+    maintainers = with maintainers; [hypersw];
     platforms = platforms.unix;
   };
 }

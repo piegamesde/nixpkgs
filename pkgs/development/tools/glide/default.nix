@@ -10,7 +10,7 @@ buildGoPackage rec {
 
   goPackagePath = "github.com/Masterminds/glide";
 
-  ldflags = [ "-X main.version=${version}" ];
+  ldflags = ["-X main.version=${version}"];
 
   src = fetchFromGitHub {
     rev = "v${version}";
@@ -23,6 +23,6 @@ buildGoPackage rec {
     homepage = "https://glide.sh";
     description = "Package management for Go";
     license = licenses.mit;
-    maintainers = [ maintainers.rushmorem ];
+    maintainers = [maintainers.rushmorem];
   };
 }

@@ -57,13 +57,13 @@ let
 
   mattermostPlugins =
     with pkgs;
-    if mattermostPluginDerivations == [ ] then
+    if mattermostPluginDerivations == [] then
       null
     else
       stdenv.mkDerivation {
         name = "${cfg.package.name}-plugins";
-        nativeBuildInputs = [ autoPatchelfHook ] ++ mattermostPluginDerivations;
-        buildInputs = [ cfg.package ];
+        nativeBuildInputs = [autoPatchelfHook] ++ mattermostPluginDerivations;
+        buildInputs = [cfg.package];
         installPhase = ''
           mkdir -p $out/data/plugins
           plugins=(${
@@ -101,7 +101,7 @@ let
 
   mattermostConf = recursiveUpdate mattermostConfWithoutPlugins (
     if mattermostPlugins == null then
-      { }
+      {}
     else
       {
         PluginSettings = {
@@ -183,7 +183,7 @@ in
 
       extraConfig = mkOption {
         type = types.attrs;
-        default = { };
+        default = {};
         description = lib.mdDoc ''
           Additional configuration options as Nix attribute set in config.json schema.
         '';
@@ -196,7 +196,7 @@ in
             types.package
           ]
         );
-        default = [ ];
+        default = [];
         example = "[ ./com.github.moussetc.mattermost.plugin.giphy-2.0.0.tar.gz ]";
         description = lib.mdDoc ''
           Plugins to add to the configuration. Overrides any installed if non-null.
@@ -279,7 +279,7 @@ in
         };
         parameters = mkOption {
           type = types.listOf types.str;
-          default = [ ];
+          default = [];
           example = [
             "-mmserver chat.example.com"
             "-bind [::]:6667"
@@ -317,7 +317,7 @@ in
 
       systemd.services.mattermost = {
         description = "Mattermost chat service";
-        wantedBy = [ "multi-user.target" ];
+        wantedBy = ["multi-user.target"];
         after = [
           "network.target"
           "postgresql.service"
@@ -350,7 +350,7 @@ in
             rm -f "${cfg.statePath}/config/config.json"
             echo "$new_config" > "${cfg.statePath}/config/config.json"
           ''
-          + lib.optionalString cfg.localDatabaseCreate (createDb { })
+          + lib.optionalString cfg.localDatabaseCreate (createDb {})
           + ''
             # Don't change permissions recursively on the data, current, and symlinked directories (see ln -sf command above).
             # This dramatically decreases startup times for installations with a lot of files.
@@ -378,7 +378,7 @@ in
     (mkIf cfg.matterircd.enable {
       systemd.services.matterircd = {
         description = "Mattermost IRC bridge service";
-        wantedBy = [ "multi-user.target" ];
+        wantedBy = ["multi-user.target"];
         serviceConfig = {
           User = "nobody";
           Group = "nogroup";

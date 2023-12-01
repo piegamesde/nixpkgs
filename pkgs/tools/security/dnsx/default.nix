@@ -27,6 +27,6 @@ buildGoModule rec {
     '';
     homepage = "https://github.com/projectdiscovery/dnsx";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

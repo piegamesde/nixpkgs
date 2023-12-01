@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-RvHBrcyNB/zqxEY27twgMsjHNg8kzJryqnIAM7+vpg8=";
   };
 
-  buildInputs = [ ncurses ];
+  buildInputs = [ncurses];
   installFlags = [
     "BINDIR=${placeholder "out"}/bin"
     "MANDIR=${placeholder "out"}/share/man/man8"
@@ -28,6 +28,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/ColinIanKing/smemstat";
     license = licenses.gpl2;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ womfoo ];
+    maintainers = with maintainers; [womfoo];
   };
 }

@@ -22,10 +22,10 @@ stdenv.mkDerivation rec {
     sha256 = "1ysazynm759gnw1rdhn9xw9nixnzrlzrc462340a6iif79fyqlnr";
   };
 
-  nativeBuildInputs = [ qmake ] ++ lib.optional stdenv.isDarwin fixDarwinDylibNames;
+  nativeBuildInputs = [qmake] ++ lib.optional stdenv.isDarwin fixDarwinDylibNames;
 
   buildInputs =
-    [ glew ]
+    [glew]
     ++ lib.optionals stdenv.isLinux [
       libGLU
       libGL
@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
 
   doCheck = false;
 
-  patches = [ ./fix-pro-files.patch ];
+  patches = [./fix-pro-files.patch];
 
   preConfigure = ''
     rm example/Makefile src/Makefile
@@ -69,7 +69,7 @@ stdenv.mkDerivation rec {
     description = "Constructive Solid Geometry library";
     homepage = "http://www.opencsg.org/";
     platforms = platforms.unix;
-    maintainers = [ maintainers.raskin ];
+    maintainers = [maintainers.raskin];
     license = licenses.gpl2;
   };
 }

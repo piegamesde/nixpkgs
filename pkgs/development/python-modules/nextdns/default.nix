@@ -37,13 +37,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "nextdns" ];
+  pythonImportsCheck = ["nextdns"];
 
   meta = with lib; {
     changelog = "https://github.com/bieniu/nextdns/releases/tag/${version}";
     description = "Module for the NextDNS API";
     homepage = "https://github.com/bieniu/nextdns";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

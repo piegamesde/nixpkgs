@@ -18,7 +18,7 @@ buildPythonPackage rec {
     hash = "sha256-wHygdATGEvirviIpSyPDaOLlEEtSHBeQGVVh834aw9k=";
   };
 
-  buildInputs = [ pytest ];
+  buildInputs = [pytest];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -32,9 +32,9 @@ buildPythonPackage rec {
     "test_suppresses_timeout_when_debugger_is_entered"
   ];
 
-  pytestFlagsArray = [ "-ra" ];
+  pytestFlagsArray = ["-ra"];
 
-  pythonImportsCheck = [ "pytest_timeout" ];
+  pythonImportsCheck = ["pytest_timeout"];
 
   meta = with lib; {
     description = "Pytest plugin to abort hanging tests";

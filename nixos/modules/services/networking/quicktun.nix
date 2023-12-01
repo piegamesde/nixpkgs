@@ -16,7 +16,7 @@ with lib;
   options = {
 
     services.quicktun = mkOption {
-      default = { };
+      default = {};
       description = lib.mdDoc "QuickTun tunnels";
       type = types.attrsOf (
         types.submodule {
@@ -91,13 +91,13 @@ with lib;
     };
   };
 
-  config = mkIf (cfg != [ ]) {
-    systemd.services = foldr (a: b: a // b) { } (
+  config = mkIf (cfg != []) {
+    systemd.services = foldr (a: b: a // b) {} (
       mapAttrsToList
         (name: qtcfg: {
           "quicktun-${name}" = {
-            wantedBy = [ "multi-user.target" ];
-            after = [ "network.target" ];
+            wantedBy = ["multi-user.target"];
+            after = ["network.target"];
             environment = {
               INTERFACE = name;
               TUN_MODE = toString qtcfg.tunMode;

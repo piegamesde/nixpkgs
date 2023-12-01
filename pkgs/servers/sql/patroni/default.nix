@@ -53,7 +53,7 @@ pythonPackages.buildPythonApplication rec {
   # Fix tests by preventing them from writing to /homeless-shelter.
   preCheck = "export HOME=$(mktemp -d)";
 
-  pythonImportsCheck = [ "patroni" ];
+  pythonImportsCheck = ["patroni"];
 
   passthru.tests = {
     patroni = nixosTests.patroni;

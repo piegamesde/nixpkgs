@@ -33,7 +33,7 @@ python3.pkgs.buildPythonApplication rec {
     qt6.qtsvg # Needed for the systray icon
   ];
 
-  nativeBuildInputs = [ qt6.wrapQtAppsHook ];
+  nativeBuildInputs = [qt6.wrapQtAppsHook];
 
   dontWrapQtApps = true;
 
@@ -43,13 +43,13 @@ python3.pkgs.buildPythonApplication rec {
 
     # Add the installed directories to the python path so the daemon can find them
     "--prefix PYTHONPATH : ${makePythonPath (requiredPythonModules maestral.propagatedBuildInputs)}"
-    "--prefix PYTHONPATH : ${makePythonPath [ maestral ]}"
+    "--prefix PYTHONPATH : ${makePythonPath [maestral]}"
   ];
 
   # no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "maestral_qt" ];
+  pythonImportsCheck = ["maestral_qt"];
 
   passthru.tests.maestral = nixosTests.maestral;
 

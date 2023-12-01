@@ -5,11 +5,11 @@
 }:
 
 import ../make-test-python.nix (
-  { pkgs, lib, ... }:
+  {pkgs, lib, ...}:
   {
     inherit name;
     meta = {
-      maintainers = with lib.maintainers; [ hmenke ];
+      maintainers = with lib.maintainers; [hmenke];
     };
 
     nodes = {
@@ -23,14 +23,14 @@ import ../make-test-python.nix (
           }
         ];
         networking.firewall.rejectPackets = true;
-        networking.firewall.allowedTCPPorts = [ 8488 ];
-        networking.firewall.allowedUDPPorts = [ 8488 ];
+        networking.firewall.allowedTCPPorts = [8488];
+        networking.firewall.allowedUDPPorts = [8488];
         services.shadowsocks =
           {
             enable = true;
             encryptionMethod = "chacha20-ietf-poly1305";
             password = "pa$$w0rd";
-            localAddress = [ "0.0.0.0" ];
+            localAddress = ["0.0.0.0"];
             port = 8488;
             fastOpen = false;
             mode = "tcp_and_udp";
@@ -57,9 +57,9 @@ import ../make-test-python.nix (
         ];
         systemd.services.shadowsocks-client = {
           description = "connect to shadowsocks";
-          after = [ "network.target" ];
-          wantedBy = [ "multi-user.target" ];
-          path = with pkgs; [ shadowsocks-libev ];
+          after = ["network.target"];
+          wantedBy = ["multi-user.target"];
+          path = with pkgs; [shadowsocks-libev];
           script = ''
             exec ss-local \
                 -s 192.168.0.1 \

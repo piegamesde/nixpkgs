@@ -75,6 +75,6 @@ python3Packages.buildPythonApplication rec {
     # since ICU license is a modified version of MIT and to prevent it from
     # being incorrectly identified as unfree software.
     license = licenses.mit;
-    maintainers = with maintainers; [ foo-dogsquared ];
+    maintainers = with maintainers; [foo-dogsquared];
   };
 }

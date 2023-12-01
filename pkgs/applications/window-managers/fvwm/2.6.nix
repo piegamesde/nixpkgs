@@ -58,7 +58,7 @@ stdenv.mkDerivation rec {
     readline
   ] ++ lib.optional enableGestures libstroke;
 
-  pythonPath = [ python3Packages.pyxdg ];
+  pythonPath = [python3Packages.pyxdg];
 
   configureFlags = [
     "--enable-mandoc"
@@ -76,6 +76,6 @@ stdenv.mkDerivation rec {
     description = "A multiple large virtual desktop window manager";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ edanaher ];
+    maintainers = with maintainers; [edanaher];
   };
 }

@@ -78,6 +78,6 @@ else
       description = "Web browser for Plasma Mobile";
       homepage = "https://invent.kde.org/plasma-mobile/angelfish";
       license = licenses.gpl3Plus;
-      maintainers = with maintainers; [ dotlambda ];
+      maintainers = with maintainers; [dotlambda];
     };
   }

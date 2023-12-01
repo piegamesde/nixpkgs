@@ -41,7 +41,7 @@ in
   config = mkIf cfg.enable {
     systemd.services.shiori = with cfg; {
       description = "Shiori simple bookmarks manager";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
 
       environment.SHIORI_DIR = "/var/lib/shiori";
 
@@ -107,5 +107,5 @@ in
     };
   };
 
-  meta.maintainers = with maintainers; [ minijackson ];
+  meta.maintainers = with maintainers; [minijackson];
 }

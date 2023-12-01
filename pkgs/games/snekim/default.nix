@@ -26,7 +26,7 @@ nimPackages.buildNimPackage rec {
     raylib
   ];
 
-  nimFlags = [ "-d:nimraylib_now_shared" ];
+  nimFlags = ["-d:nimraylib_now_shared"];
 
   postInstall = ''
     install -D snekim.desktop -t $out/share/applications
@@ -37,6 +37,6 @@ nimPackages.buildNimPackage rec {
     homepage = "https://codeberg.org/annaaurora/snekim";
     description = "A simple implementation of the classic snake game";
     license = licenses.lgpl3Only;
-    maintainers = with maintainers; [ annaaurora ];
+    maintainers = with maintainers; [annaaurora];
   };
 }

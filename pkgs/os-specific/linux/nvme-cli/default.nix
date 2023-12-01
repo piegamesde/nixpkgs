@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-vnhvVVfEDnmEIdIkfTRoiLB7dZ1rJV3U4PmUUoaxTUs=";
   };
 
-  mesonFlags = [ "-Dversion-tag=${version}" ];
+  mesonFlags = ["-Dversion-tag=${version}"];
 
   nativeBuildInputs = [
     meson
@@ -49,7 +49,7 @@ stdenv.mkDerivation rec {
     '';
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ mic92 ];
+    maintainers = with maintainers; [mic92];
     mainProgram = "nvme";
   };
 }

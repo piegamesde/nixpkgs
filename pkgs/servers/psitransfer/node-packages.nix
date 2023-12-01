@@ -7,7 +7,7 @@
   nix-gitignore,
   stdenv,
   lib,
-  globalBuildInputs ? [ ],
+  globalBuildInputs ? [],
 }:
 
 let
@@ -1472,7 +1472,7 @@ in
       sources."acorn-7.4.1"
       sources."any-promise-1.3.0"
       sources."archiver-4.0.2"
-      (sources."archiver-utils-2.1.0" // { dependencies = [ sources."readable-stream-2.3.7" ]; })
+      (sources."archiver-utils-2.1.0" // {dependencies = [sources."readable-stream-2.3.7"];})
       sources."array-flatten-1.1.1"
       sources."asap-2.0.6"
       sources."assert-never-1.2.1"
@@ -1499,12 +1499,12 @@ in
       sources."call-bind-1.0.2"
       sources."character-parser-2.2.0"
       sources."common-streams-1.4.0"
-      (sources."compress-commons-3.0.0" // { dependencies = [ sources."readable-stream-2.3.7" ]; })
+      (sources."compress-commons-3.0.0" // {dependencies = [sources."readable-stream-2.3.7"];})
       sources."compressible-2.0.18"
-      (sources."compression-1.7.4" // { dependencies = [ sources."debug-2.6.9" ]; })
+      (sources."compression-1.7.4" // {dependencies = [sources."debug-2.6.9"];})
       sources."concat-map-0.0.1"
       sources."constantinople-4.0.1"
-      (sources."content-disposition-0.5.4" // { dependencies = [ sources."safe-buffer-5.2.1" ]; })
+      (sources."content-disposition-0.5.4" // {dependencies = [sources."safe-buffer-5.2.1"];})
       sources."content-type-1.0.4"
       sources."cookie-0.4.2"
       sources."cookie-signature-1.0.6"
@@ -1513,7 +1513,7 @@ in
       sources."crc-3.8.0"
       sources."crc32-stream-3.0.1"
       sources."crypto-js-4.1.1"
-      (sources."debug-4.3.4" // { dependencies = [ sources."ms-2.1.2" ]; })
+      (sources."debug-4.3.4" // {dependencies = [sources."ms-2.1.2"];})
       sources."depd-1.1.2"
       sources."destroy-1.0.4"
       sources."doctypes-1.1.0"
@@ -1531,7 +1531,7 @@ in
           ];
         }
       )
-      (sources."finalhandler-1.1.2" // { dependencies = [ sources."debug-2.6.9" ]; })
+      (sources."finalhandler-1.1.2" // {dependencies = [sources."debug-2.6.9"];})
       sources."follow-redirects-1.14.9"
       sources."forwarded-0.2.0"
       sources."fresh-0.5.2"
@@ -1560,7 +1560,7 @@ in
       sources."js-stringify-1.0.2"
       sources."jsonfile-2.4.0"
       sources."jstransformer-1.0.0"
-      (sources."lazystream-1.0.1" // { dependencies = [ sources."readable-stream-2.3.7" ]; })
+      (sources."lazystream-1.0.1" // {dependencies = [sources."readable-stream-2.3.7"];})
       sources."lodash.defaults-4.2.0"
       sources."lodash.difference-4.5.0"
       sources."lodash.flatten-4.4.0"
@@ -1569,7 +1569,7 @@ in
       sources."media-typer-0.3.0"
       sources."merge-descriptors-1.0.1"
       sources."meterstream-1.0.1"
-      (sources."method-override-3.0.0" // { dependencies = [ sources."debug-3.1.0" ]; })
+      (sources."method-override-3.0.0" // {dependencies = [sources."debug-3.1.0"];})
       sources."methods-1.1.2"
       sources."mime-1.6.0"
       sources."mime-db-1.52.0"
@@ -1613,7 +1613,7 @@ in
       sources."pug-walk-2.0.0"
       sources."qs-6.9.7"
       sources."range-parser-1.2.1"
-      (sources."raw-body-2.4.3" // { dependencies = [ sources."bytes-3.1.2" ]; })
+      (sources."raw-body-2.4.3" // {dependencies = [sources."bytes-3.1.2"];})
       sources."readable-stream-3.6.0"
       sources."resolve-1.22.0"
       sources."safe-buffer-5.1.2"
@@ -1622,7 +1622,7 @@ in
         sources."send-0.17.2"
         // {
           dependencies = [
-            (sources."debug-2.6.9" // { dependencies = [ sources."ms-2.0.0" ]; })
+            (sources."debug-2.6.9" // {dependencies = [sources."ms-2.0.0"];})
             sources."ms-2.1.3"
           ];
         }

@@ -94,7 +94,7 @@ stdenv.mkDerivation rec {
 
   FONTCONFIG_FILE = toString fontsConf;
 
-  propagatedUserEnvPkgs = [ hicolor-icon-theme ];
+  propagatedUserEnvPkgs = [hicolor-icon-theme];
   buildInputs = [
     cairo
     librsvg

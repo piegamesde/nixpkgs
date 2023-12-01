@@ -29,6 +29,6 @@ buildGoModule rec {
     homepage = "https://github.com/grafana/jsonnet-language-server";
     changelog = "https://github.com/grafana/jsonnet-language-server/releases/tag/v${version}";
     license = licenses.agpl3Only;
-    maintainers = with maintainers; [ hardselius ];
+    maintainers = with maintainers; [hardselius];
   };
 }

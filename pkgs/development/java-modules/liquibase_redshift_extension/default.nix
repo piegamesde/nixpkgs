@@ -26,6 +26,6 @@ stdenv.mkDerivation rec {
     description = "Amazon Redshift extension for Liquibase";
     license = licenses.asl20;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ sir4ur0n ];
+    maintainers = with maintainers; [sir4ur0n];
   };
 }

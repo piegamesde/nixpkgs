@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "cl-async";
   version = "20211020-git";
@@ -35,7 +35,7 @@ rec {
 
   packageName = "cl-async";
 
-  asdFilesToKeep = [ "cl-async.asd" ];
+  asdFilesToKeep = ["cl-async.asd"];
   overrides = x: x;
 }
 /* (SYSTEM cl-async DESCRIPTION Asynchronous operations for Common Lisp. SHA256

@@ -41,6 +41,6 @@ stdenv.mkDerivation {
       V
     ];
     license = licenses.gpl3Plus;
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
   };
 }

@@ -1,11 +1,11 @@
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   {
     name = "collectd";
-    meta = { };
+    meta = {};
 
     nodes.machine =
-      { pkgs, lib, ... }:
+      {pkgs, lib, ...}:
 
       {
         services.collectd = {
@@ -20,7 +20,7 @@ import ./make-test-python.nix (
             load = "";
           };
         };
-        environment.systemPackages = [ pkgs.rrdtool ];
+        environment.systemPackages = [pkgs.rrdtool];
       };
 
     testScript = ''

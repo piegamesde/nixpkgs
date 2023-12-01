@@ -18,7 +18,7 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-SSjHGJoW3I7r8emh3IwmiZQIVzdilAsA2ULdAqld2fA=";
 
-  subPackages = [ "cmd/cayley" ];
+  subPackages = ["cmd/cayley"];
 
   ldflags =
     let
@@ -39,6 +39,6 @@ buildGoModule rec {
     '';
     homepage = "https://cayley.io/";
     license = licenses.asl20;
-    maintainers = with maintainers; [ sigma ];
+    maintainers = with maintainers; [sigma];
   };
 }

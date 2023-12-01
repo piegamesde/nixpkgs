@@ -65,7 +65,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/rombust/methane";
     description = "A clone of Taito's Bubble Bobble arcade game released for Amiga in 1993 by Apache Software";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ nixinator ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with maintainers; [nixinator];
+    platforms = ["x86_64-linux"];
   };
 }

@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-AYMEBf8mrR3FlafgaVyCTCeG5niGjZ/4Iq6xSsdIEBQ=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs =
     [
       curl
@@ -44,6 +44,6 @@ stdenv.mkDerivation rec {
     homepage = "https://bzflag.org/";
     license = licenses.lgpl21Plus;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

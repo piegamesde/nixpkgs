@@ -217,7 +217,7 @@ python3Packages.buildPythonApplication rec {
       )
     );
 
-  nativeCheckInputs = with python3Packages; [ pytestCheckHook ] ++ pythonPath;
+  nativeCheckInputs = with python3Packages; [pytestCheckHook] ++ pythonPath;
 
   pytestFlagsArray =
     [

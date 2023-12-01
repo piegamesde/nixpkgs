@@ -23,14 +23,14 @@
   installShellFiles,
   git,
   unzip,
-  HOST_DMD ? "${callPackage ./bootstrap.nix { }}/bin/dmd",
+  HOST_DMD ? "${callPackage ./bootstrap.nix {}}/bin/dmd",
 }:
 
 let
   dmdConfFile = writeTextFile {
     name = "dmd.conf";
     text =
-      (lib.generators.toINI { } {
+      (lib.generators.toINI {} {
         Environment = {
           DFLAGS = "-I@out@/include/dmd -L-L@out@/lib -fPIC ${
             lib.optionalString (!targetPackages.stdenv.cc.isClang) "-L--export-dynamic"
@@ -78,7 +78,7 @@ stdenv.mkDerivation rec {
   sourceRoot = ".";
 
   # https://issues.dlang.org/show_bug.cgi?id=19553
-  hardeningDisable = [ "fortify" ];
+  hardeningDisable = ["fortify"];
 
   patches =
     lib.optionals (lib.versionOlder version "2.088.0")
@@ -156,14 +156,14 @@ stdenv.mkDerivation rec {
     makeWrapper
     which
     installShellFiles
-  ] ++ lib.optionals (lib.versionOlder version "2.088.0") [ git ];
+  ] ++ lib.optionals (lib.versionOlder version "2.088.0") [git];
 
   buildInputs = [
     curl
     tzdata
-  ] ++ lib.optionals stdenv.isDarwin [ Foundation ];
+  ] ++ lib.optionals stdenv.isDarwin [Foundation];
 
-  nativeCheckInputs = [ gdb ] ++ lib.optionals (lib.versionOlder version "2.089.0") [ unzip ];
+  nativeCheckInputs = [gdb] ++ lib.optionals (lib.versionOlder version "2.089.0") [unzip];
 
   buildFlags = [
     "BUILD=release"

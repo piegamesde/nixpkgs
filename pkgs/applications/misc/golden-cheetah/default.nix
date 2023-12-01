@@ -30,7 +30,7 @@ let
     desktopName = "GoldenCheetah";
     genericName = "GoldenCheetah";
     comment = "Performance software for cyclists, runners and triathletes";
-    categories = [ "Utility" ];
+    categories = ["Utility"];
   };
 in
 mkDerivation rec {
@@ -105,7 +105,7 @@ mkDerivation rec {
   meta = with lib; {
     description = "Performance software for cyclists, runners and triathletes. Built from source and without API tokens";
     platforms = platforms.linux;
-    maintainers = with maintainers; [ adamcstephens ];
+    maintainers = with maintainers; [adamcstephens];
     license = licenses.gpl2Plus;
   };
 }

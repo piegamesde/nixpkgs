@@ -1,5 +1,5 @@
 import ./make-test-python.nix (
-  { pkgs, lib, ... }:
+  {pkgs, lib, ...}:
   {
     name = "noto-fonts";
     meta = {
@@ -10,8 +10,8 @@ import ./make-test-python.nix (
     };
 
     nodes.machine = {
-      imports = [ ./common/x11.nix ];
-      environment.systemPackages = [ pkgs.gnome.gedit ];
+      imports = [./common/x11.nix];
+      environment.systemPackages = [pkgs.gnome.gedit];
       fonts = {
         enableDefaultFonts = false;
         fonts = with pkgs; [
@@ -33,7 +33,7 @@ import ./make-test-python.nix (
             "Noto Sans Mono"
             "Noto Sans Mono CJK SC"
           ];
-          emoji = [ "Noto Color Emoji" ];
+          emoji = ["Noto Color Emoji"];
         };
       };
     };

@@ -1,5 +1,5 @@
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   {
     name = "nzbget";
     meta = with pkgs.lib.maintainers; {
@@ -11,7 +11,7 @@ import ./make-test-python.nix (
 
     nodes = {
       server =
-        { ... }:
+        {...}:
         {
           services.nzbget.enable = true;
 
@@ -25,12 +25,12 @@ import ./make-test-python.nix (
 
           # hack, don't add (unfree) unrar to nzbget's path,
           # so we can run this test in CI
-          systemd.services.nzbget.path = pkgs.lib.mkForce [ pkgs.p7zip ];
+          systemd.services.nzbget.path = pkgs.lib.mkForce [pkgs.p7zip];
         };
     };
 
     testScript =
-      { nodes, ... }:
+      {nodes, ...}:
       ''
         start_all()
 

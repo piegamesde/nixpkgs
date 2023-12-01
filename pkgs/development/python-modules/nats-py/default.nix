@@ -54,13 +54,13 @@ buildPythonPackage rec {
       "test_buf_size_force_flush_timeout"
     ];
 
-  pythonImportsCheck = [ "nats" ];
+  pythonImportsCheck = ["nats"];
 
   meta = with lib; {
     description = "Python client for NATS.io";
     homepage = "https://github.com/nats-io/nats.py";
     changelog = "https://github.com/nats-io/nats.py/releases/tag/v${version}";
-    license = with licenses; [ asl20 ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [asl20];
+    maintainers = with maintainers; [fab];
   };
 }

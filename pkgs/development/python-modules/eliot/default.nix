@@ -41,7 +41,7 @@ buildPythonPackage rec {
     testtools
   ];
 
-  pythonImportsCheck = [ "eliot" ];
+  pythonImportsCheck = ["eliot"];
 
   # Tests run eliot-prettyprint in out/bin.
   preCheck = ''
@@ -58,6 +58,6 @@ buildPythonPackage rec {
     homepage = "https://eliot.readthedocs.io";
     description = "Logging library that tells you why it happened";
     license = licenses.asl20;
-    maintainers = with maintainers; [ dpausp ];
+    maintainers = with maintainers; [dpausp];
   };
 }

@@ -22,7 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-fbh97Z/5TnnMHj2bGZ4UvJkPpYtrTTcFOgpLWgHUYk0=";
   };
 
-  nativeBuildInputs = [ flit-core ];
+  nativeBuildInputs = [flit-core];
 
   propagatedBuildInputs = [
     docutils
@@ -33,13 +33,13 @@ buildPythonPackage rec {
     typing-extensions
   ];
 
-  pythonImportsCheck = [ "myst_parser" ];
+  pythonImportsCheck = ["myst_parser"];
 
   meta = with lib; {
     description = "An extended commonmark compliant parser, with bridges to docutils/sphinx.";
     homepage = "https://github.com/executablebooks/MyST-Parser";
     license = licenses.mit;
-    maintainers = with maintainers; [ dpausp ];
+    maintainers = with maintainers; [dpausp];
     broken = pythonOlder "3.8"; # dependency networkx requires 3.8
   };
 }

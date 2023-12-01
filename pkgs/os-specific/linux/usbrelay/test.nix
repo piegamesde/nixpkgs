@@ -15,7 +15,7 @@
 # for discussion of other alternatives).
 
 import ../../../../nixos/tests/make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   {
     name = "usbrelayd";
 
@@ -26,13 +26,13 @@ import ../../../../nixos/tests/make-test-python.nix (
       ];
       services.usbrelayd.enable = true;
       systemd.services.usbrelayd = {
-        after = [ "mosquitto.service" ];
+        after = ["mosquitto.service"];
       };
       services.mosquitto = {
         enable = true;
         listeners = [
           {
-            acl = [ "pattern readwrite #" ];
+            acl = ["pattern readwrite #"];
             omitPasswordAuth = true;
             settings.allow_anonymous = true;
           }

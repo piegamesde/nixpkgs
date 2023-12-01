@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-MaL8eb9UOZ71BL4Jvc6Od+EJ+F6j96n9a+vRnHeveIU=";
   };
 
-  buildInputs = [ python3 ];
+  buildInputs = [python3];
 
   postPatch = ''
     substituteInPlace src/ip.py \
@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/brona/iproute2mac";
     description = "CLI wrapper for basic network utilites on Mac OS X inspired with iproute2 on Linux systems - ip command.";
     license = licenses.mit;
-    maintainers = with maintainers; [ jiegec ];
+    maintainers = with maintainers; [jiegec];
     platforms = platforms.darwin;
   };
 }

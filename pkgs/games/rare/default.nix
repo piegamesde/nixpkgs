@@ -23,7 +23,7 @@ buildPythonApplication rec {
     sha256 = "sha256-+STwVsDdvjP7HaqmaQVug+6h0n0rw/j4LGQQSNdLVQQ=";
   };
 
-  nativeBuildInputs = [ qt5.wrapQtAppsHook ];
+  nativeBuildInputs = [qt5.wrapQtAppsHook];
 
   propagatedBuildInputs = [
     legendary-gl
@@ -57,7 +57,7 @@ buildPythonApplication rec {
   meta = with lib; {
     description = "GUI for Legendary, an Epic Games Launcher open source alternative";
     homepage = "https://github.com/Dummerle/Rare";
-    maintainers = with maintainers; [ wolfangaukang ];
+    maintainers = with maintainers; [wolfangaukang];
     license = licenses.gpl3Only;
     platforms = platforms.linux;
   };

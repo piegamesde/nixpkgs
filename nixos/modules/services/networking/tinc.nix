@@ -16,11 +16,11 @@ let
     else if value == false then
       "no"
     else
-      generators.mkValueStringDefault { } value;
+      generators.mkValueStringDefault {} value;
 
   toTincConf = generators.toKeyValue {
     listsAsDuplicateKeys = true;
-    mkKeyValue = generators.mkKeyValueDefault { inherit mkValueString; } "=";
+    mkKeyValue = generators.mkKeyValueDefault {inherit mkValueString;} "=";
   };
 
   tincConfType =
@@ -99,12 +99,12 @@ let
   };
 
   hostSubmodule =
-    { config, ... }:
+    {config, ...}:
     {
       options = {
         addresses = mkOption {
           type = types.listOf (types.submodule addressSubmodule);
-          default = [ ];
+          default = [];
           description = lib.mdDoc ''
             The external address where the host can be reached. This will set this
             host's {option}`settings.Address` option.
@@ -115,7 +115,7 @@ let
 
         subnets = mkOption {
           type = types.listOf (types.submodule subnetSubmodule);
-          default = [ ];
+          default = [];
           description = lib.mdDoc ''
             The subnets which this tinc daemon will serve. This will set this
             host's {option}`settings.Subnet` option.
@@ -142,8 +142,8 @@ let
         };
 
         settings = mkOption {
-          default = { };
-          type = types.submodule { freeformType = tincConfType; };
+          default = {};
+          type = types.submodule {freeformType = tincConfType;};
           description = lib.mdDoc ''
             Configuration for this host.
 
@@ -179,12 +179,12 @@ in
     services.tinc = {
 
       networks = mkOption {
-        default = { };
+        default = {};
         type =
           with types;
           attrsOf (
             submodule (
-              { config, ... }:
+              {config, ...}:
               {
                 options = {
 
@@ -237,7 +237,7 @@ in
                   };
 
                   hosts = mkOption {
-                    default = { };
+                    default = {};
                     type = types.attrsOf types.lines;
                     description = lib.mdDoc ''
                       The name of the host in the network as well as the configuration for that host.
@@ -249,7 +249,7 @@ in
                   };
 
                   hostSettings = mkOption {
-                    default = { };
+                    default = {};
                     example = literalExpression ''
                       {
                         host1 = {
@@ -327,8 +327,8 @@ in
                   };
 
                   settings = mkOption {
-                    default = { };
-                    type = types.submodule { freeformType = tincConfType; };
+                    default = {};
+                    type = types.submodule {freeformType = tincConfType;};
                     example = literalExpression ''
                       {
                         Interface = "custom.interface";
@@ -379,9 +379,9 @@ in
 
   ###### implementation
 
-  config = mkIf (cfg.networks != { }) (
+  config = mkIf (cfg.networks != {}) (
     let
-      etcConfig = foldr (a: b: a // b) { } (
+      etcConfig = foldr (a: b: a // b) {} (
         flip mapAttrsToList cfg.networks (
           network: data:
           flip mapAttrs' data.hosts (
@@ -396,7 +396,7 @@ in
             "tinc/${network}/tinc.conf" = {
               mode = "0444";
               text = ''
-                ${toTincConf ({ Interface = "tinc.${network}"; } // data.settings)}
+                ${toTincConf ({Interface = "tinc.${network}";} // data.settings)}
                 ${data.extraConfig}
               '';
             };
@@ -415,10 +415,10 @@ in
           in
           {
             description = "Tinc Daemon - ${network}";
-            wantedBy = [ "multi-user.target" ];
-            path = [ data.package ];
-            reloadTriggers = mkIf (versionAtLeast version "1.1pre") [ (builtins.toJSON etcConfig) ];
-            restartTriggers = mkIf (versionOlder version "1.1pre") [ (builtins.toJSON etcConfig) ];
+            wantedBy = ["multi-user.target"];
+            path = [data.package];
+            reloadTriggers = mkIf (versionAtLeast version "1.1pre") [(builtins.toJSON etcConfig)];
+            restartTriggers = mkIf (versionOlder version "1.1pre") [(builtins.toJSON etcConfig)];
             serviceConfig = {
               Type = "simple";
               Restart = "always";
@@ -465,7 +465,7 @@ in
         let
           cli-wrappers = pkgs.stdenv.mkDerivation {
             name = "tinc-cli-wrappers";
-            nativeBuildInputs = [ pkgs.makeWrapper ];
+            nativeBuildInputs = [pkgs.makeWrapper];
             buildCommand = ''
               mkdir -p $out/bin
               ${concatStringsSep "\n" (
@@ -483,7 +483,7 @@ in
             '';
           };
         in
-        [ cli-wrappers ];
+        [cli-wrappers];
 
       users.users = flip mapAttrs' cfg.networks (
         network: _:
@@ -493,7 +493,7 @@ in
           group = "tinc.${network}";
         })
       );
-      users.groups = flip mapAttrs' cfg.networks (network: _: nameValuePair "tinc.${network}" { });
+      users.groups = flip mapAttrs' cfg.networks (network: _: nameValuePair "tinc.${network}" {});
     }
   );
 

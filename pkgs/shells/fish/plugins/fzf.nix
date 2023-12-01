@@ -18,6 +18,6 @@ buildFishPlugin rec {
     description = "Ef-fish-ient fish keybindings for fzf";
     homepage = "https://github.com/jethrokuan/fzf";
     license = licenses.mit;
-    maintainers = with maintainers; [ Scrumplex ];
+    maintainers = with maintainers; [Scrumplex];
   };
 }

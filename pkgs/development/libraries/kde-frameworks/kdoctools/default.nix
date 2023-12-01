@@ -33,7 +33,7 @@ mkDerivation {
     "out"
     "dev"
   ];
-  patches = [ ./kdoctools-no-find-docbook-xml.patch ];
+  patches = [./kdoctools-no-find-docbook-xml.patch];
   cmakeFlags = [
     "-DDocBookXML4_DTD_DIR=${docbook_xml_dtd_45}/xml/dtd/docbook"
     "-DDocBookXSL_DIR=${docbook_xsl_ns}/xml/xsl/docbook"

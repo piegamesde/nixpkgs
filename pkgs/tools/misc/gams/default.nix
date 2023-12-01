@@ -18,8 +18,8 @@ stdenv.mkDerivation rec {
     sha256 = "4f95389579f33ff7c2586838a2c19021aa0746279555cbb51aa6e0efd09bd297";
   };
   unpackCmd = "unzip $src";
-  nativeBuildInputs = [ unzip ];
-  buildInputs = [ file ];
+  nativeBuildInputs = [unzip];
+  buildInputs = [file];
   dontBuild = true;
 
   installPhase =
@@ -53,9 +53,9 @@ stdenv.mkDerivation rec {
       GAMS is designed for modeling and solving linear, nonlinear, and mixed-integer optimization problems.
     '';
     homepage = "https://www.gams.com/";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.unfree;
-    maintainers = [ maintainers.Scriptkiddi ];
+    maintainers = [maintainers.Scriptkiddi];
     platforms = platforms.linux;
   };
 }

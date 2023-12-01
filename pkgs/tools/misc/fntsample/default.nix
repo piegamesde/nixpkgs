@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-O5RT68wPWwzCb51JZWWNcIubWoM7NZw/MRiaHXPDmF0=";
   };
 
-  cmakeFlags = [ "-DUNICODE_BLOCKS=${ucd-blocks.outPath}" ];
+  cmakeFlags = ["-DUNICODE_BLOCKS=${ucd-blocks.outPath}"];
 
   outputs = [
     "out"
@@ -78,7 +78,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/eugmes/fntsample";
     description = "PDF and PostScript font samples generator";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     platforms = platforms.unix;
   };
 }

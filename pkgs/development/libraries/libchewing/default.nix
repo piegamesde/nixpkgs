@@ -17,15 +17,15 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-w3/K2O/CU+XVzqzVCYJyq1vLgToN6iIUhJ9J7ia4p9E=";
   };
 
-  buildInputs = [ sqlite ];
+  buildInputs = [sqlite];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   meta = with lib; {
     description = "Intelligent Chinese phonetic input method";
     homepage = "https://chewing.im/";
     license = licenses.lgpl21Only;
-    maintainers = [ maintainers.ericsagnes ];
+    maintainers = [maintainers.ericsagnes];
     platforms = platforms.linux;
   };
 }

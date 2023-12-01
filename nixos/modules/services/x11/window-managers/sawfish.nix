@@ -25,6 +25,6 @@ in
         waitPID=$!
       '';
     };
-    environment.systemPackages = [ pkgs.sawfish ];
+    environment.systemPackages = [pkgs.sawfish];
   };
 }

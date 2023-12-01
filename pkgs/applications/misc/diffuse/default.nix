@@ -52,20 +52,20 @@ python3.pkgs.buildPythonApplication rec {
     substituteInPlace src/diffuse/meson.build data/icons/meson.build --replace "/Applications" "$out/Applications";
   '';
 
-  mesonFlags = [ "-Db_ndebug=true" ];
+  mesonFlags = ["-Db_ndebug=true"];
 
   # to avoid running gtk-update-icon-cache, update-desktop-database and glib-compile-schemas
   DESTDIR = "/";
 
   passthru = {
-    updateScript = gitUpdater { rev-prefix = "v"; };
+    updateScript = gitUpdater {rev-prefix = "v";};
   };
 
   meta = with lib; {
     homepage = "https://github.com/MightyCreak/diffuse";
     description = "Graphical tool for merging and comparing text files";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ k3a ];
+    maintainers = with maintainers; [k3a];
     platforms = platforms.unix;
   };
 }

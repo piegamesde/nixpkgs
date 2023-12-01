@@ -1,4 +1,4 @@
-{ godot, lib }:
+{godot, lib}:
 
 # https://docs.godotengine.org/en/stable/development/compiling/compiling_for_x11.html#building-export-templates
 godot.overrideAttrs (
@@ -21,9 +21,9 @@ godot.overrideAttrs (
     # This also impacts the size of the exported games.
     # This is added explicitly here because mkDerivation does not automatically
     # strip binaries in the template directory.
-    stripAllList = (oldAttrs.stripAllList or [ ]) ++ [ "share/godot/templates" ];
+    stripAllList = (oldAttrs.stripAllList or []) ++ ["share/godot/templates"];
 
-    outputs = [ "out" ];
+    outputs = ["out"];
     meta.description = "Free and Open Source 2D and 3D game engine (export templates)";
     meta.maintainers = with lib.maintainers; [
       twey

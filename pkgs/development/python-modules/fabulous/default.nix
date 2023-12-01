@@ -17,9 +17,9 @@ buildPythonPackage rec {
     hash = "sha256-hchlxuB5QP+VxCx+QZ2739/mR5SQmYyE+9kXLKJ2ij4=";
   };
 
-  patches = [ ./relative_import.patch ];
+  patches = [./relative_import.patch];
 
-  propagatedBuildInputs = [ pillow ];
+  propagatedBuildInputs = [pillow];
 
   checkPhase = ''
     for i in tests/*.py; do
@@ -31,6 +31,6 @@ buildPythonPackage rec {
     description = "Make the output of terminal applications look fabulous";
     homepage = "https://jart.github.io/fabulous";
     license = licenses.asl20;
-    maintainers = [ maintainers.symphorien ];
+    maintainers = [maintainers.symphorien];
   };
 }

@@ -15,7 +15,7 @@ let
   cfg = dmcfg.lightdm;
   sessionData = dmcfg.sessionData;
 
-  setSessionScript = pkgs.callPackage ./account-service-util.nix { };
+  setSessionScript = pkgs.callPackage ./account-service-util.nix {};
 
   inherit (pkgs) lightdm writeScript writeText;
 
@@ -74,7 +74,7 @@ let
   '';
 in
 {
-  meta = with lib; { maintainers = with maintainers; [ ] ++ teams.pantheon.members; };
+  meta = with lib; {maintainers = with maintainers; [] ++ teams.pantheon.members;};
 
   # Note: the order in which lightdm greeter modules are imported
   # here determines the default: later modules (if enable) are
@@ -237,7 +237,7 @@ in
     services.xserver.displayManager.job.environment.XDG_DATA_DIRS = "${dmcfg.sessionData.desktops}/share/";
 
     # setSessionScript wants AccountsService
-    systemd.services.display-manager.wants = [ "accounts-daemon.service" ];
+    systemd.services.display-manager.wants = ["accounts-daemon.service"];
 
     # lightdm relaunches itself via just `lightdm`, so needs to be on the PATH
     services.xserver.displayManager.job.execCmd = ''
@@ -262,10 +262,10 @@ in
     ];
 
     # user.slice needs to be present
-    systemd.services.display-manager.requires = [ "user.slice" ];
+    systemd.services.display-manager.requires = ["user.slice"];
 
     # lightdm stops plymouth so when it fails make sure plymouth stops.
-    systemd.services.display-manager.onFailure = [ "plymouth-quit.service" ];
+    systemd.services.display-manager.onFailure = ["plymouth-quit.service"];
 
     systemd.services.display-manager.serviceConfig = {
       BusName = "org.freedesktop.DisplayManager";
@@ -281,13 +281,13 @@ in
     environment.etc."lightdm/users.conf".source = usersConf;
 
     services.dbus.enable = true;
-    services.dbus.packages = [ lightdm ];
+    services.dbus.packages = [lightdm];
 
     # lightdm uses the accounts daemon to remember language/window-manager per user
     services.accounts-daemon.enable = true;
 
     # Enable the accounts daemon to find lightdm's dbus interface
-    environment.systemPackages = [ lightdm ];
+    environment.systemPackages = [lightdm];
 
     security.polkit.enable = true;
 

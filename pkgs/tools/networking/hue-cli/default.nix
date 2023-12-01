@@ -7,7 +7,7 @@
 bundlerApp {
   pname = "hue-cli";
   gemdir = ./.;
-  exes = [ "hue" ];
+  exes = ["hue"];
 
   passthru.updateScript = bundlerUpdateScript "hue-cli";
 

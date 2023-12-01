@@ -61,7 +61,7 @@ mkDerivation rec {
   doCheck = true;
 
   passthru.tests = {
-    export-square-wave = callPackage ./test-export-square-wave { };
+    export-square-wave = callPackage ./test-export-square-wave {};
     sfxr-qt-starts = nixosTests.sfxr-qt;
   };
 
@@ -69,7 +69,7 @@ mkDerivation rec {
     homepage = "https://github.com/agateau/sfxr-qt";
     description = "A sound effect generator, QtQuick port of sfxr";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ fgaz ];
+    maintainers = with maintainers; [fgaz];
     platforms = platforms.linux;
   };
 }

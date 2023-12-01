@@ -57,7 +57,7 @@ stdenv.mkDerivation rec {
       alsa-lib
       udev
     ]
-    ++ lib.optionals stdenv.isDarwin [ Cocoa ]
+    ++ lib.optionals stdenv.isDarwin [Cocoa]
     ++ lib.optional jackaudioSupport libjack2;
 
   cmakeFlags =
@@ -85,6 +85,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/GrandOrgue/grandorgue";
     license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.unix;
-    maintainers = [ lib.maintainers.puzzlewolf ];
+    maintainers = [lib.maintainers.puzzlewolf];
   };
 }

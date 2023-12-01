@@ -65,7 +65,7 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  installFlags = [ "PREFIX=$(out)" ];
+  installFlags = ["PREFIX=$(out)"];
 
   postPatch = ''
     # --with-appname="$0" is evaluated with $0=.carla-wrapped instead of carla. Fix that.
@@ -109,7 +109,7 @@ stdenv.mkDerivation rec {
       supports native drivers like ALSA, DirectSound or CoreAudio.
     '';
     license = licenses.gpl2Plus;
-    maintainers = [ maintainers.minijackson ];
+    maintainers = [maintainers.minijackson];
     platforms = platforms.linux;
   };
 }

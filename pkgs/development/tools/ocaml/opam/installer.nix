@@ -11,7 +11,7 @@ ocamlPackages.buildDunePackage {
   duneVersion = "3";
 
   inherit (opam) version src;
-  nativeBuildInputs = [ unzip ];
+  nativeBuildInputs = [unzip];
 
   configureFlags = [
     "--disable-checks"

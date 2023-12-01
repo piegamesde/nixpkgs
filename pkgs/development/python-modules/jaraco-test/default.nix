@@ -39,15 +39,15 @@ buildPythonPackage rec {
     jaraco_collections
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "jaraco.test" ];
+  pythonImportsCheck = ["jaraco.test"];
 
   meta = with lib; {
     description = "Testing support by jaraco";
     homepage = "https://github.com/jaraco/jaraco.test";
     changelog = "https://github.com/jaraco/jaraco.test/blob/v${version}/CHANGES.rst";
     license = licenses.mit;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

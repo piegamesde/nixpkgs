@@ -84,7 +84,7 @@ stdenv.mkDerivation rec {
     homepage = "https://www.cis.upenn.edu/~bcpierce/unison/";
     description = "Bidirectional file synchronizer";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ viric ];
+    maintainers = with maintainers; [viric];
     platforms = platforms.unix;
   };
 }

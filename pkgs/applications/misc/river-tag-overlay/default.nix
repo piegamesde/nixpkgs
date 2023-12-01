@@ -47,7 +47,7 @@ stdenv.mkDerivation rec {
     description = "A pop-up showing tag status";
     homepage = "https://sr.ht/~leon_plickat/river-tag-overlay";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ edrex ];
+    maintainers = with maintainers; [edrex];
     platforms = platforms.linux;
   };
 }

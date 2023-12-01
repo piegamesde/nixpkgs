@@ -47,7 +47,7 @@ stdenv.mkDerivation rec {
   ];
 
   # https://stackoverflow.com/questions/53089494/configure-error-could-not-find-a-version-of-the-library
-  configureFlags = [ "--with-boost-libdir=${boost.out}/lib" ];
+  configureFlags = ["--with-boost-libdir=${boost.out}/lib"];
 
   doCheck = true;
 
@@ -56,7 +56,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/muesli4/mpd-touch-screen-gui";
     # See: https://github.com/muesli4/mpd-touch-screen-gui/tree/master/LICENSES
     license = licenses.lgpl3Plus;
-    maintainers = with maintainers; [ doronbehar ];
+    maintainers = with maintainers; [doronbehar];
     platforms = platforms.all;
   };
 }

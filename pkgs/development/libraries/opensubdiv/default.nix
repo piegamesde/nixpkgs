@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "PixarAnimationStudios";
     repo = "OpenSubdiv";
-    rev = "v${lib.replaceStrings [ "." ] [ "_" ] version}";
+    rev = "v${lib.replaceStrings ["."] ["_"] version}";
     sha256 = "sha256-pYD2HxAszE9Ux1xsSJ7s2R13U8ct5tDo3ZP7H0+F9Rc=";
   };
 
@@ -82,7 +82,7 @@ stdenv.mkDerivation rec {
       "-DOSD_CUDA_NVCC_FLAGS=--gpu-architecture=${cudaArch}"
       "-DCUDA_HOST_COMPILER=${cudatoolkit.cc}/bin/cc"
     ]
-    ++ lib.optionals (!openclSupport) [ "-DNO_OPENCL=1" ];
+    ++ lib.optionals (!openclSupport) ["-DNO_OPENCL=1"];
 
   postInstall = "rm $out/lib/*.a";
 
@@ -91,7 +91,7 @@ stdenv.mkDerivation rec {
     homepage = "http://graphics.pixar.com/opensubdiv";
     broken = openclSupport && cudaSupport;
     platforms = lib.platforms.unix;
-    maintainers = [ lib.maintainers.eelco ];
+    maintainers = [lib.maintainers.eelco];
     license = lib.licenses.asl20;
   };
 }

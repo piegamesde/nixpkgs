@@ -38,6 +38,6 @@ stdenv.mkDerivation rec {
     homepage = "https://launchpad.net/xpad";
     license = licenses.gpl3;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ michalrus ];
+    maintainers = with maintainers; [michalrus];
   };
 }

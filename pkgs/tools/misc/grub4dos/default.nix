@@ -25,11 +25,11 @@ stdenv.mkDerivation {
     sha256 = "0i7n71za43qnlsxfvjrv1z5g1w5jl9snpbnas7rw97rry7cgyswf";
   };
 
-  nativeBuildInputs = [ nasm ];
+  nativeBuildInputs = [nasm];
 
-  hardeningDisable = [ "stackprotector" ];
+  hardeningDisable = ["stackprotector"];
 
-  configureFlags = [ "--host=${arch}-pc-linux-gnu" ];
+  configureFlags = ["--host=${arch}-pc-linux-gnu"];
 
   postInstall = ''
     mv $out/lib/grub/${arch}-pc/* $out/lib/grub
@@ -46,7 +46,7 @@ stdenv.mkDerivation {
   meta = with lib; {
     homepage = "http://grub4dos.chenall.net/";
     description = "GRUB for DOS is the dos extension of GRUB";
-    maintainers = with maintainers; [ abbradar ];
+    maintainers = with maintainers; [abbradar];
     platforms = platforms.linux;
     license = licenses.gpl2;
   };

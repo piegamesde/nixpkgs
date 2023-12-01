@@ -32,7 +32,7 @@ python3.pkgs.buildPythonApplication rec {
     wrapGAppsHook
   ];
 
-  buildInputs = [ gobject-introspection ];
+  buildInputs = [gobject-introspection];
 
   propagatedBuildInputs = [
     gtk3
@@ -51,6 +51,6 @@ python3.pkgs.buildPythonApplication rec {
     description = "A utility to achieve some basic imposition on PDF documents, especially designed to work on booklets";
     platforms = lib.platforms.linux;
     license = "GPL-3.0-or-later";
-    maintainers = with lib.maintainers; [ afontain ];
+    maintainers = with lib.maintainers; [afontain];
   };
 }

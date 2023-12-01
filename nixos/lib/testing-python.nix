@@ -1,17 +1,17 @@
 args@{
   system,
-  pkgs ? import ../.. { inherit system config; },
+  pkgs ? import ../.. {inherit system config;},
   # Use a minimal kernel?
   minimal ? false,
   # Ignored
-  config ? { },
+  config ? {},
   # !!! See comment about args in lib/modules.nix
   specialArgs ? throw "legacy - do not use, see error below",
   # Modules to add to each VM
-  extraConfigurations ? [ ],
+  extraConfigurations ? [],
 }:
 let
-  nixos-lib = import ./default.nix { inherit (pkgs) lib; };
+  nixos-lib = import ./default.nix {inherit (pkgs) lib;};
 in
 
 pkgs.lib.throwIf (args ? specialArgs)
@@ -55,15 +55,15 @@ pkgs.lib.throwIf (args ? specialArgs)
     makeTest =
       {
         machine ? null,
-        nodes ? { },
+        nodes ? {},
         testScript,
         enableOCR ? false,
         name ? "unnamed",
         skipTypeCheck ? false,
         # Skip linting (mainly intended for faster dev cycles)
         skipLint ? false,
-        passthru ? { },
-        meta ? { },
+        passthru ? {},
+        meta ? {},
         # For meta.position
         pos ? # position used in error messages and for meta.position
           (
@@ -72,8 +72,8 @@ pkgs.lib.throwIf (args ? specialArgs)
             else
               builtins.unsafeGetAttrPos "testScript" t
           ),
-        extraPythonPackages ? (_: [ ]),
-        interactive ? { },
+        extraPythonPackages ? (_: []),
+        interactive ? {},
       }@t:
       let
         testConfig =

@@ -185,7 +185,7 @@ in
 
       plugins = lib.mkOption {
         type = lib.types.listOf lib.types.path;
-        default = [ ];
+        default = [];
         description = lib.mdDoc ''
           Keycloak plugin jar, ear files or derivations containing
           them. Packaged plugins are available through
@@ -327,7 +327,7 @@ in
 
       themes = mkOption {
         type = attrsOf package;
-        default = { };
+        default = {};
         description = lib.mdDoc ''
           Additional theme packages for Keycloak. Each theme is linked into
           subdirectory with a corresponding attribute name.
@@ -501,13 +501,13 @@ in
           "mariadb"
         ];
 
-      mySqlCaKeystore = pkgs.runCommand "mysql-ca-keystore" { } ''
+      mySqlCaKeystore = pkgs.runCommand "mysql-ca-keystore" {} ''
         ${pkgs.jre}/bin/keytool -importcert -trustcacerts -alias MySQLCACert -file ${cfg.database.caCert} -keystore $out -storepass notsosecretpassword -noprompt
       '';
 
       # Both theme and theme type directories need to be actual
       # directories in one hierarchy to pass Keycloak checks.
-      themesBundle = pkgs.runCommand "keycloak-themes" { } ''
+      themesBundle = pkgs.runCommand "keycloak-themes" {} ''
         linkTheme() {
           theme="$1"
           name="$2"
@@ -552,7 +552,7 @@ in
             else if isSecret v then
               hashString "sha256" v._secret
             else
-              throw "unsupported type ${typeOf v}: ${(lib.generators.toPretty { }) v}";
+              throw "unsupported type ${typeOf v}: ${(lib.generators.toPretty {}) v}";
         };
       };
 
@@ -562,7 +562,7 @@ in
           (lib.filterAttrsRecursive (
             _: v:
             !elem v [
-              { }
+              {}
               null
             ]
           ))
@@ -587,19 +587,19 @@ in
         }
       ];
 
-      environment.systemPackages = [ keycloakBuild ];
+      environment.systemPackages = [keycloakBuild];
 
       services.keycloak.settings =
         let
           postgresParams = concatStringsSep "&" (
-            optionals cfg.database.useSSL [ "ssl=true" ]
+            optionals cfg.database.useSSL ["ssl=true"]
             ++ optionals (cfg.database.caCert != null) [
               "sslrootcert=${cfg.database.caCert}"
               "sslmode=verify-ca"
             ]
           );
           mariadbParams = concatStringsSep "&" (
-            [ "characterEncoding=UTF-8" ]
+            ["characterEncoding=UTF-8"]
             ++ optionals cfg.database.useSSL [
               "useSSL=true"
               "requireSSL=true"
@@ -630,16 +630,16 @@ in
         ];
 
       systemd.services.keycloakPostgreSQLInit = mkIf createLocalPostgreSQL {
-        after = [ "postgresql.service" ];
-        before = [ "keycloak.service" ];
-        bindsTo = [ "postgresql.service" ];
-        path = [ config.services.postgresql.package ];
+        after = ["postgresql.service"];
+        before = ["keycloak.service"];
+        bindsTo = ["postgresql.service"];
+        path = [config.services.postgresql.package];
         serviceConfig = {
           Type = "oneshot";
           RemainAfterExit = true;
           User = "postgres";
           Group = "postgres";
-          LoadCredential = [ "db_password:${cfg.database.passwordFile}" ];
+          LoadCredential = ["db_password:${cfg.database.passwordFile}"];
         };
         script = ''
           set -o errexit -o pipefail -o nounset -o errtrace
@@ -662,16 +662,16 @@ in
       };
 
       systemd.services.keycloakMySQLInit = mkIf createLocalMySQL {
-        after = [ "mysql.service" ];
-        before = [ "keycloak.service" ];
-        bindsTo = [ "mysql.service" ];
-        path = [ config.services.mysql.package ];
+        after = ["mysql.service"];
+        before = ["keycloak.service"];
+        bindsTo = ["mysql.service"];
+        path = [config.services.mysql.package];
         serviceConfig = {
           Type = "oneshot";
           RemainAfterExit = true;
           User = config.services.mysql.user;
           Group = config.services.mysql.group;
-          LoadCredential = [ "db_password:${cfg.database.passwordFile}" ];
+          LoadCredential = ["db_password:${cfg.database.passwordFile}"];
         };
         script = ''
           set -o errexit -o pipefail -o nounset -o errtrace
@@ -706,7 +706,7 @@ in
                 "mysql.service"
               ]
             else
-              [ ];
+              [];
           secretPaths = catAttrs "_secret" (collect isSecret cfg.settings);
           mkSecretReplacement = file: ''
             replace-secret ${hashString "sha256" file} $CREDENTIALS_DIRECTORY/${baseNameOf file} /run/keycloak/conf/keycloak.conf
@@ -716,7 +716,7 @@ in
         {
           after = databaseServices;
           bindsTo = databaseServices;
-          wantedBy = [ "multi-user.target" ];
+          wantedBy = ["multi-user.target"];
           path = with pkgs; [
             keycloakBuild
             openssl
@@ -781,5 +781,5 @@ in
     };
 
   meta.doc = ./keycloak.md;
-  meta.maintainers = [ maintainers.talyz ];
+  meta.maintainers = [maintainers.talyz];
 }

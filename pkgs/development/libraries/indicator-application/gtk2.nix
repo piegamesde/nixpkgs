@@ -67,6 +67,6 @@ stdenv.mkDerivation rec {
     homepage = "https://launchpad.net/indicators-gtk2";
     license = licenses.gpl3;
     platforms = platforms.linux;
-    maintainers = [ maintainers.msteen ];
+    maintainers = [maintainers.msteen];
   };
 }

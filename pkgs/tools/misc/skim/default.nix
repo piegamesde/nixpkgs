@@ -15,7 +15,7 @@ rustPlatform.buildRustPackage rec {
     sha256 = "sha256-C2yK+SO8Tpw3BxXXu1jeDzYJ2548RZa7NFWaE0SdNJ0=";
   };
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   outputs = [
     "out"
@@ -54,6 +54,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/lotabout/skim";
     license = licenses.mit;
     mainProgram = "sk";
-    maintainers = with maintainers; [ dywedir ];
+    maintainers = with maintainers; [dywedir];
   };
 }

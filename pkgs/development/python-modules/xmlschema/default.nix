@@ -23,7 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-yF2L5VxUkqJjen5JeCQis4Q1o1KCJtRJ+S52wnS5VQg=";
   };
 
-  propagatedBuildInputs = [ elementpath ];
+  propagatedBuildInputs = [elementpath];
 
   nativeCheckInputs = [
     jinja2
@@ -31,13 +31,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "xmlschema" ];
+  pythonImportsCheck = ["xmlschema"];
 
   meta = with lib; {
     changelog = "https://github.com/sissaschool/xmlschema/blob/${src.rev}/CHANGELOG.rst";
     description = "XML Schema validator and data conversion library for Python";
     homepage = "https://github.com/sissaschool/xmlschema";
     license = licenses.mit;
-    maintainers = with maintainers; [ jonringer ];
+    maintainers = with maintainers; [jonringer];
   };
 }

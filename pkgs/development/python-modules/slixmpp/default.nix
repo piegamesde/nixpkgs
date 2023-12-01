@@ -31,7 +31,7 @@ buildPythonPackage rec {
     pyasn1-modules
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   patches = [
     (substituteAll {
@@ -48,12 +48,12 @@ buildPythonPackage rec {
     "tests/test_xep_0454.py"
   ];
 
-  pythonImportsCheck = [ "slixmpp" ];
+  pythonImportsCheck = ["slixmpp"];
 
   meta = with lib; {
     description = "Python library for XMPP";
     homepage = "https://slixmpp.readthedocs.io/";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

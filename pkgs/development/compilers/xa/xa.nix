@@ -18,7 +18,7 @@ stdenv.mkDerivation (
       hash = "sha256-G5u6vdvY07lBC4UuUKEo7qQeaBM55vdsPoB2+lQg8C4=";
     };
 
-    nativeCheckInputs = [ perl ];
+    nativeCheckInputs = [perl];
 
     dontConfigure = true;
 
@@ -30,7 +30,7 @@ stdenv.mkDerivation (
         --replace "LDFLAGS = -lc" "LDFLAGS ?= -lc"
     '';
 
-    makeFlags = [ "DESTDIR:=${placeholder "out"}" ];
+    makeFlags = ["DESTDIR:=${placeholder "out"}"];
 
     enableParallelBuilding = true;
 
@@ -63,7 +63,7 @@ stdenv.mkDerivation (
         - block structure for label scoping
       '';
       license = lib.licenses.gpl2Plus;
-      maintainers = with lib.maintainers; [ AndersonTorres ];
+      maintainers = with lib.maintainers; [AndersonTorres];
       platforms = with lib.platforms; unix;
     };
   }

@@ -37,9 +37,9 @@ stdenv.mkDerivation rec {
     ninja
   ];
 
-  mesonFlags = [ "-Dnix-system=${stdenv.system}" ];
+  mesonFlags = ["-Dnix-system=${stdenv.system}"];
 
-  hardeningDisable = [ "stackprotector" ];
+  hardeningDisable = ["stackprotector"];
 
   postInstall = ''
     mkdir -p $out/nix-support
@@ -58,7 +58,7 @@ stdenv.mkDerivation rec {
     description = "Run unpatched dynamic binaries on NixOS";
     homepage = "https://github.com/Mic92/nix-ld";
     license = licenses.mit;
-    maintainers = with maintainers; [ mic92 ];
+    maintainers = with maintainers; [mic92];
     platforms = platforms.linux;
   };
 }

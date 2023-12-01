@@ -110,7 +110,7 @@ stdenv.mkDerivation rec {
     homepage = "https://www.mucommander.com/";
     description = "Cross-platform file manager";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ jiegec ];
+    maintainers = with maintainers; [jiegec];
     platforms = platforms.all;
   };
 }

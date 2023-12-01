@@ -10,8 +10,8 @@ let
     pkg:
     pkg.overrideAttrs (
       old: {
-        meta = (old.meta or { }) // {
-          knownVulnerabilities = [ ];
+        meta = (old.meta or {}) // {
+          knownVulnerabilities = [];
         };
       }
     );
@@ -37,9 +37,9 @@ let
     stripTests = true;
     enableOptimizations = false;
   };
-  callPackage = lib.callPackageWith (pkgs // { python27 = python27'; });
-  source = callPackage ./source.nix { };
-  deps = callPackage ./deps.nix { };
+  callPackage = lib.callPackageWith (pkgs // {python27 = python27';});
+  source = callPackage ./source.nix {};
+  deps = callPackage ./deps.nix {};
 in
 rec {
   # not exposed in all-packages

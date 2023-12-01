@@ -52,9 +52,9 @@ stdenv.mkDerivation rec {
     openssl.dev
     racket_7_9
   ];
-  nativeBuildInputs = [ scons ];
+  nativeBuildInputs = [scons];
 
-  patches = [ ./fix-build.patch ];
+  patches = [./fix-build.patch];
   sconsFlags = [
     "RacketPrefix=${racket}"
     "RacketInclude=${racket}/include/racket"
@@ -73,7 +73,7 @@ stdenv.mkDerivation rec {
     description = "Livecoding environment for 3D graphics, sound, and games";
     license = licenses.gpl2;
     homepage = "http://www.pawfal.org/fluxus/";
-    maintainers = [ maintainers.brainrape ];
+    maintainers = [maintainers.brainrape];
     broken = true;
   };
 }

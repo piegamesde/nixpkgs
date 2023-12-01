@@ -29,7 +29,7 @@ mkDerivation rec {
     qtwebengine
   ];
 
-  nativeBuildInputs = [ qmake ];
+  nativeBuildInputs = [qmake];
 
   prePatch = ''
     substituteInPlace ztgps.pro --replace "../libldutils" "libldutils"
@@ -52,14 +52,14 @@ mkDerivation rec {
     install -Dm644 build/rcc/*.rcc -t $out/share/zombietrackergps
   '';
 
-  qmakeFlags = [ "ZombieTrackerGPS.pro" ];
+  qmakeFlags = ["ZombieTrackerGPS.pro"];
 
   meta = with lib; {
     description = "GPS track manager for Qt using KDE Marble maps";
     homepage = "https://www.zombietrackergps.net/ztgps/";
     changelog = "https://www.zombietrackergps.net/ztgps/history.html";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ sohalt ];
+    maintainers = with maintainers; [sohalt];
     platforms = platforms.linux;
     broken = true; # doesn't build with latest Marble
   };

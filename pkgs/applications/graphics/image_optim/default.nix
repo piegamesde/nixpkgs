@@ -65,9 +65,9 @@ bundlerApp {
   pname = "image_optim";
   gemdir = ./.;
 
-  exes = [ "image_optim" ];
+  exes = ["image_optim"];
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   postBuild = ''
     wrapProgram $out/bin/image_optim \

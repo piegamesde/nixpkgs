@@ -14,7 +14,7 @@ buildPythonPackage rec {
     hash = "sha256-v+4fP/YhQ4GUmeNI9bin86oCWfmspeDdrnOR0Fnc5nE=";
   };
 
-  propagatedBuildInputs = [ zope_event ];
+  propagatedBuildInputs = [zope_event];
 
   doCheck = false; # Circular deps.
 
@@ -22,6 +22,6 @@ buildPythonPackage rec {
     description = "Zope.Interface";
     homepage = "https://zope.org/Products/ZopeInterface";
     license = licenses.zpl20;
-    maintainers = [ maintainers.goibhniu ];
+    maintainers = [maintainers.goibhniu];
   };
 }

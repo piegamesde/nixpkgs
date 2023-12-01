@@ -188,7 +188,7 @@ rec {
       name = "${pname}-${version}";
       longDescription = "Gammastep" + lib.removePrefix "Redshift" redshift.meta.longDescription;
       homepage = "https://gitlab.com/chinstrap/gammastep";
-      maintainers = [ lib.maintainers.primeos ] ++ redshift.meta.maintainers;
+      maintainers = [lib.maintainers.primeos] ++ redshift.meta.maintainers;
     };
   };
 }

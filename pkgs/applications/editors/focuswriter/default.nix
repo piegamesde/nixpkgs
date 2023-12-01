@@ -30,13 +30,13 @@ mkDerivation rec {
     qtmultimedia
   ];
 
-  qmakeFlags = [ "PREFIX=/" ];
-  installFlags = [ "INSTALL_ROOT=$(out)" ];
+  qmakeFlags = ["PREFIX=/"];
+  installFlags = ["INSTALL_ROOT=$(out)"];
 
   meta = with lib; {
     description = "Simple, distraction-free writing environment";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ madjar ];
+    maintainers = with maintainers; [madjar];
     platforms = platforms.linux;
     homepage = "https://gottcode.org/focuswriter/";
   };

@@ -9,7 +9,7 @@
    3. Run `git commit -m "nongnu-packages $(date -Idate)" -- nongnu-generated.nix`
 */
 
-{ lib, buildPackages }:
+{lib, buildPackages}:
 
 self:
 let
@@ -27,16 +27,16 @@ let
             args
             // {
               # Use custom elpa url fetcher with fallback/uncompress
-              fetchurl = buildPackages.callPackage ./fetchelpa.nix { };
+              fetchurl = buildPackages.callPackage ./fetchelpa.nix {};
             }
           );
       };
 
       super = imported;
 
-      overrides = { };
+      overrides = {};
     in
     super // overrides
   );
 in
-generateNongnu { }
+generateNongnu {}

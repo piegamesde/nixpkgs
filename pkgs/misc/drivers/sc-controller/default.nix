@@ -51,7 +51,7 @@ buildPythonApplication rec {
     vdf
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   patches =
     [

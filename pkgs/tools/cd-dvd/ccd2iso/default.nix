@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
     description = "CloneCD to ISO converter";
     homepage = "https://sourceforge.net/projects/ccd2iso/";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ yana ];
+    maintainers = with maintainers; [yana];
     platforms = platforms.unix;
   };
 }

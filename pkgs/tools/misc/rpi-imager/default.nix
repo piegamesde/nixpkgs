@@ -48,14 +48,14 @@ mkDerivation rec {
      but that throws an error, as /sys/dev doesn't exist in the sandbox.
      This patch removes the check.
   */
-  patches = [ ./lsblkCheckFix.patch ];
+  patches = [./lsblkCheckFix.patch];
 
   meta = with lib; {
     description = "Raspberry Pi Imaging Utility";
     homepage = "https://www.raspberrypi.org/software/";
     downloadPage = "https://github.com/raspberrypi/rpi-imager/";
     license = licenses.asl20;
-    maintainers = with maintainers; [ ymarkus ];
+    maintainers = with maintainers; [ymarkus];
     platforms = platforms.all;
     # does not build on darwin
     broken = stdenv.isDarwin;

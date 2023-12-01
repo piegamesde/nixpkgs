@@ -40,7 +40,7 @@ buildPythonPackage rec {
     six
     setuptools
     pyparsing
-  ] ++ lib.optionals stdenv.hostPlatform.isWindows [ colorama ];
+  ] ++ lib.optionals stdenv.hostPlatform.isWindows [colorama];
 
   nativeCheckInputs = [
     netaddr
@@ -58,7 +58,7 @@ buildPythonPackage rec {
     "tests/acceptance/test_saved_filter.py"
   ];
 
-  pythonImportsCheck = [ "wfuzz" ];
+  pythonImportsCheck = ["wfuzz"];
 
   meta = with lib; {
     description = "Web content fuzzer to facilitate web applications assessments";
@@ -68,7 +68,7 @@ buildPythonPackage rec {
       web application vulnerabilities.
     '';
     homepage = "https://wfuzz.readthedocs.io";
-    license = with licenses; [ gpl2Only ];
-    maintainers = with maintainers; [ pamplemousse ];
+    license = with licenses; [gpl2Only];
+    maintainers = with maintainers; [pamplemousse];
   };
 }

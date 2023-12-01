@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  patches = [ ./Fix-to-string.agda-to-compile-with-Agda-2.6.1.patch ];
+  patches = [./Fix-to-string.agda-to-compile-with-Agda-2.6.1.patch];
 
   nativeBuildInputs = [
     alex
@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
   ];
   buildInputs = [
     Agda
-    (ghcWithPackages (ps: [ ps.ieee ]))
+    (ghcWithPackages (ps: [ps.ieee]))
   ];
 
   LANG = "en_US.UTF-8";

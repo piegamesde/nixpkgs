@@ -1,4 +1,4 @@
-{ lib, python3Packages }:
+{lib, python3Packages}:
 
 python3Packages.buildPythonPackage rec {
   pname = "present";
@@ -17,7 +17,7 @@ python3Packages.buildPythonPackage rec {
     mistune
   ];
 
-  pythonImportsCheck = [ "present" ];
+  pythonImportsCheck = ["present"];
 
   # TypeError: don't know how to make test from: 0.6.0
   doCheck = false;
@@ -26,6 +26,6 @@ python3Packages.buildPythonPackage rec {
     description = "A terminal-based presentation tool with colors and effects.";
     homepage = "https://github.com/vinayak-mehta/present";
     license = licenses.asl20;
-    maintainers = with maintainers; [ lom ];
+    maintainers = with maintainers; [lom];
   };
 }

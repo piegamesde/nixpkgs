@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{config, lib, ...}:
 
 with lib;
 let
@@ -21,12 +21,12 @@ in
           )
           "options bluetooth disable_ertm=1";
 
-      extraModulePackages = with config.boot.kernelPackages; [ xpadneo ];
-      kernelModules = [ "hid_xpadneo" ];
+      extraModulePackages = with config.boot.kernelPackages; [xpadneo];
+      kernelModules = ["hid_xpadneo"];
     };
   };
 
   meta = {
-    maintainers = with maintainers; [ kira-bruneau ];
+    maintainers = with maintainers; [kira-bruneau];
   };
 }

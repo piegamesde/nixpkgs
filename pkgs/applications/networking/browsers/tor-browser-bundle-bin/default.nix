@@ -80,7 +80,7 @@ let
     stdenv.cc.cc
     stdenv.cc.libc
     zlib
-  ] ++ lib.optionals pulseaudioSupport [ libpulseaudio ] ++ lib.optionals mediaSupport [ ffmpeg ];
+  ] ++ lib.optionals pulseaudioSupport [libpulseaudio] ++ lib.optionals mediaSupport [ffmpeg];
 
   # Library search path for the fte transport
   fteLibPath = lib.makeLibraryPath [
@@ -116,7 +116,7 @@ let
   };
 
   distributionIni = writeText "distribution.ini" (
-    lib.generators.toINI { } {
+    lib.generators.toINI {} {
       # Some light branding indicating this build uses our distro preferences
       Global = {
         id = "nixos";
@@ -126,7 +126,7 @@ let
     }
   );
 
-  policiesJson = writeText "policies.json" (builtins.toJSON { policies.DisableAppUpdate = true; });
+  policiesJson = writeText "policies.json" (builtins.toJSON {policies.DisableAppUpdate = true;});
 in
 stdenv.mkDerivation rec {
   pname = "tor-browser-bundle-bin";
@@ -298,7 +298,7 @@ stdenv.mkDerivation rec {
     #! ${runtimeShell}
     set -o errexit -o nounset
 
-    PATH=${lib.makeBinPath [ coreutils ]}
+    PATH=${lib.makeBinPath [coreutils]}
     export LC_ALL=C
     export LOCALE_ARCHIVE=${glibcLocales}/lib/locale/locale-archive
 
@@ -486,6 +486,6 @@ stdenv.mkDerivation rec {
     # the compound is "libre" in a strict sense (some components place certain
     # restrictions on redistribution), it's free enough for our purposes.
     license = licenses.free;
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
   };
 }

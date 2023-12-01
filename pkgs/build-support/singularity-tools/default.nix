@@ -25,11 +25,11 @@ rec {
   mkLayer =
     {
       name,
-      contents ? [ ],
+      contents ? [],
       # May be "apptainer" instead of "singularity"
       projectName ? (singularity.projectName or "singularity"),
     }:
-    runCommand "${projectName}-layer-${name}" { inherit contents; } ''
+    runCommand "${projectName}-layer-${name}" {inherit contents;} ''
       mkdir $out
       for f in $contents ; do
         cp -ra $f $out/
@@ -42,7 +42,7 @@ rec {
     in
     {
       name,
-      contents ? [ ],
+      contents ? [],
       diskSize ? 1024,
       runScript ? ''
         #!${stdenv.shell}

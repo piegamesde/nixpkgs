@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
     description = "VisualOn AAC encoder library";
     homepage = "https://sourceforge.net/projects/opencore-amr/";
     license = licenses.asl20;
-    maintainers = [ maintainers.baloo ];
+    maintainers = [maintainers.baloo];
     platforms = platforms.all;
   };
 }

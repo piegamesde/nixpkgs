@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-6Xpgz8AKHBR6Z0sJe7FCKr2fp4otnOPz/cwueKNKxfA=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   doCheck = !stdenv.isi686; # tests fail on i686
 
@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
     description = "Mozilla's Universal Charset Detector C/C++ API";
     homepage = "https://www.freedesktop.org/wiki/Software/uchardet/";
     license = licenses.mpl11;
-    maintainers = with maintainers; [ cstrahan ];
+    maintainers = with maintainers; [cstrahan];
     platforms = with platforms; unix;
   };
 }

@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-oLwR+bNgKceVgLTOLYiKHNUkRmLouaQshdp/8UJnfqg=";
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   buildInputs = [
     coreutils
@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
         DBDSQLite
       ]
     ))
-  ] ++ lib.optionals (!stdenv.isAarch64) [ dmidecode ];
+  ] ++ lib.optionals (!stdenv.isAarch64) [dmidecode];
 
   configureFlags = [
     "--sysconfdir=/etc"
@@ -57,7 +57,7 @@ stdenv.mkDerivation rec {
     "--enable-memory-failure"
     "--enable-memory-ce-pfa"
     "--enable-amp-ns-decode"
-  ] ++ lib.optionals (stdenv.isAarch64) [ "--enable-arm" ];
+  ] ++ lib.optionals (stdenv.isAarch64) ["--enable-arm"];
 
   # The installation attempts to create the following directories:
   # /var/lib/rasdaemon
@@ -124,6 +124,6 @@ stdenv.mkDerivation rec {
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
     changelog = "https://github.com/mchehab/rasdaemon/blob/v${version}/ChangeLog";
-    maintainers = with maintainers; [ evils ];
+    maintainers = with maintainers; [evils];
   };
 }

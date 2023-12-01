@@ -27,6 +27,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/gangverk/flask-swagger";
     license = licenses.mit;
     description = "Extract swagger specs from your flask project";
-    maintainers = with maintainers; [ vanschelven ];
+    maintainers = with maintainers; [vanschelven];
   };
 }

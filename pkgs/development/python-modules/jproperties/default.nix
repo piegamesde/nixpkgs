@@ -22,9 +22,9 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
-  propagatedBuildInputs = [ six ];
+  propagatedBuildInputs = [six];
 
   nativeCheckInputs = [
     pytest-datadir
@@ -44,12 +44,12 @@ buildPythonPackage rec {
       "tests/test_simple_utf8.py"
     ];
 
-  pythonImportsCheck = [ "jproperties" ];
+  pythonImportsCheck = ["jproperties"];
 
   meta = with lib; {
     description = "Java Property file parser and writer for Python";
     homepage = "https://github.com/Tblue/python-jproperties";
-    license = with licenses; [ bsd3 ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [bsd3];
+    maintainers = with maintainers; [fab];
   };
 }

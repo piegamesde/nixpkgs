@@ -86,8 +86,8 @@ in
     '';
 
     boot.initrd.systemd.services.openvpn = {
-      wantedBy = [ "initrd.target" ];
-      path = [ pkgs.iproute2 ];
+      wantedBy = ["initrd.target"];
+      path = [pkgs.iproute2];
       after = [
         "network.target"
         "initrd-nixos-copy-secrets.service"

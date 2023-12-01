@@ -13,9 +13,9 @@
   sha256,
   sourceExtension ? "tar.xz",
   extraConfigureFlags ? "",
-  extraPatches ? [ ],
+  extraPatches ? [],
   postPatch ? null,
-  knownVulnerabilities ? [ ],
+  knownVulnerabilities ? [],
   CoreServices,
   Security,
   ...
@@ -70,7 +70,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Cryptographic algorithms library";
-    maintainers = with maintainers; [ raskin ];
+    maintainers = with maintainers; [raskin];
     platforms = platforms.unix;
     license = licenses.bsd2;
     inherit knownVulnerabilities;

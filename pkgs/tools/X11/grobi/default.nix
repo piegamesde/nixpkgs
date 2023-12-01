@@ -30,7 +30,7 @@ buildGoModule rec {
   meta = with lib; {
     homepage = "https://github.com/fd0/grobi";
     description = "Automatically configure monitors/outputs for Xorg via RANDR";
-    license = with licenses; [ bsd2 ];
+    license = with licenses; [bsd2];
     platforms = platforms.linux;
   };
 }

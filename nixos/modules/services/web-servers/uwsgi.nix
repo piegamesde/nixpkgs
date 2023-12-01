@@ -27,13 +27,13 @@ let
     name: c:
     let
       plugins' =
-        if any (n: !any (m: m == n) cfg.plugins) (c.plugins or [ ]) then
+        if any (n: !any (m: m == n) cfg.plugins) (c.plugins or []) then
           throw "`plugins` attribute in uWSGI configuration contains plugins not in config.services.uwsgi.plugins"
         else
           c.plugins or cfg.plugins;
       plugins = unique plugins';
 
-      hasPython = v: filter (n: n == "python${v}") plugins != [ ];
+      hasPython = v: filter (n: n == "python${v}") plugins != [];
       hasPython2 = hasPython "2";
       hasPython3 = hasPython "3";
 
@@ -47,7 +47,7 @@ let
         else
           null;
 
-      pythonEnv = python.withPackages (c.pythonPackages or (self: [ ]));
+      pythonEnv = python.withPackages (c.pythonPackages or (self: []));
 
       uwsgiCfg = {
         uwsgi =
@@ -64,11 +64,11 @@ let
               env =
                 # Argh, uwsgi expects list of key-values there instead of a dictionary.
                 let
-                  envs = partition (hasPrefix "PATH=") (c.env or [ ]);
+                  envs = partition (hasPrefix "PATH=") (c.env or []);
                   oldPaths = map (x: substring (stringLength "PATH=") (stringLength x) x) envs.right;
-                  paths = oldPaths ++ [ "${pythonEnv}/bin" ];
+                  paths = oldPaths ++ ["${pythonEnv}/bin"];
                 in
-                [ "PATH=${concatStringsSep ":" paths}" ] ++ envs.wrong;
+                ["PATH=${concatStringsSep ":" paths}"] ++ envs.wrong;
             }
           else if isEmperor then
             {
@@ -136,7 +136,7 @@ in
               )
               // {
                 description = "Json value or lambda";
-                emptyValue.value = { };
+                emptyValue.value = {};
               };
           in
           valueType;
@@ -172,7 +172,7 @@ in
 
       plugins = mkOption {
         type = types.listOf types.str;
-        default = [ ];
+        default = [];
         description = lib.mdDoc "Plugins used with uWSGI";
       };
 
@@ -191,7 +191,7 @@ in
       capabilities = mkOption {
         type = types.listOf types.str;
         apply = caps: caps ++ optionals isEmperor imperialPowers;
-        default = [ ];
+        default = [];
         example = literalExpression ''
           [
             "CAP_NET_BIND_SERVICE" # bind on ports <1024
@@ -223,7 +223,7 @@ in
     '';
 
     systemd.services.uwsgi = {
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         User = cfg.user;
         Group = cfg.group;
@@ -246,8 +246,8 @@ in
       };
     };
 
-    users.groups = optionalAttrs (cfg.group == "uwsgi") { uwsgi.gid = config.ids.gids.uwsgi; };
+    users.groups = optionalAttrs (cfg.group == "uwsgi") {uwsgi.gid = config.ids.gids.uwsgi;};
 
-    services.uwsgi.package = pkgs.uwsgi.override { plugins = unique cfg.plugins; };
+    services.uwsgi.package = pkgs.uwsgi.override {plugins = unique cfg.plugins;};
   };
 }

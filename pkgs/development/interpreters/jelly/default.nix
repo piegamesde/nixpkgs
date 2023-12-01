@@ -15,7 +15,7 @@ python3Packages.buildPythonApplication {
     sha256 = "1rpclqagvigp5qhvgnjavvy463f1drshnc1mfxm6z7ygzs0l0yz6";
   };
 
-  propagatedBuildInputs = [ python3Packages.sympy ];
+  propagatedBuildInputs = [python3Packages.sympy];
 
   # checks are disabled because jelly has no tests, and the default is to run
   # the output binary with no arguments, which exits with status 1 and causes
@@ -26,7 +26,7 @@ python3Packages.buildPythonApplication {
     description = "A recreational programming language inspired by J";
     homepage = "https://github.com/DennisMitchell/jellylanguage";
     license = licenses.mit;
-    maintainers = [ maintainers.tckmn ];
+    maintainers = [maintainers.tckmn];
     platforms = platforms.all;
   };
 }

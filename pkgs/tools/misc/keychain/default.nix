@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
     installShellFiles
     makeWrapper
   ];
-  buildInputs = [ perl ];
+  buildInputs = [perl];
 
   installPhase = ''
     mkdir -p $out/bin

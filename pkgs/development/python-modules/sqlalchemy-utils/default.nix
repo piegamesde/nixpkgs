@@ -47,21 +47,21 @@ buildPythonPackage rec {
     hash = "sha256-r4AwiaeSmAP662FzuQ8p0aZ60C8dHnMvQLBUqOs8c3A=";
   };
 
-  patches = [ ./skip-database-tests.patch ];
+  patches = [./skip-database-tests.patch];
 
-  propagatedBuildInputs = [ sqlalchemy ] ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
+  propagatedBuildInputs = [sqlalchemy] ++ lib.optionals (pythonOlder "3.8") [importlib-metadata];
 
   passthru.optional-dependencies = {
-    babel = [ babel ];
-    arrow = [ arrow ];
-    pendulum = [ pendulum ];
+    babel = [babel];
+    arrow = [arrow];
+    pendulum = [pendulum];
     #intervals = [ intervals ];
-    phone = [ phonenumbers ];
-    password = [ passlib ];
-    color = [ colour ];
-    timezone = [ python-dateutil ];
-    url = [ furl ];
-    encrypted = [ cryptography ];
+    phone = [phonenumbers];
+    password = [passlib];
+    color = [colour];
+    timezone = [python-dateutil];
+    url = [furl];
+    encrypted = [cryptography];
   };
 
   nativeCheckInputs =
@@ -80,7 +80,7 @@ buildPythonPackage rec {
       pyodbc
     ]
     ++ lib.flatten (builtins.attrValues passthru.optional-dependencies)
-    ++ lib.optionals (pythonOlder "3.9") [ backports-zoneinfo ];
+    ++ lib.optionals (pythonOlder "3.9") [backports-zoneinfo];
 
   pytestFlagsArray = [
     "--deselect tests/functions/test_database.py::TestDatabasePostgresCreateDatabaseCloseConnection::test_create_database_twice"
@@ -93,6 +93,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/kvesteri/sqlalchemy-utils";
     description = "Various utility functions and datatypes for SQLAlchemy";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ eadwu ];
+    maintainers = with maintainers; [eadwu];
   };
 }

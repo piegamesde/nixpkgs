@@ -50,7 +50,7 @@ stdenv.mkDerivation rec {
     gtk2-x11
     libXt
     stdenv.cc.cc.lib
-  ] ++ lib.optionals withGTK3 [ gtk3 ];
+  ] ++ lib.optionals withGTK3 [gtk3];
 
   desktopItems = [
     (makeDesktopItem rec {
@@ -158,7 +158,7 @@ stdenv.mkDerivation rec {
     wrapGApp $out/lib/palemoon/palemoon
   '';
 
-  passthru.tests.version = testers.testVersion { package = palemoon-bin; };
+  passthru.tests.version = testers.testVersion {package = palemoon-bin;};
 
   meta = with lib; {
     homepage = "https://www.palemoon.org/";
@@ -186,9 +186,9 @@ stdenv.mkDerivation rec {
       AndersonTorres
       OPNA2608
     ];
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     mainProgram = "palemoon";
-    platforms = [ "x86_64-linux" ];
-    hydraPlatforms = [ ];
+    platforms = ["x86_64-linux"];
+    hydraPlatforms = [];
   };
 }

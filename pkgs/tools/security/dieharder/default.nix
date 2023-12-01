@@ -27,17 +27,17 @@ stdenv.mkDerivation rec {
   #     include/dieharder/parse.h:21: first defined here
   env.NIX_CFLAGS_COMPILE = "-fcommon";
 
-  buildInputs = [ gsl ];
+  buildInputs = [gsl];
 
   passthru = {
-    tests.version = testers.testVersion { package = dieharder; };
+    tests.version = testers.testVersion {package = dieharder;};
   };
 
   meta = with lib; {
     description = "A Random Number Generator test suite";
     homepage = "https://webhome.phy.duke.edu/~rgb/General/dieharder.php";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ zhaofengli ];
+    maintainers = with maintainers; [zhaofengli];
     platforms = platforms.unix;
   };
 }

@@ -20,7 +20,7 @@ let
       description = "community managed domain list";
       homepage = "https://github.com/v2fly/domain-list-community";
       license = licenses.mit;
-      maintainers = with maintainers; [ nickcao ];
+      maintainers = with maintainers; [nickcao];
     };
   };
 in

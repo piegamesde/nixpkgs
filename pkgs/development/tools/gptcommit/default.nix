@@ -25,24 +25,22 @@ rustPlatform.buildRustPackage {
 
   cargoSha256 = "sha256-awztElsrJCUGUn2HcGpCkxUO/nEy8iZO22/fQtwAKdg=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   # 0.5.6 release has failing tests
   doCheck = false;
 
-  buildInputs =
-    lib.optionals stdenv.isDarwin [ Security ]
-    ++ lib.optionals stdenv.isLinux [ openssl ];
+  buildInputs = lib.optionals stdenv.isDarwin [Security] ++ lib.optionals stdenv.isLinux [openssl];
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {
     description = "A git prepare-commit-msg hook for authoring commit messages with GPT-3. ";
     homepage = "https://github.com/zurawiki/gptcommit";
-    license = with licenses; [ asl20 ];
-    maintainers = with maintainers; [ happysalada ];
+    license = with licenses; [asl20];
+    maintainers = with maintainers; [happysalada];
     platforms = with platforms; all;
   };
 }

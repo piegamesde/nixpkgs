@@ -20,7 +20,7 @@ buildPythonPackage rec {
       --replace "catch = 1" ""
   '';
 
-  propagatedBuildInputs = [ testtools ];
+  propagatedBuildInputs = [testtools];
 
   meta = with lib; {
     description = "A pyunit extension for dependency injection";

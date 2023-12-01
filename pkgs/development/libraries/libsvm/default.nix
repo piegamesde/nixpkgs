@@ -16,9 +16,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-AKtWH0jfX8kqhCCa2P5Rmery5Rmzwnm6z8k1l4p1zx8=";
   };
 
-  patches = lib.optionals withOpenMP [ ./openmp.patch ];
+  patches = lib.optionals withOpenMP [./openmp.patch];
 
-  buildInputs = lib.optionals (stdenv.cc.isClang && withOpenMP) [ llvmPackages.openmp ];
+  buildInputs = lib.optionals (stdenv.cc.isClang && withOpenMP) [llvmPackages.openmp];
 
   buildFlags = [
     "lib"
@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
     "dev"
   ];
 
-  nativeBuildInputs = lib.optionals stdenv.isDarwin [ fixDarwinDylibNames ];
+  nativeBuildInputs = lib.optionals stdenv.isDarwin [fixDarwinDylibNames];
 
   installPhase =
     let
@@ -57,7 +57,7 @@ stdenv.mkDerivation rec {
     description = "A library for support vector machines";
     homepage = "https://www.csie.ntu.edu.tw/~cjlin/libsvm/";
     license = licenses.bsd3;
-    maintainers = [ maintainers.spwhitt ];
+    maintainers = [maintainers.spwhitt];
     platforms = platforms.unix;
   };
 }

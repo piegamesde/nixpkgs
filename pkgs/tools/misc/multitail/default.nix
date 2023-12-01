@@ -24,19 +24,19 @@ stdenv.mkDerivation rec {
     cmake
   ];
 
-  buildInputs = [ ncurses ];
+  buildInputs = [ncurses];
 
   installPhase = ''
     mkdir -p $out/bin
     cp bin/multitail $out/bin
   '';
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   meta = {
     homepage = "https://github.com/halturin/multitail";
     description = "tail on Steroids";
-    maintainers = with lib.maintainers; [ matthiasbeyer ];
+    maintainers = with lib.maintainers; [matthiasbeyer];
     platforms = lib.platforms.unix;
     license = lib.licenses.gpl2Plus;
   };

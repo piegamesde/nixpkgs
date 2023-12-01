@@ -28,7 +28,7 @@ buildPythonPackage rec {
     hash = "sha256-2RKgS2ONz4IsUaZ4i4VmQjI0jVFfFR2zpkwAAZZvaEE=";
   };
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
   postPatch = ''
     substituteInPlace pyproject.toml \
@@ -55,7 +55,7 @@ buildPythonPackage rec {
     export HOME=$(mktemp -d)
   '';
 
-  pythonImportsCheck = [ "plotnine" ];
+  pythonImportsCheck = ["plotnine"];
 
   disabledTestPaths = [
     # Assertion Errors
@@ -79,6 +79,6 @@ buildPythonPackage rec {
     homepage = "https://plotnine.readthedocs.io/";
     changelog = "https://github.com/has2k1/plotnine/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ onny ];
+    maintainers = with maintainers; [onny];
   };
 }

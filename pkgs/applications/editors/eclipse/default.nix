@@ -67,9 +67,7 @@ rec {
   };
   buildEclipse =
     eclipseData:
-    buildEclipseUnversioned (
-      eclipseData // { productVersion = "${platform_major}.${platform_minor}"; }
-    );
+    buildEclipseUnversioned (eclipseData // {productVersion = "${platform_major}.${platform_minor}";});
 
   ### Eclipse CPP
 
@@ -140,7 +138,7 @@ rec {
       (
         oa: {
           # Only download for x86_64
-          meta.platforms = [ "x86_64-linux" ];
+          meta.platforms = ["x86_64-linux"];
         }
       );
 
@@ -231,8 +229,8 @@ rec {
   eclipseWithPlugins =
     {
       eclipse,
-      plugins ? [ ],
-      jvmArgs ? [ ],
+      plugins ? [],
+      jvmArgs ? [],
     }:
     let
       # Gather up the desired plugins.
@@ -245,13 +243,13 @@ rec {
       # add the property indicating the plugin directory.
       dropinPropName = "org.eclipse.equinox.p2.reconciler.dropins.directory";
       dropinProp = "-D${dropinPropName}=${pluginEnv}/eclipse/dropins";
-      jvmArgsText = lib.concatStringsSep "\n" (jvmArgs ++ [ dropinProp ]);
+      jvmArgsText = lib.concatStringsSep "\n" (jvmArgs ++ [dropinProp]);
 
       # Base the derivation name on the name of the underlying
       # Eclipse.
       name = (lib.meta.appendToName "with-plugins" eclipse).name;
     in
-    runCommand name { nativeBuildInputs = [ makeWrapper ]; } ''
+    runCommand name {nativeBuildInputs = [makeWrapper];} ''
       mkdir -p $out/bin $out/etc
 
       # Prepare an eclipse.ini with the plugin directory.
@@ -267,5 +265,5 @@ rec {
 
   ### Plugins
 
-  plugins = callPackage ./plugins.nix { };
+  plugins = callPackage ./plugins.nix {};
 }

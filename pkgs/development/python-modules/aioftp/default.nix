@@ -23,7 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-KLsm1GFsfDgaFUMoH5hwUbjS0dW/rwI9nn4sIQXFG7k=";
   };
 
-  propagatedBuildInputs = [ siosocks ];
+  propagatedBuildInputs = [siosocks];
 
   nativeCheckInputs = [
     async-timeout
@@ -39,12 +39,12 @@ buildPythonPackage rec {
         "test_pasv_connection_pasv_forced_response_address"
       ];
 
-  pythonImportsCheck = [ "aioftp" ];
+  pythonImportsCheck = ["aioftp"];
 
   meta = with lib; {
     description = "Python FTP client/server for asyncio";
     homepage = "https://github.com/aio-libs/aioftp";
     license = licenses.asl20;
-    maintainers = with maintainers; [ costrouc ];
+    maintainers = with maintainers; [costrouc];
   };
 }

@@ -8,9 +8,9 @@
   vendorHash ? null,
   deleteVendor ? false,
   proxyVendor ? false,
-  extraConfigureFlags ? [ ],
+  extraConfigureFlags ? [],
   extraDescription ? "",
-  extraMeta ? { },
+  extraMeta ? {},
 }:
 
 let
@@ -84,7 +84,7 @@ let
     if ((newuidmapPath == null) && (newgidmapPath == null)) then
       null
     else
-      (runCommandLocal "privileged-un-utils" { } ''
+      (runCommandLocal "privileged-un-utils" {} ''
         mkdir -p "$out/bin"
         ln -s ${lib.escapeShellArg newuidmapPath} "$out/bin/newuidmap"
         ln -s ${lib.escapeShellArg newgidmapPath} "$out/bin/newgidmap"
@@ -256,7 +256,7 @@ in
 }).overrideAttrs
   (
     finalAttrs: prevAttrs: {
-      passthru = prevAttrs.passthru or { } // {
+      passthru = prevAttrs.passthru or {} // {
         tests = {
           image-hello-cowsay = singularity-tools.buildImage {
             name = "hello-cowsay";

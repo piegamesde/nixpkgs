@@ -26,6 +26,6 @@ buildGoModule rec {
     description = "A tool for tuning your TimescaleDB for better performance";
     homepage = "https://github.com/timescale/timescaledb-tune";
     license = licenses.asl20;
-    maintainers = with maintainers; [ marsam ];
+    maintainers = with maintainers; [marsam];
   };
 }

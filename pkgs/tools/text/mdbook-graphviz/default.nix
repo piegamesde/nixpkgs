@@ -21,15 +21,15 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-whBTPQGozPPTSdXuRx5wamc1yy/EC3wNShQGhRqdY9Y=";
 
-  buildInputs = lib.optionals stdenv.isDarwin [ CoreServices ];
+  buildInputs = lib.optionals stdenv.isDarwin [CoreServices];
 
-  nativeCheckInputs = [ graphviz ];
+  nativeCheckInputs = [graphviz];
 
   meta = with lib; {
     description = "A preprocessor for mdbook, rendering Graphviz graphs to HTML at build time.";
     homepage = "https://github.com/dylanowen/mdbook-graphviz";
     changelog = "https://github.com/dylanowen/mdbook-graphviz/releases/tag/v${version}";
-    license = [ licenses.mpl20 ];
-    maintainers = with maintainers; [ lovesegfault ];
+    license = [licenses.mpl20];
+    maintainers = with maintainers; [lovesegfault];
   };
 }

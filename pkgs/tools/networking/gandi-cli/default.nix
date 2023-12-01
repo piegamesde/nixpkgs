@@ -28,12 +28,12 @@ buildPythonApplication rec {
 
   # Tests try to contact the actual remote API
   doCheck = false;
-  pythonImportsCheck = [ "gandi" ];
+  pythonImportsCheck = ["gandi"];
 
   meta = with lib; {
     description = "Command-line interface to the public Gandi.net API";
     homepage = "https://cli.gandi.net/";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "iolib_dot_base";
   version = "iolib-v0.8.4";
@@ -21,7 +21,7 @@ rec {
 
   packageName = "iolib.base";
 
-  asdFilesToKeep = [ "iolib.base.asd" ];
+  asdFilesToKeep = ["iolib.base.asd"];
   overrides = x: x;
 }
 /* (SYSTEM iolib.base DESCRIPTION Base IOlib package, used instead of CL.

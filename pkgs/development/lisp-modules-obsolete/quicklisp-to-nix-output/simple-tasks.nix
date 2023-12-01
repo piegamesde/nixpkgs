@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "simple-tasks";
   version = "20190710-git";
@@ -20,7 +20,7 @@ rec {
 
   packageName = "simple-tasks";
 
-  asdFilesToKeep = [ "simple-tasks.asd" ];
+  asdFilesToKeep = ["simple-tasks.asd"];
   overrides = x: x;
 }
 /* (SYSTEM simple-tasks DESCRIPTION A very simple task scheduling framework.

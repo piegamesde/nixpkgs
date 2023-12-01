@@ -18,11 +18,11 @@ buildGoModule rec {
 
   vendorSha256 = "1597vrs4b7k6gkmkvf7xnd38rvjixmlcz0j7npmik9nbkm57l74m";
 
-  subPackages = [ "cmd" ];
+  subPackages = ["cmd"];
 
   # Patches provider resolver to support resolving unqualified names
   # from $PATH, e.g. `summon -p gopass` instead of `summon -p $(which gopass)`
-  patches = lib.optionals patchResolver [ ./resolve-paths.patch ];
+  patches = lib.optionals patchResolver [./resolve-paths.patch];
 
   postInstall = ''
     mv $out/bin/cmd $out/bin/summon
@@ -32,6 +32,6 @@ buildGoModule rec {
     description = "CLI that provides on-demand secrets access for common DevOps tools";
     homepage = "https://cyberark.github.io/summon";
     license = lib.licenses.mit;
-    maintainers = with maintainers; [ quentini ];
+    maintainers = with maintainers; [quentini];
   };
 }

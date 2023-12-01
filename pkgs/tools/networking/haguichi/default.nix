@@ -52,6 +52,6 @@ stdenv.mkDerivation rec {
     homepage = "https://haguichi.net/";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ OPNA2608 ];
+    maintainers = with maintainers; [OPNA2608];
   };
 }

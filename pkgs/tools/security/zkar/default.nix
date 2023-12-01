@@ -21,6 +21,6 @@ buildGoModule rec {
     description = "Java serialization protocol analysis tool";
     homepage = "https://github.com/phith0n/zkar";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

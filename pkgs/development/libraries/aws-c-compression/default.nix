@@ -18,11 +18,11 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-aQ5UsMms8aJh5yrE9of1AQgIGTAk9vyBRaybwYqUY68=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
-  buildInputs = [ aws-c-common ];
+  buildInputs = [aws-c-common];
 
-  cmakeFlags = [ "-DBUILD_SHARED_LIBS=ON" ];
+  cmakeFlags = ["-DBUILD_SHARED_LIBS=ON"];
 
   passthru.tests = {
     inherit nix;
@@ -33,6 +33,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/awslabs/aws-c-compression";
     license = licenses.asl20;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ r-burns ];
+    maintainers = with maintainers; [r-burns];
   };
 }

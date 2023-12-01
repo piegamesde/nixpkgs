@@ -55,7 +55,7 @@ stdenv.mkDerivation rec {
     # Add missing libraries to appflowy using the ones it comes with
     makeWrapper $out/opt/AppFlowy $out/bin/appflowy \
       --set LD_LIBRARY_PATH "$out/opt/lib/" \
-      --prefix PATH : "${lib.makeBinPath [ xdg-user-dirs ]}"
+      --prefix PATH : "${lib.makeBinPath [xdg-user-dirs]}"
   '';
 
   desktopItems = [
@@ -64,17 +64,17 @@ stdenv.mkDerivation rec {
       desktopName = "AppFlowy";
       comment = meta.description;
       exec = "appflowy";
-      categories = [ "Office" ];
+      categories = ["Office"];
     })
   ];
 
   meta = with lib; {
     description = "An open-source alternative to Notion";
     homepage = "https://www.appflowy.io/";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.agpl3Only;
     changelog = "https://github.com/AppFlowy-IO/appflowy/releases/tag/${version}";
-    maintainers = with maintainers; [ darkonion0 ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with maintainers; [darkonion0];
+    platforms = ["x86_64-linux"];
   };
 }

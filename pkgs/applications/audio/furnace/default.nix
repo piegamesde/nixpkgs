@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [
     cmake
     pkg-config
-  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ makeWrapper ];
+  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [makeWrapper];
 
   buildInputs = [
     fftw
@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
     rtmidi
     SDL2
     zlib
-  ] ++ lib.optionals withJACK [ libjack2 ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ Cocoa ];
+  ] ++ lib.optionals withJACK [libjack2] ++ lib.optionals stdenv.hostPlatform.isDarwin [Cocoa];
 
   cmakeFlags = [
     "-DBUILD_GUI=${if withGUI then "ON" else "OFF"}"
@@ -83,15 +83,15 @@ stdenv.mkDerivation rec {
   '';
 
   passthru = {
-    updateScript = gitUpdater { rev-prefix = "v"; };
-    tests.version = testers.testVersion { package = furnace; };
+    updateScript = gitUpdater {rev-prefix = "v";};
+    tests.version = testers.testVersion {package = furnace;};
   };
 
   meta = with lib; {
     description = "Multi-system chiptune tracker compatible with DefleMask modules";
     homepage = "https://github.com/tildearrow/furnace";
-    license = with licenses; [ gpl2Plus ];
-    maintainers = with maintainers; [ OPNA2608 ];
+    license = with licenses; [gpl2Plus];
+    maintainers = with maintainers; [OPNA2608];
     platforms = platforms.all;
   };
 }

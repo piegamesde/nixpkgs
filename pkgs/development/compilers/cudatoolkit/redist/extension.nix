@@ -19,11 +19,11 @@ let
   };
 
   # Function to build a single cudatoolkit redist package
-  buildCudaToolkitRedistPackage = callPackage ./build-cuda-redist-package.nix { };
+  buildCudaToolkitRedistPackage = callPackage ./build-cuda-redist-package.nix {};
 
   # Function that builds all cudatoolkit redist packages given a cuda version and manifest file
   buildCudaToolkitRedistPackages =
-    { version, manifest }:
+    {version, manifest}:
     let
       attrs = lib.filterAttrs (key: value: key != "release_date") (lib.importJSON manifest);
     in
@@ -37,6 +37,6 @@ let
         manifest = cudaToolkitRedistManifests.${cudaVersion};
       }
     else
-      { };
+      {};
 in
 cudaToolkitRedistPackages

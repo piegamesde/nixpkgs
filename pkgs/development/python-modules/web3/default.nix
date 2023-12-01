@@ -38,7 +38,7 @@ buildPythonPackage rec {
     hash = "sha256-YsAbPI9Y6z+snKZ9NsA0YSpB38n+ra4+Ei6COYFe8v4=";
   };
 
-  nativeBuildInputs = [ pythonRelaxDepsHook ];
+  nativeBuildInputs = [pythonRelaxDepsHook];
 
   propagatedBuildInputs =
     [
@@ -57,7 +57,7 @@ buildPythonPackage rec {
       requests
       websockets
     ]
-    ++ lib.optionals (pythonOlder "3.8") [ typing-extensions ]
+    ++ lib.optionals (pythonOlder "3.8") [typing-extensions]
     ++ eth-hash.optional-dependencies.pycryptodome;
 
   pythonRelaxDeps = true;
@@ -72,12 +72,12 @@ buildPythonPackage rec {
 
   doCheck = false;
 
-  pythonImportsCheck = [ "web3" ];
+  pythonImportsCheck = ["web3"];
 
   meta = with lib; {
     description = "Web3 library for interactions";
     homepage = "https://github.com/ethereum/web3";
     license = licenses.mit;
-    maintainers = with maintainers; [ raitobezarius ];
+    maintainers = with maintainers; [raitobezarius];
   };
 }

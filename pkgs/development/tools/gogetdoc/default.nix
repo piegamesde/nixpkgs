@@ -25,7 +25,7 @@ buildGoModule rec {
     description = "Gets documentation for items in Go source code";
     homepage = "https://github.com/zmb3/gogetdoc";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ kalbasit ];
+    maintainers = with maintainers; [kalbasit];
     platforms = platforms.linux ++ platforms.darwin;
   };
 }

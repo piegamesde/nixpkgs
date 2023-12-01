@@ -24,7 +24,7 @@ rustPlatform.buildRustPackage rec {
     "--skip=subcommand::torrent::create::tests::include_hidden"
   ];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = ''
     installShellCompletion --cmd imdl \

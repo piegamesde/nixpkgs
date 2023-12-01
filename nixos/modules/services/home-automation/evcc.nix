@@ -10,21 +10,21 @@ with lib;
 let
   cfg = config.services.evcc;
 
-  format = pkgs.formats.yaml { };
+  format = pkgs.formats.yaml {};
   configFile = format.generate "evcc.yml" cfg.settings;
 
   package = pkgs.evcc;
 in
 
 {
-  meta.maintainers = with lib.maintainers; [ hexa ];
+  meta.maintainers = with lib.maintainers; [hexa];
 
   options.services.evcc = with types; {
     enable = mkEnableOption (lib.mdDoc "EVCC, the extensible EV Charge Controller with PV integration");
 
     extraArgs = mkOption {
       type = listOf str;
-      default = [ ];
+      default = [];
       description = lib.mdDoc ''
         Extra arguments to pass to the evcc executable.
       '';
@@ -46,15 +46,15 @@ in
         "network-online.target"
         "mosquitto.target"
       ];
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       environment.HOME = "/var/lib/evcc";
       path = with pkgs; [
         glibc # requires getent
       ];
       serviceConfig = {
         ExecStart = "${package}/bin/evcc --config ${configFile} ${escapeShellArgs cfg.extraArgs}";
-        CapabilityBoundingSet = [ "" ];
-        DeviceAllow = [ "char-ttyUSB" ];
+        CapabilityBoundingSet = [""];
+        DeviceAllow = ["char-ttyUSB"];
         DevicePolicy = "closed";
         DynamicUser = true;
         LockPersonality = true;

@@ -18,12 +18,12 @@ buildDunePackage rec {
     sha256 = "sha256-imUphE1vMe3bYqHhgTuGT+B7uLn75acX6fAwBLh1tz4=";
   };
 
-  propagatedBuildInputs = [ react ];
+  propagatedBuildInputs = [react];
 
   meta = with lib; {
     description = "An OCaml module for functional reactive programming (FRP) based on React";
     homepage = "https://github.com/ocsigen/reactiveData";
     license = licenses.lgpl21;
-    maintainers = with maintainers; [ vbgl ];
+    maintainers = with maintainers; [vbgl];
   };
 }

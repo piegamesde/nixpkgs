@@ -24,12 +24,12 @@ buildGoModule rec {
     "-X github.com/quantumsheep/sshs/cmd.Version=${version}"
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     description = "Terminal user interface for SSH";
     homepage = "https://github.com/quantumsheep/sshs";
     license = licenses.mit;
-    maintainers = with maintainers; [ not-my-segfault ];
+    maintainers = with maintainers; [not-my-segfault];
   };
 }

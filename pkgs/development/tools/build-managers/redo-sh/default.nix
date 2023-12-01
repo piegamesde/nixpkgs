@@ -15,7 +15,7 @@ stdenv.mkDerivation {
     sha256 = "0d3hz3vy5qmjr9r4f8a5cx9hikpzs8h8f0fsl3dpbialf4wck24g";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   sourceRoot = ".";
   installPhase = ''
@@ -32,6 +32,6 @@ stdenv.mkDerivation {
     homepage = "http://news.dieweltistgarnichtso.net/bin/redo-sh.html";
     license = licenses.agpl3;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ sternenseemann ];
+    maintainers = with maintainers; [sternenseemann];
   };
 }

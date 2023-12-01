@@ -29,6 +29,6 @@ buildGoModule rec {
     description = "Kubernetes Progressive Delivery Controller";
     homepage = "https://github.com/argoproj/argo-rollouts/";
     license = licenses.asl20;
-    maintainers = with maintainers; [ psibi ];
+    maintainers = with maintainers; [psibi];
   };
 }

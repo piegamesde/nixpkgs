@@ -33,7 +33,7 @@ stdenv.mkDerivation (
     pname = "rocmlir";
     version = "5.4.1";
 
-    outputs = [ "out" ] ++ lib.optionals (!buildRockCompiler) [ "external" ];
+    outputs = ["out"] ++ lib.optionals (!buildRockCompiler) ["external"];
 
     src = fetchFromGitHub {
       owner = "ROCmSoftwarePlatform";
@@ -45,7 +45,7 @@ stdenv.mkDerivation (
     nativeBuildInputs = [
       cmake
       ninja
-    ] ++ lib.optionals (!buildRockCompiler) [ hip ];
+    ] ++ lib.optionals (!buildRockCompiler) [hip];
 
     buildInputs = [
       git
@@ -65,7 +65,7 @@ stdenv.mkDerivation (
         "-DLLVM_ENABLE_ZLIB=ON"
         "-DLLVM_ENABLE_TERMINFO=ON"
       ]
-      ++ lib.optionals buildRockCompiler [ "-DBUILD_FAT_LIBROCKCOMPILER=ON" ]
+      ++ lib.optionals buildRockCompiler ["-DBUILD_FAT_LIBROCKCOMPILER=ON"]
       ++ lib.optionals (!buildRockCompiler) [
         "-DROCM_PATH=${rocminfo}"
         "-DROCM_TEST_CHIPSET=gfx000"
@@ -104,7 +104,7 @@ stdenv.mkDerivation (
     meta = with lib; {
       description = "MLIR-based convolution and GEMM kernel generator";
       homepage = "https://github.com/ROCmSoftwarePlatform/rocMLIR";
-      license = with licenses; [ asl20 ];
+      license = with licenses; [asl20];
       maintainers = teams.rocm.members;
       platforms = platforms.linux;
       broken = versions.minor finalAttrs.version != versions.minor stdenv.cc.version;

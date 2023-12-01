@@ -34,7 +34,7 @@ buildPythonPackage rec {
   # tests run under 'tox' and have west try to git clone repos (not sandboxable)
   doCheck = false;
 
-  pythonImportsCheck = [ "west" ];
+  pythonImportsCheck = ["west"];
 
   meta = with lib; {
     description = "Zephyr RTOS meta tool";
@@ -57,6 +57,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/zephyrproject-rtos/west";
     changelog = "https://github.com/zephyrproject-rtos/west/releases/tag/v${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ siriobalmelli ];
+    maintainers = with maintainers; [siriobalmelli];
   };
 }

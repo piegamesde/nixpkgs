@@ -17,7 +17,7 @@
 # https://nixos.org/nixos/manual/index.html#sec-running-nixos-tests-interactively
 
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
 
   let
     allowESP = "iptables --insert INPUT --protocol ESP --jump ACCEPT";
@@ -28,18 +28,18 @@ import ./make-test-python.nix (
     moonIp = "192.168.1.3";
     version = 2;
     secret = "0sFpZAZqEN6Ti9sqt4ZP5EWcqx";
-    esp_proposals = [ "aes128gcm128-x25519" ];
-    proposals = [ "aes128-sha256-x25519" ];
+    esp_proposals = ["aes128gcm128-x25519"];
+    proposals = ["aes128-sha256-x25519"];
   in
   {
     name = "strongswan-swanctl";
-    meta.maintainers = with pkgs.lib.maintainers; [ basvandijk ];
+    meta.maintainers = with pkgs.lib.maintainers; [basvandijk];
     nodes = {
 
       alice =
-        { ... }:
+        {...}:
         {
-          virtualisation.vlans = [ 0 ];
+          virtualisation.vlans = [0];
           networking = {
             dhcpcd.enable = false;
             defaultGateway = "192.168.0.3";
@@ -47,7 +47,7 @@ import ./make-test-python.nix (
         };
 
       moon =
-        { config, ... }:
+        {config, ...}:
         let
           strongswan = config.services.strongswan-swanctl.package;
         in
@@ -67,19 +67,19 @@ import ./make-test-python.nix (
             };
             nat = {
               enable = true;
-              internalIPs = [ vlan0 ];
-              internalInterfaces = [ "eth1" ];
+              internalIPs = [vlan0];
+              internalInterfaces = ["eth1"];
               externalIP = moonIp;
               externalInterface = "eth2";
             };
           };
-          environment.systemPackages = [ strongswan ];
+          environment.systemPackages = [strongswan];
           services.strongswan-swanctl = {
             enable = true;
             swanctl = {
               connections = {
                 rw = {
-                  local_addrs = [ moonIp ];
+                  local_addrs = [moonIp];
                   local.main = {
                     auth = "psk";
                   };
@@ -88,7 +88,7 @@ import ./make-test-python.nix (
                   };
                   children = {
                     net = {
-                      local_ts = [ vlan0 ];
+                      local_ts = [vlan0];
                       updown = "${strongswan}/libexec/ipsec/_updown iptables";
                       inherit esp_proposals;
                     };
@@ -108,24 +108,24 @@ import ./make-test-python.nix (
         };
 
       carol =
-        { config, ... }:
+        {config, ...}:
         let
           strongswan = config.services.strongswan-swanctl.package;
         in
         {
-          virtualisation.vlans = [ 1 ];
+          virtualisation.vlans = [1];
           networking = {
             dhcpcd.enable = false;
             firewall.extraCommands = allowESP;
           };
-          environment.systemPackages = [ strongswan ];
+          environment.systemPackages = [strongswan];
           services.strongswan-swanctl = {
             enable = true;
             swanctl = {
               connections = {
                 home = {
-                  local_addrs = [ carolIp ];
-                  remote_addrs = [ moonIp ];
+                  local_addrs = [carolIp];
+                  remote_addrs = [moonIp];
                   local.main = {
                     auth = "psk";
                     id = carolIp;
@@ -136,7 +136,7 @@ import ./make-test-python.nix (
                   };
                   children = {
                     home = {
-                      remote_ts = [ vlan0 ];
+                      remote_ts = [vlan0];
                       start_action = "trap";
                       updown = "${strongswan}/libexec/ipsec/_updown iptables";
                       inherit esp_proposals;

@@ -13,7 +13,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-vtb2hI4iuy+Dtfdksq7w7TkwVOgDqOOocRyyo55rSS0=";
   };
 
-  configureFlags = [ "--without-python" ];
+  configureFlags = ["--without-python"];
 
   meta = with lib; {
     description = "Library for working with POSIX capabilities";

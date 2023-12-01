@@ -26,7 +26,7 @@ stdenvNoCC.mkDerivation rec {
   meta = with lib; {
     description = "Semantic Versioning for modern C++";
     homepage = "https://github.com/Neargye/semver";
-    maintainers = with maintainers; [ aidalgol ];
+    maintainers = with maintainers; [aidalgol];
     license = licenses.mit;
   };
 }

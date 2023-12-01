@@ -380,7 +380,7 @@ stdenv.mkDerivation (
           patchDlOpen =
             dl:
             let
-              library = "${lib.makeLibraryPath [ dl.pkg ]}/${dl.name}";
+              library = "${lib.makeLibraryPath [dl.pkg]}/${dl.name}";
             in
             if dl.pkg == null then
               ''
@@ -503,11 +503,11 @@ stdenv.mkDerivation (
       ++ lib.optional withPCRE2 pcre2
       ++ lib.optional withSelinux libselinux
       ++ lib.optional withRemote libmicrohttpd
-      ++ lib.optionals (withHomed || withCryptsetup) [ p11-kit ]
-      ++ lib.optionals (withHomed || withCryptsetup) [ libfido2 ]
-      ++ lib.optionals withLibBPF [ libbpf ]
+      ++ lib.optionals (withHomed || withCryptsetup) [p11-kit]
+      ++ lib.optionals (withHomed || withCryptsetup) [libfido2]
+      ++ lib.optionals withLibBPF [libbpf]
       ++ lib.optional withTpm2Tss tpm2-tss
-      ++ lib.optional withUkify (python3Packages.python.withPackages (ps: with ps; [ pefile ]));
+      ++ lib.optional withUkify (python3Packages.python.withPackages (ps: with ps; [pefile]));
 
     #dontAddPrefix = true;
 
@@ -622,9 +622,9 @@ stdenv.mkDerivation (
         "-Dnss-resolve=false"
         "-Dnss-systemd=false"
       ]
-      ++ lib.optionals withLibBPF [ "-Dbpf-framework=true" ]
-      ++ lib.optionals withTpm2Tss [ "-Dtpm2=true" ]
-      ++ lib.optionals (!withUtmp) [ "-Dutmp=false" ]
+      ++ lib.optionals withLibBPF ["-Dbpf-framework=true"]
+      ++ lib.optionals withTpm2Tss ["-Dtpm2=true"]
+      ++ lib.optionals (!withUtmp) ["-Dutmp=false"]
       ++ lib.optionals stdenv.hostPlatform.isMusl [
         "-Dgshadow=false"
         "-Didn=false"
@@ -642,13 +642,13 @@ stdenv.mkDerivation (
             {
               search = "/usr/bin/getent";
               replacement = "${getent}/bin/getent";
-              where = [ "src/nspawn/nspawn-setuid.c" ];
+              where = ["src/nspawn/nspawn-setuid.c"];
             }
 
             {
               search = "/sbin/mkswap";
               replacement = "${lib.getBin util-linux}/sbin/mkswap";
-              where = [ "man/systemd-makefs@.service.xml" ];
+              where = ["man/systemd-makefs@.service.xml"];
             }
             {
               search = "/sbin/swapon";
@@ -661,7 +661,7 @@ stdenv.mkDerivation (
             {
               search = "/sbin/swapoff";
               replacement = "${lib.getBin util-linux}/sbin/swapoff";
-              where = [ "src/core/swap.c" ];
+              where = ["src/core/swap.c"];
             }
             {
               search = "/bin/echo";
@@ -687,14 +687,14 @@ stdenv.mkDerivation (
             {
               search = "/usr/lib/systemd/systemd-fsck";
               replacement = "$out/lib/systemd/systemd-fsck";
-              where = [ "man/systemd-fsck@.service.xml" ];
+              where = ["man/systemd-fsck@.service.xml"];
             }
           ]
           ++ lib.optionals withImportd [
             {
               search = ''"gpg"'';
               replacement = ''\"${gnupg}/bin/gpg\"'';
-              where = [ "src/import/pull-common.c" ];
+              where = ["src/import/pull-common.c"];
             }
             {
               search = ''"tar"'';
@@ -721,7 +721,7 @@ stdenv.mkDerivation (
             {
               search = "/sbin/modprobe";
               replacement = "${lib.getBin kmod}/sbin/modprobe";
-              where = [ "units/modprobe@.service" ];
+              where = ["units/modprobe@.service"];
             }
           ];
 
@@ -731,7 +731,7 @@ stdenv.mkDerivation (
             replacement,
             search,
             where,
-            ignore ? [ ],
+            ignore ? [],
           }:
           map (path: ''substituteInPlace ${path} --replace '${search}' "${replacement}"'') where;
         mkEnsureSubstituted =
@@ -739,7 +739,7 @@ stdenv.mkDerivation (
             replacement,
             search,
             where,
-            ignore ? [ ],
+            ignore ? [],
           }:
           let
             ignore' = lib.concatStringsSep "|" (
@@ -800,7 +800,7 @@ stdenv.mkDerivation (
         "-USYSTEMD_BINARY_PATH"
         ''-DSYSTEMD_BINARY_PATH="/run/current-system/systemd/lib/systemd/systemd"''
       ]
-      ++ lib.optionals stdenv.hostPlatform.isMusl [ "-D__UAPI_DEF_ETHHDR=0" ]
+      ++ lib.optionals stdenv.hostPlatform.isMusl ["-D__UAPI_DEF_ETHHDR=0"]
     );
 
     doCheck = false; # fails a bunch of tests
@@ -899,7 +899,7 @@ stdenv.mkDerivation (
       description = "A system and service manager for Linux";
       license = licenses.lgpl21Plus;
       platforms = platforms.linux;
-      badPlatforms = [ lib.systems.inspect.platformPatterns.isStatic ];
+      badPlatforms = [lib.systems.inspect.platformPatterns.isStatic];
       # https://github.com/systemd/systemd/issues/20600#issuecomment-912338965
       broken = stdenv.hostPlatform.isStatic;
       priority = 10;

@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "prove";
   version = "20200218-git";
@@ -24,7 +24,7 @@ rec {
 
   packageName = "prove";
 
-  asdFilesToKeep = [ "prove.asd" ];
+  asdFilesToKeep = ["prove.asd"];
   overrides = x: x;
 }
 /* (SYSTEM prove DESCRIPTION System lacks description SHA256

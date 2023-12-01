@@ -47,7 +47,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "aiobotocore" ];
+  pythonImportsCheck = ["aiobotocore"];
 
   disabledTestPaths = [
     # Tests require network access
@@ -82,6 +82,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/aio-libs/aiobotocore";
     changelog = "https://github.com/aio-libs/aiobotocore/releases/tag/${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ teh ];
+    maintainers = with maintainers; [teh];
   };
 }

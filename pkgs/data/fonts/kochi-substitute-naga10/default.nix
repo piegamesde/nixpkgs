@@ -35,6 +35,6 @@ stdenvNoCC.mkDerivation rec {
     '';
     homepage = "https://osdn.net/projects/efont/";
     license = lib.licenses.unfreeRedistributable;
-    maintainers = [ lib.maintainers.auntie ];
+    maintainers = [lib.maintainers.auntie];
   };
 }

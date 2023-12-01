@@ -19,7 +19,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-wO+IICtGVHhrPa1JUwlx+PuNS32FJNKYmboLd3lFl4w=";
 
-  nativeCheckInputs = [ perl ];
+  nativeCheckInputs = [perl];
 
   postInstall = ''
     ln -s $out/bin/XD $out/bin/XD-CLI
@@ -28,7 +28,7 @@ buildGoModule rec {
   meta = with lib; {
     description = "i2p bittorrent client";
     homepage = "https://xd-torrent.github.io";
-    maintainers = with maintainers; [ nixbitcoin ];
+    maintainers = with maintainers; [nixbitcoin];
     license = licenses.mit;
     platforms = platforms.linux;
   };

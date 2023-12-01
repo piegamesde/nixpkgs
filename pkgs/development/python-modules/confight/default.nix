@@ -14,16 +14,16 @@ buildPythonPackage rec {
     hash = "sha256-fJr7f9Y/zEpCedWYd04AMuhkOFqZLJOw4sDiz8SDQ/Y=";
   };
 
-  propagatedBuildInputs = [ toml ];
+  propagatedBuildInputs = [toml];
 
-  pythonImportsCheck = [ "confight" ];
+  pythonImportsCheck = ["confight"];
 
   doCheck = false;
 
   meta = with lib; {
     description = "Python context manager for managing pid files";
     homepage = "https://github.com/avature/confight";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ mkg20001 ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [mkg20001];
   };
 }

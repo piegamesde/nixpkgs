@@ -34,8 +34,8 @@ stdenv.mkDerivation rec {
   ];
 
   passthru = {
-    updateScript = unstableGitUpdater { };
-    providedSessions = [ "miriway" ];
+    updateScript = unstableGitUpdater {};
+    providedSessions = ["miriway"];
     tests = {
       inherit (nixosTests) miriway;
     };
@@ -67,6 +67,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/Miriway/Miriway";
     license = licenses.gpl3Only;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ OPNA2608 ];
+    maintainers = with maintainers; [OPNA2608];
   };
 }

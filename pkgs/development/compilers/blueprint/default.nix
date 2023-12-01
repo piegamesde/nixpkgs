@@ -27,7 +27,7 @@ stdenv.mkDerivation (
       ninja
     ];
 
-    buildInputs = [ (python3.withPackages (ps: with ps; [ pygobject3 ])) ];
+    buildInputs = [(python3.withPackages (ps: with ps; [pygobject3]))];
 
     propagatedBuildInputs =
       [
@@ -37,9 +37,9 @@ stdenv.mkDerivation (
 
     doCheck = true;
 
-    nativeCheckInputs = [ gtk4 ];
+    nativeCheckInputs = [gtk4];
 
-    passthru.tests.version = testers.testVersion { package = finalAttrs.finalPackage; };
+    passthru.tests.version = testers.testVersion {package = finalAttrs.finalPackage;};
 
     meta = with lib; {
       description = "A markup language for GTK user interface files";

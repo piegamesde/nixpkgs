@@ -180,7 +180,7 @@ in
 
         options.filterfile = mkOption {
           type = types.listOf types.str;
-          default = [ "default.filter" ];
+          default = ["default.filter"];
           apply =
             x: x ++ optional (cfg.userFilters != "") (toString (pkgs.writeText "user.filter" cfg.userFilters));
           description = lib.mdDoc ''
@@ -189,7 +189,7 @@ in
           '';
         };
       };
-      default = { };
+      default = {};
       example = literalExpression ''
         { # Listen on IPv6 only
           listen-address = "[::]:8118";
@@ -228,7 +228,7 @@ in
       group = "privoxy";
     };
 
-    users.groups.privoxy = { };
+    users.groups.privoxy = {};
 
     systemd.tmpfiles.rules = optional cfg.inspectHttps "d ${cfg.settings.certificate-directory} 0770 privoxy privoxy ${cfg.certsLifetime}";
 
@@ -238,7 +238,7 @@ in
         "network.target"
         "nss-lookup.target"
       ];
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         User = "privoxy";
         Group = "privoxy";
@@ -272,7 +272,7 @@ in
         user-manual = "${pkgs.privoxy}/share/doc/privoxy/user-manual";
         # This is needed for external filters
         temporary-directory = "/tmp";
-        filterfile = [ "default.filter" ];
+        filterfile = ["default.filter"];
         actionsfile = [
           "match-all.action"
           "default.action"
@@ -320,5 +320,5 @@ in
       '')
     ];
 
-  meta.maintainers = with lib.maintainers; [ rnhmjoj ];
+  meta.maintainers = with lib.maintainers; [rnhmjoj];
 }

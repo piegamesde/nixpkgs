@@ -41,11 +41,11 @@ python3Packages.buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [ pkg-config ] ++ (with python3Packages; [ setuptools-scm ]);
+  nativeBuildInputs = [pkg-config] ++ (with python3Packages; [setuptools-scm]);
 
   propagatedBuildInputs = with python3Packages; [
     xcffib
-    (cairocffi.override { withXcffib = true; })
+    (cairocffi.override {withXcffib = true;})
     setuptools
     python-dateutil
     dbus-python
@@ -68,7 +68,7 @@ python3Packages.buildPythonPackage rec {
   ];
 
   # for `qtile check`, needs `stubtest` and `mypy` commands
-  makeWrapperArgs = [ "--suffix PATH : ${lib.makeBinPath [ mypy ]}" ];
+  makeWrapperArgs = ["--suffix PATH : ${lib.makeBinPath [mypy]}"];
 
   doCheck = false; # Requires X server #TODO this can be worked out with the existing NixOS testing infrastructure.
 

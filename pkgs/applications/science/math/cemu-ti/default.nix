@@ -31,13 +31,13 @@ stdenv.mkDerivation rec {
     libpng
   ];
 
-  qmakeFlags = [ "gui/qt" ];
+  qmakeFlags = ["gui/qt"];
 
   meta = with lib; {
     description = "Third-party TI-84 Plus CE / TI-83 Premium CE emulator, focused on developer features";
     homepage = "https://ce-programming.github.io/CEmu";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ luc65r ];
+    maintainers = with maintainers; [luc65r];
     platforms = [
       "x86_64-linux"
       "x86_64-darwin"

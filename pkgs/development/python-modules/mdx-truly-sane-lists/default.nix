@@ -18,9 +18,9 @@ buildPythonPackage rec {
     hash = "sha256-hPnqF1UA4peW8hzeFiMlsBPfodC1qJXETGoq2yUm7d4=";
   };
 
-  propagatedBuildInputs = [ markdown ];
+  propagatedBuildInputs = [markdown];
 
-  pythonImportsCheck = [ "mdx_truly_sane_lists" ];
+  pythonImportsCheck = ["mdx_truly_sane_lists"];
 
   checkPhase = ''
     runHook preCheck
@@ -35,6 +35,6 @@ buildPythonPackage rec {
       paragraphs between lists.
     '';
     license = licenses.mit;
-    maintainers = with maintainers; [ kaction ];
+    maintainers = with maintainers; [kaction];
   };
 }

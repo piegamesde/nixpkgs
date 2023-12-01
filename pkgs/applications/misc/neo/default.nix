@@ -14,7 +14,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-pV5O1e/QpK8kjRYBinqq07YX7x06wF0pKiWKOKr0ank=";
   };
 
-  buildInputs = [ ncurses ];
+  buildInputs = [ncurses];
 
   meta = with lib; {
     description = ''Simulates the digital rain from "The Matrix"'';
@@ -25,6 +25,6 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://github.com/st3w/neo";
     platforms = ncurses.meta.platforms;
-    maintainers = [ maintainers.abbe ];
+    maintainers = [maintainers.abbe];
   };
 }

@@ -32,6 +32,6 @@ buildGoModule rec {
     '';
     homepage = "https://github.com/bazelbuild/bazelisk";
     license = licenses.asl20;
-    maintainers = with maintainers; [ elasticdog ];
+    maintainers = with maintainers; [elasticdog];
   };
 }

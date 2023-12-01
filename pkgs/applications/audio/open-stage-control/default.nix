@@ -34,12 +34,12 @@ buildNpmPackage rec {
     python3
   ];
 
-  buildInputs = [ python3.pkgs.python-rtmidi ];
+  buildInputs = [python3.pkgs.python-rtmidi];
 
   doInstallCheck = true;
 
   makeCacheWritable = true;
-  npmFlags = [ "--legacy-peer-deps" ];
+  npmFlags = ["--legacy-peer-deps"];
 
   # Override installPhase so we can copy the only directory that matters (app)
   installPhase = ''
@@ -58,7 +58,7 @@ buildNpmPackage rec {
       --inherit-argv0 \
       --add-flags $out/lib/node_modules/open-stage-control/app \
       --prefix PYTHONPATH : "$PYTHONPATH" \
-      --prefix PATH : '${lib.makeBinPath [ python3 ]}'
+      --prefix PATH : '${lib.makeBinPath [python3]}'
 
     runHook postInstall
   '';
@@ -84,13 +84,13 @@ buildNpmPackage rec {
     })
   ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     description = "Libre and modular OSC / MIDI controller";
     homepage = "https://openstagecontrol.ammd.net/";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ lilyinstarlight ];
+    maintainers = with maintainers; [lilyinstarlight];
     platforms = platforms.linux;
   };
 }

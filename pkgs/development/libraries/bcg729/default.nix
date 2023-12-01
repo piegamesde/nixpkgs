@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
     sha256 = "1hal6b3w6f8y5r1wa0xzj8sj2jjndypaxyw62q50p63garp2h739";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   postPatch = ''
     substituteInPlace CMakeLists.txt \
@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
     homepage = "https://linphone.org/technical-corner/bcg729";
     changelog = "https://gitlab.linphone.org/BC/public/bcg729/raw/${version}/NEWS";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ c0bw3b ];
+    maintainers = with maintainers; [c0bw3b];
     platforms = platforms.all;
   };
 }

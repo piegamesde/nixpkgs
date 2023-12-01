@@ -20,7 +20,7 @@ stdenv.mkDerivation {
     cmake
     perl
   ];
-  buildInputs = [ (if stdenv.buildPlatform == stdenv.hostPlatform then llvm else targetLlvm) ];
+  buildInputs = [(if stdenv.buildPlatform == stdenv.hostPlatform then llvm else targetLlvm)];
 
   meta = llvm_meta // {
     homepage = "https://openmp.llvm.org/";

@@ -37,7 +37,7 @@
       makeWrapper
       installShellFiles
     ];
-    buildInputs = [ bash ];
+    buildInputs = [bash];
     installPhase = ''
       installManPage contrib/grimshot.1
 
@@ -71,7 +71,7 @@
       homepage = "https://github.com/swaywm/sway/tree/master/contrib";
       license = licenses.mit;
       platforms = platforms.all;
-      maintainers = sway-unwrapped.meta.maintainers ++ (with maintainers; [ evils ]);
+      maintainers = sway-unwrapped.meta.maintainers ++ (with maintainers; [evils]);
     };
   };
 
@@ -87,7 +87,7 @@
     dontBuild = true;
     dontConfigure = true;
 
-    propagatedBuildInputs = [ python3Packages.i3ipc ];
+    propagatedBuildInputs = [python3Packages.i3ipc];
 
     installPhase = ''
       install -Dm 0755 $src/contrib/${lname}.py $out/bin/${lname}.py

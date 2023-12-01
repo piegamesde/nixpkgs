@@ -31,9 +31,9 @@ buildPythonPackage rec {
     scikit-build
   ];
 
-  propagatedBuildInputs = [ ipython ];
+  propagatedBuildInputs = [ipython];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   dontUseCmakeConfigure = true;
 
@@ -45,13 +45,13 @@ buildPythonPackage rec {
     PYTHONPATH=$out/${python.sitePackages}:$PYTHONPATH cd tests && ${python.interpreter} -m unittest discover -s .
   '';
 
-  pythonImportsCheck = [ "line_profiler" ];
+  pythonImportsCheck = ["line_profiler"];
 
   meta = with lib; {
     description = "Line-by-line profiler";
     homepage = "https://github.com/pyutils/line_profiler";
     changelog = "https://github.com/pyutils/line_profiler/blob/v${version}/CHANGELOG.rst";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ fridh ];
+    maintainers = with maintainers; [fridh];
   };
 }

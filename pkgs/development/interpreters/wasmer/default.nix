@@ -26,7 +26,7 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-zUTwhfRLKUixgj3JXiz2QOuwbFhfget+GcFSRL1QJ3w=";
 
-  nativeBuildInputs = [ rustPlatform.bindgenHook ];
+  nativeBuildInputs = [rustPlatform.bindgenHook];
 
   buildInputs =
     lib.optionals withLLVM [
@@ -43,7 +43,7 @@ rustPlatform.buildRustPackage rec {
   LLVM_SYS_120_PREFIX = lib.optionalString withLLVM llvmPackages.llvm.dev;
 
   # check references to `compiler_features` in Makefile on update
-  buildFeatures = checkFeatures ++ [ "webc_runner" ];
+  buildFeatures = checkFeatures ++ ["webc_runner"];
 
   checkFeatures = [
     "cranelift"

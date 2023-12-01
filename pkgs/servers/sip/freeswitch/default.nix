@@ -32,7 +32,7 @@
 
 let
 
-  availableModules = callPackage ./modules.nix { };
+  availableModules = callPackage ./modules.nix {};
 
   # the default list from v1.8.7, except with applications/mod_signalwire also disabled
   defaultModules =
@@ -98,7 +98,7 @@ let
       xml_int.rpc
       xml_int.scgi
     ]
-    ++ lib.optionals stdenv.isLinux [ endpoints.gsmopen ];
+    ++ lib.optionals stdenv.isLinux [endpoints.gsmopen];
 
   enabledModules = (if modules != null then modules else defaultModules) availableModules;
 
@@ -160,7 +160,7 @@ stdenv.mkDerivation rec {
       libxcrypt
     ]
     ++ lib.unique (lib.concatMap (mod: mod.inputs) enabledModules)
-    ++ lib.optionals stdenv.isDarwin [ SystemConfiguration ];
+    ++ lib.optionals stdenv.isDarwin [SystemConfiguration];
 
   enableParallelBuilding = true;
 
@@ -172,7 +172,7 @@ stdenv.mkDerivation rec {
 
   CFLAGS = "-D_ANSI_SOURCE";
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   preConfigure = ''
     ./bootstrap.sh
@@ -192,7 +192,7 @@ stdenv.mkDerivation rec {
     description = "Cross-Platform Scalable FREE Multi-Protocol Soft Switch";
     homepage = "https://freeswitch.org/";
     license = lib.licenses.mpl11;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     platforms = with lib.platforms; unix;
     broken = stdenv.isDarwin;
   };

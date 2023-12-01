@@ -26,6 +26,6 @@ buildGoPackage rec {
     homepage = "https://github.com/andreaskoch/allmark";
     changelog = "https://github.com/andreaskoch/allmark/-/releases/v${version}";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ urandom ];
+    maintainers = with maintainers; [urandom];
   };
 }

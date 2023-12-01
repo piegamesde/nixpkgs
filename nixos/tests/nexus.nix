@@ -4,15 +4,15 @@
 #   3. the web application is reachable via HTTP
 
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   {
     name = "nexus";
-    meta = with pkgs.lib.maintainers; { maintainers = [ ironpinguin ]; };
+    meta = with pkgs.lib.maintainers; {maintainers = [ironpinguin];};
 
     nodes = {
 
       server =
-        { ... }:
+        {...}:
         {
           virtualisation.memorySize = 2047; # qemu-system-i386 has a 2047M limit
           virtualisation.diskSize = 8192;

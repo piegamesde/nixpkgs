@@ -60,7 +60,7 @@ stdenv.mkDerivation rec {
 
   dontUseCmakeConfigure = true;
 
-  mesonFlags = [ (lib.mesonBool "cli" true) ];
+  mesonFlags = [(lib.mesonBool "cli" true)];
 
   buildInputs = [
     glib
@@ -69,7 +69,7 @@ stdenv.mkDerivation rec {
     libadwaita
     libxml2
     poppler
-  ] ++ lib.optionals stdenv.isLinux [ alsa-lib ] ++ lib.optionals stdenv.isDarwin [ AudioUnit ];
+  ] ++ lib.optionals stdenv.isLinux [alsa-lib] ++ lib.optionals stdenv.isDarwin [AudioUnit];
 
   postPatch = ''
     pushd build-aux

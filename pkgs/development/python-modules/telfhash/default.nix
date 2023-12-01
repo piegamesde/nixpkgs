@@ -33,18 +33,18 @@ buildPythonPackage rec {
     packaging
   ];
 
-  nativeCheckInputs = [ nose ];
+  nativeCheckInputs = [nose];
 
   checkPhase = ''
     nosetests
   '';
 
-  pythonImportsCheck = [ "telfhash" ];
+  pythonImportsCheck = ["telfhash"];
 
   meta = with lib; {
     description = "Symbol hash for ELF files";
     homepage = "https://github.com/trendmicro/telfhash";
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

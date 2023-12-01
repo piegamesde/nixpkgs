@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     ninja
     libevdev
@@ -51,7 +51,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/jmesmon/illum";
     description = "Daemon that wires button presses to screen backlight level";
     platforms = lib.platforms.linux;
-    maintainers = [ lib.maintainers.dancek ];
+    maintainers = [lib.maintainers.dancek];
     license = lib.licenses.agpl3;
   };
 }

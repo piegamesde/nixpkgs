@@ -19,9 +19,9 @@ buildPythonPackage rec {
     sha256 = "17r37pbxiv5dw857bmg990x836gq6sgww069w3q5jjg9m3xdm7dh";
   };
 
-  propagatedBuildInputs = [ numpy ] ++ lib.optional isPy27 mock;
+  propagatedBuildInputs = [numpy] ++ lib.optional isPy27 mock;
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   dontUseSetuptoolsCheck = true;
 
@@ -37,6 +37,6 @@ buildPythonPackage rec {
     description = "Python utilities to download and parse the MNIST dataset";
     homepage = "https://github.com/datapythonista/mnist";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ dmrauh ];
+    maintainers = with maintainers; [dmrauh];
   };
 }

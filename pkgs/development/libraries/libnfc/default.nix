@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
     readline
   ];
 
-  configureFlags = [ "sysconfdir=/etc" ];
+  configureFlags = ["sysconfdir=/etc"];
 
   cmakeFlags = lib.optionals stdenv.isDarwin [
     "-DLIBNFC_DRIVER_PN532_I2C=OFF"
@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
     description = "Library for Near Field Communication (NFC)";
     homepage = "https://github.com/nfc-tools/libnfc";
     license = licenses.lgpl3Plus;
-    maintainers = with maintainers; [ offline ];
+    maintainers = with maintainers; [offline];
     platforms = platforms.unix;
   };
 }

@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
     mv $out/lib/pidgin-osd.{la,so} $out/lib/pidgin
   '';
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
   buildInputs = [
     xosd
     pidgin

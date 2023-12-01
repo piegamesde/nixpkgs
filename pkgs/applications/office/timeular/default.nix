@@ -14,12 +14,12 @@ let
     sha256 = "sha256-gIYo91ITpFtYdYGek4bXaOowMSILXZ4fJYNKeZDhk+Y=";
   };
 
-  appimageContents = appimageTools.extractType2 { inherit pname version src; };
+  appimageContents = appimageTools.extractType2 {inherit pname version src;};
 in
 appimageTools.wrapType2 rec {
   inherit pname version src;
 
-  extraPkgs = pkgs: with pkgs; [ libsecret ];
+  extraPkgs = pkgs: with pkgs; [libsecret];
 
   extraInstallCommands = ''
     mv $out/bin/{${pname}-${version},${pname}}
@@ -38,7 +38,7 @@ appimageTools.wrapType2 rec {
     '';
     homepage = "https://timeular.com";
     license = licenses.unfree;
-    maintainers = with maintainers; [ ktor ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with maintainers; [ktor];
+    platforms = ["x86_64-linux"];
   };
 }

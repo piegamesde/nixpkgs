@@ -17,11 +17,11 @@ let
       additional_checksd = "/etc/datadog-agent/checks.d";
       use_dogstatsd = true;
     }
-    // optionalAttrs (cfg.logLevel != null) { log_level = cfg.logLevel; }
-    // optionalAttrs (cfg.hostname != null) { inherit (cfg) hostname; }
-    // optionalAttrs (cfg.ddUrl != null) { dd_url = cfg.ddUrl; }
-    // optionalAttrs (cfg.site != null) { site = cfg.site; }
-    // optionalAttrs (cfg.tags != null) { tags = concatStringsSep ", " cfg.tags; }
+    // optionalAttrs (cfg.logLevel != null) {log_level = cfg.logLevel;}
+    // optionalAttrs (cfg.hostname != null) {inherit (cfg) hostname;}
+    // optionalAttrs (cfg.ddUrl != null) {dd_url = cfg.ddUrl;}
+    // optionalAttrs (cfg.site != null) {site = cfg.site;}
+    // optionalAttrs (cfg.tags != null) {tags = concatStringsSep ", " cfg.tags;}
     // optionalAttrs (cfg.enableLiveProcessCollection) {
       process_config = {
         enabled = "true";
@@ -147,7 +147,7 @@ in
     };
 
     extraIntegrations = mkOption {
-      default = { };
+      default = {};
       type = types.attrs;
 
       description = lib.mdDoc ''
@@ -170,7 +170,7 @@ in
     };
 
     extraConfig = mkOption {
-      default = { };
+      default = {};
       type = types.attrs;
       description = lib.mdDoc ''
         Extra configuration options that will be merged into the
@@ -220,13 +220,13 @@ in
             {
               name = "some-service";
               url = "http://localhost:1337/healthz";
-              tags = [ "some-service" ];
+              tags = ["some-service"];
             }
           ];
         };
       };
 
-      default = { };
+      default = {};
 
       # sic! The structure of the values is up to the check, so we can
       # not usefully constrain the type further.
@@ -237,8 +237,8 @@ in
       description = lib.mdDoc "Disk check config";
       type = types.attrs;
       default = {
-        init_config = { };
-        instances = [ { use_mount = "false"; } ];
+        init_config = {};
+        instances = [{use_mount = "false";}];
       };
     };
 
@@ -246,7 +246,7 @@ in
       description = lib.mdDoc "Network check config";
       type = types.attrs;
       default = {
-        init_config = { };
+        init_config = {};
         # Network check only supports one configured instance
         instances = [
           {
@@ -290,14 +290,14 @@ in
                 pkgs.procps
                 pkgs.iproute2
               ];
-              wantedBy = [ "multi-user.target" ];
+              wantedBy = ["multi-user.target"];
               serviceConfig = {
                 User = "datadog";
                 Group = "datadog";
                 Restart = "always";
                 RestartSec = 2;
               };
-              restartTriggers = [ datadogPkg ] ++ map (x: x.source) (attrValues etcfiles);
+              restartTriggers = [datadogPkg] ++ map (x: x.source) (attrValues etcfiles);
             }
             attrs;
       in
@@ -332,7 +332,7 @@ in
         datadog-process-agent = lib.mkIf cfg.enableLiveProcessCollection (
           makeService {
             description = "Datadog Live Process Agent";
-            path = [ ];
+            path = [];
             script = ''
               export DD_API_KEY=$(head -n 1 ${cfg.apiKeyFile})
               ${pkgs.datadog-process-agent}/bin/process-agent --config /etc/datadog-agent/datadog.yaml
@@ -343,7 +343,7 @@ in
         datadog-trace-agent = lib.mkIf cfg.enableTraceAgent (
           makeService {
             description = "Datadog Trace Agent";
-            path = [ ];
+            path = [];
             script = ''
               export DD_API_KEY=$(head -n 1 ${cfg.apiKeyFile})
               ${datadogPkg}/bin/trace-agent -config /etc/datadog-agent/datadog.yaml

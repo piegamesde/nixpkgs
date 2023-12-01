@@ -48,6 +48,6 @@ stdenv.mkDerivation {
     homepage = "http://non.tuxfamily.org";
     license = lib.licenses.lgpl21;
     platforms = lib.platforms.linux;
-    maintainers = [ lib.maintainers.nico202 ];
+    maintainers = [lib.maintainers.nico202];
   };
 }

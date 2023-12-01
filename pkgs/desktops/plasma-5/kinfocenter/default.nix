@@ -81,7 +81,7 @@ mkDerivation {
     xdpyinfo
   ];
 
-  patches = [ ./0001-tool-paths.patch ];
+  patches = [./0001-tool-paths.patch];
 
   postPatch = ''
     for f in Modules/kwinsupportinfo/{kcm_kwinsupportinfo.json.in,main.cpp}; do

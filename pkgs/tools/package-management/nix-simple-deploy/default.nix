@@ -20,7 +20,7 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "1r6dl7qipbyyvjcd3l9ynawjln1g1qzvw5za6nyjcf41dzv48m8x";
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   postInstall = ''
     wrapProgram "$out/bin/nix-simple-deploy" \
@@ -40,6 +40,6 @@ rustPlatform.buildRustPackage rec {
       asl20 # OR
       mit
     ];
-    maintainers = with maintainers; [ misuzu ];
+    maintainers = with maintainers; [misuzu];
   };
 }

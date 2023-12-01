@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "generic-cl_dot_set";
   version = "generic-cl-20211020-git";
@@ -49,7 +49,7 @@ rec {
 
   packageName = "generic-cl.set";
 
-  asdFilesToKeep = [ "generic-cl.set.asd" ];
+  asdFilesToKeep = ["generic-cl.set.asd"];
   overrides = x: x;
 }
 /* (SYSTEM generic-cl.set DESCRIPTION Generic set interface SHA256

@@ -32,11 +32,11 @@ in
   cargoBuildHook =
     callPackage
       (
-        { }:
+        {}:
         makeSetupHook
           {
             name = "cargo-build-hook.sh";
-            propagatedBuildInputs = [ cargo ];
+            propagatedBuildInputs = [cargo];
             substitutions = {
               inherit
                 ccForBuild
@@ -51,44 +51,44 @@ in
           }
           ./cargo-build-hook.sh
       )
-      { };
+      {};
 
   cargoCheckHook =
     callPackage
       (
-        { }:
+        {}:
         makeSetupHook
           {
             name = "cargo-check-hook.sh";
-            propagatedBuildInputs = [ cargo ];
+            propagatedBuildInputs = [cargo];
             substitutions = {
               inherit rustTargetPlatformSpec;
             };
           }
           ./cargo-check-hook.sh
       )
-      { };
+      {};
 
   cargoInstallHook =
     callPackage
       (
-        { }:
+        {}:
         makeSetupHook
           {
             name = "cargo-install-hook.sh";
-            propagatedBuildInputs = [ ];
+            propagatedBuildInputs = [];
             substitutions = {
               inherit shortTarget;
             };
           }
           ./cargo-install-hook.sh
       )
-      { };
+      {};
 
   cargoNextestHook =
     callPackage
       (
-        { }:
+        {}:
         makeSetupHook
           {
             name = "cargo-nextest-hook.sh";
@@ -102,16 +102,16 @@ in
           }
           ./cargo-nextest-hook.sh
       )
-      { };
+      {};
 
   cargoSetupHook =
     callPackage
       (
-        { }:
+        {}:
         makeSetupHook
           {
             name = "cargo-setup-hook.sh";
-            propagatedBuildInputs = [ ];
+            propagatedBuildInputs = [];
             substitutions = {
               defaultConfig = ../fetchcargo-default-config.toml;
 
@@ -134,12 +134,12 @@ in
           }
           ./cargo-setup-hook.sh
       )
-      { };
+      {};
 
   maturinBuildHook =
     callPackage
       (
-        { }:
+        {}:
         makeSetupHook
           {
             name = "maturin-build-hook.sh";
@@ -162,12 +162,12 @@ in
           }
           ./maturin-build-hook.sh
       )
-      { };
+      {};
 
   bindgenHook =
     callPackage
       (
-        { }:
+        {}:
         makeSetupHook
           {
             name = "rust-bindgen-hook";
@@ -178,5 +178,5 @@ in
           }
           ./rust-bindgen-hook.sh
       )
-      { };
+      {};
 }

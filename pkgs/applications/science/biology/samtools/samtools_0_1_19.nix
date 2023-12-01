@@ -14,9 +14,9 @@ stdenv.mkDerivation rec {
     sha256 = "d080c9d356e5f0ad334007e4461cbcee3c4ca97b8a7a5a48c44883cf9dee63d4";
   };
 
-  patches = [ ./samtools-0.1.19-no-curses.patch ];
+  patches = [./samtools-0.1.19-no-curses.patch];
 
-  buildInputs = [ zlib ];
+  buildInputs = [zlib];
 
   installPhase = ''
     mkdir -p $out/bin
@@ -31,6 +31,6 @@ stdenv.mkDerivation rec {
     license = licenses.mit;
     homepage = "https://samtools.sourceforge.net/";
     platforms = platforms.unix;
-    maintainers = [ maintainers.unode ];
+    maintainers = [maintainers.unode];
   };
 }

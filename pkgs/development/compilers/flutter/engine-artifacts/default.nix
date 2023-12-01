@@ -33,7 +33,7 @@ let
           ]
           (
             arch: {
-              base = [ { archive = "artifacts.zip"; } ];
+              base = [{archive = "artifacts.zip";}];
               variants =
                 lib.genAttrs
                   [
@@ -42,8 +42,8 @@ let
                   ]
                   (
                     variant: [
-                      { archive = "artifacts.zip"; }
-                      { archive = "${lib.toLower hostPlatform.uname.system}-x64.zip"; }
+                      {archive = "artifacts.zip";}
+                      {archive = "${lib.toLower hostPlatform.uname.system}-x64.zip";}
                     ]
                   );
             }
@@ -51,8 +51,8 @@ let
         )
         // {
           "x86" = {
-            base = [ { archive = "artifacts.zip"; } ];
-            variants.jit-release = [ { archive = "artifacts.zip"; } ];
+            base = [{archive = "artifacts.zip";}];
+            variants.jit-release = [{archive = "artifacts.zip";}];
           };
         };
 
@@ -67,7 +67,7 @@ let
             let
               linux-flutter-gtk = {
                 archive = "linux-${arch}-flutter-gtk.zip";
-                buildInputs = [ gtk3 ];
+                buildInputs = [gtk3];
               };
             in
             {
@@ -92,7 +92,7 @@ let
                     '';
                   }
                 )
-                { archive = "font-subset.zip"; }
+                {archive = "font-subset.zip";}
                 linux-flutter-gtk
               ];
               variants =
@@ -102,7 +102,7 @@ let
                     "profile"
                     "release"
                   ]
-                  (variant: [ linux-flutter-gtk ]);
+                  (variant: [linux-flutter-gtk]);
             }
           );
     };
@@ -138,7 +138,7 @@ let
           hash = (if artifactDirectory == null then hashes else hashes.${artifactDirectory}).${archive};
         };
 
-        nativeBuildInputs = [ autoPatchelfHook ];
+        nativeBuildInputs = [autoPatchelfHook];
 
         installPhase = "cp -r . $out";
       }
@@ -154,7 +154,7 @@ let
           builtins.mapAttrs
             (architecture: variants: {
               base =
-                map (args: mkArtifactDerivation ({ platform = "${os}-${architecture}"; } // args))
+                map (args: mkArtifactDerivation ({platform = "${os}-${architecture}";} // args))
                   variants.base;
               variants =
                 builtins.mapAttrs

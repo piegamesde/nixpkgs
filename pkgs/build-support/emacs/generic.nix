@@ -16,10 +16,10 @@ with lib;
   pname,
   version ? null,
 
-  buildInputs ? [ ],
-  packageRequires ? [ ],
+  buildInputs ? [],
+  packageRequires ? [],
 
-  meta ? { },
+  meta ? {},
 
   ...
 }@args:
@@ -29,7 +29,7 @@ let
   defaultMeta = {
     broken = false;
     platforms = emacs.meta.platforms;
-  } // optionalAttrs ((args.src.meta.homepage or "") != "") { homepage = args.src.meta.homepage; };
+  } // optionalAttrs ((args.src.meta.homepage or "") != "") {homepage = args.src.meta.homepage;};
 in
 
 stdenv.mkDerivation (
@@ -82,7 +82,7 @@ stdenv.mkDerivation (
 
     LIBRARY_PATH = "${lib.getLib stdenv.cc.libc}/lib";
 
-    nativeBuildInputs = [ gcc ];
+    nativeBuildInputs = [gcc];
 
     addEmacsNativeLoadPath = true;
 

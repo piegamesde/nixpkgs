@@ -77,7 +77,7 @@ let
       vs = lib.lists.tail versions;
     in
     if (builtins.length versions == 0) then
-      [ ]
+      []
     else
       (builtins.filter (x: hasInfix v x.file) candidates) ++ (findBestMatches vs candidates);
 
@@ -192,7 +192,7 @@ let
         in
         if isLinux then chooseLinux files else chooseOSX files;
     in
-    if (builtins.length filtered == 0) then [ ] else choose (filtered);
+    if (builtins.length filtered == 0) then [] else choose (filtered);
 in
 {
   inherit selectWheel toWheelAttrs isPyVersionCompatible;

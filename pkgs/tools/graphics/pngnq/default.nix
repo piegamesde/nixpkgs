@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     sha256 = "1qmnnl846agg55i7h4vmrn11lgb8kg6gvs8byqz34bdkjh5gwiy1";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     libpng
     zlib
@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
     homepage = "https://pngnq.sourceforge.net/";
     description = "A PNG quantizer";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ pSub ];
+    maintainers = with maintainers; [pSub];
     platforms = platforms.linux;
   };
 }

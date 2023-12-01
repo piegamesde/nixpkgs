@@ -1,12 +1,12 @@
 {
   system ? builtins.currentSystem,
-  config ? { },
-  pkgs ? import ../../.. { inherit system config; },
+  config ? {},
+  pkgs ? import ../../.. {inherit system config;},
   lib ? pkgs.lib,
 }:
 
 let
-  inherit (import ./common.nix { inherit pkgs lib; }) mkTestName mariadbPackages;
+  inherit (import ./common.nix {inherit pkgs lib;}) mkTestName mariadbPackages;
 
   replicateUser = "replicate";
   replicatePassword = "secret";
@@ -43,11 +43,11 @@ let
               }
             ];
           };
-          networking.firewall.allowedTCPPorts = [ 3306 ];
+          networking.firewall.allowedTCPPorts = [3306];
         };
 
         secondary1 =
-          { nodes, ... }:
+          {nodes, ...}:
           {
             services.mysql = {
               inherit package;
@@ -61,7 +61,7 @@ let
           };
 
         secondary2 =
-          { nodes, ... }:
+          {nodes, ...}:
           {
             services.mysql = {
               inherit package;
@@ -112,4 +112,4 @@ let
       '';
     };
 in
-lib.mapAttrs (_: package: makeReplicationTest { inherit package; }) mariadbPackages
+lib.mapAttrs (_: package: makeReplicationTest {inherit package;}) mariadbPackages

@@ -16,14 +16,14 @@ buildPythonPackage rec {
     hash = "sha256-WExmgh55sTH2w7wV3i96J1F1FN7L5rX3L/Ayvt2Kw/g=";
   };
 
-  propagatedBuildInputs = [ pyserial ];
+  propagatedBuildInputs = [pyserial];
 
-  pythonImportsCheck = [ "asyncserial" ];
+  pythonImportsCheck = ["asyncserial"];
 
   meta = with lib; {
     description = "asyncio support for pyserial";
     homepage = "https://github.com/m-labs/asyncserial";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ doronbehar ];
+    maintainers = with maintainers; [doronbehar];
   };
 }

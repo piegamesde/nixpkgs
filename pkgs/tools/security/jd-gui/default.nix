@@ -142,7 +142,7 @@ stdenv.mkDerivation rec {
       runHook postInstall
     '';
 
-  desktopItems = [ desktopItem ];
+  desktopItems = [desktopItem];
 
   meta = with lib; {
     description = "Fast Java Decompiler with powerful GUI";
@@ -153,6 +153,6 @@ stdenv.mkDerivation rec {
     ];
     license = licenses.gpl3;
     platforms = platforms.unix;
-    maintainers = [ maintainers.thoughtpolice ];
+    maintainers = [maintainers.thoughtpolice];
   };
 }

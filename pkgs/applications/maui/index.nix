@@ -43,6 +43,6 @@ mkDerivation {
     description = "Multi-platform file manager";
     homepage = "https://invent.kde.org/maui/index-fm";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

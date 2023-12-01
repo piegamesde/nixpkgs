@@ -17,7 +17,7 @@ buildPythonPackage rec {
     hash = "sha256-QJq2BMnr4bt9wY7GsO2YqK1RJ7CCc/WASyL00bUeUiI=";
   };
 
-  propagatedBuildInputs = lib.optionals (!isPy3k) [ funcsigs ];
+  propagatedBuildInputs = lib.optionals (!isPy3k) [funcsigs];
   nativeCheckInputs = [
     pytest
     numpy
@@ -33,6 +33,6 @@ buildPythonPackage rec {
     description = "Spying framework";
     homepage = "https://github.com/kaste/mockito-python";
     license = licenses.mit;
-    maintainers = [ maintainers.marsam ];
+    maintainers = [maintainers.marsam];
   };
 }

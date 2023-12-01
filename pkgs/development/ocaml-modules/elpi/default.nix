@@ -57,8 +57,8 @@ buildDunePackage rec {
 
   # atdgen is both a library and executable
   nativeBuildInputs =
-    [ perl ]
-    ++ [ (if lib.versionAtLeast version "1.15" || version == "dev" then menhir else camlp5) ]
+    [perl]
+    ++ [(if lib.versionAtLeast version "1.15" || version == "dev" then menhir else camlp5)]
     ++ lib.optional (lib.versionAtLeast version "1.16" || version == "dev") atdgen;
   buildInputs = [
     ncurses
@@ -69,7 +69,7 @@ buildDunePackage rec {
       re
       stdlib-shims
     ]
-    ++ (if lib.versionAtLeast version "1.15" || version == "dev" then [ menhirLib ] else [ camlp5 ])
+    ++ (if lib.versionAtLeast version "1.15" || version == "dev" then [menhirLib] else [camlp5])
     ++ (
       if lib.versionAtLeast version "1.13" || version == "dev" then
         [
@@ -86,7 +86,7 @@ buildDunePackage rec {
   meta = with lib; {
     description = "Embeddable λProlog Interpreter";
     license = licenses.lgpl21Plus;
-    maintainers = [ maintainers.vbgl ];
+    maintainers = [maintainers.vbgl];
     homepage = "https://github.com/LPCIC/elpi";
   };
 

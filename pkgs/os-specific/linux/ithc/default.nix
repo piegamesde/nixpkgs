@@ -27,13 +27,13 @@ stdenv.mkDerivation rec {
     sed -i ./Makefile -e '/depmod/d'
   '';
 
-  installFlags = [ "INSTALL_MOD_PATH=${placeholder "out"}" ];
+  installFlags = ["INSTALL_MOD_PATH=${placeholder "out"}"];
 
   meta = with lib; {
     description = "Linux driver for Intel Touch Host Controller";
     homepage = "https://github.com/quo/ithc-linux";
     license = licenses.publicDomain;
-    maintainers = with maintainers; [ aacebedo ];
+    maintainers = with maintainers; [aacebedo];
     platforms = platforms.linux;
     broken = kernel.kernelOlder "5.9";
   };

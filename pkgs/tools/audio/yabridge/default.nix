@@ -158,14 +158,14 @@ multiStdenv.mkDerivation (
       done
     '';
 
-    passthru.updateScript = nix-update-script { };
+    passthru.updateScript = nix-update-script {};
 
     meta = with lib; {
       description = "A modern and transparent way to use Windows VST2 and VST3 plugins on Linux";
       homepage = "https://github.com/robbert-vdh/yabridge";
       license = licenses.gpl3Plus;
-      maintainers = with maintainers; [ kira-bruneau ];
-      platforms = [ "x86_64-linux" ];
+      maintainers = with maintainers; [kira-bruneau];
+      platforms = ["x86_64-linux"];
     };
   }
 )

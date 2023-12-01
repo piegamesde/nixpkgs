@@ -40,15 +40,15 @@ buildDunePackage rec {
     inherit (params) hash;
   };
 
-  propagatedBuildInputs = params.propagatedBuildInputs or [ ];
+  propagatedBuildInputs = params.propagatedBuildInputs or [];
 
   doCheck = true;
-  checkInputs = [ qcheck-alcotest ];
+  checkInputs = [qcheck-alcotest];
 
   meta = {
     description = "Name pattern combinators";
     homepage = "https://github.com/RedPRL/yuujinchou";
     license = lib.licenses.asl20;
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
   };
 }

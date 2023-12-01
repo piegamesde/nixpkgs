@@ -30,10 +30,10 @@ buildDotnetModule rec {
       ./disable-warnings.patch
     ];
 
-  propagatedBuildInputs = [ sqlite ];
+  propagatedBuildInputs = [sqlite];
 
   projectFile = "Jellyfin.Server/Jellyfin.Server.csproj";
-  executables = [ "jellyfin" ];
+  executables = ["jellyfin"];
   nugetDeps = ./nuget-deps.nix;
   runtimeDeps = [
     ffmpeg
@@ -42,7 +42,7 @@ buildDotnetModule rec {
   ];
   dotnet-sdk = dotnetCorePackages.sdk_6_0;
   dotnet-runtime = dotnetCorePackages.aspnetcore_6_0;
-  dotnetBuildFlags = [ "--no-self-contained" ];
+  dotnetBuildFlags = ["--no-self-contained"];
 
   preInstall = ''
     makeWrapperArgs+=(

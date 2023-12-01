@@ -18,15 +18,15 @@ let
       pname,
       buildAndTestSubdir,
       cargoHash,
-      extraNativeBuildInputs ? [ ],
-      extraBuildInputs ? [ ],
+      extraNativeBuildInputs ? [],
+      extraBuildInputs ? [],
     }:
     buildPythonPackage rec {
       inherit pname;
       version = "1.1.0";
       format = "pyproject";
 
-      outputs = [ "out" ] ++ lib.optional (pname == "wasmer") "testsout";
+      outputs = ["out"] ++ lib.optional (pname == "wasmer") "testsout";
 
       src = fetchFromGitHub {
         owner = "wasmerio";
@@ -56,7 +56,7 @@ let
           --replace "package.metadata.maturin" "broken"
       '';
 
-      buildInputs = lib.optionals stdenv.isDarwin [ libiconv ] ++ extraBuildInputs;
+      buildInputs = lib.optionals stdenv.isDarwin [libiconv] ++ extraBuildInputs;
 
       inherit buildAndTestSubdir;
 
@@ -68,9 +68,9 @@ let
       # check in passthru.tests.pytest because all packages are required to run the tests
       doCheck = false;
 
-      passthru.tests = lib.optionalAttrs (pname == "wasmer") { pytest = callPackage ./tests.nix { }; };
+      passthru.tests = lib.optionalAttrs (pname == "wasmer") {pytest = callPackage ./tests.nix {};};
 
-      pythonImportsCheck = [ "${lib.replaceStrings [ "-" ] [ "_" ] pname}" ];
+      pythonImportsCheck = ["${lib.replaceStrings ["-"] ["_"] pname}"];
 
       meta = with lib; {
         broken = stdenv.isDarwin;
@@ -78,7 +78,7 @@ let
         homepage = "https://github.com/wasmerio/wasmer-python";
         license = licenses.mit;
         platforms = platforms.unix;
-        maintainers = with maintainers; [ SuperSandro2000 ];
+        maintainers = with maintainers; [SuperSandro2000];
       };
     };
 in
@@ -99,7 +99,7 @@ rec {
     pname = "wasmer-compiler-llvm";
     buildAndTestSubdir = "packages/compiler-llvm";
     cargoHash = "sha256-xawbf5gXXV+7I2F2fDSaMvjtFvGDBtqX7wL3c28TSbA=";
-    extraNativeBuildInputs = [ rustPlatform.rust.rustc.llvm ];
+    extraNativeBuildInputs = [rustPlatform.rust.rustc.llvm];
     extraBuildInputs = [
       libffi
       libxml2.out

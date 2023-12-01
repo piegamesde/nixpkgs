@@ -36,18 +36,18 @@ stdenv.mkDerivation rec {
       })
     ];
 
-  nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ perl ];
+  nativeBuildInputs = [makeWrapper];
+  buildInputs = [perl];
 
   postInstall = ''
     wrapProgram $out/bin/cowsay \
       --suffix COWPATH : $out/share/cowsay/cows
   '';
 
-  makeFlags = [ "prefix=${placeholder "out"}" ];
+  makeFlags = ["prefix=${placeholder "out"}"];
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
     tests.version = testers.testVersion {
       package = cowsay;
       command = "cowsay --version";

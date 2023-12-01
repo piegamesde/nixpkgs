@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
   ];
 
   strictDeps = true;
-  nativeBuildInputs = [ librsvg ];
+  nativeBuildInputs = [librsvg];
 
   buildInputs = [
     libjpeg
@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
     description = "The big set of CLI tools to make/modify/optimize/show/export DJVU files";
     homepage = "https://djvu.sourceforge.net";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ Anton-Latukha ];
+    maintainers = with maintainers; [Anton-Latukha];
     platforms = platforms.all;
   };
 }

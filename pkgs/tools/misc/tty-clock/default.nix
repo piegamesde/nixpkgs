@@ -30,10 +30,10 @@ stdenv.mkDerivation rec {
       })
     ];
 
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ ncurses ];
+  nativeBuildInputs = [pkg-config];
+  buildInputs = [ncurses];
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   meta = with lib; {
     broken = stdenv.isDarwin;
@@ -41,6 +41,6 @@ stdenv.mkDerivation rec {
     license = licenses.free;
     description = "Digital clock in ncurses";
     platforms = platforms.all;
-    maintainers = [ maintainers.koral ];
+    maintainers = [maintainers.koral];
   };
 }

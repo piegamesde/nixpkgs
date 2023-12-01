@@ -18,7 +18,7 @@ stdenvNoCC.mkDerivation rec {
     sha256 = "0q4skdhymgn5xrwafyisfshx327faia682yv83mf68r61m2jl10d";
   };
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   installPhase = ''
     install -D './${version}/bin/mas' "$out/bin/mas"

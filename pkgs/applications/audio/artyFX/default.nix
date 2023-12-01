@@ -44,9 +44,9 @@ stdenv.mkDerivation rec {
     homepage = "http://openavproductions.com/artyfx/";
     description = "A LV2 plugin bundle of artistic realtime effects";
     license = licenses.gpl2;
-    maintainers = [ maintainers.magnetophon ];
+    maintainers = [maintainers.magnetophon];
     platforms = platforms.linux;
     # Build uses `-msse` and `-mfpmath=sse`
-    badPlatforms = [ "aarch64-linux" ];
+    badPlatforms = ["aarch64-linux"];
   };
 }

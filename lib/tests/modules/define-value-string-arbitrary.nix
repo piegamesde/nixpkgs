@@ -1,1 +1,1 @@
-{ value = "foobar"; }
+{value = "foobar";}

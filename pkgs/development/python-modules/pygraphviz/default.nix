@@ -34,11 +34,11 @@ buildPythonPackage rec {
       })
     ];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  buildInputs = [ graphviz ];
+  buildInputs = [graphviz];
 
-  nativeCheckInputs = [ pytest ];
+  nativeCheckInputs = [pytest];
 
   checkPhase = ''
     runHook preCheck
@@ -46,7 +46,7 @@ buildPythonPackage rec {
     runHook postCheck
   '';
 
-  pythonImportsCheck = [ "pygraphviz" ];
+  pythonImportsCheck = ["pygraphviz"];
 
   meta = with lib; {
     description = "Python interface to Graphviz graph drawing package";

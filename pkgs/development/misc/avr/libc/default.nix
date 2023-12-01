@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
   ];
 
   # Make sure we don't strip the libraries in lib/gcc/avr.
-  stripDebugList = [ "bin" ];
+  stripDebugList = ["bin"];
   dontPatchELF = true;
 
   passthru = {
@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
     description = "a C runtime library for AVR microcontrollers";
     homepage = "https://github.com/avrdudes/avr-libc";
     license = licenses.bsd3;
-    platforms = [ "avr-none" ];
+    platforms = ["avr-none"];
     maintainers = with maintainers; [
       mguentner
       emilytrau

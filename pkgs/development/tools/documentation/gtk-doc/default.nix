@@ -30,7 +30,7 @@ python3.pkgs.buildPythonApplication rec {
     sha256 = "A6OXpazrJ05SUIO1ZPVN0xHTXOSov8UnPvUolZAv/Iw=";
   };
 
-  patches = [ passthru.respect_xml_catalog_files_var_patch ];
+  patches = [passthru.respect_xml_catalog_files_var_patch];
 
   postPatch = ''
     substituteInPlace meson.build \
@@ -56,7 +56,7 @@ python3.pkgs.buildPythonApplication rec {
     docbook_xml_dtd_43
     docbook-xsl-nons
     libxslt
-  ] ++ lib.optionals withDblatex [ dblatex ];
+  ] ++ lib.optionals withDblatex [dblatex];
 
   pythonPath = with python3.pkgs; [
     pygments # Needed for https://gitlab.gnome.org/GNOME/gtk-doc/blob/GTK_DOC_1_32/meson.build#L42
@@ -90,6 +90,6 @@ python3.pkgs.buildPythonApplication rec {
     description = "Tools to extract documentation embedded in GTK and GNOME source code";
     homepage = "https://gitlab.gnome.org/GNOME/gtk-doc";
     license = licenses.gpl2Plus;
-    maintainers = teams.gnome.members ++ (with maintainers; [ pSub ]);
+    maintainers = teams.gnome.members ++ (with maintainers; [pSub]);
   };
 }

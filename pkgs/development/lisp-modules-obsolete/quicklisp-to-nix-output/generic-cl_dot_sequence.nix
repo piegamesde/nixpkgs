@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "generic-cl_dot_sequence";
   version = "generic-cl-20211020-git";
@@ -47,7 +47,7 @@ rec {
 
   packageName = "generic-cl.sequence";
 
-  asdFilesToKeep = [ "generic-cl.sequence.asd" ];
+  asdFilesToKeep = ["generic-cl.sequence.asd"];
   overrides = x: x;
 }
 /* (SYSTEM generic-cl.sequence DESCRIPTION Generic sequence operations SHA256

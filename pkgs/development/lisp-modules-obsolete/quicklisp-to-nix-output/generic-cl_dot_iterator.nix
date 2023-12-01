@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "generic-cl_dot_iterator";
   version = "generic-cl-20211020-git";
@@ -43,7 +43,7 @@ rec {
 
   packageName = "generic-cl.iterator";
 
-  asdFilesToKeep = [ "generic-cl.iterator.asd" ];
+  asdFilesToKeep = ["generic-cl.iterator.asd"];
   overrides = x: x;
 }
 /* (SYSTEM generic-cl.iterator DESCRIPTION Generic iterator interface SHA256

@@ -20,7 +20,7 @@ stdenvNoCC.mkDerivation {
     substituteInPlace ssh-ident \
       --replace 'ssh-agent >' '${openssh}/bin/ssh-agent >'
   '';
-  buildInputs = [ python3 ];
+  buildInputs = [python3];
 
   installPhase = ''
     mkdir -p $out/bin
@@ -31,7 +31,7 @@ stdenvNoCC.mkDerivation {
     homepage = "https://github.com/ccontavalli/ssh-ident";
     description = "Start and use ssh-agent and load identities as necessary";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ telotortium ];
+    maintainers = with maintainers; [telotortium];
     platforms = with platforms; unix;
   };
 }

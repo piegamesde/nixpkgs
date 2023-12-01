@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-UiClQLz2gSxnc/vlg9nqP1T0UsusVb7cqt66jDqae4k=a";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     freetype
@@ -56,7 +56,7 @@ stdenv.mkDerivation rec {
     homepage = "https://web.archive.org/web/20191129172107/https://www.oroborus.org/";
     description = "A really minimalistic X window manager";
     license = licenses.gpl2Plus;
-    maintainers = [ maintainers.AndersonTorres ];
+    maintainers = [maintainers.AndersonTorres];
     platforms = platforms.linux;
   };
 }

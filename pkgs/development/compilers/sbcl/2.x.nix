@@ -53,8 +53,8 @@ stdenv.mkDerivation rec {
     inherit sha256;
   };
 
-  nativeBuildInputs = [ texinfo ];
-  buildInputs = lib.optionals coreCompression [ zstd ];
+  nativeBuildInputs = [texinfo];
+  buildInputs = lib.optionals coreCompression [zstd];
 
   # There are no patches necessary for the currently enabled versions, but this
   # code is left in place for the next potential patch.
@@ -126,7 +126,7 @@ stdenv.mkDerivation rec {
         "-fcommon"
       ]
     # Fails to find `O_LARGEFILE` otherwise.
-    ++ [ "-D_GNU_SOURCE" ]
+    ++ ["-D_GNU_SOURCE"]
   );
 
   buildPhase = ''

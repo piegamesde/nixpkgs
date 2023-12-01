@@ -32,6 +32,6 @@ stdenv.mkDerivation rec {
     description = "Official QMK udev rules list";
     platforms = platforms.linux;
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ ekleog ];
+    maintainers = with maintainers; [ekleog];
   };
 }

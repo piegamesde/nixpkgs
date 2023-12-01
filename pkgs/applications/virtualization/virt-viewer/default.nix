@@ -77,20 +77,20 @@ stdenv.mkDerivation rec {
       libxml2
       vte
     ]
-    ++ optionals ovirtSupport [ libgovirt ]
+    ++ optionals ovirtSupport [libgovirt]
     ++ optionals spiceSupport (
       [
         gdbm
         spice-gtk
         spice-protocol
       ]
-      ++ optionals stdenv.isLinux [ libcap ]
+      ++ optionals stdenv.isLinux [libcap]
     );
 
   # Required for USB redirection PolicyKit rules file
   propagatedUserEnvPkgs = optional spiceSupport spice-gtk;
 
-  mesonFlags = [ (lib.mesonEnable "ovirt" ovirtSupport) ];
+  mesonFlags = [(lib.mesonEnable "ovirt" ovirtSupport)];
 
   strictDeps = true;
 

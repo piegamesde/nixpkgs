@@ -31,7 +31,7 @@ let
       sha256 = "0z2ddfiwgi0xbf65z4fg4hqqzlhv0cc6hdcswf3c6n21xdmk5sga";
     };
 
-    patches = [ ./6.2.1-CVE-2021-43618.patch ];
+    patches = [./6.2.1-CVE-2021-43618.patch];
 
     #outputs TODO: split $cxx due to libstdc++ dependency
     # maybe let ghc use a version with *.so shared with rest of nixpkgs and *.a added
@@ -44,8 +44,8 @@ let
     passthru.static = self.out;
 
     strictDeps = true;
-    depsBuildBuild = [ buildPackages.stdenv.cc ];
-    nativeBuildInputs = [ m4 ];
+    depsBuildBuild = [buildPackages.stdenv.cc];
+    nativeBuildInputs = [m4];
 
     configureFlags =
       [
@@ -106,7 +106,7 @@ let
       '';
 
       platforms = platforms.all;
-      maintainers = [ maintainers.vrthra ];
+      maintainers = [maintainers.vrthra];
     };
   };
 in

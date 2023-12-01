@@ -14,7 +14,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-LQlcjPy8hHyux0bWLNyNC/8ewbxy73xnTHIeBNpqszM=";
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   meta = with lib; {
     homepage = "https://sourceforge.net/projects/acpid2/";

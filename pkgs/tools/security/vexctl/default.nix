@@ -27,7 +27,7 @@ buildGoModule rec {
   };
   vendorHash = "sha256-GZIssLLPg2dF7xsvsYn2MKYunMCpGbNA+6qCYBW++vk=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   ldflags = [
     "-s"
@@ -65,6 +65,6 @@ buildGoModule rec {
     homepage = "https://github.com/chainguard-dev/vex/";
     description = "A tool to attest VEX impact statements";
     license = licenses.asl20;
-    maintainers = with maintainers; [ jk ];
+    maintainers = with maintainers; [jk];
   };
 }

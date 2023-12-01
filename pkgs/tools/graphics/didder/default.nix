@@ -19,7 +19,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-TEp1YrQquqdEMVvZaNsEB1H/DZsTYmRL257RjQF2JqM=";
 
-  nativeBuildInputs = [ pandoc ];
+  nativeBuildInputs = [pandoc];
 
   postBuild = ''
     make man
@@ -33,6 +33,6 @@ buildGoModule rec {
   meta = src.meta // {
     description = "An extensive, fast, and accurate command-line image dithering tool";
     license = lib.licenses.gpl3;
-    maintainers = with lib.maintainers; [ ehmry ];
+    maintainers = with lib.maintainers; [ehmry];
   };
 }

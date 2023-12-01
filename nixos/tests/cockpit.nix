@@ -1,5 +1,5 @@
 import ./make-test-python.nix (
-  { pkgs, lib, ... }:
+  {pkgs, lib, ...}:
 
   let
     user = "alice"; # from ./common/user-account.nix
@@ -8,16 +8,16 @@ import ./make-test-python.nix (
   {
     name = "cockpit";
     meta = {
-      maintainers = with lib.maintainers; [ lucasew ];
+      maintainers = with lib.maintainers; [lucasew];
     };
     nodes = {
       server =
-        { config, ... }:
+        {config, ...}:
         {
-          imports = [ ./common/user-account.nix ];
+          imports = [./common/user-account.nix];
           security.polkit.enable = true;
           users.users.${user} = {
-            extraGroups = [ "wheel" ];
+            extraGroups = ["wheel"];
           };
           services.cockpit = {
             enable = true;
@@ -30,14 +30,13 @@ import ./make-test-python.nix (
           };
         };
       client =
-        { config, ... }:
+        {config, ...}:
         {
-          imports = [ ./common/user-account.nix ];
+          imports = [./common/user-account.nix];
           environment.systemPackages =
             let
               seleniumScript =
-                pkgs.writers.writePython3Bin "selenium-script"
-                  { libraries = with pkgs.python3Packages; [ selenium ]; }
+                pkgs.writers.writePython3Bin "selenium-script" {libraries = with pkgs.python3Packages; [selenium];}
                   ''
                     from selenium import webdriver
                     from selenium.webdriver.common.by import By

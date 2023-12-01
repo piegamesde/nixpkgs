@@ -37,5 +37,5 @@ buildPythonPackage rec {
     numpy
   ];
 
-  pythonImportsCheck = [ "SimpleITK" ];
+  pythonImportsCheck = ["SimpleITK"];
 }

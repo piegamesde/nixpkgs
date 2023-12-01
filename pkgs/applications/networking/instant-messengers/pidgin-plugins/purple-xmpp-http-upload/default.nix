@@ -33,6 +33,6 @@ stdenv.mkDerivation {
     description = "HTTP File Upload plugin for libpurple (XMPP Protocol XEP-0363)";
     license = licenses.gpl3;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ emmanuelrosa ];
+    maintainers = with maintainers; [emmanuelrosa];
   };
 }

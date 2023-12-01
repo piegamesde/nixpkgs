@@ -11,7 +11,7 @@ let
   dataDir = "/var/lib/mautrix-telegram";
   registrationFile = "${dataDir}/telegram-registration.yaml";
   cfg = config.services.mautrix-telegram;
-  settingsFormat = pkgs.formats.json { };
+  settingsFormat = pkgs.formats.json {};
   settingsFile = settingsFormat.generate "mautrix-telegram-config.json" cfg.settings;
 in
 {
@@ -31,7 +31,7 @@ in
 
           appservice = rec {
             database = "sqlite:///${dataDir}/mautrix-telegram.db";
-            database_opts = { };
+            database_opts = {};
             hostname = "0.0.0.0";
             port = 8080;
             address = "http://localhost:${toString port}";
@@ -39,9 +39,9 @@ in
 
           bridge = {
             permissions."*" = "relaybot";
-            relaybot.whitelist = [ ];
-            double_puppet_server_map = { };
-            login_shared_secret_map = { };
+            relaybot.whitelist = [];
+            double_puppet_server_map = {};
+            login_shared_secret_map = {};
           };
 
           logging = {
@@ -66,7 +66,7 @@ in
             # log to console/systemd instead of file
             root = {
               level = "INFO";
-              handlers = [ "console" ];
+              handlers = ["console"];
             };
           };
         };
@@ -140,9 +140,9 @@ in
     systemd.services.mautrix-telegram = {
       description = "Mautrix-Telegram, a Matrix-Telegram hybrid puppeting/relaybot bridge.";
 
-      wantedBy = [ "multi-user.target" ];
-      wants = [ "network-online.target" ] ++ cfg.serviceDependencies;
-      after = [ "network-online.target" ] ++ cfg.serviceDependencies;
+      wantedBy = ["multi-user.target"];
+      wants = ["network-online.target"] ++ cfg.serviceDependencies;
+      after = ["network-online.target"] ++ cfg.serviceDependencies;
       path = [
         pkgs.lottieconverter
         pkgs.ffmpeg-full

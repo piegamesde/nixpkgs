@@ -15,12 +15,12 @@
 }:
 
 let
-  foomatic-db-packages = [ foomatic-db ] ++ lib.lists.optional withNonfreeDb foomatic-db-nonfree;
+  foomatic-db-packages = [foomatic-db] ++ lib.lists.optional withNonfreeDb foomatic-db-nonfree;
 
   foomatic-db-combined = buildEnv {
     name = "foomatic-db-combined";
     paths = foomatic-db-packages;
-    pathsToLink = [ "/share/foomatic" ];
+    pathsToLink = ["/share/foomatic"];
     # `foomatic-db-combined` is a nativeBuildInput of `foomatic-db-ppds`.
     # The setup hook defined here helps scripts in
     # `foomatic-db-engine` to find the database.
@@ -43,7 +43,7 @@ let
         ]
         lib.licenses.unfree
     ))
-    (lib.lists.all (lib.attrsets.attrByPath [ "free" ] true))
+    (lib.lists.all (lib.attrsets.attrByPath ["free"] true))
   ];
 in
 
@@ -110,7 +110,7 @@ stdenv.mkDerivation {
     description = "OpenPrinting ppd files";
     homepage = "https://openprinting.github.io/projects/02-foomatic/";
     license = if isFree then lib.licenses.free else lib.licenses.unfree;
-    maintainers = [ lib.maintainers.yarny ];
+    maintainers = [lib.maintainers.yarny];
     # list printer manufacturers here so people
     # searching for ppd files can find this package
     longDescription = ''

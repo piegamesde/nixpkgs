@@ -50,7 +50,7 @@ stdenv.mkDerivation rec {
   # https://github.com/cern-fts/davix/releases/tag/R_0_8_0
   src = fetchurl {
     url = "https://github.com/cern-fts/davix/releases/download/R_${
-      lib.replaceStrings [ "." ] [ "_" ] version
+      lib.replaceStrings ["."] ["_"] version
     }/davix-${version}.tar.gz";
     sha256 = "sha256-UZ1W90bobqP9YVvEnlWbUg3wfgUeHKPYwJIGeVjzsrc=";
   };
@@ -81,9 +81,9 @@ stdenv.mkDerivation rec {
     license = licenses.lgpl2Plus;
     homepage = "https://github.com/cern-fts/davix";
     changelog = "https://github.com/cern-fts/davix/blob/R_${
-      lib.replaceStrings [ "." ] [ "_" ] version
+      lib.replaceStrings ["."] ["_"] version
     }/RELEASE-NOTES.md";
-    maintainers = with maintainers; [ adev ];
+    maintainers = with maintainers; [adev];
     platforms = platforms.all;
   };
 }

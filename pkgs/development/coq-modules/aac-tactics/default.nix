@@ -88,7 +88,7 @@ mkCoqDerivation {
       operator instances, such as for Z binary arithmetic and booleans, are
       provided with the plugin.
     '';
-    maintainers = with maintainers; [ siraben ];
+    maintainers = with maintainers; [siraben];
     license = licenses.gpl3Plus;
     platforms = platforms.unix;
   };

@@ -14,13 +14,13 @@ stdenv.mkDerivation rec {
     hash = "sha256-amJoqjkkWTePo6E5IvwBWj+mP/gi9LDWTTPXE1Cm7J4=";
   };
 
-  nativeBuildInputs = [ v4l-utils ];
+  nativeBuildInputs = [v4l-utils];
 
   sourceRoot = "usr/share/dvb";
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
-  allowedReferences = [ ];
+  allowedReferences = [];
 
   meta = with lib; {
     # git repo with current revision is here:
@@ -43,6 +43,6 @@ stdenv.mkDerivation rec {
       The package delivers a collection of transponder
       tables ready to be used by software like "dvbv5-scan".
     '';
-    maintainers = with maintainers; [ yarny ];
+    maintainers = with maintainers; [yarny];
   };
 }

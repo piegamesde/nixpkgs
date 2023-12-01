@@ -34,13 +34,13 @@ python3.pkgs.buildPythonApplication rec {
     yara-python
   ];
 
-  pythonImportsCheck = [ "yaralyzer" ];
+  pythonImportsCheck = ["yaralyzer"];
 
   meta = with lib; {
     description = "Tool to visually inspect and force decode YARA and regex matches";
     homepage = "https://github.com/michelcrypt4d4mus/yaralyzer";
     changelog = "https://github.com/michelcrypt4d4mus/yaralyzer/blob/${version}/CHANGELOG.md";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

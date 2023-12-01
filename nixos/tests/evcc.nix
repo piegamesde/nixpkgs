@@ -1,13 +1,13 @@
 import ./make-test-python.nix (
-  { pkgs, lib, ... }:
+  {pkgs, lib, ...}:
 
   {
     name = "evcc";
-    meta.maintainers = with lib.maintainers; [ hexa ];
+    meta.maintainers = with lib.maintainers; [hexa];
 
     nodes = {
       machine =
-        { config, ... }:
+        {config, ...}:
         {
           services.evcc = {
             enable = true;

@@ -35,7 +35,7 @@
   python-setup-hook,
   nukeReferences,
   # For the Python package set
-  packageOverrides ? (self: super: { }),
+  packageOverrides ? (self: super: {}),
   pkgsBuildBuild,
   pkgsBuildHost,
   pkgsBuildTarget,
@@ -108,7 +108,7 @@ let
       override =
         attr:
         let
-          python = attr.override (inputs' // { self = python; });
+          python = attr.override (inputs' // {self = python;});
         in
         python;
     in
@@ -125,7 +125,7 @@ let
       pythonOnBuildForTarget = override pkgsBuildTarget.${pythonAttr};
       pythonOnHostForHost = override pkgsHostHost.${pythonAttr};
       pythonOnTargetForTarget =
-        if lib.hasAttr pythonAttr pkgsTargetTarget then (override pkgsTargetTarget.${pythonAttr}) else { };
+        if lib.hasAttr pythonAttr pkgsTargetTarget then (override pkgsTargetTarget.${pythonAttr}) else {};
     };
 
   version = with sourceVersion; "${major}.${minor}.${patch}${suffix}";
@@ -136,7 +136,7 @@ let
       pkg-config
       autoconf-archive # needed for AX_CHECK_COMPILE_FLAG
     ]
-    ++ [ nukeReferences ]
+    ++ [nukeReferences]
     ++ optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
       buildPackages.stdenv.cc
       pythonForBuild
@@ -148,7 +148,7 @@ let
           && (!stdenv.hostPlatform.useAndroidPrebuilt or false)
           && (enableLTO || enableOptimizations)
         )
-        [ stdenv.cc.cc.libllvm.out ];
+        [stdenv.cc.cc.libllvm.out];
 
   buildInputs =
     filter (p: p != null) (
@@ -171,12 +171,12 @@ let
         libX11
         xorgproto
       ]
-      ++ optionals (bluezSupport && stdenv.isLinux) [ bluez ]
-      ++ optionals stdenv.isDarwin [ configd ]
+      ++ optionals (bluezSupport && stdenv.isLinux) [bluez]
+      ++ optionals stdenv.isDarwin [configd]
     )
 
-    ++ optionals enableFramework [ Cocoa ]
-    ++ optionals tzdataSupport [ tzdata ]; # `zoneinfo` module
+    ++ optionals enableFramework [Cocoa]
+    ++ optionals tzdataSupport [tzdata]; # `zoneinfo` module
 
   hasDistutilsCxxPatch = !(stdenv.cc.isGNU or false);
 
@@ -276,7 +276,7 @@ stdenv.mkDerivation {
   inherit version;
 
   inherit nativeBuildInputs;
-  buildInputs = [ bash ] ++ buildInputs; # bash is only for patchShebangs
+  buildInputs = [bash] ++ buildInputs; # bash is only for patchShebangs
 
   src = fetchurl {
     url =
@@ -308,7 +308,7 @@ stdenv.mkDerivation {
             name = "asyncio-deprecation-3.11.patch";
             url = "https://github.com/python/cpython/commit/3fae04b10e2655a20a3aadb5e0d63e87206d0c67.diff";
             revert = true;
-            excludes = [ "Misc/NEWS.d/*" ];
+            excludes = ["Misc/NEWS.d/*"];
             hash = "sha256-PmkXf2D9trtW1gXZilRIWgdg2Y47JfELq1z4DuG3wJY=";
           })
         ]
@@ -336,7 +336,7 @@ stdenv.mkDerivation {
           # Fix darwin build https://bugs.python.org/issue34027
           ./3.7/darwin-libutil.patch
         ]
-    ++ optionals (pythonAtLeast "3.11") [ ./3.11/darwin-libutil.patch ]
+    ++ optionals (pythonAtLeast "3.11") [./3.11/darwin-libutil.patch]
     ++
       optionals (pythonAtLeast "3.9" && pythonOlder "3.11" && stdenv.isDarwin)
         [
@@ -409,18 +409,18 @@ stdenv.mkDerivation {
       "--with-system-expat"
       "--with-system-ffi"
     ]
-    ++ optionals (!static && !enableFramework) [ "--enable-shared" ]
-    ++ optionals enableFramework [ "--enable-framework=${placeholder "out"}/Library/Frameworks" ]
-    ++ optionals enableOptimizations [ "--enable-optimizations" ]
-    ++ optionals enableLTO [ "--with-lto" ]
+    ++ optionals (!static && !enableFramework) ["--enable-shared"]
+    ++ optionals enableFramework ["--enable-framework=${placeholder "out"}/Library/Frameworks"]
+    ++ optionals enableOptimizations ["--enable-optimizations"]
+    ++ optionals enableLTO ["--with-lto"]
     ++
       optionals (pythonOlder "3.7")
         [
           # This is unconditionally true starting in CPython 3.7.
           "--with-threads"
         ]
-    ++ optionals (sqlite != null && isPy3k) [ "--enable-loadable-sqlite-extensions" ]
-    ++ optionals (openssl' != null) [ "--with-openssl=${openssl'.dev}" ]
+    ++ optionals (sqlite != null && isPy3k) ["--enable-loadable-sqlite-extensions"]
+    ++ optionals (openssl' != null) ["--with-openssl=${openssl'.dev}"]
     ++ optionals (libxcrypt != null) [
       "CFLAGS=-I${libxcrypt}/include"
       "LIBS=-L${libxcrypt}/lib"
@@ -457,7 +457,7 @@ stdenv.mkDerivation {
           # don't rely on detecting glibc-isms.
           "ac_cv_func_lchmod=no"
         ]
-    ++ optionals tzdataSupport [ "--with-tzpath=${tzdata}/share/zoneinfo" ]
+    ++ optionals tzdataSupport ["--with-tzpath=${tzdata}/share/zoneinfo"]
     ++ optional static "LDFLAGS=-static";
 
   preConfigure =
@@ -501,7 +501,7 @@ stdenv.mkDerivation {
           (placeholder "out")
           libxcrypt
         ]
-        ++ optionals tzdataSupport [ tzdata ]
+        ++ optionals tzdataSupport [tzdata]
       );
     in
     lib.optionalString enableFramework ''
@@ -600,7 +600,7 @@ stdenv.mkDerivation {
 
   preFixup = lib.optionalString (stdenv.hostPlatform != stdenv.buildPlatform) ''
     # Ensure patch-shebangs uses shebangs of host interpreter.
-    export PATH=${lib.makeBinPath [ "$out" ]}:$PATH
+    export PATH=${lib.makeBinPath ["$out"]}:$PATH
   '';
 
   # Add CPython specific setup-hook that configures distutils.sysconfig to
@@ -614,7 +614,7 @@ stdenv.mkDerivation {
   # Enforce that we don't have references to the OpenSSL -dev package, which we
   # explicitly specify in our configure flags above.
   disallowedReferences =
-    lib.optionals (openssl' != null && !static && !enableFramework) [ openssl'.dev ]
+    lib.optionals (openssl' != null && !static && !enableFramework) [openssl'.dev]
     ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
       # Ensure we don't have references to build-time packages.
       # These typically end up in shebangs.
@@ -661,6 +661,6 @@ stdenv.mkDerivation {
     '';
     license = licenses.psfl;
     platforms = platforms.linux ++ platforms.darwin;
-    maintainers = with maintainers; [ fridh ];
+    maintainers = with maintainers; [fridh];
   };
 }

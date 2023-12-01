@@ -63,8 +63,8 @@ stdenv.mkDerivation {
   pname = "frostwire-desktop";
   inherit version src;
 
-  nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ gradle_6 ];
+  nativeBuildInputs = [makeWrapper];
+  buildInputs = [gradle_6];
 
   buildPhase = ''
     export GRADLE_USER_HOME=$(mktemp -d)
@@ -112,7 +112,7 @@ stdenv.mkDerivation {
       binaryBytecode # deps
     ];
     license = licenses.gpl2;
-    maintainers = with maintainers; [ gavin ];
+    maintainers = with maintainers; [gavin];
     platforms = [
       "x86_64-darwin"
       "x86_64-linux"

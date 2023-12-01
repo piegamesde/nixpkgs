@@ -17,11 +17,11 @@ stdenv.mkDerivation rec {
     hash = "sha256-pGX8BjDupJb7rmaxig0XX9RCKiIw2GjM4TVmcB5HJ+I=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
 
-  cmakeFlags = [ "-DCAF_ENABLE_EXAMPLES:BOOL=OFF" ];
+  cmakeFlags = ["-DCAF_ENABLE_EXAMPLES:BOOL=OFF"];
 
   doCheck = true;
   checkTarget = "test";

@@ -75,7 +75,7 @@ let
     if cfg.filter == null then
       "${src}/dtbs"
     else
-      pkgs.runCommand "dtbs-filtered" { } ''
+      pkgs.runCommand "dtbs-filtered" {} ''
         mkdir -p $out
         cd ${src}/dtbs
         find . -type f -name '${cfg.filter}' -print0 \
@@ -90,11 +90,11 @@ let
     name: f:
     pkgs.callPackage
       (
-        { stdenv, dtc }:
+        {stdenv, dtc}:
         stdenv.mkDerivation {
           name = "${name}-dtbo";
 
-          nativeBuildInputs = [ dtc ];
+          nativeBuildInputs = [dtc];
 
           buildCommand = ''
             $CC -E -nostdinc -I${getDev cfg.kernelPackage}/lib/modules/${cfg.kernelPackage.modDirVersion}/source/scripts/dtc/include-prefixes -undef -D__DTS__ -x assembler-with-cpp ${f} | \
@@ -102,7 +102,7 @@ let
           '';
         }
       )
-      { };
+      {};
 
   # Fill in `dtboFile` for each overlay if not set already.
   # Existence of one of these is guarded by assertion below
@@ -178,7 +178,7 @@ in
       };
 
       overlays = mkOption {
-        default = [ ];
+        default = [];
         example = literalExpression ''
           [
             { name = "pps"; dtsFile = ./dts/pps.dts; }
@@ -229,7 +229,7 @@ in
       };
 
     hardware.deviceTree.package =
-      if (cfg.overlays != [ ]) then
+      if (cfg.overlays != []) then
         pkgs.deviceTree.applyOverlays filteredDTBs (withDTBOs cfg.overlays)
       else
         filteredDTBs;

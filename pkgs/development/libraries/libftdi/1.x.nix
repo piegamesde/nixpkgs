@@ -41,9 +41,9 @@ stdenv.mkDerivation rec {
       doxygen
       graphviz
     ]
-    ++ optionals pythonSupport [ swig ];
+    ++ optionals pythonSupport [swig];
 
-  buildInputs = [ libconfuse ] ++ optionals cppSupport [ boost ];
+  buildInputs = [libconfuse] ++ optionals cppSupport [boost];
 
   cmakeFlags =
     [
@@ -58,7 +58,7 @@ stdenv.mkDerivation rec {
       "-DPYTHON_LIBRARY=${python3}/lib/libpython${python3.pythonVersion}${stdenv.hostPlatform.extensions.sharedLibrary}"
     ];
 
-  propagatedBuildInputs = [ libusb1 ];
+  propagatedBuildInputs = [libusb1];
 
   postInstall =
     ''
@@ -86,6 +86,6 @@ stdenv.mkDerivation rec {
       gpl2Only
     ];
     platforms = platforms.all;
-    maintainers = with maintainers; [ bjornfor ];
+    maintainers = with maintainers; [bjornfor];
   };
 }

@@ -49,8 +49,8 @@ in
 
     systemd.services.lambdabot = {
       description = "Lambdabot daemon";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
       # Workaround for https://github.com/lambdabot/lambdabot/issues/117
       script = ''
         mkdir -p ~/.lambdabot
@@ -65,7 +65,7 @@ in
       '';
       serviceConfig = {
         User = "lambdabot";
-        RuntimeDirectory = [ "lambdabot" ];
+        RuntimeDirectory = ["lambdabot"];
       };
     };
 

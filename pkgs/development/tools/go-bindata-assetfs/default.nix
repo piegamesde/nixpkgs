@@ -25,6 +25,6 @@ buildGoModule rec {
   meta = with lib; {
     description = "Serve embedded files from jteeuwen/go-bindata";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ avnik ];
+    maintainers = with maintainers; [avnik];
   };
 }

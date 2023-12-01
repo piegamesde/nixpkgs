@@ -35,9 +35,9 @@ stdenv.mkDerivation rec {
     c-ares
   ];
 
-  nativeCheckInputs = [ gbenchmark ];
+  nativeCheckInputs = [gbenchmark];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   cmakeFlags = [
     "-DCMAKE_BUILD_TYPE=RelWithDebInfo"
@@ -50,6 +50,6 @@ stdenv.mkDerivation rec {
     homepage = "https://www.tarantool.io/";
     license = licenses.bsd2;
     mainProgram = "tarantool";
-    maintainers = with maintainers; [ dit7ya ];
+    maintainers = with maintainers; [dit7ya];
   };
 }

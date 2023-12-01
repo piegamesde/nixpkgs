@@ -15,12 +15,12 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-/ZvMyhvnlu/5z4UHhPe8WMXmSA45Kjbr6bRqyVJH310=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   meta = with lib; {
     homepage = "https://github.com/skypjack/entt";
     description = "A header-only, tiny and easy to use library for game programming and much more written in modern C++";
-    maintainers = with maintainers; [ twey ];
+    maintainers = with maintainers; [twey];
     platforms = platforms.all;
     license = licenses.mit;
   };

@@ -22,10 +22,10 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-svvtZyfN91OT3yqxH6TgFhGYg9drpXsts4p2WqSHG8w=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs =
-    [ openssl ]
+    [openssl]
     ++ lib.optionals stdenv.isDarwin [
       CoreServices
       Security
@@ -35,7 +35,7 @@ rustPlatform.buildRustPackage rec {
     description = "A knowledge management meta-framework for geeks";
     homepage = "https://github.com/phodal/quake";
     license = licenses.mit;
-    maintainers = [ maintainers.elliot ];
+    maintainers = [maintainers.elliot];
     mainProgram = "quake";
   };
 }

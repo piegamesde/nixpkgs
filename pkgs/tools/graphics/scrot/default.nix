@@ -43,7 +43,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/resurrecting-open-source-projects/scrot";
     description = "A command-line screen capture utility";
     platforms = platforms.linux;
-    maintainers = with maintainers; [ globin ];
+    maintainers = with maintainers; [globin];
     license = licenses.mitAdvertising;
   };
 }

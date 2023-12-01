@@ -14,7 +14,7 @@ buildPythonPackage rec {
     sha256 = "83b2c2cd58d3874e6e3a784cf4cf2f1a57ce1969e50180f92b010eea24ef26cf";
   };
 
-  buildInputs = [ re2 ];
+  buildInputs = [re2];
 
   # no tests in PyPI tarball
   doCheck = false;
@@ -23,6 +23,6 @@ buildPythonPackage rec {
     description = "Python wrapper for Google's RE2";
     homepage = "https://github.com/facebook/pyre2";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ ivan ];
+    maintainers = with lib.maintainers; [ivan];
   };
 }

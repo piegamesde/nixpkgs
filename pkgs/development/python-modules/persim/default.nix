@@ -37,7 +37,7 @@ buildPythonPackage rec {
     scipy
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   preCheck = ''
     # specifically needed for darwin
@@ -46,7 +46,7 @@ buildPythonPackage rec {
     echo "backend: ps" > $HOME/.matplotlib/matplotlibrc
   '';
 
-  pythonImportsCheck = [ "persim" ];
+  pythonImportsCheck = ["persim"];
 
   disabledTests = lib.optionals (pythonAtLeast "3.10") [
     # AttributeError: module 'collections' has no attribute 'Iterable'
@@ -66,7 +66,7 @@ buildPythonPackage rec {
     description = "Distances and representations of persistence diagrams";
     homepage = "https://persim.scikit-tda.org";
     license = licenses.mit;
-    maintainers = with maintainers; [ costrouc ];
+    maintainers = with maintainers; [costrouc];
     broken = stdenv.isDarwin;
   };
 }

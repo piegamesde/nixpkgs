@@ -108,14 +108,14 @@ buildPythonPackage rec {
     "test_format_date_locale_variants"
   ];
 
-  pythonImportsCheck = [ "nikola" ];
+  pythonImportsCheck = ["nikola"];
 
   meta = with lib; {
     description = "Static website and blog generator";
     homepage = "https://getnikola.com/";
     changelog = "https://github.com/getnikola/nikola/blob/v${version}/CHANGES.txt";
     license = licenses.mit;
-    maintainers = with maintainers; [ jluttine ];
+    maintainers = with maintainers; [jluttine];
     # All tests fail
     broken = stdenv.isDarwin;
   };

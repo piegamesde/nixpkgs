@@ -31,6 +31,6 @@ build-idris-package {
     description = "Idris library to interact with HTML";
     homepage = "https://github.com/pierrebeaucamp/idris-html";
     license = lib.licenses.asl20;
-    maintainers = [ lib.maintainers.brainrape ];
+    maintainers = [lib.maintainers.brainrape];
   };
 }

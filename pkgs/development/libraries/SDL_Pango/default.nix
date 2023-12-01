@@ -43,6 +43,6 @@ stdenv.mkDerivation rec {
     license = licenses.lgpl21Plus;
     platforms = platforms.all;
     homepage = "https://sdlpango.sourceforge.net/";
-    maintainers = with maintainers; [ puckipedia ];
+    maintainers = with maintainers; [puckipedia];
   };
 }

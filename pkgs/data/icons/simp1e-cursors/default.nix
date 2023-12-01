@@ -20,7 +20,7 @@ stdenvNoCC.mkDerivation rec {
   };
 
   nativeBuildInputs = [
-    (python3.withPackages (ps: with ps; [ pillow ]))
+    (python3.withPackages (ps: with ps; [pillow]))
     librsvg
     xcursorgen
   ];
@@ -44,6 +44,6 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://gitlab.com/cursors/simp1e";
     license = licenses.gpl3;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ natto1784 ];
+    maintainers = with maintainers; [natto1784];
   };
 }

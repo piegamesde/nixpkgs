@@ -23,7 +23,7 @@ buildGoModule rec {
     description = "Database migration tool";
     homepage = "https://github.com/amacneil/dbmate";
     license = licenses.mit;
-    maintainers = [ maintainers.manveru ];
+    maintainers = [maintainers.manveru];
     platforms = platforms.unix;
   };
 }

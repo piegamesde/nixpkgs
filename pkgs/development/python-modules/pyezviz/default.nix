@@ -35,13 +35,13 @@ buildPythonPackage rec {
   # Project has no tests. test_cam_rtsp.py is more a sample for using the module
   doCheck = false;
 
-  pythonImportsCheck = [ "pyezviz" ];
+  pythonImportsCheck = ["pyezviz"];
 
   meta = with lib; {
     description = "Python interface for for Ezviz cameras";
     homepage = "https://github.com/baqs/pyEzviz/";
     changelog = "https://github.com/BaQs/pyEzviz/releases/tag/${version}";
-    license = with licenses; [ asl20 ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [asl20];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -1,10 +1,10 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "generic-cl";
   version = "20211020-git";
 
-  parasites = [ "generic-cl/test" ];
+  parasites = ["generic-cl/test"];
 
   description = "Standard Common Lisp functions implemented using generic functions.";
 
@@ -55,7 +55,7 @@ rec {
 
   packageName = "generic-cl";
 
-  asdFilesToKeep = [ "generic-cl.asd" ];
+  asdFilesToKeep = ["generic-cl.asd"];
   overrides = x: x;
 }
 /* (SYSTEM generic-cl DESCRIPTION

@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-3FXfGadIcmKp4qn6ZDcOSQHYsUNP2ObL1cJesNle+8A=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
   installPhase = ''
     # executables
     install -Dt $out/bin os-prober linux-boot-prober
@@ -84,6 +84,6 @@ stdenv.mkDerivation rec {
     description = "Utility to detect other OSs on a set of drives";
     homepage = "http://packages.debian.org/source/sid/os-prober";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ symphorien ];
+    maintainers = with maintainers; [symphorien];
   };
 }

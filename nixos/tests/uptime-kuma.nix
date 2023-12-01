@@ -1,13 +1,13 @@
 import ./make-test-python.nix (
-  { lib, ... }:
+  {lib, ...}:
 
   with lib;
 
   {
     name = "uptime-kuma";
-    meta.maintainers = with maintainers; [ julienmalka ];
+    meta.maintainers = with maintainers; [julienmalka];
 
-    nodes.machine = { pkgs, ... }: { services.uptime-kuma.enable = true; };
+    nodes.machine = {pkgs, ...}: {services.uptime-kuma.enable = true;};
 
     testScript = ''
       machine.start()

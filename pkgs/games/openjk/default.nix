@@ -20,7 +20,7 @@ let
     comment = "Open Source Jedi Academy game released by Raven Software";
     desktopName = "Jedi Academy (Multi Player)";
     genericName = "Jedi Academy";
-    categories = [ "Game" ];
+    categories = ["Game"];
   };
   jasp = makeDesktopItem rec {
     name = "jasp";
@@ -29,7 +29,7 @@ let
     comment = "Open Source Jedi Academy game released by Raven Software";
     desktopName = "Jedi Academy (Single Player)";
     genericName = "Jedi Academy";
-    categories = [ "Game" ];
+    categories = ["Game"];
   };
   josp = makeDesktopItem rec {
     name = "josp";
@@ -38,7 +38,7 @@ let
     comment = "Open Source Jedi Outcast game released by Raven Software";
     desktopName = "Jedi Outcast (Single Player)";
     genericName = "Jedi Outcast";
-    categories = [ "Game" ];
+    categories = ["Game"];
   };
 in
 stdenv.mkDerivation {
@@ -112,6 +112,6 @@ stdenv.mkDerivation {
     homepage = "https://github.com/JACoders/OpenJK";
     license = licenses.gpl2;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ tgunnoe ];
+    maintainers = with maintainers; [tgunnoe];
   };
 }

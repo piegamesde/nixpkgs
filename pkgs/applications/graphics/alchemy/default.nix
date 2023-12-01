@@ -39,9 +39,9 @@ stdenv.mkDerivation rec {
       an expanded range of ideas and possibilities in a serendipitous way.
     '';
     homepage = "http://al.chemy.org/";
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with sourceTypes; [binaryBytecode];
     license = licenses.gpl3Plus;
-    maintainers = [ maintainers.marcweber ];
+    maintainers = [maintainers.marcweber];
     platforms = platforms.linux;
   };
 }

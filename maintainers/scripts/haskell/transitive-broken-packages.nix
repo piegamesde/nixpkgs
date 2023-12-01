@@ -1,6 +1,6 @@
 let
   nixpkgs = import ../../..;
-  inherit (nixpkgs { }) pkgs lib;
+  inherit (nixpkgs {}) pkgs lib;
   getEvaluating =
     x:
     builtins.attrNames (
@@ -9,7 +9,7 @@ let
         x
     );
   brokenDeps = lib.subtractLists (getEvaluating pkgs.haskellPackages) (
-    getEvaluating (nixpkgs { config.allowBroken = true; }).haskellPackages
+    getEvaluating (nixpkgs {config.allowBroken = true;}).haskellPackages
   );
 in
 ''

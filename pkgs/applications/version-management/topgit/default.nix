@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-K0X1DGc1LQsoteUhoHLxVJRrZaaPLKSSF61OKyGB5Qg=";
   };
 
-  makeFlags = [ "prefix=${placeholder "out"}" ];
+  makeFlags = ["prefix=${placeholder "out"}"];
 
   nativeBuildInputs = [
     perl
@@ -34,6 +34,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/mackyle/topgit";
     license = licenses.gpl2;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ marcweber ];
+    maintainers = with maintainers; [marcweber];
   };
 }

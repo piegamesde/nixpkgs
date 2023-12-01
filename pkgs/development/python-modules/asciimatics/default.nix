@@ -20,7 +20,7 @@ buildPythonPackage rec {
     hash = "sha256-FtIM5CIQtDTrBbpGns24KTrH7TwM4N1PcOMNctdgIic=";
   };
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
   propagatedBuildInputs = [
     pyfiglet
@@ -49,6 +49,6 @@ buildPythonPackage rec {
     description = "Helps to create full-screen text UIs (from interactive forms to ASCII animations) on any platform";
     homepage = "https://github.com/peterbrittain/asciimatics";
     license = licenses.asl20;
-    maintainers = with maintainers; [ cmcdragonkai ];
+    maintainers = with maintainers; [cmcdragonkai];
   };
 }

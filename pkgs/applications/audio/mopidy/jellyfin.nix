@@ -22,12 +22,12 @@ python3Packages.buildPythonApplication rec {
 
   # no tests implemented
   doCheck = false;
-  pythonImportsCheck = [ "mopidy_jellyfin" ];
+  pythonImportsCheck = ["mopidy_jellyfin"];
 
   meta = with lib; {
     homepage = "https://github.com/jellyfin/mopidy-jellyfin";
     description = "Mopidy extension for playing audio files from Jellyfin";
     license = licenses.asl20;
-    maintainers = [ maintainers.pstn ];
+    maintainers = [maintainers.pstn];
   };
 }

@@ -15,10 +15,10 @@
   cudaPackages,
 }:
 
-assert cudaSupport -> cudaPackages != { };
+assert cudaSupport -> cudaPackages != {};
 
 let
-  boost_static = boost17x.override { enableStatic = true; };
+  boost_static = boost17x.override {enableStatic = true;};
 
   # TODO: migrate to redist packages
   inherit (cudaPackages) cudatoolkit;
@@ -48,11 +48,9 @@ mkDerivation rec {
     libGLU
     glew
     qtbase
-  ] ++ lib.optionals cudaSupport [ cudatoolkit ];
+  ] ++ lib.optionals cudaSupport [cudatoolkit];
 
-  nativeBuildInputs = [
-    cmake
-  ] ++ lib.optionals cudaSupport [ cudaPackages.autoAddOpenGLRunpathHook ];
+  nativeBuildInputs = [cmake] ++ lib.optionals cudaSupport [cudaPackages.autoAddOpenGLRunpathHook];
 
   meta = with lib; {
     description = "COLMAP - Structure-From-Motion and Multi-View Stereo pipeline";
@@ -63,6 +61,6 @@ mkDerivation rec {
     homepage = "https://colmap.github.io/index.html";
     license = licenses.bsd3;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ lebastr ];
+    maintainers = with maintainers; [lebastr];
   };
 }

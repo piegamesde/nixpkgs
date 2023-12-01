@@ -64,7 +64,7 @@ stdenv.mkDerivation (
       };
 
     strictDeps = true;
-    depsBuildBuild = [ pkg-config ];
+    depsBuildBuild = [pkg-config];
     nativeBuildInputs = [
       meson
       ninja
@@ -75,7 +75,7 @@ stdenv.mkDerivation (
       glib
       gstreamer
       gobject-introspection
-    ] ++ lib.optionals enableDocumentation [ hotdoc ] ++ lib.optionals enableWayland [ wayland ];
+    ] ++ lib.optionals enableDocumentation [hotdoc] ++ lib.optionals enableWayland [wayland];
 
     buildInputs =
       [
@@ -92,9 +92,9 @@ stdenv.mkDerivation (
         libGL
         pango
       ]
-      ++ lib.optionals (!stdenv.isDarwin) [ libvisual ]
-      ++ lib.optionals stdenv.isDarwin [ OpenGL ]
-      ++ lib.optionals enableAlsa [ alsa-lib ]
+      ++ lib.optionals (!stdenv.isDarwin) [libvisual]
+      ++ lib.optionals stdenv.isDarwin [OpenGL]
+      ++ lib.optionals enableAlsa [alsa-lib]
       ++ lib.optionals enableX11 [
         libXext
         libXi
@@ -107,7 +107,7 @@ stdenv.mkDerivation (
       ++ lib.optional enableCocoa Cocoa
       ++ lib.optional enableCdparanoia cdparanoia;
 
-    propagatedBuildInputs = [ gstreamer ];
+    propagatedBuildInputs = [gstreamer];
 
     mesonFlags =
       [
@@ -122,13 +122,13 @@ stdenv.mkDerivation (
         }"
         (lib.mesonEnable "doc" enableDocumentation)
       ]
-      ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [ "-Dtests=disabled" ]
+      ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) ["-Dtests=disabled"]
       ++ lib.optional (!enableX11) "-Dx11=disabled"
       # TODO How to disable Wayland?
       ++ lib.optional (!enableGl) "-Dgl=disabled"
       ++ lib.optional (!enableAlsa) "-Dalsa=disabled"
       ++ lib.optional (!enableCdparanoia) "-Dcdparanoia=disabled"
-      ++ lib.optionals stdenv.isDarwin [ "-Dlibvisual=disabled" ];
+      ++ lib.optionals stdenv.isDarwin ["-Dlibvisual=disabled"];
 
     postPatch = ''
       patchShebangs \
@@ -138,7 +138,7 @@ stdenv.mkDerivation (
 
     # This package has some `_("string literal")` string formats
     # that trip up clang with format security enabled.
-    hardeningDisable = [ "format" ];
+    hardeningDisable = ["format"];
 
     doCheck = false; # fails, wants DRI access for OpenGL
 
@@ -172,7 +172,7 @@ stdenv.mkDerivation (
         "gstreamer-video-1.0"
       ];
       platforms = platforms.unix;
-      maintainers = with maintainers; [ matthewbauer ];
+      maintainers = with maintainers; [matthewbauer];
     };
   }
 )

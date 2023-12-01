@@ -23,10 +23,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-eaAbqeFY+B3CcKJywC3vaRsWZNQENTbALc7L7uW0W6U=";
   };
 
-  nativeBuildInputs = [ wrapGAppsHook ];
+  nativeBuildInputs = [wrapGAppsHook];
 
   buildInputs = [
-    (python3.withPackages (ps: with ps; [ pygobject3 ]))
+    (python3.withPackages (ps: with ps; [pygobject3]))
     headsetcontrol
     gtk3
     gobject-introspection
@@ -64,7 +64,7 @@ stdenv.mkDerivation rec {
     description = "A app-indicator for GNOME desktops for controlling some features of various wireless headsets";
     longDescription = "A simple app-indicator for GNOME desktops to display the battery charge of some wireless headsets which also allows to control some functions like LEDs, sidetone and others.";
     platforms = platforms.linux;
-    maintainers = with maintainers; [ zebreus ];
+    maintainers = with maintainers; [zebreus];
     license = licenses.bsd2;
   };
 }

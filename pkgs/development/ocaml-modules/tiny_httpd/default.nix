@@ -19,13 +19,13 @@ buildDunePackage rec {
     sha256 = "sha256:1z9hzc0ib7pg9fsjmpggjqwrnip57izr2v0na7vc7s25lxsiag6a";
   };
 
-  buildInputs = [ result ];
-  propagatedBuildInputs = [ seq ];
+  buildInputs = [result];
+  propagatedBuildInputs = [seq];
 
   meta = {
     description = "Minimal HTTP server using good old threads";
     inherit (src.meta) homepage;
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
   };
 }

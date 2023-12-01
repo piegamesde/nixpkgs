@@ -20,7 +20,7 @@ buildPythonApplication rec {
     "--prefix"
     "PATH"
     ":"
-    "${lib.makeBinPath [ unar ]}"
+    "${lib.makeBinPath [unar]}"
   ];
 
   postFixup = ''
@@ -39,6 +39,6 @@ buildPythonApplication rec {
     '';
     license = licenses.gpl3Only;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ artturin ];
+    maintainers = with maintainers; [artturin];
   };
 }

@@ -17,7 +17,7 @@ python3Packages.buildPythonApplication rec {
 
   format = "pyproject";
 
-  nativeBuildInputs = with python3Packages; [ poetry-core ];
+  nativeBuildInputs = with python3Packages; [poetry-core];
 
   propagatedBuildInputs = with python3Packages; [
     beautifulsoup4
@@ -29,6 +29,6 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://github.com/Emersont1/itchio";
     description = "itch.io download tool";
     license = licenses.mit;
-    maintainers = with maintainers; [ fgaz ];
+    maintainers = with maintainers; [fgaz];
   };
 }

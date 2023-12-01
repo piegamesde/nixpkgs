@@ -49,7 +49,7 @@ stdenv.mkDerivation (
     nativeBuildInputs = [
       pkg-config
       intltool
-    ] ++ lib.optionals stdenv.isDarwin [ autoreconfHook ];
+    ] ++ lib.optionals stdenv.isDarwin [autoreconfHook];
     buildInputs =
       [
         atk
@@ -75,7 +75,7 @@ stdenv.mkDerivation (
     passthru.tests.pkg-config = testers.testMetaPkgConfig finalAttrs.finalPackage;
 
     meta = {
-      pkgConfigModules = [ "gtksourceview-2.0" ];
+      pkgConfigModules = ["gtksourceview-2.0"];
     };
   }
 )

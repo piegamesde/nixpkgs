@@ -8,7 +8,7 @@
 let
   cfg = config.services.lokinet;
   dataDir = "/var/lib/lokinet";
-  settingsFormat = pkgs.formats.ini { listsAsDuplicateKeys = true; };
+  settingsFormat = pkgs.formats.ini {listsAsDuplicateKeys = true;};
   configFile = settingsFormat.generate "lokinet.ini" (
     lib.filterAttrsRecursive (n: v: v != null) cfg.settings
   );
@@ -47,7 +47,7 @@ with lib; {
 
               upstream = mkOption {
                 type = listOf str;
-                default = [ "9.9.9.10" ];
+                default = ["9.9.9.10"];
                 example = [
                   "1.1.1.1"
                   "8.8.8.8"
@@ -96,7 +96,7 @@ with lib; {
             };
           };
         };
-      default = { };
+      default = {};
       example = literalExpression ''
         {
           dns = {
@@ -130,7 +130,7 @@ with lib; {
         "network-online.target"
         "network.target"
       ];
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
 
       preStart = ''
         ln -sf ${cfg.package}/share/bootstrap.signed ${dataDir}
@@ -178,6 +178,6 @@ with lib; {
       };
     };
 
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
   };
 }

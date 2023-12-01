@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
       perl
       gsl
     ]
-    ++ lib.optionals stdenv.isDarwin [ xcbuild ];
+    ++ lib.optionals stdenv.isDarwin [xcbuild];
 
   buildInputs = lib.optionals useIv [
     xorg.libX11.dev
@@ -54,14 +54,14 @@ stdenv.mkDerivation rec {
       python3.pkgs.scikit-build
       python3.pkgs.matplotlib
     ]
-    ++ lib.optionals useMpi [ mpi ]
-    ++ lib.optionals useMpi [ python3.pkgs.mpi4py ]
+    ++ lib.optionals useMpi [mpi]
+    ++ lib.optionals useMpi [python3.pkgs.mpi4py]
     ++ lib.optionals useRx3d [
       python3.pkgs.cython
       python3.pkgs.numpy
     ];
 
-  patches = [ ./neuron_darwin_rpath.patch ];
+  patches = [./neuron_darwin_rpath.patch];
 
   # Patch build shells for cmake (bin, src, cmake) and submodules (external)
   postPatch = ''
@@ -100,7 +100,7 @@ stdenv.mkDerivation rec {
       potential close to the membrane), and where cell membrane properties are complex,
       involving many ion-specific channels, ion accumulation, and second messengers
     '';
-    sourceProvenance = with sourceTypes; [ fromSource ];
+    sourceProvenance = with sourceTypes; [fromSource];
     license = licenses.bsd3;
     homepage = "http://www.neuron.yale.edu/neuron";
     maintainers = with maintainers; [

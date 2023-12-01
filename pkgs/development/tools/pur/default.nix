@@ -15,16 +15,16 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-JAjz9A9r1H6MJX7MSq7UvQKfULhB9UuPP3tI6Cggx9I=";
   };
 
-  propagatedBuildInputs = [ python3.pkgs.click ];
+  propagatedBuildInputs = [python3.pkgs.click];
 
-  nativeCheckInputs = [ python3.pkgs.pytestCheckHook ];
+  nativeCheckInputs = [python3.pkgs.pytestCheckHook];
 
-  pythonImportsCheck = [ "pur" ];
+  pythonImportsCheck = ["pur"];
 
   meta = with lib; {
     description = "Python library for update and track the requirements";
     homepage = "https://github.com/alanhamlett/pip-update-requirements";
-    license = with licenses; [ bsd2 ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [bsd2];
+    maintainers = with maintainers; [fab];
   };
 }

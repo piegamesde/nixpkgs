@@ -5,23 +5,23 @@ args@{
 }:
 
 (import ../make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   let
     adminpass = "hunter2";
     adminuser = "root";
   in
   {
     name = "nextcloud-with-mysql-and-memcached";
-    meta = with pkgs.lib.maintainers; { maintainers = [ eqyiel ]; };
+    meta = with pkgs.lib.maintainers; {maintainers = [eqyiel];};
 
     nodes = {
       # The only thing the client needs to do is download a file.
-      client = { ... }: { };
+      client = {...}: {};
 
       nextcloud =
-        { config, pkgs, ... }:
+        {config, pkgs, ...}:
         {
-          networking.firewall.allowedTCPPorts = [ 80 ];
+          networking.firewall.allowedTCPPorts = [80];
 
           services.nextcloud = {
             enable = true;

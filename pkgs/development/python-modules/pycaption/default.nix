@@ -31,7 +31,7 @@ buildPythonPackage rec {
   ];
 
   passthru.optional-dependencies = {
-    transcript = [ nltk ];
+    transcript = [nltk];
   };
 
   nativeCheckInputs = [
@@ -44,6 +44,6 @@ buildPythonPackage rec {
     description = "Closed caption converter";
     homepage = "https://github.com/pbs/pycaption";
     license = licenses.asl20;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

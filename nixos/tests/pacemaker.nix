@@ -1,8 +1,8 @@
 import ./make-test-python.nix (
-  { pkgs, lib, ... }:
+  {pkgs, lib, ...}:
   rec {
     name = "pacemaker";
-    meta = with pkgs.lib.maintainers; { maintainers = [ astro ]; };
+    meta = with pkgs.lib.maintainers; {maintainers = [astro];};
 
     nodes =
       let
@@ -22,7 +22,7 @@ import ./make-test-python.nix (
                 (i: name: {
                   nodeid = i;
                   inherit name;
-                  ring_addrs = [ (builtins.head nodes.${name}.networking.interfaces.eth1.ipv4.addresses).address ];
+                  ring_addrs = [(builtins.head nodes.${name}.networking.interfaces.eth1.ipv4.addresses).address];
                 })
                 (builtins.attrNames nodes);
           };

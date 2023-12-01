@@ -36,14 +36,14 @@ buildPythonPackage rec {
     sphinxHook
   ];
 
-  pythonImportsCheck = [ "colorzero" ];
+  pythonImportsCheck = ["colorzero"];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = with lib; {
     description = "Yet another Python color library";
     homepage = "https://github.com/waveform80/colorzero";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

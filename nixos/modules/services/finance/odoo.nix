@@ -9,7 +9,7 @@ with lib;
 
 let
   cfg = config.services.odoo;
-  format = pkgs.formats.ini { };
+  format = pkgs.formats.ini {};
 in
 {
   options = {
@@ -25,14 +25,14 @@ in
 
       addons = mkOption {
         type = with types; listOf package;
-        default = [ ];
+        default = [];
         example = literalExpression "[ pkgs.odoo_enterprise ]";
         description = lib.mdDoc "Odoo addons.";
       };
 
       settings = mkOption {
         type = format.type;
-        default = { };
+        default = {};
         description = lib.mdDoc ''
           Odoo configuration settings. For more details see <https://www.odoo.com/documentation/15.0/administration/install/deploy.html>
         '';
@@ -54,11 +54,11 @@ in
       services.nginx = mkIf (cfg.domain != null) {
         upstreams = {
           odoo.servers = {
-            "127.0.0.1:8069" = { };
+            "127.0.0.1:8069" = {};
           };
 
           odoochat.servers = {
-            "127.0.0.1:8072" = { };
+            "127.0.0.1:8072" = {};
           };
         };
 
@@ -97,21 +97,21 @@ in
         isSystemUser = true;
         group = "odoo";
       };
-      users.groups.odoo = { };
+      users.groups.odoo = {};
 
       systemd.services.odoo = {
-        wantedBy = [ "multi-user.target" ];
+        wantedBy = ["multi-user.target"];
         after = [
           "network.target"
           "postgresql.service"
         ];
 
         # pg_dump
-        path = [ config.services.postgresql.package ];
+        path = [config.services.postgresql.package];
 
-        requires = [ "postgresql.service" ];
+        requires = ["postgresql.service"];
         script = "HOME=$STATE_DIRECTORY ${cfg.package}/bin/odoo ${
-          optionalString (cfg.addons != [ ])
+          optionalString (cfg.addons != [])
             "--addons-path=${concatMapStringsSep "," escapeShellArg cfg.addons}"
         } -c ${cfgFile}";
 
@@ -133,7 +133,7 @@ in
             };
           }
         ];
-        ensureDatabases = [ "odoo" ];
+        ensureDatabases = ["odoo"];
       };
     }
   );

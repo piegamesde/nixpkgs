@@ -26,15 +26,15 @@ stdenv.mkDerivation rec {
     graphviz
   ];
 
-  buildInputs = [ libogg ];
+  buildInputs = [libogg];
 
-  cmakeFlags = lib.optionals (!stdenv.hostPlatform.isStatic) [ "-DBUILD_SHARED_LIBS=ON" ];
+  cmakeFlags = lib.optionals (!stdenv.hostPlatform.isStatic) ["-DBUILD_SHARED_LIBS=ON"];
 
   CFLAGS = [
     "-O3"
     "-funroll-loops"
   ];
-  CXXFLAGS = [ "-O3" ];
+  CXXFLAGS = ["-O3"];
 
   # doCheck = true; # takes lots of time
 
@@ -52,6 +52,6 @@ stdenv.mkDerivation rec {
     changelog = "https://xiph.org/flac/changelog.html";
     platforms = platforms.all;
     license = licenses.bsd3;
-    maintainers = with maintainers; [ ruuda ];
+    maintainers = with maintainers; [ruuda];
   };
 }

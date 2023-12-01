@@ -1,4 +1,4 @@
-{ version, hash }:
+{version, hash}:
 
 {
   callPackage,
@@ -94,7 +94,7 @@ stdenv.mkDerivation (
         autoconf213
         yasm # to buid icu? seems weird
       ]
-      ++ lib.optionals stdenv.isDarwin [ xcbuild ];
+      ++ lib.optionals stdenv.isDarwin [xcbuild];
 
     buildInputs =
       [
@@ -108,7 +108,7 @@ stdenv.mkDerivation (
         libiconv
       ];
 
-    depsBuildBuild = [ buildPackages.stdenv.cc ];
+    depsBuildBuild = [buildPackages.stdenv.cc];
 
     setOutputFlags = false; # Configure script only understands --includedir
 
@@ -126,7 +126,7 @@ stdenv.mkDerivation (
         "--enable-release"
         "--enable-shared-js"
       ]
-      ++ lib.optionals (lib.versionAtLeast version "91") [ "--disable-debug" ]
+      ++ lib.optionals (lib.versionAtLeast version "91") ["--disable-debug"]
       ++ [
         "--disable-jemalloc"
         "--disable-strip"
@@ -141,7 +141,7 @@ stdenv.mkDerivation (
 
     # mkDerivation by default appends --build/--host to configureFlags when cross compiling
     # These defaults are bogus for Spidermonkey - avoid passing them by providing an empty list
-    configurePlatforms = [ ];
+    configurePlatforms = [];
 
     enableParallelBuilding = true;
 
@@ -194,7 +194,7 @@ stdenv.mkDerivation (
       ln -s $out/bin/js${lib.versions.major version} $out/bin/js
     '';
 
-    passthru.tests.run = callPackage ./test.nix { spidermonkey = finalAttrs.finalPackage; };
+    passthru.tests.run = callPackage ./test.nix {spidermonkey = finalAttrs.finalPackage;};
 
     meta = with lib; {
       description = "Mozilla's JavaScript engine written in C/C++";

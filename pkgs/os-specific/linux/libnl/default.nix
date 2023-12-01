@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     repo = "libnl";
     owner = "thom311";
-    rev = "libnl${lib.replaceStrings [ "." ] [ "_" ] version}";
+    rev = "libnl${lib.replaceStrings ["."] ["_"] version}";
     sha256 = "sha256-Ty9NdWKWB29MTRfG5OJlSE0mSTN3Wy+sR4KtuExXcB4=";
   };
 
@@ -58,7 +58,7 @@ stdenv.mkDerivation rec {
     homepage = "http://www.infradead.org/~tgr/libnl/";
     description = "Linux Netlink interface library suite";
     license = licenses.lgpl21;
-    maintainers = with maintainers; [ fpletz ];
+    maintainers = with maintainers; [fpletz];
     platforms = platforms.linux;
   };
 }

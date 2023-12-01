@@ -30,7 +30,7 @@
 
     cargoLock.lockFile = ./Cargo.lock;
 
-    nativeBuildInputs = [ makeWrapper ];
+    nativeBuildInputs = [makeWrapper];
     buildInputs = lib.optional stdenvNoCC.isDarwin Security;
 
     postInstall = ''
@@ -46,7 +46,7 @@
     passthru.tests =
       let
         makeTestSrc =
-          { name, src }:
+          {name, src}:
           stdenvNoCC.mkDerivation {
             name = "${name}-src";
 
@@ -68,7 +68,7 @@
           testers.invalidateFetcherByDrvHash fetchNpmDeps {
             inherit name hash forceGitDeps;
 
-            src = makeTestSrc { inherit name src; };
+            src = makeTestSrc {inherit name src;};
           };
       in
       {
@@ -144,7 +144,7 @@
 
     meta = with lib; {
       description = "Prefetch dependencies from npm (for use with `fetchNpmDeps`)";
-      maintainers = with maintainers; [ winter ];
+      maintainers = with maintainers; [winter];
       license = licenses.mit;
     };
   };
@@ -159,21 +159,21 @@
     let
       hash_ =
         if hash != "" then
-          { outputHash = hash; }
+          {outputHash = hash;}
         else
           {
             outputHash = "";
             outputHashAlgo = "sha256";
           };
 
-      forceGitDeps_ = lib.optionalAttrs forceGitDeps { FORCE_GIT_DEPS = true; };
+      forceGitDeps_ = lib.optionalAttrs forceGitDeps {FORCE_GIT_DEPS = true;};
     in
     stdenvNoCC.mkDerivation (
       args
       // {
         inherit name;
 
-        nativeBuildInputs = [ prefetch-npm-deps ];
+        nativeBuildInputs = [prefetch-npm-deps];
 
         buildPhase = ''
           runHook preBuild

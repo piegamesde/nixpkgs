@@ -97,7 +97,7 @@ in
 
     extraArgs = mkOption {
       type = types.listOf types.str;
-      default = [ ];
+      default = [];
       description = lib.mdDoc ''
         Extra startup options for the FAHClient. Run
         `FAHClient --help` to find all the available options.
@@ -108,8 +108,8 @@ in
   config = mkIf cfg.enable {
     systemd.services.foldingathome = {
       description = "Folding@home client";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
       script = ''
         exec ${cfg.package}/bin/FAHClient ${lib.escapeShellArgs args}
       '';
@@ -123,6 +123,6 @@ in
   };
 
   meta = {
-    maintainers = with lib.maintainers; [ zimbatm ];
+    maintainers = with lib.maintainers; [zimbatm];
   };
 }

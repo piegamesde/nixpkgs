@@ -15,7 +15,7 @@ let
     PORT = cfg.port;
     USERS = cfg.users;
     SECURE_ONLY = cfg.secureOnly;
-  } // lib.optionalAttrs (cfg.adTag != null) { AD_TAG = cfg.adTag; } // cfg.extraConfig;
+  } // lib.optionalAttrs (cfg.adTag != null) {AD_TAG = cfg.adTag;} // cfg.extraConfig;
 
   convertOption =
     opt:
@@ -88,7 +88,7 @@ in
 
       extraConfig = mkOption {
         type = types.attrs;
-        default = { };
+        default = {};
         example = {
           STATS_PRINT_PERIOD = 600;
         };
@@ -105,7 +105,7 @@ in
 
     systemd.services.mtprotoproxy = {
       description = "MTProto Proxy Daemon";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         ExecStart = "${pkgs.mtprotoproxy}/bin/mtprotoproxy ${configFile}";
         DynamicUser = true;

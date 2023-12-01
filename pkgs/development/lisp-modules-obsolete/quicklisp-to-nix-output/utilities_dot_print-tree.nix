@@ -1,10 +1,10 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "utilities_dot_print-tree";
   version = "20200325-git";
 
-  parasites = [ "utilities.print-tree/test" ];
+  parasites = ["utilities.print-tree/test"];
 
   description = "This system provides simple facilities for printing tree structures.";
 
@@ -21,7 +21,7 @@ rec {
 
   packageName = "utilities.print-tree";
 
-  asdFilesToKeep = [ "utilities.print-tree.asd" ];
+  asdFilesToKeep = ["utilities.print-tree.asd"];
   overrides = x: x;
 }
 /* (SYSTEM utilities.print-tree DESCRIPTION

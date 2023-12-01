@@ -4,7 +4,7 @@
   fetchurl,
   writeText,
   jq,
-  conf ? { },
+  conf ? {},
 }:
 
 let
@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Yet another Matrix client for the web";
     homepage = "https://cinny.in/";
-    maintainers = with maintainers; [ abbe ];
+    maintainers = with maintainers; [abbe];
     license = licenses.mit;
     platforms = platforms.all;
   };

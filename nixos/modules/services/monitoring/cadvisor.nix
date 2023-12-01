@@ -88,7 +88,7 @@ in
 
       extraOptions = mkOption {
         type = types.listOf types.str;
-        default = [ ];
+        default = [];
         description = lib.mdDoc ''
           Additional cadvisor options.
 
@@ -114,14 +114,14 @@ in
 
     (mkIf cfg.enable {
       systemd.services.cadvisor = {
-        wantedBy = [ "multi-user.target" ];
+        wantedBy = ["multi-user.target"];
         after = [
           "network.target"
           "docker.service"
           "influxdb.service"
         ];
 
-        path = optionals config.boot.zfs.enabled [ pkgs.zfs ];
+        path = optionals config.boot.zfs.enabled [pkgs.zfs];
 
         postStart = mkBefore ''
           until ${pkgs.curl.bin}/bin/curl -s -o /dev/null 'http://${cfg.listenAddress}:${toString cfg.port}/containers/'; do

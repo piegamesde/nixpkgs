@@ -31,10 +31,10 @@ let
     description = "Passwordless MFA identities for workforces, customers, and developers";
     homepage = "https://www.beyondidentity.com";
     downloadPage = "https://app.byndid.com/downloads";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.unfree;
-    maintainers = with maintainers; [ klden ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with maintainers; [klden];
+    platforms = ["x86_64-linux"];
   };
 
   beyond-identity = stdenv.mkDerivation {
@@ -45,7 +45,7 @@ let
       sha512 = "sha512-JrHLf7KkJVbJLxx54OTvOSaIzY3+hjX+bpkeBHKX23YriCJssUUvEP6vlbI4r6gjMMFMhW92k0iikAgD1Tr4ug==";
     };
 
-    nativeBuildInputs = [ dpkg ];
+    nativeBuildInputs = [dpkg];
 
     unpackPhase = ''
       dpkg -x $src .

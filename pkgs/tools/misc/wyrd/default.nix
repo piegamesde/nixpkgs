@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
     homepage = "http://pessimization.com/software/wyrd/";
     downloadPage = "http://pessimization.com/software/wyrd/";
     license = licenses.gpl2;
-    maintainers = [ maintainers.prikhi ];
+    maintainers = [maintainers.prikhi];
     platforms = platforms.linux;
   };
 }

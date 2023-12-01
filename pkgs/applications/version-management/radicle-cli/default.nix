@@ -47,10 +47,10 @@ rustPlatform.buildRustPackage rec {
     cmake
     installShellFiles
     asciidoctor
-  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ DarwinTools ];
+  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [DarwinTools];
 
   buildInputs =
-    [ openssl ]
+    [openssl]
     ++ lib.optionals stdenv.hostPlatform.isDarwin [
       libusb1
       AppKit
@@ -73,14 +73,14 @@ rustPlatform.buildRustPackage rec {
   '';
 
   passthru.tests = {
-    version = testers.testVersion { package = radicle-cli; };
+    version = testers.testVersion {package = radicle-cli;};
   };
 
   meta = {
     description = "Command-line tooling for Radicle, a decentralized code collaboration network";
     homepage = "https://radicle.xyz";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ amesgen ];
+    maintainers = with lib.maintainers; [amesgen];
     platforms = lib.platforms.unix;
     mainProgram = "rad";
   };

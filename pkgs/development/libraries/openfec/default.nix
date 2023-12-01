@@ -19,9 +19,9 @@ stdenv.mkDerivation rec {
     "dev"
   ];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
-  cmakeFlags = [ "-DDEBUG:STRING=OFF" ];
+  cmakeFlags = ["-DDEBUG:STRING=OFF"];
 
   installPhase =
     let
@@ -47,7 +47,7 @@ stdenv.mkDerivation rec {
     description = "Application-level Forward Erasure Correction codes";
     homepage = "https://github.com/roc-streaming/openfec";
     license = licenses.cecill-c;
-    maintainers = with maintainers; [ bgamari ];
+    maintainers = with maintainers; [bgamari];
     platforms = platforms.unix;
   };
 }

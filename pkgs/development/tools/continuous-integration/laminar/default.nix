@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
     rev = version;
     sha256 = "sha256-PLnfiWpelgKhs4FNry60sm6/QdhYs76FnZ/ZcRmb4Ok=";
   };
-  patches = [ ./patches/no-network.patch ];
+  patches = [./patches/no-network.patch];
 
   # We need both binary from "capnproto" and library files.
   nativeBuildInputs = [
@@ -53,7 +53,7 @@ stdenv.mkDerivation rec {
     zlib
     rapidjson
   ];
-  cmakeFlags = [ "-DLAMINAR_VERSION=${version}" ];
+  cmakeFlags = ["-DLAMINAR_VERSION=${version}"];
 
   preBuild = ''
     mkdir -p js css

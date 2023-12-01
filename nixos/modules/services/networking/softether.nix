@@ -10,7 +10,7 @@ with lib;
 let
   cfg = config.services.softether;
 
-  package = cfg.package.override { inherit (cfg) dataDir; };
+  package = cfg.package.override {inherit (cfg) dataDir;};
 in
 {
 
@@ -69,11 +69,11 @@ in
 
     mkMerge [
       {
-        environment.systemPackages = [ package ];
+        environment.systemPackages = [package];
 
         systemd.services.softether-init = {
           description = "SoftEther VPN services initial task";
-          wantedBy = [ "network.target" ];
+          wantedBy = ["network.target"];
           serviceConfig = {
             Type = "oneshot";
             RemainAfterExit = false;
@@ -94,9 +94,9 @@ in
       (mkIf cfg.vpnserver.enable {
         systemd.services.vpnserver = {
           description = "SoftEther VPN Server";
-          after = [ "softether-init.service" ];
-          requires = [ "softether-init.service" ];
-          wantedBy = [ "network.target" ];
+          after = ["softether-init.service"];
+          requires = ["softether-init.service"];
+          wantedBy = ["network.target"];
           serviceConfig = {
             Type = "forking";
             ExecStart = "${package}/bin/vpnserver start";
@@ -115,9 +115,9 @@ in
       (mkIf cfg.vpnbridge.enable {
         systemd.services.vpnbridge = {
           description = "SoftEther VPN Bridge";
-          after = [ "softether-init.service" ];
-          requires = [ "softether-init.service" ];
-          wantedBy = [ "network.target" ];
+          after = ["softether-init.service"];
+          requires = ["softether-init.service"];
+          wantedBy = ["network.target"];
           serviceConfig = {
             Type = "forking";
             ExecStart = "${package}/bin/vpnbridge start";
@@ -136,9 +136,9 @@ in
       (mkIf cfg.vpnclient.enable {
         systemd.services.vpnclient = {
           description = "SoftEther VPN Client";
-          after = [ "softether-init.service" ];
-          requires = [ "softether-init.service" ];
-          wantedBy = [ "network.target" ];
+          after = ["softether-init.service"];
+          requires = ["softether-init.service"];
+          wantedBy = ["network.target"];
           serviceConfig = {
             Type = "forking";
             ExecStart = "${package}/bin/vpnclient start";
@@ -158,7 +158,7 @@ in
             ${cfg.vpnclient.down}
           '';
         };
-        boot.kernelModules = [ "tun" ];
+        boot.kernelModules = ["tun"];
       })
     ]
   );

@@ -57,7 +57,7 @@ let
     changelog = "https://github.com/psycopg/psycopg/blob/${version}/docs/news.rst#current-release";
     homepage = "https://github.com/psycopg/psycopg";
     license = lib.licenses.lgpl3Plus;
-    maintainers = with lib.maintainers; [ hexa ];
+    maintainers = with lib.maintainers; [hexa];
   };
 
   psycopg-c = buildPythonPackage {
@@ -101,7 +101,7 @@ let
       cd psycopg_pool
     '';
 
-    propagatedBuildInputs = [ typing-extensions ];
+    propagatedBuildInputs = [typing-extensions];
 
     # tested in psycopg
     doCheck = false;
@@ -149,7 +149,7 @@ buildPythonPackage rec {
   propagatedBuildInputs = [
     psycopg-c
     typing-extensions
-  ] ++ lib.optionals (pythonOlder "3.9") [ backports-zoneinfo ];
+  ] ++ lib.optionals (pythonOlder "3.9") [backports-zoneinfo];
 
   pythonImportsCheck = [
     "psycopg"
@@ -158,8 +158,8 @@ buildPythonPackage rec {
   ];
 
   passthru.optional-dependencies = {
-    c = [ psycopg-c ];
-    pool = [ psycopg-pool ];
+    c = [psycopg-c];
+    pool = [psycopg-pool];
   };
 
   nativeCheckInputs =

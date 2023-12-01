@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{config, lib, ...}:
 
 with lib;
 
@@ -21,7 +21,7 @@ in
       };
 
       dates = mkOption {
-        default = [ "03:45" ];
+        default = ["03:45"];
         type = types.listOf types.str;
         description = lib.mdDoc ''
           Specification (in the format described by

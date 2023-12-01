@@ -39,6 +39,6 @@ stdenv.mkDerivation rec {
       lgpl2Only
     ];
     platforms = platforms.linux;
-    maintainers = with maintainers; [ arezvov ] ++ teams.c3d2.members;
+    maintainers = with maintainers; [arezvov] ++ teams.c3d2.members;
   };
 }

@@ -38,7 +38,7 @@ mkDerivation rec {
     extra-cmake-modules
   ];
   buildInputs = [
-    (elfutils.override { enableDebuginfod = true; }) # perfparser needs to find debuginfod.h
+    (elfutils.override {enableDebuginfod = true;}) # perfparser needs to find debuginfod.h
     kconfigwidgets
     ki18n
     kio
@@ -63,7 +63,7 @@ mkDerivation rec {
     mkdir -p 3rdparty/{perfparser,PrefixTickLabels}/.git
   '';
 
-  qtWrapperArgs = [ "--prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ rustc-demangle ]}" ];
+  qtWrapperArgs = ["--prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [rustc-demangle]}"];
 
   meta = with lib; {
     description = "A GUI for Linux perf";
@@ -79,6 +79,6 @@ mkDerivation rec {
       gpl3Only
     ];
     platforms = platforms.linux;
-    maintainers = with maintainers; [ nh2 ];
+    maintainers = with maintainers; [nh2];
   };
 }

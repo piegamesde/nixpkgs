@@ -58,7 +58,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/phaag/nfdump";
     changelog = "https://github.com/phaag/nfdump/releases/tag/v${version}";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ takikawa ];
+    maintainers = with maintainers; [takikawa];
     platforms = platforms.unix;
   };
 }

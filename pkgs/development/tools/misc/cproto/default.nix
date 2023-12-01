@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
   };
 
   # patch made by Joe Khoobyar copied from gentoo bugs
-  patches = [ ./cproto.patch ];
+  patches = [./cproto.patch];
 
   nativeBuildInputs = [
     flex

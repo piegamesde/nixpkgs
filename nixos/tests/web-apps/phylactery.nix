@@ -1,10 +1,10 @@
 import ../make-test-python.nix (
-  { pkgs, lib, ... }:
+  {pkgs, lib, ...}:
   {
     name = "phylactery";
 
     nodes.machine =
-      { ... }:
+      {...}:
       {
         services.phylactery = rec {
           enable = true;
@@ -20,6 +20,6 @@ import ../make-test-python.nix (
       machine.wait_until_succeeds('curl localhost:8080')
     '';
 
-    meta.maintainers = with lib.maintainers; [ McSinyx ];
+    meta.maintainers = with lib.maintainers; [McSinyx];
   }
 )

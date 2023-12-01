@@ -1,5 +1,5 @@
 import ./make-test-python.nix (
-  { pkgs, lib, ... }:
+  {pkgs, lib, ...}:
   {
     name = "nginx-modsecurity";
 
@@ -13,7 +13,7 @@ import ./make-test-python.nix (
       {
         services.nginx = {
           enable = true;
-          additionalModules = [ pkgs.nginxModules.modsecurity ];
+          additionalModules = [pkgs.nginxModules.modsecurity];
           virtualHosts.localhost =
             let
               modsecurity_conf = pkgs.writeText "modsecurity.conf" ''
@@ -23,7 +23,7 @@ import ./make-test-python.nix (
                 SecRule REQUEST_METHOD   "HEAD"        "id:100, phase:1, block"
                 SecRule REQUEST_FILENAME "secret.html" "id:101, phase:2, block"
               '';
-              testroot = pkgs.runCommand "testroot" { } ''
+              testroot = pkgs.runCommand "testroot" {} ''
                 mkdir -p $out
                 echo "<html><body>Hello World!</body></html>" > $out/index.html
                 echo "s3cret" > $out/secret.html

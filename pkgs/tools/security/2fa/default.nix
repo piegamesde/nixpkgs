@@ -27,6 +27,6 @@ buildGoModule rec {
     homepage = "https://rsc.io/2fa";
     description = "Two-factor authentication on the command line";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ rvolosatovs ];
+    maintainers = with maintainers; [rvolosatovs];
   };
 }

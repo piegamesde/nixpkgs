@@ -16,14 +16,14 @@ buildPythonPackage rec {
   # Tests access the internet
   doCheck = false;
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
-  pythonImportsCheck = [ "rpmfile" ];
+  pythonImportsCheck = ["rpmfile"];
 
   meta = with lib; {
     description = "Read rpm archive files";
     homepage = "https://github.com/srossross/rpmfile";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

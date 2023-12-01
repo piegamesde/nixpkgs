@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
     sha256 = "WuZnwVFycHTzU/3x07Yd5dcirwdHM7qAVR7Jq0Zqn/4=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   buildCommand = ''
     install -Dm555 $src $out/bin/cs

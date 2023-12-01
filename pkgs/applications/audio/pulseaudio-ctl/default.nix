@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
       --replace '$0' ${pname}
   '';
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   postFixup = ''
     wrapProgram $out/bin/${pname} \
@@ -52,7 +52,7 @@ stdenv.mkDerivation rec {
     description = "Control pulseaudio volume from the shell or mapped to keyboard shortcuts. No need for alsa-utils";
     homepage = "https://bbs.archlinux.org/viewtopic.php?id=124513";
     license = licenses.mit;
-    maintainers = with maintainers; [ peterhoeg ];
+    maintainers = with maintainers; [peterhoeg];
     platforms = platforms.linux;
   };
 }

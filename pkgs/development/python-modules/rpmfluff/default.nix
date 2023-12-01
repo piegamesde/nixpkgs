@@ -15,12 +15,12 @@ buildPythonPackage rec {
   };
 
   LC_ALL = "en_US.utf-8";
-  buildInputs = [ glibcLocales ];
+  buildInputs = [glibcLocales];
 
   meta = with lib; {
     description = "lightweight way of building RPMs, and sabotaging them";
     homepage = "https://pagure.io/rpmfluff";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ disassembler ];
+    maintainers = with maintainers; [disassembler];
   };
 }

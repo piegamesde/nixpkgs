@@ -22,7 +22,7 @@ stdenv.mkDerivation {
     sha256 = "uz+lkRRUTRr8WR295esNEbgjlZ/Em7mBk6Nx0BWLfg4=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     runHook preInstall
@@ -48,6 +48,6 @@ stdenv.mkDerivation {
     description = "Hedgedoc CLI";
     homepage = "https://github.com/hedgedoc/cli";
     license = licenses.agpl3;
-    maintainers = with maintainers; [ drupol ];
+    maintainers = with maintainers; [drupol];
   };
 }

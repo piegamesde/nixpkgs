@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-6zBMAi9ruPPlcnpdgqwl35QZ5u4MyFPUa70yvGTkHpo=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     fuse
@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  buildFlags = lib.optionals stdenv.isDarwin [ "CPPFLAGS=-UHAVE_STRUCT_STAT_ST_BIRTHTIME" ];
+  buildFlags = lib.optionals stdenv.isDarwin ["CPPFLAGS=-UHAVE_STRUCT_STAT_ST_BIRTHTIME"];
 
   # Fix the build on macOS with macFUSE installed
   postPatch = lib.optionalString stdenv.isDarwin ''
@@ -56,6 +56,6 @@ stdenv.mkDerivation rec {
     description = "Open Source, Petabyte, Fault-Tolerant, Highly Performing, Scalable Network Distributed File System";
     platforms = platforms.unix;
     license = licenses.gpl2;
-    maintainers = [ maintainers.mfossen ];
+    maintainers = [maintainers.mfossen];
   };
 }

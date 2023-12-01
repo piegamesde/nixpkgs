@@ -60,7 +60,7 @@ buildGoModule {
     cp -r --reflink=auto vendor "$out"
   '';
 
-  buildInputs = [ libcap ];
+  buildInputs = [libcap];
 
   # The fetcher derivation must run with a different
   # $sourceRoot, but buildGoModule doesn't allow that,
@@ -106,6 +106,6 @@ buildGoModule {
     description = "Namecoin to DNS bridge daemon";
     homepage = "https://github.com/namecoin/ncdns";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ rnhmjoj ];
+    maintainers = with maintainers; [rnhmjoj];
   };
 }

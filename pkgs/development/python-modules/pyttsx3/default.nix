@@ -26,6 +26,6 @@ buildPythonPackage rec {
     description = "Offline text-to-speech synthesis library";
     homepage = "https://github.com/nateshmbhat/pyttsx3";
     license = licenses.mpl20;
-    maintainers = [ maintainers.ethindp ];
+    maintainers = [maintainers.ethindp];
   };
 }

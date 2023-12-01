@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
   };
 
   strictDeps = true;
-  nativeBuildInputs = [ build2 ];
+  nativeBuildInputs = [build2];
   buildInputs = [
     build2
     libbpkg
@@ -49,7 +49,7 @@ stdenv.mkDerivation rec {
     rm tests/rep-create.testscript
   '';
 
-  build2ConfigureFlags = [ "config.bin.lib=${build2.configSharedStatic enableShared enableStatic}" ];
+  build2ConfigureFlags = ["config.bin.lib=${build2.configSharedStatic enableShared enableStatic}"];
 
   postInstall = lib.optionalString stdenv.isDarwin ''
     install_name_tool -add_rpath '${lib.getLib build2}/lib' "''${!outputBin}/bin/bpkg"
@@ -65,7 +65,7 @@ stdenv.mkDerivation rec {
     homepage = "https://build2.org/";
     changelog = "https://git.build2.org/cgit/bpkg/tree/NEWS";
     license = licenses.mit;
-    maintainers = with maintainers; [ r-burns ];
+    maintainers = with maintainers; [r-burns];
     platforms = platforms.all;
   };
 }

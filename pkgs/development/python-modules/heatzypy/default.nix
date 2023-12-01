@@ -36,12 +36,12 @@ buildPythonPackage rec {
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "heatzypy" ];
+  pythonImportsCheck = ["heatzypy"];
 
   meta = with lib; {
     description = "Python module to interact with Heatzy devices";
     homepage = "https://github.com/Cyr-ius/heatzypy";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

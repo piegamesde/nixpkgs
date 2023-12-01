@@ -5,33 +5,33 @@
 
 let
   default-config = {
-    imports = [ ./common/user-account.nix ];
+    imports = [./common/user-account.nix];
 
     services.xserver.enable = false;
   };
 in
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   {
     name = "networking-proxy";
-    meta = with pkgs.lib.maintainers; { maintainers = [ ]; };
+    meta = with pkgs.lib.maintainers; {maintainers = [];};
 
     nodes = {
       # no proxy
       machine =
-        { ... }:
+        {...}:
 
         default-config;
 
       # proxy default
       machine2 =
-        { ... }:
+        {...}:
 
-        default-config // { networking.proxy.default = "http://user:pass@host:port"; };
+        default-config // {networking.proxy.default = "http://user:pass@host:port";};
 
       # specific proxy options
       machine3 =
-        { ... }:
+        {...}:
 
         default-config
         // {
@@ -49,7 +49,7 @@ import ./make-test-python.nix (
 
       # mix default + proxy options
       machine4 =
-        { ... }:
+        {...}:
 
         default-config
         // {

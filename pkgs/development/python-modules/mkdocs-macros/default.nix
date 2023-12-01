@@ -31,14 +31,14 @@ buildPythonPackage rec {
     mkdocs
   ];
 
-  passthru.tests.example-doc = callPackage ./tests.nix { };
+  passthru.tests.example-doc = callPackage ./tests.nix {};
 
-  pythonImportsCheck = [ "mkdocs_macros" ];
+  pythonImportsCheck = ["mkdocs_macros"];
 
   meta = with lib; {
     homepage = "https://github.com/fralau/mkdocs_macros_plugin";
     description = "Create richer and more beautiful pages in MkDocs, by using variables and calls to macros in the markdown code.";
     license = licenses.mit;
-    maintainers = with maintainers; [ tljuniper ];
+    maintainers = with maintainers; [tljuniper];
   };
 }

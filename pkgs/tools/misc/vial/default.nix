@@ -13,7 +13,7 @@ let
     sha256 = "sha256-2EapikmY79KQdoHnz1A7gErVXBN8D80r1GJMKQ5gIM0=";
   };
 
-  appimageContents = appimageTools.extractType2 { inherit name src; };
+  appimageContents = appimageTools.extractType2 {inherit name src;};
 in
 appimageTools.wrapType2 {
   inherit name src;
@@ -31,7 +31,7 @@ appimageTools.wrapType2 {
     description = "An Open-source QMK GUI fork for configuring your keyboard in real time";
     homepage = "https://get.vial.today";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ kranzes ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with maintainers; [kranzes];
+    platforms = ["x86_64-linux"];
   };
 }

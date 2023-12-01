@@ -19,9 +19,9 @@ in
       enable = lib.mkEnableOption (
         lib.mdDoc "the Woodpecker-Server, a CI/CD application for automatic builds, deployments and tests"
       );
-      package = lib.mkPackageOptionMD pkgs "woodpecker-server" { };
+      package = lib.mkPackageOptionMD pkgs "woodpecker-server" {};
       environment = lib.mkOption {
-        default = { };
+        default = {};
         type = lib.types.attrsOf lib.types.str;
         example = lib.literalExpression ''
           {
@@ -55,9 +55,9 @@ in
     systemd.services = {
       woodpecker-server = {
         description = "Woodpecker-Server Service";
-        wantedBy = [ "multi-user.target" ];
-        after = [ "network-online.target" ];
-        wants = [ "network-online.target" ];
+        wantedBy = ["multi-user.target"];
+        after = ["network-online.target"];
+        wants = ["network-online.target"];
         serviceConfig = {
           DynamicUser = true;
           WorkingDirectory = "%S/woodpecker-server";
@@ -84,7 +84,7 @@ in
           ProtectKernelModules = true;
           ProtectKernelLogs = true;
           ProtectControlGroups = true;
-          RestrictAddressFamilies = [ "AF_UNIX AF_INET AF_INET6" ];
+          RestrictAddressFamilies = ["AF_UNIX AF_INET AF_INET6"];
           LockPersonality = true;
           MemoryDenyWriteExecute = true;
           RestrictRealtime = true;

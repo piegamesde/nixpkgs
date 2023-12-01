@@ -30,7 +30,7 @@ buildPythonPackage rec {
     sha256 = "1m03qazzfraxn62l1cb11icjz4x8q2sg9c2k3syw5v0yv9ndgx1v";
   };
 
-  patches = [ ./remove_explicit_PYTHONPATH.patch ];
+  patches = [./remove_explicit_PYTHONPATH.patch];
 
   nativeBuildInputs = [
     cmake
@@ -45,12 +45,12 @@ buildPythonPackage rec {
     gmp
     cgal_5
     mpfr
-  ] ++ lib.optionals enableTBB [ tbb ];
+  ] ++ lib.optionals enableTBB [tbb];
   propagatedBuildInputs = [
     numpy
     scipy
   ];
-  nativeCheckInputs = [ pytest ];
+  nativeCheckInputs = [pytest];
 
   cmakeFlags = [
     "-DCMAKE_BUILD_TYPE=Release"
@@ -82,6 +82,6 @@ buildPythonPackage rec {
       mit
       gpl3
     ];
-    maintainers = with lib.maintainers; [ yl3dy ];
+    maintainers = with lib.maintainers; [yl3dy];
   };
 }

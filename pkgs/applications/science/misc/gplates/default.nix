@@ -21,12 +21,12 @@
 }:
 
 let
-  python = python3.withPackages (ps: with ps; [ numpy ]);
+  python = python3.withPackages (ps: with ps; [numpy]);
   boost' = boost.override {
     enablePython = true;
     inherit python;
   };
-  cgal = cgal_5.override { boost = boost'; };
+  cgal = cgal_5.override {boost = boost';};
 in
 mkDerivation rec {
   pname = "gplates";

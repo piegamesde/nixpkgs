@@ -67,7 +67,7 @@ buildPythonPackage rec {
     pandas
     alembic
     tqdm
-  ] ++ lib.optionals (pythonOlder "3.5") [ typing ];
+  ] ++ lib.optionals (pythonOlder "3.5") [typing];
 
   configurePhase = lib.optionalString (!pythonOlder "3.5") ''
     substituteInPlace setup.py \
@@ -87,6 +87,6 @@ buildPythonPackage rec {
     description = "A hyperparameter optimization framework";
     homepage = "https://optuna.org/";
     license = licenses.mit;
-    maintainers = [ maintainers.costrouc ];
+    maintainers = [maintainers.costrouc];
   };
 }

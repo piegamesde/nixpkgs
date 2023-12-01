@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "cl-locale";
   version = "20151031-git";
@@ -28,7 +28,7 @@ rec {
 
   packageName = "cl-locale";
 
-  asdFilesToKeep = [ "cl-locale.asd" ];
+  asdFilesToKeep = ["cl-locale.asd"];
   overrides = x: x;
 }
 /* (SYSTEM cl-locale DESCRIPTION Simple i18n library for Common Lisp SHA256

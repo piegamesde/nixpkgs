@@ -27,12 +27,12 @@ buildPythonPackage rec {
 
   # no real tests
   doCheck = false;
-  pythonImportsCheck = [ "execnb" ];
+  pythonImportsCheck = ["execnb"];
 
   meta = with lib; {
     homepage = "https://github.com/fastai/execnb";
     description = "Execute a jupyter notebook, fast, without needing jupyter";
     license = licenses.asl20;
-    maintainers = with maintainers; [ rxiao ];
+    maintainers = with maintainers; [rxiao];
   };
 }

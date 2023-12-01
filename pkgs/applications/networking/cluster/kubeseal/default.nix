@@ -17,7 +17,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-fndK1PO4CfTGQV1f9PJ+ju5VUW/RIE5i8IBARJn0g6g=";
 
-  subPackages = [ "cmd/kubeseal" ];
+  subPackages = ["cmd/kubeseal"];
 
   ldflags = [
     "-s"
@@ -29,6 +29,6 @@ buildGoModule rec {
     description = "A Kubernetes controller and tool for one-way encrypted Secrets";
     homepage = "https://github.com/bitnami-labs/sealed-secrets";
     license = licenses.asl20;
-    maintainers = with maintainers; [ groodt ];
+    maintainers = with maintainers; [groodt];
   };
 }

@@ -24,14 +24,14 @@ stdenv.mkDerivation rec {
     gfortran
   ];
 
-  propagatedBuildInputs = [ blas ];
+  propagatedBuildInputs = [blas];
 
   cmakeFlags = [
     "-DBUILD_SHARED_LIBS=true"
     "-DUSE_XSDK_DEFAULTS=true"
   ];
 
-  patches = [ ./add-superlu-lib-as-dependency-for-the-unit-tests.patch ];
+  patches = [./add-superlu-lib-as-dependency-for-the-unit-tests.patch];
 
   doCheck = true;
   checkTarget = "test";

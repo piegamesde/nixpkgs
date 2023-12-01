@@ -18,14 +18,14 @@ rustPlatform.buildRustPackage rec {
     sha256 = "sha256:nlpxlPzWk3wwDgczuMI9T6DFY1YtQpQ1R4BhdPbzZBs=";
   };
 
-  cargoPatches = [ ./elm-json.patch ];
+  cargoPatches = [./elm-json.patch];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     curl
     openssl
-  ] ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Security ];
+  ] ++ lib.optionals stdenv.isDarwin [darwin.apple_sdk.frameworks.Security];
 
   cargoSha256 = "sha256:8SOpL8nfhYen9vza0LYpB/5fgVmBwG7vGMmFOaJskIc=";
 
@@ -36,6 +36,6 @@ rustPlatform.buildRustPackage rec {
     description = "Install, upgrade and uninstall Elm dependencies";
     homepage = "https://github.com/zwilias/elm-json";
     license = licenses.mit;
-    maintainers = [ maintainers.turbomack ];
+    maintainers = [maintainers.turbomack];
   };
 }

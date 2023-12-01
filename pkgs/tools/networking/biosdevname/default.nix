@@ -18,16 +18,16 @@ stdenv.mkDerivation rec {
     sha256 = "19wbb79x9h79k55sgd4dylvdbhhrvfaiaknbw9s1wvfmirkxa1dz";
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
   buildInputs = [
     zlib
     pciutils
   ];
 
   # Don't install /lib/udev/rules.d/*-biosdevname.rules
-  patches = [ ./makefile.patch ];
+  patches = [./makefile.patch];
 
-  configureFlags = [ "--sbindir=\${out}/bin" ];
+  configureFlags = ["--sbindir=\${out}/bin"];
 
   meta = with lib; {
     description = "Udev helper for naming devices per BIOS names";
@@ -36,6 +36,6 @@ stdenv.mkDerivation rec {
       "x86_64-linux"
       "i686-linux"
     ];
-    maintainers = with maintainers; [ cstrahan ];
+    maintainers = with maintainers; [cstrahan];
   };
 }

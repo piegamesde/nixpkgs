@@ -234,6 +234,6 @@ stdenv.mkDerivation rec {
     homepage = "https://www.amd.com/en/support";
     license = licenses.unfree;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ corngood ];
+    maintainers = with maintainers; [corngood];
   };
 }

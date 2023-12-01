@@ -18,17 +18,17 @@ buildPythonPackage rec {
     hash = "sha256-Zh9KvKs4js+AVSfIk0pAj6Kzq/O2m/MGTF+HCwYJTXk=";
   };
 
-  propagatedBuildInputs = [ sphinx ];
+  propagatedBuildInputs = [sphinx];
 
   # no tests implemented
   doCheck = false;
 
-  pythonImportsCheck = [ "sphinx_basic_ng" ];
+  pythonImportsCheck = ["sphinx_basic_ng"];
 
   meta = with lib; {
     description = "A modernised skeleton for Sphinx themes";
     homepage = "https://sphinx-basic-ng.readthedocs.io/en/latest/";
     license = licenses.mit;
-    maintainers = with maintainers; [ Luflosi ];
+    maintainers = with maintainers; [Luflosi];
   };
 }

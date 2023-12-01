@@ -1,5 +1,5 @@
 # `fetchPypi` function for fetching artifacts from PyPI.
-{ fetchurl, makeOverridable }:
+{fetchurl, makeOverridable}:
 
 let
   computeUrl =
@@ -40,7 +40,7 @@ let
             throw "Unsupported format ${format}"
         );
     in
-    compute (builtins.removeAttrs attrs [ "format" ]);
+    compute (builtins.removeAttrs attrs ["format"]);
 in
 makeOverridable (
   {
@@ -57,5 +57,5 @@ makeOverridable (
       ]
     );
   in
-  fetchurl { inherit url sha256 hash; }
+  fetchurl {inherit url sha256 hash;}
 )

@@ -50,7 +50,7 @@ stdenv.mkDerivation rec {
         ]
       );
     in
-    [ "--with-python=${pythonEnv}/bin/python3" ];
+    ["--with-python=${pythonEnv}/bin/python3"];
 
   preConfigure = ''
     patchShebangs test/
@@ -93,7 +93,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://hpc.github.io/charliecloud";
     license = lib.licenses.asl20;
-    maintainers = [ lib.maintainers.bzizou ];
+    maintainers = [lib.maintainers.bzizou];
     platforms = lib.platforms.linux;
   };
 }

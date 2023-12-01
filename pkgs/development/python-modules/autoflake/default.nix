@@ -17,13 +17,13 @@ buildPythonPackage rec {
     hash = "sha256-HOUgExt/OWkVJC/pHlciH01CQIUpu+Ouk62v7ShlkeA=";
   };
 
-  nativeBuildInputs = [ hatchling ];
+  nativeBuildInputs = [hatchling];
 
-  propagatedBuildInputs = [ pyflakes ];
+  propagatedBuildInputs = [pyflakes];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "autoflake" ];
+  pythonImportsCheck = ["autoflake"];
 
   disabledTests =
     [
@@ -35,6 +35,6 @@ buildPythonPackage rec {
     description = "Tool to remove unused imports and unused variables";
     homepage = "https://github.com/myint/autoflake";
     license = licenses.mit;
-    maintainers = with maintainers; [ yuriaisaka ];
+    maintainers = with maintainers; [yuriaisaka];
   };
 }

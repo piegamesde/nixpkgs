@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
     sha256 = "0h2y4mzydhc7var5281bk2jj1knig6i64k11ii4b94az3g9dbq24";
   };
 
-  hardeningDisable = [ "pic" ];
+  hardeningDisable = ["pic"];
 
   nativeBuildInputs = kernel.moduleBuildDependencies;
 
@@ -30,9 +30,9 @@ stdenv.mkDerivation rec {
     substituteInPlace src/Makefile --replace "modules_install" "INSTALL_MOD_PATH=$out modules_install"
   '';
 
-  makeFlags = [ "BASEDIR=${kernel.dev}/lib/modules/${kernel.modDirVersion}" ];
+  makeFlags = ["BASEDIR=${kernel.dev}/lib/modules/${kernel.modDirVersion}"];
 
-  buildFlags = [ "modules" ];
+  buildFlags = ["modules"];
 
   meta = with lib; {
     homepage = "https://github.com/louistakepillz/r8125";
@@ -45,6 +45,6 @@ stdenv.mkDerivation rec {
     broken = lib.versionAtLeast kernel.version "5.9.1";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ peelz ];
+    maintainers = with maintainers; [peelz];
   };
 }

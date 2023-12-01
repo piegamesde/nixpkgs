@@ -15,7 +15,7 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-jsVd4vyST563HiXvqCfiZ2oUhNXF4E8Y2HBLl5AtvRw=";
 
-  buildFeatures = [ "cli" ];
+  buildFeatures = ["cli"];
 
   meta = with lib; {
     description = "Work with references: Literature database management, storage, and citation formatting";
@@ -25,6 +25,6 @@ rustPlatform.buildRustPackage rec {
       asl20
       mit
     ];
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
   };
 }

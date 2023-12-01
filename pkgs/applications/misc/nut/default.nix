@@ -69,7 +69,7 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  env.NIX_CFLAGS_COMPILE = toString [ "-std=c++14" ];
+  env.NIX_CFLAGS_COMPILE = toString ["-std=c++14"];
 
   meta = with lib; {
     description = "Network UPS Tools";
@@ -80,7 +80,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://networkupstools.org/";
     platforms = platforms.linux;
-    maintainers = [ maintainers.pierron ];
+    maintainers = [maintainers.pierron];
     license = with licenses; [
       gpl1Plus
       gpl2Plus

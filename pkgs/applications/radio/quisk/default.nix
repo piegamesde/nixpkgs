@@ -48,7 +48,7 @@ python39Packages.buildPythonApplication rec {
     '';
     license = licenses.gpl2Plus;
     homepage = "https://james.ahlstrom.name/quisk/";
-    maintainers = with maintainers; [ pulsation ];
+    maintainers = with maintainers; [pulsation];
     platforms = platforms.linux;
   };
 }

@@ -11,7 +11,7 @@ let
   cfg = config.services.thelounge;
   dataDir = "/var/lib/thelounge";
   configJsData =
-    "module.exports = " + builtins.toJSON ({ inherit (cfg) public port; } // cfg.extraConfig);
+    "module.exports = " + builtins.toJSON ({inherit (cfg) public port;} // cfg.extraConfig);
   pluginManifest = {
     dependencies = builtins.listToAttrs (
       builtins.map
@@ -22,7 +22,7 @@ let
         cfg.plugins
     );
   };
-  plugins = pkgs.runCommandLocal "thelounge-plugins" { } ''
+  plugins = pkgs.runCommandLocal "thelounge-plugins" {} ''
     mkdir -p $out/node_modules
     echo ${escapeShellArg (builtins.toJSON pluginManifest)} >> $out/package.json
     ${concatMapStringsSep "\n"
@@ -66,7 +66,7 @@ in
     };
 
     extraConfig = mkOption {
-      default = { };
+      default = {};
       type = types.attrs;
       example = literalExpression ''
         {
@@ -89,7 +89,7 @@ in
     };
 
     plugins = mkOption {
-      default = [ ];
+      default = [];
       type = types.listOf types.package;
       example = literalExpression "[ pkgs.theLoungePlugins.themes.solarized ]";
       description = lib.mdDoc ''
@@ -106,13 +106,13 @@ in
       isSystemUser = true;
     };
 
-    users.groups.thelounge = { };
+    users.groups.thelounge = {};
 
     systemd.services.thelounge = {
       description = "The Lounge web IRC client";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       preStart = "ln -sf ${pkgs.writeText "config.js" configJsData} ${dataDir}/config.js";
-      environment.THELOUNGE_PACKAGES = mkIf (cfg.plugins != [ ]) "${plugins}";
+      environment.THELOUNGE_PACKAGES = mkIf (cfg.plugins != []) "${plugins}";
       serviceConfig = {
         User = "thelounge";
         StateDirectory = baseNameOf dataDir;
@@ -120,10 +120,10 @@ in
       };
     };
 
-    environment.systemPackages = [ pkgs.thelounge ];
+    environment.systemPackages = [pkgs.thelounge];
   };
 
   meta = {
-    maintainers = with lib.maintainers; [ winter ];
+    maintainers = with lib.maintainers; [winter];
   };
 }

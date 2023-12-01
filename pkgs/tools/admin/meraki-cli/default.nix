@@ -36,17 +36,17 @@ buildPythonApplication rec {
     rich
   ];
 
-  nativeBuildInputs = [ pytestCheckHook ];
+  nativeBuildInputs = [pytestCheckHook];
 
-  nativeCheckInputs = [ requests-mock ];
+  nativeCheckInputs = [requests-mock];
 
-  pythonImportsCheck = [ "meraki_cli" ];
+  pythonImportsCheck = ["meraki_cli"];
 
   meta = with lib; {
     homepage = "https://github.com/PackeTsar/meraki-cli";
     description = "A simple CLI tool to automate and control your Cisco Meraki Dashboard";
     license = licenses.mit;
-    maintainers = with maintainers; [ dylanmtaylor ];
+    maintainers = with maintainers; [dylanmtaylor];
     platforms = platforms.unix;
     mainProgram = "meraki";
   };

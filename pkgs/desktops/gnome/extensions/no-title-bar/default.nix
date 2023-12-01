@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  makeFlags = [ "INSTALLBASE=$(out)/share/gnome-shell/extensions" ];
+  makeFlags = ["INSTALLBASE=$(out)/share/gnome-shell/extensions"];
 
   passthru = {
     extensionUuid = "no-title-bar@jonaspoehler.de";

@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
   ] ++ optional buildDevDoc "devdoc";
   outputBin = "dev"; # compilation tools
 
-  mesonFlags = optionals (!buildDevDoc) [ "-Dgtk_doc=disabled" ];
+  mesonFlags = optionals (!buildDevDoc) ["-Dgtk_doc=disabled"];
 
   nativeBuildInputs =
     [
@@ -79,6 +79,6 @@ stdenv.mkDerivation rec {
       bsd2
     ];
     platforms = platforms.unix;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

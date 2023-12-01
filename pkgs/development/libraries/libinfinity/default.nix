@@ -58,7 +58,7 @@ let
       libdaemon
     ] ++ lib.optional gtkWidgets gtk3 ++ lib.optional avahiSupport avahi;
 
-    propagatedBuildInputs = [ gnutls ];
+    propagatedBuildInputs = [gnutls];
 
     configureFlags = [
       (lib.enableFeature true "gtk-doc")
@@ -78,7 +78,7 @@ let
       homepage = "https://gobby.github.io/";
       description = "An implementation of the Infinote protocol written in GObject-based C";
       license = lib.licenses.lgpl2Plus;
-      maintainers = [ ];
+      maintainers = [];
       platforms = with lib.platforms; linux ++ darwin;
     };
   };

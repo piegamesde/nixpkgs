@@ -71,7 +71,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://hikounomizu.org/";
     downloadPage = "https://hikounomizu.org/download.html";
-    maintainers = with maintainers; [ fgaz ];
+    maintainers = with maintainers; [fgaz];
     license = [
       licenses.gpl3Plus
       licenses.lal13

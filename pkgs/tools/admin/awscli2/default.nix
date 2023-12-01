@@ -36,7 +36,7 @@ buildPythonApplication rec {
       --replace "pip>=22.0.0,<23.0.0" "pip>=22.0.0,<24.0.0"
   '';
 
-  nativeBuildInputs = [ flit-core ];
+  nativeBuildInputs = [flit-core];
 
   propagatedBuildInputs = [
     awscrt
@@ -82,7 +82,7 @@ buildPythonApplication rec {
     export HOME=$(mktemp -d)
   '';
 
-  pytestFlagsArray = [ "-Wignore::DeprecationWarning" ];
+  pytestFlagsArray = ["-Wignore::DeprecationWarning"];
 
   disabledTestPaths = [
     # Integration tests require networking
@@ -93,7 +93,7 @@ buildPythonApplication rec {
     "tests/functional"
   ];
 
-  pythonImportsCheck = [ "awscli" ];
+  pythonImportsCheck = ["awscli"];
 
   passthru = {
     python = py; # for aws_shell

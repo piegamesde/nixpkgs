@@ -14,7 +14,7 @@
   willCite ? false,
 }:
 
-runCommand "parallel-full" { nativeBuildInputs = [ makeWrapper ]; } ''
+runCommand "parallel-full" {nativeBuildInputs = [makeWrapper];} ''
   mkdir -p $out/bin
   makeWrapper ${parallel}/bin/parallel $out/bin/parallel \
     --set PERL5LIB "${perlPackages.makeFullPerlPath extraPerlPackages}" \

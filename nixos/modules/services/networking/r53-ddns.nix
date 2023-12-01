@@ -55,7 +55,7 @@ in
 
     systemd.timers.r53-ddns = {
       description = "r53-ddns timer";
-      wantedBy = [ "timers.target" ];
+      wantedBy = ["timers.target"];
       timerConfig = {
         OnBootSec = cfg.interval;
         OnUnitActiveSec = cfg.interval;

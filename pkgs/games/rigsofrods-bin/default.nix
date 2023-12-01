@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
     zlib
   ];
 
-  runtimeDependencies = [ alsa-lib ];
+  runtimeDependencies = [alsa-lib];
 
   noDumpEnvVars = true;
 
@@ -66,6 +66,6 @@ stdenv.mkDerivation rec {
       raskin
       wegank
     ];
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
   };
 }

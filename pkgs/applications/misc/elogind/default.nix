@@ -52,10 +52,10 @@ stdenv.mkDerivation rec {
     docbook_xsl_ns
     docbook_xml_dtd_42
     docbook_xml_dtd_45 # needed for docbook without Internet
-    (python3.withPackages (p: with p; [ lxml ])) # fixes: man/meson.build:111:0: ERROR: Could not execute command "/build/source/tools/xml_helper.py".
+    (python3.withPackages (p: with p; [lxml])) # fixes: man/meson.build:111:0: ERROR: Could not execute command "/build/source/tools/xml_helper.py".
   ];
 
-  buildInputs = if enableSystemd then [ udev ] else [ eudev ];
+  buildInputs = if enableSystemd then [udev] else [eudev];
 
   # Inspired by the systemd `preConfigure`.
   # Conceptually we should patch all files required during the build, but not scripts
@@ -79,6 +79,6 @@ stdenv.mkDerivation rec {
     description = ''The systemd project's "logind", extracted to a standalone package'';
     platforms = platforms.linux; # probably more
     license = licenses.lgpl21Plus;
-    maintainers = with maintainers; [ nh2 ];
+    maintainers = with maintainers; [nh2];
   };
 }

@@ -14,11 +14,11 @@ buildNimPackage rec {
     rev = version;
     hash = "sha256-0EjMP5pIPJg4/3nzj6ECC68f709TS06OrJlTZ0tavEo=";
   };
-  propagatedBuildInputs = [ getdns ];
+  propagatedBuildInputs = [getdns];
   doCheck = false;
   meta = src.meta // {
     description = "Transport Services Interface";
     license = lib.licenses.isc;
-    maintainers = [ lib.maintainers.ehmry ];
+    maintainers = [lib.maintainers.ehmry];
   };
 }

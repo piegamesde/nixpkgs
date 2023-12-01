@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
     sha256 = "0kc0xlrsmf783ln5bqyj6qxzmrhdxdfdd2b9ygf2lbl2153i04vc";
   };
 
-  hardeningDisable = [ "pic" ];
+  hardeningDisable = ["pic"];
 
   nativeBuildInputs = kernel.moduleBuildDependencies;
 
@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
       "x86_64-linux"
       "i686-linux"
     ];
-    maintainers = with maintainers; [ Frostman ];
+    maintainers = with maintainers; [Frostman];
     broken = versionOlder kernel.version "4.12";
   };
 }

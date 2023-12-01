@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-CN4o0VfHdoUteI2wyJ2hFJ9UsQ2wWUzcvrLMbR/l36M=";
   };
 
-  patches = [ ./jitsi.patch ];
+  patches = [./jitsi.patch];
 
   jitsiItem = makeDesktopItem {
     name = "Jitsi";
@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
     comment = "VoIP and Instant Messaging client";
     desktopName = "Jitsi";
     genericName = "Instant Messaging";
-    categories = [ "Chat" ];
+    categories = ["Chat"];
   };
 
   libPath = lib.makeLibraryPath ([
@@ -53,7 +53,7 @@ stdenv.mkDerivation rec {
     xorg.libXv
   ]);
 
-  nativeBuildInputs = [ unzip ];
+  nativeBuildInputs = [unzip];
   buildInputs = [
     ant
     jdk

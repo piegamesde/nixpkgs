@@ -19,7 +19,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-qT8YhNZ+9n9+VduW8a/tr74w3OyWue7a51667Q9dMCg=";
 
-  CGO_CFLAGS = [ "-Wno-format-security" ];
+  CGO_CFLAGS = ["-Wno-format-security"];
 
   ldflags = [
     "-s"
@@ -48,6 +48,6 @@ buildGoModule rec {
     homepage = "https://github.com/k1LoW/tbls";
     changelog = "https://github.com/k1LoW/tbls/blob/${src.rev}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ azahi ];
+    maintainers = with maintainers; [azahi];
   };
 }

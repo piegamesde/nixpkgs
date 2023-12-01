@@ -38,6 +38,6 @@ buildGoModule rec {
     homepage = "https://ddosify.com/";
     changelog = "https://github.com/ddosify/ddosify/releases/tag/v${version}";
     license = licenses.agpl3Plus;
-    maintainers = with maintainers; [ bryanasdev000 ];
+    maintainers = with maintainers; [bryanasdev000];
   };
 }

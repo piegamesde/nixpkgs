@@ -30,6 +30,6 @@ buildDunePackage rec {
     description = "Pretty print an OCaml cmi/cmt/cmti file in human-readable OCaml signature form ";
     homepage = "https://github.com/${author}/${pname}";
     license = lib.licenses.isc;
-    maintainers = [ lib.maintainers.nerdypepper ];
+    maintainers = [lib.maintainers.nerdypepper];
   };
 }

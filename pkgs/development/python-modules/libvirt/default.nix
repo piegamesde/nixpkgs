@@ -19,13 +19,13 @@ buildPythonPackage rec {
     hash = "sha256-htJPNFiY0WuQlgfFkLh3RUmnx2X4aQ0+iUQgZ1+HDp0=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     libvirt
     lxml
   ];
 
-  nativeCheckInputs = [ nose ];
+  nativeCheckInputs = [nose];
   checkPhase = ''
     nosetests
   '';
@@ -34,6 +34,6 @@ buildPythonPackage rec {
     homepage = "https://libvirt.org/python.html";
     description = "libvirt Python bindings";
     license = licenses.lgpl2;
-    maintainers = [ maintainers.fpletz ];
+    maintainers = [maintainers.fpletz];
   };
 }

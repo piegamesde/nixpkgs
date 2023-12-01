@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "drakma";
   version = "v2.0.8";
@@ -32,7 +32,7 @@ rec {
 
   packageName = "drakma";
 
-  asdFilesToKeep = [ "drakma.asd" ];
+  asdFilesToKeep = ["drakma.asd"];
   overrides = x: x;
 }
 /* (SYSTEM drakma DESCRIPTION Full-featured http/https client based on usocket

@@ -19,7 +19,7 @@ rustPlatform.buildRustPackage rec {
     description = "A command-line tool to sign files and verify signatures";
     homepage = "https://github.com/jedisct1/rsign2";
     license = licenses.mit;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
     mainProgram = "rsign";
   };
 }

@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
 
   # Using overrideAttrs on src does not build the gems and modules with the overridden src.
   # Putting the callPackage up in the arguments list also does not work.
-  src = if srcOverride != null then srcOverride else callPackage ./source.nix { };
+  src = if srcOverride != null then srcOverride else callPackage ./source.nix {};
 
   mastodonGems = bundlerEnv {
     name = "${pname}-gems-${version}";
@@ -171,7 +171,7 @@ stdenv.mkDerivation rec {
 
   passthru = {
     tests.mastodon = nixosTests.mastodon;
-    updateScript = callPackage ./update.nix { };
+    updateScript = callPackage ./update.nix {};
   };
 
   meta = with lib; {

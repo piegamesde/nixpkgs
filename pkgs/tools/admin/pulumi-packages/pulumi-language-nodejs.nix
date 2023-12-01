@@ -13,7 +13,7 @@ buildGoModule rec {
 
   vendorHash = sdkVendorHash;
 
-  subPackages = [ "nodejs/cmd/pulumi-language-nodejs" ];
+  subPackages = ["nodejs/cmd/pulumi-language-nodejs"];
 
   ldflags = [
     "-s"
@@ -21,7 +21,7 @@ buildGoModule rec {
     "-X github.com/pulumi/pulumi/sdk/v3/go/common/version.Version=${version}"
   ];
 
-  nativeCheckInputs = [ nodejs ];
+  nativeCheckInputs = [nodejs];
 
   postInstall = ''
     cp nodejs/dist/pulumi-resource-pulumi-nodejs $out/bin

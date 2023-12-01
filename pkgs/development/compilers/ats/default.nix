@@ -15,8 +15,8 @@ stdenv.mkDerivation rec {
   };
 
   # this is necessary because atxt files usually include some .hats files
-  patches = [ ./install-atsdoc-hats-files.patch ];
-  buildInputs = [ gmp ];
+  patches = [./install-atsdoc-hats-files.patch];
+  buildInputs = [gmp];
 
   meta = {
     description = "Functional programming language with dependent types";
@@ -25,6 +25,6 @@ stdenv.mkDerivation rec {
     # TODO: it looks like ATS requires gcc specifically. Someone with more knowledge
     # will need to experiment.
     platforms = lib.platforms.linux;
-    maintainers = [ lib.maintainers.thoughtpolice ];
+    maintainers = [lib.maintainers.thoughtpolice];
   };
 }

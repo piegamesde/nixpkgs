@@ -25,7 +25,7 @@ python3Packages.buildPythonApplication {
     wrapGAppsHook
   ];
 
-  buildInputs = [ glib ];
+  buildInputs = [glib];
 
   pythonPath = with python3Packages; [
     dbus-python
@@ -44,6 +44,6 @@ python3Packages.buildPythonApplication {
     homepage = "https://gitlab.com/wavexx/connman-notify";
     license = licenses.gpl2;
     platforms = platforms.linux;
-    maintainers = [ maintainers.romildo ];
+    maintainers = [maintainers.romildo];
   };
 }

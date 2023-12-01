@@ -16,9 +16,9 @@ buildPythonPackage rec {
     sha256 = "afb6ba85a5351953578c018fcdb9dfbd62f29a8d46c58bc9652bc000a27223f3";
   };
 
-  propagatedBuildInputs = [ twisted ];
+  propagatedBuildInputs = [twisted];
 
-  nativeCheckInputs = [ twisted ];
+  nativeCheckInputs = [twisted];
 
   checkPhase = ''
     trial formless nevow

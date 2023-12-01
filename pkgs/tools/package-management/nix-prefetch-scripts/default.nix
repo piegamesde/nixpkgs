@@ -22,7 +22,7 @@ let
     stdenv.mkDerivation {
       name = "nix-prefetch-${tool}";
 
-      nativeBuildInputs = [ makeWrapper ];
+      nativeBuildInputs = [makeWrapper];
 
       dontUnpack = true;
 
@@ -45,16 +45,14 @@ let
 
       meta = with lib; {
         description = "Script used to obtain source hashes for fetch${tool}";
-        maintainers = with maintainers; [ bennofs ];
+        maintainers = with maintainers; [bennofs];
         platforms = platforms.unix;
       };
     };
 in
 rec {
-  nix-prefetch-bzr = mkPrefetchScript "bzr" ../../../build-support/fetchbzr/nix-prefetch-bzr [
-    breezy
-  ];
-  nix-prefetch-cvs = mkPrefetchScript "cvs" ../../../build-support/fetchcvs/nix-prefetch-cvs [ cvs ];
+  nix-prefetch-bzr = mkPrefetchScript "bzr" ../../../build-support/fetchbzr/nix-prefetch-bzr [breezy];
+  nix-prefetch-cvs = mkPrefetchScript "cvs" ../../../build-support/fetchcvs/nix-prefetch-cvs [cvs];
   nix-prefetch-git = mkPrefetchScript "git" ../../../build-support/fetchgit/nix-prefetch-git [
     coreutils
     findutils
@@ -62,9 +60,7 @@ rec {
     git
     git-lfs
   ];
-  nix-prefetch-hg = mkPrefetchScript "hg" ../../../build-support/fetchhg/nix-prefetch-hg [
-    mercurial
-  ];
+  nix-prefetch-hg = mkPrefetchScript "hg" ../../../build-support/fetchhg/nix-prefetch-hg [mercurial];
   nix-prefetch-svn = mkPrefetchScript "svn" ../../../build-support/fetchsvn/nix-prefetch-svn [
     subversion
   ];
@@ -82,7 +78,7 @@ rec {
 
     meta = with lib; {
       description = "Collection of all the nix-prefetch-* scripts which may be used to obtain source hashes";
-      maintainers = with maintainers; [ bennofs ];
+      maintainers = with maintainers; [bennofs];
       platforms = platforms.unix;
     };
   };

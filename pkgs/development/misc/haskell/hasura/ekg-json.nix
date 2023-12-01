@@ -40,5 +40,5 @@ mkDerivation {
   homepage = "https://github.com/tibbe/ekg-json";
   description = "JSON encoding of ekg metrics";
   license = lib.licenses.bsd3;
-  maintainers = with lib.maintainers; [ lassulus ];
+  maintainers = with lib.maintainers; [lassulus];
 }

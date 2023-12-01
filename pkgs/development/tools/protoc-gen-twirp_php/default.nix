@@ -17,14 +17,14 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-Kz9tMM4XSMOUmlHb/BE5/C/ZohdE505DTeDj9lGki/I=";
 
-  subPackages = [ "protoc-gen-twirp_php" ];
+  subPackages = ["protoc-gen-twirp_php"];
 
-  ldflags = [ "-X main.version=${version}" ];
+  ldflags = ["-X main.version=${version}"];
 
   meta = with lib; {
     description = "PHP port of Twitch's Twirp RPC framework";
     homepage = "https://github.com/twirphp/twirp";
     license = licenses.mit;
-    maintainers = with maintainers; [ jojosch ];
+    maintainers = with maintainers; [jojosch];
   };
 }

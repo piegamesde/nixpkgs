@@ -17,7 +17,7 @@ buildDunePackage rec {
     sha256 = "sha256-YSFyB+IgCwSxd1lzZhD/kggmmmR/hUy1rnLNrA1nIwU=";
   };
 
-  propagatedBuildInputs = [ fmt ];
+  propagatedBuildInputs = [fmt];
 
   checkInputs = [
     alcotest
@@ -32,6 +32,6 @@ buildDunePackage rec {
     description = "Fast implementation of queue in OCaml";
     homepage = "https://github.com/mirage/ke";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
   };
 }

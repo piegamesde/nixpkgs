@@ -19,16 +19,16 @@ buildPythonPackage rec {
     hash = "sha256-xVaDrXJfXACkG8fbAiUiPovgJLH6Vk0DntM5Dk/Uj7M=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  propagatedBuildInputs = [ psutil ];
+  propagatedBuildInputs = [psutil];
 
-  pythonImportsCheck = [ "portpicker" ];
+  pythonImportsCheck = ["portpicker"];
 
   meta = with lib; {
     description = "Library to choose unique available network ports";
     homepage = "https://github.com/google/python_portpicker";
     license = licenses.asl20;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

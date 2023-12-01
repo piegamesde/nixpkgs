@@ -34,7 +34,7 @@ buildPythonPackage rec {
     hash = "sha256-/DWcB1Yv8ViuBP0j9lY6wV3ARlhvOmw3lTbd7w95C0g=";
   };
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   propagatedBuildInputs = [
     attrs
@@ -51,16 +51,16 @@ buildPythonPackage rec {
     shamir-mnemonic
     simple-rlp
     typing-extensions
-  ] ++ lib.optionals stdenv.isLinux [ trezor-udev-rules ];
+  ] ++ lib.optionals stdenv.isLinux [trezor-udev-rules];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTestPaths = [
     "tests/test_stellar.py" # requires stellar-sdk
     "tests/test_firmware.py" # requires network downloads
   ];
 
-  pythonImportsCheck = [ "trezorlib" ];
+  pythonImportsCheck = ["trezorlib"];
 
   postCheck = ''
     $out/bin/trezorctl --version

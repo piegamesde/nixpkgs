@@ -21,18 +21,18 @@ buildPythonPackage rec {
     hash = "sha256-l4sVacKTuQbhXCw2lVHCl1OzpCiKmEAm9nSQ8pxFuTo=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
-  propagatedBuildInputs = [ construct ];
+  propagatedBuildInputs = [construct];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "construct_classes" ];
+  pythonImportsCheck = ["construct_classes"];
 
   meta = with lib; {
     description = "Parse your binary data into dataclasses.";
     homepage = "https://github.com/matejcik/construct-classes";
     license = licenses.mit;
-    maintainers = with maintainers; [ prusnak ];
+    maintainers = with maintainers; [prusnak];
   };
 }

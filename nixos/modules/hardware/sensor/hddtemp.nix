@@ -27,7 +27,7 @@ let
   '';
 in
 {
-  meta.maintainers = with lib.maintainers; [ peterhoeg ];
+  meta.maintainers = with lib.maintainers; [peterhoeg];
 
   ###### interface
 
@@ -58,13 +58,13 @@ in
       dbEntries = mkOption {
         description = lib.mdDoc "Additional DB entries";
         type = types.listOf types.str;
-        default = [ ];
+        default = [];
       };
 
       extraArgs = mkOption {
         description = lib.mdDoc "Additional arguments passed to the daemon.";
         type = types.listOf types.str;
-        default = [ ];
+        default = [];
       };
     };
   };
@@ -74,7 +74,7 @@ in
   config = mkIf cfg.enable {
     systemd.services.hddtemp = {
       description = "HDD/SSD temperature";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         Type = "forking";
         ExecStart = wrapper;

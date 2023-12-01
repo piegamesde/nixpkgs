@@ -1,11 +1,11 @@
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   {
     name = "nagios";
-    meta = with pkgs.lib.maintainers; { maintainers = [ symphorien ]; };
+    meta = with pkgs.lib.maintainers; {maintainers = [symphorien];};
 
     nodes.machine =
-      { lib, ... }:
+      {lib, ...}:
       let
         writer = pkgs.writeShellScript "write" ''
           set -x
@@ -91,7 +91,7 @@ import ./make-test-python.nix (
       };
 
     testScript =
-      { ... }:
+      {...}:
       ''
         with subtest("ensure sshd starts"):
             machine.wait_for_unit("sshd.service")

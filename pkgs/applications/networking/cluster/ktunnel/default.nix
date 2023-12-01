@@ -40,6 +40,6 @@ buildGoModule {
     description = "A cli that exposes your local resources to kubernetes ";
     homepage = "https://github.com/omrikiei/ktunnel";
     license = licenses.asl20;
-    maintainers = with maintainers; [ happysalada ];
+    maintainers = with maintainers; [happysalada];
   };
 }

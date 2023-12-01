@@ -50,10 +50,10 @@ stdenv.mkDerivation rec {
     hash = "sha256-9x2d5AKRBjocRawRHdeI4heIM5nb00/F/EIj+/to7ac=";
   };
 
-  nativeBuildInputs = [ fpc ];
-  buildInputs = [ openssl ];
+  nativeBuildInputs = [fpc];
+  buildInputs = [openssl];
 
-  NIX_LDFLAGS = [ "-lcrypto" ];
+  NIX_LDFLAGS = ["-lcrypto"];
 
   patchPhase = ''
     patchShebangs \
@@ -98,6 +98,6 @@ stdenv.mkDerivation rec {
     homepage = "https://www.videlibri.de/xidel.html";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    maintainers = [ maintainers.bjornfor ];
+    maintainers = [maintainers.bjornfor];
   };
 }

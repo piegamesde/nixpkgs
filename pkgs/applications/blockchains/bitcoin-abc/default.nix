@@ -59,7 +59,7 @@ mkDerivation rec {
       qrencode
     ];
 
-  cmakeFlags = lib.optionals (!withGui) [ "-DBUILD_BITCOIN_QT=OFF" ];
+  cmakeFlags = lib.optionals (!withGui) ["-DBUILD_BITCOIN_QT=OFF"];
 
   # many of the generated scripts lack execute permissions
   postConfigure = ''
@@ -76,7 +76,7 @@ mkDerivation rec {
       Bitcoin ABC is a fork of the Bitcoin Core software project.
     '';
     homepage = "https://bitcoinabc.org/";
-    maintainers = with maintainers; [ lassulus ];
+    maintainers = with maintainers; [lassulus];
     license = licenses.mit;
     broken = stdenv.isDarwin;
     platforms = platforms.unix;

@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
     libxml2
   ];
 
-  buildInputs = [ yelp ];
+  buildInputs = [yelp];
 
   postPatch = ''
     substituteInPlace mate-user-guide.desktop.in.in \
@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  passthru.updateScript = mateUpdateScript { inherit pname; };
+  passthru.updateScript = mateUpdateScript {inherit pname;};
 
   meta = with lib; {
     description = "MATE User Guide";

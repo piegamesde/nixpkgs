@@ -13,7 +13,7 @@ stdenvNoCC.mkDerivation rec {
     repo = "MaterialDesign-Webfont";
     rev = "v${version}";
     sha256 = "sha256-4r/l7QkD04OR74FZBH0l81hDY5TexEIIJnECYFKsGxM=";
-    sparseCheckout = [ "fonts" ];
+    sparseCheckout = ["fonts"];
   };
 
   installPhase = ''

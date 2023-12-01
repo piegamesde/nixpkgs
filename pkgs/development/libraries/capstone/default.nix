@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
   installPhase =
     (lib.optionalString stdenv.isDarwin "HOMEBREW_CAPSTONE=1 ") + "PREFIX=$out ./make.sh install";
 
-  nativeBuildInputs = [ pkg-config ] ++ lib.optionals stdenv.isDarwin [ fixDarwinDylibNames ];
+  nativeBuildInputs = [pkg-config] ++ lib.optionals stdenv.isDarwin [fixDarwinDylibNames];
 
   enableParallelBuilding = true;
 

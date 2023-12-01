@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
   # While build system attempts to pass -no-pie to gcc. nixpkgs' `ld`
   # wrapped still passes `-pie` flag to linker and breaks linkage.
   # Let's disable "pie" until `ld` is fixed to do the right thing.
-  hardeningDisable = [ "pie" ];
+  hardeningDisable = ["pie"];
 
   # When we do build separate interactive version, it makes sense to always include man.
   outputs = [
@@ -51,7 +51,7 @@ stdenv.mkDerivation rec {
   ] ++ lib.optional (!interactive) "man";
 
   # no-pma fix
-  nativeBuildInputs = [ autoreconfHook ] ++ lib.optional (doCheck && stdenv.isLinux) glibcLocales;
+  nativeBuildInputs = [autoreconfHook] ++ lib.optional (doCheck && stdenv.isLinux) glibcLocales;
 
   buildInputs =
     lib.optional withSigsegv libsigsegv
@@ -63,7 +63,7 @@ stdenv.mkDerivation rec {
     (if interactive then "--with-readline=${readline.dev}" else "--without-readline")
   ];
 
-  makeFlags = [ "AR=${stdenv.cc.targetPrefix}ar" ];
+  makeFlags = ["AR=${stdenv.cc.targetPrefix}ar"];
 
   inherit doCheck;
 
@@ -94,6 +94,6 @@ stdenv.mkDerivation rec {
     '';
     license = licenses.gpl3Plus;
     platforms = platforms.unix ++ platforms.windows;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

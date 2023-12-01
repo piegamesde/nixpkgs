@@ -18,7 +18,7 @@ stdenvNoCC.mkDerivation rec {
     sha256 = "sha256-ZyqxMlyCB8gEsZTVrxgLdW/mQ/4xeTHTK+lDKIzYs6I=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     runHook preInstall
@@ -43,6 +43,6 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://github.com/b3nj5m1n/xdg-ninja";
     license = licenses.mit;
     platforms = platforms.all;
-    maintainers = with maintainers; [ patricksjackson ];
+    maintainers = with maintainers; [patricksjackson];
   };
 }

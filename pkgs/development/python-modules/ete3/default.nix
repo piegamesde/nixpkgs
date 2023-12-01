@@ -22,7 +22,7 @@ buildPythonPackage rec {
   };
 
   doCheck = false; # Tests are (i) not 3.x compatible, (ii) broken under 2.7
-  pythonImportsCheck = [ "ete3" ];
+  pythonImportsCheck = ["ete3"];
 
   propagatedBuildInputs =
     [
@@ -36,6 +36,6 @@ buildPythonPackage rec {
     description = "A Python framework for the analysis and visualization of trees";
     homepage = "http://etetoolkit.org/";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ delehef ];
+    maintainers = with maintainers; [delehef];
   };
 }

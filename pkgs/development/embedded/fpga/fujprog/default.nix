@@ -28,13 +28,13 @@ stdenv.mkDerivation rec {
   buildInputs = [
     libftdi1
     libusb-compat-0_1
-  ] ++ lib.optionals stdenv.isDarwin [ IOKit ];
+  ] ++ lib.optionals stdenv.isDarwin [IOKit];
 
   meta = with lib; {
     description = "JTAG programmer for the ULX3S and ULX2S open hardware FPGA development boards";
     homepage = "https://github.com/kost/fujprog";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ trepetti ];
+    maintainers = with maintainers; [trepetti];
     platforms = platforms.all;
     changelog = "https://github.com/kost/fujprog/releases/tag/v${version}";
   };

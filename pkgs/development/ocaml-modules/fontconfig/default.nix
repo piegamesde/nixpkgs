@@ -22,7 +22,7 @@ stdenv.mkDerivation {
     pkg-config
     ocaml
   ];
-  buildInputs = [ fontconfig ];
+  buildInputs = [fontconfig];
 
   strictDeps = true;
 
@@ -34,7 +34,7 @@ stdenv.mkDerivation {
   meta = {
     description = "Fontconfig bindings for OCaml";
     license = lib.licenses.gpl2Plus;
-    platforms = ocaml.meta.platforms or [ ];
-    maintainers = with lib.maintainers; [ vbgl ];
+    platforms = ocaml.meta.platforms or [];
+    maintainers = with lib.maintainers; [vbgl];
   };
 }

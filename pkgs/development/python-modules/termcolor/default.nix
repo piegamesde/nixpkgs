@@ -22,9 +22,9 @@ buildPythonPackage rec {
     hatchling
   ];
 
-  pythonImportsCheck = [ "termcolor" ];
+  pythonImportsCheck = ["termcolor"];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = with lib; {
     description = "Termcolor";

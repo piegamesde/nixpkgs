@@ -41,13 +41,13 @@ buildPythonPackage rec {
     "tests/functional"
   ];
 
-  pythonImportsCheck = [ "botocore" ];
+  pythonImportsCheck = ["botocore"];
 
   meta = with lib; {
     homepage = "https://github.com/boto/botocore";
     changelog = "https://github.com/boto/botocore/blob/${version}/CHANGELOG.rst";
     license = licenses.asl20;
     description = "A low-level interface to a growing number of Amazon Web Services";
-    maintainers = with maintainers; [ anthonyroussel ];
+    maintainers = with maintainers; [anthonyroussel];
   };
 }

@@ -32,6 +32,6 @@ stdenvNoCC.mkDerivation rec {
     homepage = "http://font.ubuntu.com/";
     license = licenses.free;
     platforms = platforms.all;
-    maintainers = [ maintainers.antono ];
+    maintainers = [maintainers.antono];
   };
 }

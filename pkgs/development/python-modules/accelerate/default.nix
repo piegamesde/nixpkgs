@@ -29,7 +29,7 @@ buildPythonPackage rec {
     hash = "sha256-fCIvVbMaWAWzRfPc5/1CZq3gZ8kruuk9wBt8mzLHmyw=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs = [
     numpy
@@ -49,7 +49,7 @@ buildPythonPackage rec {
     export HOME=$(mktemp -d)
     export PATH=$out/bin:$PATH
   '';
-  pytestFlagsArray = [ "tests" ];
+  pytestFlagsArray = ["tests"];
   disabledTests =
     [
       # try to download data:
@@ -66,14 +66,14 @@ buildPythonPackage rec {
       ];
   # numerous instances of torch.multiprocessing.spawn.ProcessRaisedException:
   doCheck = !stdenv.isDarwin;
-  pythonImportsCheck = [ "accelerate" ];
+  pythonImportsCheck = ["accelerate"];
 
   meta = with lib; {
     homepage = "https://huggingface.co/docs/accelerate";
     description = "A simple way to train and use PyTorch models with multi-GPU, TPU, mixed-precision";
     changelog = "https://github.com/huggingface/accelerate/releases/tag/v${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ bcdarwin ];
+    maintainers = with maintainers; [bcdarwin];
     mainProgram = "accelerate";
   };
 }

@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
     "out"
   ];
 
-  nativeBuildInputs = [ perl ];
+  nativeBuildInputs = [perl];
 
   buildInputs = [
     boost
@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
     avro-cpp
   ];
 
-  makeFlags = [ "GEN_PKG_CONFIG=y" ];
+  makeFlags = ["GEN_PKG_CONFIG=y"];
 
   patches =
     [
@@ -77,7 +77,7 @@ stdenv.mkDerivation rec {
     description = "A schema-based serializer/deserializer C/C++ library with support for Avro and the Confluent Platform Schema Registry";
     homepage = "https://github.com/confluentinc/libserdes";
     license = licenses.asl20;
-    maintainers = with maintainers; [ liff ];
+    maintainers = with maintainers; [liff];
     platforms = platforms.all;
   };
 }

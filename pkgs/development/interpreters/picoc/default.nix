@@ -16,9 +16,9 @@ stdenv.mkDerivation rec {
     owner = "zsaleeba";
   };
 
-  buildInputs = [ readline ];
+  buildInputs = [readline];
 
-  makeFlags = [ "CC=${stdenv.cc.targetPrefix}cc" ];
+  makeFlags = ["CC=${stdenv.cc.targetPrefix}cc"];
 
   postPatch = ''
     substituteInPlace Makefile --replace '`svnversion -n`' "${version}"

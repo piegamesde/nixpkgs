@@ -17,8 +17,8 @@ buildPythonPackage rec {
     cjkwrap
     wcwidth
   ];
-  nativeCheckInputs = [ pytestCheckHook ];
-  pythonImportsCheck = [ "md2gemini" ];
+  nativeCheckInputs = [pytestCheckHook];
+  pythonImportsCheck = ["md2gemini"];
 
   src = fetchPypi {
     inherit pname version;
@@ -29,6 +29,6 @@ buildPythonPackage rec {
     description = "Markdown to Gemini text format conversion library";
     homepage = "https://github.com/makeworld-the-better-one/md2gemini";
     license = licenses.lgpl3Plus;
-    maintainers = [ maintainers.kaction ];
+    maintainers = [maintainers.kaction];
   };
 }

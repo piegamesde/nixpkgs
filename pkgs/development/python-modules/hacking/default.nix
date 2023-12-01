@@ -26,9 +26,9 @@ buildPythonPackage rec {
       --replace 'H201: except:' 'Okay: except:'
   '';
 
-  nativeBuildInputs = [ pbr ];
+  nativeBuildInputs = [pbr];
 
-  propagatedBuildInputs = [ flake8 ];
+  propagatedBuildInputs = [flake8];
 
   nativeCheckInputs = [
     ddt
@@ -43,7 +43,7 @@ buildPythonPackage rec {
     stestr run
   '';
 
-  pythonImportsCheck = [ "hacking" ];
+  pythonImportsCheck = ["hacking"];
 
   meta = with lib; {
     description = "OpenStack Hacking Guideline Enforcement";

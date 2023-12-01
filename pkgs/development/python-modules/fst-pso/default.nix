@@ -27,12 +27,12 @@ buildPythonPackage rec {
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "fstpso" ];
+  pythonImportsCheck = ["fstpso"];
 
   meta = with lib; {
     description = "Fuzzy Self-Tuning PSO global optimization library";
     homepage = "https://github.com/aresio/fst-pso";
-    license = with licenses; [ lgpl3Only ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [lgpl3Only];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -40,7 +40,7 @@ buildPythonPackage rec {
   ];
 
   propagatedBuildInputs =
-    [ packaging ]
+    [packaging]
     ++ lib.optionals (pythonOlder "3.11") [
       exceptiongroup
       tomli
@@ -71,12 +71,12 @@ buildPythonPackage rec {
     "tests/test_setuptools_pep518.py"
   ];
 
-  pythonImportsCheck = [ "scikit_build_core" ];
+  pythonImportsCheck = ["scikit_build_core"];
 
   meta = with lib; {
     description = "A next generation Python CMake adaptor and Python API for plugins";
     homepage = "https://github.com/scikit-build/scikit-build-core";
-    license = with licenses; [ asl20 ];
-    maintainers = with maintainers; [ veprbl ];
+    license = with licenses; [asl20];
+    maintainers = with maintainers; [veprbl];
   };
 }

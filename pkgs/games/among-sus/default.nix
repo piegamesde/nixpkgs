@@ -29,7 +29,7 @@ stdenv.mkDerivation {
     homepage = "https://git.sr.ht/~martijnbraam/among-sus";
     description = "Among us, but it's a text adventure";
     license = licenses.agpl3Plus;
-    maintainers = [ maintainers.eyjhb ];
+    maintainers = [maintainers.eyjhb];
     platforms = platforms.unix;
   };
 }

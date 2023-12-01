@@ -33,12 +33,12 @@ melpaBuild {
     (acm-terminal :repo "twlz0ne/acm-terminal" :fetcher github)
   '';
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   meta = with lib; {
     description = "Patch for LSP bridge acm on Terminal";
     homepage = "https://github.com/twlz0ne/acm-terminal";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ kira-bruneau ];
+    maintainers = with maintainers; [kira-bruneau];
   };
 }

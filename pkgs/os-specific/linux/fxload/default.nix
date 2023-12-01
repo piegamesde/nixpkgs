@@ -20,13 +20,13 @@ stdenv.mkDerivation rec {
     ln -s ${passthru.libusb}/examples/bin/fxload $out/bin/fxload
   '';
 
-  passthru.libusb = libusb1.override { withExamples = true; };
+  passthru.libusb = libusb1.override {withExamples = true;};
 
   meta = with lib; {
     homepage = "https://github.com/libusb/libusb";
     description = "Tool to upload firmware to into an21, fx, fx2, fx2lp and fx3 ez-usb devices";
     license = licenses.gpl2Only;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ realsnick ];
+    maintainers = with maintainers; [realsnick];
   };
 }

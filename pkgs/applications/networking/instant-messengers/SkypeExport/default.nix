@@ -26,8 +26,8 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ cmake ];
-  buildInputs = [ boost ];
+  nativeBuildInputs = [cmake];
+  buildInputs = [boost];
 
   preConfigure = "cd src/SkypeExport/_gccbuild/linux";
   installPhase = "install -Dt $out/bin SkypeExport";
@@ -37,6 +37,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/Temptin/SkypeExport";
     license = licenses.gpl2;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ yana ];
+    maintainers = with maintainers; [yana];
   };
 }

@@ -16,9 +16,9 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-Jsb/UjqAppAUz9AGgON6AyVgUdOY6aswjQ9EL939Kro=";
   };
 
-  nativeBuildInputs = with python3.pkgs; [ poetry-core ];
+  nativeBuildInputs = with python3.pkgs; [poetry-core];
 
-  propagatedBuildInputs = with python3.pkgs; [ aiohttp ];
+  propagatedBuildInputs = with python3.pkgs; [aiohttp];
 
   nativeCheckInputs = with python3.pkgs; [
     aiounittest
@@ -30,7 +30,7 @@ python3.pkgs.buildPythonApplication rec {
       --replace 'asyncio = "^3.4.3"' ""
   '';
 
-  pythonImportsCheck = [ "clairvoyance" ];
+  pythonImportsCheck = ["clairvoyance"];
 
   disabledTests =
     [
@@ -41,7 +41,7 @@ python3.pkgs.buildPythonApplication rec {
   meta = with lib; {
     description = "Tool to obtain GraphQL API schemas";
     homepage = "https://github.com/nikitastupin/clairvoyance";
-    license = with licenses; [ asl20 ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [asl20];
+    maintainers = with maintainers; [fab];
   };
 }

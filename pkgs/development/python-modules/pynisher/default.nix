@@ -27,12 +27,12 @@ buildPythonPackage rec {
   # No tests in the Pypi archive
   doCheck = false;
 
-  pythonImportsCheck = [ "pynisher" ];
+  pythonImportsCheck = ["pynisher"];
 
   meta = with lib; {
     description = "Module intended to limit a functions resources";
     homepage = "https://github.com/automl/pynisher";
     license = licenses.mit;
-    maintainers = with maintainers; [ psyanticy ];
+    maintainers = with maintainers; [psyanticy];
   };
 }

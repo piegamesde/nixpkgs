@@ -56,7 +56,7 @@ stdenv.mkDerivation (
       pkg-config
       bison
       flex
-    ] ++ lib.optionals withGUI [ wrapQtAppsHook ];
+    ] ++ lib.optionals withGUI [wrapQtAppsHook];
 
     buildInputs = [
       libiconv
@@ -64,7 +64,7 @@ stdenv.mkDerivation (
       libjpeg
       libwebp
       zlib
-    ] ++ lib.optionals withGUI [ qtbase ];
+    ] ++ lib.optionals withGUI [qtbase];
 
     dontWrapQtApps = true;
 
@@ -85,7 +85,7 @@ stdenv.mkDerivation (
       '';
 
     passthru = {
-      updateScript = gitUpdater { };
+      updateScript = gitUpdater {};
       tests.version = testers.testVersion {
         package = finalAttrs.finalPackage;
         command =
@@ -99,7 +99,7 @@ stdenv.mkDerivation (
       homepage = "https://github.com/nunuhara/alice-tools";
       license = licenses.gpl2Plus;
       platforms = platforms.all;
-      maintainers = with maintainers; [ OPNA2608 ];
+      maintainers = with maintainers; [OPNA2608];
       mainProgram = if withGUI then "galice" else "alice";
     };
   }

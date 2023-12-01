@@ -21,14 +21,14 @@ stdenv.mkDerivation {
     autoreconfHook
     pkg-config
   ];
-  buildInputs = [ libconfig ];
+  buildInputs = [libconfig];
   meta = {
     description = "C library encapsulating the kernel USB gadget-configfs userspace API functionality";
     license = with lib.licenses; [
       lgpl21Plus # library
       gpl2Plus # examples
     ];
-    maintainers = with lib.maintainers; [ lheckemann ];
+    maintainers = with lib.maintainers; [lheckemann];
     platforms = lib.platforms.linux;
   };
 }

@@ -32,11 +32,11 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-k2OwwGjuyfM3QIRz+/DgGD0xUYor4TDmfBmcQOkcA3A=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
-  tags = [ "webconsole" ];
+  tags = ["webconsole"];
 
-  ldflags = [ "-X github.com/codenotary/immudb/cmd/version.Version=${version}" ];
+  ldflags = ["-X github.com/codenotary/immudb/cmd/version.Version=${version}"];
 
   subPackages = [
     "cmd/immudb"
@@ -58,6 +58,6 @@ buildGoModule rec {
     description = "Immutable database based on zero trust, SQL and Key-Value, tamperproof, data change history";
     homepage = "https://github.com/codenotary/immudb";
     license = licenses.asl20;
-    maintainers = with maintainers; [ dit7ya ];
+    maintainers = with maintainers; [dit7ya];
   };
 }

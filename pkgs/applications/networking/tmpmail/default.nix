@@ -48,6 +48,6 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://github.com/sdushantha/tmpmail";
     description = "A temporary email right from your terminal written in POSIX sh ";
     license = licenses.mit;
-    maintainers = [ maintainers.lom ];
+    maintainers = [maintainers.lom];
   };
 }

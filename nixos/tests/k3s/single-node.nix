@@ -40,10 +40,10 @@ import ../make-test-python.nix (
   in
   {
     name = "${k3s.name}-single-node";
-    meta = with pkgs.lib.maintainers; { maintainers = [ euank ]; };
+    meta = with pkgs.lib.maintainers; {maintainers = [euank];};
 
     nodes.machine =
-      { pkgs, ... }:
+      {pkgs, ...}:
       {
         environment.systemPackages = with pkgs; [
           k3s

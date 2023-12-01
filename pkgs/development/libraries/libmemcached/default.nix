@@ -31,8 +31,8 @@ stdenv.mkDerivation rec {
     )
     ++ lib.optional stdenv.hostPlatform.isMusl ./musl-fixes.patch;
 
-  buildInputs = [ libevent ];
-  propagatedBuildInputs = [ cyrus_sasl ];
+  buildInputs = [libevent];
+  propagatedBuildInputs = [cyrus_sasl];
 
   env.NIX_CFLAGS_COMPILE = "-fpermissive";
 

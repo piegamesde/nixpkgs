@@ -81,7 +81,7 @@ stdenv.mkDerivation rec {
       ]
     );
 
-  mesonFlags = [ "-Dplugins=false" ];
+  mesonFlags = ["-Dplugins=false"];
 
   postPatch = ''
     chmod +x meson/post_install.py
@@ -89,7 +89,7 @@ stdenv.mkDerivation rec {
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {

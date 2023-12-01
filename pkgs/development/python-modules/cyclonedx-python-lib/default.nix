@@ -60,15 +60,15 @@ buildPythonPackage rec {
     xmldiff
   ];
 
-  pythonImportsCheck = [ "cyclonedx" ];
+  pythonImportsCheck = ["cyclonedx"];
 
-  pythonRelaxDeps = [ "py-serializable" ];
+  pythonRelaxDeps = ["py-serializable"];
 
   preCheck = ''
     export PYTHONPATH=tests''${PYTHONPATH+:$PYTHONPATH}
   '';
 
-  pytestFlagsArray = [ "tests/" ];
+  pytestFlagsArray = ["tests/"];
 
   disabledTests = [
     # These tests require network access.
@@ -80,7 +80,7 @@ buildPythonPackage rec {
     description = "Python library for generating CycloneDX SBOMs";
     homepage = "https://github.com/CycloneDX/cyclonedx-python-lib";
     changelog = "https://github.com/CycloneDX/cyclonedx-python-lib/releases/tag/v${version}";
-    license = with licenses; [ asl20 ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [asl20];
+    maintainers = with maintainers; [fab];
   };
 }

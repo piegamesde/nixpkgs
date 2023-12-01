@@ -61,7 +61,7 @@ stdenv.mkDerivation {
     glib
     nix
   ];
-  nativeCheckInputs = [ nix ];
+  nativeCheckInputs = [nix];
 
   doCheck = true;
 
@@ -69,7 +69,7 @@ stdenv.mkDerivation {
     description = "XML-based Nix-friendly data integration library";
     homepage = "https://github.com/svanderburg/libnixxml";
     license = licenses.mit;
-    maintainers = with maintainers; [ tomberek ];
+    maintainers = with maintainers; [tomberek];
     platforms = platforms.unix;
   };
 }

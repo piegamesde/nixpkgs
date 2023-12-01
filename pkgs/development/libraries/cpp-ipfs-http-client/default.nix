@@ -18,16 +18,16 @@ stdenv.mkDerivation {
     sha256 = "sha256-/oyafnk4SbrvoCh90wkZXNBjknMKA6EEUoEGo/amLUo=";
   };
 
-  patches = [ ./unvendor-nlohmann-json.patch ];
+  patches = [./unvendor-nlohmann-json.patch];
 
   postPatch = ''
     substituteInPlace CMakeLists.txt \
       --replace '# Fetch "JSON for Modern C++"' "include_directories(${nlohmann_json}/include)"
   '';
 
-  nativeBuildInputs = [ cmake ];
-  buildInputs = [ curl ];
-  propagatedBuildInputs = [ nlohmann_json ];
+  nativeBuildInputs = [cmake];
+  buildInputs = [curl];
+  propagatedBuildInputs = [nlohmann_json];
 
   env.NIX_CFLAGS_COMPILE = toString [
     "-Wno-error=range-loop-construct"

@@ -25,7 +25,7 @@ stdenv.mkDerivation {
     "man"
   ];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   buildInputs = [
     libX11
@@ -36,7 +36,7 @@ stdenv.mkDerivation {
 
   makefile = "Makefile.mk";
 
-  makeFlags = [ "CC=${stdenv.cc.targetPrefix}cc" ];
+  makeFlags = ["CC=${stdenv.cc.targetPrefix}cc"];
 
   installPhase = ''
     runHook preInstall
@@ -50,14 +50,14 @@ stdenv.mkDerivation {
   '';
 
   passthru = {
-    updateScript = unstableGitUpdater { };
+    updateScript = unstableGitUpdater {};
   };
 
   meta = with lib; {
     description = "A simple X-Window (X11R6) programming API in C";
     homepage = "https://github.com/42Paris/minilibx-linux";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ wegank ];
+    maintainers = with maintainers; [wegank];
     platforms = platforms.unix;
   };
 }

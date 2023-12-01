@@ -25,7 +25,7 @@ buildGoModule rec {
   meta = src.meta // {
     description = "Implementation of ERIS for Go";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ ehmry ];
+    maintainers = with lib.maintainers; [ehmry];
     mainProgram = "eris-get";
     broken = stdenv.isDarwin;
   };

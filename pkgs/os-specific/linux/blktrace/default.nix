@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-1t7aA4Yt4r0bG5+6cpu7hi2bynleaqf3yoa2VoEacNY=";
   };
 
-  buildInputs = [ libaio ];
+  buildInputs = [libaio];
 
   preConfigure = ''
     sed s,/usr/local,$out, -i Makefile
@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Block layer IO tracing mechanism";
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     license = licenses.gpl2;
     platforms = platforms.linux;
   };

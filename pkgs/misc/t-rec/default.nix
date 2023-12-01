@@ -27,9 +27,9 @@ rustPlatform.buildRustPackage rec {
     sha256 = "sha256-o1fO0N65L6Z6W6aBNhS5JqDHIc1MRQx0yECGzVSCsbo=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
   buildInputs =
-    [ imagemagick ]
+    [imagemagick]
     ++ lib.optionals stdenv.isDarwin [
       libiconv
       Foundation
@@ -44,7 +44,7 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "Blazingly fast terminal recorder that generates animated gif images for the web written in rust";
     homepage = "https://github.com/sassman/t-rec-rs";
-    license = with licenses; [ gpl3Only ];
-    maintainers = [ maintainers.hoverbear ];
+    license = with licenses; [gpl3Only];
+    maintainers = [maintainers.hoverbear];
   };
 }

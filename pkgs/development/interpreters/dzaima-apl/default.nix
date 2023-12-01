@@ -76,7 +76,7 @@ stdenv.mkDerivation rec {
       "An APL implementation in Java"
       + lib.optionalString buildNativeImage ", compiled as a native image";
     license = licenses.mit;
-    maintainers = with maintainers; [ AndersonTorres ];
+    maintainers = with maintainers; [AndersonTorres];
     inherit (jdk.meta) platforms;
     broken = stdenv.isDarwin; # never built on Hydra https://hydra.nixos.org/job/nixpkgs/staging-next/dapl-native.x86_64-darwin
   };

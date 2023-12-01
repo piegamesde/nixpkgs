@@ -40,6 +40,6 @@ stdenv.mkDerivation rec {
     homepage = "https://hg.sr.ht/~scoopta/glpaper";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ ccellado ];
+    maintainers = with maintainers; [ccellado];
   };
 }

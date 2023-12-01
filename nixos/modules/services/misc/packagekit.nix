@@ -18,7 +18,7 @@ let
     recursiveUpdate
     ;
 
-  iniFmt = pkgs.formats.ini { };
+  iniFmt = pkgs.formats.ini {};
 
   confFiles = [
     (iniFmt.generate "PackageKit.conf" (
@@ -70,27 +70,27 @@ in
 
     settings = mkOption {
       type = iniFmt.type;
-      default = { };
+      default = {};
       description = lib.mdDoc "Additional settings passed straight through to PackageKit.conf";
     };
 
     vendorSettings = mkOption {
       type = iniFmt.type;
-      default = { };
+      default = {};
       description = lib.mdDoc "Additional settings passed straight through to Vendor.conf";
     };
   };
 
   config = mkIf cfg.enable {
 
-    services.dbus.packages = with pkgs; [ packagekit ];
+    services.dbus.packages = with pkgs; [packagekit];
 
-    environment.systemPackages = with pkgs; [ packagekit ];
+    environment.systemPackages = with pkgs; [packagekit];
 
-    systemd.packages = with pkgs; [ packagekit ];
+    systemd.packages = with pkgs; [packagekit];
 
     environment.etc = listToAttrs (
-      map (e: lib.nameValuePair "PackageKit/${e.name}" { source = e; }) confFiles
+      map (e: lib.nameValuePair "PackageKit/${e.name}" {source = e;}) confFiles
     );
   };
 }

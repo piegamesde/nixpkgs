@@ -45,8 +45,8 @@ stdenv.mkDerivation rec {
     sed -i "s/__OPENJPEG__VERSION__/${openJpegVersion}/" source/fitz/load-jpx.c
   '';
 
-  makeFlags = [ "prefix=$(out) USE_SYSTEM_LIBS=yes" ];
-  nativeBuildInputs = [ pkg-config ];
+  makeFlags = ["prefix=$(out) USE_SYSTEM_LIBS=yes"];
+  nativeBuildInputs = [pkg-config];
   buildInputs =
     [
       freetype

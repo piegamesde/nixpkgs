@@ -18,7 +18,7 @@ buildPythonPackage rec {
 
   disabled = isPyPy;
 
-  propagatedBuildInputs = [ python-dateutil ];
+  propagatedBuildInputs = [python-dateutil];
 
   checkPhase = "${python.interpreter} tests.py";
 
@@ -26,6 +26,6 @@ buildPythonPackage rec {
     description = "Module for reading vCard and vCalendar files";
     homepage = "http://eventable.github.io/vobject/";
     license = licenses.asl20;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

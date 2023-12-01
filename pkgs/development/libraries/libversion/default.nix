@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-REmXD0NFd7Af01EU/f2IGoTKiju6ErTI7WUinvrAzaA=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   checkTarget = "test";
   doCheck = true;
@@ -24,8 +24,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Advanced version string comparison library";
     homepage = "https://github.com/repology/libversion";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ ryantm ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [ryantm];
     platforms = platforms.unix;
   };
 }

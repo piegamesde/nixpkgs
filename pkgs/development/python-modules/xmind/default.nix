@@ -22,12 +22,12 @@ buildPythonPackage rec {
   # Projec thas no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "xmind" ];
+  pythonImportsCheck = ["xmind"];
 
   meta = with lib; {
     description = "Python module to create mindmaps";
     homepage = "https://github.com/zhuifengshen/xmind";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

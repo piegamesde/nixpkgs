@@ -37,6 +37,6 @@ nimPackages.buildNimPackage rec {
     homepage = "https://github.com/joachimschmidt557/nimmm";
     license = licenses.gpl3;
     platforms = platforms.unix;
-    maintainers = [ maintainers.joachimschmidt557 ];
+    maintainers = [maintainers.joachimschmidt557];
   };
 }

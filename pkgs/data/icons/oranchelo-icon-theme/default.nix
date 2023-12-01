@@ -18,7 +18,7 @@ stdenvNoCC.mkDerivation rec {
     sha256 = "sha256-IDsZj/X9rFSdDpa3bL6IPEPCRe5GustPteDxSbfz+SA=";
   };
 
-  nativeBuildInputs = [ gtk3 ];
+  nativeBuildInputs = [gtk3];
 
   propagatedBuildInputs = [
     plasma5Packages.breeze-icons
@@ -46,6 +46,6 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://github.com/OrancheloTeam/oranchelo-icon-theme";
     license = licenses.gpl3Only;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ _414owen ];
+    maintainers = with maintainers; [_414owen];
   };
 }

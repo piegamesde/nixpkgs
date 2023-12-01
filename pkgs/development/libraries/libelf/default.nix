@@ -48,7 +48,7 @@ stdenv.mkDerivation rec {
       '';
 
   configureFlags =
-    [ ]
+    []
     # Configure check for dynamic lib support is broken, see
     # http://lists.uclibc.org/pipermail/uclibc-cvs/2005-August/019383.html
     ++ lib.optional (stdenv.hostPlatform != stdenv.buildPlatform) "mr_cv_target_elf=yes"
@@ -60,11 +60,11 @@ stdenv.mkDerivation rec {
   nativeBuildInputs =
     (
       if stdenv.hostPlatform.isFreeBSD then
-        [ freebsd.gencat ]
+        [freebsd.gencat]
       else if stdenv.hostPlatform.isNetBSD then
-        [ netbsd.gencat ]
+        [netbsd.gencat]
       else
-        [ gettext ]
+        [gettext]
     )
     # Need to regenerate configure script with newer version in order to pass
     # "mr_cv_target_elf=yes" and determine integer sizes correctly when
@@ -81,6 +81,6 @@ stdenv.mkDerivation rec {
     license = lib.licenses.lgpl2Plus;
 
     platforms = lib.platforms.all;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

@@ -30,7 +30,7 @@ in
 
       firmware = mkOption {
         type = types.listOf types.path;
-        default = [ ];
+        default = [];
         description = lib.mdDoc ''
           List of firmware used to handle specific PCMCIA card.
         '';
@@ -51,10 +51,10 @@ in
 
   config = mkIf config.hardware.pcmcia.enable {
 
-    boot.kernelModules = [ "pcmcia" ];
+    boot.kernelModules = ["pcmcia"];
 
-    services.udev.packages = [ pcmciaUtils ];
+    services.udev.packages = [pcmciaUtils];
 
-    environment.systemPackages = [ pcmciaUtils ];
+    environment.systemPackages = [pcmciaUtils];
   };
 }

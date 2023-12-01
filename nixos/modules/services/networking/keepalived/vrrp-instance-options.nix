@@ -1,4 +1,4 @@
-{ lib }:
+{lib}:
 
 with lib; {
   options = {
@@ -89,7 +89,7 @@ with lib; {
 
     unicastPeers = mkOption {
       type = types.listOf types.str;
-      default = [ ];
+      default = [];
       description = lib.mdDoc ''
         Do not send VRRP adverts over VRRP multicast group. Instead it sends
         adverts to the following list of ip addresses using unicast design
@@ -100,15 +100,15 @@ with lib; {
     };
 
     virtualIps = mkOption {
-      type = types.listOf (types.submodule (import ./virtual-ip-options.nix { inherit lib; }));
-      default = [ ];
+      type = types.listOf (types.submodule (import ./virtual-ip-options.nix {inherit lib;}));
+      default = [];
       # TODO: example
       description = lib.mdDoc "Declarative vhost config";
     };
 
     trackScripts = mkOption {
       type = types.listOf types.str;
-      default = [ ];
+      default = [];
       example = [
         "chk_cmd1"
         "chk_cmd2"
@@ -118,7 +118,7 @@ with lib; {
 
     trackInterfaces = mkOption {
       type = types.listOf types.str;
-      default = [ ];
+      default = [];
       example = [
         "eth0"
         "eth1"

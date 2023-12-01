@@ -23,13 +23,13 @@ mkDerivation rec {
     "examples"
   ];
 
-  buildInputs = [ standard-library ];
+  buildInputs = [standard-library];
 
   meta = with lib; {
     homepage = "https://gallais.github.io/agdarsec/";
     description = "Total Parser Combinators in Agda";
     license = licenses.gpl3;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ turion ];
+    maintainers = with maintainers; [turion];
   };
 }

@@ -19,7 +19,7 @@ libwacom.overrideAttrs (
     # These patches will not be included upstream:
     # https://github.com/linux-surface/libwacom/issues/2
     patches =
-      old.patches or [ ]
+      old.patches or []
       ++ map (p: "${libwacom-surface}/patches/v2/${p}") [
         "0001-Add-support-for-BUS_VIRTUAL.patch"
         "0002-Add-support-for-Intel-Management-Engine-bus.patch"
@@ -37,7 +37,7 @@ libwacom.overrideAttrs (
 
     meta = old.meta // {
       homepage = "https://github.com/linux-surface/libwacom-surface";
-      maintainers = with lib.maintainers; [ dotlambda ];
+      maintainers = with lib.maintainers; [dotlambda];
     };
   }
 )

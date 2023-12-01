@@ -16,7 +16,7 @@ buildDunePackage rec {
     sha256 = "sha256-DIm7fmISsCgRDi4p3NsUk7Cvs/dHpIKMdAOVdYLX2mc=";
   };
 
-  propagatedBuildInputs = [ uri ];
+  propagatedBuildInputs = [uri];
 
   # resto has infinite recursion in their tests
   doCheck = false;
@@ -25,6 +25,6 @@ buildDunePackage rec {
     description = "A minimal OCaml library for type-safe HTTP/JSON RPCs";
     homepage = "https://gitlab.com/nomadic-labs/resto";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.ulrikstrid ];
+    maintainers = [lib.maintainers.ulrikstrid];
   };
 }

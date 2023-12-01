@@ -18,18 +18,18 @@ buildPythonPackage rec {
     hash = "sha256-J8NeV9FCUC5dLkosBzVrovxiJJbeuj8Xc50NGEI9Bms=";
   };
 
-  propagatedBuildInputs = [ six ];
+  propagatedBuildInputs = [six];
 
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "bumps" ];
+  pythonImportsCheck = ["bumps"];
 
   meta = with lib; {
     description = "Data fitting with bayesian uncertainty analysis";
     homepage = "https://bumps.readthedocs.io/";
     changelog = "https://github.com/bumps/bumps/releases/tag/v${version}";
     license = licenses.publicDomain;
-    maintainers = with maintainers; [ rprospero ];
+    maintainers = with maintainers; [rprospero];
   };
 }

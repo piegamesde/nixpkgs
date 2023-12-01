@@ -41,13 +41,13 @@ buildPythonPackage rec {
     vcrpy
   ];
 
-  pythonImportsCheck = [ "tweepy" ];
+  pythonImportsCheck = ["tweepy"];
 
   meta = with lib; {
     description = "Twitter library for Python";
     homepage = "https://github.com/tweepy/tweepy";
     changelog = "https://github.com/tweepy/tweepy/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

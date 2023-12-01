@@ -58,6 +58,6 @@ stdenv.mkDerivation rec {
       lgpl21Plus
       gpl2Plus
     ];
-    maintainers = with maintainers; [ ryantm ];
+    maintainers = with maintainers; [ryantm];
   };
 }

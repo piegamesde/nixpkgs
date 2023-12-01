@@ -25,7 +25,7 @@ buildGoModule rec {
     "-w"
   ];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     gtk3
     gtk-layer-shell
@@ -36,6 +36,6 @@ buildGoModule rec {
     homepage = "https://github.com/nwg-piotr/nwg-dock";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ dit7ya ];
+    maintainers = with maintainers; [dit7ya];
   };
 }

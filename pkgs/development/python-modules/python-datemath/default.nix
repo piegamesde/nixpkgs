@@ -30,18 +30,18 @@ buildPythonPackage rec {
     })
   ];
 
-  propagatedBuildInputs = [ arrow ];
+  propagatedBuildInputs = [arrow];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pytestFlagsArray = [ "tests.py" ];
+  pytestFlagsArray = ["tests.py"];
 
-  pythonImportsCheck = [ "datemath" ];
+  pythonImportsCheck = ["datemath"];
 
   meta = with lib; {
     description = "Python module to emulate the date math used in SOLR and Elasticsearch";
     homepage = "https://github.com/nickmaccarthy/python-datemath";
-    license = with licenses; [ asl20 ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [asl20];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -89,6 +89,6 @@ let
     );
 in
 if wineRelease == "staging" then
-  callPackage ./staging.nix { wineUnstable = wine-build wineBuild "unstable"; }
+  callPackage ./staging.nix {wineUnstable = wine-build wineBuild "unstable";}
 else
   wine-build wineBuild wineRelease

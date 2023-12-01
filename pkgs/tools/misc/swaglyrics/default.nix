@@ -40,7 +40,7 @@ python3.pkgs.buildPythonApplication rec {
       mock
       pytestCheckHook
     ]
-    ++ [ ncurses ];
+    ++ [ncurses];
 
   preBuild = ''
     export HOME=$(mktemp -d)
@@ -55,12 +55,12 @@ python3.pkgs.buildPythonApplication rec {
     "test_songchanged_can_raise_songplaying"
   ];
 
-  pythonImportsCheck = [ "swaglyrics" ];
+  pythonImportsCheck = ["swaglyrics"];
 
   meta = with lib; {
     description = "Lyrics fetcher for currently playing Spotify song";
     homepage = "https://github.com/SwagLyrics/SwagLyrics-For-Spotify";
     license = licenses.mit;
-    maintainers = with maintainers; [ siraben ];
+    maintainers = with maintainers; [siraben];
   };
 }

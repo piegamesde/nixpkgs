@@ -32,16 +32,16 @@ buildPythonPackage rec {
   };
 
   passthru.optional-dependencies = {
-    json = [ ujson ];
-    PIL = [ pillow ];
-    redis = [ redis ];
-    aioredis = [ aioredis ];
-    aiohttp = [ aiohttp ];
-    fastapi = [ fastapi ];
-    uvicorn = [ uvicorn ];
-    psutil = [ psutil ];
-    coloredlogs = [ coloredlogs ];
-    watchdog = [ watchdog ];
+    json = [ujson];
+    PIL = [pillow];
+    redis = [redis];
+    aioredis = [aioredis];
+    aiohttp = [aiohttp];
+    fastapi = [fastapi];
+    uvicorn = [uvicorn];
+    psutil = [psutil];
+    coloredlogs = [coloredlogs];
+    watchdog = [watchdog];
   };
 
   checkInputs = [
@@ -49,13 +49,13 @@ buildPythonPackage rec {
     requests
   ] ++ passthru.optional-dependencies.watchdog ++ passthru.optional-dependencies.aiohttp;
 
-  pythonImportsCheck = [ "telebot" ];
+  pythonImportsCheck = ["telebot"];
 
   meta = with lib; {
     description = "Python implementation for the Telegram Bot API";
     homepage = "https://github.com/eternnoir/pyTelegramBotAPI";
     changelog = "https://github.com/eternnoir/pyTelegramBotAPI/releases/tag/${version}";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ das_j ];
+    maintainers = with maintainers; [das_j];
   };
 }

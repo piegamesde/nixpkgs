@@ -26,12 +26,12 @@ buildGoModule rec {
     $out/bin/pdfcpu version | grep ${version}
   '';
 
-  subPackages = [ "cmd/pdfcpu" ];
+  subPackages = ["cmd/pdfcpu"];
 
   meta = with lib; {
     description = "A PDF processor written in Go";
     homepage = "https://pdfcpu.io";
     license = licenses.asl20;
-    maintainers = with maintainers; [ doronbehar ];
+    maintainers = with maintainers; [doronbehar];
   };
 }

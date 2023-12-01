@@ -49,7 +49,7 @@ stdenv.mkDerivation rec {
     description = "Transparent SSL/TLS interception";
     homepage = "https://www.roe.ch/SSLsplit";
     platforms = platforms.all;
-    maintainers = with maintainers; [ contrun ];
+    maintainers = with maintainers; [contrun];
     license = with licenses; [
       bsd2
       mit

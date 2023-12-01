@@ -22,7 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-82Xq/jyxTXyZVHqn7G+S9K++InDdORCO9oFqgaIgY7s=";
   };
 
-  buildInputs = [ pytest ];
+  buildInputs = [pytest];
 
   propagatedBuildInputs = [
     aiohttp
@@ -37,13 +37,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "pytest_sanic" ];
+  pythonImportsCheck = ["pytest_sanic"];
 
   meta = with lib; {
     description = "A pytest plugin for Sanic";
     homepage = "https://github.com/yunstanford/pytest-sanic/";
     license = licenses.asl20;
-    maintainers = with maintainers; [ costrouc ];
+    maintainers = with maintainers; [costrouc];
     broken = true; # 2021-11-04
   };
 }

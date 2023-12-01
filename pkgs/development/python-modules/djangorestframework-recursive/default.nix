@@ -25,12 +25,12 @@ buildPythonPackage rec {
   # incompatible with newer django versions
   doCheck = false;
 
-  pythonImportsCheck = [ "rest_framework_recursive" ];
+  pythonImportsCheck = ["rest_framework_recursive"];
 
   meta = with lib; {
     description = " Recursive Serialization for Django REST framework ";
     homepage = "https://github.com/heywbj/django-rest-framework-recursive";
     license = licenses.isc;
-    maintainers = with maintainers; [ SuperSandro2000 ];
+    maintainers = with maintainers; [SuperSandro2000];
   };
 }

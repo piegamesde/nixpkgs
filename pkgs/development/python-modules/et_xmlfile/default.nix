@@ -27,7 +27,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "et_xmlfile" ];
+  pythonImportsCheck = ["et_xmlfile"];
 
   meta = with lib; {
     description = "An implementation of lxml.xmlfile for the standard library";
@@ -41,6 +41,6 @@ buildPythonPackage rec {
     '';
     homepage = "https://foss.heptapod.net/openpyxl/et_xmlfile";
     license = licenses.mit;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

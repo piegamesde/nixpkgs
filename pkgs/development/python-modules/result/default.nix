@@ -26,7 +26,7 @@ buildPythonPackage rec {
       --replace '"--cov-report=xml",' ""
   '';
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTestPaths =
     [
@@ -34,12 +34,12 @@ buildPythonPackage rec {
       "tests/test_pattern_matching.py"
     ];
 
-  pythonImportsCheck = [ "result" ];
+  pythonImportsCheck = ["result"];
 
   meta = with lib; {
     description = "A simple Result type for Python 3 inspired by Rust, fully type annotated";
     homepage = "https://github.com/rustedpy/result";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

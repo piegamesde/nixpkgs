@@ -26,7 +26,7 @@ buildGoModule rec {
     description = "Prometheus exporter for bind9 server";
     homepage = "https://github.com/digitalocean/bind_exporter";
     license = licenses.asl20;
-    maintainers = with maintainers; [ rtreffer ];
+    maintainers = with maintainers; [rtreffer];
     platforms = platforms.unix;
   };
 }

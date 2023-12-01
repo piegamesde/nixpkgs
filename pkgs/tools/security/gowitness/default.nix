@@ -26,6 +26,6 @@ buildGoModule rec {
     description = "Web screenshot utility";
     homepage = "https://github.com/sensepost/gowitness";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

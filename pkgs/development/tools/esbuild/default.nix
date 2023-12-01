@@ -17,7 +17,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-+BfxCyg0KkDQpHt/wycy/8CTG6YBA/VJvJFhhzUnSiQ=";
 
-  subPackages = [ "cmd/esbuild" ];
+  subPackages = ["cmd/esbuild"];
 
   ldflags = [
     "-s"

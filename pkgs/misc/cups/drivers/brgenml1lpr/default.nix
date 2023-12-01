@@ -58,7 +58,7 @@ stdenv.mkDerivation rec {
     tar xfvz data.tar.gz
   '';
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
   buildInputs = [
     cups
     perl
@@ -102,9 +102,9 @@ stdenv.mkDerivation rec {
   meta = {
     description = "Brother BrGenML1 LPR driver";
     homepage = "http://www.brother.com";
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
     platforms = lib.platforms.linux;
     license = lib.licenses.unfreeRedistributable;
-    maintainers = with lib.maintainers; [ jraygauthier ];
+    maintainers = with lib.maintainers; [jraygauthier];
   };
 }

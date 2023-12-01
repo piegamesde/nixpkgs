@@ -30,11 +30,11 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-Y9CXpJTY/uszAVAbafa2+FumWKWFGaOLhK1FY+Nc+EU=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  buildInputs = [ openssl ] ++ lib.optionals stdenv.isDarwin [ Security ];
+  buildInputs = [openssl] ++ lib.optionals stdenv.isDarwin [Security];
 
-  cargoBuildFlags = [ "--all-features" ];
+  cargoBuildFlags = ["--all-features"];
 
   doCheck = false; # requires multiple dbs to be installed
 
@@ -42,6 +42,6 @@ rustPlatform.buildRustPackage rec {
     description = "Seed your development database with real data";
     homepage = "https://github.com/Qovery/replibyte";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ dit7ya ];
+    maintainers = with maintainers; [dit7ya];
   };
 }

@@ -125,11 +125,11 @@ in
       gid = config.ids.gids.teamspeak;
     };
 
-    systemd.tmpfiles.rules = [ "d '${cfg.logPath}' - ${user} ${group} - -" ];
+    systemd.tmpfiles.rules = ["d '${cfg.logPath}' - ${user} ${group} - -"];
 
     networking.firewall = mkIf cfg.openFirewall {
       allowedTCPPorts =
-        [ cfg.fileTransferPort ]
+        [cfg.fileTransferPort]
         ++ optionals (cfg.openFirewallServerQuery) [
           cfg.queryPort
           (cfg.queryPort + 11)
@@ -145,8 +145,8 @@ in
 
     systemd.services.teamspeak3-server = {
       description = "Teamspeak3 voice communication server daemon";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
 
       serviceConfig = {
         ExecStart = ''
@@ -167,5 +167,5 @@ in
     };
   };
 
-  meta.maintainers = with lib.maintainers; [ arobyn ];
+  meta.maintainers = with lib.maintainers; [arobyn];
 }

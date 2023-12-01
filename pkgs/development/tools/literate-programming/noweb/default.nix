@@ -16,7 +16,7 @@ stdenv.mkDerivation (
     src = fetchFromGitHub {
       owner = "nrnrnr";
       repo = "noweb";
-      rev = "v${builtins.replaceStrings [ "." ] [ "_" ] version}";
+      rev = "v${builtins.replaceStrings ["."] ["_"] version}";
       sha256 = "1160i2ghgzqvnb44kgwd6s3p4jnk9668rmc15jlcwl7pdf3xqm95";
     };
 
@@ -32,8 +32,8 @@ stdenv.mkDerivation (
       substituteInPlace Makefile --replace 'strip' '${stdenv.cc.targetPrefix}strip'
     '';
 
-    nativeBuildInputs = [ groff ] ++ lib.optionals useIcon [ icon-lang ];
-    buildInputs = [ nawk ];
+    nativeBuildInputs = [groff] ++ lib.optionals useIcon [icon-lang];
+    buildInputs = [nawk];
 
     preBuild = ''
       mkdir -p "$out/lib/noweb"
@@ -44,7 +44,7 @@ stdenv.mkDerivation (
         "LIBSRC=icon"
         "ICONC=icont"
       ]
-      ++ [ "CC=${stdenv.cc.targetPrefix}cc" ];
+      ++ ["CC=${stdenv.cc.targetPrefix}cc"];
 
     preInstall = ''
       mkdir -p "$tex/tex/latex/noweb"
@@ -91,14 +91,14 @@ stdenv.mkDerivation (
 
     passthru = {
       tlType = "run";
-      pkgs = [ finalAttrs.finalPackage.tex ];
+      pkgs = [finalAttrs.finalPackage.tex];
     };
 
     meta = with lib; {
       description = "A simple, extensible literate-programming tool";
       homepage = "https://www.cs.tufts.edu/~nr/noweb";
       license = licenses.bsd2;
-      maintainers = with maintainers; [ yurrriq ];
+      maintainers = with maintainers; [yurrriq];
       platforms = with platforms; linux ++ darwin;
     };
   }

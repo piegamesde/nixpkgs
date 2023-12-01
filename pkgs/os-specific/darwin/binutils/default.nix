@@ -107,7 +107,7 @@ stdenv.mkDerivation {
         --add-flags "-x assembler -integrated-as -c"
     '';
 
-  nativeBuildInputs = lib.optionals (stdenv.isAarch64 || dualAs) [ makeWrapper ];
+  nativeBuildInputs = lib.optionals (stdenv.isAarch64 || dualAs) [makeWrapper];
 
   passthru = {
     inherit targetPrefix;
@@ -115,7 +115,7 @@ stdenv.mkDerivation {
   };
 
   meta = {
-    maintainers = with lib.maintainers; [ matthewbauer ];
+    maintainers = with lib.maintainers; [matthewbauer];
     priority = 10;
   };
 }

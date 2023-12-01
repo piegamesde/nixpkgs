@@ -21,7 +21,7 @@ buildDunePackage rec {
     sha256 = "0idywlkw0fbakrxv65swnr5bj7f2vns9kpay7q03gzlv82p670hy";
   };
 
-  nativeCheckInputs = [ gcc ];
+  nativeCheckInputs = [gcc];
   checkInputs = [
     alcotest
     fmt
@@ -33,6 +33,6 @@ buildDunePackage rec {
     description = "A simple mapper between UTF-7 to Unicode according RFC2152";
     license = lib.licenses.mit;
     homepage = "https://github.com/mirage/yuscii";
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
   };
 }

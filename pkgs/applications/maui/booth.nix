@@ -52,6 +52,6 @@ mkDerivation {
     description = "Camera application";
     homepage = "https://invent.kde.org/maui/booth";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ milahu ];
+    maintainers = with maintainers; [milahu];
   };
 }

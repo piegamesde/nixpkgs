@@ -12,7 +12,7 @@ buildPythonPackage rec {
   version = "1.2.0";
   format = "pyproject";
 
-  nativeBuildInputs = [ flit-core ];
+  nativeBuildInputs = [flit-core];
 
   src = fetchFromGitHub {
     owner = "sphinx-contrib";
@@ -29,12 +29,12 @@ buildPythonPackage rec {
   # tests require internet access
   doCheck = false;
 
-  pythonImportsCheck = [ "sphinxcontrib.youtube" ];
+  pythonImportsCheck = ["sphinxcontrib.youtube"];
 
   meta = with lib; {
     description = "Youtube extension for Sphinx";
     homepage = "https://github.com/sphinx-contrib/youtube";
-    maintainers = with maintainers; [ gador ];
+    maintainers = with maintainers; [gador];
     license = licenses.bsd3;
   };
 }

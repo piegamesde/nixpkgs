@@ -21,7 +21,7 @@ stdenv.mkDerivation (
 
     doCheck = true;
 
-    nativeBuildInputs = [ emacs ];
+    nativeBuildInputs = [emacs];
     buildInputs =
       [
         bash
@@ -75,7 +75,7 @@ stdenv.mkDerivation (
       '';
       homepage = "https://cask.readthedocs.io/en/latest/index.html";
       license = licenses.gpl3Plus;
-      maintainers = with maintainers; [ AndersonTorres ];
+      maintainers = with maintainers; [AndersonTorres];
       inherit (emacs.meta) platforms;
     };
   }

@@ -27,7 +27,7 @@ rustPlatform.buildRustPackage rec {
     description = "Authoritative dns server for A/AAAA container records";
     homepage = "https://github.com/containers/aardvark-dns";
     license = licenses.asl20;
-    maintainers = with maintainers; [ ] ++ teams.podman.members;
+    maintainers = with maintainers; [] ++ teams.podman.members;
     platforms = platforms.linux;
   };
 }

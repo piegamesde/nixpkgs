@@ -30,7 +30,7 @@ buildGoModule rec {
     description = "The fastest shell plugin manager";
     homepage = "https://github.com/getantibody/antibody";
     license = licenses.mit;
-    maintainers = with maintainers; [ Br1ght0ne ];
+    maintainers = with maintainers; [Br1ght0ne];
 
     # golang.org/x/sys needs to be updated due to:
     #

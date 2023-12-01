@@ -20,7 +20,7 @@ stdenv.mkDerivation {
     libspnav
   ];
 
-  makeFlags = [ "CC=${stdenv.cc.targetPrefix}cc" ];
+  makeFlags = ["CC=${stdenv.cc.targetPrefix}cc"];
 
   installPhase = ''
     runHook preInstall
@@ -34,6 +34,6 @@ stdenv.mkDerivation {
     description = "An example application to test the spacenavd driver";
     license = licenses.bsd3;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ sohalt ];
+    maintainers = with maintainers; [sohalt];
   };
 }

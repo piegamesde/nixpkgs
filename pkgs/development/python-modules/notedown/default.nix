@@ -33,6 +33,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/aaren/notedown";
     description = "Convert IPython Notebooks to markdown (and back)";
     license = lib.licenses.bsd2;
-    maintainers = with lib.maintainers; [ vcanadi ];
+    maintainers = with lib.maintainers; [vcanadi];
   };
 }

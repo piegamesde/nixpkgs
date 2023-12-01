@@ -24,6 +24,6 @@ buildDunePackage rec {
     '';
     homepage = "https://github.com/Chris00/ANSITerminal";
     license = licenses.lgpl3;
-    maintainers = [ maintainers.jirkamarsik ];
+    maintainers = [maintainers.jirkamarsik];
   };
 }

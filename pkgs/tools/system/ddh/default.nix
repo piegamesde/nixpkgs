@@ -25,7 +25,7 @@ rustPlatform.buildRustPackage rec {
     '';
     homepage = "https://github.com/darakian/ddh";
     license = licenses.lgpl3Only;
-    maintainers = with maintainers; [ h7x4 ];
+    maintainers = with maintainers; [h7x4];
     platforms = platforms.all;
   };
 }

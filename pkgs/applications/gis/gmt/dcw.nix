@@ -30,6 +30,6 @@ stdenv.mkDerivation rec {
       for use by GMT, the Generic Mapping Tools.
     '';
     license = licenses.lgpl3Plus;
-    maintainers = with maintainers; [ tviti ];
+    maintainers = with maintainers; [tviti];
   };
 }

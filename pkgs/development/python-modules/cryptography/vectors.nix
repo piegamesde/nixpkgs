@@ -20,7 +20,7 @@ buildPythonPackage rec {
   # No tests included
   doCheck = false;
 
-  pythonImportsCheck = [ "cryptography_vectors" ];
+  pythonImportsCheck = ["cryptography_vectors"];
 
   meta = with lib; {
     description = "Test vectors for the cryptography package";
@@ -30,6 +30,6 @@ buildPythonPackage rec {
       asl20
       bsd3
     ];
-    maintainers = with maintainers; [ SuperSandro2000 ];
+    maintainers = with maintainers; [SuperSandro2000];
   };
 }

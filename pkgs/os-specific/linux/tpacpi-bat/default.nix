@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
     sha256 = "0wbaz34z99gqx721alh5vmpxpj2yxg3x9m8jqyivfi1wfpwc2nd5";
   };
 
-  buildInputs = [ perl ];
+  buildInputs = [perl];
 
   installPhase = ''
     mkdir -p $out/bin
@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    maintainers = [ lib.maintainers.orbekk ];
+    maintainers = [lib.maintainers.orbekk];
     platforms = lib.platforms.linux;
     description = "Tool to set battery charging thesholds on Lenovo Thinkpad";
     license = lib.licenses.gpl3Plus;

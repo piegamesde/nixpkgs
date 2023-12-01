@@ -1,10 +1,10 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "utilities_dot_print-items";
   version = "20210411-git";
 
-  parasites = [ "utilities.print-items/test" ];
+  parasites = ["utilities.print-items/test"];
 
   description = "A protocol for flexible and composable printing.";
 
@@ -20,7 +20,7 @@ rec {
 
   packageName = "utilities.print-items";
 
-  asdFilesToKeep = [ "utilities.print-items.asd" ];
+  asdFilesToKeep = ["utilities.print-items.asd"];
   overrides = x: x;
 }
 /* (SYSTEM utilities.print-items DESCRIPTION

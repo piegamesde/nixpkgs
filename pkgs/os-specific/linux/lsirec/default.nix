@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-8v+KKjAJlJNpUT0poedRTQfPiDiwahrosXD35Bmh3jM=";
   };
 
-  buildInputs = [ python3 ];
+  buildInputs = [python3];
 
   installPhase = ''
     runHook preInstall
@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/marcan/lsirec";
     platforms = platforms.linux;
     license = licenses.bsd2;
-    maintainers = with maintainers; [ Luflosi ];
+    maintainers = with maintainers; [Luflosi];
     # never built on aarch64-linux since first introduction in nixpkgs
     broken = stdenv.isLinux && stdenv.isAarch64;
   };

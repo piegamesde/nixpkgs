@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
     "dev"
   ];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = lib.optional runTests gflags;
   propagatedBuildInputs =
     [
@@ -45,7 +45,7 @@ stdenv.mkDerivation rec {
       metis
     ];
 
-  cmakeFlags = [ "-DBUILD_SHARED_LIBS=${if enableStatic then "OFF" else "ON"}" ];
+  cmakeFlags = ["-DBUILD_SHARED_LIBS=${if enableStatic then "OFF" else "ON"}"];
 
   # The Basel BUILD file conflicts with the cmake build directory on
   # case-insensitive filesystems, eg. darwin.
@@ -61,7 +61,7 @@ stdenv.mkDerivation rec {
     description = "C++ library for modeling and solving large, complicated optimization problems";
     license = licenses.bsd3;
     homepage = "http://ceres-solver.org";
-    maintainers = with maintainers; [ giogadi ];
+    maintainers = with maintainers; [giogadi];
     platforms = platforms.unix;
   };
 }

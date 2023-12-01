@@ -17,12 +17,12 @@ buildPythonPackage rec {
     sha256 = "1f5hxyzlh5mdvvi52qapys9qcinffr6ghgivb6k4jxa92cbs3mfg";
   };
 
-  nativeCheckInputs = [ nose ];
+  nativeCheckInputs = [nose];
   checkPhase = ''
     nosetests -v
   '';
 
-  propagatedBuildInputs = [ chardet ];
+  propagatedBuildInputs = [chardet];
 
   meta = with lib; {
     homepage = "https://github.com/byroot/pysrt";

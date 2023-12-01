@@ -51,7 +51,7 @@ buildPythonPackage rec {
     hash = "sha256-yCAMyqlEDC6dqgvV4L12inGdtaLILqjXgvDj+gmjxeI=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs = [
     aws-xray-sdk
@@ -159,6 +159,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/spulec/moto";
     changelog = "https://github.com/getmoto/moto/blob/${version}/CHANGELOG.md";
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

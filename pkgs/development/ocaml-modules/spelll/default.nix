@@ -28,6 +28,6 @@ buildDunePackage rec {
     inherit (src.meta) homepage;
     description = "Fuzzy string searching, using Levenshtein automaton";
     license = lib.licenses.bsd2;
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
   };
 }

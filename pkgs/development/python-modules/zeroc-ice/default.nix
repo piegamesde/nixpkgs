@@ -21,13 +21,13 @@ buildPythonPackage rec {
     bzip2
   ];
 
-  pythonImportsCheck = [ "Ice" ];
+  pythonImportsCheck = ["Ice"];
 
   meta = with lib; {
     broken = stdenv.isDarwin;
     homepage = "https://zeroc.com/";
     license = licenses.gpl2;
     description = "Comprehensive RPC framework with support for Python, C++, .NET, Java, JavaScript and more.";
-    maintainers = with maintainers; [ abbradar ];
+    maintainers = with maintainers; [abbradar];
   };
 }

@@ -38,8 +38,8 @@ buildPythonPackage rec {
   ];
 
   passthru.optional-dependencies = {
-    http2 = [ h2 ];
-    socks = [ socksio ];
+    http2 = [h2];
+    socks = [socksio];
   };
 
   nativeCheckInputs = [
@@ -50,7 +50,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ] ++ passthru.optional-dependencies.http2 ++ passthru.optional-dependencies.socks;
 
-  pythonImportsCheck = [ "httpcore" ];
+  pythonImportsCheck = ["httpcore"];
 
   preCheck = ''
     # remove upstreams pytest flags which cause:
@@ -58,7 +58,7 @@ buildPythonPackage rec {
     rm setup.cfg
   '';
 
-  pytestFlagsArray = [ "--asyncio-mode=strict" ];
+  pytestFlagsArray = ["--asyncio-mode=strict"];
 
   __darwinAllowLocalNetworking = true;
 
@@ -66,6 +66,6 @@ buildPythonPackage rec {
     description = "A minimal low-level HTTP client";
     homepage = "https://github.com/encode/httpcore";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ ris ];
+    maintainers = with maintainers; [ris];
   };
 }

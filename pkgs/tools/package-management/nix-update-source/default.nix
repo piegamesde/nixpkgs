@@ -18,7 +18,7 @@ python3Packages.buildPythonApplication rec {
     sha256 = "157wvv9vnaszzwbj68jpdc0imcm1hdab3z760bx2axbsgfpqqilz";
   };
 
-  propagatedBuildInputs = [ nix-prefetch-scripts ];
+  propagatedBuildInputs = [nix-prefetch-scripts];
 
   doCheck = false;
 
@@ -41,7 +41,7 @@ python3Packages.buildPythonApplication rec {
       // json.fetch
       // {
         inherit src;
-        overrideSrc = drv: lib.overrideDerivation drv (orig: { inherit src; });
+        overrideSrc = drv: lib.overrideDerivation drv (orig: {inherit src;});
       };
 
     updateScript = ''
@@ -62,7 +62,7 @@ python3Packages.buildPythonApplication rec {
 
   meta = {
     description = "Utility to automate updating of nix derivation sources";
-    maintainers = with lib.maintainers; [ timbertson ];
+    maintainers = with lib.maintainers; [timbertson];
     license = lib.licenses.mit;
   };
 }

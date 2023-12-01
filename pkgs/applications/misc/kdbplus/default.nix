@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
   };
 
   dontStrip = true;
-  nativeBuildInputs = [ unzip ];
+  nativeBuildInputs = [unzip];
 
   phases = "unpackPhase installPhase";
   unpackPhase = "mkdir ${pname}-${version} && cd ${pname}-${version} && unzip -qq ${src}";
@@ -79,9 +79,9 @@ stdenv.mkDerivation rec {
   meta = {
     description = "Analytics and time-series database";
     homepage = "http://www.kx.com/";
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
     license = lib.licenses.unfree;
-    platforms = [ "i686-linux" ];
-    maintainers = [ lib.maintainers.thoughtpolice ];
+    platforms = ["i686-linux"];
+    maintainers = [lib.maintainers.thoughtpolice];
   };
 }

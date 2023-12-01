@@ -22,7 +22,7 @@
 }:
 
 let
-  boostWithZstd = boost.overrideAttrs (old: { buildInputs = old.buildInputs ++ [ zstd ]; });
+  boostWithZstd = boost.overrideAttrs (old: {buildInputs = old.buildInputs ++ [zstd];});
 in
 stdenv.mkDerivation rec {
   version = "2.1.0";
@@ -79,6 +79,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/cdcseacave/openMVS";
     license = lib.licenses.agpl3Only;
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ bouk ];
+    maintainers = with lib.maintainers; [bouk];
   };
 }

@@ -1,5 +1,5 @@
 import ../make-test-python.nix (
-  { lib, pkgs, ... }:
+  {lib, pkgs, ...}:
 
   let
     inherit (lib) mkMerge nameValuePair maintainers;
@@ -24,10 +24,10 @@ import ../make-test-python.nix (
     };
 
     extraNodeConfs = {
-      sqlite = { };
+      sqlite = {};
 
       socket =
-        { config, ... }:
+        {config, ...}:
         {
           services.grafana.settings.server = {
             protocol = "socket";
@@ -35,7 +35,7 @@ import ../make-test-python.nix (
             socket_gid = config.users.groups.nginx.gid;
           };
 
-          users.users.grafana.extraGroups = [ "nginx" ];
+          users.users.grafana.extraGroups = ["nginx"];
 
           services.nginx = {
             enable = true;
@@ -45,7 +45,7 @@ import ../make-test-python.nix (
         };
 
       declarativePlugins = {
-        services.grafana.declarativePlugins = [ pkgs.grafanaPlugins.grafana-clock-panel ];
+        services.grafana.declarativePlugins = [pkgs.grafanaPlugins.grafana-clock-panel];
       };
 
       postgresql = {
@@ -55,7 +55,7 @@ import ../make-test-python.nix (
         };
         services.postgresql = {
           enable = true;
-          ensureDatabases = [ "grafana" ];
+          ensureDatabases = ["grafana"];
           ensureUsers = [
             {
               name = "grafana";
@@ -63,14 +63,14 @@ import ../make-test-python.nix (
             }
           ];
         };
-        systemd.services.grafana.after = [ "postgresql.service" ];
+        systemd.services.grafana.after = ["postgresql.service"];
       };
 
       mysql = {
         services.grafana.settings.database.user = "grafana";
         services.mysql = {
           enable = true;
-          ensureDatabases = [ "grafana" ];
+          ensureDatabases = ["grafana"];
           ensureUsers = [
             {
               name = "grafana";
@@ -79,7 +79,7 @@ import ../make-test-python.nix (
           ];
           package = pkgs.mariadb;
         };
-        systemd.services.grafana.after = [ "mysql.service" ];
+        systemd.services.grafana.after = ["mysql.service"];
       };
     };
 
@@ -97,7 +97,7 @@ import ../make-test-python.nix (
   {
     name = "grafana-basic";
 
-    meta = with maintainers; { maintainers = [ willibutz ]; };
+    meta = with maintainers; {maintainers = [willibutz];};
 
     inherit nodes;
 

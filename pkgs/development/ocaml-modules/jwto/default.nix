@@ -27,7 +27,7 @@ buildDunePackage rec {
     hash = "sha256-TOWwNyrOqboCm8Y4mM6GgtmxGO3NmyDdAX7m8CifA7Y=";
   };
 
-  buildInputs = [ ppxlib ];
+  buildInputs = [ppxlib];
 
   propagatedBuildInputs = [
     digestif
@@ -38,7 +38,7 @@ buildDunePackage rec {
     ppx_deriving
   ];
 
-  checkInputs = [ alcotest ];
+  checkInputs = [alcotest];
 
   doCheck = true;
 

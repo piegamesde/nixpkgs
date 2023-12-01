@@ -184,7 +184,7 @@ stdenv.mkDerivation rec {
     homepage = "https://www.feishu.cn/en/";
     downloadPage = "https://www.feishu.cn/en/#en_home_download_block";
     license = licenses.unfree;
-    platforms = [ "x86_64-linux" ];
-    maintainers = with maintainers; [ billhuang ];
+    platforms = ["x86_64-linux"];
+    maintainers = with maintainers; [billhuang];
   };
 }

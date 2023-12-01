@@ -89,7 +89,7 @@ let
       "application/java-vm"
       "application/java-archive"
     ];
-    categories = [ "Development" ];
+    categories = ["Development"];
   };
 in
 stdenv.mkDerivation rec {
@@ -119,7 +119,7 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  desktopItems = [ desktopItem ];
+  desktopItems = [desktopItem];
 
   meta = with lib; {
     broken = stdenv.isDarwin;
@@ -135,7 +135,7 @@ stdenv.mkDerivation rec {
       binaryBytecode # deps
     ];
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ wirew0rm ];
+    maintainers = with maintainers; [wirew0rm];
     platforms = platforms.all;
   };
 }

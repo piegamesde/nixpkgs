@@ -99,12 +99,12 @@ in
           # /etc/nginx/includes/http-common.conf
           onlyoffice-docservice = {
             servers = {
-              "localhost:${toString cfg.port}" = { };
+              "localhost:${toString cfg.port}" = {};
             };
           };
           onlyoffice-example = lib.mkIf cfg.enableExampleServer {
             servers = {
-              "localhost:${toString cfg.examplePort}" = { };
+              "localhost:${toString cfg.examplePort}" = {};
             };
           };
         };
@@ -204,7 +204,7 @@ in
 
       postgresql = {
         enable = lib.mkDefault true;
-        ensureDatabases = [ "onlyoffice" ];
+        ensureDatabases = ["onlyoffice"];
         ensureUsers = [
           {
             name = "onlyoffice";
@@ -229,7 +229,7 @@ in
           "onlyoffice-docservice.service"
           "postgresql.service"
         ];
-        wantedBy = [ "multi-user.target" ];
+        wantedBy = ["multi-user.target"];
         serviceConfig = {
           ExecStart = "${cfg.package.fhs}/bin/onlyoffice-wrapper FileConverter/converter /run/onlyoffice/config";
           Group = "onlyoffice";
@@ -298,11 +298,11 @@ in
             "network.target"
             "postgresql.service"
           ];
-          requires = [ "postgresql.service" ];
-          wantedBy = [ "multi-user.target" ];
+          requires = ["postgresql.service"];
+          wantedBy = ["multi-user.target"];
           serviceConfig = {
             ExecStart = "${cfg.package.fhs}/bin/onlyoffice-wrapper DocService/docservice /run/onlyoffice/config";
-            ExecStartPre = [ onlyoffice-prestart ];
+            ExecStartPre = [onlyoffice-prestart];
             Group = "onlyoffice";
             Restart = "always";
             RuntimeDirectory = "onlyoffice";
@@ -320,9 +320,9 @@ in
         isSystemUser = true;
       };
 
-      nginx.extraGroups = [ "onlyoffice" ];
+      nginx.extraGroups = ["onlyoffice"];
     };
 
-    users.groups.onlyoffice = { };
+    users.groups.onlyoffice = {};
   };
 }

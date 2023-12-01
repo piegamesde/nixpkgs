@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-ovir59kCjKkgbraX23nsmzlMzGdeNTyj3MQd8cgvLsg=";
   };
 
-  buildInputs = [ apacheHttpd ];
+  buildInputs = [apacheHttpd];
 
   preBuild = ''
     cp Makefile.AP2 Makefile

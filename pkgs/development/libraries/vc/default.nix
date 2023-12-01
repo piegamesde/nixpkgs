@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-fv0FHAl0xvAFybR/jwhX2LkozwEDy1TNcbVAmRRnLVU=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   postPatch = ''
     sed -i '/OptimizeForArchitecture()/d' cmake/VcMacros.cmake
@@ -28,6 +28,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/VcDevel/Vc";
     license = licenses.bsd3;
     platforms = platforms.all;
-    maintainers = with maintainers; [ abbradar ];
+    maintainers = with maintainers; [abbradar];
   };
 }

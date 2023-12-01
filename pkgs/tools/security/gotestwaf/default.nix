@@ -22,7 +22,7 @@ buildGoModule rec {
   # Some tests require networking as of v0.4.0
   doCheck = false;
 
-  ldflags = [ "-X github.com/wallarm/gotestwaf/internal/version.Version=v${version}" ];
+  ldflags = ["-X github.com/wallarm/gotestwaf/internal/version.Version=v${version}"];
 
   postFixup = ''
     # Rename binary
@@ -39,6 +39,6 @@ buildGoModule rec {
     description = "Tool for API and OWASP attack simulation";
     homepage = "https://github.com/wallarm/gotestwaf";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -17,8 +17,8 @@ stdenv.mkDerivation rec {
     owner = "glv2";
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
-  buildInputs = [ cryptsetup ];
+  nativeBuildInputs = [autoreconfHook];
+  buildInputs = [cryptsetup];
 
   enableParallelBuilding = true;
 

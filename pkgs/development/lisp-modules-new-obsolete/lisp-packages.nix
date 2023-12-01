@@ -82,7 +82,7 @@ let
         else
           builtins.foldl' walk (acc // toSet node.lispLibs) node.lispLibs;
     in
-    toList (walk { } { inherit lispLibs; });
+    toList (walk {} {inherit lispLibs;});
 
   # Stolen from python-packages.nix
   # Actually no idea how this works
@@ -94,7 +94,7 @@ let
         newArgs: origArgs // (if pkgs.lib.isFunction newArgs then newArgs origArgs else newArgs);
     in
     if builtins.isAttrs ff then
-      (ff // { overrideLispAttrs = newArgs: makeOverridableLispPackage f (overrideWith newArgs); })
+      (ff // {overrideLispAttrs = newArgs: makeOverridableLispPackage f (overrideWith newArgs);})
     else if builtins.isFunction ff then
       {
         overrideLispAttrs = newArgs: makeOverridableLispPackage f (overrideWith newArgs);
@@ -112,17 +112,17 @@ let
         pname,
         version,
         src ? null,
-        patches ? [ ],
+        patches ? [],
 
         # Native libraries, will be appended to the library path
-        nativeLibs ? [ ],
+        nativeLibs ? [],
 
         # Java libraries for ABCL, will be appended to the class path
-        javaLibs ? [ ],
+        javaLibs ? [],
 
         # Lisp dependencies
         # these should be packages built with `build-asdf-system`
-        lispLibs ? [ ],
+        lispLibs ? [],
 
         # Lisp command to run buildScript
         lisp,
@@ -137,7 +137,7 @@ let
         #
         # Also useful when the pname is differrent than the system name,
         # such as when using reverse domain naming.
-        systems ? [ pname ],
+        systems ? [pname],
 
         # The .asd files that this package provides
         asds ? systems,
@@ -291,18 +291,18 @@ let
           args
           // {
             src =
-              if builtins.length (args.patches or [ ]) > 0 then
-                pkgs.applyPatches { inherit (args) src patches; }
+              if builtins.length (args.patches or []) > 0 then
+                pkgs.applyPatches {inherit (args) src patches;}
               else
                 args.src;
-            patches = [ ];
+            patches = [];
 
             # make sure that propagated build-inputs from lispLibs are propagated
             propagatedBuildInputs = lib.unique (
               builtins.concatLists (
                 lib.catAttrs "propagatedBuildInputs" (
                   builtins.concatLists [
-                    [ args ]
+                    [args]
                     lispLibs
                     nativeLibs
                     javaLibs
@@ -337,7 +337,7 @@ let
   commonLispPackagesFor =
     lisp:
     let
-      build-asdf-system' = body: build-asdf-system (body // { inherit lisp; });
+      build-asdf-system' = body: build-asdf-system (body // {inherit lisp;});
     in
     import ./packages.nix {
       inherit pkgs;
@@ -355,7 +355,7 @@ let
       build ? build-asdf-system,
     }:
     let
-      build-asdf-system' = body: build (body // { inherit lisp; });
+      build-asdf-system' = body: build (body // {inherit lisp;});
     in
     import ./ql.nix {
       inherit pkgs;
@@ -377,7 +377,7 @@ let
       substituteLib = pkg: if lib.hasAttr pkg.pname packages then packages.${pkg.pname} else pkg;
       pkg = substituteLib qlPkg;
     in
-    pkg // { lispLibs = map substituteLib pkg.lispLibs; };
+    pkg // {lispLibs = map substituteLib pkg.lispLibs;};
 
   makeAttrName =
     str:
@@ -396,7 +396,7 @@ let
         str
     );
 
-  oldMakeWrapper = pkgs.runCommand "make-wrapper.sh" { } ''
+  oldMakeWrapper = pkgs.runCommand "make-wrapper.sh" {} ''
     substitute ${./old-make-wrapper.sh} $out \
       --replace @shell@ ${pkgs.bash}/bin/bash
   '';
@@ -416,7 +416,7 @@ let
       pname = baseNameOf (head (split " " lisp));
       version = "with-packages";
       lispLibs = packages clpkgs;
-      systems = [ ];
+      systems = [];
     }).overrideAttrs
       (
         o: {
@@ -435,8 +435,8 @@ let
               --prefix LD_LIBRARY_PATH : "${makeLibraryPath o.nativeLibs}" \
               --prefix CLASSPATH : "${o.CLASSPATH}" \
               --prefix CLASSPATH : "${makeSearchPath "share/java/*" o.javaLibs}" \
-              --prefix PATH : "${makeBinPath (o.buildInputs or [ ])}" \
-              --prefix PATH : "${makeBinPath (o.propagatedBuildInputs or [ ])}"
+              --prefix PATH : "${makeBinPath (o.buildInputs or [])}" \
+              --prefix PATH : "${makeBinPath (o.propagatedBuildInputs or [])}"
           '';
         }
       );

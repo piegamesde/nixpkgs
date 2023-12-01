@@ -48,7 +48,7 @@ stdenv.mkDerivation rec {
     gtk3
   ];
 
-  outputs = [ "out" ];
+  outputs = ["out"];
 
   postPatch = ''
     substituteInPlace ./src/scripts/Makefile \
@@ -61,7 +61,7 @@ stdenv.mkDerivation rec {
       --replace "/usr" "$out"
   '';
 
-  makeFlags = [ "PREFIX=${placeholder "out"}" ];
+  makeFlags = ["PREFIX=${placeholder "out"}"];
 
   postInstall = ''
     wrapProgram $out/bin/create_ap \
@@ -86,11 +86,11 @@ stdenv.mkDerivation rec {
       }
 
     wrapProgram $out/bin/wihotspot-gui \
-      --prefix PATH : ${lib.makeBinPath [ iw ]} \
+      --prefix PATH : ${lib.makeBinPath [iw]} \
       --prefix PATH : "${placeholder "out"}/bin"
 
     wrapProgram $out/bin/wihotspot \
-      --prefix PATH : ${lib.makeBinPath [ iw ]} \
+      --prefix PATH : ${lib.makeBinPath [iw]} \
       --prefix PATH : "${placeholder "out"}/bin"
   '';
 
@@ -98,7 +98,7 @@ stdenv.mkDerivation rec {
     description = "Feature-rich wifi hotspot creator for Linux which provides both GUI and command-line interface";
     homepage = "https://github.com/lakinduakash/linux-wifi-hotspot";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ onny ];
+    maintainers = with maintainers; [onny];
     platforms = platforms.unix;
   };
 }

@@ -18,9 +18,9 @@ buildPythonApplication rec {
     sha256 = "sha256-eDwAW0nLB4YqrWT3Ajt9bmX1A43wl+tOPm2St5VpCLk=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  propagatedBuildInputs = [ pandoc-xnos ];
+  propagatedBuildInputs = [pandoc-xnos];
 
   # Different pandoc executables are not available
   doCheck = false;
@@ -29,6 +29,6 @@ buildPythonApplication rec {
     description = "Standalone pandoc filter from the pandoc-xnos suite for numbering figures and figure references";
     homepage = "https://github.com/tomduck/pandoc-fignos";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ ppenguin ];
+    maintainers = with maintainers; [ppenguin];
   };
 }

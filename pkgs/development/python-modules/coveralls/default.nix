@@ -33,7 +33,7 @@ buildPythonPackage rec {
     git
   ];
 
-  buildInputs = [ pytest-runner ];
+  buildInputs = [pytest-runner];
 
   postPatch = ''
     sed -i "s/'coverage>=\([^,]\+\),.*',$/'coverage>=\1',/" setup.py

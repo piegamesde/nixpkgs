@@ -3,16 +3,16 @@ import ./make-test-python.nix {
 
   nodes = {
     private =
-      { config, pkgs, ... }:
+      {config, pkgs, ...}:
       {
         services.thelounge = {
           enable = true;
-          plugins = [ pkgs.theLoungePlugins.themes.solarized ];
+          plugins = [pkgs.theLoungePlugins.themes.solarized];
         };
       };
 
     public =
-      { config, pkgs, ... }:
+      {config, pkgs, ...}:
       {
         services.thelounge = {
           enable = true;

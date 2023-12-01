@@ -27,8 +27,8 @@ stdenv.mkDerivation {
     gtk3
     libdivsufsort
   ];
-  patches = [ ./use-system-libdivsufsort.patch ];
-  makeFlags = [ "PREFIX=${placeholder "out"}" ];
+  patches = [./use-system-libdivsufsort.patch];
+  makeFlags = ["PREFIX=${placeholder "out"}"];
   buildPhase = ''
     runHook preBuild
     ./make.sh
@@ -39,7 +39,7 @@ stdenv.mkDerivation {
     description = "A patcher for IPS and BPS files";
     homepage = "https://github.com/Alcaro/Flips";
     license = licenses.gpl3Plus;
-    maintainers = [ maintainers.xfix ];
+    maintainers = [maintainers.xfix];
     platforms = platforms.linux;
   };
 }

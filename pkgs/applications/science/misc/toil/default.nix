@@ -38,7 +38,7 @@ python3.pkgs.buildPythonApplication rec {
   ];
 
   nativeCheckInputs =
-    [ rsync ]
+    [rsync]
     ++ (
       with python3.pkgs; [
         boto
@@ -50,9 +50,9 @@ python3.pkgs.buildPythonApplication rec {
       ]
     );
 
-  pytestFlagsArray = [ "src/toil/test" ];
+  pytestFlagsArray = ["src/toil/test"];
 
-  pythonImportsCheck = [ "toil" ];
+  pythonImportsCheck = ["toil"];
 
   disabledTestPaths = [
     # Tests are reaching their timeout
@@ -85,7 +85,7 @@ python3.pkgs.buildPythonApplication rec {
   meta = with lib; {
     description = "Workflow engine written in pure Python";
     homepage = "https://toil.ucsc-cgl.org/";
-    license = with licenses; [ asl20 ];
-    maintainers = with maintainers; [ veprbl ];
+    license = with licenses; [asl20];
+    maintainers = with maintainers; [veprbl];
   };
 }

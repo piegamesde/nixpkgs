@@ -34,12 +34,12 @@ stdenv.mkDerivation rec {
     yaml-cpp
   ];
 
-  mesonFlags = [ "-Dunsupported_use_system_yamlcpp=true" ];
+  mesonFlags = ["-Dunsupported_use_system_yamlcpp=true"];
 
   meta = with lib; {
     homepage = "https://github.com/joshkunz/ashuffle";
     description = "Automatic library-wide shuffle for mpd";
-    maintainers = [ maintainers.tcbravo ];
+    maintainers = [maintainers.tcbravo];
     platforms = platforms.unix;
     license = licenses.mit;
   };

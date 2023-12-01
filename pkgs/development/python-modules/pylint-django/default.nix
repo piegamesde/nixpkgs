@@ -41,12 +41,12 @@ buildPythonPackage rec {
     "0001_noerror_initial"
   ];
 
-  pythonImportsCheck = [ "pylint_django" ];
+  pythonImportsCheck = ["pylint_django"];
 
   meta = with lib; {
     description = "Pylint plugin to analyze Django applications";
     homepage = "https://github.com/PyCQA/pylint-django";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ kamadorueda ];
+    maintainers = with maintainers; [kamadorueda];
   };
 }

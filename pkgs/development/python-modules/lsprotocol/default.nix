@@ -36,7 +36,7 @@ buildPythonPackage rec {
     cattrs
   ];
 
-  nativeCheckInputs = [ pytest ];
+  nativeCheckInputs = [pytest];
 
   checkInputs = [
     jsonschema
@@ -60,7 +60,7 @@ buildPythonPackage rec {
     runHook postCheck
   '';
 
-  pythonImportsCheck = [ "lsprotocol" ];
+  pythonImportsCheck = ["lsprotocol"];
 
   meta = with lib; {
     description = "Python implementation of the Language Server Protocol";

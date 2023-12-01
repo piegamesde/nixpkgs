@@ -24,7 +24,7 @@ buildPythonPackage rec {
     hash = "sha256-rGwfGq3zdoG9NCGqVN29Q4bWApk5B6CRdsW9ctWgOec=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs = [
     future
@@ -36,12 +36,12 @@ buildPythonPackage rec {
     six
   ];
 
-  pythonImportsCheck = [ "aurorapy" ];
+  pythonImportsCheck = ["aurorapy"];
 
   meta = with lib; {
     description = "Implementation of the communication protocol for Power-One Aurora inverters";
     homepage = "https://gitlab.com/energievalsabbia/aurorapy";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

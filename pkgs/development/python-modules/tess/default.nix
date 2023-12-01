@@ -18,7 +18,7 @@ buildPythonPackage {
     sha256 = "0pj18nrfx749fjc6bjdk5r3g1104c6jy6xg7jrpmssllhypbb1m4";
   };
 
-  buildInputs = [ cython ];
+  buildInputs = [cython];
 
   propagatedBuildInputs = [
     numpy
@@ -29,6 +29,6 @@ buildPythonPackage {
     description = "A module for calculating and analyzing Voronoi tessellations";
     homepage = "https://tess.readthedocs.org";
     license = licenses.bsd3;
-    maintainers = [ maintainers.costrouc ];
+    maintainers = [maintainers.costrouc];
   };
 }

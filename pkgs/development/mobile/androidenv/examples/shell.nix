@@ -12,7 +12,7 @@
   */
 
   # If you want to use the in-tree version of nixpkgs:
-  pkgs ? import ../../../../.. { config.allowUnfree = true; },
+  pkgs ? import ../../../../.. {config.allowUnfree = true;},
 
   config ? pkgs.config,
 }:
@@ -51,7 +51,7 @@ let
       "armeabi-v7a"
       "arm64-v8a"
     ];
-    extras = [ "extras;google;gcm" ];
+    extras = ["extras;google;gcm"];
   };
 
   # If you copy this example out of nixpkgs, something like this will work:
@@ -77,7 +77,7 @@ let
   androidComposition = androidEnv.composeAndroidPackages {
     cmdLineToolsVersion = android.versions.cmdLineToolsVersion;
     platformToolsVersion = android.versions.platformTools;
-    buildToolsVersions = [ android.versions.buildTools ];
+    buildToolsVersions = [android.versions.buildTools];
     platformVersions = android.platforms;
     abiVersions = android.abis;
 
@@ -88,7 +88,7 @@ let
 
     includeNDK = true;
     ndkVersions = android.versions.ndk;
-    cmakeVersions = [ android.versions.cmake ];
+    cmakeVersions = [android.versions.cmake];
 
     useGoogleAPIs = true;
     includeExtras = android.extras;

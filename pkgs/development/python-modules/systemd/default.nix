@@ -20,11 +20,11 @@ buildPythonPackage rec {
     hash = "sha256-8p4m4iM/z4o6PHRQIpuSXb64tPTWGlujEYCDVLiIt2o=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  buildInputs = [ systemd ];
+  buildInputs = [systemd];
 
-  nativeCheckInputs = [ pytest ];
+  nativeCheckInputs = [pytest];
 
   checkPhase = ''
     echo "12345678901234567890123456789012" > machine-id
@@ -46,6 +46,6 @@ buildPythonPackage rec {
     homepage = "https://www.freedesktop.org/software/systemd/python-systemd/";
     changelog = "https://github.com/systemd/python-systemd/blob/v${version}/NEWS";
     license = licenses.lgpl21Plus;
-    maintainers = with maintainers; [ SuperSandro2000 ];
+    maintainers = with maintainers; [SuperSandro2000];
   };
 }

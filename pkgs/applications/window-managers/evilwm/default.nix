@@ -7,7 +7,7 @@
   libXrandr,
   libXrender,
   xorgproto,
-  patches ? [ ],
+  patches ? [],
 }:
 
 stdenv.mkDerivation rec {
@@ -45,7 +45,7 @@ stdenv.mkDerivation rec {
       url = "http://www.6809.org.uk/evilwm/";
       free = true;
     }; # like BSD/MIT, but Share-Alike'y; See README.
-    maintainers = with maintainers; [ amiloradovsky ];
+    maintainers = with maintainers; [amiloradovsky];
     platforms = platforms.all;
   };
 }

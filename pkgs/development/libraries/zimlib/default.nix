@@ -51,9 +51,9 @@ stdenv.mkDerivation rec {
     patchShebangs scripts
   '';
 
-  mesonFlags = [ "-Dtest_data_dir=${testData}" ];
+  mesonFlags = ["-Dtest_data_dir=${testData}"];
 
-  nativeCheckInputs = [ gtest ];
+  nativeCheckInputs = [gtest];
 
   doCheck = true;
 
@@ -61,7 +61,7 @@ stdenv.mkDerivation rec {
     description = "Library for reading and writing ZIM files";
     homepage = "https://www.openzim.org/wiki/Zimlib";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ greg ];
+    maintainers = with maintainers; [greg];
     platforms = platforms.linux;
   };
 }

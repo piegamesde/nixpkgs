@@ -1,10 +1,10 @@
 import ./make-test-python.nix (
-  { lib, pkgs, ... }:
+  {lib, pkgs, ...}:
   {
     name = "systemd-initrd-luks-password";
 
     nodes.machine =
-      { pkgs, ... }:
+      {pkgs, ...}:
       {
         # Use systemd-boot
         virtualisation = {
@@ -17,7 +17,7 @@ import ./make-test-python.nix (
         };
         boot.loader.systemd-boot.enable = true;
 
-        environment.systemPackages = with pkgs; [ cryptsetup ];
+        environment.systemPackages = with pkgs; [cryptsetup];
         boot.initrd.systemd = {
           enable = true;
           emergencyAccess = true;

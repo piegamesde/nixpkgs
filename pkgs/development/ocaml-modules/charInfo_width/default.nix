@@ -24,6 +24,6 @@ buildDunePackage rec {
     homepage = "https://bitbucket.org/zandoye/charinfo_width/";
     description = "Determine column width for a character";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
   };
 }

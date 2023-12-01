@@ -25,12 +25,12 @@ stdenv.mkDerivation rec {
     wrapQtAppsHook
   ];
 
-  buildInputs = [ qtbase ];
+  buildInputs = [qtbase];
 
   meta = with lib; {
     description = "Punch clock to track time spent on projects";
     homepage = "https://gottcode.org/kapow/";
-    maintainers = with maintainers; [ orivej ];
+    maintainers = with maintainers; [orivej];
     platforms = platforms.linux;
     license = licenses.gpl3Plus;
   };

@@ -133,7 +133,7 @@ rec {
     ];
 
     nativeBuildInputs =
-      [ pkg-config ]
+      [pkg-config]
       ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [
         # configure: error: tangle was not found but is required when cross-compiling.
         # dev (himktables) is used when building hitex to generate the additional source file hitables.c
@@ -155,7 +155,7 @@ rec {
       perl
     ];
 
-    hardeningDisable = [ "format" ];
+    hardeningDisable = ["format"];
 
     preConfigure = ''
       rm -r libs/{cairo,freetype2,gd,gmp,graphite2,harfbuzz,icu,libpaper,libpng} \
@@ -165,14 +165,14 @@ rec {
     '';
     configureScript = "../configure";
 
-    depsBuildBuild = [ buildPackages.stdenv.cc ];
+    depsBuildBuild = [buildPackages.stdenv.cc];
 
     configureFlags =
       common.configureFlags
       ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
         "BUILDCC=${buildPackages.stdenv.cc.targetPrefix}cc"
       ]
-      ++ [ "--without-x" ] # disable xdvik and xpdfopen
+      ++ ["--without-x"] # disable xdvik and xpdfopen
       ++ map (what: "--disable-${what}") [
         "chktex"
         "dvisvgm"
@@ -308,7 +308,7 @@ rec {
         })
       ];
 
-    hardeningDisable = [ "format" ];
+    hardeningDisable = ["format"];
 
     inherit (core) nativeBuildInputs depsBuildBuild;
     buildInputs = core.buildInputs ++ [
@@ -440,14 +440,14 @@ rec {
 
     inherit (common) src;
 
-    nativeBuildInputs = [ pkg-config ];
+    nativeBuildInputs = [pkg-config];
     buildInputs = [
       core # kpathsea
     ];
 
     preConfigure = "cd texk/chktex";
 
-    configureFlags = common.configureFlags ++ [ "--with-system-kpathsea" ];
+    configureFlags = common.configureFlags ++ ["--with-system-kpathsea"];
 
     enableParallelBuilding = true;
   };
@@ -460,9 +460,9 @@ rec {
 
     preConfigure = "cd texk/dvisvgm";
 
-    configureFlags = common.configureFlags ++ [ "--with-system-kpathsea" ];
+    configureFlags = common.configureFlags ++ ["--with-system-kpathsea"];
 
-    nativeBuildInputs = [ pkg-config ];
+    nativeBuildInputs = [pkg-config];
     buildInputs = [
       core
       brotli
@@ -519,7 +519,7 @@ rec {
 
     src = lib.head (builtins.filter (p: p.tlType == "run") texlive.latexindent.pkgs);
 
-    outputs = [ "out" ];
+    outputs = ["out"];
 
     nativeBuildInputs = lib.optional stdenv.isDarwin shortenPerlShebang;
     propagatedBuildInputs = with perlPackages; [
@@ -587,7 +587,7 @@ rec {
         prettify source code.
       '';
       license = licenses.lppl13c;
-      maintainers = with maintainers; [ romildo ];
+      maintainers = with maintainers; [romildo];
     };
   };
 
@@ -619,7 +619,7 @@ rec {
 
     inherit (common) src;
 
-    nativeBuildInputs = [ pkg-config ];
+    nativeBuildInputs = [pkg-config];
     buildInputs = [
       core # kpathsea
       icu
@@ -641,7 +641,7 @@ rec {
 
     inherit (common) src;
 
-    nativeBuildInputs = [ pkg-config ];
+    nativeBuildInputs = [pkg-config];
     buildInputs =
       [
         core # kpathsea
@@ -702,7 +702,7 @@ rec {
         nativeBuildInputs = [
           pkg-config
           perl
-          (texlive.combine { inherit (texlive) scheme-basic cyrillic ec; })
+          (texlive.combine {inherit (texlive) scheme-basic cyrillic ec;})
         ];
         buildInputs = [
           clisp

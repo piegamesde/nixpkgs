@@ -59,9 +59,9 @@ in
 
   config = mkIf cfg.enable {
 
-    networking.firewall.allowedTCPPorts = mkIf cfg.openFirewall [ cfg.port ];
+    networking.firewall.allowedTCPPorts = mkIf cfg.openFirewall [cfg.port];
 
-    users.groups = mkIf (cfg.group == "komga") { komga = { }; };
+    users.groups = mkIf (cfg.group == "komga") {komga = {};};
 
     users.users = mkIf (cfg.user == "komga") {
       komga = {
@@ -80,9 +80,9 @@ in
 
       description = "Komga is a free and open source comics/mangas media server";
 
-      wantedBy = [ "multi-user.target" ];
-      wants = [ "network-online.target" ];
-      after = [ "network-online.target" ];
+      wantedBy = ["multi-user.target"];
+      wants = ["network-online.target"];
+      after = ["network-online.target"];
 
       serviceConfig = {
         User = cfg.user;
@@ -97,5 +97,5 @@ in
     };
   };
 
-  meta.maintainers = with maintainers; [ govanify ];
+  meta.maintainers = with maintainers; [govanify];
 }

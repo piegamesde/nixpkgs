@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   buildInputs = [
     wxGTK32
@@ -43,7 +43,7 @@ stdenv.mkDerivation rec {
     description = "Database administration tool for Firebird RDBMS";
     homepage = "https://github.com/mariuz/flamerobin";
     license = licenses.bsdOriginal;
-    maintainers = with maintainers; [ uralbash ];
+    maintainers = with maintainers; [uralbash];
     platforms = platforms.unix;
   };
 }

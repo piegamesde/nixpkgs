@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-+HwSykSyAGHtITVOu4nIG87kWwVxGyFXb/NRSjhWlvs=";
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
   buildInputs = [
     libsamplerate
     SDL2
@@ -44,6 +44,6 @@ stdenv.mkDerivation rec {
     description = "Master of Orion (1993) game engine recreation";
     license = licenses.gpl2Only;
     platforms = platforms.linux;
-    maintainers = [ maintainers.AndersonTorres ];
+    maintainers = [maintainers.AndersonTorres];
   };
 }

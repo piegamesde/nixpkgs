@@ -33,8 +33,8 @@ stdenv.mkDerivation rec {
     ./0002-remove-impure-dirs.patch
   ];
 
-  nativeBuildInputs = lib.optionals guileEnabled [ pkg-config ];
-  buildInputs = lib.optionals guileEnabled [ guile ];
+  nativeBuildInputs = lib.optionals guileEnabled [pkg-config];
+  buildInputs = lib.optionals guileEnabled [guile];
 
   configureFlags =
     lib.optional guileEnabled "--with-guile"
@@ -57,7 +57,7 @@ stdenv.mkDerivation rec {
 
   passthru.tests = {
     # make sure that the override doesn't break bootstrapping
-    gnumakeWithGuile = gnumake.override { guileSupport = true; };
+    gnumakeWithGuile = gnumake.override {guileSupport = true;};
   };
 
   meta = with lib; {
@@ -75,7 +75,7 @@ stdenv.mkDerivation rec {
     homepage = "https://www.gnu.org/software/make/";
 
     license = licenses.gpl3Plus;
-    maintainers = [ maintainers.vrthra ];
+    maintainers = [maintainers.vrthra];
     mainProgram = "make";
     platforms = platforms.all;
   };

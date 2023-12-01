@@ -27,7 +27,7 @@ buildPythonPackage rec {
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
   propagatedBuildInputs = [
     imageio
@@ -40,12 +40,12 @@ buildPythonPackage rec {
   # Circular dependency: napari
   doCheck = false;
 
-  pythonImportsCheck = [ "napari_console" ];
+  pythonImportsCheck = ["napari_console"];
 
   meta = with lib; {
     description = "A plugin that adds a console to napari";
     homepage = "https://github.com/napari/napari-console";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ SomeoneSerge ];
+    maintainers = with maintainers; [SomeoneSerge];
   };
 }

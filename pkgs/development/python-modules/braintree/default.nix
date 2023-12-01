@@ -22,14 +22,14 @@ buildPythonPackage rec {
     hash = "sha256-qeqQX+qyy78sLe+46CA4D6VAxNHUVahS4LMYdGDzc2k=";
   };
 
-  propagatedBuildInputs = [ requests ];
+  propagatedBuildInputs = [requests];
 
   nativeCheckInputs = [
     nose
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "braintree" ];
+  pythonImportsCheck = ["braintree"];
 
   disabledTestPaths =
     [
@@ -41,6 +41,6 @@ buildPythonPackage rec {
     description = "Python library for integration with Braintree";
     homepage = "https://github.com/braintree/braintree_python";
     license = licenses.mit;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

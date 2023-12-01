@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     sha256 = "00x5fipzqimglvshhqwycdhaqslbvn3rl06jnswhyxfvz16ymj7s";
   };
 
-  nativeBuildInputs = [ xorg.mkfontscale ];
+  nativeBuildInputs = [xorg.mkfontscale];
 
   installPhase = ''
     install -m 644 -D otb/*.otb pcf/*.pcf -t "$out/share/fonts/misc"
@@ -36,6 +36,6 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://github.com/sunaku/tamzen-font";
     license = licenses.free;
-    maintainers = with maintainers; [ wishfort36 ];
+    maintainers = with maintainers; [wishfort36];
   };
 }

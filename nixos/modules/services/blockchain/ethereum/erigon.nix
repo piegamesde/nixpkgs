@@ -10,7 +10,7 @@ let
 
   cfg = config.services.erigon;
 
-  settingsFormat = pkgs.formats.toml { };
+  settingsFormat = pkgs.formats.toml {};
   configFile = settingsFormat.generate "config.toml" cfg.settings;
 in
 {
@@ -22,7 +22,7 @@ in
       extraArgs = mkOption {
         type = types.listOf types.str;
         description = lib.mdDoc "Additional arguments passed to Erigon";
-        default = [ ];
+        default = [];
       };
 
       secretJwtPath = mkOption {
@@ -107,8 +107,8 @@ in
 
     systemd.services.erigon = {
       description = "Erigon ethereum implemenntation";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
 
       serviceConfig = {
         LoadCredential = "ERIGON_JWT:${cfg.secretJwtPath}";

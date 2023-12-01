@@ -30,7 +30,7 @@ let
       $services.quake3-server.baseq3/.q3a/
     '';
   };
-  home = pkgs.runCommand "quake3-home" { } ''
+  home = pkgs.runCommand "quake3-home" {} ''
     mkdir -p $out/.q3a/baseq3
 
     for file in ${cfg.baseq3}/*; do
@@ -93,12 +93,12 @@ in
       baseq3InStore = builtins.typeOf cfg.baseq3 == "set";
     in
     mkIf cfg.enable {
-      networking.firewall.allowedUDPPorts = mkIf cfg.openFirewall [ cfg.port ];
+      networking.firewall.allowedUDPPorts = mkIf cfg.openFirewall [cfg.port];
 
       systemd.services.q3ds = {
         description = "Quake 3 dedicated server";
-        wantedBy = [ "multi-user.target" ];
-        after = [ "networking.target" ];
+        wantedBy = ["multi-user.target"];
+        after = ["networking.target"];
 
         environment.HOME = if baseq3InStore then home else cfg.baseq3;
 
@@ -118,5 +118,5 @@ in
       };
     };
 
-  meta.maintainers = with maintainers; [ f4814n ];
+  meta.maintainers = with maintainers; [f4814n];
 }

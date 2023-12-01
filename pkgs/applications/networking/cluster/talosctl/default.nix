@@ -26,9 +26,9 @@ buildGoModule rec {
 
   GOWORK = "off";
 
-  subPackages = [ "cmd/talosctl" ];
+  subPackages = ["cmd/talosctl"];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = ''
     installShellCompletion --cmd talosctl \
@@ -43,6 +43,6 @@ buildGoModule rec {
     description = "A CLI for out-of-band management of Kubernetes nodes created by Talos";
     homepage = "https://www.talos.dev/";
     license = licenses.mpl20;
-    maintainers = with maintainers; [ flokli ];
+    maintainers = with maintainers; [flokli];
   };
 }

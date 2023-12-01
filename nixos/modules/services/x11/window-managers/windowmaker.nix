@@ -25,6 +25,6 @@ in
         waitPID=$!
       '';
     };
-    environment.systemPackages = [ pkgs.windowmaker ];
+    environment.systemPackages = [pkgs.windowmaker];
   };
 }

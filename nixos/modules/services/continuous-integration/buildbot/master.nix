@@ -17,7 +17,7 @@ let
   package = pkgs.python3.pkgs.toPythonModule cfg.package;
   python = package.pythonModule;
 
-  escapeStr = escape [ "'" ];
+  escapeStr = escape ["'"];
 
   defaultMasterCfg = pkgs.writeText "master.cfg" ''
     from buildbot.plugins import *
@@ -69,7 +69,7 @@ in
       factorySteps = mkOption {
         type = types.listOf types.str;
         description = lib.mdDoc "Factory Steps";
-        default = [ ];
+        default = [];
         example = [
           "steps.Git(repourl='https://github.com/buildbot/pyflakes.git', mode='incremental')"
           "steps.ShellCommand(command=['trial', 'pyflakes'])"
@@ -79,7 +79,7 @@ in
       changeSource = mkOption {
         type = types.listOf types.str;
         description = lib.mdDoc "List of Change Sources.";
-        default = [ ];
+        default = [];
         example = [
           "changes.GitPoller('https://github.com/buildbot/pyflakes.git', workdir='gitpoller-workdir', branch='master', pollinterval=300)"
         ];
@@ -117,17 +117,17 @@ in
       builders = mkOption {
         type = types.listOf types.str;
         description = lib.mdDoc "List of Builders.";
-        default = [ "util.BuilderConfig(name='runtests',workernames=['example-worker'],factory=factory)" ];
+        default = ["util.BuilderConfig(name='runtests',workernames=['example-worker'],factory=factory)"];
       };
 
       workers = mkOption {
         type = types.listOf types.str;
         description = lib.mdDoc "List of Workers.";
-        default = [ "worker.Worker('example-worker', 'pass')" ];
+        default = ["worker.Worker('example-worker', 'pass')"];
       };
 
       reporters = mkOption {
-        default = [ ];
+        default = [];
         type = types.listOf types.str;
         description = lib.mdDoc "List of reporter objects used to present build status to various users.";
       };
@@ -146,7 +146,7 @@ in
 
       extraGroups = mkOption {
         type = types.listOf types.str;
-        default = [ ];
+        default = [];
         description = lib.mdDoc "List of extra groups that the buildbot user should be a part of.";
       };
 
@@ -224,7 +224,7 @@ in
       };
 
       packages = mkOption {
-        default = [ pkgs.git ];
+        default = [pkgs.git];
         defaultText = literalExpression "[ pkgs.git ]";
         type = types.listOf types.package;
         description = lib.mdDoc "Packages to add to PATH for the buildbot process.";
@@ -232,7 +232,7 @@ in
 
       pythonPackages = mkOption {
         type = types.functionTo (types.listOf types.package);
-        default = pythonPackages: with pythonPackages; [ ];
+        default = pythonPackages: with pythonPackages; [];
         defaultText = literalExpression "pythonPackages: with pythonPackages; [ ]";
         description = lib.mdDoc "Packages to add the to the PYTHONPATH of the buildbot process.";
         example = literalExpression "pythonPackages: with pythonPackages; [ requests ]";
@@ -241,7 +241,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    users.groups = optionalAttrs (cfg.group == "buildbot") { buildbot = { }; };
+    users.groups = optionalAttrs (cfg.group == "buildbot") {buildbot = {};};
 
     users.users = optionalAttrs (cfg.user == "buildbot") {
       buildbot = {
@@ -255,11 +255,11 @@ in
 
     systemd.services.buildbot-master = {
       description = "Buildbot Continuous Integration Server.";
-      after = [ "network-online.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network-online.target"];
+      wantedBy = ["multi-user.target"];
       path = cfg.packages ++ cfg.pythonPackages python.pkgs;
       environment.PYTHONPATH = "${
-        python.withPackages (self: cfg.pythonPackages self ++ [ package ])
+        python.withPackages (self: cfg.pythonPackages self ++ [package])
       }/${python.sitePackages}";
 
       preStart = ''

@@ -22,11 +22,11 @@ stdenv.mkDerivation rec {
     ncurses
     libsamplerate
   ];
-  nativeBuildInputs = [ gettext ];
+  nativeBuildInputs = [gettext];
 
-  configureFlags = [ "--disable-xmlto" ];
+  configureFlags = ["--disable-xmlto"];
 
-  installFlags = [ "ASOUND_STATE_DIR=$(TMPDIR)/dummy" ];
+  installFlags = ["ASOUND_STATE_DIR=$(TMPDIR)/dummy"];
 
   meta = with lib; {
     homepage = "http://www.alsa-project.org/";

@@ -24,13 +24,13 @@ buildGoModule rec {
     "-buildid="
   ];
   vendorHash = "sha256-fnM4ycqDyruCdCA1Cr4Ki48xeQiTG4l5dLVuAafEm14=";
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   meta = with lib; {
     description = "A command-line tool for one-click proxy in your research and development without installing v2ray or anything else";
     homepage = "https://github.com/mzz2017/gg";
     license = licenses.agpl3Plus;
-    maintainers = with maintainers; [ xyenon ];
+    maintainers = with maintainers; [xyenon];
     mainProgram = "gg";
     platforms = platforms.linux;
   };

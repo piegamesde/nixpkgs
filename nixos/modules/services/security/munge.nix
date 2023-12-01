@@ -35,7 +35,7 @@ in
 
   config = mkIf cfg.enable {
 
-    environment.systemPackages = [ pkgs.munge ];
+    environment.systemPackages = [pkgs.munge];
 
     users.users.munge = {
       description = "Munge daemon user";
@@ -43,11 +43,11 @@ in
       group = "munge";
     };
 
-    users.groups.munge = { };
+    users.groups.munge = {};
 
     systemd.services.munged = {
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
 
       path = [
         pkgs.munge

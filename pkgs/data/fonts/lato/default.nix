@@ -44,6 +44,6 @@ stdenvNoCC.mkDerivation {
 
     license = licenses.ofl;
     platforms = platforms.all;
-    maintainers = with maintainers; [ chris-martin ];
+    maintainers = with maintainers; [chris-martin];
   };
 }

@@ -15,12 +15,12 @@ buildPythonPackage rec {
 
   # Project has no tests
   doCheck = false;
-  pythonImportsCheck = [ "ppdeep" ];
+  pythonImportsCheck = ["ppdeep"];
 
   meta = with lib; {
     description = "Python library for computing fuzzy hashes (ssdeep)";
     homepage = "https://github.com/elceef/ppdeep";
-    license = with licenses; [ asl20 ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [asl20];
+    maintainers = with maintainers; [fab];
   };
 }

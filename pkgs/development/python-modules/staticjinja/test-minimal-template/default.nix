@@ -1,4 +1,4 @@
-{ stdenv, staticjinja }:
+{stdenv, staticjinja}:
 
 stdenv.mkDerivation {
   name = "staticjinja-test-minimal-template";

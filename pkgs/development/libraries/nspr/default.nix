@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-fqMpfqWWm10lpd2NR/JEPNqI6e50YwH24eFCb4pqvI8=";
   };
 
-  patches = [ ./0001-Makefile-use-SOURCE_DATE_EPOCH-for-reproducibility.patch ];
+  patches = [./0001-Makefile-use-SOURCE_DATE_EPOCH-for-reproducibility.patch];
 
   outputs = [
     "out"
@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
     '';
 
   HOST_CC = "cc";
-  depsBuildBuild = [ buildPackages.stdenv.cc ];
+  depsBuildBuild = [buildPackages.stdenv.cc];
   configureFlags = [
     "--enable-optimize"
     "--disable-debug"
@@ -45,7 +45,7 @@ stdenv.mkDerivation rec {
     moveToOutput share "$dev" # just aclocal
   '';
 
-  buildInputs = lib.optionals stdenv.isDarwin [ CoreServices ];
+  buildInputs = lib.optionals stdenv.isDarwin [CoreServices];
 
   enableParallelBuilding = true;
 

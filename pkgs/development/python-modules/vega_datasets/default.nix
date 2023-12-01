@@ -15,9 +15,9 @@ buildPythonPackage rec {
     sha256 = "9dbe9834208e8ec32ab44970df315de9102861e4cda13d8e143aab7a80d93fc0";
   };
 
-  propagatedBuildInputs = [ pandas ];
+  propagatedBuildInputs = [pandas];
 
-  nativeCheckInputs = [ pytest ];
+  nativeCheckInputs = [pytest];
 
   checkPhase = ''
     py.test vega_datasets --doctest-modules -k 'not column_names'

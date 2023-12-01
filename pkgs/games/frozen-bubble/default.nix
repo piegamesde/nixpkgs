@@ -18,7 +18,7 @@ perlPackages.buildPerlModule {
     url = "mirror://cpan/authors/id/K/KT/KTHAKORE/Games-FrozenBubble-2.212.tar.gz";
     sha256 = "721e04ff69c5233060656bfbf4002aa1aeadd96c95351f0c57bb85b6da35a305";
   };
-  patches = [ ./fix-compilation.patch ];
+  patches = [./fix-compilation.patch];
 
   nativeBuildInputs = [
     copyDesktopItems
@@ -51,13 +51,13 @@ perlPackages.buildPerlModule {
       desktopName = "Frozen Bubble";
       genericName = "Frozen Bubble";
       comment = "Arcade/reflex colour matching game";
-      categories = [ "Game" ];
+      categories = ["Game"];
     })
   ];
 
   meta = {
     description = "Puzzle with Bubbles";
     license = lib.licenses.gpl2;
-    maintainers = with lib.maintainers; [ puckipedia ];
+    maintainers = with lib.maintainers; [puckipedia];
   };
 }

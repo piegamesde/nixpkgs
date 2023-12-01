@@ -24,19 +24,19 @@ buildPythonPackage rec {
     sed -i "/python_requires =/d" setup.cfg
   '';
 
-  pythonImportsCheck = [ "plum" ];
+  pythonImportsCheck = ["plum"];
 
   nativeCheckInputs = [
     baseline
     pytestCheckHook
   ];
 
-  pytestFlagsArray = [ "tests" ];
+  pytestFlagsArray = ["tests"];
 
   meta = with lib; {
     description = "Classes and utilities for packing/unpacking bytes";
     homepage = "https://plum-py.readthedocs.io/en/latest/index.html";
     license = licenses.mit;
-    maintainers = with maintainers; [ dnr ];
+    maintainers = with maintainers; [dnr];
   };
 }

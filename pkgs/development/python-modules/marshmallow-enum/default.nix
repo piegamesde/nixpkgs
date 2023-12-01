@@ -23,9 +23,9 @@ buildPythonPackage rec {
     sed -i '/addopts/d' tox.ini
   '';
 
-  propagatedBuildInputs = [ marshmallow ] ++ lib.optionals isPy27 [ enum34 ];
+  propagatedBuildInputs = [marshmallow] ++ lib.optionals isPy27 [enum34];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTests = [
     "test_custom_error_in_deserialize_by_name"
@@ -36,6 +36,6 @@ buildPythonPackage rec {
     description = "Enum field for Marshmallow";
     homepage = "https://github.com/justanr/marshmallow_enum";
     license = licenses.mit;
-    maintainers = [ maintainers.costrouc ];
+    maintainers = [maintainers.costrouc];
   };
 }

@@ -22,13 +22,13 @@ stdenv.mkDerivation {
     sha256 = "9c850aee90d7e59de834f83e09fa6e3e51b123f06e265ead70957608ada95441";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     gtk2
     glib
     pidgin
   ];
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   postPatch = ''
     sed -e 's/-Wl,-soname//' -i Makefile
@@ -48,6 +48,6 @@ stdenv.mkDerivation {
     description = "LaTeX rendering plugin for Pidgin IM";
     license = licenses.gpl2;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ abbradar ];
+    maintainers = with maintainers; [abbradar];
   };
 }

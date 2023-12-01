@@ -28,7 +28,7 @@ buildPythonPackage rec {
     pytest-xdist
     six
   ];
-  propagatedBuildInputs = [ django ];
+  propagatedBuildInputs = [django];
 
   # Complicated. Requires Django setup.
   doCheck = false;

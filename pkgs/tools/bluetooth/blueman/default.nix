@@ -63,7 +63,7 @@ stdenv.mkDerivation rec {
     pycairo
   ];
 
-  propagatedUserEnvPkgs = [ obex_data_server ];
+  propagatedUserEnvPkgs = [obex_data_server];
 
   configureFlags = [
     "--with-systemdsystemunitdir=${placeholder "out"}/lib/systemd/system"
@@ -79,7 +79,7 @@ stdenv.mkDerivation rec {
         iproute2
       ]
     }"
-    "--suffix PATH ':' ${lib.makeBinPath [ xdg-utils ]}"
+    "--suffix PATH ':' ${lib.makeBinPath [xdg-utils]}"
   ];
 
   postFixup = ''
@@ -93,6 +93,6 @@ stdenv.mkDerivation rec {
     description = "GTK-based Bluetooth Manager";
     license = licenses.gpl3;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ abbradar ];
+    maintainers = with maintainers; [abbradar];
   };
 }

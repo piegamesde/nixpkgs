@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url = "https://www.segger.com/downloads/jlink/Ozone_Linux_V${
-      (lib.replaceStrings [ "." ] [ "" ] version)
+      (lib.replaceStrings ["."] [""] version)
     }_x86_64.tgz";
     sha256 = "0v1r8qvp1w2f3yip9fys004pa0smlmq69p7w77lfvghs1rmg1649";
   };
@@ -81,9 +81,9 @@ stdenv.mkDerivation rec {
       not guaranteed to be.
     '';
     homepage = "https://www.segger.com/products/development-tools/ozone-j-link-debugger";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.unfree;
-    maintainers = [ maintainers.bmilanov ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = [maintainers.bmilanov];
+    platforms = ["x86_64-linux"];
   };
 }

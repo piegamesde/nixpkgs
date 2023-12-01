@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-54yXQ3E10dlU/UqHyl3fxzQsawBTgNpIaq6XPmwXmD8=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     runHook preInstall
@@ -48,6 +48,6 @@ stdenv.mkDerivation rec {
     homepage = "https://www.jbang.dev";
     license = licenses.mit;
     platforms = platforms.all;
-    maintainers = with maintainers; [ moaxcp ];
+    maintainers = with maintainers; [moaxcp];
   };
 }

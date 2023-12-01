@@ -63,7 +63,7 @@ package.override rec {
     homepage = "https://snipeitapp.com/";
     changelog = "https://github.com/snipe/snipe-it/releases/tag/v${version}";
     license = licenses.agpl3Only;
-    maintainers = with maintainers; [ yayayayaka ];
+    maintainers = with maintainers; [yayayayaka];
     platforms = platforms.linux;
   };
 }

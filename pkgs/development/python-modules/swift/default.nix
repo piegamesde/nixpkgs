@@ -80,7 +80,7 @@ buildPythonPackage rec {
     stestr run
   '';
 
-  pythonImportsCheck = [ "swift" ];
+  pythonImportsCheck = ["swift"];
 
   meta = with lib; {
     description = "OpenStack Object Storage";

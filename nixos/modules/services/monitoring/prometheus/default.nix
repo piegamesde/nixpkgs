@@ -8,7 +8,7 @@
 with lib;
 
 let
-  yaml = pkgs.formats.yaml { };
+  yaml = pkgs.formats.yaml {};
   cfg = config.services.prometheus;
   checkConfigEnabled =
     (lib.isBool cfg.checkConfig && cfg.checkConfig) || cfg.checkConfig == "syntax-only";
@@ -16,7 +16,7 @@ let
   workingDir = "/var/lib/" + cfg.stateDir;
 
   triggerReload = pkgs.writeShellScriptBin "trigger-reload-prometheus" ''
-    PATH="${makeBinPath (with pkgs; [ systemd ])}"
+    PATH="${makeBinPath (with pkgs; [systemd])}"
     if systemctl -q is-active prometheus.service; then
       systemctl reload prometheus.service
     fi
@@ -42,8 +42,8 @@ let
   promtoolCheck =
     what: name: file:
     if checkConfigEnabled then
-      pkgs.runCommandLocal "${name}-${replaceStrings [ " " ] [ "" ] what}-checked"
-        { buildInputs = [ cfg.package.cli ]; }
+      pkgs.runCommandLocal "${name}-${replaceStrings [" "] [""] what}-checked"
+        {buildInputs = [cfg.package.cli];}
         ''
           ln -s ${file} $out
           promtool ${what} $out
@@ -57,7 +57,7 @@ let
   promConfig = {
     global = filterValidPrometheus cfg.globalConfig;
     rule_files = map (promtoolCheck "check rules" "rules") (
-      cfg.ruleFiles ++ [ (pkgs.writeText "prometheus.rules" (concatStringsSep "\n" cfg.rules)) ]
+      cfg.ruleFiles ++ [(pkgs.writeText "prometheus.rules" (concatStringsSep "\n" cfg.rules))]
     );
     scrape_configs = filterValidPrometheus cfg.scrapeConfigs;
     remote_write = filterValidPrometheus cfg.remoteWrite;
@@ -103,7 +103,7 @@ let
             let
               v = x.${name};
             in
-            if pred name v then [ (nameValuePair name (filterAttrsListRecursive pred v)) ] else [ ]
+            if pred name v then [(nameValuePair name (filterAttrsListRecursive pred v))] else []
           )
           (attrNames x)
       )
@@ -813,7 +813,7 @@ let
 
                 values = mkOption {
                   type = types.listOf types.str;
-                  default = [ ];
+                  default = [];
                   description = lib.mdDoc ''
                     Value of the filter.
                   '';
@@ -1462,7 +1462,7 @@ let
       };
       labels = mkOption {
         type = types.attrsOf types.str;
-        default = { };
+        default = {};
         description = lib.mdDoc ''
           Labels assigned to all metrics scraped from the targets.
         '';
@@ -1734,7 +1734,7 @@ in
 
     extraFlags = mkOption {
       type = types.listOf types.str;
-      default = [ ];
+      default = [];
       description = lib.mdDoc ''
         Extra commandline options when launching Prometheus.
       '';
@@ -1765,7 +1765,7 @@ in
 
     globalConfig = mkOption {
       type = promTypes.globalConfig;
-      default = { };
+      default = {};
       description = lib.mdDoc ''
         Parameters that are valid in all  configuration contexts. They
         also serve as defaults for other configuration sections
@@ -1774,7 +1774,7 @@ in
 
     remoteRead = mkOption {
       type = types.listOf promTypes.remote_read;
-      default = [ ];
+      default = [];
       description = lib.mdDoc ''
         Parameters of the endpoints to query from.
         See [the official documentation](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#remote_read) for more information.
@@ -1783,7 +1783,7 @@ in
 
     remoteWrite = mkOption {
       type = types.listOf promTypes.remote_write;
-      default = [ ];
+      default = [];
       description = lib.mdDoc ''
         Parameters of the endpoints to send samples to.
         See [the official documentation](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#remote_write) for more information.
@@ -1792,7 +1792,7 @@ in
 
     rules = mkOption {
       type = types.listOf types.str;
-      default = [ ];
+      default = [];
       description = lib.mdDoc ''
         Alerting and/or Recording rules to evaluate at runtime.
       '';
@@ -1800,7 +1800,7 @@ in
 
     ruleFiles = mkOption {
       type = types.listOf types.path;
-      default = [ ];
+      default = [];
       description = lib.mdDoc ''
         Any additional rules files to include in this configuration.
       '';
@@ -1808,7 +1808,7 @@ in
 
     scrapeConfigs = mkOption {
       type = types.listOf promTypes.scrape_config;
-      default = [ ];
+      default = [];
       description = lib.mdDoc ''
         A list of scrape configurations.
       '';
@@ -1827,7 +1827,7 @@ in
           } ];
         } ]
       '';
-      default = [ ];
+      default = [];
       description = lib.mdDoc ''
         A list of alertmanagers to send alerts to.
         See [the official documentation](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#alertmanager_config) for more information.
@@ -1862,7 +1862,7 @@ in
     };
 
     checkConfig = mkOption {
-      type = with types; either bool (enum [ "syntax-only" ]);
+      type = with types; either bool (enum ["syntax-only"]);
       default = true;
       example = "syntax-only";
       description = lib.mdDoc ''
@@ -1914,10 +1914,10 @@ in
       uid = config.ids.uids.prometheus;
       group = "prometheus";
     };
-    environment.etc."prometheus/prometheus.yaml" = mkIf cfg.enableReload { source = prometheusYml; };
+    environment.etc."prometheus/prometheus.yaml" = mkIf cfg.enableReload {source = prometheusYml;};
     systemd.services.prometheus = {
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
       serviceConfig = {
         ExecStart =
           "${cfg.package}/bin/prometheus"
@@ -1931,9 +1931,9 @@ in
         StateDirectory = cfg.stateDir;
         StateDirectoryMode = "0700";
         # Hardening
-        AmbientCapabilities = lib.mkIf (cfg.port < 1024) [ "CAP_NET_BIND_SERVICE" ];
-        CapabilityBoundingSet = if (cfg.port < 1024) then [ "CAP_NET_BIND_SERVICE" ] else [ "" ];
-        DeviceAllow = [ "/dev/null rw" ];
+        AmbientCapabilities = lib.mkIf (cfg.port < 1024) ["CAP_NET_BIND_SERVICE"];
+        CapabilityBoundingSet = if (cfg.port < 1024) then ["CAP_NET_BIND_SERVICE"] else [""];
+        DeviceAllow = ["/dev/null rw"];
         DevicePolicy = "strict";
         LockPersonality = true;
         MemoryDenyWriteExecute = true;
@@ -1978,16 +1978,16 @@ in
     # that this service has changed (restartTriggers) and needs to be reloaded
     # (reloadIfChanged). The reload command then reloads prometheus.
     systemd.services.prometheus-config-reload = mkIf cfg.enableReload {
-      wantedBy = [ "prometheus.service" ];
-      after = [ "prometheus.service" ];
+      wantedBy = ["prometheus.service"];
+      after = ["prometheus.service"];
       reloadIfChanged = true;
-      restartTriggers = [ prometheusYml ];
+      restartTriggers = [prometheusYml];
       serviceConfig = {
         Type = "oneshot";
         RemainAfterExit = true;
         TimeoutSec = 60;
         ExecStart = "${pkgs.logger}/bin/logger 'prometheus-config-reload will only reload prometheus when reloaded itself.'";
-        ExecReload = [ "${triggerReload}/bin/trigger-reload-prometheus" ];
+        ExecReload = ["${triggerReload}/bin/trigger-reload-prometheus"];
       };
     };
   };

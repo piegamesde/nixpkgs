@@ -60,12 +60,12 @@ in
   # implementation
 
   config = mkIf cfg.enable {
-    environment.systemPackages = [ pkgs.mailcatcher ];
+    environment.systemPackages = [pkgs.mailcatcher];
 
     systemd.services.mailcatcher = {
       description = "MailCatcher Service";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
 
       serviceConfig = {
         DynamicUser = true;

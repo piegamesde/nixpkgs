@@ -61,7 +61,7 @@ in
 
     systemd.services.mjpg-streamer = {
       description = "mjpg-streamer webcam streamer";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
 
       serviceConfig = {
         User = cfg.user;

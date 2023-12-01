@@ -18,7 +18,7 @@ stdenv.mkDerivation {
     homepage = "https://scrolls.com/";
     # http://www.reddit.com/r/Scrolls/comments/2j3pxw/linux_client_experimental/
 
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
 
     license = lib.licenses.unfree;
   };

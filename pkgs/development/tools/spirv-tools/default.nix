@@ -50,7 +50,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/KhronosGroup/SPIRV-Tools";
     license = licenses.asl20;
     platforms = platforms.unix;
-    maintainers = [ maintainers.ralith ];
+    maintainers = [maintainers.ralith];
     broken = (version != spirv-headers.version);
   };
 }

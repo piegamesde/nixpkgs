@@ -8,12 +8,12 @@ let
 
   inherit (lib) mkOption;
 
-  vmVariant = extendModules { modules = [ ./qemu-vm.nix ]; };
+  vmVariant = extendModules {modules = [./qemu-vm.nix];};
 
   vmVariantWithBootLoader = vmVariant.extendModules {
     modules = [
       (
-        { config, ... }:
+        {config, ...}:
         {
           _file = "nixos/default.nix##vmWithBootLoader";
           virtualisation.useBootLoader = true;
@@ -32,7 +32,7 @@ in
         Machine configuration to be added for the vm script produced by `nixos-rebuild build-vm`.
       '';
       inherit (vmVariant) type;
-      default = { };
+      default = {};
       visible = "shallow";
     };
 
@@ -41,7 +41,7 @@ in
         Machine configuration to be added for the vm script produced by `nixos-rebuild build-vm-with-bootloader`.
       '';
       inherit (vmVariantWithBootLoader) type;
-      default = { };
+      default = {};
       visible = "shallow";
     };
   };

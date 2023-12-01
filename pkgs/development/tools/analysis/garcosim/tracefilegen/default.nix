@@ -17,9 +17,9 @@ stdenv.mkDerivation rec {
     sha256 = "1gsx18ksgz5gwl3v62vgrmhxc0wc99i74qwhpn0h57zllk41drjc";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
-  patches = [ ./gcc7.patch ];
+  patches = [./gcc7.patch];
 
   installPhase = ''
     install -Dm755 TraceFileGen $out/bin/TraceFileGen
@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Automatically generate all types of basic memory management operations and write into trace files";
     homepage = "https://github.com/GarCoSim";
-    maintainers = [ maintainers.cmcdragonkai ];
+    maintainers = [maintainers.cmcdragonkai];
     license = licenses.gpl2;
     platforms = platforms.linux;
   };

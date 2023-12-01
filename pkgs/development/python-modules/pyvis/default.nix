@@ -37,14 +37,14 @@ buildPythonPackage rec {
     jsonpickle
   ];
 
-  nativeCheckInputs = [ numpy ];
+  nativeCheckInputs = [numpy];
 
-  pythonImportsCheck = [ "pyvis" ];
+  pythonImportsCheck = ["pyvis"];
 
   meta = with lib; {
     homepage = "https://github.com/WestHealth/pyvis";
     description = "Python package for creating and visualizing interactive network graphs";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

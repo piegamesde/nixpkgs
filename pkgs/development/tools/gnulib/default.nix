@@ -19,7 +19,7 @@ stdenv.mkDerivation {
     patchShebangs gnulib-tool.py
   '';
 
-  buildInputs = [ python3 ];
+  buildInputs = [python3];
 
   installPhase = ''
     mkdir -p $out/bin

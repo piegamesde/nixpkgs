@@ -27,7 +27,7 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "Fuzzing and property testing front-end framework for Rust";
     homepage = "https://github.com/camshaft/bolero";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ ekleog ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [ekleog];
   };
 }

@@ -17,7 +17,7 @@ buildPythonPackage rec {
     hash = "sha256-V6W5u5rTUMJ46Kpr5M3rvNklubpx1qcSoXimGM+4mPc=";
   };
 
-  buildInputs = [ setuptools-scm ];
+  buildInputs = [setuptools-scm];
 
   nativeCheckInputs = [
     pypiserver
@@ -28,12 +28,12 @@ buildPythonPackage rec {
   # Tests use network
   doCheck = false;
 
-  pythonImportsCheck = [ "declarative_requirements" ];
+  pythonImportsCheck = ["declarative_requirements"];
 
   meta = with lib; {
     homepage = "https://github.com/s0undt3ch/setuptools-declarative-requirements";
     description = "Declarative setuptools Config Requirements Files Support";
     license = licenses.asl20;
-    maintainers = [ maintainers.austinbutler ];
+    maintainers = [maintainers.austinbutler];
   };
 }

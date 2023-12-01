@@ -27,9 +27,9 @@ buildPythonPackage rec {
     redis
   ];
 
-  nativeCheckInputs = [ unittestCheckHook ];
+  nativeCheckInputs = [unittestCheckHook];
 
-  pythonImportsCheck = [ "karton.core" ];
+  pythonImportsCheck = ["karton.core"];
 
   meta = with lib; {
     description = "Distributed malware processing framework";

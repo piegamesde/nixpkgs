@@ -1,10 +1,10 @@
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   {
     name = "fish";
 
     nodes.machine =
-      { pkgs, ... }:
+      {pkgs, ...}:
 
       {
         programs.fish.enable = true;

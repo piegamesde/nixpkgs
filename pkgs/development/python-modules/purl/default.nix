@@ -17,16 +17,16 @@ buildPythonPackage rec {
     hash = "sha256-Jb3JRW/PtQ7NlO4eQ9DmTPu/sjvFTg2mztphoIF79gc=";
   };
 
-  propagatedBuildInputs = [ six ];
+  propagatedBuildInputs = [six];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "purl" ];
+  pythonImportsCheck = ["purl"];
 
   meta = with lib; {
     description = "Immutable URL class for easy URL-building and manipulation";
     homepage = "https://github.com/codeinthehole/purl";
     license = licenses.mit;
-    maintainers = with maintainers; [ jonringer ];
+    maintainers = with maintainers; [jonringer];
   };
 }

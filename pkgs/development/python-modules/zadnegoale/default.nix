@@ -39,13 +39,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "zadnegoale" ];
+  pythonImportsCheck = ["zadnegoale"];
 
   meta = with lib; {
     description = "Python wrapper for getting allergen concentration data from Żadnego Ale servers";
     homepage = "https://github.com/bieniu/zadnegoale";
     changelog = "https://github.com/bieniu/zadnegoale/releases/tag/${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -35,7 +35,7 @@ rustPlatform.buildRustPackage rec {
   # Found argument '--test-threads' which wasn't expected, or isn't valid in this context
   doCheck = false;
 
-  passthru.tests.version = testers.testVersion { package = lsd; };
+  passthru.tests.version = testers.testVersion {package = lsd;};
 
   meta = with lib; {
     homepage = "https://github.com/Peltoche/lsd";

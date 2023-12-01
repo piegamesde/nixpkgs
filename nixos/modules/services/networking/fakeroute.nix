@@ -30,7 +30,7 @@ in
 
       route = mkOption {
         type = types.listOf types.str;
-        default = [ ];
+        default = [];
         example = [
           "216.102.187.130"
           "4.0.1.122"
@@ -50,8 +50,8 @@ in
   config = mkIf cfg.enable {
     systemd.services.fakeroute = {
       description = "Fakeroute Daemon";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         Type = "forking";
         User = "root";
@@ -60,5 +60,5 @@ in
     };
   };
 
-  meta.maintainers = with lib.maintainers; [ rnhmjoj ];
+  meta.maintainers = with lib.maintainers; [rnhmjoj];
 }

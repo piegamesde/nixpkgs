@@ -17,7 +17,7 @@ buildPythonPackage rec {
 
   # Most tests requires an actual iLO to run
   doCheck = false;
-  pythonImportsCheck = [ "hpilo" ];
+  pythonImportsCheck = ["hpilo"];
 
   meta = with lib; {
     description = "Python module to access the HP iLO XML interface";
@@ -26,6 +26,6 @@ buildPythonPackage rec {
       asl20
       gpl3Plus
     ];
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

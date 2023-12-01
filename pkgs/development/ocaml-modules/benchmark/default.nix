@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
     findlib
     ocamlbuild
   ];
-  buildInputs = [ ocaml_pcre ];
+  buildInputs = [ocaml_pcre];
 
   createFindlibDestdir = true;
 
@@ -33,6 +33,6 @@ stdenv.mkDerivation rec {
     inherit (ocaml.meta) platforms;
     description = "Benchmark running times of code";
     license = lib.licenses.lgpl21;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
   };
 }

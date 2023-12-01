@@ -14,7 +14,7 @@ stdenv.mkDerivation rec {
     sha256 = "1632szz849wasvh5sm6rm1zbvbrkq35k7kcyvx474gyl4h4x2flw";
   };
 
-  buildInputs = [ which ];
+  buildInputs = [which];
 
   preConfigure = lib.optionalString stdenv.isDarwin ''
     substituteInPlace configure --replace "xlc_r gcc" "xlc_r gcc $CC"

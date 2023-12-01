@@ -25,7 +25,7 @@
   sane-drivers,
 
   # List of { src name backend } attibute sets - see installFirmware below:
-  extraFirmware ? [ ],
+  extraFirmware ? [],
 
   # For backwards compatibility with older setups; use extraFirmware instead:
   gt68xxFirmware ? null,
@@ -76,7 +76,7 @@ stdenv.mkDerivation {
     "man"
   ];
 
-  depsBuildBuild = [ buildPackages.stdenv.cc ];
+  depsBuildBuild = [buildPackages.stdenv.cc];
 
   nativeBuildInputs = [
     gettext
@@ -175,6 +175,6 @@ stdenv.mkDerivation {
     homepage = "http://www.sane-project.org/";
     license = licenses.gpl2Plus;
     platforms = platforms.linux ++ platforms.darwin;
-    maintainers = [ maintainers.symphorien ];
+    maintainers = [maintainers.symphorien];
   };
 }

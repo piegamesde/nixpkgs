@@ -31,9 +31,9 @@ buildPythonPackage rec {
     testfixtures
   ];
 
-  disabledTests = [ "test_multi_file_support" ];
+  disabledTests = ["test_multi_file_support"];
 
-  pythonImportsCheck = [ "pykwalify" ];
+  pythonImportsCheck = ["pykwalify"];
 
   meta = with lib; {
     homepage = "https://github.com/Grokzen/pykwalify";
@@ -55,6 +55,6 @@ buildPythonPackage rec {
       http://www.kuwata-lab.com/kwalify/ruby/users-guide.01.html#schema
     '';
     license = licenses.mit;
-    maintainers = with maintainers; [ siriobalmelli ];
+    maintainers = with maintainers; [siriobalmelli];
   };
 }

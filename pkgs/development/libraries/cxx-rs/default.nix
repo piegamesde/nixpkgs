@@ -34,7 +34,7 @@ rustPlatform.buildRustPackage rec {
     cargo doc --release
   '';
 
-  cargoTestFlags = [ "--workspace" ];
+  cargoTestFlags = ["--workspace"];
 
   outputs = [
     "out"
@@ -59,6 +59,6 @@ rustPlatform.buildRustPackage rec {
     description = "Safe FFI between Rust and C++";
     homepage = "https://github.com/dtolnay/cxx";
     license = licenses.mit;
-    maintainers = with maintainers; [ centromere ];
+    maintainers = with maintainers; [centromere];
   };
 }

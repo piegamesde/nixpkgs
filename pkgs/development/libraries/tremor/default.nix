@@ -28,7 +28,7 @@ stdenv.mkDerivation {
     autoreconfHook
     pkg-config
   ];
-  propagatedBuildInputs = [ libogg ];
+  propagatedBuildInputs = [libogg];
 
   preConfigure = ''
     sed -i /XIPH_PATH_OGG/d configure

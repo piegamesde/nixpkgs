@@ -1,5 +1,5 @@
 import ./make-test-python.nix (
-  { pkgs, lib, ... }:
+  {pkgs, lib, ...}:
   let
     journal = pkgs.writeText "test.journal" ''
       2010/01/10 Loan
@@ -12,11 +12,11 @@ import ./make-test-python.nix (
   in
   rec {
     name = "hledger-web";
-    meta.maintainers = with lib.maintainers; [ marijanp ];
+    meta.maintainers = with lib.maintainers; [marijanp];
 
     nodes = rec {
       server =
-        { config, pkgs, ... }:
+        {config, pkgs, ...}:
         {
           services.hledger-web = {
             host = "127.0.0.1";
@@ -24,15 +24,15 @@ import ./make-test-python.nix (
             enable = true;
             capabilities.manage = true;
           };
-          networking.firewall.allowedTCPPorts = [ config.services.hledger-web.port ];
+          networking.firewall.allowedTCPPorts = [config.services.hledger-web.port];
           systemd.services.hledger-web.preStart = ''
             ln -s ${journal} /var/lib/hledger-web/.hledger.journal
           '';
         };
       apiserver =
-        { ... }:
+        {...}:
         {
-          imports = [ server ];
+          imports = [server];
           services.hledger-web.serveApi = true;
         };
     };

@@ -25,7 +25,7 @@
   installManPages ? true,
   # Specify binaries to build in the form { foo.src = "src/foo.cr"; }
   # The default `crystal build` options can be overridden with { foo.options = [ "--optionname" ]; }
-  crystalBinaries ? { },
+  crystalBinaries ? {},
   enableParallelBuilding ? true,
   ...
 }@args:
@@ -60,7 +60,7 @@ let
     "--verbose"
   ];
 
-  buildDirectly = shardsFile == null || crystalBinaries != { };
+  buildDirectly = shardsFile == null || crystalBinaries != {};
 
   mkCrystalBuildArgs =
     bin: attrs:
@@ -86,14 +86,14 @@ stdenv.mkDerivation (
   // {
 
     configurePhase = args.configurePhase or lib.concatStringsSep "\n" (
-      [ "runHook preConfigure" ]
+      ["runHook preConfigure"]
       ++ lib.optional (lockFile != null) "cp ${lockFile} ./shard.lock"
       ++ lib.optionals (shardsFile != null) [
         "test -e lib || mkdir lib"
         "for d in ${crystalLib}/*; do ln -s $d lib/; done"
         "cp shard.lock lib/.shards.info"
       ]
-      ++ [ "runHook postConfigure" ]
+      ++ ["runHook postConfigure"]
     );
 
     CRFLAGS = lib.concatStringsSep " " defaultOptions;
@@ -103,12 +103,12 @@ stdenv.mkDerivation (
     inherit enableParallelBuilding;
     strictDeps = true;
     buildInputs =
-      args.buildInputs or [ ]
-      ++ [ crystal ]
+      args.buildInputs or []
+      ++ [crystal]
       ++ lib.optional (lib.versionAtLeast crystal.version "1.8") pcre2;
 
     nativeBuildInputs =
-      args.nativeBuildInputs or [ ]
+      args.nativeBuildInputs or []
       ++ [
         crystal
         git
@@ -121,18 +121,18 @@ stdenv.mkDerivation (
 
     buildPhase =
       args.buildPhase or (lib.concatStringsSep "\n" (
-        [ "runHook preBuild" ]
+        ["runHook preBuild"]
         ++ lib.optional (format == "make") "make \${buildTargets:-build} $makeFlags"
         ++ lib.optionals (format == "crystal") (lib.mapAttrsToList mkCrystalBuildArgs crystalBinaries)
         ++
           lib.optional (format == "shards")
             "shards build --local --production ${lib.concatStringsSep " " (args.options or defaultOptions)}"
-        ++ [ "runHook postBuild" ]
+        ++ ["runHook postBuild"]
       ));
 
     installPhase =
       args.installPhase or (lib.concatStringsSep "\n" (
-        [ "runHook preInstall" ]
+        ["runHook preInstall"]
         ++ lib.optional (format == "make") "make \${installTargets:-install} $installFlags"
         ++ lib.optionals (format == "crystal") (
           map
@@ -169,10 +169,10 @@ stdenv.mkDerivation (
 
     checkPhase =
       args.checkPhase or (lib.concatStringsSep "\n" (
-        [ "runHook preCheck" ]
+        ["runHook preCheck"]
         ++ lib.optional (format == "make") "make \${checkTarget:-test} $checkFlags"
         ++ lib.optional (format != "make") "crystal \${checkTarget:-spec} $checkFlags"
-        ++ [ "runHook postCheck" ]
+        ++ ["runHook postCheck"]
       ));
 
     doInstallCheck = args.doInstallCheck or true;
@@ -187,7 +187,7 @@ stdenv.mkDerivation (
         done
       '';
 
-    meta = args.meta or { } // {
+    meta = args.meta or {} // {
       platforms = args.meta.platforms or crystal.meta.platforms;
     };
   }

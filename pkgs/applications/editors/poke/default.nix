@@ -61,7 +61,7 @@ stdenv.mkDerivation rec {
       pkg-config
       texinfo
     ]
-    ++ lib.optionals (!isCross) [ help2man ]
+    ++ lib.optionals (!isCross) [help2man]
     ++ lib.optionals guiSupport [
       makeWrapper
       tcl.tclPackageHook
@@ -98,7 +98,7 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   doCheck = !isCross;
-  nativeCheckInputs = lib.optionals (!isCross) [ dejagnu ];
+  nativeCheckInputs = lib.optionals (!isCross) [dejagnu];
 
   postInstall = ''
     moveToOutput share/emacs "$out"

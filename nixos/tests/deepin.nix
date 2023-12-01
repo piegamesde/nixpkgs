@@ -1,14 +1,14 @@
 import ./make-test-python.nix (
-  { pkgs, lib, ... }:
+  {pkgs, lib, ...}:
   {
     name = "deepin";
 
-    meta = with lib; { maintainers = teams.deepin.members; };
+    meta = with lib; {maintainers = teams.deepin.members;};
 
     nodes.machine =
-      { ... }:
+      {...}:
       {
-        imports = [ ./common/user-account.nix ];
+        imports = [./common/user-account.nix];
 
         services.xserver.enable = true;
 
@@ -24,7 +24,7 @@ import ./make-test-python.nix (
       };
 
     testScript =
-      { nodes, ... }:
+      {nodes, ...}:
       let
         user = nodes.machine.users.users.alice;
       in

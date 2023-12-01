@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
     qtbase
     rtaudio
     rtmidi
-  ] ++ lib.optionals (lib.versionAtLeast qtbase.version "6.0") [ qt5compat ];
+  ] ++ lib.optionals (lib.versionAtLeast qtbase.version "6.0") [qt5compat];
 
   qmakeFlags = [
     "CONFIG+=system_rtaudio"
@@ -68,6 +68,6 @@ stdenv.mkDerivation rec {
     homepage = "https://bambootracker.github.io/BambooTracker/";
     license = licenses.gpl2Plus;
     platforms = platforms.all;
-    maintainers = with maintainers; [ OPNA2608 ];
+    maintainers = with maintainers; [OPNA2608];
   };
 }

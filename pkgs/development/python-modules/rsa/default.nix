@@ -26,17 +26,17 @@ buildPythonPackage rec {
     substituteInPlace setup.py --replace "open('README.md')" "open('README.md',encoding='utf-8')"
   '';
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
-  propagatedBuildInputs = [ pyasn1 ];
+  propagatedBuildInputs = [pyasn1];
 
   preCheck = ''
     sed -i '/addopts/d' tox.ini
   '';
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  disabledTestPaths = [ "tests/test_mypy.py" ];
+  disabledTestPaths = ["tests/test_mypy.py"];
 
   meta = with lib; {
     homepage = "https://stuvel.eu/rsa";

@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  env.NIX_CFLAGS_COMPILE = toString [ "-std=c++14" ];
+  env.NIX_CFLAGS_COMPILE = toString ["-std=c++14"];
 
   enableParallelBuilding = true;
 
@@ -43,6 +43,6 @@ stdenv.mkDerivation rec {
     description = "A low-level library that provides a high level interface to XML processing for OpenSAML 2";
     platforms = platforms.unix;
     license = licenses.asl20;
-    maintainers = [ maintainers.jammerful ];
+    maintainers = [maintainers.jammerful];
   };
 }

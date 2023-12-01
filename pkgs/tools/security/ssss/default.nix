@@ -17,9 +17,9 @@ stdenv.mkDerivation rec {
     sha256 = "18r1hwch6nq6gjijavr4pvrxz2plrlrvdx8ssqhdj2vmqvlqwbvd";
   };
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
-  buildInputs = [ gmp ];
+  buildInputs = [gmp];
 
   preBuild = ''
     sed -e s@/usr/@$out/@g -i Makefile
@@ -37,6 +37,6 @@ stdenv.mkDerivation rec {
     homepage = "http://point-at-infinity.org/ssss/";
     license = licenses.gpl2Plus;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

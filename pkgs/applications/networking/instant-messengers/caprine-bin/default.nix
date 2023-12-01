@@ -10,7 +10,7 @@ let
     description = "An elegant Facebook Messenger desktop app";
     homepage = "https://sindresorhus.com/caprine";
     license = licenses.mit;
-    maintainers = with maintainers; [ ShamrockLee ];
+    maintainers = with maintainers; [ShamrockLee];
   };
   x86_64-appimage = callPackage ./build-from-appimage.nix {
     inherit pname version metaCommon;
@@ -23,7 +23,7 @@ let
 in
 (if stdenvNoCC.isDarwin then x86_64-dmg else x86_64-appimage).overrideAttrs (
   oldAttrs: {
-    passthru = (oldAttrs.passthru or { }) // {
+    passthru = (oldAttrs.passthru or {}) // {
       inherit x86_64-appimage x86_64-dmg;
     };
     meta = oldAttrs.meta // {

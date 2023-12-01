@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
   };
 
   # Patch hard-coded paths and remove force library builds
-  patches = [ ./crawl_purify.patch ];
+  patches = [./crawl_purify.patch];
 
   nativeBuildInputs = [
     pkg-config
@@ -59,7 +59,7 @@ stdenv.mkDerivation rec {
       sqlite
       ncurses
     ]
-    ++ (with python3.pkgs; [ pyyaml ])
+    ++ (with python3.pkgs; [pyyaml])
     ++ lib.optionals tileMode [
       libpng
       SDL2
@@ -131,6 +131,6 @@ stdenv.mkDerivation rec {
       licenses.zlib
       cc0
     ];
-    maintainers = [ maintainers.abbradar ];
+    maintainers = [maintainers.abbradar];
   };
 }

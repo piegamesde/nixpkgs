@@ -21,7 +21,7 @@ mkDerivation rec {
     hash = "sha256-EYoADtYX+gm8T3/3gxTtdFOFGJf2rXryiTu8NIO0Ez4=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   buildInputs = [
     libsecret
@@ -33,7 +33,7 @@ mkDerivation rec {
     "--prefix"
     "PATH"
     ":"
-    (lib.makeBinPath [ restic ])
+    (lib.makeBinPath [restic])
   ];
 
   meta = with lib; {
@@ -44,6 +44,6 @@ mkDerivation rec {
       cc-by-sa-40
       cc0
     ];
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

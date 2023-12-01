@@ -23,9 +23,9 @@ buildPythonPackage rec {
       --replace "gevent>=1.5,<=21.12.0" "gevent>=1.5"
   '';
 
-  propagatedBuildInputs = [ gevent ];
+  propagatedBuildInputs = [gevent];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = with lib; {
     description = "gevent-cooperative child processes and IPC";

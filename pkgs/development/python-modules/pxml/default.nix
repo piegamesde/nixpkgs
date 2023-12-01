@@ -37,7 +37,7 @@ buildPythonPackage rec {
   meta = with lib; {
     homepage = "https://github.com/metagriffin/pxml";
     description = ''A python library and command-line tool to "prettify" and colorize XML.'';
-    maintainers = with maintainers; [ glittershark ];
+    maintainers = with maintainers; [glittershark];
     license = licenses.gpl3;
   };
 }

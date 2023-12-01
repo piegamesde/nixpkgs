@@ -11,13 +11,13 @@ stdenv.mkDerivation rec {
   pname = "pHash";
   version = "0.9.6";
 
-  buildInputs = [ cimg ];
+  buildInputs = [cimg];
 
   # CImg.h calls to external binary `convert` from the `imagemagick` package
   # at runtime
-  propagatedBuildInputs = [ imagemagick ];
+  propagatedBuildInputs = [imagemagick];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   configureFlags = [
     "--enable-video-hash=no"
@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Compute the perceptual hash of an image";
     license = licenses.gpl3;
-    maintainers = [ maintainers.imalsogreg ];
+    maintainers = [maintainers.imalsogreg];
     platforms = platforms.all;
     homepage = "http://www.phash.org";
     downloadPage = "https://github.com/clearscene/pHash";

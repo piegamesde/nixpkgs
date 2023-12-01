@@ -1,16 +1,16 @@
 import ./make-test-python.nix (
-  { pkgs, lib, ... }:
+  {pkgs, lib, ...}:
   {
     name = "wpa_supplicant";
-    meta = with lib.maintainers; { maintainers = [ rnhmjoj ]; };
+    meta = with lib.maintainers; {maintainers = [rnhmjoj];};
 
     nodes.machine =
-      { ... }:
+      {...}:
       {
-        imports = [ ../modules/profiles/minimal.nix ];
+        imports = [../modules/profiles/minimal.nix];
 
         # add a virtual wlan interface
-        boot.kernelModules = [ "mac80211_hwsim" ];
+        boot.kernelModules = ["mac80211_hwsim"];
 
         # wireless access point
         services.hostapd = {
@@ -27,7 +27,7 @@ import ./make-test-python.nix (
           # disabled with mkVMOverride in qemu-vm.nix.
           enable = lib.mkOverride 0 true;
           userControlled.enable = true;
-          interfaces = [ "wlan1" ];
+          interfaces = ["wlan1"];
           fallbackToWPA2 = true;
 
           networks = {
@@ -41,7 +41,7 @@ import ./make-test-python.nix (
             };
             sae-only = {
               psk = "password";
-              authProtocols = [ "SAE" ];
+              authProtocols = ["SAE"];
             };
 
             # test network

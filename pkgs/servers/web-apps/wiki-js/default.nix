@@ -37,6 +37,6 @@ stdenv.mkDerivation rec {
     homepage = "https://js.wiki/";
     description = "A modern and powerful wiki app built on Node.js";
     license = licenses.agpl3Only;
-    maintainers = with maintainers; [ ma27 ];
+    maintainers = with maintainers; [ma27];
   };
 }

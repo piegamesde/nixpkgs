@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
   ];
   setOutputFlags = false; # Doesn't support all the flags
 
-  patches = lib.optionals stdenv.isDarwin [ ./darwin.patch ];
+  patches = lib.optionals stdenv.isDarwin [./darwin.patch];
 
   # The fuloong2f is not supported by aalib still
   preConfigure = ''
@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
     )
   '';
 
-  buildInputs = [ ncurses ];
+  buildInputs = [ncurses];
 
   configureFlags = [
     "--without-x"

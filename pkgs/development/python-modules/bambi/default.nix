@@ -50,12 +50,12 @@ buildPythonPackage rec {
     "test_predict_offset"
   ];
 
-  pythonImportsCheck = [ "bambi" ];
+  pythonImportsCheck = ["bambi"];
 
   meta = with lib; {
     homepage = "https://bambinos.github.io/bambi";
     description = "High-level Bayesian model-building interface";
     license = licenses.mit;
-    maintainers = with maintainers; [ bcdarwin ];
+    maintainers = with maintainers; [bcdarwin];
   };
 }

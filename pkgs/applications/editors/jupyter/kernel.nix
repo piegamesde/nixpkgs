@@ -9,7 +9,7 @@ let
   default = {
     python3 =
       let
-        env = (python3.withPackages (ps: with ps; [ ipykernel ]));
+        env = (python3.withPackages (ps: with ps; [ipykernel]));
       in
       {
         displayName = "Python 3";
@@ -69,12 +69,12 @@ in
                   // {
                     display_name = if (kernel.displayName != "") then kernel.displayName else kernelName;
                   }
-                  // (optionalAttrs (kernel ? interruptMode) { interrupt_mode = kernel.interruptMode; })
+                  // (optionalAttrs (kernel ? interruptMode) {interrupt_mode = kernel.interruptMode;})
                 );
                 extraPaths =
-                  kernel.extraPaths or { }
-                  // lib.optionalAttrs (kernel.logo32 != null) { "logo-32x32.png" = kernel.logo32; }
-                  // lib.optionalAttrs (kernel.logo64 != null) { "logo-64x64.png" = kernel.logo64; };
+                  kernel.extraPaths or {}
+                  // lib.optionalAttrs (kernel.logo32 != null) {"logo-32x32.png" = kernel.logo32;}
+                  // lib.optionalAttrs (kernel.logo64 != null) {"logo-64x64.png" = kernel.logo64;};
                 linkExtraPaths =
                   lib.mapAttrsToList (name: value: "ln -s ${value} 'kernels/${kernelName}/${name}';")
                     extraPaths;
@@ -95,7 +95,7 @@ in
       meta = {
         description = "Wrapper to create jupyter notebook kernel definitions";
         homepage = "https://jupyter.org/";
-        maintainers = with maintainers; [ aborsu ];
+        maintainers = with maintainers; [aborsu];
       };
     };
 }

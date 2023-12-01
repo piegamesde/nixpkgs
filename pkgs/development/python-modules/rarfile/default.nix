@@ -51,7 +51,7 @@ buildPythonPackage rec {
   # the tests only work with the standard unrar package
   doCheck = useUnrar;
   LC_ALL = "en_US.UTF-8";
-  pythonImportsCheck = [ "rarfile" ];
+  pythonImportsCheck = ["rarfile"];
 
   meta = with lib; {
     description = "RAR archive reader for Python";

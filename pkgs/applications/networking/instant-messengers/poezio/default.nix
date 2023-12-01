@@ -29,7 +29,7 @@ buildPythonApplication rec {
     sha256 = "041y61pcbdb86s04qwp8s1g6bp84yskc7vdizwpi2hz18y01x5fy";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   propagatedBuildInputs = [
     aiodns
@@ -41,14 +41,14 @@ buildPythonApplication rec {
     pyinotify
     setuptools
     slixmpp
-  ] ++ lib.optionals (pythonOlder "3.7") [ typing-extensions ];
+  ] ++ lib.optionals (pythonOlder "3.7") [typing-extensions];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = with lib; {
     description = "Free console XMPP client";
     homepage = "https://poez.io";
     license = licenses.zlib;
-    maintainers = [ maintainers.lsix ];
+    maintainers = [maintainers.lsix];
   };
 }

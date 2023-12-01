@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
   outputs = [
     "out"
     "dev"
-  ] ++ lib.optionals usePython [ "py" ];
+  ] ++ lib.optionals usePython ["py"];
 
   buildInputs =
     [
@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
       libedit
       gnused
     ]
-    ++ lib.optionals gpgmeSupport [ gpgme ]
+    ++ lib.optionals gpgmeSupport [gpgme]
     ++ (
       if usePython then
         [
@@ -50,7 +50,7 @@ stdenv.mkDerivation rec {
           })
         ]
       else
-        [ boost ]
+        [boost]
     );
 
   nativeBuildInputs = [

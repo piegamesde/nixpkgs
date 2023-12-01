@@ -20,6 +20,6 @@ build-idris-package {
     description = "Virtual DOM in pure Idris";
     homepage = "https://github.com/brandondyck/idris-vdom";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.brainrape ];
+    maintainers = [lib.maintainers.brainrape];
   };
 }

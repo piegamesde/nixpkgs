@@ -17,7 +17,7 @@ let
   };
 
   paramsSubmodule =
-    { name, config, ... }:
+    {name, config, ...}:
     {
       options.bits = mkOption {
         type = bitType;
@@ -43,7 +43,7 @@ let
       config.path =
         let
           generated =
-            pkgs.runCommand "dhparams-${name}.pem" { nativeBuildInputs = [ pkgs.openssl ]; }
+            pkgs.runCommand "dhparams-${name}.pem" {nativeBuildInputs = [pkgs.openssl];}
               ''openssl dhparam -out "$out" ${toString config.bits}'';
         in
         if cfg.stateful then "${cfg.path}/${name}.pem" else generated;
@@ -64,10 +64,10 @@ in
         type =
           with types;
           let
-            coerce = bits: { inherit bits; };
+            coerce = bits: {inherit bits;};
           in
           attrsOf (coercedTo int coerce (submodule paramsSubmodule));
-        default = { };
+        default = {};
         example = lib.literalExpression "{ nginx.bits = 3072; }";
         description = lib.mdDoc ''
           Diffie-Hellman parameters to generate.
@@ -149,7 +149,7 @@ in
           description = "Clean Up Old Diffie-Hellman Parameters";
 
           # Clean up even when no DH params is set
-          wantedBy = [ "multi-user.target" ];
+          wantedBy = ["multi-user.target"];
 
           serviceConfig.RemainAfterExit = true;
           serviceConfig.Type = "oneshot";
@@ -169,7 +169,7 @@ in
                   lib.mapAttrsToList
                     (
                       name:
-                      { bits, path, ... }:
+                      {bits, path, ...}:
                       ''
                         if [ "$file" = ${lib.escapeShellArg path} ] && \
                            ${pkgs.openssl}/bin/openssl dhparam -in "$file" -text \
@@ -194,12 +194,12 @@ in
       // lib.mapAttrs'
         (
           name:
-          { bits, path, ... }:
+          {bits, path, ...}:
           lib.nameValuePair "dhparams-gen-${name}" {
             description = "Generate Diffie-Hellman Parameters for ${name}";
-            after = [ "dhparams-init.service" ];
-            before = [ "${name}.service" ];
-            wantedBy = [ "multi-user.target" ];
+            after = ["dhparams-init.service"];
+            before = ["${name}.service"];
+            wantedBy = ["multi-user.target"];
             unitConfig.ConditionPathExists = "!${path}";
             serviceConfig.Type = "oneshot";
             script = ''
@@ -212,5 +212,5 @@ in
         cfg.params;
   };
 
-  meta.maintainers = with lib.maintainers; [ ekleog ];
+  meta.maintainers = with lib.maintainers; [ekleog];
 }

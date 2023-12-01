@@ -26,14 +26,14 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pytestFlagsArray = [ "tests.py" ];
+  pytestFlagsArray = ["tests.py"];
 
-  pythonImportsCheck = [ "jsonrpc_base" ];
+  pythonImportsCheck = ["jsonrpc_base"];
 
   meta = with lib; {
     description = "A JSON-RPC client library base interface";
     homepage = "https://github.com/emlove/jsonrpc-base";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ peterhoeg ];
+    maintainers = with maintainers; [peterhoeg];
   };
 }

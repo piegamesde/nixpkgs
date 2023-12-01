@@ -33,13 +33,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "sqlalchemy_mixins" ];
+  pythonImportsCheck = ["sqlalchemy_mixins"];
 
   meta = with lib; {
     description = "Python mixins for SQLAlchemy ORM";
     homepage = "https://github.com/absent1706/sqlalchemy-mixins";
     changelog = "https://github.com/absent1706/sqlalchemy-mixins/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

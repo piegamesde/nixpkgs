@@ -52,7 +52,7 @@ stdenv.mkDerivation rec {
       scientific library and PostgreSQL.
     '';
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ AndersonTorres ];
+    maintainers = with maintainers; [AndersonTorres];
     mainProgram = "a68g";
     platforms = platforms.unix;
   };

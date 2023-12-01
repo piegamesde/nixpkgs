@@ -40,6 +40,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/xlcnd/isbnlib";
     changelog = "https://github.com/xlcnd/isbnlib/blob/v${version}/CHANGES.txt";
     license = licenses.lgpl3Plus;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

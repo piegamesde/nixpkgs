@@ -32,7 +32,7 @@ buildPythonPackage rec {
     hash = "sha256-ExiwaVSSpXfnLCMKRQ7iXLzxO81kV6I5Nj/ZSUyZAMg=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   propagatedBuildInputs = [
     aiohttp
@@ -66,7 +66,7 @@ buildPythonPackage rec {
       "examples/"
     ];
 
-  pythonImportsCheck = [ "simplipy" ];
+  pythonImportsCheck = ["simplipy"];
 
   __darwinAllowLocalNetworking = true;
 
@@ -74,7 +74,7 @@ buildPythonPackage rec {
     changelog = "https://github.com/bachya/simplisafe-python/releases/tag/${version}";
     description = "Python library the SimpliSafe API";
     homepage = "https://simplisafe-python.readthedocs.io/";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

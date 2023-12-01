@@ -11,7 +11,7 @@ stdenv.mkDerivation rec {
   pname = "liblastfm-SF";
   version = "0.5";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   propagatedBuildInputs = [
     curl

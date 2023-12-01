@@ -1,10 +1,10 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "cl-num-utils";
   version = "20210531-git";
 
-  parasites = [ "cl-num-utils-tests" ];
+  parasites = ["cl-num-utils-tests"];
 
   description = "Numerical utilities for Common Lisp";
 
@@ -24,7 +24,7 @@ rec {
 
   packageName = "cl-num-utils";
 
-  asdFilesToKeep = [ "cl-num-utils.asd" ];
+  asdFilesToKeep = ["cl-num-utils.asd"];
   overrides = x: x;
 }
 /* (SYSTEM cl-num-utils DESCRIPTION Numerical utilities for Common Lisp SHA256

@@ -52,7 +52,7 @@ buildPythonPackage rec {
   '';
 
   doCheck = false;
-  pythonImportsCheck = [ "xapp" ];
+  pythonImportsCheck = ["xapp"];
 
   meta = with lib; {
     homepage = "https://github.com/linuxmint/python-xapp";

@@ -51,7 +51,7 @@ stdenv.mkDerivation rec {
       vala
       gobject-introspection
     ]
-    ++ lib.optionals withIntrospection [ gobject-introspection ]
+    ++ lib.optionals withIntrospection [gobject-introspection]
     ++ lib.optionals withDocs [
       gtk-doc
       docbook-xsl-nons
@@ -60,7 +60,7 @@ stdenv.mkDerivation rec {
   buildInputs = [
     libvirt
     libxml2
-  ] ++ lib.optionals stdenv.isLinux [ libcap_ng ];
+  ] ++ lib.optionals stdenv.isLinux [libcap_ng];
 
   strictDeps = true;
 
@@ -74,7 +74,7 @@ stdenv.mkDerivation rec {
   ];
 
   # https://gitlab.com/libvirt/libvirt-glib/-/issues/4
-  env.NIX_CFLAGS_COMPILE = toString [ "-Wno-error=pointer-sign" ];
+  env.NIX_CFLAGS_COMPILE = toString ["-Wno-error=pointer-sign"];
 
   meta = with lib; {
     description = "Library for working with virtual machines";

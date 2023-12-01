@@ -1,5 +1,5 @@
 import ./make-test-python.nix (
-  { pkgs, lib, ... }:
+  {pkgs, lib, ...}:
   let
     uiPort = 1234;
     backendPort = 5678;
@@ -7,10 +7,10 @@ import ./make-test-python.nix (
   in
   {
     name = "lemmy";
-    meta = with lib.maintainers; { maintainers = [ mightyiam ]; };
+    meta = with lib.maintainers; {maintainers = [mightyiam];};
 
     nodes = {
-      client = { };
+      client = {};
 
       "${lemmyNodeName}" = {
         services.lemmy = {
@@ -31,7 +31,7 @@ import ./make-test-python.nix (
           caddy.enable = true;
         };
 
-        networking.firewall.allowedTCPPorts = [ 80 ];
+        networking.firewall.allowedTCPPorts = [80];
 
         # pict-rs seems to need more than 1025114112 bytes
         virtualisation.memorySize = 2000;

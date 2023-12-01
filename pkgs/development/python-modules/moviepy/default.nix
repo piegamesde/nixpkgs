@@ -62,6 +62,6 @@ buildPythonPackage rec {
     description = "Video editing with Python";
     homepage = "https://zulko.github.io/moviepy/";
     license = licenses.mit;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

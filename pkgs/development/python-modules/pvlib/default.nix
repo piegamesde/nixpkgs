@@ -56,7 +56,7 @@ buildPythonPackage rec {
   ];
 
   # Skip a few tests that try to access some URLs
-  pytestFlagsArray = [ "pvlib/tests" ];
+  pytestFlagsArray = ["pvlib/tests"];
   disabledTests = [
     "read_srml_dt_index"
     "read_srml_month_from_solardata"
@@ -75,6 +75,6 @@ buildPythonPackage rec {
     homepage = "https://pvlib-python.readthedocs.io";
     description = "Simulate the performance of photovoltaic energy systems";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ jluttine ];
+    maintainers = with maintainers; [jluttine];
   };
 }

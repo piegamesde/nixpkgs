@@ -20,7 +20,7 @@ in
   options = {
 
     environment.sessionVariables = mkOption {
-      default = { };
+      default = {};
       description = lib.mdDoc ''
         A set of environment variables used in the global environment.
         These variables will be set by PAM early in the login process.
@@ -43,7 +43,7 @@ in
     environment.profileRelativeSessionVariables = mkOption {
       type = types.attrsOf (types.listOf types.str);
       example = {
-        PATH = [ "/bin" ];
+        PATH = ["/bin"];
         MANPATH = [
           "/man"
           "/share/man"
@@ -102,7 +102,7 @@ in
               # pam for its environment will otherwise have eg. broken sudo. In
               # particular Gnome Shell sometimes fails to source a proper
               # environment from a shell.
-              { PATH = [ config.security.wrapperDir ]; }
+              {PATH = [config.security.wrapperDir];}
 
               (mapAttrs (n: toList) cfg.sessionVariables)
               suffixedVariables

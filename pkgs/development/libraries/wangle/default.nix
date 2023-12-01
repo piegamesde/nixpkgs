@@ -28,12 +28,12 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-ISf/ezcJKCNv5UEGSf+OmHjV+QkanbTNoAm2ci1qy0o=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   cmakeDir = "../wangle";
 
   cmakeFlags =
-    [ "-Wno-dev" ]
+    ["-Wno-dev"]
     ++ lib.optionals stdenv.isDarwin [
       "-DBUILD_TESTS=off" # Tests fail on Darwin due to missing utimensat
       "-DCMAKE_OSX_DEPLOYMENT_TARGET=10.14" # For aligned allocation

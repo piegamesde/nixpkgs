@@ -50,12 +50,12 @@ buildDunePackage rec {
   ];
 
   doCheck = true;
-  checkInputs = [ alcotest-lwt ];
+  checkInputs = [alcotest-lwt];
 
   meta = {
     description = "OCaml web framework";
     homepage = "https://github.com/rgrinberg/opium";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.pmahoney ];
+    maintainers = [lib.maintainers.pmahoney];
   };
 }

@@ -108,6 +108,6 @@ mkDerivationWith buildPythonPackage rec {
     homepage = "https://github.com/napari/napari";
     changelog = "https://github.com/napari/napari/releases/tag/v${version}";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ SomeoneSerge ];
+    maintainers = with maintainers; [SomeoneSerge];
   };
 }

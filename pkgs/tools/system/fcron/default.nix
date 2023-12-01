@@ -19,9 +19,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-81naoIpj3ft/4vlkuz9cUiRMJao2+SJaPMVNNvRoEQY=";
   };
 
-  buildInputs = [ perl ];
+  buildInputs = [perl];
 
-  patches = [ ./relative-fcronsighup.patch ];
+  patches = [./relative-fcronsighup.patch];
 
   configureFlags = [
     "--with-sendmail=${busybox}/sbin/sendmail"
@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
     "--disable-checks"
   ];
 
-  installTargets = [ "install-staged" ]; # install does also try to change permissions of /etc/* files
+  installTargets = ["install-staged"]; # install does also try to change permissions of /etc/* files
 
   # fcron tries to install pid into system directory on install
   installFlags = [

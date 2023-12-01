@@ -24,6 +24,6 @@ buildGoModule rec {
     description = "Modern CLI for Apache Kafka, written in Go";
     homepage = "https://github.com/birdayz/kaf";
     license = licenses.asl20;
-    maintainers = with maintainers; [ zarelit ];
+    maintainers = with maintainers; [zarelit];
   };
 }

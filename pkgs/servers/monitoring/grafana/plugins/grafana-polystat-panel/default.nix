@@ -1,4 +1,4 @@
-{ grafanaPlugin, lib }:
+{grafanaPlugin, lib}:
 
 grafanaPlugin rec {
   pname = "grafana-polystat-panel";
@@ -7,7 +7,7 @@ grafanaPlugin rec {
   meta = with lib; {
     description = "Hexagonal multi-stat panel for Grafana";
     license = licenses.asl20;
-    maintainers = with maintainers; [ lukegb ];
+    maintainers = with maintainers; [lukegb];
     platforms = platforms.unix;
   };
 }

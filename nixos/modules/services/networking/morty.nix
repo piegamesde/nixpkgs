@@ -77,12 +77,12 @@ in
       isSystemUser = true;
       group = "morty";
     };
-    users.groups.morty = { };
+    users.groups.morty = {};
 
     systemd.services.morty = {
       description = "Morty sanitizing proxy server.";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         User = "morty";
         ExecStart = ''
@@ -93,6 +93,6 @@ in
         '';
       };
     };
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
   };
 }

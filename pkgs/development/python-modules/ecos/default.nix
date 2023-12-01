@@ -39,19 +39,19 @@ buildPythonPackage rec {
     scipy
   ];
 
-  nativeCheckInputs = [ nose ];
+  nativeCheckInputs = [nose];
 
   checkPhase = ''
     cd ./src
     nosetests test_interface.py test_interface_bb.py
   '';
 
-  pythonImportsCheck = [ "ecos" ];
+  pythonImportsCheck = ["ecos"];
 
   meta = with lib; {
     description = "Python package for ECOS: Embedded Cone Solver";
     homepage = "https://github.com/embotech/ecos-python";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ drewrisinger ];
+    maintainers = with maintainers; [drewrisinger];
   };
 }

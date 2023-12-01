@@ -24,9 +24,9 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-sQRNf+eT9JUbYne/3E9LoY0K+c7MlxtIbGmTa3VkHvI=";
 
-  propagatedBuildInputs = [ ffmpeg ];
+  propagatedBuildInputs = [ffmpeg];
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   preInstall = ''
     mkdir -p $out
@@ -72,6 +72,6 @@ buildGoModule rec {
     homepage = "https://owncast.online";
     license = licenses.mit;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ MayNiklas ];
+    maintainers = with maintainers; [MayNiklas];
   };
 }

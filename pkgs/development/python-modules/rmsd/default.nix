@@ -9,14 +9,14 @@ buildPythonPackage rec {
   pname = "rmsd";
   version = "1.5.1";
 
-  propagatedBuildInputs = [ scipy ];
+  propagatedBuildInputs = [scipy];
 
   src = fetchPypi {
     inherit pname version;
     hash = "sha256-wDQoIUMqrBDpgImHeHWizYu/YkFjlxB22TaGpA8Q0Sc=";
   };
 
-  pythonImportsCheck = [ "rmsd" ];
+  pythonImportsCheck = ["rmsd"];
 
   meta = with lib; {
     description = "Calculate root-mean-square deviation (RMSD) between two sets of cartesian coordinates";

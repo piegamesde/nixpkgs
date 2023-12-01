@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
     cmake
     libpcap
   ];
-  buildInputs = [ libpcap ];
+  buildInputs = [libpcap];
 
   installPhase = ''
     install -m 0755 -t $out/bin -D \

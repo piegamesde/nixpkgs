@@ -3,12 +3,12 @@ import ./make-test-python.nix {
 
   nodes = {
     server =
-      { pkgs, lib, ... }:
+      {pkgs, lib, ...}:
       {
         networking.firewall.enable = false;
         services.nginx.enable = true;
         services.nginx.virtualHosts.server = {
-          root = pkgs.runCommandLocal "testdir" { } ''
+          root = pkgs.runCommandLocal "testdir" {} ''
             mkdir "$out"
             cat > "$out/test.js" <<EOF
             document.getElementById('foobar').setAttribute('foo', 'bar');
@@ -24,7 +24,7 @@ import ./make-test-python.nix {
         specialisation.pass-checks.configuration = {
           services.nginx.virtualHosts.server = {
             root = lib.mkForce (
-              pkgs.runCommandLocal "testdir2" { } ''
+              pkgs.runCommandLocal "testdir2" {} ''
                 mkdir "$out"
                 cat > "$out/test.js" <<EOF
                 document.getElementById('foobar').setAttribute('foo', 'yay');
@@ -41,12 +41,12 @@ import ./make-test-python.nix {
       };
 
     client =
-      { pkgs, lib, ... }:
+      {pkgs, lib, ...}:
       {
         environment.systemPackages =
           let
             testRunner =
-              pkgs.writers.writePython3Bin "test-runner" { libraries = [ pkgs.python3Packages.selenium ]; }
+              pkgs.writers.writePython3Bin "test-runner" {libraries = [pkgs.python3Packages.selenium];}
                 ''
                   import os
                   import time
@@ -80,7 +80,7 @@ import ./make-test-python.nix {
   };
 
   testScript =
-    { nodes, ... }:
+    {nodes, ...}:
     let
       inherit (nodes.server.config.system.build) toplevel;
       newSystem = "${toplevel}/specialisation/pass-checks";

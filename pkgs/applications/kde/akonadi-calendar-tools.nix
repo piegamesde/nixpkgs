@@ -16,7 +16,7 @@ mkDerivation {
       gpl2Plus
       cc0
     ];
-    maintainers = with lib.maintainers; [ kennyballou ];
+    maintainers = with lib.maintainers; [kennyballou];
     platforms = lib.platforms.linux;
   };
   nativeBuildInputs = [

@@ -22,12 +22,12 @@ buildPythonPackage rec {
     typing-extensions
     heapdict
   ];
-  nativeCheckInputs = [ pytestCheckHook ];
-  pythonImportsCheck = [ "cachey" ];
+  nativeCheckInputs = [pytestCheckHook];
+  pythonImportsCheck = ["cachey"];
   meta = with lib; {
     description = "Caching based on computation time and storage space";
     homepage = "https://github.com/dask/cachey/";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ SomeoneSerge ];
+    maintainers = with maintainers; [SomeoneSerge];
   };
 }

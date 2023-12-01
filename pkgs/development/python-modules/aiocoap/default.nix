@@ -21,9 +21,9 @@ buildPythonPackage rec {
     hash = "sha256-4iwoPfmIwk+PlWUp60aqA5qZgzyj34pnZHf9uH5UhnY=";
   };
 
-  propagatedBuildInputs = [ pygments ];
+  propagatedBuildInputs = [pygments];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTestPaths = [
     # Don't test the plugins
@@ -38,13 +38,13 @@ buildPythonPackage rec {
       "test_uri_parser"
     ];
 
-  pythonImportsCheck = [ "aiocoap" ];
+  pythonImportsCheck = ["aiocoap"];
 
   meta = with lib; {
     description = "Python CoAP library";
     homepage = "https://aiocoap.readthedocs.io/";
     changelog = "https://github.com/chrysn/aiocoap/blob/${version}/NEWS";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

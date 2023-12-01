@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-bdnYrMnBnpnEKGuMlDLILfzgwfu/e5tyMdSDWqreyto=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   # Needed for case-insensitive filesystems like on macOS
   # because a file named BUILD exists already.

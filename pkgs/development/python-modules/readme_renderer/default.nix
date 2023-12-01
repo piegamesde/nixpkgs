@@ -55,12 +55,12 @@ buildPythonPackage rec {
     "test_invalid_empty"
   ];
 
-  pythonImportsCheck = [ "readme_renderer" ];
+  pythonImportsCheck = ["readme_renderer"];
 
   meta = with lib; {
     description = "Python library for rendering readme descriptions";
     homepage = "https://github.com/pypa/readme_renderer";
-    license = with licenses; [ asl20 ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [asl20];
+    maintainers = with maintainers; [fab];
   };
 }

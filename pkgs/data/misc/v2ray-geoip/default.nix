@@ -27,6 +27,6 @@ stdenv.mkDerivation rec {
     description = "GeoIP for V2Ray";
     homepage = "https://github.com/v2fly/geoip";
     license = licenses.cc-by-sa-40;
-    maintainers = with maintainers; [ nickcao ];
+    maintainers = with maintainers; [nickcao];
   };
 }

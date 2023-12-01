@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-W6nqhSEoP2mDp7fCoXqwYAafjfESxymYXAdC3BnJJno=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs =
     [
       glib
@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
     ];
 
   # manpage requires building the vendored go-md2man
-  makeFlags = [ "bin/conmon" ];
+  makeFlags = ["bin/conmon"];
 
   installPhase = ''
     runHook preInstall
@@ -54,7 +54,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/containers/conmon";
     description = "An OCI container runtime monitor";
     license = licenses.asl20;
-    maintainers = with maintainers; [ ] ++ teams.podman.members;
+    maintainers = with maintainers; [] ++ teams.podman.members;
     platforms = platforms.linux;
   };
 }

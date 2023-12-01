@@ -60,6 +60,6 @@ stdenv.mkDerivation rec {
     description = "A utility that synchronizes local directories with remote targets";
     license = licenses.gpl2Plus;
     platforms = platforms.all;
-    maintainers = with maintainers; [ bobvanderlinden ];
+    maintainers = with maintainers; [bobvanderlinden];
   };
 }

@@ -43,7 +43,7 @@ stdenv.mkDerivation rec {
     xmkmf
   '';
 
-  makeFlags = [ "DESTDIR=build" ];
+  makeFlags = ["DESTDIR=build"];
 
   postInstall = ''
     # Fix up install paths
@@ -57,7 +57,7 @@ stdenv.mkDerivation rec {
     broken = stdenv.isDarwin;
     description = "A simple but powerful graphical interface to gdb";
     license = licenses.mit;
-    maintainers = with maintainers; [ emilytrau ];
+    maintainers = with maintainers; [emilytrau];
     platforms = platforms.all;
   };
 }

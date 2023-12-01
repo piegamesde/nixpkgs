@@ -12,7 +12,7 @@ let
 
   convType = with builtins; v: if isBool v then boolToString v else toString v;
   mergedHwConfig = mapAttrsToList (n: v: ''"${n}": "${(concatStringsSep "," (map convType v))}"'') (
-    foldAttrs (n: a: [ n ] ++ a) [ ] cfg.hardware
+    foldAttrs (n: a: [n] ++ a) [] cfg.hardware
   );
   mergedConfig =
     with builtins;
@@ -65,7 +65,7 @@ in
       };
 
       pools = mkOption {
-        default = [ ]; # Run benchmark
+        default = []; # Run benchmark
         type = types.listOf (types.attrsOf types.str);
         description = lib.mdDoc "List of pools where to mine";
         example = [
@@ -78,7 +78,7 @@ in
       };
 
       hardware = mkOption {
-        default = [ ]; # Run without options
+        default = []; # Run without options
         type = types.listOf (types.attrsOf (types.either types.str types.int));
         description = lib.mdDoc "List of config options for every GPU";
         example = [
@@ -106,7 +106,7 @@ in
       };
 
       config = mkOption {
-        default = { };
+        default = {};
         type = types.attrsOf (types.either types.bool types.int);
         description = lib.mdDoc "Additional config";
         example = {
@@ -135,18 +135,18 @@ in
         description = "Cgminer user";
       };
     };
-    users.groups = optionalAttrs (cfg.user == "cgminer") { cgminer = { }; };
+    users.groups = optionalAttrs (cfg.user == "cgminer") {cgminer = {};};
 
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
     systemd.services.cgminer = {
-      path = [ pkgs.cgminer ];
+      path = [pkgs.cgminer];
 
       after = [
         "network.target"
         "display-manager.service"
       ];
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
 
       environment = {
         LD_LIBRARY_PATH = "/run/opengl-driver/lib:/run/opengl-driver-32/lib";

@@ -19,11 +19,11 @@ let
 in
 {
 
-  imports = [ ./google-compute-config.nix ];
+  imports = [./google-compute-config.nix];
 
   options = {
     virtualisation.googleComputeImage.diskSize = mkOption {
-      type = with types; either (enum [ "auto" ]) int;
+      type = with types; either (enum ["auto"]) int;
       default = "auto";
       example = 1536;
       description = lib.mdDoc ''

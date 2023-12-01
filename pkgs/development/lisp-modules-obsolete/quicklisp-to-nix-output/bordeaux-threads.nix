@@ -1,10 +1,10 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "bordeaux-threads";
   version = "v0.8.8";
 
-  parasites = [ "bordeaux-threads/test" ];
+  parasites = ["bordeaux-threads/test"];
 
   description = "Bordeaux Threads makes writing portable multi-threaded apps simple.";
 
@@ -20,7 +20,7 @@ rec {
 
   packageName = "bordeaux-threads";
 
-  asdFilesToKeep = [ "bordeaux-threads.asd" ];
+  asdFilesToKeep = ["bordeaux-threads.asd"];
   overrides = x: x;
 }
 /* (SYSTEM bordeaux-threads DESCRIPTION

@@ -58,6 +58,6 @@ buildPythonPackage {
     homepage = "https://www.astropy.org";
     license = licenses.bsd3;
     platforms = platforms.all;
-    maintainers = [ maintainers.kentjames ];
+    maintainers = [maintainers.kentjames];
   };
 }

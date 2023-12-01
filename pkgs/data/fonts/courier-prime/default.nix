@@ -25,7 +25,7 @@ stdenvNoCC.mkDerivation rec {
     description = "Monospaced font designed specifically for screenplays";
     homepage = "https://github.com/quoteunquoteapps/CourierPrime";
     license = licenses.ofl;
-    maintainers = [ maintainers.austinbutler ];
+    maintainers = [maintainers.austinbutler];
     platforms = platforms.all;
   };
 }

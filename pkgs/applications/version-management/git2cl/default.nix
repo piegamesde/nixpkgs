@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
     sha256 = "b0d39379640c8a12821442431e2121f7908ce1cc88ec8ec6bede218ea8c21f2f";
   };
 
-  buildInputs = [ perl ];
+  buildInputs = [perl];
   installPhase = ''
     install -D -m755 git2cl $out/bin/git2cl
     install -D -m644 README $out/share/doc/git2cl/README

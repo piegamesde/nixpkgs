@@ -71,7 +71,7 @@ buildPythonPackage rec {
       "test/augmenters/test_pooling.py"
     ];
 
-  pythonImportsCheck = [ "imgaug" ];
+  pythonImportsCheck = ["imgaug"];
 
   meta = with lib; {
     homepage = "https://github.com/aleju/imgaug";

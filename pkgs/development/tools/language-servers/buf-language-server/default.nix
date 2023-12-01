@@ -26,6 +26,6 @@ buildGoModule rec {
     description = "Language server for protocol buffers";
     homepage = "https://github.com/bufbuild/buf-language-server";
     license = licenses.asl20;
-    maintainers = with maintainers; [ svrana ];
+    maintainers = with maintainers; [svrana];
   };
 }

@@ -53,7 +53,7 @@ let
       [
         "--database=${dbURI}"
         (
-          if (cfg.web.credentialsFile != null || cfg.web.credentials != { }) then
+          if (cfg.web.credentialsFile != null || cfg.web.credentials != {}) then
             "--credentials=${toString credFile}"
           else
             "--no-auth"
@@ -110,7 +110,7 @@ in
 
     crawler.extraOptions = mkOption {
       type = types.listOf types.str;
-      default = [ ];
+      default = [];
       description = lib.mdDoc ''
         Extra command line arguments to pass to magneticod.
       '';
@@ -135,7 +135,7 @@ in
 
     web.credentials = mkOption {
       type = types.attrsOf types.str;
-      default = { };
+      default = {};
       example = lib.literalExpression ''
         {
           myuser = "$2y$12$YE01LZ8jrbQbx6c0s2hdZO71dSjn2p/O9XsYJpz.5968yCysUgiaG";
@@ -181,7 +181,7 @@ in
 
     web.extraOptions = mkOption {
       type = types.listOf types.str;
-      default = [ ];
+      default = [];
       description = lib.mdDoc ''
         Extra command line arguments to pass to magneticow.
       '';
@@ -197,12 +197,12 @@ in
       group = "magnetico";
       isSystemUser = true;
     };
-    users.groups.magnetico = { };
+    users.groups.magnetico = {};
 
     systemd.services.magneticod = {
       description = "Magnetico DHT crawler";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
 
       serviceConfig = {
         User = "magnetico";
@@ -213,7 +213,7 @@ in
 
     systemd.services.magneticow = {
       description = "Magnetico web interface";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       after = [
         "network.target"
         "magneticod.service"
@@ -229,7 +229,7 @@ in
 
     assertions = [
       {
-        assertion = cfg.web.credentialsFile == null || cfg.web.credentials == { };
+        assertion = cfg.web.credentialsFile == null || cfg.web.credentials == {};
         message = ''
           The options services.magnetico.web.credentialsFile and
           services.magnetico.web.credentials are mutually exclusives.
@@ -238,5 +238,5 @@ in
     ];
   };
 
-  meta.maintainers = with lib.maintainers; [ rnhmjoj ];
+  meta.maintainers = with lib.maintainers; [rnhmjoj];
 }

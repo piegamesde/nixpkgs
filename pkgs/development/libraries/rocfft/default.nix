@@ -37,7 +37,7 @@ let
         "libone"
         "libtwo"
         "libthree"
-      ] ++ lib.optionals buildTests [ "test" ] ++ lib.optionals buildBenchmarks [ "benchmark" ];
+      ] ++ lib.optionals buildTests ["test"] ++ lib.optionals buildBenchmarks ["benchmark"];
 
       src = fetchFromGitHub {
         owner = "ROCmSoftwarePlatform";
@@ -57,7 +57,7 @@ let
           sqlite
           python3
         ]
-        ++ lib.optionals buildTests [ gtest ]
+        ++ lib.optionals buildTests [gtest]
         ++ lib.optionals (buildTests || buildBenchmarks) [
           rocrand
           boost
@@ -83,7 +83,7 @@ let
           "-DCMAKE_INSTALL_LIBDIR=lib"
           "-DCMAKE_INSTALL_INCLUDEDIR=include"
         ]
-        ++ lib.optionals buildTests [ "-DBUILD_CLIENTS_TESTS=ON" ]
+        ++ lib.optionals buildTests ["-DBUILD_CLIENTS_TESTS=ON"]
         ++ lib.optionals buildBenchmarks [
           "-DBUILD_CLIENTS_RIDER=ON"
           "-DBUILD_CLIENTS_SAMPLES=ON"
@@ -128,7 +128,7 @@ let
       meta = with lib; {
         description = "FFT implementation for ROCm ";
         homepage = "https://github.com/ROCmSoftwarePlatform/rocFFT";
-        license = with licenses; [ mit ];
+        license = with licenses; [mit];
         maintainers = teams.rocm.members;
         platforms = platforms.linux;
         broken = versions.minor finalAttrs.version != versions.minor hip.version;
@@ -136,19 +136,19 @@ let
     }
   );
 
-  rf-zero = runCommand name-zero { preferLocalBuild = true; } ''
+  rf-zero = runCommand name-zero {preferLocalBuild = true;} ''
     cp -a ${rf.libzero} $out
   '';
 
-  rf-one = runCommand name-one { preferLocalBuild = true; } ''
+  rf-one = runCommand name-one {preferLocalBuild = true;} ''
     cp -a ${rf.libone} $out
   '';
 
-  rf-two = runCommand name-two { preferLocalBuild = true; } ''
+  rf-two = runCommand name-two {preferLocalBuild = true;} ''
     cp -a ${rf.libtwo} $out
   '';
 
-  rf-three = runCommand name-three { preferLocalBuild = true; } ''
+  rf-three = runCommand name-three {preferLocalBuild = true;} ''
     cp -a ${rf.libthree} $out
   '';
 in
@@ -163,7 +163,7 @@ stdenv.mkDerivation {
 
   outputs = [
     "out"
-  ] ++ lib.optionals buildTests [ "test" ] ++ lib.optionals buildBenchmarks [ "benchmark" ];
+  ] ++ lib.optionals buildTests ["test"] ++ lib.optionals buildBenchmarks ["benchmark"];
 
   dontUnpack = true;
   dontPatch = true;

@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  patchFlags = [ "-p0" ];
+  patchFlags = ["-p0"];
 
   postPatch = ''
     substituteInPlace eatmydata.in \
@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
   '';
 
   nativeBuildInputs =
-    [ autoreconfHook ]
+    [autoreconfHook]
     ++ lib.optionals doCheck [
       strace
       which

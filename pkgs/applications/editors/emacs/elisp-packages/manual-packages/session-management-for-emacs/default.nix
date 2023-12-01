@@ -14,7 +14,7 @@ stdenv.mkDerivation rec {
     sha256 = "37dfba7420b5164eab90dafa9e8bf9a2c8f76505fe2fefa14a64e81fa76d0144";
   };
 
-  buildInputs = [ emacs ];
+  buildInputs = [emacs];
 
   installPhase = ''
     mkdir -p "$out/share/emacs/site-lisp"
@@ -29,6 +29,6 @@ stdenv.mkDerivation rec {
     description = "Small session management for emacs";
     homepage = "https://emacs-session.sourceforge.net/";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

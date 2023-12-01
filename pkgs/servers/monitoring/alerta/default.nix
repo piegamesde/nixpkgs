@@ -1,4 +1,4 @@
-{ lib, python3 }:
+{lib, python3}:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "alerta-server";
@@ -32,12 +32,12 @@ python3.pkgs.buildPythonApplication rec {
   # We can't run the tests from Nix, because they rely on the presence of a working MongoDB server
   doCheck = false;
 
-  pythonImportsCheck = [ "alerta" ];
+  pythonImportsCheck = ["alerta"];
 
   meta = with lib; {
     homepage = "https://alerta.io";
     description = "Alerta Monitoring System server";
     license = licenses.asl20;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

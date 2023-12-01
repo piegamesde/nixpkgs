@@ -17,17 +17,17 @@ buildPythonPackage rec {
     hash = "sha256-UTH6t/znN4nYnqDhtFFxXoBXX8Zo19pJE9iDsvw7bGE=";
   };
 
-  propagatedBuildInputs = [ django ];
+  propagatedBuildInputs = [django];
 
   # no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "drf_spectacular_sidecar" ];
+  pythonImportsCheck = ["drf_spectacular_sidecar"];
 
   meta = with lib; {
     description = "Serve self-contained distribution builds of Swagger UI and Redoc with Django";
     homepage = "https://github.com/tfranzel/drf-spectacular-sidecar";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ SuperSandro2000 ];
+    maintainers = with maintainers; [SuperSandro2000];
   };
 }

@@ -21,17 +21,17 @@ buildPythonPackage rec {
     hash = "sha256-DWZFvzx0aNTmf1x8Rq19OT0PFRxdpKefWYFh8C116Fw";
   };
 
-  nativeBuildInputs = [ setuptools ];
-  propagatedBuildInputs = [ ipython ];
+  nativeBuildInputs = [setuptools];
+  propagatedBuildInputs = [ipython];
 
   doCheck = false; # no tests in package :(
-  pythonImportsCheck = [ "jupyter_ui_poll" ];
+  pythonImportsCheck = ["jupyter_ui_poll"];
 
   meta = with lib; {
     description = "Block jupyter cell execution while interacting with widgets";
     homepage = "https://github.com/Kirill888/jupyter-ui-poll";
     changelog = "https://github.com/Kirill888/jupyter-ui-poll/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ bcdarwin ];
+    maintainers = with maintainers; [bcdarwin];
   };
 }

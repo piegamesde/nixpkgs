@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-yyxgFvlS+I4PouDL6eD4ZrXuONTDejCSYKq2AwQ0Iug=";
   };
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   nativeBuildInputs = [
     cmake

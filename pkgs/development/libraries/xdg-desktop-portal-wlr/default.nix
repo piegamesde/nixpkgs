@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
   };
 
   strictDeps = true;
-  depsBuildBuild = [ pkg-config ];
+  depsBuildBuild = [pkg-config];
   nativeBuildInputs = [
     meson
     ninja
@@ -50,7 +50,7 @@ stdenv.mkDerivation rec {
     wayland-protocols
   ];
 
-  mesonFlags = [ "-Dsd-bus-provider=libsystemd" ];
+  mesonFlags = ["-Dsd-bus-provider=libsystemd"];
 
   postInstall = ''
     wrapProgram $out/libexec/xdg-desktop-portal-wlr --prefix PATH ":" ${
@@ -64,7 +64,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://github.com/emersion/xdg-desktop-portal-wlr";
     description = "xdg-desktop-portal backend for wlroots";
-    maintainers = with maintainers; [ minijackson ];
+    maintainers = with maintainers; [minijackson];
     platforms = platforms.linux;
     license = licenses.mit;
   };

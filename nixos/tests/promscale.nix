@@ -3,11 +3,11 @@
 
 {
   system ? builtins.currentSystem,
-  config ? { },
-  pkgs ? import ../.. { inherit system config; },
+  config ? {},
+  pkgs ? import ../.. {inherit system config;},
 }:
 
-with import ../lib/testing-python.nix { inherit system pkgs; };
+with import ../lib/testing-python.nix {inherit system pkgs;};
 with pkgs.lib;
 
 let
@@ -21,10 +21,10 @@ let
     postgresql-name: postgresql-package:
     makeTest {
       name = postgresql-name;
-      meta = with pkgs.lib.maintainers; { maintainers = [ anpin ]; };
+      meta = with pkgs.lib.maintainers; {maintainers = [anpin];};
 
       nodes.machine =
-        { config, pkgs, ... }:
+        {config, pkgs, ...}:
         {
           services.postgresql = {
             enable = true;
@@ -37,7 +37,7 @@ let
               shared_preload_libraries = "timescaledb, promscale";
             };
           };
-          environment.systemPackages = with pkgs; [ promscale ];
+          environment.systemPackages = with pkgs; [promscale];
         };
 
       testScript = ''

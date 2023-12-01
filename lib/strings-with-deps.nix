@@ -1,4 +1,4 @@
-{ lib }:
+{lib}:
 /* Usage:
 
    You define you custom builder script by adding all build steps to a list.
@@ -61,9 +61,9 @@ rec {
     let
       f =
         done: todo:
-        if todo == [ ] then
+        if todo == [] then
           {
-            result = [ ];
+            result = [];
             inherit done;
           }
         else
@@ -76,7 +76,7 @@ rec {
               y = f x.done (tail todo);
             in
             {
-              result = x.result ++ [ entry.text ] ++ y.result;
+              result = x.result ++ [entry.text] ++ y.result;
               done = y.done;
             }
           else if done ? ${entry} then
@@ -92,9 +92,9 @@ rec {
                   }
                 ]
               )
-              ([ predefined.${entry} ] ++ tail todo);
+              ([predefined.${entry}] ++ tail todo);
     in
-    (f { } arg).result;
+    (f {} arg).result;
 
   textClosureMap =
     f: predefined: names:
@@ -102,13 +102,13 @@ rec {
 
   noDepEntry = text: {
     inherit text;
-    deps = [ ];
+    deps = [];
   };
-  fullDepEntry = text: deps: { inherit text deps; };
+  fullDepEntry = text: deps: {inherit text deps;};
   packEntry = deps: {
     inherit deps;
     text = "";
   };
 
-  stringAfter = deps: text: { inherit text deps; };
+  stringAfter = deps: text: {inherit text deps;};
 }

@@ -26,6 +26,6 @@ buildGoModule rec {
     homepage = "https://github.com/shoenig/marathonctl";
     description = "CLI tool for Marathon";
     license = licenses.mit;
-    maintainers = with maintainers; [ manveru ];
+    maintainers = with maintainers; [manveru];
   };
 }

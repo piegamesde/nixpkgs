@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-wzBOPTs8PTHzu5RpKwKhx552E7QnDx2Zn4OFaes8Q2I=";
   };
 
-  NIX_CFLAGS_COMPILE = [ "-Wno-error=deprecated-declarations" ];
+  NIX_CFLAGS_COMPILE = ["-Wno-error=deprecated-declarations"];
 
   makeFlags = [
     "DESTDIR=\${out}"
@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
     description = "GUI for alsa controls presented by Focusrite Scarlett Gen 2/3 Mixer Driver";
     homepage = "https://github.com/geoffreybennett/alsa-scarlett-gui";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ sebtm ];
+    maintainers = with maintainers; [sebtm];
     platforms = platforms.linux;
   };
 }

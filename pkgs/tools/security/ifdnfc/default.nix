@@ -27,7 +27,7 @@ stdenv.mkDerivation {
     libnfc
   ];
 
-  configureFlags = [ "--prefix=$(out)" ];
+  configureFlags = ["--prefix=$(out)"];
   makeFlags = [
     "DESTDIR=/"
     "usbdropdir=$(out)/pcsc/drivers"
@@ -52,6 +52,6 @@ stdenv.mkDerivation {
     homepage = "https://github.com/nfc-tools/ifdnfc";
     license = licenses.gpl3;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ makefu ];
+    maintainers = with maintainers; [makefu];
   };
 }

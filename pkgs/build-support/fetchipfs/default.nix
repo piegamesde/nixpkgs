@@ -1,4 +1,4 @@
-{ stdenv, curl }:
+{stdenv, curl}:
 
 {
   ipfs,
@@ -10,7 +10,7 @@
   sha1 ? "",
   sha256 ? "",
   sha512 ? "",
-  meta ? { },
+  meta ? {},
   port ? "8080",
   postFetch ? "",
   preferLocalBuild ? true,
@@ -32,7 +32,7 @@ else
   stdenv.mkDerivation {
     name = ipfs;
     builder = ./builder.sh;
-    nativeBuildInputs = [ curl ];
+    nativeBuildInputs = [curl];
 
     # New-style output content requirements.
     outputHashAlgo =

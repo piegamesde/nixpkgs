@@ -12,7 +12,7 @@ stdenv.mkDerivation rec {
   pname = "obs-ndi";
   version = "4.10.0";
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     obs-studio
     qtbase
@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-eQ/hQ2AnwyBNOotqlUZq07m4FXoeir2f7cTVq594obc=";
   };
 
-  patches = [ ./hardcode-ndi-path.patch ];
+  patches = [./hardcode-ndi-path.patch];
 
   postPatch = ''
     # Add path (variable added in hardcode-ndi-path.patch)
@@ -51,7 +51,7 @@ stdenv.mkDerivation rec {
     description = "Network A/V plugin for OBS Studio";
     homepage = "https://github.com/Palakis/obs-ndi";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ jshcmpbll ];
+    maintainers = with maintainers; [jshcmpbll];
     platforms = platforms.linux;
     hydraPlatforms = ndi.meta.hydraPlatforms;
   };

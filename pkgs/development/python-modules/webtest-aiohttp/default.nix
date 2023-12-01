@@ -32,7 +32,7 @@ buildPythonPackage rec {
     })
   ];
 
-  propagatedBuildInputs = [ webtest ];
+  propagatedBuildInputs = [webtest];
 
   nativeCheckInputs = [
     aiohttp
@@ -40,13 +40,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "webtest_aiohttp" ];
+  pythonImportsCheck = ["webtest_aiohttp"];
 
   meta = with lib; {
     changelog = "https://github.com/sloria/webtest-aiohttp/blob/${src.rev}/CHANGELOG.rst";
     description = "Provides integration of WebTest with aiohttp.web applications";
     homepage = "https://github.com/sloria/webtest-aiohttp";
     license = licenses.mit;
-    maintainers = with maintainers; [ cript0nauta ];
+    maintainers = with maintainers; [cript0nauta];
   };
 }

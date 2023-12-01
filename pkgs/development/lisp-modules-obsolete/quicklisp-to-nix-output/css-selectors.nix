@@ -1,10 +1,10 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "css-selectors";
   version = "20160628-git";
 
-  parasites = [ "css-selectors-test" ];
+  parasites = ["css-selectors-test"];
 
   description = "An implementation of css selectors";
 
@@ -41,7 +41,7 @@ rec {
 
   packageName = "css-selectors";
 
-  asdFilesToKeep = [ "css-selectors.asd" ];
+  asdFilesToKeep = ["css-selectors.asd"];
   overrides = x: x;
 }
 /* (SYSTEM css-selectors DESCRIPTION An implementation of css selectors SHA256

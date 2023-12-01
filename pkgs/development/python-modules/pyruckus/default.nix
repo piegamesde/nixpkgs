@@ -26,12 +26,12 @@ buildPythonPackage rec {
 
   # Tests requires network features
   doCheck = false;
-  pythonImportsCheck = [ "pyruckus" ];
+  pythonImportsCheck = ["pyruckus"];
 
   meta = with lib; {
     description = "Python client for Ruckus Unleashed";
     homepage = "https://github.com/gabe565/pyruckus";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

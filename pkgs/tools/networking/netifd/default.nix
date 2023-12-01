@@ -38,6 +38,6 @@ stdenv.mkDerivation {
     homepage = "https://git.openwrt.org/?p=project/netifd.git;a=summary";
     license = licenses.lgpl21Only;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

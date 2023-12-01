@@ -58,7 +58,7 @@ stdenv.mkDerivation rec {
     autoPatchelfHook
     makeWrapper
   ];
-  buildInputs = runtimeLibs ++ [ lttng-ust_2_12 ];
+  buildInputs = runtimeLibs ++ [lttng-ust_2_12];
 
   installPhase = ''
     mkdir -p $out/opt/${pname} $out/bin $out/share/applications
@@ -74,9 +74,9 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Privacy focused Bitcoin wallet";
     homepage = "https://wasabiwallet.io/";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.mit;
-    platforms = [ "x86_64-linux" ];
-    maintainers = with maintainers; [ mmahut ];
+    platforms = ["x86_64-linux"];
+    maintainers = with maintainers; [mmahut];
   };
 }

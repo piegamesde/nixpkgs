@@ -15,22 +15,22 @@ stdenv.mkDerivation rec {
     sha256 = "0vqqmwsgh2gchw7qmpqk6idgzcm5rqf2fab84y7gk42v1x2diin7";
   };
 
-  patches = [ ./fno-common.patch ];
+  patches = [./fno-common.patch];
 
   postPatch = ''
     substituteInPlace CMakeLists.txt --replace 'COPYING' 'LICENSE'
   '';
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = lib.optional stdenv.hostPlatform.isx86 libx86;
 
-  cmakeFlags = [ "-DCLASSICBUILD=${if stdenv.hostPlatform.isx86 then "ON" else "OFF"}" ];
+  cmakeFlags = ["-DCLASSICBUILD=${if stdenv.hostPlatform.isx86 then "ON" else "OFF"}"];
 
   meta = with lib; {
     description = "Tool for reading and parsing EDID data from monitors";
     homepage = "http://www.polypux.org/projects/read-edid/";
     license = licenses.bsd2; # Quoted: "This is an unofficial license. Let's call it BSD-like."
-    maintainers = [ maintainers.dezgeg ];
+    maintainers = [maintainers.dezgeg];
     platforms = platforms.linux;
   };
 }

@@ -22,9 +22,9 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  hardeningDisable = [ "pic" ];
+  hardeningDisable = ["pic"];
 
-  makeFlags = kernel.makeFlags ++ [ "INSTALL_MOD_PATH=${placeholder "out"}" ];
+  makeFlags = kernel.makeFlags ++ ["INSTALL_MOD_PATH=${placeholder "out"}"];
   KSRC = "${kernel.dev}/lib/modules/${kernel.modDirVersion}/build";
 
   nativeBuildInputs = kernel.moduleBuildDependencies;
@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
     description = "Kernel modules for DPDK";
     homepage = "https://git.dpdk.org/dpdk-kmods/";
     license = licenses.gpl2Only;
-    maintainers = [ maintainers.mic92 ];
+    maintainers = [maintainers.mic92];
     platforms = platforms.linux;
   };
 }

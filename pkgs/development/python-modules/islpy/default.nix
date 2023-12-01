@@ -28,16 +28,16 @@ buildPythonPackage rec {
     isl
     pybind11
   ];
-  propagatedBuildInputs = [ six ];
+  propagatedBuildInputs = [six];
 
   preCheck = "mv islpy islpy.hidden";
-  nativeCheckInputs = [ pytestCheckHook ];
-  pythonImportsCheck = [ "islpy" ];
+  nativeCheckInputs = [pytestCheckHook];
+  pythonImportsCheck = ["islpy"];
 
   meta = with lib; {
     description = "Python wrapper around isl, an integer set library";
     homepage = "https://github.com/inducer/islpy";
     license = licenses.mit;
-    maintainers = [ maintainers.costrouc ];
+    maintainers = [maintainers.costrouc];
   };
 }

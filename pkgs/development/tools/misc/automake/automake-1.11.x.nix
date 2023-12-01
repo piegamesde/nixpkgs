@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
     perl
     autoconf
   ];
-  buildInputs = [ autoconf ];
+  buildInputs = [autoconf];
 
   doCheck = false; # takes _a lot_ of time, fails 11 of 782 tests
 

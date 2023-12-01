@@ -14,9 +14,9 @@ stdenv.mkDerivation rec {
     sha256 = "19ibv1byxf2b68186ysrgrhy5shkc5mc69abark1h18yigp3j34m";
   };
 
-  buildInputs = [ python3 ];
+  buildInputs = [python3];
 
-  makeFlags = [ "smemcap" ];
+  makeFlags = ["smemcap"];
 
   installPhase = ''
     install -Dm555 -t $out/bin/ smem smemcap
@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
     homepage = "https://www.selenic.com/smem/";
     description = "A memory usage reporting tool that takes shared memory into account";
     platforms = lib.platforms.linux;
-    maintainers = [ lib.maintainers.eelco ];
+    maintainers = [lib.maintainers.eelco];
     license = lib.licenses.gpl2Plus;
   };
 }

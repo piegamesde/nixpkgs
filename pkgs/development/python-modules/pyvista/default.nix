@@ -34,12 +34,12 @@ buildPythonPackage rec {
   # Fatal Python error: Aborted
   doCheck = false;
 
-  pythonImportsCheck = [ "pyvista" ];
+  pythonImportsCheck = ["pyvista"];
 
   meta = with lib; {
     homepage = "https://pyvista.org";
     description = "Easier Pythonic interface to VTK";
     license = licenses.mit;
-    maintainers = with maintainers; [ wegank ];
+    maintainers = with maintainers; [wegank];
   };
 }

@@ -35,7 +35,7 @@ mkDerivation rec {
     description = "A file finder utility from the C Suite";
     homepage = "https://gitlab.com/cubocore/coreapps/corehunt";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ dan4ik605743 ];
+    maintainers = with maintainers; [dan4ik605743];
     platforms = platforms.linux;
   };
 }

@@ -111,13 +111,13 @@ stdenv.mkDerivation rec {
     "-Dwlroots:libseat=disabled"
   ];
 
-  env.NIX_CFLAGS_COMPILE = toString [ "-Wno-error=array-bounds" ]; # gcc12
+  env.NIX_CFLAGS_COMPILE = toString ["-Wno-error=array-bounds"]; # gcc12
 
   meta = with lib; {
     homepage = "https://gitlab.com/cardboardwm/cardboard";
     description = "A scrollable, tiling Wayland compositor inspired on PaperWM";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ AndersonTorres ];
+    maintainers = with maintainers; [AndersonTorres];
     platforms = with platforms; unix;
   };
 }

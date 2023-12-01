@@ -54,7 +54,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/Martchus/qtforkawesome";
     description = "Library that bundles ForkAwesome for use within Qt applications";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ doronbehar ];
+    maintainers = with maintainers; [doronbehar];
     platforms = platforms.linux ++ platforms.darwin;
   };
 }

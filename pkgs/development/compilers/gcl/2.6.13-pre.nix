@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
   src = fetchgit {
     sha256 = "sha256-e4cUQlNSfdz+B3urlZ82pf7fTc6aoloUyDDorAUi5kc=";
     url = "https://git.savannah.gnu.org/r/gcl.git";
-    rev = "refs/tags/Version_${builtins.replaceStrings [ "." ] [ "_" ] version}";
+    rev = "refs/tags/Version_${builtins.replaceStrings ["."] ["_"] version}";
   };
 
   postPatch = ''
@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
   # breaks when compiling in parallel
   enableParallelBuilding = false;
 
-  patches = [ ];
+  patches = [];
 
   buildInputs = [
     mpfr
@@ -65,7 +65,7 @@ stdenv.mkDerivation rec {
     readline
   ];
 
-  configureFlags = [ "--enable-ansi" ];
+  configureFlags = ["--enable-ansi"];
 
   hardeningDisable = [
     "pic"

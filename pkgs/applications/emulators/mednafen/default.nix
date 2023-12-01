@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-2j+88Ch3+b4PAov6XRy1npU6QEm5D+fjk4ijOG2fNi4=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs =
     [
@@ -48,7 +48,7 @@ stdenv.mkDerivation rec {
       libGLU
       libX11
     ]
-    ++ lib.optionals stdenv.hostPlatform.isDarwin [ libiconv ];
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [libiconv];
 
   hardeningDisable = [
     "pic"
@@ -97,7 +97,7 @@ stdenv.mkDerivation rec {
       - Sony PlayStation
     '';
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ AndersonTorres ];
+    maintainers = with maintainers; [AndersonTorres];
     platforms = platforms.unix;
   };
 }

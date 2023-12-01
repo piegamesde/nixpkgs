@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  patchFlags = [ "-p0" ];
+  patchFlags = ["-p0"];
 
   buildInputs = [
     getopt
@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
     libpng12
     giflib
   ];
-  makeFlags = [ "LDFLAGS=-lgif" ];
+  makeFlags = ["LDFLAGS=-lgif"];
 
   enableParallelBuilding = true;
 
@@ -45,6 +45,6 @@ stdenv.mkDerivation rec {
     description = "View pictures on a linux framebuffer device";
     homepage = "http://s-tech.elsat.net.pl/fbv/";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ peterhoeg ];
+    maintainers = with maintainers; [peterhoeg];
   };
 }

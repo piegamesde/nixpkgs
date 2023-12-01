@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
     description = "A database modeling tool for PostgreSQL";
     homepage = "https://pgmodeler.io/";
     license = licenses.gpl3;
-    maintainers = [ maintainers.esclear ];
+    maintainers = [maintainers.esclear];
     platforms = platforms.linux;
   };
 }

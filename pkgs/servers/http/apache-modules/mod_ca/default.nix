@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
     sha256 = "0gs66br3aig749rzifxn6j1rz2kps4hc4jppscly48lypgyygy8s";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     apacheHttpd
     openssl
@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
   # Note that configureFlags and installFlags are inherited by
   # the various submodules.
   #
-  configureFlags = [ "--with-apxs=${apacheHttpd.dev}/bin/apxs" ];
+  configureFlags = ["--with-apxs=${apacheHttpd.dev}/bin/apxs"];
 
   installFlags = [
     "INCLUDEDIR=${placeholder "out"}/include"
@@ -44,6 +44,6 @@ stdenv.mkDerivation rec {
     homepage = "https://redwax.eu";
     license = licenses.asl20;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ dirkx ];
+    maintainers = with maintainers; [dirkx];
   };
 }

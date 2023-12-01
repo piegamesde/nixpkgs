@@ -19,7 +19,7 @@ buildPythonPackage rec {
     hash = "sha256-k6cLizdnd5rWx7Vu6YV5ztd7afFqu8rnSfYsLFnmeTE=";
   };
 
-  pythonNamespaces = [ "jaraco" ];
+  pythonNamespaces = ["jaraco"];
 
   nativeBuildInputs = [
     setuptools
@@ -34,12 +34,12 @@ buildPythonPackage rec {
   # test no longer packaged with pypi
   doCheck = false;
 
-  pythonImportsCheck = [ "jaraco.logging" ];
+  pythonImportsCheck = ["jaraco.logging"];
 
   meta = with lib; {
     description = "Support for Python logging facility";
     homepage = "https://github.com/jaraco/jaraco.logging";
     license = licenses.mit;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

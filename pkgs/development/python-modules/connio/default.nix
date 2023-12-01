@@ -30,12 +30,12 @@ buildPythonPackage rec {
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "connio" ];
+  pythonImportsCheck = ["connio"];
 
   meta = with lib; {
     description = "Library for concurrency agnostic communication";
     homepage = "https://github.com/tiagocoutinho/connio";
-    license = with licenses; [ gpl3Plus ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [gpl3Plus];
+    maintainers = with maintainers; [fab];
   };
 }

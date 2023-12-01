@@ -24,7 +24,7 @@ buildGoModule rec {
     "-X github.com/equinix/metal-cli/cmd.Version=${version}"
   ];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = ''
     installShellCompletion --cmd metal \

@@ -19,7 +19,7 @@ buildPythonPackage rec {
     sha256 = "0m5z3i3d5adrz1wh6y35xjlls3cq6p4y9p1mzghw3k7hdvg26cck";
   };
 
-  propagatedBuildInputs = [ pamqp ];
+  propagatedBuildInputs = [pamqp];
   nativeCheckInputs = [
     mock
     nose

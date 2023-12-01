@@ -22,7 +22,7 @@ stdenvNoCC.mkDerivation rec {
     hash = "sha256-kUQ0dPjPr/A/btgFQu13ZLklnI284Ij74hCYbGgzF3A=";
   };
 
-  makeFlags = [ "PREFIX=${placeholder "out"}" ];
+  makeFlags = ["PREFIX=${placeholder "out"}"];
 
   doCheck = true;
 
@@ -47,6 +47,6 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://github.com/ko1nksm/getoptions";
     license = licenses.cc0;
     platforms = platforms.all;
-    maintainers = with maintainers; [ matrss ];
+    maintainers = with maintainers; [matrss];
   };
 }

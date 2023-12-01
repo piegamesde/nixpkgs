@@ -19,8 +19,8 @@ stdenv.mkDerivation rec {
     sha256 = cfg.sha256.${pname};
   };
 
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ libnl ];
+  nativeBuildInputs = [pkg-config];
+  buildInputs = [libnl];
 
   preBuild = ''
     makeFlags="PREFIX=$out PKG_CONFIG=${pkg-config}/bin/${pkg-config.targetPrefix}pkg-config"
@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
     homepage = "https://www.open-mesh.org/projects/batman-adv/wiki/Wiki";
     description = "B.A.T.M.A.N. routing protocol in a linux kernel module for layer 2, control tool";
     license = lib.licenses.gpl2;
-    maintainers = with lib.maintainers; [ fpletz ];
+    maintainers = with lib.maintainers; [fpletz];
     platforms = with lib.platforms; linux;
   };
 }

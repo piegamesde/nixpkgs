@@ -26,7 +26,7 @@ buildGoModule rec {
     "-X github.com/foundriesio/fioctl/subcommands/version.Commit=${src.rev}"
   ];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = ''
     installShellCompletion --cmd fioctl \

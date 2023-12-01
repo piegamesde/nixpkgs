@@ -24,7 +24,7 @@ buildPythonPackage rec {
     hash = "sha256-7OIByHvsqhKFOkb1q2kuxmbkkleryavYgp/T4U5hvGk=";
   };
 
-  propagatedBuildInputs = [ typish ];
+  propagatedBuildInputs = [typish];
 
   nativeCheckInputs = [
     attrs
@@ -46,13 +46,13 @@ buildPythonPackage rec {
         "test_dump_load_parameterized_collections"
       ];
 
-  pythonImportsCheck = [ "jsons" ];
+  pythonImportsCheck = ["jsons"];
 
   meta = with lib; {
     description = "Turn Python objects into dicts or json strings and back";
     homepage = "https://github.com/ramonhagenaars/jsons";
     changelog = "https://github.com/ramonhagenaars/jsons/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fmoda3 ];
+    maintainers = with maintainers; [fmoda3];
   };
 }

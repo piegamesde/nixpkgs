@@ -64,7 +64,7 @@ in
         description = mdDoc "Additional list of packages to be added to the session search path. Useful for GSettings-conditional autostart.";
         type = with types; listOf package;
         example = literalExpression "[ pkgs.budgie.budgie-desktop-view ]";
-        default = [ ];
+        default = [];
       };
 
       extraGSettingsOverrides = mkOption {
@@ -76,26 +76,26 @@ in
       extraGSettingsOverridePackages = mkOption {
         description = mdDoc "List of packages for which GSettings are overridden.";
         type = with types; listOf path;
-        default = [ ];
+        default = [];
       };
 
       extraPlugins = mkOption {
         description = mdDoc "Extra plugins for the Budgie desktop";
         type = with types; listOf package;
-        default = [ ];
+        default = [];
       };
     };
 
     environment.budgie.excludePackages = mkOption {
       description = mdDoc "Which packages Budgie should exclude from the default environment.";
       type = with types; listOf package;
-      default = [ ];
+      default = [];
       example = literalExpression "[ pkgs.mate-terminal ]";
     };
   };
 
   config = mkIf cfg.enable {
-    services.xserver.displayManager.sessionPackages = with pkgs; [ budgie.budgie-desktop ];
+    services.xserver.displayManager.sessionPackages = with pkgs; [budgie.budgie-desktop];
 
     services.xserver.displayManager.lightdm.greeters.slick = {
       enable = mkDefault true;
@@ -113,7 +113,7 @@ in
       };
     };
 
-    services.xserver.desktopManager.budgie.sessionPath = [ pkgs.budgie.budgie-desktop-view ];
+    services.xserver.desktopManager.budgie.sessionPath = [pkgs.budgie.budgie-desktop-view];
 
     environment.extraInit = ''
       ${concatMapStrings
@@ -135,12 +135,12 @@ in
         # Budgie Desktop.
         budgie.budgie-backgrounds
         budgie.budgie-control-center
-        (budgie.budgie-desktop-with-plugins.override { plugins = cfg.extraPlugins; })
+        (budgie.budgie-desktop-with-plugins.override {plugins = cfg.extraPlugins;})
         budgie.budgie-desktop-view
         budgie.budgie-screensaver
 
         # Required by the Budgie Desktop session.
-        (gnome.gnome-session.override { gnomeShellSupport = false; })
+        (gnome.gnome-session.override {gnomeShellSupport = false;})
 
         # Required by Budgie Menu.
         gnome-menus
@@ -184,8 +184,8 @@ in
       pkgs.hack-font
     ];
     fonts.fontconfig.defaultFonts = {
-      sansSerif = mkDefault [ "Noto Sans" ];
-      monospace = mkDefault [ "Hack" ];
+      sansSerif = mkDefault ["Noto Sans"];
+      monospace = mkDefault ["Hack"];
     };
 
     # Qt application style.
@@ -207,7 +207,7 @@ in
     programs.dconf.enable = true;
 
     # Required by Budgie Screensaver.
-    security.pam.services.budgie-screensaver = { };
+    security.pam.services.budgie-screensaver = {};
 
     # Required by Budgie's Polkit Dialog.
     security.polkit.enable = mkDefault true;
@@ -256,7 +256,7 @@ in
     services.gvfs.enable = mkDefault true;
 
     # Register packages for DBus.
-    services.dbus.packages = with pkgs; [ budgie.budgie-control-center ];
+    services.dbus.packages = with pkgs; [budgie.budgie-control-center];
 
     # Shell integration for MATE Terminal.
     programs.bash.vteIntegration = true;

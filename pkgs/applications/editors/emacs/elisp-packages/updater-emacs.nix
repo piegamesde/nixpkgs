@@ -1,5 +1,5 @@
 let
-  pkgs = import ../../../../.. { };
+  pkgs = import ../../../../.. {};
 
   emacsEnv = pkgs.emacs.pkgs.withPackages (
     epkgs:
@@ -19,7 +19,7 @@ let
       semaphore = epkgs.trivialBuild {
         pname = "semaphore";
         version = "1";
-        packageRequires = [ promise ];
+        packageRequires = [promise];
         src = pkgs.fetchFromGitHub {
           owner = "webnf";
           repo = "semaphore.el";

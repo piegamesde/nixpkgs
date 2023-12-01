@@ -102,9 +102,9 @@ stdenv.mkDerivation rec {
       cmocka
       rpcsvc-proto
     ]
-    ++ optionals stdenv.isLinux [ buildPackages.stdenv.cc ]
+    ++ optionals stdenv.isLinux [buildPackages.stdenv.cc]
     ++ optional (stdenv.buildPlatform != stdenv.hostPlatform) samba # asn1_compile/compile_et
-    ++ optionals stdenv.isDarwin [ fixDarwinDylibNames ];
+    ++ optionals stdenv.isDarwin [fixDarwinDylibNames];
 
   wafPath = "buildtools/bin/waf";
 
@@ -129,7 +129,7 @@ stdenv.mkDerivation rec {
       liburing
       systemd
     ]
-    ++ optionals stdenv.isDarwin [ libiconv ]
+    ++ optionals stdenv.isDarwin [libiconv]
     ++ optionals enableLDAP [
       openldap.dev
       python3Packages.markdown
@@ -263,7 +263,7 @@ stdenv.mkDerivation rec {
 
   disallowedReferences =
     lib.optionals (buildPackages.python3Packages.python != python3Packages.python)
-      [ buildPackages.python3Packages.python ];
+      [buildPackages.python3Packages.python];
 
   passthru = {
     tests.samba = nixosTests.samba;
@@ -275,6 +275,6 @@ stdenv.mkDerivation rec {
     license = licenses.gpl3;
     platforms = platforms.unix;
     broken = enableGlusterFS;
-    maintainers = with maintainers; [ aneeshusa ];
+    maintainers = with maintainers; [aneeshusa];
   };
 }

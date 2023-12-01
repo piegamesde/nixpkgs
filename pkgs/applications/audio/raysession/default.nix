@@ -46,13 +46,13 @@ buildPythonApplication rec {
 
   dontWrapQtApps = true; # The program is a python script.
 
-  installFlags = [ "PREFIX=$(out)" ];
+  installFlags = ["PREFIX=$(out)"];
 
   makeWrapperArgs = [
     "--prefix"
     "LD_LIBRARY_PATH"
     ":"
-    (lib.makeLibraryPath [ libjack2 ])
+    (lib.makeLibraryPath [libjack2])
   ];
 
   postFixup = ''
@@ -63,7 +63,7 @@ buildPythonApplication rec {
     homepage = "https://github.com/Houston4444/RaySession";
     description = "Session manager for Linux musical programs";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ orivej ];
+    maintainers = with maintainers; [orivej];
     platforms = platforms.linux;
   };
 }

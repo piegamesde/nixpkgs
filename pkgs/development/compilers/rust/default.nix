@@ -5,7 +5,7 @@
   bootstrapVersion,
   bootstrapHashes,
   selectRustPackage,
-  rustcPatches ? [ ],
+  rustcPatches ? [],
   llvmBootstrapForDarwin,
   llvmShared,
   llvmSharedForBuild,
@@ -29,7 +29,7 @@
 
 let
   # Use `import` to make sure no packages sneak in here.
-  lib' = import ../../../build-support/rust/lib { inherit lib; };
+  lib' = import ../../../build-support/rust/lib {inherit lib;};
 in
 {
   lib = lib';
@@ -108,14 +108,14 @@ in
             };
           }
         );
-        rustfmt = self.callPackage ./rustfmt.nix { inherit Security; };
+        rustfmt = self.callPackage ./rustfmt.nix {inherit Security;};
         cargo = self.callPackage ./cargo.nix {
           # Use boot package set to break cycle
           rustPlatform = bootRustPlatform;
           inherit CoreFoundation Security;
         };
-        cargo-auditable = self.callPackage ./cargo-auditable.nix { };
-        cargo-auditable-cargo-wrapper = self.callPackage ./cargo-auditable-cargo-wrapper.nix { };
+        cargo-auditable = self.callPackage ./cargo-auditable.nix {};
+        cargo-auditable-cargo-wrapper = self.callPackage ./cargo-auditable-cargo-wrapper.nix {};
         clippy = callPackage ./clippy.nix {
           # We want to use self, not buildRustPackages, so that
           # buildPackages.clippy uses the cross compiler and supports

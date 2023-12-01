@@ -20,14 +20,14 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-BbQuY6r30AkxlCZjY8JizaOrqEBdv7rIQet9KQwYB/g=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   buildInputs = [
     brotli
     libsodium
   ];
 
-  subPackages = [ "main/pg" ];
+  subPackages = ["main/pg"];
 
   tags = [
     "brotli"
@@ -52,6 +52,6 @@ buildGoModule rec {
     homepage = "https://github.com/wal-g/wal-g";
     license = licenses.asl20;
     description = "An archival restoration tool for PostgreSQL";
-    maintainers = with maintainers; [ marsam ];
+    maintainers = with maintainers; [marsam];
   };
 }

@@ -11,7 +11,7 @@ let
 
   cfg = config.services.xmr-stak;
 
-  pkg = pkgs.xmr-stak.override { inherit (cfg) openclSupport cudaSupport; };
+  pkg = pkgs.xmr-stak.override {inherit (cfg) openclSupport cudaSupport;};
 in
 
 {
@@ -23,7 +23,7 @@ in
 
       extraArgs = mkOption {
         type = types.listOf types.str;
-        default = [ ];
+        default = [];
         example = [
           "--noCPU"
           "--currency monero"
@@ -33,7 +33,7 @@ in
 
       configFiles = mkOption {
         type = types.attrsOf types.str;
-        default = { };
+        default = {};
         example = literalExpression ''
           {
             "config.txt" = '''
@@ -66,9 +66,9 @@ in
 
   config = mkIf cfg.enable {
     systemd.services.xmr-stak = {
-      wantedBy = [ "multi-user.target" ];
-      bindsTo = [ "network-online.target" ];
-      after = [ "network-online.target" ];
+      wantedBy = ["multi-user.target"];
+      bindsTo = ["network-online.target"];
+      after = ["network-online.target"];
       environment = mkIf cfg.cudaSupport {
         LD_LIBRARY_PATH = "${pkgs.linuxPackages_latest.nvidia_x11}/lib";
       };

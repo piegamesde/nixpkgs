@@ -78,7 +78,7 @@ stdenv.mkDerivation (
       pcre
       libiconv
       libintl
-    ] ++ lib.optionals withData [ poppler_data ];
+    ] ++ lib.optionals withData [poppler_data];
 
     # TODO: reduce propagation to necessary libs
     propagatedBuildInputs =
@@ -95,8 +95,8 @@ stdenv.mkDerivation (
         curl
         nss
       ]
-      ++ lib.optionals (qt5Support || qt6Support) [ qtbase ]
-      ++ lib.optionals introspectionSupport [ gobject-introspection ];
+      ++ lib.optionals (qt5Support || qt6Support) [qtbase]
+      ++ lib.optionals introspectionSupport [gobject-introspection];
 
     cmakeFlags = [
       (mkFlag true "UNSTABLE_API_ABI_HEADERS") # previously "XPDF_HEADERS"
@@ -106,7 +106,7 @@ stdenv.mkDerivation (
       (mkFlag utils "UTILS")
       (mkFlag qt5Support "QT5")
       (mkFlag qt6Support "QT6")
-    ] ++ lib.optionals finalAttrs.doCheck [ "-DTESTDATADIR=${testData}" ];
+    ] ++ lib.optionals finalAttrs.doCheck ["-DTESTDATADIR=${testData}"];
     disallowedReferences = lib.optional finalAttrs.doCheck testData;
 
     dontWrapQtApps = true;
@@ -140,7 +140,7 @@ stdenv.mkDerivation (
       '';
       license = licenses.gpl2Plus;
       platforms = platforms.all;
-      maintainers = with maintainers; [ ttuegel ] ++ teams.freedesktop.members;
+      maintainers = with maintainers; [ttuegel] ++ teams.freedesktop.members;
     };
   }
 )

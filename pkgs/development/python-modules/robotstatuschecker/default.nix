@@ -18,7 +18,7 @@ buildPythonPackage rec {
     hash = "sha256-7xHPqlR7IFZp3Z120mg25ZSg9eI878kE8RF1y3F5O70=";
   };
 
-  propagatedBuildInputs = [ robotframework ];
+  propagatedBuildInputs = [robotframework];
 
   checkPhase = ''
     ${python.interpreter} test/run.py
@@ -28,6 +28,6 @@ buildPythonPackage rec {
     description = "A tool for checking that Robot Framework test cases have expected statuses and log messages";
     homepage = "https://github.com/robotframework/statuschecker";
     license = licenses.asl20;
-    maintainers = [ maintainers.marsam ];
+    maintainers = [maintainers.marsam];
   };
 }

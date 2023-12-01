@@ -35,7 +35,7 @@ python3Packages.buildPythonApplication rec {
   meta = with lib; {
     homepage = "https://www.jefftk.com/icdiff";
     description = "Side-by-side highlighted command line diffs";
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     license = licenses.psfl;
   };
 }

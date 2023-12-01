@@ -32,7 +32,7 @@ rustPlatform.buildRustPackage rec {
   LIBGIT2_SYS_USE_PKG_CONFIG = true;
   LIBSSH2_SYS_USE_PKG_CONFIG = true;
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs =
     [
       openssl
@@ -47,7 +47,7 @@ rustPlatform.buildRustPackage rec {
         CoreFoundation
         AppKit
       ]
-      ++ (lib.optionals stdenv.isAarch64 [ System ])
+      ++ (lib.optionals stdenv.isAarch64 [System])
     ));
 
   meta = with lib; {
@@ -59,6 +59,6 @@ rustPlatform.buildRustPackage rec {
     '';
     homepage = "https://github.com/pksunkara/cargo-workspaces";
     license = licenses.mit;
-    maintainers = with maintainers; [ macalinao ];
+    maintainers = with maintainers; [macalinao];
   };
 }

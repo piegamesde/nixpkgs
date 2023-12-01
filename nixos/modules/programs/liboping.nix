@@ -15,7 +15,7 @@ in
     enable = mkEnableOption (lib.mdDoc "liboping");
   };
   config = mkIf cfg.enable {
-    environment.systemPackages = with pkgs; [ liboping ];
+    environment.systemPackages = with pkgs; [liboping];
     security.wrappers = mkMerge (
       map
         (exec: {

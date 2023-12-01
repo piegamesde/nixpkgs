@@ -4,9 +4,9 @@
   description = "A collection of packages for the Nix package manager";
 
   outputs =
-    { self }:
+    {self}:
     let
-      jobs = import ./pkgs/top-level/release.nix { nixpkgs = self; };
+      jobs = import ./pkgs/top-level/release.nix {nixpkgs = self;};
 
       lib = import ./lib;
 
@@ -16,7 +16,7 @@
       lib = lib.extend (
         final: prev: {
 
-          nixos = import ./nixos/lib { lib = final; };
+          nixos = import ./nixos/lib {lib = final;};
 
           nixosSystem =
             args:
@@ -46,7 +46,7 @@
 
       htmlDocs = {
         nixpkgsManual = jobs.manual;
-        nixosManual = (import ./nixos/release-small.nix { nixpkgs = self; }).nixos.manual.x86_64-linux;
+        nixosManual = (import ./nixos/release-small.nix {nixpkgs = self;}).nixos.manual.x86_64-linux;
       };
 
       # The "legacy" in `legacyPackages` doesn't imply that the packages exposed
@@ -58,7 +58,7 @@
       # attribute it displays `omitted` instead of evaluating all packages,
       # which keeps `nix flake show` on Nixpkgs reasonably fast, though less
       # information rich.
-      legacyPackages = forAllSystems (system: import ./. { inherit system; });
+      legacyPackages = forAllSystems (system: import ./. {inherit system;});
 
       nixosModules = {
         notDetected = ./nixos/modules/installer/scan/not-detected.nix;

@@ -18,6 +18,6 @@ stdenv.mkDerivation rec {
     homepage = "http://www.routemeister.net/projects/sipcalc/";
     license = licenses.bsd3;
     platforms = platforms.all;
-    maintainers = [ maintainers.globin ];
+    maintainers = [maintainers.globin];
   };
 }

@@ -39,6 +39,6 @@ stdenv.mkDerivation rec {
     description = "Variable reverb audio effect, jack and lv2";
     homepage = "https://github.com/modularev/mooSpace";
     license = lib.licenses.gpl3;
-    maintainers = [ lib.maintainers.magnetophon ];
+    maintainers = [lib.maintainers.magnetophon];
   };
 }

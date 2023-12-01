@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-Hg+VcWI28GzY/CPm1lUftP0RGztOnzizrKJQVTmeJ9I=";
   };
 
-  nativeBuildInputs = [ zig ];
+  nativeBuildInputs = [zig];
   buildInputs = [
     glfw
     libGLU

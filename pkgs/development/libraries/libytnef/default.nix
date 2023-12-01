@@ -16,13 +16,13 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-VlgvbU8yNHyVRKqaNqqCpLBsndltfAk33BuzvFuViqU=";
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   meta = with lib; {
     inherit (src.meta) homepage;
     description = "Yeraze's TNEF Stream Reader - for winmail.dat files";
     license = licenses.gpl2Plus;
     platforms = platforms.all;
-    maintainers = with maintainers; [ fpletz ];
+    maintainers = with maintainers; [fpletz];
   };
 }

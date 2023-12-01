@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-TGhPPv73tb3tr1cY9mUuN4FaVql5tGh436uJeTkbnJs=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     runHook preInstall
@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
     description = "CLI tools for napi-rs";
     homepage = "https://napi.rs";
     license = licenses.mit;
-    maintainers = with maintainers; [ winter ];
+    maintainers = with maintainers; [winter];
     inherit (nodejs.meta) platforms;
   };
 }

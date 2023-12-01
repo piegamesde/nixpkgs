@@ -14,7 +14,7 @@ stdenv.mkDerivation rec {
   pname = "netrw";
   version = "1.3.2";
 
-  configureFlags = [ "--with-checksum=${checksumType}" ];
+  configureFlags = ["--with-checksum=${checksumType}"];
 
   buildInputs =
     lib.optional (checksumType == "mhash") libmhash

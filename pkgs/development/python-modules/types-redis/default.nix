@@ -24,12 +24,12 @@ buildPythonPackage rec {
   # Module doesn't have tests
   doCheck = false;
 
-  pythonImportsCheck = [ "redis-stubs" ];
+  pythonImportsCheck = ["redis-stubs"];
 
   meta = with lib; {
     description = "Typing stubs for redis";
     homepage = "https://github.com/python/typeshed";
     license = licenses.asl20;
-    maintainers = with maintainers; [ gador ];
+    maintainers = with maintainers; [gador];
   };
 }

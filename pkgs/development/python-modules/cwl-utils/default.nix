@@ -45,7 +45,7 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "cwl_utils" ];
+  pythonImportsCheck = ["cwl_utils"];
 
   disabledTests = [
     # Don't run tests which require Node.js
@@ -61,6 +61,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/common-workflow-language/cwl-utils";
     changelog = "https://github.com/common-workflow-language/cwl-utils/releases/tag/v${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

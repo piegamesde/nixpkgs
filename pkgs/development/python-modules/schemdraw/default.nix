@@ -26,10 +26,10 @@ buildPythonPackage rec {
     hash = "sha256-W9sXtYI8gEwQPRo50taEGT6AQG1tdAbeCtX49eHVvFQ=";
   };
 
-  propagatedBuildInputs = [ pyparsing ];
+  propagatedBuildInputs = [pyparsing];
 
   passthru.optional-dependencies = {
-    matplotlib = [ matplotlib ];
+    matplotlib = [matplotlib];
     svgmath = [
       latex2mathml
       ziafont
@@ -51,15 +51,15 @@ buildPythonPackage rec {
     substituteInPlace test/test_styles.ipynb --replace "font='Times', " ""
   '';
 
-  pytestFlagsArray = [ "--nbval-lax" ];
+  pytestFlagsArray = ["--nbval-lax"];
 
-  pythonImportsCheck = [ "schemdraw" ];
+  pythonImportsCheck = ["schemdraw"];
 
   meta = with lib; {
     description = "A package for producing high-quality electrical circuit schematic diagrams";
     homepage = "https://schemdraw.readthedocs.io/en/latest/";
     changelog = "https://schemdraw.readthedocs.io/en/latest/changes.html";
     license = licenses.mit;
-    maintainers = with maintainers; [ sfrijters ];
+    maintainers = with maintainers; [sfrijters];
   };
 }

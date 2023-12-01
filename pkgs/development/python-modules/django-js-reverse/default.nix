@@ -30,7 +30,7 @@ buildPythonPackage rec {
     })
   ];
 
-  propagatedBuildInputs = [ django ];
+  propagatedBuildInputs = [django];
 
   nativeCheckInputs = [
     nodejs
@@ -42,12 +42,12 @@ buildPythonPackage rec {
     ${python.interpreter} django_js_reverse/tests/unit_tests.py
   '';
 
-  pythonImportsCheck = [ "django_js_reverse" ];
+  pythonImportsCheck = ["django_js_reverse"];
 
   meta = with lib; {
     description = "Javascript url handling for Django that doesn't hurt";
     homepage = "https://django-js-reverse.readthedocs.io/en/latest/";
     license = licenses.mit;
-    maintainers = with maintainers; [ ambroisie ];
+    maintainers = with maintainers; [ambroisie];
   };
 }

@@ -55,7 +55,7 @@ buildPythonPackage rec {
       pynacl
       bcrypt
     ];
-    invoke = [ invoke ];
+    invoke = [invoke];
   };
 
   nativeCheckInputs = [
@@ -69,7 +69,7 @@ buildPythonPackage rec {
     "tests/test_ssh_gss.py"
   ];
 
-  pythonImportsCheck = [ "paramiko" ];
+  pythonImportsCheck = ["paramiko"];
 
   __darwinAllowLocalNetworking = true;
 
@@ -83,6 +83,6 @@ buildPythonPackage rec {
       between python scripts. All major ciphers and hash methods are
       supported. SFTP client and server mode are both supported too.
     '';
-    maintainers = with maintainers; [ SuperSandro2000 ];
+    maintainers = with maintainers; [SuperSandro2000];
   };
 }

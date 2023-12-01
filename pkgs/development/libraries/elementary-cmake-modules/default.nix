@@ -33,6 +33,6 @@ stdenv.mkDerivation {
     platforms = platforms.linux ++ platforms.darwin;
     homepage = "https://github.com/elementary/cmake-modules";
     license = licenses.gpl3Plus;
-    maintainers = [ maintainers.samdroid-apps ];
+    maintainers = [maintainers.samdroid-apps];
   };
 }

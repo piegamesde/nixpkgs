@@ -1,5 +1,5 @@
 # Static arguments
-{ runCommand, pkg-config }:
+{runCommand, pkg-config}:
 
 # Tester arguments
 {
@@ -10,8 +10,8 @@
 
 runCommand testName
   {
-    nativeBuildInputs = [ pkg-config ];
-    buildInputs = [ package ];
+    nativeBuildInputs = [pkg-config];
+    buildInputs = [package];
     inherit moduleName;
     meta =
       {

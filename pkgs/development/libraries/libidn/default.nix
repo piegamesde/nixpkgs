@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
     "devdoc"
   ];
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   buildInputs = lib.optional stdenv.isDarwin libiconv;
 
@@ -48,6 +48,6 @@ stdenv.mkDerivation rec {
 
     license = lib.licenses.lgpl2Plus;
     platforms = lib.platforms.all;
-    maintainers = with lib.maintainers; [ lsix ];
+    maintainers = with lib.maintainers; [lsix];
   };
 }

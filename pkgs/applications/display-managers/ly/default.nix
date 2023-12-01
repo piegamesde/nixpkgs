@@ -17,8 +17,8 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  buildInputs = [ linux-pam ];
-  makeFlags = [ "FLAGS=-Wno-error" ];
+  buildInputs = [linux-pam];
+  makeFlags = ["FLAGS=-Wno-error"];
 
   installPhase = ''
     mkdir -p $out/bin
@@ -29,6 +29,6 @@ stdenv.mkDerivation rec {
     description = "TUI display manager";
     license = licenses.wtfpl;
     homepage = "https://github.com/cylgom/ly";
-    maintainers = [ maintainers.vidister ];
+    maintainers = [maintainers.vidister];
   };
 }

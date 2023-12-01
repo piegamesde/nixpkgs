@@ -15,9 +15,9 @@ stdenv.mkDerivation rec {
     hash = "sha256-4sXuVBbf2iIwx6DLeJXfmpstWyBluxjn5k3sKnlqvhs=";
   };
 
-  buildInputs = [ readline ];
+  buildInputs = [readline];
 
-  makeFlags = [ "prefix=$(out)" ];
+  makeFlags = ["prefix=$(out)"];
 
   passthru.updateScript = gitUpdater {
     # No nicer place to track releases
@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
     homepage = "https://mujs.com/";
     description = "A lightweight, embeddable Javascript interpreter";
     platforms = platforms.unix;
-    maintainers = with maintainers; [ pSub ];
+    maintainers = with maintainers; [pSub];
     license = licenses.isc;
   };
 }

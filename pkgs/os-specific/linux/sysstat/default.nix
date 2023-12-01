@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-PncTSu2qb8V9l0XaZ+39iZDhmt7nGsRxliKSYcVj+0g=";
   };
 
-  buildInputs = [ gettext ];
+  buildInputs = [gettext];
 
   preConfigure = ''
     export PATH_CP=$(type -tp cp)
@@ -36,13 +36,13 @@ stdenv.mkDerivation rec {
     "install_man"
   ];
 
-  patches = [ ./install.patch ];
+  patches = [./install.patch];
 
   meta = {
     homepage = "http://sebastien.godard.pagesperso-orange.fr/";
     description = "A collection of performance monitoring tools for Linux (such as sar, iostat and pidstat)";
     license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.linux;
-    maintainers = [ lib.maintainers.eelco ];
+    maintainers = [lib.maintainers.eelco];
   };
 }

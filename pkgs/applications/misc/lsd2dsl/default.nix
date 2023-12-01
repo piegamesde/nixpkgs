@@ -25,7 +25,7 @@ mkDerivation rec {
     sha256 = "sha256-PLgfsVVrNBTxI4J0ukEOFRoBkbmB55/sLNn5KyiHeAc=";
   };
 
-  nativeBuildInputs = [ cmake ] ++ lib.optional stdenv.isLinux copyDesktopItems;
+  nativeBuildInputs = [cmake] ++ lib.optional stdenv.isLinux copyDesktopItems;
 
   buildInputs = [
     boost
@@ -64,7 +64,7 @@ mkDerivation rec {
       A decompiler for ABBYY Lingvo’s proprietary dictionaries.
     '';
     license = licenses.mit;
-    maintainers = with maintainers; [ sikmir ];
+    maintainers = with maintainers; [sikmir];
     platforms = platforms.unix;
   };
 }

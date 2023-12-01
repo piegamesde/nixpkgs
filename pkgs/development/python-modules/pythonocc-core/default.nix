@@ -53,7 +53,7 @@ stdenv.mkDerivation rec {
     libXi
     fontconfig
     rapidjson
-  ] ++ lib.optionals stdenv.isDarwin [ Cocoa ];
+  ] ++ lib.optionals stdenv.isDarwin [Cocoa];
 
   cmakeFlags = [
     "-Wno-dev"
@@ -75,6 +75,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/tpaviot/pythonocc-core";
     license = licenses.lgpl3;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ gebner ];
+    maintainers = with maintainers; [gebner];
   };
 }

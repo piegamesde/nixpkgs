@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     sha256 = "0qxysj08gjr6npyvg148llmwmjl2n9cyqjllfnf3gxb841dy370n";
   };
 
-  patches = [ (substituteAll { src = ./fix-validation.patch; }) ];
+  patches = [(substituteAll {src = ./fix-validation.patch;})];
 
   installPhase = ''
     mkdir -p $out/bin
@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Convert SRT files to VTT";
     license = licenses.mit;
-    maintainers = with maintainers; [ ericdallo ];
+    maintainers = with maintainers; [ericdallo];
     homepage = "https://github.com/nwoltman/srt-to-vtt-cl";
     platforms = platforms.linux;
   };

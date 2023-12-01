@@ -1,10 +1,10 @@
 {
   system ? builtins.currentSystem,
-  config ? { },
-  pkgs ? import ../.. { inherit system config; },
+  config ? {},
+  pkgs ? import ../.. {inherit system config;},
 }:
 
-with import ../lib/testing-python.nix { inherit system pkgs; };
+with import ../lib/testing-python.nix {inherit system pkgs;};
 with pkgs.lib;
 
 let
@@ -13,32 +13,32 @@ let
       enable = true;
       user = "stunnel";
     };
-    users.groups.stunnel = { };
+    users.groups.stunnel = {};
     users.users.stunnel = {
       isSystemUser = true;
       group = "stunnel";
     };
   };
   makeCert =
-    { config, pkgs, ... }:
+    {config, pkgs, ...}:
     {
-      system.activationScripts.create-test-cert = stringAfter [ "users" ] ''
+      system.activationScripts.create-test-cert = stringAfter ["users"] ''
         ${pkgs.openssl}/bin/openssl req -batch -x509 -newkey rsa -nodes -out /test-cert.pem -keyout /test-key.pem -subj /CN=${config.networking.hostName}
         ( umask 077; cat /test-key.pem /test-cert.pem > /test-key-and-cert.pem )
         chown stunnel /test-key.pem /test-key-and-cert.pem
       '';
     };
   serverCommon =
-    { pkgs, ... }:
+    {pkgs, ...}:
     {
-      networking.firewall.allowedTCPPorts = [ 443 ];
+      networking.firewall.allowedTCPPorts = [443];
       services.stunnel.servers.https = {
         accept = "443";
         connect = 80;
         cert = "/test-key-and-cert.pem";
       };
       systemd.services.simple-webserver = {
-        wantedBy = [ "multi-user.target" ];
+        wantedBy = ["multi-user.target"];
         script = ''
           cd /etc/webroot
           ${pkgs.python3}/bin/python -m http.server 80
@@ -57,7 +57,7 @@ in
     name = "basicServer";
 
     nodes = {
-      client = { };
+      client = {};
       server = {
         imports = [
           makeCert
@@ -86,7 +86,7 @@ in
 
     nodes = {
       client = {
-        imports = [ stunnelCommon ];
+        imports = [stunnelCommon];
         services.stunnel.clients = {
           httpsClient = {
             accept = "80";

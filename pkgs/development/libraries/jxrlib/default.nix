@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   strictDeps = true;
 
@@ -43,6 +43,6 @@ stdenv.mkDerivation rec {
     homepage = "https://jxrlib.codeplex.com";
     license = licenses.bsd2;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ romildo ];
+    maintainers = with maintainers; [romildo];
   };
 }

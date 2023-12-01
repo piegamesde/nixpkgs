@@ -37,13 +37,13 @@ stdenv.mkDerivation rec {
     libmaxminddb
   ];
 
-  configureFlags = [ "--with-geoip" ];
+  configureFlags = ["--with-geoip"];
 
   meta = with lib; {
     description = "Modern and lightweight direct connect client with a friendly ncurses interface";
     homepage = "https://dev.yorhel.nl/ncdc";
     license = licenses.mit;
     platforms = platforms.linux; # arbitrary
-    maintainers = with maintainers; [ ehmry ];
+    maintainers = with maintainers; [ehmry];
   };
 }

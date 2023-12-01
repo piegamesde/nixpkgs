@@ -6,7 +6,7 @@
   pname,
   version,
   src,
-  patches ? [ ],
+  patches ? [],
 }:
 stdenv.mkDerivation {
 
@@ -23,21 +23,21 @@ stdenv.mkDerivation {
     cp ${builtins.toFile "config.h" customConfig} ./config.h
   '';
 
-  nativeBuildInputs = [ ncurses ];
-  buildInputs = [ ncurses ];
+  nativeBuildInputs = [ncurses];
+  buildInputs = [ncurses];
 
   prePatch = ''
     substituteInPlace Makefile \
       --replace /usr/share/terminfo $out/share/terminfo
   '';
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   meta = with lib; {
     description = "Dynamic virtual terminal manager";
     homepage = "http://www.brain-dump.org/projects/dvtm";
     license = licenses.mit;
-    maintainers = [ maintainers.vrthra ];
+    maintainers = [maintainers.vrthra];
     platforms = platforms.unix;
   };
 }

@@ -23,10 +23,10 @@ buildPythonPackage rec {
     hash = "sha256-zH8QaOA4B2Un6tG9NjQ2+I9ejSHou1ezI7MLkm/HVTo=";
   };
 
-  nativeCheckInputs = [ pytestCheckHook ];
-  disabledTests = [ "test_clean_confounds" ]; # https://github.com/nilearn/nilearn/issues/2608
+  nativeCheckInputs = [pytestCheckHook];
+  disabledTests = ["test_clean_confounds"]; # https://github.com/nilearn/nilearn/issues/2608
   # do subset of tests which don't fetch resources
-  pytestFlagsArray = [ "nilearn/connectome/tests" ];
+  pytestFlagsArray = ["nilearn/connectome/tests"];
 
   propagatedBuildInputs = [
     joblib

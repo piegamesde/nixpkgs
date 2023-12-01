@@ -75,18 +75,18 @@ else
         --replace '/usr/include/libffi' '${lib.getDev libffi}/include'
     '';
 
-    buildInputs = [ libffi ];
+    buildInputs = [libffi];
 
-    nativeBuildInputs = [ pkg-config ];
+    nativeBuildInputs = [pkg-config];
 
-    propagatedBuildInputs = [ pycparser ];
+    propagatedBuildInputs = [pycparser];
 
     # The tests use -Werror but with python3.6 clang detects some unreachable code.
     env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.cc.isClang "-Wno-unused-command-line-argument -Wno-unreachable-code -Wno-c++11-narrowing";
 
     doCheck = !stdenv.hostPlatform.isMusl;
 
-    nativeCheckInputs = [ pytestCheckHook ];
+    nativeCheckInputs = [pytestCheckHook];
 
     disabledTests =
       lib.optionals stdenv.isDarwin

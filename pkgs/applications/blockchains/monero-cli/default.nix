@@ -51,7 +51,7 @@ stdenv.mkDerivation rec {
     sha256 = "6VI5D3vP6NKdrEE5qOpKnv1wr6AWriixdOxkAa8HaCQ=";
   };
 
-  patches = [ ./use-system-libraries.patch ];
+  patches = [./use-system-libraries.patch];
 
   postPatch = ''
     # manually install submodules
@@ -111,6 +111,6 @@ stdenv.mkDerivation rec {
     homepage = "https://getmonero.org/";
     license = licenses.bsd3;
     platforms = platforms.all;
-    maintainers = with maintainers; [ rnhmjoj ];
+    maintainers = with maintainers; [rnhmjoj];
   };
 }

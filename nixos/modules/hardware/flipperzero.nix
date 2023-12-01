@@ -18,7 +18,7 @@ in
   );
 
   config = mkIf cfg.enable {
-    environment.systemPackages = [ pkgs.qFlipper ];
-    services.udev.packages = [ pkgs.qFlipper ];
+    environment.systemPackages = [pkgs.qFlipper];
+    services.udev.packages = [pkgs.qFlipper];
   };
 }

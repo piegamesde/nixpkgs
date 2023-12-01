@@ -8,7 +8,7 @@
   boldPanelIcons ? false,
   blackPanelIcons ? false,
   alternativeIcons ? false,
-  themeVariants ? [ ],
+  themeVariants ? [],
 }:
 
 let
@@ -46,7 +46,7 @@ lib.checkListOfEnum "${pname}: theme variants"
       jdupes
     ];
 
-    buildInputs = [ hicolor-icon-theme ];
+    buildInputs = [hicolor-icon-theme];
 
     # These fixup steps are slow and unnecessary
     dontPatchELF = true;
@@ -77,6 +77,6 @@ lib.checkListOfEnum "${pname}: theme variants"
       homepage = "https://github.com/vinceliuice/WhiteSur-icon-theme";
       license = licenses.gpl3Plus;
       platforms = platforms.linux;
-      maintainers = with maintainers; [ icy-thought ];
+      maintainers = with maintainers; [icy-thought];
     };
   }

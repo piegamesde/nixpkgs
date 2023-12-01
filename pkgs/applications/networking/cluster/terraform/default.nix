@@ -50,7 +50,7 @@ let
             --replace "/bin/stty" "${coreutils}/bin/stty"
         '';
 
-        nativeBuildInputs = [ installShellFiles ];
+        nativeBuildInputs = [installShellFiles];
 
         postInstall = ''
           # https://github.com/posener/complete/blob/9a4745ac49b29530e07dc2581745a218b646b7a3/cmd/install/bash.go#L8
@@ -62,7 +62,7 @@ let
           export TF_SKIP_REMOTE_TESTS=1
         '';
 
-        subPackages = [ "." ];
+        subPackages = ["."];
 
         meta = with lib; {
           description = "Tool for building, changing, and versioning infrastructure";
@@ -129,13 +129,13 @@ let
         in
         # Don't bother wrapping unless we actually have plugins, since the wrapper will stop automatic downloading
         # of plugins, which might be counterintuitive if someone just wants a vanilla Terraform.
-        if actualPlugins == [ ] then
-          terraform.overrideAttrs (orig: { passthru = orig.passthru // passthru; })
+        if actualPlugins == [] then
+          terraform.overrideAttrs (orig: {passthru = orig.passthru // passthru;})
         else
           lib.appendToName "with-plugins" (
             stdenv.mkDerivation {
               inherit (terraform) meta pname version;
-              nativeBuildInputs = [ makeWrapper ];
+              nativeBuildInputs = [makeWrapper];
 
               # Expose the passthru set with the override functions
               # defined above, as well as any passthru values already
@@ -169,7 +169,7 @@ let
             }
           );
     in
-    withPlugins (_: [ ]);
+    withPlugins (_: []);
 
   plugins = removeAttrs terraform-providers [
     "override"
@@ -185,7 +185,7 @@ rec {
     version = "1.4.6";
     hash = "sha256-V5sI8xmGASBZrPFtsnnfMEHapjz4BH3hvl0+DGjUSxQ=";
     vendorHash = "sha256-OW/aS6aBoHABxfdjDxMJEdHwLuHHtPR2YVW4l0sHPjE=";
-    patches = [ ./provider-path-0_15.patch ];
+    patches = [./provider-path-0_15.patch];
     passthru = {
       inherit plugins;
       tests = {
@@ -203,8 +203,8 @@ rec {
       mainTf = writeText "main.tf" ''
         resource "random_id" "test" {}
       '';
-      terraform = terraform_1.withPlugins (p: [ p.random ]);
-      test = runCommand "terraform-plugin-test" { buildInputs = [ terraform ]; } ''
+      terraform = terraform_1.withPlugins (p: [p.random]);
+      test = runCommand "terraform-plugin-test" {buildInputs = [terraform];} ''
         set -e
         # make it fail outside of sandbox
         export HTTP_PROXY=http://127.0.0.1:0 HTTPS_PROXY=https://127.0.0.1:0

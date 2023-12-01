@@ -27,14 +27,14 @@ buildPythonPackage rec {
 
   preCheck = "rm test/manyfonts.ipynb"; # Tries to download fonts
 
-  pytestFlagsArray = [ "--nbval-lax" ];
+  pytestFlagsArray = ["--nbval-lax"];
 
-  pythonImportsCheck = [ "ziafont" ];
+  pythonImportsCheck = ["ziafont"];
 
   meta = with lib; {
     description = "Convert TTF/OTF font glyphs to SVG paths";
     homepage = "https://ziafont.readthedocs.io/en/latest/";
     license = licenses.mit;
-    maintainers = with maintainers; [ sfrijters ];
+    maintainers = with maintainers; [sfrijters];
   };
 }

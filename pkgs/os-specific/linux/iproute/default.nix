@@ -61,11 +61,11 @@ stdenv.mkDerivation rec {
       "TC_CONFIG_NO_XT=y"
     ];
 
-  buildFlags = [ "CONFDIR=/etc/iproute2" ];
+  buildFlags = ["CONFDIR=/etc/iproute2"];
 
-  installFlags = [ "CONFDIR=$(out)/etc/iproute2" ];
+  installFlags = ["CONFDIR=$(out)/etc/iproute2"];
 
-  depsBuildBuild = [ buildPackages.stdenv.cc ]; # netem requires $HOSTCC
+  depsBuildBuild = [buildPackages.stdenv.cc]; # netem requires $HOSTCC
   nativeBuildInputs = [
     bison
     flex

@@ -28,6 +28,6 @@ buildGoModule rec {
     homepage = "https://github.com/charmbracelet/charm";
     changelog = "https://github.com/charmbracelet/charm/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ penguwin ];
+    maintainers = with maintainers; [penguwin];
   };
 }

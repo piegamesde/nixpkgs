@@ -21,20 +21,20 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-Suk/nQ+JcoD9HO9x1lYp+p4qx0DZ9dt0p5jPz0ZQB+k=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     openssl
     dbus
     sqlite
-  ] ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Security ];
+  ] ++ lib.optionals stdenv.isDarwin [darwin.apple_sdk.frameworks.Security];
 
   meta = with lib; {
     description = "May the code be with you 👻";
     longDescription = "Use leetcode.com in command line";
     homepage = "https://github.com/clearloop/leetcode-cli";
     license = licenses.mit;
-    maintainers = with maintainers; [ congee ];
+    maintainers = with maintainers; [congee];
     mainProgram = "leetcode";
   };
 }

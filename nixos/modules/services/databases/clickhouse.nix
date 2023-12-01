@@ -44,9 +44,9 @@ with lib; {
     systemd.services.clickhouse = {
       description = "ClickHouse server";
 
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
 
-      after = [ "network.target" ];
+      after = ["network.target"];
 
       serviceConfig = {
         User = "clickhouse";
@@ -69,7 +69,7 @@ with lib; {
       };
     };
 
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
     # startup requires a `/etc/localtime` which only if exists if `time.timeZone != null`
     time.timeZone = mkDefault "UTC";

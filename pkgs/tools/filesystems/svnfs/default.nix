@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
     sha256 = "1lrzjr0812lrnkkwk60bws9k1hq2iibphm0nhqyv26axdsygkfky";
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
   buildInputs = [
     subversion
     fuse
@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
   #
   #     $ tar xf "$(nix-build -A svnfs.src)"
   #     $ grep -R FUSE_USE_VERSION
-  configureFlags = lib.optionals stdenv.isDarwin [ "CFLAGS=-DFUSE_USE_VERSION=25" ];
+  configureFlags = lib.optionals stdenv.isDarwin ["CFLAGS=-DFUSE_USE_VERSION=25"];
 
   # why is this required?
   preConfigure = ''
@@ -52,7 +52,7 @@ stdenv.mkDerivation rec {
     description = "FUSE filesystem for accessing Subversion repositories";
     homepage = "https://www.jmadden.eu/index.php/svnfs/";
     license = lib.licenses.gpl2Only;
-    maintainers = [ lib.maintainers.marcweber ];
+    maintainers = [lib.maintainers.marcweber];
     platforms = lib.platforms.unix;
   };
 }

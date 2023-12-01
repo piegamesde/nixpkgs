@@ -22,8 +22,8 @@ gcc9Stdenv.mkDerivation rec {
     sha256 = "sha256-1j4QkE33UcTzM06qAjk1/PyK5uNA7E/kyDe3bZcFKUM=";
   };
 
-  nativeBuildInputs = [ cmake ];
-  buildInputs = [ ncurses6 ];
+  nativeBuildInputs = [cmake];
+  buildInputs = [ncurses6];
   enableParallelBuilding = true;
 
   installPhase = ''
@@ -72,7 +72,7 @@ gcc9Stdenv.mkDerivation rec {
       language by James E. Wilson in 1988, and released a Umoria.
     '';
     platforms = platforms.unix;
-    badPlatforms = [ "aarch64-darwin" ];
+    badPlatforms = ["aarch64-darwin"];
     maintainers = with maintainers; [
       aciceri
       kenran

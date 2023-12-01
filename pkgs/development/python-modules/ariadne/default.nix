@@ -45,7 +45,7 @@ buildPythonPackage rec {
     werkzeug
   ];
 
-  pythonImportsCheck = [ "ariadne" ];
+  pythonImportsCheck = ["ariadne"];
 
   disabledTests = [
     # TypeError: TestClient.request() got an unexpected keyword argument 'content'
@@ -59,6 +59,6 @@ buildPythonPackage rec {
     homepage = "https://ariadnegraphql.org";
     changelog = "https://github.com/mirumee/ariadne/blob/${version}/CHANGELOG.md";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ samuela ];
+    maintainers = with maintainers; [samuela];
   };
 }

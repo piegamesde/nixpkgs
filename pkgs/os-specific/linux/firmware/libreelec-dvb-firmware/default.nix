@@ -29,7 +29,7 @@ stdenvNoCC.mkDerivation rec {
     description = "DVB firmware from LibreELEC";
     homepage = "https://github.com/LibreELEC/dvb-firmware";
     license = licenses.unfreeRedistributableFirmware;
-    maintainers = with maintainers; [ kittywitch ];
+    maintainers = with maintainers; [kittywitch];
     platforms = platforms.linux;
   };
 }

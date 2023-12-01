@@ -34,6 +34,6 @@ stdenv.mkDerivation rec {
     description = "A clean, simple RPM packager reimplemented completely from scratch";
     license = licenses.free;
     platforms = platforms.all;
-    maintainers = [ maintainers.ivan-tkatchev ];
+    maintainers = [maintainers.ivan-tkatchev];
   };
 }

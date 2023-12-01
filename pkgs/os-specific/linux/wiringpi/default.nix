@@ -11,7 +11,7 @@ let
   mkSubProject =
     {
       subprj, # The only mandatory argument
-      buildInputs ? [ ],
+      buildInputs ? [],
       src ? fetchFromGitHub {
         owner = "WiringPi";
         repo = "WiringPi";
@@ -40,11 +40,11 @@ let
     inherit mkSubProject;
     wiringPi = mkSubProject {
       subprj = "wiringPi";
-      buildInputs = [ libxcrypt ];
+      buildInputs = [libxcrypt];
     };
     devLib = mkSubProject {
       subprj = "devLib";
-      buildInputs = [ passthru.wiringPi ];
+      buildInputs = [passthru.wiringPi];
     };
     wiringPiD = mkSubProject {
       subprj = "wiringPiD";
@@ -78,7 +78,7 @@ symlinkJoin {
     description = "Gordon's Arduino wiring-like WiringPi Library for the Raspberry Pi (Unofficial Mirror for WiringPi bindings)";
     homepage = "https://github.com/WiringPi/WiringPi";
     license = licenses.lgpl3Plus;
-    maintainers = with maintainers; [ doronbehar ];
+    maintainers = with maintainers; [doronbehar];
     platforms = platforms.linux;
   };
 }

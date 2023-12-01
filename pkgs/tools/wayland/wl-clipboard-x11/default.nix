@@ -18,8 +18,8 @@ stdenv.mkDerivation rec {
   };
 
   strictDeps = true;
-  buildInputs = [ bash ];
-  makeFlags = [ "PREFIX=${placeholder "out"}" ];
+  buildInputs = [bash];
+  makeFlags = ["PREFIX=${placeholder "out"}"];
 
   postPatch = ''
     substituteInPlace src/wl-clipboard-x11 \
@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
     description = "A wrapper to use wl-clipboard as a drop-in replacement for X11 clipboard tools";
     homepage = "https://github.com/brunelli/wl-clipboard-x11";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ artturin ];
+    maintainers = with maintainers; [artturin];
     mainProgram = "xclip";
     platforms = platforms.linux;
   };

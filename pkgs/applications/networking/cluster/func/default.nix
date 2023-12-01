@@ -20,7 +20,7 @@ buildGoModule rec {
 
   vendorSha256 = null;
 
-  subPackages = [ "cmd/func" ];
+  subPackages = ["cmd/func"];
 
   ldflags = [
     "-X main.vers=v${version}"
@@ -28,7 +28,7 @@ buildGoModule rec {
     "-X main.hash=${version}"
   ];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = ''
     installShellCompletion --cmd func \
@@ -47,6 +47,6 @@ buildGoModule rec {
     homepage = "https://github.com/knative/func";
     changelog = "https://github.com/knative/func/releases/tag/knative-v${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ maxwell-lt ];
+    maintainers = with maintainers; [maxwell-lt];
   };
 }

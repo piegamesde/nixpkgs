@@ -54,6 +54,6 @@ mkCoqDerivation {
 
   meta = {
     description = "A formalization of category theory in Coq for personal study and practical work";
-    maintainers = with lib.maintainers; [ jwiegley ];
+    maintainers = with lib.maintainers; [jwiegley];
   };
 }

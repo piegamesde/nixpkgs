@@ -25,7 +25,7 @@ python3.pkgs.buildPythonApplication rec {
     jmespath
   ];
 
-  nativeCheckInputs = with python3.pkgs; [ pytestCheckHook ];
+  nativeCheckInputs = with python3.pkgs; [pytestCheckHook];
 
   postPatch = ''
     substituteInPlace setup.py \
@@ -38,12 +38,12 @@ python3.pkgs.buildPythonApplication rec {
     "test_main_get_with_color"
   ];
 
-  pythonImportsCheck = [ "awslogs" ];
+  pythonImportsCheck = ["awslogs"];
 
   meta = with lib; {
     description = "AWS CloudWatch logs for Humans";
     homepage = "https://github.com/jorgebastida/awslogs";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ dbrock ];
+    maintainers = with maintainers; [dbrock];
   };
 }

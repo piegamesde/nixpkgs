@@ -1,7 +1,7 @@
 # given a pakcage with a $name.desktop file, makes a copy
 # as autostart item.
 
-{ stdenv, lib }:
+{stdenv, lib}:
 {
   name, # name of the desktop file (without .desktop)
   package, # package where the desktop file resides in
@@ -32,5 +32,5 @@ stdenv.mkDerivation {
 
   # this will automatically put 'package' in the environment when you
   # put its startup item in there.
-  propagatedBuildInputs = [ package ];
+  propagatedBuildInputs = [package];
 }

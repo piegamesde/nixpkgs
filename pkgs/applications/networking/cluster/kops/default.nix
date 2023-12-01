@@ -32,9 +32,9 @@ let
 
       vendorSha256 = null;
 
-      nativeBuildInputs = [ installShellFiles ];
+      nativeBuildInputs = [installShellFiles];
 
-      subPackages = [ "cmd/kops" ];
+      subPackages = ["cmd/kops"];
 
       ldflags = [
         "-s"

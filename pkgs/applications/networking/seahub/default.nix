@@ -37,7 +37,7 @@ python.pkgs.buildPythonApplication rec {
 
   doCheck = false; # disabled because it requires a ccnet environment
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   propagatedBuildInputs = with python.pkgs; [
     django

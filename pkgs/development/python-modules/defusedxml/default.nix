@@ -18,12 +18,12 @@ buildPythonPackage rec {
     ${python.interpreter} tests.py
   '';
 
-  pythonImportsCheck = [ "defusedxml" ];
+  pythonImportsCheck = ["defusedxml"];
 
   meta = with lib; {
     description = "Python module to defuse XML issues";
     homepage = "https://github.com/tiran/defusedxml";
     license = licenses.psfl;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

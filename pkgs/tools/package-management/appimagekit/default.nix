@@ -94,7 +94,7 @@ stdenv.mkDerivation rec {
 
   src = appimagekit_src;
 
-  patches = [ ./nix.patch ];
+  patches = [./nix.patch];
 
   postPatch = ''
     patchShebangs src/embed-magic-bytes-in-file.sh
@@ -154,7 +154,7 @@ stdenv.mkDerivation rec {
       --unset SOURCE_DATE_EPOCH
   '';
 
-  nativeCheckInputs = [ gtest ];
+  nativeCheckInputs = [gtest];
 
   # for debugging
   passthru = {
@@ -169,7 +169,7 @@ stdenv.mkDerivation rec {
       AppImages.
     '';
     license = licenses.mit;
-    maintainers = with maintainers; [ taeer ];
+    maintainers = with maintainers; [taeer];
     homepage = src.meta.homepage;
     platforms = platforms.linux;
   };

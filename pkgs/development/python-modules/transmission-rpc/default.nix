@@ -26,7 +26,7 @@ buildPythonPackage rec {
     hash = "sha256-uWJCDnlyukm7nrcENg/UmqrEjBYMZDK09Ym3wvWgGls=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   propagatedBuildInputs = [
     requests
@@ -40,7 +40,7 @@ buildPythonPackage rec {
     yarl
   ];
 
-  pythonImportsCheck = [ "transmission_rpc" ];
+  pythonImportsCheck = ["transmission_rpc"];
 
   disabledTests =
     [
@@ -53,6 +53,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/Trim21/transmission-rpc";
     changelog = "https://github.com/trim21/transmission-rpc/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ eyjhb ];
+    maintainers = with maintainers; [eyjhb];
   };
 }

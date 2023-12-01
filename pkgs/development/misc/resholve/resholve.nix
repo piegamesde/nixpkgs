@@ -18,7 +18,7 @@ python27.pkgs.buildPythonApplication {
   inherit version;
   src = rSrc;
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   propagatedBuildInputs = [
     oildev
@@ -61,8 +61,8 @@ python27.pkgs.buildPythonApplication {
   meta = with lib; {
     description = "Resolve external shell-script dependencies";
     homepage = "https://github.com/abathur/resholve";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ abathur ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [abathur];
     platforms = platforms.all;
     knownVulnerabilities = [
       ''

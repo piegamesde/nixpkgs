@@ -29,7 +29,7 @@ lib.throwIfNot (lib.versionAtLeast ocaml.version "4.08")
       ocamlbuild
       topkg
     ];
-    configurePlatforms = [ ];
+    configurePlatforms = [];
     buildInputs = [
       topkg
       cmdliner
@@ -41,7 +41,7 @@ lib.throwIfNot (lib.versionAtLeast ocaml.version "4.08")
       description = "An OCaml module implementing 128 bits universally unique identifiers version 3, 5 (name based with MD5, SHA-1 hashing) and 4 (random based) according to RFC 4122";
       homepage = "https://erratique.ch/software/uuidm";
       license = licenses.bsd3;
-      maintainers = [ maintainers.maurer ];
+      maintainers = [maintainers.maurer];
       mainProgram = "uuidtrip";
       inherit (ocaml.meta) platforms;
     };

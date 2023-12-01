@@ -33,6 +33,6 @@ buildGoModule rec {
     description = "A simple static site generator for Gemini";
     homepage = "https://kiln.adnano.co/";
     license = licenses.mit;
-    maintainers = with maintainers; [ sikmir ];
+    maintainers = with maintainers; [sikmir];
   };
 }

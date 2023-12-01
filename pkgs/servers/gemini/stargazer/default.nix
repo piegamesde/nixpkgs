@@ -39,7 +39,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://sr.ht/~zethra/stargazer/";
     license = licenses.agpl3Plus;
     changelog = "https://git.sr.ht/~zethra/stargazer/refs/${version}";
-    maintainers = with maintainers; [ gaykitty ];
+    maintainers = with maintainers; [gaykitty];
     platforms = platforms.linux;
   };
 }

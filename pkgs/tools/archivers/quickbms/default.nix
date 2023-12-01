@@ -24,13 +24,13 @@ stdenv.mkDerivation rec {
     zlib
   ];
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   meta = with lib; {
     description = "Universal script based file extractor and reimporter";
     homepage = "https://aluigi.altervista.org/quickbms.htm";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     platforms = platforms.linux;
   };
 }

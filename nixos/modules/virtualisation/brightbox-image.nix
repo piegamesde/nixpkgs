@@ -125,7 +125,7 @@ in
   networking.hostName = mkDefault "";
 
   # Always include cryptsetup so that NixOps can use it.
-  environment.systemPackages = [ pkgs.cryptsetup ];
+  environment.systemPackages = [pkgs.cryptsetup];
 
   systemd.services.fetch-ec2-data = {
     description = "Fetch EC2 Data";
@@ -134,9 +134,9 @@ in
       "multi-user.target"
       "sshd.service"
     ];
-    before = [ "sshd.service" ];
-    wants = [ "network-online.target" ];
-    after = [ "network-online.target" ];
+    before = ["sshd.service"];
+    wants = ["network-online.target"];
+    after = ["network-online.target"];
 
     path = [
       pkgs.wget

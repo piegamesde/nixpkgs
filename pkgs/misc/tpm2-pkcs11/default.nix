@@ -98,8 +98,8 @@ stdenv.mkDerivation rec {
     ''
       patchelf \
         --set-rpath ${rpath} \
-        ${lib.optionalString abrmdSupport "--add-needed ${lib.makeLibraryPath [ tpm2-abrmd ]}/libtss2-tcti-tabrmd.so"} \
-        --add-needed ${lib.makeLibraryPath [ tpm2-tss ]}/libtss2-tcti-device.so \
+        ${lib.optionalString abrmdSupport "--add-needed ${lib.makeLibraryPath [tpm2-abrmd]}/libtss2-tcti-tabrmd.so"} \
+        --add-needed ${lib.makeLibraryPath [tpm2-tss]}/libtss2-tcti-device.so \
         $out/lib/libtpm2_pkcs11.so.0.0.0
     '';
 
@@ -107,7 +107,7 @@ stdenv.mkDerivation rec {
     mkdir -p $bin/bin/ $bin/share/tpm2_pkcs11/
     mv ./tools/* $bin/share/tpm2_pkcs11/
     makeWrapper $bin/share/tpm2_pkcs11/tpm2_ptool.py $bin/bin/tpm2_ptool \
-      --prefix PATH : ${lib.makeBinPath [ tpm2-tools ]}
+      --prefix PATH : ${lib.makeBinPath [tpm2-tools]}
   '';
 
   meta = with lib; {
@@ -115,6 +115,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/tpm2-software/tpm2-pkcs11";
     license = licenses.bsd2;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ matthiasbeyer ];
+    maintainers = with maintainers; [matthiasbeyer];
   };
 }

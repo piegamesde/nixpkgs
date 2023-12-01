@@ -39,7 +39,7 @@ in
   options = {
 
     environment.variables = mkOption {
-      default = { };
+      default = {};
       example = {
         EDITOR = "nvim";
         VISUAL = "nvim";
@@ -64,7 +64,7 @@ in
     };
 
     environment.profiles = mkOption {
-      default = [ ];
+      default = [];
       description = lib.mdDoc ''
         A list of profiles used to setup the global environment.
       '';
@@ -74,7 +74,7 @@ in
     environment.profileRelativeEnvVars = mkOption {
       type = types.attrsOf (types.listOf types.str);
       example = {
-        PATH = [ "/bin" ];
+        PATH = ["/bin"];
         MANPATH = [
           "/man"
           "/share/man"
@@ -175,7 +175,7 @@ in
     };
 
     environment.shells = mkOption {
-      default = [ ];
+      default = [];
       example = literalExpression "[ pkgs.bashInteractive pkgs.zsh ]";
       description = lib.mdDoc ''
         A list of permissible login shells for user accounts.
@@ -233,7 +233,7 @@ in
       ''}
     '';
 
-    system.activationScripts.binsh = stringAfter [ "stdio" ] ''
+    system.activationScripts.binsh = stringAfter ["stdio"] ''
       # Create the required /bin/sh symlink; otherwise lots of things
       # (notably the system() function) won't work.
       mkdir -m 0755 -p /bin

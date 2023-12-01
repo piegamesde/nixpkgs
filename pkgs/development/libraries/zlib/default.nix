@@ -114,7 +114,7 @@ stdenv.mkDerivation (
     # We don't strip on static cross-compilation because of reports that native
     # stripping corrupted the target library; see commit 12e960f5 for the report.
     dontStrip = stdenv.hostPlatform != stdenv.buildPlatform && static;
-    configurePlatforms = [ ];
+    configurePlatforms = [];
 
     installFlags = lib.optionals (stdenv.hostPlatform.libc == "msvcrt") [
       "BINARY_PATH=$(out)/bin"
@@ -126,7 +126,7 @@ stdenv.mkDerivation (
     doCheck = true;
 
     makeFlags =
-      [ "PREFIX=${stdenv.cc.targetPrefix}" ]
+      ["PREFIX=${stdenv.cc.targetPrefix}"]
       ++ lib.optionals (stdenv.hostPlatform.libc == "msvcrt") [
         "-f"
         "win32/Makefile.gcc"
@@ -146,7 +146,7 @@ stdenv.mkDerivation (
       description = "Lossless data-compression library";
       license = licenses.zlib;
       platforms = platforms.all;
-      pkgConfigModules = [ "zlib" ];
+      pkgConfigModules = ["zlib"];
     };
   }
 )

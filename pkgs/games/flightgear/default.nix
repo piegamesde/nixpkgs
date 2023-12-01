@@ -125,13 +125,13 @@ stdenv.mkDerivation rec {
     cp "${desktopItem}"/share/applications/* "$out/share/applications/" #*/
   '';
 
-  qtWrapperArgs = [ "--set FG_ROOT ${data}/share/FlightGear" ];
+  qtWrapperArgs = ["--set FG_ROOT ${data}/share/FlightGear"];
 
   meta = with lib; {
     description = "Flight simulator";
-    maintainers = with maintainers; [ raskin ];
+    maintainers = with maintainers; [raskin];
     platforms = platforms.linux;
-    hydraPlatforms = [ ]; # disabled from hydra because it's so big
+    hydraPlatforms = []; # disabled from hydra because it's so big
     license = licenses.gpl2;
   };
 }

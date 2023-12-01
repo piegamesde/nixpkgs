@@ -31,7 +31,7 @@ mkDerivation {
     "out"
     "dev"
   ];
-  patches = [ ./libkscreen-backends-path.patch ];
+  patches = [./libkscreen-backends-path.patch];
   preConfigure = ''
     NIX_CFLAGS_COMPILE+=" -DNIXPKGS_LIBKSCREEN_BACKENDS=\"''${!outputBin}/$qtPluginPrefix/kf5/kscreen\""
   '';

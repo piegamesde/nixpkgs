@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
     sha256 = "1p18mgxx2ainfrc2wm27rl3lh6yl0ihx6snib60jnp694587bfwg";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     mod_ca
     apr
@@ -31,6 +31,6 @@ stdenv.mkDerivation rec {
     homepage = "https://redwax.eu";
     license = licenses.asl20;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ dirkx ];
+    maintainers = with maintainers; [dirkx];
   };
 }

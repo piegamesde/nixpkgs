@@ -1,4 +1,4 @@
-{ lib, python3Packages }:
+{lib, python3Packages}:
 
 python3Packages.buildPythonApplication rec {
   pname = "sewer";
@@ -19,6 +19,6 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://github.com/komuw/sewer";
     description = "ACME client";
     license = licenses.mit;
-    maintainers = with maintainers; [ kevincox ];
+    maintainers = with maintainers; [kevincox];
   };
 }

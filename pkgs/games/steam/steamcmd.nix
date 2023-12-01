@@ -50,6 +50,6 @@ stdenv.mkDerivation {
     homepage = "https://developer.valvesoftware.com/wiki/SteamCMD";
     platforms = platforms.linux;
     license = licenses.unfreeRedistributable;
-    maintainers = with maintainers; [ tadfisher ];
+    maintainers = with maintainers; [tadfisher];
   };
 }

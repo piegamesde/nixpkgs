@@ -27,14 +27,14 @@ buildPythonPackage rec {
     typeguard
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "enhancements" ];
+  pythonImportsCheck = ["enhancements"];
 
   meta = with lib; {
     description = "Library which extends various Python classes";
     homepage = "https://enhancements.readthedocs.io";
     license = licenses.lgpl3Only;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

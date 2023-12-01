@@ -33,7 +33,7 @@ buildPythonPackage {
 
   disabled = pythonOlder "3.8";
 
-  nativeBuildInput = [ setuptools-rust ];
+  nativeBuildInput = [setuptools-rust];
 
   cargoDeps = rustPlatform.fetchCargoTarball {
     inherit src postPatch;
@@ -53,7 +53,7 @@ buildPythonPackage {
       ]
     );
 
-  buildInputs = lib.optionals stdenv.isDarwin [ libiconv ];
+  buildInputs = lib.optionals stdenv.isDarwin [libiconv];
 
   propagatedBuildInputs = [
     requests
@@ -65,6 +65,6 @@ buildPythonPackage {
     description = "tiktoken is a fast BPE tokeniser for use with OpenAI's models.";
     homepage = "https://github.com/openai/tiktoken";
     license = licenses.mit;
-    maintainers = with maintainers; [ happysalada ];
+    maintainers = with maintainers; [happysalada];
   };
 }

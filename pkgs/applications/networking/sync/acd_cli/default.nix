@@ -37,7 +37,7 @@ buildPythonApplication rec {
     sqlalchemy
   ];
 
-  makeWrapperArgs = [ "--prefix LIBFUSE_PATH : ${fuse}/lib/libfuse.so" ];
+  makeWrapperArgs = ["--prefix LIBFUSE_PATH : ${fuse}/lib/libfuse.so"];
 
   postFixup = ''
     function lnOverBin() {
@@ -53,6 +53,6 @@ buildPythonApplication rec {
     description = "A command line interface and FUSE filesystem for Amazon Cloud Drive";
     homepage = "https://github.com/yadayada/acd_cli";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ edwtjo ];
+    maintainers = with maintainers; [edwtjo];
   };
 }

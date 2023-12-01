@@ -160,7 +160,7 @@ stdenv.mkDerivation rec {
     "-D drm=true"
   ];
 
-  patches = [ ./efl-elua.patch ];
+  patches = [./efl-elua.patch];
 
   postPatch = ''
     patchShebangs src/lib/elementary/config_embed
@@ -204,7 +204,7 @@ stdenv.mkDerivation rec {
     patchelf --add-needed ${libsndfile.out}/lib/libsndfile.so $out/lib/libecore_audio.so
   '';
 
-  passthru.updateScript = directoryListingUpdater { };
+  passthru.updateScript = directoryListingUpdater {};
 
   meta = with lib; {
     description = "Enlightenment foundation libraries";

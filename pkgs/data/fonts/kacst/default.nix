@@ -25,7 +25,7 @@ stdenvNoCC.mkDerivation rec {
   meta = with lib; {
     description = "KACST Latin-Arabic TrueType fonts";
     license = licenses.gpl2Only;
-    maintainers = with lib.maintainers; [ serge ];
+    maintainers = with lib.maintainers; [serge];
     platforms = platforms.all;
   };
 }

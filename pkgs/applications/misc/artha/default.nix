@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
     description = "An offline thesaurus based on WordNet";
     homepage = "https://artha.sourceforge.net";
     license = licenses.gpl2;
-    maintainers = [ maintainers.goibhniu ];
+    maintainers = [maintainers.goibhniu];
     platforms = platforms.linux;
   };
 }

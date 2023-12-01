@@ -37,8 +37,8 @@ stdenv.mkDerivation rec {
     sha256 = "hvNEJ2i9KHPOxpP4PN+AtLRErTzBR2C3Q2FHT8h6RSY=";
   };
 
-  nativeBuildInputs = [ texinfo ] ++ lib.optional enableNls gettext;
-  buildInputs = [ ncurses ];
+  nativeBuildInputs = [texinfo] ++ lib.optional enableNls gettext;
+  buildInputs = [ncurses];
 
   outputs = [
     "out"
@@ -59,7 +59,7 @@ stdenv.mkDerivation rec {
 
   passthru = {
     tests = {
-      expect = callPackage ./test-with-expect.nix { };
+      expect = callPackage ./test-with-expect.nix {};
     };
 
     updateScript = writeScript "update.sh" ''

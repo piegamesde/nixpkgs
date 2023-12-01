@@ -25,7 +25,7 @@ buildPythonPackage rec {
   # setup.py reads its version from the TRAVIS_TAG environment variable
   TRAVIS_TAG = "v${version}";
 
-  propagatedBuildInputs = [ packaging ];
+  propagatedBuildInputs = [packaging];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -44,13 +44,13 @@ buildPythonPackage rec {
       "tests/test_server.py"
     ];
 
-  pythonImportsCheck = [ "anybadge" ];
+  pythonImportsCheck = ["anybadge"];
 
   meta = with lib; {
     description = "Python tool for generating badges for your projects";
     homepage = "https://github.com/jongracecox/anybadge";
     changelog = "https://github.com/jongracecox/anybadge/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fabiangd ];
+    maintainers = with maintainers; [fabiangd];
   };
 }

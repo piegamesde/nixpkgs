@@ -51,7 +51,7 @@ stdenv.mkDerivation rec {
     description = "ETH LIbrary for Numerical Analysis";
     homepage = "http://elina.ethz.ch/";
     license = lib.licenses.lgpl3;
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
     platforms = lib.intersectLists ocaml.meta.platforms lib.platforms.x86;
   };
 }

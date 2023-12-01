@@ -17,7 +17,7 @@ buildPythonPackage rec {
     hash = "sha256-PQGdF7DX9i1ubXvQUjbYJSYk6hwUC+uL+cbu/zizxwc=";
   };
 
-  nativeBuildInputs = [ cython ];
+  nativeBuildInputs = [cython];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -49,7 +49,7 @@ buildPythonPackage rec {
     "test_mmap"
   ];
 
-  pythonImportsCheck = [ "marisa_trie" ];
+  pythonImportsCheck = ["marisa_trie"];
 
   meta = with lib; {
     description = "Static memory-efficient Trie-like structures for Python based on marisa-trie C++ library";
@@ -59,6 +59,6 @@ buildPythonPackage rec {
     '';
     homepage = "https://github.com/kmike/marisa-trie";
     license = licenses.mit;
-    maintainers = with maintainers; [ ixxie ];
+    maintainers = with maintainers; [ixxie];
   };
 }

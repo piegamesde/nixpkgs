@@ -22,7 +22,7 @@ gccStdenv.mkDerivation {
     sha256 = "1p6172vhcrlpjgia6hsks1w4fl8rdyjf9xjh14wxfkv7dnx8a5hk";
   };
 
-  buildInputs = [ autoconf ];
+  buildInputs = [autoconf];
 
   configurePhase = ''
     export CC=${gcc}/bin/gcc CXX=${gcc}/bin/g++ \
@@ -45,7 +45,7 @@ gccStdenv.mkDerivation {
     cp -fa ./gsc-boot $out/gambit/
   '';
 
-  forceShare = [ "info" ];
+  forceShare = ["info"];
 
   meta = gambit-support.meta // {
     description = "Optimizing Scheme to C compiler, bootstrap step";

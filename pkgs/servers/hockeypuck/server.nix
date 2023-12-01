@@ -6,7 +6,7 @@
 }:
 
 let
-  sources = (import ./sources.nix) { inherit fetchFromGitHub; };
+  sources = (import ./sources.nix) {inherit fetchFromGitHub;};
 in
 buildGoModule {
   inherit (sources) pname version src;
@@ -21,6 +21,6 @@ buildGoModule {
     description = "OpenPGP Key Server";
     homepage = "https://github.com/hockeypuck/hockeypuck";
     license = licenses.agpl3Plus;
-    maintainers = [ maintainers.etu ];
+    maintainers = [maintainers.etu];
   };
 }

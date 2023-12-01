@@ -22,12 +22,12 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "json5" ];
+  pythonImportsCheck = ["json5"];
 
   meta = with lib; {
     homepage = "https://github.com/dpranke/pyjson5";
     description = "A Python implementation of the JSON5 data format";
     license = licenses.asl20;
-    maintainers = with maintainers; [ veehaitch ];
+    maintainers = with maintainers; [veehaitch];
   };
 }

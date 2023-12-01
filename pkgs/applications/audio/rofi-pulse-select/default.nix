@@ -34,13 +34,13 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   meta = with lib; {
     description = "Rofi-based interface to select source/sink (aka input/output) with PulseAudio";
     homepage = "https://gitlab.com/DamienCassou/rofi-pulse-select";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ DamienCassou ];
+    maintainers = with maintainers; [DamienCassou];
     platforms = platforms.linux;
   };
 }

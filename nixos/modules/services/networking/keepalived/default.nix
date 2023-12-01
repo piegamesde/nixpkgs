@@ -123,9 +123,9 @@ let
 
   notNullOrEmpty = s: !(s == null || s == "");
 
-  vrrpScripts = mapAttrsToList (name: config: { inherit name; } // config) cfg.vrrpScripts;
+  vrrpScripts = mapAttrsToList (name: config: {inherit name;} // config) cfg.vrrpScripts;
 
-  vrrpInstances = mapAttrsToList (iName: iConfig: { name = iName; } // iConfig) cfg.vrrpInstances;
+  vrrpInstances = mapAttrsToList (iName: iConfig: {name = iName;} // iConfig) cfg.vrrpInstances;
 
   vrrpInstanceAssertions =
     i:
@@ -260,14 +260,14 @@ in
       };
 
       vrrpScripts = mkOption {
-        type = types.attrsOf (types.submodule (import ./vrrp-script-options.nix { inherit lib; }));
-        default = { };
+        type = types.attrsOf (types.submodule (import ./vrrp-script-options.nix {inherit lib;}));
+        default = {};
         description = lib.mdDoc "Declarative vrrp script config";
       };
 
       vrrpInstances = mkOption {
-        type = types.attrsOf (types.submodule (import ./vrrp-instance-options.nix { inherit lib; }));
-        default = { };
+        type = types.attrsOf (types.submodule (import ./vrrp-instance-options.nix {inherit lib;}));
+        default = {};
         description = lib.mdDoc "Declarative vhost config";
       };
 
@@ -314,8 +314,8 @@ in
         "network-online.target"
         "syslog.target"
       ];
-      requires = [ "network-online.target" ];
-      wantedBy = [ "multi-user.target" ];
+      requires = ["network-online.target"];
+      wantedBy = ["multi-user.target"];
       timerConfig = {
         OnActiveSec = "5s";
         Unit = "keepalived.service";
@@ -334,7 +334,7 @@ in
           "network-online.target"
           "syslog.target"
         ];
-        wants = [ "network-online.target" ];
+        wants = ["network-online.target"];
         serviceConfig = {
           Type = "forking";
           PIDFile = pidFile;

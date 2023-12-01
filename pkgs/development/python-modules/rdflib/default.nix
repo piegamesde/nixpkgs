@@ -41,11 +41,11 @@ buildPythonPackage rec {
     isodate
     html5lib
     pyparsing
-  ] ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
+  ] ++ lib.optionals (pythonOlder "3.8") [importlib-metadata];
 
   passthru.optional-dependencies = {
-    html = [ html5lib ];
-    networkx = [ networkx ];
+    html = [html5lib];
+    networkx = [networkx];
   };
 
   nativeCheckInputs = [
@@ -75,12 +75,12 @@ buildPythonPackage rec {
         "TestGraphHTTP"
       ];
 
-  pythonImportsCheck = [ "rdflib" ];
+  pythonImportsCheck = ["rdflib"];
 
   meta = with lib; {
     description = "Python library for working with RDF";
     homepage = "https://rdflib.readthedocs.io";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

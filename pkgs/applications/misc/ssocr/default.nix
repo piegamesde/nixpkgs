@@ -18,18 +18,18 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-j1l1o1wtVQo+G9HfXZ1sJQ8amsUQhuYxFguWFQoRe/s=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     imlib2
     libX11
   ];
 
-  installFlags = [ "PREFIX=$(out)" ];
+  installFlags = ["PREFIX=$(out)"];
 
   meta = with lib; {
     description = "Seven Segment Optical Character Recognition";
     homepage = "https://github.com/auerswal/ssocr";
     license = licenses.gpl3;
-    maintainers = [ maintainers.kroell ];
+    maintainers = [maintainers.kroell];
   };
 }

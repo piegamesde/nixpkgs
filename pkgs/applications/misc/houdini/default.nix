@@ -4,7 +4,7 @@
   writeScript,
   callPackage,
   buildFHSEnv,
-  unwrapped ? callPackage ./runtime.nix { },
+  unwrapped ? callPackage ./runtime.nix {},
 }:
 
 buildFHSEnv rec {

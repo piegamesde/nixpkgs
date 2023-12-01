@@ -21,8 +21,8 @@ buildDunePackage rec {
     hash = "sha256-Ghfqw/J1oLbTJpYJaiB5M79jaA6DACvyxBVE+NjnPkg=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ dune-configurator ];
+  nativeBuildInputs = [pkg-config];
+  buildInputs = [dune-configurator];
   propagatedBuildInputs = [
     ogg
     libopus.dev
@@ -32,6 +32,6 @@ buildDunePackage rec {
     homepage = "https://github.com/savonet/ocaml-opus";
     description = "Bindings to libopus";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ dandellion ];
+    maintainers = with maintainers; [dandellion];
   };
 }

@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-8evVctclu5QOCAdxocEIZ8NQnc2DFvYRSBRQPcux6LM=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     openssl
     gmp
@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "A protected multinode virtual network";
     homepage = "http://software.schmorp.de/pkg/gvpe.html";
-    maintainers = [ maintainers.raskin ];
+    maintainers = [maintainers.raskin];
     platforms = with platforms; linux ++ freebsd;
     license = licenses.gpl2;
   };

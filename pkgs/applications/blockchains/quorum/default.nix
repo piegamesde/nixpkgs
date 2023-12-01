@@ -46,7 +46,7 @@ buildGoPackage rec {
     description = "A permissioned implementation of Ethereum supporting data privacy";
     homepage = "https://www.goquorum.com/";
     license = licenses.lgpl3;
-    maintainers = with maintainers; [ mmahut ];
-    platforms = subtractLists [ "aarch64-linux" ] platforms.linux;
+    maintainers = with maintainers; [mmahut];
+    platforms = subtractLists ["aarch64-linux"] platforms.linux;
   };
 }

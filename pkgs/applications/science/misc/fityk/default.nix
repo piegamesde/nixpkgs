@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-m2RaZMYT6JGwa3sOUVsBIzCdZetTbiygaInQWoJ4m1o=";
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
   buildInputs = [
     wxGTK32
     boost
@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
     swig3
   ];
 
-  env.NIX_CFLAGS_COMPILE = toString [ "-std=c++11" ];
+  env.NIX_CFLAGS_COMPILE = toString ["-std=c++11"];
 
   meta = {
     description = "Curve fitting and peak fitting software";

@@ -20,9 +20,9 @@ buildPythonPackage rec {
     hash = "sha256-yfxhgk8a1rdpGVkE1sjJqT6tiFLimhu2m2SjGxLI6wo=";
   };
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "shapefile" ];
+  pythonImportsCheck = ["shapefile"];
 
   disabledTests =
     [
@@ -34,6 +34,6 @@ buildPythonPackage rec {
     description = "Python read/write support for ESRI Shapefile format";
     homepage = "https://github.com/GeospatialPython/pyshp";
     license = licenses.mit;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

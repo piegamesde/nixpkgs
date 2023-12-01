@@ -14,7 +14,7 @@ let
   defaultBackend = options.virtualisation.oci-containers.backend.default;
 
   containerOptions =
-    { ... }:
+    {...}:
     {
 
       options = {
@@ -65,7 +65,7 @@ let
 
         cmd = mkOption {
           type = with types; listOf str;
-          default = [ ];
+          default = [];
           description = lib.mdDoc "Commandline arguments to pass to the image's entrypoint.";
           example = literalExpression ''
             ["--port=9000"]
@@ -81,7 +81,7 @@ let
 
         environment = mkOption {
           type = with types; attrsOf str;
-          default = { };
+          default = {};
           description = lib.mdDoc "Environment variables to set for this container.";
           example = literalExpression ''
             {
@@ -93,7 +93,7 @@ let
 
         environmentFiles = mkOption {
           type = with types; listOf path;
-          default = [ ];
+          default = [];
           description = lib.mdDoc "Environment files for this container.";
           example = literalExpression ''
             [
@@ -123,7 +123,7 @@ let
 
         ports = mkOption {
           type = with types; listOf str;
-          default = [ ];
+          default = [];
           description = lib.mdDoc ''
             Network ports to publish from the container to the outer host.
 
@@ -165,7 +165,7 @@ let
 
         volumes = mkOption {
           type = with types; listOf str;
-          default = [ ];
+          default = [];
           description = lib.mdDoc ''
             List of volumes to attach to this container.
 
@@ -193,7 +193,7 @@ let
 
         dependsOn = mkOption {
           type = with types; listOf str;
-          default = [ ];
+          default = [];
           description = lib.mdDoc ''
             Define which other containers this one depends on. They will be added to both After and Requires for the unit.
 
@@ -211,7 +211,7 @@ let
 
         extraOptions = mkOption {
           type = with types; listOf str;
-          default = [ ];
+          default = [];
           description = lib.mdDoc "Extra options for {command}`${defaultBackend} run`.";
           example = literalExpression ''
             ["--network=host"]
@@ -239,23 +239,23 @@ let
       escapedName = escapeShellArg name;
     in
     {
-      wantedBy = [ ] ++ optional (container.autoStart) "multi-user.target";
+      wantedBy = [] ++ optional (container.autoStart) "multi-user.target";
       after =
         lib.optionals (cfg.backend == "docker") [
           "docker.service"
           "docker.socket"
         ]
         # if imageFile is not set, the service needs the network to download the image from the registry
-        ++ lib.optionals (container.imageFile == null) [ "network-online.target" ]
+        ++ lib.optionals (container.imageFile == null) ["network-online.target"]
         ++ dependsOn;
       requires = dependsOn;
       environment = proxy_env;
 
       path =
         if cfg.backend == "docker" then
-          [ config.virtualisation.docker.package ]
+          [config.virtualisation.docker.package]
         else if cfg.backend == "podman" then
-          [ config.virtualisation.podman.package ]
+          [config.virtualisation.podman.package]
         else
           throw "Unhandled backend: ${cfg.backend}";
 
@@ -298,7 +298,7 @@ let
         ++ map (v: "-v ${escapeShellArg v}") container.volumes
         ++ optional (container.workdir != null) "-w ${escapeShellArg container.workdir}"
         ++ map escapeShellArg container.extraOptions
-        ++ [ container.image ]
+        ++ [container.image]
         ++ map escapeShellArg container.cmd
       );
 
@@ -344,7 +344,7 @@ let
 in
 {
   imports = [
-    (lib.mkChangedOptionModule [ "docker-containers" ]
+    (lib.mkChangedOptionModule ["docker-containers"]
       [
         "virtualisation"
         "oci-containers"
@@ -356,7 +356,7 @@ in
             lib.mapAttrs
               (
                 n: v:
-                builtins.removeAttrs (v // { extraOptions = v.extraDockerOptions or [ ]; }) [ "extraDockerOptions" ]
+                builtins.removeAttrs (v // {extraOptions = v.extraDockerOptions or [];}) ["extraDockerOptions"]
               )
               oldcfg.docker-containers;
         }
@@ -376,21 +376,21 @@ in
     };
 
     containers = mkOption {
-      default = { };
+      default = {};
       type = types.attrsOf (types.submodule containerOptions);
       description = lib.mdDoc "OCI (Docker) containers to run as systemd services.";
     };
   };
 
-  config = lib.mkIf (cfg.containers != { }) (
+  config = lib.mkIf (cfg.containers != {}) (
     lib.mkMerge [
       {
         systemd.services =
           mapAttrs' (n: v: nameValuePair "${cfg.backend}-${n}" (mkService n v))
             cfg.containers;
       }
-      (lib.mkIf (cfg.backend == "podman") { virtualisation.podman.enable = true; })
-      (lib.mkIf (cfg.backend == "docker") { virtualisation.docker.enable = true; })
+      (lib.mkIf (cfg.backend == "podman") {virtualisation.podman.enable = true;})
+      (lib.mkIf (cfg.backend == "docker") {virtualisation.docker.enable = true;})
     ]
   );
 }

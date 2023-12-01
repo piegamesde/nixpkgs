@@ -65,6 +65,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/morrownr/8821au";
     license = licenses.gpl2Only;
     platforms = lib.platforms.linux;
-    maintainers = with maintainers; [ plchldr ];
+    maintainers = with maintainers; [plchldr];
   };
 }

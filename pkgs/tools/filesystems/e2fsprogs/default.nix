@@ -30,9 +30,9 @@ stdenv.mkDerivation rec {
     "out"
     "man"
     "info"
-  ] ++ lib.optionals stdenv.isLinux [ "fuse2fs" ];
+  ] ++ lib.optionals stdenv.isLinux ["fuse2fs"];
 
-  depsBuildBuild = [ buildPackages.stdenv.cc ];
+  depsBuildBuild = [buildPackages.stdenv.cc];
   nativeBuildInputs = [
     pkg-config
     texinfo
@@ -40,14 +40,14 @@ stdenv.mkDerivation rec {
   buildInputs = [
     libuuid
     gettext
-  ] ++ lib.optionals stdenv.isLinux [ fuse ];
+  ] ++ lib.optionals stdenv.isLinux [fuse];
 
   patches = [
     (fetchpatch {
       # avoid using missing __GNUC_PREREQ(X,Y)
       url = "https://raw.githubusercontent.com/void-linux/void-packages/9583597eb3e6e6b33f61dbc615d511ce030bc443/srcpkgs/e2fsprogs/patches/fix-glibcism.patch";
       sha256 = "1gfcsr0i3q8q2f0lqza8na0iy4l4p3cbii51ds6zmj0y4hz2dwhb";
-      excludes = [ "lib/ext2fs/hashmap.h" ];
+      excludes = ["lib/ext2fs/hashmap.h"];
       extraPrefix = "";
     })
   ];
@@ -68,9 +68,9 @@ stdenv.mkDerivation rec {
         "--disable-uuidd"
       ]
     else
-      [ "--enable-libuuid --disable-e2initrd-helper" ];
+      ["--enable-libuuid --disable-e2initrd-helper"];
 
-  nativeCheckInputs = [ buildPackages.perl ];
+  nativeCheckInputs = [buildPackages.perl];
   doCheck = true;
 
   postInstall =
@@ -88,7 +88,7 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   passthru.tests = {
-    simple-filesystem = runCommand "e2fsprogs-create-fs" { } ''
+    simple-filesystem = runCommand "e2fsprogs-create-fs" {} ''
       mkdir -p $out
       truncate -s10M $out/disc
       ${e2fsprogs}/bin/mkfs.ext4 $out/disc | tee $out/success
@@ -107,6 +107,6 @@ stdenv.mkDerivation rec {
       mit # lib/et, lib/ss
     ];
     platforms = platforms.unix;
-    maintainers = [ maintainers.eelco ];
+    maintainers = [maintainers.eelco];
   };
 }

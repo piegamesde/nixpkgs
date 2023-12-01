@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-EXiWXf8hdX4vFRNk9wbFSOsix/zVkwrafGUtFrsoAN0=";
   };
 
-  nativeBuildInputs = [ scons ];
+  nativeBuildInputs = [scons];
 
   buildInputs = [
     libconfig
@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
     yaml-cpp
     ncurses
     accelergy
-  ] ++ lib.optionals stdenv.isLinux [ gpm ];
+  ] ++ lib.optionals stdenv.isLinux [gpm];
 
   preConfigure = ''
     cp -r ./pat-public/src/pat ./src/pat
@@ -96,6 +96,6 @@ stdenv.mkDerivation rec {
     homepage = "https://timeloop.csail.mit.edu";
     license = licenses.bsd3;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ gdinh ];
+    maintainers = with maintainers; [gdinh];
   };
 }

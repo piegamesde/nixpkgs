@@ -27,12 +27,12 @@ stdenv.mkDerivation rec {
     rm -v INSTALL
   '';
 
-  configureFlags = [ "--disable-wordview" ];
+  configureFlags = ["--disable-wordview"];
 
   meta = with lib; {
     description = "MS-Word/Excel/PowerPoint to text converter";
     platforms = platforms.all;
     license = licenses.gpl2;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

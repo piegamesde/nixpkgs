@@ -22,7 +22,7 @@ buildGoModule rec {
   #    util_test.go:35: open : no such file or directory
   # === RUN   TestEnumFieldNamesPrefixRule_Apply_fix/fix_for_an_incorrect_proto
   #    util_test.go:35: open : no such file or directory
-  excludedPackages = [ "internal" ];
+  excludedPackages = ["internal"];
 
   ldflags =
     let
@@ -40,6 +40,6 @@ buildGoModule rec {
     homepage = "https://github.com/yoheimuta/protolint";
     license = licenses.mit;
     platforms = platforms.all;
-    maintainers = [ maintainers.zane ];
+    maintainers = [maintainers.zane];
   };
 }

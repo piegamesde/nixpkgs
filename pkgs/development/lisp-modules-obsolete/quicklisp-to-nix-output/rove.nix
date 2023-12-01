@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "rove";
   version = "20211209-git";
@@ -20,7 +20,7 @@ rec {
 
   packageName = "rove";
 
-  asdFilesToKeep = [ "rove.asd" ];
+  asdFilesToKeep = ["rove.asd"];
   overrides = x: x;
 }
 /* (SYSTEM rove DESCRIPTION

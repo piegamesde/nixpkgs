@@ -1,13 +1,13 @@
-{ lib }:
+{lib}:
 let
 
-  evalTest = module: lib.evalModules { modules = testModules ++ [ module ]; };
+  evalTest = module: lib.evalModules {modules = testModules ++ [module];};
   runTest =
     module:
     (evalTest (
-      { config, ... }:
+      {config, ...}:
       {
-        imports = [ module ];
+        imports = [module];
         result = config.test;
       }
     )).config.result;

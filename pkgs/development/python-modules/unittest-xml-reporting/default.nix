@@ -20,9 +20,9 @@ buildPythonPackage rec {
     hash = "sha256-lOJ/+8CVJUXdIaZLLF5PpPkG0DzlNgo46kRZ1Xy7Ju0=";
   };
 
-  propagatedBuildInputs = [ lxml ];
+  propagatedBuildInputs = [lxml];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   pytestFlagsArray = lib.optionals (pythonAtLeast "3.11") [
     # AttributeError: 'tuple' object has no attribute 'shortDescription'
@@ -30,7 +30,7 @@ buildPythonPackage rec {
     "--deselect=tests/testsuite.py::XMLTestRunnerTestCase::test_unexpected_success"
   ];
 
-  pythonImportsCheck = [ "xmlrunner" ];
+  pythonImportsCheck = ["xmlrunner"];
 
   meta = with lib; {
     homepage = "https://github.com/xmlrunner/unittest-xml-reporting";

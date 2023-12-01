@@ -25,7 +25,7 @@ buildGoModule rec {
     "-X github.com/MarkusFreitag/changelogger/cmd.BuildDate=1970-01-01T00:00:00"
   ];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = ''
     installShellCompletion --cmd changelogger \
@@ -39,6 +39,6 @@ buildGoModule rec {
     homepage = "https://github.com/MarkusFreitag/changelogger";
     changelog = "https://github.com/MarkusFreitag/changelogger/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ tomsiewert ];
+    maintainers = with maintainers; [tomsiewert];
   };
 }

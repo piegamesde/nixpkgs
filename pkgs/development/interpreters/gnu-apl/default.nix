@@ -57,7 +57,7 @@ stdenv.mkDerivation rec {
     description = "Free interpreter for the APL programming language";
     homepage = "https://www.gnu.org/software/apl/";
     license = licenses.gpl3Plus;
-    maintainers = [ maintainers.kovirobi ];
+    maintainers = [maintainers.kovirobi];
     platforms = with platforms; linux ++ darwin;
     mainProgram = "apl";
 

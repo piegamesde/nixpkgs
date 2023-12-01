@@ -54,6 +54,6 @@ buildGoModule rec {
     '';
     homepage = "https://github.com/GoogleCloudPlatform/docker-credential-gcr";
     license = licenses.asl20;
-    maintainers = with maintainers; [ suvash ];
+    maintainers = with maintainers; [suvash];
   };
 }

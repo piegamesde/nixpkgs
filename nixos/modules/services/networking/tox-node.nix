@@ -29,7 +29,7 @@ let
       );
     in
     with pkgs;
-    runCommand "config.yml" { } ''
+    runCommand "config.yml" {} ''
       ${remarshal}/bin/remarshal -if yaml -of json ${src} -o src.json
       ${jq}/bin/jq -s '(.[0] | with_entries( select(.key == "bootstrap-nodes"))) * .[1]' src.json ${confJSON} > $out
     '';
@@ -60,7 +60,7 @@ in
     };
     tcpAddresses = mkOption {
       type = types.listOf types.str;
-      default = [ "0.0.0.0:33445" ];
+      default = ["0.0.0.0:33445"];
       description = lib.mdDoc "TCP addresses to run TCP relay.";
     };
     tcpConnectionLimit = mkOption {
@@ -89,8 +89,8 @@ in
     systemd.services.tox-node = {
       description = "Tox Node";
 
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
 
       serviceConfig = {
         ExecStart = "${pkg}/bin/tox-node config ${configFile}";

@@ -25,7 +25,7 @@ buildPythonPackage rec {
     hash = "sha256-EQFk3kRY/JL1ZTDdHKzl0KbMUuhZSFc4tYqAYvsNSj0=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   propagatedBuildInputs = [
     aiohttp
@@ -38,19 +38,19 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pytestFlagsArray = [ "--asyncio-mode=auto" ];
+  pytestFlagsArray = ["--asyncio-mode=auto"];
 
   postPatch = ''
     substituteInPlace pyproject.toml \
       --replace "--cov=unifi_discovery --cov-report=term-missing:skip-covered" ""
   '';
 
-  pythonImportsCheck = [ "unifi_discovery" ];
+  pythonImportsCheck = ["unifi_discovery"];
 
   meta = with lib; {
     description = "Module to discover Unifi devices";
     homepage = "https://github.com/bdraco/unifi-discovery";
-    license = with licenses; [ asl20 ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [asl20];
+    maintainers = with maintainers; [fab];
   };
 }

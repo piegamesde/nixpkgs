@@ -18,13 +18,13 @@ rustPlatform.buildRustPackage rec {
   };
 
   cargoSha256 = "sha256-1BoB7K/dWy3AbogvHIDLrdPD7K54EISvn4RVU5RLTi4=";
-  buildInputs = lib.optionals stdenv.isDarwin [ libiconv ];
+  buildInputs = lib.optionals stdenv.isDarwin [libiconv];
 
   meta = with lib; {
     description = "Fast text uwuifier";
     homepage = "https://github.com/Daniel-Liu-c0deb0t/uwu";
     license = licenses.mit;
     platforms = lib.platforms.x86; # uses SSE instructions
-    maintainers = with maintainers; [ siraben ];
+    maintainers = with maintainers; [siraben];
   };
 }

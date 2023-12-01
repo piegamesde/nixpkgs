@@ -5,7 +5,7 @@
   fetchFromGitHub,
 }:
 let
-  common = callPackage ./common.nix { };
+  common = callPackage ./common.nix {};
 in
 buildGoModule {
   pname = "woodpecker-agent";

@@ -38,9 +38,9 @@ buildPythonPackage rec {
     pycryptodome
   ];
 
-  pythonImportsCheck = [ "keyrings.cryptfile" ];
+  pythonImportsCheck = ["keyrings.cryptfile"];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTests = [
     "test_set_properties"

@@ -6,7 +6,7 @@
   python3,
 }:
 let
-  py = python3.override { packageOverrides = final: prev: { django = prev.django_4; }; };
+  py = python3.override {packageOverrides = final: prev: {django = prev.django_4;};};
 in
 py.pkgs.buildPythonApplication rec {
   pname = "healthchecks";
@@ -65,6 +65,6 @@ py.pkgs.buildPythonApplication rec {
     homepage = "https://github.com/healthchecks/healthchecks";
     description = "A cron monitoring tool written in Python & Django ";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ phaer ];
+    maintainers = with maintainers; [phaer];
   };
 }

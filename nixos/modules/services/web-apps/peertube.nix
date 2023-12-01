@@ -10,7 +10,7 @@ let
   cfg = config.services.peertube;
   opt = options.services.peertube;
 
-  settingsFormat = pkgs.formats.json { };
+  settingsFormat = pkgs.formats.json {};
   configFile = settingsFormat.generate "production.json" cfg.settings;
 
   env = {
@@ -69,7 +69,7 @@ let
   envFile = pkgs.writeText "peertube.env" (
     lib.concatMapStrings (s: s + "\n") (
       (lib.concatLists (
-        lib.mapAttrsToList (name: value: if value != null then [ ''${name}="${toString value}"'' ] else [ ])
+        lib.mapAttrsToList (name: value: if value != null then [''${name}="${toString value}"''] else [])
           env
       ))
     )
@@ -140,7 +140,7 @@ in
 
     dataDirs = lib.mkOption {
       type = lib.types.listOf lib.types.path;
-      default = [ ];
+      default = [];
       example = [
         "/opt/peertube/storage"
         "/var/cache/peertube"
@@ -433,7 +433,7 @@ in
         "network.target"
         "postgresql.service"
       ];
-      requires = [ "postgresql.service" ];
+      requires = ["postgresql.service"];
 
       script =
         let
@@ -454,17 +454,17 @@ in
         User = "postgres";
         Group = "postgres";
         # Sandboxing
-        RestrictAddressFamilies = [ "AF_UNIX" ];
+        RestrictAddressFamilies = ["AF_UNIX"];
         MemoryDenyWriteExecute = true;
         # System Call Filtering
-        SystemCallFilter = "~" + lib.concatStringsSep " " (systemCallsList ++ [ "@resources" ]);
+        SystemCallFilter = "~" + lib.concatStringsSep " " (systemCallsList ++ ["@resources"]);
       } // cfgService;
     };
 
     systemd.services.peertube = {
       description = "PeerTube daemon";
       after =
-        [ "network.target" ]
+        ["network.target"]
         ++ lib.optional cfg.redis.createLocally "redis-peertube.service"
         ++ lib.optionals cfg.database.createLocally [
           "postgresql.service"
@@ -476,7 +476,7 @@ in
           "postgresql.service"
           "peertube-init-db.service"
         ];
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
 
       environment = env;
 
@@ -904,10 +904,10 @@ in
       };
     };
 
-    services.postgresql = lib.mkIf cfg.database.createLocally { enable = true; };
+    services.postgresql = lib.mkIf cfg.database.createLocally {enable = true;};
 
     services.redis.servers.peertube = lib.mkMerge [
-      (lib.mkIf cfg.redis.createLocally { enable = true; })
+      (lib.mkIf cfg.redis.createLocally {enable = true;})
       (lib.mkIf (cfg.redis.createLocally && !cfg.redis.enableUnixSocket) {
         bind = "127.0.0.1";
         port = cfg.redis.port;
@@ -946,7 +946,7 @@ in
         ]
       )
       (lib.mkIf cfg.redis.enableUnixSocket {
-        ${config.services.peertube.user}.extraGroups = [ "redis-peertube" ];
+        ${config.services.peertube.user}.extraGroups = ["redis-peertube"];
       })
     ];
 

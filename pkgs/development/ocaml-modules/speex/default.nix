@@ -20,7 +20,7 @@ buildDunePackage rec {
     sha256 = "0p4ip37kihlz9qy604llak2kzd00g45ix1yiihnrri2nm01scfab";
   };
 
-  buildInputs = [ dune-configurator ];
+  buildInputs = [dune-configurator];
   propagatedBuildInputs = [
     ogg
     speex.dev
@@ -30,6 +30,6 @@ buildDunePackage rec {
     homepage = "https://github.com/savonet/ocaml-speex";
     description = "Bindings to libspeex";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ dandellion ];
+    maintainers = with maintainers; [dandellion];
   };
 }

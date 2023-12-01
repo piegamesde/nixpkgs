@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
     chmod a+rX -R .
   '';
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     libpng
@@ -42,13 +42,13 @@ stdenv.mkDerivation rec {
     gtk2
   ] ++ lib.optional gimpSupport gimp;
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     homepage = "http://www.sane-project.org/";
     description = "Graphical scanning frontend for sane";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ melling ];
+    maintainers = with maintainers; [melling];
   };
 }

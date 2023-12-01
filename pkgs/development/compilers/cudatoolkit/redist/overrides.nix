@@ -20,7 +20,7 @@ in
     }
   );
 
-  libcusolver = final.addBuildInputs prev.libcusolver [ prev.libcublas ];
+  libcusolver = final.addBuildInputs prev.libcusolver [prev.libcublas];
 
   cuda_nvcc = prev.cuda_nvcc.overrideAttrs (
     oldAttrs:
@@ -64,8 +64,8 @@ in
 
   cuda_nvprof = prev.cuda_nvprof.overrideAttrs (
     oldAttrs: {
-      nativeBuildInputs = oldAttrs.nativeBuildInputs ++ [ pkgs.addOpenGLRunpath ];
-      buildInputs = oldAttrs.buildInputs ++ [ prev.cuda_cupti ];
+      nativeBuildInputs = oldAttrs.nativeBuildInputs ++ [pkgs.addOpenGLRunpath];
+      buildInputs = oldAttrs.buildInputs ++ [prev.cuda_cupti];
       # libcuda needs to be resolved during runtime
       autoPatchelfIgnoreMissingDeps = true;
     }
@@ -86,17 +86,17 @@ in
         oldAttrs.nativeBuildInputs
         ++ (
           if (lib.versionOlder prev.nsight_compute.version "2022.2.0") then
-            [ pkgs.qt5.wrapQtAppsHook ]
+            [pkgs.qt5.wrapQtAppsHook]
           else
-            [ pkgs.qt6.wrapQtAppsHook ]
+            [pkgs.qt6.wrapQtAppsHook]
         );
       buildInputs =
         oldAttrs.buildInputs
         ++ (
           if (lib.versionOlder prev.nsight_compute.version "2022.2.0") then
-            [ pkgs.qt5.qtwebview ]
+            [pkgs.qt5.qtwebview]
           else
-            [ pkgs.qt6.qtwebview ]
+            [pkgs.qt6.qtwebview]
         );
     }
   );

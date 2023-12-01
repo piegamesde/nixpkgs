@@ -1,8 +1,8 @@
 import ./make-test-python.nix (
-  { lib, ... }:
+  {lib, ...}:
   {
     name = "user-home-mode";
-    meta = with lib.maintainers; { maintainers = [ fbeffa ]; };
+    meta = with lib.maintainers; {maintainers = [fbeffa];};
 
     nodes.machine = {
       users.users.alice = {

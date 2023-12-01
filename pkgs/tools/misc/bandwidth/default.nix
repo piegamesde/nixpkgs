@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
     sed -i 's#-Wl,-z,noexecstack##g' Makefile-arm64
   '';
 
-  nativeBuildInputs = [ nasm ];
+  nativeBuildInputs = [nasm];
 
   buildFlags = [
     "AR=${stdenv.cc.targetPrefix}ar"
@@ -57,6 +57,6 @@ stdenv.mkDerivation rec {
     description = "Artificial benchmark for identifying weaknesses in the memory subsystem";
     license = licenses.gpl2Plus;
     platforms = platforms.x86 ++ platforms.arm ++ platforms.aarch64;
-    maintainers = with maintainers; [ r-burns ];
+    maintainers = with maintainers; [r-burns];
   };
 }

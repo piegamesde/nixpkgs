@@ -52,7 +52,7 @@ stdenv.mkDerivation {
     python
     libiconv
     ncurses
-  ] ++ lib.optionals stdenv.isDarwin [ SystemConfiguration ];
+  ] ++ lib.optionals stdenv.isDarwin [SystemConfiguration];
 
   preConfigure = "./autotool.sh";
 
@@ -78,7 +78,7 @@ stdenv.mkDerivation {
     homepage = "https://libtorrent.org/";
     description = "A C++ BitTorrent implementation focusing on efficiency and scalability";
     license = licenses.bsd3;
-    maintainers = [ ];
+    maintainers = [];
     broken = stdenv.isDarwin;
     platforms = platforms.unix;
   };

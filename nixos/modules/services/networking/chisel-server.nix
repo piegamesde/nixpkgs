@@ -58,7 +58,7 @@ in
   config = mkIf cfg.enable {
     systemd.services.chisel-server = {
       description = "Chisel Tunnel Server";
-      wantedBy = [ "network-online.target" ];
+      wantedBy = ["network-online.target"];
 
       serviceConfig = {
         ExecStart =
@@ -106,5 +106,5 @@ in
     };
   };
 
-  meta.maintainers = with maintainers; [ clerie ];
+  meta.maintainers = with maintainers; [clerie];
 }

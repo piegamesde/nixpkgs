@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
     sha256 = "1jqjzhch0rips0vp04prvb8vmc20c5pdmsqn8knadcf91yy859fh";
   };
 
-  buildInputs = lib.optionals useMpi [ mpi ];
+  buildInputs = lib.optionals useMpi [mpi];
 
   # TODO darwin, AVX and AVX2 makefile targets
   buildPhase =
@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
     description = "A tool for Phylogenetic Analysis and Post-Analysis of Large Phylogenies";
     license = licenses.gpl3;
     homepage = "https://sco.h-its.org/exelixis/web/software/raxml/";
-    maintainers = [ maintainers.unode ];
+    maintainers = [maintainers.unode];
     platforms = [
       "i686-linux"
       "x86_64-linux"

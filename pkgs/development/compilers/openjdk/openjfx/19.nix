@@ -147,7 +147,7 @@ makePackage {
     cp -r build/modular-sdk $out
   '';
 
-  stripDebugList = [ "." ];
+  stripDebugList = ["."];
 
   postFixup = ''
     # Remove references to bootstrap.
@@ -169,7 +169,7 @@ makePackage {
     homepage = "https://openjdk.org/projects/openjfx/";
     license = licenses.gpl2Classpath;
     description = "The next-generation Java client toolkit";
-    maintainers = with maintainers; [ abbradar ];
+    maintainers = with maintainers; [abbradar];
     platforms = platforms.unix;
   };
 }

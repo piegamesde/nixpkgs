@@ -1,5 +1,5 @@
 import ./make-test-python.nix (
-  { pkgs, lib, ... }:
+  {pkgs, lib, ...}:
 
   let
     # Settings for both servers and agents
@@ -43,12 +43,12 @@ import ./make-test-python.nix (
 
     client =
       index:
-      { pkgs, ... }:
+      {pkgs, ...}:
       let
         ip = builtins.elemAt allConsensusClientHosts index;
       in
       {
-        environment.systemPackages = [ pkgs.consul ];
+        environment.systemPackages = [pkgs.consul];
 
         networking.interfaces.eth1.ipv4.addresses = pkgs.lib.mkOverride 0 [
           {
@@ -71,7 +71,7 @@ import ./make-test-python.nix (
 
     server =
       index:
-      { pkgs, ... }:
+      {pkgs, ...}:
       let
         numConsensusServers = builtins.length allConsensusServerHosts;
         thisConsensusServerHost = builtins.elemAt allConsensusServerHosts index;

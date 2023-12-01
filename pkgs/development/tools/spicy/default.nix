@@ -30,6 +30,6 @@ buildGoModule rec {
     '';
     homepage = "https://github.com/trhodeos/spicy";
     license = licenses.mit;
-    maintainers = with maintainers; [ _414owen ];
+    maintainers = with maintainers; [_414owen];
   };
 }

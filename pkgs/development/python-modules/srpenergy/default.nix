@@ -26,14 +26,14 @@ buildPythonPackage rec {
     requests
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "srpenergy.client" ];
+  pythonImportsCheck = ["srpenergy.client"];
 
   meta = with lib; {
     description = "Unofficial Python module for interacting with Srp Energy data";
     homepage = "https://github.com/lamoreauxlab/srpenergy-api-client-python";
     license = licenses.mit;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

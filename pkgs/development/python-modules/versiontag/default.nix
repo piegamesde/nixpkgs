@@ -21,14 +21,14 @@ buildPythonPackage rec {
       --replace "get_version(pypi=True)" '"${version}"'
   '';
 
-  nativeCheckInputs = [ git ];
+  nativeCheckInputs = [git];
 
-  pythonImportsCheck = [ "versiontag" ];
+  pythonImportsCheck = ["versiontag"];
 
   meta = with lib; {
     description = "Python library designed to make accessing the current version number of your software easy";
     homepage = "https://github.com/thelabnyc/python-versiontag";
     license = licenses.isc;
-    maintainers = with maintainers; [ MaskedBelgian ];
+    maintainers = with maintainers; [MaskedBelgian];
   };
 }

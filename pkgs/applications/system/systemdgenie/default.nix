@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
     description = "Systemd management utility";
     homepage = "https://kde.org";
     license = licenses.gpl2;
-    maintainers = [ maintainers.pasqui23 ];
+    maintainers = [maintainers.pasqui23];
     platforms = platforms.linux;
   };
 }

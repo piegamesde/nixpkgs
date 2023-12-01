@@ -18,9 +18,9 @@ mkDerivation rec {
     hash = "sha256-paTas3KbV4yZ0ePnrOH1S3bLLHDddFml1h6b6azK4RQ=";
   };
 
-  nativeBuildInputs = [ qmake ];
+  nativeBuildInputs = [qmake];
 
-  buildInputs = [ qtbase ];
+  buildInputs = [qtbase];
 
   installPhase = ''
     runHook preInstall
@@ -38,7 +38,7 @@ mkDerivation rec {
     homepage = "https://github.com/martynets/dialogbox/";
     description = "Qt-based scriptable engine providing GUI dialog boxes";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ AndersonTorres ];
+    maintainers = with maintainers; [AndersonTorres];
     platforms = platforms.unix;
   };
 }

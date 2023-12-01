@@ -57,7 +57,7 @@ toPythonModule (
     # tests try to connect to network
     doCheck = false;
 
-    pythonImportsCheck = [ "searx" ];
+    pythonImportsCheck = ["searx"];
 
     postInstall = ''
       # Create a symlink for easier access to static data

@@ -15,11 +15,11 @@ stdenv.mkDerivation rec {
     sha256 = "03km1aqaiy3sbqc2f046ms9x0mlmacxlvs5rxsvjj8nf20vxynij";
   };
 
-  buildInputs = [ gmp ];
+  buildInputs = [gmp];
 
-  propagatedBuildInputs = [ isl ];
+  propagatedBuildInputs = [isl];
 
-  configureFlags = [ "--with-isl=system" ];
+  configureFlags = ["--with-isl=system"];
 
   enableParallelBuilding = true;
   # Breaks the test cases as it reuses 'cloog_temp' file name for different tests.

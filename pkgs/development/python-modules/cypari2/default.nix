@@ -42,9 +42,9 @@ buildPythonPackage rec {
     ${python.pythonForBuild.pkgs.bootstrapped-pip}/bin/pip install . --no-index --no-warn-script-location --prefix="$out" --no-cache
   '';
 
-  nativeBuildInputs = [ pari ];
+  nativeBuildInputs = [pari];
 
-  buildInputs = [ gmp ];
+  buildInputs = [gmp];
 
   propagatedBuildInputs = [
     cysignals

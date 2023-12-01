@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
     systemd
   ];
 
-  buildInputs = [ yaml-cpp ];
+  buildInputs = [yaml-cpp];
 
   doCheck = true;
 
@@ -67,6 +67,6 @@ stdenv.mkDerivation rec {
     description = "Turn IP sockets into Unix domain sockets";
     platforms = lib.platforms.linux;
     license = lib.licenses.lgpl3;
-    maintainers = [ lib.maintainers.aszlig ];
+    maintainers = [lib.maintainers.aszlig];
   };
 }

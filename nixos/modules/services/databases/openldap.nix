@@ -37,7 +37,7 @@ let
       options = {
         attrs = mkOption {
           type = types.attrsOf ldapValueType;
-          default = { };
+          default = {};
           description = lib.mdDoc "Attributes of the parent entry.";
         };
         children = mkOption {
@@ -45,10 +45,10 @@ let
           # Actual Nix evaluation is lazy, so this is not an issue there
           type =
             let
-              hiddenOptions = lib.mapAttrs (name: attr: attr // { visible = false; }) options;
+              hiddenOptions = lib.mapAttrs (name: attr: attr // {visible = false;}) options;
             in
-            types.attrsOf (types.submodule { options = hiddenOptions; });
-          default = { };
+            types.attrsOf (types.submodule {options = hiddenOptions;});
+          default = {};
           description = lib.mdDoc "Child entries of the current entry, with recursively the same structure.";
           example = lib.literalExpression ''
             {
@@ -67,14 +67,14 @@ let
         };
         includes = mkOption {
           type = types.listOf types.path;
-          default = [ ];
+          default = [];
           description = lib.mdDoc ''
             LDIF files to include after the parent's attributes but before its children.
           '';
         };
       };
     in
-    types.submodule { inherit options; };
+    types.submodule {inherit options;};
 
   valueToLdif =
     attr: values:
@@ -87,7 +87,7 @@ let
         if lib.isAttrs value then
           if lib.hasAttr "path" value then "${attr}:< file://${value.path}" else "${attr}:: ${value.base64}"
         else
-          "${attr}: ${lib.replaceStrings [ "\n" ] [ "\n " ] value}"
+          "${attr}: ${lib.replaceStrings ["\n"] ["\n "] value}"
       )
       listValues;
 
@@ -149,9 +149,9 @@ in
 
       urlList = mkOption {
         type = types.listOf types.str;
-        default = [ "ldap:///" ];
+        default = ["ldap:///"];
         description = lib.mdDoc "URL list slapd should listen on.";
-        example = [ "ldaps:///" ];
+        example = ["ldaps:///"];
       };
 
       settings = mkOption {
@@ -224,7 +224,7 @@ in
 
       declarativeContents = mkOption {
         type = with types; attrsOf lines;
-        default = { };
+        default = {};
         description = lib.mdDoc ''
           Declarative contents for the LDAP database, in LDIF format by suffix.
 
@@ -258,12 +258,12 @@ in
     };
   };
 
-  meta.maintainers = with lib.maintainers; [ kwohlfahrt ];
+  meta.maintainers = with lib.maintainers; [kwohlfahrt];
 
   config =
     let
-      dbSettings = mapAttrs' (name: { attrs, ... }: nameValuePair attrs.olcSuffix attrs) (
-        filterAttrs (name: { attrs, ... }: (hasPrefix "olcDatabase=" name) && attrs ? olcSuffix)
+      dbSettings = mapAttrs' (name: {attrs, ...}: nameValuePair attrs.olcSuffix attrs) (
+        filterAttrs (name: {attrs, ...}: (hasPrefix "olcDatabase=" name) && attrs ? olcSuffix)
           cfg.settings.children
       );
       settingsFile = pkgs.writeText "config.ldif" (
@@ -294,7 +294,7 @@ in
       assertions =
         [
           {
-            assertion = (cfg.declarativeContents != { }) -> cfg.configDir == null;
+            assertion = (cfg.declarativeContents != {}) -> cfg.configDir == null;
             message = ''
               Declarative DB contents (${attrNames cfg.declarativeContents}) are not
               supported with user-managed configuration.
@@ -333,7 +333,7 @@ in
           )
           dbSettings
         );
-      environment.systemPackages = [ openldap ];
+      environment.systemPackages = [openldap];
 
       # Literal attributes must always be set
       services.openldap.settings = {
@@ -354,8 +354,8 @@ in
           "man:slapd-config"
           "man:slapd-mdb"
         ];
-        wantedBy = [ "multi-user.target" ];
-        after = [ "network-online.target" ];
+        wantedBy = ["multi-user.target"];
+        after = ["network-online.target"];
         serviceConfig = {
           User = cfg.user;
           Group = cfg.group;
@@ -377,7 +377,7 @@ in
               )
               contentsFiles
             )
-            ++ [ "${openldap}/bin/slaptest -u -F ${configDir}" ];
+            ++ ["${openldap}/bin/slaptest -u -F ${configDir}"];
           ExecStart = lib.escapeShellArgs ([
             "${openldap}/libexec/slapd"
             "-d"
@@ -393,12 +393,12 @@ in
           #   Got notification message from PID 6378, but reception only permitted for main PID 6377
           NotifyAccess = "all";
           RuntimeDirectory = "openldap";
-          StateDirectory =
-            [ "openldap" ]
-            ++ (map ({ olcDbDirectory, ... }: removePrefix "/var/lib/" olcDbDirectory) (attrValues dbSettings));
+          StateDirectory = [
+            "openldap"
+          ] ++ (map ({olcDbDirectory, ...}: removePrefix "/var/lib/" olcDbDirectory) (attrValues dbSettings));
           StateDirectoryMode = "700";
-          AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ];
-          CapabilityBoundingSet = [ "CAP_NET_BIND_SERVICE" ];
+          AmbientCapabilities = ["CAP_NET_BIND_SERVICE"];
+          CapabilityBoundingSet = ["CAP_NET_BIND_SERVICE"];
         };
       };
 
@@ -409,6 +409,6 @@ in
         };
       };
 
-      users.groups = lib.optionalAttrs (cfg.group == "openldap") { openldap = { }; };
+      users.groups = lib.optionalAttrs (cfg.group == "openldap") {openldap = {};};
     };
 }

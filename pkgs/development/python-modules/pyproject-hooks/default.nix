@@ -23,9 +23,9 @@ buildPythonPackage rec {
     hash = "sha256-8nGymLl/WVXVP7ErcsH7GUjCLBprcLMVxUztrKAmTvU=";
   };
 
-  nativeBuildInputs = [ flit-core ];
+  nativeBuildInputs = [flit-core];
 
-  propagatedBuildInputs = [ ] ++ lib.optionals (pythonOlder "3.11") [ tomli ];
+  propagatedBuildInputs = [] ++ lib.optionals (pythonOlder "3.11") [tomli];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -39,13 +39,13 @@ buildPythonPackage rec {
     "test_issue_104"
   ];
 
-  pythonImportsCheck = [ "pyproject_hooks" ];
+  pythonImportsCheck = ["pyproject_hooks"];
 
   meta = with lib; {
     description = "Low-level library for calling build-backends in `pyproject.toml`-based project ";
     homepage = "https://github.com/pypa/pyproject-hooks";
     changelog = "https://github.com/pypa/pyproject-hooks/blob/v${version}/docs/changelog.rst";
     license = licenses.mit;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

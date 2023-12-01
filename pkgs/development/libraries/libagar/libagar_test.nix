@@ -11,7 +11,7 @@
 }:
 
 let
-  srcs = import ./srcs.nix { inherit fetchurl; };
+  srcs = import ./srcs.nix {inherit fetchurl;};
 in
 stdenv.mkDerivation {
   pname = "libagar-test";
@@ -31,7 +31,7 @@ stdenv.mkDerivation {
     cat configure.in | ${bsdbuild}/bin/mkconfigure > configure
   '';
 
-  configureFlags = [ "--with-agar=${libagar}" ];
+  configureFlags = ["--with-agar=${libagar}"];
 
   buildInputs = [
     perl
@@ -47,7 +47,7 @@ stdenv.mkDerivation {
     description = "Tests for libagar";
     homepage = "http://libagar.org/index.html";
     license = with licenses; bsd3;
-    maintainers = with maintainers; [ ramkromberg ];
+    maintainers = with maintainers; [ramkromberg];
     platforms = with platforms; linux;
   };
 }

@@ -5,10 +5,10 @@
   buildPackages,
   version,
   src,
-  extraMeta ? { },
+  extraMeta ? {},
   callPackage,
   self,
-  packageOverrides ? (final: prev: { }),
+  packageOverrides ? (final: prev: {}),
   pkgsBuildBuild,
   pkgsBuildHost,
   pkgsBuildTarget,
@@ -125,7 +125,7 @@ stdenv.mkDerivation rec {
       override =
         attr:
         let
-          lua = attr.override (inputs' // { self = lua; });
+          lua = attr.override (inputs' // {self = lua;});
         in
         lua;
     in
@@ -142,7 +142,7 @@ stdenv.mkDerivation rec {
       luaOnBuildForTarget = override pkgsBuildTarget.${luaAttr};
       luaOnHostForHost = override pkgsHostHost.${luaAttr};
       luaOnTargetForTarget =
-        if lib.hasAttr luaAttr pkgsTargetTarget then (override pkgsTargetTarget.${luaAttr}) else { };
+        if lib.hasAttr luaAttr pkgsTargetTarget then (override pkgsTargetTarget.${luaAttr}) else {};
     };
 
   meta =

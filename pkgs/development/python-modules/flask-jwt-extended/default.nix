@@ -31,18 +31,18 @@ buildPythonPackage rec {
     werkzeug
   ];
 
-  passthru.optional-dependencies.asymmetric_crypto = [ cryptography ];
+  passthru.optional-dependencies.asymmetric_crypto = [cryptography];
 
   nativeCheckInputs = [
     pytestCheckHook
   ] ++ lib.flatten (lib.attrValues passthru.optional-dependencies);
 
-  pythonImportsCheck = [ "flask_jwt_extended" ];
+  pythonImportsCheck = ["flask_jwt_extended"];
 
   meta = with lib; {
     description = "JWT extension for Flask";
     homepage = "https://flask-jwt-extended.readthedocs.io/";
     license = licenses.mit;
-    maintainers = with maintainers; [ gerschtli ];
+    maintainers = with maintainers; [gerschtli];
   };
 }

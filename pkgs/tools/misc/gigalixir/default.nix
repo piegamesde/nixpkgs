@@ -32,7 +32,7 @@ python3.pkgs.buildPythonApplication rec {
   ];
 
   nativeCheckInputs =
-    [ git ]
+    [git]
     ++ (
       with python3.pkgs; [
         httpretty
@@ -47,13 +47,13 @@ python3.pkgs.buildPythonApplication rec {
       "test_rollback_without_version"
     ];
 
-  pythonImportsCheck = [ "gigalixir" ];
+  pythonImportsCheck = ["gigalixir"];
 
   meta = with lib; {
     broken = stdenv.isDarwin;
     description = "Gigalixir Command-Line Interface";
     homepage = "https://github.com/gigalixir/gigalixir-cli";
     license = licenses.mit;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

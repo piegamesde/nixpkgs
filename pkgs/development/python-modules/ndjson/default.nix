@@ -35,6 +35,6 @@ buildPythonPackage rec {
     description = "JsonDecoder";
     platforms = platforms.unix;
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ freezeboy ];
+    maintainers = with maintainers; [freezeboy];
   };
 }

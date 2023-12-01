@@ -19,9 +19,9 @@ let
               mkValueString =
                 v:
                 if isString v then
-                  ''"'' + (strings.escape [ ''"'' ] (toString v)) + ''"''
+                  ''"'' + (strings.escape [''"''] (toString v)) + ''"''
                 else
-                  generators.mkValueStringDefault { } v;
+                  generators.mkValueStringDefault {} v;
             }
             " = ";
       }
@@ -42,7 +42,7 @@ let
   # Generate it on first launch, then copy configuration and replace
   # `@hmac@` with this value.
   # We are not using sed as it would leak the value in the command line.
-  preStart = pkgs.writers.writePython3 "nitter-prestart" { } ''
+  preStart = pkgs.writers.writePython3 "nitter-prestart" {} ''
     import os
     import secrets
 
@@ -298,7 +298,7 @@ in
 
       settings = mkOption {
         type = types.attrs;
-        default = { };
+        default = {};
         description = lib.mdDoc ''
           Add settings here to override NixOS module generated settings.
 
@@ -332,23 +332,23 @@ in
 
     systemd.services.nitter = {
       description = "Nitter (An alternative Twitter front-end)";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
       serviceConfig = {
         DynamicUser = true;
         StateDirectory = "nitter";
-        Environment = [ "NITTER_CONF_FILE=/var/lib/nitter/nitter.conf" ];
+        Environment = ["NITTER_CONF_FILE=/var/lib/nitter/nitter.conf"];
         # Some parts of Nitter expect `public` folder in working directory,
         # see https://github.com/zedeus/nitter/issues/414
         WorkingDirectory = "${cfg.package}/share/nitter";
         ExecStart = "${cfg.package}/bin/nitter";
         ExecStartPre = "${preStart}";
-        AmbientCapabilities = lib.mkIf (cfg.server.port < 1024) [ "CAP_NET_BIND_SERVICE" ];
+        AmbientCapabilities = lib.mkIf (cfg.server.port < 1024) ["CAP_NET_BIND_SERVICE"];
         Restart = "on-failure";
         RestartSec = "5s";
         # Hardening
-        CapabilityBoundingSet = if (cfg.server.port < 1024) then [ "CAP_NET_BIND_SERVICE" ] else [ "" ];
-        DeviceAllow = [ "" ];
+        CapabilityBoundingSet = if (cfg.server.port < 1024) then ["CAP_NET_BIND_SERVICE"] else [""];
+        DeviceAllow = [""];
         LockPersonality = true;
         MemoryDenyWriteExecute = true;
         PrivateDevices = true;
@@ -386,6 +386,6 @@ in
       port = cfg.cache.redisPort;
     };
 
-    networking.firewall = mkIf cfg.openFirewall { allowedTCPPorts = [ cfg.server.port ]; };
+    networking.firewall = mkIf cfg.openFirewall {allowedTCPPorts = [cfg.server.port];};
   };
 }

@@ -26,13 +26,13 @@ buildPythonPackage rec {
 
   doCheck = false; # Missing package & BLOCKED on "zc.recipe.egg"
 
-  pythonImportsCheck = [ "zc.buildout" ];
+  pythonImportsCheck = ["zc.buildout"];
 
   meta = with lib; {
     description = "A software build and configuration system";
     downloadPage = "https://github.com/buildout/buildout";
     homepage = "https://www.buildout.org";
     license = licenses.zpl21;
-    maintainers = with maintainers; [ gotcha ];
+    maintainers = with maintainers; [gotcha];
   };
 }

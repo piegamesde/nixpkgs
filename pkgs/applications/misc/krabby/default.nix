@@ -19,6 +19,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/yannjor/krabby";
     changelog = "https://github.com/yannjor/krabby/releases/tag/v${version}";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ ruby0b ];
+    maintainers = with maintainers; [ruby0b];
   };
 }

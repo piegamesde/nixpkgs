@@ -1,4 +1,4 @@
-{ pkgs, haskellLib }:
+{pkgs, haskellLib}:
 
 with haskellLib;
 
@@ -53,7 +53,7 @@ self: super: {
   haddock-api = self.haddock-api_2_23_1;
 
   # This build needs a newer version of Cabal.
-  cabal2spec = super.cabal2spec.override { Cabal = self.Cabal_3_2_1_0; };
+  cabal2spec = super.cabal2spec.override {Cabal = self.Cabal_3_2_1_0;};
 
   # Additionally depends on OneTuple for GHC < 9.0
   base-compat-batteries = addBuildDepend self.OneTuple super.base-compat-batteries;
@@ -92,13 +92,11 @@ self: super: {
   # https://github.com/snapframework/snap-core/issues/288
   snap-core =
     overrideCabal
-      (drv: {
-        prePatch = "substituteInPlace src/Snap/Internal/Core.hs --replace 'fail   = Fail.fail' ''";
-      })
+      (drv: {prePatch = "substituteInPlace src/Snap/Internal/Core.hs --replace 'fail   = Fail.fail' ''";})
       super.snap-core;
 
   # Upstream ships a broken Setup.hs file.
-  csv = overrideCabal (drv: { prePatch = "rm Setup.hs"; }) super.csv;
+  csv = overrideCabal (drv: {prePatch = "rm Setup.hs";}) super.csv;
 
   # https://github.com/kowainik/relude/issues/241
   relude = dontCheck super.relude;
@@ -145,17 +143,17 @@ self: super: {
   fourmolu = doJailbreak super.fourmolu;
 
   # OneTuple needs hashable instead of ghc-prim for GHC < 9
-  OneTuple = super.OneTuple.override { ghc-prim = self.hashable; };
+  OneTuple = super.OneTuple.override {ghc-prim = self.hashable;};
 
   # Temporarily disabled blaze-textual for GHC >= 9.0 causing hackage2nix ignoring it
   # https://github.com/paul-rouse/mysql-simple/blob/872604f87044ff6d1a240d9819a16c2bdf4ed8f5/Database/MySQL/Internal/Blaze.hs#L4-L10
-  mysql-simple = addBuildDepends [ self.blaze-textual ] super.mysql-simple;
+  mysql-simple = addBuildDepends [self.blaze-textual] super.mysql-simple;
 
   # https://github.com/fpco/inline-c/issues/127 (recommend to upgrade to Nixpkgs GHC >=9.0)
   inline-c-cpp = (if isDarwin then dontCheck else x: x) super.inline-c-cpp;
 
   # Depends on OneTuple for GHC < 9.0
-  universe-base = addBuildDepends [ self.OneTuple ] super.universe-base;
+  universe-base = addBuildDepends [self.OneTuple] super.universe-base;
 
   # doctest-parallel dependency requires newer Cabal
   regex-tdfa = dontCheck super.regex-tdfa;
@@ -165,7 +163,7 @@ self: super: {
   megaparsec = doJailbreak super.megaparsec;
 
   # Needs OneTuple for ghc < 9.2
-  binary-orphans = addBuildDepends [ self.OneTuple ] super.binary-orphans;
+  binary-orphans = addBuildDepends [self.OneTuple] super.binary-orphans;
 
   # Later versions only support GHC >= 9.2
   ghc-exactprint = self.ghc-exactprint_0_6_4;

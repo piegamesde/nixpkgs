@@ -30,13 +30,13 @@ buildPythonPackage rec {
   # nixpkgs yet, and also aren't included in the PyPI bundle.  TODO.
   doCheck = false;
 
-  pythonImportsCheck = [ "cloudscraper" ];
+  pythonImportsCheck = ["cloudscraper"];
 
   meta = with lib; {
     description = "Python module to bypass Cloudflare's anti-bot page";
     homepage = "https://github.com/venomous/cloudscraper";
     changelog = "https://github.com/VeNoMouS/cloudscraper/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ kini ];
+    maintainers = with maintainers; [kini];
   };
 }

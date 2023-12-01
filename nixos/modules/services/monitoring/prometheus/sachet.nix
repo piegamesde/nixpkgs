@@ -67,7 +67,7 @@ in
     };
 
     systemd.services.sachet = {
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       after = [
         "network.target"
         "network-online.target"

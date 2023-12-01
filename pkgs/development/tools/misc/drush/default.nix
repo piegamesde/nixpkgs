@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
 
   dontUnpack = true;
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     mkdir -p $out/bin
@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
     description = "Command-line shell and Unix scripting interface for Drupal";
     homepage = "https://github.com/drush-ops/drush";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ lovek323 ];
+    maintainers = with maintainers; [lovek323];
     platforms = platforms.all;
   };
 }

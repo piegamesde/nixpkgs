@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{config, lib, ...}:
 
 with lib;
 
@@ -33,7 +33,7 @@ in
           description = lib.mdDoc "The maximum socket receive buffer size. In case of conflicting values, the highest will be used.";
         };
       };
-      default = { };
+      default = {};
       example = literalExpression ''
         { "net.ipv4.tcp_syncookies" = false; "vm.swappiness" = 60; }
       '';
@@ -63,8 +63,8 @@ in
     );
 
     systemd.services.systemd-sysctl = {
-      wantedBy = [ "multi-user.target" ];
-      restartTriggers = [ config.environment.etc."sysctl.d/60-nixos.conf".source ];
+      wantedBy = ["multi-user.target"];
+      restartTriggers = [config.environment.etc."sysctl.d/60-nixos.conf".source];
     };
 
     # Hide kernel pointers (e.g. in /proc/modules) for unprivileged

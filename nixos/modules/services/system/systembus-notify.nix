@@ -25,9 +25,9 @@ in
 
   config = mkIf cfg.enable {
     systemd = {
-      packages = with pkgs; [ systembus-notify ];
+      packages = with pkgs; [systembus-notify];
 
-      user.services.systembus-notify.wantedBy = [ "graphical-session.target" ];
+      user.services.systembus-notify.wantedBy = ["graphical-session.target"];
     };
   };
 }

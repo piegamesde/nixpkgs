@@ -24,7 +24,7 @@ buildPythonPackage rec {
     pyudev
   ];
 
-  buildInputs = [ bluez ];
+  buildInputs = [bluez];
 
   meta = {
     description = "Userspace driver for the DualShock 4 controller";

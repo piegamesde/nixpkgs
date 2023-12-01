@@ -15,7 +15,7 @@ appimageTools.wrapType2 rec {
 
   extraInstallCommands =
     let
-      appimageContents = appimageTools.extract { inherit name src; };
+      appimageContents = appimageTools.extract {inherit name src;};
     in
     ''
       install -m 444 -D ${appimageContents}/${name}.desktop -t $out/share/applications
@@ -28,7 +28,7 @@ appimageTools.wrapType2 rec {
     description = "An app for managing ROMs in Steam";
     homepage = "https://github.com/SteamGridDB/steam-rom-manager";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ squarepear ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with maintainers; [squarepear];
+    platforms = ["x86_64-linux"];
   };
 }

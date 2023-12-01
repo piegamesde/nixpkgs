@@ -6,7 +6,7 @@
 }:
 
 let
-  mkSSHFS = args: callPackage (import ./common.nix args) { };
+  mkSSHFS = args: callPackage (import ./common.nix args) {};
 in
 if stdenv.isDarwin then
   mkSSHFS {

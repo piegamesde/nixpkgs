@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
 
   makefile = if stdenv.isDarwin then "ClangOSX64.mak" else "gccLinux64.mak";
 
-  makeFlags = [ "CC=${stdenv.cc.targetPrefix}cc" ];
+  makeFlags = ["CC=${stdenv.cc.targetPrefix}cc"];
 
   installPhase = ''
     runHook preInstall
@@ -54,7 +54,7 @@ stdenv.mkDerivation rec {
     homepage = "http://www.terraspace.co.uk/uasm.html";
     description = "A free MASM-compatible assembler based on JWasm";
     platforms = platforms.unix;
-    maintainers = with maintainers; [ thiagokokada ];
+    maintainers = with maintainers; [thiagokokada];
     license = licenses.watcom;
   };
 }

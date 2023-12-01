@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "cl-syntax";
   version = "20150407-git";
@@ -18,7 +18,7 @@ rec {
 
   packageName = "cl-syntax";
 
-  asdFilesToKeep = [ "cl-syntax.asd" ];
+  asdFilesToKeep = ["cl-syntax.asd"];
   overrides = x: x;
 }
 /* (SYSTEM cl-syntax DESCRIPTION

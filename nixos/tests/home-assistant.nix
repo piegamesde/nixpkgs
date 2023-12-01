@@ -1,5 +1,5 @@
 import ./make-test-python.nix (
-  { pkgs, lib, ... }:
+  {pkgs, lib, ...}:
 
   let
     configDir = "/var/lib/foobar";
@@ -9,11 +9,11 @@ import ./make-test-python.nix (
     meta.maintainers = lib.teams.home-assistant.members;
 
     nodes.hass =
-      { pkgs, ... }:
+      {pkgs, ...}:
       {
         services.postgresql = {
           enable = true;
-          ensureDatabases = [ "hass" ];
+          ensureDatabases = ["hass"];
           ensureUsers = [
             {
               name = "hass";
@@ -31,7 +31,7 @@ import ./make-test-python.nix (
           # provide dependencies through package overrides
           package =
             (pkgs.home-assistant.override {
-              extraPackages = ps: with ps; [ colorama ];
+              extraPackages = ps: with ps; [colorama];
               extraComponents =
                 [
                   # test char-tty device allow propagation into the service
@@ -40,10 +40,10 @@ import ./make-test-python.nix (
             });
 
           # provide component dependencies explicitly from the module
-          extraComponents = [ "mqtt" ];
+          extraComponents = ["mqtt"];
 
           # provide package for postgresql support
-          extraPackages = python3Packages: with python3Packages; [ psycopg2 ];
+          extraPackages = python3Packages: with python3Packages; [psycopg2];
 
           config = {
             homeassistant = {
@@ -61,14 +61,14 @@ import ./make-test-python.nix (
             # network access and would cause an error, so load frontend
             # here explicitly.
             # https://www.home-assistant.io/integrations/frontend/
-            frontend = { };
+            frontend = {};
 
             # include some popular integrations, that absolutely shouldn't break
-            esphome = { };
-            knx = { };
-            matter = { };
-            shelly = { };
-            zha = { };
+            esphome = {};
+            knx = {};
+            matter = {};
+            shelly = {};
+            zha = {};
 
             # set up a wake-on-lan switch to test capset capability required
             # for the ping suid wrapper
@@ -122,12 +122,12 @@ import ./make-test-python.nix (
         # Cause a configuration change that requires a service restart as we added a new runtime dependency
         specialisation.newFeature = {
           inheritParentConfig = true;
-          configuration.services.home-assistant.config.backup = { };
+          configuration.services.home-assistant.config.backup = {};
         };
       };
 
     testScript =
-      { nodes, ... }:
+      {nodes, ...}:
       let
         system = nodes.hass.system.build.toplevel;
       in

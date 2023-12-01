@@ -44,10 +44,10 @@ in
 
   config = mkIf cfg.enable {
 
-    systemd.packages = [ pkgs.pdns ];
+    systemd.packages = [pkgs.pdns];
 
     systemd.services.pdns = {
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       after = [
         "network.target"
         "mysql.service"
@@ -76,6 +76,6 @@ in
       description = "PowerDNS";
     };
 
-    users.groups.pdns = { };
+    users.groups.pdns = {};
   };
 }

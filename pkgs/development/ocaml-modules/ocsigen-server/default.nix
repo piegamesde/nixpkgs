@@ -88,7 +88,7 @@ buildDunePackage rec {
     xml-light
   ];
 
-  patches = [ ./cohttp-5.patch ];
+  patches = [./cohttp-5.patch];
 
   configureFlags = [
     "--root $(out)"
@@ -98,7 +98,7 @@ buildDunePackage rec {
 
   dontAddPrefix = true;
   dontAddStaticConfigureFlags = true;
-  configurePlatforms = [ ];
+  configurePlatforms = [];
 
   postConfigure = ''
     make -C src confs
@@ -124,6 +124,6 @@ buildDunePackage rec {
     '';
     license = lib.licenses.lgpl21Only;
     inherit (ocaml.meta) platforms;
-    maintainers = [ lib.maintainers.gal_bolle ];
+    maintainers = [lib.maintainers.gal_bolle];
   };
 }

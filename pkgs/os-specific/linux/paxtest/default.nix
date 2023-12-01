@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
     "BINDIR=$(out)/bin"
     "RUNDIR=$(out)/lib/paxtest"
   ];
-  installFlags = [ ''DESTDIR=""'' ];
+  installFlags = [''DESTDIR=""''];
 
   meta = with lib; {
     description = "Test various memory protection measures";

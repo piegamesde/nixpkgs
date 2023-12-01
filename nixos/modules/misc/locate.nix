@@ -76,7 +76,7 @@ in
 
     extraFlags = mkOption {
       type = listOf str;
-      default = [ ];
+      default = [];
       description = lib.mdDoc ''
         Extra flags to pass to {command}`updatedb`.
       '';
@@ -232,8 +232,8 @@ in
 
   config = mkIf cfg.enable {
     users.groups = mkMerge [
-      (mkIf isMLocate { mlocate = { }; })
-      (mkIf isPLocate { plocate = { }; })
+      (mkIf isMLocate {mlocate = {};})
+      (mkIf isPLocate {plocate = {};})
     ];
 
     security.wrappers =
@@ -274,9 +274,9 @@ in
       locate.dbfile = cfg.output;
     };
 
-    environment.systemPackages = [ cfg.locate ];
+    environment.systemPackages = [cfg.locate];
 
-    environment.variables = mkIf (!isMorPLocate) { LOCATE_PATH = cfg.output; };
+    environment.variables = mkIf (!isMorPLocate) {LOCATE_PATH = cfg.output;};
 
     environment.etc = {
       # write /etc/updatedb.conf for manual calls to `updatedb`
@@ -294,7 +294,7 @@ in
       optional (isMorPLocate && cfg.localuser != null)
         "mlocate and plocate do not support the services.locate.localuser option. updatedb will run as root. Silence this warning by setting services.locate.localuser = null."
       ++
-        optional (isFindutils && cfg.pruneNames != [ ])
+        optional (isFindutils && cfg.pruneNames != [])
           "findutils locate does not support pruning by directory component"
       ++
         optional (isFindutils && cfg.pruneBindMounts)
@@ -302,14 +302,14 @@ in
 
     systemd.services.update-locatedb = {
       description = "Update Locate Database";
-      path = mkIf (!isMorPLocate) [ pkgs.su ];
+      path = mkIf (!isMorPLocate) [pkgs.su];
 
       # mlocate's updatedb takes flags via a configuration file or
       # on the command line, but not by environment variable.
       script =
         if isMorPLocate then
           let
-            toFlags = x: optional (cfg.${x} != [ ]) "--${lib.toLower x} '${concatStringsSep " " cfg.${x}}'";
+            toFlags = x: optional (cfg.${x} != []) "--${lib.toLower x} '${concatStringsSep " " cfg.${x}}'";
             args = concatLists (
               map toFlags [
                 "pruneFS"
@@ -352,11 +352,11 @@ in
 
     systemd.timers.update-locatedb = mkIf (cfg.interval != "never") {
       description = "Update timer for locate database";
-      partOf = [ "update-locatedb.service" ];
-      wantedBy = [ "timers.target" ];
+      partOf = ["update-locatedb.service"];
+      wantedBy = ["timers.target"];
       timerConfig.OnCalendar = cfg.interval;
     };
   };
 
-  meta.maintainers = with lib.maintainers; [ SuperSandro2000 ];
+  meta.maintainers = with lib.maintainers; [SuperSandro2000];
 }

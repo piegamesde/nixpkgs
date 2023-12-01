@@ -17,8 +17,8 @@ stdenv.mkDerivation rec {
     sha256 = "1mc09g8jswzsa4wgrfv59jxn15ys3q8s0227p1j838wkphlwn2qk";
   };
 
-  nativeBuildInputs = [ cmake ];
-  buildInputs = [ bpp-core ];
+  nativeBuildInputs = [cmake];
+  buildInputs = [bpp-core];
 
   postFixup = ''
     substituteInPlace $out/lib/cmake/${pname}/${pname}-targets.cmake  \

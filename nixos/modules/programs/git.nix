@@ -39,24 +39,19 @@ in
                   foldl'
                     (
                       acc:
-                      { value, ... }@x:
+                      {value, ...}@x:
                       acc
-                      // (
-                        if isList value then
-                          { ordered = acc.ordered ++ value; }
-                        else
-                          { unordered = acc.unordered ++ [ x ]; }
-                      )
+                      // (if isList value then {ordered = acc.ordered ++ value;} else {unordered = acc.unordered ++ [x];})
                     )
                     {
-                      ordered = [ ];
-                      unordered = [ ];
+                      ordered = [];
+                      unordered = [];
                     }
                     defs;
               in
-              [ (gitini.merge loc config.unordered) ] ++ config.ordered;
+              [(gitini.merge loc config.unordered)] ++ config.ordered;
           };
-        default = [ ];
+        default = [];
         example = {
           init.defaultBranch = "main";
           url."https://github.com/".insteadOf = [
@@ -90,13 +85,13 @@ in
 
   config = mkMerge [
     (mkIf cfg.enable {
-      environment.systemPackages = [ cfg.package ];
-      environment.etc.gitconfig = mkIf (cfg.config != [ ]) {
+      environment.systemPackages = [cfg.package];
+      environment.etc.gitconfig = mkIf (cfg.config != []) {
         text = concatMapStringsSep "\n" generators.toGitINI cfg.config;
       };
     })
     (mkIf (cfg.enable && cfg.lfs.enable) {
-      environment.systemPackages = [ cfg.lfs.package ];
+      environment.systemPackages = [cfg.lfs.package];
       programs.git.config = {
         filter.lfs = {
           clean = "git-lfs clean -- %f";
@@ -108,5 +103,5 @@ in
     })
   ];
 
-  meta.maintainers = with maintainers; [ figsoda ];
+  meta.maintainers = with maintainers; [figsoda];
 }

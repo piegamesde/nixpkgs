@@ -35,6 +35,6 @@ buildPythonPackage rec {
     '';
     homepage = "https://github.com/elasticsearch/elasticsearch-dsl-py";
     license = licenses.asl20;
-    maintainers = with maintainers; [ desiderius ];
+    maintainers = with maintainers; [desiderius];
   };
 }

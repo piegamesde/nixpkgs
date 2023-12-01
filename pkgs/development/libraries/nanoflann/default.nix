@@ -16,9 +16,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-NcewcNQcI1CjMNibRF9HCoE2Ibs0/Hy4eOkJ20W3wLo=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
-  cmakeFlags = [ "-DBUILD_EXAMPLES=OFF" ];
+  cmakeFlags = ["-DBUILD_EXAMPLES=OFF"];
 
   doCheck = true;
   checkTarget = "test";

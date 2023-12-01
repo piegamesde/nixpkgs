@@ -49,15 +49,15 @@ in
   config = mkIf cfg.enable {
 
     boot = {
-      extraModulePackages = [ config.boot.kernelPackages.vhba ];
-      kernelModules = [ "vhba" ];
+      extraModulePackages = [config.boot.kernelPackages.vhba];
+      kernelModules = ["vhba"];
     };
 
     services = {
       udev.extraRules = ''
         KERNEL=="vhba_ctl", MODE="0660", OWNER="root", GROUP="${cfg.group}"
       '';
-      dbus.packages = [ pkgs.cdemu-daemon ];
+      dbus.packages = [pkgs.cdemu-daemon];
     };
 
     environment.systemPackages = [

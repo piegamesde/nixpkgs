@@ -45,8 +45,8 @@ stdenv.mkDerivation rec {
       (lib.mesonEnable "omap" stdenv.hostPlatform.isLinux)
       (lib.mesonEnable "valgrind" withValgrind)
     ]
-    ++ lib.optionals stdenv.hostPlatform.isAarch [ "-Dtegra=enabled" ]
-    ++ lib.optionals (!stdenv.hostPlatform.isLinux) [ "-Detnaviv=disabled" ];
+    ++ lib.optionals stdenv.hostPlatform.isAarch ["-Dtegra=enabled"]
+    ++ lib.optionals (!stdenv.hostPlatform.isLinux) ["-Detnaviv=disabled"];
 
   meta = with lib; {
     homepage = "https://gitlab.freedesktop.org/mesa/drm";
@@ -66,6 +66,6 @@ stdenv.mkDerivation rec {
     '';
     license = licenses.mit;
     platforms = lib.subtractLists platforms.darwin platforms.unix;
-    maintainers = with maintainers; [ primeos ];
+    maintainers = with maintainers; [primeos];
   };
 }

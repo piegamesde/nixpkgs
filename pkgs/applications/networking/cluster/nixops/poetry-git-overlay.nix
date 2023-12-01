@@ -1,4 +1,4 @@
-{ pkgs }:
+{pkgs}:
 self: super: {
 
   nixops = super.nixops.overridePythonAttrs (

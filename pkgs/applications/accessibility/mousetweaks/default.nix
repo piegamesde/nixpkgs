@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
   ];
 
   passthru = {
-    updateScript = gnome.updateScript { packageName = pname; };
+    updateScript = gnome.updateScript {packageName = pname;};
   };
 
   meta = with lib; {
@@ -58,6 +58,6 @@ stdenv.mkDerivation rec {
     homepage = "https://wiki.gnome.org/Projects/Mousetweaks";
     license = licenses.gpl2;
     platforms = platforms.linux;
-    maintainers = [ maintainers.johnazoidberg ];
+    maintainers = [maintainers.johnazoidberg];
   };
 }

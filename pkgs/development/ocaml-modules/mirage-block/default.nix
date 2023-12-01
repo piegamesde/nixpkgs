@@ -28,6 +28,6 @@ buildDunePackage rec {
     description = "Block signatures and implementations for MirageOS";
     homepage = "https://github.com/mirage/mirage-block";
     license = licenses.isc;
-    maintainers = with maintainers; [ vbgl ];
+    maintainers = with maintainers; [vbgl];
   };
 }

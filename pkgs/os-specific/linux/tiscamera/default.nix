@@ -67,8 +67,8 @@ stdenv.mkDerivation rec {
       sphinx
       graphviz
     ]
-    ++ lib.optionals withAravis [ meson ]
-    ++ lib.optionals withGui [ qt5.wrapQtAppsHook ];
+    ++ lib.optionals withAravis [meson]
+    ++ lib.optionals withGui [qt5.wrapQtAppsHook];
 
   buildInputs = [
     elfutils
@@ -88,9 +88,9 @@ stdenv.mkDerivation rec {
     gst_all_1.gst-plugins-good
     gst_all_1.gst-plugins-bad
     gst_all_1.gst-plugins-ugly
-  ] ++ lib.optionals withAravis [ aravis ] ++ lib.optionals withGui [ qt5.qtbase ];
+  ] ++ lib.optionals withAravis [aravis] ++ lib.optionals withGui [qt5.qtbase];
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   cmakeFlags = [
     "-DTCAM_BUILD_GST_1_0=ON"
@@ -128,8 +128,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "The Linux sources and UVC firmwares for The Imaging Source cameras";
     homepage = "https://github.com/TheImagingSource/tiscamera";
-    license = with licenses; [ asl20 ];
+    license = with licenses; [asl20];
     platforms = platforms.linux;
-    maintainers = with maintainers; [ jraygauthier ];
+    maintainers = with maintainers; [jraygauthier];
   };
 }

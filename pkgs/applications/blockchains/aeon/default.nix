@@ -57,13 +57,13 @@ stdenv.mkDerivation {
     "-DReadline_ROOT_DIR=${readline.dev}"
   ];
 
-  hardeningDisable = [ "fortify" ];
+  hardeningDisable = ["fortify"];
 
   meta = with lib; {
     description = "Private, secure, untraceable currency";
     homepage = "http://www.aeon.cash/";
     license = licenses.bsd3;
-    maintainers = [ maintainers.aij ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = [maintainers.aij];
+    platforms = ["x86_64-linux"];
   };
 }

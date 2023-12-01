@@ -16,13 +16,13 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-dZl1yJwJp7OZL3xoBbz43NWVEhrSgkDYkZB4OEydRXY=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   meta = with lib; {
     description = "Header only C++14 mocking framework";
     homepage = "https://github.com/rollbear/trompeloeil";
     license = licenses.boost;
-    maintainers = [ maintainers.bjornfor ];
+    maintainers = [maintainers.bjornfor];
     platforms = platforms.unix;
   };
 }

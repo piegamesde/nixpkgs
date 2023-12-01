@@ -38,7 +38,7 @@ buildPythonPackage rec {
     sha256 = "735cede4099dbc903ee540307b9171fbfef4aa75cfcacc5a273b2cda2f02be04";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs = [
     backcall
@@ -51,9 +51,9 @@ buildPythonPackage rec {
     pygments
     stack-data
     traitlets
-  ] ++ lib.optionals stdenv.isDarwin [ appnope ];
+  ] ++ lib.optionals stdenv.isDarwin [appnope];
 
-  pythonImportsCheck = [ "IPython" ];
+  pythonImportsCheck = ["IPython"];
 
   preCheck = ''
     export HOME=$TMPDIR

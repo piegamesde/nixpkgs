@@ -7,7 +7,7 @@
 
 let
   cfg = config.services.persistent-evdev;
-  settingsFormat = pkgs.formats.json { };
+  settingsFormat = pkgs.formats.json {};
 
   configFile = settingsFormat.generate "persistent-evdev-config" {
     cache = "/var/cache/persistent-evdev";
@@ -21,7 +21,7 @@ in
     );
 
     devices = lib.mkOption {
-      default = { };
+      default = {};
       type = with lib.types; attrsOf str;
       description = lib.mdDoc ''
         A set of virtual proxy device labels with backing physical device ids.
@@ -49,9 +49,9 @@ in
   config = lib.mkIf cfg.enable {
 
     systemd.services.persistent-evdev = {
-      documentation = [ "https://github.com/aiberia/persistent-evdev/blob/master/README.md" ];
+      documentation = ["https://github.com/aiberia/persistent-evdev/blob/master/README.md"];
       description = "Persistent evdev proxy";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
 
       serviceConfig = {
         Restart = "on-failure";
@@ -60,8 +60,8 @@ in
       };
     };
 
-    services.udev.packages = [ pkgs.persistent-evdev ];
+    services.udev.packages = [pkgs.persistent-evdev];
   };
 
-  meta.maintainers = with lib.maintainers; [ lodi ];
+  meta.maintainers = with lib.maintainers; [lodi];
 }

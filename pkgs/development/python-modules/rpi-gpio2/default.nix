@@ -17,7 +17,7 @@ buildPythonPackage rec {
     hash = "sha256-CNnej67yTh3C8n4cCA7NW97rlfIDrrlepRNDkv+BUeY=";
   };
 
-  propagatedBuildInputs = [ libgpiod ];
+  propagatedBuildInputs = [libgpiod];
 
   # Disable checks because they need to run on the specific platform
   doCheck = false;
@@ -28,6 +28,6 @@ buildPythonPackage rec {
       Compatibility layer between RPi.GPIO syntax and libgpiod semantics
     '';
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ onny ];
+    maintainers = with maintainers; [onny];
   };
 }

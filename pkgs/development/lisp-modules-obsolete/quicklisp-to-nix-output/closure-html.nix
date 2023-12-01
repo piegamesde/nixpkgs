@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "closure-html";
   version = "20180711-git";
@@ -22,7 +22,7 @@ rec {
 
   packageName = "closure-html";
 
-  asdFilesToKeep = [ "closure-html.asd" ];
+  asdFilesToKeep = ["closure-html.asd"];
   overrides = x: x;
 }
 /* (SYSTEM closure-html DESCRIPTION System lacks description SHA256

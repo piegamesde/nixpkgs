@@ -22,12 +22,12 @@ buildPythonPackage rec {
 
   # Project has no tests
   doCheck = false;
-  pythonImportsCheck = [ "pykmtronic" ];
+  pythonImportsCheck = ["pykmtronic"];
 
   meta = with lib; {
     description = "Python client to interface with KM-Tronic web relays";
     homepage = "https://github.com/dgomes/pykmtronic";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

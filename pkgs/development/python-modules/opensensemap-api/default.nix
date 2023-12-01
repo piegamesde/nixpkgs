@@ -27,7 +27,7 @@ buildPythonPackage rec {
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "opensensemap_api" ];
+  pythonImportsCheck = ["opensensemap_api"];
 
   meta = with lib; {
     description = "OpenSenseMap API Python client";
@@ -37,7 +37,7 @@ buildPythonPackage rec {
     '';
     homepage = "https://github.com/home-assistant-ecosystem/python-opensensemap-api";
     changelog = "https://github.com/home-assistant-ecosystem/python-opensensemap-api/releases/tag/${version}";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

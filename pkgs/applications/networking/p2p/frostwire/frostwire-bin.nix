@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-gslNdvxA4rGKg0bjf2KWw7w9NMp3zqrii144AfKsV4s=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     runHook preInstall
@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
       binaryNativeCode
     ];
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ gavin ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with maintainers; [gavin];
+    platforms = ["x86_64-linux"];
   };
 }

@@ -104,7 +104,7 @@ in
 
   config = mkIf cfg.enable {
 
-    users.groups = mkIf (cfg.group == "rtorrent") { rtorrent = { }; };
+    users.groups = mkIf (cfg.group == "rtorrent") {rtorrent = {};};
 
     users.users = mkIf (cfg.user == "rtorrent") {
       rtorrent = {
@@ -116,7 +116,7 @@ in
       };
     };
 
-    networking.firewall.allowedTCPPorts = mkIf (cfg.openFirewall) [ cfg.port ];
+    networking.firewall.allowedTCPPorts = mkIf (cfg.openFirewall) [cfg.port];
 
     services.rtorrent.configText = mkBefore ''
       # Instance layout (base paths)
@@ -203,12 +203,12 @@ in
           in
           {
             description = "rTorrent system service";
-            after = [ "network.target" ];
+            after = ["network.target"];
             path = [
               cfg.package
               pkgs.bash
             ];
-            wantedBy = [ "multi-user.target" ];
+            wantedBy = ["multi-user.target"];
             serviceConfig = {
               User = cfg.user;
               Group = cfg.group;
@@ -223,7 +223,7 @@ in
           };
       };
 
-      tmpfiles.rules = [ "d '${cfg.dataDir}' ${cfg.dataPermissions} ${cfg.user} ${cfg.group} -" ];
+      tmpfiles.rules = ["d '${cfg.dataDir}' ${cfg.dataPermissions} ${cfg.user} ${cfg.group} -"];
     };
   };
 }

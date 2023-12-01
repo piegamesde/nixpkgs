@@ -21,7 +21,7 @@ buildGoModule rec {
     description = "Access Windows named pipes from WSL";
     homepage = "https://github.com/jstarks/npiperelay";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.shlevy ];
+    maintainers = [lib.maintainers.shlevy];
     platforms = lib.platforms.windows;
   };
 }

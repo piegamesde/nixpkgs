@@ -36,7 +36,7 @@ stdenv.mkDerivation {
     homepage = "https://languagemachines.github.io/ucto/";
     license = licenses.gpl3;
     platforms = platforms.all;
-    maintainers = with maintainers; [ roberth ];
+    maintainers = with maintainers; [roberth];
 
     longDescription = ''
       Ucto tokenizes text files: it separates words from punctuation, and splits sentences. It offers several other basic preprocessing steps such as changing case that you can all use to make your text suited for further processing such as indexing, part-of-speech tagging, or machine translation.

@@ -20,7 +20,7 @@ buildPythonPackage rec {
     hash = "sha256-5b3UTzb7OXBwcyYyDVCGLUpWxNOYZ3cv8Gfw+x7jsBI=";
   };
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   postPatch = ''
     # Version is not set properly
@@ -28,13 +28,13 @@ buildPythonPackage rec {
       --replace 'version=get_setup_version("param"),' 'version="${version}",'
   '';
 
-  pythonImportsCheck = [ "param" ];
+  pythonImportsCheck = ["param"];
 
   meta = with lib; {
     description = "Declarative Python programming using Parameters";
     homepage = "https://param.holoviz.org/";
     changelog = "https://github.com/holoviz/param/releases/tag/v${version}";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ costrouc ];
+    maintainers = with maintainers; [costrouc];
   };
 }

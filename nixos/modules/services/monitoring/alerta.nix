@@ -87,12 +87,12 @@ in
   };
 
   config = mkIf cfg.enable {
-    systemd.tmpfiles.rules = [ "d '${cfg.logDir}' - alerta alerta - -" ];
+    systemd.tmpfiles.rules = ["d '${cfg.logDir}' - alerta alerta - -"];
 
     systemd.services.alerta = {
       description = "Alerta Monitoring System";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "networking.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["networking.target"];
       environment = {
         ALERTA_SVR_CONF_FILE = alertaConf;
       };
@@ -103,7 +103,7 @@ in
       };
     };
 
-    environment.systemPackages = [ pkgs.alerta ];
+    environment.systemPackages = [pkgs.alerta];
 
     users.users.alerta = {
       uid = config.ids.uids.alerta;

@@ -34,7 +34,7 @@ let
           dhall-to-nix <<< "${file}" > $out
         '';
 
-        buildInputs = [ dhall-nix ];
+        buildInputs = [dhall-nix];
       };
     in
     import drv;

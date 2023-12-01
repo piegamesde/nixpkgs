@@ -42,7 +42,7 @@ stdenv.mkDerivation {
       patch -p1 -d llvm -i ${./wasm.patch}
     '';
 
-  patches = [ ./gnu-install-dirs.patch ];
+  patches = [./gnu-install-dirs.patch];
 
   nativeBuildInputs = [
     cmake
@@ -59,7 +59,7 @@ stdenv.mkDerivation {
       "-DLIBCXXABI_ENABLE_THREADS=OFF"
       "-DLIBCXXABI_ENABLE_EXCEPTIONS=OFF"
     ]
-    ++ lib.optionals (!enableShared) [ "-DLIBCXXABI_ENABLE_SHARED=OFF" ];
+    ++ lib.optionals (!enableShared) ["-DLIBCXXABI_ENABLE_SHARED=OFF"];
 
   preInstall = lib.optionalString stdenv.isDarwin ''
     for file in lib/*.dylib; do
@@ -104,6 +104,6 @@ stdenv.mkDerivation {
       mit
       ncsa
     ];
-    maintainers = llvm_meta.maintainers ++ [ lib.maintainers.vlstill ];
+    maintainers = llvm_meta.maintainers ++ [lib.maintainers.vlstill];
   };
 }

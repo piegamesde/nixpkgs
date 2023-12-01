@@ -19,17 +19,17 @@ buildPythonPackage rec {
     sha256 = "1nyvflap39cwq1cm9wwl9idvfmz1ixsl80f1dnskx22fk0lmvj4h";
   };
 
-  propagatedBuildInputs = [ aiohttp ];
+  propagatedBuildInputs = [aiohttp];
 
   # Project has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "pyvolumio" ];
+  pythonImportsCheck = ["pyvolumio"];
 
   meta = with lib; {
     description = "Python module to control Volumio";
     homepage = "https://github.com/OnFreund/PyVolumio";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

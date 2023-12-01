@@ -22,17 +22,17 @@ stdenv.mkDerivation {
     sha256 = "sha256-cBrTvFoz6WZIsh5qPPiWxQ338Z0OfcIefiI8CZF6nn8=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     wxGTK32
     SDL2
-  ] ++ lib.optionals stdenv.isDarwin [ Cocoa ];
+  ] ++ lib.optionals stdenv.isDarwin [Cocoa];
 
   meta = with lib; {
     description = "Audibilization and Visualization of Sorting Algorithms";
     homepage = "https://panthema.net/2013/sound-of-sorting/";
     license = with licenses; gpl3Plus;
-    maintainers = with maintainers; [ AndersonTorres ];
+    maintainers = with maintainers; [AndersonTorres];
   };
 }

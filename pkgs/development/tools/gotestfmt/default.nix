@@ -22,6 +22,6 @@ buildGoModule rec {
     homepage = "https://github.com/gotesttools/gotestfmt";
     changelog = "https://github.com/GoTestTools/gotestfmt/releases/tag/v${version}";
     license = licenses.unlicense;
-    maintainers = with maintainers; [ urandom ];
+    maintainers = with maintainers; [urandom];
   };
 }

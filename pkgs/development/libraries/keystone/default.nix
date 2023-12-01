@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
     description = "Lightweight multi-platform, multi-architecture assembler framework";
     homepage = "https://www.keystone-engine.org";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ luc65r ];
+    maintainers = with maintainers; [luc65r];
     mainProgram = "kstool";
     platforms = platforms.unix;
   };

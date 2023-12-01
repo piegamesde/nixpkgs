@@ -57,7 +57,7 @@ buildPythonPackage rec {
     hash = "sha256-AiRQFZA5+M1niTzj1RO2lx0QFOMmSzpQo1gzauyTblg=";
   };
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   propagatedBuildInputs =
     [
@@ -87,9 +87,9 @@ buildPythonPackage rec {
       urllib3
       virtualenv
     ]
-    ++ lib.optionals (stdenv.isDarwin) [ xattr ]
-    ++ lib.optionals (pythonOlder "3.11") [ tomli ]
-    ++ lib.optionals (pythonOlder "3.10") [ importlib-metadata ]
+    ++ lib.optionals (stdenv.isDarwin) [xattr]
+    ++ lib.optionals (pythonOlder "3.11") [tomli]
+    ++ lib.optionals (pythonOlder "3.10") [importlib-metadata]
     ++ cachecontrol.optional-dependencies.filecache;
 
   postInstall = ''
@@ -152,7 +152,7 @@ buildPythonPackage rec {
       ];
 
   # Allow for package to use pep420's native namespaces
-  pythonNamespaces = [ "poetry" ];
+  pythonNamespaces = ["poetry"];
 
   meta = with lib; {
     changelog = "https://github.com/python-poetry/poetry/blob/${src.rev}/CHANGELOG.md";

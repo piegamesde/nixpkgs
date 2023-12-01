@@ -16,7 +16,7 @@ buildPythonPackage rec {
     sha256 = "36b4462704450798197d090809a05f4e13649d9cba9acdc557ce9517da1fd847";
   };
 
-  buildInputs = [ pytest ];
+  buildInputs = [pytest];
   propagatedBuildInputs = [
     u-msgpack-python
     six

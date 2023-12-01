@@ -14,9 +14,9 @@ stdenv.mkDerivation {
   pname = "mlton";
   inherit version;
 
-  src = fetchgit { inherit url rev sha256; };
+  src = fetchgit {inherit url rev sha256;};
 
-  nativeBuildInputs = [ which ];
+  nativeBuildInputs = [which];
 
   buildInputs = [
     mltonBootstrap

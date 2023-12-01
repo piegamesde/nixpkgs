@@ -2,8 +2,8 @@
   lib,
   buildFHSEnv,
   heroic-unwrapped,
-  extraPkgs ? pkgs: [ ],
-  extraLibraries ? pkgs: [ ],
+  extraPkgs ? pkgs: [],
+  extraLibraries ? pkgs: [],
 }:
 
 buildFHSEnv {

@@ -14,12 +14,12 @@ buildPythonPackage rec {
     hash = "sha256-vQEfC8Z7xMM/fhBG6jSuhLEP/Iece5Rje1yqbpjVuPg=";
   };
 
-  nativeCheckInputs = [ hypothesis ];
+  nativeCheckInputs = [hypothesis];
 
   meta = with lib; {
     description = "conversion of ints and rationals to any base";
     homepage = "https://pythonhosted.org/justbases";
     license = licenses.lgpl2Plus;
-    maintainers = with maintainers; [ nickcao ];
+    maintainers = with maintainers; [nickcao];
   };
 }

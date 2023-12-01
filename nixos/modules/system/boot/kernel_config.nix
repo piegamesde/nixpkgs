@@ -1,10 +1,10 @@
-{ lib, config, ... }:
+{lib, config, ...}:
 
 with lib;
 let
   mergeFalseByDefault =
     locs: defs:
-    if defs == [ ] then
+    if defs == [] then
       abort "This case should never happen."
     else if any (x: x == false) (getValues defs) then
       false

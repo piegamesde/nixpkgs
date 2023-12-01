@@ -15,14 +15,14 @@ stdenv.mkDerivation rec {
     sha256 = "0chfim7z27s00naf43a61zsngwhvim14mg1p3csbv5i3f6m50xx4";
   };
 
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ gtk2 ];
+  nativeBuildInputs = [pkg-config];
+  buildInputs = [gtk2];
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   meta = {
     description = "A GTK front-end for command line archiving tools";
-    maintainers = [ lib.maintainers.domenkozar ];
+    maintainers = [lib.maintainers.domenkozar];
     license = lib.licenses.gpl2;
     platforms = lib.platforms.all;
   };

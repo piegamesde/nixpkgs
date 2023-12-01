@@ -36,7 +36,7 @@ buildPythonPackage rec {
       --replace "path.py" "path"
   '';
 
-  buildInputs = [ pytest ];
+  buildInputs = [pytest];
 
   propagatedBuildInputs = [
     setuptools-git
@@ -53,7 +53,7 @@ buildPythonPackage rec {
   ];
 
   disabledTests =
-    [ "test_pretty_formatter" ]
+    ["test_pretty_formatter"]
     ++ lib.optionals isPyPy [
       "test_run"
       "test_run_integration"
@@ -62,7 +62,7 @@ buildPythonPackage rec {
   meta = with lib; {
     description = "A goodie-bag of unix shell and environment tools for py.test";
     homepage = "https://github.com/manahl/pytest-plugins";
-    maintainers = with maintainers; [ ryansydnor ];
+    maintainers = with maintainers; [ryansydnor];
     license = licenses.mit;
   };
 }

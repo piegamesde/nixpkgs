@@ -21,16 +21,16 @@ buildPythonPackage rec {
     hash = "sha256-/dA3OwBBMjykSYaIbvhJZj9Z8/0+mfL5pW4GqgMgops=";
   };
 
-  propagatedBuildInputs = [ tokenize-rt ];
+  propagatedBuildInputs = [tokenize-rt];
 
-  pythonImportsCheck = [ "add_trailing_comma" ];
+  pythonImportsCheck = ["add_trailing_comma"];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = with lib; {
     description = "A tool (and pre-commit hook) to automatically add trailing commas to calls and literals";
     homepage = "https://github.com/asottile/add-trailing-comma";
     license = licenses.mit;
-    maintainers = with maintainers; [ gador ];
+    maintainers = with maintainers; [gador];
   };
 }

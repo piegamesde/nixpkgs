@@ -59,7 +59,7 @@ stdenv.mkDerivation rec {
     "CFLAGS=-Wno-error"
   ];
 
-  installFlags = [ "sysconfdir=${placeholder "out"}/etc" ];
+  installFlags = ["sysconfdir=${placeholder "out"}/etc"];
 
   postInstall = ''
     # this script requires unpackaged 'augeas' rubygem, no reason
@@ -74,7 +74,7 @@ stdenv.mkDerivation rec {
       $(find ${placeholder "out"}/bin -type f -exec ${file}/bin/file -i '{}' + \
       | grep -v x-executable | cut -d : -f1); do
       wrapProgram $prog \
-        --prefix PATH : "${lib.makeBinPath [ apk-tools ]}" \
+        --prefix PATH : "${lib.makeBinPath [apk-tools]}" \
         --prefix PATH : "${placeholder "out"}/bin"
     done
   '';
@@ -83,7 +83,7 @@ stdenv.mkDerivation rec {
     description = "Alpine Linux build tools";
     homepage = "https://gitlab.alpinelinux.org/alpine/abuild";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ onny ];
+    maintainers = with maintainers; [onny];
     platforms = platforms.unix;
   };
 }

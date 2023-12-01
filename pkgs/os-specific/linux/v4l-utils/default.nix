@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-Zcb76DCkTKEFxEOwJxgsGyyQU6kdHnKthJ36s4i5TjE=";
   };
 
-  outputs = [ "out" ] ++ lib.optional withUtils "lib" ++ [ "dev" ];
+  outputs = ["out"] ++ lib.optional withUtils "lib" ++ ["dev"];
 
   configureFlags =
     (
@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
           "--with-udevdir=${placeholder "out"}/lib/udev"
         ]
       else
-        [ "--disable-v4l-utils" ]
+        ["--disable-v4l-utils"]
     );
 
   postFixup = ''
@@ -55,7 +55,7 @@ stdenv.mkDerivation rec {
   ] ++ lib.optional withQt wrapQtAppsHook;
 
   buildInputs =
-    [ udev ]
+    [udev]
     ++ lib.optional (!stdenv.hostPlatform.isGnu) argp-standalone
     ++ lib.optionals withQt [
       alsa-lib
@@ -64,7 +64,7 @@ stdenv.mkDerivation rec {
       libGLU
     ];
 
-  propagatedBuildInputs = [ libjpeg ];
+  propagatedBuildInputs = [libjpeg];
 
   postPatch = ''
     patchShebangs utils/
@@ -80,7 +80,7 @@ stdenv.mkDerivation rec {
       lgpl21Plus
       gpl2Plus
     ];
-    maintainers = with maintainers; [ codyopel ];
+    maintainers = with maintainers; [codyopel];
     platforms = platforms.linux;
   };
 }

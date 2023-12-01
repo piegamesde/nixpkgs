@@ -20,13 +20,13 @@ buildNimPackage rec {
     stew
     tempfile
   ];
-  propagatedBuildInputs = [ rocksdb ];
+  propagatedBuildInputs = [rocksdb];
   doCheck = false;
   meta =
     with lib;
     src.meta
     // {
       description = "Nim wrapper for RocksDB";
-      maintainers = [ maintainers.ehmry ];
+      maintainers = [maintainers.ehmry];
     };
 }

@@ -12,8 +12,8 @@
   xz,
   syslinux ? null,
   embedScript ? null,
-  additionalTargets ? { },
-  additionalOptions ? [ ],
+  additionalTargets ? {},
+  additionalOptions ? [],
 }:
 
 let
@@ -55,7 +55,7 @@ stdenv.mkDerivation rec {
     xorriso
     xz
   ] ++ lib.optional stdenv.hostPlatform.isx86 syslinux;
-  depsBuildBuild = [ buildPackages.stdenv.cc ];
+  depsBuildBuild = [buildPackages.stdenv.cc];
 
   strictDeps = true;
 
@@ -127,13 +127,13 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   meta = with lib; {
     description = "Network boot firmware";
     homepage = "https://ipxe.org/";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ ehmry ];
+    maintainers = with maintainers; [ehmry];
     platforms = platforms.linux;
   };
 }

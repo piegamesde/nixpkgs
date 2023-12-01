@@ -114,14 +114,14 @@ in
       createHome = true;
     };
 
-    users.groups.${cfg.group} = { };
+    users.groups.${cfg.group} = {};
 
     systemd.services.nexus = {
       description = "Sonatype Nexus3";
 
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
 
-      path = [ cfg.home ];
+      path = [cfg.home];
 
       environment = {
         NEXUS_USER = cfg.user;
@@ -156,5 +156,5 @@ in
     };
   };
 
-  meta.maintainers = with lib.maintainers; [ ironpinguin ];
+  meta.maintainers = with lib.maintainers; [ironpinguin];
 }

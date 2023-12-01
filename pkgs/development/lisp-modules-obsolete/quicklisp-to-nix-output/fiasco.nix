@@ -1,10 +1,10 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "fiasco";
   version = "20200610-git";
 
-  parasites = [ "fiasco-self-tests" ];
+  parasites = ["fiasco-self-tests"];
 
   description = "A Common Lisp test framework that treasures your failures, logical continuation of Stefil.";
 
@@ -20,7 +20,7 @@ rec {
 
   packageName = "fiasco";
 
-  asdFilesToKeep = [ "fiasco.asd" ];
+  asdFilesToKeep = ["fiasco.asd"];
   overrides = x: x;
 }
 /* (SYSTEM fiasco DESCRIPTION

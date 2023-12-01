@@ -48,9 +48,9 @@ stdenv.mkDerivation rec {
     hash = "sha256-UXAVSfVpk/8KSg4oMw2tVWImD6HqJ7gEioR2MqhUUoQ=";
   };
 
-  makeFlags = [ "INSTALL_DIR=\${out}/bin" ];
+  makeFlags = ["INSTALL_DIR=\${out}/bin"];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     fontconfig
@@ -67,7 +67,7 @@ stdenv.mkDerivation rec {
   # This patch forces the Makefile to use utf8proc
   # The makefile relies on ldconfig to find the utf8proc libraries
   # which is not possible on nixpkgs
-  patches = [ ./utf8proc.patch ];
+  patches = [./utf8proc.patch];
 
   postPatch = ''
     substituteInPlace src/settings.c \
@@ -94,6 +94,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/91861/wayst";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ berbiche ];
+    maintainers = with maintainers; [berbiche];
   };
 }

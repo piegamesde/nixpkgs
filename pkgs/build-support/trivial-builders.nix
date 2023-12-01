@@ -86,7 +86,7 @@ rec {
       # whether to build this derivation locally instead of substituting
       runLocal ? false,
       # extra arguments to pass to stdenv.mkDerivation
-      derivationArgs ? { },
+      derivationArgs ? {},
       # name of the resulting derivation
       name,
     # TODO(@Artturin): enable strictDeps always
@@ -96,13 +96,13 @@ rec {
       {
         enableParallelBuilding = true;
         inherit buildCommand name;
-        passAsFile = [ "buildCommand" ] ++ (derivationArgs.passAsFile or [ ]);
+        passAsFile = ["buildCommand"] ++ (derivationArgs.passAsFile or []);
       }
       // (lib.optionalAttrs runLocal {
         preferLocalBuild = true;
         allowSubstitutes = false;
       })
-      // builtins.removeAttrs derivationArgs [ "passAsFile" ]
+      // builtins.removeAttrs derivationArgs ["passAsFile"]
     );
 
   /* Writes a text file to the nix store.
@@ -137,7 +137,7 @@ rec {
       executable ? false, # run chmod +x ?
       destination ? "", # relative path appended to $out eg "/bin/foo"
       checkPhase ? "", # syntax checks, e.g. for scripts
-      meta ? { },
+      meta ? {},
       allowSubstitutes ? false,
       preferLocalBuild ? true,
     }:
@@ -151,7 +151,7 @@ rec {
           allowSubstitutes
           preferLocalBuild
           ;
-        passAsFile = [ "text" ];
+        passAsFile = ["text"];
       }
       ''
         target=$out${lib.escapeShellArg destination}
@@ -180,7 +180,7 @@ rec {
        Contents of File
        '';
   */
-  writeText = name: text: writeTextFile { inherit name text; };
+  writeText = name: text: writeTextFile {inherit name text;};
 
   /* Writes a text file to nix store in a specific directory with no
      optional parameters available.
@@ -320,7 +320,7 @@ rec {
     {
       name,
       text,
-      runtimeInputs ? [ ],
+      runtimeInputs ? [],
       checkPhase ? null,
     }:
     writeTextFile {
@@ -336,7 +336,7 @@ rec {
           set -o nounset
           set -o pipefail
         ''
-        + lib.optionalString (runtimeInputs != [ ]) ''
+        + lib.optionalString (runtimeInputs != []) ''
 
           export PATH="${lib.makeBinPath runtimeInputs}:$PATH"
         ''
@@ -368,7 +368,7 @@ rec {
       {
         inherit name code;
         executable = true;
-        passAsFile = [ "code" ];
+        passAsFile = ["code"];
         # Pointless to do this on a remote machine.
         preferLocalBuild = true;
         allowSubstitutes = false;
@@ -408,7 +408,7 @@ rec {
       executable ? false, # run chmod +x ?
       destination ? "", # relative path appended to $out eg "/bin/foo"
       checkPhase ? "", # syntax checks, e.g. for scripts
-      meta ? { },
+      meta ? {},
     }:
     runCommandLocal name
       {
@@ -439,7 +439,7 @@ rec {
      # Writes contents of files to /nix/store/<store path>
      concatText "my-file" [ file1 file2 ]
   */
-  concatText = name: files: concatTextFile { inherit name files; };
+  concatText = name: files: concatTextFile {inherit name files;};
 
   /* Writes a text file to nix store with and mark it as executable.
 
@@ -516,7 +516,7 @@ rec {
         ]
         // {
           inherit preferLocalBuild allowSubstitutes;
-          passAsFile = [ "paths" ];
+          passAsFile = ["paths"];
         }; # pass the defaults
     in
     runCommand name args ''
@@ -561,7 +561,7 @@ rec {
           entries
         # We do this foldl to have last-wins semantics in case of repeated entries
         else if (lib.isList entries) then
-          lib.foldl (a: b: a // { "${b.name}" = b.path; }) { } entries
+          lib.foldl (a: b: a // {"${b.name}" = b.path;}) {} entries
         else
           throw "linkFarm entries must be either attrs or a list!";
 
@@ -617,14 +617,14 @@ rec {
   makeSetupHook =
     {
       name ? lib.warn "calling makeSetupHook without passing a name is deprecated." "hook",
-      deps ? [ ],
+      deps ? [],
       # hooks go in nativeBuildInput so these will be nativeBuildInput
-      propagatedBuildInputs ? [ ],
+      propagatedBuildInputs ? [],
       # these will be buildInputs
-      depsTargetTargetPropagated ? [ ],
-      meta ? { },
-      passthru ? { },
-      substitutions ? { },
+      depsTargetTargetPropagated ? [],
+      meta ? {},
+      passthru ? {},
+      substitutions ? {},
     }:
     script:
     runCommand name
@@ -638,10 +638,10 @@ rec {
             lib.warnIf (!lib.isList deps)
               "'deps' argument to makeSetupHook must be a list. content of deps: ${toString deps}"
               (
-                lib.warnIf (deps != [ ])
+                lib.warnIf (deps != [])
                   "'deps' argument to makeSetupHook is deprecated and will be removed in release 23.11., Please use propagatedBuildInputs instead. content of deps: ${toString deps}"
                   propagatedBuildInputs
-                ++ (if lib.isList deps then deps else [ deps ])
+                ++ (if lib.isList deps then deps else [deps])
               );
           strictDeps = true;
           # TODO 2023-01, no backport: simplify to inherit passthru;
@@ -658,7 +658,7 @@ rec {
           cp ${script} $out/nix-support/setup-hook
           recordPropagatedDependencies
         ''
-        + lib.optionalString (substitutions != { }) ''
+        + lib.optionalString (substitutions != {}) ''
           substituteAll ${script} $out/nix-support/setup-hook
         ''
       );
@@ -795,7 +795,7 @@ rec {
                 )
                 (builtins.split "(${builtins.storeDir}/[${nixHashChars}]+-${name})" string)
             else
-              [ ]
+              []
           )
           packages
       );
@@ -921,7 +921,7 @@ rec {
           throw "applyPatches: please supply a `name` argument because a default name can only be computed when the `src` is a path or is an attribute set with a `name` attribute."
       )
         + "-patched",
-      patches ? [ ],
+      patches ? [],
       postPatch ? "",
     }:
     stdenvNoCC.mkDerivation {

@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
     cppunit
   ];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   CXXFLAGS = "--std=gnu++0x"; # For c++11 constants in lcms2.h
 

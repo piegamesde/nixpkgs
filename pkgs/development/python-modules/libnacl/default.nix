@@ -29,7 +29,7 @@ buildPythonPackage rec {
       })
     ];
 
-  buildInputs = [ libsodium ];
+  buildInputs = [libsodium];
 
   postPatch =
     let
@@ -41,15 +41,15 @@ buildPythonPackage rec {
         "ctypes.cdll.LoadLibrary('${libsodium}/lib/libsodium${soext}')"
     '';
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "libnacl" ];
+  pythonImportsCheck = ["libnacl"];
 
   meta = with lib; {
     description = "Python bindings for libsodium based on ctypes";
     homepage = "https://libnacl.readthedocs.io/";
     license = licenses.asl20;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ xvapx ];
+    maintainers = with maintainers; [xvapx];
   };
 }

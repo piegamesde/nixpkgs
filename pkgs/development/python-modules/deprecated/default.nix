@@ -16,16 +16,16 @@ buildPythonPackage rec {
     hash = "sha256-Q6xTNdqQwxwkugKK9TapHUHVP55pAd2wIbzFcs5E440=";
   };
 
-  propagatedBuildInputs = [ wrapt ];
+  propagatedBuildInputs = [wrapt];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "deprecated" ];
+  pythonImportsCheck = ["deprecated"];
 
   meta = with lib; {
     homepage = "https://github.com/tantale/deprecated";
     description = "Python @deprecated decorator to deprecate old python classes, functions or methods";
     license = licenses.mit;
-    maintainers = with maintainers; [ tilpner ];
+    maintainers = with maintainers; [tilpner];
   };
 }

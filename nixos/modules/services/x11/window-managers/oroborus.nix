@@ -25,6 +25,6 @@ in
         waitPID=$!
       '';
     };
-    environment.systemPackages = [ pkgs.oroborus ];
+    environment.systemPackages = [pkgs.oroborus];
   };
 }

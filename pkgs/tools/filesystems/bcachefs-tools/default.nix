@@ -66,8 +66,8 @@ stdenv.mkDerivation {
   ] ++ lib.optional fuseSupport fuse3;
 
   doCheck = false; # needs bcachefs module loaded on builder
-  checkFlags = [ "BCACHEFS_TEST_USE_VALGRIND=no" ];
-  nativeCheckInputs = [ valgrind ];
+  checkFlags = ["BCACHEFS_TEST_USE_VALGRIND=no"];
+  nativeCheckInputs = [valgrind];
 
   preCheck = lib.optionalString fuseSupport ''
     rm tests/test_fuse.py
@@ -85,7 +85,7 @@ stdenv.mkDerivation {
       }
   '';
 
-  installFlags = [ "PREFIX=${placeholder "out"}" ];
+  installFlags = ["PREFIX=${placeholder "out"}"];
 
   passthru.tests = {
     smoke-test = nixosTests.bcachefs;

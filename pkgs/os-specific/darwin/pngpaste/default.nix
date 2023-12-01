@@ -42,6 +42,6 @@ stdenv.mkDerivation {
     changelog = "https://github.com/jcsalterego/pngpaste/raw/${version}/CHANGELOG.md";
     platforms = platforms.darwin;
     license = licenses.bsd2;
-    maintainers = with maintainers; [ samw ];
+    maintainers = with maintainers; [samw];
   };
 }

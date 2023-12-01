@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
 
   postPatch = ''
     substitute sample.Configuration Configuration \
-      --replace /usr/bin ${lib.makeBinPath [ ocaml' ]} \
+      --replace /usr/bin ${lib.makeBinPath [ocaml']} \
       --replace elkhound ${elkhound}/bin/elkhound
 
     mkdir -p obj/{.depend,x86_LINUX}
@@ -67,7 +67,7 @@ stdenv.mkDerivation rec {
     description = "InfinityEngine Modding Engine";
     homepage = "https://weidu.org";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ peterhoeg ];
+    maintainers = with maintainers; [peterhoeg];
     # should work fine on both Darwin and Windows
     platforms = platforms.linux;
   };

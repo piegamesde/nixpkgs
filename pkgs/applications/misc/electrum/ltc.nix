@@ -57,7 +57,7 @@ python3.pkgs.buildPythonApplication {
     cp -ar ${tests} $sourceRoot/electrum_ltc/tests
   '';
 
-  nativeBuildInputs = lib.optionals enableQt [ wrapQtAppsHook ];
+  nativeBuildInputs = lib.optionals enableQt [wrapQtAppsHook];
 
   propagatedBuildInputs =
     with python3.pkgs;
@@ -131,7 +131,7 @@ python3.pkgs.buildPythonApplication {
     pycryptodomex
   ];
 
-  pytestFlagsArray = [ "electrum_ltc/tests" ];
+  pytestFlagsArray = ["electrum_ltc/tests"];
 
   disabledTests = [
     "test_loop" # test tries to bind 127.0.0.1 causing permission error
@@ -153,6 +153,6 @@ python3.pkgs.buildPythonApplication {
     homepage = "https://electrum-ltc.org/";
     license = licenses.mit;
     platforms = platforms.all;
-    maintainers = with maintainers; [ lourkeur ];
+    maintainers = with maintainers; [lourkeur];
   };
 }

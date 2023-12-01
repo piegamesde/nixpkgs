@@ -29,13 +29,13 @@ in
 
     extraOptions = mkOption {
       type = with types; listOf str;
-      default = [ ];
+      default = [];
       description = lib.mdDoc "Additional options with which to start corosync.";
     };
 
     nodelist = mkOption {
       description = lib.mdDoc "Corosync nodelist: all cluster members.";
-      default = [ ];
+      default = [];
       type =
         with types;
         listOf (
@@ -61,7 +61,7 @@ in
 
   # implementation
   config = mkIf cfg.enable {
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
     environment.etc."corosync/corosync.conf".text = ''
       totem {
@@ -124,16 +124,16 @@ in
       }
     '';
 
-    systemd.packages = [ cfg.package ];
+    systemd.packages = [cfg.package];
     systemd.services.corosync = {
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         StateDirectory = "corosync";
         StateDirectoryMode = "0700";
       };
     };
 
-    environment.etc."sysconfig/corosync".text = lib.optionalString (cfg.extraOptions != [ ]) ''
+    environment.etc."sysconfig/corosync".text = lib.optionalString (cfg.extraOptions != []) ''
       COROSYNC_OPTIONS="${lib.escapeShellArgs cfg.extraOptions}"
     '';
   };

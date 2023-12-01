@@ -25,7 +25,7 @@ buildGoModule rec {
       ./0001-add-NO_REDIS_TEST-env-var-that-disables-Redis-requir.patch
     ];
 
-  excludedPackages = [ "cmd/test_redimem" ];
+  excludedPackages = ["cmd/test_redimem"];
 
   ldflags = [
     "-s"
@@ -41,7 +41,7 @@ buildGoModule rec {
     homepage = "https://github.com/honeycomb/refinery";
     description = "A tail-sampling proxy for OpenTelemetry";
     license = licenses.asl20;
-    maintainers = with maintainers; [ lf- ];
+    maintainers = with maintainers; [lf-];
     mainProgram = "refinery";
   };
 }

@@ -30,7 +30,7 @@ let
   '';
 
   bindingCfg =
-    { ... }:
+    {...}:
     {
       options = {
 
@@ -47,13 +47,13 @@ let
               "rel"
             ]
           );
-          default = [ "key" ];
+          default = ["key"];
           description = lib.mdDoc "List of events to match.";
         };
 
         attributes = mkOption {
           type = types.listOf types.str;
-          default = [ "exec" ];
+          default = ["exec"];
           description = lib.mdDoc "List of attributes.";
         };
 
@@ -93,7 +93,7 @@ in
 
       bindings = mkOption {
         type = types.listOf (types.submodule bindingCfg);
-        default = [ ];
+        default = [];
         example = lib.literalExpression ''
           [ { keys = [ 113 ]; events = [ "key" ]; command = "''${pkgs.alsa-utils}/bin/amixer -q set Master toggle"; }
           ]
@@ -145,6 +145,6 @@ in
     };
 
     # For testing
-    environment.systemPackages = [ pkgs.actkbd ];
+    environment.systemPackages = [pkgs.actkbd];
   };
 }

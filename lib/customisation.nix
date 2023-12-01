@@ -1,4 +1,4 @@
-{ lib }:
+{lib}:
 
 rec {
 
@@ -42,10 +42,10 @@ rec {
     in
     lib.flip (extendDerivation (builtins.seq drv.drvPath true)) newDrv (
       {
-        meta = drv.meta or { };
-        passthru = if drv ? passthru then drv.passthru else { };
+        meta = drv.meta or {};
+        passthru = if drv ? passthru then drv.passthru else {};
       }
-      // (drv.passthru or { })
+      // (drv.passthru or {})
       //
         # TODO(@Artturin): remove before release 23.05 and only have __spliced.
         (lib.optionalAttrs (drv ? crossDrv && drv ? nativeDrv) {
@@ -53,7 +53,7 @@ rec {
           nativeDrv = overrideDerivation drv.nativeDrv f;
         })
       // lib.optionalAttrs (drv ? __spliced) {
-        __spliced = { } // (lib.mapAttrs (_: sDrv: overrideDerivation sDrv f) drv.__spliced);
+        __spliced = {} // (lib.mapAttrs (_: sDrv: overrideDerivation sDrv f) drv.__spliced);
       }
     );
 
@@ -100,7 +100,7 @@ rec {
       }
     else if lib.isFunction result then
       # Transform the result into a functor while propagating its arguments
-      lib.setFunctionArgs result (lib.functionArgs result) // { override = overrideArgs; }
+      lib.setFunctionArgs result (lib.functionArgs result) // {override = overrideArgs;}
     else
       result;
 
@@ -166,7 +166,7 @@ rec {
 
       prettySuggestions =
         suggestions:
-        if suggestions == [ ] then
+        if suggestions == [] then
           ""
         else if lib.length suggestions == 1 then
           ", did you mean ${lib.elemAt suggestions 0}?"
@@ -193,7 +193,7 @@ rec {
       # Only show the error for the first missing argument
       error = errorForArg (lib.head missingArgs);
     in
-    if missingArgs == [ ] then makeOverridable f allArgs else abort error;
+    if missingArgs == [] then makeOverridable f allArgs else abort error;
 
   /* Like callPackage, but for a function that returns an attribute
      set of derivations. The override function is added to the
@@ -223,10 +223,10 @@ rec {
   extendDerivation =
     condition: passthru: drv:
     let
-      outputs = drv.outputs or [ "out" ];
+      outputs = drv.outputs or ["out"];
 
       commonAttrs =
-        drv // (builtins.listToAttrs outputsList) // ({ all = map (x: x.value) outputsList; }) // passthru;
+        drv // (builtins.listToAttrs outputsList) // ({all = map (x: x.value) outputsList;}) // passthru;
 
       outputToAttrListElement = outputName: {
         name = outputName;
@@ -264,7 +264,7 @@ rec {
   hydraJob =
     drv:
     let
-      outputs = drv.outputs or [ "out" ];
+      outputs = drv.outputs or ["out"];
 
       commonAttrs =
         {
@@ -313,7 +313,7 @@ rec {
     let
       self = f self // {
         newScope = scope: newScope (self // scope);
-        callPackage = self.newScope { };
+        callPackage = self.newScope {};
         overrideScope =
           g:
           lib.warn

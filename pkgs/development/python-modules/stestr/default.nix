@@ -41,10 +41,10 @@ buildPythonPackage rec {
   doCheck = false;
 
   passthru.tests = {
-    tests = callPackage ./tests.nix { };
+    tests = callPackage ./tests.nix {};
   };
 
-  pythonImportsCheck = [ "stestr" ];
+  pythonImportsCheck = ["stestr"];
 
   meta = with lib; {
     description = "A parallel Python test runner built around subunit";

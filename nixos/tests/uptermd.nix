@@ -1,16 +1,16 @@
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
 
   let
-    client = { pkgs, ... }: { environment.systemPackages = [ pkgs.upterm ]; };
+    client = {pkgs, ...}: {environment.systemPackages = [pkgs.upterm];};
   in
   {
     name = "uptermd";
-    meta = with pkgs.lib.maintainers; { maintainers = [ fleaz ]; };
+    meta = with pkgs.lib.maintainers; {maintainers = [fleaz];};
 
     nodes = {
       server =
-        { config, ... }:
+        {config, ...}:
         {
           services.uptermd = {
             enable = true;

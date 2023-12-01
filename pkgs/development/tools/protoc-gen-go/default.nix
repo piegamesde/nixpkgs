@@ -17,12 +17,12 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-yb8l4ooZwqfvenlxDRg95rqiL+hmsn0weS/dPv/oD2Y=";
 
-  subPackages = [ "cmd/protoc-gen-go" ];
+  subPackages = ["cmd/protoc-gen-go"];
 
   meta = with lib; {
     description = "Go support for Google's protocol buffers";
     homepage = "https://google.golang.org/protobuf";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ jojosch ];
+    maintainers = with maintainers; [jojosch];
   };
 }

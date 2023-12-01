@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
        '/usr/include/linux/' "${linuxHeaders}/include/linux/"
   '';
 
-  makeFlags = [ "prefix=" ];
+  makeFlags = ["prefix="];
 
   preInstall = ''
     export DESTDIR=$out
@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Implementation of the Precision Time Protocol (PTP) according to IEEE standard 1588 for Linux";
     homepage = "https://linuxptp.sourceforge.net/";
-    maintainers = [ maintainers.markuskowa ];
+    maintainers = [maintainers.markuskowa];
     license = licenses.gpl2Only;
     platforms = platforms.linux;
   };

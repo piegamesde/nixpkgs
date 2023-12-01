@@ -16,7 +16,7 @@ buildPythonPackage rec {
     sha256 = "f5a830efb9ce7a445376bb66ec94c638a9787422f96264c98edc6bdeed8ab736";
   };
 
-  propagatedBuildInputs = [ six ];
+  propagatedBuildInputs = [six];
 
   # Tests not included in PyPI tarball
   doCheck = false;

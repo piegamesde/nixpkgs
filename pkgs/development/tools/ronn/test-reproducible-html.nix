@@ -3,7 +3,7 @@
   diffutils,
   ronn,
 }:
-runCommand "ronn-test-reproducible-html" { } ''
+runCommand "ronn-test-reproducible-html" {} ''
   set -euo pipefail
 
   cat > aprog.1.ronn << EOF

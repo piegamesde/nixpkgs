@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
       })
     ];
 
-  nativeBuildInputs = [ zlib ];
+  nativeBuildInputs = [zlib];
   buildInputs = [
     bash
     coreutils
@@ -69,7 +69,7 @@ stdenv.mkDerivation rec {
     description = "A Linux version of the ProcDump Sysinternals tool";
     homepage = "https://github.com/Microsoft/ProcDump-for-Linux";
     license = licenses.mit;
-    maintainers = with maintainers; [ c0bw3b ];
+    maintainers = with maintainers; [c0bw3b];
     platforms = platforms.linux;
   };
 }

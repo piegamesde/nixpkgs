@@ -23,10 +23,10 @@ stdenv.mkDerivation {
     pugixml
     boost
   ];
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   meta = with lib; {
-    maintainers = with maintainers; [ matthewbauer ];
+    maintainers = with maintainers; [matthewbauer];
     description = "Compiles CocoaTouch .xib files into .nib";
     license = licenses.mit;
     platforms = platforms.unix;

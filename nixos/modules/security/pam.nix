@@ -14,7 +14,7 @@ let
   parentConfig = config;
 
   pamOpts =
-    { config, name, ... }:
+    {config, name, ...}:
     let
       cfg = config;
     in
@@ -331,7 +331,7 @@ let
         };
 
         limits = mkOption {
-          default = [ ];
+          default = [];
           type = limitsType;
           description = lib.mdDoc ''
             Attribute set describing resource limits.  Defaults to the
@@ -724,7 +724,7 @@ let
           ''
           + optionalString cfg.ttyAudit.enable (
             concatStringsSep " \\\n  " (
-              [ "session required ${pkgs.pam}/lib/security/pam_tty_audit.so" ]
+              ["session required ${pkgs.pam}/lib/security/pam_tty_audit.so"]
               ++ optional cfg.ttyAudit.openOnly "open_only"
               ++ optional (cfg.ttyAudit.enablePattern != null) "enable=${cfg.ttyAudit.enablePattern}"
               ++ optional (cfg.ttyAudit.disablePattern != null) "disable=${cfg.ttyAudit.disablePattern}"
@@ -774,7 +774,7 @@ let
           + optionalString cfg.forwardXAuth ''
             session optional pam_xauth.so xauthpath=${pkgs.xorg.xauth}/bin/xauth systemuser=99
           ''
-          + optionalString (cfg.limits != [ ]) ''
+          + optionalString (cfg.limits != []) ''
             session required ${pkgs.pam}/lib/security/pam_limits.so conf=${makeLimitsConf cfg.limits}
           ''
           + optionalString (cfg.showMotd && (config.users.motd != null || config.users.motdFile != null)) ''
@@ -827,7 +827,7 @@ let
     with lib.types;
     listOf (
       submodule (
-        { ... }:
+        {...}:
         {
           options = {
             domain = mkOption {
@@ -917,7 +917,7 @@ in
   options = {
 
     security.pam.loginLimits = mkOption {
-      default = [ ];
+      default = [];
       type = limitsType;
       example = [
         {
@@ -949,7 +949,7 @@ in
     };
 
     security.pam.services = mkOption {
-      default = { };
+      default = {};
       type = with types; attrsOf (submodule pamOpts);
       description = lib.mdDoc ''
         This option defines the PAM services.  A service typically
@@ -1370,20 +1370,20 @@ in
 
     environment.systemPackages =
       # Include the PAM modules in the system path mostly for the manpages.
-      [ pkgs.pam ]
+      [pkgs.pam]
       ++ optional config.users.ldap.enable pam_ldap
       ++ optional config.services.sssd.enable pkgs.sssd
       ++ optionals config.security.pam.krb5.enable [
         pam_krb5
         pam_ccreds
       ]
-      ++ optionals config.security.pam.enableOTPW [ pkgs.otpw ]
-      ++ optionals config.security.pam.oath.enable [ pkgs.oath-toolkit ]
-      ++ optionals config.security.pam.p11.enable [ pkgs.pam_p11 ]
-      ++ optionals config.security.pam.enableFscrypt [ pkgs.fscrypt-experimental ]
-      ++ optionals config.security.pam.u2f.enable [ pkgs.pam_u2f ];
+      ++ optionals config.security.pam.enableOTPW [pkgs.otpw]
+      ++ optionals config.security.pam.oath.enable [pkgs.oath-toolkit]
+      ++ optionals config.security.pam.p11.enable [pkgs.pam_p11]
+      ++ optionals config.security.pam.enableFscrypt [pkgs.fscrypt-experimental]
+      ++ optionals config.security.pam.u2f.enable [pkgs.pam_u2f];
 
-    boot.supportedFilesystems = optionals config.security.pam.enableEcryptfs [ "ecryptfs" ];
+    boot.supportedFilesystems = optionals config.security.pam.enableEcryptfs ["ecryptfs"];
 
     security.wrappers = {
       unix_chkpwd = {
@@ -1410,11 +1410,11 @@ in
         '';
 
         # Most of these should be moved to specific modules.
-        i3lock = { };
-        i3lock-color = { };
-        vlock = { };
-        xlock = { };
-        xscreensaver = { };
+        i3lock = {};
+        i3lock-color = {};
+        vlock = {};
+        xlock = {};
+        xscreensaver = {};
 
         runuser = {
           rootOK = true;
@@ -1433,7 +1433,7 @@ in
       }
       // optionalAttrs (config.security.pam.enableFscrypt) {
         # Allow fscrypt to verify login passphrase
-        fscrypt = { };
+        fscrypt = {};
       };
 
     security.apparmor.includes."abstractions/pam" =

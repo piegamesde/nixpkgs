@@ -24,14 +24,14 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  buildInputs = [ check ];
-  propagatedBuildInputs = [ pcre ];
+  buildInputs = [check];
+  propagatedBuildInputs = [pcre];
 
   strictDeps = true;
 
   meta = {
     description = "A high-performance path dispatching library";
     homepage = "https://github.com/c9s/r3";
-    license = [ lib.licenses.mit ];
+    license = [lib.licenses.mit];
   };
 }

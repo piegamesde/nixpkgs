@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "cl-libuv";
   version = "20200610-git";
@@ -22,7 +22,7 @@ rec {
 
   packageName = "cl-libuv";
 
-  asdFilesToKeep = [ "cl-libuv.asd" ];
+  asdFilesToKeep = ["cl-libuv.asd"];
   overrides = x: x;
 }
 /* (SYSTEM cl-libuv DESCRIPTION Low-level libuv bindings for Common Lisp.

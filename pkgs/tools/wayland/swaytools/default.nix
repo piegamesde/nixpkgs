@@ -16,13 +16,13 @@ buildPythonApplication rec {
     sha256 = "sha256-6Ec7MPqBia0PW+pBTAItLusWMg1wlFfEaxoh20/2uHg=";
   };
 
-  propagatedBuildInputs = [ slurp ];
+  propagatedBuildInputs = [slurp];
 
   meta = with lib; {
     homepage = "https://github.com/tmccombs/swaytools";
     description = "Collection of simple tools for sway (and i3)";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ atila ];
+    maintainers = with maintainers; [atila];
     platforms = platforms.linux;
   };
 }

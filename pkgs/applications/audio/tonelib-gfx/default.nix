@@ -55,12 +55,12 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Tonelib GFX is an amp and effects modeling software for electric guitar and bass.";
     homepage = "https://tonelib.net/";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.unfree;
     maintainers = with maintainers; [
       dan4ik605743
       orivej
     ];
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
   };
 }

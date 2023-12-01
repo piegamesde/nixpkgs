@@ -34,20 +34,20 @@ stdenv.mkDerivation rec {
     libantlr3c
     boost
     python3
-  ] ++ lib.optionals stdenv.isLinux [ cln ];
+  ] ++ lib.optionals stdenv.isLinux [cln];
 
   configureFlags = [
     "--enable-language-bindings=c"
     "--enable-gpl"
     "--with-boost=${boost.dev}"
-  ] ++ lib.optionals stdenv.isLinux [ "--with-cln" ];
+  ] ++ lib.optionals stdenv.isLinux ["--with-cln"];
 
   prePatch = ''
     patch -p1 -i ${./minisat-fenv.patch} -d src/prop/minisat
     patch -p1 -i ${./minisat-fenv.patch} -d src/prop/bvminisat
   '';
 
-  patches = [ ../../../applications/science/logic/cvc4/cvc4-bash-patsub-replacement.patch ];
+  patches = [../../../applications/science/logic/cvc4/cvc4-bash-patsub-replacement.patch];
 
   preConfigure = ''
     patchShebangs ./src/

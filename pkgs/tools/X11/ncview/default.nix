@@ -37,6 +37,6 @@ stdenv.mkDerivation {
     description = "Visual browser for netCDF format files";
     homepage = "http://meteora.ucsd.edu/~pierce/ncview_home_page.html";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ jmettes ];
+    maintainers = with maintainers; [jmettes];
   };
 }

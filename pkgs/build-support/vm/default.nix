@@ -39,7 +39,7 @@ let
     ;
 in
 rec {
-  qemu-common = import ../../../nixos/lib/qemu-common.nix { inherit lib pkgs; };
+  qemu-common = import ../../../nixos/lib/qemu-common.nix {inherit lib pkgs;};
 
   qemu = buildPackages.qemu_kvm;
 
@@ -53,7 +53,7 @@ rec {
   initrdUtils =
     runCommand "initrd-utils"
       {
-        nativeBuildInputs = [ buildPackages.nukeReferences ];
+        nativeBuildInputs = [buildPackages.nukeReferences];
         allowedReferences = [
           "out"
           modulesClosure
@@ -358,7 +358,7 @@ rec {
         ...
       }:
       {
-        requiredSystemFeatures = [ "kvm" ];
+        requiredSystemFeatures = ["kvm"];
         builder = "${bash}/bin/sh";
         args = [
           "-e"
@@ -367,7 +367,7 @@ rec {
         origArgs = args;
         origBuilder = builder;
         QEMU_OPTS = "${QEMU_OPTS} -m ${toString memSize}";
-        passAsFile = [ ]; # HACK fix - see https://github.com/NixOS/nixpkgs/issues/16742
+        passAsFile = []; # HACK fix - see https://github.com/NixOS/nixpkgs/issues/16742
       }
     );
 
@@ -379,7 +379,7 @@ rec {
     runInLinuxVM (
       stdenv.mkDerivation {
         name = "extract-file";
-        buildInputs = [ util-linux ];
+        buildInputs = [util-linux];
         buildCommand = ''
           ln -s ${kernel}/lib /lib
           ${kmod}/bin/modprobe loop
@@ -502,7 +502,7 @@ rec {
           QEMU_OPTS
           memSize
           ;
-        preVM = createEmptyImage { inherit size fullName; };
+        preVM = createEmptyImage {inherit size fullName;};
 
         buildCommand = ''
           ${createRootFS}
@@ -687,7 +687,7 @@ rec {
 
         debs = (lib.intersperse "|" debs);
 
-        preVM = createEmptyImage { inherit size fullName; };
+        preVM = createEmptyImage {inherit size fullName;};
 
         buildCommand = ''
           ${createRootFS}
@@ -784,7 +784,7 @@ rec {
       packagesLists,
       urlPrefixes,
       packages,
-      archs ? [ ],
+      archs ? [],
     }:
     assert (builtins.length packagesLists) == (builtins.length urlPrefixes);
     runCommand "${name}.nix"
@@ -821,11 +821,11 @@ rec {
       fullName,
       size ? 4096,
       urlPrefix ? "",
-      urlPrefixes ? [ urlPrefix ],
+      urlPrefixes ? [urlPrefix],
       packagesList ? "",
-      packagesLists ? [ packagesList ],
+      packagesLists ? [packagesList],
       packages,
-      extraPackages ? [ ],
+      extraPackages ? [],
       preInstall ? "",
       postInstall ? "",
       archs ? [
@@ -863,7 +863,7 @@ rec {
               ;
             packages = packages ++ extraPackages;
           })
-          { inherit fetchurl; };
+          {inherit fetchurl;};
     };
 
   /* Like `rpmClosureGenerator', but now for Debian/Ubuntu releases
@@ -920,11 +920,11 @@ rec {
       size ? 4096,
       urlPrefix,
       packagesList ? "",
-      packagesLists ? [ packagesList ],
+      packagesLists ? [packagesList],
       packages,
-      extraPackages ? [ ],
+      extraPackages ? [],
       postInstall ? "",
-      extraDebs ? [ ],
+      extraDebs ? [],
       createRootFS ? defaultCreateRootFS,
       QEMU_OPTS ? "",
       memSize ? 512,
@@ -946,7 +946,7 @@ rec {
         QEMU_OPTS
         memSize
         ;
-      debs = import expr { inherit fetchurl; } ++ extraDebs;
+      debs = import expr {inherit fetchurl;} ++ extraDebs;
     })
     // {
       inherit expr;
@@ -1019,7 +1019,7 @@ rec {
           "noarch"
           "i386"
         ];
-        packages = commonCentOSPackages ++ [ "procps" ];
+        packages = commonCentOSPackages ++ ["procps"];
       };
 
     centos6x86_64 =
@@ -1038,7 +1038,7 @@ rec {
           "noarch"
           "x86_64"
         ];
-        packages = commonCentOSPackages ++ [ "procps" ];
+        packages = commonCentOSPackages ++ ["procps"];
       };
 
     # Note: no i386 release for 7.x
@@ -1058,7 +1058,7 @@ rec {
           "noarch"
           "x86_64"
         ];
-        packages = commonCentOSPackages ++ [ "procps-ng" ];
+        packages = commonCentOSPackages ++ ["procps-ng"];
       };
   };
 
@@ -1471,12 +1471,12 @@ rec {
     lib.mapAttrs
       (
         name: f: extraPackages:
-        f { inherit extraPackages; }
+        f {inherit extraPackages;}
       )
       diskImageFuns;
 
   /* Default disk images generated from the `rpmDistros' and
      `debDistros' sets.
   */
-  diskImages = lib.mapAttrs (name: f: f { }) diskImageFuns;
+  diskImages = lib.mapAttrs (name: f: f {}) diskImageFuns;
 }

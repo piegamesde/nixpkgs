@@ -24,7 +24,7 @@ let
   mainCfg = config.services.ghostunnel;
 
   module =
-    { config, name, ... }:
+    {config, name, ...}:
     {
       options = {
 
@@ -102,7 +102,7 @@ let
             Allow client if common name appears in the list.
           '';
           type = types.listOf types.str;
-          default = [ ];
+          default = [];
         };
 
         allowOU = mkOption {
@@ -110,7 +110,7 @@ let
             Allow client if organizational unit name appears in the list.
           '';
           type = types.listOf types.str;
-          default = [ ];
+          default = [];
         };
 
         allowDNS = mkOption {
@@ -118,7 +118,7 @@ let
             Allow client if DNS subject alternative name appears in the list.
           '';
           type = types.listOf types.str;
-          default = [ ];
+          default = [];
         };
 
         allowURI = mkOption {
@@ -126,7 +126,7 @@ let
             Allow client if URI subject alternative name appears in the list.
           '';
           type = types.listOf types.str;
-          default = [ ];
+          default = [];
         };
 
         extraArguments = mkOption {
@@ -147,7 +147,7 @@ let
         };
 
         # Definitions to apply at the root of the NixOS configuration.
-        atRoot = mkOption { internal = true; };
+        atRoot = mkOption {internal = true;};
       };
 
       # Clients should not be authenticated with the public root certificates
@@ -171,20 +171,20 @@ let
             assertion =
               config.disableAuthentication
               || config.allowAll
-              || config.allowCN != [ ]
-              || config.allowOU != [ ]
-              || config.allowDNS != [ ]
-              || config.allowURI != [ ];
+              || config.allowCN != []
+              || config.allowOU != []
+              || config.allowDNS != []
+              || config.allowURI != [];
           }
         ];
 
         systemd.services."ghostunnel-server-${name}" = {
-          after = [ "network.target" ];
-          wants = [ "network.target" ];
-          wantedBy = [ "multi-user.target" ];
+          after = ["network.target"];
+          wants = ["network.target"];
+          wantedBy = ["multi-user.target"];
           serviceConfig = {
             Restart = "always";
-            AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ];
+            AmbientCapabilities = ["CAP_NET_BIND_SERVICE"];
             DynamicUser = true;
             LoadCredential =
               optional (config.keystore != null) "keystore:${config.keystore}"
@@ -193,7 +193,7 @@ let
               ++ optional (config.cacert != null) "cacert:${config.cacert}";
           };
           script = concatStringsSep " " (
-            [ "${mainCfg.package}/bin/ghostunnel" ]
+            ["${mainCfg.package}/bin/ghostunnel"]
             ++ optional (config.keystore != null) "--keystore=$CREDENTIALS_DIRECTORY/keystore"
             ++ optional (config.cert != null) "--cert=$CREDENTIALS_DIRECTORY/cert"
             ++ optional (config.key != null) "--key=$CREDENTIALS_DIRECTORY/key"
@@ -210,7 +210,7 @@ let
             ++ map (v: "--allow-uri=${escapeShellArg v}") config.allowURI
             ++ optional config.disableAuthentication "--disable-authentication"
             ++ optional config.unsafeTarget "--unsafe-target"
-            ++ [ config.extraArguments ]
+            ++ [config.extraArguments]
           );
         };
       };
@@ -233,7 +233,7 @@ in
         Server mode ghostunnels (TLS listener -> plain TCP/UNIX target)
       '';
       type = types.attrsOf (types.submodule module);
-      default = { };
+      default = {};
     };
   };
 
@@ -242,5 +242,5 @@ in
     systemd = lib.mkMerge (map (v: v.atRoot.systemd) (attrValues mainCfg.servers));
   };
 
-  meta.maintainers = with lib.maintainers; [ roberth ];
+  meta.maintainers = with lib.maintainers; [roberth];
 }

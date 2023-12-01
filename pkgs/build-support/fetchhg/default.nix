@@ -23,7 +23,7 @@ else
   stdenvNoCC.mkDerivation {
     name = "hg-archive" + (lib.optionalString (name != null) "-${name}");
     builder = ./builder.sh;
-    nativeBuildInputs = [ mercurial ];
+    nativeBuildInputs = [mercurial];
 
     impureEnvVars = lib.fetchers.proxyImpureEnvVars;
 

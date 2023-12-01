@@ -1,11 +1,11 @@
 {
   system ? builtins.currentSystem,
-  config ? { },
-  pkgs ? import ../.. { inherit system config; },
+  config ? {},
+  pkgs ? import ../.. {inherit system config;},
 }:
 
 let
-  inherit (import ../lib/testing-python.nix { inherit system pkgs; }) makeTest;
+  inherit (import ../lib/testing-python.nix {inherit system pkgs;}) makeTest;
   testCombinations = pkgs.lib.cartesianProductOfSets {
     predictable = [
       true
@@ -41,10 +41,10 @@ pkgs.lib.listToAttrs (
             + "predictableInterfaceNames"
             + pkgs.lib.optionalString withNetworkd "-with-networkd"
             + pkgs.lib.optionalString systemdStage1 "-systemd-stage-1";
-          meta = { };
+          meta = {};
 
           nodes.machine =
-            { lib, ... }:
+            {lib, ...}:
             let
               script = ''
                 ip link
@@ -66,13 +66,13 @@ pkgs.lib.listToAttrs (
 
               boot.initrd.systemd = lib.mkIf systemdStage1 {
                 enable = true;
-                initrdBin = [ pkgs.iproute2 ];
-                services.systemd-udev-settle.wantedBy = [ "initrd.target" ];
+                initrdBin = [pkgs.iproute2];
+                services.systemd-udev-settle.wantedBy = ["initrd.target"];
                 services.check-interfaces = {
-                  requiredBy = [ "initrd.target" ];
-                  after = [ "systemd-udev-settle.service" ];
+                  requiredBy = ["initrd.target"];
+                  after = ["systemd-udev-settle.service"];
                   serviceConfig.Type = "oneshot";
-                  path = [ pkgs.iproute2 ];
+                  path = [pkgs.iproute2];
                   inherit script;
                 };
               };

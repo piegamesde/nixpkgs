@@ -17,7 +17,7 @@ let
 
   cfgFile = pkgs.writeText "kibana.json" (
     builtins.toJSON (
-      (filterAttrsRecursive (n: v: v != null && v != [ ]) (
+      (filterAttrsRecursive (n: v: v != null && v != []) (
         {
           server.host = cfg.listenAddress;
           server.port = cfg.port;
@@ -141,7 +141,7 @@ in
 
           This defaults to the singleton list [ca] when the {option}`ca` option is defined.
         '';
-        default = if cfg.elasticsearch.ca == null then [ ] else [ ca ];
+        default = if cfg.elasticsearch.ca == null then [] else [ca];
         defaultText = literalExpression ''
           if config.${opt.elasticsearch.ca} == null then [ ] else [ ca ]
         '';
@@ -176,7 +176,7 @@ in
 
     extraConf = mkOption {
       description = lib.mdDoc "Kibana extra configuration";
-      default = { };
+      default = {};
       type = types.attrs;
     };
   };
@@ -196,7 +196,7 @@ in
     ];
     systemd.services.kibana = {
       description = "Kibana Service";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       after = [
         "network.target"
         "elasticsearch.service"
@@ -211,7 +211,7 @@ in
       };
     };
 
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
     users.users.kibana = {
       isSystemUser = true;
@@ -220,6 +220,6 @@ in
       createHome = true;
       group = "kibana";
     };
-    users.groups.kibana = { };
+    users.groups.kibana = {};
   };
 }

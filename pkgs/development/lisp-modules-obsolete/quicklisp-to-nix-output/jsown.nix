@@ -1,12 +1,12 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "jsown";
   version = "20200218-git";
 
   description = "Fast JSON parsing library.  Mainly geared torwards fetching only a few keys of many objects, but efficient for other types of content too";
 
-  deps = [ ];
+  deps = [];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/jsown/2020-02-18/jsown-20200218-git.tgz";
@@ -15,7 +15,7 @@ rec {
 
   packageName = "jsown";
 
-  asdFilesToKeep = [ "jsown.asd" ];
+  asdFilesToKeep = ["jsown.asd"];
   overrides = x: x;
 }
 /* (SYSTEM jsown DESCRIPTION

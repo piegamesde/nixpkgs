@@ -3,8 +3,8 @@
   perl,
   buildEnv,
   makeWrapper,
-  extraLibs ? [ ],
-  extraOutputsToInstall ? [ ],
+  extraLibs ? [],
+  extraOutputsToInstall ? [],
   postBuild ? "",
   ignoreCollisions ? false,
   requiredPerlModules,
@@ -14,16 +14,16 @@
 let
   env =
     let
-      paths = requiredPerlModules (extraLibs ++ [ perl ]);
+      paths = requiredPerlModules (extraLibs ++ [perl]);
     in
     buildEnv {
       name = "${perl.name}-env";
 
       inherit paths;
       inherit ignoreCollisions;
-      extraOutputsToInstall = [ "out" ] ++ extraOutputsToInstall;
+      extraOutputsToInstall = ["out"] ++ extraOutputsToInstall;
 
-      nativeBuildInputs = [ makeWrapper ];
+      nativeBuildInputs = [makeWrapper];
 
       # we create wrapper for the binaries in the different packages
       postBuild =
@@ -51,7 +51,7 @@ let
         + postBuild;
 
       meta = perl.meta // {
-        outputsToInstall = [ "out" ];
+        outputsToInstall = ["out"];
       }; # remove "man" from meta.outputsToInstall. pkgs.buildEnv produces no "man", it puts everything to "out"
 
       passthru = perl.passthru // {

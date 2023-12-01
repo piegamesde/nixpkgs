@@ -27,12 +27,12 @@ buildPythonPackage rec {
     pylibjpeg-libjpeg
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = with lib; {
     homepage = "https://github.com/moloney/dcmstack";
     description = "DICOM to Nifti conversion preserving metadata";
     license = licenses.mit;
-    maintainers = with maintainers; [ bcdarwin ];
+    maintainers = with maintainers; [bcdarwin];
   };
 }

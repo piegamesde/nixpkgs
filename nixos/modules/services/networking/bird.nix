@@ -79,7 +79,7 @@ in
 
   ###### implementation
   config = mkIf cfg.enable {
-    environment.systemPackages = [ pkgs.bird ];
+    environment.systemPackages = [pkgs.bird];
 
     environment.etc."bird/bird2.conf".source = pkgs.writeTextFile {
       name = "bird2";
@@ -93,8 +93,8 @@ in
 
     systemd.services.bird2 = {
       description = "BIRD Internet Routing Daemon";
-      wantedBy = [ "multi-user.target" ];
-      reloadTriggers = [ config.environment.etc."bird/bird2.conf".source ];
+      wantedBy = ["multi-user.target"];
+      reloadTriggers = [config.environment.etc."bird/bird2.conf".source];
       serviceConfig = {
         Type = "forking";
         Restart = "on-failure";
@@ -122,7 +122,7 @@ in
         group = "bird2";
         isSystemUser = true;
       };
-      groups.bird2 = { };
+      groups.bird2 = {};
     };
   };
 }

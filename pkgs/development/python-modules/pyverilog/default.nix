@@ -37,12 +37,12 @@ buildPythonPackage rec {
       --replace "python_paths" "pythonpath"
   '';
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = with lib; {
     homepage = "https://github.com/PyHDI/Pyverilog";
     description = "Python-based Hardware Design Processing Toolkit for Verilog HDL";
     license = licenses.asl20;
-    maintainers = with maintainers; [ trepetti ];
+    maintainers = with maintainers; [trepetti];
   };
 }

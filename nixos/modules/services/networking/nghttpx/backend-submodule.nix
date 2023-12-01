@@ -1,4 +1,4 @@
-{ lib, ... }:
+{lib, ...}:
 {
   options = {
     server = lib.mkOption {
@@ -24,7 +24,7 @@
         "host.org/v2/mypath"
         "/somepath"
       ];
-      default = [ ];
+      default = [];
       description = lib.mdDoc ''
         List of nghttpx backend patterns.
 

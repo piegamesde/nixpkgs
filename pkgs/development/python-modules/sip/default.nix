@@ -35,12 +35,12 @@ buildPythonPackage rec {
   # There aren't tests
   doCheck = false;
 
-  pythonImportsCheck = [ "sipbuild" ];
+  pythonImportsCheck = ["sipbuild"];
 
   meta = with lib; {
     description = "Creates C++ bindings for Python modules";
     homepage = "https://riverbankcomputing.com/";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ nrdxp ];
+    maintainers = with maintainers; [nrdxp];
   };
 }

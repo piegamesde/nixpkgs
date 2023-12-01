@@ -26,7 +26,7 @@ buildGoModule rec {
     rm -rf v3/cmd/genTestCerts
   '';
 
-  excludedPackages = [ "lints" ];
+  excludedPackages = ["lints"];
 
   ldflags = [
     "-s"
@@ -49,6 +49,6 @@ buildGoModule rec {
     homepage = "https://github.com/zmap/zlint";
     changelog = "https://github.com/zmap/zlint/releases/tag/${src.rev}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ baloo ];
+    maintainers = with maintainers; [baloo];
   };
 }

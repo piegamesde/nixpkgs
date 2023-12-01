@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "colorize";
   version = "20180228-git";
@@ -19,7 +19,7 @@ rec {
 
   packageName = "colorize";
 
-  asdFilesToKeep = [ "colorize.asd" ];
+  asdFilesToKeep = ["colorize.asd"];
   overrides = x: x;
 }
 /* (SYSTEM colorize DESCRIPTION A Syntax highlighting library SHA256

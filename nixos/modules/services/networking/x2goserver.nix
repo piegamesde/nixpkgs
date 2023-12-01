@@ -15,7 +15,7 @@ let
       enable = cfg.superenicer.enable;
     };
   };
-  confText = generators.toINI { } (recursiveUpdate defaults cfg.settings);
+  confText = generators.toINI {} (recursiveUpdate defaults cfg.settings);
   x2goServerConf = pkgs.writeText "x2goserver.conf" confText;
 
   x2goAgentOptions = pkgs.writeText "x2goagent.options" ''
@@ -68,7 +68,7 @@ in
 
     settings = mkOption {
       type = types.attrsOf types.attrs;
-      default = { };
+      default = {};
       description = lib.mdDoc ''
         x2goserver.conf ini configuration as nix attributes. See
         `x2goserver.conf(5)` for details
@@ -95,9 +95,9 @@ in
       icons.enable = true;
     };
 
-    environment.systemPackages = [ pkgs.x2goserver ];
+    environment.systemPackages = [pkgs.x2goserver];
 
-    users.groups.x2go = { };
+    users.groups.x2go = {};
     users.users.x2go = {
       home = "/var/lib/x2go/db";
       group = "x2go";
@@ -177,7 +177,7 @@ in
 
     systemd.services.x2goserver = {
       description = "X2Go Server Daemon";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       unitConfig.Documentation = "man:x2goserver.conf(5)";
       serviceConfig = {
         Type = "forking";

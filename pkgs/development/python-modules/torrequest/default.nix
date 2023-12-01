@@ -25,12 +25,12 @@ buildPythonPackage rec {
   # This package does not contain any tests.
   doCheck = false;
 
-  pythonImportsCheck = [ "torrequest" ];
+  pythonImportsCheck = ["torrequest"];
 
   meta = with lib; {
     homepage = "https://github.com/erdiaker/torrequest";
     description = "Simple Python interface for HTTP(s) requests over Tor";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ applePrincess ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [applePrincess];
   };
 }

@@ -45,7 +45,7 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  configureFlags = [ "--disable-doc" ];
+  configureFlags = ["--disable-doc"];
 
   buildInputs = [
     parted

@@ -24,21 +24,21 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-O0wyNdgY1meEBJh/tEHxwzjNQdzxbKn5Ji+gdd146vQ=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs =
-    [ openssl ]
+    [openssl]
     ++ lib.optionals stdenv.isDarwin [
       libiconv
       Security
     ];
 
-  passthru.tests.version = testers.testVersion { package = git-workspace; };
+  passthru.tests.version = testers.testVersion {package = git-workspace;};
 
   meta = with lib; {
     description = "Sync personal and work git repositories from multiple providers";
     homepage = "https://github.com/orf/git-workspace";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ misuzu ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [misuzu];
   };
 }

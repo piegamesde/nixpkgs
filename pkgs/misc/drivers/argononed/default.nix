@@ -17,15 +17,15 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-5/xUYbprRiwD+FN8V2cUpHxnTbBkEsFG2wfsEXrCrgQ=";
   };
 
-  patches = [ ./fix-hardcoded-reboot-poweroff-paths.patch ];
+  patches = [./fix-hardcoded-reboot-poweroff-paths.patch];
 
   postPatch = ''
     patchShebangs configure
   '';
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
-  buildInputs = [ dtc ];
+  buildInputs = [dtc];
 
   installPhase = ''
     runHook preInstall
@@ -49,6 +49,6 @@ stdenv.mkDerivation rec {
     description = "A replacement daemon for the Argon One Raspberry Pi case";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = [ maintainers.misterio77 ];
+    maintainers = [maintainers.misterio77];
   };
 }

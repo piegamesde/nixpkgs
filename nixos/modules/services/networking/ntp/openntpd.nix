@@ -58,11 +58,11 @@ in
   ###### implementation
 
   config = mkIf cfg.enable {
-    meta.maintainers = with lib.maintainers; [ thoughtpolice ];
+    meta.maintainers = with lib.maintainers; [thoughtpolice];
     services.timesyncd.enable = mkForce false;
 
     # Add ntpctl to the environment for status checking
-    environment.systemPackages = [ package ];
+    environment.systemPackages = [package];
 
     environment.etc."ntpd.conf".text = configFile;
 
@@ -72,16 +72,16 @@ in
       description = "OpenNTP daemon user";
       home = "/var/empty";
     };
-    users.groups.ntp = { };
+    users.groups.ntp = {};
 
     systemd.services.openntpd = {
       description = "OpenNTP Server";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       wants = [
         "network-online.target"
         "time-sync.target"
       ];
-      before = [ "time-sync.target" ];
+      before = ["time-sync.target"];
       after = [
         "dnsmasq.service"
         "bind.service"

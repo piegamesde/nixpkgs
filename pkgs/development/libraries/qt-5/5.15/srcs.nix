@@ -6,12 +6,12 @@
 
 let
   version = "5.15.9";
-  overrides = { };
+  overrides = {};
 
   mk =
     name: args:
     let
-      override = overrides.${name} or { };
+      override = overrides.${name} or {};
     in
     {
       version = override.version or version;

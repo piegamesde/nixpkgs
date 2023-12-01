@@ -67,10 +67,10 @@ let
       "test_radon" # FIXME package radon
     ];
 
-    pythonImportsCheck = [ "pylama.main" ];
+    pythonImportsCheck = ["pylama.main"];
 
     passthru.tests = {
-      check = pylama.overridePythonAttrs (_: { doCheck = true; });
+      check = pylama.overridePythonAttrs (_: {doCheck = true;});
     };
 
     meta = with lib; {
@@ -78,7 +78,7 @@ let
       homepage = "https://github.com/klen/pylama";
       changelog = "https://github.com/klen/pylama/blob/${version}/Changelog";
       license = licenses.mit;
-      maintainers = with maintainers; [ dotlambda ];
+      maintainers = with maintainers; [dotlambda];
     };
   };
 in

@@ -21,9 +21,9 @@ buildPythonPackage rec {
       --replace "average_size=512" ""
   '';
 
-  propagatedBuildInputs = [ chardet ];
+  propagatedBuildInputs = [chardet];
 
-  nativeCheckInputs = [ hypothesis ];
+  nativeCheckInputs = [hypothesis];
 
   meta = with lib; {
     homepage = "https://github.com/audreyr/binaryornot";

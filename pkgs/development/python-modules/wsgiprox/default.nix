@@ -23,7 +23,7 @@ buildPythonPackage rec {
     certauth
   ];
 
-  pythonImportsCheck = [ "wsgiprox" ];
+  pythonImportsCheck = ["wsgiprox"];
 
   # See https://github.com/webrecorder/wsgiprox/issues/6
   doCheck = false;
@@ -32,6 +32,6 @@ buildPythonPackage rec {
     description = "Python WSGI Middleware for adding HTTP/S proxy support to any WSGI Application";
     homepage = "https://github.com/webrecorder/wsgiprox";
     license = licenses.asl20;
-    maintainers = with maintainers; [ Luflosi ];
+    maintainers = with maintainers; [Luflosi];
   };
 }

@@ -36,6 +36,6 @@ stdenv.mkDerivation {
     homepage = "http://www.rahul.net/dholmes/ctorrent/";
     license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.unix;
-    maintainers = [ lib.maintainers.devhell ];
+    maintainers = [lib.maintainers.devhell];
   };
 }

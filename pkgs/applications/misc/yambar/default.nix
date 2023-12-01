@@ -118,7 +118,7 @@ stdenv.mkDerivation (
         particles and decorations. How is configured by you.
       '';
       license = licenses.mit;
-      maintainers = with maintainers; [ AndersonTorres ];
+      maintainers = with maintainers; [AndersonTorres];
       platforms = platforms.linux;
     };
   }

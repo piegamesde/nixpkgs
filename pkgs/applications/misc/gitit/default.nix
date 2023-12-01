@@ -19,7 +19,7 @@ let
   static = haskell.lib.compose.justStaticExecutables plugins;
 in
 (haskell.lib.compose.overrideCabal
-  (drv: { buildTools = (drv.buildTools or [ ]) ++ [ removeReferencesTo ]; })
+  (drv: {buildTools = (drv.buildTools or []) ++ [removeReferencesTo];})
   static
 ).overrideAttrs
   (
@@ -58,7 +58,7 @@ in
       '';
 
       meta = drv.meta // {
-        maintainers = drv.meta.maintainers or [ ] ++ [ lib.maintainers.Profpatsch ];
+        maintainers = drv.meta.maintainers or [] ++ [lib.maintainers.Profpatsch];
       };
     }
   )

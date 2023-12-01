@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
     homepage = "http://enet.bespin.org/";
     description = "Simple and robust network communication layer on top of UDP";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     platforms = lib.platforms.unix;
   };
 }

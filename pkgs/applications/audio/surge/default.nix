@@ -100,7 +100,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://surge-synthesizer.github.io";
     license = licenses.gpl3;
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
     maintainers = with maintainers; [
       magnetophon
       orivej

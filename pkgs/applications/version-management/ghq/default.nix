@@ -19,7 +19,7 @@ buildGoModule rec {
 
   doCheck = false;
 
-  ldflags = [ "-X=main.Version=${version}" ];
+  ldflags = ["-X=main.Version=${version}"];
 
   postInstall = ''
     install -m 444 -D ${src}/misc/zsh/_ghq $out/share/zsh/site-functions/_ghq
@@ -29,7 +29,7 @@ buildGoModule rec {
   meta = {
     description = "Remote repository management made easy";
     homepage = "https://github.com/x-motemen/ghq";
-    maintainers = with lib.maintainers; [ sigma ];
+    maintainers = with lib.maintainers; [sigma];
     license = lib.licenses.mit;
   };
 }

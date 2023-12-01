@@ -32,7 +32,7 @@ stdenvNoCC.mkDerivation rec {
       2020 JuliaCon conference in Lisbon, Portugal (which of course didn’t
       physically happen in Lisbon, but online).
     '';
-    maintainers = with maintainers; [ suhr ];
+    maintainers = with maintainers; [suhr];
     platforms = with platforms; all;
     homepage = "https://juliamono.netlify.app/";
     license = licenses.ofl;

@@ -18,17 +18,17 @@ buildPythonPackage rec {
     substituteInPlace setup.py --replace "enum-compat" ""
   '';
 
-  propagatedBuildInputs = [ future ];
+  propagatedBuildInputs = [future];
 
   # tests are interacting with the API and not mocking the calls
   doCheck = false;
 
-  pythonImportsCheck = [ "blockchain" ];
+  pythonImportsCheck = ["blockchain"];
 
   meta = with lib; {
     description = "Python client Blockchain Bitcoin Developer API";
     homepage = "https://github.com/blockchain/api-v1-client-python";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

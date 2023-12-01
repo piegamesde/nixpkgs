@@ -78,14 +78,14 @@ in
 
 {
 
-  imports = [ ../build.nix ];
+  imports = [../build.nix];
 
   ###### interface
 
   options = {
 
     environment.etc = mkOption {
-      default = { };
+      default = {};
       example = literalExpression ''
         { example-configuration-file =
             { source = "/nix/store/.../etc/dir/file.conf.example";
@@ -213,7 +213,7 @@ in
     system.build.etcActivationCommands = ''
       # Set up the statically computed bits of /etc.
       echo "setting up /etc..."
-      ${pkgs.perl.withPackages (p: [ p.FileSlurp ])}/bin/perl ${./setup-etc.pl} ${etc}/etc
+      ${pkgs.perl.withPackages (p: [p.FileSlurp])}/bin/perl ${./setup-etc.pl} ${etc}/etc
     '';
   };
 }

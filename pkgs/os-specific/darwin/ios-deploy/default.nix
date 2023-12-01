@@ -20,7 +20,7 @@ stdenvNoCC.mkDerivation {
     rev = version;
     sha256 = "0hqwikdrcnslx4kkw9b0n7n443gzn2gbrw15pp2fnkcw5s0698sc";
   };
-  nativeBuildInputs = [ rsync ];
+  nativeBuildInputs = [rsync];
   buildPhase = ''
     LD=$CC
     tmp=$(mktemp -d)

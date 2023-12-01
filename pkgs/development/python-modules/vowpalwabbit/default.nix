@@ -26,7 +26,7 @@ buildPythonPackage rec {
     hash = "sha256-s2q9K2tuILQATSjUKXe/hYdQW84bSIHwh/gfWM0/NTM=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   buildInputs = [
     docutils
@@ -41,7 +41,7 @@ buildPythonPackage rec {
 
   # As we disable configure via cmake, pass explicit global options to enable
   # spdlog and fmt packages
-  setupPyGlobalFlags = [ ''--cmake-options="-DSPDLOG_SYS_DEP=ON;-DFMT_SYS_DEP=ON"'' ];
+  setupPyGlobalFlags = [''--cmake-options="-DSPDLOG_SYS_DEP=ON;-DFMT_SYS_DEP=ON"''];
 
   propagatedBuildInputs = [
     numpy
@@ -69,6 +69,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/JohnLangford/vowpal_wabbit";
     license = licenses.bsd3;
     broken = stdenv.isAarch64;
-    maintainers = with maintainers; [ teh ];
+    maintainers = with maintainers; [teh];
   };
 }

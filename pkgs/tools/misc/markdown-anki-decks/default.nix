@@ -1,4 +1,4 @@
-{ lib, python3 }:
+{lib, python3}:
 
 python3.pkgs.buildPythonApplication rec {
   pname = "markdown-anki-decks";
@@ -10,7 +10,7 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-SvKjjE629OwxWsPo2egGf2K6GzlWAYYStarHhA4Ex0w=";
   };
 
-  nativeBuildInputs = with python3.pkgs; [ poetry-core ];
+  nativeBuildInputs = with python3.pkgs; [poetry-core];
 
   propagatedBuildInputs =
     with python3.pkgs;
@@ -31,13 +31,13 @@ python3.pkgs.buildPythonApplication rec {
   # No tests available on Pypi and there is only a failing version assertion test in the repo.
   doCheck = false;
 
-  pythonImportsCheck = [ "markdown_anki_decks" ];
+  pythonImportsCheck = ["markdown_anki_decks"];
 
   meta = with lib; {
     description = "Tool to convert Markdown files into Anki Decks";
     homepage = "https://github.com/lukesmurray/markdown-anki-decks";
     license = licenses.mit;
-    maintainers = with maintainers; [ jtojnar ];
+    maintainers = with maintainers; [jtojnar];
     platforms = platforms.unix;
   };
 }

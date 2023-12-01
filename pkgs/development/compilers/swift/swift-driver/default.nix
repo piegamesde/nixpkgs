@@ -13,7 +13,7 @@
   substituteAll,
 }:
 let
-  sources = callPackage ../sources.nix { };
+  sources = callPackage ../sources.nix {};
   generated = swiftpm2nix.helpers ./generated;
 
   # On Darwin, we only want ncurses in the linker search path, because headers

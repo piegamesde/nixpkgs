@@ -26,8 +26,8 @@ buildGoModule rec {
     "-w"
   ];
 
-  nativeBuildInputs = lib.optionals withSystemdSupport [ makeWrapper ];
-  buildInputs = lib.optionals withSystemdSupport [ systemd ];
+  nativeBuildInputs = lib.optionals withSystemdSupport [makeWrapper];
+  buildInputs = lib.optionals withSystemdSupport [systemd];
   tags = lib.optionals (!withSystemdSupport) "nosystemd";
 
   postInstall = lib.optionals withSystemdSupport ''

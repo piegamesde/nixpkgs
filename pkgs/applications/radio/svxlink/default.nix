@@ -93,8 +93,8 @@ stdenv.mkDerivation rec {
       GUI, Qtel - The Qt EchoLink client
     '';
     homepage = "http://www.svxlink.org/";
-    license = with licenses; [ gpl2 ];
-    maintainers = with maintainers; [ zaninime ];
+    license = with licenses; [gpl2];
+    maintainers = with maintainers; [zaninime];
     platforms = platforms.linux;
   };
 }

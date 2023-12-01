@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
     imagemagick
   ];
 
-  buildInputs = [ SDL ];
+  buildInputs = [SDL];
 
   desktopItems = [
     (makeDesktopItem {
@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
       exec = "_NET_WM_ICON=ballerburg ballerburg";
       comment = meta.description;
       icon = "ballerburg";
-      categories = [ "Game" ];
+      categories = ["Game"];
     })
   ];
 
@@ -61,7 +61,7 @@ stdenv.mkDerivation rec {
       either by killing the opponent's king or by weakening the opponent enough so that the king capitulates.'';
     homepage = "https://baller.tuxfamily.org/";
     license = licenses.gpl3Plus;
-    maintainers = [ maintainers.j0hax ];
+    maintainers = [maintainers.j0hax];
     platforms = platforms.all;
   };
 }

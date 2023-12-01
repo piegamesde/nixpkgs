@@ -21,7 +21,7 @@ buildPythonPackage rec {
     coverage
     nose
   ];
-  propagatedBuildInputs = [ six ];
+  propagatedBuildInputs = [six];
 
   checkPhase = ''
     ${python.interpreter} run_tests.py
@@ -35,6 +35,6 @@ buildPythonPackage rec {
     description = "Composable style cycles";
     homepage = "https://github.com/matplotlib/cycler";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ fridh ];
+    maintainers = with lib.maintainers; [fridh];
   };
 }

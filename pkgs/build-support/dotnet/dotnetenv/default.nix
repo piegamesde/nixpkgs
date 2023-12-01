@@ -11,7 +11,7 @@ let
       dotnetfx = dotnetfx.pkg;
     };
 
-    buildWrapper = import ./wrapper.nix { inherit dotnetenv; };
+    buildWrapper = import ./wrapper.nix {inherit dotnetenv;};
 
     inherit (dotnetfx)
       assembly20Path

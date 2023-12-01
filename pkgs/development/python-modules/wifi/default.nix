@@ -27,16 +27,16 @@ buildPythonPackage rec {
       --replace "/sbin/iwlist" "${wirelesstools}/bin/iwlist"
   '';
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  propagatedBuildInputs = [ pbkdf2 ];
+  propagatedBuildInputs = [pbkdf2];
 
-  pythonImportsCheck = [ "wifi" ];
+  pythonImportsCheck = ["wifi"];
 
   meta = with lib; {
     description = "Provides a command line wrapper for iwlist and /etc/network/interfaces";
     homepage = "https://github.com/rockymeza/wifi";
-    maintainers = with maintainers; [ rhoriguchi ];
+    maintainers = with maintainers; [rhoriguchi];
     license = licenses.bsd2;
   };
 }

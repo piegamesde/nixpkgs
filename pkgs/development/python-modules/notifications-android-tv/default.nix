@@ -23,13 +23,13 @@ buildPythonPackage rec {
     hash = "sha256-Xr+d2uYzgFp/Fb00ymov02+GYnwjGc3FbJ/rIvQXzCE=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
-  propagatedBuildInputs = [ httpx ];
+  propagatedBuildInputs = [httpx];
 
-  pythonImportsCheck = [ "notifications_android_tv" ];
+  pythonImportsCheck = ["notifications_android_tv"];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   checkInputs = [
     pytest-asyncio
@@ -41,6 +41,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/engrbm87/notifications_android_tv";
     changelog = "https://github.com/engrbm87/notifications_android_tv/blob/${version}/CHANGES.rst";
     license = licenses.mit;
-    maintainers = with maintainers; [ dominikh ];
+    maintainers = with maintainers; [dominikh];
   };
 }

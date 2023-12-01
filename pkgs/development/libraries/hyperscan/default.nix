@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
     "dev"
   ];
 
-  buildInputs = [ boost ];
+  buildInputs = [boost];
   nativeBuildInputs = [
     cmake
     ragel
@@ -81,8 +81,8 @@ stdenv.mkDerivation rec {
     '';
 
     homepage = "https://www.hyperscan.io/";
-    maintainers = with maintainers; [ avnik ];
-    platforms = [ "x86_64-linux" ]; # can't find nm on darwin ; might build on aarch64 but untested
+    maintainers = with maintainers; [avnik];
+    platforms = ["x86_64-linux"]; # can't find nm on darwin ; might build on aarch64 but untested
     license = licenses.bsd3;
   };
 }

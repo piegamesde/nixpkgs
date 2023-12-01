@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
       --replace "/bin/cp" "${buildPackages.coreutils}/bin/cp"
   '';
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     libbfd
     zlib
@@ -58,6 +58,6 @@ stdenv.mkDerivation rec {
     homepage = "http://oprofile.sourceforge.net/";
 
     platforms = lib.platforms.linux;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

@@ -130,7 +130,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional stdenv.cc.isClang llvmPackages.openmp;
 
   cmakeFlags =
-    [ "-DBUILD_USERMANUAL=False" ]
+    ["-DBUILD_USERMANUAL=False"]
     ++ lib.optionals stdenv.isDarwin [
       "-DUSE_COLORD=OFF"
       "-DUSE_KWALLET=OFF"

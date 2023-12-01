@@ -16,19 +16,19 @@ let
     literalMD
     mkPackageOptionMD
     ;
-  settingsFormat = pkgs.formats.ini { };
+  settingsFormat = pkgs.formats.ini {};
 in
 {
   options = {
     services.cockpit = {
       enable = mkEnableOption (mdDoc "Cockpit");
 
-      package = mkPackageOptionMD pkgs "Cockpit" { default = [ "cockpit" ]; };
+      package = mkPackageOptionMD pkgs "Cockpit" {default = ["cockpit"];};
 
       settings = lib.mkOption {
         type = settingsFormat.type;
 
-        default = { };
+        default = {};
 
         description = mdDoc ''
           Settings for cockpit that will be saved in /etc/cockpit/cockpit.conf.
@@ -53,17 +53,17 @@ in
   config = mkIf cfg.enable {
 
     # expose cockpit-bridge system-wide
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
 
     # allow cockpit to find its plugins
-    environment.pathsToLink = [ "/share/cockpit" ];
+    environment.pathsToLink = ["/share/cockpit"];
 
     # generate cockpit settings
     environment.etc."cockpit/cockpit.conf".source = settingsFormat.generate "cockpit.conf" cfg.settings;
 
-    security.pam.services.cockpit = { };
+    security.pam.services.cockpit = {};
 
-    networking.firewall.allowedTCPPorts = mkIf cfg.openFirewall [ cfg.port ];
+    networking.firewall.allowedTCPPorts = mkIf cfg.openFirewall [cfg.port];
 
     # units are in reverse sort order if you ls $out/lib/systemd/system
     # all these units are basically verbatim translated from upstream
@@ -101,9 +101,9 @@ in
     # Translation from $out/lib/systemd/system/cockpit-wsinstance-https@.service
     systemd.services."cockpit-wsinstance-https@" = {
       description = "Cockpit Web Service https instance %I";
-      bindsTo = [ "cockpit.service" ];
-      path = [ cfg.package ];
-      documentation = [ "man:cockpit-ws(8)" ];
+      bindsTo = ["cockpit.service"];
+      path = [cfg.package];
+      documentation = ["man:cockpit-ws(8)"];
       serviceConfig = {
         Slice = "system-cockpithttps.slice";
         ExecStart = "${cfg.package}/libexec/cockpit-ws --for-tls-proxy --port=0";
@@ -144,8 +144,8 @@ in
     # Translation from $out/lib/systemd/system/cockpit-wsinstance-https-factory@.service
     systemd.services."cockpit-wsinstance-https-factory@" = {
       description = "Cockpit Web Service https instance factory";
-      documentation = [ "man:cockpit-ws(8)" ];
-      path = [ cfg.package ];
+      documentation = ["man:cockpit-ws(8)"];
+      path = [cfg.package];
       serviceConfig = {
         ExecStart = "${cfg.package}/libexec/cockpit-wsinstance-factory";
         User = "root";
@@ -155,9 +155,9 @@ in
     # Translation from $out/lib/systemd/system/cockpit-wsinstance-http.service
     systemd.services."cockpit-wsinstance-http" = {
       description = "Cockpit Web Service http instance";
-      bindsTo = [ "cockpit.service" ];
-      path = [ cfg.package ];
-      documentation = [ "man:cockpit-ws(8)" ];
+      bindsTo = ["cockpit.service"];
+      path = [cfg.package];
+      documentation = ["man:cockpit-ws(8)"];
       serviceConfig = {
         ExecStart = "${cfg.package}/libexec/cockpit-ws --no-tls --port=0";
         User = "root";
@@ -180,13 +180,13 @@ in
         ];
         ExecStopPost = "-${pkgs.coreutils}/bin/ln -snf inactive.motd /run/cockpit/motd";
       };
-      wantedBy = [ "sockets.target" ];
+      wantedBy = ["sockets.target"];
     };
 
     # Translation from $out/lib/systemd/system/cockpit.service
     systemd.services."cockpit" = {
       description = "Cockpit Web Service";
-      documentation = [ "man:cockpit-ws(8)" ];
+      documentation = ["man:cockpit-ws(8)"];
       restartIfChanged = true;
       path = with pkgs; [
         coreutils
@@ -238,14 +238,14 @@ in
     # - As cockpit.socket is disabled by default, /run/cockpit/motd points to /run/cockpit/inactive.motd
     # /run/cockpit/active.motd is generated dynamically by cockpit-motd.service
     systemd.services."cockpit-motd" = {
-      path = with pkgs; [ nettools ];
+      path = with pkgs; [nettools];
       serviceConfig = {
         Type = "oneshot";
         ExecStart = "${cfg.package}/share/cockpit/motd/update-motd";
       };
       description = "Cockpit motd updater service";
-      documentation = [ "man:cockpit-ws(8)" ];
-      wants = [ "network.target" ];
+      documentation = ["man:cockpit-ws(8)"];
+      wants = ["network.target"];
       after = [
         "network.target"
         "cockpit.socket"

@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
     sha256 = "2a7aa86a653f6810b3cd9cce6c37b3f70e937e7d14b09fd5c2a70d70588a9482";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     ucommon
     libosip
@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
     description = "Secure peer-to-peer VoIP server that uses the SIP protocol";
     homepage = "https://www.gnu.org/software/sipwitch/";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     platforms = with lib.platforms; linux;
     broken = true; # Require libexosip2 < 5.0.0 which is vulnerable to CVE-2014-10375.
   };

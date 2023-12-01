@@ -18,10 +18,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-oarY+juLGLeNN1Wzdn+v+au2ckLgG0eOyaZOGQ8zXhw=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   buildInputs =
-    [ ffmpeg_4 ]
+    [ffmpeg_4]
     ++ lib.optionals stdenv.isDarwin (
       with darwin.apple_sdk.frameworks; [
         Accelerate
@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://acoustid.org/chromaprint";
     description = "AcoustID audio fingerprinting library";
-    maintainers = with maintainers; [ ehmry ];
+    maintainers = with maintainers; [ehmry];
     license = licenses.lgpl21Plus;
     platforms = platforms.unix;
   };

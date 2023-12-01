@@ -26,14 +26,14 @@ stdenv.mkDerivation rec {
     openssl
   ];
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   passthru = {
     tests.version = testers.testVersion {
       package = snac2;
       command = "${meta.mainProgram} || true";
     };
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {
@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
     description = "A simple, minimalistic ActivityPub instance (2.x, C)";
     changelog = "https://codeberg.org/grunfink/snac2/src/tag/${version}/RELEASE_NOTES.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ misuzu ];
+    maintainers = with maintainers; [misuzu];
     platforms = platforms.linux;
     mainProgram = "snac";
   };

@@ -39,14 +39,14 @@ mkDerivation rec {
   ];
 
   postPatch = ''
-    libjackso=$(realpath ${lib.makeLibraryPath [ libjack2 ]}/libjack.so.0);
+    libjackso=$(realpath ${lib.makeLibraryPath [libjack2]}/libjack.so.0);
     substituteInPlace ./src/jacklib.py --replace libjack.so.0 $libjackso
     substituteInPlace ./src/cadence.py --replace "/usr/bin/pulseaudio" \
-      "${lib.makeBinPath [ pulseaudioFull ]}/pulseaudio"
+      "${lib.makeBinPath [pulseaudioFull]}/pulseaudio"
     substituteInPlace ./c++/jackbridge/JackBridge.cpp --replace libjack.so.0 $libjackso
   '';
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     qtbase
@@ -108,7 +108,7 @@ mkDerivation rec {
     homepage = "https://github.com/falkTX/Cadence/";
     description = "Collection of tools useful for audio production";
     license = lib.licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with lib.maintainers; [];
+    platforms = ["x86_64-linux"];
   };
 }

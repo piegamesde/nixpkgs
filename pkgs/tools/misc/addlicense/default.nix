@@ -17,12 +17,12 @@ buildGoModule rec {
 
   vendorHash = "sha256-2mncc21ecpv17Xp8PA9GIodoaCxNBacbbya/shU8T9Y=";
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   meta = with lib; {
     description = "Ensures source code files have copyright license headers by scanning directory patterns recursively";
     homepage = "https://github.com/google/addlicense";
     license = licenses.asl20;
-    maintainers = with maintainers; [ SuperSandro2000 ];
+    maintainers = with maintainers; [SuperSandro2000];
   };
 }

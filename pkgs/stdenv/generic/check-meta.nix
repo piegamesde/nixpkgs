@@ -26,8 +26,8 @@ let
     in
     if envVar != "" then envVar != "0" else config.allowNonSource or true;
 
-  allowlist = config.allowlistedLicenses or config.whitelistedLicenses or [ ];
-  blocklist = config.blocklistedLicenses or config.blacklistedLicenses or [ ];
+  allowlist = config.allowlistedLicenses or config.whitelistedLicenses or [];
+  blocklist = config.blocklistedLicenses or config.blacklistedLicenses or [];
 
   areLicenseListsValid =
     if lib.mutuallyExclusive allowlist blocklist then
@@ -64,7 +64,7 @@ let
 
   hasUnsupportedPlatform = pkg: !(lib.meta.availableOn hostPlatform pkg);
 
-  isMarkedInsecure = attrs: (attrs.meta.knownVulnerabilities or [ ]) != [ ];
+  isMarkedInsecure = attrs: (attrs.meta.knownVulnerabilities or []) != [];
 
   # Alow granular checks to allow only some unfree packages
   # Example:
@@ -82,7 +82,7 @@ let
     attrs: hasUnfreeLicense attrs && !allowUnfree && !allowUnfreePredicate attrs;
 
   allowInsecureDefaultPredicate =
-    x: builtins.elem (getName x) (config.permittedInsecurePackages or [ ]);
+    x: builtins.elem (getName x) (config.permittedInsecurePackages or []);
   allowInsecurePredicate = x: (config.allowInsecurePredicate or allowInsecureDefaultPredicate) x;
 
   hasAllowedInsecure =
@@ -216,8 +216,8 @@ let
   remediateOutputsToInstall =
     attrs:
     let
-      expectedOutputs = attrs.meta.outputsToInstall or [ ];
-      actualOutputs = attrs.outputs or [ "out" ];
+      expectedOutputs = attrs.meta.outputsToInstall or [];
+      actualOutputs = attrs.outputs or ["out"];
       missingOutputs = builtins.filter (output: !builtins.elem output actualOutputs) expectedOutputs;
     in
     ''
@@ -231,7 +231,7 @@ let
     '';
 
   handleEvalIssue =
-    { meta, attrs }:
+    {meta, attrs}:
     {
       reason,
       errormsg ? "",
@@ -252,7 +252,7 @@ let
     handler msg;
 
   handleEvalWarning =
-    { meta, attrs }:
+    {meta, attrs}:
     {
       reason,
       errormsg ? "",
@@ -276,7 +276,7 @@ let
   typeCheck =
     type: value:
     let
-      merged = lib.mergeDefinitions [ ] type [
+      merged = lib.mergeDefinitions [] type [
         {
           file = lib.unknownModule;
           inherit value;
@@ -318,7 +318,7 @@ let
         name = "test";
         check =
           x:
-          x == { }
+          x == {}
           || ( # Accept {} for tests that are unsupported
             isDerivation x && x ? meta.timeout
           );
@@ -357,7 +357,7 @@ let
       else
         ''
           key 'meta.${k}' has invalid value; expected ${metaTypes.${k}.description}, got
-              ${lib.generators.toPretty { indent = "    "; } v}''
+              ${lib.generators.toPretty {indent = "    ";} v}''
     else
       ''
         key 'meta.${k}' is unrecognized; expected one of: 
@@ -368,8 +368,8 @@ let
   checkOutputsToInstall =
     attrs:
     let
-      expectedOutputs = attrs.meta.outputsToInstall or [ ];
-      actualOutputs = attrs.outputs or [ "out" ];
+      expectedOutputs = attrs.meta.outputsToInstall or [];
+      actualOutputs = attrs.outputs or ["out"];
       missingOutputs = builtins.filter (output: !builtins.elem output actualOutputs) expectedOutputs;
     in
     if config.checkMeta then builtins.length missingOutputs > 0 else false;
@@ -387,9 +387,9 @@ let
     # Check meta attribute types first, to make sure it is always called even when there are other issues
     # Note that this is not a full type check and functions below still need to by careful about their inputs!
     let
-      res = checkMeta (attrs.meta or { });
+      res = checkMeta (attrs.meta or {});
     in
-    if res != [ ] then
+    if res != [] then
       {
         valid = "no";
         reason = "unknown-meta";
@@ -457,8 +457,8 @@ let
             errormsg = ''
               is not available on the requested hostPlatform:
                 hostPlatform.config = "${hostPlatform.config}"
-                package.meta.platforms = ${toPretty (attrs.meta.platforms or [ ])}
-                package.meta.badPlatforms = ${toPretty (attrs.meta.badPlatforms or [ ])}
+                package.meta.platforms = ${toPretty (attrs.meta.platforms or [])}
+                package.meta.badPlatforms = ${toPretty (attrs.meta.badPlatforms or [])}
             '';
           }
         else if !(hasAllowedInsecure attrs) then
@@ -478,7 +478,7 @@ let
           }
         # -----
         else
-          { valid = "yes"; }
+          {valid = "yes";}
       );
 
   # The meta attribute is passed in the resulting attribute set,
@@ -493,10 +493,10 @@ let
       validity,
       attrs,
       pos ? null,
-      references ? [ ],
+      references ? [],
     }:
     let
-      outputs = attrs.outputs or [ "out" ];
+      outputs = attrs.outputs or ["out"];
     in
     {
       # `name` derivation attribute includes cross-compilation cruft,
@@ -529,9 +529,9 @@ let
         ]
         ++ lib.optional (hasOutput "man") "man";
     }
-    // attrs.meta or { }
+    // attrs.meta or {}
     # Fill `meta.position` to identify the source location of the package.
-    // lib.optionalAttrs (pos != null) { position = pos.file + ":" + toString pos.line; }
+    // lib.optionalAttrs (pos != null) {position = pos.file + ":" + toString pos.line;}
     // {
       # Expose the result of the checks for everyone to see.
       inherit (validity)
@@ -552,7 +552,7 @@ let
     };
 
   assertValidity =
-    { meta, attrs }:
+    {meta, attrs}:
     let
       validity = checkValidity attrs;
     in
@@ -562,8 +562,8 @@ let
       # or, alternatively, just output a warning message.
       handled =
         {
-          no = handleEvalIssue { inherit meta attrs; } { inherit (validity) reason errormsg; };
-          warn = handleEvalWarning { inherit meta attrs; } { inherit (validity) reason errormsg; };
+          no = handleEvalIssue {inherit meta attrs;} {inherit (validity) reason errormsg;};
+          warn = handleEvalWarning {inherit meta attrs;} {inherit (validity) reason errormsg;};
           yes = true;
         }
         .${validity.valid};

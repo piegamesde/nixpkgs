@@ -47,8 +47,8 @@ in
 
     systemd.services.rdnssd = {
       description = "RDNSS daemon";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
 
       preStart = ''
         # Create the proper run directory
@@ -79,6 +79,6 @@ in
       isSystemUser = true;
       group = "rdnssd";
     };
-    users.groups.rdnssd = { };
+    users.groups.rdnssd = {};
   };
 }

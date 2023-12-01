@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
     ocamlbuild
     camlp4
   ];
-  propagatedBuildInputs = [ camlp4 ];
+  propagatedBuildInputs = [camlp4];
 
   strictDeps = true;
 
@@ -56,6 +56,6 @@ stdenv.mkDerivation rec {
     description = "A lexer generator for Unicode and OCaml";
     license = lib.licenses.mit;
     inherit (ocaml.meta) platforms;
-    maintainers = [ lib.maintainers.roconnor ];
+    maintainers = [lib.maintainers.roconnor];
   };
 }

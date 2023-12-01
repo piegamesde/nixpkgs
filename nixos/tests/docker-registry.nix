@@ -1,7 +1,7 @@
 # This test runs docker-registry and check if it works
 
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   {
     name = "docker-registry";
     meta = with pkgs.lib.maintainers; {
@@ -14,25 +14,25 @@ import ./make-test-python.nix (
 
     nodes = {
       registry =
-        { ... }:
+        {...}:
         {
           services.dockerRegistry.enable = true;
           services.dockerRegistry.enableDelete = true;
           services.dockerRegistry.port = 8080;
           services.dockerRegistry.listenAddress = "0.0.0.0";
           services.dockerRegistry.enableGarbageCollect = true;
-          networking.firewall.allowedTCPPorts = [ 8080 ];
+          networking.firewall.allowedTCPPorts = [8080];
         };
 
       client1 =
-        { ... }:
+        {...}:
         {
           virtualisation.docker.enable = true;
           virtualisation.docker.extraOptions = "--insecure-registry registry:8080";
         };
 
       client2 =
-        { ... }:
+        {...}:
         {
           virtualisation.docker.enable = true;
           virtualisation.docker.extraOptions = "--insecure-registry registry:8080";

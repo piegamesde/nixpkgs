@@ -20,14 +20,14 @@ buildPythonPackage rec {
   };
 
   # Nose is required during build process, so can not use `nativeCheckInputs`.
-  buildInputs = [ nose ];
+  buildInputs = [nose];
 
-  propagatedBuildInputs = [ lark ];
+  propagatedBuildInputs = [lark];
 
   # This fork of python-hcl2 doesn't ship tests
   doCheck = false;
 
-  pythonImportsCheck = [ "hcl2" ];
+  pythonImportsCheck = ["hcl2"];
 
   meta = with lib; {
     description = "Parser for HCL2 written in Python using Lark";
@@ -39,6 +39,6 @@ buildPythonPackage rec {
     # of another PyPi package (python-hcl2). But these two are different.
     homepage = "https://github.com/amplify-education/python-hcl2";
     license = licenses.mit;
-    maintainers = with maintainers; [ anhdle14 ];
+    maintainers = with maintainers; [anhdle14];
   };
 }

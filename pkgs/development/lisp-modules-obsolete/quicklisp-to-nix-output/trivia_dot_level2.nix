@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "trivia_dot_level2";
   version = "trivia-20211020-git";
@@ -22,7 +22,7 @@ rec {
 
   packageName = "trivia.level2";
 
-  asdFilesToKeep = [ "trivia.level2.asd" ];
+  asdFilesToKeep = ["trivia.level2.asd"];
   overrides = x: x;
 }
 /* (SYSTEM trivia.level2 DESCRIPTION

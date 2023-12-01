@@ -25,9 +25,9 @@ buildPythonPackage rec {
       --replace "os.environ.get('GPGBINARY', 'gpg')" "os.environ.get('GPGBINARY', '${gnupg}/bin/gpg')"
   '';
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTests =
     [
@@ -35,12 +35,12 @@ buildPythonPackage rec {
       "test_search_keys"
     ];
 
-  pythonImportsCheck = [ "gnupg" ];
+  pythonImportsCheck = ["gnupg"];
 
   meta = with lib; {
     description = "API for the GNU Privacy Guard (GnuPG)";
     homepage = "https://github.com/vsajip/python-gnupg";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ copumpkin ];
+    maintainers = with maintainers; [copumpkin];
   };
 }

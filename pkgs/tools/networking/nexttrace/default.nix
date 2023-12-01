@@ -28,6 +28,6 @@ buildGoModule rec {
     description = "An open source visual route tracking CLI tool";
     homepage = "https://mtr.moe";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ sharzy ];
+    maintainers = with maintainers; [sharzy];
   };
 }

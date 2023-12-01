@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "fare-quasiquote-readtable";
   version = "fare-quasiquote-20200925-git";
@@ -19,7 +19,7 @@ rec {
 
   packageName = "fare-quasiquote-readtable";
 
-  asdFilesToKeep = [ "fare-quasiquote-readtable.asd" ];
+  asdFilesToKeep = ["fare-quasiquote-readtable.asd"];
   overrides = x: x;
 }
 /* (SYSTEM fare-quasiquote-readtable DESCRIPTION

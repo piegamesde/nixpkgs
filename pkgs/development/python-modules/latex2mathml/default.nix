@@ -25,7 +25,7 @@ buildPythonPackage rec {
 
   format = "pyproject";
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   propagatedBuildInputs = [
     setuptools # needs pkg_resources at runtime
@@ -42,13 +42,13 @@ buildPythonPackage rec {
     sed -i '/--cov/d' pyproject.toml
   '';
 
-  pythonImportsCheck = [ "latex2mathml" ];
+  pythonImportsCheck = ["latex2mathml"];
 
   meta = with lib; {
     description = "Pure Python library for LaTeX to MathML conversion";
     homepage = "https://github.com/roniemartinez/latex2mathml";
     changelog = "https://github.com/roniemartinez/latex2mathml/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ sfrijters ];
+    maintainers = with maintainers; [sfrijters];
   };
 }

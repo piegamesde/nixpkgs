@@ -17,6 +17,6 @@ buildPythonPackage rec {
     description = "Binding for X11 proof of work hashing";
     homepage = "https://github.com/mazaclub/x11_hash";
     license = licenses.mit;
-    maintainers = with maintainers; [ np ];
+    maintainers = with maintainers; [np];
   };
 }

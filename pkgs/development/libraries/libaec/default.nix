@@ -17,12 +17,12 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-N0YwJuVqv8jv/uSbpn/eJBTMhlHDcY/74+anH2vNvpI=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   meta = with lib; {
     homepage = "https://gitlab.dkrz.de/k202009/libaec";
     description = "Adaptive Entropy Coding library";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ tbenst ];
+    maintainers = with maintainers; [tbenst];
   };
 }

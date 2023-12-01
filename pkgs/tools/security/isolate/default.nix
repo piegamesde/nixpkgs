@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
     installShellFiles
   ];
 
-  buildInputs = [ libcap.dev ];
+  buildInputs = [libcap.dev];
 
   buildFlags = [
     "isolate"
@@ -43,6 +43,6 @@ stdenv.mkDerivation rec {
     description = "Sandbox for securely executing untrusted programs";
     homepage = "https://github.com/ioi/isolate";
     license = lib.licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ virchau13 ];
+    maintainers = with lib.maintainers; [virchau13];
   };
 }

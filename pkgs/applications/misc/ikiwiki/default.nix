@@ -25,7 +25,7 @@
   subversion,
   mercurialSupport ? false,
   mercurial,
-  extraUtils ? [ ],
+  extraUtils ? [],
 }:
 
 stdenv.mkDerivation rec {
@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
     sha256 = "0skrc8r4wh4mjfgw1c94awr5sacfb9nfsbm4frikanc9xsy16ksr";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
   buildInputs =
     [
       which
@@ -70,19 +70,19 @@ stdenv.mkDerivation rec {
       ]
     )
     ++ lib.optionals docutilsSupport [
-      (python.withPackages (pp: with pp; [ pygments ]))
+      (python.withPackages (pp: with pp; [pygments]))
       docutils
     ]
-    ++ lib.optionals gitSupport [ git ]
-    ++ lib.optionals monotoneSupport [ monotone ]
-    ++ lib.optionals bazaarSupport [ breezy ]
+    ++ lib.optionals gitSupport [git]
+    ++ lib.optionals monotoneSupport [monotone]
+    ++ lib.optionals bazaarSupport [breezy]
     ++ lib.optionals cvsSupport [
       cvs
       cvsps
       perlPackages.Filechdir
     ]
-    ++ lib.optionals subversionSupport [ subversion ]
-    ++ lib.optionals mercurialSupport [ mercurial ];
+    ++ lib.optionals subversionSupport [subversion]
+    ++ lib.optionals mercurialSupport [mercurial];
 
   patches = [
     # A few markdown tests fail, but this is expected when using Text::Markdown
@@ -143,6 +143,6 @@ stdenv.mkDerivation rec {
     homepage = "http://ikiwiki.info/";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = [ maintainers.wentasah ];
+    maintainers = [maintainers.wentasah];
   };
 }

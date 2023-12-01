@@ -98,7 +98,7 @@
     '';
   };
   # TODO: add multiple-outputs
-  patch-shebangs = import ./patch-shebangs.nix { inherit stdenv lib pkgs; };
+  patch-shebangs = import ./patch-shebangs.nix {inherit stdenv lib pkgs;};
   prune-libtool-files =
     let
       libFoo = pkgs.writeText "libFoo" ''

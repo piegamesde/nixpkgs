@@ -33,7 +33,7 @@ stdenv.mkDerivation {
     description = "Telegram Bot API server";
     homepage = "https://github.com/tdlib/telegram-bot-api";
     license = licenses.boost;
-    maintainers = with maintainers; [ Anillc ];
+    maintainers = with maintainers; [Anillc];
     platforms = platforms.all;
   };
 }

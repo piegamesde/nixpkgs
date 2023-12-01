@@ -32,9 +32,9 @@ buildPythonPackage rec {
     pyasn1-modules
   ];
 
-  pythonImportsCheck = [ "signify" ];
+  pythonImportsCheck = ["signify"];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   disabledTests =
     [
@@ -47,6 +47,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/ralphje/signify";
     description = "library that verifies PE Authenticode-signed binaries";
     license = licenses.mit;
-    maintainers = with maintainers; [ baloo ];
+    maintainers = with maintainers; [baloo];
   };
 }

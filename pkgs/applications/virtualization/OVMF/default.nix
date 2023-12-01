@@ -67,7 +67,7 @@ edk2.mkDerivation projectDscPath (
     ];
 
     buildFlags =
-      lib.optionals secureBoot [ "-D SECURE_BOOT_ENABLE=TRUE" ]
+      lib.optionals secureBoot ["-D SECURE_BOOT_ENABLE=TRUE"]
       ++ lib.optionals csmSupport [
         "-D CSM_ENABLE"
         "-D FD_SIZE_2MB"
@@ -134,7 +134,7 @@ edk2.mkDerivation projectDscPath (
       homepage = "https://github.com/tianocore/tianocore.github.io/wiki/OVMF";
       license = lib.licenses.bsd2;
       inherit (edk2.meta) platforms;
-      maintainers = [ lib.maintainers.raitobezarius ];
+      maintainers = [lib.maintainers.raitobezarius];
     };
   }
 )

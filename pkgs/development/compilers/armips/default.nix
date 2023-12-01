@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-L+Uxww/WtvDJn1xZqoqA6Pkzq/98sy1qTxZbv6eEjbA=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   installPhase = ''
     runHook preInstall
@@ -31,6 +31,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/Kingcom/armips";
     description = "Assembler for various ARM and MIPS platforms.";
     license = licenses.mit;
-    maintainers = with maintainers; [ marius851000 ];
+    maintainers = with maintainers; [marius851000];
   };
 }

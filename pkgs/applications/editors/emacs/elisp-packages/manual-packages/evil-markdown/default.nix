@@ -29,7 +29,7 @@ trivialBuild rec {
     homepage = "https://github.com/Somelauw/evil-markdown";
     description = "Integrates Emacs evil and markdown";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ leungbk ];
+    maintainers = with maintainers; [leungbk];
     inherit (emacs.meta) platforms;
   };
 }

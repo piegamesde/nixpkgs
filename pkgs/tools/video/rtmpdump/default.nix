@@ -44,7 +44,7 @@ stdenv.mkDerivation {
     ++ lib.optional stdenv.cc.isClang "CC=clang";
 
   propagatedBuildInputs =
-    [ zlib ]
+    [zlib]
     ++ lib.optionals gnutlsSupport [
       gnutls
       nettle
@@ -63,6 +63,6 @@ stdenv.mkDerivation {
     homepage = "https://rtmpdump.mplayerhq.hu/";
     license = licenses.gpl2;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ codyopel ];
+    maintainers = with maintainers; [codyopel];
   };
 }

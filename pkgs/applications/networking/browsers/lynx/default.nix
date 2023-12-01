@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  hardeningEnable = [ "pie" ];
+  hardeningEnable = ["pie"];
 
   patches = [
     (fetchpatch {
@@ -42,8 +42,8 @@ stdenv.mkDerivation rec {
     "--enable-ipv6"
   ] ++ lib.optional sslSupport "--with-ssl";
 
-  depsBuildBuild = [ buildPackages.stdenv.cc ];
-  nativeBuildInputs = [ nukeReferences ] ++ lib.optional sslSupport pkg-config;
+  depsBuildBuild = [buildPackages.stdenv.cc];
+  nativeBuildInputs = [nukeReferences] ++ lib.optional sslSupport pkg-config;
 
   buildInputs = [
     ncurses
@@ -60,7 +60,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "A text-mode web browser";
     homepage = "https://lynx.invisible-island.net/";
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     license = licenses.gpl2Plus;
     platforms = platforms.unix;
   };

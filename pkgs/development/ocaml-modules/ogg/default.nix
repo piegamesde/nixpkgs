@@ -19,13 +19,13 @@ buildDunePackage rec {
 
   minimalOCamlVersion = "4.08";
 
-  buildInputs = [ dune-configurator ];
-  propagatedBuildInputs = [ libogg ];
+  buildInputs = [dune-configurator];
+  propagatedBuildInputs = [libogg];
 
   meta = with lib; {
     homepage = "https://github.com/savonet/ocaml-ogg";
     description = "Bindings to libogg";
     license = licenses.lgpl21Only;
-    maintainers = with maintainers; [ dandellion ];
+    maintainers = with maintainers; [dandellion];
   };
 }

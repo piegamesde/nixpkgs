@@ -32,7 +32,7 @@ let
     mapAttrs
       (
         name:
-        { acl, ... }:
+        {acl, ...}:
         (pkgs.writeText "${name}.acl" (
           concatMapStrings
             (
@@ -75,18 +75,18 @@ in
   config = mkIf (cfg.enable && kerberos == pkgs.krb5) {
     systemd.services.kadmind = {
       description = "Kerberos Administration Daemon";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       preStart = ''
         mkdir -m 0755 -p ${stateDir}
       '';
       serviceConfig.ExecStart = "${kerberos}/bin/kadmind -nofork";
-      restartTriggers = [ kdcConfFile ];
+      restartTriggers = [kdcConfFile];
       environment = env;
     };
 
     systemd.services.kdc = {
       description = "Key Distribution Center daemon";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       preStart = ''
         mkdir -m 0755 -p ${stateDir}
       '';
@@ -95,7 +95,7 @@ in
         PIDFile = PIDFile;
         ExecStart = "${kerberos}/bin/krb5kdc -P ${PIDFile}";
       };
-      restartTriggers = [ kdcConfFile ];
+      restartTriggers = [kdcConfFile];
       environment = env;
     };
 

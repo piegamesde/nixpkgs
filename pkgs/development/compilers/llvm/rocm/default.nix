@@ -37,7 +37,7 @@ let
   clang-unwrapped = callPackage ./llvm.nix rec {
     targetName = "clang";
     targetDir = targetName;
-    extraBuildInputs = [ llvm ];
+    extraBuildInputs = [llvm];
 
     extraCMakeFlags = [
       "-DCMAKE_POLICY_DEFAULT_CMP0116=NEW"
@@ -73,9 +73,9 @@ let
     buildMan = false; # No man pages to build
     targetName = "lld";
     targetDir = targetName;
-    extraBuildInputs = [ llvm ];
-    extraCMakeFlags = [ "-DCMAKE_POLICY_DEFAULT_CMP0116=NEW" ];
-    checkTargets = [ "check-lld" ];
+    extraBuildInputs = [llvm];
+    extraCMakeFlags = ["-DCMAKE_POLICY_DEFAULT_CMP0116=NEW"];
+    checkTargets = ["check-lld"];
   };
 
   # Runtimes
@@ -93,7 +93,7 @@ let
       "compiler-rt"
     ];
 
-    extraBuildInputs = [ llvm ];
+    extraBuildInputs = [llvm];
 
     extraCMakeFlags = [
       "-DCMAKE_POLICY_DEFAULT_CMP0114=NEW"
@@ -101,7 +101,7 @@ let
       "-DLIBCXX_CXX_ABI=libcxxabi"
     ];
 
-    extraLicenses = [ lib.licenses.mit ];
+    extraLicenses = [lib.licenses.mit];
   };
 
   # Stage 2
@@ -134,9 +134,9 @@ let
     }
   );
 
-  bintools = wrapBintoolsWith { bintools = bintools-unwrapped; };
+  bintools = wrapBintoolsWith {bintools = bintools-unwrapped;};
 
-  bintools-unwrapped = runCommand "rocm-llvm-binutils-${llvm.version}" { preferLocalBuild = true; } ''
+  bintools-unwrapped = runCommand "rocm-llvm-binutils-${llvm.version}" {preferLocalBuild = true;} ''
     mkdir -p $out/bin
 
     for prog in ${lld}/bin/*; do
@@ -174,7 +174,7 @@ rec {
     stdenv = rStdenv;
     targetName = "libc";
     targetDir = "runtimes";
-    targetRuntimes = [ targetName ];
+    targetRuntimes = [targetName];
     isBroken = true; # https://github.com/llvm/llvm-project/issues/57719
   };
 
@@ -183,7 +183,7 @@ rec {
     buildMan = false; # No man pages to build
     targetName = "libunwind";
     targetDir = "runtimes";
-    targetRuntimes = [ targetName ];
+    targetRuntimes = [targetName];
 
     extraCMakeFlags = [
       "-DLIBUNWIND_INCLUDE_DOCS=ON"
@@ -322,7 +322,7 @@ rec {
       add_subdirectory(shadowcallstack)"
     '';
 
-    extraLicenses = [ lib.licenses.mit ];
+    extraLicenses = [lib.licenses.mit];
   };
 
   # Stage 3
@@ -405,7 +405,7 @@ rec {
       "clang-tools-extra"
     ];
 
-    extraBuildInputs = [ gtest ];
+    extraBuildInputs = [gtest];
 
     extraCMakeFlags = [
       "-DLLVM_INCLUDE_DOCS=OFF"
@@ -431,7 +431,7 @@ rec {
   # Projects
   libclc =
     let
-      spirv = (spirv-llvm-translator.override { inherit llvm; });
+      spirv = (spirv-llvm-translator.override {inherit llvm;});
     in
     callPackage ./llvm.nix rec {
       stdenv = rocmClangStdenv;
@@ -439,7 +439,7 @@ rec {
       buildMan = false; # No man pages to build
       targetName = "libclc";
       targetDir = targetName;
-      extraBuildInputs = [ spirv ];
+      extraBuildInputs = [spirv];
 
       # `spirv-mesa3d` isn't compiling with LLVM 15.0.0, it does with LLVM 14.0.0
       # Try removing the `spirv-mesa3d` and `clspv` patches next update
@@ -456,7 +456,7 @@ rec {
             "NOT \''${ARCH} STREQUAL \"clspv\" AND NOT \''${ARCH} STREQUAL \"clspv64\" AND NOT \''${t} MATCHES"
       '';
 
-      checkTargets = [ ];
+      checkTargets = [];
     };
 
   lldb = callPackage ./llvm.nix rec {
@@ -464,7 +464,7 @@ rec {
     buildTests = false; # ld.lld: error: unable to find library -lllvm_gtest_main
     targetName = "lldb";
     targetDir = targetName;
-    extraNativeBuildInputs = [ python3Packages.sphinx-automodapi ];
+    extraNativeBuildInputs = [python3Packages.sphinx-automodapi];
 
     extraBuildInputs = [
       xz
@@ -486,7 +486,7 @@ rec {
     buildMan = false; # No man pages to build
     targetName = "mlir";
     targetDir = targetName;
-    extraNativeBuildInputs = [ hip ];
+    extraNativeBuildInputs = [hip];
 
     extraBuildInputs = [
       rocm-comgr
@@ -532,14 +532,14 @@ rec {
       mv bin/mlir-tblgen $out/bin
     '';
 
-    checkTargets = [ "check-${targetName}" ];
+    checkTargets = ["check-${targetName}"];
   };
 
   polly = callPackage ./llvm.nix rec {
     stdenv = rocmClangStdenv;
     targetName = "polly";
     targetDir = targetName;
-    checkTargets = [ "check-${targetName}" ];
+    checkTargets = ["check-${targetName}"];
   };
 
   flang = callPackage ./llvm.nix rec {
@@ -547,8 +547,8 @@ rec {
     buildTests = false; # `Executable "flang1" doesn't exist!`
     targetName = "flang";
     targetDir = targetName;
-    extraNativeBuildInputs = [ python3Packages.sphinx-markdown-tables ];
-    extraBuildInputs = [ mlir ];
+    extraNativeBuildInputs = [python3Packages.sphinx-markdown-tables];
+    extraBuildInputs = [mlir];
 
     extraCMakeFlags = [
       "-DCMAKE_POLICY_DEFAULT_CMP0116=NEW"
@@ -573,8 +573,8 @@ rec {
     buildTests = false; # Too many failures, most pass
     targetName = "openmp";
     targetDir = targetName;
-    extraPatches = [ ./0000-fix-openmp.patch ];
-    extraNativeBuildInputs = [ perl ];
+    extraPatches = [./0000-fix-openmp.patch];
+    extraNativeBuildInputs = [perl];
 
     extraBuildInputs = [
       rocm-device-libs
@@ -597,8 +597,8 @@ rec {
         --replace "gfx1010" ""
     '';
 
-    checkTargets = [ "check-${targetName}" ];
-    extraLicenses = [ lib.licenses.mit ];
+    checkTargets = ["check-${targetName}"];
+    extraLicenses = [lib.licenses.mit];
   };
 
   # Runtimes
@@ -609,7 +609,7 @@ rec {
     buildTests = false; # Too many errors
     targetName = "pstl";
     targetDir = "runtimes";
-    targetRuntimes = [ targetName ];
-    checkTargets = [ "check-${targetName}" ];
+    targetRuntimes = [targetName];
+    checkTargets = ["check-${targetName}"];
   };
 }

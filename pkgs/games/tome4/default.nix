@@ -66,7 +66,7 @@ stdenv.mkDerivation rec {
 
   env.NIX_CFLAGS_COMPILE = "-I${SDL2.dev}/include/SDL2 -I${SDL2_image}/include/SDL2 -I${SDL2_ttf}/include/SDL2";
 
-  makeFlags = [ "config=release" ];
+  makeFlags = ["config=release"];
 
   # The wrapper needs to cd into the correct directory as tome4's detection of
   # the game asset root directory is faulty.
@@ -97,7 +97,7 @@ stdenv.mkDerivation rec {
     description = "Tales of Maj'eyal (rogue-like game)";
     homepage = "https://te4.org/";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ peterhoeg ];
+    maintainers = with maintainers; [peterhoeg];
     platforms = [
       "i686-linux"
       "x86_64-linux"

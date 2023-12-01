@@ -43,6 +43,6 @@ stdenv.mkDerivation {
     homepage = "https://github.com/IdreesInc/Monocraft";
     license = licenses.ofl;
     platforms = platforms.all;
-    maintainers = with maintainers; [ zhaofengli ];
+    maintainers = with maintainers; [zhaofengli];
   };
 }

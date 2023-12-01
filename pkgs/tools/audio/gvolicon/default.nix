@@ -36,7 +36,7 @@ stdenv.mkDerivation {
     wrapGAppsHook
   ];
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   env.NIX_CFLAGS_COMPILE = "-D_POSIX_C_SOURCE";
 
@@ -45,6 +45,6 @@ stdenv.mkDerivation {
     homepage = "https://github.com/Unia/gvolicon";
     platforms = lib.platforms.linux;
     license = lib.licenses.gpl3Plus;
-    maintainers = [ lib.maintainers.bennofs ];
+    maintainers = [lib.maintainers.bennofs];
   };
 }

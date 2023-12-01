@@ -94,8 +94,8 @@ stdenv.mkDerivation rec {
   '';
 
   passthru.tests = {
-    voxconvert-roundtrip = callPackage ./test-voxconvert-roundtrip.nix { };
-    voxconvert-all-formats = callPackage ./test-voxconvert-all-formats.nix { };
+    voxconvert-roundtrip = callPackage ./test-voxconvert-roundtrip.nix {};
+    voxconvert-all-formats = callPackage ./test-voxconvert-all-formats.nix {};
     run-voxedit = nixosTests.vengi-tools;
   };
 
@@ -114,7 +114,7 @@ stdenv.mkDerivation rec {
       licenses.mit
       licenses.cc-by-sa-30
     ];
-    maintainers = with maintainers; [ fgaz ];
+    maintainers = with maintainers; [fgaz];
     platforms = platforms.all;
   };
 }

@@ -84,7 +84,7 @@ import ./versions.nix (
       description = "An enterprise-class open source distributed monitoring solution (client-side agent)";
       homepage = "https://www.zabbix.com/";
       license = licenses.gpl2Plus;
-      maintainers = [ maintainers.aanderse ];
+      maintainers = [maintainers.aanderse];
       platforms = platforms.linux;
     };
   }

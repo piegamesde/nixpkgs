@@ -9,10 +9,10 @@ with lib;
 let
   cfg = config.services.kubo;
 
-  settingsFormat = pkgs.formats.json { };
+  settingsFormat = pkgs.formats.json {};
 
   rawDefaultConfig = lib.importJSON (
-    pkgs.runCommand "kubo-default-config" { nativeBuildInputs = [ cfg.package ]; } ''
+    pkgs.runCommand "kubo-default-config" {nativeBuildInputs = [cfg.package];} ''
       export IPFS_PATH="$TMPDIR"
       ipfs init --empty-repo --profile=${profile}
       ipfs --offline config show > "$out"
@@ -59,7 +59,7 @@ let
   multiaddrsToListenStreams =
     addrIn:
     let
-      addrs = if builtins.typeOf addrIn == "list" then addrIn else [ addrIn ];
+      addrs = if builtins.typeOf addrIn == "list" then addrIn else [addrIn];
       unfilteredResult = map multiaddrToListenStream addrs;
     in
     builtins.filter (addr: addr != null) unfilteredResult;
@@ -67,7 +67,7 @@ let
   multiaddrsToListenDatagrams =
     addrIn:
     let
-      addrs = if builtins.typeOf addrIn == "list" then addrIn else [ addrIn ];
+      addrs = if builtins.typeOf addrIn == "list" then addrIn else [addrIn];
       unfilteredResult = map multiaddrToListenDatagram addrs;
     in
     builtins.filter (addr: addr != null) unfilteredResult;
@@ -202,7 +202,7 @@ in
                 types.str
                 (types.listOf types.str)
               ];
-              default = [ ];
+              default = [];
               description = lib.mdDoc ''
                 Multiaddr or array of multiaddrs describing the address to serve the local HTTP API on.
                 In addition to the multiaddrs listed here, the daemon will also listen on a Unix domain socket.
@@ -241,7 +241,7 @@ in
           See [https://github.com/ipfs/kubo/blob/master/docs/config.md](https://github.com/ipfs/kubo/blob/master/docs/config.md) for reference.
           You can't set `Identity` or `Pinning`.
         '';
-        default = { };
+        default = {};
         example = {
           Datastore.StorageMax = "100GB";
           Discovery.MDNS.Enabled = false;
@@ -256,7 +256,7 @@ in
       extraFlags = mkOption {
         type = types.listOf types.str;
         description = lib.mdDoc "Extra flags passed to the Kubo daemon";
-        default = [ ];
+        default = [];
       };
 
       localDiscovery = mkOption {
@@ -305,13 +305,13 @@ in
       }
     ];
 
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
     environment.variables.IPFS_PATH = fakeKuboRepo;
 
     # https://github.com/lucas-clemente/quic-go/wiki/UDP-Receive-Buffer-Size
     boot.kernel.sysctl."net.core.rmem_max" = mkDefault 2500000;
 
-    programs.fuse = mkIf cfg.autoMount { userAllowOther = true; };
+    programs.fuse = mkIf cfg.autoMount {userAllowOther = true;};
 
     users.users = mkIf (cfg.user == "ipfs") {
       ipfs = {
@@ -320,14 +320,14 @@ in
         createHome = false;
         uid = config.ids.uids.ipfs;
         description = "IPFS daemon user";
-        packages = [ pkgs.kubo-migrator ];
+        packages = [pkgs.kubo-migrator];
       };
     };
 
-    users.groups = mkIf (cfg.group == "ipfs") { ipfs.gid = config.ids.gids.ipfs; };
+    users.groups = mkIf (cfg.group == "ipfs") {ipfs.gid = config.ids.gids.ipfs;};
 
     systemd.tmpfiles.rules =
-      [ "d '${cfg.dataDir}' - ${cfg.user} ${cfg.group} - -" ]
+      ["d '${cfg.dataDir}' - ${cfg.user} ${cfg.group} - -"]
       ++ optionals cfg.autoMount [
         "d '${cfg.ipfsMountDir}' - ${cfg.user} ${cfg.group} - -"
         "d '${cfg.ipnsMountDir}' - ${cfg.user} ${cfg.group} - -"
@@ -335,7 +335,7 @@ in
 
     # The hardened systemd unit breaks the fuse-mount function according to documentation in the unit file itself
     systemd.packages =
-      if cfg.autoMount then [ cfg.package.systemd_unit ] else [ cfg.package.systemd_unit_hardened ];
+      if cfg.autoMount then [cfg.package.systemd_unit] else [cfg.package.systemd_unit_hardened];
 
     services.kubo.settings = mkIf cfg.autoMount {
       Mounts.FuseAllowOther = lib.mkDefault true;
@@ -392,19 +392,19 @@ in
           ""
           cfg.dataDir
         ];
-      } // optionalAttrs (cfg.serviceFdlimit != null) { LimitNOFILE = cfg.serviceFdlimit; };
-    } // optionalAttrs (!cfg.startWhenNeeded) { wantedBy = [ "default.target" ]; };
+      } // optionalAttrs (cfg.serviceFdlimit != null) {LimitNOFILE = cfg.serviceFdlimit;};
+    } // optionalAttrs (!cfg.startWhenNeeded) {wantedBy = ["default.target"];};
 
     systemd.sockets.ipfs-gateway = {
-      wantedBy = [ "sockets.target" ];
+      wantedBy = ["sockets.target"];
       socketConfig = {
-        ListenStream = [ "" ] ++ (multiaddrsToListenStreams cfg.settings.Addresses.Gateway);
-        ListenDatagram = [ "" ] ++ (multiaddrsToListenDatagrams cfg.settings.Addresses.Gateway);
+        ListenStream = [""] ++ (multiaddrsToListenStreams cfg.settings.Addresses.Gateway);
+        ListenDatagram = [""] ++ (multiaddrsToListenDatagrams cfg.settings.Addresses.Gateway);
       };
     };
 
     systemd.sockets.ipfs-api = {
-      wantedBy = [ "sockets.target" ];
+      wantedBy = ["sockets.target"];
       socketConfig = {
         # We also include "%t/ipfs.sock" because there is no way to put the "%t"
         # in the multiaddr.
@@ -420,7 +420,7 @@ in
   };
 
   meta = {
-    maintainers = with lib.maintainers; [ Luflosi ];
+    maintainers = with lib.maintainers; [Luflosi];
   };
 
   imports = [

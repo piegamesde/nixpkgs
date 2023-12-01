@@ -21,21 +21,19 @@ buildPythonPackage rec {
     hash = "sha256-DPL/eyLMtAj+WN3ZskQaWbpz/jI+QW1ZueCkcop9LdY=";
   };
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
-  propagatedBuildInputs = [
-    asdf-standard
-  ] ++ lib.optionals (pythonOlder "3.9") [ importlib-resources ];
+  propagatedBuildInputs = [asdf-standard] ++ lib.optionals (pythonOlder "3.9") [importlib-resources];
 
   # Circular dependency on asdf
   doCheck = false;
 
-  pythonImportsCheck = [ "asdf_transform_schemas" ];
+  pythonImportsCheck = ["asdf_transform_schemas"];
 
   meta = with lib; {
     description = "ASDF schemas for validating transform tags";
     homepage = "https://github.com/asdf-format/asdf-transform-schemas";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -33,13 +33,13 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "google_reauth" ];
+  pythonImportsCheck = ["google_reauth"];
 
   meta = with lib; {
     description = "Auth plugin allowing use the use of OAuth 2.0 credentials for Google Cloud Storage";
     homepage = "https://github.com/Google/google-reauth-python";
     changelog = "https://github.com/google/google-reauth-python/releases/tag/${version}";
-    license = with licenses; [ asl20 ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [asl20];
+    maintainers = with maintainers; [fab];
   };
 }

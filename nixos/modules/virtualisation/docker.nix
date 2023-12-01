@@ -13,7 +13,7 @@ let
 
   cfg = config.virtualisation.docker;
   proxy_env = config.networking.proxy.envVars;
-  settingsFormat = pkgs.formats.json { };
+  settingsFormat = pkgs.formats.json {};
   daemonSettingsFile = settingsFormat.generate "daemon.json" cfg.daemon.settings;
 in
 
@@ -34,7 +34,7 @@ in
 
     listenOptions = mkOption {
       type = types.listOf types.str;
-      default = [ "/run/docker.sock" ];
+      default = ["/run/docker.sock"];
       description = lib.mdDoc ''
         A list of unix and tcp docker should listen to. The format follows
         ListenStream as described in systemd.socket(5).
@@ -54,7 +54,7 @@ in
 
     daemon.settings = mkOption {
       type = settingsFormat.type;
-      default = { };
+      default = {};
       example = {
         ipv6 = true;
         "fixed-cidr-v6" = "fd00::/80";
@@ -142,8 +142,8 @@ in
 
       flags = mkOption {
         type = types.listOf types.str;
-        default = [ ];
-        example = [ "--all" ];
+        default = [];
+        example = ["--all"];
         description = lib.mdDoc ''
           Any additional flags passed to {command}`docker system prune`.
         '';
@@ -185,9 +185,9 @@ in
           "net.ipv4.conf.all.forwarding" = mkOverride 98 true;
           "net.ipv4.conf.default.forwarding" = mkOverride 98 true;
         };
-        environment.systemPackages = [ cfg.package ] ++ optional cfg.enableNvidia pkgs.nvidia-docker;
+        environment.systemPackages = [cfg.package] ++ optional cfg.enableNvidia pkgs.nvidia-docker;
         users.groups.docker.gid = config.ids.gids.docker;
-        systemd.packages = [ cfg.package ];
+        systemd.packages = [cfg.package];
 
         systemd.services.docker = {
           wantedBy = optional cfg.enableOnBoot "multi-user.target";
@@ -195,7 +195,7 @@ in
             "network.target"
             "docker.socket"
           ];
-          requires = [ "docker.socket" ];
+          requires = ["docker.socket"];
           environment = proxy_env;
           serviceConfig = {
             Type = "notify";
@@ -220,7 +220,7 @@ in
 
         systemd.sockets.docker = {
           description = "Docker Socket for the API";
-          wantedBy = [ "sockets.target" ];
+          wantedBy = ["sockets.target"];
           socketConfig = {
             ListenStream = cfg.listenOptions;
             SocketMode = "0660";
@@ -242,8 +242,8 @@ in
           '';
 
           startAt = optional cfg.autoPrune.enable cfg.autoPrune.dates;
-          after = [ "docker.service" ];
-          requires = [ "docker.service" ];
+          after = ["docker.service"];
+          requires = ["docker.service"];
         };
 
         assertions = [
@@ -255,7 +255,7 @@ in
 
         virtualisation.docker.daemon.settings = {
           group = "docker";
-          hosts = [ "fd://" ];
+          hosts = ["fd://"];
           log-driver = mkDefault cfg.logDriver;
           storage-driver = mkIf (cfg.storageDriver != null) (mkDefault cfg.storageDriver);
           live-restore = mkDefault cfg.liveRestore;

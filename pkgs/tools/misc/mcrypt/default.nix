@@ -38,6 +38,6 @@ stdenv.mkDerivation rec {
     homepage = "https://mcrypt.sourceforge.net";
     license = lib.licenses.gpl3Only;
     platforms = lib.platforms.all;
-    maintainers = [ lib.maintainers.qknight ];
+    maintainers = [lib.maintainers.qknight];
   };
 }

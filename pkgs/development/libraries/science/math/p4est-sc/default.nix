@@ -35,7 +35,7 @@ stdenv.mkDerivation {
     pkg-config
   ];
   propagatedNativeBuildInputs = lib.optional mpiSupport mpi ++ lib.optional isOpenmpi openssh;
-  propagatedBuildInputs = [ zlib ];
+  propagatedBuildInputs = [zlib];
   inherit debugEnable mpiSupport;
 
   postPatch = ''
@@ -52,7 +52,7 @@ stdenv.mkDerivation {
 
   dontDisableStatic = true;
   enableParallelBuilding = true;
-  makeFlags = [ "V=0" ];
+  makeFlags = ["V=0"];
 
   preCheck = ''
     export OMPI_MCA_rmaps_base_oversubscribe=1
@@ -74,6 +74,6 @@ stdenv.mkDerivation {
     homepage = "https://www.p4est.org/";
     downloadPage = "https://github.com/cburstedde/libsc.git";
     license = lib.licenses.lgpl21Plus;
-    maintainers = [ lib.maintainers.cburstedde ];
+    maintainers = [lib.maintainers.cburstedde];
   };
 }

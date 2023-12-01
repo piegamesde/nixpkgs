@@ -19,20 +19,20 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-oDAyK3/+X7fmaRoK4AUbczQJk+sHrNTeTfHcMoDFTjQ=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     curl
     openssl
     zlib
   ];
 
-  makeFlags = [ "PREFIX=${placeholder "out"}" ];
+  makeFlags = ["PREFIX=${placeholder "out"}"];
 
   meta = with lib; {
     description = "Tools for capturing wlan traffic and conversion to hashcat and John the Ripper formats";
     homepage = "https://github.com/ZerBea/hcxtools";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ dywedir ];
+    maintainers = with maintainers; [dywedir];
   };
 }

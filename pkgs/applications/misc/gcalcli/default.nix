@@ -44,6 +44,6 @@ buildPythonApplication rec {
     description = "CLI for Google Calendar";
     homepage = "https://github.com/insanum/gcalcli";
     license = licenses.mit;
-    maintainers = with maintainers; [ nocoolnametom ];
+    maintainers = with maintainers; [nocoolnametom];
   };
 }

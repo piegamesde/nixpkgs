@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
     sha256 = "15v4sk1l43pgd5jxr5lxnh0ks6vb3xk5253n66s7vvsnph48j14q";
   };
 
-  patches = [ ./pex-mtime.patch ];
+  patches = [./pex-mtime.patch];
 
   postPatch = ''
     grep -l -r '/bin/bash' --null | xargs -0 sed -i -e "s!/bin/bash!${bash}/bin/bash!g"

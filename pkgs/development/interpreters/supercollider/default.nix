@@ -62,7 +62,7 @@ mkDerivation rec {
     readline
   ] ++ lib.optional (!stdenv.isDarwin) alsa-lib ++ lib.optional useSCEL emacs;
 
-  hardeningDisable = [ "stackprotector" ];
+  hardeningDisable = ["stackprotector"];
 
   cmakeFlags = [
     "-DSC_WII=OFF"
@@ -81,7 +81,7 @@ mkDerivation rec {
       sclang-sc3-plugins =
         let
           supercollider-with-test-plugins = supercollider-with-plugins.override {
-            plugins = with supercolliderPlugins; [ sc3-plugins ];
+            plugins = with supercolliderPlugins; [sc3-plugins];
           };
           testsc = writeText "test.sc" ''
             var err = 0;
@@ -93,7 +93,7 @@ mkDerivation rec {
             err.exit;
           '';
         in
-        runCommand "sclang-sc3-plugins-test" { } ''
+        runCommand "sclang-sc3-plugins-test" {} ''
           timeout 60s env XDG_CONFIG_HOME="$(mktemp -d)" QT_QPA_PLATFORM=minimal ${supercollider-with-test-plugins}/bin/sclang ${testsc} >$out
         '';
     };
@@ -103,7 +103,7 @@ mkDerivation rec {
     description = "Programming language for real time audio synthesis";
     homepage = "https://supercollider.github.io";
     changelog = "https://github.com/supercollider/supercollider/blob/Version-${version}/CHANGELOG.md";
-    maintainers = with maintainers; [ lilyinstarlight ];
+    maintainers = with maintainers; [lilyinstarlight];
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
   };

@@ -53,7 +53,7 @@ stdenv.mkDerivation rec {
         udev
       ]
     }"
-    "--prefix PATH : ${lib.makeBinPath [ stdenv.cc ]}"
+    "--prefix PATH : ${lib.makeBinPath [stdenv.cc]}"
   ];
 
   # Extract and copy executable in $out/bin
@@ -79,9 +79,9 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://github.com/popcorn-official/popcorn-desktop";
     description = "An application that streams movies and TV shows from torrents";
-    platforms = [ "x86_64-linux" ];
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    platforms = ["x86_64-linux"];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = lib.licenses.gpl3;
-    maintainers = with maintainers; [ onny ];
+    maintainers = with maintainers; [onny];
   };
 }

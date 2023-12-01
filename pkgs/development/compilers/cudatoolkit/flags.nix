@@ -77,7 +77,7 @@ let
   # Maps the name of a GPU architecture to different versions of that architecture.
   # For example, "Ampere" maps to [ "8.0" "8.6" "8.7" ].
   cudaArchNameToVersions =
-    lists.groupBy' (versions: gpu: versions ++ [ gpu.computeCapability ]) [ ] (gpu: gpu.archName)
+    lists.groupBy' (versions: gpu: versions ++ [gpu.computeCapability]) [] (gpu: gpu.archName)
       supportedGpus;
 
   # cudaComputeCapabilityToName :: AttrSet String String
@@ -93,7 +93,7 @@ let
   );
 
   # dropDot :: String -> String
-  dropDot = ver: builtins.replaceStrings [ "." ] [ "" ] ver;
+  dropDot = ver: builtins.replaceStrings ["."] [""] ver;
 
   # archMapper :: String -> List String -> List String
   # Maps a feature across a list of architecture versions to produce a list of architectures.
@@ -146,7 +146,7 @@ let
       gencode =
         let
           base = gencodeMapper "sm" cudaCapabilities;
-          forward = gencodeMapper "compute" [ (lists.last cudaCapabilities) ];
+          forward = gencodeMapper "compute" [(lists.last cudaCapabilities)];
         in
         base ++ lib.optionals enableForwardCompat forward;
     };

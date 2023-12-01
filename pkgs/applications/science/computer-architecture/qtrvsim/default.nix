@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
     wrapQtAppsHook
   ];
 
-  buildInputs = [ qtbase ];
+  buildInputs = [qtbase];
 
   meta = with lib; {
     description = "RISC-V CPU simulator for education purposes";
@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/cvut/qtrvsim";
     license = licenses.gpl3Plus;
     platforms = platforms.linux ++ platforms.darwin;
-    maintainers = with maintainers; [ jdupak ];
+    maintainers = with maintainers; [jdupak];
     mainProgram = "qtrvsim_gui";
   };
 }

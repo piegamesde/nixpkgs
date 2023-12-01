@@ -4,7 +4,7 @@
   makeWrapper,
   caja-extensions,
   caja,
-  extensions ? [ caja-extensions ],
+  extensions ? [caja-extensions],
   mateUpdateScript,
 }:
 
@@ -14,7 +14,7 @@ stdenv.mkDerivation {
 
   dontUnpack = true;
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   inherit caja;
 

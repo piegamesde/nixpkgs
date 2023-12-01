@@ -53,17 +53,17 @@ buildPythonPackage rec {
     sybil
   ];
 
-  pythonImportsCheck = [ "lifelines" ];
+  pythonImportsCheck = ["lifelines"];
 
-  disabledTestPaths = [ "lifelines/tests/test_estimation.py" ];
+  disabledTestPaths = ["lifelines/tests/test_estimation.py"];
 
-  disabledTests = [ "test_datetimes_to_durations_with_different_frequencies" ];
+  disabledTests = ["test_datetimes_to_durations_with_different_frequencies"];
 
   meta = with lib; {
     description = "Survival analysis in Python";
     homepage = "https://lifelines.readthedocs.io";
     changelog = "https://github.com/CamDavidsonPilon/lifelines/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ swflint ];
+    maintainers = with maintainers; [swflint];
   };
 }

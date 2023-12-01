@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
     cmake
     copyDesktopItems
     pkg-config
-  ] ++ lib.optionals stdenv.isDarwin [ makeWrapper ];
+  ] ++ lib.optionals stdenv.isDarwin [makeWrapper];
   buildInputs = [
     zlib
     bzip2

@@ -1,10 +1,10 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "select";
   version = "20210411-git";
 
-  parasites = [ "select/tests" ];
+  parasites = ["select/tests"];
 
   description = "DSL for array slices.";
 
@@ -22,7 +22,7 @@ rec {
 
   packageName = "select";
 
-  asdFilesToKeep = [ "select.asd" ];
+  asdFilesToKeep = ["select.asd"];
   overrides = x: x;
 }
 /* (SYSTEM select DESCRIPTION DSL for array slices. SHA256

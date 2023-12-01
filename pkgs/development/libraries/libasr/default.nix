@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/OpenSMTPD/libasr";
     description = "Free, simple and portable asynchronous resolver library";
     license = licenses.isc;
-    maintainers = [ maintainers.koral ];
+    maintainers = [maintainers.koral];
     platforms = platforms.unix;
   };
 }

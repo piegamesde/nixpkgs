@@ -29,11 +29,11 @@ buildPythonPackage rec {
       --replace py4j== 'py4j>='
   '';
 
-  propagatedBuildInputs = [ py4j ];
+  propagatedBuildInputs = [py4j];
 
   passthru.optional-dependencies = {
-    ml = [ numpy ];
-    mllib = [ numpy ];
+    ml = [numpy];
+    mllib = [numpy];
     sql = [
       numpy
       pandas
@@ -44,7 +44,7 @@ buildPythonPackage rec {
   # Tests assume running spark instance
   doCheck = false;
 
-  pythonImportsCheck = [ "pyspark" ];
+  pythonImportsCheck = ["pyspark"];
 
   meta = with lib; {
     description = "Python bindings for Apache Spark";
@@ -54,6 +54,6 @@ buildPythonPackage rec {
       binaryBytecode
     ];
     license = licenses.asl20;
-    maintainers = with maintainers; [ shlevy ];
+    maintainers = with maintainers; [shlevy];
   };
 }

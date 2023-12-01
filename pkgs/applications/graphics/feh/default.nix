@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
     "doc"
   ];
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   buildInputs = [
     xorg.libXt
@@ -55,7 +55,7 @@ stdenv.mkDerivation rec {
     "exif=1"
   ] ++ lib.optional stdenv.isDarwin "verscmp=0" ++ lib.optional enableAutoreload "inotify=1";
 
-  installTargets = [ "install" ];
+  installTargets = ["install"];
   postInstall = ''
     wrapProgram "$out/bin/feh" --prefix PATH : "${
       lib.makeBinPath [
@@ -66,7 +66,7 @@ stdenv.mkDerivation rec {
                                --add-flags '--theme=feh'
   '';
 
-  nativeCheckInputs = lib.singleton (perl.withPackages (p: [ p.TestCommand ]));
+  nativeCheckInputs = lib.singleton (perl.withPackages (p: [p.TestCommand]));
   doCheck = true;
 
   meta = with lib; {

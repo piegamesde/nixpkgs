@@ -20,7 +20,7 @@ buildGoModule rec {
   meta = with lib; {
     description = "Asset discovery and identification tools";
     homepage = "https://github.com/zhzyker/dismap";
-    license = with licenses; [ gpl3Only ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [gpl3Only];
+    maintainers = with maintainers; [fab];
   };
 }

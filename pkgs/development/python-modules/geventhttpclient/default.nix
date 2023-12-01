@@ -50,12 +50,12 @@ buildPythonPackage rec {
     "test_multi_queries_greenlet_safe"
   ];
 
-  pythonImportsCheck = [ "geventhttpclient" ];
+  pythonImportsCheck = ["geventhttpclient"];
 
   meta = with lib; {
     homepage = "https://github.com/geventhttpclient/geventhttpclient";
     description = "High performance, concurrent HTTP client library using gevent";
     license = licenses.mit;
-    maintainers = with maintainers; [ koral ];
+    maintainers = with maintainers; [koral];
   };
 }

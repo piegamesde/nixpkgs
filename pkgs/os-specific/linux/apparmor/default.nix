@@ -87,7 +87,7 @@ let
     })
   ];
 
-  python = python3.withPackages (ps: with ps; [ setuptools ]);
+  python = python3.withPackages (ps: with ps; [setuptools]);
 
   # Set to `true` after the next FIXME gets fixed or this gets some
   # common derivation infra. Too much copy-paste to fix one by one.
@@ -117,7 +117,7 @@ let
       perl
     ] ++ lib.optional withPython python;
 
-    buildInputs = [ libxcrypt ] ++ lib.optional withPerl perl ++ lib.optional withPython python;
+    buildInputs = [libxcrypt] ++ lib.optional withPerl perl ++ lib.optional withPython python;
 
     # required to build apparmor-parser
     dontDisableStatic = true;
@@ -139,7 +139,7 @@ let
       (lib.withFeature withPython "python")
     ];
 
-    outputs = [ "out" ] ++ lib.optional withPython "python";
+    outputs = ["out"] ++ lib.optional withPython "python";
 
     postInstall = lib.optionalString withPython ''
       mkdir -p $python/lib
@@ -187,7 +187,7 @@ let
       '';
     inherit patches;
     postPatch = "cd ./utils";
-    makeFlags = [ "LANGS=" ];
+    makeFlags = ["LANGS="];
     installFlags = [
       "DESTDIR=$(out)"
       "BINDIR=$(out)/bin"
@@ -208,7 +208,7 @@ let
       substituteInPlace $out/bin/aa-remove-unknown \
        --replace "/lib/apparmor/rc.apparmor.functions" "${apparmor-parser}/lib/apparmor/rc.apparmor.functions"
       wrapProgram $out/bin/aa-remove-unknown \
-       --prefix PATH : ${lib.makeBinPath [ gawk ]}
+       --prefix PATH : ${lib.makeBinPath [gawk]}
 
       ln -s ${aa-teardown} $out/bin/aa-teardown
     '';
@@ -232,7 +232,7 @@ let
       which
     ];
 
-    buildInputs = [ libapparmor ];
+    buildInputs = [libapparmor];
 
     prePatch = prePatchCommon;
     postPatch = ''
@@ -265,7 +265,7 @@ let
       which
     ];
 
-    buildInputs = [ libapparmor ];
+    buildInputs = [libapparmor];
 
     prePatch =
       prePatchCommon
@@ -319,8 +319,8 @@ let
     postPatch = ''
       cd ./changehat/pam_apparmor
     '';
-    makeFlags = [ "USE_SYSTEM=1" ];
-    installFlags = [ "DESTDIR=$(out)" ];
+    makeFlags = ["USE_SYSTEM=1"];
+    installFlags = ["DESTDIR=$(out)"];
 
     inherit doCheck;
 
@@ -333,7 +333,7 @@ let
 
     src = apparmor-sources;
 
-    nativeBuildInputs = [ which ];
+    nativeBuildInputs = [which];
 
     postPatch = ''
       cd ./profiles
@@ -374,7 +374,7 @@ let
   apparmorRulesFromClosure =
     {
       # The store path of the derivation is given in $path
-      additionalRules ? [ ],
+      additionalRules ? [],
       # TODO: factorize here some other common paths
       # that may emerge from use cases.
       baseRules ? [
@@ -390,13 +390,13 @@ let
       name ? "",
     }:
     rootPaths:
-    runCommand ("apparmor-closure-rules" + lib.optionalString (name != "") "-${name}") { } ''
+    runCommand ("apparmor-closure-rules" + lib.optionalString (name != "") "-${name}") {} ''
       touch $out
       while read -r path
       do printf >>$out "%s,\n" ${
         lib.concatMapStringsSep " " (x: ''"${x}"'') (baseRules ++ additionalRules)
       }
-      done <${closureInfo { inherit rootPaths; }}/store-paths
+      done <${closureInfo {inherit rootPaths;}}/store-paths
     '';
 in
 {

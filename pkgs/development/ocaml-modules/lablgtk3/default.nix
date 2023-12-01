@@ -22,7 +22,7 @@ buildDunePackage rec {
     sha256 = "sha256-1kXJP+tKudP3qfosTgZAQueNK46H9aLevEj6wxPKDWY=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     dune-configurator
     camlp-streams
@@ -36,6 +36,6 @@ buildDunePackage rec {
     description = "OCaml interface to GTK 3";
     homepage = "http://lablgtk.forge.ocamlcore.org/";
     license = lib.licenses.lgpl21;
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
   };
 }

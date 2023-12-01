@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "cffi-uffi-compat";
   version = "cffi_0.24.1";
@@ -20,7 +20,7 @@ rec {
 
   packageName = "cffi-uffi-compat";
 
-  asdFilesToKeep = [ "cffi-uffi-compat.asd" ];
+  asdFilesToKeep = ["cffi-uffi-compat.asd"];
   overrides = x: x;
 }
 /* (SYSTEM cffi-uffi-compat DESCRIPTION UFFI Compatibility Layer for CFFI

@@ -92,7 +92,7 @@ stdenv.mkDerivation rec {
     '';
 
   # We need this for sysconfdir, see remark below.
-  installFlags = [ "DESTDIR=$(out)" ];
+  installFlags = ["DESTDIR=$(out)"];
 
   postInstall = ''
     cp -r $out/$out/* $out

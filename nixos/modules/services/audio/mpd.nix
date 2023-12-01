@@ -50,7 +50,7 @@ let
       }
     ''}
 
-    ${optionalString (cfg.credentials != [ ]) (credentialsPlaceholder cfg.credentials)}
+    ${optionalString (cfg.credentials != []) (credentialsPlaceholder cfg.credentials)}
 
     ${cfg.extraConfig}
   '';
@@ -192,7 +192,7 @@ in
                 in
                 mkOption {
                   type = types.listOf (types.enum perms);
-                  default = [ "read" ];
+                  default = ["read"];
                   description = lib.mdDoc ''
                     List of permissions that are granted with this password.
                     Permissions can be "${concatStringsSep ''", "'' perms}".
@@ -204,11 +204,11 @@ in
         description = lib.mdDoc ''
           Credentials and permissions for accessing the mpd server.
         '';
-        default = [ ];
+        default = [];
         example = [
           {
             passwordFile = "/var/lib/secrets/mpd_readonly_password";
-            permissions = [ "read" ];
+            permissions = ["read"];
           }
           {
             passwordFile = "/var/lib/secrets/mpd_admin_password";
@@ -237,10 +237,10 @@ in
   config = mkIf cfg.enable {
 
     # install mpd units
-    systemd.packages = [ pkgs.mpd ];
+    systemd.packages = [pkgs.mpd];
 
     systemd.sockets.mpd = mkIf cfg.startWhenNeeded {
-      wantedBy = [ "sockets.target" ];
+      wantedBy = ["sockets.target"];
       listenStreams = [
         "" # Note: this is needed to override the upstream unit
         (
@@ -262,7 +262,7 @@ in
           set -euo pipefail
           install -m 600 ${mpdConf} /run/mpd/mpd.conf
         ''
-        + optionalString (cfg.credentials != [ ]) (
+        + optionalString (cfg.credentials != []) (
           concatStringsSep "\n" (
             imap0
               (
@@ -282,8 +282,8 @@ in
         ];
         RuntimeDirectory = "mpd";
         StateDirectory =
-          [ ]
-          ++ optionals (cfg.dataDir == "/var/lib/${name}") [ name ]
+          []
+          ++ optionals (cfg.dataDir == "/var/lib/${name}") [name]
           ++ optionals (cfg.playlistDirectory == "/var/lib/${name}/playlists") [
             name
             "${name}/playlists"
@@ -299,12 +299,12 @@ in
       ${name} = {
         inherit uid;
         group = cfg.group;
-        extraGroups = [ "audio" ];
+        extraGroups = ["audio"];
         description = "Music Player Daemon user";
         home = "${cfg.dataDir}";
       };
     };
 
-    users.groups = optionalAttrs (cfg.group == name) { ${name}.gid = gid; };
+    users.groups = optionalAttrs (cfg.group == name) {${name}.gid = gid;};
   };
 }

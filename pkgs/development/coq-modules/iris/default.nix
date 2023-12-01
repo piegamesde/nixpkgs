@@ -40,7 +40,7 @@ mkCoqDerivation rec {
   release."3.3.0".sha256 = "0az4gkp5m8sq0p73dlh0r7ckkzhk7zkg5bndw01bdsy5ywj0vilp";
   releaseRev = v: "iris-${v}";
 
-  propagatedBuildInputs = [ stdpp ];
+  propagatedBuildInputs = [stdpp];
 
   preBuild = ''
     if [[ -f coq-lint.sh ]]
@@ -51,6 +51,6 @@ mkCoqDerivation rec {
   meta = with lib; {
     description = "The Coq development of the Iris Project";
     license = licenses.bsd3;
-    maintainers = [ maintainers.vbgl ];
+    maintainers = [maintainers.vbgl];
   };
 }

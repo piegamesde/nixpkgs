@@ -10,16 +10,16 @@
 mkOpenModelicaDerivation rec {
   pname = "omparser";
   omdir = "OMParser";
-  omdeps = [ openmodelica.omcompiler ];
+  omdeps = [openmodelica.omcompiler];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     jre8
     libuuid
   ];
 
-  patches = [ ./Makefile.in.patch ];
+  patches = [./Makefile.in.patch];
 
   meta = with lib; {
     description = ''

@@ -8,12 +8,12 @@ let
       url ? null,
       ...
     }:
-    { sha256, commit, ... }:
+    {sha256, commit, ...}:
     {
       github =
         self.callPackage
           (
-            { fetchFromGitHub }:
+            {fetchFromGitHub}:
             fetchFromGitHub {
               owner = lib.head (lib.splitString "/" repo);
               repo = lib.head (lib.tail (lib.splitString "/" repo));
@@ -21,11 +21,11 @@ let
               inherit sha256;
             }
           )
-          { };
+          {};
       gitlab =
         self.callPackage
           (
-            { fetchFromGitLab }:
+            {fetchFromGitLab}:
             fetchFromGitLab {
               owner = lib.head (lib.splitString "/" repo);
               repo = lib.head (lib.tail (lib.splitString "/" repo));
@@ -33,59 +33,59 @@ let
               inherit sha256;
             }
           )
-          { };
+          {};
       git =
         self.callPackage
           (
-            { fetchgit }:
+            {fetchgit}:
             (fetchgit {
               rev = commit;
               inherit sha256 url;
             }).overrideAttrs
-              (_: { GIT_SSL_NO_VERIFY = true; })
+              (_: {GIT_SSL_NO_VERIFY = true;})
           )
-          { };
+          {};
       bitbucket =
         self.callPackage
           (
-            { fetchhg }:
+            {fetchhg}:
             fetchhg {
               rev = commit;
               url = "https://bitbucket.com/${repo}";
               inherit sha256;
             }
           )
-          { };
+          {};
       hg =
         self.callPackage
           (
-            { fetchhg }:
+            {fetchhg}:
             fetchhg {
               rev = commit;
               inherit sha256 url;
             }
           )
-          { };
+          {};
       sourcehut =
         self.callPackage
           (
-            { fetchzip }:
+            {fetchzip}:
             fetchzip {
               url = "https://git.sr.ht/~${repo}/archive/${commit}.tar.gz";
               inherit sha256;
             }
           )
-          { };
+          {};
       codeberg =
         self.callPackage
           (
-            { fetchzip }:
+            {fetchzip}:
             fetchzip {
               url = "https://codeberg.org/${repo}/archive/${commit}.tar.gz";
               inherit sha256;
             }
           )
-          { };
+          {};
     };
 in
 {
@@ -105,14 +105,14 @@ in
       deps = sourceArgs.deps or null;
       error = sourceArgs.error or args.error or null;
       hasSource = lib.hasAttr variant args;
-      pname = builtins.replaceStrings [ "@" ] [ "at" ] ename;
+      pname = builtins.replaceStrings ["@"] ["at"] ename;
       broken = error != null;
     in
     if hasSource then
       lib.nameValuePair ename (
         self.callPackage
           (
-            { melpaBuild, fetchurl, ... }@pkgargs:
+            {melpaBuild, fetchurl, ...}@pkgargs:
             melpaBuild {
               inherit pname ename commit;
               version = lib.optionalString (version != null) (
@@ -143,12 +143,12 @@ in
               packageRequires = lib.optionals (deps != null) (
                 map (dep: pkgargs.${dep} or self.${dep} or null) deps
               );
-              meta = (sourceArgs.meta or { }) // {
+              meta = (sourceArgs.meta or {}) // {
                 inherit broken;
               };
             }
           )
-          { }
+          {}
       )
     else
       null;

@@ -49,7 +49,7 @@ in
 
     extraFlags = mkOption {
       type = types.listOf types.str;
-      default = [ ];
+      default = [];
       example = [
         "--max-table-size 1000"
         "--max-matching-size 1000"
@@ -73,12 +73,12 @@ in
       isSystemUser = true;
     };
 
-    users.groups.osrm = { };
+    users.groups.osrm = {};
 
     systemd.services.osrm = {
       description = "OSRM service";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
 
       serviceConfig = {
         User = config.users.users.osrm.name;

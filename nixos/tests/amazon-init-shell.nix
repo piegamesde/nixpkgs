@@ -7,18 +7,18 @@
 
 {
   system ? builtins.currentSystem,
-  config ? { },
-  pkgs ? import ../.. { inherit system config; },
+  config ? {},
+  pkgs ? import ../.. {inherit system config;},
 }:
 
-with import ../lib/testing-python.nix { inherit system pkgs; };
+with import ../lib/testing-python.nix {inherit system pkgs;};
 with pkgs.lib;
 
 makeTest {
   name = "amazon-init";
-  meta = with maintainers; { maintainers = [ urbas ]; };
+  meta = with maintainers; {maintainers = [urbas];};
   nodes.machine =
-    { ... }:
+    {...}:
     {
       imports = [
         ../modules/profiles/headless.nix

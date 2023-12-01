@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
 
   createFindlibDestdir = true;
 
-  patches = [ ./unittest.patch ];
+  patches = [./unittest.patch];
 
   postPatch = ''
     substituteInPlace "unittest.ml" \
@@ -62,6 +62,6 @@ stdenv.mkDerivation rec {
     homepage = "http://www.xs4all.nl/~mmzeeman/ocaml/";
     description = "An ocaml wrapper for the Expat XML parsing library";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.roconnor ];
+    maintainers = [lib.maintainers.roconnor];
   };
 }

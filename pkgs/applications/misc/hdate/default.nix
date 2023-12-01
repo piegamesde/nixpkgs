@@ -15,6 +15,6 @@ stdenv.mkDerivation rec {
     description = "Hebrew calendar and solar astronomical times library and utilities";
     homepage = "https://sourceforge.net/projects/libhdate/";
     license = lib.licenses.gpl3;
-    maintainers = with lib.maintainers; [ CharlesHD ];
+    maintainers = with lib.maintainers; [CharlesHD];
   };
 }

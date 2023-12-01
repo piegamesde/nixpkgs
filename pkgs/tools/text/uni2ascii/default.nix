@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
       It also provides ways of converting non-ASCII characters to
       similar ASCII characters, e.g. by stripping diacritics.
     '';
-    maintainers = with lib.maintainers; [ goibhniu ];
+    maintainers = with lib.maintainers; [goibhniu];
     platforms = lib.platforms.all;
   };
 }

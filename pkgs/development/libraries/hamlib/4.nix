@@ -45,19 +45,19 @@ stdenv.mkDerivation rec {
       python3
       ncurses
     ]
-    ++ lib.optionals tclBindings [ tcl ]
+    ++ lib.optionals tclBindings [tcl]
     ++ lib.optionals perlBindings [
       perl
       perlPackages.ExtUtilsMakeMaker
     ];
 
   configureFlags =
-    lib.optionals perlBindings [ "--with-perl-binding" ]
+    lib.optionals perlBindings ["--with-perl-binding"]
     ++ lib.optionals tclBindings [
       "--with-tcl-binding"
       "--with-tcl=${tcl}/lib/"
     ]
-    ++ lib.optionals pythonBindings [ "--with-python-binding" ];
+    ++ lib.optionals pythonBindings ["--with-python-binding"];
 
   meta = with lib; {
     description = "Runtime library to control radio transceivers and receivers";
@@ -74,7 +74,7 @@ stdenv.mkDerivation rec {
       lgpl2Plus
     ];
     homepage = "https://hamlib.sourceforge.net";
-    maintainers = with maintainers; [ relrod ];
+    maintainers = with maintainers; [relrod];
     platforms = with platforms; unix;
   };
 }

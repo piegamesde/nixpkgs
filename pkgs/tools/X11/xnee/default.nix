@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
            --replace 'LIBSEMA="CCC"' 'LIBSEMA=""'
   '';
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     libX11
     xorgproto
@@ -66,7 +66,7 @@ stdenv.mkDerivation rec {
 
   # `cnee' is linked without `-lXi' and as a consequence has a RUNPATH that
   # lacks libXi.
-  makeFlags = [ "LDFLAGS=-lXi" ];
+  makeFlags = ["LDFLAGS=-lXi"];
 
   # XXX: Actually tests require an X server.
   doCheck = true;
@@ -86,7 +86,7 @@ stdenv.mkDerivation rec {
 
     homepage = "https://www.gnu.org/software/xnee/";
 
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     platforms = lib.platforms.gnu ++ lib.platforms.linux; # arbitrary choice
   };
 }

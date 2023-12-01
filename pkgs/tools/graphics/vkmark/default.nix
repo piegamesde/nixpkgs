@@ -47,8 +47,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "An extensible Vulkan benchmarking suite";
     homepage = "https://github.com/vkmark/vkmark";
-    license = with licenses; [ lgpl21Plus ];
+    license = with licenses; [lgpl21Plus];
     platforms = platforms.linux;
-    maintainers = with maintainers; [ muscaln ];
+    maintainers = with maintainers; [muscaln];
   };
 }

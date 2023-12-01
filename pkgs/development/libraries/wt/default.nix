@@ -23,7 +23,7 @@
 
 let
   generic =
-    { version, sha256 }:
+    {version, sha256}:
     stdenv.mkDerivation {
       pname = "wt";
       inherit version;

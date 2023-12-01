@@ -1,9 +1,9 @@
 {
   system ? builtins.currentSystem,
-  config ? { },
-  pkgs ? import ../.. { inherit system config; },
+  config ? {},
+  pkgs ? import ../.. {inherit system config;},
   lib ? pkgs.lib,
-  testing ? import ../lib/testing-python.nix { inherit system pkgs; },
+  testing ? import ../lib/testing-python.nix {inherit system pkgs;},
 }:
 let
   secretInStore = pkgs.writeText "topsecret" "iamasecret";
@@ -12,10 +12,10 @@ let
     testing.makeTest {
       name = "initrd-secrets-${compressor}";
 
-      meta.maintainers = [ lib.maintainers.lheckemann ];
+      meta.maintainers = [lib.maintainers.lheckemann];
 
       nodes.machine =
-        { ... }:
+        {...}:
         {
           virtualisation.useBootLoader = true;
           boot.initrd.secrets = {

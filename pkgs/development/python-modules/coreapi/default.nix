@@ -29,7 +29,7 @@ buildPythonPackage rec {
     requests
   ];
 
-  nativeCheckInputs = [ pytest ];
+  nativeCheckInputs = [pytest];
   checkPhase = ''
     cd ./tests
     pytest
@@ -39,6 +39,6 @@ buildPythonPackage rec {
     description = "Python client library for Core API";
     homepage = "https://github.com/core-api/python-client";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

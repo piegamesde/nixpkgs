@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
 
   inherit version src;
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   buildInputs = [
     indilib
@@ -48,7 +48,7 @@ stdenv.mkDerivation rec {
     libdc1394
     ffmpeg
     fftw
-  ] ++ lib.optionals withFirmware [ firmware ];
+  ] ++ lib.optionals withFirmware [firmware];
 
   postPatch = ''
     for f in indi-qsi/CMakeLists.txt \
@@ -90,7 +90,7 @@ stdenv.mkDerivation rec {
     description = "Third party drivers for the INDI astronomical software suite";
     changelog = "https://github.com/indilib/indi-3rdparty/releases/tag/v${version}";
     license = licenses.lgpl2Plus;
-    maintainers = with maintainers; [ hjones2199 ];
+    maintainers = with maintainers; [hjones2199];
     platforms = platforms.linux;
   };
 }

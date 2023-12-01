@@ -1,18 +1,18 @@
 import ./make-test-python.nix (
-  { pkgs, lib, ... }:
+  {pkgs, lib, ...}:
   let
 
     # We'll need to be able to trade cert files between nodes via scp.
     inherit (import ./ssh-keys.nix pkgs) snakeOilPrivateKey snakeOilPublicKey;
 
     makeNebulaNode =
-      { config, ... }:
+      {config, ...}:
       name: extraConfig:
       lib.mkMerge [
         {
           # Expose nebula for doing cert signing.
-          environment.systemPackages = [ pkgs.nebula ];
-          users.users.root.openssh.authorizedKeys.keys = [ snakeOilPublicKey ];
+          environment.systemPackages = [pkgs.nebula];
+          users.users.root.openssh.authorizedKeys.keys = [snakeOilPublicKey];
           services.openssh.enable = true;
           networking.interfaces.eth1.useDHCP = false;
 
@@ -36,7 +36,7 @@ import ./make-test-python.nix (
     nodes = {
 
       lighthouse =
-        { ... }@args:
+        {...}@args:
         makeNebulaNode args "lighthouse" {
           networking.interfaces.eth1.ipv4.addresses = lib.mkForce [
             {
@@ -68,7 +68,7 @@ import ./make-test-python.nix (
         };
 
       allowAny =
-        { ... }@args:
+        {...}@args:
         makeNebulaNode args "allowAny" {
           networking.interfaces.eth1.ipv4.addresses = lib.mkForce [
             {
@@ -79,11 +79,11 @@ import ./make-test-python.nix (
 
           services.nebula.networks.smoke = {
             staticHostMap = {
-              "10.0.100.1" = [ "192.168.1.1:4242" ];
+              "10.0.100.1" = ["192.168.1.1:4242"];
             };
             isLighthouse = false;
-            lighthouses = [ "10.0.100.1" ];
-            relays = [ "10.0.100.1" ];
+            lighthouses = ["10.0.100.1"];
+            relays = ["10.0.100.1"];
             firewall = {
               outbound = [
                 {
@@ -104,7 +104,7 @@ import ./make-test-python.nix (
         };
 
       allowFromLighthouse =
-        { ... }@args:
+        {...}@args:
         makeNebulaNode args "allowFromLighthouse" {
           networking.interfaces.eth1.ipv4.addresses = lib.mkForce [
             {
@@ -115,11 +115,11 @@ import ./make-test-python.nix (
 
           services.nebula.networks.smoke = {
             staticHostMap = {
-              "10.0.100.1" = [ "192.168.1.1:4242" ];
+              "10.0.100.1" = ["192.168.1.1:4242"];
             };
             isLighthouse = false;
-            lighthouses = [ "10.0.100.1" ];
-            relays = [ "10.0.100.1" ];
+            lighthouses = ["10.0.100.1"];
+            relays = ["10.0.100.1"];
             firewall = {
               outbound = [
                 {
@@ -140,7 +140,7 @@ import ./make-test-python.nix (
         };
 
       allowToLighthouse =
-        { ... }@args:
+        {...}@args:
         makeNebulaNode args "allowToLighthouse" {
           networking.interfaces.eth1.ipv4.addresses = lib.mkForce [
             {
@@ -152,11 +152,11 @@ import ./make-test-python.nix (
           services.nebula.networks.smoke = {
             enable = true;
             staticHostMap = {
-              "10.0.100.1" = [ "192.168.1.1:4242" ];
+              "10.0.100.1" = ["192.168.1.1:4242"];
             };
             isLighthouse = false;
-            lighthouses = [ "10.0.100.1" ];
-            relays = [ "10.0.100.1" ];
+            lighthouses = ["10.0.100.1"];
+            relays = ["10.0.100.1"];
             firewall = {
               outbound = [
                 {
@@ -177,7 +177,7 @@ import ./make-test-python.nix (
         };
 
       disabled =
-        { ... }@args:
+        {...}@args:
         makeNebulaNode args "disabled" {
           networking.interfaces.eth1.ipv4.addresses = lib.mkForce [
             {
@@ -189,11 +189,11 @@ import ./make-test-python.nix (
           services.nebula.networks.smoke = {
             enable = false;
             staticHostMap = {
-              "10.0.100.1" = [ "192.168.1.1:4242" ];
+              "10.0.100.1" = ["192.168.1.1:4242"];
             };
             isLighthouse = false;
-            lighthouses = [ "10.0.100.1" ];
-            relays = [ "10.0.100.1" ];
+            lighthouses = ["10.0.100.1"];
+            relays = ["10.0.100.1"];
             firewall = {
               outbound = [
                 {

@@ -43,7 +43,7 @@ stdenv.mkDerivation {
     unset NIX_ENFORCE_PURITY
   '';
 
-  makeFlags = [ "PARALLEL=$(NIX_BUILD_CORES)" ];
+  makeFlags = ["PARALLEL=$(NIX_BUILD_CORES)"];
 
   installPhase = ''
     mkdir $out
@@ -65,6 +65,6 @@ stdenv.mkDerivation {
     homepage = "https://github.com/capnproto/ekam";
     license = licenses.asl20;
     platforms = platforms.linux;
-    maintainers = [ maintainers.garrison ];
+    maintainers = [maintainers.garrison];
   };
 }

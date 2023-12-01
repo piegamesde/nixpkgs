@@ -23,7 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-bHfjUfuiEH3AxRDTLmbm67bKOw6fBuMQDUQA2NLg800=";
   };
 
-  propagatedBuildInputs = [ geographiclib ];
+  propagatedBuildInputs = [geographiclib];
 
   nativeCheckInputs = [
     async_generator
@@ -38,9 +38,9 @@ buildPythonPackage rec {
       "test_user_agent_default"
     ];
 
-  pytestFlagsArray = [ "--skip-tests-requiring-internet" ];
+  pytestFlagsArray = ["--skip-tests-requiring-internet"];
 
-  pythonImportsCheck = [ "geopy" ];
+  pythonImportsCheck = ["geopy"];
 
   __darwinAllowLocalNetworking = true;
 
@@ -48,7 +48,7 @@ buildPythonPackage rec {
     homepage = "https://github.com/geopy/geopy";
     description = "Python Geocoding Toolbox";
     changelog = "https://github.com/geopy/geopy/releases/tag/${version}";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ GuillaumeDesforges ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [GuillaumeDesforges];
   };
 }

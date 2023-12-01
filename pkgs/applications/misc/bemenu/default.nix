@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [
     pkg-config
     scdoc
-  ] ++ lib.optionals waylandSupport [ wayland-scanner ];
+  ] ++ lib.optionals waylandSupport [wayland-scanner];
 
   buildInputs =
     with lib;
@@ -61,10 +61,10 @@ stdenv.mkDerivation rec {
       xorg.libxcb
     ];
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   buildFlags =
-    [ "clients" ]
+    ["clients"]
     ++ lib.optional ncursesSupport "curses"
     ++ lib.optional waylandSupport "wayland"
     ++ lib.optional x11Support "x11";
@@ -73,7 +73,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/Cloudef/bemenu";
     description = "Dynamic menu library and client program inspired by dmenu";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ lheckemann ];
+    maintainers = with maintainers; [lheckemann];
     platforms = with platforms; linux;
   };
 }

@@ -9,7 +9,7 @@
   fetchNuGet,
   glib,
   mono,
-  overrides ? { },
+  overrides ? {},
 }:
 
 let
@@ -22,14 +22,14 @@ let
       pname = "NUnit";
       version = "3.0.1";
       sha256 = "1g3j3kvg9vrapb1vjgq65nvn1vg7bzm66w7yjnaip1iww1yn1b0p";
-      outputFiles = [ "lib/*" ];
+      outputFiles = ["lib/*"];
     };
 
     NUnit2 = fetchNuGet {
       pname = "NUnit";
       version = "2.6.4";
       sha256 = "1acwsm7p93b1hzfb83ia33145x0w6fvdsfjm9xflsisljxpdx35y";
-      outputFiles = [ "lib/*" ];
+      outputFiles = ["lib/*"];
     };
 
     NUnit = NUnit2;
@@ -38,49 +38,49 @@ let
       pname = "NUnit.Console";
       version = "3.0.1";
       sha256 = "154bqwm2n95syv8nwd67qh8qsv0b0h5zap60sk64z3kd3a9ffi5p";
-      outputFiles = [ "tools/*" ];
+      outputFiles = ["tools/*"];
     };
 
     MaxMindDb = fetchNuGet {
       pname = "MaxMind.Db";
       version = "1.1.0.0";
       sha256 = "0lixl76f7k3ldiqzg94zh13gn82w5mm5dx72y97fcqvp8g6nj3ds";
-      outputFiles = [ "lib/*" ];
+      outputFiles = ["lib/*"];
     };
 
     MaxMindGeoIP2 = fetchNuGet {
       pname = "MaxMind.GeoIP2";
       version = "2.3.1";
       sha256 = "1s44dvjnmj1aimbrgkmpj6h5dn1w6acgqjch1axc76yz6hwknqgf";
-      outputFiles = [ "lib/*" ];
+      outputFiles = ["lib/*"];
     };
 
     SharpZipLib = fetchNuGet {
       pname = "SharpZipLib";
       version = "1.3.3";
       sha256 = "sha256-HWEQTKh9Ktwg/zIl079dAiH+ob2ShWFAqLgG6XgIMr4=";
-      outputFiles = [ "lib/*" ];
+      outputFiles = ["lib/*"];
     };
 
     StyleCopMSBuild = fetchNuGet {
       pname = "StyleCop.MSBuild";
       version = "4.7.49.0";
       sha256 = "0rpfyvcggm881ynvgr17kbx5hvj7ivlms0bmskmb2zyjlpddx036";
-      outputFiles = [ "tools/*" ];
+      outputFiles = ["tools/*"];
     };
 
     StyleCopPlusMSBuild = fetchNuGet {
       pname = "StyleCopPlus.MSBuild";
       version = "4.7.49.5";
       sha256 = "1hv4lfxw72aql8siyqc4n954vzdz8p6jx9f2wrgzz0jy1k98x2mr";
-      outputFiles = [ "tools/*" ];
+      outputFiles = ["tools/*"];
     };
 
     RestSharp = fetchNuGet {
       pname = "RestSharp";
       version = "106.12.0";
       sha256 = "sha256-NGzveByJvCRtHlI2C8d/mLs3akyMm77NER8TUG6HiD4=";
-      outputFiles = [ "lib/*" ];
+      outputFiles = ["lib/*"];
     };
 
     SharpFont = fetchNuGet {
@@ -97,35 +97,35 @@ let
       pname = "SmartIrc4net";
       version = "0.4.5.1";
       sha256 = "1d531sj39fvwmj2wgplqfify301y3cwp7kwr9ai5hgrq81jmjn2b";
-      outputFiles = [ "lib/*" ];
+      outputFiles = ["lib/*"];
     };
 
     FuzzyLogicLibrary = fetchNuGet {
       pname = "FuzzyLogicLibrary";
       version = "1.2.0";
       sha256 = "0x518i8d3rw9n51xwawa4sywvqd722adj7kpcgcm63r66s950r5l";
-      outputFiles = [ "bin/*" ];
+      outputFiles = ["bin/*"];
     };
 
     OpenNAT = fetchNuGet {
       pname = "Open.NAT";
       version = "2.1.0";
       sha256 = "1jyd30fwycdwx5ck96zhp2xf20yz0sp7g3pjbqhmay4kd322mfwk";
-      outputFiles = [ "lib/*" ];
+      outputFiles = ["lib/*"];
     };
 
     MonoNat = fetchNuGet {
       pname = "Mono.Nat";
       version = "1.2.24";
       sha256 = "0vfkach11kkcd9rcqz3s38m70d5spyb21gl99iqnkljxj5555wjs";
-      outputFiles = [ "lib/*" ];
+      outputFiles = ["lib/*"];
     };
 
     NUnitRunners = fetchNuGet {
       pname = "NUnit.Runners";
       version = "2.6.4";
       sha256 = "11nmi7vikn9idz8qcad9z7f73arsh5rw18fc1sri9ywz77mpm1s4";
-      outputFiles = [ "tools/*" ];
+      outputFiles = ["tools/*"];
       preInstall = "mv -v tools/lib/* tools && rmdir -v tools/lib";
     };
 
@@ -142,7 +142,7 @@ let
         sha256 = "16kdvkbx2zwj7m43cra12vhczbpj23wyrdnj0ygxf7np7c2aassp";
       };
 
-      projectFile = [ "Source/Boogie.sln" ];
+      projectFile = ["Source/Boogie.sln"];
       nugetDeps = ../development/dotnet-modules/boogie-deps.nix;
 
       postInstall = ''
@@ -172,7 +172,7 @@ let
           This derivation may be used as a vim plugin to provide syntax highlighting.
         '';
         license = licenses.mspl;
-        maintainers = [ maintainers.taktoa ];
+        maintainers = [maintainers.taktoa];
         platforms = with platforms; (linux ++ darwin);
       };
     };
@@ -200,9 +200,9 @@ let
         dotnetPackages.NUnitRunners
       ];
 
-      xBuildFiles = [ "Source/Boogie.sln" ];
+      xBuildFiles = ["Source/Boogie.sln"];
 
-      outputFiles = [ "Binaries/*" ];
+      outputFiles = ["Binaries/*"];
 
       postInstall = ''
         mkdir -pv "$out/lib/dotnet/${pname}"
@@ -225,7 +225,7 @@ let
           This derivation may be used as a vim plugin to provide syntax highlighting.
         '';
         license = licenses.mspl;
-        maintainers = [ maintainers.taktoa ];
+        maintainers = [maintainers.taktoa];
         platforms = with platforms; (linux ++ darwin);
       };
     };
@@ -272,19 +272,19 @@ let
           ln -s ${z3} Binaries/z3
         '';
 
-        buildInputs = [ Boogie ];
+        buildInputs = [Boogie];
 
-        xBuildFiles = [ "Source/Dafny.sln" ];
+        xBuildFiles = ["Source/Dafny.sln"];
         xBuildFlags = [
           "/p:Configuration=Checked"
           "/p:Platform=Any CPU"
           "/t:Rebuild"
         ];
 
-        outputFiles = [ "Binaries/*" ];
+        outputFiles = ["Binaries/*"];
 
         # Do not wrap the z3 executable, only dafny-related ones.
-        exeFiles = [ "Dafny*.exe" ];
+        exeFiles = ["Dafny*.exe"];
 
         # Dafny needs mono in its path.
         makeWrapperArgs = "--set PATH ${mono}/bin";
@@ -302,7 +302,7 @@ let
         meta = with lib; {
           description = "A programming language with built-in specification constructs";
           homepage = "https://research.microsoft.com/dafny";
-          maintainers = with maintainers; [ layus ];
+          maintainers = with maintainers; [layus];
           license = licenses.mit;
           platforms = with platforms; (linux ++ darwin);
         };
@@ -318,7 +318,7 @@ let
         "Mono.Addins.Gui/Mono.Addins.Gui.csproj"
         "Mono.Addins.CecilReflector/Mono.Addins.CecilReflector.csproj"
       ];
-      outputFiles = [ "bin/*" ];
+      outputFiles = ["bin/*"];
 
       src = fetchFromGitHub {
         owner = "mono";
@@ -327,7 +327,7 @@ let
         sha256 = "1hnn0a2qsjcjprsxas424bzvhsdwy0yc2jj5xbp698c0m9kfk24y";
       };
 
-      buildInputs = [ pkgs.gtk-sharp-2_0 ];
+      buildInputs = [pkgs.gtk-sharp-2_0];
 
       meta = {
         description = "A generic framework for creating extensible applications";
@@ -344,7 +344,7 @@ let
       pname = "Newtonsoft.Json";
       version = "11.0.2";
       sha256 = "07na27n4mlw77f3hg5jpayzxll7f4gyna6x7k9cybmxpbs6l77k7";
-      outputFiles = [ "*" ];
+      outputFiles = ["*"];
     };
 
     Nuget = buildDotnetPackage rec {
@@ -364,15 +364,15 @@ let
       dontBuild = true;
       dontPlacateNuget = true;
 
-      outputFiles = [ "*" ];
-      exeFiles = [ "nuget.exe" ];
+      outputFiles = ["*"];
+      exeFiles = ["nuget.exe"];
     };
 
     Paket = fetchNuGet {
       pname = "Paket";
       version = "5.179.1";
       sha256 = "11rzna03i145qj08hwrynya548fwk8xzxmg65swyaf19jd7gzg82";
-      outputFiles = [ "*" ];
+      outputFiles = ["*"];
     };
   };
 in

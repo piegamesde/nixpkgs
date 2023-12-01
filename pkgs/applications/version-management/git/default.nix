@@ -60,7 +60,7 @@ assert svnSupport -> perlSupport;
 
 let
   version = "2.40.1";
-  svn = subversionClient.override { perlBindings = perlSupport; };
+  svn = subversionClient.override {perlBindings = perlSupport;};
   gitwebPerlLibs = with perlPackages; [
     CGI
     HTMLParser
@@ -87,10 +87,10 @@ stdenv.mkDerivation (
       hash = "sha256-SJO4uY7vyf3EsOfKJJ40AAT6p4BKQz0XQp4xHh/vIdI=";
     };
 
-    outputs = [ "out" ] ++ lib.optional withManual "doc";
+    outputs = ["out"] ++ lib.optional withManual "doc";
     separateDebugInfo = true;
 
-    hardeningDisable = [ "format" ];
+    hardeningDisable = ["format"];
 
     enableParallelBuilding = true;
 
@@ -99,7 +99,7 @@ stdenv.mkDerivation (
       ./git-sh-i18n.patch
       ./git-send-email-honor-PATH.patch
       ./installCheck-path.patch
-    ] ++ lib.optionals withSsh [ ./ssh-path.patch ];
+    ] ++ lib.optionals withSsh [./ssh-path.patch];
 
     postPatch =
       ''
@@ -143,12 +143,12 @@ stdenv.mkDerivation (
         libiconv
         bash
       ]
-      ++ lib.optionals perlSupport [ perlPackages.perl ]
+      ++ lib.optionals perlSupport [perlPackages.perl]
       ++ lib.optionals guiSupport [
         tcl
         tk
       ]
-      ++ lib.optionals withpcre2 [ pcre2 ]
+      ++ lib.optionals withpcre2 [pcre2]
       ++ lib.optionals stdenv.isDarwin [
         Security
         CoreServices
@@ -164,7 +164,7 @@ stdenv.mkDerivation (
       + lib.optionalString (stdenv.isFreeBSD) "-lthr";
 
     configureFlags =
-      [ "ac_cv_prog_CURL_CONFIG=${lib.getDev curl}/bin/curl-config" ]
+      ["ac_cv_prog_CURL_CONFIG=${lib.getDev curl}/bin/curl-config"]
       ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [
         "ac_cv_fread_reads_directories=yes"
         "ac_cv_snprintf_returns_bogus=no"
@@ -176,18 +176,18 @@ stdenv.mkDerivation (
     '';
 
     makeFlags =
-      [ "prefix=\${out}" ]
+      ["prefix=\${out}"]
       # Git does not allow setting a shell separately for building and run-time.
       # Therefore lets leave it at the default /bin/sh when cross-compiling
       ++ lib.optional (stdenv.buildPlatform == stdenv.hostPlatform) "SHELL_PATH=${stdenv.shell}"
-      ++ (if perlSupport then [ "PERL_PATH=${perlPackages.perl}/bin/perl" ] else [ "NO_PERL=1" ])
-      ++ (if pythonSupport then [ "PYTHON_PATH=${python3}/bin/python" ] else [ "NO_PYTHON=1" ])
+      ++ (if perlSupport then ["PERL_PATH=${perlPackages.perl}/bin/perl"] else ["NO_PERL=1"])
+      ++ (if pythonSupport then ["PYTHON_PATH=${python3}/bin/python"] else ["NO_PYTHON=1"])
       ++ lib.optionals stdenv.isSunOS [
         "INSTALL=install"
         "NO_INET_NTOP="
         "NO_INET_PTON="
       ]
-      ++ (if stdenv.isDarwin then [ "NO_APPLE_COMMON_CRYPTO=1" ] else [ "sysconfdir=/etc" ])
+      ++ (if stdenv.isDarwin then ["NO_APPLE_COMMON_CRYPTO=1"] else ["sysconfdir=/etc"])
       ++ lib.optionals stdenv.hostPlatform.isMusl [
         "NO_SYS_POLL_H=1"
         "NO_GETTEXT=YesPlease"
@@ -226,7 +226,7 @@ stdenv.mkDerivation (
     # WARNING: Do not `rm` or `mv` files from the source tree; use `cp` instead.
     #          We need many of these files during the installCheckPhase.
 
-    installFlags = [ "NO_INSTALL_HARDLINKS=1" ];
+    installFlags = ["NO_INSTALL_HARDLINKS=1"];
 
     preInstall =
       (lib.optionalString osxkeychainSupport ''
@@ -327,7 +327,7 @@ stdenv.mkDerivation (
             # wrap git-svn
             wrapProgram $out/libexec/git-core/git-svn                                                                                \
                          --set GITPERLLIB "$out/${perlPackages.perl.libPrefix}:${
-                           perlPackages.makePerlPath (perlLibs ++ [ svn.out ])
+                           perlPackages.makePerlPath (perlLibs ++ [svn.out])
                          }" \
                          --prefix PATH : "${svn.out}/bin" ''
         else
@@ -489,7 +489,7 @@ stdenv.mkDerivation (
     passthru = {
       shellPath = "/bin/git-shell";
       tests = {
-        withInstallCheck = finalAttrs.finalPackage.overrideAttrs (_: { doInstallCheck = true; });
+        withInstallCheck = finalAttrs.finalPackage.overrideAttrs (_: {doInstallCheck = true;});
         buildbot-integration = nixosTests.buildbot;
       } // tests.fetchgit;
     };

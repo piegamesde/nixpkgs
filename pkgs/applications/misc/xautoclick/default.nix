@@ -43,7 +43,7 @@ stdenv.mkDerivation rec {
       glib
       wrapGAppsHook
     ]
-    ++ lib.optionals fltkSupport [ fltk ]
+    ++ lib.optionals fltkSupport [fltk]
     ++ lib.optionals qtSupport [
       qt5.qtbase
       qt5.wrapQtAppsHook

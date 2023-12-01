@@ -11,7 +11,7 @@ let
     allowUnfree = true;
   };
 
-  inherit (import ../../.. { inherit config; }) pkgs;
+  inherit (import ../../.. {inherit config;}) pkgs;
 
   rWrapper = pkgs.rWrapper.override {
     packages = pkgs.lib.filter pkgs.lib.isDerivation (pkgs.lib.attrValues pkgs.rPackages);

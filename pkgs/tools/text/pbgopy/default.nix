@@ -21,6 +21,6 @@ buildGoModule rec {
     description = "Copy and paste between devices";
     homepage = "https://github.com/nakabonne/pbgopy";
     license = licenses.mit;
-    maintainers = [ maintainers.ivar ];
+    maintainers = [maintainers.ivar];
   };
 }

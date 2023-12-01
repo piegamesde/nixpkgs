@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
   ] ++ lib.optional withSystemd systemd;
 
   configureFlags =
-    [ "--enable-notifications" ]
+    ["--enable-notifications"]
     ++ lib.optionals withSystemd [
       "--with-systemdsystemunitdir=${placeholder "out"}/lib/systemd/system"
       "--with-systemduserunitdir=${placeholder "out"}/lib/systemd/user"

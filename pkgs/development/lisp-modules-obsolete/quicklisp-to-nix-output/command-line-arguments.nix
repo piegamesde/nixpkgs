@@ -1,10 +1,10 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "command-line-arguments";
   version = "20210807-git";
 
-  parasites = [ "command-line-arguments/test" ];
+  parasites = ["command-line-arguments/test"];
 
   description = "small library to deal with command-line arguments";
 
@@ -20,7 +20,7 @@ rec {
 
   packageName = "command-line-arguments";
 
-  asdFilesToKeep = [ "command-line-arguments.asd" ];
+  asdFilesToKeep = ["command-line-arguments.asd"];
   overrides = x: x;
 }
 /* (SYSTEM command-line-arguments DESCRIPTION

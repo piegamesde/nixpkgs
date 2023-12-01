@@ -20,7 +20,7 @@ rustPlatform.buildRustPackage {
   meta = with lib; {
     description = "UNIX's missing `loop` command";
     homepage = "https://github.com/Miserlou/Loop";
-    maintainers = with maintainers; [ koral ];
+    maintainers = with maintainers; [koral];
     license = licenses.mit;
     mainProgram = "loop";
   };

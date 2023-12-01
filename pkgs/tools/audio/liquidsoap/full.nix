@@ -119,6 +119,6 @@ stdenv.mkDerivation {
       ehmry
     ];
     license = licenses.gpl2Plus;
-    platforms = ocamlPackages.ocaml.meta.platforms or [ ];
+    platforms = ocamlPackages.ocaml.meta.platforms or [];
   };
 }

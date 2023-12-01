@@ -15,8 +15,8 @@ mkDerivation rec {
     url = "mirror://sourceforge/unixcw/unixcw_${version}.orig.tar.gz";
     sha256 = "5f3aacd8a26e16e6eff437c7ae1e9b389956fb137eeb3de24670ce05de479e7a";
   };
-  patches = [ ./remove-use-of-dlopen.patch ];
-  nativeBuildInputs = [ pkg-config ];
+  patches = [./remove-use-of-dlopen.patch];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     libpulseaudio
     alsa-lib
@@ -42,7 +42,7 @@ mkDerivation rec {
       cw reports any errors in  embedded  commands
     '';
     homepage = "https://unixcw.sourceforge.net";
-    maintainers = [ maintainers.mafo ];
+    maintainers = [maintainers.mafo];
     license = licenses.gpl2;
     platforms = platforms.linux;
   };

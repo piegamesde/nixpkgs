@@ -26,7 +26,7 @@ let
   postPatch = ''
     sed '1i#include <ctime>' -i zod_src/common.cpp # gcc12
   '';
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
   buildInputs = [
     SDL
     SDL_image
@@ -36,7 +36,7 @@ let
     wxGTK32
     coreutils
   ];
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
   NIX_LDFLAGS = "-L${libmysqlclient}/lib/mysql";
   zod_engine = stdenv.mkDerivation {
     inherit
@@ -70,7 +70,7 @@ let
     pname = "${name}-map_editor";
     enableParallelBuilding = true;
     preBuild = "cd zod_src";
-    makeFlags = [ "map_editor" ];
+    makeFlags = ["map_editor"];
     installPhase = ''
       mkdir -p $out/bin
       install -m755 zod_map_editor $out/bin
@@ -108,7 +108,7 @@ let
       install -m755 zod_launcher $out/bin
     '';
   };
-  zod_assets = runCommandLocal "${name}-assets" { } ''
+  zod_assets = runCommandLocal "${name}-assets" {} ''
     mkdir -p $out/usr/lib/commander-zod{,blank_maps}
     cp -r ${src}/assets $out/usr/lib/commander-zod/assets
     for i in ${src}/*.map ${src}/*.txt; do
@@ -130,7 +130,7 @@ symlinkJoin {
   meta = with lib; {
     description = "Multiplayer remake of ZED";
     homepage = "http://zod.sourceforge.net/";
-    maintainers = with maintainers; [ zeri ];
+    maintainers = with maintainers; [zeri];
     license = licenses.gpl3Plus; # Says the website
     platforms = platforms.linux;
   };

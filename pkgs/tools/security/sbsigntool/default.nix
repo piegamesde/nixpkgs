@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-5DInWgl1gThjjfGOsts1H1s1GbMCkd0gjbmG3gA3Fhg=";
   };
 
-  patches = [ ./autoconf.patch ];
+  patches = [./autoconf.patch];
 
   prePatch = "patchShebangs .";
 

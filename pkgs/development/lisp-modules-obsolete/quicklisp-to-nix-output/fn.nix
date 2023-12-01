@@ -1,12 +1,12 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "fn";
   version = "20171019-git";
 
   description = "Some macros for lambda brevity";
 
-  deps = [ args."named-readtables" ];
+  deps = [args."named-readtables"];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/fn/2017-10-19/fn-20171019-git.tgz";
@@ -15,7 +15,7 @@ rec {
 
   packageName = "fn";
 
-  asdFilesToKeep = [ "fn.asd" ];
+  asdFilesToKeep = ["fn.asd"];
   overrides = x: x;
 }
 /* (SYSTEM fn DESCRIPTION Some macros for lambda brevity SHA256

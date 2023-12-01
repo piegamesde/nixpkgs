@@ -22,12 +22,12 @@ buildPythonPackage rec {
 
   # Project has no tests
   doCheck = false;
-  pythonImportsCheck = [ "waqiasync" ];
+  pythonImportsCheck = ["waqiasync"];
 
   meta = with lib; {
     description = "Python library for http://aqicn.org";
     homepage = "https://github.com/andrey-git/waqi-async";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -68,7 +68,7 @@ let
   mediawikiScripts =
     pkgs.runCommand "mediawiki-scripts"
       {
-        nativeBuildInputs = [ pkgs.makeWrapper ];
+        nativeBuildInputs = [pkgs.makeWrapper];
         preferLocalBuild = true;
       }
       ''
@@ -309,7 +309,7 @@ in
       };
 
       skins = mkOption {
-        default = { };
+        default = {};
         type = types.attrsOf types.path;
         description = lib.mdDoc ''
           Attribute set of paths whose content is copied to the {file}`skins`
@@ -318,7 +318,7 @@ in
       };
 
       extensions = mkOption {
-        default = { };
+        default = {};
         type = types.attrsOf (types.nullOr types.path);
         description = lib.mdDoc ''
           Attribute set of paths whose content is copied to the {file}`extensions`
@@ -533,7 +533,7 @@ in
     services.mysql = mkIf (cfg.database.type == "mysql" && cfg.database.createLocally) {
       enable = true;
       package = mkDefault pkgs.mariadb;
-      ensureDatabases = [ cfg.database.name ];
+      ensureDatabases = [cfg.database.name];
       ensureUsers = [
         {
           name = cfg.database.user;
@@ -546,7 +546,7 @@ in
 
     services.postgresql = mkIf (cfg.database.type == "postgres" && cfg.database.createLocally) {
       enable = true;
-      ensureDatabases = [ cfg.database.name ];
+      ensureDatabases = [cfg.database.name];
       ensureUsers = [
         {
           name = cfg.database.user;
@@ -578,7 +578,7 @@ in
 
     services.httpd = lib.mkIf (cfg.webserver == "apache") {
       enable = true;
-      extraModules = [ "proxy_fcgi" ];
+      extraModules = ["proxy_fcgi"];
       virtualHosts.${cfg.httpd.virtualHost.hostName} = mkMerge [
         cfg.httpd.virtualHost
         {
@@ -618,8 +618,8 @@ in
       ];
 
     systemd.services.mediawiki-init = {
-      wantedBy = [ "multi-user.target" ];
-      before = [ "phpfpm-mediawiki.service" ];
+      wantedBy = ["multi-user.target"];
+      before = ["phpfpm-mediawiki.service"];
       after =
         optional (cfg.database.type == "mysql" && cfg.database.createLocally) "mysql.service"
         ++ optional (cfg.database.type == "postgres" && cfg.database.createLocally) "postgresql.service";
@@ -668,8 +668,8 @@ in
       group = group;
       isSystemUser = true;
     };
-    users.groups.${group} = { };
+    users.groups.${group} = {};
 
-    environment.systemPackages = [ mediawikiScripts ];
+    environment.systemPackages = [mediawikiScripts];
   };
 }

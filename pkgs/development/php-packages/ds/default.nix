@@ -20,7 +20,7 @@ buildPecl {
     sha256 = "sha256-IqNv2jVW1Hg1hV8H9vEyLT5BWsFkGHR+WlAOHJhlW84=";
   };
 
-  buildInputs = [ pcre2 ];
+  buildInputs = [pcre2];
 
   meta = with lib; {
     changelog = "https://github.com/php-ds/ext-ds/releases/tag/v${version}";

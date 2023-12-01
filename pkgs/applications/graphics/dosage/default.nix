@@ -1,4 +1,4 @@
-{ lib, python3Packages }:
+{lib, python3Packages}:
 
 python3Packages.buildPythonApplication rec {
   pname = "dosage";
@@ -15,7 +15,7 @@ python3Packages.buildPythonApplication rec {
     responses
   ];
 
-  nativeBuildInputs = with python3Packages; [ setuptools-scm ];
+  nativeBuildInputs = with python3Packages; [setuptools-scm];
 
   propagatedBuildInputs = with python3Packages; [
     colorama
@@ -32,6 +32,6 @@ python3Packages.buildPythonApplication rec {
     description = "A comic strip downloader and archiver";
     homepage = "https://dosage.rocks/";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ toonn ];
+    maintainers = with lib.maintainers; [toonn];
   };
 }

@@ -18,19 +18,19 @@ buildPythonPackage rec {
     hash = "sha256-jw/hpz0QfcgP5OEJcmre0h1OzOfpPtaROxHm+YUqces=";
   };
 
-  propagatedBuildInputs = [ lxml ];
+  propagatedBuildInputs = [lxml];
 
   nativeCheckInputs = [
     pytestCheckHook
     six
   ];
 
-  pythonImportsCheck = [ "html_text" ];
+  pythonImportsCheck = ["html_text"];
 
   meta = with lib; {
     description = "Extract text from HTML";
     homepage = "https://github.com/TeamHG-Memex/html-text";
     license = licenses.mit;
-    maintainers = with maintainers; [ ambroisie ];
+    maintainers = with maintainers; [ambroisie];
   };
 }

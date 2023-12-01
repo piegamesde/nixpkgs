@@ -20,11 +20,9 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-Hi5Z5TmiHXp7YrqXfbwACKEximksQRhdoMGU1iLmXOk=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  buildInputs =
-    lib.optionals stdenv.isLinux [ openssl ]
-    ++ lib.optionals stdenv.isDarwin [ Security ];
+  buildInputs = lib.optionals stdenv.isLinux [openssl] ++ lib.optionals stdenv.isDarwin [Security];
 
   # Checks need to be disabled here because the current test suite makes assumptions
   # about the surrounding environment that aren't Nix friendly. See these lines for specifics:
@@ -35,6 +33,6 @@ rustPlatform.buildRustPackage rec {
     description = "A lightweight Cargo subcommand to build code for the wasm32-wasi target";
     homepage = "https://bytecodealliance.github.io/cargo-wasi";
     license = licenses.asl20;
-    maintainers = with maintainers; [ lucperkins ];
+    maintainers = with maintainers; [lucperkins];
   };
 }

@@ -58,9 +58,9 @@ stdenv.mkDerivation rec {
     sed -i '/ACX_PTHREAD/d' configure.ac
   '';
 
-  configureFlags = [ "CPPFLAGS=-I${glee}/include/GL" ];
+  configureFlags = ["CPPFLAGS=-I${glee}/include/GL"];
 
-  makeFlags = [ ''CXXFLAGS+="-DGL_GLEXT_PROTOTYPES"'' ];
+  makeFlags = [''CXXFLAGS+="-DGL_GLEXT_PROTOTYPES"''];
 
   preBuild = ''
     sed -i "s|/usr|$out|" Makefile
@@ -69,7 +69,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Electric Sheep, a distributed screen saver for evolving artificial organisms";
     homepage = "https://electricsheep.org/";
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     platforms = platforms.linux;
     license = licenses.gpl2Only;
   };

@@ -38,10 +38,10 @@ buildNpmPackage rec {
   );
 
   # Supresses an error about esbuild's version.
-  npmRebuildFlags = [ "|| true" ];
+  npmRebuildFlags = ["|| true"];
 
   npmDepsHash = "sha256-jKSdeyQ8oHw7ZGby0XzDg4O8mtH276ykVuBcw7dU/Ls=";
-  npmFlags = [ "--legacy-peer-deps" ];
+  npmFlags = ["--legacy-peer-deps"];
   npmBuildScript = "buildWeb";
 
   prePatch = ''

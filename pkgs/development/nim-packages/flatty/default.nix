@@ -22,7 +22,7 @@ buildNimPackage rec {
     src.meta
     // {
       description = "Tools and serializer for plain flat binary files";
-      license = [ licenses.mit ];
-      maintainers = [ maintainers.ehmry ];
+      license = [licenses.mit];
+      maintainers = [maintainers.ehmry];
     };
 }

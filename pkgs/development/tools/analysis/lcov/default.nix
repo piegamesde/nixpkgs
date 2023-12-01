@@ -18,8 +18,8 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-X1T5OqR6NgTNGedH1on3+XZ7369007By6tRJK8xtmbk=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ perl ];
+  nativeBuildInputs = [makeWrapper];
+  buildInputs = [perl];
 
   preBuild = ''
     patchShebangs bin/
@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
         perlPackages.JSON
       ]
     }
-    wrapProgram $out/bin/genpng --set PERL5LIB ${perlPackages.makeFullPerlPath [ perlPackages.GD ]}
+    wrapProgram $out/bin/genpng --set PERL5LIB ${perlPackages.makeFullPerlPath [perlPackages.GD]}
   '';
 
   meta = with lib; {
@@ -51,7 +51,7 @@ stdenv.mkDerivation rec {
     homepage = "https://ltp.sourceforge.net/coverage/lcov.php";
     license = lib.licenses.gpl2Plus;
 
-    maintainers = with maintainers; [ dezgeg ];
+    maintainers = with maintainers; [dezgeg];
     platforms = platforms.all;
   };
 }

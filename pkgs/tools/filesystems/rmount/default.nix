@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
     sha256 = "0j1ayncw1nnmgna7vyx44vwinh4ah1b0l5y8agc7i4s8clbvy3h0";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     install -D ${src}/rmount.man  $out/share/man/man1/rmount.1
@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/Luis-Hebendanz/rmount";
     description = "Remote mount utility which parses a json file";
     license = licenses.mit;
-    maintainers = [ maintainers.luis ];
+    maintainers = [maintainers.luis];
     platforms = platforms.linux;
   };
 }

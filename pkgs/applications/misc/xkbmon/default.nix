@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-EWW6L6NojzXodDOET01LMcQT8/1JIMpOD++MCiM3j1Y=";
   };
 
-  buildInputs = [ libX11 ];
+  buildInputs = [libX11];
 
   installPhase = "install -D -t $out/bin xkbmon";
 
@@ -25,6 +25,6 @@ stdenv.mkDerivation rec {
     description = "Command-line keyboard layout monitor for X11";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = [ maintainers.romildo ];
+    maintainers = [maintainers.romildo];
   };
 }

@@ -50,7 +50,7 @@ python3.pkgs.buildPythonApplication rec {
   postInstall = ''
     install -D -m755 ./tools/write-ssh-key-fingerprints $out/libexec/write-ssh-key-fingerprints
     for i in $out/libexec/*; do
-      wrapProgram $i --prefix PATH : "${lib.makeBinPath [ openssh ]}"
+      wrapProgram $i --prefix PATH : "${lib.makeBinPath [openssh]}"
     done
   '';
 
@@ -121,13 +121,13 @@ python3.pkgs.buildPythonApplication rec {
     export TMPDIR=/tmp
   '';
 
-  pythonImportsCheck = [ "cloudinit" ];
+  pythonImportsCheck = ["cloudinit"];
 
   passthru = {
     tests = {
       inherit (nixosTests) cloud-init cloud-init-hostname;
     };
-    updateScript = gitUpdater { ignoredVersions = ".ubuntu.*"; };
+    updateScript = gitUpdater {ignoredVersions = ".ubuntu.*";};
   };
 
   meta = with lib; {

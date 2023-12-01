@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     sha256 = "0fkd5rawqni1cq51fmr76iw7ll4fmbahfwv4rglnsabbkylf73pr";
   };
 
-  cmakeFlags = [ "-DDYND_BUILD_BENCHMARKS=OFF" ];
+  cmakeFlags = ["-DDYND_BUILD_BENCHMARKS=OFF"];
 
   env.NIX_CFLAGS_COMPILE = builtins.toString [
     # added to fix build with gcc7+
@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
     "-Wno-error=maybe-uninitialized"
   ];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   outputs = [
     "out"

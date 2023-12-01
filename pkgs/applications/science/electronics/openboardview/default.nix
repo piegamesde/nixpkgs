@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
     SDL2
     fontconfig
     gtk3
-  ] ++ lib.optionals stdenv.isDarwin [ Cocoa ];
+  ] ++ lib.optionals stdenv.isDarwin [Cocoa];
 
   postPatch = ''
     substituteInPlace src/openboardview/CMakeLists.txt \
@@ -59,16 +59,16 @@ stdenv.mkDerivation rec {
     ''
     + lib.optionalString (!stdenv.isDarwin) ''
       wrapGApp "$out/bin/${pname}" \
-        --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ gtk3 ]}
+        --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [gtk3]}
     '';
 
-  passthru.updateScript = gitUpdater { ignoredVersions = ".*\\.90\\..*"; };
+  passthru.updateScript = gitUpdater {ignoredVersions = ".*\\.90\\..*";};
 
   meta = with lib; {
     description = "Linux SDL/ImGui edition software for viewing .brd files";
     homepage = "https://github.com/OpenBoardView/OpenBoardView";
     license = licenses.mit;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ k3a ];
+    maintainers = with maintainers; [k3a];
   };
 }

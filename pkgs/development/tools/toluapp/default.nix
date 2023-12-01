@@ -17,8 +17,8 @@ stdenv.mkDerivation rec {
     sha256 = "0zd55bc8smmgk9j4cf0jpibb03lgsvl0knpwhplxbv93mcdnw7s0";
   };
 
-  nativeBuildInputs = [ cmake ];
-  buildInputs = [ lua ];
+  nativeBuildInputs = [cmake];
+  buildInputs = [lua];
 
   patches = [
     ./environ-and-linux-is-kinda-posix.patch
@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
     description = "A tool to integrate C/Cpp code with Lua";
     homepage = "http://www.codenix.com/~tolua/";
     license = licenses.mit;
-    maintainers = with maintainers; [ vrthra ];
+    maintainers = with maintainers; [vrthra];
     mainProgram = "tolua++";
     platforms = with platforms; unix;
   };

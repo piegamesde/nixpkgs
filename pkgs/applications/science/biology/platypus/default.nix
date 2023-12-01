@@ -9,7 +9,7 @@
 }:
 
 let
-  python = python27.withPackages (ps: with ps; [ cython ]);
+  python = python27.withPackages (ps: with ps; [cython]);
 in
 stdenv.mkDerivation {
   pname = "platypus-unstable";
@@ -22,7 +22,7 @@ stdenv.mkDerivation {
     sha256 = "0nah6r54b8xm778gqyb8b7rsd76z8ji4g73sm6rvpw5s96iib1vw";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
   buildInputs = [
     htslib
     python
@@ -46,7 +46,7 @@ stdenv.mkDerivation {
     description = "The Platypus variant caller";
     license = licenses.gpl3;
     homepage = "https://github.com/andyrimmer/Platypus";
-    maintainers = with maintainers; [ jbedo ];
+    maintainers = with maintainers; [jbedo];
     platforms = platforms.x86_64;
   };
 }

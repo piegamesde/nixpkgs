@@ -13,7 +13,7 @@ let
 
   hoogleEnv = pkgs.buildEnv {
     name = "hoogle";
-    paths = [ (cfg.haskellPackages.ghcWithHoogle cfg.packages) ];
+    paths = [(cfg.haskellPackages.ghcWithHoogle cfg.packages)];
   };
 in
 {
@@ -31,7 +31,7 @@ in
 
     packages = mkOption {
       type = types.functionTo (types.listOf types.package);
-      default = hp: [ ];
+      default = hp: [];
       defaultText = literalExpression "hp: []";
       example = literalExpression "hp: with hp; [ text lens ]";
       description = lib.mdDoc ''
@@ -67,7 +67,7 @@ in
     systemd.services.hoogle = {
       description = "Haskell documentation server";
 
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
 
       serviceConfig = {
         Restart = "always";

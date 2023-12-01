@@ -14,12 +14,12 @@ buildOctavePackage rec {
     sha256 = "sha256-ubh/iOZlWTOYsTA6hJfPOituNBKTn2LbBnx+tmmSEug=";
   };
 
-  nativeBuildInputs = [ gfortran ];
+  nativeBuildInputs = [gfortran];
 
   meta = with lib; {
     homepage = "https://octave.sourceforge.io/optiminterp/index.html";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ KarlJoad ];
+    maintainers = with maintainers; [KarlJoad];
     description = "An optimal interpolation toolbox for octave";
     longDescription = ''
       An optimal interpolation toolbox for octave. This package provides

@@ -26,7 +26,7 @@ buildPythonPackage rec {
     makeWrapper
   ];
 
-  propagatedBuildInputs = [ numpy ];
+  propagatedBuildInputs = [numpy];
 
   nativeCheckInputs = [
     pytest
@@ -47,6 +47,6 @@ buildPythonPackage rec {
     ];
     homepage = "http://ipi-code.org/";
     platforms = platforms.linux;
-    maintainers = [ maintainers.sheepforce ];
+    maintainers = [maintainers.sheepforce];
   };
 }

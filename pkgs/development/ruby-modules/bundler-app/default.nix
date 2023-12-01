@@ -22,9 +22,9 @@
   # This is required unless gemfile, lockfile, and gemset are all provided
   gemdir ? null,
   # Exes is the list of executables provided by the gems in the Gemfile
-  exes ? [ ],
+  exes ? [],
   # Scripts are ruby programs depend on gems in the Gemfile (e.g. scripts/rails)
-  scripts ? [ ],
+  scripts ? [],
   ruby ? defs.ruby,
   gemfile ? null,
   lockfile ? null,
@@ -32,16 +32,16 @@
   preferLocalBuild ? false,
   allowSubstitutes ? false,
   installManpages ? true,
-  meta ? { },
-  nativeBuildInputs ? [ ],
-  buildInputs ? [ ],
+  meta ? {},
+  nativeBuildInputs ? [],
+  buildInputs ? [],
   postBuild ? "",
   gemConfig ? null,
-  passthru ? { },
+  passthru ? {},
 }@args:
 
 let
-  basicEnv = (callPackage ../bundled-common { inherit ruby; }) args;
+  basicEnv = (callPackage ../bundled-common {inherit ruby;}) args;
 
   cmdArgs =
     removeAttrs args [
@@ -55,7 +55,7 @@ let
     // {
       inherit preferLocalBuild allowSubstitutes; # pass the defaults
 
-      nativeBuildInputs = nativeBuildInputs ++ lib.optionals (scripts != [ ]) [ makeWrapper ];
+      nativeBuildInputs = nativeBuildInputs ++ lib.optionals (scripts != []) [makeWrapper];
 
       meta = {
         mainProgram = pname;

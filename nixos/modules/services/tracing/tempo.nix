@@ -15,7 +15,7 @@ let
 
   cfg = config.services.tempo;
 
-  settingsFormat = pkgs.formats.yaml { };
+  settingsFormat = pkgs.formats.yaml {};
 in
 {
   options.services.tempo = {
@@ -23,7 +23,7 @@ in
 
     settings = mkOption {
       type = settingsFormat.type;
-      default = { };
+      default = {};
       description = lib.mdDoc ''
         Specify the configuration for Tempo in Nix.
 
@@ -42,11 +42,11 @@ in
 
   config = mkIf cfg.enable {
     # for tempo-cli and friends
-    environment.systemPackages = [ pkgs.tempo ];
+    environment.systemPackages = [pkgs.tempo];
 
     assertions = [
       {
-        assertion = ((cfg.settings == { }) != (cfg.configFile == null));
+        assertion = ((cfg.settings == {}) != (cfg.configFile == null));
         message = ''
           Please specify a configuration for Tempo with either
           'services.tempo.settings' or
@@ -57,7 +57,7 @@ in
 
     systemd.services.tempo = {
       description = "Grafana Tempo Service Daemon";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
 
       serviceConfig =
         let

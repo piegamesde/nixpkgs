@@ -23,8 +23,8 @@ let
       rev = version;
       sha256 = "sha256-iHB82FeA0rq9eRuDzY+AT/MiaRIGETsnkNPCqKRXgq8=";
     };
-    nativeBuildInputs = [ cmake ];
-    cmakeFlags = [ "-DAPI_ONLY=ON" ];
+    nativeBuildInputs = [cmake];
+    cmakeFlags = ["-DAPI_ONLY=ON"];
     meta = {
       description = "A column-oriented storage and secondary indexing library";
       homepage = "https://github.com/manticoresoftware/columnar/";
@@ -79,7 +79,7 @@ stdenv.mkDerivation rec {
     homepage = "https://manticoresearch.com";
     license = licenses.gpl2;
     mainProgram = "searchd";
-    maintainers = with maintainers; [ jdelStrother ];
+    maintainers = with maintainers; [jdelStrother];
     platforms = platforms.all;
   };
 }

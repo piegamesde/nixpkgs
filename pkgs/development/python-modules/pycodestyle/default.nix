@@ -27,13 +27,13 @@ buildPythonPackage rec {
     ${python.interpreter} -m unittest discover testsuite -vv
   '';
 
-  pythonImportsCheck = [ "pycodestyle" ];
+  pythonImportsCheck = ["pycodestyle"];
 
   meta = with lib; {
     changelog = "https://github.com/PyCQA/pycodestyle/blob/${version}/CHANGES.txt";
     description = "Python style guide checker";
     homepage = "https://pycodestyle.pycqa.org/";
     license = licenses.mit;
-    maintainers = with maintainers; [ kamadorueda ];
+    maintainers = with maintainers; [kamadorueda];
   };
 }

@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-m54TaxThWe6bUa6Q1t+e99CLFOvut9vq9RSmimTNuaU=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   cmakeFlags = lib.optionals stdenv.isDarwin [
     "-DCMAKE_OSX_DEPLOYMENT_TARGET=10.14" # For aligned allocation
@@ -40,6 +40,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/facebookexperimental/edencommon";
     license = licenses.mit;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ kylesferrazza ];
+    maintainers = with maintainers; [kylesferrazza];
   };
 }

@@ -25,7 +25,7 @@ buildPythonPackage rec {
     hash = "sha256-ZKvFurD5DzByeqDJZdJHpkaUh00UoitCGYDh+TmF/Yc=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   propagatedBuildInputs = [
     lark
@@ -43,12 +43,12 @@ buildPythonPackage rec {
       --replace 'regex = "^2022.3.15"' 'regex = "*"'
   '';
 
-  pythonImportsCheck = [ "pycep" ];
+  pythonImportsCheck = ["pycep"];
 
   meta = with lib; {
     description = "Python based Bicep parser";
     homepage = "https://github.com/gruebel/pycep";
-    license = with licenses; [ asl20 ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [asl20];
+    maintainers = with maintainers; [fab];
   };
 }

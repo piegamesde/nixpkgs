@@ -60,7 +60,7 @@ buildPythonPackage rec {
     rPackages.DNAcopy
   ];
 
-  nativeCheckInputs = [ R ];
+  nativeCheckInputs = [R];
 
   checkPhase = ''
     pushd test/
@@ -72,13 +72,13 @@ buildPythonPackage rec {
     popd # test/
   '';
 
-  pythonImportsCheck = [ "cnvlib" ];
+  pythonImportsCheck = ["cnvlib"];
 
   meta = with lib; {
     homepage = "https://cnvkit.readthedocs.io";
     description = "A Python library and command-line software toolkit to infer and visualize copy number from high-throughput DNA sequencing data";
     changelog = "https://github.com/etal/cnvkit/releases/tag/v${version}";
     license = licenses.asl20;
-    maintainers = [ maintainers.jbedo ];
+    maintainers = [maintainers.jbedo];
   };
 }

@@ -9,7 +9,7 @@ buildPythonPackage rec {
   pname = "pyvirtualdisplay";
   version = "3.0";
 
-  propagatedBuildInputs = [ easyprocess ];
+  propagatedBuildInputs = [easyprocess];
 
   src = fetchPypi {
     pname = "PyVirtualDisplay";
@@ -24,6 +24,6 @@ buildPythonPackage rec {
     description = "Python wrapper for Xvfb, Xephyr and Xvnc";
     homepage = "https://github.com/ponty/pyvirtualdisplay";
     license = licenses.bsdOriginal;
-    maintainers = with maintainers; [ layus ];
+    maintainers = with maintainers; [layus];
   };
 }

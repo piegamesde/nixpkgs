@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-k6RPg53z9iTrrKZXOm5Ga9qxI32mHgB+4d6y+IUvJC0=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   # Tests fail on darwin. See https://github.com/NixOS/nixpkgs/pull/105419#issuecomment-735826894
   doCheck = !stdenv.isDarwin;
@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
     homepage = "https://oatpp.io/";
     description = "Light and powerful C++ web framework for highly scalable and resource-efficient web applications";
     license = licenses.asl20;
-    maintainers = [ maintainers.ivar ];
+    maintainers = [maintainers.ivar];
     platforms = platforms.all;
   };
 }

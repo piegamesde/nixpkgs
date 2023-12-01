@@ -57,7 +57,7 @@ stdenv.mkDerivation rec {
     (makeDesktopItem {
       desktopName = "Whalebird";
       comment = meta.description;
-      categories = [ "Network" ];
+      categories = ["Network"];
       exec = "whalebird";
       icon = "whalebird";
       name = "whalebird";
@@ -105,7 +105,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Electron based Mastodon, Pleroma and Misskey client for Windows, Mac and Linux";
     homepage = "https://whalebird.social";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.mit;
     maintainers = with maintainers; [
       wolfangaukang

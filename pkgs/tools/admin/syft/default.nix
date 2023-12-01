@@ -30,9 +30,9 @@ buildGoModule rec {
   proxyVendor = true;
   vendorHash = "sha256-QWKcRu781cRkNSToLQvMQ4ViGYd2klBIlLkB7EyaKmI=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
-  subPackages = [ "cmd/syft" ];
+  subPackages = ["cmd/syft"];
 
   ldflags = [
     "-s"
@@ -80,7 +80,7 @@ buildGoModule rec {
       (SBOM) from container images and filesystems. Exceptional for
       vulnerability detection when used with a scanner tool like Grype.
     '';
-    license = with licenses; [ asl20 ];
+    license = with licenses; [asl20];
     maintainers = with maintainers; [
       jk
       developer-guy

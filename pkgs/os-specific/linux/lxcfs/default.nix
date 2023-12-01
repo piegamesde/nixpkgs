@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
     autoreconfHook
     makeWrapper
   ];
-  buildInputs = [ fuse ];
+  buildInputs = [fuse];
 
   preConfigure = lib.optionalString enableDebugBuild ''
     sed -i 's,#AM_CFLAGS += -DDEBUG,AM_CFLAGS += -DDEBUG,' Makefile.am
@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
     "--localstatedir=/var"
   ];
 
-  installFlags = [ "SYSTEMD_UNIT_DIR=\${out}/lib/systemd" ];
+  installFlags = ["SYSTEMD_UNIT_DIR=\${out}/lib/systemd"];
 
   postInstall = ''
     # `mount` hook requires access to the `mount` command from `util-linux`:
@@ -65,6 +65,6 @@ stdenv.mkDerivation rec {
     changelog = "https://linuxcontainers.org/lxcfs/news/";
     license = licenses.asl20;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ mic92 ];
+    maintainers = with maintainers; [mic92];
   };
 }

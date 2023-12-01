@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
     sha256 = "1qfrgrp7nznk5n1jqvjba6l1w8y2ixzyx9swkpvd02rdwlwrp9kw";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     libjpeg
     libX11
@@ -57,8 +57,8 @@ stdenv.mkDerivation rec {
     homepage = "http://red.planetarena.org";
     # Engine is under GPLv2, everything else is under
     license = licenses.unfreeRedistributable;
-    maintainers = with maintainers; [ astsmtl ];
+    maintainers = with maintainers; [astsmtl];
     platforms = platforms.linux;
-    hydraPlatforms = [ ];
+    hydraPlatforms = [];
   };
 }

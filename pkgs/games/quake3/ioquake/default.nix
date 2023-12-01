@@ -57,7 +57,7 @@ stdenv.mkDerivation {
     "USE_CURL_DLOPEN=0"
   ];
 
-  installTargets = [ "copyfiles" ];
+  installTargets = ["copyfiles"];
 
   installFlags = [
     "COPYDIR=$(out)"

@@ -136,12 +136,12 @@ let
         homepage = "http://www.sweethome3d.com/index.jsp";
         inherit description;
         inherit license;
-        maintainers = [ lib.maintainers.edwtjo ];
+        maintainers = [lib.maintainers.edwtjo];
         platforms = lib.platforms.linux;
       };
     };
 
-  d2u = lib.replaceStrings [ "." ] [ "_" ];
+  d2u = lib.replaceStrings ["."] ["_"];
 in
 {
 

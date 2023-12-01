@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
     sha256 = "08iphkxlmjddrxpbm13gxyqwcrd0k65z3l1944n4pccb6qbyj8gv";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     fuse
     openssl
@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
     libxml2
     icu
     lzfse
-  ] ++ lib.optionals stdenv.isDarwin [ libiconv ];
+  ] ++ lib.optionals stdenv.isDarwin [libiconv];
 
   CXXFLAGS = [
     "-DCOMPILE_WITH_LZFSE=1"
@@ -45,6 +45,6 @@ stdenv.mkDerivation rec {
     description = "Darling lets you open macOS dmgs on Linux";
     platforms = platforms.unix;
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ Luflosi ];
+    maintainers = with maintainers; [Luflosi];
   };
 }

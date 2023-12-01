@@ -13,44 +13,44 @@ let
       # - https://github.com/lxqt/lxqt/wiki/Building-from-source
 
       ### BASE
-      libqtxdg = callPackage ./libqtxdg { };
-      lxqt-build-tools = callPackage ./lxqt-build-tools { };
-      libsysstat = callPackage ./libsysstat { };
-      liblxqt = callPackage ./liblxqt { };
-      qtxdg-tools = callPackage ./qtxdg-tools { };
+      libqtxdg = callPackage ./libqtxdg {};
+      lxqt-build-tools = callPackage ./lxqt-build-tools {};
+      libsysstat = callPackage ./libsysstat {};
+      liblxqt = callPackage ./liblxqt {};
+      qtxdg-tools = callPackage ./qtxdg-tools {};
 
       ### CORE 1
-      libfm-qt = callPackage ./libfm-qt { };
-      lxqt-about = callPackage ./lxqt-about { };
-      lxqt-admin = callPackage ./lxqt-admin { };
-      lxqt-config = callPackage ./lxqt-config { };
-      lxqt-globalkeys = callPackage ./lxqt-globalkeys { };
-      lxqt-notificationd = callPackage ./lxqt-notificationd { };
-      lxqt-openssh-askpass = callPackage ./lxqt-openssh-askpass { };
-      lxqt-policykit = callPackage ./lxqt-policykit { };
-      lxqt-powermanagement = callPackage ./lxqt-powermanagement { };
-      lxqt-qtplugin = callPackage ./lxqt-qtplugin { };
-      lxqt-session = callPackage ./lxqt-session { };
-      lxqt-sudo = callPackage ./lxqt-sudo { };
-      lxqt-themes = callPackage ./lxqt-themes { };
-      pavucontrol-qt = libsForQt5.callPackage ./pavucontrol-qt { };
-      qtermwidget = callPackage ./qtermwidget { };
+      libfm-qt = callPackage ./libfm-qt {};
+      lxqt-about = callPackage ./lxqt-about {};
+      lxqt-admin = callPackage ./lxqt-admin {};
+      lxqt-config = callPackage ./lxqt-config {};
+      lxqt-globalkeys = callPackage ./lxqt-globalkeys {};
+      lxqt-notificationd = callPackage ./lxqt-notificationd {};
+      lxqt-openssh-askpass = callPackage ./lxqt-openssh-askpass {};
+      lxqt-policykit = callPackage ./lxqt-policykit {};
+      lxqt-powermanagement = callPackage ./lxqt-powermanagement {};
+      lxqt-qtplugin = callPackage ./lxqt-qtplugin {};
+      lxqt-session = callPackage ./lxqt-session {};
+      lxqt-sudo = callPackage ./lxqt-sudo {};
+      lxqt-themes = callPackage ./lxqt-themes {};
+      pavucontrol-qt = libsForQt5.callPackage ./pavucontrol-qt {};
+      qtermwidget = callPackage ./qtermwidget {};
 
       ### CORE 2
-      lxqt-panel = callPackage ./lxqt-panel { };
-      lxqt-runner = callPackage ./lxqt-runner { };
-      pcmanfm-qt = callPackage ./pcmanfm-qt { };
+      lxqt-panel = callPackage ./lxqt-panel {};
+      lxqt-runner = callPackage ./lxqt-runner {};
+      pcmanfm-qt = callPackage ./pcmanfm-qt {};
 
       ### OPTIONAL
-      qterminal = callPackage ./qterminal { };
-      compton-conf = qt5.callPackage ./compton-conf { };
-      obconf-qt = callPackage ./obconf-qt { };
-      lximage-qt = callPackage ./lximage-qt { };
-      qps = callPackage ./qps { };
-      screengrab = callPackage ./screengrab { };
-      qlipper = callPackage ./qlipper { };
-      lxqt-archiver = callPackage ./lxqt-archiver { };
-      xdg-desktop-portal-lxqt = callPackage ./xdg-desktop-portal-lxqt { };
+      qterminal = callPackage ./qterminal {};
+      compton-conf = qt5.callPackage ./compton-conf {};
+      obconf-qt = callPackage ./obconf-qt {};
+      lximage-qt = callPackage ./lximage-qt {};
+      qps = callPackage ./qps {};
+      screengrab = callPackage ./screengrab {};
+      qlipper = callPackage ./qlipper {};
+      lxqt-archiver = callPackage ./lxqt-archiver {};
+      xdg-desktop-portal-lxqt = callPackage ./xdg-desktop-portal-lxqt {};
 
       preRequisitePackages = [
         libsForQt5.kwindowsystem # provides some QT5 plugins needed by lxqt-panel

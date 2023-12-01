@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
     autoreconfHook
     pkg-config
   ];
-  buildInputs = [ libcap ];
+  buildInputs = [libcap];
 
   configureFlags = [
     "--localstatedir=/var"
@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
     description = "Static multicast routing daemon";
     homepage = "https://troglobit.com/smcroute.html";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ fpletz ];
+    maintainers = with maintainers; [fpletz];
     platforms = with platforms; (linux ++ freebsd ++ netbsd ++ openbsd);
   };
 }

@@ -33,6 +33,6 @@ mkDerivation rec {
     homepage = "https://invent.kde.org/system/kio-fuse";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ _1000teslas ];
+    maintainers = with maintainers; [_1000teslas];
   };
 }

@@ -18,7 +18,7 @@ mkDerivation rec {
     sha256 = "1ilg929456d3k0xkvxa5r4k7i4kkw9i8kgah5xx1yq0d9wka0l77";
   };
 
-  nativeBuildInputs = [ qmake ];
+  nativeBuildInputs = [qmake];
 
   postPatch = ''
     substituteInPlace dbus.pro --replace ' tests' ""
@@ -33,7 +33,7 @@ mkDerivation rec {
     description = "Nemo DBus plugin for qml";
     homepage = "https://git.sailfishos.org/mer-core/nemo-qml-plugin-dbus/";
     license = licenses.lgpl2Only;
-    maintainers = [ maintainers.Thra11 ];
+    maintainers = [maintainers.Thra11];
     platforms = platforms.linux;
   };
 }

@@ -106,7 +106,7 @@ stdenv.mkDerivation rec {
   cef-bin =
     let
       fileName = "cef_binary_104.4.26+g4180781+chromium-104.0.5112.102_linux64_minimal";
-      urlName = builtins.replaceStrings [ "+" ] [ "%2B" ] fileName;
+      urlName = builtins.replaceStrings ["+"] ["%2B"] fileName;
     in
     fetchzip rec {
       name = fileName;

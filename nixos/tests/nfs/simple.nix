@@ -8,14 +8,14 @@ import ../make-test-python.nix (
   let
 
     client =
-      { pkgs, ... }:
+      {pkgs, ...}:
       {
         virtualisation.fileSystems = {
           "/data" = {
             # nfs4 exports the export with fsid=0 as a virtual root directory
             device = if (version == 4) then "server:/" else "server:/data";
             fsType = "nfs";
-            options = [ "vers=${toString version}" ];
+            options = ["vers=${toString version}"];
           };
         };
         networking.firewall.enable = false; # FIXME: only open statd
@@ -24,14 +24,14 @@ import ../make-test-python.nix (
 
   {
     name = "nfs";
-    meta = with pkgs.lib.maintainers; { maintainers = [ eelco ]; };
+    meta = with pkgs.lib.maintainers; {maintainers = [eelco];};
 
     nodes = {
       client1 = client;
       client2 = client;
 
       server =
-        { ... }:
+        {...}:
         {
           services.nfs.server.enable = true;
           services.nfs.server.exports = ''

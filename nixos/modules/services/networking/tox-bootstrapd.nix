@@ -59,13 +59,13 @@ in
 
     systemd.services.tox-bootstrapd = {
       description = "Tox DHT bootstrap daemon";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         ExecStart = "${pkg}/bin/tox-bootstrapd --config=${cfgFile}";
         Type = "forking";
         inherit PIDFile WorkingDirectory;
-        AmbientCapabilities = [ "CAP_NET_BIND_SERVICE" ];
+        AmbientCapabilities = ["CAP_NET_BIND_SERVICE"];
         DynamicUser = true;
         StateDirectory = "tox-bootstrapd";
       };

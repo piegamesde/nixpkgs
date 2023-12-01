@@ -31,6 +31,6 @@ buildGoModule rec {
     description = "Payload toolkit for bypassing EDRs";
     homepage = "https://github.com/optiv/Freeze";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

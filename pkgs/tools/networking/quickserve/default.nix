@@ -17,14 +17,14 @@ let
     # stuff we don't care about pacserve
     doCheck = false;
   };
-  wrappedPython = python3.withPackages (_: [ threaded_servers ]);
+  wrappedPython = python3.withPackages (_: [threaded_servers]);
 in
 stdenv.mkDerivation {
   pname = "quickserve";
   version = "2018";
 
   dontUnpack = true;
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     runHook preInstall
@@ -38,6 +38,6 @@ stdenv.mkDerivation {
     description = "A simple HTTP server for quickly sharing files";
     homepage = "https://xyne.archlinux.ca/projects/quickserve/";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ lassulus ];
+    maintainers = with maintainers; [lassulus];
   };
 }

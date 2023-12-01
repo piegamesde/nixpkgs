@@ -23,7 +23,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-7PSWMf4z/NjAyWUXpWoNHdngMN9anOvPu+F+o8O27zs=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs =
     with xorg;
@@ -48,7 +48,7 @@ buildGoModule rec {
     homepage = "https://github.com/Jacalz/rymdport";
     changelog = "https://github.com/Jacalz/rymdport/blob/${src.rev}/CHANGELOG.md";
     license = lib.licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
     platforms = lib.platforms.linux;
   };
 }

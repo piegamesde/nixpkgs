@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
   buildInputs = [
     libmysqlclient
     luajit
-  ] ++ lib.optionals stdenv.isLinux [ libaio ];
+  ] ++ lib.optionals stdenv.isLinux [libaio];
 
   src = fetchFromGitHub {
     owner = "akopytov";
@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
     ];
 
   passthru.tests = {
-    versionTest = testers.testVersion { package = sysbench; };
+    versionTest = testers.testVersion {package = sysbench;};
   };
 
   meta = {

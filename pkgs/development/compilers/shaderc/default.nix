@@ -62,14 +62,14 @@ stdenv.mkDerivation rec {
       cmake
       python3
     ]
-    ++ lib.optionals stdenv.isDarwin [ cctools ]
-    ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [ autoSignDarwinBinariesHook ];
+    ++ lib.optionals stdenv.isDarwin [cctools]
+    ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [autoSignDarwinBinariesHook];
 
   postInstall = ''
     moveToOutput "lib/*.a" $static
   '';
 
-  cmakeFlags = [ "-DSHADERC_SKIP_TESTS=ON" ];
+  cmakeFlags = ["-DSHADERC_SKIP_TESTS=ON"];
 
   # Fix the paths in .pc, even though it's unclear if all these .pc are really useful.
   postFixup = ''
@@ -82,6 +82,6 @@ stdenv.mkDerivation rec {
     inherit (src.meta) homepage;
     description = "A collection of tools, libraries and tests for shader compilation";
     platforms = platforms.all;
-    license = [ licenses.asl20 ];
+    license = [licenses.asl20];
   };
 }

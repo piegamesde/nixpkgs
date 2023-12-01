@@ -26,12 +26,12 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "hexbytes" ];
+  pythonImportsCheck = ["hexbytes"];
 
   meta = with lib; {
     description = "`bytes` subclass that decodes hex, with a readable console output";
     homepage = "https://github.com/ethereum/hexbytes";
     license = licenses.mit;
-    maintainers = with maintainers; [ SuperSandro2000 ];
+    maintainers = with maintainers; [SuperSandro2000];
   };
 }

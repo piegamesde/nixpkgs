@@ -40,7 +40,7 @@ mkDerivation rec {
     libqtxdg
   ];
 
-  passthru.updateScript = gitUpdater { };
+  passthru.updateScript = gitUpdater {};
 
   meta = with lib; {
     homepage = "https://github.com/lxqt/lxqt-openssh-askpass";

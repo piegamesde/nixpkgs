@@ -7,7 +7,7 @@
   version,
   hash,
   isAarch64,
-  metaCommon ? { },
+  metaCommon ? {},
 }:
 
 let
@@ -22,7 +22,7 @@ in
 stdenvNoCC.mkDerivation {
   inherit pname version src;
 
-  nativeBuildInputs = [ undmg ];
+  nativeBuildInputs = [undmg];
 
   sourceRoot = "LosslessCut.app";
 

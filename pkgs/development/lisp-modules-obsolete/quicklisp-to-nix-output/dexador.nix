@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "dexador";
   version = "20211209-git";
@@ -45,7 +45,7 @@ rec {
 
   packageName = "dexador";
 
-  asdFilesToKeep = [ "dexador.asd" ];
+  asdFilesToKeep = ["dexador.asd"];
   overrides = x: x;
 }
 /* (SYSTEM dexador DESCRIPTION Yet another HTTP client for Common Lisp SHA256

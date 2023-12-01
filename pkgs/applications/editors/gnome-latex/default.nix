@@ -53,7 +53,7 @@ stdenv.mkDerivation rec {
     tepl
   ];
 
-  configureFlags = [ "--disable-dconf-migration" ];
+  configureFlags = ["--disable-dconf-migration"];
 
   doCheck = true;
 
@@ -67,7 +67,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://wiki.gnome.org/Apps/GNOME-LaTeX";
     description = "A LaTeX editor for the GNOME desktop";
-    maintainers = [ maintainers.manveru ];
+    maintainers = [maintainers.manveru];
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
   };

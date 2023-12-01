@@ -53,7 +53,7 @@ stdenv.mkDerivation rec {
 
   preFixup = ''
     gappsWrapperArgs+=(
-      --prefix PATH : "${lib.makeBinPath [ chromaprint ]}"
+      --prefix PATH : "${lib.makeBinPath [chromaprint]}"
     )
   '';
 
@@ -63,6 +63,6 @@ stdenv.mkDerivation rec {
     mainProgram = "org.nickvision.tagger";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ zendo ];
+    maintainers = with maintainers; [zendo];
   };
 }

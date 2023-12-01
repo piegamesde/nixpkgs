@@ -28,7 +28,7 @@ buildPythonPackage rec {
       --replace "version=version," "version='${version}',"
   '';
 
-  propagatedBuildInputs = [ future ];
+  propagatedBuildInputs = [future];
 
   nativeCheckInputs = [
     mock
@@ -36,12 +36,12 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "pyipmi" ];
+  pythonImportsCheck = ["pyipmi"];
 
   meta = with lib; {
     description = "Python IPMI Library";
     homepage = "https://github.com/kontron/python-ipmi";
-    license = with licenses; [ lgpl2Plus ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [lgpl2Plus];
+    maintainers = with maintainers; [fab];
   };
 }

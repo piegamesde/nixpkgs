@@ -8,7 +8,7 @@
   writeScriptBin,
 
   # command line arguments which are always set e.g "--disable-gpu"
-  commandLineArgs ? [ ],
+  commandLineArgs ? [],
 }:
 
 let
@@ -23,7 +23,7 @@ let
     '';
     homepage = google-chrome.meta.homepage or null;
     license = lib.licenses.unfree;
-    maintainers = [ lib.maintainers.roberth ];
+    maintainers = [lib.maintainers.roberth];
     platforms = google-chrome.meta.platforms or lib.platforms.all;
   };
 

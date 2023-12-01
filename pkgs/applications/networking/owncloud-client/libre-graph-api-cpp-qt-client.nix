@@ -19,10 +19,10 @@ mkDerivation rec {
 
   sourceRoot = "source/client";
 
-  nativeBuildInputs = [ cmake ];
-  buildInputs = [ qtbase ];
+  nativeBuildInputs = [cmake];
+  buildInputs = [qtbase];
 
-  cmakeFlags = [ ];
+  cmakeFlags = [];
 
   meta = with lib; {
     description = "C++ Qt API for Libre Graph, a free API for cloud collaboration inspired by the MS Graph API";

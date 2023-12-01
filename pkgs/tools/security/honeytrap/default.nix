@@ -16,7 +16,7 @@ buildGoModule {
 
   # Otherwise, will try to install a "scripts" binary; it's only used in
   # dockerize.sh, which we don't care about.
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   vendorSha256 = "W8w66weYzCpZ+hmFyK2F6wdFz6aAZ9UxMhccNy1X1R8=";
 
@@ -24,6 +24,6 @@ buildGoModule {
     description = "Advanced Honeypot framework";
     homepage = "https://github.com/honeytrap/honeytrap";
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

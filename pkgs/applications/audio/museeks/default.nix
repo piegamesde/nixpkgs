@@ -13,7 +13,7 @@ let
     hash = "sha256-LvunhCFmpv00TnXzWjp3kQUAhoKpmp6pqKgcaUqZV+o=";
   };
 
-  appimageContents = appimageTools.extractType2 { inherit pname version src; };
+  appimageContents = appimageTools.extractType2 {inherit pname version src;};
 in
 appimageTools.wrapType2 {
   inherit pname version src;
@@ -34,7 +34,7 @@ appimageTools.wrapType2 {
     description = "A simple, clean and cross-platform music player";
     homepage = "https://github.com/martpie/museeks";
     license = licenses.mit;
-    platforms = [ "x86_64-linux" ];
-    maintainers = with maintainers; [ zendo ];
+    platforms = ["x86_64-linux"];
+    maintainers = with maintainers; [zendo];
   };
 }

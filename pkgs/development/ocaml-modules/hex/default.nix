@@ -17,13 +17,13 @@ buildDunePackage rec {
     hash = "sha256-LmfuyhsDBJMHowgxtc1pS8stPn8qa0+1l/vbZHNRtNw=";
   };
 
-  propagatedBuildInputs = [ cstruct ];
+  propagatedBuildInputs = [cstruct];
   doCheck = true;
 
   meta = {
     description = "Mininal OCaml library providing hexadecimal converters";
     homepage = "https://github.com/mirage/ocaml-hex";
     license = lib.licenses.isc;
-    maintainers = with lib.maintainers; [ vbgl ];
+    maintainers = with lib.maintainers; [vbgl];
   };
 }

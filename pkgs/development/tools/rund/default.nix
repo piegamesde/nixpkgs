@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
     sha256 = "10x6f1nn294r5qnpacrpcbp348dndz5fv4nz6ih55c61ckpkvgcf";
   };
 
-  buildInputs = [ dcompiler ];
+  buildInputs = [dcompiler];
   buildPhase = ''
     for candidate in dmd ldmd2 gdmd; do
       echo Checking for DCompiler $candidate ...
@@ -49,7 +49,7 @@ stdenv.mkDerivation rec {
     description = "A compiler-wrapper that runs and caches D programs";
     homepage = "https://github.com/dragon-lang/rund";
     license = lib.licenses.boost;
-    maintainers = with maintainers; [ jonathanmarler ];
+    maintainers = with maintainers; [jonathanmarler];
     platforms = lib.platforms.unix;
   };
 }

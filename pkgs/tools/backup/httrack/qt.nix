@@ -51,7 +51,7 @@ mkDerivation rec {
     description = "Easy-to-use offline browser / website mirroring utility - QT frontend";
     homepage = "http://www.httrack.com";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ peterhoeg ];
+    maintainers = with maintainers; [peterhoeg];
     platforms = with platforms; unix;
   };
 }

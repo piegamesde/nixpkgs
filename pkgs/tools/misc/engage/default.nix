@@ -28,6 +28,6 @@ rustPlatform.buildRustPackage {
       asl20
       mit
     ];
-    maintainers = with lib.maintainers; [ CobaltCause ];
+    maintainers = with lib.maintainers; [CobaltCause];
   };
 }

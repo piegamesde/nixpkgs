@@ -95,7 +95,7 @@ in
       };
       settings = mkOption {
         type = types.attrs;
-        default = { };
+        default = {};
         example = {
           flags = "a1f";
           interval = 5;
@@ -109,10 +109,10 @@ in
 
   config = mkIf cfg.enable (
     let
-      atop = if cfg.atopgpu.enable then (cfg.package.override { withAtopgpu = true; }) else cfg.package;
+      atop = if cfg.atopgpu.enable then (cfg.package.override {withAtopgpu = true;}) else cfg.package;
     in
     {
-      environment.etc = mkIf (cfg.settings != { }) {
+      environment.etc = mkIf (cfg.settings != {}) {
         atoprc.text = concatStrings (
           mapAttrsToList
             (n: v: ''
@@ -125,7 +125,7 @@ in
         atop
         (lib.mkIf cfg.netatop.enable cfg.netatop.package)
       ];
-      boot.extraModulePackages = [ (lib.mkIf cfg.netatop.enable cfg.netatop.package) ];
+      boot.extraModulePackages = [(lib.mkIf cfg.netatop.enable cfg.netatop.package)];
       systemd =
         let
           mkSystemd = type: cond: name: restartTriggers: {
@@ -152,7 +152,7 @@ in
             (lib.mkIf cfg.netatop.enable cfg.netatop.package)
           ];
           services =
-            mkService cfg.atopService.enable "atop" [ atop ]
+            mkService cfg.atopService.enable "atop" [atop]
             // lib.mkIf cfg.atopService.enable {
               # always convert logs to newer version first
               # XXX might trigger TimeoutStart but restarting atop.service will
@@ -174,10 +174,10 @@ in
                 done
               '';
             }
-            // mkService cfg.atopacctService.enable "atopacct" [ atop ]
-            // mkService cfg.netatop.enable "netatop" [ cfg.netatop.package ]
-            // mkService cfg.atopgpu.enable "atopgpu" [ atop ];
-          timers = mkTimer cfg.atopRotateTimer.enable "atop-rotate" [ atop ];
+            // mkService cfg.atopacctService.enable "atopacct" [atop]
+            // mkService cfg.netatop.enable "netatop" [cfg.netatop.package]
+            // mkService cfg.atopgpu.enable "atopgpu" [atop];
+          timers = mkTimer cfg.atopRotateTimer.enable "atop-rotate" [atop];
         };
 
       security.wrappers = lib.mkIf cfg.setuidWrapper.enable {

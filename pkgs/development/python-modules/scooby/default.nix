@@ -26,7 +26,7 @@ buildPythonPackage rec {
     hash = "sha256-eY8Ysc20Q1OHKb/LU+4gqnSgNfHCytjOnnvB24EfQto=";
   };
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
   nativeCheckInputs = [
     beautifulsoup4
@@ -43,7 +43,7 @@ buildPythonPackage rec {
     export PATH="$PATH:$out/bin";
   '';
 
-  pythonImportsCheck = [ "scooby" ];
+  pythonImportsCheck = ["scooby"];
 
   disabledTests = [
     # Tests have additions requirements (e.g., time and module)
@@ -58,6 +58,6 @@ buildPythonPackage rec {
     description = "A lightweight tool for reporting Python package versions and hardware resources";
     homepage = "https://github.com/banesullivan/scooby";
     license = licenses.mit;
-    maintainers = with maintainers; [ wegank ];
+    maintainers = with maintainers; [wegank];
   };
 }

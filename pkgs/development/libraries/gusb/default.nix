@@ -20,7 +20,7 @@
 }:
 
 let
-  pythonEnv = python3.pythonForBuild.withPackages (ps: with ps; [ setuptools ]);
+  pythonEnv = python3.pythonForBuild.withPackages (ps: with ps; [setuptools]);
 in
 stdenv.mkDerivation rec {
   pname = "gusb";
@@ -58,11 +58,11 @@ stdenv.mkDerivation rec {
     gobject-introspection
     vala
   ];
-  buildInputs = [ glib ];
+  buildInputs = [glib];
 
-  propagatedBuildInputs = [ libusb1 ];
+  propagatedBuildInputs = [libusb1];
 
-  mesonFlags = [ "-Dusb_ids=${hwdata}/share/hwdata/usb.ids" ];
+  mesonFlags = ["-Dusb_ids=${hwdata}/share/hwdata/usb.ids"];
 
   doCheck = false; # tests try to access USB
 
@@ -70,7 +70,7 @@ stdenv.mkDerivation rec {
     description = "GLib libusb wrapper";
     homepage = "https://github.com/hughsie/libgusb";
     license = licenses.lgpl21;
-    maintainers = [ maintainers.marcweber ];
+    maintainers = [maintainers.marcweber];
     platforms = platforms.unix;
   };
 }

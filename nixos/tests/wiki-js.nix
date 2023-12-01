@@ -1,11 +1,11 @@
 import ./make-test-python.nix (
-  { pkgs, lib, ... }:
+  {pkgs, lib, ...}:
   {
     name = "wiki-js";
-    meta = with pkgs.lib.maintainers; { maintainers = [ ma27 ]; };
+    meta = with pkgs.lib.maintainers; {maintainers = [ma27];};
 
     nodes.machine =
-      { pkgs, ... }:
+      {pkgs, ...}:
       {
         virtualisation.memorySize = 2048;
         services.wiki-js = {
@@ -16,7 +16,7 @@ import ./make-test-python.nix (
         };
         services.postgresql = {
           enable = true;
-          ensureDatabases = [ "wiki" ];
+          ensureDatabases = ["wiki"];
           ensureUsers = [
             {
               name = "wiki-js";
@@ -25,10 +25,10 @@ import ./make-test-python.nix (
           ];
         };
         systemd.services.wiki-js = {
-          requires = [ "postgresql.service" ];
-          after = [ "postgresql.service" ];
+          requires = ["postgresql.service"];
+          after = ["postgresql.service"];
         };
-        environment.systemPackages = with pkgs; [ jq ];
+        environment.systemPackages = with pkgs; [jq];
       };
 
     testScript =
@@ -46,7 +46,7 @@ import ./make-test-python.nix (
           builtins.toJSON [
             {
               operationName = null;
-              extensions = { };
+              extensions = {};
               query = ''
                 mutation ($username: String!, $password: String!, $strategy: String!) {
                   authentication {
@@ -82,7 +82,7 @@ import ./make-test-python.nix (
         payloads.content = pkgs.writeText "content.json" (
           builtins.toJSON [
             {
-              extensions = { };
+              extensions = {};
               operationName = null;
               query = ''
                 mutation ($content: String!, $description: String!, $editor: String!, $isPrivate: Boolean!, $isPublished: Boolean!, $locale: String!, $path: String!, $publishEndDate: Date, $publishStartDate: Date, $scriptCss: String, $scriptJs: String, $tags: [String]!, $title: String!) {
@@ -121,7 +121,7 @@ import ./make-test-python.nix (
                 publishStartDate = "";
                 scriptCss = "";
                 scriptJs = "";
-                tags = [ ];
+                tags = [];
                 title = "Hello world";
               };
             }

@@ -19,6 +19,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/RedMoonStudios/hetzner";
     description = "High-level Python API for accessing the Hetzner robot";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ aszlig ];
+    maintainers = with maintainers; [aszlig];
   };
 }

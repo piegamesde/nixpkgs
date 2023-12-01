@@ -1,7 +1,7 @@
-{ pkgs, lib, ... }:
+{pkgs, lib, ...}:
 {
   name = "aaaaxy";
-  meta.maintainers = with lib.maintainers; [ Luflosi ];
+  meta.maintainers = with lib.maintainers; [Luflosi];
 
   nodes.machine = {
     hardware.opengl.enable = true;

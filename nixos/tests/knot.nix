@@ -1,5 +1,5 @@
 import ./make-test-python.nix (
-  { pkgs, lib, ... }:
+  {pkgs, lib, ...}:
   let
     common = {
       networking.firewall.enable = false;
@@ -42,13 +42,13 @@ import ./make-test-python.nix (
   in
   {
     name = "knot";
-    meta = with pkgs.lib.maintainers; { maintainers = [ hexa ]; };
+    meta = with pkgs.lib.maintainers; {maintainers = [hexa];};
 
     nodes = {
       primary =
-        { lib, ... }:
+        {lib, ...}:
         {
-          imports = [ common ];
+          imports = [common];
 
           # trigger sched_setaffinity syscall
           virtualisation.cores = 2;
@@ -68,8 +68,8 @@ import ./make-test-python.nix (
             ];
           };
           services.knot.enable = true;
-          services.knot.extraArgs = [ "-v" ];
-          services.knot.keyFiles = [ tsigFile ];
+          services.knot.extraArgs = ["-v"];
+          services.knot.keyFiles = [tsigFile];
           services.knot.extraConfig = ''
             server:
                 listen: 0.0.0.0@53
@@ -111,9 +111,9 @@ import ./make-test-python.nix (
         };
 
       secondary =
-        { lib, ... }:
+        {lib, ...}:
         {
-          imports = [ common ];
+          imports = [common];
           networking.interfaces.eth1 = {
             ipv4.addresses = lib.mkForce [
               {
@@ -129,8 +129,8 @@ import ./make-test-python.nix (
             ];
           };
           services.knot.enable = true;
-          services.knot.keyFiles = [ tsigFile ];
-          services.knot.extraArgs = [ "-v" ];
+          services.knot.keyFiles = [tsigFile];
+          services.knot.extraArgs = ["-v"];
           services.knot.extraConfig = ''
             server:
                 listen: 0.0.0.0@53
@@ -168,9 +168,9 @@ import ./make-test-python.nix (
           '';
         };
       client =
-        { lib, nodes, ... }:
+        {lib, nodes, ...}:
         {
-          imports = [ common ];
+          imports = [common];
           networking.interfaces.eth1 = {
             ipv4.addresses = [
               {
@@ -185,12 +185,12 @@ import ./make-test-python.nix (
               }
             ];
           };
-          environment.systemPackages = [ pkgs.knot-dns ];
+          environment.systemPackages = [pkgs.knot-dns];
         };
     };
 
     testScript =
-      { nodes, ... }:
+      {nodes, ...}:
       let
         primary4 = (lib.head nodes.primary.config.networking.interfaces.eth1.ipv4.addresses).address;
         primary6 = (lib.head nodes.primary.config.networking.interfaces.eth1.ipv6.addresses).address;

@@ -71,7 +71,7 @@ stdenv.mkDerivation rec {
     udev
   ];
 
-  runtimeDependencies = [ cups.lib ];
+  runtimeDependencies = [cups.lib];
 
   installPhase = ''
     runHook preInstall
@@ -112,9 +112,9 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Office suite, formerly Kingsoft Office";
     homepage = "https://www.wps.com";
-    platforms = [ "x86_64-linux" ];
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
-    hydraPlatforms = [ ];
+    platforms = ["x86_64-linux"];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
+    hydraPlatforms = [];
     license = licenses.unfreeRedistributable;
     maintainers = with maintainers; [
       mlatus

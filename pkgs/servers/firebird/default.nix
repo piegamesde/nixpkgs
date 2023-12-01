@@ -26,19 +26,19 @@ let
         "Interbase-1.0"
       ];
       platforms = platforms.linux;
-      maintainers = with maintainers; [ marcweber ];
+      maintainers = with maintainers; [marcweber];
     };
 
-    nativeBuildInputs = [ autoreconfHook ];
+    nativeBuildInputs = [autoreconfHook];
 
     buildInputs = [
       libedit
       icu
     ];
 
-    LD_LIBRARY_PATH = lib.makeLibraryPath [ icu ];
+    LD_LIBRARY_PATH = lib.makeLibraryPath [icu];
 
-    configureFlags = [ "--with-system-editline" ] ++ (lib.optional superServer "--enable-superserver");
+    configureFlags = ["--with-system-editline"] ++ (lib.optional superServer "--enable-superserver");
 
     installPhase = ''
       runHook preInstall
@@ -58,11 +58,11 @@ rec {
       src = fetchFromGitHub {
         owner = "FirebirdSQL";
         repo = "firebird";
-        rev = "R${builtins.replaceStrings [ "." ] [ "_" ] version}";
+        rev = "R${builtins.replaceStrings ["."] ["_"] version}";
         sha256 = "sha256-YyvlMeBux80OpVhsCv+6IVxKXFRsgdr+1siupMR13JM=";
       };
 
-      configureFlags = base.configureFlags ++ [ "--with-system-icu" ];
+      configureFlags = base.configureFlags ++ ["--with-system-icu"];
 
       installPhase = ''
         runHook preInstall
@@ -72,7 +72,7 @@ rec {
       '';
 
       meta = base.meta // {
-        platforms = [ "x86_64-linux" ];
+        platforms = ["x86_64-linux"];
       };
     }
   );
@@ -95,7 +95,7 @@ rec {
       ];
 
       meta = base.meta // {
-        platforms = [ "x86_64-linux" ];
+        platforms = ["x86_64-linux"];
       };
     }
   );

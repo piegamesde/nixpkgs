@@ -21,19 +21,19 @@ evalConfigArgs@{
   #     of inheritParentConfig.
   baseModules ? import ../modules/module-list.nix,
   # !!! See comment about args in lib/modules.nix
-  extraArgs ? { },
+  extraArgs ? {},
   # !!! See comment about args in lib/modules.nix
-  specialArgs ? { },
+  specialArgs ? {},
   modules,
   modulesLocation ? (builtins.unsafeGetAttrPos "modules" evalConfigArgs).file or null,
   # !!! See comment about check in lib/modules.nix
   check ? true,
-  prefix ? [ ],
+  prefix ? [],
   lib ? import ../../lib,
   extraModules ? let
     e = builtins.getEnv "NIXOS_EXTRA_MODULE_PATH";
   in
-  if e == "" then [ ] else [ (import e) ],
+  if e == "" then [] else [(import e)],
 }:
 
 let
@@ -45,7 +45,7 @@ let
     (import ./default.nix {
       inherit lib;
       # Implicit use of feature is noted in implementation.
-      featureFlags.minimalModules = { };
+      featureFlags.minimalModules = {};
     }).evalModules;
 
   pkgsModule = rec {
@@ -120,7 +120,7 @@ let
     };
   };
 
-  nixosWithUserModules = noUserModules.extendModules { modules = allUserModules; };
+  nixosWithUserModules = noUserModules.extendModules {modules = allUserModules;};
 in
 withWarnings nixosWithUserModules
 // {

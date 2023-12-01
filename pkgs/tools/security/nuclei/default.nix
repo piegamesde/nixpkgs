@@ -18,7 +18,7 @@ buildGoModule rec {
   vendorHash = "sha256-0JNwoBqLKH1F/0Tr8o35gCSNT/2plIjIQvZRuzAZ5P8=";
 
   modRoot = "./v2";
-  subPackages = [ "cmd/nuclei/" ];
+  subPackages = ["cmd/nuclei/"];
 
   # Test files are not part of the release tarball
   doCheck = false;
@@ -35,6 +35,6 @@ buildGoModule rec {
     homepage = "https://github.com/projectdiscovery/nuclei";
     changelog = "https://github.com/projectdiscovery/nuclei/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

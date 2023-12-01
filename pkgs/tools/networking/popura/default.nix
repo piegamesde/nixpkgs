@@ -32,7 +32,7 @@ buildGoModule rec {
     description = "An alternative Yggdrasil network client";
     homepage = "https://github.com/popura-network/popura";
     license = licenses.lgpl3Only;
-    maintainers = with maintainers; [ urandom ];
+    maintainers = with maintainers; [urandom];
     mainProgram = "yggdrasil";
   };
 }

@@ -52,7 +52,7 @@ stdenv.mkDerivation rec {
     description = "REINER SCT cyberJack USB chipcard reader user space driver";
     homepage = "https://www.reiner-sct.com/";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ aszlig ];
+    maintainers = with maintainers; [aszlig];
     platforms = platforms.linux;
   };
 }

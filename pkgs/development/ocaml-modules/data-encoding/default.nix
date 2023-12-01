@@ -52,6 +52,6 @@ buildDunePackage rec {
     homepage = "https://gitlab.com/nomadic-labs/data-encoding";
     description = "Library of JSON and binary encoding combinators";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.ulrikstrid ];
+    maintainers = [lib.maintainers.ulrikstrid];
   };
 }

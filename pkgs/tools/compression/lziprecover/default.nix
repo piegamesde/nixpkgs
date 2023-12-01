@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
   ];
 
   doCheck = true;
-  nativeCheckInputs = [ lzip ];
+  nativeCheckInputs = [lzip];
 
   enableParallelBuilding = true;
 
@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
     homepage = "https://www.nongnu.org/lzip/lziprecover.html";
     description = "Data recovery tool for lzip compressed files";
     license = lib.licenses.gpl2Plus;
-    maintainers = with maintainers; [ vlaci ];
+    maintainers = with maintainers; [vlaci];
     platforms = lib.platforms.all;
   };
 }

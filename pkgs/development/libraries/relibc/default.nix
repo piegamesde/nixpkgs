@@ -83,7 +83,7 @@ redoxRustPlatform.buildRustPackage rec {
     homepage = "https://gitlab.redox-os.org/redox-os/relibc";
     description = "C Library in Rust for Redox and Linux";
     license = licenses.mit;
-    maintainers = [ maintainers.aaronjanse ];
-    platforms = platforms.redox ++ [ "x86_64-linux" ];
+    maintainers = [maintainers.aaronjanse];
+    platforms = platforms.redox ++ ["x86_64-linux"];
   };
 }

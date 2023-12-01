@@ -10,8 +10,8 @@
 {
   pname,
   version,
-  nativeBuildInputs ? [ ],
-  meta ? { platforms = ocaml.meta.platforms or [ ]; },
+  nativeBuildInputs ? [],
+  meta ? {platforms = ocaml.meta.platforms or [];},
   minimumOCamlVersion ? null,
   createFindlibDestdir ? true,
   dontStrip ? true,

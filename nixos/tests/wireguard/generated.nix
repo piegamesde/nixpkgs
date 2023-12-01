@@ -16,10 +16,10 @@ import ../make-test-python.nix (
 
     nodes = {
       peer1 = {
-        boot = lib.mkIf (kernelPackages != null) { inherit kernelPackages; };
-        networking.firewall.allowedUDPPorts = [ 12345 ];
+        boot = lib.mkIf (kernelPackages != null) {inherit kernelPackages;};
+        networking.firewall.allowedUDPPorts = [12345];
         networking.wireguard.interfaces.wg0 = {
-          ips = [ "10.10.10.1/24" ];
+          ips = ["10.10.10.1/24"];
           listenPort = 12345;
           privateKeyFile = "/etc/wireguard/private";
           generatePrivateKeyFile = true;
@@ -27,10 +27,10 @@ import ../make-test-python.nix (
       };
 
       peer2 = {
-        boot = lib.mkIf (kernelPackages != null) { inherit kernelPackages; };
-        networking.firewall.allowedUDPPorts = [ 12345 ];
+        boot = lib.mkIf (kernelPackages != null) {inherit kernelPackages;};
+        networking.firewall.allowedUDPPorts = [12345];
         networking.wireguard.interfaces.wg0 = {
-          ips = [ "10.10.10.2/24" ];
+          ips = ["10.10.10.2/24"];
           listenPort = 12345;
           privateKeyFile = "/etc/wireguard/private";
           generatePrivateKeyFile = true;

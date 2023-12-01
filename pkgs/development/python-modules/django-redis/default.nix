@@ -47,7 +47,7 @@ buildPythonPackage {
     redis
   ];
 
-  pythonImportsCheck = [ "django_redis" ];
+  pythonImportsCheck = ["django_redis"];
 
   DJANGO_SETTINGS_MODULE = "tests.settings.sqlite";
 
@@ -88,6 +88,6 @@ buildPythonPackage {
     description = "Full featured redis cache backend for Django";
     homepage = "https://github.com/jazzband/django-redis";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

@@ -32,7 +32,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = with pkgs; [ mosh ];
+    environment.systemPackages = with pkgs; [mosh];
     networking.firewall.allowedUDPPortRanges = [
       {
         from = 60000;

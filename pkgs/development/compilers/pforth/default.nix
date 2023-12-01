@@ -23,7 +23,7 @@ stdenv.mkDerivation {
     })
   ];
 
-  makeFlags = [ "SRCDIR=." ];
+  makeFlags = ["SRCDIR=."];
   makefile = "build/unix/Makefile";
 
   installPhase = ''
@@ -35,6 +35,6 @@ stdenv.mkDerivation {
     homepage = "http://www.softsynth.com/pforth/";
     license = lib.licenses.publicDomain;
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ yrashk ];
+    maintainers = with lib.maintainers; [yrashk];
   };
 }

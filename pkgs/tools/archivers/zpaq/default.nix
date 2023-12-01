@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
     perl # for pod2man
   ];
 
-  CPPFLAGS = [ "-Dunix" ] ++ lib.optional (!stdenv.isi686 && !stdenv.isx86_64) "-DNOJIT";
+  CPPFLAGS = ["-Dunix"] ++ lib.optional (!stdenv.isi686 && !stdenv.isx86_64) "-DNOJIT";
   CXXFLAGS = [
     "-O3"
     "-DNDEBUG"
@@ -28,14 +28,14 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  makeFlags = [ "CXX=${stdenv.cc.targetPrefix}c++" ];
-  installFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["CXX=${stdenv.cc.targetPrefix}c++"];
+  installFlags = ["PREFIX=$(out)"];
 
   meta = with lib; {
     description = "Incremental journaling backup utility and archiver";
     homepage = "http://mattmahoney.net/dc/zpaq.html";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ raskin ];
+    maintainers = with maintainers; [raskin];
     platforms = platforms.linux;
   };
 }

@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
   pname = "midimonster";
   version = "0.6.0";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     gnumake
     gcc
@@ -67,6 +67,6 @@ stdenv.mkDerivation rec {
     description = "Multi-protocol translation tool";
     license = licenses.bsd2;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ keldu ];
+    maintainers = with maintainers; [keldu];
   };
 }

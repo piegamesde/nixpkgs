@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-FCGFOweeL4o31H/JgqeGiLm3uBjYHz6zzor2ockpA/w=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     openssl
     protobuf
@@ -51,6 +51,6 @@ stdenv.mkDerivation rec {
     '';
     platforms = platforms.all;
     license = licenses.gpl3Plus;
-    maintainers = with lib.maintainers; [ leenaars ];
+    maintainers = with lib.maintainers; [leenaars];
   };
 }

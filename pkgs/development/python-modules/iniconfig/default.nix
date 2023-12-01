@@ -17,7 +17,7 @@ buildPythonPackage rec {
     hash = "sha256-LZHhNb9y0xpBCxfBbaYQqCy1X2sEd9GpAhNLJKRVuLM=";
   };
 
-  nativeBuildInputs = [ hatchling ];
+  nativeBuildInputs = [hatchling];
 
   patches =
     [
@@ -28,7 +28,7 @@ buildPythonPackage rec {
       })
     ];
 
-  pythonImportsCheck = [ "iniconfig" ];
+  pythonImportsCheck = ["iniconfig"];
 
   doCheck = false; # avoid circular import with pytest
 
@@ -36,6 +36,6 @@ buildPythonPackage rec {
     description = "brain-dead simple parsing of ini files";
     homepage = "https://github.com/pytest-dev/iniconfig";
     license = licenses.mit;
-    maintainers = with maintainers; [ jonringer ];
+    maintainers = with maintainers; [jonringer];
   };
 }

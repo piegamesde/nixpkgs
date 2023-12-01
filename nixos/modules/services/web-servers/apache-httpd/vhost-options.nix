@@ -23,7 +23,7 @@ in
 
     serverAliases = mkOption {
       type = types.listOf types.str;
-      default = [ ];
+      default = [];
       example = [
         "www.example.org"
         "www.example.org:8080"
@@ -57,7 +57,7 @@ in
             };
           })
         );
-      default = [ ];
+      default = [];
       example = [
         {
           ip = "195.154.1.1";
@@ -92,8 +92,8 @@ in
         Compared to `listen` this only sets the addresses
         and the ports are chosen automatically.
       '';
-      default = [ "*" ];
-      example = [ "127.0.0.1" ];
+      default = ["*"];
+      example = ["127.0.0.1"];
     };
 
     enableSSL = mkOption {
@@ -209,7 +209,7 @@ in
 
     servedDirs = mkOption {
       type = types.listOf types.attrs;
-      default = [ ];
+      default = [];
       example = [
         {
           urlPath = "/nix";
@@ -223,7 +223,7 @@ in
 
     servedFiles = mkOption {
       type = types.listOf types.attrs;
-      default = [ ];
+      default = [];
       example = [
         {
           urlPath = "/foo/bar.png";
@@ -295,7 +295,7 @@ in
 
     locations = mkOption {
       type = with types; attrsOf (submodule (import ./location-options.nix));
-      default = { };
+      default = {};
       example = literalExpression ''
         {
           "/" = {
@@ -315,7 +315,7 @@ in
   config = {
 
     locations = builtins.listToAttrs (
-      map (elem: nameValuePair elem.urlPath { alias = elem.file; }) config.servedFiles
+      map (elem: nameValuePair elem.urlPath {alias = elem.file;}) config.servedFiles
     );
   };
 }

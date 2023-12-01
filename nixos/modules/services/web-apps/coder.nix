@@ -164,8 +164,8 @@ in
 
     systemd.services.coder = {
       description = "Coder - Self-hosted developer workspaces on your infra";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
 
       environment = {
         CODER_ACCESS_URL = cfg.accessUrl;
@@ -201,7 +201,7 @@ in
 
     services.postgresql = lib.mkIf cfg.database.createLocally {
       enable = true;
-      ensureDatabases = [ cfg.database.database ];
+      ensureDatabases = [cfg.database.database];
       ensureUsers = [
         {
           name = cfg.database.username;
@@ -212,7 +212,7 @@ in
       ];
     };
 
-    users.groups = optionalAttrs (cfg.group == name) { "${cfg.group}" = { }; };
+    users.groups = optionalAttrs (cfg.group == name) {"${cfg.group}" = {};};
     users.users = optionalAttrs (cfg.user == name) {
       ${name} = {
         description = "Coder service user";

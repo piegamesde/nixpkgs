@@ -48,8 +48,8 @@ in
         DefaultDependencies = false;
         ConditionKernelVersion = "<5.6";
       };
-      wantedBy = [ "sysinit.target" ];
-      after = [ "systemd-tmpfiles-setup-dev.service" ];
+      wantedBy = ["sysinit.target"];
+      after = ["systemd-tmpfiles-setup-dev.service"];
       before = [
         "sysinit.target"
         "shutdown.target"

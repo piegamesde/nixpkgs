@@ -1,7 +1,7 @@
 {
   system ? builtins.currentSystem,
-  config ? { },
-  pkgs ? import ../.. { inherit system config; },
+  config ? {},
+  pkgs ? import ../.. {inherit system config;},
   channelMap ? {
     # Maps "channels" to packages
     stable = pkgs.chromium;
@@ -14,7 +14,7 @@
   },
 }:
 
-with import ../lib/testing-python.nix { inherit system pkgs; };
+with import ../lib/testing-python.nix {inherit system pkgs;};
 with pkgs.lib;
 
 let
@@ -60,7 +60,7 @@ mapAttrs
       enableOCR = true;
 
       nodes.machine =
-        { ... }:
+        {...}:
         {
           imports = [
             ./common/user-account.nix
@@ -69,7 +69,7 @@ mapAttrs
           virtualisation.memorySize = 2047;
           test-support.displayManager.auto.user = user;
           environment = {
-            systemPackages = [ chromiumPkg ];
+            systemPackages = [chromiumPkg];
             variables."XAUTHORITY" = "/home/alice/.Xauthority";
           };
         };

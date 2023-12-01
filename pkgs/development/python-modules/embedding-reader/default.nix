@@ -21,9 +21,9 @@ buildPythonPackage rec {
     hash = "sha256-uyeIcAW9O9PR4cqmifC6Lx+Hn6XPb1RH/ksmUWvbdtw=";
   };
 
-  nativeBuildInputs = [ pythonRelaxDepsHook ];
+  nativeBuildInputs = [pythonRelaxDepsHook];
 
-  pythonRelaxDeps = [ "pyarrow" ];
+  pythonRelaxDeps = ["pyarrow"];
 
   propagatedBuildInputs = [
     fsspec
@@ -32,14 +32,14 @@ buildPythonPackage rec {
     pyarrow
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "embedding_reader" ];
+  pythonImportsCheck = ["embedding_reader"];
 
   meta = with lib; {
     description = "Efficiently read embedding in streaming from any filesystem";
     homepage = "https://github.com/rom1504/embedding-reader";
     license = licenses.mit;
-    maintainers = with maintainers; [ samuela ];
+    maintainers = with maintainers; [samuela];
   };
 }

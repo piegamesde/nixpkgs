@@ -62,6 +62,6 @@ stdenv.mkDerivation rec {
     description = "Open source emoji set";
     homepage = "http://emojione.com/";
     license = licenses.cc-by-40;
-    maintainers = with maintainers; [ abbradar ];
+    maintainers = with maintainers; [abbradar];
   };
 }

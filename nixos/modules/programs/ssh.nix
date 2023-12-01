@@ -27,7 +27,7 @@ let
   knownHostsText =
     (flip (concatMapStringsSep "\n") knownHosts (
       h:
-      assert h.hostNames != [ ];
+      assert h.hostNames != [];
       optionalString h.certAuthority "@cert-authority "
       + concatStringsSep "," h.hostNames
       + " "
@@ -35,7 +35,7 @@ let
     ))
     + "\n";
 
-  knownHostsFiles = [ "/etc/ssh/ssh_known_hosts" ] ++ map pkgs.copyPathToStore cfg.knownHostsFiles;
+  knownHostsFiles = ["/etc/ssh/ssh_known_hosts"] ++ map pkgs.copyPathToStore cfg.knownHostsFiles;
 in
 {
   ###### interface
@@ -82,7 +82,7 @@ in
 
       pubkeyAcceptedKeyTypes = mkOption {
         type = types.listOf types.str;
-        default = [ ];
+        default = [];
         example = [
           "ssh-ed25519"
           "ssh-rsa"
@@ -94,7 +94,7 @@ in
 
       hostKeyAlgorithms = mkOption {
         type = types.listOf types.str;
-        default = [ ];
+        default = [];
         example = [
           "ssh-ed25519"
           "ssh-rsa"
@@ -155,7 +155,7 @@ in
       };
 
       knownHosts = mkOption {
-        default = { };
+        default = {};
         type = types.attrsOf (
           types.submodule (
             {
@@ -176,7 +176,7 @@ in
                 };
                 hostNames = mkOption {
                   type = types.listOf types.str;
-                  default = [ name ] ++ config.extraHostNames;
+                  default = [name] ++ config.extraHostNames;
                   defaultText = literalExpression "[ ${name} ] ++ config.${options.extraHostNames}";
                   description = lib.mdDoc ''
                     A list of host names and/or IP numbers used for accessing
@@ -190,7 +190,7 @@ in
                 };
                 extraHostNames = mkOption {
                   type = types.listOf types.str;
-                  default = [ ];
+                  default = [];
                   description = lib.mdDoc ''
                     A list of additional host names and/or IP numbers used for
                     accessing the host's ssh service. This list is ignored if
@@ -250,7 +250,7 @@ in
       };
 
       knownHostsFiles = mkOption {
-        default = [ ];
+        default = [];
         type = with types; listOf path;
         description = lib.mdDoc ''
           Files containing SSH host keys to set as global known hosts.
@@ -350,9 +350,9 @@ in
 
       ForwardX11 ${if cfg.forwardX11 then "yes" else "no"}
 
-      ${optionalString (cfg.pubkeyAcceptedKeyTypes != [ ])
+      ${optionalString (cfg.pubkeyAcceptedKeyTypes != [])
         "PubkeyAcceptedKeyTypes ${concatStringsSep "," cfg.pubkeyAcceptedKeyTypes}"}
-      ${optionalString (cfg.hostKeyAlgorithms != [ ])
+      ${optionalString (cfg.hostKeyAlgorithms != [])
         "HostKeyAlgorithms ${concatStringsSep "," cfg.hostKeyAlgorithms}"}
       ${optionalString (cfg.kexAlgorithms != null)
         "KexAlgorithms ${concatStringsSep "," cfg.kexAlgorithms}"}
@@ -365,7 +365,7 @@ in
     # FIXME: this should really be socket-activated for über-awesomeness.
     systemd.user.services.ssh-agent = mkIf cfg.startAgent {
       description = "SSH Agent";
-      wantedBy = [ "default.target" ];
+      wantedBy = ["default.target"];
       unitConfig.ConditionUser = "!@system";
       serviceConfig = {
         ExecStartPre = "${pkgs.coreutils}/bin/rm -f %t/ssh-agent";

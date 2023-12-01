@@ -32,7 +32,7 @@ mkDerivation rec {
     qtx11extras
   ];
 
-  qmakeFlags = [ "QMAKE_LUPDATE=${qttools.dev}/bin/lupdate" ];
+  qmakeFlags = ["QMAKE_LUPDATE=${qttools.dev}/bin/lupdate"];
 
   meta = with lib; {
     description = "Media Player Classic Qute Theater";
@@ -40,6 +40,6 @@ mkDerivation rec {
     license = licenses.gpl2;
     platforms = platforms.unix;
     broken = stdenv.isDarwin;
-    maintainers = with maintainers; [ romildo ];
+    maintainers = with maintainers; [romildo];
   };
 }

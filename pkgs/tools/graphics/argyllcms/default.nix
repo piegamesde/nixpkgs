@@ -136,9 +136,9 @@ stdenv.mkDerivation rec {
     openssl
   ];
 
-  buildFlags = [ "all" ];
+  buildFlags = ["all"];
 
-  makeFlags = [ "PREFIX=${placeholder "out"}" ];
+  makeFlags = ["PREFIX=${placeholder "out"}"];
 
   # Install udev rules, but remove lines that set up the udev-acl
   # stuff, since that is handled by udev's own rules (70-udev-acl.rules)
@@ -156,7 +156,7 @@ stdenv.mkDerivation rec {
     homepage = "http://www.argyllcms.com";
     description = "Color management system (compatible with ICC)";
     license = licenses.gpl3;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.linux;
   };
 }

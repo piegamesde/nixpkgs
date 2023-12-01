@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  buildInputs = [ SDL2 ];
+  buildInputs = [SDL2];
 
   cmakeFlags = [
     "-DUSE_RESAMP_SRC=OFF"
@@ -47,6 +47,6 @@ stdenv.mkDerivation rec {
     description = "Audio decoding, resampling and mixing library for SDL";
     homepage = "https://github.com/realnc/SDL_audiolib";
     license = licenses.lgpl3Plus;
-    maintainers = with maintainers; [ SuperSandro2000 ];
+    maintainers = with maintainers; [SuperSandro2000];
   };
 }

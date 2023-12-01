@@ -75,7 +75,7 @@ stdenv.mkDerivation rec {
     description = "Karaoke, band and dancing game";
     homepage = "https://performous.org/";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ wegank ];
+    maintainers = with maintainers; [wegank];
     platforms = platforms.linux;
   };
 }

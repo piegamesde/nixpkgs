@@ -52,7 +52,7 @@ let
     pylatexenc
     seaborn
   ];
-  crosstalkPackages = [ z3 ];
+  crosstalkPackages = [z3];
 in
 
 buildPythonPackage rec {
@@ -69,7 +69,7 @@ buildPythonPackage rec {
   };
 
   nativeBuildInputs =
-    [ setuptools-rust ]
+    [setuptools-rust]
     ++ (
       with rustPlatform; [
         rust.rustc
@@ -126,7 +126,7 @@ buildPythonPackage rec {
     # These tests consistently fail on GitHub Actions build
     "test/python/quantum_info/operators/test_random.py"
   ];
-  pytestFlagsArray = [ "--durations=10" ];
+  pytestFlagsArray = ["--durations=10"];
   disabledTests =
     [
       "TestUnitarySynthesisPlugin" # use unittest mocks for transpiler.run(), seems incompatible somehow w/ pytest infrastructure
@@ -141,7 +141,7 @@ buildPythonPackage rec {
       "test_two_qubit_synthesis_not_pulse_optimal" # test of random circuit, seems to randomly fail depending on seed
       "test_qv_natural" # fails due to sign error. Not sure why
     ]
-    ++ lib.optionals (lib.versionAtLeast matplotlib.version "3.4.0") [ "test_plot_circuit_layout" ]
+    ++ lib.optionals (lib.versionAtLeast matplotlib.version "3.4.0") ["test_plot_circuit_layout"]
     # Disabling slow tests for build constraints
     ++ [
       "test_all_examples"
@@ -212,6 +212,6 @@ buildPythonPackage rec {
     downloadPage = "https://github.com/QISKit/qiskit-terra/releases";
     changelog = "https://qiskit.org/documentation/release_notes.html";
     license = licenses.asl20;
-    maintainers = with maintainers; [ drewrisinger ];
+    maintainers = with maintainers; [drewrisinger];
   };
 }

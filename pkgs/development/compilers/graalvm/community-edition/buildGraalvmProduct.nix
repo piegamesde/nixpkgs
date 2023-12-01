@@ -11,11 +11,11 @@
   # extra params
   product,
   javaVersion,
-  extraBuildInputs ? [ ],
-  extraNativeBuildInputs ? [ ],
-  graalvmPhases ? { },
-  meta ? { },
-  passthru ? { },
+  extraBuildInputs ? [],
+  extraNativeBuildInputs ? [],
+  graalvmPhases ? {},
+  meta ? {},
+  passthru ? {},
   ...
 }@args:
 

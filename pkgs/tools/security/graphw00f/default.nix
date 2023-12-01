@@ -16,7 +16,7 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-stTCUHt9UCu1QuxDPB8a26LsrHNttyoVd0tmS7e2t2Y=";
   };
 
-  propagatedBuildInputs = with python3.pkgs; [ requests ];
+  propagatedBuildInputs = with python3.pkgs; [requests];
 
   installPhase = ''
     runHook preInstall
@@ -31,6 +31,6 @@ python3.pkgs.buildPythonApplication rec {
     description = "GraphQL Server Engine Fingerprinting utility";
     homepage = "https://github.com/dolevf/graphw00f";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

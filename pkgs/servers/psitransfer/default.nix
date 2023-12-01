@@ -39,7 +39,7 @@ let
       homepage = "https://github.com/psi-4ward/psitransfer";
       description = "Simple open source self-hosted file sharing solution";
       license = licenses.bsd2;
-      maintainers = with maintainers; [ hyshka ];
+      maintainers = with maintainers; [hyshka];
     };
   };
 in

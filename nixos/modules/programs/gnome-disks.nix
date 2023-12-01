@@ -53,8 +53,8 @@ with lib;
 
   config = mkIf config.programs.gnome-disks.enable {
 
-    environment.systemPackages = [ pkgs.gnome.gnome-disk-utility ];
+    environment.systemPackages = [pkgs.gnome.gnome-disk-utility];
 
-    services.dbus.packages = [ pkgs.gnome.gnome-disk-utility ];
+    services.dbus.packages = [pkgs.gnome.gnome-disk-utility];
   };
 }

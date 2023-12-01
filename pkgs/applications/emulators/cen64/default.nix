@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-/CraSu/leNA0dl8NVgFjvKdOWrC9/namAz5NSxtPr+I=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     libGL
     libiconv
@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
     description = "A Cycle-Accurate Nintendo 64 Emulator";
     license = licenses.bsd3;
     homepage = "https://github.com/n64dev/cen64";
-    maintainers = [ maintainers._414owen ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = [maintainers._414owen];
+    platforms = ["x86_64-linux"];
   };
 }

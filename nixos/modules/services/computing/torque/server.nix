@@ -21,7 +21,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = [ pkgs.torque ];
+    environment.systemPackages = [pkgs.torque];
 
     systemd.services.torque-server-init = {
       path = with pkgs; [
@@ -59,10 +59,10 @@ in
     };
 
     systemd.services.trqauthd = {
-      path = [ torque ];
+      path = [torque];
 
-      requires = [ "torque-server-init.service" ];
-      after = [ "torque-server-init.service" ];
+      requires = ["torque-server-init.service"];
+      after = ["torque-server-init.service"];
 
       serviceConfig = {
         Type = "forking";
@@ -71,15 +71,15 @@ in
     };
 
     systemd.services.torque-server = {
-      path = [ torque ];
+      path = [torque];
 
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       wants = [
         "torque-scheduler.service"
         "trqauthd.service"
       ];
-      before = [ "trqauthd.service" ];
-      requires = [ "torque-server-init.service" ];
+      before = ["trqauthd.service"];
+      requires = ["torque-server-init.service"];
       after = [
         "torque-server-init.service"
         "network.target"
@@ -94,10 +94,10 @@ in
     };
 
     systemd.services.torque-scheduler = {
-      path = [ torque ];
+      path = [torque];
 
-      requires = [ "torque-server-init.service" ];
-      after = [ "torque-server-init.service" ];
+      requires = ["torque-server-init.service"];
+      after = ["torque-server-init.service"];
 
       serviceConfig = {
         Type = "forking";

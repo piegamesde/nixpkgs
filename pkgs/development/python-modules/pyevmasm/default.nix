@@ -17,15 +17,15 @@ buildPythonPackage rec {
     sha256 = "134q0z0dqzxzr0jw5jr98kp90kx2dl0qw9smykwxdgq555q1l6qa";
   };
 
-  propagatedBuildInputs = [ future ];
+  propagatedBuildInputs = [future];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = with lib; {
     description = "Ethereum Virtual Machine (EVM) assembler and disassembler";
     homepage = "https://github.com/crytic/pyevmasm";
     changelog = "https://github.com/crytic/pyevmasm/releases/tag/${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ arturcygan ];
+    maintainers = with maintainers; [arturcygan];
   };
 }

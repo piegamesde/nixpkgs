@@ -13,7 +13,7 @@ let
     sha256 = "103acb11qmvjmf6g9lgsfm5jyahfwfdqw0x9w6lmv1hzwbs26dsr";
   };
 
-  appimageContents = appimageTools.extract { inherit name src; };
+  appimageContents = appimageTools.extract {inherit name src;};
 in
 appimageTools.wrapType2 {
   inherit name src;
@@ -31,7 +31,7 @@ appimageTools.wrapType2 {
     description = "Installer for BetterDiscord";
     homepage = "https://betterdiscord.app";
     license = licenses.mit;
-    maintainers = [ maintainers.ivar ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = [maintainers.ivar];
+    platforms = ["x86_64-linux"];
   };
 }

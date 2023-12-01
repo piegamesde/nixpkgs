@@ -29,6 +29,6 @@ rustPlatform.buildRustPackage rec {
     description = "A simple yet robust commandline random password generator";
     homepage = "https://sr.ht/~cyplo/genpass/";
     license = licenses.agpl3Only;
-    maintainers = with maintainers; [ cyplo ];
+    maintainers = with maintainers; [cyplo];
   };
 }

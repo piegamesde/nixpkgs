@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-kaf5gpGYVWinmnRwR/IafE1SJcwmP2psfe/UZdtH1Og=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   buildInputs = [
     openexr
@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
     ilmbase
   ];
 
-  cmakeFlags = [ "-DOPENVDB_CORE_STATIC=OFF" ];
+  cmakeFlags = ["-DOPENVDB_CORE_STATIC=OFF"];
 
   postFixup = ''
     substituteInPlace $dev/lib/cmake/OpenVDB/FindOpenVDB.cmake \
@@ -49,7 +49,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "An open framework for voxel";
     homepage = "https://www.openvdb.org";
-    maintainers = [ maintainers.guibou ];
+    maintainers = [maintainers.guibou];
     platforms = platforms.unix;
     license = licenses.mpl20;
   };

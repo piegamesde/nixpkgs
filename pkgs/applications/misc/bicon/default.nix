@@ -56,7 +56,7 @@ stdenv.mkDerivation rec {
       licenses.psfl
       licenses.bsd0
     ];
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.linux;
   };
 }

@@ -19,7 +19,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-j1fTOUpLx34TgzW94A/BctLrg9XoTtb3cBizhVJoEEI=";
 
-  subPackages = [ "cmd/jsonnet*" ];
+  subPackages = ["cmd/jsonnet*"];
 
   passthru.tests.version = testers.testVersion {
     package = go-jsonnet;

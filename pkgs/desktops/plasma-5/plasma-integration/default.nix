@@ -19,7 +19,7 @@
 
 mkDerivation {
   pname = "plasma-integration";
-  nativeBuildInputs = [ extra-cmake-modules ];
+  nativeBuildInputs = [extra-cmake-modules];
   buildInputs = [
     breeze-qt5
     kconfig

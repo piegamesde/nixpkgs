@@ -18,13 +18,13 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-a9yCnGg+4f+UoHbGG8a47z2duBD3qXcAzPKnE4PQsvM=";
 
-  nativeCheckInputs = [ git ];
+  nativeCheckInputs = [git];
 
   meta = with lib; {
     description = "Reliable project licenses detector";
     homepage = "https://github.com/go-enry/go-license-detector";
     license = licenses.asl20;
-    maintainers = with maintainers; [ dtzWill ];
+    maintainers = with maintainers; [dtzWill];
     mainProgram = "license-detector";
   };
 }

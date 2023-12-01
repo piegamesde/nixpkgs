@@ -5,7 +5,7 @@
   libnotify,
   gobject-introspection,
   python3Packages,
-  extraLibs ? [ ],
+  extraLibs ? [],
 }:
 
 python3Packages.buildPythonApplication rec {
@@ -47,7 +47,7 @@ python3Packages.buildPythonApplication rec {
     "--suffix"
     "LD_LIBRARY_PATH"
     ":"
-    "${lib.makeLibraryPath [ libpulseaudio ]}"
+    "${lib.makeLibraryPath [libpulseaudio]}"
   ];
 
   postPatch = ''
@@ -72,6 +72,6 @@ python3Packages.buildPythonApplication rec {
     '';
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = [ maintainers.igsha ];
+    maintainers = [maintainers.igsha];
   };
 }

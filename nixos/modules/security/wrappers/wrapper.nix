@@ -8,11 +8,11 @@
 # $ nix-build -E 'with import <nixpkgs> {}; pkgs.callPackage ./wrapper.nix { parentWrapperDir = "/run/wrappers"; debug = true; }'
 stdenv.mkDerivation {
   name = "security-wrapper";
-  buildInputs = [ linuxHeaders ];
+  buildInputs = [linuxHeaders];
   dontUnpack = true;
-  hardeningEnable = [ "pie" ];
+  hardeningEnable = ["pie"];
   CFLAGS =
-    [ ''-DWRAPPER_DIR="${parentWrapperDir}"'' ]
+    [''-DWRAPPER_DIR="${parentWrapperDir}"'']
     ++ (
       if debug then
         [

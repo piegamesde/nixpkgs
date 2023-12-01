@@ -39,6 +39,6 @@ stdenv.mkDerivation {
     homepage = "https://github.com/linux-apfs/apfsprogs";
     license = licenses.gpl2Only;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ Luflosi ];
+    maintainers = with maintainers; [Luflosi];
   };
 }

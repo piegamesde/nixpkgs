@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "cl-csv";
   version = "20201016-git";
@@ -29,7 +29,7 @@ rec {
 
   packageName = "cl-csv";
 
-  asdFilesToKeep = [ "cl-csv.asd" ];
+  asdFilesToKeep = ["cl-csv.asd"];
   overrides = x: x;
 }
 /* (SYSTEM cl-csv DESCRIPTION

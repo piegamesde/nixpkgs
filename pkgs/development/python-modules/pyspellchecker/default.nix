@@ -18,14 +18,14 @@ buildPythonPackage rec {
     hash = "sha256-DV2JxUKTCVJRRLmi+d5dMloCgpYwC5uyI1o34L26TxA=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = with lib; {
     description = "Pure python spell checking";
     homepage = "https://github.com/barrust/pyspellchecker";
     license = licenses.mit;
-    maintainers = with maintainers; [ zendo ];
+    maintainers = with maintainers; [zendo];
   };
 }

@@ -76,7 +76,7 @@ stdenv.mkDerivation {
       binaryBytecode # deps
     ];
     license = licenses.gpl3;
-    maintainers = [ maintainers.taeer ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = [maintainers.taeer];
+    platforms = ["x86_64-linux"];
   };
 }

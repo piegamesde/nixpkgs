@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
     sha256 = "0rwqiyzlg9p0szf3x6q1ppvrw6f6dbpn2rc5z623fk3bkdalhxyv";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     util-linux
     man
@@ -74,6 +74,6 @@ stdenv.mkDerivation rec {
     homepage = "http://www.apcupsd.com/";
     license = licenses.gpl2;
     platforms = platforms.linux;
-    maintainers = [ maintainers.bjornfor ];
+    maintainers = [maintainers.bjornfor];
   };
 }

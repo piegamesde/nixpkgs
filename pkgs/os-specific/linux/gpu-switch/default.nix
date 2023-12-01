@@ -22,6 +22,6 @@ stdenv.mkDerivation {
     homepage = "https://github.com/0xbb/gpu-switch";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = [ maintainers.msiedlarek ];
+    maintainers = [maintainers.msiedlarek];
   };
 }

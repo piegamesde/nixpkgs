@@ -37,10 +37,10 @@ buildPythonPackage rec {
     })
   ];
 
-  nativeBuildInputs = [ cython ];
-  buildInputs = [ proj ];
+  nativeBuildInputs = [cython];
+  buildInputs = [proj];
 
-  propagatedBuildInputs = [ certifi ];
+  propagatedBuildInputs = [certifi];
 
   nativeCheckInputs = [
     pytestCheckHook

@@ -42,7 +42,7 @@ let
       ./configure --pb ZLIB=$ZLIB LZ4=$LZ4
       runHook postConfigure
     '';
-    makeFlags = [ "${chezSystem}.bootquick" ];
+    makeFlags = ["${chezSystem}.bootquick"];
     installPhase = ''
       runHook preInstall
       mkdir -p $out
@@ -52,7 +52,7 @@ let
       runHook postInstall
     '';
   };
-  boot = buildPackages.callPackage (import ./shared.nix forBoot) { };
+  boot = buildPackages.callPackage (import ./shared.nix forBoot) {};
   forFinal = {
     pname = "chez-scheme-racket";
     configurePhase = ''
@@ -69,6 +69,6 @@ let
     '';
     setupHook = ./setup-hook.sh;
   };
-  final = callPackage (import ./shared.nix forFinal) { };
+  final = callPackage (import ./shared.nix forFinal) {};
 in
 final

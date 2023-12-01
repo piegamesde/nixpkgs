@@ -21,7 +21,7 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-6bLY9m6g7hSlYI3KrLS3fN4ATRkkbtq3Wf5xqS1G30s=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   buildInputs = lib.optionals stdenv.isDarwin [
     Cocoa
@@ -47,7 +47,7 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "Executes commands in response to file modifications";
     homepage = "https://watchexec.github.io/";
-    license = with licenses; [ asl20 ];
-    maintainers = [ maintainers.michalrus ];
+    license = with licenses; [asl20];
+    maintainers = [maintainers.michalrus];
   };
 }

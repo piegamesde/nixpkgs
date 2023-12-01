@@ -24,11 +24,11 @@ buildGoModule rec {
 
   proxyVendor = true;
 
-  tags = [ "extended" ];
+  tags = ["extended"];
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   ldflags = [
     "-s"

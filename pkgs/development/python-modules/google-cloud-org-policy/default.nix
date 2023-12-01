@@ -38,7 +38,7 @@ buildPythonPackage rec {
     rm -r google
   '';
 
-  pythonImportsCheck = [ "google.cloud.orgpolicy" ];
+  pythonImportsCheck = ["google.cloud.orgpolicy"];
 
   meta = with lib; {
     description = "Protobufs for Google Cloud Organization Policy";

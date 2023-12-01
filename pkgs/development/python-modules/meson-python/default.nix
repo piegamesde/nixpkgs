@@ -28,14 +28,14 @@ buildPythonPackage rec {
     ninja
     pyproject-metadata
     tomli
-  ] ++ lib.optionals (pythonOlder "3.10") [ typing-extensions ];
+  ] ++ lib.optionals (pythonOlder "3.10") [typing-extensions];
 
   propagatedBuildInputs = [
     meson
     ninja
     pyproject-metadata
     tomli
-  ] ++ lib.optionals (pythonOlder "3.10") [ typing-extensions ];
+  ] ++ lib.optionals (pythonOlder "3.10") [typing-extensions];
 
   # Ugly work-around. Drop ninja dependency.
   # We already have ninja, but it comes without METADATA.
@@ -48,7 +48,7 @@ buildPythonPackage rec {
     changelog = "https://github.com/mesonbuild/meson-python/blob/${version}/CHANGELOG.rst";
     description = "Meson Python build backend (PEP 517)";
     homepage = "https://github.com/mesonbuild/meson-python";
-    license = [ lib.licenses.mit ];
-    maintainers = [ lib.maintainers.fridh ];
+    license = [lib.licenses.mit];
+    maintainers = [lib.maintainers.fridh];
   };
 }

@@ -31,6 +31,6 @@ in
       assertion = lessThan 0 (builtins.compareVersions kernelVersion linuxKernelMinVersion);
       message = "ATH_USER_REGD patch for kernels older than ${linuxKernelMinVersion} not ported yet!";
     };
-    boot.kernelPatches = [ kernelPatch ];
+    boot.kernelPatches = [kernelPatch];
   };
 }

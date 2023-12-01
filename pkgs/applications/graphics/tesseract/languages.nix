@@ -11,7 +11,7 @@ rec {
       tessdataRev,
       tessdata ? null,
       all ? null,
-      languages ? { },
+      languages ? {},
     }:
     let
       tessdataSrc = fetchFromGitHub {

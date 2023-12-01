@@ -16,10 +16,10 @@ buildGoModule rec {
     hash = "sha256-g/gn08Mpwocf5SBJu93bMNiAlg9osIWUy0skV3JzmMk=";
   };
 
-  subPackages = [ "projects/gloo/cli/cmd" ];
+  subPackages = ["projects/gloo/cli/cmd"];
   vendorHash = "sha256-z1am0HfRrPAg2H7ZAjinoirfmaCFdF1oavVVVKQ3V8o=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = ''
     mv $out/bin/cmd $out/bin/glooctl
@@ -40,6 +40,6 @@ buildGoModule rec {
     description = "glooctl is the unified CLI for Gloo";
     homepage = "https://docs.solo.io/gloo-edge/latest/reference/cli/glooctl/";
     license = licenses.asl20;
-    maintainers = with maintainers; [ nelsonjeppesen ];
+    maintainers = with maintainers; [nelsonjeppesen];
   };
 }

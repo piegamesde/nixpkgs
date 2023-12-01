@@ -35,7 +35,7 @@ buildPythonPackage rec {
     rm -rf asyncpg/
   '';
 
-  pythonImportsCheck = [ "asyncpg" ];
+  pythonImportsCheck = ["asyncpg"];
 
   meta = with lib; {
     description = "Asyncio PosgtreSQL driver";
@@ -48,6 +48,6 @@ buildPythonPackage rec {
       asyncio framework.
     '';
     license = licenses.asl20;
-    maintainers = with maintainers; [ eadwu ];
+    maintainers = with maintainers; [eadwu];
   };
 }

@@ -46,6 +46,6 @@ mkDerivation rec {
     description = "Calculator built with kirigami";
     homepage = "https://invent.kde.org/plasma-mobile/kalk";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ samueldr ];
+    maintainers = with maintainers; [samueldr];
   };
 }

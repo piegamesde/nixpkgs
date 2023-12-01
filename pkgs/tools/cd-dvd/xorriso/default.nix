@@ -52,7 +52,7 @@ stdenv.mkDerivation rec {
 
     homepage = "https://www.gnu.org/software/xorriso/";
 
-    maintainers = [ maintainers.vrthra ];
+    maintainers = [maintainers.vrthra];
     platforms = platforms.unix;
   };
 }

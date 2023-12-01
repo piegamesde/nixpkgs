@@ -20,11 +20,11 @@ buildPythonPackage rec {
     hash = "sha256-yOP69FXDb2Grmtszx7oa6uiJGUar8su3KwqQPI+xjrw=";
   };
 
-  nativeBuildInputs = [ flit-core ];
+  nativeBuildInputs = [flit-core];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pytestFlagsArray = [ "aiomultiprocess/tests/*.py" ];
+  pytestFlagsArray = ["aiomultiprocess/tests/*.py"];
 
   disabledTests = [
     # tests are flaky and make the whole test suite time out
@@ -33,7 +33,7 @@ buildPythonPackage rec {
     "test_pool_worker_stop"
   ];
 
-  pythonImportsCheck = [ "aiomultiprocess" ];
+  pythonImportsCheck = ["aiomultiprocess"];
 
   meta = with lib; {
     description = "Python module to improve performance";
@@ -45,7 +45,7 @@ buildPythonPackage rec {
       the workload and number of cores available.
     '';
     homepage = "https://github.com/omnilib/aiomultiprocess";
-    license = with licenses; [ mit ];
-    maintainers = [ maintainers.fab ];
+    license = with licenses; [mit];
+    maintainers = [maintainers.fab];
   };
 }

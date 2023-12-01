@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
     bash
     wget
   ];
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
   postPatch = ''
     patchShebangs --host ipfetch
     # Not only does `/usr` have to be replaced but also `/flags` needs to be added because with Nix the script is broken without this. The `/flags` is somehow not needed if you install via the install script in the source repository.
@@ -46,6 +46,6 @@ stdenv.mkDerivation rec {
     description = "Neofetch but for ip addresses";
     license = licenses.gpl3Only;
     platforms = platforms.all;
-    maintainers = with maintainers; [ annaaurora ];
+    maintainers = with maintainers; [annaaurora];
   };
 }

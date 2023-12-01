@@ -8,7 +8,7 @@
 with lib;
 
 let
-  format = pkgs.formats.json { };
+  format = pkgs.formats.json {};
   cfg = config.services.influxdb2;
   configFile = format.generate "config.json" cfg.settings;
 in
@@ -25,7 +25,7 @@ in
       };
 
       settings = mkOption {
-        default = { };
+        default = {};
         description = lib.mdDoc "configuration options for influxdb2, see <https://docs.influxdata.com/influxdb/v2.0/reference/config-options> for details.";
         type = format.type;
       };
@@ -43,9 +43,9 @@ in
 
     systemd.services.influxdb2 = {
       description = "InfluxDB is an open-source, distributed, time series database";
-      documentation = [ "https://docs.influxdata.com/influxdb/" ];
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      documentation = ["https://docs.influxdata.com/influxdb/"];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
       environment = {
         INFLUXD_CONFIG_PATH = configFile;
         ZONEINFO = "${pkgs.tzdata}/share/zoneinfo";
@@ -68,8 +68,8 @@ in
       group = "influxdb2";
     };
 
-    users.extraGroups.influxdb2 = { };
+    users.extraGroups.influxdb2 = {};
   };
 
-  meta.maintainers = with lib.maintainers; [ nickcao ];
+  meta.maintainers = with lib.maintainers; [nickcao];
 }

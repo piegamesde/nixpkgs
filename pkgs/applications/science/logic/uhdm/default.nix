@@ -21,11 +21,11 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [
     cmake
-    (python3.withPackages (p: with p; [ orderedmultidict ]))
+    (python3.withPackages (p: with p; [orderedmultidict]))
     gtest
   ];
 
-  buildInputs = [ capnproto ];
+  buildInputs = [capnproto];
 
   cmakeFlags = [
     "-DUHDM_USE_HOST_GTEST=On"
@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
     description = "Universal Hardware Data Model";
     homepage = "https://github.com/chipsalliance/UHDM";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ matthuszagh ];
+    maintainers = with lib.maintainers; [matthuszagh];
     platforms = lib.platforms.all;
   };
 }

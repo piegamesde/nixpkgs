@@ -16,9 +16,9 @@
   version ? null,
   runScript ? "bash",
   extraInstallCommands ? "",
-  meta ? { },
-  passthru ? { },
-  extraBwrapArgs ? [ ],
+  meta ? {},
+  passthru ? {},
+  extraBwrapArgs ? [],
   unshareUser ? true,
   unshareIpc ? true,
   unsharePid ? true,
@@ -37,10 +37,10 @@ let
   versionStr = lib.optionalString (version != null) ("-" + version);
   name = pname + versionStr;
 
-  buildFHSEnv = callPackage ./buildFHSEnv.nix { };
+  buildFHSEnv = callPackage ./buildFHSEnv.nix {};
 
   fhsenv = buildFHSEnv (
-    removeAttrs (args // { inherit name; }) [
+    removeAttrs (args // {inherit name;}) [
       "runScript"
       "extraInstallCommands"
       "meta"
@@ -249,14 +249,14 @@ let
       exec "''${cmd[@]}"
     '';
 
-  bin = writeShellScript "${name}-bwrap" (bwrapCmd { initArgs = ''"$@"''; });
+  bin = writeShellScript "${name}-bwrap" (bwrapCmd {initArgs = ''"$@"'';});
 in
 runCommandLocal name
   {
     inherit meta;
 
     passthru = passthru // {
-      env = runCommandLocal "${name}-shell-env" { shellHook = bwrapCmd { }; } ''
+      env = runCommandLocal "${name}-shell-env" {shellHook = bwrapCmd {};} ''
         echo >&2 ""
         echo >&2 "*** User chroot 'env' attributes are intended for interactive nix-shell sessions, not for building! ***"
         echo >&2 ""

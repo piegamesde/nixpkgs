@@ -18,20 +18,20 @@ buildPythonPackage rec {
     hash = "sha256-JJY+FoMPSnWuSsNIas2JedGJpdm6RfPE3E1VIjGuXIc=";
   };
 
-  propagatedBuildInputs = [ django ];
+  propagatedBuildInputs = [django];
 
-  nativeCheckInputs = [ dj-database-url ];
+  nativeCheckInputs = [dj-database-url];
 
   checkPhase = ''
     ${python.interpreter} runtests.py
   '';
 
-  pythonImportsCheck = [ "polymorphic" ];
+  pythonImportsCheck = ["polymorphic"];
 
   meta = with lib; {
     homepage = "https://github.com/django-polymorphic/django-polymorphic";
     description = "Improved Django model inheritance with automatic downcasting";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ SuperSandro2000 ];
+    maintainers = with maintainers; [SuperSandro2000];
   };
 }

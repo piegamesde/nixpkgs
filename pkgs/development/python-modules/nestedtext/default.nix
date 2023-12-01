@@ -27,9 +27,9 @@ buildPythonPackage rec {
     hash = "sha256-RGCcrGsDkBhThuUZd2LuuyXG9r1S7iOA75HYRxkwUrU=";
   };
 
-  nativeBuildInputs = [ flitBuildHook ];
+  nativeBuildInputs = [flitBuildHook];
 
-  propagatedBuildInputs = [ inform ];
+  propagatedBuildInputs = [inform];
 
   nativeCheckInputs = [
     docopt
@@ -56,10 +56,10 @@ buildPythonPackage rec {
     ];
 
   passthru.tests = {
-    runTests = nestedtext.overrideAttrs (_: { doCheck = true; });
+    runTests = nestedtext.overrideAttrs (_: {doCheck = true;});
   };
 
-  pythonImportsCheck = [ "nestedtext" ];
+  pythonImportsCheck = ["nestedtext"];
 
   meta = with lib; {
     description = "A human friendly data format";
@@ -77,6 +77,6 @@ buildPythonPackage rec {
     homepage = "https://nestedtext.org";
     changelog = "https://github.com/KenKundert/nestedtext/blob/v${version}/doc/releases.rst";
     license = licenses.mit;
-    maintainers = with maintainers; [ jeremyschlatter ];
+    maintainers = with maintainers; [jeremyschlatter];
   };
 }

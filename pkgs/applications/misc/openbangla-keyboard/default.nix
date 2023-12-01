@@ -67,7 +67,7 @@ stdenv.mkDerivation rec {
     description = "An OpenSource, Unicode compliant Bengali Input Method";
     homepage = "https://openbangla.github.io/";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ hqurve ];
+    maintainers = with maintainers; [hqurve];
     platforms = platforms.linux;
     # never built on aarch64-linux since first introduction in nixpkgs
     broken = stdenv.isLinux && stdenv.isAarch64;

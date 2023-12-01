@@ -26,9 +26,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-dhqHv+A4uak1FxKNqIsYlQl2WiP5+Y9I83pumpFbJDA=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   cmakeFlags =
-    [ "-DPYTHON_EXTENSIONS=OFF" ]
+    ["-DPYTHON_EXTENSIONS=OFF"]
     ++ lib.optionals stdenv.isDarwin [
       "-DCMAKE_OSX_DEPLOYMENT_TARGET=10.14" # For aligned allocation
     ];
@@ -51,6 +51,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/facebook/fb303";
     license = licenses.asl20;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ kylesferrazza ];
+    maintainers = with maintainers; [kylesferrazza];
   };
 }

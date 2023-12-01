@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
     parted
     util-linux
   ];
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   propagatedBuildInputs = [
     parted

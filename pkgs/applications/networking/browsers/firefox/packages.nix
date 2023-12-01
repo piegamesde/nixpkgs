@@ -33,8 +33,8 @@
       maxSilent = 14400; # 4h, double the default of 7200s (c.f. #129212, #129115)
       license = lib.licenses.mpl20;
     };
-    tests = [ nixosTests.firefox ];
-    updateScript = callPackage ./update.nix { attrPath = "firefox-unwrapped"; };
+    tests = [nixosTests.firefox];
+    updateScript = callPackage ./update.nix {attrPath = "firefox-unwrapped";};
   };
 
   firefox-beta = buildMozillaMach rec {
@@ -49,7 +49,7 @@
     meta = {
       description = "A web browser built from Firefox Beta Release source tree";
       homepage = "http://www.mozilla.com/en-US/firefox/";
-      maintainers = with lib.maintainers; [ jopejoe1 ];
+      maintainers = with lib.maintainers; [jopejoe1];
       platforms = lib.platforms.unix;
       badPlatforms = lib.platforms.darwin;
       broken = stdenv.buildPlatform.is32bit;
@@ -58,7 +58,7 @@
       maxSilent = 14400; # 4h, double the default of 7200s (c.f. #129212, #129115)
       license = lib.licenses.mpl20;
     };
-    tests = [ nixosTests.firefox-beta ];
+    tests = [nixosTests.firefox-beta];
     updateScript = callPackage ./update.nix {
       attrPath = "firefox-beta-unwrapped";
       versionSuffix = "b[0-9]*";
@@ -78,7 +78,7 @@
     meta = {
       description = "A web browser built from Firefox Developer Edition source tree";
       homepage = "http://www.mozilla.com/en-US/firefox/";
-      maintainers = with lib.maintainers; [ jopejoe1 ];
+      maintainers = with lib.maintainers; [jopejoe1];
       platforms = lib.platforms.unix;
       badPlatforms = lib.platforms.darwin;
       broken = stdenv.buildPlatform.is32bit;
@@ -87,7 +87,7 @@
       maxSilent = 14400; # 4h, double the default of 7200s (c.f. #129212, #129115)
       license = lib.licenses.mpl20;
     };
-    tests = [ nixosTests.firefox-devedition ];
+    tests = [nixosTests.firefox-devedition];
     updateScript = callPackage ./update.nix {
       attrPath = "firefox-devedition-unwrapped";
       versionSuffix = "b[0-9]*";
@@ -108,7 +108,7 @@
       changelog = "https://www.mozilla.org/en-US/firefox/${lib.removeSuffix "esr" version}/releasenotes/";
       description = "A web browser built from Firefox Extended Support Release source tree";
       homepage = "http://www.mozilla.com/en-US/firefox/";
-      maintainers = with lib.maintainers; [ hexa ];
+      maintainers = with lib.maintainers; [hexa];
       platforms = lib.platforms.unix;
       badPlatforms = lib.platforms.darwin;
       broken = stdenv.buildPlatform.is32bit;
@@ -116,7 +116,7 @@
       # not in `badPlatforms` because cross-compilation on 64-bit machine might work.
       license = lib.licenses.mpl20;
     };
-    tests = [ nixosTests.firefox-esr-102 ];
+    tests = [nixosTests.firefox-esr-102];
     updateScript = callPackage ./update.nix {
       attrPath = "firefox-esr-102-unwrapped";
       versionPrefix = "102";

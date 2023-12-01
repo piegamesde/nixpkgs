@@ -9,7 +9,7 @@ with lib;
 
 let
   cfg = config.services.litestream;
-  settingsFormat = pkgs.formats.yaml { };
+  settingsFormat = pkgs.formats.yaml {};
 in
 {
   options.services.litestream = {
@@ -31,7 +31,7 @@ in
         dbs = [
           {
             path = "/var/lib/db1";
-            replicas = [ { url = "s3://mybkt.litestream.io/db1"; } ];
+            replicas = [{url = "s3://mybkt.litestream.io/db1";}];
           }
         ];
       };
@@ -68,7 +68,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
     environment.etc = {
       "litestream.yml" = {
         source = settingsFormat.generate "litestream-config.yaml" cfg.settings;
@@ -77,8 +77,8 @@ in
 
     systemd.services.litestream = {
       description = "Litestream";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "networking.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["networking.target"];
       serviceConfig = {
         EnvironmentFile = mkIf (cfg.environmentFile != null) cfg.environmentFile;
         ExecStart = "${cfg.package}/bin/litestream replicate";
@@ -93,7 +93,7 @@ in
       group = "litestream";
       isSystemUser = true;
     };
-    users.groups.litestream = { };
+    users.groups.litestream = {};
   };
 
   meta.doc = ./default.md;

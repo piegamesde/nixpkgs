@@ -126,7 +126,7 @@ in
 
     extraArgs = mkOption {
       type = types.listOf types.str;
-      default = [ ];
+      default = [];
       example = [
         "-g"
         "--prefer '(^|/)(java|chromium)$'"
@@ -174,7 +174,7 @@ in
 
     systemd.services.earlyoom = {
       description = "Early OOM Daemon for Linux";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       path = optional cfg.enableNotifications pkgs.dbus;
       serviceConfig = {
         StandardError = "journal";

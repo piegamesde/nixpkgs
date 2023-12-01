@@ -22,9 +22,9 @@ buildDunePackage rec {
     sha256 = "0y8xi1q0ld4hrk96bn6jfh9slyjrxmnlhm662ynacp3yzalp8jji";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs =
-    [ dune-configurator ]
+    [dune-configurator]
     ++ lib.optionals stdenv.isDarwin [
       AppKit
       Foundation
@@ -46,6 +46,6 @@ buildDunePackage rec {
     homepage = "https://github.com/savonet/ocaml-gstreamer";
     description = "Bindings for the GStreamer library which provides functions for playning and manipulating multimedia streams";
     license = licenses.lgpl21Only;
-    maintainers = with maintainers; [ dandellion ];
+    maintainers = with maintainers; [dandellion];
   };
 }

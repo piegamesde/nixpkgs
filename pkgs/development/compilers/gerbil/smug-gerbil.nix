@@ -13,8 +13,8 @@ gerbil-support.gerbilPackage {
   git-version = "95d60d4";
   gerbil-package = "drewc/smug";
   gerbil = gerbil-unstable;
-  gerbilInputs = [ ];
-  buildInputs = [ ];
+  gerbilInputs = [];
+  buildInputs = [];
   gambit-params = gambit-support.unstable-params;
   version-path = ""; # "version";
   softwareName = "Smug-Gerbil";
@@ -29,7 +29,7 @@ gerbil-support.gerbilPackage {
     homepage = "https://github.com/drewc/smug-gerbil";
     license = lib.licenses.mit;
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ fare ];
+    maintainers = with lib.maintainers; [fare];
   };
   buildScript = ''
     for i in primitive simple tokens smug ; do gxc -O $i.ss ; done

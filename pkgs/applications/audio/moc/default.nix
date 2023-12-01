@@ -63,11 +63,11 @@ stdenv.mkDerivation rec {
   };
 
   patches =
-    [ ]
+    []
     ++ lib.optional ffmpegSupport ./moc-ffmpeg4.patch
     ++ lib.optional pulseSupport ./pulseaudio.patch;
 
-  nativeBuildInputs = [ pkg-config ] ++ lib.optional pulseSupport autoreconfHook;
+  nativeBuildInputs = [pkg-config] ++ lib.optional pulseSupport autoreconfHook;
 
   buildInputs =
     [

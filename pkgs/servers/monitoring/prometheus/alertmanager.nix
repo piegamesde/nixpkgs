@@ -38,7 +38,7 @@ buildGoModule rec {
       "-X ${t}.GoVersion=${lib.getVersion go}"
     ];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = ''
     $out/bin/amtool --completion-script-bash > amtool.bash

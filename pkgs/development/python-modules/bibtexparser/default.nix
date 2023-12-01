@@ -21,11 +21,11 @@ buildPythonPackage rec {
     hash = "sha256-dP3ETzgVPI4NsxFI6Hv+nUInrjF+I1FwdqmeAetzL38=";
   };
 
-  propagatedBuildInputs = [ pyparsing ];
+  propagatedBuildInputs = [pyparsing];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "bibtexparser" ];
+  pythonImportsCheck = ["bibtexparser"];
 
   meta = with lib; {
     description = "Bibtex parser for Python";
@@ -34,6 +34,6 @@ buildPythonPackage rec {
       lgpl3Only # or
       bsd3
     ];
-    maintainers = with maintainers; [ fridh ];
+    maintainers = with maintainers; [fridh];
   };
 }

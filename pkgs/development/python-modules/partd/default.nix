@@ -21,7 +21,7 @@ buildPythonPackage rec {
     hash = "sha256-zpGrzcYXjWaLyqQxeRpakX2QI0HLGT9UP+RF1JRmBIU=";
   };
 
-  nativeCheckInputs = [ pytest ];
+  nativeCheckInputs = [pytest];
 
   propagatedBuildInputs = [
     locket
@@ -38,7 +38,7 @@ buildPythonPackage rec {
 
   meta = {
     description = "Appendable key-value storage";
-    license = with lib.licenses; [ bsd3 ];
+    license = with lib.licenses; [bsd3];
     homepage = "https://github.com/dask/partd/";
   };
 }

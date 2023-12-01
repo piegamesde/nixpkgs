@@ -3,7 +3,7 @@
   libwebcam,
   makeWrapper,
   runCommand,
-  drivers ? [ ],
+  drivers ? [],
   udevDebug ? false,
 }:
 
@@ -12,8 +12,8 @@ let
 
   dataPath = buildEnv {
     name = "uvcdynctrl-with-drivers-data-path";
-    paths = drivers ++ [ libwebcam ];
-    pathsToLink = [ "/share/uvcdynctrl/data" ];
+    paths = drivers ++ [libwebcam];
+    pathsToLink = ["/share/uvcdynctrl/data"];
     ignoreCollisions = false;
   };
 
@@ -24,8 +24,8 @@ in
 runCommand "uvcdynctrl-udev-rules-${version}"
   {
     inherit dataPath;
-    nativeBuildInputs = [ makeWrapper ];
-    buildInputs = [ libwebcam ];
+    nativeBuildInputs = [makeWrapper];
+    buildInputs = [libwebcam];
     dontPatchELF = true;
     dontStrip = true;
     preferLocalBuild = true;

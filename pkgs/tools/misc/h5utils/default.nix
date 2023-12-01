@@ -47,6 +47,6 @@ stdenv.mkDerivation rec {
       mit
       gpl2
     ];
-    maintainers = with maintainers; [ sfrijters ];
+    maintainers = with maintainers; [sfrijters];
   };
 }

@@ -20,6 +20,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/jackparmer/colorlover";
     description = "Color scales in Python for humans";
     license = licenses.mit;
-    maintainers = with maintainers; [ globin ];
+    maintainers = with maintainers; [globin];
   };
 }

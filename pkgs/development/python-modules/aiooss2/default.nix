@@ -53,7 +53,7 @@ buildPythonPackage rec {
     requests
   ];
 
-  pythonImportsCheck = [ "aiooss2" ];
+  pythonImportsCheck = ["aiooss2"];
 
   disabledTestPaths = [
     # Tests require network access
@@ -68,6 +68,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/karajan1001/aiooss2";
     changelog = "https://github.com/karajan1001/aiooss2/blob/${version}/CHANGES.txt";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

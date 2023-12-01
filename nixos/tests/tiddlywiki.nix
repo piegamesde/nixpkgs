@@ -1,5 +1,5 @@
 import ./make-test-python.nix (
-  { ... }:
+  {...}:
   {
     name = "tiddlywiki";
     nodes = {

@@ -9,7 +9,7 @@ with lib;
 let
   cfg = config.services.greetd;
   tty = "tty${toString cfg.vt}";
-  settingsFormat = pkgs.formats.toml { };
+  settingsFormat = pkgs.formats.toml {};
 in
 {
   options.services.greetd = {
@@ -71,13 +71,13 @@ in
 
     systemd.services.greetd = {
       unitConfig = {
-        Wants = [ "systemd-user-sessions.service" ];
+        Wants = ["systemd-user-sessions.service"];
         After = [
           "systemd-user-sessions.service"
           "plymouth-quit-wait.service"
           "getty@${tty}.service"
         ];
-        Conflicts = [ "getty@${tty}.service" ];
+        Conflicts = ["getty@${tty}.service"];
       };
 
       serviceConfig = {
@@ -97,7 +97,7 @@ in
       # Don't kill a user session when using nixos-rebuild
       restartIfChanged = false;
 
-      wantedBy = [ "graphical.target" ];
+      wantedBy = ["graphical.target"];
     };
 
     systemd.defaultUnit = "graphical.target";
@@ -107,8 +107,8 @@ in
       group = "greeter";
     };
 
-    users.groups.greeter = { };
+    users.groups.greeter = {};
   };
 
-  meta.maintainers = with maintainers; [ queezle ];
+  meta.maintainers = with maintainers; [queezle];
 }

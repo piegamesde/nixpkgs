@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-CZcXV8ZRFnx0qI5vZ8adXUAJWAR+KG/ChTFDQWKqmsA=";
   };
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   dontBuild = true;
 
@@ -66,7 +66,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://xwmx.github.io/nb/";
     license = licenses.agpl3Plus;
-    maintainers = [ maintainers.toonn ];
+    maintainers = [maintainers.toonn];
     platforms = platforms.all;
   };
 }

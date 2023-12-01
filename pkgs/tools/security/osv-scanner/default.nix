@@ -18,7 +18,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-MMEkgGyetwMEiD242CPYh619o4bo4zj87jnl7HvS0OE=";
 
-  subPackages = [ "cmd/osv-scanner" ];
+  subPackages = ["cmd/osv-scanner"];
 
   ldflags = [
     "-s"
@@ -31,7 +31,7 @@ buildGoModule rec {
   # Tests require network connectivity to query https://api.osv.dev.
   doCheck = false;
 
-  passthru.tests.version = testers.testVersion { package = osv-scanner; };
+  passthru.tests.version = testers.testVersion {package = osv-scanner;};
 
   meta = with lib; {
     description = "Vulnerability scanner written in Go which uses the data provided by https://osv.dev";

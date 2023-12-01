@@ -27,6 +27,6 @@ rustPlatform.buildRustPackage rec {
     '';
     homepage = "https://github.com/ctbur/async";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ minijackson ];
+    maintainers = with maintainers; [minijackson];
   };
 }

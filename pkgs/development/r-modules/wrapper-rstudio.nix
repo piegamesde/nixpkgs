@@ -15,7 +15,7 @@ runCommand (rstudio.name + "-wrapper")
     preferLocalBuild = true;
     allowSubstitutes = false;
 
-    nativeBuildInputs = [ (if rstudio.server then makeWrapper else wrapQtAppsHook) ];
+    nativeBuildInputs = [(if rstudio.server then makeWrapper else wrapQtAppsHook)];
     dontWrapQtApps = true;
 
     buildInputs = [

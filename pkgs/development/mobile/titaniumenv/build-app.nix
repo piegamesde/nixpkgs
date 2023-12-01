@@ -31,8 +31,8 @@
   enableWirelessDistribution ? false,
   installURL ? null,
   xcodeBaseDir ? "/Applications/Xcode.app",
-  androidsdkArgs ? { },
-  xcodewrapperArgs ? { },
+  androidsdkArgs ? {},
+  xcodewrapperArgs ? {},
   ...
 }@args:
 
@@ -48,7 +48,7 @@ assert enableWirelessDistribution -> installURL != null;
 
 let
   realAndroidsdkArgs = {
-    platformVersions = [ "28" ];
+    platformVersions = ["28"];
   } // androidsdkArgs;
 
   androidsdk = (composeAndroidPackages realAndroidsdkArgs).androidsdk;
@@ -73,7 +73,7 @@ let
 in
 stdenv.mkDerivation (
   {
-    name = lib.replaceStrings [ " " ] [ "" ] name;
+    name = lib.replaceStrings [" "] [""] name;
 
     buildInputs = [
       nodejs

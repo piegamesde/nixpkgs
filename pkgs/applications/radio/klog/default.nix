@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
     qtcharts
   ];
 
-  qmakeFlags = [ "KLog.pro" ];
+  qmakeFlags = ["KLog.pro"];
 
   meta = with lib; {
     description = "A multiplatform free hamradio logger";
@@ -45,6 +45,6 @@ stdenv.mkDerivation rec {
     homepage = "https://www.klog.xyz/";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ pulsation ];
+    maintainers = with maintainers; [pulsation];
   };
 }

@@ -18,14 +18,14 @@ buildPythonPackage rec {
     hash = "sha256-p3KD+zhHCOs/rLUVf1IkW/isfpUPQstB2VHGmZ/aEPU=";
   };
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "hsluv" ];
+  pythonImportsCheck = ["hsluv"];
 
   meta = with lib; {
     description = "Python implementation of HSLuv";
     homepage = "https://github.com/hsluv/hsluv-python";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

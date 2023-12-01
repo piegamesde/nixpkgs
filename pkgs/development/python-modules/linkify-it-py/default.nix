@@ -21,15 +21,15 @@ buildPythonPackage rec {
     hash = "sha256-3bgkhIC6tHl5zieiyllvqFCKwLms55m8MGt1xGhQ4Dk=";
   };
 
-  propagatedBuildInputs = [ uc-micro-py ];
+  propagatedBuildInputs = [uc-micro-py];
 
-  nativeCheckInputs = [ pytestCheckHook ];
-  pythonImportsCheck = [ "linkify_it" ];
+  nativeCheckInputs = [pytestCheckHook];
+  pythonImportsCheck = ["linkify_it"];
 
   meta = with lib; {
     description = "Links recognition library with full unicode support";
     homepage = "https://github.com/tsutsu3/linkify-it-py";
     license = licenses.mit;
-    maintainers = with maintainers; [ AluisioASG ];
+    maintainers = with maintainers; [AluisioASG];
   };
 }

@@ -30,12 +30,12 @@ buildPythonPackage rec {
   # Module has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "ghapi" ];
+  pythonImportsCheck = ["ghapi"];
 
   meta = with lib; {
     description = "Python interface to GitHub's API";
     homepage = "https://github.com/fastai/ghapi";
-    license = with licenses; [ asl20 ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [asl20];
+    maintainers = with maintainers; [fab];
   };
 }

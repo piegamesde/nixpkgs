@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
     description = "Curses-based tools for ZSH";
     homepage = "https://github.com/psprint/zsh-navigation-tools";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ pSub ];
+    maintainers = with maintainers; [pSub];
     platforms = with platforms; unix;
   };
 }

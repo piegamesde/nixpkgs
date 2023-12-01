@@ -1,12 +1,12 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "html-encode";
   version = "1.2";
 
   description = "A library for encoding text in various web-savvy encodings.";
 
-  deps = [ ];
+  deps = [];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/html-encode/2010-10-06/html-encode-1.2.tgz";
@@ -15,7 +15,7 @@ rec {
 
   packageName = "html-encode";
 
-  asdFilesToKeep = [ "html-encode.asd" ];
+  asdFilesToKeep = ["html-encode.asd"];
   overrides = x: x;
 }
 /* (SYSTEM html-encode DESCRIPTION

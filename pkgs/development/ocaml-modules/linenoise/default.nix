@@ -18,12 +18,12 @@ buildDunePackage rec {
     sha256 = "sha256-bIpZ9TO4/j24nQw5nsW7fUF7af5lhd/EmwhQRd0NYb4=";
   };
 
-  propagatedBuildInputs = [ result ];
+  propagatedBuildInputs = [result];
 
   meta = {
     description = "OCaml bindings to linenoise";
     license = lib.licenses.bsd3;
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
     inherit (src.meta) homepage;
   };
 }

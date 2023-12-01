@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
     pkg-config
     txt2tags
   ];
-  buildInputs = [ boost ];
+  buildInputs = [boost];
 
   cmakeFlags = [
     "-DUDEV_BIN_DIR=${placeholder "out"}/bin"
@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
   meta = {
     description = "Thunderbolt(TM) user-space components";
     license = lib.licenses.bsd3;
-    maintainers = [ lib.maintainers.ryantrinkle ];
+    maintainers = [lib.maintainers.ryantrinkle];
     homepage = "https://01.org/thunderbolt-sw";
     platforms = lib.platforms.linux;
   };

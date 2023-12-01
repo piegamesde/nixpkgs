@@ -7,7 +7,7 @@
 }:
 {
   name ? "wrapped",
-  packages ? [ ],
+  packages ? [],
 }:
 stdenv.mkDerivation {
   pname = "blender-${name}";

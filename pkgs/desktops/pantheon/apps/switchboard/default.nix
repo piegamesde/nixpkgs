@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
     libhandy
   ];
 
-  patches = [ ./plugs-path-env.patch ];
+  patches = [./plugs-path-env.patch];
 
   postPatch = ''
     chmod +x meson/post_install.py
@@ -50,7 +50,7 @@ stdenv.mkDerivation rec {
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {

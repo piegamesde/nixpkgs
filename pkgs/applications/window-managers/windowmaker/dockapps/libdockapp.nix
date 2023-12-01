@@ -44,6 +44,6 @@ stdenv.mkDerivation rec {
     description = "A library providing a framework for dockapps";
     homepage = "https://www.dockapps.net/libdockapp";
     license = licenses.gpl2Plus;
-    maintainers = [ maintainers.bstrik ];
+    maintainers = [maintainers.bstrik];
   };
 }

@@ -27,15 +27,15 @@ buildPythonPackage rec {
     python-fsutil
   ];
 
-  nativeCheckInputs = [ pytest ];
+  nativeCheckInputs = [pytest];
 
-  pythonImportsCheck = [ "maintenance_mode" ];
+  pythonImportsCheck = ["maintenance_mode"];
 
   meta = with lib; {
     description = "Shows a 503 error page when maintenance-mode is on";
     homepage = "https://github.com/fabiocaccamo/django-maintenance-mode";
     changelog = "https://github.com/fabiocaccamo/django-maintenance-mode/releases/tag/${version}";
-    maintainers = with maintainers; [ mrmebelman ];
+    maintainers = with maintainers; [mrmebelman];
     license = licenses.bsd3;
   };
 }

@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
     wayland-protocols
     wayland
     xorg.libX11
-  ] ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.AppKit ];
+  ] ++ lib.optionals stdenv.isDarwin [darwin.apple_sdk.frameworks.AppKit];
 
   cmakeFlags = [
     "-DCMAKE_BUILD_TYPE='MinSizeRel'"
@@ -48,7 +48,7 @@ stdenv.mkDerivation rec {
     description = "Cut, copy, and paste anything, anywhere, all from the terminal";
     homepage = "https://github.com/Slackadays/clipboard";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ dit7ya ];
+    maintainers = with maintainers; [dit7ya];
     mainProgram = "clipboard";
   };
 }

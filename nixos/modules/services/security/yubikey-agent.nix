@@ -51,13 +51,13 @@ in
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = [ cfg.package ];
-    systemd.packages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
+    systemd.packages = [cfg.package];
 
     # This overrides the systemd user unit shipped with the
     # yubikey-agent package
     systemd.user.services.yubikey-agent = mkIf (pinentryFlavor != null) {
-      path = [ pkgs.pinentry.${pinentryFlavor} ];
+      path = [pkgs.pinentry.${pinentryFlavor}];
       wantedBy = [
         (
           if pinentryFlavor == "tty" || pinentryFlavor == "curses" then

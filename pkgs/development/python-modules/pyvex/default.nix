@@ -24,7 +24,7 @@ buildPythonPackage rec {
     hash = "sha256-kdvmybMPtmCAHyXMzgRXdAPns5jN8N6IDGZ5f4rx7do=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs = [
     archinfo
@@ -54,7 +54,7 @@ buildPythonPackage rec {
   # Switch to GitHub release after all angr parts are present
   doCheck = false;
 
-  pythonImportsCheck = [ "pyvex" ];
+  pythonImportsCheck = ["pyvex"];
 
   meta = with lib; {
     description = "Python interface to libVEX and VEX IR";
@@ -64,6 +64,6 @@ buildPythonPackage rec {
       gpl3Plus
       lgpl3Plus
     ];
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

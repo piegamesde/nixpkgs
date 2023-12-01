@@ -29,13 +29,11 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  hardeningDisable = [ "pic" ];
+  hardeningDisable = ["pic"];
 
   nativeBuildInputs = kernel.moduleBuildDependencies;
 
-  makeFlags = kernel.makeFlags ++ [
-    "KERNEL=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
-  ];
+  makeFlags = kernel.makeFlags ++ ["KERNEL=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"];
 
   dontConfigure = true;
 
@@ -54,7 +52,7 @@ stdenv.mkDerivation rec {
     longDescription = "LKRG performs runtime integrity checking of the Linux kernel and detection of security vulnerability exploits against the kernel.";
     homepage = "https://lkrg.org/";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ chivay ];
+    maintainers = with maintainers; [chivay];
     platforms = platforms.linux;
     broken = kernel.kernelOlder "5.10" || kernel.kernelAtLeast "6.1" || isKernelRT;
   };

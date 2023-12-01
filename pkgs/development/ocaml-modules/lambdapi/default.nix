@@ -28,7 +28,7 @@ buildDunePackage rec {
     hash = "sha256-7ww2TjVcbEQyfmLnnEhLGAjW4US9a4mdOfDJw6NR1fI=";
   };
 
-  nativeBuildInputs = [ menhir ];
+  nativeBuildInputs = [menhir];
   propagatedBuildInputs = [
     bindlib
     camlp-streams
@@ -52,6 +52,6 @@ buildDunePackage rec {
     description = "Proof assistant based on the λΠ-calculus modulo rewriting";
     license = licenses.cecill21;
     changelog = "https://github.com/Deducteam/lambdapi/raw/${version}/CHANGES.md";
-    maintainers = with maintainers; [ bcdarwin ];
+    maintainers = with maintainers; [bcdarwin];
   };
 }

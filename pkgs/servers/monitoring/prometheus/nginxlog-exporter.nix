@@ -18,7 +18,7 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-Bdyk+yNVcxPDzxJQSE34HJCryWQSXa8748gJ5Fu+gP4=";
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   passthru.tests = {
     inherit (nixosTests.prometheus-exporters) nginxlog;
@@ -28,6 +28,6 @@ buildGoModule rec {
     description = "Export metrics from Nginx access log files to Prometheus";
     homepage = "https://github.com/martin-helmich/prometheus-nginxlog-exporter";
     license = licenses.asl20;
-    maintainers = with maintainers; [ mmahut ];
+    maintainers = with maintainers; [mmahut];
   };
 }

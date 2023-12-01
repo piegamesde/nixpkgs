@@ -94,9 +94,9 @@ stdenv.mkDerivation rec {
       harfbuzz
       python3
     ]
-    ++ lib.optionals withLibsecret [ libsecret ]
-    ++ lib.optionals withKf5Wallet [ libsForQt5.kwallet ]
-    ++ lib.optionals withVte [ vte ];
+    ++ lib.optionals withLibsecret [libsecret]
+    ++ lib.optionals withKf5Wallet [libsForQt5.kwallet]
+    ++ lib.optionals withVte [vte];
 
   cmakeFlags = [
     "-DWITH_VTE=${if withVte then "ON" else "OFF"}"

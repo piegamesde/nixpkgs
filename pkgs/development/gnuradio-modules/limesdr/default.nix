@@ -66,6 +66,6 @@ mkDerivation {
     homepage = "https://wiki.myriadrf.org/Gr-limesdr_Plugin_for_GNURadio";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = [ maintainers.markuskowa ];
+    maintainers = [maintainers.markuskowa];
   };
 }

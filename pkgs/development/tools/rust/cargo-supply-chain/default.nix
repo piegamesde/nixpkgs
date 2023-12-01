@@ -28,6 +28,6 @@ rustPlatform.buildRustPackage rec {
       mit
       zlib
     ]; # any of three
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
   };
 }

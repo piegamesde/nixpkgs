@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-0a09DUMfHEIGYuIYSBGJalBiIHIgejr/KVDXCFgKBb8=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     gtk2
     libsndfile
@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Programmable auditory binaural-beat synthesizer";
     homepage = "https://gnaural.sourceforge.net/";
-    maintainers = with maintainers; [ ehmry ];
-    license = with licenses; [ gpl2Only ];
+    maintainers = with maintainers; [ehmry];
+    license = with licenses; [gpl2Only];
   };
 }

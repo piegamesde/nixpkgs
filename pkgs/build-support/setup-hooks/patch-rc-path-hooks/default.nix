@@ -5,7 +5,7 @@
   gnused,
 }:
 let
-  tests = import ./test { inherit callPackage; };
+  tests = import ./test {inherit callPackage;};
 in
 {
   patchRcPathBash =
@@ -14,7 +14,7 @@ in
         name = "patch-rc-path-bash";
         meta = with lib; {
           description = "Setup-hook to inject source-time PATH prefix to a Bash/Ksh/Zsh script";
-          maintainers = with maintainers; [ ShamrockLee ];
+          maintainers = with maintainers; [ShamrockLee];
         };
         passthru.tests = {
           inherit (tests) test-bash;
@@ -30,7 +30,7 @@ in
         };
         meta = with lib; {
           description = "Setup-hook to inject source-time PATH prefix to a Csh script";
-          maintainers = with maintainers; [ ShamrockLee ];
+          maintainers = with maintainers; [ShamrockLee];
         };
         passthru.tests = {
           inherit (tests) test-csh;
@@ -43,7 +43,7 @@ in
         name = "patch-rc-path-fish";
         meta = with lib; {
           description = "Setup-hook to inject source-time PATH prefix to a Fish script";
-          maintainers = with maintainers; [ ShamrockLee ];
+          maintainers = with maintainers; [ShamrockLee];
         };
         passthru.tests = {
           inherit (tests) test-fish;
@@ -59,7 +59,7 @@ in
         };
         meta = with lib; {
           description = "Setup-hook to inject source-time PATH prefix to a POSIX shell script";
-          maintainers = with maintainers; [ ShamrockLee ];
+          maintainers = with maintainers; [ShamrockLee];
         };
         passthru.tests = {
           inherit (tests) test-posix;

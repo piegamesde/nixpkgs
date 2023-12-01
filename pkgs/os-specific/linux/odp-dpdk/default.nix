@@ -24,7 +24,7 @@ let
         url = "https://fast.dpdk.org/rel/dpdk-${version}.tar.xz";
         sha256 = "sha256-F9m2+MZi3n0psPIwjWwhiIbbNkoGlxqtru2OlV7TbzQ=";
       };
-      mesonFlags = old.mesonFlags ++ [ "-Denable_docs=false" ];
+      mesonFlags = old.mesonFlags ++ ["-Denable_docs=false"];
     }
   );
 in
@@ -72,6 +72,6 @@ stdenv.mkDerivation rec {
     homepage = "https://www.opendataplane.org";
     license = licenses.bsd3;
     platforms = platforms.linux;
-    maintainers = [ maintainers.abuibrahim ];
+    maintainers = [maintainers.abuibrahim];
   };
 }

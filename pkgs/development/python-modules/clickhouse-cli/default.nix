@@ -26,12 +26,12 @@ buildPythonPackage rec {
     sqlparse
   ];
 
-  pythonImportsCheck = [ "clickhouse_cli" ];
+  pythonImportsCheck = ["clickhouse_cli"];
 
   meta = with lib; {
     description = "A third-party client for the Clickhouse DBMS server";
     homepage = "https://github.com/hatarist/clickhouse-cli";
     license = licenses.mit;
-    maintainers = with maintainers; [ ivan-babrou ];
+    maintainers = with maintainers; [ivan-babrou];
   };
 }

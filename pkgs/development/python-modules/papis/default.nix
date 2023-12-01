@@ -77,15 +77,15 @@ buildPythonPackage rec {
       --replace "--cov=papis" ""
   '';
 
-  checkInputs = [ pytestCheckHook ];
+  checkInputs = [pytestCheckHook];
 
   preCheck = ''
     export HOME=$(mktemp -d);
   '';
 
-  pytestFlagsArray = [ "papis tests" ];
+  pytestFlagsArray = ["papis tests"];
 
-  disabledTestPaths = [ "tests/downloaders" ];
+  disabledTestPaths = ["tests/downloaders"];
 
   disabledTests = [
     "get_document_url"
@@ -96,9 +96,9 @@ buildPythonPackage rec {
     "test_get_data"
     "test_validate_arxivid"
     "test_yaml"
-  ] ++ lib.optionals stdenv.isDarwin [ "test_default_opener" ];
+  ] ++ lib.optionals stdenv.isDarwin ["test_default_opener"];
 
-  pythonImportsCheck = [ "papis" ];
+  pythonImportsCheck = ["papis"];
 
   meta = with lib; {
     description = "Powerful command-line document and bibliography manager";

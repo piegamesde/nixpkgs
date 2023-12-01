@@ -36,7 +36,7 @@ rustPlatform.buildRustPackage rec {
       ./build-script.patch
     ];
 
-  buildInputs = lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Security ];
+  buildInputs = lib.optionals stdenv.isDarwin [darwin.apple_sdk.frameworks.Security];
 
   checkFlags =
     lib.optionals stdenv.isDarwin
@@ -53,6 +53,6 @@ rustPlatform.buildRustPackage rec {
     description = "Modern system shell with simple (and powerful) syntax";
     homepage = "https://gitlab.redox-os.org/redox-os/ion";
     license = licenses.mit;
-    maintainers = with maintainers; [ dywedir ];
+    maintainers = with maintainers; [dywedir];
   };
 }

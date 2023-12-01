@@ -16,10 +16,10 @@ let
   opt = options.networking;
   interfaces = attrValues cfg.interfaces;
   hasVirtuals = any (i: i.virtual) interfaces;
-  hasSits = cfg.sits != { };
-  hasGres = cfg.greTunnels != { };
-  hasBonds = cfg.bonds != { };
-  hasFous = cfg.fooOverUDP != { } || filterAttrs (_: s: s.encapsulation != null) cfg.sits != { };
+  hasSits = cfg.sits != {};
+  hasGres = cfg.greTunnels != {};
+  hasBonds = cfg.bonds != {};
+  hasFous = cfg.fooOverUDP != {} || filterAttrs (_: s: s.encapsulation != null) cfg.sits != {};
 
   slaves =
     concatMap (i: i.interfaces) (attrValues cfg.bonds)
@@ -36,9 +36,9 @@ let
 
   slaveIfs = map (i: cfg.interfaces.${i}) (filter (i: cfg.interfaces ? ${i}) slaves);
 
-  rstpBridges = flip filterAttrs cfg.bridges (_: { rstp, ... }: rstp);
+  rstpBridges = flip filterAttrs cfg.bridges (_: {rstp, ...}: rstp);
 
-  needsMstpd = rstpBridges != { };
+  needsMstpd = rstpBridges != {};
 
   bridgeStp = optional needsMstpd (
     pkgs.writeTextFile {
@@ -136,7 +136,7 @@ let
 
       options = mkOption {
         type = types.attrsOf types.str;
-        default = { };
+        default = {};
         example = {
           mtu = "1492";
           window = "524288";
@@ -154,10 +154,10 @@ let
     };
   };
 
-  gatewayCoerce = address: { inherit address; };
+  gatewayCoerce = address: {inherit address;};
 
   gatewayOpts =
-    { ... }:
+    {...}:
     {
 
       options = {
@@ -184,7 +184,7 @@ let
     };
 
   interfaceOpts =
-    { name, ... }:
+    {name, ...}:
     {
 
       options = {
@@ -223,7 +223,7 @@ let
         };
 
         ipv4.addresses = mkOption {
-          default = [ ];
+          default = [];
           example = [
             {
               address = "10.0.0.1";
@@ -241,7 +241,7 @@ let
         };
 
         ipv6.addresses = mkOption {
-          default = [ ];
+          default = [];
           example = [
             {
               address = "fdfd:b3f0:482::1";
@@ -259,7 +259,7 @@ let
         };
 
         ipv4.routes = mkOption {
-          default = [ ];
+          default = [];
           example = [
             {
               address = "10.0.0.0";
@@ -290,7 +290,7 @@ let
         };
 
         ipv6.routes = mkOption {
-          default = [ ];
+          default = [];
           example = [
             {
               address = "fdfd:b3f0::";
@@ -397,28 +397,28 @@ let
           defined = x: x != "_mkMergedOptionModule";
         in
         [
-          (mkChangedOptionModule [ "preferTempAddress" ] [ "tempAddress" ] (
+          (mkChangedOptionModule ["preferTempAddress"] ["tempAddress"] (
             config:
             let
-              bool = getAttrFromPath [ "preferTempAddress" ] config;
+              bool = getAttrFromPath ["preferTempAddress"] config;
             in
             if bool then "default" else "enabled"
           ))
-          (mkRenamedOptionModule [ "ip4" ] [
+          (mkRenamedOptionModule ["ip4"] [
             "ipv4"
             "addresses"
           ])
-          (mkRenamedOptionModule [ "ip6" ] [
+          (mkRenamedOptionModule ["ip6"] [
             "ipv6"
             "addresses"
           ])
-          (mkRemovedOptionModule [ "subnetMask" ] ''
+          (mkRemovedOptionModule ["subnetMask"] ''
             Supply a prefix length instead; use option
             networking.interfaces.<name>.ipv{4,6}.addresses'')
           (mkMergedOptionModule
             [
-              [ "ipAddress" ]
-              [ "prefixLength" ]
+              ["ipAddress"]
+              ["prefixLength"]
             ]
             [
               "ipv4"
@@ -435,8 +435,8 @@ let
           )
           (mkMergedOptionModule
             [
-              [ "ipv6Address" ]
-              [ "ipv6PrefixLength" ]
+              ["ipv6Address"]
+              ["ipv6PrefixLength"]
             ]
             [
               "ipv6"
@@ -460,7 +460,7 @@ let
     };
 
   vswitchInterfaceOpts =
-    { name, ... }:
+    {name, ...}:
     {
 
       options = {
@@ -506,10 +506,10 @@ let
     };
   };
   tempaddrDoc = concatStringsSep "\n" (
-    mapAttrsToList (name: { description, ... }: ''- `"${name}"` to ${description};'') tempaddrValues
+    mapAttrsToList (name: {description, ...}: ''- `"${name}"` to ${description};'') tempaddrValues
   );
 
-  hostidFile = pkgs.runCommand "gen-hostid" { preferLocalBuild = true; } ''
+  hostidFile = pkgs.runCommand "gen-hostid" {preferLocalBuild = true;} ''
     hi="${cfg.hostId}"
     ${if pkgs.stdenv.isBigEndian then
       ''
@@ -663,7 +663,7 @@ in
 
     networking.nameservers = mkOption {
       type = types.listOf types.str;
-      default = [ ];
+      default = [];
       example = [
         "130.161.158.4"
         "130.161.33.17"
@@ -674,7 +674,7 @@ in
     };
 
     networking.search = mkOption {
-      default = [ ];
+      default = [];
       example = [
         "example.com"
         "home.arpa"
@@ -716,7 +716,7 @@ in
     };
 
     networking.interfaces = mkOption {
-      default = { };
+      default = {};
       example = {
         eth0.ipv4.addresses = [
           {
@@ -738,16 +738,16 @@ in
     };
 
     networking.vswitches = mkOption {
-      default = { };
+      default = {};
       example = {
         vs0.interfaces = {
-          eth0 = { };
+          eth0 = {};
           lo1 = {
             type = "internal";
           };
         };
         vs1.interfaces = [
-          { name = "eth2"; }
+          {name = "eth2";}
           {
             name = "lo2";
             type = "internal";
@@ -776,8 +776,8 @@ in
 
               controllers = mkOption {
                 type = types.listOf types.str;
-                default = [ ];
-                example = [ "ptcp:6653:[::1]" ];
+                default = [];
+                example = ["ptcp:6653:[::1]"];
                 description = lib.mdDoc ''
                   Specify the controller targets. For the allowed options see `man 8 ovs-vsctl`.
                 '';
@@ -803,7 +803,7 @@ in
                   "OpenFlow13"
                   "OpenFlow14"
                 ];
-                default = [ "OpenFlow13" ];
+                default = ["OpenFlow13"];
                 description = lib.mdDoc ''
                   Supported versions to enable on this switch.
                 '';
@@ -837,7 +837,7 @@ in
     };
 
     networking.bridges = mkOption {
-      default = { };
+      default = {};
       example = {
         br0.interfaces = [
           "eth0"
@@ -892,7 +892,7 @@ in
         '';
       in
       mkOption {
-        default = { };
+        default = {};
         example = literalExpression ''
           {
             bond0 = {
@@ -928,7 +928,7 @@ in
 
                 driverOptions = mkOption {
                   type = types.attrsOf types.str;
-                  default = { };
+                  default = {};
                   example = literalExpression driverOptionsExample;
                   description = lib.mdDoc ''
                     Options for the bonding driver.
@@ -990,7 +990,7 @@ in
       };
 
     networking.macvlans = mkOption {
-      default = { };
+      default = {};
       example = literalExpression ''
         {
           wan = {
@@ -1027,7 +1027,7 @@ in
     };
 
     networking.fooOverUDP = mkOption {
-      default = { };
+      default = {};
       example = {
         primary = {
           port = 9001;
@@ -1106,7 +1106,7 @@ in
     };
 
     networking.sits = mkOption {
-      default = { };
+      default = {};
       example = literalExpression ''
         {
           hurricane = {
@@ -1219,7 +1219,7 @@ in
     };
 
     networking.greTunnels = mkOption {
-      default = { };
+      default = {};
       example = literalExpression ''
         {
           greBridge = {
@@ -1314,7 +1314,7 @@ in
     };
 
     networking.vlans = mkOption {
-      default = { };
+      default = {};
       example = literalExpression ''
         {
           vlan0 = {
@@ -1358,7 +1358,7 @@ in
     };
 
     networking.wlanInterfaces = mkOption {
-      default = { };
+      default = {};
       example = literalExpression ''
         {
           wlan-station0 = {
@@ -1533,7 +1533,7 @@ in
       ))
       ++ (forEach slaveIfs (
         i: {
-          assertion = i.ipv4.addresses == [ ] && i.ipv6.addresses == [ ];
+          assertion = i.ipv4.addresses == [] && i.ipv6.addresses == [];
           message = ''
             The networking.interfaces."${i.name}" must not have any defined ips when it is a slave.
           '';
@@ -1563,7 +1563,7 @@ in
       ];
 
     boot.kernelModules =
-      [ ]
+      []
       ++ optional hasVirtuals "tun"
       ++ optional hasSits "sit"
       ++ optional hasGres "gre"
@@ -1585,7 +1585,7 @@ in
       }
       // listToAttrs (
         forEach interfaces (
-          i: nameValuePair "net.ipv4.conf.${replaceStrings [ "." ] [ "/" ] i.name}.proxy_arp" i.proxyARP
+          i: nameValuePair "net.ipv4.conf.${replaceStrings ["."] ["/"] i.name}.proxy_arp" i.proxyARP
         )
       )
       // listToAttrs (
@@ -1595,7 +1595,7 @@ in
             opt = i.tempAddress;
             val = tempaddrValues.${opt}.sysctl;
           in
-          nameValuePair "net.ipv6.conf.${replaceStrings [ "." ] [ "/" ] i.name}.use_tempaddr" val
+          nameValuePair "net.ipv6.conf.${replaceStrings ["."] ["/"] i.name}.use_tempaddr" val
         )
       );
 
@@ -1641,12 +1641,12 @@ in
       domainname "${cfg.domain}"
     '';
 
-    environment.etc.hostid = mkIf (cfg.hostId != null) { source = hostidFile; };
-    boot.initrd.systemd.contents."/etc/hostid" = mkIf (cfg.hostId != null) { source = hostidFile; };
+    environment.etc.hostid = mkIf (cfg.hostId != null) {source = hostidFile;};
+    boot.initrd.systemd.contents."/etc/hostid" = mkIf (cfg.hostId != null) {source = hostidFile;};
 
     # static hostname configuration needed for hostnamectl and the
     # org.freedesktop.hostname1 dbus service (both provided by systemd)
-    environment.etc.hostname = mkIf (cfg.hostName != "") { text = cfg.hostName + "\n"; };
+    environment.etc.hostname = mkIf (cfg.hostName != "") {text = cfg.hostName + "\n";};
 
     environment.systemPackages =
       [
@@ -1665,20 +1665,20 @@ in
     # New modules must NOT use it.
     systemd.targets.network-interfaces = {
       description = "All Network Interfaces (deprecated)";
-      wantedBy = [ "network.target" ];
-      before = [ "network.target" ];
-      after = [ "network-pre.target" ];
+      wantedBy = ["network.target"];
+      before = ["network.target"];
+      after = ["network-pre.target"];
       unitConfig.X-StopOnReconfiguration = true;
     };
 
     systemd.services = {
       network-local-commands = {
         description = "Extra networking commands.";
-        before = [ "network.target" ];
-        wantedBy = [ "network.target" ];
-        after = [ "network-pre.target" ];
+        before = ["network.target"];
+        wantedBy = ["network.target"];
+        after = ["network-pre.target"];
         unitConfig.ConditionCapability = "CAP_NET_ADMIN";
-        path = [ pkgs.iproute2 ];
+        path = [pkgs.iproute2];
         serviceConfig.Type = "oneshot";
         serviceConfig.RemainAfterExit = true;
         script = ''
@@ -1687,9 +1687,9 @@ in
         '';
       };
     };
-    services.mstpd = mkIf needsMstpd { enable = true; };
+    services.mstpd = mkIf needsMstpd {enable = true;};
 
-    virtualisation.vswitch = mkIf (cfg.vswitches != { }) { enable = true; };
+    virtualisation.vswitch = mkIf (cfg.vswitches != {}) {enable = true;};
 
     services.udev.packages =
       [
@@ -1720,14 +1720,14 @@ in
                 ''
                   # override to ${msg} for ${i.name}
                   ACTION=="add", SUBSYSTEM=="net", RUN+="${pkgs.procps}/bin/sysctl net.ipv6.conf.${
-                    replaceStrings [ "." ] [ "/" ] i.name
+                    replaceStrings ["."] ["/"] i.name
                   }.use_tempaddr=${val}"
                 ''
               )
               (filter (i: i.tempAddress != cfg.tempAddresses) interfaces);
         })
       ]
-      ++ lib.optional (cfg.wlanInterfaces != { }) (
+      ++ lib.optional (cfg.wlanInterfaces != {}) (
         pkgs.writeTextFile {
           name = "99-zzz-40-wlanInterfaces.rules";
           destination = "/etc/udev/rules.d/99-zzz-40-wlanInterfaces.rules";
@@ -1747,10 +1747,10 @@ in
               wlanListDeviceFirst =
                 device: interfaces:
                 if hasAttr device interfaces then
-                  mapAttrsToList (n: v: v // { _iName = n; }) (filterAttrs (n: _: n == device) interfaces)
-                  ++ mapAttrsToList (n: v: v // { _iName = n; }) (filterAttrs (n: _: n != device) interfaces)
+                  mapAttrsToList (n: v: v // {_iName = n;}) (filterAttrs (n: _: n == device) interfaces)
+                  ++ mapAttrsToList (n: v: v // {_iName = n;}) (filterAttrs (n: _: n != device) interfaces)
                 else
-                  mapAttrsToList (n: v: v // { _iName = n; }) interfaces;
+                  mapAttrsToList (n: v: v // {_iName = n;}) interfaces;
 
               # Udev script to execute for the default WLAN interface with the persistend udev name.
               # The script creates the required, new WLAN interfaces interfaces and configures the

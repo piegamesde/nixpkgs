@@ -19,6 +19,6 @@ rebar3Relx rec {
     description = "An automated code formatter for Erlang";
     platforms = platforms.unix;
     license = licenses.asl20;
-    maintainers = with lib.maintainers; [ dlesl ];
+    maintainers = with lib.maintainers; [dlesl];
   };
 }

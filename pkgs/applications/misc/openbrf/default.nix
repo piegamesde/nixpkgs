@@ -28,9 +28,9 @@ mkDerivation {
     glew
   ];
 
-  nativeBuildInputs = [ qmake ];
+  nativeBuildInputs = [qmake];
 
-  qmakeFlags = [ "openBrf.pro" ];
+  qmakeFlags = ["openBrf.pro"];
 
   postPatch = ''
     sed -i 's,^VCGLIB .*,VCGLIB = ${vcg}/include,' openBrf.pro
@@ -62,7 +62,7 @@ mkDerivation {
   meta = with lib; {
     description = "A tool to edit resource files (BRF)";
     homepage = "https://github.com/cfcohen/openbrf";
-    maintainers = with lib.maintainers; [ abbradar ];
+    maintainers = with lib.maintainers; [abbradar];
     license = licenses.free;
     platforms = platforms.linux;
   };

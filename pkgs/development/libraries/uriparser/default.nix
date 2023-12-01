@@ -16,13 +16,13 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-0n3qDItvb7l5jwfK7e8c2WpuP8XGGJWWd04Zr6fd3tc=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   cmakeFlags = [
     "-DURIPARSER_BUILD_DOCS=OFF"
   ] ++ lib.optional (!doCheck) "-DURIPARSER_BUILD_TESTS=OFF";
 
-  nativeCheckInputs = [ gtest ];
+  nativeCheckInputs = [gtest];
   doCheck = stdenv.buildPlatform == stdenv.hostPlatform;
 
   meta = with lib; {
@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://uriparser.github.io/";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ bosu ];
+    maintainers = with maintainers; [bosu];
     mainProgram = "uriparse";
     platforms = platforms.unix;
   };

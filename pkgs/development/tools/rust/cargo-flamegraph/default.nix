@@ -22,8 +22,8 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-t8+bjTRQMuXTYhgW1NuC3MXsRh2SMeycyyq4x1nb9MU=";
 
-  nativeBuildInputs = lib.optionals stdenv.isLinux [ makeWrapper ];
-  buildInputs = lib.optionals stdenv.isDarwin [ Security ];
+  nativeBuildInputs = lib.optionals stdenv.isLinux [makeWrapper];
+  buildInputs = lib.optionals stdenv.isDarwin [Security];
 
   postFixup = lib.optionalString stdenv.isLinux ''
     wrapProgram $out/bin/cargo-flamegraph \
@@ -32,7 +32,7 @@ rustPlatform.buildRustPackage rec {
       --set-default PERF ${perf}/bin/perf
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     description = "Easy flamegraphs for Rust projects and everything else, without Perl or pipes <3";
@@ -41,6 +41,6 @@ rustPlatform.buildRustPackage rec {
       asl20 # or
       mit
     ];
-    maintainers = with maintainers; [ killercup ];
+    maintainers = with maintainers; [killercup];
   };
 }

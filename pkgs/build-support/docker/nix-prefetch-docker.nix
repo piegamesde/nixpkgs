@@ -10,7 +10,7 @@
 stdenv.mkDerivation {
   name = "nix-prefetch-docker";
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   dontUnpack = true;
 
@@ -31,7 +31,7 @@ stdenv.mkDerivation {
 
   meta = with lib; {
     description = "Script used to obtain source hashes for dockerTools.pullImage";
-    maintainers = with maintainers; [ offline ];
+    maintainers = with maintainers; [offline];
     platforms = platforms.unix;
   };
 }

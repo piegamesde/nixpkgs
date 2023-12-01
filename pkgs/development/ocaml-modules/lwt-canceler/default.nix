@@ -17,7 +17,7 @@ buildDunePackage rec {
   };
   useDune2 = true;
 
-  propagatedBuildInputs = [ lwt ];
+  propagatedBuildInputs = [lwt];
 
   doCheck = true;
 
@@ -25,6 +25,6 @@ buildDunePackage rec {
     homepage = "https://gitlab.com/nomadic-labs/lwt-canceler";
     description = "Cancellation synchronization object";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.ulrikstrid ];
+    maintainers = [lib.maintainers.ulrikstrid];
   };
 }

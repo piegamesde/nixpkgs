@@ -40,14 +40,14 @@ let
       {
         inherit (poolOpts) phpPackage phpOptions;
         preferLocalBuild = true;
-        passAsFile = [ "phpOptions" ];
+        passAsFile = ["phpOptions"];
       }
       ''
         cat ${poolOpts.phpPackage}/etc/php.ini $phpOptionsPath > $out
       '';
 
   poolOpts =
-    { name, ... }:
+    {name, ...}:
     let
       poolOpts = cfg.pools.${name};
     in
@@ -93,7 +93,7 @@ let
 
         phpEnv = lib.mkOption {
           type = with types; attrsOf str;
-          default = { };
+          default = {};
           description = lib.mdDoc ''
             Environment variables used for this PHP-FPM pool.
           '';
@@ -127,7 +127,7 @@ let
                 bool
               ]
             );
-          default = { };
+          default = {};
           description = lib.mdDoc ''
             PHP-FPM pool directives. Refer to the "List of pool directives" section of
             <https://www.php.net/manual/en/install.fpm.configuration.php>
@@ -202,7 +202,7 @@ in
               bool
             ]
           );
-        default = { };
+        default = {};
         description = lib.mdDoc ''
           PHP-FPM global directives. Refer to the "List of global php-fpm.conf directives" section of
           <https://www.php.net/manual/en/install.fpm.configuration.php>
@@ -247,7 +247,7 @@ in
 
       pools = mkOption {
         type = types.attrsOf (types.submodule poolOpts);
-        default = { };
+        default = {};
         example = literalExpression ''
           {
             mypool = {
@@ -272,7 +272,7 @@ in
     };
   };
 
-  config = mkIf (cfg.pools != { }) {
+  config = mkIf (cfg.pools != {}) {
 
     warnings =
       mapAttrsToList
@@ -301,7 +301,7 @@ in
 
     systemd.targets.phpfpm = {
       description = "PHP FastCGI Process manager pools target";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
     };
 
     systemd.services =
@@ -310,9 +310,9 @@ in
           pool: poolOpts:
           nameValuePair "phpfpm-${pool}" {
             description = "PHP FastCGI Process Manager service for pool ${pool}";
-            after = [ "network.target" ];
-            wantedBy = [ "phpfpm.target" ];
-            partOf = [ "phpfpm.target" ];
+            after = ["network.target"];
+            wantedBy = ["phpfpm.target"];
+            partOf = ["phpfpm.target"];
             serviceConfig =
               let
                 cfgFile = fpmCfgFile pool poolOpts;

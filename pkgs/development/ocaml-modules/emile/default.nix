@@ -24,7 +24,7 @@ buildDunePackage rec {
     hash = "sha256:0r1141makr0b900aby1gn0fccjv1qcqgyxib3bzq8fxmjqwjan8p";
   };
 
-  buildInputs = [ cmdliner ];
+  buildInputs = [cmdliner];
 
   propagatedBuildInputs = [
     angstrom
@@ -35,12 +35,12 @@ buildDunePackage rec {
   ];
 
   doCheck = true;
-  checkInputs = [ alcotest ];
+  checkInputs = [alcotest];
 
   meta = with lib; {
     description = "Parser of email address according RFC822";
     license = licenses.mit;
     homepage = "https://github.com/dinosaure/emile";
-    maintainers = [ maintainers.sternenseemann ];
+    maintainers = [maintainers.sternenseemann];
   };
 }

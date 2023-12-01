@@ -28,13 +28,13 @@ stdenv.mkDerivation (
       hash = "sha256-XlqBndo8g011SDGp3zM7S+AQ0aCp6rpQlqJF6e5Dd6w=";
     };
 
-    depsBuildBuild = [ buildPackages.stdenv.cc ];
+    depsBuildBuild = [buildPackages.stdenv.cc];
 
     nativeBuildInputs = [
       autoreconfHook
       perl
       pkg-config
-      (python3.withPackages (p: [ p.docutils ]))
+      (python3.withPackages (p: [p.docutils]))
     ];
 
     buildInputs = [
@@ -44,9 +44,9 @@ stdenv.mkDerivation (
       jansson
     ] ++ lib.optional stdenv.isDarwin libiconv ++ lib.optional stdenv.isLinux libseccomp;
 
-    configureFlags = [ "--enable-tmpdir=/tmp" ];
+    configureFlags = ["--enable-tmpdir=/tmp"];
 
-    patches = [ ./000-nixos-specific.patch ];
+    patches = [./000-nixos-specific.patch];
 
     postPatch = ''
       substituteInPlace Tmain/utils.sh \
@@ -75,7 +75,7 @@ stdenv.mkDerivation (
         editors and other tools to locate the indexed items.
       '';
       license = licenses.gpl2Plus;
-      maintainers = [ maintainers.AndersonTorres ];
+      maintainers = [maintainers.AndersonTorres];
       platforms = platforms.all;
       mainProgram = "ctags";
       priority = 1; # over the emacs implementation

@@ -26,7 +26,7 @@ let
       hasWPA3 = !mutuallyExclusive opts.authProtocols wpa3Protocols;
       others = subtractLists wpa3Protocols opts.authProtocols;
     in
-    hasWPA3 && others != [ ];
+    hasWPA3 && others != [];
 
   # Gives a WPA3 network higher priority
   increaseWPA3Priority =
@@ -37,10 +37,10 @@ let
     };
 
   # Creates a WPA2 fallback network
-  mkWPA2Fallback = opts: opts // { authProtocols = subtractLists wpa3Protocols opts.authProtocols; };
+  mkWPA2Fallback = opts: opts // {authProtocols = subtractLists wpa3Protocols opts.authProtocols;};
 
   # Networks attrset as a list
-  networkList = mapAttrsToList (ssid: opts: opts // { inherit ssid; }) cfg.networks;
+  networkList = mapAttrsToList (ssid: opts: opts // {inherit ssid;}) cfg.networks;
 
   # List of all networks (normal + generated fallbacks)
   allNetworks =
@@ -59,12 +59,12 @@ let
         "update_config=1"
       ]
     )
-    ++ [ "pmf=1" ]
+    ++ ["pmf=1"]
     ++ optional cfg.scanOnLowSignal ''bgscan="simple:30:-70:3600"''
     ++ optional (cfg.extraConfig != "") cfg.extraConfig
   );
 
-  configIsGenerated = with cfg; networks != { } || extraConfig != "" || userControlled.enable;
+  configIsGenerated = with cfg; networks != {} || extraConfig != "" || userControlled.enable;
 
   # the original configuration file
   configFile =
@@ -123,13 +123,13 @@ let
       description = "WPA Supplicant instance" + optionalString (iface != null) " for interface ${iface}";
 
       after = deviceUnit;
-      before = [ "network.target" ];
-      wants = [ "network.target" ];
+      before = ["network.target"];
+      wants = ["network.target"];
       requires = deviceUnit;
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       stopIfChanged = false;
 
-      path = [ package ];
+      path = [package];
       serviceConfig.RuntimeDirectory = "wpa_supplicant";
       serviceConfig.RuntimeDirectoryMode = "700";
       serviceConfig.EnvironmentFile = mkIf (cfg.environmentFile != null) (
@@ -198,7 +198,7 @@ in
 
       interfaces = mkOption {
         type = types.listOf types.str;
-        default = [ ];
+        default = [];
         example = [
           "wlan0"
           "wlan1"
@@ -454,7 +454,7 @@ in
            parameter is left empty wpa_supplicant will use
           /etc/wpa_supplicant.conf as the configuration file.
         '';
-        default = { };
+        default = {};
         example = literalExpression ''
           { echelon = {                   # SSID with no spaces or special characters
               psk = "abcdefgh";           # (password will be written to /nix/store!)
@@ -564,24 +564,24 @@ in
 
     hardware.wirelessRegulatoryDatabase = true;
 
-    environment.systemPackages = [ package ];
+    environment.systemPackages = [package];
     services.dbus.packages = optional cfg.dbusControlled package;
 
     systemd.services =
-      if cfg.interfaces == [ ] then
-        { wpa_supplicant = mkUnit null; }
+      if cfg.interfaces == [] then
+        {wpa_supplicant = mkUnit null;}
       else
         listToAttrs (map (i: nameValuePair "wpa_supplicant-${i}" (mkUnit i)) cfg.interfaces);
 
     # Restart wpa_supplicant after resuming from sleep
     powerManagement.resumeCommands = concatStringsSep "\n" (
-      optional (cfg.interfaces == [ ]) "${systemctl} try-restart wpa_supplicant"
+      optional (cfg.interfaces == []) "${systemctl} try-restart wpa_supplicant"
       ++ map (i: "${systemctl} try-restart wpa_supplicant-${i}") cfg.interfaces
     );
 
     # Restart wpa_supplicant when a wlan device appears or disappears. This is
     # only needed when an interface hasn't been specified by the user.
-    services.udev.extraRules = optionalString (cfg.interfaces == [ ]) ''
+    services.udev.extraRules = optionalString (cfg.interfaces == []) ''
       ACTION=="add|remove", SUBSYSTEM=="net", ENV{DEVTYPE}=="wlan", \
       RUN+="${systemctl} try-restart wpa_supplicant.service"
     '';

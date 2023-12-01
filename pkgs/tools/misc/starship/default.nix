@@ -49,7 +49,7 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-NSUId0CXTRF1Qqo9XPDgxY2vMyMBuJtJYGGuQ0HHk90=";
 
-  nativeCheckInputs = [ git ];
+  nativeCheckInputs = [git];
 
   preCheck = ''
     HOME=$TMPDIR

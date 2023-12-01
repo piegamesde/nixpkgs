@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     sha256 = "06b86qy2fpzdd81n2mscc2njkrxx0dyzxpgnm1xk6ldn17c853lc";
   };
 
-  buildInputs = [ coreutils ];
+  buildInputs = [coreutils];
 
   preBuild = ''
     patchShebangs ./install.sh
@@ -47,7 +47,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://github.com/nuke-dash/pokemon-colorscripts-mac";
     license = licenses.mit;
-    maintainers = [ maintainers.wesleyjrz ];
+    maintainers = [maintainers.wesleyjrz];
     platforms = platforms.unix;
   };
 }

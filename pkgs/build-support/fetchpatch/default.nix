@@ -15,8 +15,8 @@
   stripLen ? 0,
   decode ? "cat", # custom command to decode patch e.g. base64 -d
   extraPrefix ? null,
-  excludes ? [ ],
-  includes ? [ ],
+  excludes ? [],
+  includes ? [],
   revert ? false,
   postFetch ? "",
   ...
@@ -29,12 +29,12 @@ let
         extraPrefix = lib.optionalString (extraPrefix != null) extraPrefix;
       }
     else
-      { inherit stripLen extraPrefix; };
+      {inherit stripLen extraPrefix;};
 in
 let
   inherit (args') stripLen extraPrefix;
 in
-lib.throwIfNot (excludes == [ ] || includes == [ ])
+lib.throwIfNot (excludes == [] || includes == [])
   "fetchpatch: cannot use excludes and includes simultaneously"
   fetchurl
   (

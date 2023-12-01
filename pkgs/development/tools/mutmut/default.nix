@@ -34,14 +34,14 @@ let
         junit-xml
       ];
 
-      passthru.tests.version = testers.testVersion { package = self; };
+      passthru.tests.version = testers.testVersion {package = self;};
 
       meta = with lib; {
         description = "mutation testing system for Python, with a strong focus on ease of use";
         homepage = "https://github.com/boxed/mutmut";
         changelog = "https://github.com/boxed/mutmut/blob/${version}/HISTORY.rst";
         license = licenses.bsd3;
-        maintainers = with maintainers; [ synthetica ];
+        maintainers = with maintainers; [synthetica];
       };
     };
 in

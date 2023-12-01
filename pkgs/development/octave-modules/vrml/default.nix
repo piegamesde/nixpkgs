@@ -20,7 +20,7 @@ buildOctavePackage rec {
     sha256 = "1mx93k150agd27mbzvds13v9z0x36j68hwpdvlvjmcl2fga5fly4";
   };
 
-  propagatedBuildInputs = [ freewrl ];
+  propagatedBuildInputs = [freewrl];
 
   requiredOctavePackages = [
     linear-algebra
@@ -35,7 +35,7 @@ buildOctavePackage rec {
       gpl3Plus
       fdl12Plus
     ];
-    maintainers = with maintainers; [ KarlJoad ];
+    maintainers = with maintainers; [KarlJoad];
     description = "3D graphics using VRML";
     # Marked this way until KarlJoad gets freewrl as a runtime dependency.
     broken = true;

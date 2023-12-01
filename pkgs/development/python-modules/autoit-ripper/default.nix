@@ -18,7 +18,7 @@ buildPythonPackage rec {
     hash = "sha256-fluG/2XlUh3kPtYtSotrP02c7kdmem92Hy1R93SaTzk=";
   };
 
-  propagatedBuildInputs = [ pefile ];
+  propagatedBuildInputs = [pefile];
 
   postPatch = ''
     substituteInPlace requirements.txt \
@@ -28,12 +28,12 @@ buildPythonPackage rec {
   # Project has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "autoit_ripper" ];
+  pythonImportsCheck = ["autoit_ripper"];
 
   meta = with lib; {
     description = "Python module to extract AutoIt scripts embedded in PE binaries";
     homepage = "https://github.com/nazywam/AutoIt-Ripper";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

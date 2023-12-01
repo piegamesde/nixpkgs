@@ -25,10 +25,10 @@ stdenv.mkDerivation rec {
     makeWrapper
   ];
 
-  buildInputs = [ python3.pkgs.python ];
+  buildInputs = [python3.pkgs.python];
 
   pythonPath =
-    [ libtorrent ]
+    [libtorrent]
     ++ (
       with python3.pkgs; [
         aiohttp

@@ -53,7 +53,7 @@ stdenv.mkDerivation rec {
     changelog = "https://sourceforge.net/p/atftp/code/ci/v${version}/tree/Changelog";
     homepage = "https://sourceforge.net/projects/atftp/";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ raskin ];
+    maintainers = with maintainers; [raskin];
     platforms = platforms.linux;
   };
 }

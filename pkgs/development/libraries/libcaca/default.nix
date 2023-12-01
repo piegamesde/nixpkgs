@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
     [
       ncurses
       zlib
-      (imlib2.override { inherit x11Support; })
+      (imlib2.override {inherit x11Support;})
     ]
     ++ lib.optionals x11Support [
       xorg.libX11
@@ -45,7 +45,7 @@ stdenv.mkDerivation rec {
     "man"
   ];
 
-  configureFlags = [ (if x11Support then "--enable-x11" else "--disable-x11") ];
+  configureFlags = [(if x11Support then "--enable-x11" else "--disable-x11")];
 
   env.NIX_CFLAGS_COMPILE = lib.optionalString (!x11Support) "-DX_DISPLAY_MISSING";
 
@@ -74,7 +74,7 @@ stdenv.mkDerivation rec {
       Libcaca was written by Sam Hocevar and Jean-Yves Lamoureux.
     '';
     license = licenses.wtfpl;
-    maintainers = with maintainers; [ AndersonTorres ];
+    maintainers = with maintainers; [AndersonTorres];
     platforms = platforms.unix;
   };
 }

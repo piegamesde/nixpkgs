@@ -26,7 +26,7 @@ buildGoModule rec {
 
   proxyVendor = true;
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     opensc
@@ -45,7 +45,7 @@ buildGoModule rec {
     description = "step plugin to manage keys and certificates on cloud KMSs and HSMs";
     homepage = "https://smallstep.com/cli/";
     license = licenses.asl20;
-    maintainers = with maintainers; [ qbit ];
+    maintainers = with maintainers; [qbit];
     mainProgram = "step-kms-plugin";
     # can't find pcsclite header files
     broken = stdenv.isDarwin;

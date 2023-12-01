@@ -75,7 +75,7 @@ buildPythonApplication rec {
     patchShebangs pre_commit/resources/hook-tmpl
   '';
 
-  pytestFlagsArray = [ "--forked" ];
+  pytestFlagsArray = ["--forked"];
 
   preCheck =
     lib.optionalString (!(stdenv.isLinux && stdenv.isAarch64)) ''
@@ -163,14 +163,14 @@ buildPythonApplication rec {
     "test_environment_not_sourced"
   ];
 
-  pythonImportsCheck = [ "pre_commit" ];
+  pythonImportsCheck = ["pre_commit"];
 
-  passthru.tests.version = testers.testVersion { package = pre-commit; };
+  passthru.tests.version = testers.testVersion {package = pre-commit;};
 
   meta = with lib; {
     description = "A framework for managing and maintaining multi-language pre-commit hooks";
     homepage = "https://pre-commit.com/";
     license = licenses.mit;
-    maintainers = with maintainers; [ borisbabic ];
+    maintainers = with maintainers; [borisbabic];
   };
 }

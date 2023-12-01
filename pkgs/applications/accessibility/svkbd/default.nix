@@ -11,7 +11,7 @@
   libXtst,
   layout ? null,
   conf ? null,
-  patches ? [ ],
+  patches ? [],
 }:
 
 stdenv.mkDerivation rec {
@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
       cp ${configFile} config.def.h
     '';
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     libX11
@@ -44,13 +44,13 @@ stdenv.mkDerivation rec {
     libXtst
   ];
 
-  makeFlags = [ "PREFIX=${placeholder "out"}" ] ++ lib.optional (layout != null) "LAYOUT=${layout}";
+  makeFlags = ["PREFIX=${placeholder "out"}"] ++ lib.optional (layout != null) "LAYOUT=${layout}";
 
   meta = with lib; {
     description = "Simple virtual keyboard";
     homepage = "https://tools.suckless.org/x/svkbd/";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

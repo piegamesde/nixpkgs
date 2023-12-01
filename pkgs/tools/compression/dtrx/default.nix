@@ -56,12 +56,12 @@ python3Packages.buildPythonApplication rec {
       wrapProgram "$out/bin/dtrx" --prefix PATH : "${archivers}"
     '';
 
-  nativeBuildInputs = [ python3Packages.invoke ];
+  nativeBuildInputs = [python3Packages.invoke];
 
   meta = with lib; {
     description = "Do The Right Extraction: A tool for taking the hassle out of extracting archives";
     homepage = "https://github.com/dtrx-py/dtrx";
     license = licenses.gpl3Plus;
-    maintainers = [ maintainers.spwhitt ];
+    maintainers = [maintainers.spwhitt];
   };
 }

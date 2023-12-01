@@ -16,7 +16,7 @@ let
             rev = "pyparsing_${version}";
             sha256 = "14pfy80q2flgzjcx8jkracvnxxnr59kjzp3kdm5nh232gk1v6g6h";
           };
-          nativeBuildInputs = [ super.setuptools ];
+          nativeBuildInputs = [super.setuptools];
         }
       );
     };
@@ -59,7 +59,7 @@ python.pkgs.buildPythonApplication rec {
     '';
     homepage = "https://github.com/yandex/gixy";
     license = licenses.mpl20;
-    maintainers = [ maintainers.willibutz ];
+    maintainers = [maintainers.willibutz];
     platforms = platforms.unix;
   };
 }

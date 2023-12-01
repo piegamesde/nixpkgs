@@ -52,7 +52,7 @@ let
       targetPackages.stdenv.cc.bintools
       coreutils # for cat
     ]
-    ++ lib.optionals useLLVM [ (lib.getBin llvmPackages.llvm) ]
+    ++ lib.optionals useLLVM [(lib.getBin llvmPackages.llvm)]
     # On darwin, we need unwrapped bintools as well (for otool)
     ++ lib.optionals (stdenv.targetPlatform.linker == "cctools") [
       targetPackages.stdenv.cc.bintools.bintools
@@ -94,7 +94,7 @@ stdenv.mkDerivation rec {
     .${stdenv.hostPlatform.system} or (throw "cannot bootstrap GHC on this platform")
   );
 
-  nativeBuildInputs = [ perl ];
+  nativeBuildInputs = [perl];
 
   # Cannot patchelf beforehand due to relative RPATHs that anticipate
   # the final install location/
@@ -156,7 +156,7 @@ stdenv.mkDerivation rec {
         find ./ghc-${version}/rts -name "libHSrts*.a" -exec ''${OBJCOPY:-objcopy} --redefine-sym __strdup=strdup {} \;
       '';
 
-  configurePlatforms = [ ];
+  configurePlatforms = [];
   configureFlags =
     [
       "--with-gmp-includes=${lib.getDev gmp}/include"
@@ -247,6 +247,6 @@ stdenv.mkDerivation rec {
     ];
     # build segfaults, use ghc8102Binary which has proper musl support instead
     broken = stdenv.hostPlatform.isMusl;
-    maintainers = with lib.maintainers; [ guibou ] ++ lib.teams.haskell.members;
+    maintainers = with lib.maintainers; [guibou] ++ lib.teams.haskell.members;
   };
 }

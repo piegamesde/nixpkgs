@@ -20,7 +20,7 @@ buildPythonPackage rec {
   # like "screensaver disabling", which would have to be cleverly
   # sandboxed. Disable for now.
   doCheck = false;
-  pythonImportsCheck = [ "sdl2" ];
+  pythonImportsCheck = ["sdl2"];
 
   src = fetchPypi {
     inherit pname version;
@@ -35,7 +35,7 @@ buildPythonPackage rec {
     SDL2_gfx
     SDL2_mixer
   ];
-  propagatedBuildInputs = [ SDL2 ];
+  propagatedBuildInputs = [SDL2];
   patches = [
     (substituteAll (
       {
@@ -59,6 +59,6 @@ buildPythonPackage rec {
     description = "A wrapper around the SDL2 library and as such similar to the discontinued PySDL project";
     homepage = "https://github.com/marcusva/py-sdl2";
     license = lib.licenses.publicDomain;
-    maintainers = with lib.maintainers; [ pmiddend ];
+    maintainers = with lib.maintainers; [pmiddend];
   };
 }

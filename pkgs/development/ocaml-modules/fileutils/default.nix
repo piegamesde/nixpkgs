@@ -24,13 +24,13 @@ buildDunePackage rec {
     stdlib-shims
   ];
 
-  checkInputs = [ ounit2 ];
+  checkInputs = [ounit2];
   doCheck = lib.versionAtLeast ocaml.version "4.04";
 
   meta = with lib; {
     description = "OCaml API to manipulate real files (POSIX like) and filenames";
     homepage = "https://github.com/gildor478/ocaml-fileutils";
     license = licenses.lgpl21Plus;
-    maintainers = with maintainers; [ vbgl ];
+    maintainers = with maintainers; [vbgl];
   };
 }

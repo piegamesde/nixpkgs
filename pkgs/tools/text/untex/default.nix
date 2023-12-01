@@ -13,7 +13,7 @@ stdenv.mkDerivation rec {
     sha256 = "1jww43pl9qvg6kwh4h8imp966fzd62dk99pb4s93786lmp3kgdjv";
   };
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   unpackPhase = "tar xf $src";
   installTargets = [
@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
     description = "A utility which removes LaTeX commands from input";
     homepage = "https://www.ctan.org/pkg/untex";
     license = licenses.gpl1Only;
-    maintainers = with maintainers; [ joachifm ];
+    maintainers = with maintainers; [joachifm];
     platforms = platforms.all;
   };
 }

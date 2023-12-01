@@ -98,14 +98,14 @@ stdenv.mkDerivation rec {
     # For video screenshots
     gst_all_1.gst-plugins-base
     gst_all_1.gst-plugins-good
-  ] ++ lib.optionals withFwupd [ fwupd ];
+  ] ++ lib.optionals withFwupd [fwupd];
 
   mesonFlags =
     [
       # Requires /etc/machine-id, D-Bus system bus, etc.
       "-Dtests=false"
     ]
-    ++ lib.optionals (!withFwupd) [ "-Dfwupd=false" ];
+    ++ lib.optionals (!withFwupd) ["-Dfwupd=false"];
 
   passthru = {
     updateScript = gnome.updateScript {

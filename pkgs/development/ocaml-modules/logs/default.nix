@@ -43,7 +43,7 @@ else
       lwt
       topkg
     ] ++ lib.optional fmtSupport fmt ++ lib.optional jsooSupport js_of_ocaml;
-    propagatedBuildInputs = [ result ];
+    propagatedBuildInputs = [result];
 
     strictDeps = true;
 
@@ -55,7 +55,7 @@ else
       description = "Logging infrastructure for OCaml";
       homepage = webpage;
       inherit (ocaml.meta) platforms;
-      maintainers = [ maintainers.sternenseemann ];
+      maintainers = [maintainers.sternenseemann];
       license = licenses.isc;
     };
   }

@@ -17,13 +17,13 @@ buildGoModule rec {
 
   vendorHash = "sha256-yQPmiK1CQNn3sr482OEkdRLK6YP8CvPMA/nPGdVJbMc=";
 
-  subPackages = [ "cmd/swag" ];
+  subPackages = ["cmd/swag"];
 
   meta = with lib; {
     description = "Automatically generate RESTful API documentation with Swagger 2.0 for Go";
     homepage = "https://github.com/swaggo/swag";
     license = licenses.mit;
-    maintainers = with maintainers; [ stephenwithph ];
+    maintainers = with maintainers; [stephenwithph];
     mainProgram = "swag";
   };
 }

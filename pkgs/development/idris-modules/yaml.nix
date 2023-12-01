@@ -26,6 +26,6 @@ build-idris-package {
     description = "Idris YAML lib";
     homepage = "https://github.com/Heather/Idris.Yaml";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.brainrape ];
+    maintainers = [lib.maintainers.brainrape];
   };
 }

@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
     "bindir=$(prefix)/bin/"
   ];
   # some include hardcodes the lua libraries path. This is a patch for that
-  patches = [ ./lua-header.patch ];
+  patches = [./lua-header.patch];
   preBuild = "cd dozenal";
   buildInputs = [
     ncurses
@@ -74,7 +74,7 @@ stdenv.mkDerivation rec {
          Defaults to dozenal Roman numerals.
     '';
     homepage = "https://github.com/dgoodmaniii/dozenal/";
-    maintainers = with lib.maintainers; [ CharlesHD ];
+    maintainers = with lib.maintainers; [CharlesHD];
     license = lib.licenses.gpl3;
   };
 }

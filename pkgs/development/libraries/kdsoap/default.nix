@@ -20,9 +20,9 @@ mkDerivation rec {
     "dev"
   ];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
-  buildInputs = [ qtbase ];
+  buildInputs = [qtbase];
 
   postInstall = ''
     moveToOutput bin/kdwsdl2cpp "$dev"
@@ -46,6 +46,6 @@ mkDerivation rec {
       gpl3
       lgpl21
     ];
-    maintainers = [ maintainers.ttuegel ];
+    maintainers = [maintainers.ttuegel];
   };
 }

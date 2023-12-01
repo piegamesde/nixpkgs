@@ -109,8 +109,8 @@ in
   config = mkIf cfg.enable {
     systemd.services.longview = {
       description = "Longview Metrics Collection";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
       serviceConfig.Type = "forking";
       serviceConfig.ExecStop = "-${pkgs.coreutils}/bin/kill -TERM $MAINPID";
       serviceConfig.ExecReload = "-${pkgs.coreutils}/bin/kill -HUP $MAINPID";

@@ -14,7 +14,7 @@ let
     hash = "sha256-I5GafK/W1djSx67xrjcMyPqMSqGW9AfrcPYcGcf0Pag=";
   };
 
-  appimageContents = appimageTools.extract { inherit pname src version; };
+  appimageContents = appimageTools.extract {inherit pname src version;};
 in
 appimageTools.wrapType2 {
   inherit pname src version;
@@ -39,8 +39,8 @@ appimageTools.wrapType2 {
     description = "Performance software for cyclists, runners and triathletes. This version includes the API Tokens for e.g. Strava";
     platforms = platforms.linux;
     broken = !stdenv.isx86_64;
-    maintainers = with maintainers; [ gador ];
+    maintainers = with maintainers; [gador];
     license = licenses.gpl2Plus;
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
   };
 }

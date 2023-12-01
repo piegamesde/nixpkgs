@@ -22,7 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-zEMG2zscGDlRxtLn/lUTEjZBPabcwzMcj/kMcy3yOs8=";
   };
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
   propagatedBuildInputs = [
     pyqt5
@@ -31,11 +31,11 @@ buildPythonPackage rec {
     pygments
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   doCheck = false; # Segfaults...
 
-  pythonImportsCheck = [ "superqt" ];
+  pythonImportsCheck = ["superqt"];
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
@@ -43,6 +43,6 @@ buildPythonPackage rec {
     description = "Missing widgets and components for Qt-python (napari/superqt)";
     homepage = "https://github.com/napari/superqt";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ SomeoneSerge ];
+    maintainers = with maintainers; [SomeoneSerge];
   };
 }

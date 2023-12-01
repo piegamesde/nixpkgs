@@ -18,7 +18,7 @@ stdenv.mkDerivation (
       hash = "sha256-V1sNAQjsPVSjJ2nhCSdZqZQA78pjUE0z3IU4+I85CpI=";
     };
 
-    nativeBuildInputs = [ pkg-config ];
+    nativeBuildInputs = [pkg-config];
 
     buildInputs = [
       libX11
@@ -26,7 +26,7 @@ stdenv.mkDerivation (
       libXrandr
     ];
 
-    makeFlags = [ "prefix=$(out)" ];
+    makeFlags = ["prefix=$(out)"];
 
     meta = with lib; {
       homepage = "https://www.uninformativ.de/git/xpointerbarrier/file/README.html";

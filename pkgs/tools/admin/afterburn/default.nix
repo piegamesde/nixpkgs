@@ -19,8 +19,8 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-lCtG7UmXJegGVbjyYn9YJWSynikOK4qPmLS1XNesMUk=";
 
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ openssl ];
+  nativeBuildInputs = [pkg-config];
+  buildInputs = [openssl];
 
   postPatch = ''
     substituteInPlace ./systemd/afterburn-checkin.service --replace /usr/bin $out/bin
@@ -37,7 +37,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/coreos/ignition";
     description = "This is a small utility, typically used in conjunction with Ignition, which reads metadata from a given cloud-provider and applies it to the system.";
     license = licenses.asl20;
-    maintainers = [ maintainers.arianvp ];
+    maintainers = [maintainers.arianvp];
     platforms = platforms.linux;
   };
 }

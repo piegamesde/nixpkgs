@@ -29,6 +29,6 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://github.com/freefreeno/Pitch-Black";
     license = licenses.gpl3Only;
     platforms = platforms.unix;
-    maintainers = [ maintainers.pasqui23 ];
+    maintainers = [maintainers.pasqui23];
   };
 }

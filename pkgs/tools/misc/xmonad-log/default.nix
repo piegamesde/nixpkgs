@@ -24,6 +24,6 @@ buildGoPackage rec {
     homepage = "https://github.com/xintron/xmonad-log";
     license = licenses.mit;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ joko ];
+    maintainers = with maintainers; [joko];
   };
 }

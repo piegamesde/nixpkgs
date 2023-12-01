@@ -18,10 +18,10 @@ mkDerivation {
   meta = with lib; {
     description = "A BitTorrent library used by KTorrent";
     homepage = "https://apps.kde.org/ktorrent/";
-    maintainers = with maintainers; [ eelco ];
+    maintainers = with maintainers; [eelco];
   };
 
-  nativeBuildInputs = [ extra-cmake-modules ];
+  nativeBuildInputs = [extra-cmake-modules];
   buildInputs = [
     karchive
     kcrash

@@ -22,9 +22,9 @@ stdenv.mkDerivation rec {
     "dev"
   ];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  buildInputs = [ glib ];
+  buildInputs = [glib];
 
   postPatch = ''
     # Fix pkg-config name for cross-compilation
@@ -52,6 +52,6 @@ stdenv.mkDerivation rec {
     homepage = "https://git.sailfishos.org/mer-core/libglibutil";
     license = licenses.bsd3;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ mcaju ];
+    maintainers = with maintainers; [mcaju];
   };
 }

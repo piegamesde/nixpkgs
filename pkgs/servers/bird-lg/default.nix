@@ -6,7 +6,7 @@
 }:
 let
   generic =
-    { modRoot, vendorSha256 }:
+    {modRoot, vendorSha256}:
     buildGoModule rec {
       pname = "bird-lg-${modRoot}";
       version = "1.2.0";
@@ -32,7 +32,7 @@ let
         homepage = "https://github.com/xddxdd/bird-lg-go";
         changelog = "https://github.com/xddxdd/bird-lg-go/releases/tag/v${version}";
         license = licenses.gpl3Plus;
-        maintainers = with maintainers; [ tchekda ];
+        maintainers = with maintainers; [tchekda];
       };
     };
 

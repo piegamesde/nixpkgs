@@ -25,14 +25,14 @@ buildPythonPackage rec {
     pyparsing
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "periodictable" ];
+  pythonImportsCheck = ["periodictable"];
 
   meta = with lib; {
     description = "Extensible periodic table of the elements";
     homepage = "https://github.com/pkienzle/periodictable";
     license = licenses.publicDomain;
-    maintainers = with maintainers; [ rprospero ];
+    maintainers = with maintainers; [rprospero];
   };
 }

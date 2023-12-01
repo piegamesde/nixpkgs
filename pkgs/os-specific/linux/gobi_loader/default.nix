@@ -18,13 +18,13 @@ stdenv.mkDerivation rec {
     substituteInPlace 60-gobi.rules --replace "/lib/firmware" "/run/current-system/firmware"
   '';
 
-  makeFlags = [ "prefix=${placeholder "out"}" ];
+  makeFlags = ["prefix=${placeholder "out"}"];
 
   meta = with lib; {
     description = "Firmware loader for Qualcomm Gobi USB chipsets";
     homepage = "https://www.codon.org.uk/~mjg59/gobi_loader/";
-    license = with licenses; [ gpl2 ];
-    maintainers = with maintainers; [ _0x4A6F ];
+    license = with licenses; [gpl2];
+    maintainers = with maintainers; [_0x4A6F];
     platforms = platforms.linux;
   };
 }

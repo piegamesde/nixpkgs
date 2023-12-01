@@ -1,10 +1,10 @@
 {
   system ? builtins.currentSystem,
-  config ? { },
-  pkgs ? import ../.. { inherit system config; },
+  config ? {},
+  pkgs ? import ../.. {inherit system config;},
 }:
 
-with import ../lib/testing-python.nix { inherit system pkgs; };
+with import ../lib/testing-python.nix {inherit system pkgs;};
 
 let
   readyFile = "/tmp/readerReady";
@@ -29,7 +29,7 @@ let
   mkKeyboardTest =
     layout:
     {
-      extraConfig ? { },
+      extraConfig ? {},
       tests,
     }:
     with pkgs.lib;

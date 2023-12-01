@@ -60,6 +60,6 @@ mkDerivation rec {
     description = "A complete open source solution for HDR photography";
     license = licenses.gpl2;
     platforms = platforms.linux;
-    maintainers = [ maintainers.hrdinka ];
+    maintainers = [maintainers.hrdinka];
   };
 }

@@ -26,14 +26,14 @@ buildGoModule rec {
     "-extldflags=-static"
   ];
 
-  tags = [ "withoutebpf" ];
+  tags = ["withoutebpf"];
 
-  subPackages = [ "cmd/kubectl-gadget" ];
+  subPackages = ["cmd/kubectl-gadget"];
 
   meta = with lib; {
     description = "A collection of gadgets for troubleshooting Kubernetes applications using eBPF";
     homepage = "https://inspektor-gadget.io";
     license = licenses.asl20;
-    maintainers = with maintainers; [ kranurag7 ];
+    maintainers = with maintainers; [kranurag7];
   };
 }

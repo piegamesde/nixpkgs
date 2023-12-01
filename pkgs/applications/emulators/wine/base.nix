@@ -21,11 +21,11 @@
   patches,
   moltenvk,
   buildScript ? null,
-  configureFlags ? [ ],
+  configureFlags ? [],
   mainProgram ? "wine",
 }:
 
-with import ./util.nix { inherit lib; };
+with import ./util.nix {inherit lib;};
 
 let
   patches' = patches;
@@ -44,7 +44,7 @@ let
       ./setup-hook-darwin.sh;
 in
 stdenv.mkDerivation (
-  (lib.optionalAttrs (buildScript != null) { builder = buildScript; })
+  (lib.optionalAttrs (buildScript != null) {builder = buildScript;})
   // (lib.optionalAttrs stdenv.isDarwin {
     postConfigure = ''
       # dynamic fallback, so this shouldn’t cause problems for older versions of macOS and will
@@ -120,7 +120,7 @@ stdenv.mkDerivation (
             gst-plugins-good
             gst-plugins-ugly
             gst-libav
-            (gst-plugins-bad.override { enableZbar = false; })
+            (gst-plugins-bad.override {enableZbar = false;})
           ]
         )
         ++ lib.optionals gtkSupport [
@@ -187,7 +187,7 @@ stdenv.mkDerivation (
     );
 
     patches =
-      [ ]
+      []
       ++ lib.optionals stdenv.isDarwin [
         # Wine requires `MTLDevice.registryID` for `winemac.drv`, but that property is not available
         # in the 10.12 SDK (current SDK on x86_64-darwin). Work around that by using selector syntax.
@@ -199,23 +199,23 @@ stdenv.mkDerivation (
 
     configureFlags =
       prevConfigFlags
-      ++ lib.optionals supportFlags.waylandSupport [ "--with-wayland" ]
-      ++ lib.optionals supportFlags.vulkanSupport [ "--with-vulkan" ]
-      ++ lib.optionals (stdenv.isDarwin && !supportFlags.xineramaSupport) [ "--without-x" ];
+      ++ lib.optionals supportFlags.waylandSupport ["--with-wayland"]
+      ++ lib.optionals supportFlags.vulkanSupport ["--with-vulkan"]
+      ++ lib.optionals (stdenv.isDarwin && !supportFlags.xineramaSupport) ["--without-x"];
 
     # Wine locates a lot of libraries dynamically through dlopen().  Add
     # them to the RPATH so that the user doesn't have to set them in
     # LD_LIBRARY_PATH.
     NIX_LDFLAGS = toString (
       map (path: "-rpath " + path) (
-        map (x: "${lib.getLib x}/lib") ([ stdenv.cc.cc ] ++ buildInputs)
+        map (x: "${lib.getLib x}/lib") ([stdenv.cc.cc] ++ buildInputs)
         # libpulsecommon.so is linked but not found otherwise
         ++ lib.optionals supportFlags.pulseaudioSupport (
-          map (x: "${lib.getLib x}/lib/pulseaudio") (toBuildInputs pkgArches (pkgs: [ pkgs.libpulseaudio ]))
+          map (x: "${lib.getLib x}/lib/pulseaudio") (toBuildInputs pkgArches (pkgs: [pkgs.libpulseaudio]))
         )
         ++ lib.optionals supportFlags.waylandSupport (
           map (x: "${lib.getLib x}/share/wayland-protocols") (
-            toBuildInputs pkgArches (pkgs: [ pkgs.wayland-protocols ])
+            toBuildInputs pkgArches (pkgs: [pkgs.wayland-protocols])
           )
         )
       )
@@ -270,7 +270,7 @@ stdenv.mkDerivation (
     # https://bugs.winehq.org/show_bug.cgi?id=43530
     # https://github.com/NixOS/nixpkgs/issues/31989
     hardeningDisable =
-      [ "bindnow" ]
+      ["bindnow"]
       ++ lib.optional (stdenv.hostPlatform.isDarwin) "fortify"
       ++ lib.optional (supportFlags.mingwSupport) "format";
 
@@ -284,7 +284,7 @@ stdenv.mkDerivation (
     meta = {
       inherit version;
       homepage = "https://www.winehq.org/";
-      license = with lib.licenses; [ lgpl21Plus ];
+      license = with lib.licenses; [lgpl21Plus];
       sourceProvenance = with lib.sourceTypes; [
         fromSource
         binaryNativeCode # mono, gecko

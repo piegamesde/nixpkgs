@@ -33,7 +33,7 @@ buildPythonPackage rec {
     pytest-django
   ];
 
-  pythonImportsCheck = [ "rest_registration" ];
+  pythonImportsCheck = ["rest_registration"];
 
   disabledTests = [
     # This test fails on Python 3.10
@@ -47,6 +47,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/apragacz/django-rest-registration/";
     changelog = "https://github.com/apragacz/django-rest-registration/releases/tag/${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ sephi ];
+    maintainers = with maintainers; [sephi];
   };
 }

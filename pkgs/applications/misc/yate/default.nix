@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
   };
 
   # TODO zaptel ? postgres ?
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     qt4
     openssl
@@ -45,7 +45,7 @@ stdenv.mkDerivation rec {
     # Yate's license is GPL with an exception for linking with
     # OpenH323 and PWlib (licensed under MPL).
     license = lib.licenses.gpl2Only;
-    maintainers = [ lib.maintainers.marcweber ];
+    maintainers = [lib.maintainers.marcweber];
     platforms = [
       "i686-linux"
       "x86_64-linux"

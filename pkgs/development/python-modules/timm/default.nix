@@ -36,9 +36,9 @@ buildPythonPackage rec {
     pytestCheckHook
     pytest-timeout
   ];
-  pytestFlagsArray = [ "tests" ];
+  pytestFlagsArray = ["tests"];
   # takes too long and also tries to download models:
-  disabledTestPaths = [ "tests/test_models.py" ];
+  disabledTestPaths = ["tests/test_models.py"];
 
   pythonImportsCheck = [
     "timm"
@@ -50,6 +50,6 @@ buildPythonPackage rec {
     homepage = "https://huggingface.co/docs/timm/index";
     changelog = "https://github.com/huggingface/pytorch-image-models/blob/v${version}/README.md#whats-new";
     license = licenses.asl20;
-    maintainers = with maintainers; [ bcdarwin ];
+    maintainers = with maintainers; [bcdarwin];
   };
 }

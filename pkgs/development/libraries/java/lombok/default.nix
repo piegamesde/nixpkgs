@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-KvH6g2hIdhtuUUQOxii0ncOAgOmHG7NScB+4yDWAh88=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   outputs = [
     "out"
@@ -34,9 +34,9 @@ stdenv.mkDerivation rec {
   meta = {
     description = "A library that can write a lot of boilerplate for your Java project";
     platforms = lib.platforms.all;
-    sourceProvenance = with lib.sourceTypes; [ binaryBytecode ];
+    sourceProvenance = with lib.sourceTypes; [binaryBytecode];
     license = lib.licenses.mit;
     homepage = "https://projectlombok.org/";
-    maintainers = [ lib.maintainers.CrystalGamma ];
+    maintainers = [lib.maintainers.CrystalGamma];
   };
 }

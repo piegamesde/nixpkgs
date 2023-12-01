@@ -69,7 +69,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/endlessm/eos-installer";
     description = "Installer UI which writes images to disk";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ qyliss ];
+    maintainers = with maintainers; [qyliss];
     platforms = platforms.linux;
   };
 }

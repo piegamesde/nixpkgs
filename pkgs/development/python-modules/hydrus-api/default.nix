@@ -26,11 +26,11 @@ buildPythonPackage rec {
       "poetry.core.masonry.api"
   '';
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
-  propagatedBuildInputs = [ requests ];
+  propagatedBuildInputs = [requests];
 
-  pythonImportsCheck = [ "hydrus_api" ];
+  pythonImportsCheck = ["hydrus_api"];
 
   # There are no unit tests
   doCheck = false;
@@ -39,6 +39,6 @@ buildPythonPackage rec {
     description = "Python module implementing the Hydrus API";
     homepage = "https://gitlab.com/cryzed/hydrus-api";
     license = licenses.agpl3Plus;
-    maintainers = with maintainers; [ dandellion ];
+    maintainers = with maintainers; [dandellion];
   };
 }

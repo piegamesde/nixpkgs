@@ -20,7 +20,7 @@ buildPythonPackage rec {
     hash = "sha256-Ay6B1TSojsFzbQP3gLoHPwR6BsR4sG4pN0hvM06VXFE=";
   };
 
-  propagatedBuildInputs = [ redis ];
+  propagatedBuildInputs = [redis];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -31,13 +31,13 @@ buildPythonPackage rec {
     "test_combined" # no longer compatible with setuptools>=58
   ];
 
-  pythonImportsCheck = [ "portalocker" ];
+  pythonImportsCheck = ["portalocker"];
 
   meta = with lib; {
     description = "A library to provide an easy API to file locking";
     homepage = "https://github.com/WoLpH/portalocker";
     license = licenses.psfl;
-    maintainers = with maintainers; [ jonringer ];
+    maintainers = with maintainers; [jonringer];
     platforms = platforms.unix; # Windows has a dependency on pypiwin32
   };
 }

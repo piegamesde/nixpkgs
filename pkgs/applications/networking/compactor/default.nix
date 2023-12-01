@@ -87,7 +87,7 @@ stdenv.mkDerivation rec {
     homepage = "https://dns-stats.org/";
     changelog = "https://github.com/dns-stats/${pname}/raw/${version}/ChangeLog.txt";
     license = licenses.mpl20;
-    maintainers = with maintainers; [ fdns ];
+    maintainers = with maintainers; [fdns];
     platforms = platforms.unix;
   };
 }

@@ -30,7 +30,7 @@ rustPlatform.buildRustPackage rec {
           {
             CC = stdenv.cc;
             patchelf = patchelf;
-            libPath = "$ORIGIN/../lib:${lib.makeLibraryPath [ zlib ]}";
+            libPath = "$ORIGIN/../lib:${lib.makeLibraryPath [zlib]}";
           }
           ''
             export dynamicLinker=$(cat $CC/nix-support/dynamic-linker)
@@ -40,7 +40,7 @@ rustPlatform.buildRustPackage rec {
               --subst-var libPath
           '';
     in
-    lib.optionals stdenv.isLinux [ patchelfPatch ]
+    lib.optionals stdenv.isLinux [patchelfPatch]
     ++ [
       (fetchpatch {
         name = "fix-cli-date-bounds-checking.patch";
@@ -49,8 +49,8 @@ rustPlatform.buildRustPackage rec {
       })
     ];
 
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ openssl ] ++ lib.optionals stdenv.isDarwin [ Security ];
+  nativeBuildInputs = [pkg-config];
+  buildInputs = [openssl] ++ lib.optionals stdenv.isDarwin [Security];
 
   cargoHash = "sha256-7tqo8cxAzoDfTU372uW1qUhm+qqyRhz8bQ7oMiRU528=";
 
@@ -65,6 +65,6 @@ rustPlatform.buildRustPackage rec {
       asl20
       mit
     ];
-    maintainers = with maintainers; [ davidtwco ];
+    maintainers = with maintainers; [davidtwco];
   };
 }

@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-E2LI1rWo1HO5O/sxPHAmLDs3Z5xouzlgMj11rQFPNYQ=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   buildInputs =
     lib.optional enableCuda cudatoolkit
@@ -51,13 +51,13 @@ stdenv.mkDerivation rec {
   '';
 
   cmakeFlags =
-    [ ]
+    []
     ++ lib.optional enableCfp "-DBUILD_CFP=ON"
     ++ lib.optional enableCuda "-DZFP_WITH_CUDA=ON"
     ++ lib.optional enableFortran "-DBUILD_ZFORP=ON"
     ++ lib.optional enableOpenMP "-DZFP_WITH_OPENMP=ON"
     ++ lib.optional enablePython "-DBUILD_ZFPY=ON"
-    ++ ([ "-DBUILD_UTILITIES=${if enableUtilities then "ON" else "OFF"}" ]);
+    ++ (["-DBUILD_UTILITIES=${if enableUtilities then "ON" else "OFF"}"]);
 
   doCheck = true;
 
@@ -65,7 +65,7 @@ stdenv.mkDerivation rec {
     homepage = "https://computing.llnl.gov/projects/zfp";
     description = "Library for random-access compression of floating-point arrays";
     license = licenses.bsd3;
-    maintainers = [ maintainers.spease ];
+    maintainers = [maintainers.spease];
     # 64-bit only
     platforms = platforms.aarch64 ++ platforms.x86_64;
   };

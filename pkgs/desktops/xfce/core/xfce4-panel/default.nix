@@ -41,7 +41,7 @@ mkXfceDerivation {
     libxfce4util
   ];
 
-  patches = [ ./xfce4-panel-datadir.patch ];
+  patches = [./xfce4-panel-datadir.patch];
 
   postPatch = ''
     substituteInPlace plugins/clock/clock.c \
@@ -50,6 +50,6 @@ mkXfceDerivation {
 
   meta = with lib; {
     description = "Panel for the Xfce desktop environment";
-    maintainers = with maintainers; [ ] ++ teams.xfce.members;
+    maintainers = with maintainers; [] ++ teams.xfce.members;
   };
 }

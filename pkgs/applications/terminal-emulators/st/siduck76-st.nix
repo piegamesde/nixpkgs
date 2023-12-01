@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-5n+QkSlVhhku7adtl7TuWhDl3zdwFaXc7Ot1RaIN54A=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     fontconfig
     harfbuzz
@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/siduck76/st";
     description = "A fork of st with many add-ons";
     license = licenses.mit;
-    maintainers = with maintainers; [ AndersonTorres ];
+    maintainers = with maintainers; [AndersonTorres];
     platforms = platforms.linux;
   };
 }

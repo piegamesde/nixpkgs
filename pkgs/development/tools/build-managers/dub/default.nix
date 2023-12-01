@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
     libevent
     rsync
   ];
-  buildInputs = [ curl ];
+  buildInputs = [curl];
 
   buildPhase = ''
     for dc_ in dmd ldmd2 gdmd; do
@@ -163,7 +163,7 @@ stdenv.mkDerivation rec {
     description = "Package and build manager for D applications and libraries";
     homepage = "https://code.dlang.org/";
     license = licenses.mit;
-    maintainers = with maintainers; [ ThomasMader ];
+    maintainers = with maintainers; [ThomasMader];
     platforms = [
       "x86_64-linux"
       "i686-linux"

@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-nL7UZh29Oecu3RvXYg5xsin2IvPWpApleLH37sEdSAI=";
   };
 
-  nativeBuildInputs = [ qmake ];
+  nativeBuildInputs = [qmake];
 
   dontWrapQtApps = true;
 
@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
     description = "A tool that helps simplify the build process for developing projects across multiple platforms";
     homepage = "https://wiki.qt.io/Qbs";
     license = licenses.lgpl3;
-    maintainers = with maintainers; [ expipiplus1 ];
+    maintainers = with maintainers; [expipiplus1];
     platforms = platforms.linux;
   };
 }

@@ -13,7 +13,7 @@ let
 in
 rec {
 
-  shellEscape = s: (replaceStrings [ "\\" ] [ "\\\\" ] s);
+  shellEscape = s: (replaceStrings ["\\"] ["\\\\"] s);
 
   mkPathSafeName =
     lib.replaceStrings
@@ -136,8 +136,7 @@ rec {
     let
       badFields = filter (name: !elem name fields) (attrNames attr);
     in
-    optional (badFields != [ ])
-      "Systemd ${group} has extra fields [${concatStringsSep " " badFields}].";
+    optional (badFields != []) "Systemd ${group} has extra fields [${concatStringsSep " " badFields}].";
 
   assertInt =
     name: group: attr:
@@ -164,7 +163,7 @@ rec {
           attrs;
       errors = concatMap (c: c group defs) checks;
     in
-    if errors == [ ] then true else builtins.trace (concatStringsSep "\n" errors) false;
+    if errors == [] then true else builtins.trace (concatStringsSep "\n" errors) false;
 
   toOption =
     x:
@@ -186,7 +185,7 @@ rec {
               (x: ''
                 ${name}=${toOption x}
               '')
-              (if isList value then value else [ value ])
+              (if isList value then value else [value])
           )
           as
       )
@@ -278,8 +277,7 @@ rec {
         for i in ${
           toString (
             mapAttrsToList (n: v: v.unit) (
-              lib.filterAttrs
-                (n: v: (attrByPath [ "overrideStrategy" ] "asDropinIfExists" v) == "asDropinIfExists")
+              lib.filterAttrs (n: v: (attrByPath ["overrideStrategy"] "asDropinIfExists" v) == "asDropinIfExists")
                 units
             )
           )
@@ -330,7 +328,7 @@ rec {
                 (name2: ''
                   ln -sfn '${name}' $out/'${name2}'
                 '')
-                (unit.aliases or [ ])
+                (unit.aliases or [])
             )
             units
         )}
@@ -346,7 +344,7 @@ rec {
                   mkdir -p $out/'${name2}.wants'
                   ln -sfn '../${name}' $out/'${name2}.wants'/
                 '')
-                (unit.wantedBy or [ ])
+                (unit.wantedBy or [])
             )
             units
         )}
@@ -360,7 +358,7 @@ rec {
                   mkdir -p $out/'${name2}.requires'
                   ln -sfn '../${name}' $out/'${name2}.requires'/
                 '')
-                (unit.requiredBy or [ ])
+                (unit.requiredBy or [])
             )
             units
         )}
@@ -408,28 +406,28 @@ rec {
     "${out}/bin/${scriptName}";
 
   unitConfig =
-    { config, options, ... }:
+    {config, options, ...}:
     {
       config = {
         unitConfig =
-          optionalAttrs (config.requires != [ ]) { Requires = toString config.requires; }
-          // optionalAttrs (config.wants != [ ]) { Wants = toString config.wants; }
-          // optionalAttrs (config.after != [ ]) { After = toString config.after; }
-          // optionalAttrs (config.before != [ ]) { Before = toString config.before; }
-          // optionalAttrs (config.bindsTo != [ ]) { BindsTo = toString config.bindsTo; }
-          // optionalAttrs (config.partOf != [ ]) { PartOf = toString config.partOf; }
-          // optionalAttrs (config.conflicts != [ ]) { Conflicts = toString config.conflicts; }
-          // optionalAttrs (config.requisite != [ ]) { Requisite = toString config.requisite; }
-          // optionalAttrs (config ? restartTriggers && config.restartTriggers != [ ]) {
+          optionalAttrs (config.requires != []) {Requires = toString config.requires;}
+          // optionalAttrs (config.wants != []) {Wants = toString config.wants;}
+          // optionalAttrs (config.after != []) {After = toString config.after;}
+          // optionalAttrs (config.before != []) {Before = toString config.before;}
+          // optionalAttrs (config.bindsTo != []) {BindsTo = toString config.bindsTo;}
+          // optionalAttrs (config.partOf != []) {PartOf = toString config.partOf;}
+          // optionalAttrs (config.conflicts != []) {Conflicts = toString config.conflicts;}
+          // optionalAttrs (config.requisite != []) {Requisite = toString config.requisite;}
+          // optionalAttrs (config ? restartTriggers && config.restartTriggers != []) {
             X-Restart-Triggers = toString config.restartTriggers;
           }
-          // optionalAttrs (config ? reloadTriggers && config.reloadTriggers != [ ]) {
+          // optionalAttrs (config ? reloadTriggers && config.reloadTriggers != []) {
             X-Reload-Triggers = toString config.reloadTriggers;
           }
-          // optionalAttrs (config.description != "") { Description = config.description; }
-          // optionalAttrs (config.documentation != [ ]) { Documentation = toString config.documentation; }
-          // optionalAttrs (config.onFailure != [ ]) { OnFailure = toString config.onFailure; }
-          // optionalAttrs (config.onSuccess != [ ]) { OnSuccess = toString config.onSuccess; }
+          // optionalAttrs (config.description != "") {Description = config.description;}
+          // optionalAttrs (config.documentation != []) {Documentation = toString config.documentation;}
+          // optionalAttrs (config.onFailure != []) {OnFailure = toString config.onFailure;}
+          // optionalAttrs (config.onSuccess != []) {OnSuccess = toString config.onSuccess;}
           // optionalAttrs (options.startLimitIntervalSec.isDefined) {
             StartLimitIntervalSec = toString config.startLimitIntervalSec;
           }
@@ -440,15 +438,15 @@ rec {
     };
 
   serviceConfig =
-    { config, ... }:
+    {config, ...}:
     {
       config.environment.PATH =
-        mkIf (config.path != [ ])
+        mkIf (config.path != [])
           "${makeBinPath config.path}:${makeSearchPathOutput "bin" "sbin" config.path}";
     };
 
   stage2ServiceConfig = {
-    imports = [ serviceConfig ];
+    imports = [serviceConfig];
     # Default path for systemd services. Should be quite minimal.
     config.path = mkAfter [
       pkgs.coreutils
@@ -462,7 +460,7 @@ rec {
   stage1ServiceConfig = serviceConfig;
 
   mountConfig =
-    { config, ... }:
+    {config, ...}:
     {
       config = {
         mountConfig =
@@ -470,13 +468,13 @@ rec {
             What = config.what;
             Where = config.where;
           }
-          // optionalAttrs (config.type != "") { Type = config.type; }
-          // optionalAttrs (config.options != "") { Options = config.options; };
+          // optionalAttrs (config.type != "") {Type = config.type;}
+          // optionalAttrs (config.options != "") {Options = config.options;};
       };
     };
 
   automountConfig =
-    { config, ... }:
+    {config, ...}:
     {
       config = {
         automountConfig = {

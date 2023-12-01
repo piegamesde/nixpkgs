@@ -15,13 +15,13 @@ buildPythonPackage rec {
     hash = "sha256-4yOA3OY8t8AQjtUlVwCS/UUWi9ri+qF+UoIh73Lohlg=";
   };
 
-  nativeCheckInputs = [ glibcLocales ];
+  nativeCheckInputs = [glibcLocales];
 
-  propagatedBuildInputs = [ mpmath ];
+  propagatedBuildInputs = [mpmath];
 
   # tests take ~1h
   doCheck = false;
-  pythonImportsCheck = [ "sympy" ];
+  pythonImportsCheck = ["sympy"];
 
   preCheck = ''
     export LANG="en_US.UTF-8"
@@ -31,6 +31,6 @@ buildPythonPackage rec {
     description = "A Python library for symbolic mathematics";
     homepage = "https://www.sympy.org/";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ lovek323 ] ++ teams.sage.members;
+    maintainers = with maintainers; [lovek323] ++ teams.sage.members;
   };
 }

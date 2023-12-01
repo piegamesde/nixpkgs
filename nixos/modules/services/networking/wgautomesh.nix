@@ -7,7 +7,7 @@
 with lib;
 let
   cfg = config.services.wgautomesh;
-  settingsFormat = pkgs.formats.toml { };
+  settingsFormat = pkgs.formats.toml {};
   configFile =
     # Have to remove nulls manually as TOML generator will not just skip key
     # if value is null
@@ -118,12 +118,12 @@ in
                 };
               }
             );
-            default = [ ];
+            default = [];
             description = mdDoc "wgautomesh peer list.";
           };
         };
       };
-      default = { };
+      default = {};
       description = mdDoc "Configuration for wgautomesh.";
     };
   };
@@ -135,7 +135,7 @@ in
     };
 
     systemd.services.wgautomesh = {
-      path = [ pkgs.wireguard-tools ];
+      path = [pkgs.wireguard-tools];
       environment = {
         RUST_LOG = "wgautomesh=${cfg.logLevel}";
       };
@@ -146,7 +146,7 @@ in
         ExecStart = "${getExe pkgs.wgautomesh} ${runtimeConfigFile}";
         Restart = "always";
         RestartSec = "30";
-        LoadCredential = mkIf cfg.enableGossipEncryption [ "gossip_secret:${cfg.gossipSecretFile}" ];
+        LoadCredential = mkIf cfg.enableGossipEncryption ["gossip_secret:${cfg.gossipSecretFile}"];
 
         ExecStartPre = mkIf cfg.enableGossipEncryption [
           ''
@@ -162,8 +162,8 @@ in
         AmbientCapabilities = "CAP_NET_ADMIN";
         CapabilityBoundingSet = "CAP_NET_ADMIN";
       };
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
     };
-    networking.firewall.allowedUDPPorts = mkIf cfg.openFirewall [ cfg.settings.gossip_port ];
+    networking.firewall.allowedUDPPorts = mkIf cfg.openFirewall [cfg.settings.gossip_port];
   };
 }

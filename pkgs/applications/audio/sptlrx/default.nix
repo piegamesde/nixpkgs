@@ -26,7 +26,7 @@ buildGoModule rec {
   ];
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
     tests.version = testers.testVersion {
       package = sptlrx;
       version = "v${version}"; # needed because testVersion uses grep -Fw
@@ -38,6 +38,6 @@ buildGoModule rec {
     homepage = "https://github.com/raitonoberu/sptlrx";
     changelog = "https://github.com/raitonoberu/sptlrx/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ MoritzBoehme ];
+    maintainers = with maintainers; [MoritzBoehme];
   };
 }

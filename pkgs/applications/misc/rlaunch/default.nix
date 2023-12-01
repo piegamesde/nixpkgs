@@ -47,6 +47,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/PonasKovas/rlaunch";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ danc86 ];
+    maintainers = with maintainers; [danc86];
   };
 }

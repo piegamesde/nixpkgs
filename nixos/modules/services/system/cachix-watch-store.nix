@@ -66,9 +66,9 @@ in
   config = mkIf cfg.enable {
     systemd.services.cachix-watch-store-agent = {
       description = "Cachix watch store Agent";
-      after = [ "network-online.target" ];
-      path = [ config.nix.package ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network-online.target"];
+      path = [config.nix.package];
+      wantedBy = ["multi-user.target"];
       unitConfig = {
         # allow to restart indefinitely
         StartLimitIntervalSec = 0;
@@ -80,18 +80,18 @@ in
         KillMode = "process";
         Restart = "on-failure";
         DynamicUser = true;
-        LoadCredential = [ "cachix-token:${toString cfg.cachixTokenFile}" ];
+        LoadCredential = ["cachix-token:${toString cfg.cachixTokenFile}"];
       };
       script =
         let
           command =
-            [ "${cfg.package}/bin/cachix" ]
+            ["${cfg.package}/bin/cachix"]
             ++ (lib.optional cfg.verbose "--verbose")
             ++ (lib.optionals (cfg.host != null) [
               "--host"
               cfg.host
             ])
-            ++ [ "watch-store" ]
+            ++ ["watch-store"]
             ++ (lib.optionals (cfg.compressionLevel != null) [
               "--compression-level"
               (toString cfg.compressionLevel)
@@ -100,7 +100,7 @@ in
               "--jobs"
               (toString cfg.jobs)
             ])
-            ++ [ cfg.cacheName ];
+            ++ [cfg.cacheName];
         in
         ''
           export CACHIX_AUTH_TOKEN="$(<"$CREDENTIALS_DIRECTORY/cachix-token")"

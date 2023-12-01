@@ -7,7 +7,7 @@
 bundlerApp {
   pname = "vimgolf";
   gemdir = ./.;
-  exes = [ "vimgolf" ];
+  exes = ["vimgolf"];
 
   passthru.updateScript = bundlerUpdateScript "vimgolf";
 
@@ -15,7 +15,7 @@ bundlerApp {
     description = "A game that tests Vim efficiency";
     homepage = "https://vimgolf.com";
     license = licenses.mit;
-    maintainers = with maintainers; [ leungbk ];
+    maintainers = with maintainers; [leungbk];
     platforms = platforms.unix;
   };
 }

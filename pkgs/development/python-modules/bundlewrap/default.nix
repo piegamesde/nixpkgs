@@ -31,7 +31,7 @@ buildPythonPackage rec {
     hash = "sha256-hdTJcuhVMbLqtPclgj4u6XwH0A5DvnGpnkhIG6Gm8+4=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
   propagatedBuildInputs = [
     setuptools
     cryptography
@@ -42,11 +42,11 @@ buildPythonPackage rec {
     requests
     tomlkit
     librouteros
-  ] ++ lib.optionals (pythonOlder "3.11") [ rtoml ];
+  ] ++ lib.optionals (pythonOlder "3.11") [rtoml];
 
-  pythonImportsCheck = [ "bundlewrap" ];
+  pythonImportsCheck = ["bundlewrap"];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   pytestFlagsArray =
     [
@@ -57,7 +57,7 @@ buildPythonPackage rec {
   meta = with lib; {
     homepage = "https://bundlewrap.org/";
     description = "Easy, Concise and Decentralized Config management with Python";
-    license = [ licenses.gpl3 ];
-    maintainers = with maintainers; [ wamserma ];
+    license = [licenses.gpl3];
+    maintainers = with maintainers; [wamserma];
   };
 }

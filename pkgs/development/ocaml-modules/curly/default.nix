@@ -25,8 +25,8 @@ buildDunePackage rec {
     hash = "sha256-01D1+03CqxLrPoBbNWpSKOzABJf63DhQLA1kRWdueB8=";
   };
 
-  propagatedBuildInputs = [ result ];
-  nativeCheckInputs = [ cacert ];
+  propagatedBuildInputs = [result];
+  nativeCheckInputs = [cacert];
   checkInputs = [
     alcotest
     cohttp-lwt-unix
@@ -48,6 +48,6 @@ buildDunePackage rec {
     description = "Curly is a brain dead wrapper around the curl command line utility";
     homepage = "https://github.com/rgrinberg/curly";
     license = licenses.isc;
-    maintainers = [ maintainers.sternenseemann ];
+    maintainers = [maintainers.sternenseemann];
   };
 }

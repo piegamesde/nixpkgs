@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Outputs X window titles";
     homepage = "https://github.com/baskerville/xtitle";
-    maintainers = with maintainers; [ meisternu ];
+    maintainers = with maintainers; [meisternu];
     license = "Custom";
     platforms = platforms.linux;
   };

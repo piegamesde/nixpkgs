@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
   dontConfigure = true;
   dontBuild = true;
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     runHook preInstall
@@ -58,7 +58,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://todoist.com";
     description = "The official Todoist electron app";
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
     license = licenses.unfree;
     maintainers = with maintainers; [
       i077

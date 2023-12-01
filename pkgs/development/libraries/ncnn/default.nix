@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-hZVeW3svuVpwQhQz67uqTPZ7B9pisLCwHhXB2zMLygo=";
   };
 
-  patches = [ ./cmakelists.patch ];
+  patches = [./cmakelists.patch];
 
   cmakeFlags = [
     "-DNCNN_CMAKE_VERBOSE=1" # Only for debugging the build
@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
     "-DGLSLANG_TARGET_DIR=${glslang}/lib/cmake"
   ];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     vulkan-headers
     vulkan-loader
@@ -49,6 +49,6 @@ stdenv.mkDerivation rec {
     description = "ncnn is a high-performance neural network inference framework optimized for the mobile platform";
     homepage = "https://github.com/Tencent/ncnn";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ tilcreator ];
+    maintainers = with maintainers; [tilcreator];
   };
 }

@@ -36,7 +36,7 @@
 {
   pkgs,
   python,
-  extraIntegrations ? { },
+  extraIntegrations ? {},
 }:
 
 with pkgs.lib;
@@ -52,7 +52,7 @@ let
 
   # Build helper to build a single datadog integration package.
   buildIntegration =
-    { pname, ... }@args:
+    {pname, ...}@args:
     python.pkgs.buildPythonPackage (
       args
       // {
@@ -104,10 +104,10 @@ let
 
   # Default integrations that should be built:
   defaultIntegrations = {
-    disk = (ps: [ ps.psutil ]);
-    mongo = (ps: [ ps.pymongo ]);
-    network = (ps: [ ps.psutil ]);
-    nginx = (ps: [ ]);
+    disk = (ps: [ps.psutil]);
+    mongo = (ps: [ps.pymongo]);
+    network = (ps: [ps.psutil]);
+    nginx = (ps: []);
     postgres =
       (
         ps:
@@ -117,7 +117,7 @@ let
           semver
         ]
       );
-    process = (ps: [ ps.psutil ]);
+    process = (ps: [ps.psutil]);
   };
 
   # All integrations (default + extra):
@@ -128,7 +128,7 @@ let
         pname: fdeps:
         buildIntegration {
           inherit pname;
-          propagatedBuildInputs = (fdeps python.pkgs) ++ [ datadog_checks_base ];
+          propagatedBuildInputs = (fdeps python.pkgs) ++ [datadog_checks_base];
         }
       )
       integrations;

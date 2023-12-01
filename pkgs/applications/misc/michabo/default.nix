@@ -28,7 +28,7 @@ mkDerivation rec {
     sha256 = "0pl4ymdb36r0kwlclfjjp6b1qml3fm9ql7ag5inprny5y8vcjpzn";
   };
 
-  nativeBuildInputs = [ qmake ];
+  nativeBuildInputs = [qmake];
   buildInputs = [
     qtbase
     qtwebsockets
@@ -47,7 +47,7 @@ mkDerivation rec {
     description = "A native desktop app for Pleroma and Mastodon servers";
     homepage = "https://git.pleroma.social/kaniini/michabo";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ fgaz ];
+    maintainers = with maintainers; [fgaz];
     platforms = platforms.all;
   };
 }

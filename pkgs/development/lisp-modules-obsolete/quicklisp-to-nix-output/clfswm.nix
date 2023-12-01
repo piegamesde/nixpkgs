@@ -1,12 +1,12 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "clfswm";
   version = "20161204-git";
 
   description = "CLFSWM: Fullscreen Window Manager";
 
-  deps = [ args."clx" ];
+  deps = [args."clx"];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/clfswm/2016-12-04/clfswm-20161204-git.tgz";
@@ -15,7 +15,7 @@ rec {
 
   packageName = "clfswm";
 
-  asdFilesToKeep = [ "clfswm.asd" ];
+  asdFilesToKeep = ["clfswm.asd"];
   overrides = x: x;
 }
 /* (SYSTEM clfswm DESCRIPTION CLFSWM: Fullscreen Window Manager SHA256

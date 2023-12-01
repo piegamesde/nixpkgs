@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-eTErN6CfKDey/wV+9o9cBVaG5FzCRBiA9UicrMz3KBc=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   postPatch = ''
     sed -ie 's|/var/lib/wifish|${placeholder "out"}/var/lib/wifish|' wifish
@@ -50,7 +50,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/bougyman/wifish";
     description = "Simple wifi shell script for linux";
     license = licenses.wtfpl;
-    maintainers = with maintainers; [ AndersonTorres ];
+    maintainers = with maintainers; [AndersonTorres];
     platforms = with platforms; linux;
   };
 }

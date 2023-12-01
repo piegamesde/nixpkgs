@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
   # everything is done in `make install`
   buildPhase = "true";
 
-  installFlags = [ "PREFIX=$(out)" ];
+  installFlags = ["PREFIX=$(out)"];
 
   patches = [
     # Fix makefiles which use all the variables in all the wrong ways and

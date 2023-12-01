@@ -58,12 +58,12 @@ let
 
         # Do not build conmon from the Git submodule source,
         # Use Nixpkgs provided version
-        extraConfigureFlags = [ "--without-conmon" ];
+        extraConfigureFlags = ["--without-conmon"];
 
         extraDescription = " (Sylabs Inc's fork of Singularity, a.k.a. SingularityCE)";
         extraMeta.homepage = "https://sylabs.io/";
       })
-      { defaultToSuid = true; };
+      {defaultToSuid = true;};
 
   genOverridenNixos =
     package: packageName:

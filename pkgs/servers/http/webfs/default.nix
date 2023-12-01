@@ -20,9 +20,9 @@ stdenv.mkDerivation rec {
     sha256 = "98c1cb93473df08e166e848e549f86402e94a2f727366925b1c54ab31064a62a";
   };
 
-  patches = [ ./ls.c.patch ];
+  patches = [./ls.c.patch];
 
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
 
   makeFlags = [
     "mimefile=${mime_file}"
@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
     homepage = "http://linux.bytesex.org/misc/webfs.html";
     license = licenses.gpl2;
     platforms = platforms.all;
-    maintainers = with maintainers; [ zimbatm ];
+    maintainers = with maintainers; [zimbatm];
     mainProgram = "webfsd";
   };
 }

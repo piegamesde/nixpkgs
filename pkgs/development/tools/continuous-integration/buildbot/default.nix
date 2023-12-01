@@ -25,16 +25,16 @@ let
     };
   };
 
-  buildbot-pkg = python.pkgs.callPackage ./pkg.nix { inherit buildbot; };
-  buildbot-worker = python3.pkgs.callPackage ./worker.nix { inherit buildbot; };
+  buildbot-pkg = python.pkgs.callPackage ./pkg.nix {inherit buildbot;};
+  buildbot-worker = python3.pkgs.callPackage ./worker.nix {inherit buildbot;};
   buildbot = python.pkgs.callPackage ./master.nix {
     inherit buildbot-pkg buildbot-worker buildbot-plugins;
   };
-  buildbot-plugins = recurseIntoAttrs (callPackage ./plugins.nix { inherit buildbot-pkg; });
+  buildbot-plugins = recurseIntoAttrs (callPackage ./plugins.nix {inherit buildbot-pkg;});
 in
 {
   inherit buildbot buildbot-plugins buildbot-worker;
-  buildbot-ui = buildbot.withPlugins (with buildbot-plugins; [ www ]);
+  buildbot-ui = buildbot.withPlugins (with buildbot-plugins; [www]);
   buildbot-full = buildbot.withPlugins (
     with buildbot-plugins; [
       www

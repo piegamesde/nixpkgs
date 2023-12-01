@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
     gfortran
   ];
 
-  buildInputs = [ mctc-lib ];
+  buildInputs = [mctc-lib];
 
   postInstall = ''
     substituteInPlace $out/lib/pkgconfig/${pname}.pc \
@@ -35,6 +35,6 @@ stdenv.mkDerivation rec {
     license = licenses.asl20;
     homepage = "https://github.com/grimme-lab/mstore";
     platforms = platforms.linux;
-    maintainers = [ maintainers.sheepforce ];
+    maintainers = [maintainers.sheepforce];
   };
 }

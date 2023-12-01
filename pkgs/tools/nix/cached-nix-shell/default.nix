@@ -54,7 +54,7 @@ rustPlatform.buildRustPackage rec {
       unlicense # or
       mit
     ];
-    maintainers = with maintainers; [ xzfc ];
+    maintainers = with maintainers; [xzfc];
     platforms = platforms.linux;
   };
 }

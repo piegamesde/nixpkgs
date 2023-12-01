@@ -65,7 +65,7 @@ lib.runTests {
     "mipsel-linux"
     "mipsel-netbsd"
   ];
-  testmmix = mseteq mmix [ "mmix-mmixware" ];
+  testmmix = mseteq mmix ["mmix-mmixware"];
   testpower = mseteq power [
     "powerpc-netbsd"
     "powerpc-none"
@@ -128,11 +128,11 @@ lib.runTests {
     "i686-genode"
     "x86_64-genode"
   ];
-  testredox = mseteq redox [ "x86_64-redox" ];
+  testredox = mseteq redox ["x86_64-redox"];
   testgnu = mseteq gnu (
     linux # ++ kfreebsd ++ ...
   );
-  testillumos = mseteq illumos [ "x86_64-solaris" ];
+  testillumos = mseteq illumos ["x86_64-solaris"];
   testlinux = mseteq linux [
     "aarch64-linux"
     "armv5tel-linux"

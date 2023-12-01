@@ -79,9 +79,9 @@ let
           rust.rustc
         ]
       );
-    buildInputs = [ docutils ] ++ lib.optionals stdenv.isDarwin [ ApplicationServices ];
+    buildInputs = [docutils] ++ lib.optionals stdenv.isDarwin [ApplicationServices];
 
-    makeFlags = [ "PREFIX=$(out)" ] ++ lib.optional rustSupport "PURE=--rust";
+    makeFlags = ["PREFIX=$(out)"] ++ lib.optional rustSupport "PURE=--rust";
 
     postInstall =
       (lib.optionalString guiSupport ''
@@ -113,7 +113,7 @@ let
       '';
 
     passthru.tests = {
-      mercurial-tests = makeTests { flags = "--with-hg=$MERCURIAL_BASE/bin/hg"; };
+      mercurial-tests = makeTests {flags = "--with-hg=$MERCURIAL_BASE/bin/hg";};
     };
 
     meta = with lib; {
@@ -174,7 +174,7 @@ let
         '';
 
         # This runs Mercurial _a lot_ of times.
-        requiredSystemFeatures = [ "big-parallel" ];
+        requiredSystemFeatures = ["big-parallel"];
 
         # Don't run tests if not-Linux or if cross-compiling.
         meta.broken = !stdenv.hostPlatform.isLinux || stdenv.buildPlatform != stdenv.hostPlatform;
@@ -232,7 +232,7 @@ self.overridePythonAttrs (
                 };
               }
             );
-          plugins = (f python.pkgs) ++ [ (mercurialHighPrio python.pkgs) ];
+          plugins = (f python.pkgs) ++ [(mercurialHighPrio python.pkgs)];
           env = python.withPackages (ps: plugins);
         in
         stdenv.mkDerivation {
@@ -275,7 +275,7 @@ self.overridePythonAttrs (
         };
 
       tests = origAttrs.passthru.tests // {
-        withExtensions = withExtensions (pm: [ pm.hg-evolve ]);
+        withExtensions = withExtensions (pm: [pm.hg-evolve]);
       };
     };
   }

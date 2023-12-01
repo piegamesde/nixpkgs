@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-GoDumiysqIkWj2HTPQv2gheYsf4fWjtCNPFS/1R0tzc=";
   };
 
-  nativeBuildInputs = [ redo-apenwarr ];
+  nativeBuildInputs = [redo-apenwarr];
 
   installPhase = ''
     runHook preInstall
@@ -31,6 +31,6 @@ stdenv.mkDerivation rec {
     homepage = "https://strahinja.srht.site/slweb/";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ GaetanLepage ];
+    maintainers = with maintainers; [GaetanLepage];
   };
 }

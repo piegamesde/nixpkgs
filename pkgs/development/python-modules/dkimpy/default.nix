@@ -19,7 +19,7 @@ buildPythonPackage rec {
     hash = "sha256-8zIhlR9jOBEXb9D1qGH0S8I721/cKn+jWXUxlUAbEwg=";
   };
 
-  nativeCheckInputs = [ pytest ];
+  nativeCheckInputs = [pytest];
   propagatedBuildInputs = [
     openssl
     dnspython
@@ -47,6 +47,6 @@ buildPythonPackage rec {
     '';
     homepage = "https://launchpad.net/dkimpy";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ leenaars ];
+    maintainers = with maintainers; [leenaars];
   };
 }

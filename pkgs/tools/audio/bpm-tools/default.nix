@@ -28,9 +28,9 @@ stdenv.mkDerivation rec {
     sha256 = "151vfbs8h3cibs7kbdps5pqrsxhpjv16y2iyfqbxzsclylgfivrp";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
-  installFlags = [ "PREFIX=${placeholder "out"}" ];
+  installFlags = ["PREFIX=${placeholder "out"}"];
 
   postFixup = ''
     wrapProgram $out/bin/bpm-tag --prefix PATH : "${path}"
@@ -42,6 +42,6 @@ stdenv.mkDerivation rec {
     description = "Automatically calculate BPM (tempo) of music files";
     license = licenses.gpl2;
     platforms = platforms.all;
-    maintainers = with maintainers; [ doronbehar ];
+    maintainers = with maintainers; [doronbehar];
   };
 }

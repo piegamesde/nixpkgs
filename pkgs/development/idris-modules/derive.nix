@@ -25,6 +25,6 @@ build-idris-package {
     description = "Type class deriving with elaboration reflection";
     homepage = "https://github.com/davlum/derive-all-the-instances";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.brainrape ];
+    maintainers = [lib.maintainers.brainrape];
   };
 }

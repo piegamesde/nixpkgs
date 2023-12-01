@@ -38,6 +38,6 @@ stdenvNoCC.mkDerivation {
     chmod +x "$out/bin/${loname}"
     runHook postInstall
   '';
-  nativeBuildInputs = [ undmg ];
+  nativeBuildInputs = [undmg];
   sourceRoot = ".";
 }

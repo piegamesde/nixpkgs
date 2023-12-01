@@ -27,7 +27,7 @@ let
     ${cfg.qemu.verbatimConfig}
   '';
   dirName = "libvirt";
-  subDirs = list: [ dirName ] ++ map (e: "${dirName}/${e}") list;
+  subDirs = list: [dirName] ++ map (e: "${dirName}/${e}") list;
 
   ovmfModule = types.submodule {
     options = {
@@ -49,7 +49,7 @@ let
 
       packages = mkOption {
         type = types.listOf types.package;
-        default = [ pkgs.OVMF.fd ];
+        default = [pkgs.OVMF.fd];
         defaultText = literalExpression "[ pkgs.OVMF.fd ]";
         example = literalExpression "[ pkgs.OVMFFull.fd pkgs.pkgsCross.aarch64-multiplatform.OVMF.fd ]";
         description = lib.mdDoc ''
@@ -119,7 +119,7 @@ let
 
       ovmf = mkOption {
         type = ovmfModule;
-        default = { };
+        default = {};
         description = lib.mdDoc ''
           QEMU's OVMF options.
         '';
@@ -127,7 +127,7 @@ let
 
       swtpm = mkOption {
         type = swtpmModule;
-        default = { };
+        default = {};
         description = lib.mdDoc ''
           QEMU's swtpm options.
         '';
@@ -258,8 +258,8 @@ in
 
     extraOptions = mkOption {
       type = types.listOf types.str;
-      default = [ ];
-      example = [ "--verbose" ];
+      default = [];
+      example = ["--verbose"];
       description = lib.mdDoc ''
         Extra command line arguments passed to libvirtd on startup.
       '';
@@ -307,7 +307,7 @@ in
 
     allowedBridges = mkOption {
       type = types.listOf types.str;
-      default = [ "virbr0" ];
+      default = ["virbr0"];
       description = lib.mdDoc ''
         List of bridge devices that can be used by qemu:///session
       '';
@@ -315,7 +315,7 @@ in
 
     qemu = mkOption {
       type = qemuModule;
-      default = { };
+      default = {};
       description = lib.mdDoc ''
         QEMU related options.
       '';
@@ -352,7 +352,7 @@ in
       etc.ethertypes.source = "${pkgs.iptables}/etc/ethertypes";
     };
 
-    boot.kernelModules = [ "tun" ];
+    boot.kernelModules = ["tun"];
 
     users.groups.libvirtd.gid = config.ids.gids.libvirtd;
 
@@ -371,7 +371,7 @@ in
       source = "${cfg.qemu.package}/libexec/qemu-bridge-helper";
     };
 
-    systemd.packages = [ cfg.package ];
+    systemd.packages = [cfg.package];
 
     systemd.services.libvirtd-config = {
       description = "Libvirt Virtual Machine Management Daemon - configuration";
@@ -417,20 +417,20 @@ in
       serviceConfig = {
         Type = "oneshot";
         RuntimeDirectoryPreserve = "yes";
-        LogsDirectory = subDirs [ "qemu" ];
+        LogsDirectory = subDirs ["qemu"];
         RuntimeDirectory = subDirs [
           "nix-emulators"
           "nix-helpers"
           "nix-ovmf"
         ];
-        StateDirectory = subDirs [ "dnsmasq" ];
+        StateDirectory = subDirs ["dnsmasq"];
       };
     };
 
     systemd.services.libvirtd = {
-      wantedBy = [ "multi-user.target" ];
-      requires = [ "libvirtd-config.service" ];
-      after = [ "libvirtd-config.service" ] ++ optional vswitch.enable "ovs-vswitchd.service";
+      wantedBy = ["multi-user.target"];
+      requires = ["libvirtd-config.service"];
+      after = ["libvirtd-config.service"] ++ optional vswitch.enable "ovs-vswitchd.service";
 
       environment.LIBVIRTD_ARGS = escapeShellArgs (
         [
@@ -443,7 +443,7 @@ in
       );
 
       path =
-        [ cfg.qemu.package ] # libvirtd requires qemu-img to manage disk images
+        [cfg.qemu.package] # libvirtd requires qemu-img to manage disk images
         ++ optional vswitch.enable vswitch.package ++ optional cfg.qemu.swtpm.enable cfg.qemu.swtpm.package;
 
       serviceConfig = {
@@ -455,11 +455,11 @@ in
     };
 
     systemd.services.virtchd = {
-      path = [ pkgs.cloud-hypervisor ];
+      path = [pkgs.cloud-hypervisor];
     };
 
     systemd.services.libvirt-guests = {
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       path = with pkgs; [
         coreutils
         gawk
@@ -474,8 +474,8 @@ in
 
     systemd.sockets.virtlogd = {
       description = "Virtual machine log manager socket";
-      wantedBy = [ "sockets.target" ];
-      listenStreams = [ "/run/${dirName}/virtlogd-sock" ];
+      wantedBy = ["sockets.target"];
+      listenStreams = ["/run/${dirName}/virtlogd-sock"];
     };
 
     systemd.services.virtlogd = {
@@ -486,8 +486,8 @@ in
 
     systemd.sockets.virtlockd = {
       description = "Virtual machine lock manager socket";
-      wantedBy = [ "sockets.target" ];
-      listenStreams = [ "/run/${dirName}/virtlockd-sock" ];
+      wantedBy = ["sockets.target"];
+      listenStreams = ["/run/${dirName}/virtlockd-sock"];
     };
 
     systemd.services.virtlockd = {
@@ -497,7 +497,7 @@ in
     };
 
     # https://libvirt.org/daemons.html#monolithic-systemd-integration
-    systemd.sockets.libvirtd.wantedBy = [ "sockets.target" ];
+    systemd.sockets.libvirtd.wantedBy = ["sockets.target"];
 
     security.polkit.extraConfig = ''
       polkit.addRule(function(action, subject) {

@@ -44,12 +44,12 @@ python3.pkgs.buildPythonApplication rec {
     "tests/config/test_pluggy.py"
   ];
 
-  pythonImportsCheck = [ "cfripper" ];
+  pythonImportsCheck = ["cfripper"];
 
   meta = with lib; {
     description = "Tool for analysing CloudFormation templates";
     homepage = "https://github.com/Skyscanner/cfripper";
-    license = with licenses; [ asl20 ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [asl20];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -72,7 +72,7 @@ stdenv.mkDerivation rec {
     gnome.adwaita-icon-theme
     gsettings-desktop-schemas
     gst_all_1.gst-plugins-base
-    (gst_all_1.gst-plugins-good.override { gtkSupport = true; })
+    (gst_all_1.gst-plugins-good.override {gtkSupport = true;})
     gst_all_1.gst-libav
     gst_all_1.gst-plugins-bad
     gst_all_1.gst-plugins-ugly
@@ -91,7 +91,7 @@ stdenv.mkDerivation rec {
     webkitgtk
   ];
 
-  mesonFlags = [ "-Dlibchamplain=true" ];
+  mesonFlags = ["-Dlibchamplain=true"];
 
   postPatch = ''
     chmod +x gthumb/make-gthumb-h.py
@@ -119,6 +119,6 @@ stdenv.mkDerivation rec {
     description = "Image browser and viewer for GNOME";
     platforms = platforms.linux;
     license = licenses.gpl2Plus;
-    maintainers = [ maintainers.mimame ];
+    maintainers = [maintainers.mimame];
   };
 }

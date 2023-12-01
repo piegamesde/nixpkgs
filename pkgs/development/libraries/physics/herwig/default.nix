@@ -54,7 +54,7 @@ stdenv.mkDerivation rec {
       --replace "read EvtGenDecayer.in" ""
   '';
 
-  configureFlags = [ "--with-thepeg=${thepeg}" ];
+  configureFlags = ["--with-thepeg=${thepeg}"];
 
   enableParallelBuilding = true;
 
@@ -62,7 +62,7 @@ stdenv.mkDerivation rec {
     description = "A multi-purpose particle physics event generator";
     homepage = "https://herwig.hepforge.org/";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ veprbl ];
+    maintainers = with maintainers; [veprbl];
     platforms = platforms.unix;
     broken = stdenv.isAarch64; # doesn't compile: ignoring return value of 'FILE* freopen...
   };

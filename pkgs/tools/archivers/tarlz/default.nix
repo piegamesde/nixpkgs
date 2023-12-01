@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
     lzip
     texinfo
   ];
-  buildInputs = [ lzlib ];
+  buildInputs = [lzlib];
 
   src = fetchurl {
     url = "mirror://savannah/lzip/${pname}/${pname}-${version}.tar.lz";
@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
   };
 
   enableParallelBuilding = true;
-  makeFlags = [ "CXX:=$(CXX)" ];
+  makeFlags = ["CXX:=$(CXX)"];
   doCheck = !stdenv.isDarwin;
 
   meta = with lib; {
@@ -36,6 +36,6 @@ stdenv.mkDerivation rec {
     description = "Massively parallel combined implementation of the tar archiver and the lzip compressor";
     license = licenses.gpl2Plus;
     platforms = platforms.all;
-    maintainers = with maintainers; [ ehmry ];
+    maintainers = with maintainers; [ehmry];
   };
 }

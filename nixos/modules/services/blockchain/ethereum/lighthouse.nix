@@ -16,7 +16,7 @@ in
     services.lighthouse = {
       beacon = mkOption {
         description = lib.mdDoc "Beacon node";
-        default = { };
+        default = {};
         type = types.submodule {
           options = {
             enable = lib.mkEnableOption (lib.mdDoc "Lightouse Beacon node");
@@ -141,7 +141,7 @@ in
 
       validator = mkOption {
         description = lib.mdDoc "Validator node";
-        default = { };
+        default = {};
         type = types.submodule {
           options = {
             enable = mkOption {
@@ -160,7 +160,7 @@ in
 
             beaconNodes = mkOption {
               type = types.listOf types.str;
-              default = [ "http://localhost:5052" ];
+              default = ["http://localhost:5052"];
               description = lib.mdDoc ''
                 Beacon nodes to connect to.
               '';
@@ -226,17 +226,17 @@ in
 
   config = mkIf (cfg.beacon.enable || cfg.validator.enable) {
 
-    environment.systemPackages = [ pkgs.lighthouse ];
+    environment.systemPackages = [pkgs.lighthouse];
 
     networking.firewall = mkIf cfg.beacon.enable {
-      allowedTCPPorts = mkIf cfg.beacon.openFirewall [ cfg.beacon.port ];
-      allowedUDPPorts = mkIf cfg.beacon.openFirewall [ cfg.beacon.port ];
+      allowedTCPPorts = mkIf cfg.beacon.openFirewall [cfg.beacon.port];
+      allowedUDPPorts = mkIf cfg.beacon.openFirewall [cfg.beacon.port];
     };
 
     systemd.services.lighthouse-beacon = mkIf cfg.beacon.enable {
       description = "Lighthouse beacon node (connect to P2P nodes and verify blocks)";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
 
       script = ''
         # make sure the chain data directory is created on first run
@@ -260,7 +260,7 @@ in
         DynamicUser = true;
         Restart = "on-failure";
         StateDirectory = "lighthouse-beacon";
-        ReadWritePaths = [ cfg.beacon.dataDir ];
+        ReadWritePaths = [cfg.beacon.dataDir];
         NoNewPrivileges = true;
         PrivateTmp = true;
         ProtectHome = true;
@@ -286,8 +286,8 @@ in
 
     systemd.services.lighthouse-validator = mkIf cfg.validator.enable {
       description = "Lighthouse validtor node (manages validators, using data obtained from the beacon node via a HTTP API)";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
 
       script = ''
         # make sure the chain data directory is created on first run
@@ -304,7 +304,7 @@ in
       serviceConfig = {
         Restart = "on-failure";
         StateDirectory = "lighthouse-validator";
-        ReadWritePaths = [ cfg.validator.dataDir ];
+        ReadWritePaths = [cfg.validator.dataDir];
         CapabilityBoundingSet = "";
         DynamicUser = true;
         NoNewPrivileges = true;

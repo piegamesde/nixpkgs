@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
 
   NIX_CFLAGS_COMPILE = "-Wno-error=null-dereference";
 
-  cmakeFlags = [ "-DOPENLOCO_BUILD_TESTS=NO" ];
+  cmakeFlags = ["-DOPENLOCO_BUILD_TESTS=NO"];
 
   nativeBuildInputs = [
     cmake
@@ -51,6 +51,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/OpenLoco/OpenLoco";
     license = lib.licenses.mit;
     platforms = lib.platforms.linux;
-    maintainers = with lib.maintainers; [ icewind1991 ];
+    maintainers = with lib.maintainers; [icewind1991];
   };
 }

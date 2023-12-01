@@ -42,13 +42,13 @@ stdenv.mkDerivation rec {
     SDL2_mixer
     libGL
   ];
-  cmakeFlags = [ "-DCMAKE_CXX_FLAGS=-Wno-error=format-overflow" ];
+  cmakeFlags = ["-DCMAKE_CXX_FLAGS=-Wno-error=format-overflow"];
 
   meta = with lib; {
     description = "strategy game engine";
     homepage = "https://wargus.github.io/stratagus.html";
     license = licenses.gpl2Only;
-    maintainers = [ maintainers.astro ];
+    maintainers = [maintainers.astro];
     platforms = platforms.linux;
   };
 }

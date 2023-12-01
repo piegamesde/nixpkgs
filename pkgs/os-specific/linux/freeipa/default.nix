@@ -166,7 +166,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://www.freeipa.org/";
     license = licenses.gpl3Plus;
-    maintainers = [ maintainers.s1341 ];
+    maintainers = [maintainers.s1341];
     platforms = platforms.linux;
   };
 }

@@ -82,7 +82,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Molecule editor and visualizer";
-    maintainers = with maintainers; [ sheepforce ];
+    maintainers = with maintainers; [sheepforce];
     homepage = "https://github.com/OpenChemistry/avogadrolibs";
     platforms = platforms.linux;
     license = licenses.gpl2Only;

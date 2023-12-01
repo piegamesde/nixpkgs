@@ -14,7 +14,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-Pue50cvjzZ+19iJxfae7VQbxpto7MPgS4jhLh7zk2lA=";
   };
 
-  nativeBuildInputs = [ texinfo ];
+  nativeBuildInputs = [texinfo];
 
   postBuild = ''
     makeinfo doc/marst.texi -o doc/marst.info
@@ -47,7 +47,7 @@ stdenv.mkDerivation rec {
         from some other representations to MARST representation.
     '';
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ AndersonTorres ];
+    maintainers = with maintainers; [AndersonTorres];
     platforms = platforms.unix;
   };
 }

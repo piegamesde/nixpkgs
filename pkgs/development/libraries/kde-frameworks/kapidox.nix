@@ -33,5 +33,5 @@ mkDerivation {
     runHook postInstall
   '';
 
-  outputs = [ "out" ];
+  outputs = ["out"];
 }

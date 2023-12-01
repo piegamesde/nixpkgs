@@ -58,7 +58,7 @@ stdenv.mkDerivation rec {
     description = "And-Inverter Graph (AIG) utilities";
     homepage = "http://fmv.jku.at/aiger/";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [ thoughtpolice ];
+    maintainers = with lib.maintainers; [thoughtpolice];
     platforms = lib.platforms.unix;
   };
 }

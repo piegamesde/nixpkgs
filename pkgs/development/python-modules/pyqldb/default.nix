@@ -25,20 +25,20 @@ buildPythonPackage rec {
     ionhash
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   preCheck = ''
     export AWS_DEFAULT_REGION=us-east-1
   '';
 
-  pytestFlagsArray = [ "tests/unit" ];
+  pytestFlagsArray = ["tests/unit"];
 
-  pythonImportsCheck = [ "pyqldb" ];
+  pythonImportsCheck = ["pyqldb"];
 
   meta = with lib; {
     description = "Python driver for Amazon QLDB";
     homepage = "https://github.com/awslabs/amazon-qldb-driver-python";
     license = licenses.asl20;
-    maintainers = [ maintainers.terlar ];
+    maintainers = [maintainers.terlar];
   };
 }

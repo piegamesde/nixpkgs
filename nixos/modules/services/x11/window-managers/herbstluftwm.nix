@@ -46,6 +46,6 @@ in
         in
         "${cfg.package}/bin/herbstluftwm ${configFileClause}";
     };
-    environment.systemPackages = [ cfg.package ];
+    environment.systemPackages = [cfg.package];
   };
 }

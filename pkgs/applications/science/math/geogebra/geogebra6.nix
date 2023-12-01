@@ -32,7 +32,7 @@ let
       binaryNativeCode # some jars include native binaries
     ];
     platforms = with platforms; linux ++ darwin;
-    hydraPlatforms = [ ];
+    hydraPlatforms = [];
   };
 
   linuxPkg = stdenv.mkDerivation {
@@ -83,7 +83,7 @@ let
 
     dontUnpack = true;
 
-    nativeBuildInputs = [ unzip ];
+    nativeBuildInputs = [unzip];
 
     installPhase = ''
       install -dm755 $out/Applications
@@ -91,7 +91,7 @@ let
     '';
 
     meta = meta // {
-      sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+      sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
     };
   };
 in

@@ -69,7 +69,7 @@ buildDunePackage rec {
 
     inherit (src.meta) homepage;
     license = lib.licenses.bsd3;
-    maintainers = [ lib.maintainers.gal_bolle ];
+    maintainers = [lib.maintainers.gal_bolle];
     mainProgram = "lambda-term-actions";
   };
 }

@@ -48,6 +48,6 @@ mkDerivation {
     description = "Image gallery application";
     homepage = "https://invent.kde.org/maui/pix";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ onny ];
+    maintainers = with maintainers; [onny];
   };
 }

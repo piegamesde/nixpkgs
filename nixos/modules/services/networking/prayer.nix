@@ -30,7 +30,7 @@ let
     ${cfg.extraConfig}
   '';
 
-  prayerCfg = pkgs.runCommand "prayer.cf" { preferLocalBuild = true; } ''
+  prayerCfg = pkgs.runCommand "prayer.cf" {preferLocalBuild = true;} ''
     # We have to remove the http_port 80, or it will start a server there
     cat ${prayer}/etc/prayer.cf | grep -v http_port > $out
     cat ${prayerExtraCfg} >> $out
@@ -68,7 +68,7 @@ in
   ###### implementation
 
   config = mkIf config.services.prayer.enable {
-    environment.systemPackages = [ prayer ];
+    environment.systemPackages = [prayer];
 
     users.users.${prayerUser} = {
       uid = config.ids.uids.prayer;
@@ -81,7 +81,7 @@ in
     };
 
     systemd.services.prayer = {
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       serviceConfig.Type = "forking";
       preStart = ''
         mkdir -m 0755 -p ${stateDir}

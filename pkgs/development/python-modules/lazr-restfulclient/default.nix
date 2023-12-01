@@ -44,12 +44,12 @@ buildPythonPackage rec {
     wsgi-intercept
   ];
 
-  pythonImportsCheck = [ "lazr.restfulclient" ];
+  pythonImportsCheck = ["lazr.restfulclient"];
 
   meta = with lib; {
     description = "A programmable client library that takes advantage of the commonalities among";
     homepage = "https://launchpad.net/lazr.restfulclient";
     license = licenses.lgpl3;
-    maintainers = [ maintainers.marsam ];
+    maintainers = [maintainers.marsam];
   };
 }

@@ -55,7 +55,7 @@ let
     else
       "";
 
-  scriptDir = pkgs.runCommand "apcupsd-scriptdir" { preferLocalBuild = true; } (
+  scriptDir = pkgs.runCommand "apcupsd-scriptdir" {preferLocalBuild = true;} (
     ''
       mkdir "$out"
       # Copy SCRIPTDIR from apcupsd package
@@ -76,7 +76,7 @@ let
 
   # Ensure the CLI uses our generated configFile
   wrappedBinaries =
-    pkgs.runCommandLocal "apcupsd-wrapped-binaries" { nativeBuildInputs = [ pkgs.makeWrapper ]; }
+    pkgs.runCommandLocal "apcupsd-wrapped-binaries" {nativeBuildInputs = [pkgs.makeWrapper];}
       ''
         for p in "${lib.getBin pkgs.apcupsd}/bin/"*; do
             bname=$(basename "$p")
@@ -132,7 +132,7 @@ in
       };
 
       hooks = mkOption {
-        default = { };
+        default = {};
         example = {
           doshutdown = "# shell commands to notify that the computer is shutting down";
         };
@@ -171,7 +171,7 @@ in
     ];
 
     # Give users access to the "apcaccess" tool
-    environment.systemPackages = [ apcupsdWrapped ];
+    environment.systemPackages = [apcupsdWrapped];
 
     # NOTE 1: apcupsd runs as root because it needs permission to run
     # "shutdown"
@@ -182,7 +182,7 @@ in
     # The message still gets through.
     systemd.services.apcupsd = {
       description = "APC UPS Daemon";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       preStart = "mkdir -p /run/apcupsd/";
       serviceConfig = {
         ExecStart = "${pkgs.apcupsd}/bin/apcupsd -b -f ${configFile} -d1";
@@ -203,9 +203,9 @@ in
     # http://forums.opensuse.org/english/get-technical-help-here/applications/479499-apcupsd-systemd-killpower-issues.html
     systemd.services.apcupsd-killpower = {
       description = "APC UPS Kill Power";
-      after = [ "shutdown.target" ]; # append umount.target?
-      before = [ "final.target" ];
-      wantedBy = [ "shutdown.target" ];
+      after = ["shutdown.target"]; # append umount.target?
+      before = ["final.target"];
+      wantedBy = ["shutdown.target"];
       unitConfig = {
         ConditionPathExists = "/run/apcupsd/powerfail";
         DefaultDependencies = "no";

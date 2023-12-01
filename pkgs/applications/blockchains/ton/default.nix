@@ -49,6 +49,6 @@ stdenv.mkDerivation rec {
     changelog = "https://github.com/ton-blockchain/ton/blob/v${version}/Changelog.md";
     license = licenses.lgpl2Only;
     platforms = platforms.all;
-    maintainers = with maintainers; [ misuzu ];
+    maintainers = with maintainers; [misuzu];
   };
 }

@@ -15,7 +15,7 @@ stdenvNoCC.mkDerivation rec {
     sha256 = "sha256-od/RoxFjnOuyz7+D+avQJyJzpqpovzs+g4ErfyDJQpY=";
   };
 
-  nativeBuildInputs = [ unzip ];
+  nativeBuildInputs = [unzip];
 
   dontConfigure = true;
   dontBuild = true;
@@ -34,6 +34,6 @@ stdenvNoCC.mkDerivation rec {
     description = "Klipper web interface";
     homepage = "https://docs.fluidd.xyz";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ zhaofengli ];
+    maintainers = with maintainers; [zhaofengli];
   };
 }

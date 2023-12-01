@@ -23,9 +23,9 @@ buildDotnetModule rec {
     hash = "sha256-bnJ1xvqos+JP0KF8Z7mX8/8IozcaRCgaRL3cSO3V120=";
   };
 
-  projectFile = [ "GalaxyBudsClient/GalaxyBudsClient.csproj" ];
+  projectFile = ["GalaxyBudsClient/GalaxyBudsClient.csproj"];
   nugetDeps = ./deps.nix;
-  dotnetFlags = [ "-p:Runtimeidentifier=linux-x64" ];
+  dotnetFlags = ["-p:Runtimeidentifier=linux-x64"];
 
   nativeBuildInputs = [
     autoPatchelfHook
@@ -58,7 +58,7 @@ buildDotnetModule rec {
     genericName = "Galaxy Buds Client";
     comment = meta.description;
     type = "Application";
-    categories = [ "Settings" ];
+    categories = ["Settings"];
     startupNotify = true;
   };
 
@@ -67,7 +67,7 @@ buildDotnetModule rec {
     description = "Unofficial Galaxy Buds Manager for Windows and Linux";
     homepage = "https://github.com/ThePBone/GalaxyBudsClient";
     license = licenses.gpl3;
-    maintainers = [ maintainers.icy-thought ];
+    maintainers = [maintainers.icy-thought];
     platforms = platforms.linux;
   };
 }

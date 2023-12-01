@@ -24,9 +24,9 @@ let
     if useGccGoBootstrap then
       buildPackages.gccgo12
     else
-      buildPackages.callPackage ./bootstrap116.nix { };
+      buildPackages.callPackage ./bootstrap116.nix {};
 
-  skopeoTest = skopeo.override { buildGoModule = buildGo119Module; };
+  skopeoTest = skopeo.override {buildGoModule = buildGo119Module;};
 
   goarch =
     platform:
@@ -64,9 +64,9 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
   buildInputs =
-    [ ]
-    ++ lib.optionals stdenv.isLinux [ stdenv.cc.libc.out ]
-    ++ lib.optionals (stdenv.hostPlatform.libc == "glibc") [ stdenv.cc.libc.static ];
+    []
+    ++ lib.optionals stdenv.isLinux [stdenv.cc.libc.out]
+    ++ lib.optionals (stdenv.hostPlatform.libc == "glibc") [stdenv.cc.libc.static];
 
   depsTargetTargetPropagated = lib.optionals stdenv.targetPlatform.isDarwin [
     Foundation
@@ -123,7 +123,7 @@ stdenv.mkDerivation rec {
   CXX_FOR_TARGET = if isCross then "${targetCC}/bin/${targetCC.targetPrefix}c++" else null;
 
   GOARM = toString (
-    lib.intersectLists [ (stdenv.hostPlatform.parsed.cpu.version or "") ] [
+    lib.intersectLists [(stdenv.hostPlatform.parsed.cpu.version or "")] [
       "5"
       "6"
       "7"
@@ -188,12 +188,12 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  disallowedReferences = [ goBootstrap ];
+  disallowedReferences = [goBootstrap];
 
   passthru = {
     inherit goBootstrap skopeoTest;
     tests = {
-      skopeo = testers.testVersion { package = skopeoTest; };
+      skopeo = testers.testVersion {package = skopeoTest;};
     };
   };
 

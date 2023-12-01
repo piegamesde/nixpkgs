@@ -149,7 +149,7 @@ stdenv.mkDerivation rec {
       python3Env
       zlib
     ]
-    ++ lib.optionals (!stdenv.isDarwin) [ gspell ]
+    ++ lib.optionals (!stdenv.isDarwin) [gspell]
     ++ lib.optionals stdenv.isDarwin [
       cairo
       gtk-mac-integration
@@ -165,7 +165,7 @@ stdenv.mkDerivation rec {
     description = "Vector graphics editor";
     homepage = "https://www.inkscape.org";
     license = licenses.gpl3Plus;
-    maintainers = [ maintainers.jtojnar ];
+    maintainers = [maintainers.jtojnar];
     platforms = platforms.all;
     longDescription = ''
       Inkscape is a feature-rich vector graphics editor that edits

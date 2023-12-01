@@ -16,11 +16,11 @@ buildGoModule rec {
   };
 
   vendorSha256 = "sha256-KABezphT5/o3XWSFNe2OvfawFR8uwsGMnjsI9xh378Q=";
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   meta = with lib; {
     description = "General purpose Language Server";
-    maintainers = with maintainers; [ Philipp-M ];
+    maintainers = with maintainers; [Philipp-M];
     homepage = "https://github.com/mattn/efm-langserver";
     license = licenses.mit;
   };

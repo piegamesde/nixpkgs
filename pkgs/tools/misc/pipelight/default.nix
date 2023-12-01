@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
     curl
   ];
 
-  env.NIX_CFLAGS_COMPILE = toString [ "-fpermissive" ];
+  env.NIX_CFLAGS_COMPILE = toString ["-fpermissive"];
 
   patches = [
     ./pipelight.patch
@@ -82,7 +82,7 @@ stdenv.mkDerivation rec {
       lgpl21
     ];
     description = "A wrapper for using Windows plugins in Linux browsers";
-    maintainers = with lib.maintainers; [ skeidel ];
+    maintainers = with lib.maintainers; [skeidel];
     platforms = [
       "x86_64-linux"
       "i686-linux"

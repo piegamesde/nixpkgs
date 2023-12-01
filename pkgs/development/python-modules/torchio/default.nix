@@ -67,6 +67,6 @@ buildPythonPackage rec {
     description = "Medical imaging toolkit for deep learning";
     homepage = "http://www.torchio.org/";
     license = licenses.asl20;
-    maintainers = [ maintainers.bcdarwin ];
+    maintainers = [maintainers.bcdarwin];
   };
 }

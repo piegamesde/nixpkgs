@@ -100,9 +100,9 @@ buildPythonPackage rec {
   nativeBuildInputs = [
     ninja
     which
-  ] ++ lib.optionals cudaSupport [ cuda-native-redist ];
+  ] ++ lib.optionals cudaSupport [cuda-native-redist];
 
-  buildInputs = [ torch ] ++ lib.optionals cudaSupport [ cuda-redist ];
+  buildInputs = [torch] ++ lib.optionals cudaSupport [cuda-redist];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -124,13 +124,13 @@ buildPythonPackage rec {
     addict
   ];
 
-  pythonImportsCheck = [ "mmcv" ];
+  pythonImportsCheck = ["mmcv"];
 
   meta = with lib; {
     description = "A Foundational Library for Computer Vision Research";
     homepage = "https://github.com/open-mmlab/mmcv";
     changelog = "https://github.com/open-mmlab/mmcv/releases/tag/v${version}";
-    license = with licenses; [ asl20 ];
-    maintainers = with maintainers; [ rxiao ];
+    license = with licenses; [asl20];
+    maintainers = with maintainers; [rxiao];
   };
 }

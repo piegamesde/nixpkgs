@@ -49,7 +49,7 @@ let
     comment = "GUI administration for Mikrotik RouterOS";
     exec = pname;
     icon = pname;
-    categories = [ "Utility" ];
+    categories = ["Utility"];
     startupWMClass = last (splitString "/" executable);
   };
 
@@ -77,8 +77,8 @@ symlinkJoin {
     homepage = "https://mikrotik.com";
     downloadPage = "https://mikrotik.com/download";
     changelog = "https://wiki.mikrotik.com/wiki/Winbox_changelog";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.unfree;
-    maintainers = with maintainers; [ yrd ];
+    maintainers = with maintainers; [yrd];
   };
 }

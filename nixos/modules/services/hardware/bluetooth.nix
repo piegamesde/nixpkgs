@@ -25,7 +25,7 @@ let
     types
     ;
 
-  cfgFmt = pkgs.formats.ini { };
+  cfgFmt = pkgs.formats.ini {};
 
   defaults = {
     General.ControllerMode = "dual";
@@ -90,13 +90,13 @@ in
 
       disabledPlugins = mkOption {
         type = types.listOf types.str;
-        default = [ ];
+        default = [];
         description = lib.mdDoc "Built-in plugins to disable";
       };
 
       settings = mkOption {
         type = cfgFmt.type;
-        default = { };
+        default = {};
         example = {
           General = {
             ControllerMode = "bredr";
@@ -107,7 +107,7 @@ in
 
       input = mkOption {
         type = cfgFmt.type;
-        default = { };
+        default = {};
         example = {
           General = {
             IdleTimeout = 30;
@@ -119,7 +119,7 @@ in
 
       network = mkOption {
         type = cfgFmt.type;
-        default = { };
+        default = {};
         example = {
           General = {
             DisableSecurity = true;
@@ -133,16 +133,16 @@ in
   ###### implementation
 
   config = mkIf cfg.enable {
-    environment.systemPackages = [ package ] ++ optional cfg.hsphfpd.enable pkgs.hsphfpd;
+    environment.systemPackages = [package] ++ optional cfg.hsphfpd.enable pkgs.hsphfpd;
 
     environment.etc."bluetooth/input.conf".source = cfgFmt.generate "input.conf" cfg.input;
     environment.etc."bluetooth/network.conf".source = cfgFmt.generate "network.conf" cfg.network;
     environment.etc."bluetooth/main.conf".source = cfgFmt.generate "main.conf" (
       recursiveUpdate defaults cfg.settings
     );
-    services.udev.packages = [ package ];
-    services.dbus.packages = [ package ] ++ optional cfg.hsphfpd.enable pkgs.hsphfpd;
-    systemd.packages = [ package ];
+    services.udev.packages = [package];
+    services.dbus.packages = [package] ++ optional cfg.hsphfpd.enable pkgs.hsphfpd;
+    systemd.packages = [package];
 
     systemd.services =
       {
@@ -158,8 +158,8 @@ in
             ] ++ optional hasDisabledPlugins "--noplugin=${concatStringsSep "," cfg.disabledPlugins}";
           in
           {
-            wantedBy = [ "bluetooth.target" ];
-            aliases = [ "dbus-org.bluez.service" ];
+            wantedBy = ["bluetooth.target"];
+            aliases = ["dbus-org.bluez.service"];
             serviceConfig.ExecStart = [
               ""
               "${package}/libexec/bluetooth/bluetoothd ${escapeShellArgs args}"
@@ -170,9 +170,9 @@ in
       }
       // (optionalAttrs cfg.hsphfpd.enable {
         hsphfpd = {
-          after = [ "bluetooth.service" ];
-          requires = [ "bluetooth.service" ];
-          wantedBy = [ "bluetooth.target" ];
+          after = ["bluetooth.service"];
+          requires = ["bluetooth.service"];
+          wantedBy = ["bluetooth.target"];
 
           description = "A prototype implementation used for connecting HSP/HFP Bluetooth devices";
           serviceConfig.ExecStart = "${pkgs.hsphfpd}/bin/hsphfpd.pl";
@@ -181,11 +181,11 @@ in
 
     systemd.user.services =
       {
-        obex.aliases = [ "dbus-org.bluez.obex.service" ];
+        obex.aliases = ["dbus-org.bluez.obex.service"];
       }
       // optionalAttrs cfg.hsphfpd.enable {
         telephony_client = {
-          wantedBy = [ "default.target" ];
+          wantedBy = ["default.target"];
 
           description = "telephony_client for hsphfpd";
           serviceConfig.ExecStart = "${pkgs.hsphfpd}/bin/telephony_client.pl";

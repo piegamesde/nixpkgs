@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
     gettext
   ];
 
-  patches = [ ./getenv-decl.patch ];
+  patches = [./getenv-decl.patch];
 
   preConfigure = ''
     sed -i "Makefile.in" \
@@ -53,7 +53,7 @@ stdenv.mkDerivation rec {
 
     homepage = "https://www.gnu.org/software/ballandpaddle/";
 
-    maintainers = [ ];
+    maintainers = [];
 
     platforms = lib.platforms.unix;
 

@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
     substituteInPlace src/services/inference/check_cache.ml --replace 'Core_kernel' 'Core'
   '';
 
-  makeFlags = [ "FLOW_RELEASE=1" ];
+  makeFlags = ["FLOW_RELEASE=1"];
 
   installPhase = ''
     install -Dm755 bin/flow $out/bin/flow
@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
   ];
 
   buildInputs =
-    lib.optionals stdenv.isDarwin [ CoreServices ]
+    lib.optionals stdenv.isDarwin [CoreServices]
     ++ (
       with ocamlPackages;
       [
@@ -55,7 +55,7 @@ stdenv.mkDerivation rec {
         visitors
         wtf8
       ]
-      ++ lib.optionals stdenv.isLinux [ inotify ]
+      ++ lib.optionals stdenv.isLinux [inotify]
     );
 
   meta = with lib; {

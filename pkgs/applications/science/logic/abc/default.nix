@@ -17,8 +17,8 @@ stdenv.mkDerivation rec {
     hash = "sha256-THcyEifIp9v1bOofFVm9NFPqgI6NfKKys+Ea2KyNpv8=";
   };
 
-  nativeBuildInputs = [ cmake ];
-  buildInputs = [ readline ];
+  nativeBuildInputs = [cmake];
+  buildInputs = [readline];
 
   installPhase = "mkdir -p $out/bin && mv abc $out/bin";
 
@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
     description = "A tool for squential logic synthesis and formal verification";
     homepage = "https://people.eecs.berkeley.edu/~alanmi/abc";
     license = licenses.mit;
-    maintainers = with maintainers; [ thoughtpolice ];
+    maintainers = with maintainers; [thoughtpolice];
     mainProgram = "abc";
     platforms = platforms.unix;
   };

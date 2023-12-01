@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
 
   hardeningDisable = lib.optional stdenv.cc.isClang "format";
 
-  buildInputs = [ curl ];
+  buildInputs = [curl];
 
   nativeCheckInputs = [
     bc
@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
       records, each record containing an arbitrary number of named fields.
     '';
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ AndersonTorres ];
+    maintainers = with maintainers; [AndersonTorres];
     platforms = platforms.all;
   };
 }

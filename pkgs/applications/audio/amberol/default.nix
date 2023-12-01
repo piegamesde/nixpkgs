@@ -75,7 +75,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://gitlab.gnome.org/World/amberol";
     description = "A small and simple sound and music player";
-    maintainers = with maintainers; [ linsui ];
+    maintainers = with maintainers; [linsui];
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
   };

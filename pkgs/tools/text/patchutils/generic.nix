@@ -6,8 +6,8 @@
   makeWrapper,
   version,
   sha256,
-  patches ? [ ],
-  extraBuildInputs ? [ ],
+  patches ? [],
+  extraBuildInputs ? [],
   ...
 }:
 stdenv.mkDerivation rec {
@@ -19,9 +19,9 @@ stdenv.mkDerivation rec {
     inherit sha256;
   };
 
-  nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ perl ] ++ extraBuildInputs;
-  hardeningDisable = [ "format" ];
+  nativeBuildInputs = [makeWrapper];
+  buildInputs = [perl] ++ extraBuildInputs;
+  hardeningDisable = ["format"];
 
   # tests fail when building in parallel
   enableParallelBuilding = false;
@@ -50,6 +50,6 @@ stdenv.mkDerivation rec {
     homepage = "http://cyberelk.net/tim/software/patchutils";
     license = licenses.gpl2Plus;
     platforms = platforms.all;
-    maintainers = with maintainers; [ artturin ];
+    maintainers = with maintainers; [artturin];
   };
 }

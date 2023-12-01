@@ -24,7 +24,7 @@ stdenv.mkDerivation {
   # Backported from newer llvm, fixes configure error when cross compiling.
   # Also means we don't have to manually fix the result with install_name_tool.
   patches =
-    [ ./disable-rpath.patch ]
+    [./disable-rpath.patch]
     ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform)
       [
         # TODO: make unconditional and rebuild the world
@@ -39,10 +39,10 @@ stdenv.mkDerivation {
 
   # ncurses is required here to avoid a reference to bootstrap-tools, which is
   # not allowed for the stdenv.
-  buildInputs = [ ncurses ];
+  buildInputs = [ncurses];
 
   cmakeFlags =
-    [ "-DLLVM_INCLUDE_TESTS=OFF" ]
+    ["-DLLVM_INCLUDE_TESTS=OFF"]
     ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [
       "-DCMAKE_CROSSCOMPILING=True"
       # This package could probably have a llvm_6 llvm-tblgen and clang-tblgen
@@ -94,6 +94,6 @@ stdenv.mkDerivation {
     description = "Replaces the Mach-O Dynamic Library Stub files in Apple's SDKs to reduce the size";
     homepage = "https://github.com/tpoechtrager/apple-libtapi";
     license = licenses.apsl20;
-    maintainers = with maintainers; [ matthewbauer ];
+    maintainers = with maintainers; [matthewbauer];
   };
 }

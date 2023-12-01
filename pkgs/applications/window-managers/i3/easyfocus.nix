@@ -22,7 +22,7 @@ stdenv.mkDerivation {
     sha256 = "1db23vzzmp0hnfss1fkd80za6d2pajx7hdwikw50pk95jq0w8wfm";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     libxcb
     xcbutilkeysyms
@@ -41,7 +41,7 @@ stdenv.mkDerivation {
   meta = with lib; {
     description = "Focus and select windows in i3";
     homepage = "https://github.com/cornerman/i3-easyfocus";
-    maintainers = with maintainers; [ teto ];
+    maintainers = with maintainers; [teto];
     license = licenses.gpl3;
     platforms = platforms.linux;
   };

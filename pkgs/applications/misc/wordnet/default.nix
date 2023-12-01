@@ -16,13 +16,13 @@ stdenv.mkDerivation rec {
     sha256 = "08pgjvd2vvmqk3h641x63nxp7wqimb9r30889mkyfh2agc62sjbc";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
   buildInputs = [
     tcl
     tk
-  ] ++ lib.optionals stdenv.isDarwin [ Cocoa ];
+  ] ++ lib.optionals stdenv.isDarwin [Cocoa];
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   patchPhase = ''
     sed "13i#define USE_INTERP_RESULT 1" -i src/stubs.c
@@ -58,7 +58,7 @@ stdenv.mkDerivation rec {
       fullName = "WordNet 3.0 license";
       url = "https://wordnet.princeton.edu/license-and-commercial-use";
     };
-    maintainers = [ ];
+    maintainers = [];
     platforms = with lib.platforms; linux ++ darwin;
     mainProgram = "wn";
   };

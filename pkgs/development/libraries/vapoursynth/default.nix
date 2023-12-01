@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-/40+SXFLX8upGKP3K+wk8RnO1Al4YoF8GFXyoxTkKs0=";
   };
 
-  patches = [ ./0001-Call-weak-function-to-allow-adding-preloaded-plugins.patch ];
+  patches = [./0001-Call-weak-function-to-allow-adding-preloaded-plugins.patch];
 
   nativeBuildInputs = [
     pkg-config

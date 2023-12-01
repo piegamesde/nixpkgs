@@ -61,7 +61,7 @@ stdenv.mkDerivation rec {
     cp pidgin/libpurple/protocols/facebook/.libs/*.so $out/lib/purple-2/
   '';
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
   buildInputs = [
     pidgin
     glib
@@ -73,6 +73,6 @@ stdenv.mkDerivation rec {
     description = "Facebook protocol plugin for libpurple";
     license = licenses.gpl2;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ davorb ];
+    maintainers = with maintainers; [davorb];
   };
 }

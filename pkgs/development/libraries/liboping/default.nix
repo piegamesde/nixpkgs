@@ -51,6 +51,6 @@ stdenv.mkDerivation rec {
     homepage = "http://noping.cc/";
     license = licenses.lgpl21;
     platforms = platforms.unix;
-    maintainers = [ maintainers.bjornfor ];
+    maintainers = [maintainers.bjornfor];
   };
 }

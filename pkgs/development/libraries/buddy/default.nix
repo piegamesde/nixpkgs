@@ -14,8 +14,8 @@ stdenv.mkDerivation rec {
     sha256 = "0dl86l9xkl33wnkz684xa9axhcxx2zzi4q5lii0axnb9lsk81pyk";
   };
 
-  buildInputs = [ bison ];
-  patches = [ ./gcc-4.3.3-fixes.patch ];
+  buildInputs = [bison];
+  patches = [./gcc-4.3.3-fixes.patch];
   configureFlags = [
     "CFLAGS=-O3"
     "CXXFLAGS=-O3"

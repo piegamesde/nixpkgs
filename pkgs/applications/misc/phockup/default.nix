@@ -7,7 +7,7 @@
   makeWrapper,
 }:
 let
-  pythonEnv = python3.withPackages (p: with p; [ tqdm ]);
+  pythonEnv = python3.withPackages (p: with p; [tqdm]);
 in
 stdenv.mkDerivation rec {
   pname = "phockup";
@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-ge34Iv/+B0xdrSNc7w3nZJw0DHBUvuh2k/I8v/RRg10=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     runHook preInstall
@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
     # based roughly on https://github.com/ivandokov/phockup#linux-without-snap
     mkdir -p $out/bin $out/opt
     mv * $out/opt
-    makeWrapper ${pythonEnv.interpreter} $out/bin/phockup --add-flags "$out/opt/phockup.py" --suffix PATH : ${lib.makeBinPath [ exiftool ]}
+    makeWrapper ${pythonEnv.interpreter} $out/bin/phockup --add-flags "$out/opt/phockup.py" --suffix PATH : ${lib.makeBinPath [exiftool]}
 
     runHook postInstall
   '';
@@ -37,6 +37,6 @@ stdenv.mkDerivation rec {
     description = "Media sorting tool to organize photos and videos from your camera in folders by year, month and day";
     homepage = "https://github.com/ivandokov/phockup";
     license = licenses.mit;
-    maintainers = with maintainers; [ aanderse ];
+    maintainers = with maintainers; [aanderse];
   };
 }

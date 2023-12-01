@@ -4,7 +4,7 @@
   lib,
   gtk3,
   jdupes,
-  nordzy-themes ? [ "all" ], # Override this to only install selected themes
+  nordzy-themes ? ["all"], # Override this to only install selected themes
 }:
 
 stdenvNoCC.mkDerivation rec {
@@ -35,7 +35,7 @@ stdenvNoCC.mkDerivation rec {
 
     name= ./install.sh --dest $out/share/icons \
       ${
-        lib.optionalString (nordzy-themes != [ ]) (
+        lib.optionalString (nordzy-themes != []) (
           lib.strings.concatMapStrings (theme: "-t ${theme} ") nordzy-themes
         )
       }
@@ -54,6 +54,6 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://github.com/alvatip/Nordzy-icon";
     license = licenses.gpl3Only;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ alexnortung ];
+    maintainers = with maintainers; [alexnortung];
   };
 }

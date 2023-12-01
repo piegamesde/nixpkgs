@@ -30,6 +30,6 @@ rustPlatform.buildRustPackage rec {
       mit
       asl20
     ];
-    maintainers = [ maintainers.ekleog ];
+    maintainers = [maintainers.ekleog];
   };
 }

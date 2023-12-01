@@ -1,12 +1,12 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "jpl-util";
   version = "cl-20151031-git";
 
   description = "Sundry utilities for J.P. Larocque.";
 
-  deps = [ ];
+  deps = [];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/cl-jpl-util/2015-10-31/cl-jpl-util-20151031-git.tgz";
@@ -15,7 +15,7 @@ rec {
 
   packageName = "jpl-util";
 
-  asdFilesToKeep = [ "jpl-util.asd" ];
+  asdFilesToKeep = ["jpl-util.asd"];
   overrides = x: x;
 }
 /* (SYSTEM jpl-util DESCRIPTION Sundry utilities for J.P. Larocque. SHA256

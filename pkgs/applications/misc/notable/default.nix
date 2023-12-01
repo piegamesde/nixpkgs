@@ -17,9 +17,9 @@ let
     inherit sha256;
   };
 
-  appimageContents = appimageTools.extract { inherit name src; };
+  appimageContents = appimageTools.extract {inherit name src;};
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 in
 appimageTools.wrapType2 rec {
 
@@ -53,7 +53,7 @@ appimageTools.wrapType2 rec {
     description = "The markdown-based note-taking app that doesn't suck";
     homepage = "https://github.com/notable/notable";
     license = licenses.unfree;
-    platforms = [ "x86_64-linux" ];
-    maintainers = with maintainers; [ dtzWill ];
+    platforms = ["x86_64-linux"];
+    maintainers = with maintainers; [dtzWill];
   };
 }

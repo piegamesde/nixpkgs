@@ -14,8 +14,8 @@ stdenv.mkDerivation rec {
     sha256 = "09xhgzmsq0g3jsyj24vy67bhzk2fv971w5ixdkhfwgar70cw1nn0";
   };
 
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ libestr ];
+  nativeBuildInputs = [pkg-config];
+  buildInputs = [libestr];
 
   meta = {
     description = "An Event Expression Library inspired by CEE";

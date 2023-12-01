@@ -14,7 +14,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-8ENfvI6f+hJeBWAMtsf8kz19WH9brkGyVyZ75PLODmE=";
   };
 
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
 
   outputs = [
     "out"
@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
     description = "Encrypted UDP based FTP with multicast";
     homepage = "https://uftp-multicast.sourceforge.net/";
     license = lib.licenses.gpl3;
-    maintainers = [ lib.maintainers.fadenb ];
+    maintainers = [lib.maintainers.fadenb];
     platforms = with lib.platforms; linux ++ darwin;
   };
 }

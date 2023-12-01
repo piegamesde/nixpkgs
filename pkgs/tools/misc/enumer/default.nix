@@ -22,6 +22,6 @@ buildGoModule rec {
     description = "Go tool to auto generate methods for enums";
     homepage = "https://github.com/dmarkham/enumer";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

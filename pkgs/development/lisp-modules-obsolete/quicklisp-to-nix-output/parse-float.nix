@@ -1,10 +1,10 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "parse-float";
   version = "20200218-git";
 
-  parasites = [ "parse-float-tests" ];
+  parasites = ["parse-float-tests"];
 
   description = "Parse floating point values in strings.";
 
@@ -20,7 +20,7 @@ rec {
 
   packageName = "parse-float";
 
-  asdFilesToKeep = [ "parse-float.asd" ];
+  asdFilesToKeep = ["parse-float.asd"];
   overrides = x: x;
 }
 /* (SYSTEM parse-float DESCRIPTION Parse floating point values in strings.

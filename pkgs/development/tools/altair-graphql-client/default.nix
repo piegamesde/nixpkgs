@@ -13,7 +13,7 @@ let
     sha256 = "sha256-sjM5KztkFqsZT153b181OLrus5YS09Dp/w4LD6Q6Ros=";
   };
 
-  appimageContents = appimageTools.extract { inherit pname version src; };
+  appimageContents = appimageTools.extract {inherit pname version src;};
 in
 appimageTools.wrapType2 {
   inherit src pname version;
@@ -31,7 +31,7 @@ appimageTools.wrapType2 {
     description = "A feature-rich GraphQL Client IDE";
     homepage = "https://github.com/imolorhe/altair";
     license = licenses.mit;
-    maintainers = with maintainers; [ evalexpr ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with maintainers; [evalexpr];
+    platforms = ["x86_64-linux"];
   };
 }

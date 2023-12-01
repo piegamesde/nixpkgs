@@ -88,7 +88,7 @@ stdenv.mkDerivation rec {
 
     # Python is needed for scripts
     makeWrapper $out/share/lazpaint/lazpaint $out/bin/lazpaint \
-      --prefix PATH : ${lib.makeBinPath [ python3 ]}
+      --prefix PATH : ${lib.makeBinPath [python3]}
   '';
 
   meta = with lib; {
@@ -96,6 +96,6 @@ stdenv.mkDerivation rec {
     homepage = "https://sourceforge.net/projects/lazpaint/";
     license = licenses.gpl3;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

@@ -22,12 +22,12 @@ buildPythonPackage rec {
     hash = "sha256-1KPbuTxTNz7poLoFXkhYxEFpsgS5EuSdAD6tlduam8o=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs = [
     attrs
     arpeggio
-  ] ++ lib.optionals (pythonOlder "3.10") [ typing-extensions ];
+  ] ++ lib.optionals (pythonOlder "3.10") [typing-extensions];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -39,6 +39,6 @@ buildPythonPackage rec {
     description = "Allows parsing and manipulation of PEP 440 version numbers";
     homepage = "https://github.com/RazerM/parver";
     license = licenses.mit;
-    maintainers = with maintainers; [ SuperSandro2000 ];
+    maintainers = with maintainers; [SuperSandro2000];
   };
 }

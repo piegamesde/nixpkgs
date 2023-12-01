@@ -24,6 +24,6 @@ python3Packages.buildPythonApplication rec {
     description = "Application that handles sshfs/sftp file systems mounting";
     license = licenses.gpl3;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ contrun ];
+    maintainers = with maintainers; [contrun];
   };
 }

@@ -8,7 +8,7 @@ with lib;
 let
   pkg = pkgs._3proxy;
   cfg = config.services._3proxy;
-  optionalList = list: if list == [ ] then "*" else concatMapStringsSep "," toString list;
+  optionalList = list: if list == [] then "*" else concatMapStringsSep "," toString list;
 in
 {
   options.services._3proxy = {
@@ -157,7 +157,7 @@ in
                     };
                     users = mkOption {
                       type = types.listOf types.str;
-                      default = [ ];
+                      default = [];
                       example = [
                         "user1"
                         "user2"
@@ -169,7 +169,7 @@ in
                     };
                     sources = mkOption {
                       type = types.listOf types.str;
-                      default = [ ];
+                      default = [];
                       example = [
                         "127.0.0.1"
                         "192.168.1.0/24"
@@ -180,7 +180,7 @@ in
                     };
                     targets = mkOption {
                       type = types.listOf types.str;
-                      default = [ ];
+                      default = [];
                       example = [
                         "127.0.0.1"
                         "192.168.1.0/24"
@@ -194,7 +194,7 @@ in
                     };
                     targetPorts = mkOption {
                       type = types.listOf types.int;
-                      default = [ ];
+                      default = [];
                       example = [
                         80
                         443
@@ -206,7 +206,7 @@ in
                   };
                 }
               );
-              default = [ ];
+              default = [];
               example = literalExpression ''
                 [
                   {
@@ -246,7 +246,7 @@ in
           };
         }
       );
-      default = [ ];
+      default = [];
       example = literalExpression ''
         [
           {
@@ -302,7 +302,7 @@ in
         options = {
           nserver = mkOption {
             type = types.listOf types.str;
-            default = [ ];
+            default = [];
             example = [
               "127.0.0.53"
               "192.168.1.3:5353/tcp"
@@ -326,7 +326,7 @@ in
           };
           nsrecord = mkOption {
             type = types.attrsOf types.str;
-            default = { };
+            default = {};
             example = literalExpression ''
               {
                 "files.local" = "192.168.1.12";
@@ -337,7 +337,7 @@ in
           };
         };
       };
-      default = { };
+      default = {};
       description = lib.mdDoc ''
         Use this option to configure name resolution and DNS caching.
       '';
@@ -405,9 +405,9 @@ in
     );
     systemd.services."3proxy" = {
       description = "Tiny free proxy server";
-      documentation = [ "https://github.com/z3APA3A/3proxy/wiki" ];
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      documentation = ["https://github.com/z3APA3A/3proxy/wiki"];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         DynamicUser = true;
         StateDirectory = "3proxy";
@@ -417,5 +417,5 @@ in
     };
   };
 
-  meta.maintainers = with maintainers; [ misuzu ];
+  meta.maintainers = with maintainers; [misuzu];
 }

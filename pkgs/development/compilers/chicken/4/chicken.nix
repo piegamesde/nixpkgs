@@ -36,7 +36,7 @@ stdenv.mkDerivation {
   setupHook = lib.optional (bootstrap-chicken != null) ./setup-hook.sh;
 
   # -fno-strict-overflow is not a supported argument in clang on darwin
-  hardeningDisable = lib.optionals stdenv.isDarwin [ "strictoverflow" ];
+  hardeningDisable = lib.optionals stdenv.isDarwin ["strictoverflow"];
 
   makeFlags =
     [
@@ -58,9 +58,9 @@ stdenv.mkDerivation {
 
   nativeBuildInputs = [
     makeWrapper
-  ] ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [ darwin.autoSignDarwinBinariesHook ];
+  ] ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [darwin.autoSignDarwinBinariesHook];
 
-  buildInputs = lib.optionals (bootstrap-chicken != null) [ bootstrap-chicken ];
+  buildInputs = lib.optionals (bootstrap-chicken != null) [bootstrap-chicken];
 
   preBuild = lib.optionalString (bootstrap-chicken != null) ''
     # Backup the build* files - those are generated from hostname,
@@ -87,7 +87,7 @@ stdenv.mkDerivation {
   meta = {
     homepage = "http://www.call-cc.org/";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ corngood ];
+    maintainers = with lib.maintainers; [corngood];
     platforms = lib.platforms.linux ++ lib.platforms.darwin; # Maybe other Unix
     description = "A portable compiler for the Scheme programming language";
     longDescription = ''

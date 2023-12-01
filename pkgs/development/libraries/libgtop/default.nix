@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
     gobject-introspection
   ];
 
-  propagatedBuildInputs = [ glib ];
+  propagatedBuildInputs = [glib];
 
   passthru = {
     updateScript = gnome.updateScript {

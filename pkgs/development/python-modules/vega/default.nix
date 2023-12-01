@@ -28,7 +28,7 @@ buildPythonPackage rec {
 
   # currently, recommonmark is broken on python3
   doCheck = false;
-  pythonImportsCheck = [ "vega" ];
+  pythonImportsCheck = ["vega"];
 
   meta = with lib; {
     description = "An IPython/Jupyter widget for Vega and Vega-Lite";
@@ -40,7 +40,7 @@ buildPythonPackage rec {
     '';
     homepage = "https://github.com/vega/ipyvega";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ teh ];
+    maintainers = with maintainers; [teh];
     platforms = platforms.unix;
   };
 }

@@ -24,16 +24,16 @@ python3.pkgs.buildPythonApplication rec {
     dash
   ];
 
-  patches = [ ./picosnitch.patch ];
+  patches = [./picosnitch.patch];
 
-  pythonImportsCheck = [ "picosnitch" ];
+  pythonImportsCheck = ["picosnitch"];
 
   meta = with lib; {
     description = "Monitor network traffic per executable with hashing";
     homepage = "https://github.com/elesiuta/picosnitch";
     changelog = "https://github.com/elesiuta/picosnitch/releases";
     license = licenses.gpl3Plus;
-    maintainers = [ maintainers.elesiuta ];
+    maintainers = [maintainers.elesiuta];
     platforms = platforms.linux;
   };
 }

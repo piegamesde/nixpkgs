@@ -1,19 +1,19 @@
 import ../make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   {
     name = "maddy-unencrypted";
-    meta = with pkgs.lib.maintainers; { maintainers = [ onny ]; };
+    meta = with pkgs.lib.maintainers; {maintainers = [onny];};
 
     nodes = {
       server =
-        { ... }:
+        {...}:
         {
           services.maddy = {
             enable = true;
             hostname = "server";
             primaryDomain = "server";
             openFirewall = true;
-            ensureAccounts = [ "postmaster@server" ];
+            ensureAccounts = ["postmaster@server"];
             ensureCredentials = {
               # Do not use this in production. This will make passwords world-readable
               # in the Nix store
@@ -23,10 +23,10 @@ import ../make-test-python.nix (
         };
 
       client =
-        { ... }:
+        {...}:
         {
           environment.systemPackages = [
-            (pkgs.writers.writePython3Bin "send-testmail" { } ''
+            (pkgs.writers.writePython3Bin "send-testmail" {} ''
               import smtplib
               from email.mime.text import MIMEText
 
@@ -38,7 +38,7 @@ import ../make-test-python.nix (
                   smtp.login('postmaster@server', 'test')
                   smtp.sendmail('postmaster@server', 'postmaster@server', msg.as_string())
             '')
-            (pkgs.writers.writePython3Bin "test-imap" { } ''
+            (pkgs.writers.writePython3Bin "test-imap" {} ''
               import imaplib
 
               with imaplib.IMAP4('server') as imap:

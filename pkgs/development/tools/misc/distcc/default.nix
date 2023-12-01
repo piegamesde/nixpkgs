@@ -76,7 +76,7 @@ let
       # variables like DISTCC_HOSTS, DISTCC_DIR, ...
       links =
         extraConfig:
-        (runCommand "distcc-links" { passthru.gcc = gcc.cc; } ''
+        (runCommand "distcc-links" {passthru.gcc = gcc.cc;} ''
           mkdir -p $out/bin
           if [ -x "${gcc.cc}/bin/gcc" ]; then
             cat > $out/bin/gcc << EOF
@@ -103,7 +103,7 @@ let
       license = "GPL";
 
       platforms = lib.platforms.linux;
-      maintainers = with lib.maintainers; [ anderspapitto ];
+      maintainers = with lib.maintainers; [anderspapitto];
     };
   };
 in

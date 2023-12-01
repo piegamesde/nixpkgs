@@ -24,7 +24,7 @@ buildPythonPackage rec {
     hash = "sha256-A1Ip41kxH17BakHEWEuymfa24eBEl5FIHAWL+iZFM4I=";
   };
 
-  propagatedBuildInputs = lib.optionals (pythonOlder "3.9") [ astunparse ];
+  propagatedBuildInputs = lib.optionals (pythonOlder "3.9") [astunparse];
 
   preCheck = ''
     export PATH=$out/bin:$PATH
@@ -37,12 +37,12 @@ buildPythonPackage rec {
     bc
   ];
 
-  pythonImportsCheck = [ "pyp" ];
+  pythonImportsCheck = ["pyp"];
 
   meta = with lib; {
     description = "Easily run Python at the shell! Magical, but never mysterious";
     homepage = "https://github.com/hauntsaninja/pyp";
     license = licenses.mit;
-    maintainers = with maintainers; [ rmcgibbo ];
+    maintainers = with maintainers; [rmcgibbo];
   };
 }

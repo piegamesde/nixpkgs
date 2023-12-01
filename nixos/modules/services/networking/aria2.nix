@@ -97,7 +97,7 @@ in
     # Need to open ports for proper functioning
     networking.firewall = mkIf cfg.openPorts {
       allowedUDPPortRanges = config.services.aria2.listenPortRange;
-      allowedTCPPorts = [ config.services.aria2.rpcListenPort ];
+      allowedTCPPorts = [config.services.aria2.rpcListenPort];
     };
 
     users.users.aria2 = {
@@ -117,8 +117,8 @@ in
 
     systemd.services.aria2 = {
       description = "aria2 Service";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
       preStart = ''
         if [[ ! -e "${sessionFile}" ]]
         then

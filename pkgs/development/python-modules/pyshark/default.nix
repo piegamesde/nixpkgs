@@ -35,7 +35,7 @@ buildPythonPackage rec {
   ];
 
   # `stripLen` does not seem to work here
-  patchFlags = [ "-p2" ];
+  patchFlags = ["-p2"];
 
   sourceRoot = "${src.name}/src";
 
@@ -58,14 +58,14 @@ buildPythonPackage rec {
     wireshark-cli
   ];
 
-  pythonImportsCheck = [ "pyshark" ];
+  pythonImportsCheck = ["pyshark"];
 
-  pytestFlagsArray = [ "../tests/" ];
+  pytestFlagsArray = ["../tests/"];
 
   meta = with lib; {
     description = "Python wrapper for tshark, allowing Python packet parsing using Wireshark dissectors";
     homepage = "https://github.com/KimiNewt/pyshark/";
     license = licenses.mit;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

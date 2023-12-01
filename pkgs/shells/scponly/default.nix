@@ -17,7 +17,7 @@ stdenv.mkDerivation {
     sha256 = "U0K7lOp18ytNjh3KVFmc6vL+/tG4ETnwLEPQEhM4lXE=";
   };
 
-  patches = [ ./scponly-fix-make.patch ];
+  patches = [./scponly-fix-make.patch];
 
   strictDeps = true;
 
@@ -38,7 +38,7 @@ stdenv.mkDerivation {
   meta = with lib; {
     description = "A shell that only permits scp and sftp-server";
     homepage = "https://github.com/scponly/scponly";
-    license = with licenses; [ bsd2 ];
-    maintainers = with maintainers; [ wmertens ];
+    license = with licenses; [bsd2];
+    maintainers = with maintainers; [wmertens];
   };
 }

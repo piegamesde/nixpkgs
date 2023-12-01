@@ -37,9 +37,9 @@ let
   firmware-pkg = pkgs.system76-firmware;
   firmwareConfig = mkIf cfg.firmware-daemon.enable {
     # Make system76-firmware-cli usable by root from the command line.
-    environment.systemPackages = [ firmware-pkg ];
+    environment.systemPackages = [firmware-pkg];
 
-    services.dbus.packages = [ firmware-pkg ];
+    services.dbus.packages = [firmware-pkg];
 
     systemd.services.system76-firmware-daemon = {
       description = "The System76 Firmware Daemon";
@@ -50,16 +50,16 @@ let
         Restart = "on-failure";
       };
 
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
     };
   };
 
   power-pkg = config.boot.kernelPackages.system76-power;
   powerConfig = mkIf cfg.power-daemon.enable {
     # Make system76-power usable by root from the command line.
-    environment.systemPackages = [ power-pkg ];
+    environment.systemPackages = [power-pkg];
 
-    services.dbus.packages = [ power-pkg ];
+    services.dbus.packages = [power-pkg];
 
     systemd.services.system76-power = {
       description = "System76 Power Daemon";
@@ -69,7 +69,7 @@ let
         Type = "dbus";
         BusName = "com.system76.PowerDaemon";
       };
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
     };
   };
 in

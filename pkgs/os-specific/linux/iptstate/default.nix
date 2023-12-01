@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
     description = "Conntrack top like tool";
     homepage = "https://github.com/jaymzh/iptstate";
     platforms = platforms.linux;
-    maintainers = with maintainers; [ trevorj ];
+    maintainers = with maintainers; [trevorj];
     downloadPage = "https://github.com/jaymzh/iptstate/releases";
     license = licenses.zlib;
   };

@@ -14,7 +14,7 @@ stdenv.mkDerivation rec {
     sha256 = "14srqn968ii3sr4v6xc5zzs50dmm9am22lrm57j7n0rhjclwbssy";
   };
 
-  buildInputs = [ ncurses ];
+  buildInputs = [ncurses];
 
   preConfigure = lib.optionalString stdenv.cc.isClang ''
     substituteInPlace configure \

@@ -25,9 +25,9 @@ buildPythonPackage rec {
     hash = "sha256-pPUn+1rv76N/7WVDyWJLPVMweJ1Qbx6/P4zIKU06hSs=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
-  propagatedBuildInputs = [ packaging ] ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
+  propagatedBuildInputs = [packaging] ++ lib.optionals (pythonOlder "3.8") [importlib-metadata];
 
   # needs to be able to run dunami from PATH
   preCheck = ''
@@ -44,13 +44,13 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  pythonImportsCheck = [ "dunamai" ];
+  pythonImportsCheck = ["dunamai"];
 
   meta = with lib; {
     description = "Dynamic version generation";
     homepage = "https://github.com/mtkennerly/dunamai";
     changelog = "https://github.com/mtkennerly/dunamai/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ jmgilman ];
+    maintainers = with maintainers; [jmgilman];
   };
 }

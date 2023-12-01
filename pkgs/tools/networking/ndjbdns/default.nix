@@ -22,7 +22,7 @@ stdenv.mkDerivation {
     autoreconfHook
     pkg-config
   ];
-  buildInputs = [ ] ++ lib.optional stdenv.isLinux systemd;
+  buildInputs = [] ++ lib.optional stdenv.isLinux systemd;
 
   meta = with lib; {
     description = "A brand new release of the Djbdns";
@@ -31,7 +31,7 @@ stdenv.mkDerivation {
     '';
     homepage = "http://pjp.dgplug.org/ndjbdns/";
     license = licenses.gpl2;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.linux ++ platforms.darwin;
   };
 }

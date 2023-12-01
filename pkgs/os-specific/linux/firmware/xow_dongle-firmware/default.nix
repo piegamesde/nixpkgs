@@ -17,7 +17,7 @@ stdenvNoCC.mkDerivation rec {
     sha256 = "013g1zngxffavqrk5jy934q3bdhsv6z05ilfixdn8dj0zy26lwv5";
   };
 
-  nativeBuildInputs = [ cabextract ];
+  nativeBuildInputs = [cabextract];
 
   sourceRoot = "./.";
 
@@ -33,7 +33,7 @@ stdenvNoCC.mkDerivation rec {
     description = "Xbox One wireless dongle firmware";
     homepage = "https://www.xbox.com/en-NZ/accessories/adapters/wireless-adapter-windows";
     license = licenses.unfree;
-    maintainers = with lib.maintainers; [ rhysmdnz ];
+    maintainers = with lib.maintainers; [rhysmdnz];
     platforms = platforms.linux;
   };
 }

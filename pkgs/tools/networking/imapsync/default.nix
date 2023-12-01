@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
     wrapProgram $out/bin/imapsync --set PERL5LIB $PERL5LIB
   '';
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   buildInputs = with perlPackages; [
     Appcpanminus
@@ -67,7 +67,7 @@ stdenv.mkDerivation rec {
     description = "Mail folder synchronizer between IMAP servers";
     homepage = "https://imapsync.lamiral.info/";
     license = licenses.nlpl;
-    maintainers = with maintainers; [ pSub ];
+    maintainers = with maintainers; [pSub];
     platforms = platforms.unix;
   };
 }

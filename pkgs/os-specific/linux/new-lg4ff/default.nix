@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
     description = "Experimental Logitech force feedback module for Linux";
     homepage = "https://github.com/berarma/new-lg4ff";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ matthiasbenaets ];
+    maintainers = with maintainers; [matthiasbenaets];
     platforms = platforms.linux;
     broken = stdenv.isAarch64;
   };

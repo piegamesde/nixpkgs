@@ -39,7 +39,7 @@ lib.overrideDerivation
 
       features = {
         efiBootStub = false;
-      } // (args.features or { });
+      } // (args.features or {});
 
       extraConfig = ''
         # ../drivers/gpu/drm/ast/ast_mode.c:851:18: error: initialization of 'void (*)(struct drm_crtc *, struct drm_atomic_state *)' from incompatible pointer type 'void (*)(struct drm_crtc *, struct drm_crtc_state *)' [-Werror=incompatible-pointer-types]
@@ -58,15 +58,15 @@ lib.overrideDerivation
         if (rpiVersion < 3) then
           {
             platforms = with lib.platforms; arm;
-            hydraPlatforms = [ ];
+            hydraPlatforms = [];
           }
         else
           {
             platforms = with lib.platforms; arm ++ aarch64;
-            hydraPlatforms = [ "aarch64-linux" ];
+            hydraPlatforms = ["aarch64-linux"];
           };
     }
-    // (args.argsOverride or { })
+    // (args.argsOverride or {})
   ))
   (
     oldAttrs: {
@@ -86,7 +86,7 @@ lib.overrideDerivation
             cp -v "$dtbDir/$1" "$dtbDir/$2"
           }
         ''
-        + lib.optionalString (lib.elem stdenv.hostPlatform.system [ "armv6l-linux" ]) ''
+        + lib.optionalString (lib.elem stdenv.hostPlatform.system ["armv6l-linux"]) ''
           copyDTB bcm2708-rpi-zero-w.dtb bcm2835-rpi-zero.dtb
           copyDTB bcm2708-rpi-zero-w.dtb bcm2835-rpi-zero-w.dtb
           copyDTB bcm2708-rpi-b.dtb bcm2835-rpi-a.dtb
@@ -97,7 +97,7 @@ lib.overrideDerivation
           copyDTB bcm2708-rpi-b-plus.dtb bcm2835-rpi-zero.dtb
           copyDTB bcm2708-rpi-cm.dtb bcm2835-rpi-cm.dtb
         ''
-        + lib.optionalString (lib.elem stdenv.hostPlatform.system [ "armv7l-linux" ]) ''
+        + lib.optionalString (lib.elem stdenv.hostPlatform.system ["armv7l-linux"]) ''
           copyDTB bcm2709-rpi-2-b.dtb bcm2836-rpi-2-b.dtb
         ''
         +

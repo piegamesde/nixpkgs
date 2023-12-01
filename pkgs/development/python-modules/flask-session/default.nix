@@ -21,7 +21,7 @@ buildPythonPackage rec {
     cachelib
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   # The rest of the tests require database servers and optional db connector dependencies
   pytestFlagsArray = [
@@ -29,12 +29,12 @@ buildPythonPackage rec {
     "'null_session or filesystem_session'"
   ];
 
-  pythonImportsCheck = [ "flask_session" ];
+  pythonImportsCheck = ["flask_session"];
 
   meta = with lib; {
     description = "A Flask extension that adds support for server-side sessions";
     homepage = "https://github.com/fengsp/flask-session";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ zhaofengli ];
+    maintainers = with maintainers; [zhaofengli];
   };
 }

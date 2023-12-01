@@ -30,7 +30,7 @@ python3Packages.buildPythonApplication rec {
     sha256 = "sha256-0GBob9BUwiE5cFGdK8AdwsTjTOdc+AIWqUGN/gFfOqI=";
   };
 
-  buildInputs = [ gtk3 ];
+  buildInputs = [gtk3];
 
   nativeBuildInputs = [
     gobject-introspection
@@ -94,6 +94,6 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://github.com/waydroid/waydroid";
     license = licenses.gpl3;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ mcaju ];
+    maintainers = with maintainers; [mcaju];
   };
 }

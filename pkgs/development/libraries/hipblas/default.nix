@@ -23,10 +23,10 @@ stdenv.mkDerivation (
     version = "5.4.3";
 
     outputs =
-      [ "out" ]
-      ++ lib.optionals buildTests [ "test" ]
-      ++ lib.optionals buildBenchmarks [ "benchmark" ]
-      ++ lib.optionals buildSamples [ "sample" ];
+      ["out"]
+      ++ lib.optionals buildTests ["test"]
+      ++ lib.optionals buildBenchmarks ["benchmark"]
+      ++ lib.optionals buildSamples ["sample"];
 
     src = fetchFromGitHub {
       owner = "ROCmSoftwarePlatform";
@@ -47,8 +47,8 @@ stdenv.mkDerivation (
         rocblas
         rocsolver
       ]
-      ++ lib.optionals buildTests [ gtest ]
-      ++ lib.optionals (buildTests || buildBenchmarks) [ lapack-reference ];
+      ++ lib.optionals buildTests [gtest]
+      ++ lib.optionals (buildTests || buildBenchmarks) [lapack-reference];
 
     cmakeFlags =
       [
@@ -60,9 +60,9 @@ stdenv.mkDerivation (
         "-DCMAKE_INSTALL_LIBDIR=lib"
         "-DCMAKE_INSTALL_INCLUDEDIR=include"
       ]
-      ++ lib.optionals buildTests [ "-DBUILD_CLIENTS_TESTS=ON" ]
-      ++ lib.optionals buildBenchmarks [ "-DBUILD_CLIENTS_BENCHMARKS=ON" ]
-      ++ lib.optionals buildSamples [ "-DBUILD_CLIENTS_SAMPLES=ON" ];
+      ++ lib.optionals buildTests ["-DBUILD_CLIENTS_TESTS=ON"]
+      ++ lib.optionals buildBenchmarks ["-DBUILD_CLIENTS_BENCHMARKS=ON"]
+      ++ lib.optionals buildSamples ["-DBUILD_CLIENTS_SAMPLES=ON"];
 
     postInstall =
       lib.optionalString buildTests ''
@@ -90,7 +90,7 @@ stdenv.mkDerivation (
     meta = with lib; {
       description = "ROCm BLAS marshalling library";
       homepage = "https://github.com/ROCmSoftwarePlatform/hipBLAS";
-      license = with licenses; [ mit ];
+      license = with licenses; [mit];
       maintainers = teams.rocm.members;
       platforms = platforms.linux;
       # Fixed in develop branch by using C++17 and related refactor

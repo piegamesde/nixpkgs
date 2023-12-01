@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  configureFlags = [ "--enable-frontends=conf,mconf,nconf" ];
+  configureFlags = ["--enable-frontends=conf,mconf,nconf"];
 
   env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.cc.isClang "-Wno-error=format-security";
 
@@ -49,6 +49,6 @@ stdenv.mkDerivation rec {
     homepage = "http://ymorin.is-a-geek.org/projects/kconfig-frontends";
     license = licenses.gpl2;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ mbe ];
+    maintainers = with maintainers; [mbe];
   };
 }

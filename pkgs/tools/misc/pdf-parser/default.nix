@@ -32,7 +32,7 @@ python3Packages.buildPythonApplication {
     '';
     homepage = "https://blog.didierstevens.com/programs/pdf-tools/";
     license = licenses.publicDomain;
-    maintainers = [ maintainers.lightdiscord ];
+    maintainers = [maintainers.lightdiscord];
     platforms = platforms.all;
   };
 }

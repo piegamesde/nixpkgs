@@ -19,7 +19,7 @@ buildGoModule rec {
 
   vendorSha256 = null;
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   # Pin so that we don't build the several other development tools
   subPackages = ".";
@@ -30,7 +30,7 @@ buildGoModule rec {
     "-X github.com/google/ko/pkg/commands.Version=${version}"
   ];
 
-  nativeCheckInputs = [ git ];
+  nativeCheckInputs = [git];
   preCheck = ''
     # Feed in all the tests for testing
     # This is because subPackages above limits what is built to just what we

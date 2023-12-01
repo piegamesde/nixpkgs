@@ -25,7 +25,7 @@ python3.pkgs.buildPythonApplication rec {
       pwntools
       python-ldap
     ]
-    ++ [ john ];
+    ++ [john];
 
   installPhase = ''
     runHook preInstall
@@ -44,7 +44,7 @@ python3.pkgs.buildPythonApplication rec {
   meta = with lib; {
     description = "Tool to find misconfiguration through LDAP";
     homepage = "https://github.com/SecuProject/ADenum";
-    license = with licenses; [ gpl3Only ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [gpl3Only];
+    maintainers = with maintainers; [fab];
   };
 }

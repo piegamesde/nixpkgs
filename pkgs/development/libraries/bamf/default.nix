@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [
-    (python3.withPackages (ps: with ps; [ lxml ])) # Tests
+    (python3.withPackages (ps: with ps; [lxml])) # Tests
     autoreconfHook
     dbus
     docbook_xsl
@@ -83,7 +83,7 @@ stdenv.mkDerivation rec {
   # Ignore deprecation errors
   env.NIX_CFLAGS_COMPILE = "-DGLIB_DISABLE_DEPRECATION_WARNINGS";
 
-  passthru.updateScript = gitUpdater { ignoredVersions = ".ubuntu.*"; };
+  passthru.updateScript = gitUpdater {ignoredVersions = ".ubuntu.*";};
 
   meta = with lib; {
     description = "Application matching framework";
@@ -94,6 +94,6 @@ stdenv.mkDerivation rec {
     homepage = "https://launchpad.net/bamf";
     license = licenses.lgpl3;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ davidak ] ++ teams.pantheon.members;
+    maintainers = with maintainers; [davidak] ++ teams.pantheon.members;
   };
 }

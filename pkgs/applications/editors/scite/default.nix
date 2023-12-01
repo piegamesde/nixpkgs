@@ -15,8 +15,8 @@ stdenv.mkDerivation {
     sha256 = "1q46clclx8r0b8zbq2zi89sygszgqf9ra5l83r2fs0ghvjgh2cxd";
   };
 
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ gtk2 ];
+  nativeBuildInputs = [pkg-config];
+  buildInputs = [gtk2];
   sourceRoot = "scintilla/gtk";
 
   buildPhase = ''
@@ -36,6 +36,6 @@ stdenv.mkDerivation {
     description = "SCIntilla based Text Editor";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = [ maintainers.rszibele ];
+    maintainers = [maintainers.rszibele];
   };
 }

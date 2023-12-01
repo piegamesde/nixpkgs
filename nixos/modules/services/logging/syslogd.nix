@@ -88,8 +88,8 @@ in
 
       extraParams = mkOption {
         type = types.listOf types.str;
-        default = [ ];
-        example = [ "-m 0" ];
+        default = [];
+        example = ["-m 0"];
         description = lib.mdDoc ''
           Additional parameters passed to {command}`syslogd`.
         '';
@@ -108,7 +108,7 @@ in
       }
     ];
 
-    environment.systemPackages = [ pkgs.sysklogd ];
+    environment.systemPackages = [pkgs.sysklogd];
 
     services.syslogd.extraParams = optional cfg.enableNetworkInput "-r";
 
@@ -116,9 +116,9 @@ in
     systemd.services.syslog = {
       description = "Syslog Daemon";
 
-      requires = [ "syslog.socket" ];
+      requires = ["syslog.socket"];
 
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
 
       serviceConfig = {
         ExecStart = "${pkgs.sysklogd}/sbin/syslogd ${toString cfg.extraParams} -f ${syslogConf} -n";

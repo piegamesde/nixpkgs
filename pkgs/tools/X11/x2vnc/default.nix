@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
     libXrandr
   ];
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   meta = with lib; {
     homepage = "http://fredrik.hubbe.net/x2vnc.html";

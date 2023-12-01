@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
 
   dontConfigure = true;
 
-  makeFlags = [ "DESTDIR=$(out)" ];
+  makeFlags = ["DESTDIR=$(out)"];
 
   meta = {
     description = "Rescue lifeboats lost in interstellar space";
@@ -50,7 +50,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "http://catb.org/~esr/galaxis/";
     license = licenses.gpl2;
-    maintainers = [ maintainers.AndersonTorres ];
+    maintainers = [maintainers.AndersonTorres];
     platforms = platforms.linux;
   };
 }

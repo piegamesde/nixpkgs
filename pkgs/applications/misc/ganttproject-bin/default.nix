@@ -21,8 +21,8 @@ stdenv.mkDerivation rec {
         "https://dl.ganttproject.biz/ganttproject-${version}/" + "ganttproject-${version}-${build}.zip";
     };
 
-  nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ jre ];
+  nativeBuildInputs = [makeWrapper];
+  buildInputs = [jre];
 
   installPhase =
     let
@@ -34,10 +34,10 @@ stdenv.mkDerivation rec {
         desktopName = "GanttProject";
         genericName = "Shedule and manage projects";
         comment = meta.description;
-        categories = [ "Office" ];
+        categories = ["Office"];
       };
 
-      javaOptions = [ "-Dawt.useSystemAAFontSettings=on" ];
+      javaOptions = ["-Dawt.useSystemAAFontSettings=on"];
     in
     ''
       mkdir -pv "$out/share/ganttproject"
@@ -61,6 +61,6 @@ stdenv.mkDerivation rec {
     # ‘GPL3-compatible’. See ${downloadPage} for detailed information.
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    maintainers = [ maintainers.vidbina ];
+    maintainers = [maintainers.vidbina];
   };
 }

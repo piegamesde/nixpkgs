@@ -53,7 +53,7 @@ stdenv.mkDerivation rec {
     substituteInPlace data/gamemoderun \
       --subst-var-by libraryPath ${
         lib.makeLibraryPath (
-          [ (placeholder "lib") ]
+          [(placeholder "lib")]
           ++
             lib.optionals (stdenv.hostPlatform.system == "x86_64-linux")
               [
@@ -87,7 +87,7 @@ stdenv.mkDerivation rec {
   ];
 
   doCheck = true;
-  nativeCheckInputs = [ appstream ];
+  nativeCheckInputs = [appstream];
 
   # Move static libraries to $static so $lib only contains dynamic libraries.
   postInstall = ''
@@ -116,7 +116,7 @@ stdenv.mkDerivation rec {
     description = "Optimise Linux system performance on demand";
     homepage = "https://github.com/FeralInteractive/GameMode";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ kira-bruneau ];
+    maintainers = with maintainers; [kira-bruneau];
     platforms = platforms.linux;
   };
 }

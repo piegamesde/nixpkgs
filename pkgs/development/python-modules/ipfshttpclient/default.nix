@@ -83,7 +83,7 @@ buildPythonPackage rec {
 
   doCheck = false;
 
-  pythonImportsCheck = [ "ipfshttpclient" ];
+  pythonImportsCheck = ["ipfshttpclient"];
 
   meta = with lib; {
     broken = stdenv.isDarwin;

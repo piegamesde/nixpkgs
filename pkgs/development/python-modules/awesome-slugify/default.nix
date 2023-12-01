@@ -30,13 +30,13 @@ buildPythonPackage rec {
     regex
   ];
 
-  nativeCheckInputs = [ unittestCheckHook ];
+  nativeCheckInputs = [unittestCheckHook];
 
   meta = with lib; {
     homepage = "https://github.com/dimka665/awesome-slugify";
     description = "Python flexible slugify function";
     license = licenses.gpl3;
     platforms = platforms.all;
-    maintainers = with maintainers; [ abbradar ];
+    maintainers = with maintainers; [abbradar];
   };
 }

@@ -26,7 +26,7 @@ buildPythonPackage rec {
     hash = "sha256-W26R+L2ZJpycEQ9KwkHqVARKsd/5YkJCxMeciKnKAX8=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   propagatedBuildInputs = [
     pytz
@@ -40,7 +40,7 @@ buildPythonPackage rec {
     requests-mock
   ];
 
-  pythonImportsCheck = [ "meteofrance_api" ];
+  pythonImportsCheck = ["meteofrance_api"];
 
   disabledTests = [
     # Tests require network access
@@ -62,6 +62,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/hacf-fr/meteofrance-api";
     changelog = "https://github.com/hacf-fr/meteofrance-api/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

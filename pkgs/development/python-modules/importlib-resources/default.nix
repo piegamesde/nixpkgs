@@ -22,18 +22,18 @@ buildPythonPackage rec {
     hash = "sha256-S+glib9cHXmZrt8qRRWdEMs8pPGbInH4eSvI5tp7IvY=";
   };
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
-  propagatedBuildInputs = [ importlib-metadata ] ++ lib.optionals (pythonOlder "3.5") [ typing ];
+  propagatedBuildInputs = [importlib-metadata] ++ lib.optionals (pythonOlder "3.5") [typing];
 
-  nativeCheckInputs = [ unittestCheckHook ];
+  nativeCheckInputs = [unittestCheckHook];
 
-  pythonImportsCheck = [ "importlib_resources" ];
+  pythonImportsCheck = ["importlib_resources"];
 
   meta = with lib; {
     description = "Read resources from Python packages";
     homepage = "https://importlib-resources.readthedocs.io/";
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

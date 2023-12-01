@@ -88,7 +88,7 @@ let
   libstdcpp-preload-for-unvanquished-nacl = stdenv.mkDerivation {
     name = "libstdcpp-preload-for-unvanquished-nacl";
 
-    propagatedBuildInputs = [ gcc.cc.lib ];
+    propagatedBuildInputs = [gcc.cc.lib];
 
     buildCommand = ''
       mkdir $out/etc -p
@@ -99,7 +99,7 @@ let
   fhsEnv = buildFHSEnv {
     name = "unvanquished-fhs-wrapper";
 
-    targetPkgs = pkgs: [ libstdcpp-preload-for-unvanquished-nacl ];
+    targetPkgs = pkgs: [libstdcpp-preload-for-unvanquished-nacl];
   };
 
   wrapBinary = binary: wrappername: ''
@@ -200,7 +200,7 @@ stdenv.mkDerivation rec {
       desktopName = "Unvanquished (protocol handler)";
       noDisplay = true;
       exec = "unvanquished -connect %u";
-      mimeTypes = [ "x-scheme-handler/unv" ];
+      mimeTypes = ["x-scheme-handler/unv"];
       prefersNonDefaultGPU = true;
     })
   ];
@@ -246,7 +246,7 @@ stdenv.mkDerivation rec {
       fromSource
       binaryNativeCode # unvanquished-binary-deps
     ];
-    maintainers = with lib.maintainers; [ afontain ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with lib.maintainers; [afontain];
+    platforms = ["x86_64-linux"];
   };
 }

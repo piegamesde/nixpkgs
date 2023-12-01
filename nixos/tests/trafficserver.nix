@@ -20,10 +20,10 @@
 #   - bin/traffic_logstats
 #   - bin/tspush
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   {
     name = "trafficserver";
-    meta = with pkgs.lib.maintainers; { maintainers = [ midchildan ]; };
+    meta = with pkgs.lib.maintainers; {maintainers = [midchildan];};
 
     nodes = {
       ats =
@@ -58,7 +58,7 @@ import ./make-test-python.nix (
               path = "healthchecks.so";
               arg = toString healthchecks;
             }
-            { path = "xdebug.so"; }
+            {path = "xdebug.so";}
           ];
 
           services.trafficserver.remap = ''
@@ -75,15 +75,15 @@ import ./make-test-python.nix (
             /dev/vdb volume=1
           '';
 
-          networking.firewall.allowedTCPPorts = [ 80 ];
-          virtualisation.emptyDiskImages = [ 256 ];
+          networking.firewall.allowedTCPPorts = [80];
+          virtualisation.emptyDiskImages = [256];
           services.udev.extraRules = ''
             KERNEL=="vdb", OWNER="${user}", GROUP="${group}"
           '';
         };
 
       httpbin =
-        { pkgs, lib, ... }:
+        {pkgs, lib, ...}:
         let
           python = pkgs.python3.withPackages (
             ps:
@@ -97,21 +97,21 @@ import ./make-test-python.nix (
         {
           systemd.services.httpbin = {
             enable = true;
-            after = [ "network.target" ];
-            wantedBy = [ "multi-user.target" ];
+            after = ["network.target"];
+            wantedBy = ["multi-user.target"];
             serviceConfig = {
               ExecStart = "${python}/bin/gunicorn -b 0.0.0.0:80 httpbin:app -k gevent";
             };
           };
 
-          networking.firewall.allowedTCPPorts = [ 80 ];
+          networking.firewall.allowedTCPPorts = [80];
         };
 
-      client = { pkgs, lib, ... }: { environment.systemPackages = with pkgs; [ curl ]; };
+      client = {pkgs, lib, ...}: {environment.systemPackages = with pkgs; [curl];};
     };
 
     testScript =
-      { nodes, ... }:
+      {nodes, ...}:
       let
         sampleFile = pkgs.writeText "sample.txt" ''
           It's the season of White Album.

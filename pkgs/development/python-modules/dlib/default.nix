@@ -19,7 +19,7 @@ buildPythonPackage {
     meta
     ;
 
-  patches = [ ./build-cores.patch ];
+  patches = [./build-cores.patch];
 
   nativeCheckInputs = [
     pytest

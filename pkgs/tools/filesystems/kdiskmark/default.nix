@@ -43,7 +43,7 @@ stdenv.mkDerivation rec {
     "--prefix"
     "PATH"
     ":"
-    (lib.makeBinPath [ fio ])
+    (lib.makeBinPath [fio])
   ];
 
   meta = with lib; {
@@ -54,7 +54,7 @@ stdenv.mkDerivation rec {
       on NixOS, nix-env will not work.
     '';
     homepage = "https://github.com/JonMagon/KDiskMark";
-    maintainers = [ maintainers.symphorien ];
+    maintainers = [maintainers.symphorien];
     license = licenses.gpl3Only;
     platforms = platforms.linux;
   };

@@ -40,7 +40,7 @@ buildPythonPackage rec {
     rm pytest.ini
   '';
 
-  pythonImportsCheck = [ "pytorch_pfn_extras" ];
+  pythonImportsCheck = ["pytorch_pfn_extras"];
 
   disabledTestPaths = [
     # Requires optuna which is currently (2022-02-16) marked as broken.
@@ -76,6 +76,6 @@ buildPythonPackage rec {
     description = "Supplementary components to accelerate research and development in PyTorch";
     homepage = "https://github.com/pfnet/pytorch-pfn-extras";
     license = licenses.mit;
-    maintainers = with maintainers; [ samuela ];
+    maintainers = with maintainers; [samuela];
   };
 }

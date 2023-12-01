@@ -32,7 +32,7 @@ let
   '';
 in
 {
-  meta.maintainers = with maintainers; [ costrouc ];
+  meta.maintainers = with maintainers; [costrouc];
 
   options.services.jupyterhub = {
     enable = mkEnableOption (lib.mdDoc "Jupyterhub development server");
@@ -130,7 +130,7 @@ in
 
     kernels = mkOption {
       type = types.nullOr (
-        types.attrsOf (types.submodule (import ../jupyter/kernel-options.nix { inherit lib pkgs; }))
+        types.attrsOf (types.submodule (import ../jupyter/kernel-options.nix {inherit lib pkgs;}))
       );
 
       default = null;
@@ -197,8 +197,8 @@ in
       systemd.services.jupyterhub = {
         description = "Jupyterhub development server";
 
-        after = [ "network.target" ];
-        wantedBy = [ "multi-user.target" ];
+        after = ["network.target"];
+        wantedBy = ["multi-user.target"];
 
         serviceConfig = {
           Restart = "always";

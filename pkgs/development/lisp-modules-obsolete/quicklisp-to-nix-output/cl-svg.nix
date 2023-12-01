@@ -1,12 +1,12 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "cl-svg";
   version = "20180228-git";
 
   description = "Produce Scalable Vector Graphics (SVG) files";
 
-  deps = [ ];
+  deps = [];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/cl-svg/2018-02-28/cl-svg-20180228-git.tgz";
@@ -15,7 +15,7 @@ rec {
 
   packageName = "cl-svg";
 
-  asdFilesToKeep = [ "cl-svg.asd" ];
+  asdFilesToKeep = ["cl-svg.asd"];
   overrides = x: x;
 }
 /* (SYSTEM cl-svg DESCRIPTION Produce Scalable Vector Graphics (SVG) files

@@ -40,17 +40,17 @@ buildPythonPackage rec {
     CoreAudio
   ];
 
-  propagatedNativeBuildInputs = [ cffi ];
-  propagatedBuildInputs = [ cffi ];
+  propagatedNativeBuildInputs = [cffi];
+  propagatedBuildInputs = [cffi];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "miniaudio" ];
+  pythonImportsCheck = ["miniaudio"];
 
   meta = with lib; {
     description = "Python bindings for the miniaudio library and its decoders";
     homepage = "https://github.com/irmen/pyminiaudio";
     license = licenses.mit;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

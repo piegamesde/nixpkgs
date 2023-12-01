@@ -25,9 +25,9 @@ buildGoModule rec {
     "-X main.AppVersion=${version}"
   ];
 
-  passthru.tests.version = testers.testVersion { package = gucci; };
+  passthru.tests.version = testers.testVersion {package = gucci;};
 
-  checkFlags = [ "-short" ];
+  checkFlags = ["-short"];
 
   # Integration tests rely on Ginkgo but fail.
   # Related: https://github.com/onsi/ginkgo/issues/602
@@ -41,7 +41,7 @@ buildGoModule rec {
     description = "A simple CLI templating tool written in golang";
     homepage = "https://github.com/noqcks/gucci";
     license = licenses.mit;
-    maintainers = with maintainers; [ braydenjw ];
+    maintainers = with maintainers; [braydenjw];
     platforms = platforms.unix;
   };
 }

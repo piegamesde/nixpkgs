@@ -15,7 +15,7 @@ stdenv.mkDerivation rec {
     name = "${pname}-${version}.tar.gz";
   };
 
-  buildInputs = [ libnfnetlink ];
+  buildInputs = [libnfnetlink];
 
   installFlags = [
     "PREFIX=$(out)"

@@ -30,7 +30,7 @@ buildPythonPackage rec {
     dnspython
     greenlet
     six
-  ] ++ lib.optionals (pythonOlder "3.5") [ monotonic ];
+  ] ++ lib.optionals (pythonOlder "3.5") [monotonic];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -94,6 +94,6 @@ buildPythonPackage rec {
     description = "A concurrent networking library for Python";
     homepage = "https://github.com/eventlet/eventlet/";
     license = licenses.mit;
-    maintainers = with maintainers; [ SuperSandro2000 ];
+    maintainers = with maintainers; [SuperSandro2000];
   };
 }

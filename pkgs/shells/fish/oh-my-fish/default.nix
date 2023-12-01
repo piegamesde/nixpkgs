@@ -20,7 +20,7 @@ stdenv.mkDerivation (
     };
 
     strictDeps = true;
-    buildInputs = [ fish ];
+    buildInputs = [fish];
 
     dontConfigure = true;
     dontBuild = true;
@@ -54,7 +54,7 @@ stdenv.mkDerivation (
         easy to use.
       '';
       license = licenses.mit;
-      maintainers = with maintainers; [ AndersonTorres ];
+      maintainers = with maintainers; [AndersonTorres];
       mainProgram = "omf-install";
       platforms = fish.meta.platforms;
     };

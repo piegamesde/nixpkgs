@@ -57,7 +57,7 @@ in
     mkIf cfg.enable {
 
       # get the command line client on system path to make some use of the service
-      environment.systemPackages = [ pkgs.dict ];
+      environment.systemPackages = [pkgs.dict];
 
       environment.etc."dict.conf".text = ''
         server localhost
@@ -74,7 +74,7 @@ in
 
       systemd.services.dictd = {
         description = "DICT.org Dictionary Server";
-        wantedBy = [ "multi-user.target" ];
+        wantedBy = ["multi-user.target"];
         environment = {
           LOCALE_ARCHIVE = "/run/current-system/sw/lib/locale/locale-archive";
         };

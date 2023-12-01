@@ -1,8 +1,8 @@
-{ lib, targetPlatform }:
+{lib, targetPlatform}:
 
 let
   isAarch64Darwin = targetPlatform.isDarwin && targetPlatform.isAarch64;
-  gcc = targetPlatform.gcc or { };
+  gcc = targetPlatform.gcc or {};
   p = gcc // targetPlatform.parsed.abi;
 in
 lib.concatLists [

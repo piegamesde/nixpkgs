@@ -17,13 +17,13 @@ buildDunePackage rec {
   minimalOCamlVersion = "4.03";
   useDune2 = true;
 
-  propagatedBuildInputs = [ stdlib-shims ];
+  propagatedBuildInputs = [stdlib-shims];
 
   meta = with lib; {
     homepage = "http://ocamlgraph.lri.fr/";
     downloadPage = "https://github.com/backtracking/ocamlgraph";
     description = "Graph library for OCaml";
     license = licenses.gpl2Oss;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

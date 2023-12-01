@@ -18,7 +18,7 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-M9WpB59AWSaGMnGrO37Fc+7O6pVBc2BDAv/BGlPmo8E=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   postInstall = ''
     wrapProgram $out/bin/cplay-ng \
@@ -47,6 +47,6 @@ python3.pkgs.buildPythonApplication rec {
       design while evolving with a shifting environment.
     '';
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ fgaz ];
+    maintainers = with maintainers; [fgaz];
   };
 }

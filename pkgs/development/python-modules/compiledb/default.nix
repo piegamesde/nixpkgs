@@ -46,6 +46,6 @@ buildPythonPackage rec {
     description = "Tool for generating Clang's JSON Compilation Database files";
     license = licenses.gpl3;
     homepage = "https://github.com/nickdiego/compiledb";
-    maintainers = with maintainers; [ multun ];
+    maintainers = with maintainers; [multun];
   };
 }

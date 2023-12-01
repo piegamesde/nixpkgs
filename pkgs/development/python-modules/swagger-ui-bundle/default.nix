@@ -21,7 +21,7 @@ buildPythonPackage rec {
     substituteInPlace setup.py --replace "setup_requires=['pytest-runner', 'flake8']" "setup_requires=[]"
   '';
 
-  propagatedBuildInputs = [ jinja2 ];
+  propagatedBuildInputs = [jinja2];
 
   # package contains no tests
   doCheck = false;
@@ -30,6 +30,6 @@ buildPythonPackage rec {
     description = "bundled swagger-ui pip package";
     homepage = "https://github.com/dtkav/swagger_ui_bundle";
     license = licenses.asl20;
-    maintainers = with maintainers; [ elohmeier ];
+    maintainers = with maintainers; [elohmeier];
   };
 }

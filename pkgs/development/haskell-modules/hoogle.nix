@@ -61,7 +61,7 @@ buildPackages.stdenv.mkDerivation {
 
   inherit docPackages;
 
-  passAsFile = [ "buildCommand" ];
+  passAsFile = ["buildCommand"];
 
   buildCommand = ''
     ${let
@@ -69,7 +69,7 @@ buildPackages.stdenv.mkDerivation {
       # If we don't then grabbing `p.name` here will fail.
       packages' = lib.filter (p: p != null) packages;
     in
-    lib.optionalString (packages' != [ ] -> docPackages == [ ]) (
+    lib.optionalString (packages' != [] -> docPackages == []) (
       "echo WARNING: localHoogle package list empty, even though"
       + " the following were specified: "
       + lib.concatMapStringsSep ", " (p: p.name) packages'
@@ -135,6 +135,6 @@ buildPackages.stdenv.mkDerivation {
     description = "A local Hoogle database";
     platforms = ghc.meta.platforms;
     hydraPlatforms = with lib.platforms; none;
-    maintainers = with lib.maintainers; [ ttuegel ];
+    maintainers = with lib.maintainers; [ttuegel];
   };
 }

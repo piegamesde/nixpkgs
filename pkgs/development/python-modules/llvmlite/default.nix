@@ -22,7 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-tDq9fILoBSYcQl1QM1vppsT4QmTjTW1uR1IHMAAF1XI=";
   };
 
-  nativeBuildInputs = [ llvm ];
+  nativeBuildInputs = [llvm];
   propagatedBuildInputs = lib.optional (pythonOlder "3.4") enum34;
 
   # Disable static linking
@@ -42,7 +42,7 @@ buildPythonPackage rec {
     ${python.executable} runtests.py
   '';
 
-  __impureHostDeps = lib.optionals stdenv.isDarwin [ "/usr/lib/libm.dylib" ];
+  __impureHostDeps = lib.optionals stdenv.isDarwin ["/usr/lib/libm.dylib"];
 
   passthru.llvm = llvm;
 
@@ -50,6 +50,6 @@ buildPythonPackage rec {
     description = "A lightweight LLVM python binding for writing JIT compilers";
     homepage = "http://llvmlite.pydata.org/";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ fridh ];
+    maintainers = with maintainers; [fridh];
   };
 }

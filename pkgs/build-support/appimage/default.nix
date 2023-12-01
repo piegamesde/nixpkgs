@@ -33,7 +33,7 @@ rec {
       src,
       ...
     }:
-    pkgs.runCommand "${name}-extracted" { buildInputs = [ appimage-exec ]; } ''
+    pkgs.runCommand "${name}-extracted" {buildInputs = [appimage-exec];} ''
       appimage-exec.sh -x $out ${src}
     '';
 
@@ -47,7 +47,7 @@ rec {
       name ? "${args.pname}-${args.version}",
       src,
       extraPkgs,
-      meta ? { },
+      meta ? {},
       ...
     }:
     buildFHSEnv (
@@ -55,12 +55,12 @@ rec {
       // {
         inherit name;
 
-        targetPkgs = pkgs: [ appimage-exec ] ++ defaultFhsEnvArgs.targetPkgs pkgs ++ extraPkgs pkgs;
+        targetPkgs = pkgs: [appimage-exec] ++ defaultFhsEnvArgs.targetPkgs pkgs ++ extraPkgs pkgs;
 
         runScript = "appimage-exec.sh -w ${src} --";
 
         meta = {
-          sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+          sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
         } // meta;
       }
       // (removeAttrs args (
@@ -76,14 +76,14 @@ rec {
     args@{
       name ? "${args.pname}-${args.version}",
       src,
-      extraPkgs ? pkgs: [ ],
+      extraPkgs ? pkgs: [],
       ...
     }:
     wrapAppImage (
       args
       // {
         inherit name extraPkgs;
-        src = extract { inherit name src; };
+        src = extract {inherit name src;};
 
         # passthru src to make nix-update work
         # hack to keep the origin position (unsafeGetAttrPos)
@@ -93,7 +93,7 @@ rec {
             (lib.remove "src")
             (removeAttrs args)
           ]
-          // args.passthru or { };
+          // args.passthru or {};
       }
     );
 

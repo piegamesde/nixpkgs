@@ -4,7 +4,7 @@
   makeWrapper,
   nemo,
   nemoExtensions,
-  extensions ? [ ],
+  extensions ? [],
   useDefaultExtensions ? true,
 }:
 
@@ -14,9 +14,9 @@ in
 symlinkJoin {
   name = "nemo-with-extensions-${nemo.version}";
 
-  paths = [ nemo ] ++ selectedExtensions;
+  paths = [nemo] ++ selectedExtensions;
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   postBuild = ''
     for f in $(find $out/bin/ $out/libexec/ -type l -not -path "*/.*"); do

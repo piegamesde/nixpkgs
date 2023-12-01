@@ -18,7 +18,7 @@ else
 
     duneVersion = "3";
 
-    checkInputs = [ ounit ];
+    checkInputs = [ounit];
     propagatedBuildInputs = [
       ppx_sexp_conv
       sexplib0

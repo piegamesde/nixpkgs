@@ -16,7 +16,7 @@ python3.pkgs.buildPythonApplication rec {
     sha256 = "sha256-fFKW7uPBfrnze0UoPL3Mfwd4sFOuHYuDP7kv6VtdM3o=";
   };
 
-  propagatedBuildInputs = with python3.pkgs; [ requests ];
+  propagatedBuildInputs = with python3.pkgs; [requests];
 
   postPatch = ''
     sed -i "1 i #!/usr/bin/python" ${pname}.py
@@ -32,6 +32,6 @@ python3.pkgs.buildPythonApplication rec {
     description = "Tool to detect the log4j vulnerability";
     homepage = "https://github.com/takito1812/log4j-detect";
     license = licenses.unfree;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

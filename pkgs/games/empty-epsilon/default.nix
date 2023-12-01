@@ -50,7 +50,7 @@ let
       ];
     };
 
-    nativeBuildInputs = [ cmake ];
+    nativeBuildInputs = [cmake];
     buildInputs = [
       sfml
       libX11
@@ -61,7 +61,7 @@ let
       description = "C++ game engine coded on top of SFML used for EmptyEpsilon";
       homepage = "https://github.com/daid/SeriousProton";
       license = licenses.mit;
-      maintainers = with maintainers; [ fpletz ];
+      maintainers = with maintainers; [fpletz];
       platforms = platforms.linux;
     };
   };
@@ -90,7 +90,7 @@ stdenv.mkDerivation {
     })
   ];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     serious-proton
     sfml

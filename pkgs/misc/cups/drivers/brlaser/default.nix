@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
     sha256 = "1995s69ksq1fz0vb34v0ndiqncrinbrlpmp70rkl6az7kag99s80";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     zlib
     cups
@@ -70,6 +70,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/pdewacht/brlaser";
     license = licenses.gpl2;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ StijnDW ];
+    maintainers = with maintainers; [StijnDW];
   };
 }

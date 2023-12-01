@@ -28,9 +28,9 @@ stdenv.mkDerivation rec {
 
   patches =
     lib.optionals (stdenv.isDarwin && !(lib.versionAtLeast stdenv.hostPlatform.darwinMinVersion "11"))
-      [ ./0001-remove-unifiedtypeidentifiers-framework ];
+      [./0001-remove-unifiedtypeidentifiers-framework];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs =
     [
@@ -52,7 +52,7 @@ stdenv.mkDerivation rec {
     ];
 
   env.NIX_CFLAGS_COMPILE = toString (
-    [ ]
+    []
     # Apple's compiler finds a format string security error on
     # ../../../server/TracyView.cpp:649:34, preventing building.
     ++ lib.optional stdenv.isDarwin "-Wno-format-security"

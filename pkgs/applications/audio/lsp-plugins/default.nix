@@ -119,7 +119,7 @@ stdenv.mkDerivation rec {
       - Trigger
     '';
     homepage = "https://lsp-plug.in";
-    maintainers = with maintainers; [ magnetophon ];
+    maintainers = with maintainers; [magnetophon];
     license = licenses.gpl2;
     platforms = platforms.linux;
   };

@@ -25,12 +25,12 @@ buildPythonPackage rec {
     azure-mgmt-core
   ];
 
-  pythonNamespaces = [ "azure.mgmt" ];
+  pythonNamespaces = ["azure.mgmt"];
 
   # has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "azure.mgmt.compute" ];
+  pythonImportsCheck = ["azure.mgmt.compute"];
 
   meta = with lib; {
     description = "This is the Microsoft Azure Compute Management Client Library";

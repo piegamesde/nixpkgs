@@ -17,7 +17,7 @@ stdenv.mkDerivation {
     sha256 = "0bf0d25yr0craksamczn2mdy6cjp27l88smihlw9bw4p6a2qhi41";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = with xorg; [
     libXrandr
     libXcursor
@@ -34,12 +34,12 @@ stdenv.mkDerivation {
     in
     "cd ${subdir}";
 
-  makeFlags = [ "PREFIX=${placeholder "out"}" ];
+  makeFlags = ["PREFIX=${placeholder "out"}"];
 
   meta = with lib; {
     description = "A tiling window manager";
     homepage = "https://github.com/conformal/spectrwm";
-    maintainers = with maintainers; [ christianharke ];
+    maintainers = with maintainers; [christianharke];
     license = licenses.isc;
     platforms = platforms.all;
 

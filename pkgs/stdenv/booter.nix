@@ -25,7 +25,7 @@
 # stages are kept around with a `stdenv.__bootPackges` attribute referring the
 # previous stage. It is idiomatic that attributes prefixed with `__` come with
 # special restrictions and should not be used under normal circumstances.
-{ lib, allPackages }:
+{lib, allPackages}:
 
 # Type:
 #   [ pkgset -> (args to stage/default.nix) or ({ __raw = true; } // pkgs) ]
@@ -88,7 +88,7 @@ let
         # So true by default for only the first element because one
         # 1-indexing. Since we reverse the list, this means this is true
         # for the final stage.
-        { allowCustomOverrides = index == 1; } // (stageFun prevStage)
+        {allowCustomOverrides = index == 1;} // (stageFun prevStage)
       )
       (lib.lists.reverseList stageFuns);
 
@@ -110,7 +110,7 @@ let
           args'
         else
           allPackages (
-            (builtins.removeAttrs args' [ "selfBuild" ])
+            (builtins.removeAttrs args' ["selfBuild"])
             // {
               adjacentPackages =
                 if args.selfBuild or true then
@@ -162,4 +162,4 @@ let
         buildPackages.stdenv.cc;
   };
 in
-dfold folder postStage (_: { }) withAllowCustomOverrides
+dfold folder postStage (_: {}) withAllowCustomOverrides

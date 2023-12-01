@@ -28,8 +28,8 @@ with lib;
 
   config = mkIf config.services.oidentd.enable {
     systemd.services.oidentd = {
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
       serviceConfig.Type = "forking";
       script = "${pkgs.oidentd}/sbin/oidentd -u oidentd -g nogroup";
     };

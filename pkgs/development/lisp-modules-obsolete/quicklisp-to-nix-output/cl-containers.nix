@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "cl-containers";
   version = "20200427-git";
@@ -24,7 +24,7 @@ rec {
 
   packageName = "cl-containers";
 
-  asdFilesToKeep = [ "cl-containers.asd" ];
+  asdFilesToKeep = ["cl-containers.asd"];
   overrides = x: x;
 }
 /* (SYSTEM cl-containers DESCRIPTION

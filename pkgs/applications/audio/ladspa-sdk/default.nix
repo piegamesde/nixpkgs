@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
 
   # The default target also runs tests, which we don't want to do in
   # the build phase as it would break cross.
-  buildFlags = [ "targets" ];
+  buildFlags = ["targets"];
 
   # Tests try to create and play a sound file.  Playing will fail, but
   # it's probably still useful to run the part that creates the file.
@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "http://www.ladspa.org/ladspa_sdk/overview.html";
     license = lib.licenses.lgpl2;
-    maintainers = [ lib.maintainers.magnetophon ];
+    maintainers = [lib.maintainers.magnetophon];
     platforms = lib.platforms.linux;
   };
 }

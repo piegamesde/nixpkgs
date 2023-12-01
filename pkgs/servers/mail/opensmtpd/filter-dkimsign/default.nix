@@ -15,14 +15,14 @@ stdenv.mkDerivation rec {
     hash = "sha256-O18NtAuSNg82uKnUx+R4h3e1IBSElTrFWBBkr2AYNsM=";
   };
 
-  patches = [ ./no-chown-while-installing.patch ];
+  patches = [./no-chown-while-installing.patch];
 
   buildInputs = [
     libopensmtpd
     openssl
   ];
 
-  nativeBuildInputs = [ mandoc ];
+  nativeBuildInputs = [mandoc];
 
   makeFlags = [
     "-f Makefile.gnu"
@@ -35,6 +35,6 @@ stdenv.mkDerivation rec {
     description = "OpenSMTPD filter for DKIM signing";
     homepage = "http://imperialat.at/dev/filter-dkimsign/";
     license = licenses.isc;
-    maintainers = with maintainers; [ malte-v ];
+    maintainers = with maintainers; [malte-v];
   };
 }

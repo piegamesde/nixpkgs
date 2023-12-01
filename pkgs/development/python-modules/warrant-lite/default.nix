@@ -37,12 +37,12 @@ buildPythonPackage rec {
   # Tests require credentials
   doCheck = false;
 
-  pythonImportsCheck = [ "warrant_lite" ];
+  pythonImportsCheck = ["warrant_lite"];
 
   meta = with lib; {
     description = "Module for process SRP requests for AWS Cognito";
     homepage = "https://github.com/capless/warrant-lite";
-    license = with licenses; [ asl20 ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [asl20];
+    maintainers = with maintainers; [fab];
   };
 }

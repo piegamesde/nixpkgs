@@ -34,7 +34,7 @@ in
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = with pkgs; [ cfg.package ];
+    environment.systemPackages = with pkgs; [cfg.package];
 
     security.wrappers.mtr-packet = {
       owner = "root";

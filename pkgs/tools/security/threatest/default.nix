@@ -22,6 +22,6 @@ buildGoModule rec {
     homepage = "https://github.com/DataDog/threatest";
     changelog = "https://github.com/DataDog/threatest/releases/tag/v${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

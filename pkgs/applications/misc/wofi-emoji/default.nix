@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
     sha256 = "1wq276bhf9x24ds13b2dwa69cjnr207p6977hr4bsnczryg609rh";
   };
 
-  nativeBuildInputs = [ jq ];
+  nativeBuildInputs = [jq];
   buildInputs = [
     wofi
     wtype
@@ -59,7 +59,7 @@ stdenv.mkDerivation rec {
     description = "Simple emoji selector for Wayland using wofi and wl-clipboard";
     homepage = "https://github.com/dln/wofi-emoji";
     license = licenses.mit;
-    maintainers = [ maintainers.ymarkus ];
+    maintainers = [maintainers.ymarkus];
     platforms = platforms.all;
   };
 }

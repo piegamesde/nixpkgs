@@ -33,23 +33,23 @@ stdenv.mkDerivation rec {
   ];
 
   buildInputs =
-    [ libsidplayfp ]
+    [libsidplayfp]
     ++ lib.optional alsaSupport alsa-lib
     ++ lib.optional pulseSupport libpulseaudio
     ++ lib.optional out123Support mpg123;
 
-  configureFlags = lib.optionals out123Support [ "--with-out123" ];
+  configureFlags = lib.optionals out123Support ["--with-out123"];
 
   enableParallelBuilding = true;
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {
     description = "A SID player using libsidplayfp";
     homepage = "https://github.com/libsidplayfp/sidplayfp";
-    license = with licenses; [ gpl2Plus ];
+    license = with licenses; [gpl2Plus];
     maintainers = with maintainers; [
       dezgeg
       OPNA2608

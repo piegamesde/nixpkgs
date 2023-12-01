@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
     "--with-openssl"
   ] ++ lib.optional withPam "--with-pam";
 
-  installFlags = [ "sysconfdir=\${out}/etc" ];
+  installFlags = ["sysconfdir=\${out}/etc"];
 
   enableParallelBuilding = true;
 
@@ -40,6 +40,6 @@ stdenv.mkDerivation rec {
     description = "A middleware that works between postgresql servers and postgresql clients";
     license = licenses.free;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

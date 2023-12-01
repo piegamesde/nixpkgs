@@ -14,7 +14,7 @@ buildPythonPackage rec {
     sha256 = "b582910d36f9ad0992756d7e9ccbe3e5cf811934b1002b51f25b99d3dda9d573";
   };
 
-  buildInputs = [ setuptools ];
+  buildInputs = [setuptools];
 
   meta = with lib; {
     description = "Automatically generated zsh completion function for Python's option parser modules";

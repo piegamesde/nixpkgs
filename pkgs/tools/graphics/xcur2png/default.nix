@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
     sha256 = "0858wn2p14bxpv9lvaz2bz1rk6zk0g8zgxf8iy595m8fqv4q2fya";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     libpng
@@ -32,6 +32,6 @@ stdenv.mkDerivation rec {
     description = "Convert X cursors to PNG images";
     license = licenses.gpl3;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ romildo ];
+    maintainers = with maintainers; [romildo];
   };
 }

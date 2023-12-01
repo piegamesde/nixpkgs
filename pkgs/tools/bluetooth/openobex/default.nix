@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
     libusb-compat-0_1
   ];
 
-  configureFlags = [ "--enable-apps" ];
+  configureFlags = ["--enable-apps"];
 
   patchPhase = ''
     sed -i "s!/lib/udev!$out/lib/udev!" udev/CMakeLists.txt

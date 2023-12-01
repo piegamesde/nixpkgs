@@ -25,9 +25,9 @@ buildPythonPackage rec {
     hash = "sha256-JIh6jr4pFXGZTUi6K7VsymaCxCrTNBevk9xo9TsrFnM=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
-  propagatedBuildInputs = [ aiohttp ];
+  propagatedBuildInputs = [aiohttp];
 
   nativeCheckInputs = [
     aresponses
@@ -42,7 +42,7 @@ buildPythonPackage rec {
       "examples/"
     ];
 
-  pythonImportsCheck = [ "aiorecollect" ];
+  pythonImportsCheck = ["aiorecollect"];
 
   meta = with lib; {
     description = "Python library for the Recollect Waste API";
@@ -53,7 +53,7 @@ buildPythonPackage rec {
       and more.
     '';
     homepage = "https://github.com/bachya/aiorecollect";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

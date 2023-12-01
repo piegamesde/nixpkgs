@@ -62,7 +62,7 @@ buildPythonPackage rec {
     rm sfepy/tests/test_quadratures.py
   '';
 
-  nativeCheckInputs = [ pytest ];
+  nativeCheckInputs = [pytest];
 
   checkPhase = ''
     export OMPI_MCA_plm_rsh_agent=${openssh}/bin/ssh
@@ -77,6 +77,6 @@ buildPythonPackage rec {
     homepage = "https://sfepy.org/";
     description = "Simple Finite Elements in Python";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ wd15 ];
+    maintainers = with maintainers; [wd15];
   };
 }

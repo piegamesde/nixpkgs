@@ -73,7 +73,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Synchronous multi-room audio player";
     homepage = "https://github.com/badaix/snapcast";
-    maintainers = with maintainers; [ fpletz ];
+    maintainers = with maintainers; [fpletz];
     platforms = platforms.linux ++ platforms.darwin;
     license = licenses.gpl3Plus;
   };

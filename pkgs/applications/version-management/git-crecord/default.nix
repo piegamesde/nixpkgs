@@ -15,7 +15,7 @@ python3.pkgs.buildPythonApplication rec {
     sha256 = "sha256-LWO9vteTIe54zTDWyRotLKIIi5SaGD0c9s7B5aBHm0s=";
   };
 
-  propagatedBuildInputs = with python3.pkgs; [ docutils ];
+  propagatedBuildInputs = with python3.pkgs; [docutils];
 
   # has no tests
   doCheck = false;
@@ -24,6 +24,6 @@ python3.pkgs.buildPythonApplication rec {
     homepage = "https://github.com/andrewshadura/git-crecord";
     description = "Git subcommand to interactively select changes to commit or stage";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ onny ];
+    maintainers = with maintainers; [onny];
   };
 }

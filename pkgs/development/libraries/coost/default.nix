@@ -27,20 +27,20 @@ stdenv.mkDerivation rec {
       --replace '$'{prefix}/@CMAKE_INSTALL_INCLUDEDIR@ @CMAKE_INSTALL_FULL_INCLUDEDIR@ \
   '';
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = lib.optional withCurl curl ++ lib.optional withOpenSSL openssl;
 
   cmakeFlags = [
     "-DBUILD_SHARED_LIBS=ON"
   ] ++ lib.optional withCurl "-DWITH_LIBCURL=ON" ++ lib.optional withOpenSSL "-DWITH_OPENSSL=ON";
 
-  passthru.updateScript = gitUpdater { };
+  passthru.updateScript = gitUpdater {};
 
   meta = with lib; {
     description = "A tiny boost library in C++11";
     homepage = "https://github.com/idealvin/coost";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
     platforms = platforms.unix;
   };
 }

@@ -39,6 +39,6 @@ pythonPackages.buildPythonApplication rec {
     homepage = "https://github.com/ids1024/wikicurses/";
     license = lib.licenses.mit;
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ pSub ];
+    maintainers = with lib.maintainers; [pSub];
   };
 }

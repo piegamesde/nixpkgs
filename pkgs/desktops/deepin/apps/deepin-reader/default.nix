@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-IpgmTmnrPWc9EFZVM+S2nFxdpPjbgXqEWUnK/O9FmUg=";
   };
 
-  patches = [ ./use-pkg-config.diff ];
+  patches = [./use-pkg-config.diff];
 
   postPatch = ''
     substituteInPlace reader/{reader.pro,document/Model.cpp} htmltopdf/htmltopdf.pro 3rdparty/deepin-pdfium/src/src.pro \
@@ -59,7 +59,7 @@ stdenv.mkDerivation rec {
     openjpeg
   ];
 
-  qmakeFlags = [ "DEFINES+=VERSION=${version}" ];
+  qmakeFlags = ["DEFINES+=VERSION=${version}"];
 
   meta = with lib; {
     description = "A simple memo software with texts and voice recordings";

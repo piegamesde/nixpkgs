@@ -72,7 +72,7 @@ stdenv.mkDerivation rec {
       - Many configuration options.
     '';
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ x3ro ];
+    maintainers = with maintainers; [x3ro];
     platforms = platforms.linux;
   };
 }

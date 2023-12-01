@@ -35,7 +35,7 @@ let
 in
 buildEnv {
   name = "ihaskell-with-packages";
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
   paths = [
     ihaskellEnv
     jupyter

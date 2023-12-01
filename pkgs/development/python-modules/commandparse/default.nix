@@ -15,12 +15,12 @@ buildPythonPackage rec {
 
   # tests only distributed upstream source, not PyPi
   doCheck = false;
-  pythonImportsCheck = [ "commandparse" ];
+  pythonImportsCheck = ["commandparse"];
 
   meta = with lib; {
     description = "Python module to parse command based CLI application";
     homepage = "https://github.com/flgy/commandparse";
-    license = with licenses; [ mit ];
-    maintainers = [ maintainers.fab ];
+    license = with licenses; [mit];
+    maintainers = [maintainers.fab];
   };
 }

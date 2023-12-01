@@ -10,7 +10,7 @@ let
   cfg = config.services.jellyseerr;
 in
 {
-  meta.maintainers = [ maintainers.camillemndn ];
+  meta.maintainers = [maintainers.camillemndn];
 
   options.services.jellyseerr = {
     enable = mkEnableOption (mdDoc "Jellyseerr, a requests manager for Jellyfin");
@@ -31,8 +31,8 @@ in
   config = mkIf cfg.enable {
     systemd.services.jellyseerr = {
       description = "Jellyseerr, a requests manager for Jellyfin";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
       environment.PORT = toString cfg.port;
       serviceConfig = {
         Type = "exec";
@@ -40,9 +40,7 @@ in
         WorkingDirectory = "${pkgs.jellyseerr}/libexec/jellyseerr/deps/jellyseerr";
         DynamicUser = true;
         ExecStart = "${pkgs.jellyseerr}/bin/jellyseerr";
-        BindPaths = [
-          "/var/lib/jellyseerr/:${pkgs.jellyseerr}/libexec/jellyseerr/deps/jellyseerr/config/"
-        ];
+        BindPaths = ["/var/lib/jellyseerr/:${pkgs.jellyseerr}/libexec/jellyseerr/deps/jellyseerr/config/"];
         Restart = "on-failure";
         ProtectHome = true;
         ProtectSystem = "strict";
@@ -62,6 +60,6 @@ in
       };
     };
 
-    networking.firewall = mkIf cfg.openFirewall { allowedTCPPorts = [ cfg.port ]; };
+    networking.firewall = mkIf cfg.openFirewall {allowedTCPPorts = [cfg.port];};
   };
 }

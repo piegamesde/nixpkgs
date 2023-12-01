@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
     description = "A ROS-independent package for logging that seamlessly pipes into rosconsole/rosout for ROS-dependent packages";
     homepage = "https://github.com/ros/console_bridge";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ lopsided98 ];
+    maintainers = with maintainers; [lopsided98];
     platforms = platforms.all;
   };
 }

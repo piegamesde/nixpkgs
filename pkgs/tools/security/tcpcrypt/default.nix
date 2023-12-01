@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
     "dev"
     "out"
   ];
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
   buildInputs =
     [
       openssl

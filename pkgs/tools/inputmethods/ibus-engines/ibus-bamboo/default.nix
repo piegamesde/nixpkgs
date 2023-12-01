@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
     sed -i "s,/usr,$out," bamboo.xml
   '';
 
-  makeFlags = [ "PREFIX=${placeholder "out"}" ];
+  makeFlags = ["PREFIX=${placeholder "out"}"];
 
   meta = with lib; {
     isIbusEngine = true;
@@ -52,6 +52,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/BambooEngine/ibus-bamboo";
     license = licenses.gpl3;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ superbo ];
+    maintainers = with maintainers; [superbo];
   };
 }

@@ -25,7 +25,7 @@ stdenv.mkDerivation {
     ];
     sha256 = "0c60m1sd59s4sda38dc5nniwa7dh1b0kv1maajr0x9d38gqlyk3x";
   };
-  patches = [ ./fixbuild.patch ];
+  patches = [./fixbuild.patch];
 
   nativeBuildInputs = [
     rpmextract
@@ -81,6 +81,6 @@ stdenv.mkDerivation {
       epson
     ];
     platforms = platforms.linux;
-    maintainers = [ maintainers.lunarequest ];
+    maintainers = [maintainers.lunarequest];
   };
 }

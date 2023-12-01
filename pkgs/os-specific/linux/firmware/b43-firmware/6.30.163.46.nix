@@ -14,7 +14,7 @@ stdenvNoCC.mkDerivation rec {
     sha256 = "0baw6gcnrhxbb447msv34xg6rmlcj0gm3ahxwvdwfcvq4xmknz50";
   };
 
-  nativeBuildInputs = [ b43FirmwareCutter ];
+  nativeBuildInputs = [b43FirmwareCutter];
 
   sourceRoot = ".";
 

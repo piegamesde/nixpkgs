@@ -52,6 +52,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/patroclos/PAmix";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ ericsagnes ];
+    maintainers = with maintainers; [ericsagnes];
   };
 }

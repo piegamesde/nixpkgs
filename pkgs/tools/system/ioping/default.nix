@@ -25,11 +25,11 @@ stdenv.mkDerivation rec {
       })
     ];
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   meta = with lib; {
     description = "Disk I/O latency measuring tool";
-    maintainers = with maintainers; [ raskin ];
+    maintainers = with maintainers; [raskin];
     platforms = platforms.unix;
     license = licenses.gpl3Plus;
     homepage = "https://github.com/koct9i/ioping";

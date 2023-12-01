@@ -56,7 +56,7 @@ stdenv.mkDerivation rec {
     (fetchpatch {
       url = "https://github.com/lxc/lxc/commit/c1115e1503bf955c97f4cf3b925a6a9f619764c3.patch";
       sha256 = "sha256-aC1XQesRJfkyQnloB3NvR4p/1WITrqkGYzw50PDxDrs=";
-      excludes = [ "meson.build" ];
+      excludes = ["meson.build"];
     })
   ];
 
@@ -128,6 +128,6 @@ stdenv.mkDerivation rec {
     '';
 
     platforms = platforms.linux;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

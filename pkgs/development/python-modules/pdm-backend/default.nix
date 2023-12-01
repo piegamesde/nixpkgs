@@ -26,9 +26,9 @@ buildPythonPackage rec {
     hash = "sha256-NMnb9DiW5xvfsI1nHFNIwvA/yH2boqe+WeD5re/ojAM=";
   };
 
-  propagatedBuildInputs = lib.optionals (pythonOlder "3.10") [ importlib-metadata ];
+  propagatedBuildInputs = lib.optionals (pythonOlder "3.10") [importlib-metadata];
 
-  pythonImportsCheck = [ "pdm.backend" ];
+  pythonImportsCheck = ["pdm.backend"];
 
   nativeCheckInputs = [
     editables
@@ -42,6 +42,6 @@ buildPythonPackage rec {
     changelog = "https://github.com/pdm-project/pdm-backend/releases/tag/${version}";
     description = "Yet another PEP 517 backend.";
     license = licenses.mit;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

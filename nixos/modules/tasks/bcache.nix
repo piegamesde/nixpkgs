@@ -14,17 +14,17 @@
 
   config = {
 
-    environment.systemPackages = [ pkgs.bcache-tools ];
+    environment.systemPackages = [pkgs.bcache-tools];
 
-    services.udev.packages = [ pkgs.bcache-tools ];
+    services.udev.packages = [pkgs.bcache-tools];
 
     boot.initrd.extraUdevRulesCommands = lib.mkIf (!config.boot.initrd.systemd.enable) ''
       cp -v ${pkgs.bcache-tools}/lib/udev/rules.d/*.rules $out/
     '';
 
     boot.initrd.services.udev = lib.mkIf config.boot.initrd.services.bcache.enable {
-      packages = [ pkgs.bcache-tools ];
-      binPackages = [ pkgs.bcache-tools ];
+      packages = [pkgs.bcache-tools];
+      binPackages = [pkgs.bcache-tools];
     };
   };
 }

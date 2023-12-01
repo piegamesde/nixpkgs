@@ -15,7 +15,7 @@ buildGoModule rec {
     sha256 = "sha256-cOXN6DZH8uiJNPRZrSr2QIsENZUQrreqYJB6OFALFeA=";
   };
 
-  patches = [ ./version.patch ];
+  patches = [./version.patch];
 
   vendorHash = "sha256-nZyDoME5fVqRoAeLADjrQ7i6mVf3ujGN2+BUfrSHck8=";
 
@@ -37,6 +37,6 @@ buildGoModule rec {
     description = "Tools to use with the Kubernetes controller-runtime libraries";
     homepage = "https://github.com/kubernetes-sigs/controller-tools";
     license = licenses.asl20;
-    maintainers = with maintainers; [ michojel ];
+    maintainers = with maintainers; [michojel];
   };
 }

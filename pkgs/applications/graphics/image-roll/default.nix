@@ -27,7 +27,7 @@ rustPlatform.buildRustPackage rec {
     wrapGAppsHook4
   ];
 
-  buildInputs = [ gtk4 ];
+  buildInputs = [gtk4];
 
   checkFlags = [
     # fails in the sandbox
@@ -47,6 +47,6 @@ rustPlatform.buildRustPackage rec {
     description = "Simple and fast GTK image viewer with basic image manipulation tools";
     homepage = "https://github.com/weclaw1/image-roll";
     license = licenses.mit;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
   };
 }

@@ -27,7 +27,7 @@ buildGoModule rec {
     "-X k8c.io/kubeone/pkg/cmd.date=unknown"
   ];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = ''
     installShellCompletion --cmd kubeone \
@@ -45,6 +45,6 @@ buildGoModule rec {
     homepage = "https://kubeone.io/";
     changelog = "https://github.com/kubermatic/kubeone/releases/tag/v${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ lblasc ];
+    maintainers = with maintainers; [lblasc];
   };
 }

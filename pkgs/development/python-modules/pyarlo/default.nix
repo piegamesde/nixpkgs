@@ -31,12 +31,12 @@ buildPythonPackage rec {
     requests-mock
   ];
 
-  pythonImportsCheck = [ "pyarlo" ];
+  pythonImportsCheck = ["pyarlo"];
 
   meta = with lib; {
     description = "Python library to work with Netgear Arlo cameras";
     homepage = "https://github.com/tchellomello/python-arlo";
-    license = with licenses; [ lgpl3Plus ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [lgpl3Plus];
+    maintainers = with maintainers; [fab];
   };
 }

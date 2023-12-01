@@ -79,6 +79,6 @@ stdenv.mkDerivation rec {
     license = licenses.bsd3;
     homepage = "https://icl.cs.utk.edu/magma/index.html";
     platforms = platforms.linux;
-    maintainers = with maintainers; [ volhovm ];
+    maintainers = with maintainers; [volhovm];
   };
 }

@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
     sha256 = "1plwdmzds6dq2rlp84dgiashrfg0kg4yijhnxaapz2q4d1vvx8lq";
   };
 
-  buildInputs = [ gnupg ];
+  buildInputs = [gnupg];
 
   # https://github.com/NixOS/nixpkgs/issues/134445
   doCheck = !stdenv.isDarwin && stdenv.isx86_64;
@@ -57,7 +57,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Safely store secrets in a VCS repo";
-    maintainers = with maintainers; [ ericsagnes ];
+    maintainers = with maintainers; [ericsagnes];
     license = licenses.mit;
     platforms = platforms.all;
   };

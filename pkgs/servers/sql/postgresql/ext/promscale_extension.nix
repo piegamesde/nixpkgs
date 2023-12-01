@@ -51,7 +51,7 @@ buildPgxExtension rec {
   meta = with lib; {
     description = "Promscale is an open source observability backend for metrics and traces powered by SQL";
     homepage = "https://github.com/timescale/promscale_extension";
-    maintainers = with maintainers; [ anpin ];
+    maintainers = with maintainers; [anpin];
     platforms = postgresql.meta.platforms;
     license = licenses.unfree;
 

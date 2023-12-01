@@ -45,7 +45,7 @@ buildPythonApplication {
       inside the kitty terminal.
     '';
     homepage = "https://github.com/dsanson/termpdf.py";
-    maintainers = with maintainers; [ teto ];
+    maintainers = with maintainers; [teto];
     license = licenses.mit;
   };
 }

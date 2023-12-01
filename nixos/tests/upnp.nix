@@ -6,7 +6,7 @@
 # mapping.
 
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
 
   let
     internalRouterAddress = "192.168.3.1";
@@ -16,21 +16,21 @@ import ./make-test-python.nix (
   in
   {
     name = "upnp";
-    meta = with pkgs.lib.maintainers; { maintainers = [ bobvanderlinden ]; };
+    meta = with pkgs.lib.maintainers; {maintainers = [bobvanderlinden];};
 
     nodes = {
       router =
-        { pkgs, nodes, ... }:
+        {pkgs, nodes, ...}:
         {
           virtualisation.vlans = [
             1
             2
           ];
           networking.nat.enable = true;
-          networking.nat.internalInterfaces = [ "eth2" ];
+          networking.nat.internalInterfaces = ["eth2"];
           networking.nat.externalInterface = "eth1";
           networking.firewall.enable = true;
-          networking.firewall.trustedInterfaces = [ "eth2" ];
+          networking.firewall.trustedInterfaces = ["eth2"];
           networking.interfaces.eth1.ipv4.addresses = [
             {
               address = externalRouterAddress;
@@ -46,7 +46,7 @@ import ./make-test-python.nix (
           services.miniupnpd = {
             enable = true;
             externalInterface = "eth1";
-            internalIPs = [ "eth2" ];
+            internalIPs = ["eth2"];
             appendConfig = ''
               ext_ip=${externalRouterAddress}
             '';
@@ -54,13 +54,13 @@ import ./make-test-python.nix (
         };
 
       client1 =
-        { pkgs, nodes, ... }:
+        {pkgs, nodes, ...}:
         {
           environment.systemPackages = [
             pkgs.miniupnpc
             pkgs.netcat
           ];
-          virtualisation.vlans = [ 2 ];
+          virtualisation.vlans = [2];
           networking.defaultGateway = internalRouterAddress;
           networking.interfaces.eth1.ipv4.addresses = [
             {
@@ -84,10 +84,10 @@ import ./make-test-python.nix (
         };
 
       client2 =
-        { pkgs, ... }:
+        {pkgs, ...}:
         {
-          environment.systemPackages = [ pkgs.miniupnpc ];
-          virtualisation.vlans = [ 1 ];
+          environment.systemPackages = [pkgs.miniupnpc];
+          virtualisation.vlans = [1];
           networking.interfaces.eth1.ipv4.addresses = [
             {
               address = externalClient2Address;
@@ -99,7 +99,7 @@ import ./make-test-python.nix (
     };
 
     testScript =
-      { nodes, ... }:
+      {nodes, ...}:
       ''
         start_all()
 

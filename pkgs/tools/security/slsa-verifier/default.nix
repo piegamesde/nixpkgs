@@ -21,9 +21,9 @@ buildGoModule rec {
   GO111MODULE = "on";
   GOFLAGS = "-trimpath";
 
-  subPackages = [ "cli/slsa-verifier" ];
+  subPackages = ["cli/slsa-verifier"];
 
-  tags = [ "netgo" ];
+  tags = ["netgo"];
 
   ldflags = [
     "-s"

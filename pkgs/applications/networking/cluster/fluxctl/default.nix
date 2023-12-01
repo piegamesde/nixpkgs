@@ -18,11 +18,11 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-6Trk49Vo3oMjSaHRDm2v+elPDHwdn2D3Z6i4UYcx0IQ=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   doCheck = false;
 
-  subPackages = [ "cmd/fluxctl" ];
+  subPackages = ["cmd/fluxctl"];
 
   ldflags = [
     "-s"

@@ -34,6 +34,6 @@ rustPlatform.buildRustPackage rec {
     description = "Ping, but with a graph";
     homepage = "https://github.com/orf/gping";
     license = licenses.mit;
-    maintainers = with maintainers; [ andrew-d ];
+    maintainers = with maintainers; [andrew-d];
   };
 }

@@ -1,12 +1,12 @@
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   {
     name = "postgis";
-    meta = with pkgs.lib.maintainers; { maintainers = [ lsix ]; };
+    meta = with pkgs.lib.maintainers; {maintainers = [lsix];};
 
     nodes = {
       master =
-        { pkgs, ... }:
+        {pkgs, ...}:
 
         {
           services.postgresql =
@@ -16,7 +16,7 @@ import ./make-test-python.nix (
             {
               enable = true;
               package = mypg;
-              extraPlugins = with mypg.pkgs; [ postgis ];
+              extraPlugins = with mypg.pkgs; [postgis];
             };
         };
     };

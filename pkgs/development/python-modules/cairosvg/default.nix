@@ -29,9 +29,9 @@ buildPythonPackage rec {
     tinycss2
   ];
 
-  propagatedNativeBuildInputs = [ cairocffi ];
+  propagatedNativeBuildInputs = [cairocffi];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   postPatch = ''
     substituteInPlace setup.cfg \
@@ -43,14 +43,14 @@ buildPythonPackage rec {
       --replace "--isort" ""
   '';
 
-  pytestFlagsArray = [ "cairosvg/test_api.py" ];
+  pytestFlagsArray = ["cairosvg/test_api.py"];
 
-  pythonImportsCheck = [ "cairosvg" ];
+  pythonImportsCheck = ["cairosvg"];
 
   meta = with lib; {
     homepage = "https://cairosvg.org";
     license = licenses.lgpl3Plus;
     description = "SVG converter based on Cairo";
-    maintainers = with maintainers; [ SuperSandro2000 ];
+    maintainers = with maintainers; [SuperSandro2000];
   };
 }

@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "dfio";
   version = "20210411-git";
@@ -30,7 +30,7 @@ rec {
 
   packageName = "dfio";
 
-  asdFilesToKeep = [ "dfio.asd" ];
+  asdFilesToKeep = ["dfio.asd"];
   overrides = x: x;
 }
 /* (SYSTEM dfio DESCRIPTION

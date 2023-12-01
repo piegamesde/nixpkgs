@@ -15,7 +15,7 @@ in
   extraOpts = {
     settings = mkOption {
       type = types.attrs;
-      default = { };
+      default = {};
       description = lib.mdDoc ''
         All settings of nginxlog expressed as an Nix attrset.
 

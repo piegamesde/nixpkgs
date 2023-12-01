@@ -37,7 +37,7 @@ buildPythonPackage rec {
   # No tests included in archive
   doCheck = false;
 
-  pythonImportsCheck = [ "googleapiclient" ];
+  pythonImportsCheck = ["googleapiclient"];
 
   meta = with lib; {
     description = "The official Python client library for Google's discovery based APIs";
@@ -50,6 +50,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/google/google-api-python-client";
     changelog = "https://github.com/googleapis/google-api-python-client/releases/tag/v${version}";
     license = licenses.asl20;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

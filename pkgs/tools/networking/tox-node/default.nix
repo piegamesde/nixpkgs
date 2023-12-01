@@ -20,12 +20,12 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-L5IvYA32W8cTnuWjeljge5X+LZ912ugtcvEKXLqYZ+k=";
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {};
 
   meta = with lib; {
     description = "A server application to run tox node written in pure Rust";
     homepage = "https://github.com/tox-rs/tox";
-    license = [ licenses.gpl3Plus ];
+    license = [licenses.gpl3Plus];
     platforms = platforms.linux;
     maintainers = with maintainers; [
       suhr

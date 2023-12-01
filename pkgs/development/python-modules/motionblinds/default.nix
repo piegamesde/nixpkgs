@@ -20,18 +20,18 @@ buildPythonPackage rec {
     hash = "sha256-rCPwOhhv1hDwJqs8g3JfXcSgvrLf6UhNm0JPtRGW5S0=";
   };
 
-  propagatedBuildInputs = [ pycryptodomex ];
+  propagatedBuildInputs = [pycryptodomex];
 
   # Project has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "motionblinds" ];
+  pythonImportsCheck = ["motionblinds"];
 
   meta = with lib; {
     description = "Python library for interfacing with Motion Blinds";
     homepage = "https://github.com/starkillerOG/motion-blinds";
     changelog = "https://github.com/starkillerOG/motion-blinds/releases/tag/${version}";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -21,8 +21,8 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-pcoGFXano34Sc+iVqJfrUo+wWASpAA1gslCHfVcEoJ4=";
 
-  buildInputs = [ openssl ] ++ lib.optional stdenv.isDarwin Security;
-  nativeBuildInputs = [ pkg-config ];
+  buildInputs = [openssl] ++ lib.optional stdenv.isDarwin Security;
+  nativeBuildInputs = [pkg-config];
 
   # Needed to get openssl-sys to use pkgconfig.
   OPENSSL_NO_VENDOR = 1;
@@ -38,6 +38,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/NLnetLabs/krill";
     changelog = "https://github.com/NLnetLabs/krill/releases/tag/v${version}";
     license = licenses.mpl20;
-    maintainers = with maintainers; [ steamwalker ];
+    maintainers = with maintainers; [steamwalker];
   };
 }

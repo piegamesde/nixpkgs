@@ -19,13 +19,13 @@ buildGoModule rec {
 
   doCheck = false;
 
-  subPackages = [ "cmd/mtail" ];
+  subPackages = ["cmd/mtail"];
 
   preBuild = ''
     go generate -x ./internal/vm/
   '';
 
-  ldflags = [ "-X main.Version=${version}" ];
+  ldflags = ["-X main.Version=${version}"];
 
   meta = with lib; {
     license = licenses.asl20;

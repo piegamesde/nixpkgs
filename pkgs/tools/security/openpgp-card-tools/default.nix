@@ -29,17 +29,17 @@ rustPlatform.buildRustPackage rec {
   buildInputs = [
     pcsclite
     nettle
-  ] ++ lib.optionals stdenv.isDarwin [ PCSC ];
+  ] ++ lib.optionals stdenv.isDarwin [PCSC];
 
   passthru = {
-    tests.version = testers.testVersion { package = openpgp-card-tools; };
+    tests.version = testers.testVersion {package = openpgp-card-tools;};
   };
 
   meta = with lib; {
     description = "CLI tools for OpenPGP cards";
     homepage = "https://gitlab.com/openpgp-card/openpgp-card";
     license = licenses.asl20;
-    maintainers = with maintainers; [ nickcao ];
+    maintainers = with maintainers; [nickcao];
     mainProgram = "opgpcard";
   };
 }

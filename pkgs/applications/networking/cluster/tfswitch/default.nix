@@ -29,6 +29,6 @@ buildGoModule rec {
     description = "A command line tool to switch between different versions of terraform";
     homepage = "https://github.com/warrensbox/terraform-switcher";
     license = licenses.mit;
-    maintainers = with maintainers; [ psibi ];
+    maintainers = with maintainers; [psibi];
   };
 }

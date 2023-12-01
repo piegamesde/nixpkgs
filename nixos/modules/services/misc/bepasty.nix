@@ -21,7 +21,7 @@ in
     enable = mkEnableOption (lib.mdDoc "Bepasty servers");
 
     servers = mkOption {
-      default = { };
+      default = {};
       description = lib.mdDoc ''
         configure a number of bepasty servers which will be started with
         gunicorn.
@@ -30,7 +30,7 @@ in
         with types;
         attrsOf (
           submodule (
-            { config, ... }:
+            {config, ...}:
             {
 
               options = {
@@ -134,7 +134,7 @@ in
 
   config = mkIf cfg.enable {
 
-    environment.systemPackages = [ bepasty ];
+    environment.systemPackages = [bepasty];
 
     # creates gunicorn systemd service for each configured server
     systemd.services =
@@ -143,8 +143,8 @@ in
           name: server:
           nameValuePair ("bepasty-server-${name}-gunicorn") ({
             description = "Bepasty Server ${name}";
-            wantedBy = [ "multi-user.target" ];
-            after = [ "network.target" ];
+            wantedBy = ["multi-user.target"];
+            after = ["network.target"];
             restartIfChanged = true;
 
             environment =

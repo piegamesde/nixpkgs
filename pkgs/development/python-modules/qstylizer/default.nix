@@ -26,7 +26,7 @@ buildPythonPackage rec {
 
   PBR_VERSION = version;
 
-  nativeBuildInputs = [ pbr ];
+  nativeBuildInputs = [pbr];
 
   propagatedBuildInputs = [
     inflection
@@ -38,12 +38,12 @@ buildPythonPackage rec {
     pytest-mock
   ];
 
-  pythonImportsCheck = [ "qstylizer" ];
+  pythonImportsCheck = ["qstylizer"];
 
   meta = with lib; {
     description = "Qt stylesheet generation utility for PyQt/PySide";
     homepage = "https://github.com/blambright/qstylizer";
     license = licenses.mit;
-    maintainers = with maintainers; [ drewrisinger ];
+    maintainers = with maintainers; [drewrisinger];
   };
 }

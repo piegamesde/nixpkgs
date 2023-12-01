@@ -17,11 +17,11 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-DRALRH+/7c2lBvCpLp8hop3Xxsf76F1q8L7F9qehqQA=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
-  buildInputs = [ zlib ];
+  buildInputs = [zlib];
 
-  cmakeFlags = [ "-DBUILD_SHARED_LIBS=ON" ];
+  cmakeFlags = ["-DBUILD_SHARED_LIBS=ON"];
 
   meta = with lib; {
     homepage = "https://taglib.org/";
@@ -36,6 +36,6 @@ stdenv.mkDerivation rec {
       lgpl3
       mpl11
     ];
-    maintainers = with maintainers; [ ttuegel ];
+    maintainers = with maintainers; [ttuegel];
   };
 }

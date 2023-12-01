@@ -16,7 +16,7 @@ let
         ${file}
     '';
 
-  udevRules = callPackage ./udev_rules_type1.nix { };
+  udevRules = callPackage ./udev_rules_type1.nix {};
 in
 stdenv.mkDerivation rec {
   pname = "brscan4";
@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
     patchelf
     udevRules
   ];
-  buildInputs = [ libusb-compat-0_1 ];
+  buildInputs = [libusb-compat-0_1];
   dontBuild = true;
 
   postPatch = ''
@@ -107,8 +107,8 @@ stdenv.mkDerivation rec {
       "i686-linux"
       "x86_64-linux"
     ];
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
     license = lib.licenses.unfree;
-    maintainers = with lib.maintainers; [ jraygauthier ];
+    maintainers = with lib.maintainers; [jraygauthier];
   };
 }

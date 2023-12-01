@@ -18,13 +18,13 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-KhAaBNSpFu7LAWiHCWD1OssexW9N96ArDb7Oo1AaiWI=";
 
-  buildInputs = [ libpcap ];
+  buildInputs = [libpcap];
 
   meta = with lib; {
     description = "Tool to check packets for secrets";
     homepage = "https://github.com/Xenios91/Secrets-Extractor";
     # https://github.com/Xenios91/Secrets-Extractor/issues/1
-    license = with licenses; [ unfree ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [unfree];
+    maintainers = with maintainers; [fab];
   };
 }

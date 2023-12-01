@@ -26,12 +26,12 @@ buildPythonPackage rec {
   # no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "cxxfilt" ];
+  pythonImportsCheck = ["cxxfilt"];
 
   meta = with lib; {
     description = "Demangling C++ symbols in Python / interface to abi::__cxa_demangle ";
     homepage = "https://github.com/afq984/python-cxxfilt";
     license = licenses.bsd2;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

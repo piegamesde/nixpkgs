@@ -27,9 +27,9 @@ buildPythonPackage rec {
     packaging
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "dparse" ];
+  pythonImportsCheck = ["dparse"];
 
   disabledTests =
     [
@@ -41,6 +41,6 @@ buildPythonPackage rec {
     description = "A parser for Python dependency files";
     homepage = "https://github.com/pyupio/dparse";
     license = licenses.mit;
-    maintainers = with maintainers; [ thomasdesr ];
+    maintainers = with maintainers; [thomasdesr];
   };
 }

@@ -17,7 +17,7 @@ buildPythonPackage rec {
     hash = "sha256-3TNtNRfqzip2iUBtt7uWraPF50MnQjFRru4+ZCJfYiA=";
   };
 
-  propagatedBuildInputs = [ future ];
+  propagatedBuildInputs = [future];
 
   nativeCheckInputs = [
     nose
@@ -31,12 +31,12 @@ buildPythonPackage rec {
     "test_ipv4"
     "test_ipv6"
   ];
-  pythonImportsCheck = [ "whois" ];
+  pythonImportsCheck = ["whois"];
 
   meta = with lib; {
     description = "Python module to produce parsed WHOIS data";
     homepage = "https://github.com/richardpenman/whois";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

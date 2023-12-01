@@ -6,11 +6,11 @@
   electron_10,
   runtimeShell,
   hyper-haskell-server,
-  extra-packages ? [ ],
+  extra-packages ? [],
 }:
 
 let
-  binPath = lib.makeBinPath ([ hyper-haskell-server ] ++ extra-packages);
+  binPath = lib.makeBinPath ([hyper-haskell-server] ++ extra-packages);
   electron = electron_10;
 in
 stdenvNoCC.mkDerivation rec {
@@ -57,6 +57,6 @@ stdenvNoCC.mkDerivation rec {
     description = "The strongly hyped graphical interpreter for the Haskell programming language";
     homepage = "https://github.com/HeinrichApfelmus/hyper-haskell";
     license = licenses.bsd3;
-    maintainers = [ maintainers.rvl ];
+    maintainers = [maintainers.rvl];
   };
 }

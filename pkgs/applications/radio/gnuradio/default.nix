@@ -42,9 +42,9 @@
   libsForQt5,
   # Features available to override, the list of them is in featuresInfo. They
   # are all turned on by default.
-  features ? { },
+  features ? {},
   # If one wishes to use a different src or name for a very custom build
-  overrideSrc ? { },
+  overrideSrc ? {},
   pname ? "gnuradio",
   versionAttr ? {
     major = "3.10";
@@ -72,26 +72,26 @@ let
         ]
         # when gr-qtgui is disabled, icu needs to be included, otherwise
         # building with boost 1.7x fails
-        ++ lib.optionals (!(hasFeature "gr-qtgui")) [ icu ];
+        ++ lib.optionals (!(hasFeature "gr-qtgui")) [icu];
       pythonNative = with python.pkgs; [
         mako
         six
       ];
     };
     doxygen = {
-      native = [ doxygen ];
+      native = [doxygen];
       cmakeEnableFlag = "DOXYGEN";
     };
     man-pages = {
       cmakeEnableFlag = "MANPAGES";
     };
     python-support = {
-      pythonRuntime = [ python.pkgs.six ];
-      native = [ python ];
+      pythonRuntime = [python.pkgs.six];
+      native = [python];
       cmakeEnableFlag = "PYTHON";
     };
     testing-support = {
-      native = [ cppunit ];
+      native = [cppunit];
       cmakeEnableFlag = "TESTING";
     };
     post-install = {
@@ -99,7 +99,7 @@ let
     };
     gnuradio-runtime = {
       cmakeEnableFlag = "GNURADIO_RUNTIME";
-      pythonRuntime = [ python.pkgs.pybind11 ];
+      pythonRuntime = [python.pkgs.pybind11];
     };
     gr-ctrlport = {
       runtime = [
@@ -121,7 +121,7 @@ let
         numpy
         pygobject3
       ];
-      native = [ python.pkgs.pytest ];
+      native = [python.pkgs.pytest];
       runtime = [
         gtk3
         pango
@@ -132,7 +132,7 @@ let
       cmakeEnableFlag = "GRC";
     };
     jsonyaml_blocks = {
-      pythonRuntime = [ python.pkgs.jsonschema ];
+      pythonRuntime = [python.pkgs.jsonschema];
       cmakeEnableFlag = "JSONYAML_BLOCKS";
     };
     gr-blocks = {
@@ -147,11 +147,11 @@ let
       cmakeEnableFlag = "GR_FEC";
     };
     gr-fft = {
-      runtime = [ fftwFloat ];
+      runtime = [fftwFloat];
       cmakeEnableFlag = "GR_FFT";
     };
     gr-filter = {
-      runtime = [ fftwFloat ];
+      runtime = [fftwFloat];
       cmakeEnableFlag = "GR_FILTER";
       pythonRuntime = with python.pkgs; [
         scipy
@@ -169,12 +169,12 @@ let
     };
     gr-audio = {
       runtime =
-        [ ]
+        []
         ++ lib.optionals stdenv.isLinux [
           alsa-lib
           libjack2
         ]
-        ++ lib.optionals stdenv.isDarwin [ CoreAudio ];
+        ++ lib.optionals stdenv.isDarwin [CoreAudio];
       cmakeEnableFlag = "GR_AUDIO";
     };
     gr-channels = {
@@ -189,7 +189,7 @@ let
     };
     gr-iio = {
       cmakeEnableFlag = "GR_IIO";
-      runtime = [ libiio ];
+      runtime = [libiio];
     };
     common-precompiled-headers = {
       cmakeEnableFlag = "COMMON_PCH";
@@ -199,18 +199,18 @@ let
         qt5.qtbase
         libsForQt5.qwt
       ];
-      pythonRuntime = [ python.pkgs.pyqt5 ];
+      pythonRuntime = [python.pkgs.pyqt5];
       cmakeEnableFlag = "GR_QTGUI";
     };
     gr-trellis = {
       cmakeEnableFlag = "GR_TRELLIS";
     };
     gr-uhd = {
-      runtime = [ uhd ];
+      runtime = [uhd];
       cmakeEnableFlag = "GR_UHD";
     };
     gr-uhd-rfnoc = {
-      runtime = [ uhd ];
+      runtime = [uhd];
       cmakeEnableFlag = "UHD_RFNOC";
     };
     gr-utils = {
@@ -235,7 +235,7 @@ let
       cmakeEnableFlag = "GR_BLOCKTOOL";
     };
     gr-video-sdl = {
-      runtime = [ SDL ];
+      runtime = [SDL];
       cmakeEnableFlag = "GR_VIDEO_SDL";
     };
     gr-vocoder = {
@@ -253,7 +253,7 @@ let
       ];
     };
     gr-zeromq = {
-      runtime = [ cppzmq ];
+      runtime = [cppzmq];
       cmakeEnableFlag = "GR_ZEROMQ";
     };
     gr-network = {
@@ -261,7 +261,7 @@ let
     };
     gr-soapy = {
       cmakeEnableFlag = "GR_SOAPY";
-      runtime = [ soapysdr ];
+      runtime = [soapysdr];
     };
   };
   shared =
@@ -313,9 +313,9 @@ stdenv.mkDerivation {
       # previous gnuradio versions where there it's log4cpp.
       logLib = spdlog;
     }
-    // lib.optionalAttrs (hasFeature "gr-uhd") { inherit uhd; }
-    // lib.optionalAttrs (hasFeature "gr-pdu") { inherit libiio libad9361; }
-    // lib.optionalAttrs (hasFeature "gr-qtgui") { inherit (libsForQt5) qwt; };
+    // lib.optionalAttrs (hasFeature "gr-uhd") {inherit uhd;}
+    // lib.optionalAttrs (hasFeature "gr-pdu") {inherit libiio libad9361;}
+    // lib.optionalAttrs (hasFeature "gr-qtgui") {inherit (libsForQt5) qwt;};
 
   postInstall =
     shared.postInstall

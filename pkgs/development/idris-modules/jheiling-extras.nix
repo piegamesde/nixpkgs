@@ -8,7 +8,7 @@ build-idris-package {
   pname = "extras";
   version = "2018-03-06";
 
-  idrisDeps = [ contrib ];
+  idrisDeps = [contrib];
 
   src = fetchFromGitHub {
     owner = "jheiling";
@@ -21,6 +21,6 @@ build-idris-package {
     description = "Some useful functions for Idris";
     homepage = "https://github.com/jheiling/idris-extras";
     license = lib.licenses.unlicense;
-    maintainers = [ lib.maintainers.brainrape ];
+    maintainers = [lib.maintainers.brainrape];
   };
 }

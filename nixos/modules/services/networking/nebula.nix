@@ -12,7 +12,7 @@ let
   cfg = config.services.nebula;
   enabledNetworks = filterAttrs (n: v: v.enable) cfg.networks;
 
-  format = pkgs.formats.yaml { };
+  format = pkgs.formats.yaml {};
 
   nameToId = netName: "nebula-${netName}";
 in
@@ -23,7 +23,7 @@ in
     services.nebula = {
       networks = mkOption {
         description = lib.mdDoc "Nebula network definitions.";
-        default = { };
+        default = {};
         type = types.attrsOf (
           types.submodule {
             options = {
@@ -60,13 +60,13 @@ in
 
               staticHostMap = mkOption {
                 type = types.attrsOf (types.listOf (types.str));
-                default = { };
+                default = {};
                 description = lib.mdDoc ''
                   The static host map defines a set of hosts with fixed IP addresses on the internet (or any network).
                   A host can have multiple fixed IP addresses defined here, and nebula will try each when establishing a tunnel.
                 '';
                 example = {
-                  "192.168.100.1" = [ "100.64.22.11:4242" ];
+                  "192.168.100.1" = ["100.64.22.11:4242"];
                 };
               };
 
@@ -84,21 +84,21 @@ in
 
               lighthouses = mkOption {
                 type = types.listOf types.str;
-                default = [ ];
+                default = [];
                 description = lib.mdDoc ''
                   List of IPs of lighthouse hosts this node should report to and query from. This should be empty on lighthouse
                   nodes. The IPs should be the lighthouse's Nebula IPs, not their external IPs.
                 '';
-                example = [ "192.168.100.1" ];
+                example = ["192.168.100.1"];
               };
 
               relays = mkOption {
                 type = types.listOf types.str;
-                default = [ ];
+                default = [];
                 description = lib.mdDoc ''
                   List of IPs of relays that this node should allow traffic from.
                 '';
-                example = [ "192.168.100.1" ];
+                example = ["192.168.100.1"];
               };
 
               listen.host = mkOption {
@@ -129,7 +129,7 @@ in
 
               firewall.outbound = mkOption {
                 type = types.listOf types.attrs;
-                default = [ ];
+                default = [];
                 description = lib.mdDoc "Firewall rules for outbound traffic.";
                 example = [
                   {
@@ -142,7 +142,7 @@ in
 
               firewall.inbound = mkOption {
                 type = types.listOf types.attrs;
-                default = [ ];
+                default = [];
                 description = lib.mdDoc "Firewall rules for inbound traffic.";
                 example = [
                   {
@@ -155,7 +155,7 @@ in
 
               settings = mkOption {
                 type = format.type;
-                default = { };
+                default = {};
                 description = lib.mdDoc ''
                   Nebula configuration. Refer to
                   <https://github.com/slackhq/nebula/blob/master/examples/config.yml>
@@ -178,7 +178,7 @@ in
   };
 
   # Implementation
-  config = mkIf (enabledNetworks != { }) {
+  config = mkIf (enabledNetworks != {}) {
     systemd.services = mkMerge (
       mapAttrsToList
         (
@@ -223,13 +223,13 @@ in
             # Create the systemd service for Nebula.
             "nebula@${netName}" = {
               description = "Nebula VPN service for ${netName}";
-              wants = [ "basic.target" ];
+              wants = ["basic.target"];
               after = [
                 "basic.target"
                 "network.target"
               ];
-              before = [ "sshd.service" ];
-              wantedBy = [ "multi-user.target" ];
+              before = ["sshd.service"];
+              wantedBy = ["multi-user.target"];
               serviceConfig = {
                 Type = "simple";
                 Restart = "always";
@@ -284,7 +284,7 @@ in
     );
 
     users.groups = mkMerge (
-      mapAttrsToList (netName: netCfg: { ${nameToId netName} = { }; }) enabledNetworks
+      mapAttrsToList (netName: netCfg: {${nameToId netName} = {};}) enabledNetworks
     );
   };
 }

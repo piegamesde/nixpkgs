@@ -24,7 +24,7 @@ buildGoModule rec {
     description = "Helm Charts (k8s applications) as Code tool";
     homepage = "https://github.com/Praqma/helmsman";
     license = licenses.mit;
-    maintainers = with maintainers; [ lynty ];
+    maintainers = with maintainers; [lynty];
     platforms = platforms.unix;
   };
 }

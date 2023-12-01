@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
     sha256 = "1vv3pzvqpg1dq3xjr8161x2yp3v7ca75vil56ranhw5pkjwq66x0";
   };
 
-  nativeBuildInputs = [ patchPpdFilesHook ];
+  nativeBuildInputs = [patchPpdFilesHook];
 
   dontPatchELF = true;
   dontStrip = true;
@@ -95,9 +95,9 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Samsung's Linux printing drivers; includes binaries without source code";
     homepage = "http://www.samsung.com/";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.unfree;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ joko ];
+    maintainers = with maintainers; [joko];
   };
 }

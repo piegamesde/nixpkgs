@@ -41,13 +41,13 @@ stdenv.mkDerivation rec {
   #   main.c:21:10: fatal error: exports.h: No such file or directory
   enableParallelBuilding = false;
 
-  installFlags = [ "PREFIX=\${out}" ];
+  installFlags = ["PREFIX=\${out}"];
 
   meta = with lib; {
     description = "Tiling tabbed window manager designed with keyboard users in mind";
     homepage = "https://modeemi.fi/~tuomov/ion";
     platforms = with platforms; linux;
     license = licenses.lgpl21;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

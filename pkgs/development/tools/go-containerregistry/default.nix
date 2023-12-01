@@ -28,7 +28,7 @@ buildGoModule rec {
     "cmd/gcrane"
   ];
 
-  outputs = [ "out" ] ++ bins;
+  outputs = ["out"] ++ bins;
 
   ldflags =
     let
@@ -58,6 +58,6 @@ buildGoModule rec {
     description = "Tools for interacting with remote images and registries including crane and gcrane";
     homepage = "https://github.com/google/go-containerregistry";
     license = licenses.asl20;
-    maintainers = with maintainers; [ yurrriq ];
+    maintainers = with maintainers; [yurrriq];
   };
 }

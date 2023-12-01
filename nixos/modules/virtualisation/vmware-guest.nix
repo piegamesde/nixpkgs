@@ -45,15 +45,15 @@ in
       }
     ];
 
-    boot.initrd.availableKernelModules = [ "mptspi" ];
-    boot.initrd.kernelModules = [ "vmw_pvscsi" ];
+    boot.initrd.availableKernelModules = ["mptspi"];
+    boot.initrd.kernelModules = ["vmw_pvscsi"];
 
-    environment.systemPackages = [ open-vm-tools ];
+    environment.systemPackages = [open-vm-tools];
 
     systemd.services.vmware = {
       description = "VMWare Guest Service";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "display-manager.service" ];
+      wantedBy = ["multi-user.target"];
+      after = ["display-manager.service"];
       unitConfig.ConditionVirtualization = "vmware";
       serviceConfig.ExecStart = "${open-vm-tools}/bin/vmtoolsd";
     };
@@ -70,7 +70,7 @@ in
         where = "/run/vmblock-fuse";
         type = "fuse";
         options = "subtype=vmware-vmblock,default_permissions,allow_other";
-        wantedBy = [ "multi-user.target" ];
+        wantedBy = ["multi-user.target"];
       }
     ];
 
@@ -84,7 +84,7 @@ in
     environment.etc.vmware-tools.source = "${open-vm-tools}/etc/vmware-tools/*";
 
     services.xserver = mkIf (!cfg.headless) {
-      modules = [ xf86inputvmmouse ];
+      modules = [xf86inputvmmouse];
 
       config = ''
         Section "InputClass"
@@ -100,6 +100,6 @@ in
       '';
     };
 
-    services.udev.packages = [ open-vm-tools ];
+    services.udev.packages = [open-vm-tools];
   };
 }

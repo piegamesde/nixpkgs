@@ -13,7 +13,7 @@ let
     sha256 = "sha256-rvjjzVgtDNryj7GO+ZfK92nZvWRnRPFoy9hEIGjviqQ=";
   };
 
-  appimageContents = appimageTools.extractType2 { inherit pname version src; };
+  appimageContents = appimageTools.extractType2 {inherit pname version src;};
 in
 appimageTools.wrapType2 rec {
   inherit pname version src;
@@ -33,8 +33,8 @@ appimageTools.wrapType2 rec {
     homepage = "https://lunatask.app";
     downloadPage = "https://lunatask.app/download";
     license = licenses.unfree;
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
-    maintainers = with maintainers; [ henkery ];
-    platforms = [ "x86_64-linux" ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
+    maintainers = with maintainers; [henkery];
+    platforms = ["x86_64-linux"];
   };
 }

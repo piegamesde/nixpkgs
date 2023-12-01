@@ -43,7 +43,7 @@ in
 
       devices = mkOption {
         type = types.listOf types.str;
-        default = [ "/dev/ttyUSB0" ];
+        default = ["/dev/ttyUSB0"];
         description = lib.mdDoc ''
           List of devices that `gpsd` should subscribe to.
 
@@ -123,8 +123,8 @@ in
 
     systemd.services.gpsd = {
       description = "GPSD daemon";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
       serviceConfig = {
         Type = "forking";
         ExecStart =

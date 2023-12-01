@@ -49,8 +49,8 @@ in
       }
     ];
 
-    boot.initrd.kernelModules = [ "ata_piix" ];
-    networking.firewall.allowedUDPPorts = [ 68 ];
+    boot.initrd.kernelModules = ["ata_piix"];
+    networking.firewall.allowedUDPPorts = [68];
 
     environment.etc."waagent.conf".text = ''
       #
@@ -205,7 +205,7 @@ in
       OS.MonitorDhcpClientRestartPeriod=30
     '';
 
-    services.udev.packages = [ pkgs.waagent ];
+    services.udev.packages = [pkgs.waagent];
 
     networking.dhcpcd.persistent = true;
 
@@ -234,7 +234,7 @@ in
         "waagent.service"
       ];
 
-      path = [ pkgs.coreutils ];
+      path = [pkgs.coreutils];
       script = ''
         echo "Fetching entropy..."
         cat /sys/firmware/acpi/tables/OEM0 > /dev/random
@@ -246,12 +246,12 @@ in
     };
 
     systemd.services.waagent = {
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       after = [
         "network-online.target"
         "sshd.service"
       ];
-      wants = [ "network-online.target" ];
+      wants = ["network-online.target"];
 
       path = [
         pkgs.e2fsprogs

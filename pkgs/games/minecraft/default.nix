@@ -40,7 +40,7 @@ let
     icon = "minecraft-launcher";
     comment = "Official launcher for Minecraft, a sandbox-building game";
     desktopName = "Minecraft Launcher";
-    categories = [ "Game" ];
+    categories = ["Game"];
   };
 
   envLibPath = lib.makeLibraryPath [
@@ -111,7 +111,7 @@ stdenv.mkDerivation rec {
     wrapGAppsHook
     copyDesktopItems
   ];
-  buildInputs = [ gobject-introspection ];
+  buildInputs = [gobject-introspection];
 
   sourceRoot = ".";
 
@@ -147,13 +147,13 @@ stdenv.mkDerivation rec {
     # Do not create `GPUCache` in current directory
     makeWrapper $out/opt/minecraft-launcher/minecraft-launcher $out/bin/minecraft-launcher \
       --prefix LD_LIBRARY_PATH : ${envLibPath} \
-      --prefix PATH : ${lib.makeBinPath [ jre ]} \
+      --prefix PATH : ${lib.makeBinPath [jre]} \
       --set JAVA_HOME ${lib.getBin jre} \
       --chdir /tmp \
       "''${gappsWrapperArgs[@]}"
   '';
 
-  desktopItems = [ desktopItem ];
+  desktopItems = [desktopItem];
 
   meta = with lib; {
     description = "Official launcher for Minecraft, a sandbox-building game";
@@ -163,9 +163,9 @@ stdenv.mkDerivation rec {
       ryantm
       infinisil
     ];
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.unfree;
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
   };
 
   passthru = {

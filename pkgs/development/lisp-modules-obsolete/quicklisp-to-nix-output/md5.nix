@@ -1,12 +1,12 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "md5";
   version = "20210630-git";
 
   description = "The MD5 Message-Digest Algorithm RFC 1321";
 
-  deps = [ ];
+  deps = [];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/md5/2021-06-30/md5-20210630-git.tgz";
@@ -15,7 +15,7 @@ rec {
 
   packageName = "md5";
 
-  asdFilesToKeep = [ "md5.asd" ];
+  asdFilesToKeep = ["md5.asd"];
   overrides = x: x;
 }
 /* (SYSTEM md5 DESCRIPTION The MD5 Message-Digest Algorithm RFC 1321 SHA256

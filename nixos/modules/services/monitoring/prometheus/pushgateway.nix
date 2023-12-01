@@ -118,7 +118,7 @@ in
 
       extraFlags = mkOption {
         type = types.listOf types.str;
-        default = [ ];
+        default = [];
         description = lib.mdDoc ''
           Extra commandline options when launching the Pushgateway.
         '';
@@ -164,8 +164,8 @@ in
       }
     ];
     systemd.services.pushgateway = {
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
       serviceConfig = {
         Restart = "always";
         DynamicUser = true;

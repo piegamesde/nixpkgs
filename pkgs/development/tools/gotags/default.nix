@@ -36,6 +36,6 @@ buildGoModule rec {
     description = "ctags-compatible tag generator for Go";
     homepage = "https://github.com/jstemmer/gotags";
     license = licenses.mit;
-    maintainers = with maintainers; [ urandom ];
+    maintainers = with maintainers; [urandom];
   };
 }

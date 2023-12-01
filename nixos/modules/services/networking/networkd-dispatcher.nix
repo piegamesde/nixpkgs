@@ -25,7 +25,7 @@ in
       );
 
       rules = mkOption {
-        default = { };
+        default = {};
         example = lib.literalExpression ''
           { "restart-tor" = {
               onState = ["routable" "off"];
@@ -84,9 +84,9 @@ in
   config = mkIf cfg.enable {
 
     systemd = {
-      packages = [ pkgs.networkd-dispatcher ];
+      packages = [pkgs.networkd-dispatcher];
       services.networkd-dispatcher = {
-        wantedBy = [ "multi-user.target" ];
+        wantedBy = ["multi-user.target"];
         # Override existing ExecStart definition
         serviceConfig.ExecStart =
           let

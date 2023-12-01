@@ -18,7 +18,7 @@ buildPythonPackage rec {
     hash = "sha256-vHYJYZ7Dw4xEIpKSgjmtPRC13rCviinIOCK3tXsxn4s=";
   };
 
-  propagatedBuildInputs = [ scikit-learn ];
+  propagatedBuildInputs = [scikit-learn];
   nativeCheckInputs = [
     pytestCheckHook
     pandas
@@ -42,6 +42,6 @@ buildPythonPackage rec {
     description = "Library offering a number of re-sampling techniques commonly used in datasets showing strong between-class imbalance";
     homepage = "https://github.com/scikit-learn-contrib/imbalanced-learn";
     license = licenses.mit;
-    maintainers = [ maintainers.rmcgibbo ];
+    maintainers = [maintainers.rmcgibbo];
   };
 }

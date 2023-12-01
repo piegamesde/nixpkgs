@@ -49,6 +49,6 @@ buildPythonPackage rec {
     description = "A clock-driven simulator for spiking neural networks";
     homepage = "https://briansimulator.org/";
     license = licenses.cecill21;
-    maintainers = with maintainers; [ jiegec ];
+    maintainers = with maintainers; [jiegec];
   };
 }

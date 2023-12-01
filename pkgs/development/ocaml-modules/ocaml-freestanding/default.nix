@@ -50,7 +50,7 @@ else
       pkg-config
     ];
 
-    propagatedBuildInputs = [ solo5 ];
+    propagatedBuildInputs = [solo5];
 
     configurePhase = ''
       runHook preConfigure
@@ -68,15 +68,15 @@ else
       broken = true; # Not compatible with solo5 ≥ 0.7
       description = "Freestanding OCaml runtime";
       license = licenses.mit;
-      maintainers = [ maintainers.sternenseemann ];
+      maintainers = [maintainers.sternenseemann];
       homepage = "https://github.com/mirage/ocaml-freestanding";
-      platforms = builtins.map ({ arch, os }: "${arch}-${os}") (
+      platforms = builtins.map ({arch, os}: "${arch}-${os}") (
         cartesianProductOfSets {
           arch = [
             "aarch64"
             "x86_64"
           ];
-          os = [ "linux" ];
+          os = ["linux"];
         }
         ++ [
           {

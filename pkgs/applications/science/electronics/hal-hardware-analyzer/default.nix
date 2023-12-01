@@ -39,8 +39,8 @@ let
             --replace "igraph_scg_grouping3" "" \
             --replace "igraph_scg_semiprojectors2" ""
         '';
-      buildInputs = old.buildInputs ++ [ suitesparse ];
-      cmakeFlags = old.cmakeFlags ++ [ "-DIGRAPH_USE_INTERNAL_CXSPARSE=OFF" ];
+      buildInputs = old.buildInputs ++ [suitesparse];
+      cmakeFlags = old.cmakeFlags ++ ["-DIGRAPH_USE_INTERNAL_CXSPARSE=OFF"];
     }
   );
   # no stable hal release yet with recent spdlog/fmt support, remove
@@ -77,7 +77,7 @@ stdenv.mkDerivation rec {
       name = "hal-fix-python-3.10.patch";
       url = "https://github.com/emsec/hal/commit/f695f55cb2209676ef76366185b7c419417fbbc9.patch";
       sha256 = "sha256-HsCdG3tPllUsLw6kQtGaaEGkEHqZPSC2v9k6ycO2I/8=";
-      includes = [ "plugins/gui/src/python/python_context.cpp" ];
+      includes = ["plugins/gui/src/python/python_context.cpp"];
     })
   ];
 

@@ -19,7 +19,7 @@ buildPecl {
     sha256 = "sha256-Cc9Mtx28j3kpyV8Yq+JSYQt5XQnELaVjuUbkkbG45kw=";
   };
 
-  internalDeps = with php.extensions; [ session ];
+  internalDeps = with php.extensions; [session];
 
   meta = with lib; {
     changelog = "https://github.com/phpredis/phpredis/releases/tag/${version}";

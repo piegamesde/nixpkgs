@@ -49,6 +49,6 @@ stdenv.mkDerivation rec {
     description = "A terminal image and video viewer";
     license = licenses.gpl2Only;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ hzeller ];
+    maintainers = with maintainers; [hzeller];
   };
 }

@@ -20,7 +20,7 @@ python3.pkgs.buildPythonApplication rec {
   dontBuild = true;
   doCheck = false;
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     runHook preInstall
@@ -39,6 +39,6 @@ python3.pkgs.buildPythonApplication rec {
     description = "Automatic music downloader for SABnzbd";
     license = licenses.gpl3Plus;
     homepage = "https://github.com/rembo10/headphones";
-    maintainers = with lib.maintainers; [ rembo10 ];
+    maintainers = with lib.maintainers; [rembo10];
   };
 }

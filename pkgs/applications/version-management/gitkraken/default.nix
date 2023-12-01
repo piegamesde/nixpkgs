@@ -80,7 +80,7 @@ let
   meta = {
     homepage = "https://www.gitkraken.com/";
     description = "The downright luxurious and most popular Git client for Windows, Mac & Linux";
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
     license = licenses.unfree;
     platforms = builtins.attrNames srcs;
     maintainers = with maintainers; [
@@ -152,7 +152,7 @@ let
         icon = pname;
         desktopName = "GitKraken";
         genericName = "Git Client";
-        categories = [ "Development" ];
+        categories = ["Development"];
         comment = "Graphical Git client from Axosoft";
       })
     ];
@@ -203,7 +203,7 @@ let
       meta
       ;
 
-    nativeBuildInputs = [ unzip ];
+    nativeBuildInputs = [unzip];
 
     installPhase = ''
       mkdir -p $out/Applications/GitKraken.app

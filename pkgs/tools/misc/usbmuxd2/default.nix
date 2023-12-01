@@ -72,13 +72,13 @@ clangStdenv.mkDerivation rec {
     "--with-systemdsystemunitdir=${placeholder "out"}/lib/systemd/system"
   ];
 
-  makeFlags = [ "sbindir=${placeholder "out"}/bin" ];
+  makeFlags = ["sbindir=${placeholder "out"}/bin"];
 
   meta = with lib; {
     homepage = "https://github.com/tihmstar/usbmuxd2";
     description = "A socket daemon to multiplex connections from and to iOS devices";
     license = licenses.lgpl3;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ onny ];
+    maintainers = with maintainers; [onny];
   };
 }

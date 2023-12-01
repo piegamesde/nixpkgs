@@ -25,13 +25,13 @@ stdenv.mkDerivation rec {
     comment = "Launcher for Pharo distributions";
     desktopName = "Pharo";
     genericName = "Pharo";
-    categories = [ "Development" ];
+    categories = ["Development"];
   };
 
   # because upstream tarball has no top-level directory.
   sourceRoot = ".";
 
-  nativeBuildInputs = [ unzip ];
+  nativeBuildInputs = [unzip];
   buildInputs = [
     bash
     pharo
@@ -88,7 +88,7 @@ stdenv.mkDerivation rec {
       result, launching any image is never more than 3 clicks away.
     '';
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
     platforms = pharo.meta.platforms;
   };
 }

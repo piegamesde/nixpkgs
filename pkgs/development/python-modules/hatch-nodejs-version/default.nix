@@ -21,16 +21,16 @@ buildPythonPackage rec {
     hash = "sha256-txF392XiRqHndTEYw6QVk12Oqw9E6cOwF81hUyp2oh4=";
   };
 
-  propagatedBuildInputs = [ hatchling ];
+  propagatedBuildInputs = [hatchling];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "hatch_nodejs_version" ];
+  pythonImportsCheck = ["hatch_nodejs_version"];
 
   meta = with lib; {
     description = "Plugins for dealing with NodeJS versions";
     homepage = "https://github.com/agoose77/hatch-nodejs-version";
     license = licenses.mit;
-    maintainers = with maintainers; [ cpcloud ];
+    maintainers = with maintainers; [cpcloud];
   };
 }

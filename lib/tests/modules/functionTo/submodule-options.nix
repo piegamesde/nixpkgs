@@ -12,11 +12,11 @@ in
 
     # fun.<function-body>.a
     (
-      { ... }:
+      {...}:
       {
         options = {
           fun = lib.mkOption {
-            type = types.functionTo (types.submodule { options.a = lib.mkOption { default = "a"; }; });
+            type = types.functionTo (types.submodule {options.a = lib.mkOption {default = "a";};});
           };
         };
       }
@@ -24,11 +24,11 @@ in
 
     # fun.<function-body>.b
     (
-      { ... }:
+      {...}:
       {
         options = {
           fun = lib.mkOption {
-            type = types.functionTo (types.submodule { options.b = lib.mkOption { default = "b"; }; });
+            type = types.functionTo (types.submodule {options.b = lib.mkOption {default = "b";};});
           };
         };
       }
@@ -47,13 +47,13 @@ in
       type = types.str;
       default = lib.concatStringsSep " " (
         lib.concatLists (
-          lib.mapAttrsToList (k: v: if k == "_module" then [ ] else [ (lib.showOption v.loc) ]) (
-            (options.fun.type.getSubOptions [ "fun" ])
+          lib.mapAttrsToList (k: v: if k == "_module" then [] else [(lib.showOption v.loc)]) (
+            (options.fun.type.getSubOptions ["fun"])
           )
         )
       );
     };
   };
 
-  config.fun = lib.mkMerge [ (input: { b = "bee"; }) ];
+  config.fun = lib.mkMerge [(input: {b = "bee";})];
 }

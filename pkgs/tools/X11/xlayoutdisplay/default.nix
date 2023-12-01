@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
     libXcursor
     boost
   ];
-  nativeCheckInputs = [ gtest ];
+  nativeCheckInputs = [gtest];
 
   doCheck = true;
   checkTarget = "gtest";
@@ -34,13 +34,13 @@ stdenv.mkDerivation rec {
     substituteInPlace config.mk --replace '/usr/lib/libboost_program_options.a' '-lboost_program_options'
   '';
 
-  makeFlags = [ "PREFIX=${placeholder "out"}" ];
+  makeFlags = ["PREFIX=${placeholder "out"}"];
   enableParallelBuilding = true;
 
   meta = with lib; {
     description = "Detects and arranges linux display outputs, using XRandR for detection and xrandr for arrangement";
     homepage = "https://github.com/alex-courtis/xlayoutdisplay";
-    maintainers = with maintainers; [ dtzWill ];
+    maintainers = with maintainers; [dtzWill];
     license = licenses.asl20;
     platforms = platforms.linux;
   };

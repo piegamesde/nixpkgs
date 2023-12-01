@@ -22,14 +22,14 @@ buildPythonPackage rec {
     hash = "sha256-nCSYL0g7mXi9pGFt24pOXbmmYsaRuB+rRZrygf8DTLE=";
   };
 
-  propagatedBuildInputs = [ pyparsing ];
+  propagatedBuildInputs = [pyparsing];
 
   nativeCheckInputs = [
     pretend
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "packvers" ];
+  pythonImportsCheck = ["packvers"];
 
   meta = with lib; {
     description = "Module for version handling of modules";
@@ -39,6 +39,6 @@ buildPythonPackage rec {
       asl20 # and
       bsd2
     ];
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

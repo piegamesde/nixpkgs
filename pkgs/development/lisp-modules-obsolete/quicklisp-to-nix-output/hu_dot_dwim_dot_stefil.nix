@@ -1,14 +1,14 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "hu_dot_dwim_dot_stefil";
   version = "20200218-darcs";
 
-  parasites = [ "hu.dwim.stefil/test" ];
+  parasites = ["hu.dwim.stefil/test"];
 
   description = "A Simple Test Framework In Lisp.";
 
-  deps = [ args."alexandria" ];
+  deps = [args."alexandria"];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/hu.dwim.stefil/2020-02-18/hu.dwim.stefil-20200218-darcs.tgz";
@@ -17,7 +17,7 @@ rec {
 
   packageName = "hu.dwim.stefil";
 
-  asdFilesToKeep = [ "hu.dwim.stefil.asd" ];
+  asdFilesToKeep = ["hu.dwim.stefil.asd"];
   overrides = x: x;
 }
 /* (SYSTEM hu.dwim.stefil DESCRIPTION A Simple Test Framework In Lisp. SHA256

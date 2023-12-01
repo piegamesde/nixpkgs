@@ -20,9 +20,9 @@ buildPerlPackage {
     hash = "sha256-cxlZh1x8ycpZIwSeOwqB6BtwYaMoWtSPaeiyW41epdk=";
   };
 
-  outputs = [ "out" ];
+  outputs = ["out"];
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
   propagatedBuildInputs = [
     openssh
     GitRepository
@@ -50,7 +50,7 @@ buildPerlPackage {
     description = "A tool to manage big projects consisting of multiple loosely-coupled git repositories";
     homepage = "https://github.com/kernkonzept/ham";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ aw ];
+    maintainers = with maintainers; [aw];
     mainProgram = "ham";
     platforms = platforms.unix;
   };

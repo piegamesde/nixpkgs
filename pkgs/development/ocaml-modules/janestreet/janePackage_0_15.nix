@@ -11,7 +11,7 @@
   hash,
   minimalOCamlVersion ? "4.11",
   doCheck ? true,
-  buildInputs ? [ ],
+  buildInputs ? [],
   ...
 }@args:
 

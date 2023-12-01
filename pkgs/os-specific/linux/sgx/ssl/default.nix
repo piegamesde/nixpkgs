@@ -59,9 +59,9 @@ stdenv.mkDerivation rec {
     which
   ];
 
-  makeFlags = [ "-C Linux" ] ++ lib.optionals debug [ "DEBUG=1" ];
+  makeFlags = ["-C Linux"] ++ lib.optionals debug ["DEBUG=1"];
 
-  installFlags = [ "DESTDIR=$(out)" ];
+  installFlags = ["DESTDIR=$(out)"];
 
   # Build the test app
   #
@@ -88,7 +88,7 @@ stdenv.mkDerivation rec {
       trundle
       veehaitch
     ];
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
     license = with licenses; [
       bsd3
       openssl

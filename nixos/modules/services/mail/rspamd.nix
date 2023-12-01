@@ -15,7 +15,7 @@ let
   postfixCfg = config.services.postfix;
 
   bindSocketOpts =
-    { options, config, ... }:
+    {options, config, ...}:
     {
       options = {
         socket = mkOption {
@@ -58,7 +58,7 @@ let
   traceWarning = w: x: builtins.trace "[1;31mwarning: ${w}[0m" x;
 
   workerOpts =
-    { name, options, ... }:
+    {name, options, ...}:
     {
       options = {
         enable = mkOption {
@@ -98,7 +98,7 @@ let
         };
         bindSockets = mkOption {
           type = types.listOf (types.either types.str (types.submodule bindSocketOpts));
-          default = [ ];
+          default = [];
           description = lib.mdDoc ''
             List of sockets to listen, in format acceptable by rspamd
           '';
@@ -143,7 +143,7 @@ let
         };
         includes = mkOption {
           type = types.listOf types.str;
-          default = [ ];
+          default = [];
           description = lib.mdDoc ''
             List of files to include in configuration
           '';
@@ -158,7 +158,7 @@ let
         mkIf (name == "normal" || name == "controller" || name == "fuzzy" || name == "rspamd_proxy")
           {
             type = mkDefault name;
-            includes = mkDefault [ "$CONFDIR/worker-${if name == "rspamd_proxy" then "proxy" else name}.inc" ];
+            includes = mkDefault ["$CONFDIR/worker-${if name == "rspamd_proxy" then "proxy" else name}.inc"];
             bindSockets =
               let
                 unixSocket = name: {
@@ -170,13 +170,13 @@ let
               in
               mkDefault (
                 if name == "normal" then
-                  [ (unixSocket "rspamd") ]
+                  [(unixSocket "rspamd")]
                 else if name == "controller" then
-                  [ "localhost:11334" ]
+                  ["localhost:11334"]
                 else if name == "rspamd_proxy" then
-                  [ (unixSocket "proxy") ]
+                  [(unixSocket "proxy")]
                 else
-                  [ ]
+                  []
               );
           };
     };
@@ -264,7 +264,7 @@ let
 
   configFileModule =
     prefix:
-    { name, config, ... }:
+    {name, config, ...}:
     {
       options = {
         enable = mkOption {
@@ -301,11 +301,11 @@ let
     (mapAttrs'
       (
         n: v:
-        nameValuePair "worker-${if n == "rspamd_proxy" then "proxy" else n}.inc" { text = v.extraConfig; }
+        nameValuePair "worker-${if n == "rspamd_proxy" then "proxy" else n}.inc" {text = v.extraConfig;}
       )
       (filterAttrs (n: v: v.extraConfig != "") cfg.workers)
     )
-    // (if cfg.extraConfig == "" then { } else { "extra-config.inc".text = cfg.extraConfig; });
+    // (if cfg.extraConfig == "" then {} else {"extra-config.inc".text = cfg.extraConfig;});
 in
 
 {
@@ -325,7 +325,7 @@ in
 
       locals = mkOption {
         type = with types; attrsOf (submodule (configFileModule "locals"));
-        default = { };
+        default = {};
         description = lib.mdDoc ''
           Local configuration files, written into {file}`/etc/rspamd/local.d/{name}`.
         '';
@@ -338,7 +338,7 @@ in
 
       overrides = mkOption {
         type = with types; attrsOf (submodule (configFileModule "overrides"));
-        default = { };
+        default = {};
         description = lib.mdDoc ''
           Overridden configuration files, written into {file}`/etc/rspamd/override.d/{name}`.
         '';
@@ -364,8 +364,8 @@ in
           Attribute set of workers to start.
         '';
         default = {
-          normal = { };
-          controller = { };
+          normal = {};
+          controller = {};
         };
         example = literalExpression ''
           {
@@ -432,8 +432,8 @@ in
             Addon to postfix configuration
           '';
           default = {
-            smtpd_milters = [ "unix:/run/rspamd/rspamd-milter.sock" ];
-            non_smtpd_milters = [ "unix:/run/rspamd/rspamd-milter.sock" ];
+            smtpd_milters = ["unix:/run/rspamd/rspamd-milter.sock"];
+            non_smtpd_milters = ["unix:/run/rspamd/rspamd-milter.sock"];
           };
         };
       };
@@ -445,7 +445,7 @@ in
   config = mkIf cfg.enable {
     services.rspamd.overrides = configOverrides;
     services.rspamd.workers = mkIf cfg.postfix.enable {
-      controller = { };
+      controller = {};
       rspamd_proxy = {
         bindSockets = [
           {
@@ -466,11 +466,11 @@ in
     services.postfix.config = mkIf cfg.postfix.enable cfg.postfix.config;
 
     systemd.services.postfix = mkIf cfg.postfix.enable {
-      serviceConfig.SupplementaryGroups = [ postfixCfg.group ];
+      serviceConfig.SupplementaryGroups = [postfixCfg.group];
     };
 
     # Allow users to run 'rspamc' and 'rspamadm'.
-    environment.systemPackages = [ pkgs.rspamd ];
+    environment.systemPackages = [pkgs.rspamd];
 
     users.users.${cfg.user} = {
       description = "rspamd daemon";
@@ -487,9 +487,9 @@ in
     systemd.services.rspamd = {
       description = "Rspamd Service";
 
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
-      restartTriggers = [ rspamdDir ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
+      restartTriggers = [rspamdDir];
 
       serviceConfig = {
         ExecStart = "${pkgs.rspamd}/bin/rspamd ${optionalString cfg.debug "-d"} -c /etc/rspamd/rspamd.conf -f";
@@ -497,14 +497,14 @@ in
 
         User = "${cfg.user}";
         Group = "${cfg.group}";
-        SupplementaryGroups = mkIf cfg.postfix.enable [ postfixCfg.group ];
+        SupplementaryGroups = mkIf cfg.postfix.enable [postfixCfg.group];
 
         RuntimeDirectory = "rspamd";
         RuntimeDirectoryMode = "0755";
         StateDirectory = "rspamd";
         StateDirectoryMode = "0700";
 
-        AmbientCapabilities = [ ];
+        AmbientCapabilities = [];
         CapabilityBoundingSet = "";
         DevicePolicy = "closed";
         LockPersonality = true;

@@ -24,8 +24,8 @@ stdenv.mkDerivation rec {
     logger
   ];
 
-  configureFlags = [ "--sysconfdir=/etc --prefix=/" ];
-  makeFlags = [ "DESTDIR=$(out)" ];
+  configureFlags = ["--sysconfdir=/etc --prefix=/"];
+  makeFlags = ["DESTDIR=$(out)"];
 
   patchPhase = ''
     substituteInPlace "Makefile.in" --replace \

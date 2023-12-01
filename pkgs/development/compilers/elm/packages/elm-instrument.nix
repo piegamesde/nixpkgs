@@ -78,7 +78,7 @@ mkDerivation {
     split
     text
   ];
-  executableHaskellDepends = [ base ];
+  executableHaskellDepends = [base];
   testHaskellDepends = [
     base
     cmark

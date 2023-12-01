@@ -41,7 +41,7 @@ buildPythonPackage rec {
   ];
 
   # Let the user bring their own instance (as with torchmetrics)
-  buildInputs = [ torch ];
+  buildInputs = [torch];
 
   doCheck = false; # every nontrivial test tries to download a pretrained model
 
@@ -59,6 +59,6 @@ buildPythonPackage rec {
     description = "Advanced AI explainability for computer vision.";
     homepage = "https://jacobgil.github.io/pytorch-gradcam-book";
     license = licenses.mit;
-    maintainers = with maintainers; [ bcdarwin ];
+    maintainers = with maintainers; [bcdarwin];
   };
 }

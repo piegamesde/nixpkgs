@@ -2,7 +2,7 @@
   name-prefix ? "temurin",
   brand-name ? "Eclipse Temurin",
   sourcePerArch,
-  knownVulnerabilities ? [ ],
+  knownVulnerabilities ? [],
 }:
 
 {
@@ -33,7 +33,7 @@
 let
   cpuName = stdenv.hostPlatform.parsed.cpu.name;
   runtimeDependencies =
-    [ cups ]
+    [cups]
     ++ lib.optionals gtkSupport [
       cairo
       glib
@@ -53,7 +53,7 @@ let
 
     version = sourcePerArch.${cpuName}.version or (throw "unsupported CPU ${cpuName}");
 
-    src = fetchurl { inherit (sourcePerArch.${cpuName}) url sha256; };
+    src = fetchurl {inherit (sourcePerArch.${cpuName}) url sha256;};
 
     buildInputs = [
       alsa-lib # libasound.so wanted by lib/libjsound.so
@@ -129,7 +129,7 @@ let
       license = licenses.gpl2Classpath;
       description = "${brand-name}, prebuilt OpenJDK binary";
       platforms = builtins.map (arch: arch + "-linux") providedCpuTypes; # some inherit jre.meta.platforms
-      maintainers = with maintainers; [ taku0 ];
+      maintainers = with maintainers; [taku0];
       inherit knownVulnerabilities;
       mainProgram = "java";
     };

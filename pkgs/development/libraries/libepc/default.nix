@@ -15,7 +15,7 @@
 }:
 
 let
-  avahiWithGtk = avahi.override { gtk3Support = true; };
+  avahiWithGtk = avahi.override {gtk3Support = true;};
 in
 stdenv.mkDerivation rec {
   pname = "libepc";

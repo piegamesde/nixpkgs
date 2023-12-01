@@ -20,8 +20,8 @@ rustPlatform.buildRustPackage rec {
   };
   cargoHash = "sha256-av9hsvY8xsB+HlIRLYNFDJc9eyBfOyBZ347vWoVsDmM=";
 
-  buildInputs = [ openssl ] ++ lib.optionals stdenv.isDarwin [ Security ];
-  nativeBuildInputs = [ pkg-config ];
+  buildInputs = [openssl] ++ lib.optionals stdenv.isDarwin [Security];
+  nativeBuildInputs = [pkg-config];
 
   meta = with lib; {
     homepage = "https://github.com/awslabs/coldsnap";

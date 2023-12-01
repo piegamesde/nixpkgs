@@ -48,12 +48,12 @@ buildPythonPackage rec {
     "--deselect=tests/test_pygraphviz.py::TestPygraphvizNested::test_diagram"
   ];
 
-  pythonImportsCheck = [ "transitions" ];
+  pythonImportsCheck = ["transitions"];
 
   meta = with lib; {
     homepage = "https://github.com/pytransitions/transitions";
     description = "A lightweight, object-oriented finite state machine implementation in Python";
     license = licenses.mit;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

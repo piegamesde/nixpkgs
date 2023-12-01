@@ -29,7 +29,7 @@ buildGoModule rec {
   meta = {
     description = "Rclone as a C library";
     homepage = "https://github.com/rclone/rclone/tree/master/librclone";
-    maintainers = with lib.maintainers; [ dotlambda ];
+    maintainers = with lib.maintainers; [dotlambda];
     inherit (rclone.meta) license platforms;
   };
 }

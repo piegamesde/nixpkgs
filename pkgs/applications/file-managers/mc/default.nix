@@ -56,7 +56,7 @@ stdenv.mkDerivation rec {
       slang
       zip
     ]
-    ++ lib.optionals x11Support [ libX11 ]
+    ++ lib.optionals x11Support [libX11]
     ++ lib.optionals (!stdenv.isDarwin) [
       e2fsprogs
       gpm
@@ -103,7 +103,7 @@ stdenv.mkDerivation rec {
     downloadPage = "https://www.midnight-commander.org/downloads/";
     homepage = "https://www.midnight-commander.org";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ sander ];
+    maintainers = with maintainers; [sander];
     platforms = with platforms; linux ++ darwin;
   };
 }

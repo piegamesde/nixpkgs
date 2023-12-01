@@ -56,9 +56,9 @@ buildGoModule {
     "-X github.com/v2rayA/v2rayA/conf.Version=${version}"
   ];
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
   preBuild = ''
     cp -a ${web} server/router/web
   '';
@@ -70,7 +70,7 @@ buildGoModule {
       --replace 'Icon=/usr/share/icons/hicolor/512x512/apps/v2raya.png' 'Icon=v2raya'
 
     wrapProgram $out/bin/v2rayA \
-      --prefix PATH ":" "${lib.makeBinPath [ v2ray ]}" \
+      --prefix PATH ":" "${lib.makeBinPath [v2ray]}" \
       --prefix XDG_DATA_DIRS ":" ${assetsDir}/share
   '';
 
@@ -80,6 +80,6 @@ buildGoModule {
     mainProgram = "v2rayA";
     license = licenses.agpl3Only;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ elliot ];
+    maintainers = with maintainers; [elliot];
   };
 }

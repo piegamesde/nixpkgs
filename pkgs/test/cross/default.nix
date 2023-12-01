@@ -1,4 +1,4 @@
-{ pkgs, lib }:
+{pkgs, lib}:
 
 let
 
@@ -24,14 +24,14 @@ let
       hostPkgs,
       crossPkgs,
       exec,
-      args ? [ ],
+      args ? [],
     }:
     let
       pkgName = (pkgFun hostPkgs).name;
       args' = lib.concatStringsSep " " args;
     in
     crossPkgs.runCommand "test-${pkgName}-${crossPkgs.hostPlatform.config}"
-      { nativeBuildInputs = [ pkgs.dos2unix ]; }
+      {nativeBuildInputs = [pkgs.dos2unix];}
       ''
         # Just in case we are using wine, get rid of that annoying extra
         # stuff.
@@ -93,7 +93,7 @@ let
             if crossPkgs.hostPlatform.isWindows then
               pkgs.buildEnv {
                 name = "${pkg.name}-winlinks";
-                paths = [ pkg ] ++ pkg.buildInputs;
+                paths = [pkg] ++ pkg.buildInputs;
               }
             else
               pkg;
@@ -141,13 +141,13 @@ let
       }:
       crossPkgs.runCommand "test-pkg-config-${crossPkgs.hostPlatform.config}"
         {
-          depsBuildBuild = [ crossPkgs.pkgsBuildBuild.pkg-config ];
+          depsBuildBuild = [crossPkgs.pkgsBuildBuild.pkg-config];
           nativeBuildInputs = [
             crossPkgs.pkgsBuildHost.pkg-config
             crossPkgs.buildPackages.zlib
           ];
-          depsBuildTarget = [ crossPkgs.pkgsBuildTarget.pkg-config ];
-          buildInputs = [ crossPkgs.zlib ];
+          depsBuildTarget = [crossPkgs.pkgsBuildTarget.pkg-config];
+          buildInputs = [crossPkgs.zlib];
           NIX_DEBUG = 7;
         }
         ''
@@ -159,6 +159,6 @@ let
   };
 in
 {
-  gcc = (lib.mapAttrs (_: mapMultiPlatformTest (system: system // { useLLVM = false; })) tests);
-  llvm = (lib.mapAttrs (_: mapMultiPlatformTest (system: system // { useLLVM = true; })) tests);
+  gcc = (lib.mapAttrs (_: mapMultiPlatformTest (system: system // {useLLVM = false;})) tests);
+  llvm = (lib.mapAttrs (_: mapMultiPlatformTest (system: system // {useLLVM = true;})) tests);
 }

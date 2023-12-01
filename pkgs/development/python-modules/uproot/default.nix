@@ -30,13 +30,13 @@ buildPythonPackage rec {
     hash = "sha256-5XR92e3rQJbKojfQX+MjaF4SCKvV1xBu7hezaFrtJwc=";
   };
 
-  nativeBuildInputs = [ hatchling ];
+  nativeBuildInputs = [hatchling];
 
   propagatedBuildInputs = [
     awkward
     numpy
     packaging
-  ] ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
+  ] ++ lib.optionals (pythonOlder "3.8") [importlib-metadata];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -66,13 +66,13 @@ buildPythonPackage rec {
     "tests/test_0220-contiguous-byte-ranges-in-http.py"
   ];
 
-  pythonImportsCheck = [ "uproot" ];
+  pythonImportsCheck = ["uproot"];
 
   meta = with lib; {
     description = "ROOT I/O in pure Python and Numpy";
     homepage = "https://github.com/scikit-hep/uproot5";
     changelog = "https://github.com/scikit-hep/uproot5/releases/tag/v${version}";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ veprbl ];
+    maintainers = with maintainers; [veprbl];
   };
 }

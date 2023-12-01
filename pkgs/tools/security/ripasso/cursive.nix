@@ -29,9 +29,9 @@ rustPlatform.buildRustPackage rec {
     hash = "sha256-9wBaFq2KVfLTd1j8ZPoUlmZJDW2UhvGBAaCGX+qg92s=";
   };
 
-  patches = [ ./fix-tests.patch ];
+  patches = [./fix-tests.patch];
 
-  cargoPatches = [ ./fix-build.patch ];
+  cargoPatches = [./fix-build.patch];
 
   cargoLock = {
     lockFile = ./Cargo.lock;
@@ -40,7 +40,7 @@ rustPlatform.buildRustPackage rec {
     };
   };
 
-  cargoBuildFlags = [ "-p ripasso-cursive" ];
+  cargoBuildFlags = ["-p ripasso-cursive"];
 
   nativeBuildInputs = [
     pkg-config
@@ -76,7 +76,7 @@ rustPlatform.buildRustPackage rec {
     description = "A simple password manager written in Rust";
     homepage = "https://github.com/cortex/ripasso";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ sgo ];
+    maintainers = with maintainers; [sgo];
     platforms = platforms.unix;
   };
 }

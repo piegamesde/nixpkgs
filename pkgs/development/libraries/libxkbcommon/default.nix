@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
     "doc"
   ];
 
-  depsBuildBuild = [ pkg-config ];
+  depsBuildBuild = [pkg-config];
   nativeBuildInputs = [
     meson
     ninja
@@ -53,7 +53,7 @@ stdenv.mkDerivation rec {
       wayland
       wayland-protocols
     ];
-  nativeCheckInputs = [ python3 ];
+  nativeCheckInputs = [python3];
 
   mesonFlags = [
     "-Dxkb-config-root=${xkeyboard_config}/etc/X11/xkb"

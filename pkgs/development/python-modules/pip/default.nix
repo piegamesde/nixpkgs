@@ -26,7 +26,7 @@ buildPythonPackage rec {
     name = "${pname}-${version}-source";
   };
 
-  nativeBuildInputs = [ bootstrapped-pip ];
+  nativeBuildInputs = [bootstrapped-pip];
 
   postPatch = ''
     # Remove vendored Windows PE binaries
@@ -36,7 +36,7 @@ buildPythonPackage rec {
 
   # pip detects that we already have bootstrapped_pip "installed", so we need
   # to force it a little.
-  pipInstallFlags = [ "--ignore-installed" ];
+  pipInstallFlags = ["--ignore-installed"];
 
   nativeCheckInputs = [
     mock
@@ -54,9 +54,9 @@ buildPythonPackage rec {
 
   meta = {
     description = "The PyPA recommended tool for installing Python packages";
-    license = with lib.licenses; [ mit ];
+    license = with lib.licenses; [mit];
     homepage = "https://pip.pypa.io/";
-    changelog = "https://pip.pypa.io/en/stable/news/#v${lib.replaceStrings [ "." ] [ "-" ] version}";
+    changelog = "https://pip.pypa.io/en/stable/news/#v${lib.replaceStrings ["."] ["-"] version}";
     priority = 10;
   };
 }

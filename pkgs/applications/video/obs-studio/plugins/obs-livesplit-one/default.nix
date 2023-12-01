@@ -42,7 +42,7 @@ rustPlatform.buildRustPackage rec {
       asl20
       mit
     ];
-    maintainers = [ maintainers.Bauke ];
+    maintainers = [maintainers.Bauke];
     platforms = obs-studio.meta.platforms;
   };
 }

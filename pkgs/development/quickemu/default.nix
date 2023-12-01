@@ -68,7 +68,7 @@ stdenv.mkDerivation rec {
       quickemu
   '';
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     runHook preInstall
@@ -80,18 +80,18 @@ stdenv.mkDerivation rec {
     for f in macrecovery quickget quickemu windowskey; do
       wrapProgram $out/bin/$f \
         --prefix PATH : "${lib.makeBinPath runtimePaths}" \
-        --suffix PATH : "${lib.makeBinPath [ spice-gtk ]}"
+        --suffix PATH : "${lib.makeBinPath [spice-gtk]}"
     done
 
     runHook postInstall
   '';
 
-  passthru.tests = testers.testVersion { package = quickemu; };
+  passthru.tests = testers.testVersion {package = quickemu;};
 
   meta = with lib; {
     description = "Quickly create and run optimised Windows, macOS and Linux desktop virtual machines";
     homepage = "https://github.com/quickemu-project/quickemu";
     license = licenses.mit;
-    maintainers = with maintainers; [ fedx-sudo ];
+    maintainers = with maintainers; [fedx-sudo];
   };
 }

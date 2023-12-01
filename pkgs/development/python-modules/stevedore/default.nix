@@ -23,15 +23,15 @@ buildPythonPackage rec {
     pbr
     setuptools
     six
-  ] ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
+  ] ++ lib.optionals (pythonOlder "3.8") [importlib-metadata];
 
   doCheck = false;
-  pythonImportsCheck = [ "stevedore" ];
+  pythonImportsCheck = ["stevedore"];
 
   meta = with lib; {
     description = "Manage dynamic plugins for Python applications";
     homepage = "https://docs.openstack.org/stevedore/";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

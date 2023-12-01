@@ -22,7 +22,7 @@ buildDunePackage rec {
     homepage = "https://ocaml.xyz";
     changelog = "https://github.com/owlbarn/owl/releases";
     platforms = platforms.x86_64;
-    maintainers = [ maintainers.bcdarwin ];
+    maintainers = [maintainers.bcdarwin];
     license = licenses.mit;
   };
 }

@@ -73,7 +73,7 @@ stdenv.mkDerivation (
       cmake
       makeWrapper
       pkg-config
-    ] ++ lib.optionals buildManPages [ ruby ];
+    ] ++ lib.optionals buildManPages [ruby];
 
     buildInputs = [
       SDL2
@@ -127,7 +127,7 @@ stdenv.mkDerivation (
     # Emulate external/git/clone.sh
     postUnpack =
       let
-        inherit (import ./clone-sources.nix { inherit fetchFromGitHub fetchgit; })
+        inherit (import ./clone-sources.nix {inherit fetchFromGitHub fetchgit;})
           letoram-openal-src
           freetype-src
           libuvc-src
@@ -188,7 +188,7 @@ stdenv.mkDerivation (
       "../src"
     ];
 
-    hardeningDisable = [ "format" ];
+    hardeningDisable = ["format"];
 
     meta = with lib; {
       homepage = "https://arcan-fe.com/";
@@ -204,7 +204,7 @@ stdenv.mkDerivation (
         gpl2Plus
         lgpl2Plus
       ];
-      maintainers = with maintainers; [ AndersonTorres ];
+      maintainers = with maintainers; [AndersonTorres];
       platforms = platforms.unix;
     };
   }

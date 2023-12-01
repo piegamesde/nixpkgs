@@ -38,7 +38,7 @@ stdenv.mkDerivation (
       ++ (lib.optional (historyType == "readline") readline);
 
     configureFlags =
-      [ "--disable-nls" ]
+      ["--disable-nls"]
       ++ (lib.optional (predefinedBuildType != "") "--predefined-build-type=${predefinedBuildType}")
       ++ (lib.optional (historyType == "editline") "--enable-editline")
       ++ (lib.optional (historyType == "readline") "--enable-readline")
@@ -49,7 +49,7 @@ stdenv.mkDerivation (
       description = "Gavin Howard's BC calculator implementation";
       changelog = "https://git.gavinhoward.com/gavin/bc/raw/tag/${finalAttrs.version}/NEWS.md";
       license = lib.licenses.bsd2;
-      maintainers = [ lib.maintainers.AndersonTorres ];
+      maintainers = [lib.maintainers.AndersonTorres];
       platforms = lib.platforms.unix;
       broken = stdenv.isDarwin;
     };

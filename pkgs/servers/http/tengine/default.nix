@@ -17,7 +17,7 @@
   withDebug ? false,
   withMail ? false,
   withStream ? false,
-  modules ? [ ],
+  modules ? [],
   ...
 }:
 
@@ -45,7 +45,7 @@ stdenv.mkDerivation rec {
     geoip
     gperftools
     jemalloc
-  ] ++ concatMap (mod: mod.inputs or [ ]) modules;
+  ] ++ concatMap (mod: mod.inputs or []) modules;
 
   patches =
     singleton (
@@ -96,7 +96,7 @@ stdenv.mkDerivation rec {
       "--http-uwsgi-temp-path=/var/cache/nginx/uwsgi"
       "--http-scgi-temp-path=/var/cache/nginx/scgi"
     ]
-    ++ optionals withDebug [ "--with-debug" ]
+    ++ optionals withDebug ["--with-debug"]
     ++ optionals withMail [
       "--with-mail"
       "--with-mail_ssl_module"
@@ -154,6 +154,6 @@ stdenv.mkDerivation rec {
     homepage = "https://tengine.taobao.org";
     license = licenses.bsd2;
     platforms = platforms.all;
-    maintainers = with maintainers; [ izorkin ];
+    maintainers = with maintainers; [izorkin];
   };
 }

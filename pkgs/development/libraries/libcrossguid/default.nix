@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
     sha256 = "1i29y207qqddvaxbn39pk2fbh3gx8zvdprfp35wasj9rw2wjk3s9";
   };
 
-  buildInputs = [ libuuid ];
+  buildInputs = [libuuid];
 
   buildPhase = ''
     $CXX -c guid.cpp -o guid.o $CXXFLAGS -std=c++11 -DGUID_LIBUUID
@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Lightweight cross platform C++ GUID/UUID library";
     license = licenses.mit;
-    maintainers = with maintainers; [ edwtjo ];
+    maintainers = with maintainers; [edwtjo];
     homepage = "https://github.com/graeme-hill/crossguid";
     platforms = with platforms; linux;
   };

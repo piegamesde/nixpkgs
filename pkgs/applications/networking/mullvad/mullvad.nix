@@ -104,6 +104,6 @@ rustPlatform.buildRustPackage rec {
     description = "Mullvad VPN command-line client tools";
     homepage = "https://github.com/mullvad/mullvadvpn-app";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ cole-h ];
+    maintainers = with maintainers; [cole-h];
   };
 }

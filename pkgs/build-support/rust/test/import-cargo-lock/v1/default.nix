@@ -1,4 +1,4 @@
-{ rustPlatform }:
+{rustPlatform}:
 
 rustPlatform.buildRustPackage {
   pname = "v1";

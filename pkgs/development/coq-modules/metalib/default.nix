@@ -31,6 +31,6 @@ mkCoqDerivation {
 
   meta = with lib; {
     license = licenses.mit;
-    maintainers = [ maintainers.jwiegley ];
+    maintainers = [maintainers.jwiegley];
   };
 }

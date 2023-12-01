@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-CfAK/UbGaWvyk2ZxKEgziVruzZfz7WMJVi/YvdR/UNA=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   propagatedBuildInputs = [
     zlib
@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
     license = licenses.epl20;
     homepage = "https://github.com/coin-or/Clp";
     description = "An open-source linear programming solver written in C++";
-    platforms = platforms.darwin ++ [ "x86_64-linux" ];
-    maintainers = [ maintainers.vbgl ];
+    platforms = platforms.darwin ++ ["x86_64-linux"];
+    maintainers = [maintainers.vbgl];
   };
 }

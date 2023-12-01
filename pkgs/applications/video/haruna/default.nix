@@ -82,6 +82,6 @@ mkDerivation rec {
       gpl3Plus
       wtfpl
     ];
-    maintainers = with maintainers; [ jojosch ];
+    maintainers = with maintainers; [jojosch];
   };
 }

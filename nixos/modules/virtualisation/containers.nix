@@ -9,11 +9,11 @@ let
 
   inherit (lib) literalExpression mkOption types;
 
-  toml = pkgs.formats.toml { };
+  toml = pkgs.formats.toml {};
 in
 {
   meta = {
-    maintainers = [ ] ++ lib.teams.podman.members;
+    maintainers = [] ++ lib.teams.podman.members;
   };
 
   options.virtualisation.containers = {
@@ -34,7 +34,7 @@ in
 
     containersConf.settings = mkOption {
       type = toml.type;
-      default = { };
+      default = {};
       description = lib.mdDoc "containers.conf configuration";
     };
 
@@ -80,7 +80,7 @@ in
       };
 
       insecure = mkOption {
-        default = [ ];
+        default = [];
         type = types.listOf types.str;
         description = lib.mdDoc ''
           List of insecure repositories.
@@ -88,7 +88,7 @@ in
       };
 
       block = mkOption {
-        default = [ ];
+        default = [];
         type = types.listOf types.str;
         description = lib.mdDoc ''
           List of blocked repositories.
@@ -97,7 +97,7 @@ in
     };
 
     policy = mkOption {
-      default = { };
+      default = {};
       type = types.attrs;
       example = literalExpression ''
         {
@@ -119,7 +119,7 @@ in
 
   config = lib.mkIf cfg.enable {
 
-    virtualisation.containers.containersConf.cniPlugins = [ pkgs.cni-plugins ];
+    virtualisation.containers.containersConf.cniPlugins = [pkgs.cni-plugins];
 
     virtualisation.containers.containersConf.settings = {
       network.cni_plugin_dirs = map (p: "${lib.getBin p}/bin") cfg.containersConf.cniPlugins;
@@ -128,7 +128,7 @@ in
           init_path = "${pkgs.catatonit}/bin/catatonit";
         }
         // lib.optionalAttrs cfg.ociSeccompBpfHook.enable {
-          hooks_dir = [ config.boot.kernelPackages.oci-seccomp-bpf-hook ];
+          hooks_dir = [config.boot.kernelPackages.oci-seccomp-bpf-hook];
         };
     };
 
@@ -137,11 +137,11 @@ in
     environment.etc."containers/storage.conf".source = toml.generate "storage.conf" cfg.storage.settings;
 
     environment.etc."containers/registries.conf".source = toml.generate "registries.conf" {
-      registries = lib.mapAttrs (n: v: { registries = v; }) cfg.registries;
+      registries = lib.mapAttrs (n: v: {registries = v;}) cfg.registries;
     };
 
     environment.etc."containers/policy.json".source =
-      if cfg.policy != { } then
+      if cfg.policy != {} then
         pkgs.writeText "policy.json" (builtins.toJSON cfg.policy)
       else
         "${pkgs.skopeo.policy}/default-policy.json";

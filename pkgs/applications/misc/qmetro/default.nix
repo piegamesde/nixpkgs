@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
     unzip
   ];
 
-  buildInputs = [ qt4 ];
+  buildInputs = [qt4];
 
   postPatch = ''
     sed -e 's#Exec=/usr/bin/qmetro#Exec=qmetro#' -i rc/qmetro.desktop
@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
     description = "Worldwide transit maps viewer";
     license = licenses.gpl3;
 
-    maintainers = with maintainers; [ orivej ];
+    maintainers = with maintainers; [orivej];
     platforms = platforms.unix;
   };
 }

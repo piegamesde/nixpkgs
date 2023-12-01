@@ -6,7 +6,7 @@
 }:
 
 let
-  python = python3.withPackages (p: [ p.pexpect ]);
+  python = python3.withPackages (p: [p.pexpect]);
 in
 stdenv.mkDerivation rec {
   version = "0.9.0";
@@ -24,11 +24,11 @@ stdenv.mkDerivation rec {
     "DESTDIR=$(out)"
   ];
 
-  nativeCheckInputs = [ python ];
+  nativeCheckInputs = [python];
 
   doCheck = true;
 
-  checkFlags = [ "PYTHON_CMD=${python.interpreter}" ];
+  checkFlags = ["PYTHON_CMD=${python.interpreter}"];
 
   meta = {
     platforms = [
@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
       "aarch64-linux"
       "riscv64-linux"
     ];
-    maintainers = with lib.maintainers; [ raskin ];
+    maintainers = with lib.maintainers; [raskin];
     license = lib.licenses.mit;
     description = "Reparent a running program to a new terminal";
     homepage = "https://github.com/nelhage/reptyr";

@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
     topkg
     uutf
   ] ++ lib.optional cmdlinerSupport cmdliner;
-  propagatedBuildInputs = [ uucp ];
+  propagatedBuildInputs = [uucp];
 
   strictDeps = true;
 
@@ -55,7 +55,7 @@ stdenv.mkDerivation rec {
     description = "An OCaml library for segmenting Unicode text";
     homepage = webpage;
     license = licenses.bsd3;
-    maintainers = [ maintainers.vbgl ];
+    maintainers = [maintainers.vbgl];
     mainProgram = "usegtrip";
     inherit (ocaml.meta) platforms;
   };

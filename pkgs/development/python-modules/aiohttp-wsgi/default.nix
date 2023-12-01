@@ -19,16 +19,16 @@ buildPythonPackage rec {
     hash = "sha256-3Q00FidZWV1KueuHyHKQf1PsDJGOaRW6v/kBy7lzD4Q=";
   };
 
-  propagatedBuildInputs = [ aiohttp ];
+  propagatedBuildInputs = [aiohttp];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "aiohttp_wsgi" ];
+  pythonImportsCheck = ["aiohttp_wsgi"];
 
   meta = with lib; {
     description = "WSGI adapter for aiohttp";
     homepage = "https://github.com/etianen/aiohttp-wsgi";
-    license = with licenses; [ bsd3 ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [bsd3];
+    maintainers = with maintainers; [fab];
   };
 }

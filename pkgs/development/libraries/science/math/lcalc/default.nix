@@ -25,14 +25,14 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  buildInputs = [ pari ];
+  buildInputs = [pari];
 
-  configureFlags = [ "--with-pari" ];
+  configureFlags = ["--with-pari"];
 
   meta = with lib; {
     homepage = "https://gitlab.com/sagemath/lcalc";
     description = "A program for calculating with L-functions";
-    license = with licenses; [ gpl2 ];
+    license = with licenses; [gpl2];
     maintainers = teams.sage.members;
     platforms = platforms.all;
   };

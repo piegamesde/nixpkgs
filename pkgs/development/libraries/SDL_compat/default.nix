@@ -31,10 +31,10 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [
     cmake
     pkg-config
-  ] ++ optionals (stdenv.isDarwin && stdenv.isAarch64) [ autoSignDarwinBinariesHook ];
+  ] ++ optionals (stdenv.isDarwin && stdenv.isAarch64) [autoSignDarwinBinariesHook];
 
   propagatedBuildInputs =
-    [ SDL2 ]
+    [SDL2]
     ++ optionals stdenv.hostPlatform.isDarwin [
       libiconv
       Cocoa
@@ -55,7 +55,7 @@ stdenv.mkDerivation rec {
           if stdenv.hostPlatform.isDarwin then
             ''
               install_name_tool ${
-                lib.strings.concatMapStrings (x: " -add_rpath ${makeLibraryPath [ x ]} ") propagatedBuildInputs
+                lib.strings.concatMapStrings (x: " -add_rpath ${makeLibraryPath [x]} ") propagatedBuildInputs
               } "$lib"
             ''
           else
@@ -71,7 +71,7 @@ stdenv.mkDerivation rec {
     description = "A cross-platform multimedia library - build SDL 1.2 applications against 2.0";
     homepage = "https://www.libsdl.org/";
     license = licenses.zlib;
-    maintainers = with maintainers; [ peterhoeg ];
+    maintainers = with maintainers; [peterhoeg];
     platforms = platforms.all;
   };
 }

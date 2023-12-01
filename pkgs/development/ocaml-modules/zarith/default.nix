@@ -27,13 +27,13 @@ else
       ocaml
       findlib
     ];
-    propagatedBuildInputs = [ gmp ];
+    propagatedBuildInputs = [gmp];
     strictDeps = true;
 
     dontAddPrefix = true;
     dontAddStaticConfigureFlags = true;
-    configurePlatforms = [ ];
-    configureFlags = [ "-installdir ${placeholder "out"}/lib/ocaml/${ocaml.version}/site-lib" ];
+    configurePlatforms = [];
+    configureFlags = ["-installdir ${placeholder "out"}/lib/ocaml/${ocaml.version}/site-lib"];
 
     preInstall = "mkdir -p $out/lib/ocaml/${ocaml.version}/site-lib/stublibs";
 

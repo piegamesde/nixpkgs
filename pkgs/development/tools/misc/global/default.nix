@@ -29,9 +29,9 @@ stdenv.mkDerivation rec {
     makeWrapper
   ];
 
-  buildInputs = [ ncurses ];
+  buildInputs = [ncurses];
 
-  propagatedBuildInputs = [ pygments ];
+  propagatedBuildInputs = [pygments];
 
   configureFlags = [
     "--with-ltdl-include=${libtool}/include"

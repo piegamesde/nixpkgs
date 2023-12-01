@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
     "doc"
   ];
 
-  nativeCheckInputs = [ perl ];
+  nativeCheckInputs = [perl];
 
   preCheck = "patchShebangs tests/unit";
   doCheck = true;
@@ -31,6 +31,6 @@ stdenv.mkDerivation rec {
     changelog = "https://github.com/urcu/userspace-rcu/raw/v${version}/ChangeLog";
     license = licenses.lgpl21Plus;
     platforms = platforms.unix;
-    maintainers = [ maintainers.bjornfor ];
+    maintainers = [maintainers.bjornfor];
   };
 }

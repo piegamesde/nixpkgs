@@ -46,6 +46,6 @@ buildGoModule rec {
       or terminate with a failure.
     '';
     license = licenses.bsd0;
-    maintainers = with maintainers; [ bdd ];
+    maintainers = with maintainers; [bdd];
   };
 }

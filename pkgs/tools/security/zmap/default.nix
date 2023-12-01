@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
       ./cmake-json-0.14-fix.patch
     ];
 
-  cmakeFlags = [ "-DRESPECT_INSTALL_PREFIX_CONFIG=ON" ];
+  cmakeFlags = ["-DRESPECT_INSTALL_PREFIX_CONFIG=ON"];
   dontUseCmakeBuildDir = true;
 
   nativeBuildInputs = [
@@ -56,7 +56,7 @@ stdenv.mkDerivation rec {
     homepage = "https://zmap.io/";
     license = licenses.asl20;
     description = "Fast single packet network scanner designed for Internet-wide network surveys";
-    maintainers = with maintainers; [ ma27 ];
+    maintainers = with maintainers; [ma27];
     platforms = platforms.unix;
     broken = stdenv.isDarwin;
   };

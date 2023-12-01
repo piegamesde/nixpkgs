@@ -16,7 +16,7 @@ buildPythonPackage rec {
     hash = "sha256-GZmurg3rpD081QZW/LUKWblhsQQSS6lg9O7y/kGy4To=";
   };
 
-  propagatedBuildInputs = [ normality ];
+  propagatedBuildInputs = [normality];
 
   nativeCheckInputs = [
     mypy
@@ -28,12 +28,12 @@ buildPythonPackage rec {
     nosetests
   '';
 
-  pythonImportsCheck = [ "fingerprints" ];
+  pythonImportsCheck = ["fingerprints"];
 
   meta = with lib; {
     description = "A library to generate entity fingerprints";
     homepage = "https://github.com/alephdata/fingerprints";
     license = licenses.mit;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

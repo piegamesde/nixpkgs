@@ -62,7 +62,7 @@ stdenv.mkDerivation rec {
     "geoip"
   ];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs =
     [
       libevent
@@ -78,13 +78,13 @@ stdenv.mkDerivation rec {
       libcap
     ];
 
-  patches = [ ./disable-monotonic-timer-tests.patch ];
+  patches = [./disable-monotonic-timer-tests.patch];
 
   configureFlags =
     # cross compiles correctly but needs the following
-    lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [ "--disable-tool-name-check" ]
+    lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) ["--disable-tool-name-check"]
     # sandbox is broken on aarch64-linux https://gitlab.torproject.org/tpo/core/tor/-/issues/40599
-    ++ lib.optionals (stdenv.isLinux && stdenv.isAarch64) [ "--disable-seccomp" ];
+    ++ lib.optionals (stdenv.isLinux && stdenv.isAarch64) ["--disable-seccomp"];
 
   NIX_CFLAGS_LINK = lib.optionalString stdenv.cc.isGNU "-lgcc_s";
 

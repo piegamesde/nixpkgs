@@ -52,14 +52,14 @@ python3.pkgs.buildPythonApplication rec {
   # Project has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "cme" ];
+  pythonImportsCheck = ["cme"];
 
   meta = with lib; {
     description = "Tool for pentesting networks";
     homepage = "https://github.com/Porchetta-Industries/CrackMapExec";
     changelog = "https://github.com/Porchetta-Industries/CrackMapExec/releases/tag/v${version}";
-    license = with licenses; [ bsd2 ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [bsd2];
+    maintainers = with maintainers; [fab];
     mainProgram = "cme";
   };
 }

@@ -51,7 +51,7 @@ let
 
     bazel = bazel_6;
 
-    bazelTargets = [ ":pip_pkg" ];
+    bazelTargets = [":pip_pkg"];
     LIBTOOL = lib.optionalString stdenv.isDarwin "${cctools}/bin/libtool";
 
     fetchAttrs = {
@@ -112,12 +112,12 @@ buildPythonPackage {
   # Ideally, tests would be run using Bazel. For now, lets's do a...
 
   # sanity check
-  pythonImportsCheck = [ "tensorflow_probability" ];
+  pythonImportsCheck = ["tensorflow_probability"];
 
   meta = with lib; {
     description = "Library for probabilistic reasoning and statistical analysis";
     homepage = "https://www.tensorflow.org/probability/";
     license = licenses.asl20;
-    maintainers = with maintainers; [ ]; # This package is maintainerless.
+    maintainers = with maintainers; []; # This package is maintainerless.
   };
 }

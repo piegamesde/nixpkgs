@@ -73,7 +73,7 @@ stdenv.mkDerivation rec {
     "--disable-doc"
     "--disable-man"
     "--disable-update-ipsets"
-  ] ++ lib.optionals onlyQOS [ "--disable-firehol" ];
+  ] ++ lib.optionals onlyQOS ["--disable-firehol"];
 
   meta = with lib; {
     description = "A firewall for humans";
@@ -83,7 +83,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://firehol.org/";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ oxzi ];
+    maintainers = with maintainers; [oxzi];
     platforms = platforms.linux;
   };
 }

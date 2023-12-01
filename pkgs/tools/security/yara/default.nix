@@ -39,9 +39,9 @@ stdenv.mkDerivation rec {
       pcre
       protobufc
     ]
-    ++ lib.optionals withCrypto [ openssl ]
-    ++ lib.optionals enableMagic [ file ]
-    ++ lib.optionals enableCuckoo [ jansson ];
+    ++ lib.optionals withCrypto [openssl]
+    ++ lib.optionals enableMagic [file]
+    ++ lib.optionals enableCuckoo [jansson];
 
   preConfigure = "./bootstrap.sh";
 
@@ -61,7 +61,7 @@ stdenv.mkDerivation rec {
     description = "The pattern matching swiss knife for malware researchers";
     homepage = "http://Virustotal.github.io/yara/";
     license = licenses.asl20;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
     platforms = platforms.all;
   };
 }

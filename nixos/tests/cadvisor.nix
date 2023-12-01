@@ -1,14 +1,14 @@
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   {
     name = "cadvisor";
-    meta = with pkgs.lib.maintainers; { maintainers = [ offline ]; };
+    meta = with pkgs.lib.maintainers; {maintainers = [offline];};
 
     nodes = {
-      machine = { ... }: { services.cadvisor.enable = true; };
+      machine = {...}: {services.cadvisor.enable = true;};
 
       influxdb =
-        { lib, ... }:
+        {lib, ...}:
         with lib; {
           services.cadvisor.enable = true;
           services.cadvisor.storageDriver = "influxdb";

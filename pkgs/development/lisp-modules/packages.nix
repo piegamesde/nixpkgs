@@ -30,13 +30,13 @@ let
   build-with-compile-into-pwd =
     args:
     let
-      build = (build-asdf-system (args // { version = args.version + "-build"; })).overrideAttrs (
+      build = (build-asdf-system (args // {version = args.version + "-build";})).overrideAttrs (
         o: {
           buildPhase = with builtins; ''
             mkdir __fasls
             export ASDF_OUTPUT_TRANSLATIONS="$(pwd):$(pwd)/__fasls:${storeDir}:${storeDir}"
             export CL_SOURCE_REGISTRY=$CL_SOURCE_REGISTRY:$(pwd)//
-            ${o.pkg}/bin/${o.program} ${toString (o.flags or [ ])} < ${o.buildScript}
+            ${o.pkg}/bin/${o.program} ${toString (o.flags or [])} < ${o.buildScript}
           '';
           installPhase = ''
             mkdir -pv $out
@@ -50,7 +50,7 @@ let
       args
       // {
         # Patches are already applied in `build`
-        patches = [ ];
+        patches = [];
         src = build;
       }
     );
@@ -86,7 +86,7 @@ let
             babel
             trivial-features
           ];
-          javaLibs = optionals isJVM [ jna ];
+          javaLibs = optionals isJVM [jna];
         };
 
       cffi-libffi = build-asdf-system {
@@ -111,7 +111,7 @@ let
           url = "https://github.com/edicl/cl-unicode/archive/refs/tags/v0.1.6.tar.gz";
           sha256 = "0ykx2s9lqfl74p1px0ik3l2izd1fc9jd1b4ra68s5x34rvjy0hza";
         };
-        systems = [ "cl-unicode" ];
+        systems = ["cl-unicode"];
         lispLibs = with super; [
           cl-ppcre
           flexi-streams
@@ -125,8 +125,8 @@ let
         };
         version = "0.0.0-20210905-6b201d4208";
         pname = "jzon";
-        lispLibs = [ super.closer-mop ];
-        systems = [ "com.inuoe.jzon" ];
+        lispLibs = [super.closer-mop];
+        systems = ["com.inuoe.jzon"];
       };
 
       cl-notify = build-asdf-system {
@@ -136,16 +136,16 @@ let
           url = "https://repo.or.cz/cl-notify.git/snapshot/138ca703861f4a1fbccbed557f92cf4d213668a1.tar.gz";
           sha256 = "0k6ns6fzvjcbpsqgx85r4g5m25fvrdw9481i9vyabwym9q8bbqwx";
         };
-        lispLibs = [ self.cffi ];
-        nativeLibs = [ pkgs.libnotify ];
+        lispLibs = [self.cffi];
+        nativeLibs = [pkgs.libnotify];
       };
 
       cl-liballegro-nuklear = build-with-compile-into-pwd {
         inherit (super.cl-liballegro-nuklear) pname version src;
-        nativeBuildInputs = [ pkgs.allegro5 ];
-        nativeLibs = [ pkgs.allegro5 ];
-        lispLibs = super.cl-liballegro-nuklear.lispLibs ++ [ super.cl-liballegro ];
-        patches = [ ./patches/cl-liballegro-nuklear-missing-dll.patch ];
+        nativeBuildInputs = [pkgs.allegro5];
+        nativeLibs = [pkgs.allegro5];
+        lispLibs = super.cl-liballegro-nuklear.lispLibs ++ [super.cl-liballegro];
+        patches = [./patches/cl-liballegro-nuklear-missing-dll.patch];
       };
 
       tuple = build-asdf-system {
@@ -206,7 +206,7 @@ let
             parachute
             osicat
           ]
-          ++ [ self.cl-tar-file ];
+          ++ [self.cl-tar-file];
         systems = [
           "tar"
           "tar/common-extract"
@@ -249,7 +249,7 @@ let
         lispLibs = [
           self.lessp
           self.rollback
-        ] ++ [ super.local-time ];
+        ] ++ [super.local-time];
       };
 
       cl-fuse = build-with-compile-into-pwd {
@@ -259,13 +259,13 @@ let
           src
           lispLibs
           ;
-        nativeBuildInputs = [ pkgs.fuse ];
-        nativeLibs = [ pkgs.fuse ];
+        nativeBuildInputs = [pkgs.fuse];
+        nativeLibs = [pkgs.fuse];
       };
 
       cl-containers = build-asdf-system {
         inherit (super.cl-containers) pname version src;
-        lispLibs = super.cl-containers.lispLibs ++ [ super.moptilities ];
+        lispLibs = super.cl-containers.lispLibs ++ [super.moptilities];
         systems = [
           "cl-containers"
           "cl-containers/with-moptilities"
@@ -279,7 +279,7 @@ let
           src
           lispLibs
           ;
-        patches = [ ./patches/swank-pure-paths.patch ];
+        patches = [./patches/swank-pure-paths.patch];
         postConfigure = ''
           substituteAllInPlace swank-loader.lisp
         '';
@@ -314,7 +314,7 @@ let
           src
           asds
           ;
-        lispLibs = super.mathkit.lispLibs ++ [ super.sb-cga ];
+        lispLibs = super.mathkit.lispLibs ++ [super.sb-cga];
       };
 
       nyxt-gtk = build-asdf-system {
@@ -337,7 +337,7 @@ let
           sha256 = "12l7ir3q29v06jx0zng5cvlbmap7p709ka3ik6x29lw334qshm9b";
         };
 
-        nativeBuildInputs = [ pkgs.makeWrapper ];
+        nativeBuildInputs = [pkgs.makeWrapper];
 
         buildInputs = [
           # needed for GSETTINGS_SCHEMAS_PATH
@@ -429,7 +429,7 @@ let
             hash = "sha256-GAgwT0D9mIkYPTHfCH/KxxIv7b6QGwcxwZE7ehH5xug=";
           };
 
-          buildInputs = [ pkgs.qt4 ];
+          buildInputs = [pkgs.qt4];
           nativeBuildInputs = [
             pkgs.smokegen
             pkgs.smokeqt
@@ -440,7 +440,7 @@ let
             pkgs.smokeqt
           ];
 
-          systems = [ "qt" ];
+          systems = ["qt"];
 
           lispLibs = with super; [
             cffi
@@ -456,11 +456,11 @@ let
 
       qt-libs = build-with-compile-into-pwd {
         inherit (super.qt-libs) pname version src;
-        patches = [ ./patches/qt-libs-dont-download.patch ];
+        patches = [./patches/qt-libs-dont-download.patch];
         prePatch = ''
           substituteInPlace systems/*.asd --replace ":qt+libs" ":qt"
         '';
-        lispLibs = super.qt-libs.lispLibs ++ [ self.qt ];
+        lispLibs = super.qt-libs.lispLibs ++ [self.qt];
         systems = [
           "qt-libs"
           "commonqt"
@@ -513,8 +513,8 @@ let
           src
           nativeLibs
           ;
-        lispLibs = [ self.qt ] ++ remove super.qt_plus_libs super.qtools.lispLibs ++ [ self.qt-libs ];
-        patches = [ ./patches/qtools-use-nix-libs.patch ];
+        lispLibs = [self.qt] ++ remove super.qt_plus_libs super.qtools.lispLibs ++ [self.qt-libs];
+        patches = [./patches/qtools-use-nix-libs.patch];
       };
 
       magicl = build-with-compile-into-pwd {
@@ -524,9 +524,9 @@ let
           src
           lispLibs
           ;
-        nativeBuildInputs = [ pkgs.gfortran ];
-        nativeLibs = [ pkgs.openblas ];
-        patches = [ ./patches/magicl-dont-build-fortran-twice.patch ];
+        nativeBuildInputs = [pkgs.gfortran];
+        nativeLibs = [pkgs.openblas];
+        patches = [./patches/magicl-dont-build-fortran-twice.patch];
       };
 
       cl-glib = build-asdf-system {
@@ -553,7 +553,7 @@ let
           rev = "84b128192d6b11cf03f1150e474a23368f07edff";
           hash = "sha256-A56Yz+W4n1rAxxZg15zfkrLMbKMEG/zsWqaX7+kx4Qg=";
         };
-        lispLibs = with super; [ cl-gobject-introspection-wrapper ];
+        lispLibs = with super; [cl-gobject-introspection-wrapper];
       };
 
       cl-gtk4 = build-asdf-system {
@@ -567,7 +567,7 @@ let
         };
         lispLibs =
           with super;
-          [ cl-gobject-introspection-wrapper ]
+          [cl-gobject-introspection-wrapper]
           ++ [
             self.cl-glib
             self.cl-glib_dot_gio
@@ -576,7 +576,7 @@ let
           pkgs.gobject-introspection
           pkgs.gtk4
         ];
-        nativeLibs = [ pkgs.gtk4 ];
+        nativeLibs = [pkgs.gtk4];
       };
 
       cl-gtk4_dot_adw = build-asdf-system {
@@ -588,9 +588,9 @@ let
           rev = "e18f621b996fd986d9829d590203c690440dee64";
           hash = "sha256-++qydw6db4O3m+DAjutVPN8IuePOxseo9vhWEvwiR6E=";
         };
-        lispLibs = with super; [ cl-gobject-introspection-wrapper ] ++ [ self.cl-gtk4 ];
-        nativeBuildInputs = [ pkgs.libadwaita ];
-        nativeLibs = [ pkgs.libadwaita ];
+        lispLibs = with super; [cl-gobject-introspection-wrapper] ++ [self.cl-gtk4];
+        nativeBuildInputs = [pkgs.libadwaita];
+        nativeLibs = [pkgs.libadwaita];
       };
 
       cl-gtk4_dot_webkit2 = build-asdf-system {
@@ -602,9 +602,9 @@ let
           rev = "e18f621b996fd986d9829d590203c690440dee64";
           hash = "sha256-++qydw6db4O3m+DAjutVPN8IuePOxseo9vhWEvwiR6E=";
         };
-        lispLibs = with super; [ cl-gobject-introspection-wrapper ] ++ [ self.cl-gtk4 ];
-        nativeBuildInputs = [ pkgs.webkitgtk_6_0 ];
-        nativeLibs = [ pkgs.webkitgtk_6_0 ];
+        lispLibs = with super; [cl-gobject-introspection-wrapper] ++ [self.cl-gtk4];
+        nativeBuildInputs = [pkgs.webkitgtk_6_0];
+        nativeLibs = [pkgs.webkitgtk_6_0];
       };
 
       cl-avro = build-asdf-system {

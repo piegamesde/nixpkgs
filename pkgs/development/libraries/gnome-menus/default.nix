@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
     gettext
     gobject-introspection
   ];
-  buildInputs = [ glib ];
+  buildInputs = [glib];
 
   passthru = {
     updateScript = gnome.updateScript {

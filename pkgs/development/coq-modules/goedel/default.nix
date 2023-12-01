@@ -35,7 +35,7 @@ mkCoqDerivation {
 
   meta = with lib; {
     description = "The Gödel-Rosser 1st incompleteness theorem in Coq";
-    maintainers = with maintainers; [ siraben ];
+    maintainers = with maintainers; [siraben];
     license = licenses.mit;
     platforms = platforms.unix;
   };

@@ -1,11 +1,11 @@
 import ./make-test-python.nix (
-  { ... }:
+  {...}:
   {
     name = "extra-python-packages";
 
-    extraPythonPackages = p: [ p.numpy ];
+    extraPythonPackages = p: [p.numpy];
 
-    nodes = { };
+    nodes = {};
 
     testScript = ''
       import numpy as np

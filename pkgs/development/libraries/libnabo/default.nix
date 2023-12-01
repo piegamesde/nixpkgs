@@ -18,13 +18,13 @@ stdenv.mkDerivation rec {
     sha256 = "17vxlmszzpm95vvfdxnm98d5p297i10fyblblj6kf0ynq8r2mpsh";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     eigen
     boost
   ];
 
-  cmakeFlags = [ "-DEIGEN_INCLUDE_DIR=${eigen}/include/eigen3" ];
+  cmakeFlags = ["-DEIGEN_INCLUDE_DIR=${eigen}/include/eigen3"];
 
   doCheck = true;
   checkTarget = "test";
@@ -34,6 +34,6 @@ stdenv.mkDerivation rec {
     description = "A fast K Nearest Neighbor library for low-dimensional spaces";
     license = licenses.bsd3;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ cryptix ];
+    maintainers = with maintainers; [cryptix];
   };
 }

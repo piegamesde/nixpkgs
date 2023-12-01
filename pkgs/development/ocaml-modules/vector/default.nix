@@ -21,6 +21,6 @@ buildDunePackage rec {
     description = "Resizable arrays for OCaml";
     license = lib.licenses.lgpl2Only;
     homepage = "https://github.com/backtracking/vector";
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
   };
 }

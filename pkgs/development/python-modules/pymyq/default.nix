@@ -29,13 +29,13 @@ buildPythonPackage rec {
   # Project has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "pymyq" ];
+  pythonImportsCheck = ["pymyq"];
 
   meta = with lib; {
     description = "Python wrapper for MyQ API";
     homepage = "https://github.com/arraylabs/pymyq";
     changelog = "https://github.com/arraylabs/pymyq/releases/tag/v${version}";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

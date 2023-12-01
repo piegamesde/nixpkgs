@@ -56,7 +56,7 @@ stdenv.mkDerivation rec {
   ];
 
   configureFlags =
-    [ "--enable-introspection" ]
+    ["--enable-introspection"]
     ++ lib.optionals (!stdenv.isDarwin) [
       "--enable-kms-egl-platform"
       "--enable-wayland-egl-platform"
@@ -68,7 +68,7 @@ stdenv.mkDerivation rec {
       "--disable-glx"
       "--without-x"
     ]
-    ++ lib.optionals gstreamerSupport [ "--enable-cogl-gst" ];
+    ++ lib.optionals gstreamerSupport ["--enable-cogl-gst"];
 
   # TODO: this shouldn't propagate so many things
   # especially not gobject-introspection
@@ -98,7 +98,7 @@ stdenv.mkDerivation rec {
       cairo
       harfbuzz
     ]
-    ++ lib.optionals stdenv.isDarwin [ OpenGL ];
+    ++ lib.optionals stdenv.isDarwin [OpenGL];
 
   COGL_PANGO_DEP_CFLAGS = toString (
     lib.optionals (stdenv.isDarwin && pangoSupport) [
@@ -119,7 +119,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "A small open source library for using 3D graphics hardware for rendering";
-    maintainers = with maintainers; [ lovek323 ];
+    maintainers = with maintainers; [lovek323];
 
     longDescription = ''
       Cogl is a small open source library for using 3D graphics hardware for

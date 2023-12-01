@@ -24,7 +24,7 @@
 
 mkDerivation {
   pname = "knewstuff";
-  nativeBuildInputs = [ extra-cmake-modules ];
+  nativeBuildInputs = [extra-cmake-modules];
   buildInputs = [
     karchive
     kcompletion
@@ -47,5 +47,5 @@ mkDerivation {
     kservice
     kxmlgui
   ];
-  patches = [ ./0001-Delay-resolving-knsrcdir.patch ];
+  patches = [./0001-Delay-resolving-knsrcdir.patch];
 }

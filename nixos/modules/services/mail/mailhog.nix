@@ -69,7 +69,7 @@ in
 
       extraArgs = mkOption {
         type = types.listOf types.str;
-        default = [ ];
+        default = [];
         description = lib.mdDoc "List of additional arguments to pass to the MailHog process.";
       };
     };
@@ -81,8 +81,8 @@ in
 
     systemd.services.mailhog = {
       description = "MailHog - Web and API based SMTP testing";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         Type = "exec";
         ExecStart = "${pkgs.mailhog}/bin/MailHog ${args}";

@@ -46,7 +46,7 @@ buildPythonPackage rec {
     description = "Use evolutionary algorithms instead of gridsearch in scikit-learn";
     homepage = "https://github.com/rsteca/sklearn-deap";
     license = licenses.lgpl3;
-    maintainers = with maintainers; [ psyanticy ];
+    maintainers = with maintainers; [psyanticy];
     # broken by scikit-learn 0.24.1
     broken = true;
   };

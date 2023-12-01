@@ -33,7 +33,7 @@ buildPythonPackage rec {
 
   # Remove docs tests, myst-docutils in nixpkgs is not compatible with package requirements.
   # Package uses old version.
-  patches = [ ./remove-docs-test.patch ];
+  patches = [./remove-docs-test.patch];
 
   cargoDeps = rustPlatform.fetchCargoTarball {
     inherit src;
@@ -60,7 +60,7 @@ buildPythonPackage rec {
     multiprocess
   ];
 
-  checkInputs = [ pytestCheckHook ];
+  checkInputs = [pytestCheckHook];
 
   meta = with lib; {
     description = "Python Stream Processing";

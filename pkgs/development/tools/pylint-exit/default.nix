@@ -23,7 +23,7 @@ buildPythonApplication rec {
   '';
 
   # See https://github.com/jongracecox/pylint-exit/pull/7
-  buildInputs = [ m2r ];
+  buildInputs = [m2r];
 
   # setup.py reads its version from the TRAVIS_TAG environment variable
   TRAVIS_TAG = version;
@@ -36,6 +36,6 @@ buildPythonApplication rec {
     description = "Utility to handle pylint exit codes in an OS-friendly way";
     license = licenses.mit;
     homepage = "https://github.com/jongracecox/pylint-exit";
-    maintainers = [ maintainers.fabiangd ];
+    maintainers = [maintainers.fabiangd];
   };
 }

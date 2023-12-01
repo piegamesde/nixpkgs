@@ -17,11 +17,11 @@ rustPlatform.buildRustPackage rec {
     sha256 = "sha256-+SjdhSRT6TGbwvgZti8t9wYJx8LEtY3pleDZx/AEkio=";
   };
 
-  passthru.updateScript = unstableGitUpdater { url = "https://gitlab.com/snakedye/kile.git"; };
+  passthru.updateScript = unstableGitUpdater {url = "https://gitlab.com/snakedye/kile.git";};
 
   cargoSha256 = "sha256-W7rq42Pz+l4TSsR/h2teRTbl3A1zjOcIx6wqgnwyQNA=";
 
-  nativeBuildInputs = [ scdoc ];
+  nativeBuildInputs = [scdoc];
 
   postInstall = ''
     mkdir -p $out/share/man
@@ -33,7 +33,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://gitlab.com/snakedye/kile";
     license = licenses.mit;
     platforms = platforms.linux; # It's meant for river, a wayland compositor
-    maintainers = with maintainers; [ fortuneteller2k ];
+    maintainers = with maintainers; [fortuneteller2k];
     mainProgram = "kile";
   };
 }

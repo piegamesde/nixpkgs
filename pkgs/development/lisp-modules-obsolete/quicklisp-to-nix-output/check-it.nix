@@ -1,10 +1,10 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "check-it";
   version = "20150709-git";
 
-  parasites = [ "check-it-test" ];
+  parasites = ["check-it-test"];
 
   description = "A randomized property-based testing tool for Common Lisp.";
 
@@ -22,7 +22,7 @@ rec {
 
   packageName = "check-it";
 
-  asdFilesToKeep = [ "check-it.asd" ];
+  asdFilesToKeep = ["check-it.asd"];
   overrides = x: x;
 }
 /* (SYSTEM check-it DESCRIPTION

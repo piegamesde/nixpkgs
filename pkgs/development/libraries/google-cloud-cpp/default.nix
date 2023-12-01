@@ -15,7 +15,7 @@
   pkg-config,
   protobuf,
   # default list of APIs: https://github.com/googleapis/google-cloud-cpp/blob/v1.32.1/CMakeLists.txt#L173
-  apis ? [ "*" ],
+  apis ? ["*"],
   staticOnly ? stdenv.hostPlatform.isStatic,
 }:
 let
@@ -64,7 +64,7 @@ stdenv.mkDerivation rec {
   buildInputs = [
     c-ares
     crc32c
-    (curl.override { inherit openssl; })
+    (curl.override {inherit openssl;})
     grpc
     nlohmann_json
     openssl
@@ -115,21 +115,19 @@ stdenv.mkDerivation rec {
     gtest
   ];
 
-  cmakeFlags =
-    [
-      "-DBUILD_SHARED_LIBS:BOOL=${if staticOnly then "OFF" else "ON"}"
-      # unconditionally build tests to catch linker errors as early as possible
-      # this adds a good chunk of time to the build
-      "-DBUILD_TESTING:BOOL=ON"
-      "-DGOOGLE_CLOUD_CPP_ENABLE_EXAMPLES:BOOL=OFF"
-      "-DCMAKE_CXX_STANDARD=${grpc.cxxStandard}"
-    ]
-    ++ lib.optionals (apis != [ "*" ]) [ "-DGOOGLE_CLOUD_CPP_ENABLE=${lib.concatStringsSep ";" apis}" ];
+  cmakeFlags = [
+    "-DBUILD_SHARED_LIBS:BOOL=${if staticOnly then "OFF" else "ON"}"
+    # unconditionally build tests to catch linker errors as early as possible
+    # this adds a good chunk of time to the build
+    "-DBUILD_TESTING:BOOL=ON"
+    "-DGOOGLE_CLOUD_CPP_ENABLE_EXAMPLES:BOOL=OFF"
+    "-DCMAKE_CXX_STANDARD=${grpc.cxxStandard}"
+  ] ++ lib.optionals (apis != ["*"]) ["-DGOOGLE_CLOUD_CPP_ENABLE=${lib.concatStringsSep ";" apis}"];
 
   meta = with lib; {
-    license = with licenses; [ asl20 ];
+    license = with licenses; [asl20];
     homepage = "https://github.com/googleapis/google-cloud-cpp";
     description = "C++ Idiomatic Clients for Google Cloud Platform services";
-    maintainers = with maintainers; [ cpcloud ];
+    maintainers = with maintainers; [cpcloud];
   };
 }

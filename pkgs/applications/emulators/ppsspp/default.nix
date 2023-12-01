@@ -64,7 +64,7 @@ stdenv.mkDerivation (
       [
         SDL2
         ffmpeg_4
-        (glew.override { enableEGL = forceWayland; })
+        (glew.override {enableEGL = forceWayland;})
         libzip
         snappy
         zlib
@@ -105,7 +105,7 @@ stdenv.mkDerivation (
 
     installPhase =
       let
-        vulkanPath = lib.makeLibraryPath [ vulkan-loader ];
+        vulkanPath = lib.makeLibraryPath [vulkan-loader];
       in
       ''
         runHook preInstall
@@ -143,7 +143,7 @@ stdenv.mkDerivation (
         + (if enableQt then "Qt" else "SDL + headless")
         + ")";
       license = lib.licenses.gpl2Plus;
-      maintainers = [ lib.maintainers.AndersonTorres ];
+      maintainers = [lib.maintainers.AndersonTorres];
       platforms = lib.platforms.linux;
     };
   }

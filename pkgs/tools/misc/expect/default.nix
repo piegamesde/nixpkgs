@@ -40,10 +40,10 @@ tcl.mkTclDerivation rec {
   ];
 
   strictDeps = true;
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   postInstall = ''
-    tclWrapperArgs+=(--prefix PATH : ${lib.makeBinPath [ tcl ]})
+    tclWrapperArgs+=(--prefix PATH : ${lib.makeBinPath [tcl]})
     ${lib.optionalString stdenv.isDarwin "tclWrapperArgs+=(--prefix DYLD_LIBRARY_PATH : $out/lib/expect${version})"}
   '';
 
@@ -57,6 +57,6 @@ tcl.mkTclDerivation rec {
     homepage = "https://expect.sourceforge.net/";
     license = licenses.publicDomain;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ SuperSandro2000 ];
+    maintainers = with maintainers; [SuperSandro2000];
   };
 }

@@ -16,7 +16,7 @@ stdenv.mkDerivation {
     sha256 = "sha256-8icdkbYmpTpossirFoulUhJY/8Jo+2eeaMwDftbZh+g=";
   };
 
-  buildInputs = [ chez ];
+  buildInputs = [chez];
 
   buildPhase = ''
     make PREFIX=$out CHEZ=${chez}/bin/scheme
@@ -31,7 +31,7 @@ stdenv.mkDerivation {
   meta = with lib; {
     description = "This package provides a collection of SRFI libraries for Chez Scheme";
     homepage = "https://github.com/fedeinthemix/chez-srfi/";
-    maintainers = [ maintainers.jitwit ];
+    maintainers = [maintainers.jitwit];
     license = licenses.free;
   };
 }

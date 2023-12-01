@@ -29,9 +29,9 @@ stdenv.mkDerivation rec {
   meta = {
     description = "Geo-scale, next-generation sharing platform built on top of OpenZiti";
     homepage = "https://zrok.io";
-    maintainers = [ lib.maintainers.bandresen ];
-    platforms = [ "x86_64-linux" ];
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+    maintainers = [lib.maintainers.bandresen];
+    platforms = ["x86_64-linux"];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
     license = lib.licenses.apsl20;
   };
 }

@@ -9,7 +9,7 @@
 self: super:
 
 let
-  generatedGrammars = callPackage ./generated.nix { inherit (tree-sitter) buildGrammar; };
+  generatedGrammars = callPackage ./generated.nix {inherit (tree-sitter) buildGrammar;};
 
   generatedDerivations = lib.filterAttrs (_: lib.isDerivation) generatedGrammars;
 
@@ -24,7 +24,7 @@ let
       (
         k: v:
         let
-          replaced = lib.replaceStrings [ "_" ] [ "-" ] k;
+          replaced = lib.replaceStrings ["_"] ["-"] k;
         in
         {
           "tree-sitter-${k}" = v;
@@ -47,11 +47,11 @@ let
 
         # grammars from tree-sitter.builtGrammars
         (lib.removePrefix "tree-sitter-")
-        (lib.replaceStrings [ "-" ] [ "_" ])
+        (lib.replaceStrings ["-"] ["_"])
       ];
     in
 
-    runCommand "nvim-treesitter-grammar-${name}" { } ''
+    runCommand "nvim-treesitter-grammar-${name}" {} ''
       mkdir -p $out/parser
       ln -s ${grammar}/parser $out/parser/${name}.so
     '';
@@ -65,7 +65,7 @@ let
   withPlugins =
     f:
     self.nvim-treesitter.overrideAttrs (
-      _: { passthru.dependencies = map grammarToPlugin (f (tree-sitter.builtGrammars // builtGrammars)); }
+      _: {passthru.dependencies = map grammarToPlugin (f (tree-sitter.builtGrammars // builtGrammars));}
     );
 
   withAllGrammars = withPlugins (_: allGrammars);
@@ -89,11 +89,11 @@ in
 
     tests.check-queries =
       let
-        nvimWithAllGrammars = neovim.override { configure.packages.all.start = [ withAllGrammars ]; };
+        nvimWithAllGrammars = neovim.override {configure.packages.all.start = [withAllGrammars];};
       in
       runCommand "nvim-treesitter-check-queries"
         {
-          nativeBuildInputs = [ nvimWithAllGrammars ];
+          nativeBuildInputs = [nvimWithAllGrammars];
           CI = true;
         }
         ''
@@ -112,9 +112,9 @@ in
 
   meta =
     with lib;
-    (super.nvim-treesitter.meta or { })
+    (super.nvim-treesitter.meta or {})
     // {
       license = licenses.asl20;
-      maintainers = with maintainers; [ figsoda ];
+      maintainers = with maintainers; [figsoda];
     };
 }

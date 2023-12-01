@@ -16,12 +16,12 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-1U9YLrPYENv9iJobCxtgnQakJLDctWQwnDUtpLG3PGc=";
 
-  buildFeatures = [ "swc_core/plugin_transform_host_native" ];
+  buildFeatures = ["swc_core/plugin_transform_host_native"];
 
   meta = with lib; {
     description = "Rust-based platform for the Web";
     homepage = "https://github.com/swc-project/swc";
     license = licenses.asl20;
-    maintainers = with maintainers; [ dit7ya ];
+    maintainers = with maintainers; [dit7ya];
   };
 }

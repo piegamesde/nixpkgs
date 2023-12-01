@@ -57,7 +57,7 @@ let
   '';
 
   userOpts =
-    { name, config, ... }:
+    {name, config, ...}:
     {
 
       options = {
@@ -141,7 +141,7 @@ let
 
         extraGroups = mkOption {
           type = types.listOf types.str;
-          default = [ ];
+          default = [];
           description = lib.mdDoc "The user's auxiliary groups.";
         };
 
@@ -168,7 +168,7 @@ let
 
         pamMount = mkOption {
           type = with types; attrsOf str;
-          default = { };
+          default = {};
           description = lib.mdDoc ''
             Attributes for user's entry in
             {file}`pam_mount.conf.xml`.
@@ -195,7 +195,7 @@ let
 
         subUidRanges = mkOption {
           type = with types; listOf (submodule subordinateUidRange);
-          default = [ ];
+          default = [];
           example = [
             {
               startUid = 1000;
@@ -215,7 +215,7 @@ let
 
         subGidRanges = mkOption {
           type = with types; listOf (submodule subordinateGidRange);
-          default = [ ];
+          default = [];
           example = [
             {
               startGid = 100;
@@ -335,7 +335,7 @@ let
 
         packages = mkOption {
           type = types.listOf types.package;
-          default = [ ];
+          default = [];
           example = literalExpression "[ pkgs.firefox pkgs.thunderbird ]";
           description = lib.mdDoc ''
             The set of packages that should be made available to the user.
@@ -366,14 +366,14 @@ let
         (mkIf (!cfg.mutableUsers && config.initialHashedPassword != null) {
           hashedPassword = mkDefault config.initialHashedPassword;
         })
-        (mkIf (config.isNormalUser && config.subUidRanges == [ ] && config.subGidRanges == [ ]) {
+        (mkIf (config.isNormalUser && config.subUidRanges == [] && config.subGidRanges == []) {
           autoSubUidGidRange = mkDefault true;
         })
       ];
     };
 
   groupOpts =
-    { name, config, ... }:
+    {name, config, ...}:
     {
 
       options = {
@@ -397,7 +397,7 @@ let
 
         members = mkOption {
           type = with types; listOf (passwdEntry str);
-          default = [ ];
+          default = [];
           description = lib.mdDoc ''
             The user names of the group members, added to the
             `/etc/group` file.
@@ -453,7 +453,7 @@ let
     !(foldr
       (
         name:
-        args@{ dup, acc }:
+        args@{dup, acc}:
         let
           id = builtins.toString (builtins.getAttr idAttr (builtins.getAttr name set));
           exists = builtins.hasAttr id acc;
@@ -481,7 +481,7 @@ let
       )
       {
         dup = false;
-        acc = { };
+        acc = {};
       }
       (builtins.attrNames set)
     ).dup;
@@ -605,7 +605,7 @@ in
     };
 
     users.users = mkOption {
-      default = { };
+      default = {};
       type = with types; attrsOf (submodule userOpts);
       example = {
         alice = {
@@ -614,7 +614,7 @@ in
           home = "/home/alice";
           createHome = true;
           group = "users";
-          extraGroups = [ "wheel" ];
+          extraGroups = ["wheel"];
           shell = "/bin/sh";
         };
       };
@@ -625,10 +625,10 @@ in
     };
 
     users.groups = mkOption {
-      default = { };
+      default = {};
       example = {
         students.gid = 1001;
-        hackers = { };
+        hackers = {};
       };
       type = with types; attrsOf (submodule groupOpts);
       description = lib.mdDoc ''
@@ -653,10 +653,10 @@ in
       description = ''
         Users to include in initrd.
       '';
-      default = { };
+      default = {};
       type = types.attrsOf (
         types.submodule (
-          { name, ... }:
+          {name, ...}:
           {
             options.uid = mkOption {
               visible = false;
@@ -686,10 +686,10 @@ in
       description = ''
         Groups to include in initrd.
       '';
-      default = { };
+      default = {};
       type = types.attrsOf (
         types.submodule (
-          { name, ... }:
+          {name, ...}:
           {
             options.gid = mkOption {
               visible = false;
@@ -777,7 +777,7 @@ in
 
       # Warn about user accounts with deprecated password hashing schemes
       system.activationScripts.hashes = {
-        deps = [ "users" ];
+        deps = ["users"];
         text = ''
           users=()
           while IFS=: read -r user hash tail; do
@@ -797,7 +797,7 @@ in
       };
 
       # for backwards compatibility
-      system.activationScripts.groups = stringAfter [ "users" ] "";
+      system.activationScripts.groups = stringAfter ["users"] "";
 
       # Install all the user shells
       environment.systemPackages = systemShells;
@@ -806,7 +806,7 @@ in
         mapAttrs'
           (
             _:
-            { packages, name, ... }:
+            {packages, name, ...}:
             {
               name = "profiles/per-user/${name}";
               value.source = pkgs.buildEnv {
@@ -817,7 +817,7 @@ in
               };
             }
           )
-          (filterAttrs (_: u: u.packages != [ ]) cfg.users);
+          (filterAttrs (_: u: u.packages != []) cfg.users);
 
       environment.profiles = [
         "$HOME/.nix-profile"
@@ -832,7 +832,7 @@ in
               lib.mapAttrsToList
                 (
                   n:
-                  { uid, group }:
+                  {uid, group}:
                   let
                     g = config.boot.initrd.systemd.groups.${group};
                   in
@@ -843,34 +843,34 @@ in
           '';
           "/etc/group".text = ''
             ${lib.concatStringsSep "\n" (
-              lib.mapAttrsToList (n: { gid }: "${n}:x:${toString gid}:") config.boot.initrd.systemd.groups
+              lib.mapAttrsToList (n: {gid}: "${n}:x:${toString gid}:") config.boot.initrd.systemd.groups
             )}
           '';
         };
 
         users = {
-          root = { };
-          nobody = { };
+          root = {};
+          nobody = {};
         };
 
         groups = {
-          root = { };
-          nogroup = { };
-          systemd-journal = { };
-          tty = { };
-          dialout = { };
-          kmem = { };
-          input = { };
-          video = { };
-          render = { };
-          sgx = { };
-          audio = { };
-          video = { };
-          lp = { };
-          disk = { };
-          cdrom = { };
-          tape = { };
-          kvm = { };
+          root = {};
+          nogroup = {};
+          systemd-journal = {};
+          tty = {};
+          dialout = {};
+          kmem = {};
+          input = {};
+          video = {};
+          render = {};
+          sgx = {};
+          audio = {};
+          video = {};
+          lp = {};
+          disk = {};
+          cdrom = {};
+          tape = {};
+          kvm = {};
         };
       };
 
@@ -904,12 +904,12 @@ in
                       allowsLogin cfg.hashedPassword
                       || cfg.password != null
                       || cfg.passwordFile != null
-                      || cfg.openssh.authorizedKeys.keys != [ ]
-                      || cfg.openssh.authorizedKeys.keyFiles != [ ]
+                      || cfg.openssh.authorizedKeys.keys != []
+                      || cfg.openssh.authorizedKeys.keyFiles != []
                     )
                   )
                   cfg.users
-                ++ [ config.security.googleOsLogin.enable ]
+                ++ [config.security.googleOsLogin.enable]
               );
             message = ''
               Neither the root account nor any wheel user has a password or SSH authorized key.

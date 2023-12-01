@@ -8,8 +8,8 @@
 stdenv.mkDerivation rec {
   pname = "updreplay";
   version = "1.1.0";
-  nativeBuildInputs = [ cmake ];
-  buildInputs = [ libpcap ];
+  nativeBuildInputs = [cmake];
+  buildInputs = [libpcap];
   src = fetchFromGitHub {
     owner = "rigtorp";
     repo = "udpreplay";
@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://github.com/rigtorp/udpreplay";
     license = licenses.mit;
-    maintainers = [ maintainers.considerate ];
+    maintainers = [maintainers.considerate];
     platforms = platforms.linux;
   };
 }

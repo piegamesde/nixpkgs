@@ -48,7 +48,7 @@ stdenv.mkDerivation rec {
       primarily intended for automatic, unattended downloading of podcasts.
     '';
     homepage = "https://castget.johndal.com/";
-    maintainers = with maintainers; [ doronbehar ];
+    maintainers = with maintainers; [doronbehar];
     license = licenses.gpl2;
     platforms = platforms.linux;
   };

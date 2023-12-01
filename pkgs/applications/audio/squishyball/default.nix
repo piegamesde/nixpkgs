@@ -73,7 +73,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://gitlab.xiph.org/xiph/squishyball";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ michalrus ];
+    maintainers = with maintainers; [michalrus];
     platforms = platforms.linux;
   };
 }

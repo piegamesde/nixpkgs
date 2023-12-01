@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
     sha256 = "0dw88ga50x3jwyfgcarn4azlhiarggvdg262hilm7rbrvlpyvha0";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   buildInputs =
     [
@@ -90,7 +90,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://mtazzari.github.io/galario/";
     license = licenses.lgpl3;
-    maintainers = [ maintainers.smaret ];
+    maintainers = [maintainers.smaret];
     platforms = platforms.all;
   };
 }

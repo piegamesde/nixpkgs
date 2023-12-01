@@ -9,7 +9,7 @@
 
 let
   getPatch =
-    { name, sha256 }:
+    {name, sha256}:
     fetchpatch {
       inherit name sha256;
       url =
@@ -55,7 +55,7 @@ stdenv.mkDerivation rec {
     libX11
     libXaw
   ];
-  buildFlags = [ "without_doc" ];
+  buildFlags = ["without_doc"];
 
   postInstall = lib.optionalString (!stdenv.isDarwin) ''
     # ??

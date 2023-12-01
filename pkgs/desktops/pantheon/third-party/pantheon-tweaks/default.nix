@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-wj9bvcES8JAgDtW0Damfd8VQNLK+SCFTDVWp/nYGcgI=";
   };
 
-  patches = [ ./fix-paths.patch ];
+  patches = [./fix-paths.patch];
 
   nativeBuildInputs = [
     meson
@@ -54,7 +54,7 @@ stdenv.mkDerivation rec {
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {

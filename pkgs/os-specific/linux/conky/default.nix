@@ -164,7 +164,7 @@ stdenv.mkDerivation rec {
     ++ optional journalSupport systemd;
 
   cmakeFlags =
-    [ ]
+    []
     ++ optional docsSupport "-DMAINTAINER_MODE=ON"
     ++ optional curlSupport "-DBUILD_CURL=ON"
     ++ optional (!ibmSupport) "-DBUILD_IBM=OFF"
@@ -193,7 +193,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://conky.sourceforge.net/";
     description = "Advanced, highly configurable system monitor based on torsmo";
-    maintainers = [ maintainers.guibert ];
+    maintainers = [maintainers.guibert];
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
   };

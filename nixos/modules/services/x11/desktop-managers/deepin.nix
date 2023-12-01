@@ -28,21 +28,21 @@ in
         description = lib.mdDoc "Additional gsettings overrides.";
       };
       extraGSettingsOverridePackages = mkOption {
-        default = [ ];
+        default = [];
         type = types.listOf types.path;
         description = lib.mdDoc "List of packages for which gsettings are overridden.";
       };
     };
 
     environment.deepin.excludePackages = mkOption {
-      default = [ ];
+      default = [];
       type = types.listOf types.package;
       description = lib.mdDoc "List of default packages to exclude from the configuration";
     };
   };
 
   config = mkIf cfg.enable {
-    services.xserver.displayManager.sessionPackages = [ pkgs.deepin.startdde ];
+    services.xserver.displayManager.sessionPackages = [pkgs.deepin.startdde];
     services.xserver.displayManager.defaultSession = mkDefault "deepin";
 
     # Update the DBus activation environment after launching the desktop manager.
@@ -71,18 +71,18 @@ in
     networking.networkmanager.enable = mkDefault true;
     programs.dconf.enable = mkDefault true;
 
-    fonts.fonts = with pkgs; [ noto-fonts ];
+    fonts.fonts = with pkgs; [noto-fonts];
     xdg.mime.enable = true;
     xdg.menus.enable = true;
     xdg.icons.enable = true;
     xdg.portal.enable = mkDefault true;
     xdg.portal.extraPortals = mkDefault [
-      (pkgs.xdg-desktop-portal-gtk.override { buildPortalsInGnome = false; })
+      (pkgs.xdg-desktop-portal-gtk.override {buildPortalsInGnome = false;})
     ];
 
     environment.sessionVariables = {
       NIX_GSETTINGS_OVERRIDES_DIR = "${nixos-gsettings-overrides}/share/gsettings-schemas/nixos-gsettings-overrides/glib-2.0/schemas";
-      DDE_POLKIT_AGENT_PLUGINS_DIRS = [ "${pkgs.deepin.dpa-ext-gnomekeyring}/lib/polkit-1-dde/plugins" ];
+      DDE_POLKIT_AGENT_PLUGINS_DIRS = ["${pkgs.deepin.dpa-ext-gnomekeyring}/lib/polkit-1-dde/plugins"];
     };
 
     environment.pathsToLink = [

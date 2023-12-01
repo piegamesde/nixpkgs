@@ -1,12 +1,12 @@
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   {
     name = "wasabibackend";
-    meta = with pkgs.lib.maintainers; { maintainers = [ mmahut ]; };
+    meta = with pkgs.lib.maintainers; {maintainers = [mmahut];};
 
     nodes = {
       machine =
-        { ... }:
+        {...}:
         {
           services.wasabibackend = {
             enable = true;

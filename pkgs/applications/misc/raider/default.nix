@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
     ninja
     pkg-config
     wrapGAppsHook4
-  ] ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [ mesonEmulatorHook ];
+  ] ++ lib.optionals (!stdenv.buildPlatform.canExecute stdenv.hostPlatform) [mesonEmulatorHook];
 
   buildInputs = [
     gtk4
@@ -51,7 +51,7 @@ stdenv.mkDerivation rec {
     description = "Securely delete your files";
     homepage = "https://apps.gnome.org/app/com.github.ADBeveridge.Raider";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ benediktbroich ];
+    maintainers = with maintainers; [benediktbroich];
     platforms = platforms.unix;
   };
 }

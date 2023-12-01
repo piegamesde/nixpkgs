@@ -23,7 +23,7 @@ buildPythonPackage rec {
     hash = "sha256-6LqsH+3V/K0s2YD1gvmelo+cCH+yCAmmyTYGhUegVdk=";
   };
 
-  propagatedBuildInputs = [ arrow ];
+  propagatedBuildInputs = [arrow];
 
   nativeCheckInputs = [
     hypothesis
@@ -37,12 +37,12 @@ buildPythonPackage rec {
       "tests/test_benchmark.py"
     ];
 
-  pythonImportsCheck = [ "isoduration" ];
+  pythonImportsCheck = ["isoduration"];
 
   meta = with lib; {
     description = "Library for operations with ISO 8601 durations";
     homepage = "https://github.com/bolsote/isoduration";
     license = licenses.isc;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

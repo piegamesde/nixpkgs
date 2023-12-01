@@ -17,8 +17,8 @@ mkDerivation {
     sha256 = "13bdg2dc6ypk17sz39spqdlb3wai2y085bdb36pls2as2nf22drp";
   };
 
-  nativeBuildInputs = [ qmake ];
-  buildInputs = [ qtbase ];
+  nativeBuildInputs = [qmake];
+  buildInputs = [qtbase];
 
   dontConfigure = true;
 
@@ -32,6 +32,6 @@ mkDerivation {
     homepage = "https://github.com/rocket/rocket";
     license = licenses.zlib;
     platforms = platforms.linux;
-    maintainers = [ maintainers.dezgeg ];
+    maintainers = [maintainers.dezgeg];
   };
 }

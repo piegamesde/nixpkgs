@@ -32,8 +32,8 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ llvm ];
+  nativeBuildInputs = [makeWrapper];
+  buildInputs = [llvm];
   propagatedBuildInputs = [
     libbfd_2_38
     libopcodes_2_38
@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
     libblocksruntime
   ];
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   postInstall = ''
     mkdir -p $out/lib

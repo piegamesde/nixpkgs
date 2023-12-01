@@ -54,7 +54,7 @@ stdenv.mkDerivation rec {
     process
   ];
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   enableParallelBuilding = true;
 

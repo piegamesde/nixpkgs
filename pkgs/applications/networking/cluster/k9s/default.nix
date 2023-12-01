@@ -27,7 +27,7 @@ buildGoModule rec {
     "-X github.com/derailed/k9s/cmd.date=1970-01-01T00:00:00Z"
   ];
 
-  tags = [ "netgo" ];
+  tags = ["netgo"];
 
   vendorHash = "sha256-sQ3D4JUK9epRkDZ7DC+IH+iMaLN+uKM2hZkhqji+0Zc=";
 
@@ -43,7 +43,7 @@ buildGoModule rec {
     inherit version;
   };
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
   postInstall = ''
     installShellCompletion --cmd k9s \
       --bash <($out/bin/k9s completion bash) \

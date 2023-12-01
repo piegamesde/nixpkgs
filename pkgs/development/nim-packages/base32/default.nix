@@ -16,7 +16,7 @@ buildNimPackage rec {
   doCheck = true;
   meta = src.meta // {
     description = "Base32 library for Nim";
-    maintainers = with lib.maintainers; [ ehmry ];
+    maintainers = with lib.maintainers; [ehmry];
     license = lib.licenses.mit;
   };
 }

@@ -59,7 +59,7 @@ import ../make-test-python.nix (
 
     nodes = {
       server =
-        { pkgs, ... }:
+        {pkgs, ...}:
         {
           environment.systemPackages = with pkgs; [
             gzip
@@ -97,8 +97,8 @@ import ../make-test-python.nix (
             2380
             6443
           ];
-          networking.firewall.allowedUDPPorts = [ 8472 ];
-          networking.firewall.trustedInterfaces = [ "flannel.1" ];
+          networking.firewall.allowedUDPPorts = [8472];
+          networking.firewall.trustedInterfaces = ["flannel.1"];
           networking.useDHCP = false;
           networking.defaultGateway = "192.168.1.1";
           networking.interfaces.eth1.ipv4.addresses = pkgs.lib.mkForce [
@@ -110,7 +110,7 @@ import ../make-test-python.nix (
         };
 
       server2 =
-        { pkgs, ... }:
+        {pkgs, ...}:
         {
           environment.systemPackages = with pkgs; [
             gzip
@@ -146,8 +146,8 @@ import ../make-test-python.nix (
             2380
             6443
           ];
-          networking.firewall.allowedUDPPorts = [ 8472 ];
-          networking.firewall.trustedInterfaces = [ "flannel.1" ];
+          networking.firewall.allowedUDPPorts = [8472];
+          networking.firewall.trustedInterfaces = ["flannel.1"];
           networking.useDHCP = false;
           networking.defaultGateway = "192.168.1.3";
           networking.interfaces.eth1.ipv4.addresses = pkgs.lib.mkForce [
@@ -159,7 +159,7 @@ import ../make-test-python.nix (
         };
 
       agent =
-        { pkgs, ... }:
+        {pkgs, ...}:
         {
           virtualisation.memorySize = 1024;
           virtualisation.diskSize = 2048;
@@ -175,9 +175,9 @@ import ../make-test-python.nix (
               "192.168.1.2"
             ];
           };
-          networking.firewall.allowedTCPPorts = [ 6443 ];
-          networking.firewall.allowedUDPPorts = [ 8472 ];
-          networking.firewall.trustedInterfaces = [ "flannel.1" ];
+          networking.firewall.allowedTCPPorts = [6443];
+          networking.firewall.allowedUDPPorts = [8472];
+          networking.firewall.trustedInterfaces = ["flannel.1"];
           networking.useDHCP = false;
           networking.defaultGateway = "192.168.1.2";
           networking.interfaces.eth1.ipv4.addresses = pkgs.lib.mkForce [
@@ -189,7 +189,7 @@ import ../make-test-python.nix (
         };
     };
 
-    meta = with pkgs.lib.maintainers; { maintainers = [ euank ]; };
+    meta = with pkgs.lib.maintainers; {maintainers = [euank];};
 
     testScript = ''
       machines = [server, server2, agent]

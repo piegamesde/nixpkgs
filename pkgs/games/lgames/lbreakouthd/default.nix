@@ -26,7 +26,7 @@ stdenv.mkDerivation (
       SDL2_ttf
     ];
 
-    hardeningDisable = [ "format" ];
+    hardeningDisable = ["format"];
 
     passthru.updateScript = directoryListingUpdater {
       inherit (finalAttrs) pname version;
@@ -38,7 +38,7 @@ stdenv.mkDerivation (
       homepage = "https://lgames.sourceforge.io/LBreakoutHD/";
       description = "A widescreen Breakout clone";
       license = lib.licenses.gpl2Plus;
-      maintainers = with lib.maintainers; [ AndersonTorres ];
+      maintainers = with lib.maintainers; [AndersonTorres];
       inherit (SDL2.meta) platforms;
       broken = stdenv.isDarwin;
     };

@@ -19,7 +19,7 @@ buildGoModule rec {
 
   vendorHash = "sha256-h/9a+o/jiNH2b1XIkbnKXSpCsBtyIhdOGyTNHU+Q/bA=";
 
-  subPackages = [ "cmd/rain" ];
+  subPackages = ["cmd/rain"];
 
   ldflags = [
     "-s"
@@ -36,7 +36,7 @@ buildGoModule rec {
     description = "A development workflow tool for working with AWS CloudFormation";
     homepage = "https://github.com/aws-cloudformation/rain";
     license = licenses.asl20;
-    maintainers = with maintainers; [ jiegec ];
+    maintainers = with maintainers; [jiegec];
     platforms = platforms.unix;
   };
 }

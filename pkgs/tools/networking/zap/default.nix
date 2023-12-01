@@ -14,7 +14,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-nESTyZHLk0cGOGTSQ2o3lc87aXYGJeez20Ac00LT/FU=";
   };
 
-  buildInputs = [ jre ];
+  buildInputs = [jre];
 
   # From https://github.com/zaproxy/zaproxy/blob/master/zap/src/main/java/org/parosproxy/paros/Constant.java
   version_tag = "20012000";
@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
 
     cat >> "$out/bin/${pname}" << EOF
     #!${runtimeShell}
-    export PATH="${lib.makeBinPath [ jre ]}:\$PATH"
+    export PATH="${lib.makeBinPath [jre]}:\$PATH"
     export JAVA_HOME='${jre}'
     if ! [ -f "\$HOME/.ZAP/config.xml" ];then
       mkdir -p "\$HOME/.ZAP"

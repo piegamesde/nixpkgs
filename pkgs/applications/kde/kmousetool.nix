@@ -36,6 +36,6 @@ mkDerivation {
       gpl2Plus
       fdl12Plus
     ];
-    maintainers = [ lib.maintainers.jayesh-bhoot ];
+    maintainers = [lib.maintainers.jayesh-bhoot];
   };
 }

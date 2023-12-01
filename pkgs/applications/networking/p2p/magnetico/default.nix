@@ -43,6 +43,6 @@ buildGoModule rec {
     homepage = "https://github.com/boramalper/magnetico";
     license = licenses.agpl3;
     badPlatforms = platforms.darwin;
-    maintainers = with maintainers; [ rnhmjoj ];
+    maintainers = with maintainers; [rnhmjoj];
   };
 }

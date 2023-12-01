@@ -2,7 +2,7 @@
   lib,
   stdenvNoCC,
   fetchFromGitHub,
-  fonts ? [ ],
+  fonts ? [],
 }:
 
 stdenvNoCC.mkDerivation {
@@ -49,7 +49,7 @@ stdenvNoCC.mkDerivation {
   # the specified fonts by FamilyName. To do this, it invokes
   # `find` 2 times for every font, anyone is free to do this
   # in a more efficient way.
-  fonts = map (font: builtins.replaceStrings [ " " ] [ "" ] font) fonts;
+  fonts = map (font: builtins.replaceStrings [" "] [""] font) fonts;
   installPhase =
     ''
       adobeBlankDest=$adobeBlank/share/fonts/truetype
@@ -58,7 +58,7 @@ stdenvNoCC.mkDerivation {
       dest=$out/share/fonts/truetype
     ''
     + (
-      if fonts == [ ] then
+      if fonts == [] then
         ''
           find . -name '*.ttf' -exec install -m 444 -Dt $dest '{}' +
         ''
@@ -80,7 +80,7 @@ stdenvNoCC.mkDerivation {
       ufl
     ];
     platforms = platforms.all;
-    hydraPlatforms = [ ];
-    maintainers = with maintainers; [ manveru ];
+    hydraPlatforms = [];
+    maintainers = with maintainers; [manveru];
   };
 }

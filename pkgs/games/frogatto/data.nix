@@ -27,6 +27,6 @@ stdenv.mkDerivation {
       cc-by-30
       unfree
     ];
-    maintainers = with maintainers; [ astro ];
+    maintainers = with maintainers; [astro];
   };
 }

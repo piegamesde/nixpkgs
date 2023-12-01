@@ -53,7 +53,7 @@ stdenv.mkDerivation rec {
       power up your ship and get special powers, helpers and weapons.
     '';
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ fgaz ];
+    maintainers = with maintainers; [fgaz];
     platforms = platforms.all;
   };
 }

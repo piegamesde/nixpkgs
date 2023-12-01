@@ -12,7 +12,7 @@ let
   fpm = config.services.phpfpm.pools.roundcube;
   localDB = cfg.database.host == "localhost";
   user = cfg.database.username;
-  phpWithPspell = pkgs.php81.withExtensions ({ enabled, all }: [ all.pspell ] ++ enabled);
+  phpWithPspell = pkgs.php81.withExtensions ({enabled, all}: [all.pspell] ++ enabled);
 in
 {
   options.services.roundcube = {
@@ -91,7 +91,7 @@ in
 
     plugins = mkOption {
       type = types.listOf types.str;
-      default = [ ];
+      default = [];
       description = lib.mdDoc ''
         List of roundcube plugins to enable. Currently, only those directly shipped with Roundcube are supported.
       '';
@@ -99,7 +99,7 @@ in
 
     dicts = mkOption {
       type = types.listOf types.package;
-      default = [ ];
+      default = [];
       example = literalExpression "with pkgs.aspellDicts; [ en fr de ]";
       description = lib.mdDoc ''
         List of aspell dictionaries for spell checking. If empty, spell checking is disabled.
@@ -156,7 +156,7 @@ in
       $config['mime_types'] = '${pkgs.nginx}/conf/mime.types';
       # Roundcube uses PHP-FPM which has `PrivateTmp = true;`
       $config['temp_dir'] = '/tmp';
-      $config['enable_spellcheck'] = ${if cfg.dicts == [ ] then "false" else "true"};
+      $config['enable_spellcheck'] = ${if cfg.dicts == [] then "false" else "true"};
       # by default, spellchecking uses a third-party cloud services
       $config['spellcheck_engine'] = 'pspell';
       $config['spellcheck_languages'] = array(${
@@ -202,7 +202,7 @@ in
 
     services.postgresql = mkIf localDB {
       enable = true;
-      ensureDatabases = [ cfg.database.dbname ];
+      ensureDatabases = [cfg.database.dbname];
       ensureUsers = [
         {
           name = cfg.database.username;
@@ -218,7 +218,7 @@ in
       isSystemUser = true;
       createHome = false;
     };
-    users.groups.${user} = mkIf localDB { };
+    users.groups.${user} = mkIf localDB {};
 
     services.phpfpm.pools.roundcube = {
       user = if localDB then user else "nginx";
@@ -243,7 +243,7 @@ in
       phpPackage = phpWithPspell;
       phpEnv.ASPELL_CONF = "dict-dir ${pkgs.aspellWithDicts (_: cfg.dicts)}/lib/aspell";
     };
-    systemd.services.phpfpm-roundcube.after = [ "roundcube-setup.service" ];
+    systemd.services.phpfpm-roundcube.after = ["roundcube-setup.service"];
 
     # Restart on config changes.
     systemd.services.phpfpm-roundcube.restartTriggers = [
@@ -252,13 +252,13 @@ in
 
     systemd.services.roundcube-setup = mkMerge [
       (mkIf (cfg.database.host == "localhost") {
-        requires = [ "postgresql.service" ];
-        after = [ "postgresql.service" ];
-        path = [ config.services.postgresql.package ];
+        requires = ["postgresql.service"];
+        after = ["postgresql.service"];
+        path = [config.services.postgresql.package];
       })
       {
-        after = [ "network-online.target" ];
-        wantedBy = [ "multi-user.target" ];
+        after = ["network-online.target"];
+        wantedBy = ["multi-user.target"];
         script =
           let
             psql = "${

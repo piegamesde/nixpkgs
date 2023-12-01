@@ -22,8 +22,8 @@ stdenv.mkDerivation {
     sha256 = "0y045my65hr3hjyx13jrnyg6g3wb41phqb1m7azc4l6vx6r4124b";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ python3Packages.mpd2 ];
+  nativeBuildInputs = [makeWrapper];
+  buildInputs = [python3Packages.mpd2];
 
   dontBuild = true;
 
@@ -53,6 +53,6 @@ stdenv.mkDerivation {
     homepage = "https://github.com/carnager/clerk";
     license = licenses.mit;
     broken = true; # not compatible with current version of rofi
-    maintainers = with maintainers; [ anderspapitto ];
+    maintainers = with maintainers; [anderspapitto];
   };
 }

@@ -1,5 +1,5 @@
 {
-  pkgs ? import <nixpkgs> { },
+  pkgs ? import <nixpkgs> {},
   nodejs ? pkgs.nodejs,
   yarn ? pkgs.yarn,
   allowAliases ? pkgs.config.allowAliases,
@@ -54,9 +54,9 @@ rec {
   mkYarnNix =
     {
       yarnLock,
-      flags ? [ ],
+      flags ? [],
     }:
-    pkgs.runCommand "yarn.nix" { }
+    pkgs.runCommand "yarn.nix" {}
       "${yarn2nix}/bin/yarn2nix --lockfile ${yarnLock} --no-patch --builtin-fetchgit ${lib.escapeShellArgs flags} > $out";
 
   # Loads the generated offline cache. This will be used by yarn as
@@ -64,7 +64,7 @@ rec {
   importOfflineCache =
     yarnNix:
     let
-      pkg = callPackage yarnNix { };
+      pkg = callPackage yarnNix {};
     in
     pkg.offline_cache;
 
@@ -81,23 +81,23 @@ rec {
       version,
       packageJSON,
       yarnLock,
-      yarnNix ? mkYarnNix { inherit yarnLock; },
+      yarnNix ? mkYarnNix {inherit yarnLock;},
       offlineCache ? importOfflineCache yarnNix,
-      yarnFlags ? [ ],
+      yarnFlags ? [],
       ignoreScripts ? true,
       nodejs ? inputs.nodejs,
-      yarn ? inputs.yarn.override { nodejs = nodejs; },
-      pkgConfig ? { },
+      yarn ? inputs.yarn.override {nodejs = nodejs;},
+      pkgConfig ? {},
       preBuild ? "",
       postBuild ? "",
-      workspaceDependencies ? [ ], # List of yarn packages
-      packageResolutions ? { },
+      workspaceDependencies ? [], # List of yarn packages
+      packageResolutions ? {},
     }:
     let
-      extraNativeBuildInputs = lib.concatMap (key: pkgConfig.${key}.nativeBuildInputs or [ ]) (
+      extraNativeBuildInputs = lib.concatMap (key: pkgConfig.${key}.nativeBuildInputs or []) (
         builtins.attrNames pkgConfig
       );
-      extraBuildInputs = lib.concatMap (key: pkgConfig.${key}.buildInputs or [ ]) (
+      extraBuildInputs = lib.concatMap (key: pkgConfig.${key}.buildInputs or []) (
         builtins.attrNames pkgConfig
       );
 
@@ -122,12 +122,12 @@ rec {
       workspaceJSON =
         pkgs.runCommand "${name}-workspace-package.json"
           {
-            nativeBuildInputs = [ pkgs.jq ];
+            nativeBuildInputs = [pkgs.jq];
             inherit packageJSON;
-            passAsFile = [ "baseJSON" ];
+            passAsFile = ["baseJSON"];
             baseJSON = builtins.toJSON {
               private = true;
-              workspaces = [ "deps/**" ];
+              workspaces = ["deps/**"];
               resolutions = packageResolutions;
             };
           }
@@ -214,8 +214,8 @@ rec {
       packageJSON ? src + "/package.json",
       yarnLock ? src + "/yarn.lock",
       nodejs ? inputs.nodejs,
-      yarn ? inputs.yarn.override { nodejs = nodejs; },
-      packageOverrides ? { },
+      yarn ? inputs.yarn.override {nodejs = nodejs;},
+      packageOverrides ? {},
       ...
     }@attrs:
     let
@@ -224,9 +224,9 @@ rec {
       packageGlobs =
         if lib.isList package.workspaces then package.workspaces else package.workspaces.packages;
 
-      packageResolutions = package.resolutions or { };
+      packageResolutions = package.resolutions or {};
 
-      globElemToRegex = lib.replaceStrings [ "*" ] [ ".*" ];
+      globElemToRegex = lib.replaceStrings ["*"] [".*"];
 
       # PathGlob -> [PathGlobElem]
       splitGlob = lib.splitString "/";
@@ -243,8 +243,8 @@ rec {
           );
           matchingChildren = lib.filter (child: builtins.match elemRegex child != null) children;
         in
-        if globElems == [ ] then
-          [ base ]
+        if globElems == [] then
+          [base]
         else
           lib.concatMap (child: expandGlobList (base + ("/" + child)) rest) matchingChildren;
 
@@ -262,8 +262,8 @@ rec {
 
               package = lib.importJSON packageJSON;
 
-              allDependencies = lib.foldl (a: b: a // b) { } (
-                map (field: lib.attrByPath [ field ] { } package) [
+              allDependencies = lib.foldl (a: b: a // b) {} (
+                map (field: lib.attrByPath [field] {} package) [
                   "dependencies"
                   "devDependencies"
                 ]
@@ -291,7 +291,7 @@ rec {
             {
               inherit name;
               value = mkYarnPackage (
-                builtins.removeAttrs attrs [ "packageOverrides" ]
+                builtins.removeAttrs attrs ["packageOverrides"]
                 // {
                   inherit
                     src
@@ -303,7 +303,7 @@ rec {
                     workspaceDependencies
                     ;
                 }
-                // lib.attrByPath [ name ] { } packageOverrides
+                // lib.attrByPath [name] {} packageOverrides
               );
             }
           )
@@ -318,18 +318,18 @@ rec {
       src,
       packageJSON ? src + "/package.json",
       yarnLock ? src + "/yarn.lock",
-      yarnNix ? mkYarnNix { inherit yarnLock; },
+      yarnNix ? mkYarnNix {inherit yarnLock;},
       offlineCache ? importOfflineCache yarnNix,
       nodejs ? inputs.nodejs,
-      yarn ? inputs.yarn.override { nodejs = nodejs; },
-      yarnFlags ? [ ],
+      yarn ? inputs.yarn.override {nodejs = nodejs;},
+      yarnFlags ? [],
       yarnPreBuild ? "",
       yarnPostBuild ? "",
-      pkgConfig ? { },
-      extraBuildInputs ? [ ],
+      pkgConfig ? {},
+      extraBuildInputs ? [],
       publishBinsFor ? null,
-      workspaceDependencies ? [ ], # List of yarnPackages
-      packageResolutions ? { },
+      workspaceDependencies ? [], # List of yarnPackages
+      packageResolutions ? {},
       ...
     }@attrs:
     let
@@ -363,7 +363,7 @@ rec {
           ;
       };
 
-      publishBinsFor_ = unlessNull publishBinsFor [ pname ];
+      publishBinsFor_ = unlessNull publishBinsFor [pname];
 
       linkDirFunction = ''
         linkDirToDirLinks() {
@@ -484,16 +484,16 @@ rec {
             deps
             ;
           workspaceDependencies = workspaceDependenciesTransitive;
-        } // (attrs.passthru or { });
+        } // (attrs.passthru or {});
 
         meta =
           {
             inherit (nodejs.meta) platforms;
           }
-          // lib.optionalAttrs (package ? description) { inherit (package) description; }
-          // lib.optionalAttrs (package ? homepage) { inherit (package) homepage; }
-          // lib.optionalAttrs (package ? license) { license = getLicenseFromSpdxId package.license; }
-          // (attrs.meta or { });
+          // lib.optionalAttrs (package ? description) {inherit (package) description;}
+          // lib.optionalAttrs (package ? homepage) {inherit (package) homepage;}
+          // lib.optionalAttrs (package ? license) {license = getLicenseFromSpdxId package.license;}
+          // (attrs.meta or {});
       }
     );
 
@@ -553,7 +553,7 @@ rec {
       "--production=true"
     ];
 
-    nativeBuildInputs = [ pkgs.makeWrapper ];
+    nativeBuildInputs = [pkgs.makeWrapper];
 
     buildPhase = ''
       source ${./nix/expectShFunctions.sh}
@@ -573,7 +573,7 @@ rec {
     '';
   };
 
-  fixup_yarn_lock = runCommandLocal "fixup_yarn_lock" { buildInputs = [ nodejs ]; } ''
+  fixup_yarn_lock = runCommandLocal "fixup_yarn_lock" {buildInputs = [nodejs];} ''
     mkdir -p $out/lib
     mkdir -p $out/bin
 

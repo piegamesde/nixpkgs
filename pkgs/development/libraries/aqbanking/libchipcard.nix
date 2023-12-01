@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
     inherit hash;
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     gwenhywfar
@@ -28,13 +28,13 @@ stdenv.mkDerivation rec {
     zlib
   ];
 
-  makeFlags = [ "crypttokenplugindir=$(out)/lib/gwenhywfar/plugins/ct" ];
+  makeFlags = ["crypttokenplugindir=$(out)/lib/gwenhywfar/plugins/ct"];
 
   meta = with lib; {
     description = "Library for access to chipcards";
     homepage = "https://www.aquamaniac.de/rdm/projects/libchipcard";
     license = licenses.lgpl21;
-    maintainers = with maintainers; [ aszlig ];
+    maintainers = with maintainers; [aszlig];
     platforms = platforms.linux;
   };
 }

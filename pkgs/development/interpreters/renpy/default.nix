@@ -127,6 +127,6 @@ stdenv.mkDerivation rec {
     changelog = "https://renpy.org/doc/html/changelog.html";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ shadowrz ];
+    maintainers = with maintainers; [shadowrz];
   };
 }

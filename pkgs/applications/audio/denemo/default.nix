@@ -70,6 +70,6 @@ stdenv.mkDerivation rec {
     homepage = "http://denemo.org";
     license = licenses.gpl3;
     platforms = platforms.linux;
-    maintainers = [ maintainers.olynch ];
+    maintainers = [maintainers.olynch];
   };
 }

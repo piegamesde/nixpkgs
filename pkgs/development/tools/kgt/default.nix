@@ -25,7 +25,7 @@ stdenv.mkDerivation {
     "out"
   ];
 
-  nativeBuildInputs = [ bmake ];
+  nativeBuildInputs = [bmake];
   enableParallelBuilding = true;
 
   makeFlags = [
@@ -90,6 +90,6 @@ stdenv.mkDerivation {
     homepage = "https://github.com/katef/kgt";
     license = licenses.bsd2;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ Profpatsch ];
+    maintainers = with maintainers; [Profpatsch];
   };
 }

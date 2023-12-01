@@ -162,6 +162,6 @@ stdenv.mkDerivation rec {
       "i686-linux"
       "aarch64-linux"
     ];
-    maintainers = with maintainers; [ joamaki ];
+    maintainers = with maintainers; [joamaki];
   };
 }

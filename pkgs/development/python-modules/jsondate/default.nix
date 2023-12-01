@@ -17,7 +17,7 @@ buildPythonPackage rec {
     fetchSubmodules = true; # Fetching by tag does not work otherwise
   };
 
-  propagatedBuildInputs = [ six ];
+  propagatedBuildInputs = [six];
 
   meta = {
     homepage = "https://github.com/ilya-kolpakov/jsondate";

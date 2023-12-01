@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
     sha256 = "0s6540gllhjn7366inhwa70rdnngnhbi07jn1h6x8a0pi71wdfm9";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   buildPhase = ''
     runHook preBuild
@@ -57,7 +57,7 @@ stdenv.mkDerivation rec {
     description = "Analyze GHC .dump-timings files";
     homepage = "https://github.com/codedownio/time-ghc-modules";
     license = licenses.mit;
-    maintainers = [ maintainers.thomasjm ];
+    maintainers = [maintainers.thomasjm];
     platforms = platforms.all;
   };
 }

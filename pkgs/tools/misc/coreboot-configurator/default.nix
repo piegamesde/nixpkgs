@@ -67,6 +67,6 @@ mkDerivation {
     homepage = "https://support.starlabs.systems/kb/guides/coreboot-configurator";
     license = licenses.gpl2Only;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ danth ];
+    maintainers = with maintainers; [danth];
   };
 }

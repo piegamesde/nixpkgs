@@ -15,7 +15,7 @@ buildGoModule rec {
     sha256 = "sha256-oBgth4lAQP4UrFIk/AErlfyyCgPrugs5wQJDFxqGum0=";
   };
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   vendorHash = "sha256-IJCbh1ryyk0r72SrVEiI7K5nIFf1+UGjTkXaNKpGsmo=";
 
@@ -29,6 +29,6 @@ buildGoModule rec {
     description = "A Kubernetes credential plugin implementing OpenID Connect (OIDC) authentication";
     inherit (src.meta) homepage;
     license = licenses.asl20;
-    maintainers = with maintainers; [ benley ];
+    maintainers = with maintainers; [benley];
   };
 }

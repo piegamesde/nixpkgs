@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
   '';
 
   enableParallelBuilding = true;
-  configureFlags = [ "--enable-libgdbm-compat" ];
+  configureFlags = ["--enable-libgdbm-compat"];
 
   # create symlinks for compatibility
   postInstall = ''
@@ -66,6 +66,6 @@ stdenv.mkDerivation rec {
     homepage = "https://www.gnu.org/software/gdbm/";
     license = licenses.gpl3Plus;
     platforms = platforms.all;
-    maintainers = [ maintainers.vrthra ];
+    maintainers = [maintainers.vrthra];
   };
 }

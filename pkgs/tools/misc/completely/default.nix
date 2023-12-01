@@ -8,7 +8,7 @@ bundlerApp {
   pname = "completely";
 
   gemdir = ./.;
-  exes = [ "completely" ];
+  exes = ["completely"];
 
   passthru.updateScript = bundlerUpdateScript "completely";
 
@@ -17,6 +17,6 @@ bundlerApp {
     homepage = "https://github.com/DannyBen/completely";
     license = licenses.mit;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ zendo ];
+    maintainers = with maintainers; [zendo];
   };
 }

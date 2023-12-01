@@ -39,7 +39,7 @@ let
     );
 
   instanceOpts =
-    { name, ... }:
+    {name, ...}:
     {
       options = {
         enable = mkEnableOption (lib.mdDoc "this v4l2-relayd instance");
@@ -61,7 +61,7 @@ let
 
         extraPackages = mkOption {
           type = with types; listOf package;
-          default = [ ];
+          default = [];
           description = lib.mdDoc ''
             Extra packages to add to {env}`GST_PLUGIN_PATH` for the instance.
           '';
@@ -126,7 +126,7 @@ in
 
     instances = mkOption {
       type = with types; attrsOf (submodule instanceOpts);
-      default = { };
+      default = {};
       example = literalExpression ''
         {
           example = {
@@ -151,7 +151,7 @@ in
           "modprobe@v4l2loopback.service"
           "systemd-logind.service"
         ];
-        wantedBy = [ "multi-user.target" ];
+        wantedBy = ["multi-user.target"];
 
         serviceConfig = {
           Type = "simple";
@@ -185,7 +185,7 @@ in
                 "video/x-raw,format=${instance.output.format}"
                 "queue"
               ]
-              ++ [ "v4l2sink name=v4l2sink device=$(cat $V4L2_DEVICE_FILE)" ];
+              ++ ["v4l2sink name=v4l2sink device=$(cat $V4L2_DEVICE_FILE)"];
           in
           ''
             exec ${pkgs.v4l2-relayd}/bin/v4l2-relayd -i "${instance.input.pipeline}" -o "${concatStringsSep " ! " outputPipeline}"
@@ -218,12 +218,12 @@ in
     {
 
       boot = mkIf ((length enabledInstances) > 0) {
-        extraModulePackages = [ kernelPackages.v4l2loopback ];
-        kernelModules = [ "v4l2loopback" ];
+        extraModulePackages = [kernelPackages.v4l2loopback];
+        kernelModules = ["v4l2loopback"];
       };
 
       systemd.services = mkInstanceServices enabledInstances;
     };
 
-  meta.maintainers = with lib.maintainers; [ betaboon ];
+  meta.maintainers = with lib.maintainers; [betaboon];
 }

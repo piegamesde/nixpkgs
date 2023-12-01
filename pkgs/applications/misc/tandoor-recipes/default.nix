@@ -24,13 +24,13 @@ let
       );
 
       # Tests are incompatible with Django 4
-      django-js-reverse = super.django-js-reverse.overridePythonAttrs (_: { doCheck = false; });
+      django-js-reverse = super.django-js-reverse.overridePythonAttrs (_: {doCheck = false;});
     };
   };
 
-  common = callPackage ./common.nix { };
+  common = callPackage ./common.nix {};
 
-  frontend = callPackage ./frontend.nix { };
+  frontend = callPackage ./frontend.nix {};
 in
 python.pkgs.pythonPackages.buildPythonPackage rec {
   pname = "tandoor-recipes";

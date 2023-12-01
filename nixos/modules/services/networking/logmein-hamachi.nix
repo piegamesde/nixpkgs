@@ -35,8 +35,8 @@ in
     systemd.services.logmein-hamachi = {
       description = "LogMeIn Hamachi Daemon";
 
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
 
       serviceConfig = {
         Type = "forking";
@@ -44,6 +44,6 @@ in
       };
     };
 
-    environment.systemPackages = [ pkgs.logmein-hamachi ];
+    environment.systemPackages = [pkgs.logmein-hamachi];
   };
 }

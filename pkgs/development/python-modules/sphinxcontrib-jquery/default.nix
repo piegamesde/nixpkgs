@@ -19,9 +19,9 @@ buildPythonPackage rec {
     hash = "sha256-argG+jMUqLiWo4lKWAmHmUxotHl+ddJuJZ/zcUl9u5Q=";
   };
 
-  nativeBuildInputs = [ flit-core ];
+  nativeBuildInputs = [flit-core];
 
-  pythonImportsCheck = [ "sphinxcontrib.jquery" ];
+  pythonImportsCheck = ["sphinxcontrib.jquery"];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -37,6 +37,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/sphinx-contrib/jquery";
     changelog = "https://github.com/sphinx-contrib/jquery/blob/v${version}/CHANGES.rst";
     license = licenses.bsd0;
-    maintainers = with maintainers; [ kaction ];
+    maintainers = with maintainers; [kaction];
   };
 }

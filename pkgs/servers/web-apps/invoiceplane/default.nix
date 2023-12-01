@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-EwhOwUoOy3LNZTDgp9kvR/0OsO2TDpWkdT0fd7u0Ns8=";
   };
 
-  nativeBuildInputs = [ unzip ];
+  nativeBuildInputs = [unzip];
 
   sourceRoot = ".";
 
@@ -35,6 +35,6 @@ stdenv.mkDerivation rec {
     license = licenses.mit;
     homepage = "https://www.invoiceplane.com";
     platforms = platforms.all;
-    maintainers = with maintainers; [ onny ];
+    maintainers = with maintainers; [onny];
   };
 }

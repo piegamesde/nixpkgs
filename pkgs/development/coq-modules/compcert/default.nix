@@ -64,8 +64,8 @@ let
       coq
       coq2html
     ];
-    buildInputs = with ocamlPackages; [ menhirLib ];
-    propagatedBuildInputs = [ flocq ];
+    buildInputs = with ocamlPackages; [menhirLib];
+    propagatedBuildInputs = [flocq];
 
     enableParallelBuilding = true;
 
@@ -85,7 +85,7 @@ let
     '';
 
     installTargets = "documentation install";
-    installFlags = [ ]; # trust ./configure
+    installFlags = []; # trust ./configure
     preInstall = ''
       mkdir -p $out/share/man
       mkdir -p $man/share
@@ -219,6 +219,6 @@ compcert.overrideAttrs (
             ];
           }
         ]
-        [ ];
+        [];
   }
 )

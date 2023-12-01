@@ -40,13 +40,13 @@ python3.pkgs.buildPythonApplication rec {
     pyunifiprotect
   ];
 
-  nativeCheckInputs = with python3.pkgs; [ pytestCheckHook ];
+  nativeCheckInputs = with python3.pkgs; [pytestCheckHook];
 
   meta = with lib; {
     description = "Python tool to backup unifi event clips in realtime";
     homepage = "https://github.com/ep1cman/unifi-protect-backup";
     changelog = "https://github.com/ep1cman/unifi-protect-backup/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ ajs124 ];
+    maintainers = with maintainers; [ajs124];
   };
 }

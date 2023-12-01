@@ -70,7 +70,7 @@ stdenv.mkDerivation (
         work with such maps.
       '';
       license = licenses.gpl2Plus;
-      maintainers = [ maintainers.AndersonTorres ];
+      maintainers = [maintainers.AndersonTorres];
       platforms = platforms.linux;
     };
   }

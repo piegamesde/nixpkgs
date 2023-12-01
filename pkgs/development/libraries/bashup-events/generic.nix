@@ -47,7 +47,7 @@ resholve.mkDerivation rec {
   '';
 
   inherit doCheck;
-  nativeCheckInputs = [ bash ];
+  nativeCheckInputs = [bash];
 
   checkPhase = ''
     runHook preCheck
@@ -58,15 +58,15 @@ resholve.mkDerivation rec {
 
   solutions = {
     events = {
-      inputs = [ ];
+      inputs = [];
       interpreter = "none";
-      scripts = [ "bin/bashup.events" ];
+      scripts = ["bin/bashup.events"];
       inherit keep;
-    } // lib.optionalAttrs (lib.isAttrs fake) { inherit fake; };
+    } // lib.optionalAttrs (lib.isAttrs fake) {inherit fake;};
   };
 
   inherit doInstallCheck;
-  nativeInstallCheckInputs = [ bash ];
+  nativeInstallCheckInputs = [bash];
   installCheckPhase = ''
     runHook preInstallCheck
     ${installCheck "${bash}/bin/bash"}
@@ -78,7 +78,7 @@ resholve.mkDerivation rec {
     description = "An event listener/callback API for creating extensible bash programs";
     homepage = "https://github.com/bashup/events";
     license = licenses.cc0;
-    maintainers = with maintainers; [ abathur ];
+    maintainers = with maintainers; [abathur];
     platforms = platforms.all;
   };
 }

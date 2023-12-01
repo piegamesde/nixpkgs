@@ -43,7 +43,7 @@ buildGoPackage rec {
     "-w"
   ];
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   preBuild = ''
     # replace the default hookDefaultFilePath to the $out path
@@ -84,6 +84,6 @@ buildGoPackage rec {
     description = "NVIDIA Container Toolkit";
     license = licenses.asl20;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ cpcloud ];
+    maintainers = with maintainers; [cpcloud];
   };
 }

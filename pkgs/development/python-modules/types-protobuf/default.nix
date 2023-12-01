@@ -15,17 +15,17 @@ buildPythonPackage rec {
     hash = "sha256-Axp3QDqJUrMYabn/OIPJohZJ3SJMo2c+5ChzhOkeor4=";
   };
 
-  propagatedBuildInputs = [ types-futures ];
+  propagatedBuildInputs = [types-futures];
 
   # Module doesn't have tests
   doCheck = false;
 
-  pythonImportsCheck = [ "google-stubs" ];
+  pythonImportsCheck = ["google-stubs"];
 
   meta = with lib; {
     description = "Typing stubs for protobuf";
     homepage = "https://github.com/python/typeshed";
     license = licenses.asl20;
-    maintainers = with maintainers; [ andersk ];
+    maintainers = with maintainers; [andersk];
   };
 }

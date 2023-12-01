@@ -14,9 +14,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-DBR2C5h6ue4aqHmDG50jCLXe13DSWAYwfibrzTM+7Sw=";
   };
 
-  buildInputs = [ libaal ];
+  buildInputs = [libaal];
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   preConfigure = ''
     substituteInPlace configure --replace " -static" ""

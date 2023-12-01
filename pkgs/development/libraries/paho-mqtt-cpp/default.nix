@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-tcq0a4X5dKE4rnczRMAVe3Wt43YzUKbxsv9Sk+q+IB8=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   buildInputs = [
     openssl
@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
     description = "Eclipse Paho MQTT C++ Client Library";
     homepage = "https://www.eclipse.org/paho/";
     license = licenses.epl10;
-    maintainers = with maintainers; [ sikmir ];
+    maintainers = with maintainers; [sikmir];
     platforms = platforms.unix;
   };
 }

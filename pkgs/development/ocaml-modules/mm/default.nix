@@ -25,7 +25,7 @@ buildDunePackage rec {
     sha256 = "sha256-pL1e7U5EtbI8bVum7mMHUD8QFMV4jc3YFjhTOvR43kg=";
   };
 
-  buildInputs = [ dune-configurator ];
+  buildInputs = [dune-configurator];
   propagatedBuildInputs = [
     alsa
     ao
@@ -38,6 +38,6 @@ buildDunePackage rec {
     homepage = "https://github.com/savonet/ocaml-mm";
     description = "High-level library to create and manipulate multimedia streams";
     license = licenses.lgpl21Plus;
-    maintainers = with maintainers; [ dandellion ];
+    maintainers = with maintainers; [dandellion];
   };
 }

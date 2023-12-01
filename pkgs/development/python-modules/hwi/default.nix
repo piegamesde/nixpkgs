@@ -50,12 +50,12 @@ buildPythonPackage rec {
   # tests require to clone quite a few firmwares
   doCheck = false;
 
-  pythonImportsCheck = [ "hwilib" ];
+  pythonImportsCheck = ["hwilib"];
 
   meta = with lib; {
     description = "Bitcoin Hardware Wallet Interface";
     homepage = "https://github.com/bitcoin-core/hwi";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ prusnak ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [prusnak];
   };
 }

@@ -43,14 +43,14 @@ stdenv.mkDerivation rec {
     cmakeFlags="$cmakeFlags -DPACKAGE_ARCHITECTURE=$(uname -m)";
   '';
 
-  configureFlags = [ "--disable-more-warnings" ];
+  configureFlags = ["--disable-more-warnings"];
 
   meta = with lib; {
     description = "Openwsman server implementation and client API with bindings";
     downloadPage = "https://github.com/Openwsman/openwsman/releases";
     homepage = "https://openwsman.github.io";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ deepfire ];
+    maintainers = with maintainers; [deepfire];
     platforms = platforms.linux; # PAM is not available on Darwin
   };
 }

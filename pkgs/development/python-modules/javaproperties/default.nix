@@ -20,23 +20,23 @@ buildPythonPackage rec {
     sha256 = "16rcdw5gd4a21v2xb1j166lc9z2dqcv68gqvk5mvpnm0x6nwadgp";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
-  propagatedBuildInputs = [ six ];
+  propagatedBuildInputs = [six];
 
   nativeCheckInputs = [
     python-dateutil
     pytestCheckHook
   ];
 
-  disabledTests = [ "time" ];
+  disabledTests = ["time"];
 
-  disabledTestPaths = [ "test/test_propclass.py" ];
+  disabledTestPaths = ["test/test_propclass.py"];
 
   meta = with lib; {
     description = "Microsoft Azure API Management Client Library for Python";
     homepage = "https://github.com/Azure/azure-sdk-for-python";
     license = licenses.mit;
-    maintainers = with maintainers; [ jonringer ];
+    maintainers = with maintainers; [jonringer];
   };
 }

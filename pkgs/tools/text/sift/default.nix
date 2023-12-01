@@ -28,7 +28,7 @@ buildGoModule rec {
       })
     ];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   ldflags = [
     "-s"

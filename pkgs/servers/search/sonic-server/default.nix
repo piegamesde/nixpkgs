@@ -49,6 +49,6 @@ rustPlatform.buildRustPackage {
     homepage = "https://github.com/valeriansaliou/sonic";
     license = licenses.mpl20;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ pleshevskiy ];
+    maintainers = with maintainers; [pleshevskiy];
   };
 }

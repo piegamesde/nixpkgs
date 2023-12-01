@@ -20,10 +20,10 @@ buildGoModule rec {
 
   vendorHash = "sha256-UuPZmxoKVj7FusOS6H1gn6SAzQIZAKyX+m+QS657yXw=";
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   postInstall = ''
-    wrapProgram $out/bin/ipmi_exporter --prefix PATH : ${lib.makeBinPath [ freeipmi ]}
+    wrapProgram $out/bin/ipmi_exporter --prefix PATH : ${lib.makeBinPath [freeipmi]}
   '';
 
   passthru.tests = {
@@ -45,6 +45,6 @@ buildGoModule rec {
     homepage = "https://github.com/prometheus-community/ipmi_exporter";
     changelog = "https://github.com/prometheus-community/ipmi_exporter/blob/${src.rev}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [ snaar ];
+    maintainers = with maintainers; [snaar];
   };
 }

@@ -75,6 +75,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/kaio/ibus-table/wiki";
     license = licenses.lgpl21;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ mudri ];
+    maintainers = with maintainers; [mudri];
   };
 }

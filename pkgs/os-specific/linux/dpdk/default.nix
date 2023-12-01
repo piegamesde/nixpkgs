@@ -19,7 +19,7 @@
   doxygen,
   python3,
   pciutils,
-  withExamples ? [ ],
+  withExamples ? [],
   shared ? false,
   machine ? (
     if stdenv.isx86_64 then
@@ -93,7 +93,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional (!shared) "-Ddefault_library=static"
     ++ lib.optional (machine != null) "-Dmachine=${machine}"
     ++ lib.optional mod "-Dkernel_dir=${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
-    ++ lib.optional (withExamples != [ ]) "-Dexamples=${builtins.concatStringsSep "," withExamples}";
+    ++ lib.optional (withExamples != []) "-Dexamples=${builtins.concatStringsSep "," withExamples}";
 
   postInstall =
     ''
@@ -102,9 +102,9 @@ stdenv.mkDerivation rec {
       rm -rf $out/share/doc/dpdk/html/.doctrees
 
       wrapProgram $out/bin/dpdk-devbind.py \
-        --prefix PATH : "${lib.makeBinPath [ pciutils ]}"
+        --prefix PATH : "${lib.makeBinPath [pciutils]}"
     ''
-    + lib.optionalString (withExamples != [ ]) ''
+    + lib.optionalString (withExamples != []) ''
       mkdir -p $examples/bin
       find examples -type f -executable -exec install {} $examples/bin \;
     '';
@@ -112,7 +112,7 @@ stdenv.mkDerivation rec {
   outputs = [
     "out"
     "doc"
-  ] ++ lib.optional mod "kmod" ++ lib.optional (withExamples != [ ]) "examples";
+  ] ++ lib.optional mod "kmod" ++ lib.optional (withExamples != []) "examples";
 
   meta = with lib; {
     description = "Set of libraries and drivers for fast packet processing";

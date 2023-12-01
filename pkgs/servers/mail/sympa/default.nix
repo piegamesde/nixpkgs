@@ -93,9 +93,9 @@ stdenv.mkDerivation rec {
     "--with-spooldir=${dataDir}/spool"
     "--with-expldir=${dataDir}/list_data"
   ];
-  nativeBuildInputs = [ autoreconfHook ];
-  buildInputs = [ perlEnv ];
-  patches = [ ./make-docs.patch ];
+  nativeBuildInputs = [autoreconfHook];
+  buildInputs = [perlEnv];
+  patches = [./make-docs.patch];
 
   prePatch = ''
     patchShebangs po/sympa/add-lang.pl

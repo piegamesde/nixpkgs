@@ -45,7 +45,7 @@ python3Packages.buildPythonApplication rec {
     gst_all_1.gst-plugins-bad
   ];
 
-  propagatedBuildInputs = with python3Packages; [ pygobject3 ];
+  propagatedBuildInputs = with python3Packages; [pygobject3];
 
   format = "other";
 
@@ -58,7 +58,7 @@ python3Packages.buildPythonApplication rec {
   meta = with lib; {
     homepage = "https://github.com/rafaelmardojai/blanket";
     description = "Listen to different sounds";
-    maintainers = with maintainers; [ onny ];
+    maintainers = with maintainers; [onny];
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
   };

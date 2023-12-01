@@ -22,7 +22,7 @@ stdenv.mkDerivation {
     hash = "sha256-EWrDyXg47Ur9mFutaG8+oYOCAW9AZowzwwJp3YbogIY=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     mkdir -p $out/bin
@@ -61,7 +61,7 @@ stdenv.mkDerivation {
     homepage = "https://www.infradead.org/openconnect/";
     description = "Script for vpnc to configure the network routing and name service";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ jerith666 ];
+    maintainers = with maintainers; [jerith666];
     platforms = platforms.linux ++ platforms.darwin;
   };
 }

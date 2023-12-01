@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
     pkg-config
     autoreconfHook
   ];
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   meta = with lib; {
     description = "TA-Lib is a library that provides common functions for the technical analysis of financial market data.";
@@ -28,6 +28,6 @@ stdenv.mkDerivation rec {
     license = lib.licenses.bsd3;
 
     platforms = platforms.linux;
-    maintainers = with maintainers; [ rafael ];
+    maintainers = with maintainers; [rafael];
   };
 }

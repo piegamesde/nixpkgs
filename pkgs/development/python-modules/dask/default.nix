@@ -61,13 +61,13 @@ buildPythonPackage rec {
   ];
 
   passthru.optional-dependencies = {
-    array = [ numpy ];
-    complete = [ distributed ];
+    array = [numpy];
+    complete = [distributed];
     dataframe = [
       numpy
       pandas
     ];
-    distributed = [ distributed ];
+    distributed = [distributed];
     diagnostics = [
       bokeh
       jinja2
@@ -146,6 +146,6 @@ buildPythonPackage rec {
     homepage = "https://dask.org/";
     changelog = "https://docs.dask.org/en/latest/changelog.html";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ fridh ];
+    maintainers = with maintainers; [fridh];
   };
 }

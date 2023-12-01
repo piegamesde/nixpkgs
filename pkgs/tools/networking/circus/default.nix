@@ -1,9 +1,9 @@
-{ lib, python3 }:
+{lib, python3}:
 
 let
   python = python3.override {
     self = python;
-    packageOverrides = self: super: { tornado = super.tornado_4; };
+    packageOverrides = self: super: {tornado = super.tornado_4;};
   };
 
   inherit (python.pkgs)
@@ -33,7 +33,7 @@ buildPythonApplication rec {
       --replace "pyzmq>=13.1.0,<17.0" "pyzmq>13.1.0"
   '';
 
-  nativeCheckInputs = [ mock ];
+  nativeCheckInputs = [mock];
 
   doCheck = false; # weird error
 

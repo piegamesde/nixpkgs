@@ -22,7 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-VwCw/sS8Pzhscoa6yCRGbB9X+CtRVn8xyBEpKfGyhhY=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   propagatedBuildInputs = [
     bitlist
@@ -30,19 +30,19 @@ buildPythonPackage rec {
     parts
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   postPatch = ''
     substituteInPlace pyproject.toml \
       --replace "--doctest-modules --ignore=docs --cov=fe25519 --cov-report term-missing" ""
   '';
 
-  pythonImportsCheck = [ "fe25519" ];
+  pythonImportsCheck = ["fe25519"];
 
   meta = with lib; {
     description = "Python field operations for Curve25519's prime";
     homepage = "https://github.com/BjoernMHaase/fe25519";
-    license = with licenses; [ cc0 ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [cc0];
+    maintainers = with maintainers; [fab];
   };
 }

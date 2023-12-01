@@ -31,7 +31,7 @@ buildPythonPackage rec {
     hash = "sha256-Zwu+BXVTgXQuHqARd9xCj/jz6Urx8NVkLJ0Z83yoKJs=";
   };
 
-  nativeBuildInputs = [ hatchling ];
+  nativeBuildInputs = [hatchling];
 
   propagatedBuildInputs = [
     decorator
@@ -52,12 +52,12 @@ buildPythonPackage rec {
   # Requires access to cluster
   doCheck = false;
 
-  pythonImportsCheck = [ "ipyparallel" ];
+  pythonImportsCheck = ["ipyparallel"];
 
   meta = with lib; {
     description = "Interactive Parallel Computing with IPython";
     homepage = "https://ipyparallel.readthedocs.io/";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ fridh ];
+    maintainers = with maintainers; [fridh];
   };
 }

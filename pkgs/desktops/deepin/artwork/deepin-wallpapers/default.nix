@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-D7DXyPh74VlYn5vKUzDh/P/xoskxs8N/BEg5ZemXRwk=";
   };
 
-  nativeBuildInputs = [ dde-api ];
+  nativeBuildInputs = [dde-api];
 
   postPatch = ''
     patchShebangs blur_image.sh

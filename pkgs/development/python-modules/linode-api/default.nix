@@ -21,19 +21,19 @@ buildPythonPackage rec {
     sha256 = "0lqi15vks4fxbki1l7n1bfzygjy3w17d9wchjxvp22ijmas44yai";
   };
 
-  propagatedBuildInputs = [ requests ];
+  propagatedBuildInputs = [requests];
 
   nativeCheckInputs = [
     mock
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "linode_api4" ];
+  pythonImportsCheck = ["linode_api4"];
 
   meta = with lib; {
     description = "Python library for the Linode API v4";
     homepage = "https://github.com/linode/python-linode-api";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ glenns ];
+    maintainers = with maintainers; [glenns];
   };
 }

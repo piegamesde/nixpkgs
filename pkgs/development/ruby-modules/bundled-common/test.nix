@@ -26,7 +26,7 @@ builtins.concatLists [
     }
   )
 
-  (test.run "Just gemdir" (functions.bundlerFiles { gemdir = test/.; }) {
+  (test.run "Just gemdir" (functions.bundlerFiles {gemdir = test/.;}) {
     gemfile = should.equal test/Gemfile;
     lockfile = should.equal test/Gemfile.lock;
     gemset = should.equal test/gemset.nix;
@@ -44,14 +44,14 @@ builtins.concatLists [
     }
   )
 
-  (test.run "Filter empty gemset" { } (
+  (test.run "Filter empty gemset" {} (
     set:
     functions.filterGemset
       {
         inherit ruby;
-        groups = [ "default" ];
+        groups = ["default"];
       }
-      set == { }
+      set == {}
   ))
   (
     let
@@ -81,7 +81,7 @@ builtins.concatLists [
     let
       gemSet = {
         test = {
-          platforms = [ ];
+          platforms = [];
         };
       };
     in
@@ -90,7 +90,7 @@ builtins.concatLists [
       functions.filterGemset
         {
           inherit ruby;
-          groups = [ ];
+          groups = [];
         }
         set == gemSet
     )
@@ -113,7 +113,7 @@ builtins.concatLists [
       functions.filterGemset
         {
           inherit ruby;
-          groups = [ ];
+          groups = [];
         }
         set == gemSet
     )
@@ -139,7 +139,7 @@ builtins.concatLists [
             "b"
           ];
         }
-        set == { }
+        set == {}
     )
   )
 ]

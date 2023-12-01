@@ -49,7 +49,7 @@ in
           --knot-socket-timeout ${toString cfg.knotSocketTimeout} \
           ${concatStringsSep " \\\n  " cfg.extraFlags}
       '';
-      SupplementaryGroups = [ "knot" ];
+      SupplementaryGroups = ["knot"];
       RestrictAddressFamilies =
         [
           # Need AF_UNIX to collect data

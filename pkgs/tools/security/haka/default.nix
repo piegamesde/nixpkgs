@@ -37,7 +37,7 @@ stdenv.mkDerivation {
     sed -i 's,/etc,'$out'/etc,' doc/user/tool_suite_haka.rst
   '';
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     swig
     wireshark
@@ -57,7 +57,7 @@ stdenv.mkDerivation {
     description = "A collection of tools that allows capturing TCP/IP packets and filtering them based on Lua policy files";
     homepage = "http://www.haka-security.org/";
     license = lib.licenses.mpl20;
-    maintainers = [ lib.maintainers.tvestelind ];
+    maintainers = [lib.maintainers.tvestelind];
     platforms = [
       "x86_64-linux"
       "i686-linux"

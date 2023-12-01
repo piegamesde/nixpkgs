@@ -49,8 +49,8 @@ stdenv.mkDerivation {
   ];
 
   nativeBuildInputs =
-    [ pkg-config ]
-    ++ lib.optionals stdenv.isLinux [ wrapGAppsHook ]
+    [pkg-config]
+    ++ lib.optionals stdenv.isLinux [wrapGAppsHook]
     ++ lib.optionals stdenv.isDarwin [
       libicns
       makeWrapper
@@ -82,7 +82,7 @@ stdenv.mkDerivation {
     "-C"
     "bsnes"
     "prefix=$(out)"
-  ] ++ lib.optionals stdenv.isLinux [ "hiro=gtk3" ] ++ lib.optionals stdenv.isDarwin [ "hiro=cocoa" ];
+  ] ++ lib.optionals stdenv.isLinux ["hiro=gtk3"] ++ lib.optionals stdenv.isDarwin ["hiro=cocoa"];
 
   postInstall = lib.optionalString stdenv.isDarwin ''
     mkdir -p $out/bin
@@ -100,7 +100,7 @@ stdenv.mkDerivation {
     description = "A fork of bsnes that adds HD video features";
     homepage = "https://github.com/DerKoun/bsnes-hd";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ stevebob ];
+    maintainers = with maintainers; [stevebob];
     platforms = platforms.unix;
     mainProgram = "bsnes";
   };

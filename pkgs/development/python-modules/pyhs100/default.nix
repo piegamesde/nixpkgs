@@ -41,6 +41,6 @@ buildPythonPackage rec {
     description = "Python Library to control TPLink Switch (HS100 / HS110)";
     homepage = "https://github.com/GadgetReactor/pyHS100";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

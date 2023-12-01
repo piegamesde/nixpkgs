@@ -31,12 +31,12 @@ buildPythonPackage rec {
   # Project has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "nikohomecontrol" ];
+  pythonImportsCheck = ["nikohomecontrol"];
 
   meta = with lib; {
     description = "Python SDK for Niko Home Control";
     homepage = "https://github.com/NoUseFreak/niko-home-control";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
     description = "Intel C for Media Runtime";
     longDescription = "Media GPU kernel manager for Intel G45 & HD Graphics family";
     license = licenses.mit;
-    maintainers = with maintainers; [ tadfisher ];
+    maintainers = with maintainers; [tadfisher];
     platforms = platforms.linux;
   };
 }

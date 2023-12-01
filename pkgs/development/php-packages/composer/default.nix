@@ -18,7 +18,7 @@ mkDerivation rec {
 
   dontUnpack = true;
 
-  nativeBuildInputs = [ makeBinaryWrapper ];
+  nativeBuildInputs = [makeBinaryWrapper];
 
   installPhase = ''
     runHook preInstall
@@ -26,7 +26,7 @@ mkDerivation rec {
     install -D $src $out/libexec/composer/composer.phar
     makeWrapper ${php}/bin/php $out/bin/composer \
       --add-flags "$out/libexec/composer/composer.phar" \
-      --prefix PATH : ${lib.makeBinPath [ unzip ]}
+      --prefix PATH : ${lib.makeBinPath [unzip]}
     runHook postInstall
   '';
 
@@ -35,6 +35,6 @@ mkDerivation rec {
     license = licenses.mit;
     homepage = "https://getcomposer.org/";
     changelog = "https://github.com/composer/composer/releases/tag/${version}";
-    maintainers = with maintainers; [ offline ] ++ teams.php.members;
+    maintainers = with maintainers; [offline] ++ teams.php.members;
   };
 }

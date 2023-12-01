@@ -22,7 +22,7 @@ python3Packages.buildPythonApplication {
     sed -i -e 's/mediafile~=0.6.0/mediafile>=0.6.0/' setup.py
   '';
 
-  propagatedBuildInputs = with python3Packages; [ mediafile ];
+  propagatedBuildInputs = with python3Packages; [mediafile];
 
   nativeCheckInputs = [
     python3Packages.pytestCheckHook

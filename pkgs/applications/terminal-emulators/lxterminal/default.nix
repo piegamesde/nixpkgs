@@ -51,7 +51,7 @@ stdenv.mkDerivation rec {
     vte
   ];
 
-  patches = [ ./respect-xml-catalog-files-var.patch ];
+  patches = [./respect-xml-catalog-files-var.patch];
 
   preConfigure = ''
     ./autogen.sh
@@ -70,7 +70,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://wiki.lxde.org/en/LXTerminal";
     license = lib.licenses.gpl2;
-    maintainers = [ lib.maintainers.velovix ];
+    maintainers = [lib.maintainers.velovix];
     platforms = lib.platforms.linux;
   };
 }

@@ -49,8 +49,8 @@ stdenv.mkDerivation rec {
     description = "OBS Studio plugin to connect to a Hyperion.ng server";
     homepage = "https://github.com/hyperion-project/hyperion-obs-plugin";
     license = licenses.mit;
-    maintainers = with maintainers; [ algram ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with maintainers; [algram];
+    platforms = ["x86_64-linux"];
     broken = true; # Not compatible with qt6 yet but required by OBS28
   };
 }

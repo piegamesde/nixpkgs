@@ -33,8 +33,8 @@ stdenv.mkDerivation rec {
     sha256 = "05kdv2qqr311c2p76hdlgvrq7b04vcpps5c80zn8b8l7p831ilgz";
   };
 
-  patches = [ ./conf.patch ];
-  nativeBuildInputs = [ makeWrapper ];
+  patches = [./conf.patch];
+  nativeBuildInputs = [makeWrapper];
   buildInputs = [
     curl
     libusb1
@@ -56,7 +56,7 @@ stdenv.mkDerivation rec {
       --replace "5E048E021001" "6F0E13020001"
   '';
 
-  makeFlags = [ "build-core" ];
+  makeFlags = ["build-core"];
 
   env.NIX_CFLAGS_COMPILE = toString [
     # Needed with GCC 12
@@ -100,6 +100,6 @@ stdenv.mkDerivation rec {
     description = "Game Input Multiplexer";
     license = licenses.gpl3Only;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ bb2020 ];
+    maintainers = with maintainers; [bb2020];
   };
 }

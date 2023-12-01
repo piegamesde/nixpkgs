@@ -46,9 +46,9 @@ buildPythonPackage rec {
   ];
 
   passthru.optional-dependencies = {
-    serial = [ pyserial ];
-    seeedstudio = [ pyserial ];
-    pcan = [ uptime ];
+    serial = [pyserial];
+    seeedstudio = [pyserial];
+    pcan = [uptime];
   };
 
   nativeCheckInputs = [
@@ -86,7 +86,7 @@ buildPythonPackage rec {
     export CI=1
   '';
 
-  pythonImportsCheck = [ "can" ];
+  pythonImportsCheck = ["can"];
 
   meta = with lib; {
     description = "CAN support for Python";

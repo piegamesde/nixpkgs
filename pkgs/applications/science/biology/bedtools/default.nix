@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  nativeBuildInputs = [ python3 ];
+  nativeBuildInputs = [python3];
 
   buildInputs = [
     zlib
@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
     description = "A powerful toolset for genome arithmetic";
     license = licenses.gpl2;
     homepage = "https://bedtools.readthedocs.io/en/latest/";
-    maintainers = with maintainers; [ jbedo ];
+    maintainers = with maintainers; [jbedo];
     platforms = platforms.unix;
   };
 }

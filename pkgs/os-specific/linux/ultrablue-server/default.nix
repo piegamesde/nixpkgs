@@ -27,6 +27,6 @@ buildGoModule {
     homepage = "https://github.com/ANSSI-FR/ultrablue";
     license = licenses.asl20;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ raitobezarius ];
+    maintainers = with maintainers; [raitobezarius];
   };
 }

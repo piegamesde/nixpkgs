@@ -37,9 +37,9 @@ buildPythonPackage rec {
       --replace "'cython>=0.29.24'" "'cython'"
   '';
 
-  nativeBuildUnputs = [ cmake ];
+  nativeBuildUnputs = [cmake];
 
-  buildInputs = [ cython ];
+  buildInputs = [cython];
 
   nativeCheckInputs = [
     pytest
@@ -61,6 +61,6 @@ buildPythonPackage rec {
     description = "Python library providing wrappers to SymEngine";
     homepage = "https://github.com/symengine/symengine.py";
     license = licenses.mit;
-    maintainers = [ maintainers.costrouc ];
+    maintainers = [maintainers.costrouc];
   };
 }

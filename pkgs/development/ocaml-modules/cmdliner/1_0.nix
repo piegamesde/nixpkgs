@@ -20,9 +20,9 @@ stdenv.mkDerivation rec {
     sha256 = "1h04q0zkasd0mw64ggh4y58lgzkhg6yhzy60lab8k8zq9ba96ajw";
   };
 
-  nativeBuildInputs = [ ocaml ];
+  nativeBuildInputs = [ocaml];
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
   installTargets = "install install-doc";
   installFlags = [
     "LIBDIR=$(out)/lib/ocaml/${ocaml.version}/site-lib/${pname}"
@@ -37,6 +37,6 @@ stdenv.mkDerivation rec {
     description = "An OCaml module for the declarative definition of command line interfaces";
     license = licenses.isc;
     inherit (ocaml.meta) platforms;
-    maintainers = [ maintainers.vbgl ];
+    maintainers = [maintainers.vbgl];
   };
 }

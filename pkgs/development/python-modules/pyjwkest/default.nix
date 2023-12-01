@@ -24,7 +24,7 @@ buildPythonPackage rec {
     sha256 = "5560fd5ba08655f29ff6ad1df1e15dc05abc9d976fcbcec8d2b5167f49b70222";
   };
 
-  buildInputs = [ pytest ];
+  buildInputs = [pytest];
   propagatedBuildInputs = [
     future
     pycryptodomex

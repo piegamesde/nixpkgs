@@ -13,7 +13,7 @@ let
     name = "via-${version}-linux.AppImage";
     sha256 = "sha256-+uTvmrqHK7L5VA/lUHCZZeRYPUrcVA+vjG7venxuHhs=";
   };
-  appimageContents = appimageTools.extractType2 { inherit name src; };
+  appimageContents = appimageTools.extractType2 {inherit name src;};
 in
 appimageTools.wrapType2 {
   inherit name src;
@@ -39,7 +39,7 @@ appimageTools.wrapType2 {
     description = "Yet another keyboard configurator";
     homepage = "https://caniusevia.com/";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ emilytrau ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with maintainers; [emilytrau];
+    platforms = ["x86_64-linux"];
   };
 }

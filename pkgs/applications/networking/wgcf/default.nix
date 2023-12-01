@@ -24,6 +24,6 @@ buildGoModule rec {
     homepage = "https://github.com/ViRb3/wgcf";
     license = licenses.mit;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ yureien ];
+    maintainers = with maintainers; [yureien];
   };
 }

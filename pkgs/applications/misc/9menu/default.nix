@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/arnoldrobbins/9menu";
     description = "Simple X11 menu program for running commands";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ AndersonTorres ];
+    maintainers = with maintainers; [AndersonTorres];
     platforms = libX11.meta.platforms;
   };
 }

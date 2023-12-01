@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
     sha256 = "0admiqwdc0rvl8zxs0b2qyvsi8im7lrpsygm8ky8ymyf7alkw0gd";
   };
 
-  propagatedUserEnvPkgs = [ gtk-engine-murrine ];
+  propagatedUserEnvPkgs = [gtk-engine-murrine];
 
   installPhase = ''
     mkdir -p $out/share/themes
@@ -30,6 +30,6 @@ stdenv.mkDerivation rec {
     homepage = "https://www.opencode.net/ju1464/Snowblind";
     license = licenses.gpl3;
     platforms = platforms.unix;
-    maintainers = [ maintainers.romildo ];
+    maintainers = [maintainers.romildo];
   };
 }

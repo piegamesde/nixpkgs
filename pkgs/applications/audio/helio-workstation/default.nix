@@ -49,7 +49,7 @@ stdenv.mkDerivation rec {
     cd Projects/LinuxMakefile
     substituteInPlace Makefile --replace alsa "alsa jack"
   '';
-  buildFlags = [ "CONFIG=Release64" ];
+  buildFlags = ["CONFIG=Release64"];
 
   installPhase = ''
     mkdir -p $out/bin
@@ -66,7 +66,7 @@ stdenv.mkDerivation rec {
     description = "One music sequencer for all major platforms, both desktop and mobile";
     homepage = "https://helio.fm/";
     license = licenses.gpl3Only;
-    maintainers = [ maintainers.suhr ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = [maintainers.suhr];
+    platforms = ["x86_64-linux"];
   };
 }

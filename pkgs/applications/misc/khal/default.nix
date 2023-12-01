@@ -98,7 +98,7 @@ python3.pkgs.buildPythonApplication rec {
     description = "CLI calendar application";
     homepage = "http://lostpackets.de/khal/";
     license = licenses.mit;
-    maintainers = with maintainers; [ gebner ];
+    maintainers = with maintainers; [gebner];
     broken = stdenv.isDarwin;
   };
 }

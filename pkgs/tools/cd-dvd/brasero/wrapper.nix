@@ -8,18 +8,18 @@
 }:
 
 let
-  binPath = lib.makeBinPath [ cdrtools ];
+  binPath = lib.makeBinPath [cdrtools];
 in
 symlinkJoin {
   name = "brasero-${brasero-original.version}";
 
-  paths = [ brasero-original ];
-  nativeBuildInputs = [ makeWrapper ];
+  paths = [brasero-original];
+  nativeBuildInputs = [makeWrapper];
 
   postBuild = ''
     wrapProgram $out/bin/brasero \
       --prefix PATH ':' ${binPath} \
-      --prefix LD_PRELOAD : ${lib.makeLibraryPath [ libdvdcss ]}/libdvdcss.so
+      --prefix LD_PRELOAD : ${lib.makeLibraryPath [libdvdcss]}/libdvdcss.so
   '';
 
   inherit (brasero-original) meta;

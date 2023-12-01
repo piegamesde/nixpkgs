@@ -11,7 +11,7 @@ let
   cfg = config.services.shout;
   shoutHome = "/var/lib/shout";
 
-  defaultConfig = pkgs.runCommand "config.js" { preferLocalBuild = true; } ''
+  defaultConfig = pkgs.runCommand "config.js" {preferLocalBuild = true;} ''
     EDITOR=true ${pkgs.shout}/bin/shout config --home $PWD
     mv config.js $out
   '';
@@ -69,7 +69,7 @@ in
     };
 
     config = mkOption {
-      default = { };
+      default = {};
       type = types.attrs;
       example = {
         displayNetwork = false;
@@ -98,13 +98,13 @@ in
       home = shoutHome;
       createHome = true;
     };
-    users.groups.shout = { };
+    users.groups.shout = {};
 
     systemd.services.shout = {
       description = "Shout web IRC client";
-      wantedBy = [ "multi-user.target" ];
-      wants = [ "network-online.target" ];
-      after = [ "network-online.target" ];
+      wantedBy = ["multi-user.target"];
+      wants = ["network-online.target"];
+      after = ["network-online.target"];
       preStart = "ln -sf ${pkgs.writeText "config.js" finalConfigFile} ${shoutHome}/config.js";
       script = concatStringsSep " " [
         "${pkgs.shout}/bin/shout"

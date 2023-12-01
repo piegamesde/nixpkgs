@@ -13,7 +13,7 @@ stdenv.mkDerivation {
     sha256 = "82b9bafab96a0c53b21aaef688bf70b3572e26217b5e2072bdb09da3c4a6f593";
   };
 
-  makeFlags = [ "PREFIX=\${out}" ];
+  makeFlags = ["PREFIX=\${out}"];
   installPhase = ''
     mkdir -p $out/bin
     cp noip2 $out/bin
@@ -25,7 +25,7 @@ stdenv.mkDerivation {
     description = "Dynamic DNS daemon for no-ip accounts";
     homepage = "http://noip.com/download?page=linux";
     license = lib.licenses.gpl2;
-    maintainers = [ lib.maintainers.iand675 ];
+    maintainers = [lib.maintainers.iand675];
     platforms = platforms.linux;
   };
 }

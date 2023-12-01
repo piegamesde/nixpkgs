@@ -31,12 +31,12 @@ buildPythonPackage rec {
     runHook postCheck
   '';
 
-  pythonImportsCheck = [ "aggdraw" ];
+  pythonImportsCheck = ["aggdraw"];
 
   meta = with lib; {
     description = "High quality drawing interface for PIL";
     homepage = "https://github.com/pytroll/aggdraw";
     license = licenses.mit;
-    maintainers = with maintainers; [ onny ];
+    maintainers = with maintainers; [onny];
   };
 }

@@ -12,7 +12,7 @@ buildPythonPackage rec {
   pname = "pybtex";
 
   doCheck = false;
-  pythonImportsCheck = [ "pybtex" ];
+  pythonImportsCheck = ["pybtex"];
 
   propagatedBuildInputs = [
     latexcodec

@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "cl-semver";
   version = "20201220-git";
@@ -20,7 +20,7 @@ rec {
 
   packageName = "cl-semver";
 
-  asdFilesToKeep = [ "cl-semver.asd" ];
+  asdFilesToKeep = ["cl-semver.asd"];
   overrides = x: x;
 }
 /* (SYSTEM cl-semver DESCRIPTION Semantic Version implementation SHA256

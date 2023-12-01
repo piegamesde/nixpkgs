@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
   };
 
   strictDeps = true;
-  nativeBuildInputs = [ txt2tags ];
+  nativeBuildInputs = [txt2tags];
   buildInputs = [
     zsh
     coreutils

@@ -37,7 +37,7 @@ mkDerivation rec {
   meta = with lib; {
     homepage = "https://github.com/kripton/jack_autoconnect";
     description = "Tiny application that reacts on port registrations by clients and connects them";
-    maintainers = with maintainers; [ unclechu ];
+    maintainers = with maintainers; [unclechu];
     license = licenses.gpl2Only;
     platforms = platforms.linux;
   };

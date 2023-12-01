@@ -21,7 +21,7 @@ rustPlatform.buildRustPackage rec {
   buildInputs = [
     libusb1
     libftdi
-  ] ++ lib.optionals stdenv.isDarwin [ AppKit ];
+  ] ++ lib.optionals stdenv.isDarwin [AppKit];
 
   src = fetchFromGitHub {
     owner = "oxidecomputer";
@@ -52,7 +52,7 @@ rustPlatform.buildRustPackage rec {
   meta = with lib; {
     description = "Debugger for Hubris";
     homepage = "https://github.com/oxidecomputer/humility";
-    license = with licenses; [ mpl20 ];
-    maintainers = with maintainers; [ therishidesai ];
+    license = with licenses; [mpl20];
+    maintainers = with maintainers; [therishidesai];
   };
 }

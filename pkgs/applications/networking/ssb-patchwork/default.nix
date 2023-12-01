@@ -21,7 +21,7 @@ let
     inherit src;
   };
   # we only use this to extract the icon
-  appimage-contents = appimageTools.extractType2 { inherit name src; };
+  appimage-contents = appimageTools.extractType2 {inherit name src;};
 
   desktopItem = makeDesktopItem {
     name = "ssb-patchwork";
@@ -30,12 +30,12 @@ let
     comment = "Client for the decentralized social network Secure Scuttlebutt";
     desktopName = "Patchwork";
     genericName = "Patchwork";
-    categories = [ "Network" ];
+    categories = ["Network"];
   };
 in
 symlinkJoin {
   inherit name;
-  paths = [ binary ];
+  paths = [binary];
 
   postBuild = ''
     mkdir -p $out/share/pixmaps/ $out/share/applications
@@ -55,6 +55,6 @@ symlinkJoin {
       ninjatrappeur
       cyplo
     ];
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
   };
 }

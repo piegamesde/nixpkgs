@@ -18,7 +18,7 @@ buildPythonPackage rec {
   doCheck = false;
 
   # Requires Django >= 1.8
-  buildInputs = [ django ];
+  buildInputs = [django];
 
   meta = with lib; {
     description = "Django extension that provides database and form color fields";

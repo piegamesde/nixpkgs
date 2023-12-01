@@ -47,7 +47,7 @@ stdenv.mkDerivation rec {
     libuchardet
   ] ++ lib.optional withSystemd systemd;
 
-  propagatedBuildInputs = [ dtkcommon ];
+  propagatedBuildInputs = [dtkcommon];
 
   cmakeFlags = [
     "-DDVERSION=${version}"

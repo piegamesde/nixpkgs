@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
     description = "Simple identd that just replies with a random string or customized userid";
     license = licenses.gpl2;
     homepage = "http://acidhub.click/NullidentdMod";
-    maintainers = with maintainers; [ das_j ];
+    maintainers = with maintainers; [das_j];
     platforms = platforms.linux; # Must be run by systemd
   };
 }

@@ -15,7 +15,7 @@ stdenv.mkDerivation {
     sha256 = "1sj7a77isc2jmh7gw2naw9l9366kjx6jb909h7spj7daxdwvji8f";
   };
 
-  hardeningEnable = [ "pie" ];
+  hardeningEnable = ["pie"];
 
   preConfigure = ''
     makeFlags=( "PREFIX=$out" )
@@ -26,6 +26,6 @@ stdenv.mkDerivation {
     homepage = "https://www.irif.univ-paris-diderot.fr/~jch/software/homenet/shncpd.html";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = [ maintainers.fpletz ];
+    maintainers = [maintainers.fpletz];
   };
 }

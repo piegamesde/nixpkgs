@@ -18,14 +18,14 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-Q5vnfhUcbTmk3+t0D0z4dwU6pXKT7/hTfVHOUPXEzrg=";
 
-  subPackages = [ "cmd/ent" ];
+  subPackages = ["cmd/ent"];
 
   ldflags = [
     "-s"
     "-w"
   ];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   postInstall = ''
     installShellCompletion --cmd ent \
@@ -39,7 +39,7 @@ buildGoModule rec {
     homepage = "https://entgo.io/";
     downloadPage = "https://github.com/ent/ent";
     license = licenses.asl20;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     mainProgram = "ent";
   };
 }

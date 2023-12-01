@@ -59,7 +59,7 @@ buildPythonApplication rec {
     description = "Crawler for web archiving with WARC output";
     homepage = "https://github.com/ArchiveTeam/grab-site";
     license = licenses.mit;
-    maintainers = with maintainers; [ ivan ];
+    maintainers = with maintainers; [ivan];
     platforms = platforms.all;
   };
 }

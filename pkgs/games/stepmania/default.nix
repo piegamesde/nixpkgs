@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
     sha256 = "0a7y9l7xm510vgnpmj1is7p9m6d6yd0fcaxrjcickz295k5w3rdn";
   };
 
-  patches = [ ./0001-fix-build-with-ffmpeg-4.patch ];
+  patches = [./0001-fix-build-with-ffmpeg-4.patch];
 
   postPatch = ''
     sed '1i#include <ctime>' -i src/arch/ArchHooks/ArchHooks.h # gcc12
@@ -67,7 +67,7 @@ stdenv.mkDerivation rec {
     description = "Free dance and rhythm game for Windows, Mac, and Linux";
     platforms = platforms.linux;
     license = licenses.mit; # expat version
-    maintainers = [ ];
+    maintainers = [];
     # never built on aarch64-linux since first introduction in nixpkgs
     broken = stdenv.isLinux && stdenv.isAarch64;
   };

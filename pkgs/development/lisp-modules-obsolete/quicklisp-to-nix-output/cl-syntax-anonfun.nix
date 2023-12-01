@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "cl-syntax-anonfun";
   version = "cl-syntax-20150407-git";
@@ -20,7 +20,7 @@ rec {
 
   packageName = "cl-syntax-anonfun";
 
-  asdFilesToKeep = [ "cl-syntax-anonfun.asd" ];
+  asdFilesToKeep = ["cl-syntax-anonfun.asd"];
   overrides = x: x;
 }
 /* (SYSTEM cl-syntax-anonfun DESCRIPTION CL-Syntax Reader Syntax for cl-anonfun

@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
       --replace "/usr" "$out"
   '';
 
-  buildInputs = [ gems ];
+  buildInputs = [gems];
 
   installPhase = ''
     runHook preInstall
@@ -50,7 +50,7 @@ stdenv.mkDerivation rec {
     description = "Next generation web scanner";
     homepage = "https://github.com/urbanadventurer/whatweb";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ wolfangaukang ];
+    maintainers = with maintainers; [wolfangaukang];
     platforms = platforms.unix;
   };
 }

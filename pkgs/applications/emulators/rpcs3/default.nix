@@ -60,7 +60,7 @@ gcc12Stdenv.mkDerivation {
     sha256 = rpcs3Sha256;
   };
 
-  patches = [ ./0001-llvm-ExecutionEngine-IntelJITEvents-only-use-ITTAPI_.patch ];
+  patches = [./0001-llvm-ExecutionEngine-IntelJITEvents-only-use-ITTAPI_.patch];
 
   passthru.updateScript = ./update.sh;
 

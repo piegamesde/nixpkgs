@@ -30,6 +30,6 @@ buildPythonPackage rec {
     description = "Read single characters and key-strokes";
     homepage = "https://github.com/kcsaff/getkey";
     license = licenses.mit;
-    maintainers = [ maintainers.symphorien ];
+    maintainers = [maintainers.symphorien];
   };
 }

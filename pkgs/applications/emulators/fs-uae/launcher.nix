@@ -29,13 +29,13 @@ stdenv.mkDerivation rec {
     setuptools
   ];
 
-  makeFlags = [ "prefix=$(out)" ];
+  makeFlags = ["prefix=$(out)"];
 
   dontWrapQtApps = true;
 
   preFixup = ''
     wrapQtApp "$out/bin/fs-uae-launcher" --set PYTHONPATH "$PYTHONPATH" \
-      --prefix PATH : ${lib.makeBinPath [ fsuae ]}
+      --prefix PATH : ${lib.makeBinPath [fsuae]}
   '';
 
   meta = with lib; {

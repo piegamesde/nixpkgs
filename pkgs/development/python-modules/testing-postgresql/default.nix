@@ -48,7 +48,7 @@ buildPythonPackage rec {
       --replace "pg8000 >= 1.10" "pg8000"
   '';
 
-  pythonImportsCheck = [ "testing.postgresql" ];
+  pythonImportsCheck = ["testing.postgresql"];
 
   # Fix tests for Darwin build. See:
   # https://github.com/NixOS/nixpkgs/pull/74716#issuecomment-598546916
@@ -59,6 +59,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/tk0miya/testing.postgresql";
     license = licenses.asl20;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ jluttine ];
+    maintainers = with maintainers; [jluttine];
   };
 }

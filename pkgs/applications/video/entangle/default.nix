@@ -138,6 +138,6 @@ stdenv.mkDerivation rec {
     homepage = "https://gitlab.com/entangle/entangle";
     license = licenses.gpl3Plus;
     platforms = platforms.all;
-    maintainers = with maintainers; [ ShamrockLee ];
+    maintainers = with maintainers; [ShamrockLee];
   };
 }

@@ -24,13 +24,13 @@ stdenv.mkDerivation rec {
     pkg-config
     wrapQtAppsHook
   ];
-  buildInputs = [ qtbase ];
+  buildInputs = [qtbase];
 
   meta = with lib; {
     description = "Collection of tools to manage Teensy boards";
     homepage = "https://koromix.dev/tytools";
     license = licenses.unlicense;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ ahuzik ];
+    maintainers = with maintainers; [ahuzik];
   };
 }

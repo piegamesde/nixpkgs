@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
     description = "Multimedia API for Qt";
     license = lib.licenses.lgpl2;
     platforms = lib.platforms.unix;
-    maintainers = with lib.maintainers; [ ttuegel ];
+    maintainers = with lib.maintainers; [ttuegel];
   };
 
   src = fetchurl {
@@ -56,7 +56,7 @@ stdenv.mkDerivation rec {
 
   env.NIX_CFLAGS_COMPILE = "-fPIC";
 
-  cmakeFlags = [ "-DCMAKE_BUILD_TYPE=${if debug then "Debug" else "Release"}" ];
+  cmakeFlags = ["-DCMAKE_BUILD_TYPE=${if debug then "Debug" else "Release"}"];
 
   dontWrapQtApps = true;
 

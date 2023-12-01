@@ -9,7 +9,7 @@ with lib;
 
 let
   cfg = config.security.please;
-  ini = pkgs.formats.ini { };
+  ini = pkgs.formats.ini {};
 in
 {
   options.security.please = {
@@ -41,7 +41,7 @@ in
 
     settings = mkOption {
       type = ini.type;
-      default = { };
+      default = {};
       example = {
         jim_run_any_as_root = {
           name = "jim";
@@ -105,7 +105,7 @@ in
     };
 
     environment = {
-      systemPackages = [ cfg.package ];
+      systemPackages = [cfg.package];
 
       etc."please.ini".source = ini.generate "please.ini" (
         cfg.settings
@@ -134,6 +134,6 @@ in
       usshAuth = true;
     };
 
-    meta.maintainers = with maintainers; [ azahi ];
+    meta.maintainers = with maintainers; [azahi];
   };
 }

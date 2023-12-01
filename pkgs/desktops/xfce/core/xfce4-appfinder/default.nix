@@ -16,7 +16,7 @@ mkXfceDerivation {
 
   sha256 = "sha256-/VYZpWk08OQPZ/DQ5SqSL4F4KDdh+IieQBDOZUxZvtw=";
 
-  nativeBuildInputs = [ exo ];
+  nativeBuildInputs = [exo];
   buildInputs = [
     garcon
     gtk3
@@ -27,6 +27,6 @@ mkXfceDerivation {
 
   meta = with lib; {
     description = "Appfinder for the Xfce4 Desktop Environment";
-    maintainers = with maintainers; [ ] ++ teams.xfce.members;
+    maintainers = with maintainers; [] ++ teams.xfce.members;
   };
 }

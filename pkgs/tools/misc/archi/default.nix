@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
     else
       throw "Unsupported system";
 
-  buildInputs = [ libsecret ];
+  buildInputs = [libsecret];
 
   nativeBuildInputs = [
     makeWrapper
@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
 
         install -D -m755 Archi $out/libexec/Archi
         makeWrapper $out/libexec/Archi $out/bin/Archi \
-          --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath ([ webkitgtk ])} \
+          --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath ([webkitgtk])} \
           --prefix PATH : ${jdk}/bin
       ''
     else
@@ -62,9 +62,9 @@ stdenv.mkDerivation rec {
       models and sketches.
     '';
     homepage = "https://www.archimatetool.com/";
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.mit;
     platforms = platforms.linux ++ platforms.darwin;
-    maintainers = with maintainers; [ earldouglas ];
+    maintainers = with maintainers; [earldouglas];
   };
 }

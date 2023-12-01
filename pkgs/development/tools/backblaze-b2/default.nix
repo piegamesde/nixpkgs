@@ -23,7 +23,7 @@ python3Packages.buildPythonApplication rec {
       --replace 'setuptools_scm<6.0' 'setuptools_scm'
   '';
 
-  nativeBuildInputs = with python3Packages; [ setuptools-scm ];
+  nativeBuildInputs = with python3Packages; [setuptools-scm];
 
   propagatedBuildInputs = with python3Packages; [
     b2sdk

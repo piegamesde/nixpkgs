@@ -5,21 +5,21 @@
   system ? builtins.currentSystem,
   pkgs ? import ../.. {
     inherit system;
-    config = { };
+    config = {};
   },
 }:
 
 let
-  inherit (import ../lib/testing-python.nix { inherit system pkgs; }) makeTest;
+  inherit (import ../lib/testing-python.nix {inherit system pkgs;}) makeTest;
   inherit (pkgs.lib) optionalString;
 
   makeBird2Host =
     hostId:
-    { pkgs, ... }:
+    {pkgs, ...}:
     {
-      virtualisation.vlans = [ 1 ];
+      virtualisation.vlans = [1];
 
-      environment.systemPackages = with pkgs; [ jq ];
+      environment.systemPackages = with pkgs; [jq];
 
       networking = {
         useNetworkd = true;

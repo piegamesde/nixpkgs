@@ -35,6 +35,6 @@ buildGoModule rec {
       point snowcat at a directory containing Kubernets YAML files.
     '';
     license = licenses.asl20;
-    maintainers = with maintainers; [ jk ];
+    maintainers = with maintainers; [jk];
   };
 }

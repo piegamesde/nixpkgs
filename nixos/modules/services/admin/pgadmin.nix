@@ -144,19 +144,19 @@ in
         [Documentation](https://www.pgadmin.org/docs/pgadmin4/development/config_py.html)
       '';
       type = pyType;
-      default = { };
+      default = {};
     };
   };
 
   config = mkIf (cfg.enable) {
-    networking.firewall.allowedTCPPorts = mkIf (cfg.openFirewall) [ cfg.port ];
+    networking.firewall.allowedTCPPorts = mkIf (cfg.openFirewall) [cfg.port];
 
     services.pgadmin.settings =
       {
         DEFAULT_SERVER_PORT = cfg.port;
         SERVER_MODE = true;
       }
-      // (optionalAttrs cfg.openFirewall { DEFAULT_SERVER = mkDefault "::"; })
+      // (optionalAttrs cfg.openFirewall {DEFAULT_SERVER = mkDefault "::";})
       // (optionalAttrs cfg.emailServer.enable {
         MAIL_SERVER = cfg.emailServer.address;
         MAIL_PORT = cfg.emailServer.port;
@@ -167,12 +167,12 @@ in
       });
 
     systemd.services.pgadmin = {
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
-      requires = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
+      requires = ["network.target"];
       # we're adding this optionally so just in case there's any race it'll be caught
       # in case postgres doesn't start, pgadmin will just start normally
-      wants = [ "postgresql.service" ];
+      wants = ["postgresql.service"];
 
       path = [
         config.services.postgresql.package
@@ -196,7 +196,7 @@ in
         ) | ${pkg}/bin/pgadmin4-setup
       '';
 
-      restartTriggers = [ "/etc/pgadmin/config_system.py" ];
+      restartTriggers = ["/etc/pgadmin/config_system.py"];
 
       serviceConfig = {
         User = "pgadmin";
@@ -212,7 +212,7 @@ in
       group = "pgadmin";
     };
 
-    users.groups.pgadmin = { };
+    users.groups.pgadmin = {};
 
     environment.etc."pgadmin/config_system.py" = {
       text =

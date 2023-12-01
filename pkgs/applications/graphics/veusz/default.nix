@@ -20,7 +20,7 @@ python3Packages.buildPythonApplication rec {
     python3Packages.tomli
   ];
 
-  buildInputs = [ qtbase ];
+  buildInputs = [qtbase];
 
   # veusz is a script and not an ELF-executable, so wrapQtAppsHook will not wrap
   # it automatically -> we have to do it explicitly
@@ -66,6 +66,6 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://veusz.github.io/";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ laikq ];
+    maintainers = with maintainers; [laikq];
   };
 }

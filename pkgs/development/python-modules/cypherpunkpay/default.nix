@@ -44,7 +44,7 @@ buildPythonPackage rec {
       --replace 'tzlocal = "2.1"' 'tzlocal = ">=2.1"'
   '';
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   propagatedBuildInputs = [
     apscheduler
@@ -100,6 +100,6 @@ buildPythonPackage rec {
       mit # or
       unlicense
     ];
-    maintainers = with maintainers; [ prusnak ];
+    maintainers = with maintainers; [prusnak];
   };
 }

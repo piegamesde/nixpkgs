@@ -14,7 +14,7 @@
   fileVersionCudnn ? null,
   tarball,
   sha256,
-  supportedCudaVersions ? [ ],
+  supportedCudaVersions ? [],
 }:
 
 assert fileVersionCudnn == null
@@ -92,7 +92,7 @@ backendStdenv.mkDerivation rec {
     description = "TensorRT: a high-performance deep learning interface";
     homepage = "https://developer.nvidia.com/tensorrt";
     license = licenses.unfree;
-    platforms = [ "x86_64-linux" ];
-    maintainers = with maintainers; [ aidalgol ];
+    platforms = ["x86_64-linux"];
+    maintainers = with maintainers; [aidalgol];
   };
 }

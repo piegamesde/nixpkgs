@@ -19,15 +19,15 @@ buildPythonPackage rec {
     hash = "sha256-CSb0s3DKv/KpEmCkCR+Y8iwrLdCL9w9Pl6W46cPB420";
   };
 
-  propagatedBuildInputs = [ torch ];
+  propagatedBuildInputs = [torch];
 
-  pythonImportsCheck = [ "lion_pytorch" ];
+  pythonImportsCheck = ["lion_pytorch"];
   doCheck = false; # no tests currently
 
   meta = with lib; {
     description = "Optimizer tuned by Google Brain using genetic algorithms";
     homepage = "https://github.com/lucidrains/lion-pytorch";
     license = licenses.mit;
-    maintainers = with maintainers; [ bcdarwin ];
+    maintainers = with maintainers; [bcdarwin];
   };
 }

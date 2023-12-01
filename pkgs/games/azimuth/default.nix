@@ -18,10 +18,10 @@ stdenv.mkDerivation rec {
     sha256 = "1znfvpmqiixd977jv748glk5zc4cmhw5813zp81waj07r9b0828r";
   };
 
-  nativeBuildInputs = [ which ];
-  buildInputs = [ SDL ];
+  nativeBuildInputs = [which];
+  buildInputs = [SDL];
 
-  env.NIX_CFLAGS_COMPILE = toString [ "-Wno-error=maybe-uninitialized" ];
+  env.NIX_CFLAGS_COMPILE = toString ["-Wno-error=maybe-uninitialized"];
 
   preConfigure = ''
     substituteInPlace data/azimuth.desktop \
@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
   makeFlags = [
     "BUILDTYPE=release"
     "INSTALLDIR=$(out)"
-  ] ++ (if installTool then [ "INSTALLTOOL=true" ] else [ "INSTALLTOOL=false" ]);
+  ] ++ (if installTool then ["INSTALLTOOL=true"] else ["INSTALLTOOL=false"]);
 
   enableParallelBuilding = true;
 
@@ -50,7 +50,7 @@ stdenv.mkDerivation rec {
 
     license = lib.licenses.gpl3Plus;
     homepage = "https://mdsteele.games/azimuth/index.html";
-    maintainers = with lib.maintainers; [ marius851000 ];
+    maintainers = with lib.maintainers; [marius851000];
     platforms = lib.platforms.linux;
   };
 }

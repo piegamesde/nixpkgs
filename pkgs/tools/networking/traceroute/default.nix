@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
     homepage = "https://traceroute.sourceforge.net/";
     changelog = "https://sourceforge.net/projects/traceroute/files/traceroute/traceroute-${version}/";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ koral ];
+    maintainers = with maintainers; [koral];
     platforms = platforms.linux;
   };
 }

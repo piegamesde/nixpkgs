@@ -17,7 +17,7 @@ buildGoModule rec {
     sha256 = "sha256-BgxTlLmtKqtDq3HgLoH+j0vBrpRujmL9Wr8F4d+jPi0=";
   };
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   vendorSha256 = "sha256-KPQHS7Hfco1ljOJgStIXMaol7j4dglcr0w+6Boj7GK8=";
 
@@ -37,6 +37,6 @@ buildGoModule rec {
     homepage = "https://github.com/sigstore/sget";
     description = "Command for safer, automatic verification of signatures and integration with Sigstore's binary transparency log, Rekor";
     license = licenses.asl20;
-    maintainers = with maintainers; [ lesuisse ];
+    maintainers = with maintainers; [lesuisse];
   };
 }

@@ -27,7 +27,7 @@ buildPythonPackage rec {
     substituteInPlace requirements.txt --replace "PrettyTable<0.8,>=0.7.2" "PrettyTable"
   '';
 
-  nativeBuildInputs = [ pbr ];
+  nativeBuildInputs = [pbr];
 
   propagatedBuildInputs = [
     python-ldap

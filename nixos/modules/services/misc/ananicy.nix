@@ -9,7 +9,7 @@ with lib;
 
 let
   cfg = config.services.ananicy;
-  configFile = pkgs.writeText "ananicy.conf" (generators.toKeyValue { } cfg.settings);
+  configFile = pkgs.writeText "ananicy.conf" (generators.toKeyValue {} cfg.settings);
   extraRules = pkgs.writeText "extraRules" cfg.extraRules;
   servicename =
     if ((lib.getName cfg.package) == (lib.getName pkgs.ananicy-cpp)) then "ananicy-cpp" else "ananicy";
@@ -39,7 +39,7 @@ in
               str
             ]
           );
-        default = { };
+        default = {};
         example = {
           apply_nice = false;
         };
@@ -68,8 +68,8 @@ in
 
   config = mkIf cfg.enable {
     environment = {
-      systemPackages = [ cfg.package ];
-      etc."ananicy.d".source = pkgs.runCommandLocal "ananicyfiles" { } ''
+      systemPackages = [cfg.package];
+      etc."ananicy.d".source = pkgs.runCommandLocal "ananicyfiles" {} ''
         mkdir -p $out
         # ananicy-cpp does not include rules or settings on purpose
         cp -r ${pkgs.ananicy}/etc/ananicy.d/* $out
@@ -113,14 +113,14 @@ in
     systemd = {
       # https://gitlab.com/ananicy-cpp/ananicy-cpp/#cgroups applies to both ananicy and -cpp
       enableUnifiedCgroupHierarchy = mkDefault false;
-      packages = [ cfg.package ];
+      packages = [cfg.package];
       services."${servicename}" = {
-        wantedBy = [ "default.target" ];
+        wantedBy = ["default.target"];
       };
     };
   };
 
   meta = {
-    maintainers = with maintainers; [ artturin ];
+    maintainers = with maintainers; [artturin];
   };
 }

@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
       })
     ];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   buildInputs = [
     boost
@@ -61,7 +61,7 @@ stdenv.mkDerivation rec {
       Machine learning system which pushes the frontier of machine learning with techniques such as online,
       hashing, allreduce, reductions, learning2search, active, and interactive and reinforcement learning
     '';
-    maintainers = with maintainers; [ jackgerrits ];
+    maintainers = with maintainers; [jackgerrits];
     platforms = platforms.unix;
   };
 }

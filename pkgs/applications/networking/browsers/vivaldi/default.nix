@@ -226,7 +226,7 @@ stdenv.mkDerivation rec {
     description = "A Browser for our Friends, powerful and personal";
     homepage = "https://vivaldi.com";
     license = licenses.unfree;
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     maintainers = with maintainers; [
       otwieracz
       badmutex

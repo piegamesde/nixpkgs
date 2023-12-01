@@ -30,12 +30,12 @@ stdenv.mkDerivation {
   dontBuild = true;
 
   nativeBuildInputs =
-    lib.optionals hostPlatform.isLinux [ autoPatchelfHook ]
-    ++ lib.optionals hostPlatform.isDarwin [ fixDarwinDylibNames ];
+    lib.optionals hostPlatform.isLinux [autoPatchelfHook]
+    ++ lib.optionals hostPlatform.isDarwin [fixDarwinDylibNames];
   propagatedBuildInputs = [
     curl
     tzdata
-  ] ++ lib.optionals hostPlatform.isLinux [ glibc ];
+  ] ++ lib.optionals hostPlatform.isLinux [glibc];
 
   installPhase = ''
     runHook preInstall
@@ -71,7 +71,7 @@ stdenv.mkDerivation {
     description = "Digital Mars D Compiler Package";
     # As of 2.075 all sources and binaries use the boost license
     license = licenses.boost;
-    maintainers = [ maintainers.lionello ];
+    maintainers = [maintainers.lionello];
     homepage = "https://dlang.org/";
     platforms = [
       "x86_64-darwin"

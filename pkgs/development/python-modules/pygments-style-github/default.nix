@@ -17,14 +17,14 @@ buildPythonPackage rec {
   # no tests exist on upstream repo
   doCheck = false;
 
-  propagatedBuildInputs = [ pygments ];
+  propagatedBuildInputs = [pygments];
 
-  pythonImportsCheck = [ "pygments_style_github" ];
+  pythonImportsCheck = ["pygments_style_github"];
 
   meta = with lib; {
     description = "A port of the github color scheme for pygments";
     homepage = "https://github.com/hugomaiavieira/pygments-style-github";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ drupol ];
+    maintainers = with maintainers; [drupol];
   };
 }

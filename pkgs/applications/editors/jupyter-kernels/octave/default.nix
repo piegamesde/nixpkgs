@@ -12,7 +12,7 @@
 # $(nix-build -E 'with import <nixpkgs> {}; jupyter.override { definitions = { octave = octave-kernel.definition; }; }')/bin/jupyter-notebook
 
 let
-  kernel = callPackage ./kernel.nix { python3Packages = python3.pkgs; };
+  kernel = callPackage ./kernel.nix {python3Packages = python3.pkgs;};
 in
 
 rec {
@@ -29,7 +29,7 @@ rec {
             kernel
           ]
         );
-        nativeBuildInputs = [ makeWrapper ];
+        nativeBuildInputs = [makeWrapper];
       }
       ''
         mkdir -p $out/bin
@@ -47,7 +47,7 @@ rec {
 
       src = octave.src;
 
-      buildInputs = [ imagemagick ];
+      buildInputs = [imagemagick];
 
       dontConfigure = true;
       dontInstall = true;

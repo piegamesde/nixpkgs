@@ -27,6 +27,6 @@ buildGoModule rec {
     homepage = "https://github.com/trickest/enumerepo";
     changelog = "https://github.com/trickest/enumerepo/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

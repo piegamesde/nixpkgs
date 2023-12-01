@@ -50,7 +50,7 @@ stdenv.mkDerivation rec {
     broken = stdenv.isDarwin;
     homepage = "https://github.com/atheme-legacy/libaosd";
     license = licenses.mit;
-    maintainers = with maintainers; [ unode ];
+    maintainers = with maintainers; [unode];
     platforms = with platforms; unix;
   };
 }

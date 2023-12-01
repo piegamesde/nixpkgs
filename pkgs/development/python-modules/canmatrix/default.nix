@@ -49,16 +49,16 @@ buildPythonPackage rec {
       --replace "version = versioneer.get_version()" "version = \"${version}\""
   '';
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
   # long_envvar_name_imports requires stable key value pair ordering
-  pytestFlagsArray = [ "-s src/canmatrix" ];
-  disabledTests = [ "long_envvar_name_imports" ];
-  pythonImportsCheck = [ "canmatrix" ];
+  pytestFlagsArray = ["-s src/canmatrix"];
+  disabledTests = ["long_envvar_name_imports"];
+  pythonImportsCheck = ["canmatrix"];
 
   meta = with lib; {
     homepage = "https://github.com/ebroecker/canmatrix";
     description = "Support and convert several CAN (Controller Area Network) database formats .arxml .dbc .dbf .kcd .sym fibex xls(x)";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ sorki ];
+    maintainers = with maintainers; [sorki];
   };
 }

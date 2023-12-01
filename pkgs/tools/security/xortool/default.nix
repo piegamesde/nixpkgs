@@ -19,7 +19,7 @@ buildPythonApplication rec {
     sha256 = "19lfadi28r89bl5q8fhrxgjgs3nx3kgjd4rdg7wbvzi1cn29c5n7";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   propagatedBuildInputs = [
     docopt
@@ -28,12 +28,12 @@ buildPythonApplication rec {
 
   # Project has no tests
   doCheck = false;
-  pythonImportsCheck = [ "xortool" ];
+  pythonImportsCheck = ["xortool"];
 
   meta = with lib; {
     description = "Tool to analyze multi-byte XOR cipher";
     homepage = "https://github.com/hellman/xortool";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

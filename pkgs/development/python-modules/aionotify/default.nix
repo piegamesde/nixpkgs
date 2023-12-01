@@ -24,13 +24,13 @@ buildPythonPackage rec {
       --replace "asyncio.wait_for(task, timeout, loop=self.loop)" "asyncio.wait_for(task, timeout)"
   '';
 
-  nativeCheckInputs = [ asynctest ];
+  nativeCheckInputs = [asynctest];
 
   meta = with lib; {
     homepage = "https://github.com/rbarrois/aionotify";
     description = "Simple, asyncio-based inotify library for Python";
-    license = with lib.licenses; [ bsd2 ];
+    license = with lib.licenses; [bsd2];
     platforms = platforms.linux;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
   };
 }

@@ -16,16 +16,16 @@ buildPythonPackage rec {
     sha256 = "07sq3517wzn04j2dzlmczmcvx3w6r7xnzz3634zgf1zi6dbr2a3g";
   };
 
-  propagatedBuildInputs = [ cmigemo ];
+  propagatedBuildInputs = [cmigemo];
 
   # package has no tests
   doCheck = false;
-  pythonImportsCheck = [ "percol" ];
+  pythonImportsCheck = ["percol"];
 
   meta = with lib; {
     homepage = "https://github.com/mooz/percol";
     description = "Adds flavor of interactive filtering to the traditional pipe concept of shell";
     license = licenses.mit;
-    maintainers = with maintainers; [ koral ];
+    maintainers = with maintainers; [koral];
   };
 }

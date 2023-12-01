@@ -25,6 +25,6 @@ buildPythonPackage rec {
     homepage = "https://www.nengo.ai/pytest-plt/";
     changelog = "https://github.com/nengo/pytest-plt/blob/master/CHANGES.rst";
     license = licenses.mit;
-    maintainers = [ maintainers.doronbehar ];
+    maintainers = [maintainers.doronbehar];
   };
 }

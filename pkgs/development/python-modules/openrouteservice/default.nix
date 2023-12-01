@@ -33,6 +33,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/GIScience/openrouteservice-py";
     description = "The Python API to consume openrouteservice(s) painlessly";
     license = licenses.asl20;
-    maintainers = with maintainers; [ Scriptkiddi ];
+    maintainers = with maintainers; [Scriptkiddi];
   };
 }

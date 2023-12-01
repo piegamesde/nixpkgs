@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-J5Gzd6R8CMqhsgRPrrHhD//LdpcVEQKnBB7i/pLL8ns=";
   };
 
-  buildInputs = [ commonsDaemon ];
+  buildInputs = [commonsDaemon];
   nativeBuildInputs = [
     jdk
     makeWrapper
@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
   meta = {
     homepage = "https://commons.apache.org/proper/commons-daemon";
     description = "JSVC is part of the Apache Commons Daemon software, a set of utilities and Java support classes for running Java applications as server processes.";
-    maintainers = with lib.maintainers; [ rsynnest ];
+    maintainers = with lib.maintainers; [rsynnest];
     license = lib.licenses.asl20;
     platforms = with lib.platforms; unix;
   };

@@ -22,18 +22,18 @@ buildPythonPackage rec {
     hash = "sha256-iJEcXpvy+Y3MkxAF2Q1Tkcx8GxUVjeVzv6gl134zdiI=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
-  propagatedBuildInputs = [ click ];
+  propagatedBuildInputs = [click];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "kml2geojson" ];
+  pythonImportsCheck = ["kml2geojson"];
 
   meta = with lib; {
     description = "Library to convert KML to GeoJSON";
     homepage = "https://github.com/mrcagney/kml2geojson";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

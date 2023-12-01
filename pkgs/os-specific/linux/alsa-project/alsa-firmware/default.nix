@@ -25,10 +25,10 @@ stdenvNoCC.mkDerivation rec {
       })
     ];
 
-  depsBuildBuild = [ buildPackages.stdenv.cc ];
-  nativeBuildInputs = [ autoreconfHook ];
+  depsBuildBuild = [buildPackages.stdenv.cc];
+  nativeBuildInputs = [autoreconfHook];
 
-  configureFlags = [ "--with-hotplug-dir=$(out)/lib/firmware" ];
+  configureFlags = ["--with-hotplug-dir=$(out)/lib/firmware"];
 
   dontStrip = true;
 
@@ -47,6 +47,6 @@ stdenvNoCC.mkDerivation rec {
     description = "Soundcard firmwares from the alsa project";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ l-as ];
+    maintainers = with maintainers; [l-as];
   };
 }

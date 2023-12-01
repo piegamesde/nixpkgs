@@ -17,9 +17,9 @@ buildPythonPackage rec {
     hash = "sha256-lYMRFFMS+ETjWd4xi12ezC8CVLbLJfynmOU1DpYQcck=";
   };
 
-  propagatedBuildInputs = [ cython ];
+  propagatedBuildInputs = [cython];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   preCheck = ''
     TEMPDIR=$(mktemp -d)
@@ -35,6 +35,6 @@ buildPythonPackage rec {
     description = "Cython memory pool for RAII-style memory management";
     homepage = "https://github.com/explosion/cymem";
     license = licenses.mit;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

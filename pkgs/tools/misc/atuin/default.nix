@@ -29,7 +29,7 @@ rustPlatform.buildRustPackage rec {
     else
       "sha256-UNuoW/EOGtuNROm1qZJ4afDfMlecziVsem1m3Z1ZsOU=";
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   buildInputs = lib.optionals stdenv.isDarwin [
     libiconv
@@ -44,7 +44,7 @@ rustPlatform.buildRustPackage rec {
       --zsh <($out/bin/atuin gen-completions -s zsh)
   '';
 
-  nativeCheckInputs = lib.optionals xvfb-run.meta.available [ xvfb-run ];
+  nativeCheckInputs = lib.optionals xvfb-run.meta.available [xvfb-run];
 
   checkPhase = lib.optionalString xvfb-run.meta.available ''
     runHook preCheck

@@ -46,13 +46,13 @@ buildPythonPackage rec {
     "tests/functional/push"
   ];
 
-  pythonImportsCheck = [ "pubnub" ];
+  pythonImportsCheck = ["pubnub"];
 
   meta = with lib; {
     description = "Python-based APIs for PubNub";
     homepage = "https://github.com/pubnub/python";
     changelog = "https://github.com/pubnub/python/releases/tag/${version}";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
   pname = "winetricks";
   version = src.version;
 
-  src = (callPackage ./sources.nix { }).winetricks;
+  src = (callPackage ./sources.nix {}).winetricks;
 
   buildInputs = [
     perl
@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
     bash
   ];
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   doCheck = false; # requires "bashate"
 

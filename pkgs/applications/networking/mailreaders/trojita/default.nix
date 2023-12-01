@@ -85,7 +85,7 @@ mkDerivation rec {
       gpl2
       gpl3
     ];
-    maintainers = with maintainers; [ ehmry ];
+    maintainers = with maintainers; [ehmry];
     platforms = platforms.linux;
   };
 }

@@ -22,7 +22,7 @@ stdenvNoCC.mkDerivation {
   meta = with lib; {
     description = "Firmware for Realtek rt5677 device";
     license = licenses.unfreeRedistributableFirmware;
-    maintainers = [ maintainers.zohl ];
+    maintainers = [maintainers.zohl];
     platforms = platforms.linux;
   };
 }

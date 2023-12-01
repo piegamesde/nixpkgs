@@ -1,19 +1,19 @@
 {
   system ? builtins.currentSystem,
-  config ? { },
-  pkgs ? import ../.. { inherit system config; },
+  config ? {},
+  pkgs ? import ../.. {inherit system config;},
 }:
 
-with import ../lib/testing-python.nix { inherit system pkgs; };
+with import ../lib/testing-python.nix {inherit system pkgs;};
 with pkgs.lib;
 
 {
   test1 = makeTest {
     name = "vector-test1";
-    meta.maintainers = [ pkgs.lib.maintainers.happysalada ];
+    meta.maintainers = [pkgs.lib.maintainers.happysalada];
 
     nodes.machine =
-      { config, pkgs, ... }:
+      {config, pkgs, ...}:
       {
         services.vector = {
           enable = true;
@@ -24,7 +24,7 @@ with pkgs.lib;
             sinks = {
               file = {
                 type = "file";
-                inputs = [ "journald" ];
+                inputs = ["journald"];
                 path = "/var/lib/vector/logs.log";
                 encoding = {
                   codec = "json";

@@ -72,7 +72,7 @@ stdenv.mkDerivation (
       substituteInPlace gtksourceview/gtksourceview-utils.c --replace "@NIX_SHARE_PATH@" "$out/share"
     '';
 
-    patches = [ ./3.x-nix_share_path.patch ];
+    patches = [./3.x-nix_share_path.patch];
 
     enableParallelBuilding = true;
 
@@ -89,7 +89,7 @@ stdenv.mkDerivation (
 
     meta = with lib; {
       homepage = "https://wiki.gnome.org/Projects/GtkSourceView";
-      pkgConfigModules = [ "gtksourceview-3.0" ];
+      pkgConfigModules = ["gtksourceview-3.0"];
       platforms = with platforms; linux ++ darwin;
       license = licenses.lgpl21;
       maintainers = teams.gnome.members;

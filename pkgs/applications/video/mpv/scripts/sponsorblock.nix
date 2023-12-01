@@ -48,7 +48,7 @@ stdenvNoCC.mkDerivation {
 
   passthru = {
     scriptName = "sponsorblock.lua";
-    updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
+    updateScript = nix-update-script {extraArgs = ["--version=branch"];};
   };
 
   meta = with lib; {
@@ -56,6 +56,6 @@ stdenvNoCC.mkDerivation {
     homepage = "https://github.com/po5/mpv_sponsorblock";
     license = licenses.gpl3;
     platforms = platforms.all;
-    maintainers = with maintainers; [ pacien ];
+    maintainers = with maintainers; [pacien];
   };
 }

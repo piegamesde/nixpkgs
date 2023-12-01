@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "lack";
   version = "20211209-git";
@@ -21,7 +21,7 @@ rec {
 
   packageName = "lack";
 
-  asdFilesToKeep = [ "lack.asd" ];
+  asdFilesToKeep = ["lack.asd"];
   overrides = x: x;
 }
 /* (SYSTEM lack DESCRIPTION A minimal Clack SHA256

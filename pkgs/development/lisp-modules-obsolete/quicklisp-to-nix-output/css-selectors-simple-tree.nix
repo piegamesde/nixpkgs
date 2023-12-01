@@ -1,5 +1,5 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "css-selectors-simple-tree";
   version = "css-selectors-20160628-git";
@@ -40,7 +40,7 @@ rec {
 
   packageName = "css-selectors-simple-tree";
 
-  asdFilesToKeep = [ "css-selectors-simple-tree.asd" ];
+  asdFilesToKeep = ["css-selectors-simple-tree.asd"];
   overrides = x: x;
 }
 /* (SYSTEM css-selectors-simple-tree DESCRIPTION

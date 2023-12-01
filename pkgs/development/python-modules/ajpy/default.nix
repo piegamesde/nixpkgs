@@ -20,6 +20,6 @@ buildPythonPackage rec {
     description = "AJP package crafting library";
     homepage = "https://github.com/hypn0s/AJPy/";
     license = licenses.lgpl2;
-    maintainers = with maintainers; [ y0no ];
+    maintainers = with maintainers; [y0no];
   };
 }

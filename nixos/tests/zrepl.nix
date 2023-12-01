@@ -2,12 +2,12 @@ import ./make-test-python.nix ({
   name = "zrepl";
 
   nodes.host =
-    { config, pkgs, ... }:
+    {config, pkgs, ...}:
     {
       config = {
         # Prerequisites for ZFS and tests.
-        boot.supportedFilesystems = [ "zfs" ];
-        environment.systemPackages = [ pkgs.zrepl ];
+        boot.supportedFilesystems = ["zfs"];
+        environment.systemPackages = [pkgs.zrepl];
         networking.hostId = "deadbeef";
         services.zrepl = {
           enable = true;

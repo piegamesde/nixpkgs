@@ -17,12 +17,12 @@ buildPythonPackage rec {
 
   # Tests are not included in the PyPI distribution and the git repo does not have tagged releases
   doCheck = false;
-  pythonImportsCheck = [ "spinners" ];
+  pythonImportsCheck = ["spinners"];
 
   meta = with lib; {
     description = "Spinners for the Terminal.";
     homepage = "https://github.com/manrajgrover/py-spinners";
     license = licenses.mit;
-    maintainers = with maintainers; [ urbas ];
+    maintainers = with maintainers; [urbas];
   };
 }

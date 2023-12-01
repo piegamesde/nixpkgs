@@ -29,10 +29,10 @@ buildGoModule rec {
     "cmd/logcli"
   ];
 
-  tags = [ "promtail_journal_enabled" ];
+  tags = ["promtail_journal_enabled"];
 
-  nativeBuildInputs = [ makeWrapper ];
-  buildInputs = lib.optionals stdenv.isLinux [ systemd.dev ];
+  nativeBuildInputs = [makeWrapper];
+  buildInputs = lib.optionals stdenv.isLinux [systemd.dev];
 
   preFixup = lib.optionalString stdenv.isLinux ''
     wrapProgram $out/bin/promtail \

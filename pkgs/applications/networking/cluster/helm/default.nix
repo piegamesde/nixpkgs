@@ -19,7 +19,7 @@ buildGoModule rec {
   };
   vendorHash = "sha256-uz3ZqCcT+rmhNCO+y3PuCXWjTxUx8u3XDgcJxt7A37g=";
 
-  subPackages = [ "cmd/helm" ];
+  subPackages = ["cmd/helm"];
   ldflags = [
     "-w"
     "-s"
@@ -41,7 +41,7 @@ buildGoModule rec {
       --replace "TestPluginExitCode" "SkipPluginExitCode"
   '';
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
   postInstall = ''
     $out/bin/helm completion bash > helm.bash
     $out/bin/helm completion zsh > helm.zsh

@@ -33,12 +33,12 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "mkdocs" ];
+  pythonImportsCheck = ["mkdocs"];
 
   meta = with lib; {
     description = "A mkdocs plugin to minify the HTML of a page before it is written to disk.";
     homepage = "https://github.com/byrnereese/mkdocs-minify-plugin";
     license = licenses.mit;
-    maintainers = with maintainers; [ tfc ];
+    maintainers = with maintainers; [tfc];
   };
 }

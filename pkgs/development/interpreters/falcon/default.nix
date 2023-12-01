@@ -37,7 +37,7 @@ stdenv.mkDerivation {
   meta = with lib; {
     description = "Programming language with macros and syntax at once";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ pSub ];
+    maintainers = with maintainers; [pSub];
     platforms = with platforms; unix;
   };
 }

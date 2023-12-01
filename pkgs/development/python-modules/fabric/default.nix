@@ -43,12 +43,12 @@ buildPythonPackage rec {
   # See https://docs.pytest.org/en/stable/deprecations.html#node-construction-changed-to-node-from-parent for more details.
   doCheck = false;
 
-  pythonImportsCheck = [ "fabric" ];
+  pythonImportsCheck = ["fabric"];
 
   meta = with lib; {
     description = "Pythonic remote execution";
     homepage = "https://www.fabfile.org/";
     license = licenses.bsd2;
-    maintainers = [ maintainers.costrouc ];
+    maintainers = [maintainers.costrouc];
   };
 }

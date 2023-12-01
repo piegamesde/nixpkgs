@@ -25,14 +25,14 @@ buildPythonPackage rec {
     olefile
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "agate" ];
+  pythonImportsCheck = ["agate"];
 
   meta = with lib; {
     description = "Adds read support for excel files to agate";
     homepage = "https://github.com/wireservice/agate-excel";
     license = licenses.mit;
-    maintainers = with maintainers; [ vrthra ];
+    maintainers = with maintainers; [vrthra];
   };
 }

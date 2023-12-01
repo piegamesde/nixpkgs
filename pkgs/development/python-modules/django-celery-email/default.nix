@@ -38,12 +38,12 @@ buildPythonPackage rec {
     ${python.executable} runtests.py
   '';
 
-  pythonImportsCheck = [ "djcelery_email" ];
+  pythonImportsCheck = ["djcelery_email"];
 
   meta = with lib; {
     homepage = "https://github.com/pmclanahan/django-celery-email";
     description = "Django email backend that uses a celery task for sending the email";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ onny ];
+    maintainers = with maintainers; [onny];
   };
 }

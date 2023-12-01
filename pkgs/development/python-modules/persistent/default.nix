@@ -31,13 +31,13 @@ buildPythonPackage rec {
     cffi
   ];
 
-  pythonImportsCheck = [ "persistent" ];
+  pythonImportsCheck = ["persistent"];
 
   meta = with lib; {
     description = "Automatic persistence for Python objects";
     homepage = "https://github.com/zopefoundation/persistent/";
     changelog = "https://github.com/zopefoundation/persistent/blob/${version}/CHANGES.rst";
     license = licenses.zpl21;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

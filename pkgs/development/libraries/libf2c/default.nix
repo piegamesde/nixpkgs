@@ -31,9 +31,9 @@ stdenv.mkDerivation rec {
     cp f2c.h $out/include
   '';
 
-  nativeBuildInputs = [ unzip ];
+  nativeBuildInputs = [unzip];
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   # Makefile is missing depepdencies on generated headers:
   #   main.c:4:10: fatal error: signal1.h: No such file or directory

@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
     ln -s ${updfparser}/lib lib/updfparser
   '';
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
   buildInputs = [
     pugixml
     updfparser
@@ -59,7 +59,7 @@ stdenv.mkDerivation rec {
     description = "Implementation of Adobe's ADEPT protocol for ePub/PDF DRM";
     homepage = "https://indefero.soutade.fr/p/libgourou";
     license = licenses.lgpl3Plus;
-    maintainers = with maintainers; [ autumnal ];
+    maintainers = with maintainers; [autumnal];
     platforms = platforms.all;
     broken = stdenv.isDarwin;
   };

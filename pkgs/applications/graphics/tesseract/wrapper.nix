@@ -23,7 +23,7 @@ let
     _: {
       inherit tesseractBase tessdata;
 
-      nativeBuildInputs = [ makeWrapper ];
+      nativeBuildInputs = [makeWrapper];
 
       buildCommand = ''
         makeWrapper {$tesseractBase,$out}/bin/tesseract --set-default TESSDATA_PREFIX $out/share/tessdata
@@ -88,7 +88,7 @@ let
   };
 
   tesseract =
-    (if enableLanguages == [ ] then tesseractBase else tesseractWithData) // passthru // test;
+    (if enableLanguages == [] then tesseractBase else tesseractWithData) // passthru // test;
 in
 if enableLanguagesHash == null then
   tesseract

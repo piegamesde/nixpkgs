@@ -1,17 +1,17 @@
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   {
     name = "shattered-pixel-dungeon";
-    meta = with pkgs.lib.maintainers; { maintainers = [ fgaz ]; };
+    meta = with pkgs.lib.maintainers; {maintainers = [fgaz];};
 
     nodes.machine =
-      { config, pkgs, ... }:
+      {config, pkgs, ...}:
       {
-        imports = [ ./common/x11.nix ];
+        imports = [./common/x11.nix];
 
         services.xserver.enable = true;
         sound.enable = true;
-        environment.systemPackages = [ pkgs.shattered-pixel-dungeon ];
+        environment.systemPackages = [pkgs.shattered-pixel-dungeon];
       };
 
     enableOCR = true;

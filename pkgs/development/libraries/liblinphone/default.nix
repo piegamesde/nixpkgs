@@ -87,6 +87,6 @@ stdenv.mkDerivation rec {
     description = "Library for SIP calls and instant messaging";
     license = licenses.gpl3Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ jluttine ];
+    maintainers = with maintainers; [jluttine];
   };
 }

@@ -110,12 +110,12 @@ in
       createHome = true;
     };
 
-    users.groups.${cfg.group} = { };
+    users.groups.${cfg.group} = {};
 
     systemd.services.plantuml-server = {
       description = "PlantUML server";
-      wantedBy = [ "multi-user.target" ];
-      path = [ cfg.home ];
+      wantedBy = ["multi-user.target"];
+      path = [cfg.home];
       environment = {
         PLANTUML_LIMIT_SIZE = builtins.toString cfg.plantumlLimitSize;
         GRAPHVIZ_DOT = "${cfg.graphvizPackage}/bin/dot";
@@ -140,5 +140,5 @@ in
     };
   };
 
-  meta.maintainers = with lib.maintainers; [ truh ];
+  meta.maintainers = with lib.maintainers; [truh];
 }

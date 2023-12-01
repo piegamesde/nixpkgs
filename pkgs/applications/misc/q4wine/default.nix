@@ -58,7 +58,7 @@ mkDerivation rec {
     homepage = "https://q4wine.brezblock.org.ua/";
     description = "A Qt GUI for Wine to manage prefixes and applications";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ rkitover ];
+    maintainers = with maintainers; [rkitover];
     platforms = platforms.unix;
   };
 }

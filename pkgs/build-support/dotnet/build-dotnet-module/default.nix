@@ -21,20 +21,20 @@
   enableParallelBuilding ? true,
   doCheck ? false,
   # Flags to pass to `makeWrapper`. This is done to avoid double wrapping.
-  makeWrapperArgs ? [ ],
+  makeWrapperArgs ? [],
 
   # Flags to pass to `dotnet restore`.
-  dotnetRestoreFlags ? [ ],
+  dotnetRestoreFlags ? [],
   # Flags to pass to `dotnet build`.
-  dotnetBuildFlags ? [ ],
+  dotnetBuildFlags ? [],
   # Flags to pass to `dotnet test`, if running tests is enabled.
-  dotnetTestFlags ? [ ],
+  dotnetTestFlags ? [],
   # Flags to pass to `dotnet install`.
-  dotnetInstallFlags ? [ ],
+  dotnetInstallFlags ? [],
   # Flags to pass to `dotnet pack`.
-  dotnetPackFlags ? [ ],
+  dotnetPackFlags ? [],
   # Flags to pass to dotnet in all phases.
-  dotnetFlags ? [ ],
+  dotnetFlags ? [],
 
   # The path to publish the project to. When unset, the directory "$out/lib/$pname" is used.
   installPath ? null,
@@ -57,17 +57,17 @@
   # To enable discovery through `projectReferences` you would need to add a line:
   #     <ProjectReference Include="../foo/bar.fsproj" />
   #     <PackageReference Include="bar" Version="*" Condition=" '$(ContinuousIntegrationBuild)'=='true' "/>
-  projectReferences ? [ ],
+  projectReferences ? [],
   # Libraries that need to be available at runtime should be passed through this.
   # These get wrapped into `LD_LIBRARY_PATH`.
-  runtimeDeps ? [ ],
+  runtimeDeps ? [],
   # The dotnet runtime ID. If null, fetch-deps will gather dependencies for all
   # platforms in meta.platforms which are supported by the sdk.
   runtimeId ? null,
 
   # Tests to disable. This gets passed to `dotnet test --filter "FullyQualifiedName!={}"`, to ensure compatibility with all frameworks.
   # See https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-test#filter-option-details for more details.
-  disabledTests ? [ ],
+  disabledTests ? [],
   # The project file to run unit tests against. This is usually referenced in the regular project file, but sometimes it needs to be manually set.
   # It gets restored and build, but not installed. You may need to regenerate your nuget lockfile after setting this.
   testProjectFile ? "",
@@ -119,7 +119,7 @@ let
     ;
 
   localDeps =
-    if (projectReferences != [ ]) then
+    if (projectReferences != []) then
       linkFarmFromDrvs "${name}-project-references" projectReferences
     else
       null;
@@ -140,13 +140,13 @@ let
   dependenciesSource = mkNugetSource {
     name = "${name}-dependencies-source";
     description = "A Nuget source with the dependencies for ${name}";
-    deps = [ _nugetDeps ] ++ lib.optional (localDeps != null) localDeps;
+    deps = [_nugetDeps] ++ lib.optional (localDeps != null) localDeps;
   };
 
   # this contains all the nuget packages that are implicitly referenced by the dotnet
   # build system. having them as separate deps allows us to avoid having to regenerate
   # a packages dependencies when the dotnet-sdk version changes
-  sdkDeps = lib.lists.flatten [ dotnet-sdk.packages ];
+  sdkDeps = lib.lists.flatten [dotnet-sdk.packages];
 
   sdkSource =
     let
@@ -168,7 +168,7 @@ in
 stdenvNoCC.mkDerivation (
   args
   // {
-    nativeBuildInputs = args.nativeBuildInputs or [ ] ++ [
+    nativeBuildInputs = args.nativeBuildInputs or [] ++ [
       dotnetConfigureHook
       dotnetBuildHook
       dotnetCheckHook
@@ -180,7 +180,7 @@ stdenvNoCC.mkDerivation (
       dotnet-sdk
     ];
 
-    makeWrapperArgs = args.makeWrapperArgs or [ ] ++ [
+    makeWrapperArgs = args.makeWrapperArgs or [] ++ [
       "--prefix LD_LIBRARY_PATH : ${dotnet-sdk.icu}/lib"
     ];
 
@@ -200,7 +200,7 @@ stdenvNoCC.mkDerivation (
           flags = dotnetFlags ++ dotnetRestoreFlags;
           runtimeIds =
             if runtimeId != null then
-              [ runtimeId ]
+              [runtimeId]
             else
               map (system: dotnetCorePackages.systemToDotnetRid system) platforms;
           defaultDepsFile =
@@ -221,7 +221,7 @@ stdenvNoCC.mkDerivation (
             lib.makeBinPath [
               coreutils
               dotnet-sdk
-              (nuget-to-nix.override { inherit dotnet-sdk; })
+              (nuget-to-nix.override {inherit dotnet-sdk;})
             ]
           }"
 
@@ -280,7 +280,7 @@ stdenvNoCC.mkDerivation (
                   --no-cache \
                   --force \
                   ${lib.optionalString (!enableParallelBuilding) "--disable-parallel"} \
-                  ${lib.optionalString (flags != [ ]) (toString flags)}
+                  ${lib.optionalString (flags != []) (toString flags)}
           }
 
           declare -a projectFiles=( ${toString (lib.toList projectFile)} )
@@ -321,14 +321,14 @@ stdenvNoCC.mkDerivation (
           nuget-to-nix "$tmp/nuget_pkgs" "$tmp/excluded_list" >> "$depsFile"
           echo "Succesfully wrote lockfile to $depsFile"
         '';
-    } // args.passthru or { };
+    } // args.passthru or {};
 
-    meta = (args.meta or { }) // {
+    meta = (args.meta or {}) // {
       inherit platforms;
     };
   }
   # ICU tries to unconditionally load files from /usr/share/icu on Darwin, which makes builds fail
   # in the sandbox, so disable ICU on Darwin. This, as far as I know, shouldn't cause any built packages
   # to behave differently, just the dotnet build tool.
-  // lib.optionalAttrs stdenvNoCC.isDarwin { DOTNET_SYSTEM_GLOBALIZATION_INVARIANT = 1; }
+  // lib.optionalAttrs stdenvNoCC.isDarwin {DOTNET_SYSTEM_GLOBALIZATION_INVARIANT = 1;}
 )

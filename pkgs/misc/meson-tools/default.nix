@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     sha256 = "1bvshfa9pa012yzdwapi3nalpgcwmfq7d3n3w3mlr357a6kq64qk";
   };
 
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
 
   installPhase = ''
     mkdir -p "$out/bin"
@@ -27,6 +27,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/afaerber/meson-tools";
     description = "Tools for Amlogic Meson ARM platforms";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ lopsided98 ];
+    maintainers = with maintainers; [lopsided98];
   };
 }

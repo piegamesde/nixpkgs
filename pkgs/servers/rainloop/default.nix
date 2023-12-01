@@ -9,7 +9,7 @@
 }:
 let
   common =
-    { edition, sha256 }:
+    {edition, sha256}:
     stdenv.mkDerivation (rec {
       pname = "rainloop${lib.optionalString (edition != "") "-${edition}"}";
       version = "1.16.0";
@@ -35,7 +35,7 @@ let
         dos2unix ./rainloop/rainloop/v/1.16.0/app/libraries/MailSo/Base/HtmlUtils.php
       '';
 
-      patches = [ ./fix-cve-2022-29360.patch ];
+      patches = [./fix-cve-2022-29360.patch];
 
       postPatch = ''
         unix2dos ./rainloop/rainloop/v/1.16.0/app/libraries/MailSo/Base/HtmlUtils.php
@@ -69,7 +69,7 @@ let
         downloadPage = "https://github.com/RainLoop/rainloop-webmail/releases";
         license = with licenses; if edition == "" then unfree else agpl3;
         platforms = platforms.all;
-        maintainers = with maintainers; [ das_j ];
+        maintainers = with maintainers; [das_j];
       };
     });
 in

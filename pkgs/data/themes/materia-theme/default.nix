@@ -34,11 +34,11 @@ stdenv.mkDerivation rec {
     librsvg
   ];
 
-  propagatedUserEnvPkgs = [ gtk-engine-murrine ];
+  propagatedUserEnvPkgs = [gtk-engine-murrine];
 
   dontBuild = true;
 
-  mesonFlags = [ "-Dgnome_shell_version=${lib.versions.majorMinor gnome.gnome-shell.version}" ];
+  mesonFlags = ["-Dgnome_shell_version=${lib.versions.majorMinor gnome.gnome-shell.version}"];
 
   postInstall = ''
     rm $out/share/themes/*/COPYING
@@ -49,6 +49,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/nana-4/materia-theme";
     license = licenses.gpl2Only;
     platforms = platforms.all;
-    maintainers = [ maintainers.mounium ];
+    maintainers = [maintainers.mounium];
   };
 }

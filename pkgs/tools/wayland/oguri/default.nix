@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/vilhalmer/oguri/";
     description = "A very nice animated wallpaper daemon for Wayland compositors";
     license = licenses.mit;
-    maintainers = with maintainers; [ AndersonTorres ];
+    maintainers = with maintainers; [AndersonTorres];
     inherit (wayland.meta) platforms;
     broken = stdenv.isDarwin; # this should be enfoced by wayland platforms in the future
   };

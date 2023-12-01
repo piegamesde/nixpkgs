@@ -45,9 +45,9 @@ stdenv.mkDerivation rec {
     unoconv
     makeWrapper
   ];
-  buildInputs = [ jre ];
+  buildInputs = [jre];
 
-  patches = [ ./0001-jpsxdec-hackfix-build-with-newer-JDKs.patch ];
+  patches = [./0001-jpsxdec-hackfix-build-with-newer-JDKs.patch];
 
   buildPhase = ''
     runHook preBuild
@@ -84,6 +84,6 @@ stdenv.mkDerivation rec {
       url = "https://raw.githubusercontent.com/m35/jpsxdec/readme/.github/LICENSE.md";
       free = true;
     };
-    maintainers = with maintainers; [ zane ];
+    maintainers = with maintainers; [zane];
   };
 }

@@ -30,8 +30,8 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-drvQXfDZCZRycBZt/VNngy8zs4XVJg+d1b4dQXVcyFU=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ bison ];
+  nativeBuildInputs = [makeWrapper];
+  buildInputs = [bison];
 
   sourceRoot = "source/Src";
 
@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
   '';
 
   enableParallelBuilding = true;
-  makeFlags = [ "DESTDIR=$(out)" ];
+  makeFlags = ["DESTDIR=$(out)"];
 
   postInstall = ''
     wrapProgram $out/bin/spin --prefix PATH : ${binPath}

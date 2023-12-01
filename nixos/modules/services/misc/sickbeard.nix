@@ -80,12 +80,12 @@ in
       };
     };
 
-    users.groups = optionalAttrs (cfg.group == name) { ${name}.gid = config.ids.gids.sickbeard; };
+    users.groups = optionalAttrs (cfg.group == name) {${name}.gid = config.ids.gids.sickbeard;};
 
     systemd.services.sickbeard = {
       description = "Sickbeard Server";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
 
       serviceConfig = {
         User = cfg.user;

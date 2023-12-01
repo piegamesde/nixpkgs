@@ -39,6 +39,6 @@ stdenv.mkDerivation {
     homepage = "https://languagemachines.github.io/frog";
     license = licenses.gpl3;
     platforms = platforms.all;
-    maintainers = with maintainers; [ roberth ];
+    maintainers = with maintainers; [roberth];
   };
 }

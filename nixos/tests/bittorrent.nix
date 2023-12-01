@@ -7,7 +7,7 @@
 # protocol to poke a hole in the NAT.
 
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
 
   let
 
@@ -22,9 +22,9 @@ import ./make-test-python.nix (
 
     download-dir = "/var/lib/transmission/Downloads";
     transmissionConfig =
-      { ... }:
+      {...}:
       {
-        environment.systemPackages = [ pkgs.transmission ];
+        environment.systemPackages = [pkgs.transmission];
         services.transmission = {
           enable = true;
           settings = {
@@ -49,11 +49,11 @@ import ./make-test-python.nix (
 
     nodes = {
       tracker =
-        { pkgs, ... }:
+        {pkgs, ...}:
         {
-          imports = [ transmissionConfig ];
+          imports = [transmissionConfig];
 
-          virtualisation.vlans = [ 1 ];
+          virtualisation.vlans = [1];
           networking.firewall.enable = false;
           networking.interfaces.eth1.ipv4.addresses = [
             {
@@ -76,18 +76,18 @@ import ./make-test-python.nix (
         };
 
       router =
-        { pkgs, nodes, ... }:
+        {pkgs, nodes, ...}:
         {
           virtualisation.vlans = [
             1
             2
           ];
           networking.nat.enable = true;
-          networking.nat.internalInterfaces = [ "eth2" ];
+          networking.nat.internalInterfaces = ["eth2"];
           networking.nat.externalInterface = "eth1";
           networking.firewall.enable = true;
-          networking.firewall.trustedInterfaces = [ "eth2" ];
-          networking.interfaces.eth0.ipv4.addresses = [ ];
+          networking.firewall.trustedInterfaces = ["eth2"];
+          networking.interfaces.eth0.ipv4.addresses = [];
           networking.interfaces.eth1.ipv4.addresses = [
             {
               address = externalRouterAddress;
@@ -103,7 +103,7 @@ import ./make-test-python.nix (
           services.miniupnpd = {
             enable = true;
             externalInterface = "eth1";
-            internalIPs = [ "eth2" ];
+            internalIPs = ["eth2"];
             appendConfig = ''
               ext_ip=${externalRouterAddress}
             '';
@@ -111,13 +111,13 @@ import ./make-test-python.nix (
         };
 
       client1 =
-        { pkgs, nodes, ... }:
+        {pkgs, nodes, ...}:
         {
-          imports = [ transmissionConfig ];
-          environment.systemPackages = [ pkgs.miniupnpc ];
+          imports = [transmissionConfig];
+          environment.systemPackages = [pkgs.miniupnpc];
 
-          virtualisation.vlans = [ 2 ];
-          networking.interfaces.eth0.ipv4.addresses = [ ];
+          virtualisation.vlans = [2];
+          networking.interfaces.eth0.ipv4.addresses = [];
           networking.interfaces.eth1.ipv4.addresses = [
             {
               address = internalClient1Address;
@@ -129,12 +129,12 @@ import ./make-test-python.nix (
         };
 
       client2 =
-        { pkgs, ... }:
+        {pkgs, ...}:
         {
-          imports = [ transmissionConfig ];
+          imports = [transmissionConfig];
 
-          virtualisation.vlans = [ 1 ];
-          networking.interfaces.eth0.ipv4.addresses = [ ];
+          virtualisation.vlans = [1];
+          networking.interfaces.eth0.ipv4.addresses = [];
           networking.interfaces.eth1.ipv4.addresses = [
             {
               address = externalClient2Address;
@@ -146,7 +146,7 @@ import ./make-test-python.nix (
     };
 
     testScript =
-      { nodes, ... }:
+      {nodes, ...}:
       ''
         start_all()
 

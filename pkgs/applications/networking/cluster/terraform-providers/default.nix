@@ -52,7 +52,7 @@ let
         deleteVendor
         proxyVendor
         ;
-      subPackages = [ "." ];
+      subPackages = ["."];
       doCheck = false;
       # https://github.com/hashicorp/terraform-provider-scaffolding/blob/a8ac8375a7082befe55b71c8cbb048493dd220c2/.goreleaser.yml
       # goreleaser (used for builds distributed via terraform registry) requires that CGO is disabled
@@ -105,13 +105,13 @@ let
   # These are the providers that don't fall in line with the default model
   special-providers = {
     # github api seems to be broken, doesn't just fail to recognize the license, it's ignored entirely.
-    checkly = automated-providers.checkly.override { spdx = "MIT"; };
+    checkly = automated-providers.checkly.override {spdx = "MIT";};
     gitlab = automated-providers.gitlab.override {
       mkProviderFetcher = fetchFromGitLab;
       owner = "gitlab-org";
     };
     # mkisofs needed to create ISOs holding cloud-init data and wrapped to terraform via deecb4c1aab780047d79978c636eeb879dd68630
-    libvirt = automated-providers.libvirt.overrideAttrs (_: { propagatedBuildInputs = [ cdrtools ]; });
+    libvirt = automated-providers.libvirt.overrideAttrs (_: {propagatedBuildInputs = [cdrtools];});
   };
 
   # Put all the providers we not longer support in this list.
@@ -142,4 +142,4 @@ let
   # excluding aliases, used by terraform-full
   actualProviders = automated-providers // special-providers;
 in
-actualProviders // removed-providers // { inherit actualProviders mkProvider; }
+actualProviders // removed-providers // {inherit actualProviders mkProvider;}

@@ -14,7 +14,7 @@ stdenv.mkDerivation rec {
     url = "http://www.catb.org/~esr/${pname}/${pname}-${version}.tar.gz";
     sha256 = "sha256-BEuMbICJ8TD3+VjUr8rmhss7XlPNjxSy1P0SkmKLPsc=";
   };
-  buildInputs = [ python3 ];
+  buildInputs = [python3];
   nativeBuildInputs = [
     python3
     makeWrapper
@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = ["PREFIX=$(out)"];
 
   preInstall = ''
     mkdir -p $out/bin

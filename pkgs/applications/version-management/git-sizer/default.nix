@@ -27,12 +27,12 @@ buildGoModule rec {
 
   doCheck = false;
 
-  passthru.tests.vesion = testers.testVersion { package = git-sizer; };
+  passthru.tests.vesion = testers.testVersion {package = git-sizer;};
 
   meta = with lib; {
     description = "Compute various size metrics for a Git repository";
     homepage = "https://github.com/github/git-sizer";
     license = licenses.mit;
-    maintainers = with maintainers; [ matthewbauer ];
+    maintainers = with maintainers; [matthewbauer];
   };
 }

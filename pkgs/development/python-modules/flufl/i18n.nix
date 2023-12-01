@@ -11,12 +11,12 @@ buildPythonPackage rec {
   version = "4.1.1";
   format = "pyproject";
 
-  nativeBuildInputs = [ pdm-pep517 ];
-  propagatedBuildInputs = [ atpublic ];
+  nativeBuildInputs = [pdm-pep517];
+  propagatedBuildInputs = [atpublic];
 
   doCheck = false;
 
-  pythonImportsCheck = [ "flufl.i18n" ];
+  pythonImportsCheck = ["flufl.i18n"];
 
   src = fetchPypi {
     inherit pname version;
@@ -28,6 +28,6 @@ buildPythonPackage rec {
     homepage = "https://gitlab.com/warsaw/flufl.i18n";
     changelog = "https://gitlab.com/warsaw/flufl.i18n/-/raw/${version}/docs/NEWS.rst";
     license = licenses.asl20;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

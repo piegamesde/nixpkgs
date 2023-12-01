@@ -56,7 +56,7 @@ stdenv.mkDerivation rec {
          It has ten different levels and a level editor to create new levels or modify the existing.''; # from https://libregamewiki.org/FLTrator
     homepage = "https://fltrator.sourceforge.net/";
     platforms = platforms.linux;
-    maintainers = [ maintainers.marius851000 ];
+    maintainers = [maintainers.marius851000];
     license = licenses.gpl3;
   };
 }

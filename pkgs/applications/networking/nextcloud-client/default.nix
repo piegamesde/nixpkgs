@@ -80,9 +80,9 @@ mkDerivation rec {
   ];
 
   qtWrapperArgs = [
-    "--prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ libsecret ]}"
+    "--prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [libsecret]}"
     # make xdg-open overrideable at runtime
-    "--suffix PATH : ${lib.makeBinPath [ xdg-utils ]}"
+    "--suffix PATH : ${lib.makeBinPath [xdg-utils]}"
   ];
 
   cmakeFlags = [

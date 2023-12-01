@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Detect if running in a virtual machine and prints its type";
     homepage = "https://people.redhat.com/~rjones/virt-what/";
-    maintainers = with maintainers; [ fpletz ];
+    maintainers = with maintainers; [fpletz];
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
   };

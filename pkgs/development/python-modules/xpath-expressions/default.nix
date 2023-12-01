@@ -21,7 +21,7 @@ buildPythonPackage rec {
     sha256 = "0l289iw2zmzxyfi3g2z7b917vmsaz47h5jp871zvykpmpigc632h";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   nativeCheckInputs = [
     lxml
@@ -34,12 +34,12 @@ buildPythonPackage rec {
       --replace "poetry.masonry.api" "poetry.core.masonry.api"
   '';
 
-  pythonImportsCheck = [ "xpath" ];
+  pythonImportsCheck = ["xpath"];
 
   meta = with lib; {
     description = "Python module to handle XPath expressions";
     homepage = "https://github.com/orf/xpath-expressions";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

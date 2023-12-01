@@ -31,9 +31,9 @@ stdenv.mkDerivation rec {
     description = "Jottacloud CLI";
     homepage = "https://www.jottacloud.com/";
     downloadPage = "https://repo.jotta.us/archives/linux/";
-    maintainers = with maintainers; [ evenbrenden ];
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    maintainers = with maintainers; [evenbrenden];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.unfree;
-    platforms = [ "x86_64-linux" ];
+    platforms = ["x86_64-linux"];
   };
 }

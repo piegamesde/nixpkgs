@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
     sha256 = "1ldz1lyl1aml5ci1mpnys8dg6n7khpcs4zpycak3spcpgdsnypm7";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     zlib
     bzip2
@@ -31,6 +31,6 @@ stdenv.mkDerivation rec {
     homepage = "https://libgringotts.sourceforge.net/";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ pSub ];
+    maintainers = with maintainers; [pSub];
   };
 }

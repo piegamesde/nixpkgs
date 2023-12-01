@@ -31,9 +31,9 @@ let
     {
       version,
       sha256,
-      patches ? [ ],
+      patches ? [],
       withDocs ? false,
-      extraMeta ? { },
+      extraMeta ? {},
     }:
     stdenv.mkDerivation (
       finalAttrs: {
@@ -95,12 +95,12 @@ let
 
         nativeBuildInputs =
           lib.optional (!stdenv.hostPlatform.isWindows) makeWrapper
-          ++ [ perl ]
-          ++ lib.optionals static [ removeReferencesTo ];
+          ++ [perl]
+          ++ lib.optionals static [removeReferencesTo];
         buildInputs = lib.optional withCryptodev cryptodev ++ lib.optional withZlib zlib;
 
         # TODO(@Ericson2314): Improve with mass rebuild
-        configurePlatforms = [ ];
+        configurePlatforms = [];
         configureScript =
           {
             armv5tel-linux = "./Configure linux-armv4 -march=armv5te";
@@ -301,6 +301,6 @@ in
 
     withDocs = true;
 
-    extraMeta = with lib; { license = licenses.asl20; };
+    extraMeta = with lib; {license = licenses.asl20;};
   };
 }

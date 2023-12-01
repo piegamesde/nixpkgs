@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
 
   preFixup =
     let
-      ldLibraryPath = lib.makeLibraryPath ([ tpm2-tss ] ++ (lib.optional abrmdSupport tpm2-abrmd));
+      ldLibraryPath = lib.makeLibraryPath ([tpm2-tss] ++ (lib.optional abrmdSupport tpm2-abrmd));
     in
     ''
       wrapProgram $out/bin/tpm2 --suffix LD_LIBRARY_PATH : "${ldLibraryPath}"
@@ -52,6 +52,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/tpm2-software/tpm2-tools";
     license = licenses.bsd3;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ delroth ];
+    maintainers = with maintainers; [delroth];
   };
 }

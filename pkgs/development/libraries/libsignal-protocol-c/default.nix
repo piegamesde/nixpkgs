@@ -17,11 +17,11 @@ stdenv.mkDerivation rec {
     sha256 = "0z5p03vk15i6h870azfjgyfgxhv31q2vq6rfhnybrnkxq2wqzwhk";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
-  buildInputs = [ openssl ];
+  buildInputs = [openssl];
 
-  cmakeFlags = [ "-DBUILD_SHARED_LIBS=ON" ];
+  cmakeFlags = ["-DBUILD_SHARED_LIBS=ON"];
 
   outputs = [
     "out"
@@ -33,6 +33,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/signalapp/libsignal-protocol-c";
     license = licenses.gpl3;
     platforms = platforms.all;
-    maintainers = with maintainers; [ orivej ];
+    maintainers = with maintainers; [orivej];
   };
 }

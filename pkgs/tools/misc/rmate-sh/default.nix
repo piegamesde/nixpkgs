@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-fmK6h9bqZ0zO3HWfZvPdYuZ6i/0HZ1CA3FUnkS+E9ns=";
   };
 
-  nativeBuildInputs = [ patsh ];
+  nativeBuildInputs = [patsh];
 
   buildPhase = ''
     runHook preBuild
@@ -50,6 +50,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/aurora/rmate";
     platforms = platforms.linux;
     license = licenses.gpl3;
-    maintainers = with maintainers; [ pbsds ];
+    maintainers = with maintainers; [pbsds];
   };
 }

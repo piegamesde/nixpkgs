@@ -71,7 +71,7 @@ mkYarnPackage rec {
 
   meta = with lib; {
     description = "A bridge between Matrix and multiple project management services, such as GitHub, GitLab and JIRA";
-    maintainers = with maintainers; [ chvp ];
+    maintainers = with maintainers; [chvp];
     license = licenses.asl20;
   };
 }

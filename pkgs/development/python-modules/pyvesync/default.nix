@@ -18,18 +18,18 @@ buildPythonPackage rec {
     hash = "sha256-u31yiTAINjQagDzZZ+6+XCmCSwjGkoGSyFxTosHJ9i0=";
   };
 
-  propagatedBuildInputs = [ requests ];
+  propagatedBuildInputs = [requests];
 
   # Test are not available (not in PyPI tarball and there are no GitHub releases)
   doCheck = false;
 
-  pythonImportsCheck = [ "pyvesync" ];
+  pythonImportsCheck = ["pyvesync"];
 
   meta = with lib; {
     description = "Python library to manage Etekcity Devices and Levoit Air Purifier";
     homepage = "https://github.com/webdjoe/pyvesync";
     changelog = "https://github.com/webdjoe/pyvesync/releases/tag/${version}";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

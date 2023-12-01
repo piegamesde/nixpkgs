@@ -25,7 +25,7 @@ buildPythonPackage rec {
     runHook postUnpack
   '';
 
-  pythonImportsCheck = [ "hexdump" ];
+  pythonImportsCheck = ["hexdump"];
 
   meta = with lib; {
     description = "Library to dump binary data to hex format and restore from there";

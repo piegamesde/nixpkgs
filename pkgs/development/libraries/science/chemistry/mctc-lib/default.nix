@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
     cmake
   ];
 
-  buildInputs = [ json-fortran ];
+  buildInputs = [json-fortran];
 
   postInstall = ''
     substituteInPlace $out/lib/pkgconfig/${pname}.pc \
@@ -39,6 +39,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/grimme-lab/mctc-lib";
     license = licenses.asl20;
     platforms = platforms.linux;
-    maintainers = [ maintainers.sheepforce ];
+    maintainers = [maintainers.sheepforce];
   };
 }

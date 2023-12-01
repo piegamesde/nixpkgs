@@ -27,6 +27,6 @@ rustPlatform.buildRustPackage rec {
     '';
     homepage = "https://github.com/anordal/shellharden";
     license = licenses.mpl20;
-    maintainers = with maintainers; [ oxzi ];
+    maintainers = with maintainers; [oxzi];
   };
 }

@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
     substituteInPlace configure --replace '/usr/bin/lipo' 'lipo'
   '';
 
-  makeFlags = [ "LIBEXECDIR=$(out)/modules" ];
+  makeFlags = ["LIBEXECDIR=$(out)/modules"];
 
   meta = {
     homepage = "https://github.com/GrahamDumpleton/mod_wsgi";

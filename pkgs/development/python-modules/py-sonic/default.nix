@@ -17,12 +17,12 @@ buildPythonPackage rec {
 
   # package has no tests
   doCheck = false;
-  pythonImportsCheck = [ "libsonic" ];
+  pythonImportsCheck = ["libsonic"];
 
   meta = with lib; {
     homepage = "https://github.com/crustymonkey/py-sonic";
     description = "A python wrapper library for the Subsonic REST API";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ wenngle ];
+    maintainers = with maintainers; [wenngle];
   };
 }

@@ -35,9 +35,9 @@ buildGoModule rec {
     "-buildid="
   ];
 
-  subPackages = [ "main" ];
+  subPackages = ["main"];
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   installPhase = ''
     runHook preInstall
@@ -62,14 +62,14 @@ buildGoModule rec {
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
     tests.simple-vmess-proxy-test = nixosTests.v2ray;
   };
 
   meta = {
     homepage = "https://www.v2fly.org/en_US/";
     description = "A platform for building proxies to bypass network restrictions";
-    license = with lib.licenses; [ mit ];
-    maintainers = with lib.maintainers; [ servalcatty ];
+    license = with lib.licenses; [mit];
+    maintainers = with lib.maintainers; [servalcatty];
   };
 }

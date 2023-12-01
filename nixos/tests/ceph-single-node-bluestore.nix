@@ -1,5 +1,5 @@
 import ./make-test-python.nix (
-  { pkgs, lib, ... }:
+  {pkgs, lib, ...}:
 
   let
     cfg = {
@@ -25,7 +25,7 @@ import ./make-test-python.nix (
       };
     };
     generateCephConfig =
-      { daemonConfig }:
+      {daemonConfig}:
       {
         enable = true;
         global = {
@@ -50,7 +50,7 @@ import ./make-test-python.nix (
             20480
             20480
           ];
-          vlans = [ 1 ];
+          vlans = [1];
         };
 
         networking = networkConfig;
@@ -62,7 +62,7 @@ import ./make-test-python.nix (
           xfsprogs
         ];
 
-        boot.kernelModules = [ "xfs" ];
+        boot.kernelModules = ["xfs"];
 
         services.ceph = cephConfig;
       };
@@ -80,11 +80,11 @@ import ./make-test-python.nix (
       daemonConfig = {
         mon = {
           enable = true;
-          daemons = [ cfg.monA.name ];
+          daemons = [cfg.monA.name];
         };
         mgr = {
           enable = true;
-          daemons = [ cfg.monA.name ];
+          daemons = [cfg.monA.name];
         };
         osd = {
           enable = true;
@@ -102,7 +102,7 @@ import ./make-test-python.nix (
     # For other ways to deploy a ceph cluster, look at the documentation at
     # https://docs.ceph.com/docs/master/
     testscript =
-      { ... }:
+      {...}:
       ''
         start_all()
 
@@ -211,7 +211,7 @@ import ./make-test-python.nix (
   in
   {
     name = "basic-single-node-ceph-cluster-bluestore";
-    meta = with pkgs.lib.maintainers; { maintainers = [ lukegb ]; };
+    meta = with pkgs.lib.maintainers; {maintainers = [lukegb];};
 
     nodes = {
       monA = generateHost {

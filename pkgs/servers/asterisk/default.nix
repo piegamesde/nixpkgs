@@ -56,7 +56,7 @@ let
       version,
       sha256,
       externals,
-      pjsip_patches ? [ ],
+      pjsip_patches ? [],
     }:
     stdenv.mkDerivation {
       inherit version;
@@ -86,7 +86,7 @@ let
           opusfile
           libogg
         ]
-        ++ lib.optionals ldapSupport [ openldap ];
+        ++ lib.optionals ldapSupport [openldap];
       nativeBuildInputs = [
         util-linux
         pkg-config
@@ -209,7 +209,7 @@ let
     lib.mapAttrs
       (
         _:
-        { version, sha256 }:
+        {version, sha256}:
         let
           pjsip = pjproject_2_13;
         in
@@ -253,7 +253,7 @@ in
   asterisk-stable = versions.asterisk_20;
   asterisk = versions.asterisk_20.overrideAttrs (
     o: {
-      passthru = (o.passthru or { }) // {
+      passthru = (o.passthru or {}) // {
         inherit updateScript;
       };
     }

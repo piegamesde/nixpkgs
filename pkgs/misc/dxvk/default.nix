@@ -47,7 +47,7 @@ stdenvNoCC.mkDerivation (
       description = "Setup script for DXVK";
       homepage = "https://github.com/doitsujin/dxvk";
       changelog = "https://github.com/doitsujin/dxvk/releases";
-      maintainers = [ lib.maintainers.reckenrode ];
+      maintainers = [lib.maintainers.reckenrode];
       license = lib.licenses.zlib;
       platforms = [
         "x86_64-darwin"

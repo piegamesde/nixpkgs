@@ -42,14 +42,14 @@ buildPythonPackage rec {
     substituteInPlace tests/test_generic.py --replace "from common" "from dicom2nifti.common"
   '';
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "dicom2nifti" ];
+  pythonImportsCheck = ["dicom2nifti"];
 
   meta = with lib; {
     homepage = "https://github.com/icometrix/dicom2nifti";
     description = "Library for converting dicom files to nifti";
     license = licenses.mit;
-    maintainers = with maintainers; [ bcdarwin ];
+    maintainers = with maintainers; [bcdarwin];
   };
 }

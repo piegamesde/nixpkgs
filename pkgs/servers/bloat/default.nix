@@ -27,7 +27,7 @@ buildGoModule {
       < bloat.conf > $out/share/bloat/bloat.conf.example
   '';
 
-  passthru.updateScript = unstableGitUpdater { };
+  passthru.updateScript = unstableGitUpdater {};
 
   meta = with lib; {
     description = "A web client for Pleroma and Mastodon";
@@ -38,6 +38,6 @@ buildGoModule {
     homepage = "https://bloat.freesoftwareextremist.com";
     downloadPage = "https://git.freesoftwareextremist.com/bloat/";
     license = licenses.cc0;
-    maintainers = with maintainers; [ fgaz ];
+    maintainers = with maintainers; [fgaz];
   };
 }

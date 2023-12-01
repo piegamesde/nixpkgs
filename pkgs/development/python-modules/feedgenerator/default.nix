@@ -23,7 +23,7 @@ buildPythonPackage rec {
     sed -i '/cov/d' setup.cfg
   '';
 
-  buildInputs = [ glibcLocales ];
+  buildInputs = [glibcLocales];
 
   LC_ALL = "en_US.UTF-8";
 
@@ -32,14 +32,14 @@ buildPythonPackage rec {
     six
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "feedgenerator" ];
+  pythonImportsCheck = ["feedgenerator"];
 
   meta = with lib; {
     description = "Standalone version of Django's feedgenerator module";
     homepage = "https://github.com/getpelican/feedgenerator";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

@@ -55,12 +55,12 @@ stdenv.mkDerivation rec {
     "out"
     "dev"
     "lib"
-  ] ++ lib.optionals (enablePython) [ "python" ];
+  ] ++ lib.optionals (enablePython) ["python"];
 
   nativeBuildInputs =
-    [ pkg-config ]
-    ++ lib.optionals (enableApp) [ installShellFiles ]
-    ++ lib.optionals (enablePython) [ python3Packages.cython ];
+    [pkg-config]
+    ++ lib.optionals (enableApp) [installShellFiles]
+    ++ lib.optionals (enablePython) [python3Packages.cython];
 
   buildInputs =
     lib.optionals enableApp [
@@ -69,10 +69,10 @@ stdenv.mkDerivation rec {
       openssl
       zlib
     ]
-    ++ lib.optionals (enableAsioLib) [ boost ]
-    ++ lib.optionals (enableGetAssets) [ libxml2 ]
-    ++ lib.optionals (enableHpack) [ jansson ]
-    ++ lib.optionals (enableJemalloc) [ jemalloc ]
+    ++ lib.optionals (enableAsioLib) [boost]
+    ++ lib.optionals (enableGetAssets) [libxml2]
+    ++ lib.optionals (enableHpack) [jansson]
+    ++ lib.optionals (enableJemalloc) [jemalloc]
     ++ lib.optionals (enablePython) [
       python3Packages.python
       ncurses
@@ -141,7 +141,7 @@ stdenv.mkDerivation rec {
     changelog = "https://github.com/nghttp2/nghttp2/releases/tag/v${version}";
     # News articles with changes summary can be found here: https://nghttp2.org/blog/archives/
     license = licenses.mit;
-    maintainers = with maintainers; [ c0bw3b ];
+    maintainers = with maintainers; [c0bw3b];
     platforms = platforms.all;
   };
 }

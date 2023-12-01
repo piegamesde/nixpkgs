@@ -21,6 +21,6 @@ buildGoModule rec {
     description = "Transparent proxy works on linux desktop, MacOS, router";
     homepage = "https://github.com/monsterxx03/snet";
     license = licenses.mit;
-    maintainers = with maintainers; [ azuwis ];
+    maintainers = with maintainers; [azuwis];
   };
 }

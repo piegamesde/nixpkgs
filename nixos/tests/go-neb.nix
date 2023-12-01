@@ -1,5 +1,5 @@
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   {
     name = "go-neb";
     meta = with pkgs.lib.maintainers; {
@@ -31,7 +31,7 @@ import ./make-test-python.nix (
                 ID = "wikipedia_service";
                 Type = "wikipedia";
                 UserID = "@test:localhost";
-                Config = { };
+                Config = {};
               }
             ];
           };

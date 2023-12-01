@@ -34,6 +34,6 @@ python3Packages.buildPythonApplication rec {
     description = "Compute the DR14 of a given audio file according to the procedure described by the Pleasurize Music Foundation";
     license = licenses.gpl3Plus;
     homepage = "http://dr14tmeter.sourceforge.net/";
-    maintainers = [ maintainers.adisbladis ];
+    maintainers = [maintainers.adisbladis];
   };
 }

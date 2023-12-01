@@ -46,6 +46,6 @@ python3Packages.buildPythonApplication rec {
     '';
     homepage = "https://github.com/GAM-team/got-your-back";
     license = licenses.asl20;
-    maintainers = with maintainers; [ austinbutler ];
+    maintainers = with maintainers; [austinbutler];
   };
 }

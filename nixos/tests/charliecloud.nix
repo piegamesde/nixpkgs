@@ -1,7 +1,7 @@
 # This test checks charliecloud image construction and run
 
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   let
 
     dockerfile = pkgs.writeText "Dockerfile" ''
@@ -13,17 +13,17 @@ import ./make-test-python.nix (
   in
   {
     name = "charliecloud";
-    meta = with pkgs.lib.maintainers; { maintainers = [ bzizou ]; };
+    meta = with pkgs.lib.maintainers; {maintainers = [bzizou];};
 
     nodes = {
       host =
-        { ... }:
+        {...}:
         {
-          environment.systemPackages = [ pkgs.charliecloud ];
+          environment.systemPackages = [pkgs.charliecloud];
           virtualisation.docker.enable = true;
           users.users.alice = {
             isNormalUser = true;
-            extraGroups = [ "docker" ];
+            extraGroups = ["docker"];
           };
         };
     };

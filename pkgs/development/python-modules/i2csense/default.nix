@@ -14,7 +14,7 @@ buildPythonPackage rec {
     sha256 = "6f9c0a37d971e5b8a60c54982bd580cff84bf94fedc08c097e603a8e5609c33f";
   };
 
-  propagatedBuildInputs = [ smbus-cffi ];
+  propagatedBuildInputs = [smbus-cffi];
 
   # no tests implemented
   doCheck = false;
@@ -29,6 +29,6 @@ buildPythonPackage rec {
     description = "A library to handle i2c sensors with the Raspberry Pi";
     homepage = "https://github.com/azogue/i2csense";
     license = licenses.mit;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

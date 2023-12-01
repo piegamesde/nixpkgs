@@ -9,7 +9,7 @@
 }:
 
 let
-  sources = callPackage ../sources.nix { };
+  sources = callPackage ../sources.nix {};
 in
 stdenv.mkDerivation {
   pname = "swift-corelibs-libdispatch";
@@ -24,13 +24,13 @@ stdenv.mkDerivation {
   ];
 
   nativeBuildInputs =
-    [ cmake ]
+    [cmake]
     ++ lib.optionals useSwift [
       ninja
       swift
     ];
 
-  patches = [ ./disable-swift-overlay.patch ];
+  patches = [./disable-swift-overlay.patch];
 
   cmakeFlags = lib.optional useSwift "-DENABLE_SWIFT=ON";
 

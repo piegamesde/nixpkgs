@@ -35,7 +35,7 @@ buildDunePackage {
   minimalOCamlVersion = "4.08";
   duneVersion = "3";
 
-  nativeBuildInputs = [ menhir ];
+  nativeBuildInputs = [menhir];
 
   buildInputs =
     [
@@ -57,14 +57,14 @@ buildDunePackage {
     ]
     ++ (
       if lib.versionAtLeast version "0.24.0" then
-        [ (odoc-parser.override { version = "2.0.0"; }) ]
+        [(odoc-parser.override {version = "2.0.0";})]
       else if lib.versionAtLeast version "0.20.1" then
-        [ (odoc-parser.override { version = "1.0.1"; }) ]
+        [(odoc-parser.override {version = "1.0.1";})]
       else
-        [ (odoc-parser.override { version = "0.9.0"; }) ]
+        [(odoc-parser.override {version = "0.9.0";})]
     )
-    ++ (if lib.versionAtLeast version "0.21.0" then [ cmdliner_1_1 ] else [ cmdliner_1_0 ])
-    ++ lib.optionals (lib.versionAtLeast version "0.22.4") [ csexp ];
+    ++ (if lib.versionAtLeast version "0.21.0" then [cmdliner_1_1] else [cmdliner_1_0])
+    ++ lib.optionals (lib.versionAtLeast version "0.22.4") [csexp];
 
   meta = {
     homepage = "https://github.com/ocaml-ppx/ocamlformat";

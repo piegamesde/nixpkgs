@@ -1,10 +1,10 @@
 {
-  pkgs ? import ../../../../.. { },
+  pkgs ? import ../../../../.. {},
 }:
 
 with pkgs;
 let
-  pyEnv = python3.withPackages (ps: [ ps.gitpython ]);
+  pyEnv = python3.withPackages (ps: [ps.gitpython]);
 in
 
 mkShell {

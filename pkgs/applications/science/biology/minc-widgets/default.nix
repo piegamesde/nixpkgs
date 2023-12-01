@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
     cmake
     makeWrapper
   ];
-  buildInputs = [ libminc ];
+  buildInputs = [libminc];
   propagatedBuildInputs =
     (
       with perlPackages; [
@@ -55,7 +55,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://github.com/BIC-MNI/${pname}";
     description = "Collection of Perl and shell scripts for processing MINC files";
-    maintainers = with maintainers; [ bcdarwin ];
+    maintainers = with maintainers; [bcdarwin];
     platforms = platforms.unix;
     license = licenses.free;
   };

@@ -15,9 +15,9 @@ stdenv.mkDerivation {
     sha256 = "1mikkhrx6jsx716041qdy3nwjac08pxxvxyq2yablm8zg9hrip0d";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  buildInputs = [ libX11 ];
+  buildInputs = [libX11];
 
   dontUnpack = true;
 
@@ -35,7 +35,7 @@ stdenv.mkDerivation {
     description = "A program for testing if X is running";
     license = lib.licenses.free;
     platforms = lib.platforms.unix;
-    maintainers = [ lib.maintainers.romildo ];
+    maintainers = [lib.maintainers.romildo];
     mainProgram = "RunningX";
   };
 }

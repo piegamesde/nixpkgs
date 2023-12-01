@@ -20,7 +20,7 @@ buildGoModule rec {
   vendorHash = "sha256-HS3VnQ9nkRy9OEfE1ASb3fhH/JlgUSlrVlGYNYwGmVA=";
 
   # Do not build testing suit
-  excludedPackages = [ "./test" ];
+  excludedPackages = ["./test"];
 
   CGO_ENABLED = 0;
 

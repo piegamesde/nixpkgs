@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
     glib
   ];
 
-  mesonFlags = [ "-Dextension_set=all" ];
+  mesonFlags = ["-Dextension_set=all"];
 
   preFixup = ''
     # Since we do not install the schemas to central location,

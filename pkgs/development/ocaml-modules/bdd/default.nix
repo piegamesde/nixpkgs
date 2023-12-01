@@ -24,12 +24,12 @@ buildDunePackage {
       --replace "Buffer.truncate Format.stdbuf 0;" "Buffer.clear Format.stdbuf;"
   '';
 
-  propagatedBuildInputs = [ stdlib-shims ];
+  propagatedBuildInputs = [stdlib-shims];
 
   meta = with lib; {
     description = "Quick implementation of a Binary Decision Diagrams (BDD) library for OCaml";
     homepage = "https://github.com/backtracking/ocaml-bdd";
     license = licenses.lgpl21Plus;
-    maintainers = with maintainers; [ wegank ];
+    maintainers = with maintainers; [wegank];
   };
 }

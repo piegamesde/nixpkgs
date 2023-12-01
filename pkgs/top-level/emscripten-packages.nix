@@ -1,4 +1,4 @@
-{ pkgs }:
+{pkgs}:
 
 with pkgs;
 
@@ -6,13 +6,13 @@ with pkgs;
 # https://github.com/NixOS/nixpkgs/pull/16208
 
 rec {
-  json_c = (pkgs.json_c.override { stdenv = pkgs.emscriptenStdenv; }).overrideAttrs (
+  json_c = (pkgs.json_c.override {stdenv = pkgs.emscriptenStdenv;}).overrideAttrs (
     old: {
       nativeBuildInputs = [
         pkg-config
         cmake
       ];
-      propagatedBuildInputs = [ zlib ];
+      propagatedBuildInputs = [zlib];
       configurePhase = ''
         HOME=$TMPDIR
         mkdir -p .emscriptencache
@@ -53,8 +53,8 @@ rec {
     }).overrideAttrs
       (
         old: {
-          propagatedBuildInputs = [ zlib ];
-          nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ pkg-config ];
+          propagatedBuildInputs = [zlib];
+          nativeBuildInputs = (old.nativeBuildInputs or []) ++ [pkg-config];
 
           # just override it with nothing so it does not fail
           autoreconfPhase = "echo autoreconfPhase not used...";
@@ -155,15 +155,15 @@ rec {
     checkPhase = "";
   };
 
-  zlib = (pkgs.zlib.override { stdenv = pkgs.emscriptenStdenv; }).overrideAttrs (
+  zlib = (pkgs.zlib.override {stdenv = pkgs.emscriptenStdenv;}).overrideAttrs (
     old: {
-      nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ pkg-config ];
+      nativeBuildInputs = (old.nativeBuildInputs or []) ++ [pkg-config];
       # we need to reset this setting!
-      env = (old.env or { }) // {
+      env = (old.env or {}) // {
         NIX_CFLAGS_COMPILE = "";
       };
       dontStrip = true;
-      outputs = [ "out" ];
+      outputs = ["out"];
       buildPhase = ''
         emmake make
       '';

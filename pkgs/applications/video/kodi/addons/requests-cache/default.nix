@@ -15,11 +15,11 @@ buildKodiAddon rec {
     sha256 = "sha256-6M/v/ghS2TnSZhG8bREjxfEfcfLOmvA6hgsa7JUk9Dk=";
   };
 
-  propagatedBuildInputs = [ requests ];
+  propagatedBuildInputs = [requests];
 
   passthru = {
     pythonPath = "lib";
-    updateScript = addonUpdateScript { attrPath = "kodi.packages.requests-cache"; };
+    updateScript = addonUpdateScript {attrPath = "kodi.packages.requests-cache";};
   };
 
   meta = with lib; {

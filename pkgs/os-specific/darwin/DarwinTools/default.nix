@@ -13,7 +13,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-Fzo5QhLd3kZHVFKhJe7xzV6bmRz5nAsG2mNLkAqVBEI=";
   };
 
-  patches = [ ./sw_vers-CFPriv.patch ];
+  patches = [./sw_vers-CFPriv.patch];
 
   postPatch = ''
     substituteInPlace Makefile \
@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    maintainers = [ lib.maintainers.matthewbauer ];
+    maintainers = [lib.maintainers.matthewbauer];
     platforms = lib.platforms.darwin;
   };
 }

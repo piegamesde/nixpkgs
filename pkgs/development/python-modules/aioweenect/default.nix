@@ -29,9 +29,9 @@ buildPythonPackage rec {
       --replace "--cov --cov-report term-missing --cov-report xml --cov=aioweenect tests" ""
   '';
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
-  propagatedBuildInputs = [ aiohttp ];
+  propagatedBuildInputs = [aiohttp];
 
   nativeCheckInputs = [
     aresponses
@@ -39,12 +39,12 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "aioweenect" ];
+  pythonImportsCheck = ["aioweenect"];
 
   meta = with lib; {
     description = "Library for the weenect API";
     homepage = "https://github.com/eifinger/aioweenect";
-    license = with licenses; [ mit ];
-    maintainers = with maintainers; [ fab ];
+    license = with licenses; [mit];
+    maintainers = with maintainers; [fab];
   };
 }

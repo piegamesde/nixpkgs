@@ -16,7 +16,7 @@ buildPythonApplication rec {
     sha256 = "06d62r89h026asaa4ryzb23m86j0cmbvy54kf4zl5f35sgiha45z";
   };
 
-  nativeCheckInputs = [ nose ];
+  nativeCheckInputs = [nose];
   checkPhase = "nosetests";
 
   meta = with lib; {
@@ -24,6 +24,6 @@ buildPythonApplication rec {
     homepage = "https://github.com/mapbox/mbutil";
     license = licenses.bsd3;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ sikmir ];
+    maintainers = with maintainers; [sikmir];
   };
 }

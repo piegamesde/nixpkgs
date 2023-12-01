@@ -75,7 +75,7 @@ stdenv.mkDerivation rec {
       pam
       iptables
     ]
-    ++ lib.optionals stdenv.isDarwin (with darwin.apple_sdk.frameworks; [ SystemConfiguration ])
+    ++ lib.optionals stdenv.isDarwin (with darwin.apple_sdk.frameworks; [SystemConfiguration])
     ++ lib.optionals enableNetworkManager [
       networkmanager
       glib

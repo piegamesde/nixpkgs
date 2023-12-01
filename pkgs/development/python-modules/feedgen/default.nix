@@ -31,6 +31,6 @@ buildPythonPackage rec {
       bsd2
       lgpl3
     ];
-    maintainers = with maintainers; [ casey ];
+    maintainers = with maintainers; [casey];
   };
 }

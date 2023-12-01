@@ -13,10 +13,10 @@ stdenv.mkDerivation rec {
     sha256 = "0d5qlq5ab95wh1xc87rqrh1vx6i8lddka1w3f1zcqvcqdxgyn8zx";
   };
 
-  patches = [ ./fix-includes.patch ];
+  patches = [./fix-includes.patch];
 
   configureFlags =
-    [ "--disable-lynx" ]
+    ["--disable-lynx"]
     ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform)
       [
         # Can't run this test while cross-compiling

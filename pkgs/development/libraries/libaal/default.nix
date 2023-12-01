@@ -13,7 +13,7 @@ stdenv.mkDerivation rec {
     sha256 = "176f2sns6iyxv3h9zyirdinjwi05gdak48zqarhib2s38rvm98di";
   };
 
-  patches = [ ./libaal-1.0.6-glibc-2.26.patch ];
+  patches = [./libaal-1.0.6-glibc-2.26.patch];
 
   preInstall = ''
     substituteInPlace Makefile --replace ./run-ldconfig true
@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
     homepage = "http://www.namesys.com/";
     description = "Support library for Reiser4";
     license = lib.licenses.gpl2;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [];
     platforms = with lib.platforms; linux;
   };
 }

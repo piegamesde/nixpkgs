@@ -65,6 +65,6 @@ buildPythonApplication rec {
     homepage = "https://github.com/fdw/rofimoji";
     license = licenses.mit;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ justinlovinger ];
+    maintainers = with maintainers; [justinlovinger];
   };
 }

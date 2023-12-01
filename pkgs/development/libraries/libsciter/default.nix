@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
     sha256 = "a1682fbf55e004f1862d6ace31b5220121d20906bdbf308d0a9237b451e4db86";
   };
 
-  nativeBuildInputs = [ autoPatchelfHook ];
+  nativeBuildInputs = [autoPatchelfHook];
 
   buildInputs = [
     glib
@@ -43,9 +43,9 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://sciter.com";
     description = "Embeddable HTML/CSS/JavaScript engine for modern UI development";
-    platforms = [ "x86_64-linux" ];
-    maintainers = with maintainers; [ leixb ];
-    sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+    platforms = ["x86_64-linux"];
+    maintainers = with maintainers; [leixb];
+    sourceProvenance = with sourceTypes; [binaryNativeCode];
     license = licenses.unfree;
   };
 }

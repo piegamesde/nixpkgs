@@ -5,7 +5,7 @@
   pkg-config,
   fetchFromGitHub,
   callPackage,
-  ffmpeg-base ? callPackage ./base.nix { },
+  ffmpeg-base ? callPackage ./base.nix {},
   ffmpeg-avutil,
   ffmpeg-avcodec,
   ffmpeg,
@@ -20,8 +20,8 @@ buildDunePackage {
 
   inherit (ffmpeg-base) version src duneVersion;
 
-  nativeBuildInputs = [ pkg-config ];
-  buildInputs = [ dune-configurator ] ++ lib.optionals stdenv.isDarwin [ VideoToolbox ];
+  nativeBuildInputs = [pkg-config];
+  buildInputs = [dune-configurator] ++ lib.optionals stdenv.isDarwin [VideoToolbox];
   propagatedBuildInputs = [
     ffmpeg-avutil
     ffmpeg-avcodec

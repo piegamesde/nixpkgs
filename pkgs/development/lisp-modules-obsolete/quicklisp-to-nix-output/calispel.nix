@@ -1,10 +1,10 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "calispel";
   version = "20170830-git";
 
-  parasites = [ "calispel-test" ];
+  parasites = ["calispel-test"];
 
   description = ''
     Thread-safe message-passing channels, in the style of
@@ -25,7 +25,7 @@ rec {
 
   packageName = "calispel";
 
-  asdFilesToKeep = [ "calispel.asd" ];
+  asdFilesToKeep = ["calispel.asd"];
   overrides = x: x;
 }
 /* (SYSTEM calispel DESCRIPTION

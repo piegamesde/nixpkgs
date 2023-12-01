@@ -18,11 +18,11 @@ gccStdenv.mkDerivation rec {
     sha256 = "+Rw9SfaQtO1AJO6UVVDMCo8DT0dYEbv7zX8SI+pHCRQ=";
   };
 
-  configureFlags = (if cudaSupport then [ "--with-cuda=${cudatoolkit}" ] else [ "--enable-cpu" ]);
+  configureFlags = (if cudaSupport then ["--with-cuda=${cudatoolkit}"] else ["--enable-cpu"]);
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
-  buildInputs = lib.optionals cudaSupport [ cudatoolkit ];
+  buildInputs = lib.optionals cudaSupport [cudatoolkit];
 
   # Workaround build failure on -fno-common toolchains like upstream
   # gcc-10. Otherwise build fails as:
@@ -32,7 +32,7 @@ gccStdenv.mkDerivation rec {
   #   https://gitlab.com/kalilinux/packages/truecrack/-/issues/1
   env.NIX_CFLAGS_COMPILE = "-fcommon";
 
-  installFlags = [ "prefix=$(out)" ];
+  installFlags = ["prefix=$(out)"];
   enableParallelBuilding = true;
 
   meta = with lib; {
@@ -41,6 +41,6 @@ gccStdenv.mkDerivation rec {
     broken = cudaSupport;
     license = licenses.gpl3Plus;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ ethancedwards8 ];
+    maintainers = with maintainers; [ethancedwards8];
   };
 }

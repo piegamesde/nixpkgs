@@ -26,6 +26,6 @@ buildGoModule rec {
     description = "Utility helping to discover large files/folders";
     homepage = "https://github.com/viktomas/godu";
     license = licenses.mit;
-    maintainers = with maintainers; [ rople380 ];
+    maintainers = with maintainers; [rople380];
   };
 }

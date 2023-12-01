@@ -35,19 +35,19 @@ buildGoModule rec {
 
   vendorSha256 = "sha256-uhINWxFny/OY7M2vV3ehFzP90J6Z8cn5IZHWOuEg91M=";
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   postInstall = ''
     # Depends on nix-prefetch-url
     wrapProgram $out/bin/nc4nix \
-      --prefix PATH : ${lib.makeBinPath [ nix ]}
+      --prefix PATH : ${lib.makeBinPath [nix]}
   '';
 
   meta = with lib; {
     description = "Packaging helper for Nextcloud apps";
     homepage = "https://github.com/helsinki-systems/nc4nix";
     license = licenses.mit;
-    maintainers = with maintainers; [ onny ];
+    maintainers = with maintainers; [onny];
     platforms = platforms.linux;
   };
 }

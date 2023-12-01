@@ -18,7 +18,7 @@ stdenv.mkDerivation {
 
   buildInputs =
     if stdenv.hostPlatform.isDarwin then
-      [ Carbon ]
+      [Carbon]
     else
       [
         libGL
@@ -45,6 +45,6 @@ stdenv.mkDerivation {
     homepage = "https://www.lonesock.net/soil.html";
     license = licenses.publicDomain;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ r-burns ];
+    maintainers = with maintainers; [r-burns];
   };
 }

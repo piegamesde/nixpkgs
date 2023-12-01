@@ -92,7 +92,7 @@ in
             };
           }
         );
-        default = [ ];
+        default = [];
         example = [
           {
             callbackURL = "https://example.com/client/oidc/callback";
@@ -176,12 +176,12 @@ in
     ];
 
     # add ldapsearch(1) etc. to interactive shells
-    environment.systemPackages = [ cfg.ldap.package ];
+    environment.systemPackages = [cfg.ldap.package];
 
     # allow connecting via ldaps /w certificate without opening ports
     networking.hosts = mkIf cfg.ldap.tls {
-      "::1" = [ cfg.domain ];
-      "127.0.0.1" = [ cfg.domain ];
+      "::1" = [cfg.domain];
+      "127.0.0.1" = [cfg.domain];
     };
 
     services.dex = mkIf cfg.dex.enable {
@@ -230,7 +230,7 @@ in
         staticClients = forEach cfg.dex.oidcClients (
           client: {
             inherit (client) id;
-            redirectURIs = [ client.callbackURL ];
+            redirectURIs = [client.callbackURL];
             name = "OIDC for ${client.id}";
             secretEnv = "DEX_CLIENT_${client.id}";
           }
@@ -249,8 +249,8 @@ in
 
       portunus = {
         description = "Self-contained authentication service";
-        wantedBy = [ "multi-user.target" ];
-        after = [ "network.target" ];
+        wantedBy = ["multi-user.target"];
+        after = ["network.target"];
         serviceConfig.ExecStart = "${cfg.package.out}/bin/portunus-orchestrator";
         environment =
           {
@@ -265,7 +265,7 @@ in
             PORTUNUS_SLAPD_USER = cfg.ldap.user;
             PORTUNUS_SLAPD_SCHEMA_DIR = "${cfg.ldap.package}/etc/schema";
           }
-          // (optionalAttrs (cfg.seedPath != null) ({ PORTUNUS_SEED_PATH = cfg.seedPath; }))
+          // (optionalAttrs (cfg.seedPath != null) ({PORTUNUS_SEED_PATH = cfg.seedPath;}))
           // (optionalAttrs cfg.ldap.tls (
             let
               acmeDirectory = config.security.acme.certs."${cfg.domain}".directory;
@@ -296,10 +296,10 @@ in
     ];
 
     users.groups = mkMerge [
-      (mkIf (cfg.ldap.user == "openldap") { openldap = { }; })
-      (mkIf (cfg.user == "portunus") { portunus = { }; })
+      (mkIf (cfg.ldap.user == "openldap") {openldap = {};})
+      (mkIf (cfg.user == "portunus") {portunus = {};})
     ];
   };
 
-  meta.maintainers = [ maintainers.majewsky ] ++ teams.c3d2.members;
+  meta.maintainers = [maintainers.majewsky] ++ teams.c3d2.members;
 }

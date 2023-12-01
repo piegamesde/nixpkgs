@@ -33,9 +33,9 @@ buildPythonPackage rec {
       --replace 'version = {source = "scm"}' 'license-expression = "ISC"'
   '';
 
-  nativeBuildInputs = [ pdm-backend ];
+  nativeBuildInputs = [pdm-backend];
 
-  propagatedBuildInputs = [ colorama ] ++ lib.optionals (pythonOlder "3.8") [ cached-property ];
+  propagatedBuildInputs = [colorama] ++ lib.optionals (pythonOlder "3.8") [cached-property];
 
   nativeCheckInputs = [
     git
@@ -44,16 +44,16 @@ buildPythonPackage rec {
   ];
 
   passthru.optional-dependencies = {
-    async = [ aiofiles ];
+    async = [aiofiles];
   };
 
-  pythonImportsCheck = [ "griffe" ];
+  pythonImportsCheck = ["griffe"];
 
   meta = with lib; {
     description = "Signatures for entire Python programs";
     homepage = "https://github.com/mkdocstrings/griffe";
     changelog = "https://github.com/mkdocstrings/griffe/blob/${version}/CHANGELOG.md";
     license = licenses.isc;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

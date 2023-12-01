@@ -35,11 +35,11 @@ buildPythonPackage rec {
     setuptools
   ];
 
-  propagatedBuildInputs = [ bleak ];
+  propagatedBuildInputs = [bleak];
 
-  pythonImportsCheck = [ "home_assistant_bluetooth" ];
+  pythonImportsCheck = ["home_assistant_bluetooth"];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   meta = with lib; {
     description = "Basic bluetooth models used by Home Assistant";

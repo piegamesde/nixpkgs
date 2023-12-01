@@ -35,7 +35,7 @@ let
         description = "An alternative font to system-ui for all platforms";
         license = licenses.ofl;
         platforms = platforms.all;
-        maintainers = with maintainers; [ sudosubin ];
+        maintainers = with maintainers; [sudosubin];
       };
     };
 in

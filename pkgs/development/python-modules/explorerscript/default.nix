@@ -20,7 +20,7 @@ buildPythonPackage rec {
     sha256 = "sha256-REQYyxB2sb/gG54+OkMw+M4Agg9SWfAyqAhiSNnd3tE=";
   };
 
-  nativeBuildInputs = [ antlr4 ];
+  nativeBuildInputs = [antlr4];
 
   postPatch = ''
     sed -i "s/antlr4-python3-runtime.*/antlr4-python3-runtime',/" setup.py
@@ -32,16 +32,16 @@ buildPythonPackage rec {
     igraph
   ];
 
-  passthru.optional-dependencies.pygments = [ pygments ];
+  passthru.optional-dependencies.pygments = [pygments];
 
-  nativeCheckInputs = [ pytestCheckHook ] ++ passthru.optional-dependencies.pygments;
+  nativeCheckInputs = [pytestCheckHook] ++ passthru.optional-dependencies.pygments;
 
-  pythonImportsCheck = [ "explorerscript" ];
+  pythonImportsCheck = ["explorerscript"];
 
   meta = with lib; {
     homepage = "https://github.com/SkyTemple/explorerscript";
     description = "A programming language + compiler/decompiler for creating scripts for Pokémon Mystery Dungeon Explorers of Sky";
     license = licenses.mit;
-    maintainers = with maintainers; [ xfix ];
+    maintainers = with maintainers; [xfix];
   };
 }

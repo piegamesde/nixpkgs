@@ -53,7 +53,7 @@ let
   optionsList = lib.flip map filteredOpts (
     opt:
     opt
-    // lib.optionalAttrs (opt ? relatedPackages && opt.relatedPackages != [ ]) {
+    // lib.optionalAttrs (opt ? relatedPackages && opt.relatedPackages != []) {
       relatedPackages = genRelatedPackages opt.relatedPackages opt.name;
     }
   );
@@ -78,9 +78,9 @@ let
       unpack =
         p:
         if lib.isString p then
-          { name = p; }
+          {name = p;}
         else if lib.isList p then
-          { path = p; }
+          {path = p;}
         else
           p;
       describe =
@@ -113,25 +113,21 @@ in
 rec {
   inherit optionsNix;
 
-  optionsAsciiDoc =
-    pkgs.runCommand "options.adoc" { nativeBuildInputs = [ pkgs.nixos-render-docs ]; }
-      ''
-        nixos-render-docs -j $NIX_BUILD_CORES options asciidoc \
-          --manpage-urls ${pkgs.path + "/doc/manpage-urls.json"} \
-          --revision ${lib.escapeShellArg revision} \
-          ${optionsJSON}/share/doc/nixos/options.json \
-          $out
-      '';
+  optionsAsciiDoc = pkgs.runCommand "options.adoc" {nativeBuildInputs = [pkgs.nixos-render-docs];} ''
+    nixos-render-docs -j $NIX_BUILD_CORES options asciidoc \
+      --manpage-urls ${pkgs.path + "/doc/manpage-urls.json"} \
+      --revision ${lib.escapeShellArg revision} \
+      ${optionsJSON}/share/doc/nixos/options.json \
+      $out
+  '';
 
-  optionsCommonMark =
-    pkgs.runCommand "options.md" { nativeBuildInputs = [ pkgs.nixos-render-docs ]; }
-      ''
-        nixos-render-docs -j $NIX_BUILD_CORES options commonmark \
-          --manpage-urls ${pkgs.path + "/doc/manpage-urls.json"} \
-          --revision ${lib.escapeShellArg revision} \
-          ${optionsJSON}/share/doc/nixos/options.json \
-          $out
-      '';
+  optionsCommonMark = pkgs.runCommand "options.md" {nativeBuildInputs = [pkgs.nixos-render-docs];} ''
+    nixos-render-docs -j $NIX_BUILD_CORES options commonmark \
+      --manpage-urls ${pkgs.path + "/doc/manpage-urls.json"} \
+      --revision ${lib.escapeShellArg revision} \
+      ${optionsJSON}/share/doc/nixos/options.json \
+      $out
+  '';
 
   optionsJSON =
     pkgs.runCommand "options.json"
@@ -167,7 +163,7 @@ rec {
         echo "file json-br $dst/options.json.br" >> $out/nix-support/hydra-build-products
       '';
 
-  optionsUsedDocbook = pkgs.runCommand "options-used-docbook" { } ''
+  optionsUsedDocbook = pkgs.runCommand "options-used-docbook" {} ''
     if [ -e ${optionsJSON}/share/doc/nixos/.used-docbook ]; then
       echo 1
     else
@@ -176,7 +172,7 @@ rec {
   '';
 
   optionsDocBook =
-    pkgs.runCommand "options-docbook.xml" { nativeBuildInputs = [ pkgs.nixos-render-docs ]; }
+    pkgs.runCommand "options-docbook.xml" {nativeBuildInputs = [pkgs.nixos-render-docs];}
       ''
         nixos-render-docs -j $NIX_BUILD_CORES options docbook \
           --manpage-urls ${pkgs.path + "/doc/manpage-urls.json"} \

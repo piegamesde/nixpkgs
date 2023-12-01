@@ -66,7 +66,7 @@ let
               '';
               license = licenses.ofl;
               platforms = iosevka.meta.platforms;
-              maintainers = [ maintainers.DamienCassou ];
+              maintainers = [maintainers.DamienCassou];
             };
           }
         );

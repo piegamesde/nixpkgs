@@ -14,7 +14,7 @@ stdenv.mkDerivation rec {
     sha256 = "1c8q1qy88cjhdjlk3g24mra94h34c1ldvkjz0n2988c0yvn5xixp";
   };
 
-  nativeBuildInputs = [ libtool ];
+  nativeBuildInputs = [libtool];
 
   postPatch = ''
     substituteInPlace makefile.shared --replace glibtool libtool

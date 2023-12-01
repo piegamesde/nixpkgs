@@ -23,12 +23,12 @@ buildPythonPackage rec {
   # no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "aiohttp_openmetrics" ];
+  pythonImportsCheck = ["aiohttp_openmetrics"];
 
   meta = with lib; {
     description = "OpenMetrics provider for aiohttp";
     homepage = "https://github.com/jelmer/aiohttp-openmetrics/";
     license = licenses.asl20;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

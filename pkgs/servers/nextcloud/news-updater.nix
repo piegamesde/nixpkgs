@@ -16,12 +16,12 @@ python3Packages.buildPythonApplication rec {
 
   doCheck = false;
 
-  propagatedBuildInputs = [ php ];
+  propagatedBuildInputs = [php];
 
   meta = {
     description = "Fast parallel feed updater for the Nextcloud news app";
     homepage = "https://github.com/nextcloud/news-updater";
     license = lib.licenses.gpl3;
-    maintainers = with lib.maintainers; [ schneefux ];
+    maintainers = with lib.maintainers; [schneefux];
   };
 }

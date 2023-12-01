@@ -30,6 +30,6 @@ buildPythonPackage rec {
     description = "Client for Ubiquiti's Unifi Camera NVR";
     homepage = "https://github.com/kk7ds/uvcclient";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ hexa ];
+    maintainers = with maintainers; [hexa];
   };
 }

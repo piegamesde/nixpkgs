@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-dKT/Ey+vardXu/+coaC69TTUXjJLsLBKgCx9VY8f0oY=";
   };
 
-  nativeBuildInputs = [ perl ];
+  nativeBuildInputs = [perl];
 
   postUnpack = "rm $sourceRoot/git2log";
   patchPhase = ''
@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
     substituteInPlace Makefile --replace "/usr" "/"
   '';
 
-  buildFlags = [ "shared" ];
+  buildFlags = ["shared"];
   enableParallelBuilding = true;
 
   installFlags = [
@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
     description = "x86 emulation library";
     license = licenses.bsd2;
     homepage = "https://github.com/wfeldt/libx86emu";
-    maintainers = with maintainers; [ bobvanderlinden ];
+    maintainers = with maintainers; [bobvanderlinden];
     platforms = platforms.linux;
   };
 }

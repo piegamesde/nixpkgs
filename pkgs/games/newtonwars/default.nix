@@ -19,7 +19,7 @@ stdenv.mkDerivation {
     sha256 = "0g63fwfcdxxlnqlagj1fb8ngm385gmv8f7p8b4r1z5cny2znxdvs";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
   buildInputs = [
     freeglut
     libGL
@@ -45,7 +45,7 @@ stdenv.mkDerivation {
 
   meta = with lib; {
     description = "A space battle game with gravity as the main theme";
-    maintainers = with maintainers; [ pSub ];
+    maintainers = with maintainers; [pSub];
     platforms = platforms.linux;
     license = licenses.mit;
   };

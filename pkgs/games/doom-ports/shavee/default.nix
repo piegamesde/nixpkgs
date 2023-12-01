@@ -23,7 +23,7 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-iNGn5KknSNgazFSu6Nur7AkKVb6qKMxuFwTdCz5djWU=";
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     openssl
@@ -41,7 +41,7 @@ rustPlatform.buildRustPackage rec {
     description = "A Program to automatically decrypt and mount ZFS datasets using Yubikey HMAC as 2FA or any File on USB/SFTP/HTTPS.";
     homepage = "https://github.com/ashuio/shavee";
     license = licenses.mit;
-    maintainers = with maintainers; [ jasonodoom ];
+    maintainers = with maintainers; [jasonodoom];
     platforms = platforms.linux;
   };
 }

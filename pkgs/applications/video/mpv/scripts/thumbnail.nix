@@ -16,7 +16,7 @@ stdenvNoCC.mkDerivation rec {
     sha256 = "sha256-6J1eeuSYyUJmWLIl9WsQ4NzQOBJNO3Cnl5jcPEal4vM=";
   };
 
-  nativeBuildInputs = [ python3 ];
+  nativeBuildInputs = [python3];
 
   postPatch = ''
     patchShebangs concat_files.py
@@ -37,6 +37,6 @@ stdenvNoCC.mkDerivation rec {
     changelog = "https://github.com/marzzzello/mpv_thumbnail_script/releases/tag/${version}";
     license = licenses.gpl3Plus;
     platforms = platforms.all;
-    maintainers = with maintainers; [ figsoda ];
+    maintainers = with maintainers; [figsoda];
   };
 }

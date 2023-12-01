@@ -12,7 +12,7 @@ buildDunePackage {
 
   dontAddPrefix = true;
 
-  propagatedBuildInputs = [ ordering ];
+  propagatedBuildInputs = [ordering];
 
   meta = dune_3.meta // {
     description = "Dynamic type";

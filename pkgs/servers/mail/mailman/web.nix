@@ -32,7 +32,7 @@ buildPythonPackage rec {
         --replace /opt/mailman/web /var/lib/mailman-web
   '';
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
   propagatedBuildInputs = [
     hyperkitty
     postorius
@@ -42,7 +42,7 @@ buildPythonPackage rec {
   # Tries to check runtime configuration.
   doCheck = false;
 
-  makeWrapperArgs = [ "--suffix PATH : ${lib.makeBinPath [ sassc ]}" ];
+  makeWrapperArgs = ["--suffix PATH : ${lib.makeBinPath [sassc]}"];
 
   meta = with lib; {
     description = "Django project for Mailman 3 web interface";

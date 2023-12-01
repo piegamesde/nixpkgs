@@ -7,13 +7,13 @@
 
 lib.makeOverridable (
   {
-    completionDirs ? [ ],
-    functionDirs ? [ ],
-    confDirs ? [ ],
-    pluginPkgs ? [ ],
+    completionDirs ? [],
+    functionDirs ? [],
+    confDirs ? [],
+    pluginPkgs ? [],
     localConfig ? "",
-    shellAliases ? { },
-    runtimeInputs ? [ ],
+    shellAliases ? {},
+    runtimeInputs ? [],
   }:
 
   let

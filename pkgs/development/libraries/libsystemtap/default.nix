@@ -35,6 +35,6 @@ stdenv.mkDerivation {
     homepage = "https://sourceware.org/systemtap/";
     license = licenses.bsd3;
     platforms = platforms.unix;
-    maintainers = [ lib.maintainers.farlion ];
+    maintainers = [lib.maintainers.farlion];
   };
 }

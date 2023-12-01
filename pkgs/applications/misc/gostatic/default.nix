@@ -21,6 +21,6 @@ buildGoModule rec {
     description = "Fast static site generator";
     homepage = "https://github.com/piranha/gostatic";
     license = licenses.isc;
-    maintainers = with maintainers; [ urandom ];
+    maintainers = with maintainers; [urandom];
   };
 }

@@ -25,7 +25,7 @@ buildPythonPackage rec {
     django-appconf
   ];
 
-  pythonImportsCheck = [ "statici18n" ];
+  pythonImportsCheck = ["statici18n"];
 
   DJANGO_SETTINGS_MODULE = "tests.test_project.project.settings";
 

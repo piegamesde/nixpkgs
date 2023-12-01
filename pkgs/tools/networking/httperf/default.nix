@@ -17,8 +17,8 @@ stdenv.mkDerivation rec {
     sha256 = "0p48z9bcpdjq3nsarl26f0xbxmqgw42k5qmfy8wv5bcrz6b3na42";
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
-  propagatedBuildInputs = [ openssl ];
+  nativeBuildInputs = [autoreconfHook];
+  propagatedBuildInputs = [openssl];
 
   configurePhase = ''
     autoreconf -i
@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "The httperf HTTP load generator";
     homepage = "https://github.com/httperf/httperf";
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
     license = licenses.gpl2;
     platforms = platforms.all;
   };

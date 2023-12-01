@@ -16,7 +16,7 @@ stdenv.mkDerivation {
     sha256 = "0az38y06pvvy9jf2wnzdwp9mp98lj6nr0ldv0cs1df5p9x2qvbya";
   };
 
-  nativeBuildInputs = [ xcbuildHook ];
+  nativeBuildInputs = [xcbuildHook];
 
   installPhase = ''
     mkdir -p $out/bin

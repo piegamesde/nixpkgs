@@ -14,7 +14,7 @@ let
     sha256 = "sha256-4ugpzh0Dweae6tKb6uqRhEW9HT+iVIo8MQRbVKTdRFw=";
   };
 
-  appimageContents = appimageTools.extractType2 { inherit name src; };
+  appimageContents = appimageTools.extractType2 {inherit name src;};
 in
 appimageTools.wrapType2 rec {
   inherit name src;
@@ -35,7 +35,7 @@ appimageTools.wrapType2 rec {
     homepage = "https://github.com/egoist/devdocs-desktop";
     downloadPage = "https://github.com/egoist/devdocs-desktop/releases";
     license = licenses.mit;
-    maintainers = with maintainers; [ ymarkus ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with maintainers; [ymarkus];
+    platforms = ["x86_64-linux"];
   };
 }

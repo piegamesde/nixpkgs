@@ -19,7 +19,7 @@ stdenvNoCC.mkDerivation rec {
     owner = "gvolpe";
     repo = pname;
     rev = version;
-    sparseCheckout = [ "BeautyLine-V3" ];
+    sparseCheckout = ["BeautyLine-V3"];
     sha256 = "sha256-IkkypAj250+OXbf19TampCnqYsSbJVIjeYlxJoyhpzk=";
   };
 
@@ -60,7 +60,7 @@ stdenvNoCC.mkDerivation rec {
     description = "BeautyLine icon theme";
     homepage = "https://www.gnome-look.org/p/1425426/";
     platforms = platforms.linux;
-    license = [ licenses.publicDomain ];
-    maintainers = with maintainers; [ gvolpe ];
+    license = [licenses.publicDomain];
+    maintainers = with maintainers; [gvolpe];
   };
 }

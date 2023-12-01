@@ -59,7 +59,7 @@ buildPythonPackage rec {
       asdf
       # asdf-astropy
     ];
-    database = [ sqlalchemy ];
+    database = [sqlalchemy];
     image = [
       scikitimage
       scipy
@@ -159,7 +159,7 @@ buildPythonPackage rec {
     description = "Python for Solar Physics";
     homepage = "https://sunpy.org";
     license = licenses.bsd2;
-    maintainers = with maintainers; [ costrouc ];
+    maintainers = with maintainers; [costrouc];
     broken = true;
   };
 }

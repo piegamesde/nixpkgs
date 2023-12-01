@@ -99,6 +99,6 @@ stdenv.mkDerivation rec {
       "aarch64-linux"
     ];
     license = licenses.asl20;
-    maintainers = with maintainers; [ benesim ];
+    maintainers = with maintainers; [benesim];
   };
 }

@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{config, lib, ...}:
 
 let
   kernel = config.boot.kernelPackages;
@@ -29,19 +29,19 @@ in
       "nvidiafb"
       "nvidia-drm"
     ];
-    boot.kernelModules = [ "bbswitch" ];
-    boot.extraModulePackages = [ kernel.bbswitch ];
+    boot.kernelModules = ["bbswitch"];
+    boot.extraModulePackages = [kernel.bbswitch];
 
     systemd.services.bbswitch = {
       description = "Disable NVIDIA Card";
-      wantedBy = [ "multi-user.target" ];
+      wantedBy = ["multi-user.target"];
       serviceConfig = {
         Type = "oneshot";
         RemainAfterExit = true;
         ExecStart = "${kernel.bbswitch}/bin/discrete_vga_poweroff";
         ExecStop = "${kernel.bbswitch}/bin/discrete_vga_poweron";
       };
-      path = [ kernel.bbswitch ];
+      path = [kernel.bbswitch];
     };
   };
 }

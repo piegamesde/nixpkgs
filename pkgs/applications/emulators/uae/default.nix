@@ -24,25 +24,25 @@ stdenv.mkDerivation rec {
     "--with-alsa"
   ];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     gtk2
     alsa-lib
     SDL
   ];
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
   # Workaround build failure on -fno-common toolchains:
   #   ld: bsdsocket.o:(.bss+0x0): multiple definition of
   #     `socketbases'; main.o:(.bss+0x2792c0): first defined here
   env.NIX_CFLAGS_COMPILE = "-fcommon";
-  LDFLAGS = [ "-lm" ];
+  LDFLAGS = ["-lm"];
 
   meta = {
     description = "Ultimate/Unix/Unusable Amiga Emulator";
     license = lib.licenses.gpl2Plus;
     homepage = "https://web.archive.org/web/20130901222855/http://www.amigaemulator.org/";
-    maintainers = [ lib.maintainers.sander ];
+    maintainers = [lib.maintainers.sander];
     platforms = lib.platforms.linux;
   };
 }

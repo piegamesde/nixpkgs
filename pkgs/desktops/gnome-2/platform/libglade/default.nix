@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
     "dev"
   ];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     gtk2
     gettext
@@ -30,5 +30,5 @@ stdenv.mkDerivation rec {
 
   NIX_LDFLAGS = "-lgmodule-2.0";
 
-  propagatedBuildInputs = [ libxml2 ];
+  propagatedBuildInputs = [libxml2];
 }

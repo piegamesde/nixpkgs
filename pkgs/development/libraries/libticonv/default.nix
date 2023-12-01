@@ -20,9 +20,9 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  buildInputs = [ glib ];
+  buildInputs = [glib];
 
-  configureFlags = [ "--enable-iconv" ];
+  configureFlags = ["--enable-iconv"];
 
   meta = with lib; {
     changelog = "http://lpg.ticalc.org/prj_tilp/news.html";

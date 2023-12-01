@@ -116,12 +116,12 @@ stdenv.mkDerivation (
       ];
       pkgConfigModules =
         {
-          "2" = [ "appindicator-0.1" ];
-          "3" = [ "appindicator3-0.1" ];
+          "2" = ["appindicator-0.1"];
+          "3" = ["appindicator3-0.1"];
         }
         .${gtkVersion} or throwBadGtkVersion;
       platforms = platforms.linux;
-      maintainers = [ maintainers.msteen ];
+      maintainers = [maintainers.msteen];
       # TODO: Resolve the issues with the Mono bindings.
       broken = monoSupport;
     };

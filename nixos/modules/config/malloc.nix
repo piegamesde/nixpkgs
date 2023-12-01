@@ -80,12 +80,12 @@ in
 
 {
   meta = {
-    maintainers = [ maintainers.joachifm ];
+    maintainers = [maintainers.joachifm];
   };
 
   options = {
     environment.memoryAllocator.provider = mkOption {
-      type = types.enum ([ "libc" ] ++ attrNames providers);
+      type = types.enum (["libc"] ++ attrNames providers);
       default = "libc";
       description = lib.mdDoc ''
         The system-wide memory allocator.
@@ -94,7 +94,7 @@ in
 
         - `libc`: the standard allocator provided by libc
         ${concatStringsSep "\n" (
-          mapAttrsToList (name: value: "- `${name}`: ${replaceStrings [ "\n" ] [ " " ] value.description}")
+          mapAttrsToList (name: value: "- `${name}`: ${replaceStrings ["\n"] [" "] value.description}")
             providers
         )}
 
@@ -122,9 +122,9 @@ in
           pkgs.apparmorRulesFromClosure
             {
               name = "mallocLib";
-              baseRules = [ "mr $path/lib/**.so*" ];
+              baseRules = ["mr $path/lib/**.so*"];
             }
-            [ mallocLib ]
+            [mallocLib]
         }"
       '';
     };

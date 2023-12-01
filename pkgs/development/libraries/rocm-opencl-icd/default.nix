@@ -17,13 +17,13 @@ stdenv.mkDerivation rec {
   '';
 
   passthru.impureTests = {
-    rocm-opencl = callPackage ./test.nix { };
+    rocm-opencl = callPackage ./test.nix {};
   };
 
   meta = with lib; {
     description = "OpenCL ICD definition for AMD GPUs using the ROCm stack";
     license = licenses.mit;
-    maintainers = with maintainers; [ lovesegfault ] ++ teams.rocm.members;
+    maintainers = with maintainers; [lovesegfault] ++ teams.rocm.members;
     platforms = platforms.linux;
   };
 }

@@ -6,13 +6,13 @@
   hicolor-icon-theme,
   ibus,
   librsvg,
-  plugins ? [ ],
+  plugins ? [],
 }:
 
 buildEnv {
   name = "ibus-with-plugins-" + lib.getVersion ibus;
 
-  paths = [ ibus ] ++ plugins;
+  paths = [ibus] ++ plugins;
 
   pathsToLink = [
     "/bin"
@@ -27,9 +27,9 @@ buildEnv {
     "/share/systemd/user/gnome-session.target.wants"
   ];
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
-  buildInputs = [ ibus ] ++ plugins;
+  buildInputs = [ibus] ++ plugins;
 
   postBuild = ''
     for prog in ibus; do

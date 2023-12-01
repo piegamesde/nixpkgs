@@ -31,7 +31,7 @@ ocamlPackages.buildDunePackage rec {
   '';
 
   checkPhase = "./TEST";
-  nativeCheckInputs = [ rsync ];
+  nativeCheckInputs = [rsync];
   doCheck = true;
 
   postInstall = ''
@@ -43,7 +43,7 @@ ocamlPackages.buildDunePackage rec {
     description = "A functional language for reasoning about formal systems";
     homepage = "http://complogic.cs.mcgill.ca/beluga/";
     license = licenses.gpl3Plus;
-    maintainers = [ maintainers.bcdarwin ];
+    maintainers = [maintainers.bcdarwin];
     platforms = platforms.unix;
   };
 }

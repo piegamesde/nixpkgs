@@ -27,9 +27,9 @@ buildPythonPackage rec {
     hash = "sha256-a//tZ0SMtL9d/1WfsqzuHAbn2oYSuOKnNPJ4tQs5ZgM=";
   };
 
-  nativeBuildInputs = [ hatchling ];
+  nativeBuildInputs = [hatchling];
 
-  propagatedBuildInputs = [ requests ];
+  propagatedBuildInputs = [requests];
 
   nativeCheckInputs = [
     click
@@ -41,23 +41,23 @@ buildPythonPackage rec {
     vcrpy
   ];
 
-  disabledTestPaths = [ "tests/performance" ];
+  disabledTestPaths = ["tests/performance"];
 
   disabledTests =
-    [ "test_default_settings_set" ]
+    ["test_default_settings_set"]
     ++ lib.optionals (pythonAtLeast "3.11")
       [
         # https://github.com/DataDog/datadogpy/issues/746
         "TestDogshell"
       ];
 
-  pythonImportsCheck = [ "datadog" ];
+  pythonImportsCheck = ["datadog"];
 
   meta = with lib; {
     description = "The Datadog Python library";
     homepage = "https://github.com/DataDog/datadogpy";
     changelog = "https://github.com/DataDog/datadogpy/blob/v${version}/CHANGELOG.md";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

@@ -25,7 +25,7 @@ stdenv.mkDerivation {
     substituteInPlace src/Makefile --replace '/usr/local/src/mdk4' '$out'
   '';
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   buildInputs = [
     libnl
@@ -40,7 +40,7 @@ stdenv.mkDerivation {
   meta = with lib; {
     description = "A tool that injects data into wireless networks";
     homepage = "https://github.com/aircrack-ng/mdk4";
-    maintainers = with maintainers; [ fortuneteller2k ];
+    maintainers = with maintainers; [fortuneteller2k];
     license = licenses.gpl2Plus;
   };
 }

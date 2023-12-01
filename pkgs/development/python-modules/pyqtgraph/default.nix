@@ -15,7 +15,7 @@
 }:
 
 let
-  fontsConf = makeFontsConf { fontDirectories = [ freefont_ttf ]; };
+  fontsConf = makeFontsConf {fontDirectories = [freefont_ttf];};
 in
 buildPythonPackage rec {
   pname = "pyqtgraph";
@@ -43,7 +43,7 @@ buildPythonPackage rec {
     pyopengl
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   preCheck = ''
     export QT_PLUGIN_PATH="${qt5.qtbase.bin}/${qt5.qtbase.qtPluginPrefix}"
@@ -72,6 +72,6 @@ buildPythonPackage rec {
     changelog = "https://github.com/pyqtgraph/pyqtgraph/blob/master/CHANGELOG";
     license = licenses.mit;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ koral ];
+    maintainers = with maintainers; [koral];
   };
 }

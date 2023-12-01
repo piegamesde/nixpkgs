@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
     nasm
   ];
 
-  patches = [ ./use-nixpkgs-libpng.patch ];
+  patches = [./use-nixpkgs-libpng.patch];
 
   buildInputs = [
     boost
@@ -34,13 +34,13 @@ stdenv.mkDerivation rec {
 
   cmakeDir = "../src";
 
-  cmakeFlags = [ "-DECT_FOLDER_SUPPORT=ON" ];
+  cmakeFlags = ["-DECT_FOLDER_SUPPORT=ON"];
 
   meta = with lib; {
     description = "Fast and effective C++ file optimizer";
     homepage = "https://github.com/fhanau/Efficient-Compression-Tool";
     license = licenses.asl20;
-    maintainers = [ maintainers.lunik1 ];
+    maintainers = [maintainers.lunik1];
     platforms = platforms.linux;
   };
 }

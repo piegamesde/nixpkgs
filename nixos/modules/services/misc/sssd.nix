@@ -89,7 +89,7 @@ in
 
       systemd.services.sssd = {
         description = "System Security Services Daemon";
-        wantedBy = [ "multi-user.target" ];
+        wantedBy = ["multi-user.target"];
         before = [
           "systemd-user-sessions.service"
           "nss-user-lookup.target"
@@ -102,7 +102,7 @@ in
           "network-online.target"
           "nscd.service"
         ];
-        wants = [ "nss-user-lookup.target" ];
+        wants = ["nss-user-lookup.target"];
         restartTriggers = [
           config.environment.etc."nscd.conf".source
           settingsFileUnsubstituted
@@ -131,32 +131,32 @@ in
         '';
       };
 
-      system.nssModules = [ pkgs.sssd ];
+      system.nssModules = [pkgs.sssd];
       system.nssDatabases = {
-        group = [ "sss" ];
-        passwd = [ "sss" ];
-        services = [ "sss" ];
-        shadow = [ "sss" ];
+        group = ["sss"];
+        passwd = ["sss"];
+        services = ["sss"];
+        shadow = ["sss"];
       };
-      services.dbus.packages = [ pkgs.sssd ];
+      services.dbus.packages = [pkgs.sssd];
     })
 
     (mkIf cfg.kcm {
       systemd.services.sssd-kcm = {
         description = "SSSD Kerberos Cache Manager";
-        requires = [ "sssd-kcm.socket" ];
+        requires = ["sssd-kcm.socket"];
         serviceConfig = {
           ExecStartPre = "-${pkgs.sssd}/bin/sssd --genconf-section=kcm";
           ExecStart = "${pkgs.sssd}/libexec/sssd/sssd_kcm --uid 0 --gid 0";
         };
-        restartTriggers = [ config.environment.etc."sssd/sssd.conf".source ];
+        restartTriggers = [config.environment.etc."sssd/sssd.conf".source];
       };
       systemd.sockets.sssd-kcm = {
         description = "SSSD Kerberos Cache Manager responder socket";
-        wantedBy = [ "sockets.target" ];
+        wantedBy = ["sockets.target"];
         # Matches the default in MIT krb5 and Heimdal:
         # https://github.com/krb5/krb5/blob/krb5-1.19.3-final/src/include/kcm.h#L43
-        listenStreams = [ "/var/run/.heim_org.h5l.kcm-socket" ];
+        listenStreams = ["/var/run/.heim_org.h5l.kcm-socket"];
       };
       krb5.libdefaults.default_ccache_name = "KCM:";
     })
@@ -176,5 +176,5 @@ in
     })
   ];
 
-  meta.maintainers = with maintainers; [ bbigras ];
+  meta.maintainers = with maintainers; [bbigras];
 }

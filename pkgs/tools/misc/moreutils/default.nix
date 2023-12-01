@@ -44,8 +44,8 @@ stdenv.mkDerivation rec {
     TimeDuration
   ];
 
-  buildFlags = [ "CC=${stdenv.cc.targetPrefix}cc" ];
-  installFlags = [ "PREFIX=$(out)" ];
+  buildFlags = ["CC=${stdenv.cc.targetPrefix}cc"];
+  installFlags = ["PREFIX=$(out)"];
 
   postInstall = ''
     wrapProgram $out/bin/chronic --prefix PERL5LIB : $PERL5LIB

@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
       })
     ];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = [
     openssl
     postgresql
@@ -48,7 +48,7 @@ stdenv.mkDerivation rec {
     description = "Scalable PostgreSQL connection pooler";
     homepage = "https://github.com/yandex/odyssey";
     license = licenses.bsd3;
-    maintainers = [ maintainers.marsam ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = [maintainers.marsam];
+    platforms = ["x86_64-linux"];
   };
 }

@@ -1,13 +1,13 @@
 # This test runs peerflix and checks if peerflix starts
 
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
   {
     name = "peerflix";
-    meta = with pkgs.lib.maintainers; { maintainers = [ offline ]; };
+    meta = with pkgs.lib.maintainers; {maintainers = [offline];};
 
     nodes = {
-      peerflix = { ... }: { services.peerflix.enable = true; };
+      peerflix = {...}: {services.peerflix.enable = true;};
     };
 
     testScript = ''

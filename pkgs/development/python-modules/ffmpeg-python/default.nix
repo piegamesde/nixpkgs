@@ -25,7 +25,7 @@ buildPythonPackage rec {
     hash = "sha256-Dk3nHuYVlIiFF6nORZ5TVFkBXdoZUxLfoiz68V1tvlY=";
   };
 
-  propagatedBuildInputs = [ future ];
+  propagatedBuildInputs = [future];
 
   nativeCheckInputs = [
     pytestCheckHook
@@ -44,14 +44,14 @@ buildPythonPackage rec {
       --replace "'pytest-runner'" ""
   '';
 
-  pythonImportsCheck = [ "ffmpeg" ];
+  pythonImportsCheck = ["ffmpeg"];
 
-  disabledTests = lib.optionals (pythonAtLeast "3.10") [ "test__output__video_size" ];
+  disabledTests = lib.optionals (pythonAtLeast "3.10") ["test__output__video_size"];
 
   meta = with lib; {
     description = "Python bindings for FFmpeg - with complex filtering support";
     homepage = "https://github.com/kkroening/ffmpeg-python";
     license = licenses.asl20;
-    maintainers = with maintainers; [ AluisioASG ];
+    maintainers = with maintainers; [AluisioASG];
   };
 }

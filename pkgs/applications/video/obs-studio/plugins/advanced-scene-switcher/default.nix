@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
     sha256 = "04k7f7v756vdsan95g73cc29lrs61jis738v37a3ihi3ivps3ma3";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   buildInputs = [
     asio
@@ -48,7 +48,7 @@ stdenv.mkDerivation rec {
   meta = {
     description = "An automated scene switcher for OBS Studio";
     homepage = "https://github.com/WarmUpTill/SceneSwitcher";
-    maintainers = with lib.maintainers; [ paveloom ];
+    maintainers = with lib.maintainers; [paveloom];
     license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.linux;
   };

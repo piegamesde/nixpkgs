@@ -22,7 +22,7 @@ buildPythonPackage rec {
     hash = "sha256-lh1o/TqnqtYN9xTZom33y1/7ZhMEAFpheLdtalwgObQ=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  nativeBuildInputs = [setuptools];
 
   checkPhase = ''
     runHook preCheck
@@ -34,12 +34,12 @@ buildPythonPackage rec {
     inherit apache-beam datasets;
   };
 
-  pythonImportsCheck = [ "dill" ];
+  pythonImportsCheck = ["dill"];
 
   meta = with lib; {
     description = "Serialize all of python (almost)";
     homepage = "https://github.com/uqfoundation/dill/";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ tjni ];
+    maintainers = with maintainers; [tjni];
   };
 }

@@ -42,16 +42,16 @@ in
     services.geoclue2.appConfig.localtimed = {
       isAllowed = true;
       isSystem = true;
-      users = [ (toString config.ids.uids.localtimed) ];
+      users = [(toString config.ids.uids.localtimed)];
     };
 
     # Install the polkit rules.
-    environment.systemPackages = [ pkgs.localtime ];
+    environment.systemPackages = [pkgs.localtime];
 
     systemd.services.localtimed = {
-      wantedBy = [ "multi-user.target" ];
-      partOf = [ "localtimed-geoclue-agent.service" ];
-      after = [ "localtimed-geoclue-agent.service" ];
+      wantedBy = ["multi-user.target"];
+      partOf = ["localtimed-geoclue-agent.service"];
+      after = ["localtimed-geoclue-agent.service"];
       serviceConfig = {
         ExecStart = "${pkgs.localtime}/bin/localtimed";
         Restart = "on-failure";
@@ -61,9 +61,9 @@ in
     };
 
     systemd.services.localtimed-geoclue-agent = {
-      wantedBy = [ "multi-user.target" ];
-      partOf = [ "geoclue.service" ];
-      after = [ "geoclue.service" ];
+      wantedBy = ["multi-user.target"];
+      partOf = ["geoclue.service"];
+      after = ["geoclue.service"];
       serviceConfig = {
         ExecStart = "${pkgs.geoclue2-with-demo-agent}/libexec/geoclue-2.0/demos/agent";
         Restart = "on-failure";

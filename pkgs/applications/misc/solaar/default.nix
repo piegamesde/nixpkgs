@@ -67,7 +67,7 @@ python3Packages.buildPythonApplication rec {
   # no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "solaar" ];
+  pythonImportsCheck = ["solaar"];
 
   meta = with lib; {
     description = "Linux devices manager for the Logitech Unifying Receiver";

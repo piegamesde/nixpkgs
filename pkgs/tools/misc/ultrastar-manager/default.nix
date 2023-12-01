@@ -84,7 +84,7 @@ let
       name = "ultrastar-manager-${name}-plugin-${version}";
       src = patchedSrc;
 
-      buildInputs = [ qmake ] ++ buildInputs;
+      buildInputs = [qmake] ++ buildInputs;
 
       postPatch = ''
         sed -e "s|DESTDIR = .*$|DESTDIR = $out|" \
@@ -133,13 +133,13 @@ mkDerivation {
     make install
   '';
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   inherit buildInputs;
 
   meta = with lib; {
     description = "Ultrastar karaoke song manager";
     homepage = "https://github.com/UltraStar-Deluxe/UltraStar-Manager";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ Profpatsch ];
+    maintainers = with maintainers; [Profpatsch];
   };
 }

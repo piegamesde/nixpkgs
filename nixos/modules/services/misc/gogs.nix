@@ -203,9 +203,9 @@ in
 
     systemd.services.gogs = {
       description = "Gogs (Go Git Service)";
-      after = [ "network.target" ];
-      wantedBy = [ "multi-user.target" ];
-      path = [ pkgs.gogs ];
+      after = ["network.target"];
+      wantedBy = ["multi-user.target"];
+      path = [pkgs.gogs];
 
       preStart =
         let

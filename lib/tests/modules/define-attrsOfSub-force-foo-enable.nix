@@ -1,5 +1,5 @@
-{ lib, ... }:
+{lib, ...}:
 
 {
-  attrsOfSub = lib.mkForce { foo.enable = false; };
+  attrsOfSub = lib.mkForce {foo.enable = false;};
 }

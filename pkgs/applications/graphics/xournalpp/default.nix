@@ -55,9 +55,9 @@ stdenv.mkDerivation rec {
     zlib
   ] ++ lib.optional withLua lua;
 
-  buildFlags = [ "translations" ];
+  buildFlags = ["translations"];
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   meta = with lib; {
     description = "Xournal++ is a handwriting Notetaking software with PDF annotation support";

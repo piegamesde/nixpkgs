@@ -49,7 +49,7 @@ stdenv.mkDerivation rec {
   configureFlags = [
     "--enable-cblas"
     "--blas-int-size=${blasIntSize}"
-  ] ++ lib.optionals withOpenMP [ "--enable-threading=openmp" ] ++ [ withArchitecture ];
+  ] ++ lib.optionals withOpenMP ["--enable-threading=openmp"] ++ [withArchitecture];
 
   postPatch = ''
     patchShebangs configure build/flatten-headers.py
@@ -66,7 +66,7 @@ stdenv.mkDerivation rec {
     description = "BLAS-compatible library optimized for AMD CPUs";
     homepage = "https://developer.amd.com/amd-aocl/blas-library/";
     license = licenses.bsd3;
-    maintainers = [ maintainers.markuskowa ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = [maintainers.markuskowa];
+    platforms = ["x86_64-linux"];
   };
 }

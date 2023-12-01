@@ -27,7 +27,7 @@ stdenv.mkDerivation (
       pkg-config
     ];
 
-    buildInputs = [ ncurses ];
+    buildInputs = [ncurses];
 
     strictDeps = true;
 
@@ -50,7 +50,7 @@ stdenv.mkDerivation (
         systems.
       '';
       license = licenses.publicDomain;
-      maintainers = with maintainers; [ cameronnemo ];
+      maintainers = with maintainers; [cameronnemo];
       platforms = platforms.linux;
     };
 

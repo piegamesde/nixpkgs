@@ -45,7 +45,7 @@ buildGoModule rec {
   ];
 
   buildInputs =
-    [ gpgme ]
+    [gpgme]
     ++ lib.optionals stdenv.isLinux [
       lvm2
       btrfs-progs
@@ -66,18 +66,18 @@ buildGoModule rec {
     ''
     + lib.optionalString stdenv.isLinux ''
       wrapProgram $out/bin/skopeo \
-        --prefix PATH : ${lib.makeBinPath [ fuse-overlayfs ]}
+        --prefix PATH : ${lib.makeBinPath [fuse-overlayfs]}
     ''
     + ''
       runHook postInstall
     '';
 
   passthru = {
-    policy = runCommand "policy" { } ''
+    policy = runCommand "policy" {} ''
       install ${src}/default-policy.json -Dt $out
     '';
     tests = {
-      version = testers.testVersion { package = skopeo; };
+      version = testers.testVersion {package = skopeo;};
       inherit (dockerTools.examples) testNixFromDockerHub;
     };
   };

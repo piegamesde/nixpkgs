@@ -22,7 +22,7 @@ with lib;
   ];
 
   # Adds terminus_font for people with HiDPI displays
-  console.packages = options.console.packages.default ++ [ pkgs.terminus_font ];
+  console.packages = options.console.packages.default ++ [pkgs.terminus_font];
 
   # ISO naming.
   isoImage.isoName = "${config.isoImage.isoBaseName}-${config.system.nixos.label}-${pkgs.stdenv.hostPlatform.system}.iso";
@@ -41,7 +41,7 @@ with lib;
 
   # An installation media cannot tolerate a host config defined file
   # system layout on a fresh machine, before it has been formatted.
-  swapDevices = mkImageMediaOverride [ ];
+  swapDevices = mkImageMediaOverride [];
   fileSystems = mkImageMediaOverride config.lib.isoFileSystems;
 
   boot.postBootCommands = ''

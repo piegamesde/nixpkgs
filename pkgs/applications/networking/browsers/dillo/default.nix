@@ -49,7 +49,7 @@ stdenv.mkDerivation {
   #     dpid.o:/build/dillo-3.0.5/dpid/dpid.h:64: first defined here
   env.NIX_CFLAGS_COMPILE = "-fcommon";
 
-  configureFlags = [ "--enable-ssl=yes" ];
+  configureFlags = ["--enable-ssl=yes"];
 
   meta = with lib; {
     homepage = "https://hg.sr.ht/~seirdy/dillo-mirror";
@@ -57,7 +57,7 @@ stdenv.mkDerivation {
     longDescription = ''
       Dillo is a small, fast web browser, tailored for older machines.
     '';
-    maintainers = [ maintainers.AndersonTorres ];
+    maintainers = [maintainers.AndersonTorres];
     platforms = platforms.linux;
     license = licenses.gpl3Plus;
   };

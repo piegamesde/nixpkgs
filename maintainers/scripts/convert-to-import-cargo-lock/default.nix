@@ -1,4 +1,4 @@
-with import ../../../. { };
+with import ../../../. {};
 
 rustPlatform.buildRustPackage {
   name = "convert-to-import-cargo-lock";

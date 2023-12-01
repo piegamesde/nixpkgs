@@ -41,7 +41,7 @@ let
     mysqlSupport = true;
     postgresSupport = true;
   };
-  python = python3.withPackages (pkgs: with pkgs; [ pygobject3 ]);
+  python = python3.withPackages (pkgs: with pkgs; [pygobject3]);
   sphinx-build = python3.pkgs.sphinx.overrideAttrs (
     super: {
       postFixup =
@@ -126,7 +126,7 @@ stdenv.mkDerivation rec {
   ];
 
   # Fontconfig error: Cannot load default config file
-  FONTCONFIG_FILE = makeFontsConf { fontDirectories = [ freefont_ttf ]; };
+  FONTCONFIG_FILE = makeFontsConf {fontDirectories = [freefont_ttf];};
 
   preFixup = ''
     gappsWrapperArgs+=(

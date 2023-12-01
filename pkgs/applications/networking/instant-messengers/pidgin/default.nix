@@ -61,7 +61,7 @@ let
 
     buildInputs =
       let
-        python-with-dbus = python3.withPackages (pp: with pp; [ dbus-python ]);
+        python-with-dbus = python3.withPackages (pp: with pp; [dbus-python]);
       in
       [
         aspell
@@ -129,7 +129,7 @@ let
         "--disable-tcl"
         "--disable-gevolution"
       ]
-      ++ lib.optionals withCyrus_sasl [ "--enable-cyrus-sasl=yes" ]
+      ++ lib.optionals withCyrus_sasl ["--enable-cyrus-sasl=yes"]
       ++ lib.optionals withGnutls [
         "--enable-gnutls=yes"
         "--enable-nss=no"
@@ -169,11 +169,11 @@ let
       homepage = "https://pidgin.im/";
       license = licenses.gpl2Plus;
       platforms = platforms.unix;
-      maintainers = [ ];
+      maintainers = [];
     };
   };
 in
-if plugins == [ ] then
+if plugins == [] then
   unwrapped
 else
   callPackage ./wrapper.nix {

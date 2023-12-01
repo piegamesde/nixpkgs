@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-UDACkGqTtyLablSzePMmMk4iGpgfdtZU/SEv0RCSFfA=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   buildInputs = [
     aws-c-cal
@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
     s2n-tls
   ] ++ lib.optional stdenv.hostPlatform.isMusl libexecinfo;
 
-  cmakeFlags = [ "-DBUILD_SHARED_LIBS:BOOL=ON" ];
+  cmakeFlags = ["-DBUILD_SHARED_LIBS:BOOL=ON"];
 
   passthru.tests = {
     inherit nix;

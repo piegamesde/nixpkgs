@@ -27,7 +27,7 @@ stdenv.mkDerivation rec {
     homepage = "http://www.deater.net/weave/vmwprod/linux_logo";
     changelog = "https://github.com/deater/linux_logo/blob/${src.rev}/CHANGES";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ azahi ];
+    maintainers = with maintainers; [azahi];
     platforms = platforms.linux;
   };
 }

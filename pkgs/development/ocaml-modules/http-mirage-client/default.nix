@@ -49,6 +49,6 @@ buildDunePackage rec {
     description = "HTTP client for MirageOS";
     homepage = "https://github.com/roburio/http-mirage-client";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.vbgl ];
+    maintainers = [lib.maintainers.vbgl];
   };
 }

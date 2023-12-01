@@ -22,6 +22,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/pwaller/pyprof2calltree";
     changelog = "https://github.com/pwaller/pyprof2calltree/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ sfrijters ];
+    maintainers = with maintainers; [sfrijters];
   };
 }

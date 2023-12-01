@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
     '';
     license = licenses.mit;
     homepage = "https://github.com/feediron/ttrss_plugin-feediron";
-    maintainers = with maintainers; [ milogert ];
+    maintainers = with maintainers; [milogert];
     inherit (tt-rss.meta) platforms;
   };
 }

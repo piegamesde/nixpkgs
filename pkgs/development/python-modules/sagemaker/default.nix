@@ -29,7 +29,7 @@ buildPythonPackage rec {
     hash = "sha256-ypdcqEYLxHbfnq1ycq3hVLThhIIs3pq29Fv33Ly2hbE=";
   };
 
-  nativeBuildInputs = [ pythonRelaxDepsHook ];
+  nativeBuildInputs = [pythonRelaxDepsHook];
   pythonRelaxDeps = [
     # FIXME: Remove when >= 2.111.0
     "attrs"
@@ -65,6 +65,6 @@ buildPythonPackage rec {
     description = "Library for training and deploying machine learning models on Amazon SageMaker";
     homepage = "https://github.com/aws/sagemaker-python-sdk/";
     license = licenses.asl20;
-    maintainers = with maintainers; [ nequissimus ];
+    maintainers = with maintainers; [nequissimus];
   };
 }

@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
     wrapQtAppsHook
     copyDesktopItems
   ];
-  buildInputs = [ qtbase ];
+  buildInputs = [qtbase];
 
   QMAKE_LRELEASE = "lrelease";
   DEFINES = [
@@ -46,7 +46,7 @@ stdenv.mkDerivation rec {
       --replace "/usr/share/XaoS" "${datapath}"
   '';
 
-  desktopItems = [ "xdg/xaos.desktop" ];
+  desktopItems = ["xdg/xaos.desktop"];
 
   installPhase = ''
     runHook preInstall
@@ -66,7 +66,7 @@ stdenv.mkDerivation rec {
     description = "Real-time interactive fractal zoomer";
     homepage = "https://xaos-project.github.io/";
     license = lib.licenses.gpl2Plus;
-    platforms = [ "x86_64-linux" ];
-    maintainers = with lib.maintainers; [ ehmry ];
+    platforms = ["x86_64-linux"];
+    maintainers = with lib.maintainers; [ehmry];
   };
 }

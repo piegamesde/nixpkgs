@@ -1,5 +1,5 @@
 import ./make-test-python.nix (
-  { pkgs, ... }:
+  {pkgs, ...}:
 
   let
     user = "gitolite-admin";
@@ -13,14 +13,14 @@ import ./make-test-python.nix (
   {
     name = "gitolite-fcgiwrap";
 
-    meta = with pkgs.lib.maintainers; { maintainers = [ bbigras ]; };
+    meta = with pkgs.lib.maintainers; {maintainers = [bbigras];};
 
     nodes = {
 
       server =
-        { config, ... }:
+        {config, ...}:
         {
-          networking.firewall.allowedTCPPorts = [ 80 ];
+          networking.firewall.allowedTCPPorts = [80];
 
           services.fcgiwrap.enable = true;
           services.gitolite = {
@@ -63,12 +63,12 @@ import ./make-test-python.nix (
 
           # WARNING: DON'T DO THIS IN PRODUCTION!
           # This puts unhashed secrets directly into the Nix store for ease of testing.
-          environment.etc."gitolite/htpasswd".source = pkgs.runCommand "htpasswd" { } ''
+          environment.etc."gitolite/htpasswd".source = pkgs.runCommand "htpasswd" {} ''
             ${pkgs.apacheHttpd}/bin/htpasswd -bc "$out" ${user} ${password}
           '';
         };
 
-      client = { pkgs, ... }: { environment.systemPackages = [ pkgs.git ]; };
+      client = {pkgs, ...}: {environment.systemPackages = [pkgs.git];};
     };
 
     testScript = ''

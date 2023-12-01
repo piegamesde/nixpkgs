@@ -10,7 +10,7 @@ with lib;
 let
   cfg = config.services.ntfy-sh;
 
-  settingsFormat = pkgs.formats.yaml { };
+  settingsFormat = pkgs.formats.yaml {};
 in
 
 {
@@ -37,9 +37,9 @@ in
     };
 
     settings = mkOption {
-      type = types.submodule { freeformType = settingsFormat.type; };
+      type = types.submodule {freeformType = settingsFormat.type;};
 
-      default = { };
+      default = {};
 
       example = literalExpression ''
         {
@@ -61,7 +61,7 @@ in
       # to configure access control via the cli
       environment = {
         etc."ntfy/server.yml".source = configuration;
-        systemPackages = [ cfg.package ];
+        systemPackages = [cfg.package];
       };
 
       services.ntfy-sh.settings = {
@@ -71,8 +71,8 @@ in
       systemd.services.ntfy-sh = {
         description = "Push notifications server";
 
-        wantedBy = [ "multi-user.target" ];
-        after = [ "network.target" ];
+        wantedBy = ["multi-user.target"];
+        after = ["network.target"];
 
         serviceConfig = {
           ExecStart = "${cfg.package}/bin/ntfy serve -c ${configuration}";
@@ -96,7 +96,7 @@ in
         };
       };
 
-      users.groups = optionalAttrs (cfg.group == "ntfy-sh") { ntfy-sh = { }; };
+      users.groups = optionalAttrs (cfg.group == "ntfy-sh") {ntfy-sh = {};};
 
       users.users = optionalAttrs (cfg.user == "ntfy-sh") {
         ntfy-sh = {

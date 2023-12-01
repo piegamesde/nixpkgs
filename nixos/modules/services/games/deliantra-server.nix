@@ -108,7 +108,7 @@ in
       isSystemUser = true;
       group = "deliantra";
     };
-    users.groups.deliantra = { };
+    users.groups.deliantra = {};
 
     # Merge the cfg.configFiles setting with the default files shipped with
     # Deliantra.
@@ -142,8 +142,8 @@ in
 
     systemd.services.deliantra-server = {
       description = "Deliantra Server Daemon";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
 
       environment = {
         DELIANTRA_DATADIR = "${cfg.dataDir}";
@@ -159,7 +159,7 @@ in
           Group = "deliantra";
           WorkingDirectory = cfg.stateDir;
         }
-        (mkIf (cfg.stateDir == "/var/lib/deliantra") { StateDirectory = "deliantra"; })
+        (mkIf (cfg.stateDir == "/var/lib/deliantra") {StateDirectory = "deliantra";})
       ];
 
       # The deliantra server needs access to a bunch of files at runtime that
@@ -178,6 +178,6 @@ in
       '';
     };
 
-    networking.firewall = mkIf cfg.openFirewall { allowedTCPPorts = [ serverPort ]; };
+    networking.firewall = mkIf cfg.openFirewall {allowedTCPPorts = [serverPort];};
   };
 }

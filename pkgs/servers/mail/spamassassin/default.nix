@@ -60,7 +60,7 @@ perlPackages.buildPerlPackage rec {
     "PERL_TAINT=no"
   ];
 
-  makeMakerFlags = [ "SYSCONFDIR=/etc LOCALSTATEDIR=/var/lib/spamassassin" ];
+  makeMakerFlags = ["SYSCONFDIR=/etc LOCALSTATEDIR=/var/lib/spamassassin"];
 
   doCheck = false;
 

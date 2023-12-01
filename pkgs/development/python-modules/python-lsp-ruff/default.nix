@@ -30,7 +30,7 @@ buildPythonPackage rec {
   propagatedBuildInputs = [
     lsprotocol
     python-lsp-server
-  ] ++ lib.optionals (pythonOlder "3.11") [ tomli ];
+  ] ++ lib.optionals (pythonOlder "3.11") [tomli];
 
   doCheck = true;
 
@@ -39,6 +39,6 @@ buildPythonPackage rec {
     description = "Ruff linting plugin for pylsp";
     changelog = "https://github.com/python-lsp/python-lsp-ruff/releases/tag/v${version}";
     license = licenses.mit;
-    maintainers = with maintainers; [ linsui ];
+    maintainers = with maintainers; [linsui];
   };
 }

@@ -34,9 +34,9 @@ stdenv.mkDerivation {
       patch -p1 -d $(ls -d libcxx-*) -i ${../../libcxx-0001-musl-hacks.patch}
     '';
 
-  patches = [ ./gnu-install-dirs.patch ];
+  patches = [./gnu-install-dirs.patch];
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
   buildInputs = lib.optional (!stdenv.isDarwin) libunwind;
 
   preInstall = lib.optionalString stdenv.isDarwin ''
@@ -82,6 +82,6 @@ stdenv.mkDerivation {
       mit
       ncsa
     ];
-    maintainers = llvm_meta.maintainers ++ [ lib.maintainers.vlstill ];
+    maintainers = llvm_meta.maintainers ++ [lib.maintainers.vlstill];
   };
 }

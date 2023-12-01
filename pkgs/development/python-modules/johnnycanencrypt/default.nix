@@ -38,7 +38,7 @@ buildPythonPackage rec {
 
   LIBCLANG_PATH = "${llvmPackages.libclang.lib}/lib";
 
-  propagatedBuildInputs = [ httpx ];
+  propagatedBuildInputs = [httpx];
 
   nativeBuildInputs =
     [
@@ -53,8 +53,8 @@ buildPythonPackage rec {
     );
 
   buildInputs =
-    [ nettle ]
-    ++ lib.optionals stdenv.isLinux [ pcsclite ]
+    [nettle]
+    ++ lib.optionals stdenv.isLinux [pcsclite]
     ++ lib.optionals stdenv.isDarwin [
       PCSC
       libiconv
@@ -70,13 +70,13 @@ buildPythonPackage rec {
     rm -r johnnycanencrypt
   '';
 
-  pythonImportsCheck = [ "johnnycanencrypt" ];
+  pythonImportsCheck = ["johnnycanencrypt"];
 
   meta = with lib; {
     homepage = "https://github.com/kushaldas/johnnycanencrypt";
     changelog = "https://github.com/kushaldas/johnnycanencrypt/blob/v${version}/changelog.md";
     description = "Python module for OpenPGP written in Rust";
     license = licenses.lgpl3Plus;
-    maintainers = with maintainers; [ _0x4A6F ];
+    maintainers = with maintainers; [_0x4A6F];
   };
 }

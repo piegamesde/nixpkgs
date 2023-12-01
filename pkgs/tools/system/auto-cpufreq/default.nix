@@ -23,7 +23,7 @@ python3Packages.buildPythonPackage rec {
   ];
 
   doCheck = false;
-  pythonImportsCheck = [ "auto_cpufreq" ];
+  pythonImportsCheck = ["auto_cpufreq"];
 
   patches = [
     # hardcodes version output
@@ -51,6 +51,6 @@ python3Packages.buildPythonPackage rec {
     description = "Automatic CPU speed & power optimizer for Linux";
     license = licenses.lgpl3Plus;
     platforms = platforms.linux;
-    maintainers = [ maintainers.Technical27 ];
+    maintainers = [maintainers.Technical27];
   };
 }

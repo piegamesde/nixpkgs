@@ -20,9 +20,9 @@ buildPythonPackage rec {
     hash = "sha256-CFBv1FZP5JO+1MPnD86ttrO42zZlvE157zqig7s4HOg=";
   };
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
-  propagatedBuildInputs = [ beancount ];
+  propagatedBuildInputs = [beancount];
 
   nativeCheckInputs = [
     pytest
@@ -47,6 +47,6 @@ buildPythonPackage rec {
       - Guarantee integrity: verify that every document declared does in fact exist on disk.
     '';
     license = licenses.mit;
-    maintainers = with maintainers; [ siriobalmelli ];
+    maintainers = with maintainers; [siriobalmelli];
   };
 }

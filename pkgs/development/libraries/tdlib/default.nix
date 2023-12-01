@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
     readline
     zlib
   ];
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
   # https://github.com/tdlib/td/issues/1974
   postPatch =
@@ -49,8 +49,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Cross-platform library for building Telegram clients";
     homepage = "https://core.telegram.org/tdlib/";
-    license = [ licenses.boost ];
+    license = [licenses.boost];
     platforms = platforms.unix;
-    maintainers = [ maintainers.vyorkin ];
+    maintainers = [maintainers.vyorkin];
   };
 }

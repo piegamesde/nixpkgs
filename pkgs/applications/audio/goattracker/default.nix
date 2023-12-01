@@ -51,10 +51,10 @@ stdenv.mkDerivation rec {
     unzip
     imagemagick
   ];
-  buildInputs = [ SDL ];
+  buildInputs = [SDL];
 
   # PREFIX gets treated as BINDIR.
-  makeFlags = [ "PREFIX=$(out)/bin/" ];
+  makeFlags = ["PREFIX=$(out)/bin/"];
 
   # The zip contains some build artifacts.
   prePatch = "make clean";
@@ -72,7 +72,7 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  desktopItems = [ desktopItem ];
+  desktopItems = [desktopItem];
 
   meta = {
     description =
@@ -81,7 +81,7 @@ stdenv.mkDerivation rec {
     homepage = "https://cadaver.github.io/tools.html";
     downloadPage = "https://sourceforge.net/projects/goattracker2/";
     license = lib.licenses.gpl2Plus;
-    maintainers = with lib.maintainers; [ fgaz ];
+    maintainers = with lib.maintainers; [fgaz];
     platforms = lib.platforms.all;
   };
 }

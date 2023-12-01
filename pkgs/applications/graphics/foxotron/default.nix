@@ -48,7 +48,7 @@ stdenv.mkDerivation rec {
   ];
 
   buildInputs =
-    [ zlib ]
+    [zlib]
     ++ lib.optionals stdenv.hostPlatform.isLinux [
       libX11
       libXrandr
@@ -90,7 +90,7 @@ stdenv.mkDerivation rec {
   '';
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
   };
 
   meta = with lib; {
@@ -101,7 +101,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "https://github.com/Gargaj/Foxotron";
     license = licenses.unlicense;
-    maintainers = with maintainers; [ OPNA2608 ];
+    maintainers = with maintainers; [OPNA2608];
     platforms = platforms.all;
   };
 }

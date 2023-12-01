@@ -116,7 +116,7 @@ buildPythonPackage rec {
       setuptools
     ]
     # ld: library not found for -lcups
-    ++ lib.optionals (withPrintSupport && stdenv.isDarwin) [ cups ];
+    ++ lib.optionals (withPrintSupport && stdenv.isDarwin) [cups];
 
   passthru = {
     inherit sip pyqt6-sip;
@@ -149,6 +149,6 @@ buildPythonPackage rec {
     homepage = "https://riverbankcomputing.com/";
     license = licenses.gpl3Only;
     platforms = platforms.mesaPlatforms;
-    maintainers = with maintainers; [ LunNova ];
+    maintainers = with maintainers; [LunNova];
   };
 }

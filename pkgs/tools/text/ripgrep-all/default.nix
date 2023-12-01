@@ -25,7 +25,7 @@ rustPlatform.buildRustPackage rec {
   };
 
   cargoSha256 = "1l71xj5crfb51wfp2bdvdqp1l8kg182n5d6w23lq2wjszaqcj7cw";
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
   buildInputs = lib.optional stdenv.isDarwin Security;
 
   postInstall = ''
@@ -76,7 +76,7 @@ rustPlatform.buildRustPackage rec {
       to search in pdf, docx, sqlite, jpg, movie subtitles (mkv, mp4), etc.
     '';
     homepage = "https://github.com/phiresky/ripgrep-all";
-    license = with licenses; [ agpl3Plus ];
+    license = with licenses; [agpl3Plus];
     maintainers = with maintainers; [
       zaninime
       ma27

@@ -38,11 +38,11 @@ in
 
   config = mkIf cfg.enable {
 
-    boot.extraModulePackages = with config.boot.kernelPackages; [ ipu6-drivers ];
+    boot.extraModulePackages = with config.boot.kernelPackages; [ipu6-drivers];
 
     hardware.firmware =
       with pkgs;
-      [ ]
+      []
       ++ optional (cfg.platform == "ipu6") ipu6-camera-bin
       ++ optional (cfg.platform == "ipu6ep") ipu6ep-camera-bin;
 
@@ -57,7 +57,7 @@ in
 
       extraPackages =
         with pkgs.gst_all_1;
-        [ ]
+        []
         ++ optional (cfg.platform == "ipu6") icamerasrc-ipu6
         ++ optional (cfg.platform == "ipu6ep") icamerasrc-ipu6ep;
 

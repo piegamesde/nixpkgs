@@ -21,11 +21,11 @@ buildPythonPackage rec {
     hash = "sha256-NKDcY/HRAbroT6onHdLP6oolEzWoCC+Jlf+Ec5bFDDc=";
   };
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   doCheck = !stdenv.isDarwin;
 
-  pythonImportsCheck = [ "simplejson" ];
+  pythonImportsCheck = ["simplejson"];
 
   meta = with lib; {
     description = "Extensible JSON encoder/decoder for Python";
@@ -41,6 +41,6 @@ buildPythonPackage rec {
       mit
       afl21
     ];
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

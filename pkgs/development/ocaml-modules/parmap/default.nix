@@ -16,7 +16,7 @@ buildDunePackage rec {
 
   minimalOCamlVersion = "4.03";
 
-  buildInputs = [ dune-configurator ];
+  buildInputs = [dune-configurator];
 
   doCheck = false; # prevent running slow benchmarks
 
@@ -25,6 +25,6 @@ buildDunePackage rec {
     downloadPage = "https://github.com/rdicosmo/parmap";
     homepage = "https://rdicosmo.github.io/parmap";
     license = licenses.lgpl2;
-    maintainers = with maintainers; [ bcdarwin ];
+    maintainers = with maintainers; [bcdarwin];
   };
 }

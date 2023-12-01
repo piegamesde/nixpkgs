@@ -17,11 +17,11 @@ qtModule {
     qtbase
     qtmultimedia
   ];
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = lib.optionals stdenv.isLinux [
     flite
     alsa-lib
     speechd
   ];
-  propagatedBuildInputs = lib.optionals stdenv.isDarwin [ Cocoa ];
+  propagatedBuildInputs = lib.optionals stdenv.isDarwin [Cocoa];
 }

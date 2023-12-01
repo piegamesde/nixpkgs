@@ -19,9 +19,9 @@ stdenv.mkDerivation rec {
     sha256 = "0i8mxwyfv5mskachafa4qlh315q0cfph7s66s1s34nffadbmm1sv";
   };
 
-  propagatedBuildInputs = [ gtkspell3 ];
+  propagatedBuildInputs = [gtkspell3];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs = [
     gtk3
     glib

@@ -55,7 +55,7 @@ stdenv.mkDerivation rec {
     libpng
     libX11
     libpthreadstubs
-  ] ++ lib.optionals stdenv.isDarwin [ glib ];
+  ] ++ lib.optionals stdenv.isDarwin [glib];
 
   meta = with lib; {
     description = "High performance ray tracing kernels from Intel";
@@ -66,6 +66,6 @@ stdenv.mkDerivation rec {
     ];
     license = licenses.asl20;
     platforms = platforms.unix;
-    badPlatforms = [ "aarch64-linux" ];
+    badPlatforms = ["aarch64-linux"];
   };
 }

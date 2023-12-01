@@ -1,9 +1,9 @@
 import ./make-test-python.nix (
-  { lib, ... }:
+  {lib, ...}:
   {
     name = "earlyoom";
     meta = {
-      maintainers = with lib.maintainers; [ ncfavier ];
+      maintainers = with lib.maintainers; [ncfavier];
     };
 
     machine = {

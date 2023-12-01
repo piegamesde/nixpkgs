@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
     description = "Analyse your audio files by showing their spectrogram";
     homepage = "http://spek.cc/";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ bjornfor ];
+    maintainers = with maintainers; [bjornfor];
     platforms = platforms.all;
   };
 }

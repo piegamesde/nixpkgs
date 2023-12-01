@@ -1,4 +1,4 @@
-{ stdenv, lib }:
+{stdenv, lib}:
 
 let
   variant = if stdenv.hostPlatform.isMusl then "alpine_linux" else "linux";

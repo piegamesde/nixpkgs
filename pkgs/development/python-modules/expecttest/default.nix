@@ -19,17 +19,17 @@ buildPythonPackage rec {
     hash = "sha256-BFM0jFWXfH72n9XuFtU9URW8LWGPVJncXniBV5547W4=";
   };
 
-  nativeBuildInputs = [ poetry-core ];
+  nativeBuildInputs = [poetry-core];
 
   nativeCheckInputs = [
     hypothesis
     pytestCheckHook
   ];
 
-  pythonImportsCheck = [ "expecttest" ];
+  pythonImportsCheck = ["expecttest"];
 
   meta = {
-    maintainers = [ lib.maintainers.SomeoneSerge ];
+    maintainers = [lib.maintainers.SomeoneSerge];
     license = lib.licenses.mit;
     description = ''EZ Yang "golden" tests (testing against a reference implementation)'';
     homepage = "https://github.com/ezyang/expecttest";

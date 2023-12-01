@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/AlisterH/gwc/";
     changelog = "https://github.com/AlisterH/gwc/blob/${version}/Changelog";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ magnetophon ];
+    maintainers = with maintainers; [magnetophon];
     platforms = platforms.linux;
   };
 }

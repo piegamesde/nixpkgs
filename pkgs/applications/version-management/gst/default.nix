@@ -53,7 +53,7 @@ buildGoModule rec {
   meta = {
     description = "Supercharge your ghq workflow";
     homepage = "https://github.com/uetchy/gst";
-    maintainers = with lib.maintainers; [ _0x4A6F ];
+    maintainers = with lib.maintainers; [_0x4A6F];
     license = lib.licenses.asl20;
   };
 }

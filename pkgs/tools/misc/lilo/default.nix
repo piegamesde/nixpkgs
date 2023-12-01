@@ -35,6 +35,6 @@ stdenv.mkDerivation rec {
     description = "Linux bootloader";
     license = licenses.bsd3;
     platforms = platforms.linux;
-    maintainers = with maintainers; [ kaction ];
+    maintainers = with maintainers; [kaction];
   };
 }

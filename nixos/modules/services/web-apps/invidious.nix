@@ -8,7 +8,7 @@
 let
   cfg = config.services.invidious;
   # To allow injecting secrets with jq, json (instead of yaml) is used
-  settingsFormat = pkgs.formats.json { };
+  settingsFormat = pkgs.formats.json {};
   inherit (lib) types;
 
   settingsFile = settingsFormat.generate "invidious-settings" cfg.settings;
@@ -16,9 +16,9 @@ let
   serviceConfig = {
     systemd.services.invidious = {
       description = "Invidious (An alternative YouTube front-end)";
-      wants = [ "network-online.target" ];
-      after = [ "network-online.target" ];
-      wantedBy = [ "multi-user.target" ];
+      wants = ["network-online.target"];
+      after = ["network-online.target"];
+      wantedBy = ["multi-user.target"];
 
       script =
         let
@@ -29,7 +29,7 @@ let
                 ''[0].db.password = "'"'"$(cat ${lib.escapeShellArg cfg.database.passwordFile})"'"'"''
             + " | .[0]"
             + lib.optionalString (cfg.extraSettingsFile != null) " * .[1]";
-          jqFiles = [ settingsFile ] ++ lib.optional (cfg.extraSettingsFile != null) cfg.extraSettingsFile;
+          jqFiles = [settingsFile] ++ lib.optional (cfg.extraSettingsFile != null) cfg.extraSettingsFile;
         in
         ''
           export INVIDIOUS_CONFIG="$(${pkgs.jq}/bin/jq -s "${jqFilter}" ${lib.escapeShellArgs jqFiles})"
@@ -77,7 +77,7 @@ let
         # Not needed because peer authentication is enabled
         password = lib.mkIf (cfg.database.host == null) "";
       };
-    } // (lib.optionalAttrs (cfg.domain != null) { inherit (cfg) domain; });
+    } // (lib.optionalAttrs (cfg.domain != null) {inherit (cfg) domain;});
 
     assertions = [
       {
@@ -116,9 +116,9 @@ let
 
     systemd.services.invidious-db-clean = {
       description = "Invidious database cleanup";
-      documentation = [ "https://docs.invidious.io/Database-Information-and-Maintenance.md" ];
+      documentation = ["https://docs.invidious.io/Database-Information-and-Maintenance.md"];
       startAt = lib.mkDefault "weekly";
-      path = [ config.services.postgresql.package ];
+      path = [config.services.postgresql.package];
       script = ''
         psql ${cfg.settings.db.dbname} ${cfg.settings.db.user} -c "DELETE FROM nonces * WHERE expire < current_timestamp"
         psql ${cfg.settings.db.dbname} ${cfg.settings.db.user} -c "TRUNCATE TABLE videos"
@@ -130,8 +130,8 @@ let
     };
 
     systemd.services.invidious = {
-      requires = [ "postgresql.service" ];
-      after = [ "postgresql.service" ];
+      requires = ["postgresql.service"];
+      after = ["postgresql.service"];
 
       serviceConfig = {
         User = "invidious";
@@ -176,7 +176,7 @@ in
 
     settings = lib.mkOption {
       type = settingsFormat.type;
-      default = { };
+      default = {};
       description = lib.mdDoc ''
         The settings Invidious should use.
 

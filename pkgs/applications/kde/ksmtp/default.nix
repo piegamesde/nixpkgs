@@ -29,7 +29,7 @@ mkDerivation {
     kio
     kmime
   ];
-  propagatedBuildInputs = [ cyrus_sasl ];
+  propagatedBuildInputs = [cyrus_sasl];
   postInstall = ''
     # added as an include directory by cmake files and fails to compile if it's missing
     mkdir -p "$out/include/KF5"

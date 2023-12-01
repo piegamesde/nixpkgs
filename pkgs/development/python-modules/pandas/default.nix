@@ -38,7 +38,7 @@ buildPythonPackage rec {
     hash = "sha256-dKP9flp+wFLxgyc9x7Cs06hj7fdSD106F2XAT/2zsLE=";
   };
 
-  nativeBuildInputs = [ cython ];
+  nativeBuildInputs = [cython];
 
   buildInputs = lib.optional stdenv.isDarwin libcxx;
 
@@ -51,7 +51,7 @@ buildPythonPackage rec {
   nativeCheckInputs = [
     glibcLocales
     # hypothesis indirectly depends on pandas to build its documentation
-    (hypothesis.override { enableDocumentation = false; })
+    (hypothesis.override {enableDocumentation = false;})
     jinja2
     pytest-asyncio
     pytest-xdist
@@ -135,7 +135,7 @@ buildPythonPackage rec {
 
   enableParallelBuilding = true;
 
-  pythonImportsCheck = [ "pandas" ];
+  pythonImportsCheck = ["pandas"];
 
   meta = with lib; {
     # https://github.com/pandas-dev/pandas/issues/14866

@@ -8,7 +8,7 @@
   callPackage,
   AudioToolbox,
   VideoToolbox,
-  ffmpeg-base ? callPackage ./base.nix { },
+  ffmpeg-base ? callPackage ./base.nix {},
   ffmpeg,
 }:
 
@@ -19,14 +19,14 @@ buildDunePackage {
 
   inherit (ffmpeg-base) version src duneVersion;
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs =
-    [ dune-configurator ]
+    [dune-configurator]
     ++ lib.optionals stdenv.isDarwin [
       AudioToolbox
       VideoToolbox
     ];
-  propagatedBuildInputs = [ ffmpeg.dev ];
+  propagatedBuildInputs = [ffmpeg.dev];
 
   doCheck = true;
 

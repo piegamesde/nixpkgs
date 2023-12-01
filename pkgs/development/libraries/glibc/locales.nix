@@ -14,17 +14,17 @@
   writeText,
   glibc,
   allLocales ? true,
-  locales ? [ "en_US.UTF-8/UTF-8" ],
+  locales ? ["en_US.UTF-8/UTF-8"],
 }:
 
-callPackage ./common.nix { inherit stdenv; } {
+callPackage ./common.nix {inherit stdenv;} {
   pname = "glibc-locales";
 
   builder = ./locales-builder.sh;
 
-  outputs = [ "out" ];
+  outputs = ["out"];
 
-  extraNativeBuildInputs = [ glibc ];
+  extraNativeBuildInputs = [glibc];
 
   LOCALEDEF_FLAGS = [
     (if stdenv.hostPlatform.isLittleEndian then "--little-endian" else "--big-endian")

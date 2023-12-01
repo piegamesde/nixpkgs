@@ -36,7 +36,7 @@ buildPythonPackage rec {
 
   env.SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
-  nativeBuildInputs = [ setuptools-scm ];
+  nativeBuildInputs = [setuptools-scm];
 
   propagatedBuildInputs = [
     django
@@ -47,7 +47,7 @@ buildPythonPackage rec {
   # require internet connection
   doCheck = false;
 
-  pythonImportsCheck = [ "payments" ];
+  pythonImportsCheck = ["payments"];
 
   passthru.optional-dependencies = {
     all = [
@@ -57,16 +57,16 @@ buildPythonPackage rec {
       xmltodict
       stripe
     ];
-    braintree = [ braintree ];
+    braintree = [braintree];
     cybersource =
       [
         # suds-community
       ];
-    docs = [ sphinx-rtd-theme ];
-    mercadopago = [ mercadopago ];
-    sagepay = [ cryptography ];
-    sofort = [ xmltodict ];
-    stripe = [ stripe ];
+    docs = [sphinx-rtd-theme];
+    mercadopago = [mercadopago];
+    sagepay = [cryptography];
+    sofort = [xmltodict];
+    stripe = [stripe];
   };
 
   meta = with lib; {
@@ -74,6 +74,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/jazzband/django-payments/";
     changelog = "https://github.com/jazzband/django-payments/releases/tag/v${version}";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ derdennisop ];
+    maintainers = with maintainers; [derdennisop];
   };
 }

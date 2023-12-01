@@ -60,7 +60,7 @@ let
 
   _llvm_9 = llvm_9.overrideAttrs (
     prev: {
-      patches = (prev.patches or [ ]) ++ [
+      patches = (prev.patches or []) ++ [
         (fetchpatch {
           url = "https://github.com/root-project/root/commit/a9c961cf4613ff1f0ea50f188e4a4b0eb749b17d.diff";
           stripLen = 3;
@@ -76,7 +76,7 @@ stdenv.mkDerivation rec {
   version = "6.26.10";
 
   passthru = {
-    tests = import ./tests { inherit callPackage; };
+    tests = import ./tests {inherit callPackage;};
   };
 
   src = fetchurl {
@@ -90,7 +90,7 @@ stdenv.mkDerivation rec {
     pkg-config
     git
   ];
-  propagatedBuildInputs = [ nlohmann_json ];
+  propagatedBuildInputs = [nlohmann_json];
   buildInputs =
     [
       davix
@@ -136,7 +136,7 @@ stdenv.mkDerivation rec {
       OpenGL
     ];
 
-  patches = [ ./sw_vers.patch ];
+  patches = [./sw_vers.patch];
 
   # Fix build against vanilla LLVM 9
   postPatch = ''
@@ -237,7 +237,7 @@ stdenv.mkDerivation rec {
     for prog in rootbrowse rootcp rooteventselector rootls rootmkdir rootmv rootprint rootrm rootslimtree; do
       wrapProgram "$out/bin/$prog" \
         --set PYTHONPATH "$out/lib" \
-        --set ${lib.optionalString stdenv.isDarwin "DY"}LD_LIBRARY_PATH "$out/lib:${lib.makeLibraryPath [ xrootd ]}"
+        --set ${lib.optionalString stdenv.isDarwin "DY"}LD_LIBRARY_PATH "$out/lib:${lib.makeLibraryPath [xrootd]}"
     done
 
     # Make ldd and sed available to the ROOT executable by prefixing PATH.
@@ -249,7 +249,7 @@ stdenv.mkDerivation rec {
           stdenv.cc.libc # ldd
         ]
       }" \
-      --prefix ${lib.optionalString stdenv.hostPlatform.isDarwin "DY"}LD_LIBRARY_PATH : "${lib.makeLibraryPath [ xrootd ]}"
+      --prefix ${lib.optionalString stdenv.hostPlatform.isDarwin "DY"}LD_LIBRARY_PATH : "${lib.makeLibraryPath [xrootd]}"
 
     # Patch thisroot.{sh,csh,fish}
 
@@ -305,7 +305,7 @@ stdenv.mkDerivation rec {
     homepage = "https://root.cern.ch/";
     description = "A data analysis framework";
     platforms = platforms.unix;
-    maintainers = [ maintainers.veprbl ];
+    maintainers = [maintainers.veprbl];
     license = licenses.lgpl21;
   };
 }

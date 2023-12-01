@@ -59,9 +59,9 @@ mkYarnPackage rec {
   };
 
   # The --production flag disables the devDependencies.
-  yarnFlags = [ "--production" ];
+  yarnFlags = ["--production"];
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   postInstall = ''
     dir=$out/libexec/uivonim/node_modules/uivonim/
@@ -78,7 +78,7 @@ mkYarnPackage rec {
   meta = with lib; {
     homepage = "https://github.com/smolck/uivonim";
     description = "Cross-platform GUI for neovim based on electron";
-    maintainers = with maintainers; [ gebner ];
+    maintainers = with maintainers; [gebner];
     platforms = platforms.unix;
     license = licenses.agpl3Only;
   };

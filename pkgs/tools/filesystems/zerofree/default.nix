@@ -38,6 +38,6 @@ stdenv.mkDerivation rec {
     description = "Zero free blocks from ext2, ext3 and ext4 file-systems";
     platforms = lib.platforms.linux;
     license = lib.licenses.gpl2;
-    maintainers = [ lib.maintainers.theuni ];
+    maintainers = [lib.maintainers.theuni];
   };
 }

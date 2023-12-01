@@ -97,7 +97,7 @@ builder rec {
   LDFLAGS = lib.optionalString (!stdenv.isDarwin && !stdenv.hostPlatform.isMusl) "-lgcc_s";
 
   configureFlags =
-    [ "--with-libreadline-prefix" ]
+    ["--with-libreadline-prefix"]
     ++ lib.optionals stdenv.isSunOS [
       # Make sure the right <gmp.h> is found, and not the incompatible
       # /usr/include/mp.h from OpenSolaris. See

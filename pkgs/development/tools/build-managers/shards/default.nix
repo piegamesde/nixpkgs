@@ -6,7 +6,7 @@
 
 let
   generic =
-    { version, hash }:
+    {version, hash}:
 
     crystal.buildCrystalPackage {
       pname = "shards";
@@ -30,7 +30,7 @@ let
       meta = with lib; {
         description = "Dependency manager for the Crystal language";
         license = licenses.asl20;
-        maintainers = with maintainers; [ peterhoeg ];
+        maintainers = with maintainers; [peterhoeg];
         inherit (crystal.meta) homepage platforms;
       };
     };

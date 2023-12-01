@@ -42,7 +42,7 @@ buildPythonPackage rec {
   ];
 
   nativeBuildInputs =
-    [ ]
+    []
     ++ (
       with rustPlatform; [
         cargoSetupHook
@@ -52,7 +52,7 @@ buildPythonPackage rec {
       ]
     );
 
-  propagatedBuildInputs = [ anyio ];
+  propagatedBuildInputs = [anyio];
 
   nativeCheckInputs = [
     dirty-equals
@@ -69,12 +69,12 @@ buildPythonPackage rec {
     rm -rf watchfiles
   '';
 
-  pythonImportsCheck = [ "watchfiles" ];
+  pythonImportsCheck = ["watchfiles"];
 
   meta = with lib; {
     description = "File watching and code reload";
     homepage = "https://watchfiles.helpmanual.io/";
     license = licenses.mit;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

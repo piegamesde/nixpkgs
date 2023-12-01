@@ -25,7 +25,7 @@ let
   stapBuild = stdenv.mkDerivation {
     pname = "systemtap";
     inherit version;
-    src = fetchgit { inherit url rev sha256; };
+    src = fetchgit {inherit url rev sha256;};
     nativeBuildInputs = [
       pkg-config
       cpio
@@ -37,15 +37,15 @@ let
       gettext
     ];
     enableParallelBuilding = true;
-    env.NIX_CFLAGS_COMPILE = toString [ "-Wno-error=deprecated-declarations" ]; # Needed with GCC 12
+    env.NIX_CFLAGS_COMPILE = toString ["-Wno-error=deprecated-declarations"]; # Needed with GCC 12
   };
 
-  pypkgs = with python3.pkgs; makePythonPath [ pyparsing ];
+  pypkgs = with python3.pkgs; makePythonPath [pyparsing];
 in
 runCommand "systemtap-${kernel.version}-${version}"
   {
     inherit stapBuild;
-    nativeBuildInputs = [ makeWrapper ];
+    nativeBuildInputs = [makeWrapper];
     meta = {
       homepage = "https://sourceware.org/systemtap/";
       description = "Provides a scripting language for instrumentation on a live kernel plus user-space";

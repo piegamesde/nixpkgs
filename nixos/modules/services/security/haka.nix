@@ -84,8 +84,8 @@ in
       };
 
       interfaces = mkOption {
-        default = [ "eth0" ];
-        example = [ "any" ];
+        default = ["eth0"];
+        example = ["any"];
         type = with types; listOf str;
         description = lib.mdDoc ''
           Specify which interface(s) Haka listens to.
@@ -142,17 +142,17 @@ in
         message = "dump can only be used with nfqueue.";
       }
       {
-        assertion = cfg.interfaces != [ ];
+        assertion = cfg.interfaces != [];
         message = "at least one interface must be specified.";
       }
     ];
 
-    environment.systemPackages = [ haka ];
+    environment.systemPackages = [haka];
 
     systemd.services.haka = {
       description = "Haka";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
       serviceConfig = {
         ExecStart = "${haka}/bin/haka -c ${hakaConf}";
         ExecStop = "${haka}/bin/hakactl stop";

@@ -12,12 +12,12 @@ let
 in
 wrapDerivation (
   {
-    buildInputs ? [ ],
-    nativeBuildInputs ? [ ],
+    buildInputs ? [],
+    nativeBuildInputs ? [],
 
     enableParallelBuilding ? true,
 
-    meta ? { },
+    meta ? {},
     ...
   }@args:
 
@@ -89,12 +89,12 @@ wrapDerivation (
         # Add default meta information
         platforms = lib.platforms.all;
         # Do not build this automatically
-        hydraPlatforms = [ ];
+        hydraPlatforms = [];
       }
       // meta
       // {
         # add an extra maintainer to every package
-        maintainers = (meta.maintainers or [ ]) ++ [ lib.maintainers.qknight ];
+        maintainers = (meta.maintainers or []) ++ [lib.maintainers.qknight];
       };
   }
 )

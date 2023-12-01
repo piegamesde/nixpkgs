@@ -29,10 +29,10 @@ stdenv.mkDerivation rec {
     makeWrapper
   ];
 
-  buildInputs = [ wxGTK ] ++ lib.optionals stdenv.isDarwin [ Cocoa ];
+  buildInputs = [wxGTK] ++ lib.optionals stdenv.isDarwin [Cocoa];
 
   env.NIX_CFLAGS_COMPILE = ''-DPACKAGE_VERSION="${
-    builtins.replaceStrings [ "unstable-" ] [ "" ] version
+    builtins.replaceStrings ["unstable-"] [""] version
   }"'';
 
   postInstall = lib.optionalString stdenv.isDarwin ''
@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
   '';
 
   passthru = {
-    updateScript = unstableGitUpdater { };
+    updateScript = unstableGitUpdater {};
   };
 
   meta = with lib; {

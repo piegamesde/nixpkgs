@@ -37,18 +37,18 @@ buildPythonPackage rec {
     traitlets
   ];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
   # : cannot connect to X server
   doCheck = false;
 
-  pythonImportsCheck = [ "qtconsole" ];
+  pythonImportsCheck = ["qtconsole"];
 
   meta = with lib; {
     description = "Jupyter Qt console";
     homepage = "https://qtconsole.readthedocs.io/";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ fridh ];
+    maintainers = with maintainers; [fridh];
     platforms = platforms.unix;
   };
 }

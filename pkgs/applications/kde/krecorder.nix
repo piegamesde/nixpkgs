@@ -38,6 +38,6 @@ mkDerivation rec {
     description = "Audio recorder for Plasma Mobile";
     homepage = "https://invent.kde.org/plasma-mobile/krecorder";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ samueldr ];
+    maintainers = with maintainers; [samueldr];
   };
 }

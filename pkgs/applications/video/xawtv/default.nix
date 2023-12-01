@@ -29,7 +29,7 @@ stdenv.mkDerivation rec {
     sha256 = "055p0wia0xsj073l8mg4ifa6m81dmv6p45qyh99brramq5iylfy5";
   };
 
-  patches = [ ./0001-Fix-build-for-glibc-2.32.patch ];
+  patches = [./0001-Fix-build-for-glibc-2.32.patch];
 
   buildInputs = [
     ncurses
@@ -59,7 +59,7 @@ stdenv.mkDerivation rec {
     description = "TV application for Linux with apps and tools such as a teletext browser";
     license = lib.licenses.gpl2;
     homepage = "https://www.kraxel.org/blog/linux/xawtv/";
-    maintainers = with lib.maintainers; [ domenkozar ];
+    maintainers = with lib.maintainers; [domenkozar];
     platforms = lib.platforms.linux;
   };
 }

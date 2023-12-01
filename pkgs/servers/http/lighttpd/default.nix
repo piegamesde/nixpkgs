@@ -58,9 +58,9 @@ stdenv.mkDerivation rec {
     sed -i '/test_mod_ssi/d' src/t/test_mod.c
   '';
 
-  depsBuildBuild = [ buildPackages.stdenv.cc ];
+  depsBuildBuild = [buildPackages.stdenv.cc];
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
   buildInputs =
     [
       pcre2
@@ -82,7 +82,7 @@ stdenv.mkDerivation rec {
     ++ lib.optional enableWebDAV libuuid;
 
   configureFlags =
-    [ "--with-openssl" ]
+    ["--with-openssl"]
     ++ lib.optional enableDbi "--with-dbi"
     ++ lib.optional enableMagnet "--with-lua"
     ++ lib.optional enableMysql "--with-mysql"
@@ -98,7 +98,7 @@ stdenv.mkDerivation rec {
     sed -i "s:/usr/bin/file:${file}/bin/file:g" configure
   '';
 
-  nativeCheckInputs = [ perl ];
+  nativeCheckInputs = [perl];
   doCheck = true;
 
   postInstall = ''

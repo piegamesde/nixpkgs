@@ -1,4 +1,4 @@
-{ lib, python3Packages }:
+{lib, python3Packages}:
 
 python3Packages.buildPythonApplication rec {
   pname = "termtosvg";
@@ -19,6 +19,6 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://nbedos.github.io/termtosvg/";
     description = "Record terminal sessions as SVG animations";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

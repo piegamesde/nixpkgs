@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-5Ld8Qc/EyMWgNfzcMgx7xs+3XvfFoDQVPfFBP6HZLxM=";
   };
 
-  depsBuildBuild = [ pkg-config ];
+  depsBuildBuild = [pkg-config];
 
   nativeBuildInputs =
     [
@@ -53,7 +53,7 @@ stdenv.mkDerivation rec {
     libpsl
     glib.out
     brotli
-  ] ++ lib.optionals stdenv.isLinux [ libsysprof-capture ];
+  ] ++ lib.optionals stdenv.isLinux [libsysprof-capture];
 
   propagatedBuildInputs = [
     glib
@@ -67,7 +67,7 @@ stdenv.mkDerivation rec {
     "-Dintrospection=${if withIntrospection then "enabled" else "disabled"}"
     "-Dgnome=${lib.boolToString gnomeSupport}"
     "-Dntlm=disabled"
-  ] ++ lib.optionals (!stdenv.isLinux) [ "-Dsysprof=disabled" ];
+  ] ++ lib.optionals (!stdenv.isLinux) ["-Dsysprof=disabled"];
 
   env.NIX_CFLAGS_COMPILE = "-lpthread";
 
@@ -84,7 +84,7 @@ stdenv.mkDerivation rec {
   '';
 
   passthru = {
-    propagatedUserEnvPackages = [ glib-networking.out ];
+    propagatedUserEnvPackages = [glib-networking.out];
     updateScript = gnome.updateScript {
       packageName = pname;
       versionPolicy = "odd-unstable";

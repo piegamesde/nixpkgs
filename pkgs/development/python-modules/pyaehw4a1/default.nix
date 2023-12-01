@@ -21,12 +21,12 @@ buildPythonPackage rec {
   # no tests implemented
   doCheck = false;
 
-  pythonImportsCheck = [ "pyaehw4a1" ];
+  pythonImportsCheck = ["pyaehw4a1"];
 
   meta = with lib; {
     description = "Python interface for Hisense AEH-W4A1 module";
     homepage = "https://github.com/bannhead/pyaehw4a1";
     license = licenses.asl20;
-    maintainers = with maintainers; [ dotlambda ];
+    maintainers = with maintainers; [dotlambda];
   };
 }

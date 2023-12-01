@@ -1,4 +1,4 @@
-{ lib, systemdUtils }:
+{lib, systemdUtils}:
 
 with systemdUtils.lib;
 with lib;
@@ -84,7 +84,7 @@ rec {
     };
 
     requiredBy = mkOption {
-      default = [ ];
+      default = [];
       type = types.listOf unitNameType;
       description = lib.mdDoc ''
         Units that require (i.e. depend on and need to go down with) this unit.
@@ -94,7 +94,7 @@ rec {
     };
 
     wantedBy = mkOption {
-      default = [ ];
+      default = [];
       type = types.listOf unitNameType;
       description = lib.mdDoc ''
         Units that want (i.e. depend on) this unit. The default method for
@@ -112,7 +112,7 @@ rec {
     };
 
     aliases = mkOption {
-      default = [ ];
+      default = [];
       type = types.listOf unitNameType;
       description = lib.mdDoc "Aliases of that unit.";
     };
@@ -142,13 +142,13 @@ rec {
       };
 
       documentation = mkOption {
-        default = [ ];
+        default = [];
         type = types.listOf types.str;
         description = lib.mdDoc "A list of URIs referencing documentation for this unit or its configuration.";
       };
 
       requires = mkOption {
-        default = [ ];
+        default = [];
         type = types.listOf unitNameType;
         description = lib.mdDoc ''
           Start the specified units when this unit is started, and stop
@@ -157,7 +157,7 @@ rec {
       };
 
       wants = mkOption {
-        default = [ ];
+        default = [];
         type = types.listOf unitNameType;
         description = lib.mdDoc ''
           Start the specified units when this unit is started.
@@ -165,7 +165,7 @@ rec {
       };
 
       after = mkOption {
-        default = [ ];
+        default = [];
         type = types.listOf unitNameType;
         description = lib.mdDoc ''
           If the specified units are started at the same time as
@@ -174,7 +174,7 @@ rec {
       };
 
       before = mkOption {
-        default = [ ];
+        default = [];
         type = types.listOf unitNameType;
         description = lib.mdDoc ''
           If the specified units are started at the same time as
@@ -183,7 +183,7 @@ rec {
       };
 
       bindsTo = mkOption {
-        default = [ ];
+        default = [];
         type = types.listOf unitNameType;
         description = lib.mdDoc ''
           Like ‘requires’, but in addition, if the specified units
@@ -192,7 +192,7 @@ rec {
       };
 
       partOf = mkOption {
-        default = [ ];
+        default = [];
         type = types.listOf unitNameType;
         description = lib.mdDoc ''
           If the specified units are stopped or restarted, then this
@@ -201,7 +201,7 @@ rec {
       };
 
       conflicts = mkOption {
-        default = [ ];
+        default = [];
         type = types.listOf unitNameType;
         description = lib.mdDoc ''
           If the specified units are started, then this unit is stopped
@@ -210,7 +210,7 @@ rec {
       };
 
       requisite = mkOption {
-        default = [ ];
+        default = [];
         type = types.listOf unitNameType;
         description = lib.mdDoc ''
           Similar to requires. However if the units listed are not started,
@@ -219,7 +219,7 @@ rec {
       };
 
       unitConfig = mkOption {
-        default = { };
+        default = {};
         example = {
           RequiresMountsFor = "/data";
         };
@@ -232,7 +232,7 @@ rec {
       };
 
       onFailure = mkOption {
-        default = [ ];
+        default = [];
         type = types.listOf unitNameType;
         description = lib.mdDoc ''
           A list of one or more units that are activated when
@@ -241,7 +241,7 @@ rec {
       };
 
       onSuccess = mkOption {
-        default = [ ];
+        default = [];
         type = types.listOf unitNameType;
         description = lib.mdDoc ''
           A list of one or more units that are activated when
@@ -270,11 +270,11 @@ rec {
   };
 
   stage2CommonUnitOptions = {
-    imports = [ commonUnitOptions ];
+    imports = [commonUnitOptions];
 
     options = {
       restartTriggers = mkOption {
-        default = [ ];
+        default = [];
         type = types.listOf types.unspecified;
         description = lib.mdDoc ''
           An arbitrary list of items such as derivations.  If any item
@@ -284,7 +284,7 @@ rec {
       };
 
       reloadTriggers = mkOption {
-        default = [ ];
+        default = [];
         type = types.listOf unitOption;
         description = lib.mdDoc ''
           An arbitrary list of items such as derivations.  If any item
@@ -298,12 +298,12 @@ rec {
   stage1CommonUnitOptions = commonUnitOptions;
 
   serviceOptions =
-    { name, config, ... }:
+    {name, config, ...}:
     {
       options = {
 
         environment = mkOption {
-          default = { };
+          default = {};
           type =
             with types;
             attrsOf (
@@ -323,7 +323,7 @@ rec {
         };
 
         path = mkOption {
-          default = [ ];
+          default = [];
           type =
             with types;
             listOf (
@@ -341,7 +341,7 @@ rec {
         };
 
         serviceConfig = mkOption {
-          default = { };
+          default = {};
           example = {
             RestartSec = 5;
           };
@@ -417,14 +417,14 @@ rec {
           type = with types; coercedTo path singleton (listOf path);
           internal = true;
           description = lib.mdDoc "A list of all job script derivations of this unit.";
-          default = [ ];
+          default = [];
         };
       };
 
       config = mkMerge [
         (mkIf (config.preStart != "") rec {
           jobScripts = makeJobScript "${name}-pre-start" config.preStart;
-          serviceConfig.ExecStartPre = [ jobScripts ];
+          serviceConfig.ExecStartPre = [jobScripts];
         })
         (mkIf (config.script != "") rec {
           jobScripts = makeJobScript "${name}-start" config.script;
@@ -432,7 +432,7 @@ rec {
         })
         (mkIf (config.postStart != "") rec {
           jobScripts = (makeJobScript "${name}-post-start" config.postStart);
-          serviceConfig.ExecStartPost = [ jobScripts ];
+          serviceConfig.ExecStartPost = [jobScripts];
         })
         (mkIf (config.reload != "") rec {
           jobScripts = makeJobScript "${name}-reload" config.reload;
@@ -498,7 +498,7 @@ rec {
 
       startAt = mkOption {
         type = with types; either str (listOf str);
-        default = [ ];
+        default = [];
         example = "Sun 14:00:00";
         description = lib.mdDoc ''
           Automatically start this unit at the given date/time, which
@@ -507,7 +507,7 @@ rec {
           to adding a corresponding timer unit with
           {option}`OnCalendar` set to the value given here.
         '';
-        apply = v: if isList v then v else [ v ];
+        apply = v: if isList v then v else [v];
       };
     };
   };
@@ -523,7 +523,7 @@ rec {
     options = {
 
       listenStreams = mkOption {
-        default = [ ];
+        default = [];
         type = types.listOf types.str;
         example = [
           "0.0.0.0:993"
@@ -536,7 +536,7 @@ rec {
       };
 
       listenDatagrams = mkOption {
-        default = [ ];
+        default = [];
         type = types.listOf types.str;
         example = [
           "0.0.0.0:993"
@@ -549,7 +549,7 @@ rec {
       };
 
       socketConfig = mkOption {
-        default = { };
+        default = {};
         example = {
           ListenStream = "/run/my-socket";
         };
@@ -581,7 +581,7 @@ rec {
     options = {
 
       timerConfig = mkOption {
-        default = { };
+        default = {};
         example = {
           OnCalendar = "Sun 14:00:00";
           Unit = "foo.service";
@@ -615,7 +615,7 @@ rec {
     options = {
 
       pathConfig = mkOption {
-        default = { };
+        default = {};
         example = {
           PathChanged = "/some/path";
           Unit = "changedpath.service";
@@ -677,7 +677,7 @@ rec {
       };
 
       mountConfig = mkOption {
-        default = { };
+        default = {};
         example = {
           DirectoryMode = "0775";
         };
@@ -718,7 +718,7 @@ rec {
       };
 
       automountConfig = mkOption {
-        default = { };
+        default = {};
         example = {
           DirectoryMode = "0775";
         };
@@ -750,7 +750,7 @@ rec {
     options = {
 
       sliceConfig = mkOption {
-        default = { };
+        default = {};
         example = {
           MemoryMax = "2G";
         };

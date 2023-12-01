@@ -17,9 +17,9 @@ buildGoModule rec {
     hash = "sha256-h882pt+xZWlhFLQar1kfmSAzMscwMXAajT6ezZl9P8M=";
   };
 
-  patches = [ ./fix-tests.diff ];
+  patches = [./fix-tests.diff];
 
-  nativeBuildInputs = [ zstd ];
+  nativeBuildInputs = [zstd];
 
   nativeCheckInputs = lib.optionals doCheck [
     python3
@@ -29,7 +29,7 @@ buildGoModule rec {
   SHARNESS_TEST_SRCDIR = sharness + "/share/sharness";
 
   vendorSha256 = null;
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   preBuild = "cd src";
 
@@ -60,6 +60,6 @@ buildGoModule rec {
     description = "djb's redo, a system for building files from source files. Written in Go";
     homepage = "https://www.goredo.cypherpunks.ru";
     license = licenses.gpl3;
-    maintainers = [ maintainers.spacefrogg ];
+    maintainers = [maintainers.spacefrogg];
   };
 }

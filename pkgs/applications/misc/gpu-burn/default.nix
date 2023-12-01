@@ -23,11 +23,11 @@ stdenv.mkDerivation rec {
                 "const char *kernelFile = \"$out/share/compare.ptx\";"
   '';
 
-  buildInputs = [ cudatoolkit ];
+  buildInputs = [cudatoolkit];
 
-  nativeBuildInputs = [ addOpenGLRunpath ];
+  nativeBuildInputs = [addOpenGLRunpath];
 
-  makeFlags = [ "CUDAPATH=${cudatoolkit}" ];
+  makeFlags = ["CUDAPATH=${cudatoolkit}"];
 
   LDFLAGS = "-L${cudatoolkit}/lib/stubs";
 
@@ -45,7 +45,7 @@ stdenv.mkDerivation rec {
     homepage = "http://wili.cc/blog/gpu-burn.html";
     description = "Multi-GPU CUDA stress test";
     platforms = platforms.linux;
-    maintainers = with maintainers; [ elohmeier ];
+    maintainers = with maintainers; [elohmeier];
     license = licenses.bsd2;
   };
 }

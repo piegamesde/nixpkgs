@@ -96,7 +96,7 @@ in
 
     browseDomains = mkOption {
       type = types.listOf types.str;
-      default = [ ];
+      default = [];
       example = [
         "0pointer.de"
         "zeroconf.org"
@@ -173,7 +173,7 @@ in
 
     extraServiceFiles = mkOption {
       type = with types; attrsOf (either str path);
-      default = { };
+      default = {};
       example = literalExpression ''
         {
           ssh = "''${pkgs.avahi}/etc/avahi/services/ssh.service";
@@ -275,17 +275,17 @@ in
       isSystemUser = true;
     };
 
-    users.groups.avahi = { };
+    users.groups.avahi = {};
 
     system.nssModules = optional cfg.nssmdns pkgs.nssmdns;
     system.nssDatabases.hosts = optionals cfg.nssmdns (
       mkMerge [
-        (mkBefore [ "mdns_minimal [NOTFOUND=return]" ]) # before resolve
-        (mkAfter [ "mdns" ]) # after dns
+        (mkBefore ["mdns_minimal [NOTFOUND=return]"]) # before resolve
+        (mkAfter ["mdns"]) # after dns
       ]
     );
 
-    environment.systemPackages = [ pkgs.avahi ];
+    environment.systemPackages = [pkgs.avahi];
 
     environment.etc =
       (mapAttrs'
@@ -300,16 +300,16 @@ in
 
     systemd.sockets.avahi-daemon = {
       description = "Avahi mDNS/DNS-SD Stack Activation Socket";
-      listenStreams = [ "/run/avahi-daemon/socket" ];
-      wantedBy = [ "sockets.target" ];
+      listenStreams = ["/run/avahi-daemon/socket"];
+      wantedBy = ["sockets.target"];
     };
 
-    systemd.tmpfiles.rules = [ "d /run/avahi-daemon - avahi avahi -" ];
+    systemd.tmpfiles.rules = ["d /run/avahi-daemon - avahi avahi -"];
 
     systemd.services.avahi-daemon = {
       description = "Avahi mDNS/DNS-SD Stack";
-      wantedBy = [ "multi-user.target" ];
-      requires = [ "avahi-daemon.socket" ];
+      wantedBy = ["multi-user.target"];
+      requires = ["avahi-daemon.socket"];
 
       # Make NSS modules visible so that `avahi_nss_support ()' can
       # return a sensible value.
@@ -330,8 +330,8 @@ in
     };
 
     services.dbus.enable = true;
-    services.dbus.packages = [ pkgs.avahi ];
+    services.dbus.packages = [pkgs.avahi];
 
-    networking.firewall.allowedUDPPorts = mkIf cfg.openFirewall [ 5353 ];
+    networking.firewall.allowedUDPPorts = mkIf cfg.openFirewall [5353];
   };
 }

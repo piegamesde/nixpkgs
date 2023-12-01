@@ -11,7 +11,7 @@ let
   cfg = config.documentation.man.mandoc;
 in
 {
-  meta.maintainers = [ lib.maintainers.sternenseemann ];
+  meta.maintainers = [lib.maintainers.sternenseemann];
 
   options = {
     documentation.man.mandoc = {
@@ -19,7 +19,7 @@ in
 
       manPath = lib.mkOption {
         type = with lib.types; listOf str;
-        default = [ "share/man" ];
+        default = ["share/man"];
         example = lib.literalExpression ''[ "share/man" "share/man/fr" ]'';
         description = lib.mdDoc ''
           Change the manpath, i. e. the directories where
@@ -46,7 +46,7 @@ in
 
   config = lib.mkIf cfg.enable {
     environment = {
-      systemPackages = [ cfg.package ];
+      systemPackages = [cfg.package];
 
       # tell mandoc about man pages
       etc."man.conf".text =

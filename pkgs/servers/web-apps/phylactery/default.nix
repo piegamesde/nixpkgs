@@ -33,7 +33,7 @@ buildGoModule rec {
     description = "Old school comic web server";
     homepage = "https://git.sr.ht/~cnx/phylactery";
     license = licenses.agpl3Plus;
-    maintainers = with maintainers; [ McSinyx ];
+    maintainers = with maintainers; [McSinyx];
     platforms = platforms.all;
   };
 }

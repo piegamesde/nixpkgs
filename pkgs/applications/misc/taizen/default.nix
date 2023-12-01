@@ -24,7 +24,7 @@ rustPlatform.buildRustPackage rec {
     ncurses
     openssl
   ] ++ lib.optional stdenv.isDarwin Security;
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   cargoSha256 = "1yqy5v02a4qshgb7k8rnn408k3n6qx3jc8zziwvv7im61n9sjynf";
 
@@ -32,6 +32,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://crates.io/crates/taizen";
     license = licenses.mit;
     description = "curses based mediawiki browser";
-    maintainers = with maintainers; [ ];
+    maintainers = with maintainers; [];
   };
 }

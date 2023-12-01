@@ -51,9 +51,9 @@ buildPythonPackage rec {
     numpy.blas
     pybind11
     pooch
-  ] ++ lib.optionals (pythonOlder "3.9") [ libxcrypt ];
+  ] ++ lib.optionals (pythonOlder "3.9") [libxcrypt];
 
-  propagatedBuildInputs = [ numpy ];
+  propagatedBuildInputs = [numpy];
 
   nativeCheckInputs = [
     nose
@@ -76,7 +76,7 @@ buildPythonPackage rec {
   #
   #         ldr     x0, [x0, ___stack_chk_guard];momd
   #
-  hardeningDisable = lib.optionals (stdenv.isAarch64 && stdenv.isDarwin) [ "stackprotector" ];
+  hardeningDisable = lib.optionals (stdenv.isAarch64 && stdenv.isDarwin) ["stackprotector"];
 
   checkPhase = ''
     runHook preCheck
@@ -87,13 +87,13 @@ buildPythonPackage rec {
     runHook postCheck
   '';
 
-  requiredSystemFeatures = [ "big-parallel" ]; # the tests need lots of CPU time
+  requiredSystemFeatures = ["big-parallel"]; # the tests need lots of CPU time
 
   passthru = {
     blas = numpy.blas;
   };
 
-  setupPyBuildFlags = [ "--fcompiler='gnu95'" ];
+  setupPyBuildFlags = ["--fcompiler='gnu95'"];
 
   SCIPY_USE_G77_ABI_WRAPPER = 1;
 
@@ -101,6 +101,6 @@ buildPythonPackage rec {
     description = "SciPy (pronounced 'Sigh Pie') is open-source software for mathematics, science, and engineering";
     homepage = "https://www.scipy.org/";
     license = licenses.bsd3;
-    maintainers = [ maintainers.fridh ];
+    maintainers = [maintainers.fridh];
   };
 }

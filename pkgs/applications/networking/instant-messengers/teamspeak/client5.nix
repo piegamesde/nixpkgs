@@ -96,7 +96,7 @@ stdenv.mkDerivation rec {
     cp logo-256.png $out/share/icons/hicolor/64x64/apps/${pname}.png
 
     makeWrapper $out/share/${pname}/TeamSpeak $out/bin/TeamSpeak \
-      --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [ udev ]}"
+      --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [udev]}"
 
     runHook postInstall
   '';
@@ -109,7 +109,7 @@ stdenv.mkDerivation rec {
       url = "https://www.teamspeak.com/en/privacy-and-terms/";
       free = false;
     };
-    maintainers = with maintainers; [ jojosch ];
-    platforms = [ "x86_64-linux" ];
+    maintainers = with maintainers; [jojosch];
+    platforms = ["x86_64-linux"];
   };
 }

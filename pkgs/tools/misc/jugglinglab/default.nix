@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     rev = "v${version}";
     sha256 = "sha256-Gq8V7gLl9IakQi7xaK8TCI/B2+6LlLjoLdcv9zlalIE=";
   };
-  buildInputs = [ jre ];
+  buildInputs = [jre];
   nativeBuildInputs = [
     ant
     jdk
@@ -42,7 +42,7 @@ stdenv.mkDerivation rec {
     description = "A program to visualize different juggling pattens";
     homepage = "https://jugglinglab.org/";
     license = licenses.gpl2;
-    maintainers = with maintainers; [ wnklmnn ];
+    maintainers = with maintainers; [wnklmnn];
     platforms = platforms.all;
   };
 }

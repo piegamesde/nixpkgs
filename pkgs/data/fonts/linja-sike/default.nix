@@ -1,4 +1,4 @@
-{ lib, fetchurl }:
+{lib, fetchurl}:
 
 fetchurl {
   pname = "linja-sike";
@@ -20,6 +20,6 @@ fetchurl {
     downloadPage = "https://wyub.github.io/tokipona/linjasike";
     license = licenses.ofl;
     platforms = platforms.all;
-    maintainers = with maintainers; [ somasis ];
+    maintainers = with maintainers; [somasis];
   };
 }

@@ -18,7 +18,7 @@ buildGoModule rec {
   doCheck = false;
   vendorHash = null;
 
-  subPackages = [ "." ];
+  subPackages = ["."];
 
   ldflags = [
     "-s"
@@ -39,6 +39,6 @@ buildGoModule rec {
     '';
     homepage = "https://github.com/gabrie30/ghorg";
     license = licenses.asl20;
-    maintainers = with maintainers; [ vidbina ];
+    maintainers = with maintainers; [vidbina];
   };
 }

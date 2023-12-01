@@ -11,7 +11,7 @@ let
   cfg = config.services.unpoller;
 
   configFile = pkgs.writeText "unpoller.json" (
-    generators.toJSON { } {
+    generators.toJSON {} {
       inherit (cfg)
         poller
         influxdb
@@ -57,7 +57,7 @@ in
       };
       plugins = mkOption {
         type = with types; listOf str;
-        default = [ ];
+        default = [];
         description = lib.mdDoc ''
           Load additional plugins.
         '';
@@ -315,18 +315,18 @@ in
         defaults = controllerOptions;
 
         controllers = mkOption {
-          type = with types; listOf (submodule { options = controllerOptions; });
-          default = [ ];
+          type = with types; listOf (submodule {options = controllerOptions;});
+          default = [];
           description = lib.mdDoc ''
             List of Unifi controllers to poll. Use defaults if empty.
           '';
-          apply = map (flip removeAttrs [ "_module" ]);
+          apply = map (flip removeAttrs ["_module"]);
         };
       };
   };
 
   config = mkIf cfg.enable {
-    users.groups.unifi-poller = { };
+    users.groups.unifi-poller = {};
     users.users.unifi-poller = {
       description = "unifi-poller Service User";
       group = "unifi-poller";
@@ -334,8 +334,8 @@ in
     };
 
     systemd.services.unifi-poller = {
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
       serviceConfig = {
         ExecStart = "${pkgs.unpoller}/bin/unpoller --config ${configFile}";
         Restart = "always";

@@ -54,7 +54,7 @@ stdenv.mkDerivation rec {
     homepage = "https://calcoo.sourceforge.net/";
     description = "RPN and algebraic scientific calculator";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ AndersonTorres ];
+    maintainers = with maintainers; [AndersonTorres];
     inherit (jdk.meta) platforms;
   };
 }

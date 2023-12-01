@@ -32,12 +32,12 @@ buildPythonPackage rec {
     mock
   ];
 
-  pythonImportsCheck = [ "pymaven" ];
+  pythonImportsCheck = ["pymaven"];
 
   meta = with lib; {
     description = "Python access to maven";
     homepage = "https://github.com/nexB/pymaven";
     license = licenses.asl20;
-    maintainers = [ ];
+    maintainers = [];
   };
 }

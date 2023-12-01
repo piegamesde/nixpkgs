@@ -73,8 +73,8 @@ in
 
     systemd.services.amuled = {
       description = "AMule daemon";
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
 
       preStart = ''
         mkdir -p ${cfg.dataDir}

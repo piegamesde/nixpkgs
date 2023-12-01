@@ -8,7 +8,7 @@ stdenv.mkDerivation {
   pname = "nim_builder";
   inherit (nim) version;
   dontUnpack = true;
-  nativeBuildInputs = [ nim ];
+  nativeBuildInputs = [nim];
   buildPhase = ''
     cp ${./nim_builder.nim} nim_builder.nim
     nim c --nimcache:$TMPDIR nim_builder
@@ -18,6 +18,6 @@ stdenv.mkDerivation {
   '';
   meta = {
     description = "Internal Nixpkgs utility for buildNimPackage.";
-    maintainers = [ lib.maintainers.ehmry ];
+    maintainers = [lib.maintainers.ehmry];
   };
 }

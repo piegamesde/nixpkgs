@@ -21,9 +21,9 @@ buildGoModule rec {
 
   vendorHash = null;
 
-  buildInputs = [ gpgme ];
+  buildInputs = [gpgme];
 
-  nativeBuildInputs = [ installShellFiles ];
+  nativeBuildInputs = [installShellFiles];
 
   ldflags = [
     "-s"

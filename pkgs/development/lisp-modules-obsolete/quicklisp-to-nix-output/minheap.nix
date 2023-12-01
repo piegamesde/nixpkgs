@@ -1,12 +1,12 @@
 # Generated file.
-args@{ fetchurl, ... }:
+args@{fetchurl, ...}:
 rec {
   baseName = "minheap";
   version = "20160628-git";
 
   description = "Various heap/priority queue data structures";
 
-  deps = [ ];
+  deps = [];
 
   src = fetchurl {
     url = "http://beta.quicklisp.org/archive/minheap/2016-06-28/minheap-20160628-git.tgz";
@@ -15,7 +15,7 @@ rec {
 
   packageName = "minheap";
 
-  asdFilesToKeep = [ "minheap.asd" ];
+  asdFilesToKeep = ["minheap.asd"];
   overrides = x: x;
 }
 /* (SYSTEM minheap DESCRIPTION Various heap/priority queue data structures

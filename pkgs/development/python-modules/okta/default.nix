@@ -50,9 +50,9 @@ buildPythonPackage rec {
     pyfakefs
   ];
 
-  pytestFlagsArray = [ "tests/" ];
+  pytestFlagsArray = ["tests/"];
 
-  disabledTests = [ "test_client_raise_exception" ];
+  disabledTests = ["test_client_raise_exception"];
 
   pythonImportsCheck = [
     "okta"
@@ -68,6 +68,6 @@ buildPythonPackage rec {
     description = "Python SDK for the Okta Management API";
     homepage = "https://github.com/okta/okta-sdk-python";
     license = licenses.asl20;
-    maintainers = with maintainers; [ dennajort ];
+    maintainers = with maintainers; [dennajort];
   };
 }

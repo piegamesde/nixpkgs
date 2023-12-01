@@ -47,7 +47,7 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  hardeningDisable = [ "format" ];
+  hardeningDisable = ["format"];
 
   meta = {
     broken = stdenv.isDarwin;
@@ -61,7 +61,7 @@ stdenv.mkDerivation rec {
     '';
     homepage = "http://fox-toolkit.org";
     license = lib.licenses.lgpl3;
-    maintainers = [ ];
+    maintainers = [];
     platforms = lib.platforms.mesaPlatforms;
   };
 }

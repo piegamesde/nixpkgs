@@ -21,9 +21,9 @@ stdenv.mkDerivation rec {
       s:^CFLAGS:#CFLAGS:
     ' Makefile
   '';
-  buildInputs = [ xorg.libX11 ];
+  buildInputs = [xorg.libX11];
 
-  makeFlags = [ "CC=${stdenv.cc.targetPrefix}cc" ];
+  makeFlags = ["CC=${stdenv.cc.targetPrefix}cc"];
 
   meta = with lib; {
     description = "A multi-player version of the classical game of Tetris, for the X Window system";

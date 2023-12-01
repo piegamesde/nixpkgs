@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
     autoreconfHook
     pkg-config
   ];
-  buildInputs = [ bitlbee ];
+  buildInputs = [bitlbee];
 
   preConfigure = ''
     export BITLBEE_PLUGINDIR=$out/lib/bitlbee
@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
     description = "Bitlbee plugin for Mastodon";
     homepage = "https://alexschroeder.ch/cgit/bitlbee-mastodon/about";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ jpotier ];
+    maintainers = with maintainers; [jpotier];
     platforms = lib.platforms.linux;
   };
 }

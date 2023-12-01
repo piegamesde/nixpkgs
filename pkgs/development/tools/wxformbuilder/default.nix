@@ -22,15 +22,14 @@ stdenv.mkDerivation {
     sha256 = "sha256-DLdwQH3s/ZNVq+A/qtZRy7dA/Ctp2qkOmi6M+rSb4MM=";
   };
 
-  nativeBuildInputs =
-    [ cmake ]
-    ++ lib.optionals stdenv.isDarwin [ makeWrapper ]
-    ++ lib.optionals stdenv.isLinux [ shared-mime-info ];
+  nativeBuildInputs = [
+    cmake
+  ] ++ lib.optionals stdenv.isDarwin [makeWrapper] ++ lib.optionals stdenv.isLinux [shared-mime-info];
 
   buildInputs = [
     wxGTK32
     boost
-  ] ++ lib.optionals stdenv.isDarwin [ Cocoa ];
+  ] ++ lib.optionals stdenv.isDarwin [Cocoa];
 
   preConfigure = ''
     sed -i 's/FATAL_ERROR/WARNING/' cmake/revision-git*.cmake

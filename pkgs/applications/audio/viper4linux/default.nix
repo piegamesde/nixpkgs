@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-CJNVr/1ehJzX45mxunXcRAypBBGEBdswOzAVG2H+ayg=";
   };
 
-  nativeBuildInputs = [ makeWrapper ];
+  nativeBuildInputs = [makeWrapper];
 
   buildInputs = [
     gst_all_1.gstreamer
@@ -54,16 +54,16 @@ stdenv.mkDerivation rec {
 
   postFixup = ''
     wrapProgram "$out/bin/viper" \
-      --prefix PATH : $out/bin:${lib.makeBinPath [ gst_all_1.gstreamer ]} \
+      --prefix PATH : $out/bin:${lib.makeBinPath [gst_all_1.gstreamer]} \
       --prefix GST_PLUGIN_SYSTEM_PATH_1_0 : ${gstPluginPath} \
-      --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ libviperfx ]}
+      --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [libviperfx]}
   '';
 
   meta = with lib; {
     description = "An Adaptive Digital Sound Processor";
     homepage = "https://github.com/Audio4Linux/Viper4Linux";
     license = licenses.gpl3Plus;
-    platforms = [ "x86_64-linux" ];
-    maintainers = with maintainers; [ rewine ];
+    platforms = ["x86_64-linux"];
+    maintainers = with maintainers; [rewine];
   };
 }

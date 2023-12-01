@@ -28,6 +28,6 @@ stdenv.mkDerivation rec {
     platforms = platforms.all;
 
     # This is a header-only library, no point in hydra building it:
-    hydraPlatforms = [ ];
+    hydraPlatforms = [];
   };
 }

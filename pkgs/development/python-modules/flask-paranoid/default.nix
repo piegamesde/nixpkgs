@@ -22,16 +22,16 @@ buildPythonPackage rec {
     substituteInPlace tests/test_paranoid.py --replace "01-Jan-1970" "01 Jan 1970"
   '';
 
-  propagatedBuildInputs = [ flask ];
+  propagatedBuildInputs = [flask];
 
-  nativeCheckInputs = [ pytestCheckHook ];
+  nativeCheckInputs = [pytestCheckHook];
 
-  pythonImportsCheck = [ "flask_paranoid" ];
+  pythonImportsCheck = ["flask_paranoid"];
 
   meta = with lib; {
     homepage = "https://github.com/miguelgrinberg/flask-paranoid/";
     description = "Simple user session protection";
     license = licenses.mit;
-    maintainers = with maintainers; [ gador ];
+    maintainers = with maintainers; [gador];
   };
 }

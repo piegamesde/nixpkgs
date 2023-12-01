@@ -17,7 +17,7 @@ mkDerivation rec {
     sha256 = "1i4yb0v1mmhih8c2i61hybg6q60qys3pc5wbjb7a0vwl1mihgsxw";
   };
 
-  buildInputs = [ pulseaudio ];
+  buildInputs = [pulseaudio];
 
   nativeBuildInputs = [
     pkg-config
@@ -28,7 +28,7 @@ mkDerivation rec {
   meta = with lib; {
     description = "Pulseaudio bindings for Qt";
     homepage = "https://invent.kde.org/libraries/pulseaudio-qt";
-    license = with licenses; [ lgpl2 ];
-    maintainers = with maintainers; [ doronbehar ];
+    license = with licenses; [lgpl2];
+    maintainers = with maintainers; [doronbehar];
   };
 }

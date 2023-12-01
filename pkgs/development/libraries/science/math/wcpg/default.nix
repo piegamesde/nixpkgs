@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-uA/ENjf4urEO+lqebkp/k54199o2434FYgPSmYCG4UA=";
   };
 
-  nativeBuildInputs = [ autoreconfHook ];
+  nativeBuildInputs = [autoreconfHook];
 
   buildInputs = [
     blas
@@ -38,6 +38,6 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/fixif/WCPG";
     license = licenses.cecill-b;
     platforms = platforms.unix;
-    maintainers = with maintainers; [ wegank ];
+    maintainers = with maintainers; [wegank];
   };
 }

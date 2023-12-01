@@ -30,7 +30,7 @@ let
     google = cfg: {
       google =
         with cfg.google;
-        optionalAttrs (groups != [ ]) {
+        optionalAttrs (groups != []) {
           admin-email = adminEmail;
           service-account = serviceAccountJSON;
           group = groups;
@@ -40,7 +40,7 @@ let
 
   authenticatedEmailsFile = pkgs.writeText "authenticated-emails" cfg.email.addresses;
 
-  getProviderOptions = cfg: provider: providerSpecificOptions.${provider} or (_: { }) cfg;
+  getProviderOptions = cfg: provider: providerSpecificOptions.${provider} or (_: {}) cfg;
 
   allConfig =
     with cfg;
@@ -83,10 +83,8 @@ let
     // lib.optionalAttrs (cfg.email.addresses != null) {
       authenticated-emails-file = authenticatedEmailsFile;
     }
-    // lib.optionalAttrs (cfg.passBasicAuth) { basic-auth-password = cfg.basicAuthPassword; }
-    // lib.optionalAttrs (cfg.htpasswd.file != null) {
-      display-htpasswd-file = cfg.htpasswd.displayForm;
-    }
+    // lib.optionalAttrs (cfg.passBasicAuth) {basic-auth-password = cfg.basicAuthPassword;}
+    // lib.optionalAttrs (cfg.htpasswd.file != null) {display-htpasswd-file = cfg.htpasswd.displayForm;}
     // lib.optionalAttrs tls.enable {
       tls-cert-file = tls.certificate;
       tls-key-file = tls.key;
@@ -97,7 +95,7 @@ let
 
   mapConfig =
     key: attr:
-    optionalString (attr != null && attr != [ ]) (
+    optionalString (attr != null && attr != []) (
       if isDerivation attr then
         mapConfig key (toString attr)
       else if (builtins.typeOf attr) == "set" then
@@ -181,7 +179,7 @@ in
 
     skipAuthRegexes = mkOption {
       type = types.listOf types.str;
-      default = [ ];
+      default = [];
       description = lib.mdDoc ''
         Skip authentication for requests matching any of these regular
         expressions.
@@ -192,7 +190,7 @@ in
     email = {
       domains = mkOption {
         type = types.listOf types.str;
-        default = [ ];
+        default = [];
         description = lib.mdDoc ''
           Authenticate emails with the specified domains. Use
           `*` to authenticate any email.
@@ -291,7 +289,7 @@ in
 
       groups = mkOption {
         type = types.listOf types.str;
-        default = [ ];
+        default = [];
         description = lib.mdDoc ''
           Restrict logins to members of these Google groups.
         '';
@@ -326,8 +324,8 @@ in
     ####################################################
     # UPSTREAM Configuration
     upstream = mkOption {
-      type = with types; coercedTo str (x: [ x ]) (listOf str);
-      default = [ ];
+      type = with types; coercedTo str (x: [x]) (listOf str);
+      default = [];
       description = lib.mdDoc ''
         The http url(s) of the upstream endpoint or `file://`
         paths for static files. Routing is based on the path.
@@ -571,7 +569,7 @@ in
     };
 
     extraConfig = mkOption {
-      default = { };
+      default = {};
       type = types.attrsOf types.anything;
       description = lib.mdDoc ''
         Extra config to pass to oauth2-proxy.
@@ -605,13 +603,13 @@ in
       group = "oauth2_proxy";
     };
 
-    users.groups.oauth2_proxy = { };
+    users.groups.oauth2_proxy = {};
 
     systemd.services.oauth2_proxy = {
       description = "OAuth2 Proxy";
-      path = [ cfg.package ];
-      wantedBy = [ "multi-user.target" ];
-      after = [ "network.target" ];
+      path = [cfg.package];
+      wantedBy = ["multi-user.target"];
+      after = ["network.target"];
 
       serviceConfig = {
         User = "oauth2_proxy";

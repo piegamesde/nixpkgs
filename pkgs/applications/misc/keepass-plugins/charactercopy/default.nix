@@ -39,7 +39,7 @@ let
       ];
       # licensing info was found in source files https://github.com/SketchingDev/Character-Copy/search?q=license
       license = licenses.gpl2;
-      maintainers = with maintainers; [ nazarewk ];
+      maintainers = with maintainers; [nazarewk];
     };
   };
 in

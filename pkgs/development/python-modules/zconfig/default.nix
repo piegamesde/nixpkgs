@@ -24,13 +24,13 @@ buildPythonPackage rec {
     manuel
     docutils
   ];
-  propagatedBuildInputs = [ zope_testrunner ];
-  nativeCheckInputs = [ pygments ];
+  propagatedBuildInputs = [zope_testrunner];
+  nativeCheckInputs = [pygments];
 
   meta = with lib; {
     description = "Structured Configuration Library";
     homepage = "https://pypi.python.org/pypi/ZConfig";
     license = licenses.zpl20;
-    maintainers = [ maintainers.goibhniu ];
+    maintainers = [maintainers.goibhniu];
   };
 }

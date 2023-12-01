@@ -30,12 +30,12 @@ rustPlatform.buildRustPackage rec {
   cargoSha256 = "sha256-FXfh6T8dNsnD/V/wYSMDWs+ll0d1jg1Dc3cQT39b0ws=";
 
   nativeBuildInputs =
-    [ ]
+    []
     ++ lib.optional (installManPages || installShellCompletions) installShellFiles
     ++ lib.optional (!stdenv.hostPlatform.isDarwin) pkg-config;
 
   buildInputs =
-    [ ]
+    []
     ++ (
       if stdenv.hostPlatform.isDarwin then
         [
@@ -43,13 +43,13 @@ rustPlatform.buildRustPackage rec {
           libiconv
         ]
       else
-        [ openssl ]
+        [openssl]
     )
     ++ lib.optional withNotmuchBackend notmuch;
 
   buildNoDefaultFeatures = true;
   buildFeatures =
-    [ ]
+    []
     ++ lib.optional withImapBackend "imap-backend"
     ++ lib.optional withNotmuchBackend "notmuch-backend"
     ++ lib.optional withSmtpSender "smtp-sender";

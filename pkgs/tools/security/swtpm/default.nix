@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
     autoreconfHook
   ];
 
-  nativeCheckInputs = [ which ];
+  nativeCheckInputs = [which];
 
   buildInputs =
     [
@@ -60,7 +60,7 @@ stdenv.mkDerivation rec {
       libseccomp
     ];
 
-  configureFlags = [ "--localstatedir=/var" ] ++ lib.optionals stdenv.isLinux [ "--with-cuse" ];
+  configureFlags = ["--localstatedir=/var"] ++ lib.optionals stdenv.isLinux ["--with-cuse"];
 
   postPatch = ''
     patchShebangs tests/*
@@ -114,6 +114,6 @@ stdenv.mkDerivation rec {
     description = "Libtpms-based TPM emulator";
     homepage = "https://github.com/stefanberger/swtpm";
     license = licenses.bsd3;
-    maintainers = [ maintainers.baloo ];
+    maintainers = [maintainers.baloo];
   };
 }

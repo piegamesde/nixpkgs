@@ -17,7 +17,7 @@ buildOctavePackage rec {
     sha256 = "sha256-/4akeeOQnvTlk9ah+e8RJfwJG2Eq2HAGOCejhiIUjF4=";
   };
 
-  nativeBuildInputs = [ pkg-config ];
+  nativeBuildInputs = [pkg-config];
 
   propagatedBuildInputs = [
     jack2
@@ -28,7 +28,7 @@ buildOctavePackage rec {
   meta = with lib; {
     homepage = "https://octave.sourceforge.io/audio/index.html";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ KarlJoad ];
+    maintainers = with maintainers; [KarlJoad];
     description = "Audio and MIDI Toolbox for GNU Octave";
     platforms = platforms.linux; # Because of run-time dependency on jack2 and alsa-lib
   };

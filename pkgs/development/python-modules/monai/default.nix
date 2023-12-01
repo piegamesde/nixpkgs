@@ -36,7 +36,7 @@ buildPythonPackage rec {
     ninja
     which
   ];
-  buildInputs = [ pybind11 ];
+  buildInputs = [pybind11];
   propagatedBuildInputs = [
     numpy
     torch
@@ -67,6 +67,6 @@ buildPythonPackage rec {
     description = "Pytorch framework (based on Ignite) for deep learning in medical imaging";
     homepage = "https://github.com/Project-MONAI/MONAI";
     license = licenses.asl20;
-    maintainers = [ maintainers.bcdarwin ];
+    maintainers = [maintainers.bcdarwin];
   };
 }

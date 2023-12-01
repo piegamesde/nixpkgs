@@ -23,6 +23,6 @@ stdenv.mkDerivation rec {
     description = "Like `which`, for dynamic libraries";
     homepage = "https://github.com/vtjnash/libwhich";
     license = licenses.mit;
-    maintainers = with maintainers; [ dtzWill ];
+    maintainers = with maintainers; [dtzWill];
   };
 }

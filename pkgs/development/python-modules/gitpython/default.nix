@@ -28,7 +28,7 @@ buildPythonPackage rec {
     ddt
     gitdb
     pkgs.gitMinimal
-  ] ++ lib.optionals (pythonOlder "3.10") [ typing-extensions ];
+  ] ++ lib.optionals (pythonOlder "3.10") [typing-extensions];
 
   postPatch = ''
     substituteInPlace git/cmd.py \
@@ -38,13 +38,13 @@ buildPythonPackage rec {
   # Tests require a git repo
   doCheck = false;
 
-  pythonImportsCheck = [ "git" ];
+  pythonImportsCheck = ["git"];
 
   meta = with lib; {
     description = "Python Git Library";
     homepage = "https://github.com/gitpython-developers/GitPython";
     changelog = "https://github.com/gitpython-developers/GitPython/blob/${version}/doc/source/changes.rst";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ fab ];
+    maintainers = with maintainers; [fab];
   };
 }

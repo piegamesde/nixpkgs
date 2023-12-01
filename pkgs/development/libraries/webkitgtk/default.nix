@@ -188,7 +188,7 @@ stdenv.mkDerivation (
         # (We pick just that one because using the other headers from `sdk` is not
         # compatible with our C++ standard library. This header is already in
         # the standard library on aarch64)
-        runCommand "webkitgtk_headers" { } ''
+        runCommand "webkitgtk_headers" {} ''
           install -Dm444 "${lib.getDev apple_sdk.sdk}"/include/libproc.h "$out"/include/libproc.h
         ''
       )
@@ -201,9 +201,9 @@ stdenv.mkDerivation (
         libwpe-fdo
         xdg-dbus-proxy
       ]
-      ++ lib.optionals systemdSupport [ systemd ]
-      ++ lib.optionals enableGeoLocation [ geoclue2 ]
-      ++ lib.optionals withLibsecret [ libsecret ]
+      ++ lib.optionals systemdSupport [systemd]
+      ++ lib.optionals enableGeoLocation [geoclue2]
+      ++ lib.optionals withLibsecret [libsecret]
       ++ lib.optionals (lib.versionAtLeast gtk3.version "4.0") [
         xorg.libXcomposite
         wayland-protocols
@@ -234,9 +234,9 @@ stdenv.mkDerivation (
         "-DUSE_APPLE_ICU=OFF"
         "-DUSE_OPENGL_OR_ES=OFF"
       ]
-      ++ lib.optionals (lib.versionAtLeast gtk3.version "4.0") [ "-DUSE_GTK4=ON" ]
-      ++ lib.optionals (!systemdSupport) [ "-DENABLE_JOURNALD_LOG=OFF" ]
-      ++ lib.optionals (stdenv.isLinux && enableGLES) [ "-DENABLE_GLES2=ON" ];
+      ++ lib.optionals (lib.versionAtLeast gtk3.version "4.0") ["-DUSE_GTK4=ON"]
+      ++ lib.optionals (!systemdSupport) ["-DENABLE_JOURNALD_LOG=OFF"]
+      ++ lib.optionals (stdenv.isLinux && enableGLES) ["-DENABLE_GLES2=ON"];
 
     postPatch = ''
       patchShebangs .
@@ -247,7 +247,7 @@ stdenv.mkDerivation (
       moveToOutput "share/doc" "$devdoc"
     '';
 
-    requiredSystemFeatures = [ "big-parallel" ];
+    requiredSystemFeatures = ["big-parallel"];
 
     passthru.tests.pkg-config = testers.testMetaPkgConfig finalAttrs.finalPackage;
 

@@ -9,7 +9,7 @@ stdenv.mkDerivation {
   pname = "can-isotp";
   version = "20200910";
 
-  hardeningDisable = [ "pic" ];
+  hardeningDisable = ["pic"];
 
   src = fetchFromGitHub {
     owner = "hartkopp";
@@ -23,8 +23,8 @@ stdenv.mkDerivation {
     "INSTALL_MOD_PATH=${placeholder "out"}"
   ];
 
-  buildFlags = [ "modules" ];
-  installTargets = [ "modules_install" ];
+  buildFlags = ["modules"];
+  installTargets = ["modules_install"];
 
   nativeBuildInputs = kernel.moduleBuildDependencies;
 
@@ -34,6 +34,6 @@ stdenv.mkDerivation {
     homepage = "https://github.com/hartkopp/can-isotp";
     license = licenses.gpl2;
     platforms = platforms.linux;
-    maintainers = [ maintainers.evck ];
+    maintainers = [maintainers.evck];
   };
 }

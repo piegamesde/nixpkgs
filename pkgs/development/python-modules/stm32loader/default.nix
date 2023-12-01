@@ -23,7 +23,7 @@ buildPythonPackage rec {
     pyserial
   ];
 
-  nativeCheckInputs = [ pytest ] ++ lib.optional isPy27 mock;
+  nativeCheckInputs = [pytest] ++ lib.optional isPy27 mock;
 
   checkPhase = ''
     pytest --strict tests/unit
@@ -34,6 +34,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/florisla/stm32loader";
     changelog = "https://github.com/florisla/stm32loader/blob/v${version}/CHANGELOG.md";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ emily ];
+    maintainers = with maintainers; [emily];
   };
 }

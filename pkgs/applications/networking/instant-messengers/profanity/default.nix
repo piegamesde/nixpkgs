@@ -47,7 +47,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-A9ZgHliLb4v/3W5tm5zD0WN8mRmxLE/MUSTBXGvBCCM=";
   };
 
-  patches = [ ./patches/packages-osx.patch ];
+  patches = [./patches/packages-osx.patch];
 
   enableParallelBuilding = true;
 
@@ -86,9 +86,9 @@ stdenv.mkDerivation rec {
       libsignal-protocol-c
       libgcrypt
     ]
-    ++ lib.optionals pgpSupport [ gpgme ]
-    ++ lib.optionals pythonPluginSupport [ python3 ]
-    ++ lib.optionals traySupport [ gtk3 ];
+    ++ lib.optionals pgpSupport [gpgme]
+    ++ lib.optionals pythonPluginSupport [python3]
+    ++ lib.optionals traySupport [gtk3];
 
   # Enable feature flags, so that build fail if libs are missing
   configureFlags =
@@ -96,11 +96,11 @@ stdenv.mkDerivation rec {
       "--enable-c-plugins"
       "--enable-otr"
     ]
-    ++ lib.optionals notifySupport [ "--enable-notifications" ]
-    ++ lib.optionals traySupport [ "--enable-icons-and-clipboard" ]
-    ++ lib.optionals pgpSupport [ "--enable-pgp" ]
-    ++ lib.optionals pythonPluginSupport [ "--enable-python-plugins" ]
-    ++ lib.optionals omemoSupport [ "--enable-omemo" ];
+    ++ lib.optionals notifySupport ["--enable-notifications"]
+    ++ lib.optionals traySupport ["--enable-icons-and-clipboard"]
+    ++ lib.optionals pgpSupport ["--enable-pgp"]
+    ++ lib.optionals pythonPluginSupport ["--enable-python-plugins"]
+    ++ lib.optionals omemoSupport ["--enable-omemo"];
 
   preAutoreconf = ''
     mkdir m4
@@ -118,7 +118,7 @@ stdenv.mkDerivation rec {
       libstrophe, inspired by Irssi.
     '';
     license = licenses.gpl3Plus;
-    maintainers = [ maintainers.devhell ];
+    maintainers = [maintainers.devhell];
     platforms = platforms.unix;
   };
 }

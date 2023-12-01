@@ -14,7 +14,7 @@ buildPythonPackage rec {
     hash = "sha256-YyKg3NcGiH52MI0jE21bhtoOq3WigtxklnAdEhC0YK8=";
   };
 
-  pythonImportsCheck = [ "argparse_addons" ];
+  pythonImportsCheck = ["argparse_addons"];
 
   meta = with lib; {
     description = "Additional Python argparse types and actions";

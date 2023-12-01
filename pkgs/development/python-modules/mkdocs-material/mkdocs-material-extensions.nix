@@ -17,16 +17,16 @@ buildPythonPackage rec {
     hash = "sha256-FHI6WEQRd/Ff6pmU13f8f0zPSeFhhbmDdk4/0rdIl4I=";
   };
 
-  nativeBuildInputs = [ hatchling ];
+  nativeBuildInputs = [hatchling];
 
   doCheck = false; # Circular dependency
 
-  pythonImportsCheck = [ "materialx" ];
+  pythonImportsCheck = ["materialx"];
 
   meta = with lib; {
     description = "Markdown extension resources for MkDocs Material";
     homepage = "https://github.com/facelessuser/mkdocs-material-extensions";
     license = licenses.mit;
-    maintainers = with maintainers; [ dandellion ];
+    maintainers = with maintainers; [dandellion];
   };
 }

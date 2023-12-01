@@ -19,7 +19,7 @@ let
     comment = "IDE for TLA+";
     desktopName = name;
     genericName = comment;
-    categories = [ "Development" ];
+    categories = ["Development"];
     startupWMClass = "TLA+ Toolbox";
   };
 in
@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
     sha256 = "02a2y2mkfab5cczw8g604m61h4xr0apir49zbd1aq6mmgcgngw80";
   };
 
-  buildInputs = [ gtk3 ];
+  buildInputs = [gtk3];
 
   nativeBuildInputs = [
     makeShellWrapper
@@ -56,7 +56,7 @@ stdenv.mkDerivation rec {
 
     patchelf \
       --set-interpreter $(cat $NIX_CC/nix-support/dynamic-linker) \
-      --set-rpath "${lib.makeLibraryPath [ zlib ]}:$(patchelf --print-rpath $(find "$out/toolbox" -name java))" \
+      --set-rpath "${lib.makeLibraryPath [zlib]}:$(patchelf --print-rpath $(find "$out/toolbox" -name java))" \
       "$(find "$out/toolbox" -name java)"
 
     patchelf \
@@ -102,9 +102,9 @@ stdenv.mkDerivation rec {
       versions of your modules, run the TLC model checker, and run TLAPS, the TLA+ proof system.
     '';
     # http://lamport.azurewebsites.net/tla/license.html
-    license = with lib.licenses; [ mit ];
-    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
-    platforms = [ "x86_64-linux" ];
-    maintainers = [ ];
+    license = with lib.licenses; [mit];
+    sourceProvenance = with lib.sourceTypes; [binaryNativeCode];
+    platforms = ["x86_64-linux"];
+    maintainers = [];
   };
 }

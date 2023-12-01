@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
 
   buildInputs = [
     abseil-cpp_202111
-  ] ++ lib.optionals stdenv.isDarwin (with darwin.apple_sdk.frameworks; [ ApplicationServices ]);
+  ] ++ lib.optionals stdenv.isDarwin (with darwin.apple_sdk.frameworks; [ApplicationServices]);
 
   patchPhase =
     ''

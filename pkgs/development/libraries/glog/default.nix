@@ -19,19 +19,19 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-xqRp9vaauBkKz2CXbh/Z4TWqhaUtqfbsSlbYZR/kW9s=";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [cmake];
 
-  buildInputs = [ gtest ];
+  buildInputs = [gtest];
 
-  propagatedBuildInputs = [ gflags ];
+  propagatedBuildInputs = [gflags];
 
-  cmakeFlags = [ "-DBUILD_SHARED_LIBS=ON" ];
+  cmakeFlags = ["-DBUILD_SHARED_LIBS=ON"];
 
   # TODO: Re-enable Darwin tests once we're on a release that has https://github.com/google/glog/issues/709#issuecomment-960381653 fixed
   doCheck = !stdenv.isDarwin;
   # There are some non-thread safe tests that can fail
   enableParallelChecking = false;
-  nativeCheckInputs = [ perl ];
+  nativeCheckInputs = [perl];
 
   GTEST_FILTER =
     let

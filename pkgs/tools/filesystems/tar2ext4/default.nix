@@ -20,7 +20,7 @@ buildGoModule rec {
 
   meta = with lib; {
     description = "Convert a tar archive to an ext4 image";
-    maintainers = with maintainers; [ qyliss ];
+    maintainers = with maintainers; [qyliss];
     license = licenses.mit;
   };
 }

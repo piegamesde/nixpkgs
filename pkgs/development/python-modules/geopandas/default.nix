@@ -52,15 +52,15 @@ buildPythonPackage rec {
     "test_read_file_remote_zipfile_url"
   ];
 
-  pytestFlagsArray = [ "geopandas" ];
+  pytestFlagsArray = ["geopandas"];
 
-  pythonImportsCheck = [ "geopandas" ];
+  pythonImportsCheck = ["geopandas"];
 
   meta = with lib; {
     description = "Python geospatial data analysis framework";
     homepage = "https://geopandas.org";
     changelog = "https://github.com/geopandas/geopandas/blob/v${version}/CHANGELOG.md";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ knedlsepp ];
+    maintainers = with maintainers; [knedlsepp];
   };
 }

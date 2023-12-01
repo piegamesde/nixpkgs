@@ -46,7 +46,7 @@ else
       uucd
     ];
 
-    propagatedBuildInputs = [ uchar ];
+    propagatedBuildInputs = [uchar];
 
     strictDeps = true;
 
@@ -64,13 +64,13 @@ else
       ${topkg.run} test
       runHook postCheck
     '';
-    checkInputs = [ uucd ];
+    checkInputs = [uucd];
 
     meta = with lib; {
       description = "An OCaml library providing efficient access to a selection of character properties of the Unicode character database";
       homepage = webpage;
       inherit (ocaml.meta) platforms;
       license = licenses.bsd3;
-      maintainers = [ maintainers.vbgl ];
+      maintainers = [maintainers.vbgl];
     };
   }

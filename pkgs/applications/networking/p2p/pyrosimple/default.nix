@@ -58,7 +58,7 @@ buildPythonPackage {
     ;
 
   passthru = {
-    updateScript = nix-update-script { };
+    updateScript = nix-update-script {};
     tests = testers.testVersion {
       package = pyrosimple;
       command = "pyroadmin --version";
@@ -75,6 +75,6 @@ buildPythonPackage {
       license = licenses.gpl3Plus;
       changelog = "https://github.com/kannibalox/pyrosimple/blob/v${version}/CHANGELOG.md";
       platforms = platforms.all;
-      maintainers = builtins.attrValues { inherit (maintainers) ne9z; };
+      maintainers = builtins.attrValues {inherit (maintainers) ne9z;};
     };
 }
