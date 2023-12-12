@@ -232,8 +232,8 @@ let
   generateUnit =
     name: values:
     assert assertMsg
-        (values.configFile != null || ((values.privateKey != null) != (values.privateKeyFile != null)))
-        "Only one of privateKey, configFile or privateKeyFile may be set";
+      (values.configFile != null || ((values.privateKey != null) != (values.privateKeyFile != null)))
+      "Only one of privateKey, configFile or privateKeyFile may be set";
     let
       preUpFile = if values.preUp != "" then writeScriptFile "preUp.sh" values.preUp else null;
       postUp =
@@ -295,7 +295,7 @@ let
               (
                 peer:
                 assert assertMsg (!((peer.presharedKeyFile != null) && (peer.presharedKey != null)))
-                    "Only one of presharedKey or presharedKeyFile may be set";
+                  "Only one of presharedKey or presharedKeyFile may be set";
                 ''
                   [Peer]
                 ''

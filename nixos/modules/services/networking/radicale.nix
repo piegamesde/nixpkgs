@@ -27,11 +27,11 @@ let
   bindLocalhost =
     cfg.settings != {}
     && !hasAttrByPath
-        [
-          "server"
-          "hosts"
-        ]
-        cfg.settings;
+      [
+        "server"
+        "hosts"
+      ]
+      cfg.settings;
 in
 {
   options.services.radicale = {

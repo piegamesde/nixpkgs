@@ -79,13 +79,13 @@ assert bluezSupport -> bluez != null;
 assert enableFramework -> stdenv.isDarwin;
 
 assert lib.assertMsg (reproducibleBuild -> stripBytecode)
-    "Deterministic builds require stripping bytecode.";
+  "Deterministic builds require stripping bytecode.";
 
 assert lib.assertMsg (reproducibleBuild -> (!enableOptimizations))
-    "Deterministic builds are not achieved when optimizations are enabled.";
+  "Deterministic builds are not achieved when optimizations are enabled.";
 
 assert lib.assertMsg (reproducibleBuild -> (!rebuildBytecode))
-    "Deterministic builds are not achieved when (default unoptimized) bytecode is created.";
+  "Deterministic builds are not achieved when (default unoptimized) bytecode is created.";
 
 with lib;
 

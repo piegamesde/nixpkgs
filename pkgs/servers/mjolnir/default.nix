@@ -27,10 +27,11 @@ stdenv.mkDerivation rec {
   buildPhase =
     let
       nodeDependencies =
-        ((import ./node-composition.nix {
-          inherit pkgs nodejs;
-          inherit (stdenv.hostPlatform) system;
-        }).nodeDependencies.override
+        (
+          (import ./node-composition.nix {
+            inherit pkgs nodejs;
+            inherit (stdenv.hostPlatform) system;
+          }).nodeDependencies.override
           (
             old: {
               # access to path '/nix/store/...-source' is forbidden in restricted mode

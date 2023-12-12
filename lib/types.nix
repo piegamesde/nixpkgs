@@ -1083,7 +1083,7 @@ let
       coercedTo =
         coercedType: coerceFunc: finalType:
         assert lib.assertMsg (coercedType.getSubModules == null)
-            "coercedTo: coercedType must not have submodules (it’s a ${coercedType.description})";
+          "coercedTo: coercedType must not have submodules (it’s a ${coercedType.description})";
         mkOptionType rec {
           name = "coercedTo";
           description = "${optionDescriptionPhrase (class: class == "noun") finalType} or ${

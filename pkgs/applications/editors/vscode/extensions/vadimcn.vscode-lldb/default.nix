@@ -57,10 +57,11 @@ let
   };
 
   nodeDeps =
-    ((import ./build-deps/default.nix {
-      inherit pkgs nodejs;
-      inherit (stdenv.hostPlatform) system;
-    }).nodeDependencies.override
+    (
+      (import ./build-deps/default.nix {
+        inherit pkgs nodejs;
+        inherit (stdenv.hostPlatform) system;
+      }).nodeDependencies.override
       (
         old: {
           inherit src version;
