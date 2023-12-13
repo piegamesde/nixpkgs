@@ -11,7 +11,9 @@ stdenv.mkDerivation rec {
   version = "3.91a";
 
   src = fetchurl {
-    url = "https://geant4.kek.jp/~tanaka/src/dawn_${builtins.replaceStrings ["."] ["_"] version}.tgz";
+    url = "https://geant4.kek.jp/~tanaka/src/dawn_${
+      builtins.replaceStrings [ "." ] [ "_" ] version
+    }.tgz";
     hash = "sha256-gdhV6tERdoGxiCQt0L46JOAF2b1AY/0r2pp6eU689fQ=";
   };
 
@@ -21,7 +23,7 @@ stdenv.mkDerivation rec {
       --replace 'INSTALL_DIR =' "INSTALL_DIR = $out/bin#"
   '';
 
-  nativeBuildInputs = [makeWrapper];
+  nativeBuildInputs = [ makeWrapper ];
 
   dontConfigure = true;
 
@@ -31,7 +33,7 @@ stdenv.mkDerivation rec {
 
   postInstall = ''
     wrapProgram "$out/bin/DAWN_GUI" \
-      --prefix PATH : ${lib.makeBinPath [tk]}
+      --prefix PATH : ${lib.makeBinPath [ tk ]}
   '';
 
   meta = with lib; {
@@ -39,6 +41,6 @@ stdenv.mkDerivation rec {
     license = licenses.unfree;
     homepage = "https://geant4.kek.jp/~tanaka/DAWN/About_DAWN.html";
     platforms = platforms.unix;
-    maintainers = with maintainers; [veprbl];
+    maintainers = with maintainers; [ veprbl ];
   };
 }

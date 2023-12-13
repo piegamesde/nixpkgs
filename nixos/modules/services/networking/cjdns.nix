@@ -14,7 +14,7 @@ let
   cfg = config.services.cjdns;
 
   connectToSubmodule =
-    {...}:
+    { ... }:
     {
       options = {
         password = mkOption {
@@ -45,7 +45,7 @@ let
     };
 
   # Additional /etc/hosts entries for peers with an associated hostname
-  cjdnsExtraHosts = pkgs.runCommand "cjdns-hosts" {} ''
+  cjdnsExtraHosts = pkgs.runCommand "cjdns-hosts" { } ''
     exec >$out
     ${concatStringsSep "\n" (
       mapAttrsToList
@@ -59,7 +59,8 @@ let
   '';
 
   parseModules =
-    x: x // {connectTo = mapAttrs (name: value: {inherit (value) password publicKey;}) x.connectTo;};
+    x:
+    x // { connectTo = mapAttrs (name: value: { inherit (value) password publicKey; }) x.connectTo; };
 
   cjdrouteConf = builtins.toJSON (
     recursiveUpdate
@@ -68,10 +69,10 @@ let
           bind = cfg.admin.bind;
           password = "@CJDNS_ADMIN_PASSWORD@";
         };
-        authorizedPasswords = map (p: {password = p;}) cfg.authorizedPasswords;
+        authorizedPasswords = map (p: { password = p; }) cfg.authorizedPasswords;
         interfaces = {
-          ETHInterface = if (cfg.ETHInterface.bind != "") then [(parseModules cfg.ETHInterface)] else [];
-          UDPInterface = if (cfg.UDPInterface.bind != "") then [(parseModules cfg.UDPInterface)] else [];
+          ETHInterface = if (cfg.ETHInterface.bind != "") then [ (parseModules cfg.ETHInterface) ] else [ ];
+          UDPInterface = if (cfg.UDPInterface.bind != "") then [ (parseModules cfg.UDPInterface) ] else [ ];
         };
 
         privateKey = "@CJDNS_PRIVATE_KEY@";
@@ -83,8 +84,8 @@ let
             type = "TUNInterface";
           };
           ipTunnel = {
-            allowedConnections = [];
-            outgoingConnections = [];
+            allowedConnections = [ ];
+            outgoingConnections = [ ];
           };
         };
 
@@ -117,7 +118,7 @@ in
 
       extraConfig = mkOption {
         type = types.attrs;
-        default = {};
+        default = { };
         example = {
           router.interface.tunDevice = "tun10";
         };
@@ -138,7 +139,7 @@ in
 
       authorizedPasswords = mkOption {
         type = types.listOf types.str;
-        default = [];
+        default = [ ];
         example = [
           "snyrfgkqsc98qh1y4s5hbu0j57xw5s0"
           "z9md3t4p45mfrjzdjurxn4wuj0d8swv"
@@ -171,7 +172,7 @@ in
         };
         connectTo = mkOption {
           type = types.attrsOf (types.submodule (connectToSubmodule));
-          default = {};
+          default = { };
           example = literalExpression ''
             {
               "192.168.1.1:27313" = {
@@ -217,7 +218,7 @@ in
 
         connectTo = mkOption {
           type = types.attrsOf (types.submodule (connectToSubmodule));
-          default = {};
+          default = { };
           example = literalExpression ''
             {
               "01:02:03:04:05:06" = {
@@ -248,7 +249,7 @@ in
 
   config = mkIf cfg.enable {
 
-    boot.kernelModules = ["tun"];
+    boot.kernelModules = [ "tun" ];
 
     # networking.firewall.allowedUDPPorts = ...
 
@@ -258,8 +259,8 @@ in
         "multi-user.target"
         "sleep.target"
       ];
-      after = ["network-online.target"];
-      bindsTo = ["network-online.target"];
+      after = [ "network-online.target" ];
+      bindsTo = [ "network-online.target" ];
 
       preStart =
         if cfg.confFile != null then
@@ -317,7 +318,7 @@ in
       };
     };
 
-    networking.hostFiles = mkIf cfg.addExtraHosts [cjdnsExtraHosts];
+    networking.hostFiles = mkIf cfg.addExtraHosts [ cjdnsExtraHosts ];
 
     assertions = [
       {

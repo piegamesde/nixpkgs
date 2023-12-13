@@ -105,7 +105,7 @@ let
   efiBinutils = binutils-unwrapped.overrideAttrs (
     oldAttrs: {
       name = "efi-binutils";
-      configureFlags = oldAttrs.configureFlags ++ ["--enable-targets=x86_64-pep"];
+      configureFlags = oldAttrs.configureFlags ++ [ "--enable-targets=x86_64-pep" ];
       doInstallCheck = false; # We get a spurious failure otherwise, due to host/target mis-match
     }
   );
@@ -171,7 +171,8 @@ stdenv.mkDerivation (
 
         # Others
       ]
-      ++ (concatMap (x: x.buildInputs or []) (attrValues config.xenfiles)) ++ (config.buildInputs or []);
+      ++ (concatMap (x: x.buildInputs or [ ]) (attrValues config.xenfiles))
+      ++ (config.buildInputs or [ ]);
 
     prePatch = ''
       ### Generic fixes
@@ -220,7 +221,7 @@ stdenv.mkDerivation (
       )}
     '';
 
-    patches = [] ++ (config.patches or []);
+    patches = [ ] ++ (config.patches or [ ]);
 
     postPatch = ''
       ### Hacks
@@ -289,7 +290,7 @@ stdenv.mkDerivation (
     makeFlags = [
       "PREFIX=$(out) CONFIG_DIR=/etc"
       "XEN_SCRIPT_DIR=/etc/xen/scripts"
-    ] ++ (config.makeFlags or []);
+    ] ++ (config.makeFlags or [ ]);
 
     preBuild = ''
       ${config.preBuild or ""}
@@ -344,8 +345,8 @@ stdenv.mkDerivation (
           Includes:
         ''
         + withXenfiles (name: x: "* ${name}: ${x.meta.description or "(No description)"}.");
-      platforms = ["x86_64-linux"];
-      maintainers = [];
+      platforms = [ "x86_64-linux" ];
+      maintainers = [ ];
       license = lib.licenses.gpl2;
       knownVulnerabilities =
         [
@@ -364,7 +365,7 @@ stdenv.mkDerivation (
         ++ lib.optionals (lib.versionOlder version "4.15") [
           "This version of Xen has reached its end of life. See https://xenbits.xen.org/docs/unstable/support-matrix.html"
         ];
-    } // (config.meta or {});
+    } // (config.meta or { });
   }
   // removeAttrs config [
     "xenfiles"

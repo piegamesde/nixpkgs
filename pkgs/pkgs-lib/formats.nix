@@ -1,4 +1,4 @@
-{lib, pkgs}:
+{ lib, pkgs }:
 rec {
 
   /* Every following entry represents a format for program configuration files
@@ -28,10 +28,10 @@ rec {
        });
   */
 
-  inherit (import ./formats/java-properties/default.nix {inherit lib pkgs;}) javaProperties;
+  inherit (import ./formats/java-properties/default.nix { inherit lib pkgs; }) javaProperties;
 
   json =
-    {}:
+    { }:
     {
 
       type =
@@ -59,40 +59,40 @@ rec {
         name: value:
         pkgs.callPackage
           (
-            {runCommand, jq}:
+            { runCommand, jq }:
             runCommand name
               {
-                nativeBuildInputs = [jq];
+                nativeBuildInputs = [ jq ];
                 value = builtins.toJSON value;
-                passAsFile = ["value"];
+                passAsFile = [ "value" ];
               }
               ''
                 jq . "$valuePath"> $out
               ''
           )
-          {};
+          { };
     };
 
   yaml =
-    {}:
+    { }:
     {
 
       generate =
         name: value:
         pkgs.callPackage
           (
-            {runCommand, remarshal}:
+            { runCommand, remarshal }:
             runCommand name
               {
-                nativeBuildInputs = [remarshal];
+                nativeBuildInputs = [ remarshal ];
                 value = builtins.toJSON value;
-                passAsFile = ["value"];
+                passAsFile = [ "value" ];
               }
               ''
                 json2yaml "$valuePath" "$out"
               ''
           )
-          {};
+          { };
 
       type =
         with lib.types;
@@ -170,7 +170,7 @@ rec {
             else
               value;
         in
-        pkgs.writeText name (lib.generators.toINI (removeAttrs args ["listToValue"]) transformedValue);
+        pkgs.writeText name (lib.generators.toINI (removeAttrs args [ "listToValue" ]) transformedValue);
     };
 
   keyValue =
@@ -226,7 +226,9 @@ rec {
             else
               value;
         in
-        pkgs.writeText name (lib.generators.toKeyValue (removeAttrs args ["listToValue"]) transformedValue);
+        pkgs.writeText name (
+          lib.generators.toKeyValue (removeAttrs args [ "listToValue" ]) transformedValue
+        );
     };
 
   gitIni =
@@ -251,8 +253,8 @@ rec {
     };
 
   toml =
-    {}:
-    json {}
+    { }:
+    json { }
     // {
       type =
         with lib.types;
@@ -277,18 +279,18 @@ rec {
         name: value:
         pkgs.callPackage
           (
-            {runCommand, remarshal}:
+            { runCommand, remarshal }:
             runCommand name
               {
-                nativeBuildInputs = [remarshal];
+                nativeBuildInputs = [ remarshal ];
                 value = builtins.toJSON value;
-                passAsFile = ["value"];
+                passAsFile = [ "value" ];
               }
               ''
                 json2toml "$valuePath" "$out"
               ''
           )
-          {};
+          { };
     };
 
   /* For configurations of Elixir project, like config.exs or runtime.exs
@@ -372,7 +374,7 @@ rec {
       list = values: "[" + (listContent values) + "]";
 
       specialType =
-        {value, _elixirType}:
+        { value, _elixirType }:
         if _elixirType == "raw" then
           value
         else if _elixirType == "atom" then
@@ -525,8 +527,8 @@ rec {
         pkgs.runCommand name
           {
             value = toConf value;
-            passAsFile = ["value"];
-            nativeBuildInputs = [elixir];
+            passAsFile = [ "value" ];
+            nativeBuildInputs = [ elixir ];
           }
           ''
             cp "$valuePath" "$out"
@@ -537,7 +539,7 @@ rec {
   # Outputs a succession of Python variable assignments
   # Useful for many Django-based services
   pythonVars =
-    {}:
+    { }:
     {
       type =
         with lib.types;
@@ -594,6 +596,6 @@ rec {
                 black $out
               ''
           )
-          {};
+          { };
     };
 }

@@ -22,7 +22,9 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-YSD7RXU3eBlELx76gU5eNOGkSoK9SRQZOV+7lil1fyQ=";
 
-  nativeBuildInputs = [installShellFiles] ++ lib.optionals stdenv.isDarwin [rustPlatform.bindgenHook];
+  nativeBuildInputs = [
+    installShellFiles
+  ] ++ lib.optionals stdenv.isDarwin [ rustPlatform.bindgenHook ];
 
   buildInputs = lib.optionals stdenv.isDarwin [
     Libsystem
@@ -59,6 +61,6 @@ rustPlatform.buildRustPackage rec {
     '';
     changelog = "https://github.com/Nukesor/pueue/raw/v${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = with maintainers; [marsam];
+    maintainers = with maintainers; [ marsam ];
   };
 }

@@ -21,7 +21,9 @@ stdenv.mkDerivation (
     pname = "hipsparse";
     version = "5.4.4";
 
-    outputs = ["out"] ++ lib.optionals buildTests ["test"] ++ lib.optionals buildSamples ["sample"];
+    outputs = [
+      "out"
+    ] ++ lib.optionals buildTests [ "test" ] ++ lib.optionals buildSamples [ "sample" ];
 
     src = fetchFromGitHub {
       owner = "ROCmSoftwarePlatform";
@@ -40,7 +42,7 @@ stdenv.mkDerivation (
     buildInputs = [
       rocsparse
       git
-    ] ++ lib.optionals buildTests [gtest] ++ lib.optionals (buildTests || buildSamples) [openmp];
+    ] ++ lib.optionals buildTests [ gtest ] ++ lib.optionals (buildTests || buildSamples) [ openmp ];
 
     cmakeFlags = [
       "-DCMAKE_C_COMPILER=hipcc"
@@ -51,7 +53,7 @@ stdenv.mkDerivation (
       "-DCMAKE_INSTALL_BINDIR=bin"
       "-DCMAKE_INSTALL_LIBDIR=lib"
       "-DCMAKE_INSTALL_INCLUDEDIR=include"
-    ] ++ lib.optionals buildTests ["-DBUILD_CLIENTS_TESTS=ON"];
+    ] ++ lib.optionals buildTests [ "-DBUILD_CLIENTS_TESTS=ON" ];
 
     # We have to manually generate the matrices
     # CMAKE_MATRICES_DIR seems to be reset in clients/tests/CMakeLists.txt
@@ -129,7 +131,7 @@ stdenv.mkDerivation (
     meta = with lib; {
       description = "ROCm SPARSE marshalling library";
       homepage = "https://github.com/ROCmSoftwarePlatform/hipSPARSE";
-      license = with licenses; [mit];
+      license = with licenses; [ mit ];
       maintainers = teams.rocm.members;
       platforms = platforms.linux;
       broken = versions.minor finalAttrs.version != versions.minor hip.version;

@@ -41,11 +41,13 @@ let
         ${cfg.extraConfig}
       '';
 
-      Caddyfile-formatted = pkgs.runCommand "Caddyfile-formatted" {nativeBuildInputs = [cfg.package];} ''
-        mkdir -p $out
-        cp --no-preserve=mode ${Caddyfile}/Caddyfile $out/Caddyfile
-        caddy fmt --overwrite $out/Caddyfile
-      '';
+      Caddyfile-formatted =
+        pkgs.runCommand "Caddyfile-formatted" { nativeBuildInputs = [ cfg.package ]; }
+          ''
+            mkdir -p $out
+            cp --no-preserve=mode ${Caddyfile}/Caddyfile $out/Caddyfile
+            caddy fmt --overwrite $out/Caddyfile
+          '';
     in
     "${
       if pkgs.stdenv.buildPlatform == pkgs.stdenv.hostPlatform then Caddyfile-formatted else Caddyfile
@@ -265,8 +267,8 @@ in
     };
 
     virtualHosts = mkOption {
-      type = with types; attrsOf (submodule (import ./vhost-options.nix {inherit cfg;}));
-      default = {};
+      type = with types; attrsOf (submodule (import ./vhost-options.nix { inherit cfg; }));
+      default = { };
       example = literalExpression ''
         {
           "hydra.example.com" = {
@@ -340,13 +342,13 @@ in
     # https://github.com/lucas-clemente/quic-go/wiki/UDP-Receive-Buffer-Size
     boot.kernel.sysctl."net.core.rmem_max" = mkDefault 2500000;
 
-    systemd.packages = [cfg.package];
+    systemd.packages = [ cfg.package ];
     systemd.services.caddy = {
       wants = map (hostOpts: "acme-finished-${hostOpts.useACMEHost}.target") acmeVHosts;
       after = map (hostOpts: "acme-selfsigned-${hostOpts.useACMEHost}.service") acmeVHosts;
       before = map (hostOpts: "acme-${hostOpts.useACMEHost}.service") acmeVHosts;
 
-      wantedBy = ["multi-user.target"];
+      wantedBy = [ "multi-user.target" ];
       startLimitIntervalSec = 14400;
       startLimitBurst = 10;
 
@@ -371,8 +373,8 @@ in
         User = cfg.user;
         Group = cfg.group;
         ReadWriteDirectories = cfg.dataDir;
-        StateDirectory = mkIf (cfg.dataDir == "/var/lib/caddy") ["caddy"];
-        LogsDirectory = mkIf (cfg.logDir == "/var/log/caddy") ["caddy"];
+        StateDirectory = mkIf (cfg.dataDir == "/var/lib/caddy") [ "caddy" ];
+        LogsDirectory = mkIf (cfg.logDir == "/var/log/caddy") [ "caddy" ];
         Restart = "on-abnormal";
 
         # TODO: attempt to upstream these options
@@ -390,7 +392,7 @@ in
       };
     };
 
-    users.groups = optionalAttrs (cfg.group == "caddy") {caddy.gid = config.ids.gids.caddy;};
+    users.groups = optionalAttrs (cfg.group == "caddy") { caddy.gid = config.ids.gids.caddy; };
 
     security.acme.certs =
       let
@@ -400,7 +402,7 @@ in
               useACMEHost:
               nameValuePair useACMEHost {
                 group = mkDefault cfg.group;
-                reloadServices = ["caddy.service"];
+                reloadServices = [ "caddy.service" ];
               }
             )
             acmeHosts;

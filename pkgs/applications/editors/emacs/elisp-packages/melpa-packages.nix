@@ -20,13 +20,13 @@
    formats commits for you.
 */
 
-{lib, pkgs}:
+{ lib, pkgs }:
 variant: self:
 let
   dontConfigure =
     pkg:
     if pkg != null then
-      pkg.override (args: {melpaBuild = drv: args.melpaBuild (drv // {dontConfigure = true;});})
+      pkg.override (args: { melpaBuild = drv: args.melpaBuild (drv // { dontConfigure = true; }); })
     else
       null;
 
@@ -40,7 +40,7 @@ let
             args.melpaBuild (
               drv
               // {
-                meta = (drv.meta or {}) // {
+                meta = (drv.meta or { }) // {
                   broken = true;
                 };
               }
@@ -62,7 +62,7 @@ let
               // {
                 inherit (epkg) src version;
 
-                propagatedUserEnvPkgs = [epkg];
+                propagatedUserEnvPkgs = [ epkg ];
               }
             );
         }
@@ -72,7 +72,9 @@ let
 
   buildWithGit =
     pkg:
-    pkg.overrideAttrs (attrs: {nativeBuildInputs = (attrs.nativeBuildInputs or []) ++ [pkgs.git];});
+    pkg.overrideAttrs (
+      attrs: { nativeBuildInputs = (attrs.nativeBuildInputs or [ ]) ++ [ pkgs.git ]; }
+    );
 
   fix-rtags = pkg: if pkg != null then dontConfigure (externalSrc pkg pkgs.rtags) else null;
 
@@ -154,11 +156,11 @@ let
           # Expects bash to be at /bin/bash
           ac-rtags = fix-rtags super.ac-rtags;
 
-          airline-themes = super.airline-themes.override {inherit (self.melpaPackages) powerline;};
+          airline-themes = super.airline-themes.override { inherit (self.melpaPackages) powerline; };
 
           auto-complete-clang-async = super.auto-complete-clang-async.overrideAttrs (
             old: {
-              buildInputs = old.buildInputs ++ [pkgs.llvmPackages.llvm];
+              buildInputs = old.buildInputs ++ [ pkgs.llvmPackages.llvm ];
               CFLAGS = "-I${pkgs.llvmPackages.libclang.lib}/include";
               LDFLAGS = "-L${pkgs.llvmPackages.libclang.lib}/lib";
             }
@@ -173,13 +175,13 @@ let
 
           company-rtags = fix-rtags super.company-rtags;
 
-          easy-kill-extras = super.easy-kill-extras.override {inherit (self.melpaPackages) easy-kill;};
+          easy-kill-extras = super.easy-kill-extras.override { inherit (self.melpaPackages) easy-kill; };
 
           dune = dontConfigure super.dune;
 
           emacsql = super.emacsql.overrideAttrs (
             old: {
-              buildInputs = old.buildInputs ++ [pkgs.sqlite];
+              buildInputs = old.buildInputs ++ [ pkgs.sqlite ];
 
               postBuild = ''
                 cd source/sqlite
@@ -195,13 +197,13 @@ let
                     $out/share/emacs/site-lisp/elpa/emacsql-${old.version}/sqlite/emacsql-sqlite
                 '';
 
-              stripDebugList = ["share"];
+              stripDebugList = [ "share" ];
             }
           );
 
           emacsql-sqlite = super.emacsql-sqlite.overrideAttrs (
             old: {
-              buildInputs = old.buildInputs ++ [pkgs.sqlite];
+              buildInputs = old.buildInputs ++ [ pkgs.sqlite ];
 
               postBuild = ''
                 cd source/sqlite
@@ -217,7 +219,7 @@ let
                     $out/share/emacs/site-lisp/elpa/emacsql-sqlite-${old.version}/sqlite/emacsql-sqlite
                 '';
 
-              stripDebugList = ["share"];
+              stripDebugList = [ "share" ];
             }
           );
 
@@ -246,11 +248,11 @@ let
                 substituteInPlace evil-escape.el \
                   --replace ' ;;; evil' ';;; evil'
               '';
-              packageRequires = with self; [evil];
+              packageRequires = with self; [ evil ];
             }
           );
 
-          ess-R-data-view = super.ess-R-data-view.override {inherit (self.melpaPackages) ess ctable popup;};
+          ess-R-data-view = super.ess-R-data-view.override { inherit (self.melpaPackages) ess ctable popup; };
 
           flycheck-rtags = fix-rtags super.flycheck-rtags;
 
@@ -300,12 +302,12 @@ let
 
           # Build same version as Haskell package
           hindent = (externalSrc super.hindent pkgs.haskellPackages.hindent).overrideAttrs (
-            attrs: {packageRequires = [self.haskell-mode];}
+            attrs: { packageRequires = [ self.haskell-mode ]; }
           );
 
           irony = super.irony.overrideAttrs (
             old: {
-              cmakeFlags = old.cmakeFlags or [] ++ ["-DCMAKE_INSTALL_BINDIR=bin"];
+              cmakeFlags = old.cmakeFlags or [ ] ++ [ "-DCMAKE_INSTALL_BINDIR=bin" ];
               env.NIX_CFLAGS_COMPILE = "-UCLANG_RESOURCE_DIR";
               preConfigure = ''
                 cd server
@@ -325,7 +327,7 @@ let
               '';
               dontUseCmakeBuildDir = true;
               doCheck = pkgs.stdenv.isLinux;
-              packageRequires = [self.emacs];
+              packageRequires = [ self.emacs ];
               buildInputs = [
                 pkgs.llvmPackages.libclang
                 self.emacs
@@ -338,7 +340,7 @@ let
           );
 
           # tries to write a log file to $HOME
-          insert-shebang = super.insert-shebang.overrideAttrs (attrs: {HOME = "/tmp";});
+          insert-shebang = super.insert-shebang.overrideAttrs (attrs: { HOME = "/tmp"; });
 
           ivy-rtags = fix-rtags super.ivy-rtags;
 
@@ -348,9 +350,9 @@ let
               libExt = pkgs.stdenv.targetPlatform.extensions.sharedLibrary;
             in
             {
-              nativeBuildInputs = (old.nativeBuildInputs or []) ++ [pkgs.pkg-config];
+              nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ pkgs.pkg-config ];
 
-              buildInputs = (old.buildInputs or []) ++ [pkgs.enchant2];
+              buildInputs = (old.buildInputs or [ ]) ++ [ pkgs.enchant2 ];
 
               postBuild = ''
                 pushd working/jinx
@@ -371,14 +373,14 @@ let
                 '';
 
               meta = old.meta // {
-                maintainers = [lib.maintainers.DamienCassou];
+                maintainers = [ lib.maintainers.DamienCassou ];
               };
             }
           );
 
           sqlite3 = super.sqlite3.overrideAttrs (
             old: {
-              buildInputs = (old.buildInputs or []) ++ [pkgs.sqlite];
+              buildInputs = (old.buildInputs or [ ]) ++ [ pkgs.sqlite ];
 
               postBuild = ''
                 pushd working/sqlite3
@@ -398,15 +400,15 @@ let
                 '';
 
               meta = old.meta // {
-                maintainers = [lib.maintainers.DamienCassou];
+                maintainers = [ lib.maintainers.DamienCassou ];
               };
             }
           );
 
           libgit = super.libgit.overrideAttrs (
             attrs: {
-              nativeBuildInputs = (attrs.nativeBuildInputs or []) ++ [pkgs.cmake];
-              buildInputs = attrs.buildInputs ++ [pkgs.libgit2];
+              nativeBuildInputs = (attrs.nativeBuildInputs or [ ]) ++ [ pkgs.cmake ];
+              buildInputs = attrs.buildInputs ++ [ pkgs.libgit2 ];
               dontUseCmakeBuildDir = true;
               postPatch = ''
                 sed -i s/'add_subdirectory(libgit2)'// CMakeLists.txt
@@ -507,7 +509,7 @@ let
           ox-rss = buildWithGit super.ox-rss;
 
           # upstream issue: missing file header
-          mhc = super.mhc.override {inherit (self.melpaPackages) calfw;};
+          mhc = super.mhc.override { inherit (self.melpaPackages) calfw; };
 
           # missing .NET
           nemerle = markBroken super.nemerle;
@@ -521,7 +523,7 @@ let
 
           rime = super.rime.overrideAttrs (
             old: {
-              buildInputs = (old.buildInputs or []) ++ [pkgs.librime];
+              buildInputs = (old.buildInputs or [ ]) ++ [ pkgs.librime ];
               preBuild =
                 (old.preBuild or "")
                 + ''
@@ -538,14 +540,14 @@ let
           );
 
           shm = super.shm.overrideAttrs (
-            attrs: {propagatedUserEnvPkgs = [pkgs.haskellPackages.structured-haskell-mode];}
+            attrs: { propagatedUserEnvPkgs = [ pkgs.haskellPackages.structured-haskell-mode ]; }
           );
 
           # Telega has a server portion for it's network protocol
           telega = super.telega.overrideAttrs (
             old: {
-              buildInputs = old.buildInputs ++ [pkgs.tdlib];
-              nativeBuildInputs = [pkgs.pkg-config];
+              buildInputs = old.buildInputs ++ [ pkgs.tdlib ];
+              nativeBuildInputs = [ pkgs.pkg-config ];
 
               postPatch = ''
                 substituteInPlace telega-customize.el \
@@ -577,17 +579,17 @@ let
           treemacs-magit = super.treemacs-magit.overrideAttrs (
             attrs: {
               # searches for Git at build time
-              nativeBuildInputs = (attrs.nativeBuildInputs or []) ++ [pkgs.git];
+              nativeBuildInputs = (attrs.nativeBuildInputs or [ ]) ++ [ pkgs.git ];
             }
           );
 
           vdiff-magit = super.vdiff-magit.overrideAttrs (
-            attrs: {nativeBuildInputs = (attrs.nativeBuildInputs or []) ++ [pkgs.git];}
+            attrs: { nativeBuildInputs = (attrs.nativeBuildInputs or [ ]) ++ [ pkgs.git ]; }
           );
 
           zmq = super.zmq.overrideAttrs (
             old: {
-              stripDebugList = ["share"];
+              stripDebugList = [ "share" ];
               preBuild = ''
                 export EZMQ_LIBDIR=$(mktemp -d)
                 make
@@ -597,7 +599,7 @@ let
                 pkgs.automake
                 pkgs.pkg-config
                 pkgs.libtool
-                (pkgs.zeromq.override {enableDrafts = true;})
+                (pkgs.zeromq.override { enableDrafts = true; })
               ];
               postInstall =
                 (old.postInstall or "")
@@ -645,7 +647,7 @@ let
           sql-presto = markBroken super.sql-presto;
 
           editorconfig = super.editorconfig.overrideAttrs (
-            attrs: {propagatedUserEnvPkgs = [pkgs.editorconfig-core-c];}
+            attrs: { propagatedUserEnvPkgs = [ pkgs.editorconfig-core-c ]; }
           );
 
           # missing dependencies
@@ -674,7 +676,7 @@ let
           helm-rtags = fix-rtags super.helm-rtags;
 
           # tries to write to $HOME
-          php-auto-yasnippets = super.php-auto-yasnippets.overrideAttrs (attrs: {HOME = "/tmp";});
+          php-auto-yasnippets = super.php-auto-yasnippets.overrideAttrs (attrs: { HOME = "/tmp"; });
 
           racer = super.racer.overrideAttrs (
             attrs: {
@@ -687,11 +689,11 @@ let
             }
           );
 
-          spaceline = super.spaceline.override {inherit (self.melpaPackages) powerline;};
+          spaceline = super.spaceline.override { inherit (self.melpaPackages) powerline; };
 
           vterm = super.vterm.overrideAttrs (
             old: {
-              nativeBuildInputs = [pkgs.cmake];
+              nativeBuildInputs = [ pkgs.cmake ];
               buildInputs = old.buildInputs ++ [
                 self.emacs
                 pkgs.libvterm-neovim
@@ -762,4 +764,4 @@ let
     lib.mapAttrs (n: v: if lib.hasAttr n overrides then overrides.${n} else v) super
   );
 in
-generateMelpa {}
+generateMelpa { }

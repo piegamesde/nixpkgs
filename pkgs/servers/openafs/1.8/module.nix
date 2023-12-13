@@ -15,7 +15,7 @@
   fetchpatch,
 }:
 
-with (import ./srcs.nix {inherit fetchurl;});
+with (import ./srcs.nix { inherit fetchurl; });
 
 let
   modDestDir = "$out/lib/modules/${kernel.modDirVersion}/extra/openafs";
@@ -23,7 +23,9 @@ let
 
   fetchBase64Patch =
     args:
-    (fetchpatch args).overrideAttrs (o: {postFetch = "mv $out p; base64 -d p > $out; " + o.postFetch;});
+    (fetchpatch args).overrideAttrs (
+      o: { postFetch = "mv $out p; base64 -d p > $out; " + o.postFetch; }
+    );
 in
 stdenv.mkDerivation {
   pname = "openafs";
@@ -40,7 +42,7 @@ stdenv.mkDerivation {
     bison
   ] ++ kernel.moduleBuildDependencies;
 
-  buildInputs = [libkrb5];
+  buildInputs = [ libkrb5 ];
 
   patches = [
     # LINUX: Run the 'sparse' checker if available
@@ -90,7 +92,7 @@ stdenv.mkDerivation {
     })
   ];
 
-  hardeningDisable = ["pic"];
+  hardeningDisable = [ "pic" ];
 
   configureFlags = [
     "--with-linux-kernel-build=${kernelBuildDir}"

@@ -40,11 +40,13 @@ stdenv.mkDerivation rec {
     libunistring
     vala # for share/vala/Makefile.vapigen
   ];
-  propagatedBuildInputs = [glib];
-  configureFlags = [
-    "--enable-introspection=yes"
-    "--enable-vala=yes"
-  ] ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) ["ac_cv_have_iconv_detect_h=yes"];
+  propagatedBuildInputs = [ glib ];
+  configureFlags =
+    [
+      "--enable-introspection=yes"
+      "--enable-vala=yes"
+    ]
+    ++ lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [ "ac_cv_have_iconv_detect_h=yes" ];
 
   postPatch = ''
     substituteInPlace tests/testsuite.c \
@@ -62,7 +64,7 @@ stdenv.mkDerivation rec {
       } ./iconv-detect.h
     '';
 
-  nativeCheckInputs = [gnupg];
+  nativeCheckInputs = [ gnupg ];
 
   doCheck = true;
 
@@ -72,7 +74,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/jstedfast/gmime/";
     description = "A C/C++ library for creating, editing and parsing MIME messages and structures";
     license = licenses.lgpl21Plus;
-    maintainers = with maintainers; [];
+    maintainers = with maintainers; [ ];
     platforms = platforms.unix;
   };
 }

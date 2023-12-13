@@ -50,14 +50,16 @@ mkDerivation rec {
       python3
       pkg-config
     ]
-    ++ lib.optionals withGtk2 [gtk2]
-    ++ lib.optionals withGtk3 [gtk3]
+    ++ lib.optionals withGtk2 [ gtk2 ]
+    ++ lib.optionals withGtk3 [ gtk3 ]
     ++ lib.optionals withQt [
       qtbase
       wrapQtAppsHook
     ];
   buildInputs =
-    lib.optionals withQt [qtbase] ++ lib.optionals withGtk2 [gtk2] ++ lib.optionals withGtk3 [gtk3];
+    lib.optionals withQt [ qtbase ]
+    ++ lib.optionals withGtk2 [ gtk2 ]
+    ++ lib.optionals withGtk3 [ gtk3 ];
   makeFlags =
     [
       "prefix=$(out)"
@@ -68,8 +70,8 @@ mkDerivation rec {
       "QINC=${qtbase.dev}/include"
       "UI=qt"
     ]
-    ++ lib.optionals withGtk2 ["UI=gtk2"]
-    ++ lib.optionals withGtk3 ["UI=gtk"];
+    ++ lib.optionals withGtk2 [ "UI=gtk2" ]
+    ++ lib.optionals withGtk3 [ "UI=gtk" ];
 
   meta = with lib; {
     description = "Folding text editor, designed to hierarchically structure any kind of text file and especially source code";

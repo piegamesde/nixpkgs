@@ -134,8 +134,8 @@ in
       in
       {
         services.changedetection-io = {
-          wantedBy = ["multi-user.target"];
-          after = ["network.target"];
+          wantedBy = [ "multi-user.target" ];
+          after = [ "network.target" ];
           preStart = ''
             mkdir -p ${cfg.datastorePath}
           '';
@@ -146,7 +146,7 @@ in
             StateDirectoryMode = mkIf defaultStateDir "0750";
             WorkingDirectory = cfg.datastorePath;
             Environment =
-              ["HIDE_REFERER=true"]
+              [ "HIDE_REFERER=true" ]
               ++ lib.optional (cfg.baseURL != null) "BASE_URL=${cfg.baseURL}"
               ++ lib.optional cfg.behindProxy "USE_X_SETTINGS=1"
               ++ lib.optional cfg.webDriverSupport "WEBDRIVER_URL=http://127.0.0.1:${toString cfg.chromePort}/wd/hub"
@@ -161,7 +161,9 @@ in
             Restart = "on-failure";
           };
         };
-        tmpfiles.rules = mkIf defaultStateDir ["d ${cfg.datastorePath} 0750 ${cfg.user} ${cfg.group} - -"];
+        tmpfiles.rules = mkIf defaultStateDir [
+          "d ${cfg.datastorePath} 0750 ${cfg.user} ${cfg.group} - -"
+        ];
       };
 
     users = {
@@ -172,7 +174,7 @@ in
         };
       };
 
-      groups = optionalAttrs (cfg.group == "changedetection-io") {"changedetection-io" = {};};
+      groups = optionalAttrs (cfg.group == "changedetection-io") { "changedetection-io" = { }; };
     };
 
     virtualisation = {
@@ -186,9 +188,9 @@ in
               SCREEN_HEIGHT = "1080";
               SCREEN_DEPTH = "24";
             };
-            ports = ["127.0.0.1:${toString cfg.chromePort}:4444"];
-            volumes = ["/dev/shm:/dev/shm"];
-            extraOptions = ["--network=bridge"];
+            ports = [ "127.0.0.1:${toString cfg.chromePort}:4444" ];
+            volumes = [ "/dev/shm:/dev/shm" ];
+            extraOptions = [ "--network=bridge" ];
           };
         })
 
@@ -207,8 +209,8 @@ in
               DEFAULT_BLOCK_ADS = "true";
               DEFAULT_STEALTH = "true";
             };
-            ports = ["127.0.0.1:${toString cfg.chromePort}:3000"];
-            extraOptions = ["--network=bridge"];
+            ports = [ "127.0.0.1:${toString cfg.chromePort}:3000" ];
+            extraOptions = [ "--network=bridge" ];
           };
         })
       ];
