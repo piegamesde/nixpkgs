@@ -1339,21 +1339,9 @@ runTests {
           };
           foo = null;
         }'';
-      newlinestring = ''
-        '''
-          
-        ''''';
-      multilinestring = ''
-        '''
-          hello
-          '''''${there}
-          te''''st
-        ''''';
-      multilinestring' = ''
-        '''
-          hello
-          there
-          test''''';
+      newlinestring = "''\n  \n''";
+      multilinestring = "''\n  hello\n  ''\${there}\n  te'''st\n''";
+      multilinestring' = "''\n  hello\n  there\n  test''";
     };
   };
 
