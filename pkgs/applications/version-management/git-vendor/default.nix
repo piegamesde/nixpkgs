@@ -32,11 +32,10 @@ stdenv.mkDerivation {
   BINPREFIX = "${placeholder "bin"}/bin";
   MANPREFIX = "${placeholder "man"}/share/man/man1";
 
-  buildInputs =
-    [
-      # stubbing out a `git config` check that `make install` tries to do
-      (writeShellScriptBin "git" "")
-    ];
+  buildInputs = [
+    # stubbing out a `git config` check that `make install` tries to do
+    (writeShellScriptBin "git" "")
+  ];
 
   postInstall = ''
     ${

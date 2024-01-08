@@ -117,14 +117,13 @@ stdenv.mkDerivation rec {
     ];
 
   env.NIX_CFLAGS_COMPILE = toString (
-    lib.optionals (lib.versionOlder version "2.1.10")
-      [
-        # Workaround build failure on -fno-common toolchains like upstream
-        # clang-13. Without the change build fails as:
-        #   duplicate symbol '_static_code_space_free_pointer' in: alloc.o traceroot.o
-        # Should be fixed past 2.1.10 release.
-        "-fcommon"
-      ]
+    lib.optionals (lib.versionOlder version "2.1.10") [
+      # Workaround build failure on -fno-common toolchains like upstream
+      # clang-13. Without the change build fails as:
+      #   duplicate symbol '_static_code_space_free_pointer' in: alloc.o traceroot.o
+      # Should be fixed past 2.1.10 release.
+      "-fcommon"
+    ]
     # Fails to find `O_LARGEFILE` otherwise.
     ++ [ "-D_GNU_SOURCE" ]
   );

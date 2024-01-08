@@ -28,12 +28,11 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  disabledTests =
-    [
-      # tests/test_completion.py:206: AssertionError
-      # https://github.com/prompt-toolkit/python-prompt-toolkit/issues/1657
-      "test_pathcompleter_can_expanduser"
-    ];
+  disabledTests = [
+    # tests/test_completion.py:206: AssertionError
+    # https://github.com/prompt-toolkit/python-prompt-toolkit/issues/1657
+    "test_pathcompleter_can_expanduser"
+  ];
 
   pythonImportsCheck = [ "prompt_toolkit" ];
 

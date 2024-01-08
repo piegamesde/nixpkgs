@@ -143,20 +143,17 @@ stdenv.mkDerivation (
         (lib.withFeatureAs withLinuxHeaders "headers" "${linuxHeaders}/include")
         (lib.enableFeature profilingLibraries "profile")
       ]
-      ++ lib.optionals (stdenv.hostPlatform.isx86 || stdenv.hostPlatform.isAarch64)
-        [
-          # This feature is currently supported on
-          # i386, x86_64 and x32 with binutils 2.29 or later,
-          # and on aarch64 with binutils 2.30 or later.
-          # https://sourceware.org/glibc/wiki/PortStatus
-          "--enable-static-pie"
-        ]
-      ++
-        lib.optionals stdenv.hostPlatform.isx86
-          [
-            # Enable Intel Control-flow Enforcement Technology (CET) support
-            "--enable-cet"
-          ]
+      ++ lib.optionals (stdenv.hostPlatform.isx86 || stdenv.hostPlatform.isAarch64) [
+        # This feature is currently supported on
+        # i386, x86_64 and x32 with binutils 2.29 or later,
+        # and on aarch64 with binutils 2.30 or later.
+        # https://sourceware.org/glibc/wiki/PortStatus
+        "--enable-static-pie"
+      ]
+      ++ lib.optionals stdenv.hostPlatform.isx86 [
+        # Enable Intel Control-flow Enforcement Technology (CET) support
+        "--enable-cet"
+      ]
       ++ lib.optionals withLinuxHeaders [
         "--enable-kernel=3.10.0" # RHEL 7 and derivatives, seems oldest still supported kernel
       ]

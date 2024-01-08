@@ -2335,11 +2335,10 @@ with self;
       url = "mirror://cpan/authors/id/A/AA/AAR/Boost-Geometry-Utils-0.15.tar.gz";
       hash = "sha256-AFTdP1c70/b0e3PugdHoRYQvugSq21KICqUnAcaH0co=";
     };
-    patches =
-      [
-        # Fix out of memory error on Perl 5.19.4 and later.
-        ../development/perl-modules/boost-geometry-utils-fix-oom.patch
-      ];
+    patches = [
+      # Fix out of memory error on Perl 5.19.4 and later.
+      ../development/perl-modules/boost-geometry-utils-fix-oom.patch
+    ];
     perlPreHook = "export LD=$CC";
     buildInputs = [
       ExtUtilsCppGuess
@@ -3992,11 +3991,10 @@ with self;
       url = "mirror://cpan/authors/id/A/AB/ABRAXXA/CatalystX-Script-Server-Starman-0.03.tar.gz";
       hash = "sha256-5jpH80y0P3+87GdYyaVCiAGOOIAjZTYYkLKjTfCKWyI=";
     };
-    patches =
-      [
-        # See Nixpkgs issues #16074 and #17624
-        ../development/perl-modules/CatalystXScriptServerStarman-fork-arg.patch
-      ];
+    patches = [
+      # See Nixpkgs issues #16074 and #17624
+      ../development/perl-modules/CatalystXScriptServerStarman-fork-arg.patch
+    ];
     buildInputs = [ TestWWWMechanizeCatalyst ];
     propagatedBuildInputs = [
       CatalystRuntime
@@ -7039,11 +7037,10 @@ with self;
       url = "mirror://cpan/authors/id/S/SR/SROMANOV/Crypt-OpenPGP-1.12.tar.gz";
       hash = "sha256-6Kf/Kpk7dqaa1t/9vlV1W+Vni4Tm7ElNzZq5Zvdm9Q4=";
     };
-    patches =
-      [
-        # See https://github.com/NixOS/nixpkgs/pull/93599
-        ../development/perl-modules/crypt-openpgp-remove-impure-keygen-tests.patch
-      ];
+    patches = [
+      # See https://github.com/NixOS/nixpkgs/pull/93599
+      ../development/perl-modules/crypt-openpgp-remove-impure-keygen-tests.patch
+    ];
     buildInputs = [ TestException ];
     propagatedBuildInputs = [
       AltCryptRSABigInt
@@ -20931,11 +20928,10 @@ with self;
       url = "mirror://cpan/authors/id/S/SI/SIMONW/Module-Pluggable-5.2.tar.gz";
       hash = "sha256-s/KtReT9ELP7kNkS142LeVqylUgNtW3GToa5+nXFpt8=";
     };
-    patches =
-      [
-        # !!! merge this patch into Perl itself (which contains Module::Pluggable as well)
-        ../development/perl-modules/module-pluggable.patch
-      ];
+    patches = [
+      # !!! merge this patch into Perl itself (which contains Module::Pluggable as well)
+      ../development/perl-modules/module-pluggable.patch
+    ];
     buildInputs = [ AppFatPacker ];
     meta = {
       description = "Automatically give your module the ability to have plugins";
@@ -36061,14 +36057,13 @@ with self;
       url = "mirror://cpan/authors/id/M/MS/MSTPLBG/X11-XCB-0.18.tar.gz";
       hash = "sha256-rtvML3GhEeEVcqJ8nu0qfwoh6venLQoEn0xZdjh8V7I=";
     };
-    patches =
-      [
-        # Pull upstream fix for parallel build failure
-        (fetchpatch {
-          url = "https://github.com/stapelberg/X11-XCB/commit/813608dacdae1ae35c9eb0f171a958617e014520.patch";
-          hash = "sha256-gxxY8549/ebS3QORjSs8IgdBs2aD05Tu+9Bn70gu7gQ=";
-        })
-      ];
+    patches = [
+      # Pull upstream fix for parallel build failure
+      (fetchpatch {
+        url = "https://github.com/stapelberg/X11-XCB/commit/813608dacdae1ae35c9eb0f171a958617e014520.patch";
+        hash = "sha256-gxxY8549/ebS3QORjSs8IgdBs2aD05Tu+9Bn70gu7gQ=";
+      })
+    ];
     env.AUTOMATED_TESTING = false;
     nativeBuildInputs = [ pkgs.pkg-config ];
     buildInputs = [

@@ -46,11 +46,10 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  disabledTests =
-    [
-      # Broke in flask 2.2 upgrade
-      "test_exception_header_forwarded"
-    ];
+  disabledTests = [
+    # Broke in flask 2.2 upgrade
+    "test_exception_header_forwarded"
+  ];
 
   pythonImportsCheck = [ "flask_restful" ];
 

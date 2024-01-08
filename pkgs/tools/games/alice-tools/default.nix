@@ -43,12 +43,10 @@ stdenv.mkDerivation (
       export PATH=${qtbase.dev}/libexec:$PATH
     '';
 
-    mesonFlags =
-      lib.optionals (withGUI && lib.versionAtLeast qtbase.version "6.0")
-        [
-          # Qt6 requires at least C++17, project uses compiler's default, default too old on Darwin & aarch64-linux
-          "-Dcpp_std=c++17"
-        ];
+    mesonFlags = lib.optionals (withGUI && lib.versionAtLeast qtbase.version "6.0") [
+      # Qt6 requires at least C++17, project uses compiler's default, default too old on Darwin & aarch64-linux
+      "-Dcpp_std=c++17"
+    ];
 
     nativeBuildInputs = [
       meson

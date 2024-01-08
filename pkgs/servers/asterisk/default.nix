@@ -95,15 +95,13 @@ let
         automake
       ];
 
-      patches =
-        [
-          # We want the Makefile to install the default /var skeleton
-          # under ${out}/var but we also want to use /var at runtime.
-          # This patch changes the runtime behavior to look for state
-          # directories in /var rather than ${out}/var.
-          ./runtime-vardirs.patch
-        ]
-        ++ lib.optional withOpus "${asterisk-opus}/asterisk.patch";
+      patches = [
+        # We want the Makefile to install the default /var skeleton
+        # under ${out}/var but we also want to use /var at runtime.
+        # This patch changes the runtime behavior to look for state
+        # directories in /var rather than ${out}/var.
+        ./runtime-vardirs.patch
+      ] ++ lib.optional withOpus "${asterisk-opus}/asterisk.patch";
 
       postPatch = ''
         echo "PJPROJECT_CONFIG_OPTS += --prefix=$out" >> third-party/pjproject/Makefile.rules

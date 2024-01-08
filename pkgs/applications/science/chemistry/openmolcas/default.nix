@@ -48,11 +48,10 @@ stdenv.mkDerivation {
     sha256 = "sha256-Kj2RDJq8PEvKclLrSYIOdl6g6lcRsTNZCjwxGOs3joY=";
   };
 
-  patches =
-    [
-      # Required to handle openblas multiple outputs
-      ./openblasPath.patch
-    ];
+  patches = [
+    # Required to handle openblas multiple outputs
+    ./openblasPath.patch
+  ];
 
   postPatch = ''
     # Using env fails in the sandbox

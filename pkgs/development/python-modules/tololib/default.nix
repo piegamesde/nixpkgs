@@ -28,11 +28,10 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  disabledTests =
-    [
-      # Test requires network access
-      "test_discovery"
-    ];
+  disabledTests = [
+    # Test requires network access
+    "test_discovery"
+  ];
 
   pythonImportsCheck = [ "tololib" ];
 

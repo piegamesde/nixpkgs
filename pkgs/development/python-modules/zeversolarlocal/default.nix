@@ -37,11 +37,10 @@ buildPythonPackage rec {
       --replace "--cov zeversolarlocal --cov-report xml:cov.xml --cov-report term-missing -vv" ""
   '';
 
-  disabledTests =
-    [
-      # Test requires network access
-      "test_httpx_timeout"
-    ];
+  disabledTests = [
+    # Test requires network access
+    "test_httpx_timeout"
+  ];
 
   pythonImportsCheck = [ "zeversolarlocal" ];
 

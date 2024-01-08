@@ -65,15 +65,14 @@ stdenv.mkDerivation (
           inherit nixStoreDir;
         })
       ]
-      ++ lib.optionals x11Support
-        [
-          # Hardcode the cairo shared library path in the Cairo gir shipped with this package.
-          # https://github.com/NixOS/nixpkgs/issues/34080
-          (substituteAll {
-            src = ./absolute_gir_path.patch;
-            cairoLib = "${lib.getLib cairo}/lib";
-          })
-        ];
+      ++ lib.optionals x11Support [
+        # Hardcode the cairo shared library path in the Cairo gir shipped with this package.
+        # https://github.com/NixOS/nixpkgs/issues/34080
+        (substituteAll {
+          src = ./absolute_gir_path.patch;
+          cairoLib = "${lib.getLib cairo}/lib";
+        })
+      ];
 
     strictDeps = true;
 

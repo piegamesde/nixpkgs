@@ -33,12 +33,11 @@ buildPythonPackage rec {
     sha256 = "0ih04lh1q3dysps4vfmk2rhqqrsimssadsxvbxdsnim2yihrrw47";
   };
 
-  patches =
-    [
-      # Pyserial within Nixpkgs already includes the necessary fix, remove the
-      # pyserial version check from labgrid.
-      ./0001-serialdriver-remove-pyserial-version-check.patch
-    ];
+  patches = [
+    # Pyserial within Nixpkgs already includes the necessary fix, remove the
+    # pyserial version check from labgrid.
+    ./0001-serialdriver-remove-pyserial-version-check.patch
+  ];
 
   nativeBuildInputs = [ setuptools-scm ];
 

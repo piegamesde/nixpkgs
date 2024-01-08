@@ -61,11 +61,10 @@ stdenv.mkDerivation rec {
           [ "o3" ]
       ))
     ]
-    ++ lib.optionals enableLibcbqn
-      [
-        # embeddable interpreter as a shared lib
-        "shared-o3"
-      ];
+    ++ lib.optionals enableLibcbqn [
+      # embeddable interpreter as a shared lib
+      "shared-o3"
+    ];
 
   preBuild =
     ''

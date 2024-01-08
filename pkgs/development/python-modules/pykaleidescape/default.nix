@@ -35,11 +35,10 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "kaleidescape" ];
 
-  disabledTests =
-    [
-      # Test requires network access
-      "test_resolve_succeeds"
-    ];
+  disabledTests = [
+    # Test requires network access
+    "test_resolve_succeeds"
+  ];
 
   meta = with lib; {
     description = "Module for controlling Kaleidescape devices";

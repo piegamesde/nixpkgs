@@ -82,12 +82,11 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  patches =
-    [
-      # Do not rely on dynamic loader path
-      # TCTI loader relies on dlopen(), this patch prefixes all calls with the output directory
-      ./no-dynamic-loader-path.patch
-    ];
+  patches = [
+    # Do not rely on dynamic loader path
+    # TCTI loader relies on dlopen(), this patch prefixes all calls with the output directory
+    ./no-dynamic-loader-path.patch
+  ];
 
   postPatch = ''
     patchShebangs script

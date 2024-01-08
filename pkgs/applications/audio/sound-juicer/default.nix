@@ -30,15 +30,14 @@ stdenv.mkDerivation rec {
     sha256 = "08d5d81rz9sj3m5paw8fwbgxmhlbr7bcjdzpmzj832qvg8smydxf";
   };
 
-  patches =
-    [
-      # Fix build with meson 0.61
-      # data/meson.build:2:5: ERROR: Function does not take positional arguments.
-      (fetchpatch {
-        url = "https://gitlab.gnome.org/GNOME/sound-juicer/-/commit/9f97ca1faca396099f52264a9729aa355f8d122e.patch";
-        sha256 = "8JllVSQgI7KiBI5WP6QtXRiggYuD89NSJJp1hP4Dbao=";
-      })
-    ];
+  patches = [
+    # Fix build with meson 0.61
+    # data/meson.build:2:5: ERROR: Function does not take positional arguments.
+    (fetchpatch {
+      url = "https://gitlab.gnome.org/GNOME/sound-juicer/-/commit/9f97ca1faca396099f52264a9729aa355f8d122e.patch";
+      sha256 = "8JllVSQgI7KiBI5WP6QtXRiggYuD89NSJJp1hP4Dbao=";
+    })
+  ];
 
   nativeBuildInputs = [
     meson

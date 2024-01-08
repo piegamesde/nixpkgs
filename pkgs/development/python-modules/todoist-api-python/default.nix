@@ -26,15 +26,14 @@ buildPythonPackage rec {
     hash = "sha256-CKOsUb35+7WjSNf4Xo0SK5loIqWJbEnHdmhw9QXWFAI=";
   };
 
-  patches =
-    [
-      # Switch to poetry-core, https://github.com/Doist/todoist-api-python/pull/81
-      (fetchpatch {
-        name = "switch-to-poetry-core.patch";
-        url = "https://github.com/Doist/todoist-api-python/commit/42288e066d2f0c69611ab50cb57ca98b8c6bd1ca.patch";
-        hash = "sha256-yq+VVvjPYywvUn+ydyWVQPkiYPYWe9U6w38G54L2lkE=";
-      })
-    ];
+  patches = [
+    # Switch to poetry-core, https://github.com/Doist/todoist-api-python/pull/81
+    (fetchpatch {
+      name = "switch-to-poetry-core.patch";
+      url = "https://github.com/Doist/todoist-api-python/commit/42288e066d2f0c69611ab50cb57ca98b8c6bd1ca.patch";
+      hash = "sha256-yq+VVvjPYywvUn+ydyWVQPkiYPYWe9U6w38G54L2lkE=";
+    })
+  ];
 
   nativeBuildInputs = [ poetry-core ];
 

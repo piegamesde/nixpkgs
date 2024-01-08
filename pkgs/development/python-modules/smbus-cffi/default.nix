@@ -18,14 +18,13 @@ buildPythonPackage rec {
     sha256 = "fb4195aaabfc01586863f60d3190b5cb1bf8f12622fd597e23e48768dad6bde8";
   };
 
-  patches =
-    [
-      # https://github.com/bivab/smbus-cffi/pull/24
-      (fetchpatch {
-        url = "https://github.com/bivab/smbus-cffi/commit/ba79ae174a9d84e767d95f165c43ee212b1bbb92.patch";
-        hash = "sha256-WtRuK5y6fWDEhm0Xy5XqS5yCkn7vXXYtjlOjS90gla4=";
-      })
-    ];
+  patches = [
+    # https://github.com/bivab/smbus-cffi/pull/24
+    (fetchpatch {
+      url = "https://github.com/bivab/smbus-cffi/commit/ba79ae174a9d84e767d95f165c43ee212b1bbb92.patch";
+      hash = "sha256-WtRuK5y6fWDEhm0Xy5XqS5yCkn7vXXYtjlOjS90gla4=";
+    })
+  ];
 
   propagatedNativeBuildInputs = [ cffi ];
 

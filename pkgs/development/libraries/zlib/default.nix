@@ -131,13 +131,11 @@ stdenv.mkDerivation (
         "-f"
         "win32/Makefile.gcc"
       ]
-      ++
-        lib.optionals shared
-          [
-            # Note that as of writing (zlib 1.2.11), this flag only has an effect
-            # for Windows as it is specific to `win32/Makefile.gcc`.
-            "SHARED_MODE=1"
-          ];
+      ++ lib.optionals shared [
+        # Note that as of writing (zlib 1.2.11), this flag only has an effect
+        # for Windows as it is specific to `win32/Makefile.gcc`.
+        "SHARED_MODE=1"
+      ];
 
     passthru.tests.pkg-config = testers.testMetaPkgConfig finalAttrs.finalPackage;
 

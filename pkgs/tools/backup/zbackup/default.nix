@@ -23,12 +23,11 @@ stdenv.mkDerivation rec {
     hash = "sha256-9Fk4EhEeQ2J4Kirc7oad4CzmW70Mmza6uozd87qfgZI=";
   };
 
-  patches =
-    [
-      # compare with https://github.com/zbackup/zbackup/pull/158;
-      # but that doesn't apply cleanly to this version
-      ./protobuf-api-change.patch
-    ];
+  patches = [
+    # compare with https://github.com/zbackup/zbackup/pull/158;
+    # but that doesn't apply cleanly to this version
+    ./protobuf-api-change.patch
+  ];
 
   # zbackup uses dynamic exception specifications which are not
   # allowed in C++17

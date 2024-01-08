@@ -60,11 +60,10 @@ buildPythonApplication {
 
   enableParallelBuilding = true;
 
-  patches =
-    [
-      # dbus-test-runner not packaged yet, otherwise build-time dependency even when not running tests
-      ./dbus-test-runner.patch
-    ];
+  patches = [
+    # dbus-test-runner not packaged yet, otherwise build-time dependency even when not running tests
+    ./dbus-test-runner.patch
+  ];
 
   buildInputs = [
     libgee

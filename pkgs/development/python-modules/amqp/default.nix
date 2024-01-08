@@ -27,11 +27,10 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  disabledTests =
-    [
-      # Requires network access
-      "test_rmq.py"
-    ];
+  disabledTests = [
+    # Requires network access
+    "test_rmq.py"
+  ];
 
   pythonImportsCheck = [ "amqp" ];
 

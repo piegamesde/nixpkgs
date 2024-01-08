@@ -127,11 +127,10 @@ python3.pkgs.buildPythonApplication rec {
     "test_persister_upload"
   ];
 
-  disabledTestPaths =
-    [
-      # Requires sslyze which is obsolete and was removed
-      "tests/attack/test_mod_ssl.py"
-    ];
+  disabledTestPaths = [
+    # Requires sslyze which is obsolete and was removed
+    "tests/attack/test_mod_ssl.py"
+  ];
 
   pythonImportsCheck = [ "wapitiCore" ];
 

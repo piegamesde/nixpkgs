@@ -163,12 +163,10 @@ stdenv.mkDerivation {
       "-I${libxml2.dev}/include/libxml2"
       "-Wno-error=implicit-fallthrough"
     ]
-    ++
-      lib.optionals (stdenv.cc.isGNU && lib.versionAtLeast stdenv.cc.version "11")
-        [
-          # fix build vts module on gcc11
-          "-Wno-error=stringop-overread"
-        ]
+    ++ lib.optionals (stdenv.cc.isGNU && lib.versionAtLeast stdenv.cc.version "11") [
+      # fix build vts module on gcc11
+      "-Wno-error=stringop-overread"
+    ]
     ++ lib.optional stdenv.isDarwin "-Wno-error=deprecated-declarations"
   );
 

@@ -28,13 +28,12 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-CsQWu1WZfKhjIXT9EHN/1hzbjbonUhYKM1d1vCHcc8c=";
   };
 
-  patches =
-    [
-      # Make sure that the hostname gets set on reboot.  Without this
-      # patch, the hostname doesn't get set properly if the old
-      # hostname (i.e. before reboot) is equal to the new hostname.
-      ./set-hostname.patch
-    ];
+  patches = [
+    # Make sure that the hostname gets set on reboot.  Without this
+    # patch, the hostname doesn't get set properly if the old
+    # hostname (i.e. before reboot) is equal to the new hostname.
+    ./set-hostname.patch
+  ];
 
   nativeBuildInputs = [
     perl

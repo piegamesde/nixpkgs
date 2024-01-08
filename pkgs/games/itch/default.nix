@@ -21,15 +21,14 @@ stdenvNoCC.mkDerivation rec {
     sha256 = "sha256-ejfS+sqhacW2h8u96W4fout3V8xrBs0SrW5w/7X83m4=";
   };
 
-  patches =
-    [
-      # Fixes crash while browsing the store.
-      (fetchpatch {
-        name = "itch.patch";
-        url = "https://aur.archlinux.org/cgit/aur.git/plain/itch.patch?h=itch-bin&id=0b181454567029141749f870880b10093216e133";
-        sha256 = "sha256-gmLL/BMondSflERm0z+DuGDP56JhDXiyxEwLUavTD8Q=";
-      })
-    ];
+  patches = [
+    # Fixes crash while browsing the store.
+    (fetchpatch {
+      name = "itch.patch";
+      url = "https://aur.archlinux.org/cgit/aur.git/plain/itch.patch?h=itch-bin&id=0b181454567029141749f870880b10093216e133";
+      sha256 = "sha256-gmLL/BMondSflERm0z+DuGDP56JhDXiyxEwLUavTD8Q=";
+    })
+  ];
 
   itch-setup = fetchzip {
     url = "https://broth.itch.ovh/itch-setup/linux-amd64/1.26.0/itch-setup.zip";

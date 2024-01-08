@@ -55,12 +55,11 @@ let
               inherit legacySuffix suffix version;
             })
           ]
-          ++ lib.optionals withManOptDedupPatch
-            [
-              # Fixes https://github.com/NixOS/nixpkgs/issues/166304
-              # https://github.com/docbook/xslt10-stylesheets/pull/241
-              ./fix-man-options-duplication.patch
-            ];
+          ++ lib.optionals withManOptDedupPatch [
+            # Fixes https://github.com/NixOS/nixpkgs/issues/166304
+            # https://github.com/docbook/xslt10-stylesheets/pull/241
+            ./fix-man-options-duplication.patch
+          ];
 
         propagatedBuildInputs = [ findXMLCatalogs ];
 

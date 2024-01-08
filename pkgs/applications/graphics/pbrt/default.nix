@@ -20,11 +20,10 @@ stdenv.mkDerivation {
     fetchSubmodules = true;
   };
 
-  patches =
-    [
-      # https://github.com/mmp/pbrt-v3/issues/196
-      ./openexr-cmake-3.12.patch
-    ];
+  patches = [
+    # https://github.com/mmp/pbrt-v3/issues/196
+    ./openexr-cmake-3.12.patch
+  ];
 
   nativeBuildInputs = [
     flex

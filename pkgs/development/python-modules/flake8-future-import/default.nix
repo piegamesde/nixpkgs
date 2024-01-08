@@ -26,14 +26,12 @@ buildPythonPackage rec {
   patches =
     lib.optionals (pythonAtLeast "3.10") [ ./fix-annotations-version-11.patch ]
     ++ lib.optionals (isPy38 || isPy39) [ ./fix-annotations-version-10.patch ]
-    ++
-      lib.optionals isPy27
-        [
-          # Upstream disables this test case naturally on python 3, but it also fails
-          # inside NixPkgs for python 2. Since it's going to be deleted, we just skip it
-          # on py2 as well.
-          ./skip-test.patch
-        ];
+    ++ lib.optionals isPy27 [
+      # Upstream disables this test case naturally on python 3, but it also fails
+      # inside NixPkgs for python 2. Since it's going to be deleted, we just skip it
+      # on py2 as well.
+      ./skip-test.patch
+    ];
 
   propagatedBuildInputs = [ flake8 ];
 

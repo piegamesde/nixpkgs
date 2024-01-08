@@ -15,12 +15,10 @@ stdenv.mkDerivation rec {
     hash = "sha256-g55ftAfjKKlUFzGhI1a/O7Eqbz6rkGf1vWuEJjBZxBE=";
   };
 
-  patches =
-    lib.optionals (lib.versionAtLeast kernel.modDirVersion "6.1")
-      [
-        # https://github.com/torvalds/linux/commit/a8c11c1520347be74b02312d10ef686b01b525f1
-        ./fix-incompatible-pointer-types.patch
-      ];
+  patches = lib.optionals (lib.versionAtLeast kernel.modDirVersion "6.1") [
+    # https://github.com/torvalds/linux/commit/a8c11c1520347be74b02312d10ef686b01b525f1
+    ./fix-incompatible-pointer-types.patch
+  ];
 
   sourceRoot = "${src.name}/driver";
   hardeningDisable = [ "pic" ];

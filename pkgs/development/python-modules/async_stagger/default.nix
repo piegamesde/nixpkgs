@@ -26,11 +26,10 @@ buildPythonPackage rec {
     pytest-mock
   ];
 
-  disabledTests =
-    [
-      # RuntimeError: Logic bug in...
-      "test_stagger_coro_gen"
-    ];
+  disabledTests = [
+    # RuntimeError: Logic bug in...
+    "test_stagger_coro_gen"
+  ];
 
   pythonImportsCheck = [ "async_stagger" ];
 

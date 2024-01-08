@@ -126,11 +126,10 @@ buildPythonPackage rec {
       "test_numpy_completions"
       "test_workspace_loads_pycodestyle_config"
     ]
-    ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64)
-      [
-        # pyqt5 is broken on aarch64-darwin
-        "test_pyqt_completion"
-      ];
+    ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [
+      # pyqt5 is broken on aarch64-darwin
+      "test_pyqt_completion"
+    ];
 
   preCheck = ''
     export HOME=$(mktemp -d);

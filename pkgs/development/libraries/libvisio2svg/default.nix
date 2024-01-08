@@ -32,11 +32,10 @@ stdenv.mkDerivation rec {
     libemf2svg
   ];
 
-  cmakeFlags =
-    [
-      # file RPATH_CHANGE could not write new RPATH
-      "-DCMAKE_SKIP_BUILD_RPATH=ON"
-    ];
+  cmakeFlags = [
+    # file RPATH_CHANGE could not write new RPATH
+    "-DCMAKE_SKIP_BUILD_RPATH=ON"
+  ];
 
   meta = with lib; {
     description = "Library and tools to convert Microsoft Visio documents (VSS and VSD) to SVG";

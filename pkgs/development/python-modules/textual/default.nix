@@ -62,11 +62,10 @@ buildPythonPackage rec {
     time-machine
   ];
 
-  disabledTestPaths =
-    [
-      # snapshot tests require syrupy<4
-      "tests/snapshot_tests/test_snapshots.py"
-    ];
+  disabledTestPaths = [
+    # snapshot tests require syrupy<4
+    "tests/snapshot_tests/test_snapshots.py"
+  ];
 
   pythonImportsCheck = [ "textual" ];
 

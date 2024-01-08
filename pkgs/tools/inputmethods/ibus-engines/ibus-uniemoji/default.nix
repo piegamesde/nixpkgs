@@ -30,12 +30,11 @@ stdenv.mkDerivation rec {
     sha256 = "121zh3q0li1k537fcvbd4ns4jgl9bbb9gm9ihy8cfxgirv38lcfa";
   };
 
-  patches =
-    [
-      # Do not run wrapper script with Python,
-      # the wrapped script will have Python in shebang anyway.
-      ./allow-wrapping.patch
-    ];
+  patches = [
+    # Do not run wrapper script with Python,
+    # the wrapped script will have Python in shebang anyway.
+    ./allow-wrapping.patch
+  ];
 
   nativeBuildInputs = [
     wrapGAppsHook

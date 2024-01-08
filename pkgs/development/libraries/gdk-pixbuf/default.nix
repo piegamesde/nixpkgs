@@ -47,11 +47,10 @@ stdenv.mkDerivation (
         sha256 = "7ptsddE7oJaQei48aye2G80X9cfr6rWltDnS8uOf5Es=";
       };
 
-    patches =
-      [
-        # Move installed tests to a separate output
-        ./installed-tests-path.patch
-      ];
+    patches = [
+      # Move installed tests to a separate output
+      ./installed-tests-path.patch
+    ];
 
     # gdk-pixbuf-thumbnailer is not wrapped therefore strictDeps will work
     strictDeps = true;

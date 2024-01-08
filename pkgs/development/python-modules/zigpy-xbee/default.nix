@@ -39,11 +39,10 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  disabledTests =
-    [
-      # https://github.com/zigpy/zigpy-xbee/issues/126
-      "test_form_network"
-    ];
+  disabledTests = [
+    # https://github.com/zigpy/zigpy-xbee/issues/126
+    "test_form_network"
+  ];
 
   meta = with lib; {
     changelog = "https://github.com/zigpy/zigpy-xbee/releases/tag/${version}";

@@ -25,16 +25,15 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-bPAENorvj48cyRpnMLmyENXlipSGhTLW+XVoyrPogTE=";
   };
 
-  patches =
-    [
-      # Pull fix pending upstream inclusion for -fno-common toolchains:
-      #   https://github.com/lastpass/lastpass-cli/pull/576
-      (fetchpatch {
-        name = "fno-common.patch";
-        url = "https://github.com/lastpass/lastpass-cli/commit/e3311cebdb29a3267843cf656a32f01c5062897e.patch";
-        sha256 = "1yjx2p98nb3n8ywc9lhf2zal5fswawb5i6lgnicdin23zngff5l8";
-      })
-    ];
+  patches = [
+    # Pull fix pending upstream inclusion for -fno-common toolchains:
+    #   https://github.com/lastpass/lastpass-cli/pull/576
+    (fetchpatch {
+      name = "fno-common.patch";
+      url = "https://github.com/lastpass/lastpass-cli/commit/e3311cebdb29a3267843cf656a32f01c5062897e.patch";
+      sha256 = "1yjx2p98nb3n8ywc9lhf2zal5fswawb5i6lgnicdin23zngff5l8";
+    })
+  ];
 
   nativeBuildInputs = [
     asciidoc

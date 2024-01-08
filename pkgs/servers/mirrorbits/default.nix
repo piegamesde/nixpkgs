@@ -21,14 +21,13 @@ buildGoModule rec {
 
   vendorHash = null;
 
-  patches =
-    [
-      # Add Go Modules support
-      (fetchpatch {
-        url = "https://github.com/etix/mirrorbits/commit/955a8b2e1aacea1cae06396a64afbb531ceb36d4.patch";
-        hash = "sha256-KJgj3ynnjjiXG5qsUmzBiMjGEwfvM/9Ap+ZgUdhclik=";
-      })
-    ];
+  patches = [
+    # Add Go Modules support
+    (fetchpatch {
+      url = "https://github.com/etix/mirrorbits/commit/955a8b2e1aacea1cae06396a64afbb531ceb36d4.patch";
+      hash = "sha256-KJgj3ynnjjiXG5qsUmzBiMjGEwfvM/9Ap+ZgUdhclik=";
+    })
+  ];
 
   nativeBuildInputs = [ pkg-config ];
   buildInputs = [

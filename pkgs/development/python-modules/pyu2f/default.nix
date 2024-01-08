@@ -30,11 +30,10 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  disabledTestPaths =
-    [
-      # API breakage with pyfakefs>=5.0
-      "pyu2f/tests/hid/linux_test.py"
-    ];
+  disabledTestPaths = [
+    # API breakage with pyfakefs>=5.0
+    "pyu2f/tests/hid/linux_test.py"
+  ];
 
   meta = with lib; {
     description = "U2F host library for interacting with a U2F device over USB";

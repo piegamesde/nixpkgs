@@ -21,16 +21,15 @@ stdenv.mkDerivation rec {
     sha256 = "0q1i5acyghsmzas88qswvki8kkk2nfpr8zapgnxbcd3lwcxl38f4";
   };
 
-  patches =
-    [
-      # Pull upstream patch for ncurses-6.3.
-      (fetchpatch {
-        name = "ncurses-6.3.patch";
-        url = "https://github.com/McKael/mcabber/commit/5a0893d69023b77b7671731defbdca5d47731130.patch";
-        sha256 = "01bc23z0mva9l9jv587sq2r9w3diachgkmb9ad99hlzgj02fmq4v";
-        stripLen = 1;
-      })
-    ];
+  patches = [
+    # Pull upstream patch for ncurses-6.3.
+    (fetchpatch {
+      name = "ncurses-6.3.patch";
+      url = "https://github.com/McKael/mcabber/commit/5a0893d69023b77b7671731defbdca5d47731130.patch";
+      sha256 = "01bc23z0mva9l9jv587sq2r9w3diachgkmb9ad99hlzgj02fmq4v";
+      stripLen = 1;
+    })
+  ];
 
   nativeBuildInputs = [ pkg-config ];
   buildInputs = [

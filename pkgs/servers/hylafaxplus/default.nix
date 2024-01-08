@@ -77,11 +77,10 @@ stdenv.mkDerivation {
     url = "mirror://sourceforge/hylafax/hylafax-${version}.tar.gz";
     inherit hash;
   };
-  patches =
-    [
-      # adjust configure check to work with libtiff > 4.1
-      ./libtiff-4.patch
-    ];
+  patches = [
+    # adjust configure check to work with libtiff > 4.1
+    ./libtiff-4.patch
+  ];
   # Note that `configure` (and maybe `faxsetup`) are looking
   # for a couple of standard binaries in the `PATH` and
   # hardcode their absolute paths in the new package.

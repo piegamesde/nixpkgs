@@ -341,16 +341,15 @@ in
   # built but not started by default?
   config = mkIf (cfg.enable && config.networking.nftables.enable == false) {
 
-    assertions =
-      [
-        # This is approximately "checkReversePath -> kernelHasRPFilter",
-        # but the checkReversePath option can include non-boolean
-        # values.
-        {
-          assertion = cfg.checkReversePath == false || kernelHasRPFilter;
-          message = "This kernel does not support rpfilter";
-        }
-      ];
+    assertions = [
+      # This is approximately "checkReversePath -> kernelHasRPFilter",
+      # but the checkReversePath option can include non-boolean
+      # values.
+      {
+        assertion = cfg.checkReversePath == false || kernelHasRPFilter;
+        message = "This kernel does not support rpfilter";
+      }
+    ];
 
     networking.firewall.checkReversePath = mkIf (!kernelHasRPFilter) (mkDefault false);
 

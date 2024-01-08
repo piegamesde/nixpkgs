@@ -28,11 +28,10 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  disabledTestPaths =
-    [
-      # requires network
-      "tests/integration"
-    ];
+  disabledTestPaths = [
+    # requires network
+    "tests/integration"
+  ];
 
   pythonImportsCheck = [ "cryptography" ];
 

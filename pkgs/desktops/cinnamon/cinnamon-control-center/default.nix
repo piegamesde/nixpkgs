@@ -82,11 +82,10 @@ stdenv.mkDerivation rec {
     patchShebangs meson_install_schemas.py
   '';
 
-  mesonFlags =
-    [
-      # use locales from cinnamon-translations
-      "--localedir=${cinnamon-translations}/share/locale"
-    ];
+  mesonFlags = [
+    # use locales from cinnamon-translations
+    "--localedir=${cinnamon-translations}/share/locale"
+  ];
 
   nativeBuildInputs = [
     pkg-config

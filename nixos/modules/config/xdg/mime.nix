@@ -95,11 +95,10 @@ in
 
     environment.pathsToLink = [ "/share/mime" ];
 
-    environment.systemPackages =
-      [
-        # this package also installs some useful data, as well as its utilities
-        pkgs.shared-mime-info
-      ];
+    environment.systemPackages = [
+      # this package also installs some useful data, as well as its utilities
+      pkgs.shared-mime-info
+    ];
 
     environment.extraSetup = ''
       if [ -w $out/share/mime ] && [ -d $out/share/mime/packages ]; then

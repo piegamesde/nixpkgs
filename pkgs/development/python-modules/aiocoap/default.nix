@@ -32,11 +32,10 @@ buildPythonPackage rec {
     "tests/test_oscore_plugtest.py"
   ];
 
-  disabledTests =
-    [
-      # Communication is not properly mocked
-      "test_uri_parser"
-    ];
+  disabledTests = [
+    # Communication is not properly mocked
+    "test_uri_parser"
+  ];
 
   pythonImportsCheck = [ "aiocoap" ];
 

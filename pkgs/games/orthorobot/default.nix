@@ -45,14 +45,13 @@ stdenv.mkDerivation rec {
     copyDesktopItems
   ];
 
-  patches =
-    [
-      # support for love11
-      (fetchpatch {
-        url = "https://github.com/Stabyourself/orthorobot/pull/3.patch";
-        sha256 = "sha256-WHHP6QM7R5eEkVF+J2pGNnds/OKRIRXyon85wjd3GXI=";
-      })
-    ];
+  patches = [
+    # support for love11
+    (fetchpatch {
+      url = "https://github.com/Stabyourself/orthorobot/pull/3.patch";
+      sha256 = "sha256-WHHP6QM7R5eEkVF+J2pGNnds/OKRIRXyon85wjd3GXI=";
+    })
+  ];
 
   installPhase = ''
     runHook preInstall

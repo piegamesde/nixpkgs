@@ -23,12 +23,10 @@
     };
   };
 
-  environment.systemPackages =
-    with pkgs;
-    [
-      # Graphical text editor
-      kate
-    ];
+  environment.systemPackages = with pkgs; [
+    # Graphical text editor
+    kate
+  ];
 
   system.activationScripts.installerDesktop =
     let

@@ -17,14 +17,13 @@ buildGoModule rec {
 
   vendorHash = "sha256-EPrlaUHAGATNFv3qgWKGmJdu9EHsV/0DJKEvQck+fWc=";
 
-  patches =
-    [
-      # Add Go Modules support
-      (fetchpatch {
-        url = "https://github.com/sgreben/jp/commit/9516fb4d7c5b011071b4063ea8e8e9667e57a777.patch";
-        hash = "sha256-Vz5HnStrCpMN1L7dne7JDX5F57up3EBPPf/9hN9opRc=";
-      })
-    ];
+  patches = [
+    # Add Go Modules support
+    (fetchpatch {
+      url = "https://github.com/sgreben/jp/commit/9516fb4d7c5b011071b4063ea8e8e9667e57a777.patch";
+      hash = "sha256-Vz5HnStrCpMN1L7dne7JDX5F57up3EBPPf/9hN9opRc=";
+    })
+  ];
 
   ldflags = [
     "-s"

@@ -72,19 +72,16 @@ stdenv.mkDerivation rec {
         hash = "sha256-dx+7MpEiAkxTBnJcsT3/1BO8rYRfNLecXmpAvhqGMD0=";
       })
     ]
-    ++ lib.optionals (!isNixOS)
-      [
-        # References to /nix/store/... will get GC'ed which causes problems when
-        # copying the default configuration:
-        ./sway-config-no-nix-store-references.patch
-      ]
-    ++
-      lib.optionals isNixOS
-        [
-          # Use /run/current-system/sw/share and /etc instead of /nix/store
-          # references:
-          ./sway-config-nixos-paths.patch
-        ];
+    ++ lib.optionals (!isNixOS) [
+      # References to /nix/store/... will get GC'ed which causes problems when
+      # copying the default configuration:
+      ./sway-config-no-nix-store-references.patch
+    ]
+    ++ lib.optionals isNixOS [
+      # Use /run/current-system/sw/share and /etc instead of /nix/store
+      # references:
+      ./sway-config-nixos-paths.patch
+    ];
 
   strictDeps = true;
   depsBuildBuild = [ pkg-config ];

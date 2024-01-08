@@ -17,16 +17,15 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-xB/Igf+lpAQy0t2CnrRMZKSd7kgucWuqz5Jixk2qj5A=";
   };
 
-  patches =
-    [
-      # Patch that fixes build with musl libc
-      # NOTE remove on next release, since it is applied in upstream
-      (fetchpatch {
-        name = "Fix-build-with-musl-libc.patch";
-        url = "https://git.kernel.org/pub/scm/network/ethtool/ethtool.git/patch/marvell.c?id=41be533331fc3c6b711dbe532405782d3b8be5d1";
-        sha256 = "sha256-CItvt/eeNJkr1sOzaaHZhAnaybDutL9cT2O6XwQll+M=";
-      })
-    ];
+  patches = [
+    # Patch that fixes build with musl libc
+    # NOTE remove on next release, since it is applied in upstream
+    (fetchpatch {
+      name = "Fix-build-with-musl-libc.patch";
+      url = "https://git.kernel.org/pub/scm/network/ethtool/ethtool.git/patch/marvell.c?id=41be533331fc3c6b711dbe532405782d3b8be5d1";
+      sha256 = "sha256-CItvt/eeNJkr1sOzaaHZhAnaybDutL9cT2O6XwQll+M=";
+    })
+  ];
 
   nativeBuildInputs = [ pkg-config ];
 

@@ -85,15 +85,14 @@ stdenv.mkDerivation rec {
       "--disable-hl"
     ];
 
-  patches =
-    [
-      # Avoid non-determinism in autoconf build system:
-      # - build time
-      # - build user
-      # - uname -a (kernel version)
-      # Can be dropped once/if we switch to cmake.
-      ./hdf5-more-determinism.patch
-    ];
+  patches = [
+    # Avoid non-determinism in autoconf build system:
+    # - build time
+    # - build user
+    # - uname -a (kernel version)
+    # Can be dropped once/if we switch to cmake.
+    ./hdf5-more-determinism.patch
+  ];
 
   postInstall = ''
     find "$out" -type f -exec remove-references-to -t ${stdenv.cc} '{}' +

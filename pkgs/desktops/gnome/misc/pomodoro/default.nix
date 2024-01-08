@@ -34,15 +34,14 @@ stdenv.mkDerivation rec {
     hash = "sha256-0ZUTRrth5AfzI1E4JsuchbYeFwAbl9/XGBSYQ+AnNvM=";
   };
 
-  patches =
-    [
-      # Our glib setup hooks moves GSettings schemas to a subdirectory to prevent conflicts.
-      # We need to patch the build script so that the extension can find them.
-      (substituteAll {
-        src = ./fix-schema-path.patch;
-        inherit pname version;
-      })
-    ];
+  patches = [
+    # Our glib setup hooks moves GSettings schemas to a subdirectory to prevent conflicts.
+    # We need to patch the build script so that the extension can find them.
+    (substituteAll {
+      src = ./fix-schema-path.patch;
+      inherit pname version;
+    })
+  ];
 
   nativeBuildInputs = [
     meson

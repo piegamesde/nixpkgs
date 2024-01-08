@@ -59,11 +59,10 @@ in
               ${optionalString (cfg.controlInterface != null) "--control-interface ${cfg.controlInterface}"} \
               ${toString cfg.extraFlags}
           '';
-          RestrictAddressFamilies =
-            [
-              # Need AF_UNIX to collect data
-              "AF_UNIX"
-            ];
+          RestrictAddressFamilies = [
+            # Need AF_UNIX to collect data
+            "AF_UNIX"
+          ];
         };
       }
     ]

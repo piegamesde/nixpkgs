@@ -36,12 +36,11 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  pytestFlagsArray =
-    [
-      # test suite takes over 100 vCPU hours, just run small subset of it.
-      # TODO: Add a passthru.tests with all tests
-      "tests/test_dmdbase.py"
-    ];
+  pytestFlagsArray = [
+    # test suite takes over 100 vCPU hours, just run small subset of it.
+    # TODO: Add a passthru.tests with all tests
+    "tests/test_dmdbase.py"
+  ];
 
   pythonImportsCheck = [ "pydmd" ];
 

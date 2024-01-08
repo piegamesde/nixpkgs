@@ -68,16 +68,15 @@ stdenv.mkDerivation rec {
         sha256 = "sha256-764P0IJ7ndURap7hotOmYJK0wAhYdqMbQNOnhJxVNt0=";
       })
     ]
-    ++ lib.optionals (!enableGUI)
-      [
-        # when enableGui is false, giac is compiled without fltk. That
-        # means some outputs differ in the make check. Patch around this:
-        (fetchpatch {
-          name = "nofltk-check.patch";
-          url = "https://git.sagemath.org/sage.git/plain/build/pkgs/giac/patches/nofltk-check.patch?id=7553a3c8dfa7bcec07241a07e6a4e7dcf5bb4f26";
-          sha256 = "sha256-nAl5q3ufLjK3X9s0qMlGNowdRRf3EaC24eVtJABzdXY=";
-        })
-      ];
+    ++ lib.optionals (!enableGUI) [
+      # when enableGui is false, giac is compiled without fltk. That
+      # means some outputs differ in the make check. Patch around this:
+      (fetchpatch {
+        name = "nofltk-check.patch";
+        url = "https://git.sagemath.org/sage.git/plain/build/pkgs/giac/patches/nofltk-check.patch?id=7553a3c8dfa7bcec07241a07e6a4e7dcf5bb4f26";
+        sha256 = "sha256-nAl5q3ufLjK3X9s0qMlGNowdRRf3EaC24eVtJABzdXY=";
+      })
+    ];
 
   # 1.9.0-5's tarball contains a binary (src/mkjs) which is executed
   # at build time. we will delete and rebuild it.

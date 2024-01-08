@@ -26,11 +26,10 @@ stdenv.mkDerivation rec {
     libftdi
   ];
 
-  cmakeFlags =
-    [
-      # file RPATH_CHANGE could not write new RPATH
-      "-DCMAKE_SKIP_BUILD_RPATH=ON"
-    ];
+  cmakeFlags = [
+    # file RPATH_CHANGE could not write new RPATH
+    "-DCMAKE_SKIP_BUILD_RPATH=ON"
+  ];
 
   meta = with lib; {
     description = "Command-line tools for programming FPGAs, microcontrollers and PROMs via JTAG";

@@ -50,11 +50,10 @@ python3Packages.buildPythonApplication rec {
     "test_integration"
   ];
 
-  disabledTestPaths =
-    [
-      # requires network
-      "test/integration/test_b2_command_line.py"
-    ];
+  disabledTestPaths = [
+    # requires network
+    "test/integration/test_b2_command_line.py"
+  ];
 
   postInstall = ''
     mv "$out/bin/b2" "$out/bin/backblaze-b2"

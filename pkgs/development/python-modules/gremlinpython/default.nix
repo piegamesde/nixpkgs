@@ -67,11 +67,10 @@ buildPythonPackage rec {
     "tests/process/test_dsl.py"
     "tests/structure/io/test_functionalityio.py"
   ];
-  pytestFlagsArray =
-    [
-      # disabledTests doesn't quite allow us to be precise enough for this
-      "-k 'not (TestFunctionalGraphSONIO and (test_timestamp or test_datetime or test_uuid))'"
-    ];
+  pytestFlagsArray = [
+    # disabledTests doesn't quite allow us to be precise enough for this
+    "-k 'not (TestFunctionalGraphSONIO and (test_timestamp or test_datetime or test_uuid))'"
+  ];
 
   meta = with lib; {
     description = "Gremlin-Python implements Gremlin, the graph traversal language of Apache TinkerPop, within the Python language";

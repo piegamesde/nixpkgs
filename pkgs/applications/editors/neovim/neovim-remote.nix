@@ -18,14 +18,13 @@ buildPythonApplication rec {
     sha256 = "0lbz4w8hgxsw4k1pxafrl3rhydrvi5jc6vnsmkvnhh6l6rxlmvmq";
   };
 
-  patches =
-    [
-      # Fix a compatibility issue with neovim 0.8.0
-      (fetchpatch {
-        url = "https://github.com/mhinz/neovim-remote/commit/56d2a4097f4b639a16902390d9bdd8d1350f948c.patch";
-        hash = "sha256-/PjE+9yfHtOUEp3xBaobzRM8Eo2wqOhnF1Es7SIdxvM=";
-      })
-    ];
+  patches = [
+    # Fix a compatibility issue with neovim 0.8.0
+    (fetchpatch {
+      url = "https://github.com/mhinz/neovim-remote/commit/56d2a4097f4b639a16902390d9bdd8d1350f948c.patch";
+      hash = "sha256-/PjE+9yfHtOUEp3xBaobzRM8Eo2wqOhnF1Es7SIdxvM=";
+    })
+  ];
 
   propagatedBuildInputs = [
     pynvim

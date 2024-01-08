@@ -34,14 +34,13 @@ let
     pname = "edk2";
     version = "202211";
 
-    patches =
-      [
-        # pass targetPrefix as an env var
-        (fetchpatch {
-          url = "https://src.fedoraproject.org/rpms/edk2/raw/08f2354cd280b4ce5a7888aa85cf520e042955c3/f/0021-Tweak-the-tools_def-to-support-cross-compiling.patch";
-          sha256 = "sha256-E1/fiFNVx0aB1kOej2DJ2DlBIs9tAAcxoedym2Zhjxw=";
-        })
-      ];
+    patches = [
+      # pass targetPrefix as an env var
+      (fetchpatch {
+        url = "https://src.fedoraproject.org/rpms/edk2/raw/08f2354cd280b4ce5a7888aa85cf520e042955c3/f/0021-Tweak-the-tools_def-to-support-cross-compiling.patch";
+        sha256 = "sha256-E1/fiFNVx0aB1kOej2DJ2DlBIs9tAAcxoedym2Zhjxw=";
+      })
+    ];
 
     # submodules
     src = fetchFromGitHub {

@@ -27,11 +27,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-P7AHLwqicKYj5I0Rl9B5mdD/v9iW9aihkNo7enonRF4=";
   };
 
-  patches =
-    [
-      # Look for plugin-related files in $out/lib/rofi
-      ./0001-Patch-plugindir-to-output.patch
-    ];
+  patches = [
+    # Look for plugin-related files in $out/lib/rofi
+    ./0001-Patch-plugindir-to-output.patch
+  ];
 
   postPatch = ''
     patchShebangs clipboard-adapter.sh

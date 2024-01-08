@@ -34,27 +34,26 @@ stdenv.mkDerivation rec {
     sha256 = "0mvh793g7fg6wb6zqhkdyrv80x6k84ypqwi8ii89c91xcckyxzdc";
   };
 
-  patches =
-    [
-      # Make it possible to disable shared builds (for pkgsStatic).
-      #
-      # We can't use fetchpatch because it processes includes/excludes
-      # /after/ stripping the prefix, which wouldn't work here because
-      # there would be no way to distinguish between
-      # e.g. libselinux/src/Makefile and libsepol/src/Makefile.
-      #
-      # This is a static email, so we shouldn't have to worry about
-      # normalizing the patch.
-      (fetchurl {
-        url = "https://lore.kernel.org/selinux/20211113141616.361640-1-hi@alyssa.is/raw";
-        sha256 = "16a2s2ji9049892i15yyqgp4r20hi1hij4c1s4s8law9jsx65b3n";
-        postFetch = ''
-          mv "$out" $TMPDIR/patch
-          ${buildPackages.patchutils_0_3_3}/bin/filterdiff \
-              -i 'a/libselinux/*' --strip 1 <$TMPDIR/patch >"$out"
-        '';
-      })
-    ];
+  patches = [
+    # Make it possible to disable shared builds (for pkgsStatic).
+    #
+    # We can't use fetchpatch because it processes includes/excludes
+    # /after/ stripping the prefix, which wouldn't work here because
+    # there would be no way to distinguish between
+    # e.g. libselinux/src/Makefile and libsepol/src/Makefile.
+    #
+    # This is a static email, so we shouldn't have to worry about
+    # normalizing the patch.
+    (fetchurl {
+      url = "https://lore.kernel.org/selinux/20211113141616.361640-1-hi@alyssa.is/raw";
+      sha256 = "16a2s2ji9049892i15yyqgp4r20hi1hij4c1s4s8law9jsx65b3n";
+      postFetch = ''
+        mv "$out" $TMPDIR/patch
+        ${buildPackages.patchutils_0_3_3}/bin/filterdiff \
+            -i 'a/libselinux/*' --strip 1 <$TMPDIR/patch >"$out"
+      '';
+    })
+  ];
 
   nativeBuildInputs = [
     pkg-config

@@ -35,11 +35,10 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "webauthn" ];
 
-  disabledTests =
-    [
-      # TypeError: X509StoreContextError.__init__() missing 1 required...
-      "test_throws_on_bad_root_cert"
-    ];
+  disabledTests = [
+    # TypeError: X509StoreContextError.__init__() missing 1 required...
+    "test_throws_on_bad_root_cert"
+  ];
 
   meta = with lib; {
     description = "Implementation of the WebAuthn API";

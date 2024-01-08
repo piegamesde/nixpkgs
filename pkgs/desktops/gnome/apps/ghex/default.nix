@@ -66,11 +66,10 @@ stdenv.mkDerivation rec {
       "-Dgtk_doc=true"
       "-Dvapi=true"
     ]
-    ++ lib.optionals stdenv.isDarwin
-      [
-        # mremap does not exist on darwin
-        "-Dmmap-buffer-backend=false"
-      ];
+    ++ lib.optionals stdenv.isDarwin [
+      # mremap does not exist on darwin
+      "-Dmmap-buffer-backend=false"
+    ];
 
   postFixup = ''
     # Cannot be in postInstall, otherwise _multioutDocs hook in preFixup will move right back.

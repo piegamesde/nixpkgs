@@ -43,13 +43,12 @@ stdenv.mkDerivation (
         sha256 = "EQ3Uwg3vIYhvv3dymP4O+Mwq1gI7jzbHQkQRpBSBiTM=";
       };
 
-    patches =
-      [
-        # By default, the library loads syntaxes from XDG_DATA_DIRS and user directory
-        # but not from its own datadr (it assumes it will be in XDG_DATA_DIRS).
-        # Since this is not generally true with Nix, let’s add $out/share unconditionally.
-        ./4.x-nix_share_path.patch
-      ];
+    patches = [
+      # By default, the library loads syntaxes from XDG_DATA_DIRS and user directory
+      # but not from its own datadr (it assumes it will be in XDG_DATA_DIRS).
+      # Since this is not generally true with Nix, let’s add $out/share unconditionally.
+      ./4.x-nix_share_path.patch
+    ];
 
     nativeBuildInputs = [
       meson

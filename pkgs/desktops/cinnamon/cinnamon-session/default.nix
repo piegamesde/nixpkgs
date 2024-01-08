@@ -74,11 +74,10 @@ stdenv.mkDerivation rec {
     libxslt
   ];
 
-  mesonFlags =
-    [
-      # use locales from cinnamon-translations
-      "--localedir=${cinnamon-translations}/share/locale"
-    ];
+  mesonFlags = [
+    # use locales from cinnamon-translations
+    "--localedir=${cinnamon-translations}/share/locale"
+  ];
 
   postPatch = ''
     chmod +x data/meson_install_schemas.py # patchShebangs requires executable file

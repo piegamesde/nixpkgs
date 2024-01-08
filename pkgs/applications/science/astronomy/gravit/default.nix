@@ -27,16 +27,15 @@ stdenv.mkDerivation rec {
     hash = "sha256-JuqnLLD5+Ec8kQI0SK98V1O6TTbGM6+yKn5KCHe85eM=";
   };
 
-  patches =
-    [
-      # Pull fix pending upstream inclusion for -fno-common toolchains:
-      #   https://github.com/gak/gravit/pull/100
-      (fetchpatch {
-        name = "fno-common.patch";
-        url = "https://github.com/gak/gravit/commit/0f848834889212f16201fd404d2d5b9bb5b47d23.patch";
-        hash = "sha256-k1aMIg7idMt53o6dFgIKJflOMp0Jp5NwgWEijcIwXrQ=";
-      })
-    ];
+  patches = [
+    # Pull fix pending upstream inclusion for -fno-common toolchains:
+    #   https://github.com/gak/gravit/pull/100
+    (fetchpatch {
+      name = "fno-common.patch";
+      url = "https://github.com/gak/gravit/commit/0f848834889212f16201fd404d2d5b9bb5b47d23.patch";
+      hash = "sha256-k1aMIg7idMt53o6dFgIKJflOMp0Jp5NwgWEijcIwXrQ=";
+    })
+  ];
 
   buildInputs = [
     libGLU

@@ -41,11 +41,10 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "aeppl" ];
 
-  disabledTests =
-    [
-      # Compute issue
-      "test_initial_values"
-    ];
+  disabledTests = [
+    # Compute issue
+    "test_initial_values"
+  ];
 
   meta = with lib; {
     description = "Library for an Aesara-based PPL";

@@ -122,13 +122,11 @@ let
           }"
           "--enable-nls"
         ]
-        ++
-          lib.optionals (targetPlatform.libc == "uclibc" || targetPlatform.libc == "musl")
-            [
-              # libsanitizer requires netrom/netrom.h which is not
-              # available in uclibc.
-              "--disable-libsanitizer"
-            ]
+        ++ lib.optionals (targetPlatform.libc == "uclibc" || targetPlatform.libc == "musl") [
+          # libsanitizer requires netrom/netrom.h which is not
+          # available in uclibc.
+          "--disable-libsanitizer"
+        ]
         ++
           lib.optional (targetPlatform.libc == "newlib" || targetPlatform.libc == "newlib-nano")
             "--with-newlib"

@@ -35,11 +35,10 @@ buildPythonPackage rec {
 
   pytestFlagsArray = [ "src/seqdiag/tests/" ];
 
-  disabledTests =
-    [
-      # UnicodeEncodeError: 'latin-1' codec can't encode...
-      "test_setup_inline_svg_is_true_with_multibytes"
-    ];
+  disabledTests = [
+    # UnicodeEncodeError: 'latin-1' codec can't encode...
+    "test_setup_inline_svg_is_true_with_multibytes"
+  ];
 
   pythonImportsCheck = [ "seqdiag" ];
 

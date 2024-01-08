@@ -31,12 +31,11 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ python3 ];
 
-  patches =
-    [
-      # Increase timeout to socket urlopen
-      # See https://github.com/christgau/wsdd/issues/80#issuecomment-76848906
-      ./increase_timeout.patch
-    ];
+  patches = [
+    # Increase timeout to socket urlopen
+    # See https://github.com/christgau/wsdd/issues/80#issuecomment-76848906
+    ./increase_timeout.patch
+  ];
 
   installPhase = ''
     install -Dm0555 src/wsdd.py $out/bin/wsdd

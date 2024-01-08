@@ -43,12 +43,11 @@ stdenvNoCC.mkDerivation rec {
     # workaround for https://github.com/webpack/webpack/issues/14532
     NODE_OPTIONS = "--openssl-legacy-provider";
 
-    patches =
-      [
-        # NOTE: fixes for hardcoded paths and assumptions about filesystem
-        # permissions
-        ./nix-filesystem.patch
-      ];
+    patches = [
+      # NOTE: fixes for hardcoded paths and assumptions about filesystem
+      # permissions
+      ./nix-filesystem.patch
+    ];
 
     buildPhase = ''
       yarn --offline build

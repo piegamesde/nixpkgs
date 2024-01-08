@@ -53,14 +53,13 @@ buildPythonApplication rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  patches =
-    [
-      # Fix a broken test
-      (fetchpatch {
-        url = "https://github.com/Ryochan7/sc-controller/pull/73.patch";
-        sha256 = "sha256-qU8hIReZE3cEPCMOFc4RCUCIhiS0gJ3PushMkfDlPns=";
-      })
-    ];
+  patches = [
+    # Fix a broken test
+    (fetchpatch {
+      url = "https://github.com/Ryochan7/sc-controller/pull/73.patch";
+      sha256 = "sha256-qU8hIReZE3cEPCMOFc4RCUCIhiS0gJ3PushMkfDlPns=";
+    })
+  ];
 
   postPatch = ''
     substituteInPlace scc/paths.py --replace sys.prefix "'$out'"

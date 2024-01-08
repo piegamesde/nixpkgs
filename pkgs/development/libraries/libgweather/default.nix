@@ -34,13 +34,12 @@ stdenv.mkDerivation rec {
     sha256 = "r4qBLaDYl2oADh1iVywlYIaoFzI/vzWwZtv92NLKYgM=";
   };
 
-  patches =
-    [
-      # Headers depend on glib but it is only listed in Requires.private,
-      # which does not influence Cflags on non-static builds in nixpkgs’s
-      # pkg-config. Let’s add it to Requires to ensure Cflags are set correctly.
-      ./fix-pkgconfig.patch
-    ];
+  patches = [
+    # Headers depend on glib but it is only listed in Requires.private,
+    # which does not influence Cflags on non-static builds in nixpkgs’s
+    # pkg-config. Let’s add it to Requires to ensure Cflags are set correctly.
+    ./fix-pkgconfig.patch
+  ];
 
   depsBuildBuild = [ pkg-config ];
 

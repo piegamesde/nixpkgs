@@ -44,11 +44,10 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  disabledTestPaths =
-    [
-      # requires kubeconfig
-      "test/integration"
-    ];
+  disabledTestPaths = [
+    # requires kubeconfig
+    "test/integration"
+  ];
 
   meta = with lib; {
     description = "Python client for the OpenShift API";

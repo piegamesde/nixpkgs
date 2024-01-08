@@ -27,11 +27,10 @@ buildPythonPackage rec {
     jinja2
   ];
 
-  patches =
-    [
-      # riscof copies a template directory from the store, but breaks because it doesn't change permissions and expects it to be writeable
-      ./make_writeable.patch
-    ];
+  patches = [
+    # riscof copies a template directory from the store, but breaks because it doesn't change permissions and expects it to be writeable
+    ./make_writeable.patch
+  ];
 
   meta = with lib; {
     homepage = "https://github.com/riscv-software-src/riscof";

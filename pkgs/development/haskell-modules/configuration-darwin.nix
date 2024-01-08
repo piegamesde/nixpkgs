@@ -286,11 +286,10 @@ self: super:
               substituteInPlace configure --replace xDarwin noDarwinSpecialCasing
             ''
             + (drv.postPatch or "");
-          patches =
-            [
-              # Work around SDL_main.h redefining main to SDL_main
-              ./patches/SDL-image-darwin-hsc.patch
-            ];
+          patches = [
+            # Work around SDL_main.h redefining main to SDL_main
+            ./patches/SDL-image-darwin-hsc.patch
+          ];
         })
         super.SDL-image;
 

@@ -35,15 +35,14 @@ buildPythonPackage rec {
     hash = "sha256-eEN2K2x67dqTNsYMerLJIMV5xtRi4wiYvVql6JOcZh4=";
   };
 
-  patches =
-    [
-      # Switch to poetry-core, https://github.com/rigetti/qcs-api-client-python/pull/2
-      (fetchpatch {
-        name = "switch-to-poetry-core.patch";
-        url = "https://github.com/rigetti/qcs-api-client-python/commit/32f0b3c7070a65f4edf5b2552648d88435469e44.patch";
-        hash = "sha256-mOc+Q/5cmwPziojtxeEMWWHSDvqvzZlNRbPtOSeTinQ=";
-      })
-    ];
+  patches = [
+    # Switch to poetry-core, https://github.com/rigetti/qcs-api-client-python/pull/2
+    (fetchpatch {
+      name = "switch-to-poetry-core.patch";
+      url = "https://github.com/rigetti/qcs-api-client-python/commit/32f0b3c7070a65f4edf5b2552648d88435469e44.patch";
+      hash = "sha256-mOc+Q/5cmwPziojtxeEMWWHSDvqvzZlNRbPtOSeTinQ=";
+    })
+  ];
 
   pythonRelaxDeps = [
     "attrs"

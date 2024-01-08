@@ -65,13 +65,12 @@ mkDerivation rec {
     bison
   ];
 
-  patches =
-    [
-      # allow building with bison 3.7
-      # Included in https://github.com/GoldenCheetah/GoldenCheetah/pull/3590,
-      # which is periodically rebased but pre 3.6 release, as it'll break other CI systems
-      ./0001-Fix-building-with-bison-3.7.patch
-    ];
+  patches = [
+    # allow building with bison 3.7
+    # Included in https://github.com/GoldenCheetah/GoldenCheetah/pull/3590,
+    # which is periodically rebased but pre 3.6 release, as it'll break other CI systems
+    ./0001-Fix-building-with-bison-3.7.patch
+  ];
 
   NIX_LDFLAGS = "-lz -lgsl -lblas";
 

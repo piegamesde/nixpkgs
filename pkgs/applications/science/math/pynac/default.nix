@@ -23,16 +23,15 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-ocR7emXtKs+Xe2f6dh4xEDAacgiolY8mtlLnWnNBS8A=";
   };
 
-  patches =
-    [
-      # the patch below is included in sage 9.4 and should be included
-      # in a future pynac release. see https://trac.sagemath.org/ticket/28357
-      (fetchpatch {
-        name = "realpartloop.patch";
-        url = "https://git.sagemath.org/sage.git/plain/build/pkgs/pynac/patches/realpartloop.patch?h=9.4.beta5";
-        sha256 = "sha256-1nj0xtlFN5fZKEiRLD+tiW/ZtxMQre1ziEGA0OVUGE4=";
-      })
-    ];
+  patches = [
+    # the patch below is included in sage 9.4 and should be included
+    # in a future pynac release. see https://trac.sagemath.org/ticket/28357
+    (fetchpatch {
+      name = "realpartloop.patch";
+      url = "https://git.sagemath.org/sage.git/plain/build/pkgs/pynac/patches/realpartloop.patch?h=9.4.beta5";
+      sha256 = "sha256-1nj0xtlFN5fZKEiRLD+tiW/ZtxMQre1ziEGA0OVUGE4=";
+    })
+  ];
 
   buildInputs = [
     flint

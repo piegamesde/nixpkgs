@@ -27,15 +27,14 @@ buildPythonPackage rec {
     hash = "sha256-rguobFaepTOL2duHRdFV5o2JSsBlYiA7rY3/RyHvoMc=";
   };
 
-  patches =
-    [
-      # This patches two things:
-      # - The driver location, which is now a static package in the Nix store.
-      # - The setup script, which would try to download the driver package from
-      #   a CDN and patch wheels so that they include it. We don't want this
-      #   we have our own driver build.
-      ./driver-location.patch
-    ];
+  patches = [
+    # This patches two things:
+    # - The driver location, which is now a static package in the Nix store.
+    # - The setup script, which would try to download the driver package from
+    #   a CDN and patch wheels so that they include it. We don't want this
+    #   we have our own driver build.
+    ./driver-location.patch
+  ];
 
   postPatch = ''
     # if setuptools_scm is not listing files via git almost all python files are excluded

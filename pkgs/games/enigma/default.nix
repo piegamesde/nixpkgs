@@ -26,14 +26,13 @@ stdenv.mkDerivation rec {
     sha256 = "rmS5H7wrEJcAcdDXjtW07enuOGjeLm6VaVRvxYQ3+K8=";
   };
 
-  patches =
-    [
-      # fix format string security warning (turned into error)
-      (fetchpatch {
-        url = "https://github.com/Enigma-Game/Enigma/pull/70/commits/d25051eb6228c885e779a9674f8ee3979da30663.patch";
-        sha256 = "L5C4NCZDDUKji9Tg4geKaiw3CkSY6rCoawqGKqR4dFM=";
-      })
-    ];
+  patches = [
+    # fix format string security warning (turned into error)
+    (fetchpatch {
+      url = "https://github.com/Enigma-Game/Enigma/pull/70/commits/d25051eb6228c885e779a9674f8ee3979da30663.patch";
+      sha256 = "L5C4NCZDDUKji9Tg4geKaiw3CkSY6rCoawqGKqR4dFM=";
+    })
+  ];
 
   nativeBuildInputs = [
     pkg-config

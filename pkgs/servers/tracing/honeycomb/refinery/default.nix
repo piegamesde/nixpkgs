@@ -17,13 +17,12 @@ buildGoModule rec {
 
   NO_REDIS_TEST = true;
 
-  patches =
-    [
-      # Allows turning off the one test requiring a Redis service during build.
-      # We could in principle implement that, but it's significant work to little
-      # payoff.
-      ./0001-add-NO_REDIS_TEST-env-var-that-disables-Redis-requir.patch
-    ];
+  patches = [
+    # Allows turning off the one test requiring a Redis service during build.
+    # We could in principle implement that, but it's significant work to little
+    # payoff.
+    ./0001-add-NO_REDIS_TEST-env-var-that-disables-Redis-requir.patch
+  ];
 
   excludedPackages = [ "cmd/test_redimem" ];
 

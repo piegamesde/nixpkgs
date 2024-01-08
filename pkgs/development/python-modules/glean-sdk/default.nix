@@ -52,11 +52,10 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  disabledTests =
-    [
-      # RuntimeError: No ping received.
-      "test_client_activity_api"
-    ];
+  disabledTests = [
+    # RuntimeError: No ping received.
+    "test_client_activity_api"
+  ];
 
   pythonImportsCheck = [ "glean" ];
 

@@ -79,11 +79,10 @@ buildPythonPackage rec {
 
   pytestFlagsArray = [ "arviz/tests/base_tests/" ];
 
-  disabledTestPaths =
-    [
-      # Remove tests as dependency creates a circular dependency
-      "arviz/tests/external_tests/test_data_pymc.py"
-    ];
+  disabledTestPaths = [
+    # Remove tests as dependency creates a circular dependency
+    "arviz/tests/external_tests/test_data_pymc.py"
+  ];
 
   disabledTests = [
     # Tests require network access

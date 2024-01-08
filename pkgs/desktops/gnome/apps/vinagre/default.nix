@@ -25,16 +25,15 @@ stdenv.mkDerivation rec {
     sha256 = "cd1cdbacca25c8d1debf847455155ee798c3e67a20903df8b228d4ece5505e82";
   };
 
-  patches =
-    [
-      # Pull fix pending upstream inclusion for -fno-common toolchain support:
-      #   https://gitlab.gnome.org/GNOME/vinagre/-/merge_requests/8
-      (fetchpatch {
-        name = "fno-common.patch";
-        url = "https://gitlab.gnome.org/GNOME/vinagre/-/commit/c51662cf4338516773d64776c3c92796917ff2bd.diff";
-        sha256 = "0zn8cd93hjdz6rw2d7gfl1ghzkc9h0x40k9l0jx3n5qfwdq4sir8";
-      })
-    ];
+  patches = [
+    # Pull fix pending upstream inclusion for -fno-common toolchain support:
+    #   https://gitlab.gnome.org/GNOME/vinagre/-/merge_requests/8
+    (fetchpatch {
+      name = "fno-common.patch";
+      url = "https://gitlab.gnome.org/GNOME/vinagre/-/commit/c51662cf4338516773d64776c3c92796917ff2bd.diff";
+      sha256 = "0zn8cd93hjdz6rw2d7gfl1ghzkc9h0x40k9l0jx3n5qfwdq4sir8";
+    })
+  ];
 
   nativeBuildInputs = [
     pkg-config

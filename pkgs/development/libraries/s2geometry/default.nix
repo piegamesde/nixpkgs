@@ -20,14 +20,13 @@ stdenv.mkDerivation rec {
     sha256 = "1mx61bnn2f6bd281qlhn667q6yfg1pxzd2js88l5wpkqlfzzhfaz";
   };
 
-  patches =
-    [
-      # Fix build https://github.com/google/s2geometry/issues/165
-      (fetchpatch {
-        url = "https://github.com/google/s2geometry/commit/a4dddf40647c68cd0104eafc31e9c8fb247a6308.patch";
-        sha256 = "0fp3w4bg7pgf5vv4vacp9g06rbqzhxc2fg6i5appp93q6phiinvi";
-      })
-    ];
+  patches = [
+    # Fix build https://github.com/google/s2geometry/issues/165
+    (fetchpatch {
+      url = "https://github.com/google/s2geometry/commit/a4dddf40647c68cd0104eafc31e9c8fb247a6308.patch";
+      sha256 = "0fp3w4bg7pgf5vv4vacp9g06rbqzhxc2fg6i5appp93q6phiinvi";
+    })
+  ];
 
   nativeBuildInputs = [
     cmake

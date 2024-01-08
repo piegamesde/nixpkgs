@@ -15,24 +15,23 @@ with lib;
     maintainers = teams.gnome.members;
   };
 
-  imports =
-    [
-      # Added 2021-05-07
-      (mkRenamedOptionModule
-        [
-          "services"
-          "gnome3"
-          "tracker-miners"
-          "enable"
-        ]
-        [
-          "services"
-          "gnome"
-          "tracker-miners"
-          "enable"
-        ]
-      )
-    ];
+  imports = [
+    # Added 2021-05-07
+    (mkRenamedOptionModule
+      [
+        "services"
+        "gnome3"
+        "tracker-miners"
+        "enable"
+      ]
+      [
+        "services"
+        "gnome"
+        "tracker-miners"
+        "enable"
+      ]
+    )
+  ];
 
   ###### interface
 

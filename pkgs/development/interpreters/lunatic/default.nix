@@ -25,11 +25,10 @@ rustPlatform.buildRustPackage rec {
 
   buildInputs = [ openssl ] ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.Security ];
 
-  checkFlags =
-    [
-      # requires simd support which is not always available on hydra
-      "--skip=state::tests::import_filter_signature_matches"
-    ];
+  checkFlags = [
+    # requires simd support which is not always available on hydra
+    "--skip=state::tests::import_filter_signature_matches"
+  ];
 
   meta = with lib; {
     description = "An Erlang inspired runtime for WebAssembly";

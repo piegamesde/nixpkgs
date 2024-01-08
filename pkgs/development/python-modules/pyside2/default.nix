@@ -65,13 +65,11 @@ disabledIf (pythonAtLeast "3.11") (
         ]
       )
       ++ (with python.pkgs; [ setuptools ])
-      ++ (lib.optionals (python.pythonOlder "3.9")
-        [
-          # see similar issue: 202262
-          # libxcrypt is required for crypt.h for building older python modules
-          libxcrypt
-        ]
-      );
+      ++ (lib.optionals (python.pythonOlder "3.9") [
+        # see similar issue: 202262
+        # libxcrypt is required for crypt.h for building older python modules
+        libxcrypt
+      ]);
 
     propagatedBuildInputs = [ shiboken2 ];
 

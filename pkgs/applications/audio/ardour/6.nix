@@ -68,11 +68,10 @@ stdenv.mkDerivation rec {
     sha256 = "0vlcbd70y0an881zv87kc3akmaiz4w7whsy3yaiiqqjww35jg1mm";
   };
 
-  patches =
-    [
-      # AS=as in the environment causes build failure https://tracker.ardour.org/view.php?id=8096
-      ./as-flags.patch
-    ];
+  patches = [
+    # AS=as in the environment causes build failure https://tracker.ardour.org/view.php?id=8096
+    ./as-flags.patch
+  ];
 
   nativeBuildInputs = [
     doxygen

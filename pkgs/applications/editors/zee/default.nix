@@ -20,11 +20,10 @@ rustPlatform.buildRustPackage rec {
     sha256 = "sha256-/9SogKOaXdFDB+e0//lrenTTbfmXqNFGr23L+6Pnm8w=";
   };
 
-  cargoPatches =
-    [
-      # fixed upstream but unreleased
-      ./update-ropey-for-rust-1.65.diff
-    ];
+  cargoPatches = [
+    # fixed upstream but unreleased
+    ./update-ropey-for-rust-1.65.diff
+  ];
 
   nativeBuildInputs = [ pkg-config ];
 

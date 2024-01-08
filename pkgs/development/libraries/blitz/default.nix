@@ -35,15 +35,14 @@ stdenv.mkDerivation rec {
     hash = "sha256-wZDg+4lCd9iHvxuQQE/qs58NorkxZ0+mf+8PKQ57CDE=";
   };
 
-  patches =
-    [
-      # https://github.com/blitzpp/blitz/pull/180
-      (fetchpatch {
-        name = "use-cmake-install-full-dir.patch";
-        url = "https://github.com/blitzpp/blitz/commit/020f1d768c7fa3265cec244dc28f3dc8572719c5.patch";
-        hash = "sha256-8hYFNyWrejjIWPN/HzIOphD4Aq6Soe0FFUBmwV4tpWQ=";
-      })
-    ];
+  patches = [
+    # https://github.com/blitzpp/blitz/pull/180
+    (fetchpatch {
+      name = "use-cmake-install-full-dir.patch";
+      url = "https://github.com/blitzpp/blitz/commit/020f1d768c7fa3265cec244dc28f3dc8572719c5.patch";
+      hash = "sha256-8hYFNyWrejjIWPN/HzIOphD4Aq6Soe0FFUBmwV4tpWQ=";
+    })
+  ];
 
   nativeBuildInputs = [
     cmake

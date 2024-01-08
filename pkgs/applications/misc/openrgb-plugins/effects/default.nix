@@ -24,14 +24,13 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  patches =
-    [
-      # Add install rule
-      (fetchpatch {
-        url = "https://gitlab.com/OpenRGBDevelopers/OpenRGBEffectsPlugin/-/commit/75f1b3617d9cabfb3b04a7afc75ce0c1b8514bc0.patch";
-        hash = "sha256-X+zMNE3OCZNmUb68S4683r/RbE+CDrI/Jv4BMWPI47E=";
-      })
-    ];
+  patches = [
+    # Add install rule
+    (fetchpatch {
+      url = "https://gitlab.com/OpenRGBDevelopers/OpenRGBEffectsPlugin/-/commit/75f1b3617d9cabfb3b04a7afc75ce0c1b8514bc0.patch";
+      hash = "sha256-X+zMNE3OCZNmUb68S4683r/RbE+CDrI/Jv4BMWPI47E=";
+    })
+  ];
 
   postPatch = ''
     # Use the source of openrgb from nixpkgs instead of the submodule

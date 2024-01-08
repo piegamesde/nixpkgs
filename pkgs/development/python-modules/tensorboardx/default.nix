@@ -74,11 +74,10 @@ buildPythonPackage rec {
     "test_onnx_graph"
   ];
 
-  disabledTestPaths =
-    [
-      # we are not interested in linting errors
-      "tests/test_lint.py"
-    ];
+  disabledTestPaths = [
+    # we are not interested in linting errors
+    "tests/test_lint.py"
+  ];
 
   meta = with lib; {
     description = "Library for writing tensorboard-compatible logs";

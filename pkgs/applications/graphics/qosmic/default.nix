@@ -65,11 +65,10 @@ stdenv.mkDerivation rec {
     libjpeg
   ];
 
-  qmakeFlags =
-    [
-      # Use pkg-config to correctly locate library paths
-      "CONFIG+=link_pkgconfig"
-    ];
+  qmakeFlags = [
+    # Use pkg-config to correctly locate library paths
+    "CONFIG+=link_pkgconfig"
+  ];
 
   preInstall = lib.optionalString stdenv.isDarwin ''
     mkdir -p $out/Applications

@@ -974,14 +974,13 @@ let
     process = {
       exporterConfig = {
         enable = true;
-        settings.process_names =
-          [
-            # Remove nix store path from process name
-            {
-              name = "{{.Matches.Wrapped}} {{ .Matches.Args }}";
-              cmdline = [ "^/nix/store[^ ]*/(?P<Wrapped>[^ /]*) (?P<Args>.*)" ];
-            }
-          ];
+        settings.process_names = [
+          # Remove nix store path from process name
+          {
+            name = "{{.Matches.Wrapped}} {{ .Matches.Args }}";
+            cmdline = [ "^/nix/store[^ ]*/(?P<Wrapped>[^ /]*) (?P<Args>.*)" ];
+          }
+        ];
       };
       exporterTest = ''
         wait_for_unit("prometheus-process-exporter.service")

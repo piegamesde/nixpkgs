@@ -66,10 +66,9 @@ buildPythonPackage rec {
       asyncio = [ greenlet ];
       mypy = [ mypy ];
       mssql = [ pyodbc ];
-      mssql_pymysql =
-        [
-          # TODO: pymssql
-        ];
+      mssql_pymysql = [
+        # TODO: pymssql
+      ];
       mssql_pyodbc = [ pyodbc ];
       mysql = [ mysqlclient ];
       mysql_connector = [ mysql-connector ];
@@ -89,10 +88,9 @@ buildPythonPackage rec {
         aiosqlite
         typing-extensions
       ] ++ self.asyncio;
-      sqlcipher =
-        [
-          # TODO: sqlcipher3
-        ];
+      sqlcipher = [
+        # TODO: sqlcipher3
+      ];
     }
   );
 

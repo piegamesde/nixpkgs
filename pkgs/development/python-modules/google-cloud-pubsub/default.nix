@@ -52,11 +52,10 @@ buildPythonPackage rec {
     rm -r google
   '';
 
-  disabledTestPaths =
-    [
-      # Tests in pubsub_v1 attempt to contact pubsub.googleapis.com
-      "tests/unit/pubsub_v1"
-    ];
+  disabledTestPaths = [
+    # Tests in pubsub_v1 attempt to contact pubsub.googleapis.com
+    "tests/unit/pubsub_v1"
+  ];
 
   pythonImportsCheck = [ "google.cloud.pubsub" ];
 

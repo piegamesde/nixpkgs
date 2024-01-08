@@ -24,11 +24,10 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  disabledTests =
-    [
-      # generated image differs from example
-      "test_image"
-    ];
+  disabledTests = [
+    # generated image differs from example
+    "test_image"
+  ];
 
   pythonImportsCheck = [ "svg.path" ];
 

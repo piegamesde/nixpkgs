@@ -35,11 +35,10 @@ mkDerivation rec {
     sha256 = "sha256-D8Xbpbrq43+Qaa0oiFqkBcaiUwnjiGy+ERvTt8BVMc4=";
   };
 
-  patches =
-    [
-      # add support for SC_DATA_DIR and SC_PLUGIN_DIR env vars to override compile-time values
-      ./supercollider-3.12.0-env-dirs.patch
-    ];
+  patches = [
+    # add support for SC_DATA_DIR and SC_PLUGIN_DIR env vars to override compile-time values
+    ./supercollider-3.12.0-env-dirs.patch
+  ];
 
   strictDeps = true;
 

@@ -84,11 +84,10 @@ stdenv.mkDerivation rec {
       "-DLLDB_INCLUDE_TESTS=${if doCheck then "YES" else "NO"}"
       "-DLLDB_CODESIGN_IDENTITY=" # codesigning makes nondeterministic
     ]
-    ++ lib.optionals stdenv.isDarwin
-      [
-        # Building debugserver requires the proprietary libcompression
-        "-DLLDB_NO_DEBUGSERVER=ON"
-      ]
+    ++ lib.optionals stdenv.isDarwin [
+      # Building debugserver requires the proprietary libcompression
+      "-DLLDB_NO_DEBUGSERVER=ON"
+    ]
     ++ lib.optionals doCheck [
       "-DLLDB_TEST_C_COMPILER=${stdenv.cc}/bin/${stdenv.cc.targetPrefix}cc"
       "-DLLDB_TEST_CXX_COMPILER=${stdenv.cc}/bin/${stdenv.cc.targetPrefix}c++"

@@ -36,11 +36,10 @@ buildPythonPackage rec {
     "test_google"
   ];
 
-  disabledTestPaths =
-    [
-      # Wants "compressai", which we don't package (2023-03-23)
-      "tests/torchinfo_xl_test.py"
-    ];
+  disabledTestPaths = [
+    # Wants "compressai", which we don't package (2023-03-23)
+    "tests/torchinfo_xl_test.py"
+  ];
 
   pythonImportsCheck = [ "torchinfo" ];
 

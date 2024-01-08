@@ -55,21 +55,20 @@ let
       sha256 = "7QyRxYRQCPGTZznk7uIDVTHByUdCxlQfRO5m2IWUjUU=";
     };
 
-    patches =
-      [
-        # Upstream bugs:
-        #   https://bugzilla.gnome.org/show_bug.cgi?id=789714
-        #   https://gitlab.gnome.org/GNOME/libxml2/issues/64
-        # Patch from https://bugzilla.opensuse.org/show_bug.cgi?id=1065270 ,
-        # but only the UTF-8 part.
-        # Can also be mitigated by fixing malformed XML inputs, such as in
-        # https://gitlab.gnome.org/GNOME/gnumeric/merge_requests/3 .
-        # Other discussion:
-        #   https://github.com/itstool/itstool/issues/22
-        #   https://github.com/NixOS/nixpkgs/pull/63174
-        #   https://github.com/NixOS/nixpkgs/pull/72342
-        ./utf8-xmlErrorFuncHandler.patch
-      ];
+    patches = [
+      # Upstream bugs:
+      #   https://bugzilla.gnome.org/show_bug.cgi?id=789714
+      #   https://gitlab.gnome.org/GNOME/libxml2/issues/64
+      # Patch from https://bugzilla.opensuse.org/show_bug.cgi?id=1065270 ,
+      # but only the UTF-8 part.
+      # Can also be mitigated by fixing malformed XML inputs, such as in
+      # https://gitlab.gnome.org/GNOME/gnumeric/merge_requests/3 .
+      # Other discussion:
+      #   https://github.com/itstool/itstool/issues/22
+      #   https://github.com/NixOS/nixpkgs/pull/63174
+      #   https://github.com/NixOS/nixpkgs/pull/72342
+      ./utf8-xmlErrorFuncHandler.patch
+    ];
 
     strictDeps = true;
 
@@ -83,14 +82,12 @@ let
       ++ lib.optionals (pythonSupport && python ? isPy2 && python.isPy2) [ gettext ]
       ++ lib.optionals (pythonSupport && python ? isPy3 && python.isPy3) [ ncurses ]
       ++ lib.optionals (stdenv.isDarwin && pythonSupport && python ? isPy2 && python.isPy2) [ libintl ]
-      ++
-        lib.optionals stdenv.isFreeBSD
-          [
-            # Libxml2 has an optional dependency on liblzma.  However, on impure
-            # platforms, it may end up using that from /usr/lib, and thus lack a
-            # RUNPATH for that, leading to undefined references for its users.
-            xz
-          ];
+      ++ lib.optionals stdenv.isFreeBSD [
+        # Libxml2 has an optional dependency on liblzma.  However, on impure
+        # platforms, it may end up using that from /usr/lib, and thus lack a
+        # RUNPATH for that, leading to undefined references for its users.
+        xz
+      ];
 
     propagatedBuildInputs = [
       zlib

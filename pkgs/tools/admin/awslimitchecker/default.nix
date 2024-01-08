@@ -31,11 +31,10 @@ python3Packages.buildPythonApplication rec {
     testfixtures
   ];
 
-  patches =
-    [
-      # Fix the version lookup to use only the hardcoded version in the source package
-      ./version.patch
-    ];
+  patches = [
+    # Fix the version lookup to use only the hardcoded version in the source package
+    ./version.patch
+  ];
 
   pytestFlagsArray = [ "awslimitchecker/tests" ];
 

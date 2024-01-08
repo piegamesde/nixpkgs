@@ -185,11 +185,10 @@ stdenv.mkDerivation rec {
     "-DLIBJAMI_XML_INTERFACES_DIR=${daemon}/share/dbus-1/interfaces"
   ] ++ lib.optionals (!withWebengine) [ "-DWITH_WEBENGINE=false" ];
 
-  qtWrapperArgs =
-    [
-      # With wayland the titlebar is not themed and the wmclass is wrong.
-      "--set-default QT_QPA_PLATFORM xcb"
-    ];
+  qtWrapperArgs = [
+    # With wayland the titlebar is not themed and the wmclass is wrong.
+    "--set-default QT_QPA_PLATFORM xcb"
+  ];
 
   postInstall = ''
     # Make the jamid d-bus services available

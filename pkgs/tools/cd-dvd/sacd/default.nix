@@ -16,15 +16,14 @@ stdenv.mkDerivation rec {
     sha256 = "03s7jr75pzqj1xd41rkgbszlgf9zx6vzhd0nizc05wyf0fxq5xif";
   };
 
-  patches =
-    [
-      # Makefile prefix, otherwise `/usr` prefix is enforced
-      (fetchpatch {
-        url = "https://github.com/Sound-Linux-More/sacd/pull/1.patch";
-        name = "makefile-prefix.patch";
-        sha256 = "0a7r4x0yqpg6l4vr84dq4wbrypabqm4vvcjv91am068gqjiw6w64";
-      })
-    ];
+  patches = [
+    # Makefile prefix, otherwise `/usr` prefix is enforced
+    (fetchpatch {
+      url = "https://github.com/Sound-Linux-More/sacd/pull/1.patch";
+      name = "makefile-prefix.patch";
+      sha256 = "0a7r4x0yqpg6l4vr84dq4wbrypabqm4vvcjv91am068gqjiw6w64";
+    })
+  ];
 
   makeFlagsArray = [ "PREFIX=$(out)" ];
 

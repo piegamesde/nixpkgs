@@ -84,11 +84,10 @@ buildPythonPackage rec {
       # lots of DNS lookups
       "tests/test_sockets.py"
     ]
-    ++ lib.optionals stdenv.isDarwin
-      [
-        # darwin sandboxing limitations
-        "tests/streams/test_tls.py"
-      ];
+    ++ lib.optionals stdenv.isDarwin [
+      # darwin sandboxing limitations
+      "tests/streams/test_tls.py"
+    ];
 
   pythonImportsCheck = [ "anyio" ];
 

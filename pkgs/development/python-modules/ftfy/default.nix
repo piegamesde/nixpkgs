@@ -26,11 +26,10 @@ buildPythonPackage rec {
     export PATH=$out/bin:$PATH
   '';
 
-  disabledTestPaths =
-    [
-      # Calls poetry and fails to match output exactly
-      "tests/test_cli.py"
-    ];
+  disabledTestPaths = [
+    # Calls poetry and fails to match output exactly
+    "tests/test_cli.py"
+  ];
 
   meta = with lib; {
     description = "Given Unicode text, make its representation consistent and possibly less broken";

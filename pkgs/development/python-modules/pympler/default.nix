@@ -17,12 +17,11 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  disabledTests =
-    [
-      # 'AssertionError: 'function (test.muppy.test_summary.func)' != 'function (muppy.test_summary.func)'
-      # https://github.com/pympler/pympler/issues/134
-      "test_repr_function"
-    ];
+  disabledTests = [
+    # 'AssertionError: 'function (test.muppy.test_summary.func)' != 'function (muppy.test_summary.func)'
+    # https://github.com/pympler/pympler/issues/134
+    "test_repr_function"
+  ];
 
   doCheck = stdenv.hostPlatform.isLinux;
 

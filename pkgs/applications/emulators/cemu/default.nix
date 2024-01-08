@@ -43,13 +43,12 @@ stdenv.mkDerivation rec {
     hash = "sha256-RO8c9gLK00LLwDzcD8UOS3kh3kwTwFyrpuRlIXcInPo=";
   };
 
-  patches =
-    [
-      # glslangTargets want SPIRV-Tools-opt to be defined:
-      # > The following imported targets are referenced, but are missing:
-      # > SPIRV-Tools-opt
-      ./cmakelists.patch
-    ];
+  patches = [
+    # glslangTargets want SPIRV-Tools-opt to be defined:
+    # > The following imported targets are referenced, but are missing:
+    # > SPIRV-Tools-opt
+    ./cmakelists.patch
+  ];
 
   nativeBuildInputs = [
     addOpenGLRunpath

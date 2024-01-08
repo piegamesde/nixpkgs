@@ -28,14 +28,13 @@ stdenv.mkDerivation rec {
     hash = "sha256-7NtGTe9xNRPEvG9fQ2fC6htQLEMHfqGmBM2ezhi6oNM=";
   };
 
-  patches =
-    [
-      # Fix cavern.tst to work with SOURCE_DATE_EPOCH set
-      (fetchpatch {
-        url = "https://github.com/ojwb/survex/commit/b1200a60be7bdea20ffebbd8bb15386041727fa6.patch";
-        hash = "sha256-OtFjqpU+u8XGy+PAHg2iea++b681p/Kl8YslisBs4sA=";
-      })
-    ];
+  patches = [
+    # Fix cavern.tst to work with SOURCE_DATE_EPOCH set
+    (fetchpatch {
+      url = "https://github.com/ojwb/survex/commit/b1200a60be7bdea20ffebbd8bb15386041727fa6.patch";
+      hash = "sha256-OtFjqpU+u8XGy+PAHg2iea++b681p/Kl8YslisBs4sA=";
+    })
+  ];
 
   nativeBuildInputs = [
     perl

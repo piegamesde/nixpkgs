@@ -22,11 +22,10 @@ mkDerivation rec {
     sha256 = "1469ng6zk0qx0qfsihrnlz1j9i1wk0hx4vqdaplz9mdpyxvmlryk";
   };
 
-  patches =
-    [
-      # See https://github.com/NixOS/nixpkgs/issues/86054
-      ./fix-qttranslations-path.diff
-    ];
+  patches = [
+    # See https://github.com/NixOS/nixpkgs/issues/86054
+    ./fix-qttranslations-path.diff
+  ];
 
   nativeBuildInputs = [
     cmake

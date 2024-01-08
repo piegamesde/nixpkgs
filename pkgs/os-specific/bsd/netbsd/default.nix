@@ -230,14 +230,13 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { }) (
         ];
         configureFlags =
           [ "--cache-file=config.cache" ]
-          ++ lib.optionals stdenv.hostPlatform.isMusl
-            [
-              # We include this header in our musl package only for legacy
-              # compatibility, and compat works fine without it (and having it
-              # know about sys/cdefs.h breaks packages like glib when built
-              # statically).
-              "ac_cv_header_sys_cdefs_h=no"
-            ];
+          ++ lib.optionals stdenv.hostPlatform.isMusl [
+            # We include this header in our musl package only for legacy
+            # compatibility, and compat works fine without it (and having it
+            # know about sys/cdefs.h breaks packages like glib when built
+            # statically).
+            "ac_cv_header_sys_cdefs_h=no"
+          ];
 
         nativeBuildInputs =
           with buildPackages.netbsd;
@@ -264,13 +263,11 @@ makeScopeWithSplicing (generateSplicesForMkScope "netbsd") (_: { }) (_: { }) (
             # Can't process man pages yet
             "MKSHARE=no"
           ]
-          ++
-            lib.optionals stdenv.hostPlatform.isDarwin
-              [
-                # GNU objcopy produces broken .a libs which won't link into dependers.
-                # Makefiles only invoke `$OBJCOPY -x/-X`, so cctools strip works here.
-                "OBJCOPY=${buildPackages.darwin.cctools}/bin/strip"
-              ];
+          ++ lib.optionals stdenv.hostPlatform.isDarwin [
+            # GNU objcopy produces broken .a libs which won't link into dependers.
+            # Makefiles only invoke `$OBJCOPY -x/-X`, so cctools strip works here.
+            "OBJCOPY=${buildPackages.darwin.cctools}/bin/strip"
+          ];
         RENAME = "-D";
 
         passthru.tests = {

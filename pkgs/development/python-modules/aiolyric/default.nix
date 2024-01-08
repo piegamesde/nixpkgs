@@ -25,11 +25,10 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  disabledTests =
-    [
-      # AssertionError, https://github.com/timmo001/aiolyric/issues/5
-      "test_location"
-    ];
+  disabledTests = [
+    # AssertionError, https://github.com/timmo001/aiolyric/issues/5
+    "test_location"
+  ];
 
   pythonImportsCheck = [ "aiolyric" ];
 

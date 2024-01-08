@@ -32,11 +32,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-YjvHzd4iEBvg+qHOVJ7/y9HqyeT+QDalNE/jdNM9BNs=";
   };
 
-  patches =
-    [
-      # ensure python site-packages goes in $py output
-      ./python-binding-prefix.patch
-    ];
+  patches = [
+    # ensure python site-packages goes in $py output
+    ./python-binding-prefix.patch
+  ];
 
   nativeBuildInputs = [
     autoreconfHook

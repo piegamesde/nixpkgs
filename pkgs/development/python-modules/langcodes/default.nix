@@ -32,11 +32,10 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  disabledTests =
-    [
-      # AssertionError: assert 'Unknown language [aqk]' == 'Aninka'
-      "test_updated_iana"
-    ];
+  disabledTests = [
+    # AssertionError: assert 'Unknown language [aqk]' == 'Aninka'
+    "test_updated_iana"
+  ];
 
   pythonImportsCheck = [ "langcodes" ];
 

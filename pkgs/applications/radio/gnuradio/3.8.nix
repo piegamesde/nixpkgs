@@ -179,12 +179,10 @@ let
     };
     gr-utils = {
       cmakeEnableFlag = "GR_UTILS";
-      pythonRuntime =
-        with python.pkgs;
-        [
-          # For gr_plot
-          matplotlib
-        ];
+      pythonRuntime = with python.pkgs; [
+        # For gr_plot
+        matplotlib
+      ];
     };
     gr-modtool = {
       pythonRuntime = with python.pkgs; [

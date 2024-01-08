@@ -25,11 +25,10 @@ mkDerivation rec {
     sha256 = "sha256-QaCVu/n9PDbAiJgPDVN6SJMILeUO/KRkKcHYAstm86Q=";
   };
 
-  patches =
-    [
-      # Fix absolute install paths
-      ./install.patch
-    ];
+  patches = [
+    # Fix absolute install paths
+    ./install.patch
+  ];
 
   nativeBuildInputs = [
     cmake

@@ -67,11 +67,10 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  disabledTests =
-    [
-      # requires django with gdal
-      "test_rest_framework_gis"
-    ];
+  disabledTests = [
+    # requires django with gdal
+    "test_rest_framework_gis"
+  ];
 
   pythonImportsCheck = [ "drf_spectacular" ];
 

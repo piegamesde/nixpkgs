@@ -41,11 +41,10 @@ buildPythonApplication rec {
     tox
   ];
 
-  disabledTests =
-    [
-      # Disable test using relative date and time
-      "test_tweet_relative_datetime"
-    ];
+  disabledTests = [
+    # Disable test using relative date and time
+    "test_tweet_relative_datetime"
+  ];
 
   meta = with lib; {
     description = "Decentralised, minimalist microblogging service for hackers";

@@ -27,16 +27,15 @@ stdenv.mkDerivation rec {
     sha256 = "1agwgby9ql8r3x5rd1rgx3xp9y4cdg4pi3kqlz3vanv9na8nf3id";
   };
 
-  patches =
-    [
-      # Pull upstream fix for -fno-common toolchains:
-      #   https://github.com/MycroftAI/mimic1/pull/216
-      (fetchpatch {
-        name = "fno-common";
-        url = "https://github.com/MycroftAI/mimic1/commit/77b36eaeb2c38eba571b8db7e9bb0fd507774e6d.patch";
-        sha256 = "0n3hqrfpbdp44y0c8bq55ay9m4c96r09k18hjxka4x54j5c7lw1m";
-      })
-    ];
+  patches = [
+    # Pull upstream fix for -fno-common toolchains:
+    #   https://github.com/MycroftAI/mimic1/pull/216
+    (fetchpatch {
+      name = "fno-common";
+      url = "https://github.com/MycroftAI/mimic1/commit/77b36eaeb2c38eba571b8db7e9bb0fd507774e6d.patch";
+      sha256 = "0n3hqrfpbdp44y0c8bq55ay9m4c96r09k18hjxka4x54j5c7lw1m";
+    })
+  ];
 
   nativeBuildInputs = [
     autoreconfHook
@@ -52,12 +51,10 @@ stdenv.mkDerivation rec {
     pcre2
   ] ++ lib.optional pulseaudioSupport libpulseaudio;
 
-  env.NIX_CFLAGS_COMPILE =
-    toString
-      [
-        # Needed with GCC 12
-        "-Wno-error=free-nonheap-object"
-      ];
+  env.NIX_CFLAGS_COMPILE = toString [
+    # Needed with GCC 12
+    "-Wno-error=free-nonheap-object"
+  ];
 
   postInstall = ''
     wrapProgram $out/bin/mimic \

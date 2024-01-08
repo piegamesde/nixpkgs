@@ -48,17 +48,15 @@ buildPythonPackage rec {
     types-pytz
   ];
 
-  disabledTests =
-    [
-      # AssertionError: assert datetime.date(...
-      "test_get_next_pickup_event"
-    ];
+  disabledTests = [
+    # AssertionError: assert datetime.date(...
+    "test_get_next_pickup_event"
+  ];
 
-  disabledTestPaths =
-    [
-      # Ignore the examples directory as the files are prefixed with test_
-      "examples/"
-    ];
+  disabledTestPaths = [
+    # Ignore the examples directory as the files are prefixed with test_
+    "examples/"
+  ];
 
   pythonImportsCheck = [ "aioridwell" ];
 

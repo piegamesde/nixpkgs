@@ -38,11 +38,10 @@ buildPythonPackage rec {
 
   pytestFlagsArray = [ "test/test.py" ];
 
-  disabledTests =
-    [
-      # Test require network access
-      "test_readme_example"
-    ];
+  disabledTests = [
+    # Test require network access
+    "test_readme_example"
+  ];
 
   pythonImportsCheck = [ "requests_http_signature" ];
 

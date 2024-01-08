@@ -102,23 +102,20 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optional (apis != [ "*" ]) "-DBUILD_ONLY=${lib.concatStringsSep ";" apis}";
 
-  env.NIX_CFLAGS_COMPILE =
-    toString
-      [
-        # openssl 3 generates several deprecation warnings
-        "-Wno-error=deprecated-declarations"
-      ];
+  env.NIX_CFLAGS_COMPILE = toString [
+    # openssl 3 generates several deprecation warnings
+    "-Wno-error=deprecated-declarations"
+  ];
 
   # aws-cpp-sdk-core-tests/aws/client/AWSClientTest.cpp
   # seem to have a datarace
   enableParallelChecking = false;
 
-  postFixupHooks =
-    [
-      # This bodge is necessary so that the file that the generated -config.cmake file
-      # points to an existing directory.
-      "mkdir -p $out/include"
-    ];
+  postFixupHooks = [
+    # This bodge is necessary so that the file that the generated -config.cmake file
+    # points to an existing directory.
+    "mkdir -p $out/include"
+  ];
 
   __darwinAllowLocalNetworking = true;
 

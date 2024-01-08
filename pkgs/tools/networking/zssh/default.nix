@@ -19,15 +19,14 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ readline ];
 
-  patches =
-    [
-      # Cargo-culted from Arch, returns “out of pty's” without it
-      (fetchurl {
-        name = "fix_use_ptmx_on_arch.patch";
-        url = "https://raw.githubusercontent.com/archlinux/svntogit-community/0a7c92543f9309856d02e31196f06d7c3eaa8b67/trunk/fix_use_ptmx_on_arch.patch";
-        sha256 = "12daw9wpy58ql882zww945wk9cg2adwp8qsr5rvazx0xq0qawgbr";
-      })
-    ];
+  patches = [
+    # Cargo-culted from Arch, returns “out of pty's” without it
+    (fetchurl {
+      name = "fix_use_ptmx_on_arch.patch";
+      url = "https://raw.githubusercontent.com/archlinux/svntogit-community/0a7c92543f9309856d02e31196f06d7c3eaa8b67/trunk/fix_use_ptmx_on_arch.patch";
+      sha256 = "12daw9wpy58ql882zww945wk9cg2adwp8qsr5rvazx0xq0qawgbr";
+    })
+  ];
 
   patchFlags = [ "-p0" ];
 

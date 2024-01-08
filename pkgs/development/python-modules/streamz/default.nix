@@ -67,11 +67,10 @@ buildPythonPackage rec {
     "test_buffer"
   ];
 
-  disabledTestPaths =
-    [
-      # Disable kafka tests
-      "streamz/tests/test_kafka.py"
-    ];
+  disabledTestPaths = [
+    # Disable kafka tests
+    "streamz/tests/test_kafka.py"
+  ];
 
   meta = with lib; {
     broken = stdenv.isDarwin;

@@ -50,15 +50,14 @@ let
       '';
 
     patches =
-      lib.optionals (lib.versionOlder version "3.22")
-        [
-          # fix protobuf-targets.cmake installation paths, and allow for CMAKE_INSTALL_LIBDIR to be absolute
-          # https://github.com/protocolbuffers/protobuf/pull/10090
-          (fetchpatch {
-            url = "https://github.com/protocolbuffers/protobuf/commit/a7324f88e92bc16b57f3683403b6c993bf68070b.patch";
-            sha256 = "sha256-SmwaUjOjjZulg/wgNmR/F5b8rhYA2wkKAjHIOxjcQdQ=";
-          })
-        ]
+      lib.optionals (lib.versionOlder version "3.22") [
+        # fix protobuf-targets.cmake installation paths, and allow for CMAKE_INSTALL_LIBDIR to be absolute
+        # https://github.com/protocolbuffers/protobuf/pull/10090
+        (fetchpatch {
+          url = "https://github.com/protocolbuffers/protobuf/commit/a7324f88e92bc16b57f3683403b6c993bf68070b.patch";
+          sha256 = "sha256-SmwaUjOjjZulg/wgNmR/F5b8rhYA2wkKAjHIOxjcQdQ=";
+        })
+      ]
       ++ lib.optionals stdenv.hostPlatform.isStatic [ ./static-executables-have-no-rpath.patch ];
 
     nativeBuildInputs =
@@ -66,13 +65,11 @@ let
         protobufVersion = "${lib.versions.major version}_${lib.versions.minor version}";
       in
       [ cmake ]
-      ++
-        lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform)
-          [
-            # protoc of the same version must be available for build. For non-cross builds, it's able to
-            # re-use the executable generated as part of the build
-            buildPackages."protobuf${protobufVersion}"
-          ];
+      ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
+        # protoc of the same version must be available for build. For non-cross builds, it's able to
+        # re-use the executable generated as part of the build
+        buildPackages."protobuf${protobufVersion}"
+      ];
 
     buildInputs = [
       abseil-cpp

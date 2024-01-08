@@ -66,21 +66,19 @@ buildPythonPackage rec {
     export HOME=$(mktemp -d);
   '';
 
-  pytestFlagsArray =
-    [
-      # Pre-commit tests expect the source directory to be a Git repository
-      "--ignore-glob='tests/test_pre_commit_*.py'"
-    ];
+  pytestFlagsArray = [
+    # Pre-commit tests expect the source directory to be a Git repository
+    "--ignore-glob='tests/test_pre_commit_*.py'"
+  ];
 
   disabledTests =
     [
       "test_apply_black_through_jupytext" # we can't do anything about ill-formatted notebooks
     ]
-    ++ lib.optionals stdenv.isDarwin
-      [
-        # requires access to trash
-        "test_load_save_rename"
-      ];
+    ++ lib.optionals stdenv.isDarwin [
+      # requires access to trash
+      "test_load_save_rename"
+    ];
 
   pythonImportsCheck = [
     "jupytext"

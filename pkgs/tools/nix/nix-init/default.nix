@@ -59,11 +59,10 @@ rustPlatform.buildRustPackage rec {
 
   buildNoDefaultFeatures = true;
 
-  checkFlags =
-    [
-      # requires internet access
-      "--skip=lang::rust::tests"
-    ];
+  checkFlags = [
+    # requires internet access
+    "--skip=lang::rust::tests"
+  ];
 
   postPatch = ''
     mkdir -p data

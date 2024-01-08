@@ -36,12 +36,11 @@ stdenv.mkDerivation rec {
 
   makeFlags = [ "PLATFORM=simulator" ];
 
-  patches =
-    [
-      # Remove make rule Introduced in cba596dde7
-      # which causes it to not build with nix
-      ./0001-ion-linux-makerules.patch
-    ];
+  patches = [
+    # Remove make rule Introduced in cba596dde7
+    # which causes it to not build with nix
+    ./0001-ion-linux-makerules.patch
+  ];
 
   installPhase = ''
     runHook preInstall

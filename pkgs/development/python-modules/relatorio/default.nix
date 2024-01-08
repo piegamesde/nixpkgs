@@ -29,11 +29,10 @@ buildPythonPackage rec {
   ];
 
   passthru.optional-dependencies = {
-    chart =
-      [
-        # pycha
-        pyyaml
-      ];
+    chart = [
+      # pycha
+      pyyaml
+    ];
     fodt = [ python-magic ];
   };
 

@@ -109,11 +109,10 @@ stdenv.mkDerivation rec {
 
   doCheck = true;
 
-  makeFlags =
-    [
-      # Fix paths in XML catalog broken by mismatching build/install datadir.
-      "dtddir=${placeholder "out"}/share/xml/dbus-1"
-    ];
+  makeFlags = [
+    # Fix paths in XML catalog broken by mismatching build/install datadir.
+    "dtddir=${placeholder "out"}/share/xml/dbus-1"
+  ];
 
   installFlags = [
     "sysconfdir=${placeholder "out"}/etc"

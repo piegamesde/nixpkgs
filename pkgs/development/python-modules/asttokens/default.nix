@@ -27,17 +27,15 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  disabledTests =
-    [
-      # Test is currently failing on Hydra, works locally
-      "test_slices"
-    ];
+  disabledTests = [
+    # Test is currently failing on Hydra, works locally
+    "test_slices"
+  ];
 
-  disabledTestPaths =
-    [
-      # incompatible with astroid 2.11.0, pins <= 2.5.3
-      "tests/test_astroid.py"
-    ];
+  disabledTestPaths = [
+    # incompatible with astroid 2.11.0, pins <= 2.5.3
+    "tests/test_astroid.py"
+  ];
 
   pythonImportsCheck = [ "asttokens" ];
 

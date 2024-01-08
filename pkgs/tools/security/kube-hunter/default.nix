@@ -46,11 +46,10 @@ python3.pkgs.buildPythonApplication rec {
 
   pythonImportsCheck = [ "kube_hunter" ];
 
-  disabledTests =
-    [
-      # Test is out-dated
-      "test_K8sCveHunter"
-    ];
+  disabledTests = [
+    # Test is out-dated
+    "test_K8sCveHunter"
+  ];
 
   meta = with lib; {
     description = "Tool to search issues in Kubernetes clusters";

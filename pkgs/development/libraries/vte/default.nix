@@ -44,17 +44,16 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-BVT5+I1Wzi14OY/Mf2m8AOU7u8X2lOCuHcr1KG+J1+Q=";
   };
 
-  patches =
-    [
-      # VTE needs a small patch to work with musl:
-      # https://gitlab.gnome.org/GNOME/vte/issues/72
-      # Taken from https://git.alpinelinux.org/aports/tree/community/vte3
-      (fetchpatch {
-        name = "0001-Add-W_EXITCODE-macro-for-non-glibc-systems.patch";
-        url = "https://git.alpinelinux.org/aports/plain/community/vte3/fix-W_EXITCODE.patch?id=4d35c076ce77bfac7655f60c4c3e4c86933ab7dd";
-        sha256 = "FkVyhsM0mRUzZmS2Gh172oqwcfXv6PyD6IEgjBhy2uU=";
-      })
-    ];
+  patches = [
+    # VTE needs a small patch to work with musl:
+    # https://gitlab.gnome.org/GNOME/vte/issues/72
+    # Taken from https://git.alpinelinux.org/aports/tree/community/vte3
+    (fetchpatch {
+      name = "0001-Add-W_EXITCODE-macro-for-non-glibc-systems.patch";
+      url = "https://git.alpinelinux.org/aports/plain/community/vte3/fix-W_EXITCODE.patch?id=4d35c076ce77bfac7655f60c4c3e4c86933ab7dd";
+      sha256 = "FkVyhsM0mRUzZmS2Gh172oqwcfXv6PyD6IEgjBhy2uU=";
+    })
+  ];
 
   nativeBuildInputs = [
     gettext
@@ -92,12 +91,10 @@ stdenv.mkDerivation rec {
       "-Dgtk3=false"
       "-Dgtk4=true"
     ]
-    ++
-      lib.optionals stdenv.isDarwin
-        [
-          # -Bsymbolic-functions is not supported on darwin
-          "-D_b_symbolic_functions=false"
-        ];
+    ++ lib.optionals stdenv.isDarwin [
+      # -Bsymbolic-functions is not supported on darwin
+      "-D_b_symbolic_functions=false"
+    ];
 
   # error: argument unused during compilation: '-pie' [-Werror,-Wunused-command-line-argument]
   env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.hostPlatform.isMusl "-Wno-unused-command-line-argument";

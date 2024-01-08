@@ -82,11 +82,10 @@ stdenv.mkDerivation rec {
     sha256 = "RUVEGteeN3624KcFAm3HpGiG5GobA020CRKQnagBzqk=";
   };
 
-  patches =
-    [
-      # https://github.com/NixOS/nixpkgs/pull/218143#issuecomment-1501059486
-      ./patches/4.0-fix-darwin-build.patch
-    ];
+  patches = [
+    # https://github.com/NixOS/nixpkgs/pull/218143#issuecomment-1501059486
+    ./patches/4.0-fix-darwin-build.patch
+  ];
 
   depsBuildBuild = [ pkg-config ];
 

@@ -38,11 +38,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-VfI40dfZzNqR5sqTY4KvkYL8+3sLV0Z0u7w+QA34uek=";
   };
 
-  patches =
-    [
-      # Installed tests are installed to different output
-      ./installed-tests-path.patch
-    ];
+  patches = [
+    # Installed tests are installed to different output
+    ./installed-tests-path.patch
+  ];
 
   nativeBuildInputs = [
     meson

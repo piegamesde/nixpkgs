@@ -54,11 +54,10 @@ buildPythonPackage rec {
     sed -i -e "s/>=.*//" requirements.txt
   '';
 
-  disabledTests =
-    [
-      # Integration tests require an account to be set
-      "test_integration"
-    ];
+  disabledTests = [
+    # Integration tests require an account to be set
+    "test_integration"
+  ];
 
   pythonImportsCheck = [ "myfitnesspal" ];
 

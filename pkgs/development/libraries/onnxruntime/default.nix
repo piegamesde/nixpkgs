@@ -41,15 +41,14 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  patches =
-    [
-      # Use dnnl from nixpkgs instead of submodules
-      (fetchpatch {
-        name = "system-dnnl.patch";
-        url = "https://aur.archlinux.org/cgit/aur.git/plain/system-dnnl.diff?h=python-onnxruntime&id=9c392fb542979981fe0026e0fe3cc361a5f00a36";
-        sha256 = "sha256-+kedzJHLFU1vMbKO9cn8fr+9A5+IxIuiqzOfR2AfJ0k=";
-      })
-    ];
+  patches = [
+    # Use dnnl from nixpkgs instead of submodules
+    (fetchpatch {
+      name = "system-dnnl.patch";
+      url = "https://aur.archlinux.org/cgit/aur.git/plain/system-dnnl.diff?h=python-onnxruntime&id=9c392fb542979981fe0026e0fe3cc361a5f00a36";
+      sha256 = "sha256-+kedzJHLFU1vMbKO9cn8fr+9A5+IxIuiqzOfR2AfJ0k=";
+    })
+  ];
 
   nativeBuildInputs =
     [

@@ -48,11 +48,10 @@ lib.fix (
       nss
     ];
 
-    propagatedBuildInputs =
-      [
-        # required by xmlsec/transforms.h
-        libxslt
-      ];
+    propagatedBuildInputs = [
+      # required by xmlsec/transforms.h
+      libxslt
+    ];
 
     enableParallelBuilding = true;
     doCheck = true;

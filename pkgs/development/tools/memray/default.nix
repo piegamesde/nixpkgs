@@ -49,11 +49,10 @@ python3.pkgs.buildPythonApplication rec {
     "test_hybrid_stack_of_allocations_inside_ceval"
   ];
 
-  disabledTestPaths =
-    [
-      # Very time-consuming and some tests fails (performance-related?)
-      "tests/integration/test_main.py"
-    ];
+  disabledTestPaths = [
+    # Very time-consuming and some tests fails (performance-related?)
+    "tests/integration/test_main.py"
+  ];
 
   meta = with lib; {
     description = "Memory profiler for Python";

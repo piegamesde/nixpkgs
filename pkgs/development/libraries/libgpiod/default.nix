@@ -21,12 +21,11 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-gp1KwmjfB4U2CdZ8/H9HbpqnNssqaKYwvpno+tGXvgo=";
   };
 
-  patches =
-    [
-      # cross compiling fix
-      # https://github.com/brgl/libgpiod/pull/45
-      ./0001-Drop-AC_FUNC_MALLOC-and-_REALLOC-and-check-for-them-.patch
-    ];
+  patches = [
+    # cross compiling fix
+    # https://github.com/brgl/libgpiod/pull/45
+    ./0001-Drop-AC_FUNC_MALLOC-and-_REALLOC-and-check-for-them-.patch
+  ];
 
   buildInputs =
     [ kmod ]

@@ -17,15 +17,14 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-I4C2yGiIygnFUkRBC4LBSQFgjZlVKCoQGRphynVpscw=";
   };
 
-  patches =
-    [
-      # By default, gen_vmoptions.sh tries to store custom options in $out/share
-      # at run time. This patch makes sure $HOME is used instead.
-      (substituteAll {
-        src = ./gen_vmoptions_to_homedir.patch;
-        inherit coreutils;
-      })
-    ];
+  patches = [
+    # By default, gen_vmoptions.sh tries to store custom options in $out/share
+    # at run time. This patch makes sure $HOME is used instead.
+    (substituteAll {
+      src = ./gen_vmoptions_to_homedir.patch;
+      inherit coreutils;
+    })
+  ];
 
   nativeBuildInputs = [ makeWrapper ];
   buildInputs = [ jre ];

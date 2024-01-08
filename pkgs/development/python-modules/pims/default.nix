@@ -42,11 +42,10 @@ buildPythonPackage rec {
     "ignore::DeprecationWarning"
   ];
 
-  disabledTests =
-    [
-      # NotImplementedError: Do not know how to deal with infinite readers
-      "TestVideo_ImageIO"
-    ];
+  disabledTests = [
+    # NotImplementedError: Do not know how to deal with infinite readers
+    "TestVideo_ImageIO"
+  ];
 
   meta = with lib; {
     description = "Python Image Sequence: Load video and sequential images in many formats with a simple, consistent interface";

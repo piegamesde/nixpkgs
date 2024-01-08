@@ -31,15 +31,14 @@ buildPythonPackage rec {
     hash = "sha256-5g5xdUzH/RTVwu4Vfb5Cb1t0ruG0EXgiXjrogD/+JCU=";
   };
 
-  patches =
-    [
-      # https://github.com/ArniDagur/python-adblock/pull/91
-      (fetchpatch {
-        name = "pep-621-compat.patch";
-        url = "https://github.com/ArniDagur/python-adblock/commit/2a8716e0723b60390f0aefd0e05f40ba598ac73f.patch";
-        hash = "sha256-n9+LDs0no66OdNZxw3aU57ngWrAbmm6hx4qIuxXoatM=";
-      })
-    ];
+  patches = [
+    # https://github.com/ArniDagur/python-adblock/pull/91
+    (fetchpatch {
+      name = "pep-621-compat.patch";
+      url = "https://github.com/ArniDagur/python-adblock/commit/2a8716e0723b60390f0aefd0e05f40ba598ac73f.patch";
+      hash = "sha256-n9+LDs0no66OdNZxw3aU57ngWrAbmm6hx4qIuxXoatM=";
+    })
+  ];
 
   postPatch = ''
     substituteInPlace pyproject.toml \
@@ -81,11 +80,10 @@ buildPythonPackage rec {
     rm -r adblock
   '';
 
-  disabledTestPaths =
-    [
-      # relies on directory removed above
-      "tests/test_typestubs.py"
-    ];
+  disabledTestPaths = [
+    # relies on directory removed above
+    "tests/test_typestubs.py"
+  ];
 
   pythonImportsCheck = [
     "adblock"

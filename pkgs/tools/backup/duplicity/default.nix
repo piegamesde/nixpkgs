@@ -39,11 +39,10 @@ pythonPackages.buildPythonApplication rec {
       # to make the testing code stop assuming it is run from the source directory.
       ./use-installed-scripts-in-test.patch
     ]
-    ++ lib.optionals stdenv.isLinux
-      [
-        # Broken on Linux in Nix' build environment
-        ./linux-disable-timezone-test.patch
-      ];
+    ++ lib.optionals stdenv.isLinux [
+      # Broken on Linux in Nix' build environment
+      ./linux-disable-timezone-test.patch
+    ];
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 

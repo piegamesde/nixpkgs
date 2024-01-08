@@ -75,11 +75,10 @@ buildGoModule rec {
     hash = "sha256-udvvTdkpL8xvY0iIMBgBFQk5sybpn9vCFFXP0ZqOajM=";
   };
 
-  patches =
-    [
-      # we intentionally don't build and install the helper so we shouldn't display messages to users about it
-      ./rm-podman-mac-helper-msg.patch
-    ];
+  patches = [
+    # we intentionally don't build and install the helper so we shouldn't display messages to users about it
+    ./rm-podman-mac-helper-msg.patch
+  ];
 
   vendorHash = null;
 

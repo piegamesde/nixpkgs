@@ -14,19 +14,17 @@ python3.pkgs.buildPythonPackage rec {
     hash = "sha256-TKRa4PcMd0Jl94XD2WubOhmsxZaUplZeWKsuKz83Rl4=";
   };
 
-  patches =
-    [
-      # replace tcp-latency which is not packaged with icmplib
-      (fetchpatch {
-        url = "https://github.com/LedFx/LedFx/commit/98cd4256846ae3bdae7094eeacb3b02a4807dc6f.patch";
-        excludes =
-          [
-            # only used in win.spec file which is windows specific
-            "hiddenimports.py"
-          ];
-        hash = "sha256-p9fiLdjZI5fe5Qy2xbJIAtblp/7BwUxAvwjHQy5l9nQ=";
-      })
-    ];
+  patches = [
+    # replace tcp-latency which is not packaged with icmplib
+    (fetchpatch {
+      url = "https://github.com/LedFx/LedFx/commit/98cd4256846ae3bdae7094eeacb3b02a4807dc6f.patch";
+      excludes = [
+        # only used in win.spec file which is windows specific
+        "hiddenimports.py"
+      ];
+      hash = "sha256-p9fiLdjZI5fe5Qy2xbJIAtblp/7BwUxAvwjHQy5l9nQ=";
+    })
+  ];
 
   postPatch = ''
     substituteInPlace setup.py \

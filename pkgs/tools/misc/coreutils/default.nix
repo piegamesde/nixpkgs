@@ -52,12 +52,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-YaH0ENeLp+fzelpPUObRMgrKMzdUhKMlXt3xejhYBCM=";
   };
 
-  patches =
-    lib.optionals (stdenv.isDarwin && stdenv.isx86_64)
-      [
-        # Workaround for https://debbugs.gnu.org/cgi/bugreport.cgi?bug=51433
-        ./disable-seek-hole.patch
-      ];
+  patches = lib.optionals (stdenv.isDarwin && stdenv.isx86_64) [
+    # Workaround for https://debbugs.gnu.org/cgi/bugreport.cgi?bug=51433
+    ./disable-seek-hole.patch
+  ];
 
   postPatch =
     ''
@@ -121,11 +119,10 @@ stdenv.mkDerivation rec {
       perl
       xz.bin
     ]
-    ++ optionals stdenv.hostPlatform.isCygwin
-      [
-        # due to patch
-        texinfo
-      ];
+    ++ optionals stdenv.hostPlatform.isCygwin [
+      # due to patch
+      texinfo
+    ];
 
   buildInputs =
     [ ]
@@ -151,13 +148,11 @@ stdenv.mkDerivation rec {
     # the shipped configure script doesn't enable nls, but using autoreconfHook
     # does so which breaks the build
     ++ optional stdenv.isDarwin "--disable-nls"
-    ++
-      optionals (isCross && stdenv.hostPlatform.libc == "glibc")
-        [
-          # TODO(19b98110126fde7cbb1127af7e3fe1568eacad3d): Needed for fstatfs() I
-          # don't know why it is not properly detected cross building with glibc.
-          "fu_cv_sys_stat_statfs2_bsize=yes"
-        ]
+    ++ optionals (isCross && stdenv.hostPlatform.libc == "glibc") [
+      # TODO(19b98110126fde7cbb1127af7e3fe1568eacad3d): Needed for fstatfs() I
+      # don't know why it is not properly detected cross building with glibc.
+      "fu_cv_sys_stat_statfs2_bsize=yes"
+    ]
     # /proc/uptime is available on Linux and produces accurate results even if
     # the boot time is set to the epoch because the system has no RTC. We
     # explicitly enable it for cases where it can't be detected automatically,

@@ -49,11 +49,10 @@ stdenv.mkDerivation rec {
     python3.pkgs.pygobject3
   ];
 
-  propagatedBuildInputs =
-    [
-      # Required by libpeas-1.0.pc
-      gobject-introspection
-    ];
+  propagatedBuildInputs = [
+    # Required by libpeas-1.0.pc
+    gobject-introspection
+  ];
 
   mesonFlags = [ "-Dgtk_doc=true" ];
 

@@ -19,14 +19,13 @@ buildGoModule rec {
   deleteVendor = true;
   vendorHash = "sha256-LhkOMCuYO4GHezk21SlI2dP1UPmBp4bv2SdNbUQMKsI=";
 
-  patches =
-    [
-      # Add Go Modules support
-      (fetchpatch {
-        url = "https://github.com/sgreben/yeetgif/commit/5d2067b9832898c2b1ac51bf6a5f107619038270.patch";
-        hash = "sha256-3eyqbpPyuQHjAN5mjQyZo0xY6L683T5Ytyx02II/iU4=";
-      })
-    ];
+  patches = [
+    # Add Go Modules support
+    (fetchpatch {
+      url = "https://github.com/sgreben/yeetgif/commit/5d2067b9832898c2b1ac51bf6a5f107619038270.patch";
+      hash = "sha256-3eyqbpPyuQHjAN5mjQyZo0xY6L683T5Ytyx02II/iU4=";
+    })
+  ];
 
   ldflags = [
     "-s"

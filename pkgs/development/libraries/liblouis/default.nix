@@ -45,19 +45,17 @@ stdenv.mkDerivation (
       help2man
     ];
 
-    buildInputs =
-      [
-        # lou_checkYaml
-        libyaml
-      ];
+    buildInputs = [
+      # lou_checkYaml
+      libyaml
+    ];
 
     nativeCheckInputs = [ perl ];
 
-    configureFlags =
-      [
-        # Required by Python bindings
-        "--enable-ucs4"
-      ];
+    configureFlags = [
+      # Required by Python bindings
+      "--enable-ucs4"
+    ];
 
     postPatch = ''
       patchShebangs tests

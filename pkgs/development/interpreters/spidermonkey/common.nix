@@ -70,12 +70,10 @@ stdenv.mkDerivation (
         ./always-check-for-pkg-config.patch
         ./allow-system-s-nspr-and-icu-on-bootstrapped-sysroot.patch
       ]
-      ++
-        lib.optionals (lib.versionAtLeast version "91" && stdenv.hostPlatform.system == "i686-linux")
-          [
-            # Fixes i686 build, https://bugzilla.mozilla.org/show_bug.cgi?id=1729459
-            ./fix-float-i686.patch
-          ];
+      ++ lib.optionals (lib.versionAtLeast version "91" && stdenv.hostPlatform.system == "i686-linux") [
+        # Fixes i686 build, https://bugzilla.mozilla.org/show_bug.cgi?id=1729459
+        ./fix-float-i686.patch
+      ];
 
     nativeBuildInputs =
       [

@@ -50,11 +50,10 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  disabledTestPaths =
-    [
-      # faraday itself is currently not available
-      "tests/test_report_collection.py"
-    ];
+  disabledTestPaths = [
+    # faraday itself is currently not available
+    "tests/test_report_collection.py"
+  ];
 
   disabledTests = [
     # Fail because of missing faraday

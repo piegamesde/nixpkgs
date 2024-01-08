@@ -283,11 +283,10 @@ in
       md5
       usocket
     ];
-    parasites =
-      [
-        # Needs pomo? Wants to do queries unconditionally?
-        # "simple-date/tests"
-      ];
+    parasites = [
+      # Needs pomo? Wants to do queries unconditionally?
+      # "simple-date/tests"
+    ];
   };
   cl-postgres = x: {
     deps = pkgs.lib.filter (x: x.outPath != quicklisp-to-nix-packages.simple-date.outPath) x.deps;

@@ -17,11 +17,10 @@ rustPlatform.buildRustPackage rec {
     hash = "sha256-V//tVcIzhCh03VjwMC+R2ynaOFm+dp6qxa0oqBfvGUs=";
   };
 
-  cargoPatches =
-    [
-      # Remove when new version of mdzk is released.
-      ./update-mdbook-for-rust-1.64.patch
-    ];
+  cargoPatches = [
+    # Remove when new version of mdzk is released.
+    ./update-mdbook-for-rust-1.64.patch
+  ];
 
   cargoHash = "sha256-5zGUBvmf68tCk5jGrNn+ukgYbiKzrlmZvWrYgoJf2zk=";
 

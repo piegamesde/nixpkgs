@@ -35,11 +35,10 @@ stdenv.mkDerivation rec {
     hash = "sha256-QQ3tZaEHKrnI5Brd7Te5cpwIf+9NLbArtO9SmtbaRpM=";
   };
 
-  patches =
-    [
-      # Allow reading tokens from a relative path, see #167994
-      ./relative-token-path.patch
-    ];
+  patches = [
+    # Allow reading tokens from a relative path, see #167994
+    ./relative-token-path.patch
+  ];
 
   postPatch = ''
     patchShebangs tests

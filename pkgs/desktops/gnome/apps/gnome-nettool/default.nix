@@ -29,15 +29,14 @@ stdenv.mkDerivation rec {
     sha256 = "pU8p7vIDiu5pVRyLGcpPdY5eueIJCkvGtWM9/wGIdR8=";
   };
 
-  patches =
-    [
-      # Fix build with meson 0.61
-      # https://gitlab.gnome.org/GNOME/gnome-nettool/-/merge_requests/3
-      (fetchpatch {
-        url = "https://gitlab.gnome.org/GNOME/gnome-nettool/-/commit/1124c3e1fdb8472d30b7636500229aa16cdc1244.patch";
-        sha256 = "fbpfL8Xb1GsadpQzAdmu8FSPs++bsGCVdcwnzQWttGY=";
-      })
-    ];
+  patches = [
+    # Fix build with meson 0.61
+    # https://gitlab.gnome.org/GNOME/gnome-nettool/-/merge_requests/3
+    (fetchpatch {
+      url = "https://gitlab.gnome.org/GNOME/gnome-nettool/-/commit/1124c3e1fdb8472d30b7636500229aa16cdc1244.patch";
+      sha256 = "fbpfL8Xb1GsadpQzAdmu8FSPs++bsGCVdcwnzQWttGY=";
+    })
+  ];
 
   nativeBuildInputs = [
     desktop-file-utils

@@ -58,12 +58,11 @@ stdenv.mkDerivation rec {
     ln -rs $out/bin/scp $out/bin/dbscp
   '';
 
-  patches =
-    [
-      # Allow sessions to inherit the PATH from the parent dropbear.
-      # Otherwise they only get the usual /bin:/usr/bin kind of PATH
-      ./pass-path.patch
-    ];
+  patches = [
+    # Allow sessions to inherit the PATH from the parent dropbear.
+    # Otherwise they only get the usual /bin:/usr/bin kind of PATH
+    ./pass-path.patch
+  ];
 
   buildInputs =
     [

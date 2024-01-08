@@ -20,16 +20,15 @@ stdenv.mkDerivation rec {
     stripRoot = false;
   };
 
-  patches =
-    [
-      # Pull patch pending upstream inclusion for -fno-common toolchains:
-      #  https://sourceforge.net/p/flasm/patches/2/
-      (fetchpatch {
-        name = "fno-common.patch";
-        url = "https://sourceforge.net/p/flasm/patches/2/attachment/0001-flasm-fix-build-on-gcc-10-fno-common.patch";
-        sha256 = "0ic7k1mmyvhpnxam89dbg8i9bfzk70zslfdxgpmkszx097bj1hv6";
-      })
-    ];
+  patches = [
+    # Pull patch pending upstream inclusion for -fno-common toolchains:
+    #  https://sourceforge.net/p/flasm/patches/2/
+    (fetchpatch {
+      name = "fno-common.patch";
+      url = "https://sourceforge.net/p/flasm/patches/2/attachment/0001-flasm-fix-build-on-gcc-10-fno-common.patch";
+      sha256 = "0ic7k1mmyvhpnxam89dbg8i9bfzk70zslfdxgpmkszx097bj1hv6";
+    })
+  ];
 
   makeFlags = [ "CC=${stdenv.cc.targetPrefix}cc" ];
 

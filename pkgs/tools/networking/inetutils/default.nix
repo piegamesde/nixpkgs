@@ -23,11 +23,10 @@ stdenv.mkDerivation rec {
     "apparmor"
   ];
 
-  patches =
-    [
-      # https://git.congatec.com/yocto/meta-openembedded/commit/3402bfac6b595c622e4590a8ff5eaaa854e2a2a3
-      ./inetutils-1_9-PATH_PROCNET_DEV.patch
-    ];
+  patches = [
+    # https://git.congatec.com/yocto/meta-openembedded/commit/3402bfac6b595c622e4590a8ff5eaaa854e2a2a3
+    ./inetutils-1_9-PATH_PROCNET_DEV.patch
+  ];
 
   strictDeps = true;
   nativeBuildInputs = [

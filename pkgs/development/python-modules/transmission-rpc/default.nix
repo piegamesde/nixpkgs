@@ -42,11 +42,10 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "transmission_rpc" ];
 
-  disabledTests =
-    [
-      # Tests require a running Transmission instance
-      "test_real"
-    ];
+  disabledTests = [
+    # Tests require a running Transmission instance
+    "test_real"
+  ];
 
   meta = with lib; {
     description = "Python module that implements the Transmission bittorent client RPC protocol";

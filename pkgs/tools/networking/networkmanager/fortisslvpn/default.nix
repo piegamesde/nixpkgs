@@ -67,12 +67,11 @@ stdenv.mkDerivation rec {
     "--enable-absolute-paths"
   ];
 
-  installFlags =
-    [
-      # the installer only creates an empty directory in localstatedir, so
-      # we can drop it
-      "localstatedir=."
-    ];
+  installFlags = [
+    # the installer only creates an empty directory in localstatedir, so
+    # we can drop it
+    "localstatedir=."
+  ];
 
   passthru = {
     updateScript = gnome.updateScript {

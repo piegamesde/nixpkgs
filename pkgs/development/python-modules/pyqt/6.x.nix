@@ -37,15 +37,14 @@ buildPythonPackage rec {
     hash = "sha256-uXy0vpssiZeQTqZozzsKSuWCIZb3eSWQ0F7N5iFqn7w=";
   };
 
-  patches =
-    [
-      # Fix some wrong assumptions by ./project.py
-      # TODO: figure out how to send this upstream
-      # FIXME: make a version for PyQt6?
-      # ./pyqt5-fix-dbus-mainloop-support.patch
-      # confirm license when installing via pyqt6_sip
-      ./pyqt5-confirm-license.patch
-    ];
+  patches = [
+    # Fix some wrong assumptions by ./project.py
+    # TODO: figure out how to send this upstream
+    # FIXME: make a version for PyQt6?
+    # ./pyqt5-fix-dbus-mainloop-support.patch
+    # confirm license when installing via pyqt6_sip
+    ./pyqt5-confirm-license.patch
+  ];
 
   # be more verbose
   postPatch = ''

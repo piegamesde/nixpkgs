@@ -39,11 +39,10 @@ buildPythonPackage rec {
     pytest-asyncio
   ];
 
-  disabledTests =
-    [
-      # Test requires credentials
-      "test_list_clusters"
-    ];
+  disabledTests = [
+    # Test requires credentials
+    "test_list_clusters"
+  ];
 
   pythonImportsCheck = [
     "google.cloud.dataproc"

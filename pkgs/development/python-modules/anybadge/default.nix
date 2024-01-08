@@ -32,17 +32,15 @@ buildPythonPackage rec {
     requests
   ];
 
-  disabledTests =
-    [
-      # Comparison of CLI output fails
-      "test_module_same_output_as_main_cli"
-    ];
+  disabledTests = [
+    # Comparison of CLI output fails
+    "test_module_same_output_as_main_cli"
+  ];
 
-  disabledTestPaths =
-    [
-      # No anybadge-server
-      "tests/test_server.py"
-    ];
+  disabledTestPaths = [
+    # No anybadge-server
+    "tests/test_server.py"
+  ];
 
   pythonImportsCheck = [ "anybadge" ];
 

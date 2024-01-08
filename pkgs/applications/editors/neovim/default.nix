@@ -87,13 +87,12 @@ stdenv.mkDerivation rec {
     hash = "sha256-4uCPWnjSMU7ac6Q3LT+Em8lVk1MuSegxHMLGQRtFqAs=";
   };
 
-  patches =
-    [
-      # introduce a system-wide rplugin.vim in addition to the user one
-      # necessary so that nix can handle `UpdateRemotePlugins` for the plugins
-      # it installs. See https://github.com/neovim/neovim/issues/9413.
-      ./system_rplugin_manifest.patch
-    ];
+  patches = [
+    # introduce a system-wide rplugin.vim in addition to the user one
+    # necessary so that nix can handle `UpdateRemotePlugins` for the plugins
+    # it installs. See https://github.com/neovim/neovim/issues/9413.
+    ./system_rplugin_manifest.patch
+  ];
 
   dontFixCmake = true;
 
@@ -153,15 +152,13 @@ stdenv.mkDerivation rec {
   # check that the above patching actually works
   disallowedReferences = [ stdenv.cc ] ++ lib.optional (lua != codegenLua) codegenLua;
 
-  cmakeFlags =
-    [
-      # Don't use downloaded dependencies. At the end of the configurePhase one
-      # can spot that cmake says this option was "not used by the project".
-      # That's because all dependencies were found and
-      # third-party/CMakeLists.txt is not read at all.
-      "-DUSE_BUNDLED=OFF"
-    ]
-    ++ lib.optional (!lua.pkgs.isLuaJIT) "-DPREFER_LUA=ON";
+  cmakeFlags = [
+    # Don't use downloaded dependencies. At the end of the configurePhase one
+    # can spot that cmake says this option was "not used by the project".
+    # That's because all dependencies were found and
+    # third-party/CMakeLists.txt is not read at all.
+    "-DUSE_BUNDLED=OFF"
+  ] ++ lib.optional (!lua.pkgs.isLuaJIT) "-DPREFER_LUA=ON";
 
   preConfigure =
     lib.optionalString lua.pkgs.isLuaJIT ''

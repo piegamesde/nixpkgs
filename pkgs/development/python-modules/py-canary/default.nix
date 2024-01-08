@@ -36,11 +36,10 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "canary" ];
 
-  disabledTests =
-    [
-      # Test requires network access
-      "test_location_with_motion_entry"
-    ];
+  disabledTests = [
+    # Test requires network access
+    "test_location_with_motion_entry"
+  ];
 
   meta = with lib; {
     description = "Python package for Canary Security Camera";

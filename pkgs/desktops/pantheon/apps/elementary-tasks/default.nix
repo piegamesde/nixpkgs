@@ -33,15 +33,14 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-b8KUlfpZxRFDiBjgrV/4XicCcEw2fWaN78NaOq6jQBk=";
   };
 
-  patches =
-    [
-      # Port to libsoup 3
-      # https://github.com/elementary/tasks/pull/345
-      (fetchpatch {
-        url = "https://github.com/elementary/tasks/commit/22e0d18693932e9eea3d2a22329f845575ce26e6.patch";
-        sha256 = "sha256-nLJlKf4L7G12ZnCo4wezyMRyeAf+Tf0OGHyT8I1ZuDA=";
-      })
-    ];
+  patches = [
+    # Port to libsoup 3
+    # https://github.com/elementary/tasks/pull/345
+    (fetchpatch {
+      url = "https://github.com/elementary/tasks/commit/22e0d18693932e9eea3d2a22329f845575ce26e6.patch";
+      sha256 = "sha256-nLJlKf4L7G12ZnCo4wezyMRyeAf+Tf0OGHyT8I1ZuDA=";
+    })
+  ];
 
   nativeBuildInputs = [
     meson

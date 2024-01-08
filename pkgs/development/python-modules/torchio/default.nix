@@ -53,11 +53,10 @@ buildPythonPackage rec {
       # tries to download models:
       "test_load_all"
     ]
-    ++ lib.optionals stdenv.isAarch64
-      [
-        # RuntimeError: DataLoader worker (pid(s) <...>) exited unexpectedly
-        "test_queue_multiprocessing"
-      ];
+    ++ lib.optionals stdenv.isAarch64 [
+      # RuntimeError: DataLoader worker (pid(s) <...>) exited unexpectedly
+      "test_queue_multiprocessing"
+    ];
   pythonImportsCheck = [
     "torchio"
     "torchio.data"

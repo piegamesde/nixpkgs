@@ -28,24 +28,23 @@ stdenv.mkDerivation rec {
 
   configureFlags = lib.optionals withGmp [ "--with-gmp" ];
 
-  patches =
-    [
-      # GLPK makes it possible to customize its message printing behaviour. Sage
-      # does that and needs to differentiate between printing regular messages and
-      # printing errors. Unfortunately there is no way to tell and glpk upstream
-      # rejected this patch. All it does is set the variable pointing to the error
-      # file back to NULL before glpk calls abort(). In sage's case, abort won't
-      # actually be called because the error handler jumps out of the function.
-      # This shouldn't affect everybody else, since glpk just calls abort()
-      # immediately afterwards anyways.
-      # See the sage trac ticket for more details:
-      # https://trac.sagemath.org/ticket/20710#comment:18
-      (fetchpatch {
-        name = "error_recovery.patch";
-        url = "https://git.sagemath.org/sage.git/plain/build/pkgs/glpk/patches/error_recovery.patch?id=d3c1f607e32f964bf0cab877a63767c86fd00266";
-        sha256 = "sha256-2hNtUEoGTFt3JgUvLH3tPWnz+DZcXNhjXzS+/V89toA=";
-      })
-    ];
+  patches = [
+    # GLPK makes it possible to customize its message printing behaviour. Sage
+    # does that and needs to differentiate between printing regular messages and
+    # printing errors. Unfortunately there is no way to tell and glpk upstream
+    # rejected this patch. All it does is set the variable pointing to the error
+    # file back to NULL before glpk calls abort(). In sage's case, abort won't
+    # actually be called because the error handler jumps out of the function.
+    # This shouldn't affect everybody else, since glpk just calls abort()
+    # immediately afterwards anyways.
+    # See the sage trac ticket for more details:
+    # https://trac.sagemath.org/ticket/20710#comment:18
+    (fetchpatch {
+      name = "error_recovery.patch";
+      url = "https://git.sagemath.org/sage.git/plain/build/pkgs/glpk/patches/error_recovery.patch?id=d3c1f607e32f964bf0cab877a63767c86fd00266";
+      sha256 = "sha256-2hNtUEoGTFt3JgUvLH3tPWnz+DZcXNhjXzS+/V89toA=";
+    })
+  ];
 
   postPatch =
     # Do not hardcode the include path for libmysqlclient.

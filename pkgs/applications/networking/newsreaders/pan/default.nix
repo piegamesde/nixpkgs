@@ -29,11 +29,10 @@ stdenv.mkDerivation rec {
     sha256 = "17agd27sn4a7nahvkpg0w39kv74njgdrrygs74bbvpaj8rk2hb55";
   };
 
-  patches =
-    [
-      # Take <glib.h>, <gmime.h>, "gtk-compat.h" out of extern "C"
-      ./move-out-of-extern-c.diff
-    ];
+  patches = [
+    # Take <glib.h>, <gmime.h>, "gtk-compat.h" out of extern "C"
+    ./move-out-of-extern-c.diff
+  ];
 
   nativeBuildInputs = [
     pkg-config

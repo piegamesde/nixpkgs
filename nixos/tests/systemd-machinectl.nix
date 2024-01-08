@@ -49,11 +49,10 @@ import ./make-test-python.nix (
         systemd.nspawn.${containerName} = { };
 
         systemd.services."systemd-nspawn@${containerName}" = {
-          serviceConfig.Environment =
-            [
-              # Disable tmpfs for /tmp
-              "SYSTEMD_NSPAWN_TMPFS_TMP=0"
-            ];
+          serviceConfig.Environment = [
+            # Disable tmpfs for /tmp
+            "SYSTEMD_NSPAWN_TMPFS_TMP=0"
+          ];
           overrideStrategy = "asDropin";
         };
       };

@@ -19,13 +19,12 @@ buildPythonPackage rec {
     hash = "sha256-FvV7TMc4JbOiRjWLka0IhtpGGqGm5fis7h870OmJw2U=";
   };
 
-  patches =
-    [
-      # python: enum: fix build for Python 3.11
-      # https://github.com/mchehab/zbar/pull/231
-      # the patch is reworked as it does not cleanly apply
-      ./0001-python-enum-fix-build-for-Python-3.11.patch
-    ];
+  patches = [
+    # python: enum: fix build for Python 3.11
+    # https://github.com/mchehab/zbar/pull/231
+    # the patch is reworked as it does not cleanly apply
+    ./0001-python-enum-fix-build-for-Python-3.11.patch
+  ];
 
   propagatedBuildInputs = [ pillow ];
 

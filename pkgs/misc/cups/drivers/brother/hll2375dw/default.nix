@@ -49,15 +49,14 @@ stdenv.mkDerivation rec {
 
   unpackPhase = "dpkg-deb -x $src .";
 
-  patches =
-    [
-      # The brother lpdwrapper uses a temporary file to convey the printer settings.
-      # The original settings file will be copied with "400" permissions and the "brprintconflsr3"
-      # binary cannot alter the temporary file later on. This fixes the permissions so the can be modified.
-      # Since this is all in briefly in the temporary directory of systemd-cups and not accessible by others,
-      # it shouldn't be a security concern.
-      ./fix-perm.patch
-    ];
+  patches = [
+    # The brother lpdwrapper uses a temporary file to convey the printer settings.
+    # The original settings file will be copied with "400" permissions and the "brprintconflsr3"
+    # binary cannot alter the temporary file later on. This fixes the permissions so the can be modified.
+    # Since this is all in briefly in the temporary directory of systemd-cups and not accessible by others,
+    # it shouldn't be a security concern.
+    ./fix-perm.patch
+  ];
 
   installPhase =
     ''

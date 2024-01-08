@@ -50,14 +50,13 @@ stdenv.mkDerivation rec {
   ];
 
   # Patch to support cross-compilation, see https://github.com/nyyManni/dmenu-wayland/pull/23/
-  patches =
-    [
-      # can be removed when https://github.com/nyyManni/dmenu-wayland/pull/23 is included
-      (fetchpatch {
-        url = "https://github.com/nyyManni/dmenu-wayland/commit/3434410de5dcb007539495395f7dc5421923dd3a.patch";
-        sha256 = "sha256-im16kU8RWrCY0btYOYjDp8XtfGEivemIPlhwPX0C77o=";
-      })
-    ];
+  patches = [
+    # can be removed when https://github.com/nyyManni/dmenu-wayland/pull/23 is included
+    (fetchpatch {
+      url = "https://github.com/nyyManni/dmenu-wayland/commit/3434410de5dcb007539495395f7dc5421923dd3a.patch";
+      sha256 = "sha256-im16kU8RWrCY0btYOYjDp8XtfGEivemIPlhwPX0C77o=";
+    })
+  ];
 
   postInstall = ''
     wrapProgram $out/bin/dmenu-wl_run \

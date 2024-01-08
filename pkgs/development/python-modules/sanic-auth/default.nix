@@ -24,11 +24,10 @@ buildPythonPackage rec {
     sanic-testing
   ];
 
-  disabledTests =
-    [
-      # incompatible with sanic>=22.3.0
-      "test_login_required"
-    ];
+  disabledTests = [
+    # incompatible with sanic>=22.3.0
+    "test_login_required"
+  ];
 
   postPatch = ''
     # Support for httpx>=0.20.0

@@ -32,23 +32,21 @@ buildPythonPackage rec {
   };
 
   patches =
-    lib.optionals stdenv.isLinux
-      [
-        # hardcode paths to aplay and notify-send
-        (substituteAll {
-          src = ./linux-paths.patch;
-          aplay = "${alsa-utils}/bin/aplay";
-          notifysend = "${libnotify}/bin/notify-send";
-        })
-      ]
-    ++ lib.optionals stdenv.isDarwin
-      [
-        # hardcode path to which
-        (substituteAll {
-          src = ./darwin-paths.patch;
-          which = "${which}/bin/which";
-        })
-      ];
+    lib.optionals stdenv.isLinux [
+      # hardcode paths to aplay and notify-send
+      (substituteAll {
+        src = ./linux-paths.patch;
+        aplay = "${alsa-utils}/bin/aplay";
+        notifysend = "${libnotify}/bin/notify-send";
+      })
+    ]
+    ++ lib.optionals stdenv.isDarwin [
+      # hardcode path to which
+      (substituteAll {
+        src = ./darwin-paths.patch;
+        which = "${which}/bin/which";
+      })
+    ];
 
   nativeBuildInputs = [
     poetry-core

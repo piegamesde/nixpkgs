@@ -12578,11 +12578,10 @@
     matrix = "@reckenrode:matrix.org";
     github = "reckenrode";
     githubId = 7413633;
-    keys =
-      [
-        # compare with https://keybase.io/reckenrode
-        { fingerprint = "01D7 5486 3A6D 64EA AC77 0D26 FBF1 9A98 2CCE 0048"; }
-      ];
+    keys = [
+      # compare with https://keybase.io/reckenrode
+      { fingerprint = "01D7 5486 3A6D 64EA AC77 0D26 FBF1 9A98 2CCE 0048"; }
+    ];
   };
   redbaron = {
     email = "ivanov.maxim@gmail.com";

@@ -42,12 +42,10 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  env.NIX_CFLAGS_COMPILE =
-    toString
-      [
-        # Needed with GCC 12
-        "-Wno-error=deprecated-declarations"
-      ];
+  env.NIX_CFLAGS_COMPILE = toString [
+    # Needed with GCC 12
+    "-Wno-error=deprecated-declarations"
+  ];
 
   postInstall = ''
     mkdir $out/bin

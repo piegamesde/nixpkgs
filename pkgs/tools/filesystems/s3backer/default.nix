@@ -20,12 +20,11 @@ stdenv.mkDerivation rec {
     owner = "archiecobbs";
   };
 
-  patches =
-    [
-      # from upstream, after latest release
-      # https://github.com/archiecobbs/s3backer/commit/303a669356fa7cd6bc95ac7076ce51b1cab3970a
-      ./fix-darwin-builds.patch
-    ];
+  patches = [
+    # from upstream, after latest release
+    # https://github.com/archiecobbs/s3backer/commit/303a669356fa7cd6bc95ac7076ce51b1cab3970a
+    ./fix-darwin-builds.patch
+  ];
 
   nativeBuildInputs = [
     autoreconfHook

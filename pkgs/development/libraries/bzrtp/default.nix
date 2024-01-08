@@ -32,12 +32,10 @@ stdenv.mkDerivation rec {
     "-DCMAKE_C_FLAGS=-Wno-error=cast-function-type"
   ];
 
-  env.NIX_CFLAGS_COMPILE =
-    toString
-      [
-        # Needed with GCC 12
-        "-Wno-error=stringop-overflow"
-      ];
+  env.NIX_CFLAGS_COMPILE = toString [
+    # Needed with GCC 12
+    "-Wno-error=stringop-overflow"
+  ];
 
   meta = with lib; {
     description = "An opensource implementation of ZRTP keys exchange protocol. Part of the Linphone project.";

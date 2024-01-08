@@ -21,15 +21,13 @@ buildPythonPackage rec {
     hash = "sha256-zSLRugaUE4RBDNln2KmdWuJEL1ffr+/y/aXejcXAVEY=";
   };
 
-  patches =
-    lib.optionals (pythonAtLeast "3.10")
-      [
-        # Staticmethods in 3.10+ are now callable, prevent freezegun to attempt to decorate them
-        (fetchpatch {
-          url = "https://github.com/spulec/freezegun/pull/397/commits/e63874ce75a74a1159390914045fe8e7955b24c4.patch";
-          hash = "sha256-FNABqVN5DFqVUR88lYzwbfsZj3xcB9/MvQtm+I2VjnI=";
-        })
-      ];
+  patches = lib.optionals (pythonAtLeast "3.10") [
+    # Staticmethods in 3.10+ are now callable, prevent freezegun to attempt to decorate them
+    (fetchpatch {
+      url = "https://github.com/spulec/freezegun/pull/397/commits/e63874ce75a74a1159390914045fe8e7955b24c4.patch";
+      hash = "sha256-FNABqVN5DFqVUR88lYzwbfsZj3xcB9/MvQtm+I2VjnI=";
+    })
+  ];
 
   propagatedBuildInputs = [ python-dateutil ];
 

@@ -1389,16 +1389,14 @@ lib.composeManyExtensions [
         if lib.versionOlder super.molecule.version "3.0.0" then
           (super.molecule.overridePythonAttrs (
             old: {
-              patches =
-                (old.patches or [ ])
-                ++ [
-                  # Fix build with more recent setuptools versions
-                  (pkgs.fetchpatch {
-                    url = "https://github.com/ansible-community/molecule/commit/c9fee498646a702c77b5aecf6497cff324acd056.patch";
-                    sha256 = "1g1n45izdz0a3c9akgxx14zhdw6c3dkb48j8pq64n82fa6ndl1b7";
-                    excludes = [ "pyproject.toml" ];
-                  })
-                ];
+              patches = (old.patches or [ ]) ++ [
+                # Fix build with more recent setuptools versions
+                (pkgs.fetchpatch {
+                  url = "https://github.com/ansible-community/molecule/commit/c9fee498646a702c77b5aecf6497cff324acd056.patch";
+                  sha256 = "1g1n45izdz0a3c9akgxx14zhdw6c3dkb48j8pq64n82fa6ndl1b7";
+                  excludes = [ "pyproject.toml" ];
+                })
+              ];
               buildInputs = (old.buildInputs or [ ]) ++ [
                 self.setuptools
                 self.setuptools-scm

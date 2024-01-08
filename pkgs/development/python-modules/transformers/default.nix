@@ -51,13 +51,12 @@ buildPythonPackage rec {
   ] ++ lib.optionals (pythonOlder "3.8") [ importlib-metadata ];
 
   passthru.optional-dependencies = {
-    ja =
-      [
-        # fugashi
-        # ipadic
-        # unidic_lite
-        # unidic
-      ];
+    ja = [
+      # fugashi
+      # ipadic
+      # unidic_lite
+      # unidic
+    ];
     sklearn = [ scikit-learn ];
     tf = [
       tensorflow
@@ -69,11 +68,10 @@ buildPythonPackage rec {
     modelcreation = [ cookiecutter ];
     sagemaker = [ sagemaker ];
     ftfy = [ ftfy ];
-    onnx =
-      [
-        # onnxconverter-common
-        # tf2onnx
-      ];
+    onnx = [
+      # onnxconverter-common
+      # tf2onnx
+    ];
     vision = [ pillow ];
   };
 

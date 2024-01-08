@@ -248,19 +248,16 @@ stdenv.mkDerivation rec {
       "-DQT_FEATURE_journald=${if systemdSupport then "ON" else "OFF"}"
       "-DQT_FEATURE_vulkan=ON"
     ]
-    ++
-      lib.optionals stdenv.isDarwin
-        [
-          # error: 'path' is unavailable: introduced in macOS 10.15
-          "-DQT_FEATURE_cxx17_filesystem=OFF"
-        ];
+    ++ lib.optionals stdenv.isDarwin [
+      # error: 'path' is unavailable: introduced in macOS 10.15
+      "-DQT_FEATURE_cxx17_filesystem=OFF"
+    ];
 
   NIX_LDFLAGS = toString (
-    lib.optionals stdenv.isDarwin
-      [
-        # Undefined symbols for architecture arm64: "___gss_c_nt_hostbased_service_oid_desc"
-        "-framework GSS"
-      ]
+    lib.optionals stdenv.isDarwin [
+      # Undefined symbols for architecture arm64: "___gss_c_nt_hostbased_service_oid_desc"
+      "-framework GSS"
+    ]
   );
 
   outputs = [

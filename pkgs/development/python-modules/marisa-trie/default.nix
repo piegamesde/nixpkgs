@@ -34,11 +34,10 @@ buildPythonPackage rec {
     ./update_cpp.sh
   '';
 
-  disabledTestPaths =
-    [
-      # Don't test packaging
-      "tests/test_packaging.py"
-    ];
+  disabledTestPaths = [
+    # Don't test packaging
+    "tests/test_packaging.py"
+  ];
 
   disabledTests = [
     # Pins hypothesis==2.0.0 from 2016/01 which complains about

@@ -24,25 +24,24 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-MczOYCAEcnAAO/tbDafirUMohMI9PNUJyG9HzzpeXSo=";
   };
 
-  patches =
-    [
-      # Use GNUInstallDirs (https://github.com/pocoproject/poco/pull/3503)
-      (fetchpatch {
-        name = "use-gnuinstalldirs.patch";
-        url = "https://github.com/pocoproject/poco/commit/16a2a74f6c28c6e6baca2ba26b4964b51d8a1b74.patch";
-        sha256 = "sha256-mkemG8UemJEUQxae1trKakhnJFJW0AufDYFAbmnINbY=";
-        # Files not included in release tarball
-        excludes = [
-          "Encodings/Compiler/CMakeLists.txt"
-          "PocoDoc/CMakeLists.txt"
-          "NetSSL_Win/CMakeLists.txt"
-          "PDF/CMakeLists.txt"
-          "SevenZip/CMakeLists.txt"
-          "ApacheConnector/CMakeLists.txt"
-          "CppParser/CMakeLists.txt"
-        ];
-      })
-    ];
+  patches = [
+    # Use GNUInstallDirs (https://github.com/pocoproject/poco/pull/3503)
+    (fetchpatch {
+      name = "use-gnuinstalldirs.patch";
+      url = "https://github.com/pocoproject/poco/commit/16a2a74f6c28c6e6baca2ba26b4964b51d8a1b74.patch";
+      sha256 = "sha256-mkemG8UemJEUQxae1trKakhnJFJW0AufDYFAbmnINbY=";
+      # Files not included in release tarball
+      excludes = [
+        "Encodings/Compiler/CMakeLists.txt"
+        "PocoDoc/CMakeLists.txt"
+        "NetSSL_Win/CMakeLists.txt"
+        "PDF/CMakeLists.txt"
+        "SevenZip/CMakeLists.txt"
+        "ApacheConnector/CMakeLists.txt"
+        "CppParser/CMakeLists.txt"
+      ];
+    })
+  ];
 
   nativeBuildInputs = [
     cmake

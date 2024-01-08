@@ -48,11 +48,10 @@ stdenv.mkDerivation rec {
     sha256 = "dAdjGie/5dG2cueuQndwAcEF2GC3tzkig8jGMA3ojm8=";
   };
 
-  patches =
-    [
-      # Put installed tests into its own output
-      ./installed-tests-path.patch
-    ];
+  patches = [
+    # Put installed tests into its own output
+    ./installed-tests-path.patch
+  ];
 
   postPatch = ''
     for file in data/tests/meson.build lib/colord/cd-test-shared.c lib/colord/meson.build; do

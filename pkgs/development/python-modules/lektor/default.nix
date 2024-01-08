@@ -82,11 +82,10 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "lektor" ];
 
-  disabledTests =
-    [
-      # Test requires network access
-      "test_path_installed_plugin_is_none"
-    ];
+  disabledTests = [
+    # Test requires network access
+    "test_path_installed_plugin_is_none"
+  ];
 
   meta = with lib; {
     description = "A static content management system";

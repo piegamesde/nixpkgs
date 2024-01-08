@@ -83,11 +83,10 @@ stdenv.mkDerivation rec {
       dbus
       flac
     ]
-    ++ lib.optionals (stdenv.isDarwin && stdenv.isx86_64)
-      [
-        # gtk3 propagates AppKit from the 10.12 SDK
-        AppKit
-      ]
+    ++ lib.optionals (stdenv.isDarwin && stdenv.isx86_64) [
+      # gtk3 propagates AppKit from the 10.12 SDK
+      AppKit
+    ]
     ++ [
       gtk3
       jasper

@@ -17,11 +17,10 @@ buildPythonPackage rec {
     hash = "sha256-kjURkzynrrb5iD5s77Q3nETt71SCGGazm/2lt9HS5JU=";
   };
 
-  patches =
-    [
-      # undo a hack from upstream that confuses our build hook
-      ./fix-build.patch
-    ];
+  patches = [
+    # undo a hack from upstream that confuses our build hook
+    ./fix-build.patch
+  ];
 
   cargoDeps = rustPlatform.importCargoLock { lockFile = ./Cargo.lock; };
 

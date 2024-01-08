@@ -17,14 +17,13 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-SmrsZmmR+0XQiJxErt6K1usQgHHDVU/N/2cfnJR5SXY=";
   };
 
-  patches =
-    [
-      # Fix for aarch64 and non-4K pages. Remove once upgraded past 1.6.2.
-      (fetchpatch {
-        url = "https://github.com/libunwind/libunwind/commit/e85b65cec757ef589f28957d0c6c21c498a03bdf.patch";
-        sha256 = "1lnlygvhqrdrjgw303pg2k2k4ms4gaghpjsgmhk47q83vy1yjwfg";
-      })
-    ];
+  patches = [
+    # Fix for aarch64 and non-4K pages. Remove once upgraded past 1.6.2.
+    (fetchpatch {
+      url = "https://github.com/libunwind/libunwind/commit/e85b65cec757ef589f28957d0c6c21c498a03bdf.patch";
+      sha256 = "1lnlygvhqrdrjgw303pg2k2k4ms4gaghpjsgmhk47q83vy1yjwfg";
+    })
+  ];
 
   postPatch =
     if (stdenv.cc.isClang || stdenv.hostPlatform.isStatic) then

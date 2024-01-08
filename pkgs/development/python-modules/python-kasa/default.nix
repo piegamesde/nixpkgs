@@ -44,11 +44,10 @@ buildPythonPackage rec {
 
   pytestFlagsArray = [ "--asyncio-mode=auto" ];
 
-  disabledTestPaths =
-    [
-      # Skip the examples tests
-      "kasa/tests/test_readme_examples.py"
-    ];
+  disabledTestPaths = [
+    # Skip the examples tests
+    "kasa/tests/test_readme_examples.py"
+  ];
 
   pythonImportsCheck = [ "kasa" ];
 

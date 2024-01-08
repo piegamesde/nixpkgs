@@ -22,11 +22,10 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "dockerfile_parse" ];
 
-  disabledTests =
-    [
-      # python-dockerfile-parse.spec is not present
-      "test_all_versions_match"
-    ];
+  disabledTests = [
+    # python-dockerfile-parse.spec is not present
+    "test_all_versions_match"
+  ];
 
   meta = with lib; {
     description = "Library for parsing Dockerfile files";

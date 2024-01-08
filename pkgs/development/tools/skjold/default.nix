@@ -32,15 +32,14 @@ python3.pkgs.buildPythonApplication rec {
     pytestCheckHook
   ];
 
-  patches =
-    [
-      # Switch to poetry-core, https://github.com/twu/skjold/pull/91
-      (fetchpatch {
-        name = "switch-poetry-core.patch";
-        url = "https://github.com/twu/skjold/commit/b341748c9b11798b6a5182d659a651b0f200c6f5.patch";
-        sha256 = "sha256-FTZTbIudO6lYO9tLD4Lh1h5zsTeKYtflR2tbbHZ5auM=";
-      })
-    ];
+  patches = [
+    # Switch to poetry-core, https://github.com/twu/skjold/pull/91
+    (fetchpatch {
+      name = "switch-poetry-core.patch";
+      url = "https://github.com/twu/skjold/commit/b341748c9b11798b6a5182d659a651b0f200c6f5.patch";
+      sha256 = "sha256-FTZTbIudO6lYO9tLD4Lh1h5zsTeKYtflR2tbbHZ5auM=";
+    })
+  ];
 
   postPatch = ''
     substituteInPlace pyproject.toml \
@@ -48,11 +47,10 @@ python3.pkgs.buildPythonApplication rec {
       --replace 'pyyaml = "^5.3"' 'pyyaml = "*"'
   '';
 
-  disabledTestPaths =
-    [
-      # Too sensitive to pass
-      "tests/test_cli.py"
-    ];
+  disabledTestPaths = [
+    # Too sensitive to pass
+    "tests/test_cli.py"
+  ];
 
   disabledTests = [
     # Requires network access

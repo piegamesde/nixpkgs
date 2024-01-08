@@ -35,12 +35,11 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-jtNPRsq33bIn3jy3F63UNrwrhaTBYbRYLDxyxgAXjIc=";
   };
 
-  patches =
-    [
-      # Having a working nix packagekit backend will supersede this.
-      # https://github.com/NixOS/nixpkgs/issues/177946
-      ./disable-packagekit-backend.patch
-    ];
+  patches = [
+    # Having a working nix packagekit backend will supersede this.
+    # https://github.com/NixOS/nixpkgs/issues/177946
+    ./disable-packagekit-backend.patch
+  ];
 
   nativeBuildInputs = [
     dbus # for pkg-config

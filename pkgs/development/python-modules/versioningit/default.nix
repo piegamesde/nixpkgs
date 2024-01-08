@@ -51,11 +51,10 @@ buildPythonPackage rec {
     mercurial
   ];
 
-  disabledTests =
-    [
-      # wants to write to the Nix store
-      "test_editable_mode"
-    ];
+  disabledTests = [
+    # wants to write to the Nix store
+    "test_editable_mode"
+  ];
 
   pythonImportsCheck = [ "versioningit" ];
 

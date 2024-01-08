@@ -35,12 +35,10 @@ buildPythonPackage rec {
     pushd test
   '';
 
-  disabledTests =
-    lib.optionals (pythonAtLeast "3.11")
-      [
-        # https://github.com/Marco-Sulla/python-frozendict/issues/68
-        "test_c_extension"
-      ];
+  disabledTests = lib.optionals (pythonAtLeast "3.11") [
+    # https://github.com/Marco-Sulla/python-frozendict/issues/68
+    "test_c_extension"
+  ];
 
   meta = with lib; {
     description = "Module for immutable dictionary";

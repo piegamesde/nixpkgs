@@ -38,11 +38,10 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  disabledTests =
-    [
-      # AssertionError on the property name
-      "test_contains_reserved_property_name"
-    ];
+  disabledTests = [
+    # AssertionError on the property name
+    "test_contains_reserved_property_name"
+  ];
 
   meta = with lib; {
     homepage = "https://github.com/bitcraft/PyTMX";

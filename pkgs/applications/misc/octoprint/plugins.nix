@@ -441,15 +441,14 @@ in
       sha256 = "sha256-QP6PkKWKUv4uIaYdqTAsZmK7DVes94Q9K/DrBYrWxzY=";
     };
 
-    patches =
-      [
-        # fix version constraint
-        # https://github.com/FormerLurker/Octolapse/pull/894
-        (fetchpatch {
-          url = "https://github.com/FormerLurker/Octolapse/commit/0bd7db2430aef370f2665c6c7011fc3bb559122e.patch";
-          hash = "sha256-z2aEq5sJGarGtIDbTRCvXdSj+kq8HIVvLRWpKutmJNY=";
-        })
-      ];
+    patches = [
+      # fix version constraint
+      # https://github.com/FormerLurker/Octolapse/pull/894
+      (fetchpatch {
+        url = "https://github.com/FormerLurker/Octolapse/commit/0bd7db2430aef370f2665c6c7011fc3bb559122e.patch";
+        hash = "sha256-z2aEq5sJGarGtIDbTRCvXdSj+kq8HIVvLRWpKutmJNY=";
+      })
+    ];
 
     # Test fails due to code executed on import, see #136513
     #pythonImportsCheck = [ "octoprint_octolapse" ];

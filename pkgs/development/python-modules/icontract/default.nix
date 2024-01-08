@@ -47,12 +47,11 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  disabledTestPaths =
-    [
-      # mypy decorator checks don't pass. For some reason mypy
-      # doesn't check the python file provided in the test.
-      "tests/test_mypy_decorators.py"
-    ];
+  disabledTestPaths = [
+    # mypy decorator checks don't pass. For some reason mypy
+    # doesn't check the python file provided in the test.
+    "tests/test_mypy_decorators.py"
+  ];
 
   # Upstream adds some plain text files direct to the package's root directory
   # https://github.com/Parquery/icontract/blob/master/setup.py#L63

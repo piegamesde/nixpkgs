@@ -66,12 +66,10 @@ stdenv.mkDerivation rec {
       "-DBLADERF_GROUP=bladerf"
     ];
 
-  env.NIX_CFLAGS_COMPILE =
-    toString
-      [
-        # Needed with GCC 12
-        "-Wno-error=array-bounds"
-      ];
+  env.NIX_CFLAGS_COMPILE = toString [
+    # Needed with GCC 12
+    "-Wno-error=array-bounds"
+  ];
 
   hardeningDisable = [ "fortify" ];
 

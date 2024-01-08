@@ -1334,22 +1334,20 @@ self: super:
   dhall-nix = self.generateOptparseApplicativeCompletions [ "dhall-to-nix" ] (
     overrideCabal
       (drv: {
-        patches =
-          [
-            # Compatibility with hnix 0.16, waiting for release
-            # https://github.com/dhall-lang/dhall-haskell/pull/2474
-            (pkgs.fetchpatch {
-              name = "dhall-nix-hnix-0.16.patch";
-              url = "https://github.com/dhall-lang/dhall-haskell/commit/49b9b3e3ce1718a89773c2b1bfa3c2af1a6e8752.patch";
-              sha256 = "12sh5md81nlhyzzkmf7jrll3w1rvg2j48m57hfyvjn8has9c4gw6";
-              stripLen = 1;
-              includes = [
-                "dhall-nix.cabal"
-                "src/Dhall/Nix.hs"
-              ];
-            })
-          ]
-          ++ drv.patches or [ ];
+        patches = [
+          # Compatibility with hnix 0.16, waiting for release
+          # https://github.com/dhall-lang/dhall-haskell/pull/2474
+          (pkgs.fetchpatch {
+            name = "dhall-nix-hnix-0.16.patch";
+            url = "https://github.com/dhall-lang/dhall-haskell/commit/49b9b3e3ce1718a89773c2b1bfa3c2af1a6e8752.patch";
+            sha256 = "12sh5md81nlhyzzkmf7jrll3w1rvg2j48m57hfyvjn8has9c4gw6";
+            stripLen = 1;
+            includes = [
+              "dhall-nix.cabal"
+              "src/Dhall/Nix.hs"
+            ];
+          })
+        ] ++ drv.patches or [ ];
         prePatch =
           drv.prePatch or ""
           + ''
@@ -1508,12 +1506,10 @@ self: super:
             PGUSER=esqutest
             PGDATABASE=esqutest
           '';
-        testFlags =
-          drv.testFlags or [ ]
-          ++ [
-            # We don't have a MySQL test hook yet
-            "--skip=/Esqueleto/MySQL"
-          ];
+        testFlags = drv.testFlags or [ ] ++ [
+          # We don't have a MySQL test hook yet
+          "--skip=/Esqueleto/MySQL"
+        ];
         testToolDepends = drv.testToolDepends or [ ] ++ [
           pkgs.postgresql
           pkgs.postgresqlTestHook

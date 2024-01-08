@@ -23,11 +23,10 @@ stdenv.mkDerivation rec {
   ];
   configureFlags = [ "--with-x" ];
 
-  patches =
-    [
-      # http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=504868
-      ./gcc44.patch
-    ];
+  patches = [
+    # http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=504868
+    ./gcc44.patch
+  ];
 
   env.NIX_CFLAGS_COMPILE = "-fpermissive";
 

@@ -130,14 +130,12 @@ let
             done
           '';
 
-        cmakeFlags =
-          (attrs.cmakeFlags or [ ])
-          ++ [
-            # Some builds link to libraries within the same build. Make sure these
-            # create references to $out. None of our builds run their own products,
-            # so we don't have to account for that scenario.
-            "-DCMAKE_BUILD_WITH_INSTALL_NAME_DIR=ON"
-          ];
+        cmakeFlags = (attrs.cmakeFlags or [ ]) ++ [
+          # Some builds link to libraries within the same build. Make sure these
+          # create references to $out. None of our builds run their own products,
+          # so we don't have to account for that scenario.
+          "-DCMAKE_BUILD_WITH_INSTALL_NAME_DIR=ON"
+        ];
       }
     );
 

@@ -35,11 +35,10 @@ buildPythonPackage rec {
 
   checkInputs = [ breezy ];
 
-  disabledTests =
-    [
-      # Test wants to setup a venv
-      "test_build_sdist_pep517_isolated"
-    ];
+  disabledTests = [
+    # Test wants to setup a venv
+    "test_build_sdist_pep517_isolated"
+  ];
 
   pythonImportsCheck = [ "check_manifest" ];
 

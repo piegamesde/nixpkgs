@@ -32,11 +32,10 @@ stdenv.mkDerivation rec {
     ncurses
   ];
 
-  patches =
-    [
-      # eliminate useless calls to git inside Makefile
-      ./0000-makefile-fix-install.diff
-    ];
+  patches = [
+    # eliminate useless calls to git inside Makefile
+    ./0000-makefile-fix-install.diff
+  ];
 
   installPhase = ''
     runHook preInstall

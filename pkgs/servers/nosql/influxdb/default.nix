@@ -24,17 +24,16 @@ let
       rev = "v${libflux_version}";
       sha256 = "sha256-P3SpleOVbL+nGWdscwjj9yWqRdck/9JsAwuJtGOO7N8=";
     };
-    patches =
-      [
-        # https://github.com/influxdata/flux/pull/5273
-        # fix compile error with Rust 1.64
-        (fetchpatch {
-          url = "https://github.com/influxdata/flux/commit/20ca62138a0669f2760dd469ca41fc333e04b8f2.patch";
-          stripLen = 2;
-          extraPrefix = "";
-          sha256 = "sha256-Fb4CuH9ZvrPha249dmLLI8MqSNQRKqKPxPbw2pjqwfY=";
-        })
-      ];
+    patches = [
+      # https://github.com/influxdata/flux/pull/5273
+      # fix compile error with Rust 1.64
+      (fetchpatch {
+        url = "https://github.com/influxdata/flux/commit/20ca62138a0669f2760dd469ca41fc333e04b8f2.patch";
+        stripLen = 2;
+        extraPrefix = "";
+        sha256 = "sha256-Fb4CuH9ZvrPha249dmLLI8MqSNQRKqKPxPbw2pjqwfY=";
+      })
+    ];
     sourceRoot = "source/libflux";
     cargoSha256 = "sha256-kYiZ5ZRiFHRf1RQeeUGjIhnEkTvhNSZ0t4tidpRIDyk=";
     nativeBuildInputs = [ llvmPackages.libclang ];

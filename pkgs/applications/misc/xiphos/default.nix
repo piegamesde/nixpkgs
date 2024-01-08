@@ -85,11 +85,10 @@ stdenv.mkDerivation rec {
     webkitgtk
   ];
 
-  cmakeFlags =
-    [
-      # WebKit-based editor does not build.
-      "-DGTKHTML=ON"
-    ];
+  cmakeFlags = [
+    # WebKit-based editor does not build.
+    "-DGTKHTML=ON"
+  ];
 
   preConfigure = ''
     # The build script won't continue without the version saved locally.

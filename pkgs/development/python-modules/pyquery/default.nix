@@ -48,11 +48,10 @@ buildPythonPackage rec {
     ))
   ];
 
-  pytestFlagsArray =
-    [
-      # requires network
-      "--deselect=tests/test_pyquery.py::TestWebScrappingEncoding::test_get"
-    ];
+  pytestFlagsArray = [
+    # requires network
+    "--deselect=tests/test_pyquery.py::TestWebScrappingEncoding::test_get"
+  ];
 
   meta = with lib; {
     description = "A jquery-like library for Python";

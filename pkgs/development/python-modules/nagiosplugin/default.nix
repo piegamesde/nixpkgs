@@ -27,11 +27,10 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  disabledTests =
-    [
-      # Test relies on who, which does not work in the sandbox
-      "test_check_users"
-    ];
+  disabledTests = [
+    # Test relies on who, which does not work in the sandbox
+    "test_check_users"
+  ];
 
   pythonImportsCheck = [ "nagiosplugin" ];
 

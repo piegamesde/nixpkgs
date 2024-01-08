@@ -46,11 +46,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-C7M0hzn0yTCXRUuBTss6WPa6zo8DD0Fhmp/ur7R0dVg=";
   };
 
-  patches =
-    [
-      # https://sourceforge.net/p/dvdstyler/DVDStyler/ci/679fa8dc6ac7657775eda9d7b0ed9da9d069aeec/
-      ./wxgtk32.patch
-    ];
+  patches = [
+    # https://sourceforge.net/p/dvdstyler/DVDStyler/ci/679fa8dc6ac7657775eda9d7b0ed9da9d069aeec/
+    ./wxgtk32.patch
+  ];
 
   nativeBuildInputs = [
     bison

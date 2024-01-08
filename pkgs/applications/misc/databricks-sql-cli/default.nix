@@ -17,14 +17,13 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-gr7LJfnvIu2Jf1XgILqfZoi8CbXeQyq0g1wLEBa5TPM=";
   };
 
-  patches =
-    [
-      # https://github.com/databricks/databricks-sql-cli/pull/38
-      (fetchpatch {
-        url = "https://github.com/databricks/databricks-sql-cli/commit/fc294e00819b6966f1605e5c1ce654473510aefe.patch";
-        sha256 = "sha256-QVrb7mD0fVbHrbrDywI6tsFNYM19x74LY8rhqqC8szE=";
-      })
-    ];
+  patches = [
+    # https://github.com/databricks/databricks-sql-cli/pull/38
+    (fetchpatch {
+      url = "https://github.com/databricks/databricks-sql-cli/commit/fc294e00819b6966f1605e5c1ce654473510aefe.patch";
+      sha256 = "sha256-QVrb7mD0fVbHrbrDywI6tsFNYM19x74LY8rhqqC8szE=";
+    })
+  ];
 
   postPatch = ''
     substituteInPlace pyproject.toml \

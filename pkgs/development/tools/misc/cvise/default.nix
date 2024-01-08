@@ -27,11 +27,10 @@ buildPythonApplication rec {
     hash = "sha256-9HFCFgpRXqefFJLulwvi6nx0fl0G6IXI9gSinekJXRU=";
   };
 
-  patches =
-    [
-      # Refer to unifdef by absolute path.
-      ./unifdef.patch
-    ];
+  patches = [
+    # Refer to unifdef by absolute path.
+    ./unifdef.patch
+  ];
 
   postPatch = ''
     # Avoid blanket -Werror to evade build failures on less
@@ -72,11 +71,10 @@ buildPythonApplication rec {
     unifdef
   ];
 
-  disabledTests =
-    [
-      # Needs gcc, fails when run noninteractively (without tty).
-      "test_simple_reduction"
-    ];
+  disabledTests = [
+    # Needs gcc, fails when run noninteractively (without tty).
+    "test_simple_reduction"
+  ];
 
   meta = with lib; {
     homepage = "https://github.com/marxin/cvise";

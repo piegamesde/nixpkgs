@@ -48,11 +48,10 @@ stdenv.mkDerivation rec {
     hash = "sha256-zbtxX0NezuNg46PAKscmDfFfNID4rAq2qGNf1BE3Cqc=";
   };
 
-  patches =
-    [
-      # make meson use the provided dependencies instead of the git submodules
-      "${src}/nix/meson-build.patch"
-    ];
+  patches = [
+    # make meson use the provided dependencies instead of the git submodules
+    "${src}/nix/meson-build.patch"
+  ];
 
   postPatch = ''
     # Fix hardcoded paths to /usr installation

@@ -21,12 +21,11 @@ buildNpmPackage rec {
 
   npmDepsHash = "sha256-J00sLDfUOIy/ZJTqKrMY1dAyE3HY9Cqm9vTEm2lmLoY=";
 
-  patches =
-    [
-      # Fixes the permissions of the database being not set correctly
-      # See https://github.com/louislam/uptime-kuma/pull/2119
-      ./fix-database-permissions.patch
-    ];
+  patches = [
+    # Fixes the permissions of the database being not set correctly
+    # See https://github.com/louislam/uptime-kuma/pull/2119
+    ./fix-database-permissions.patch
+  ];
 
   nativeBuildInputs = [ python3 ];
 

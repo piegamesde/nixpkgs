@@ -48,11 +48,10 @@ buildPythonPackage rec {
     websockets
   ];
 
-  disabledTestPaths =
-    [
-      # requires installing yjs Node.js module
-      "tests/test_ypy_yjs.py"
-    ];
+  disabledTestPaths = [
+    # requires installing yjs Node.js module
+    "tests/test_ypy_yjs.py"
+  ];
 
   meta = {
     changelog = "https://github.com/y-crdt/ypy-websocket/blob/${version}/CHANGELOG.md";

@@ -32,12 +32,11 @@ mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  patches =
-    [
-      # The build normally tries to get git sub-modules during build
-      # but we already have them checked out
-      ./no-submodules.patch
-    ];
+  patches = [
+    # The build normally tries to get git sub-modules during build
+    # but we already have them checked out
+    ./no-submodules.patch
+  ];
 
   nativeBuildInputs = [
     pkg-config

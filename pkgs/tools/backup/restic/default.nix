@@ -20,11 +20,10 @@ buildGoModule rec {
     hash = "sha256-YJBHk/B8+q5f0k5i5hpucsJK4T/cRu9Jv7+O6vlT64Q=";
   };
 
-  patches =
-    [
-      # The TestRestoreWithPermissionFailure test fails in Nix’s build sandbox
-      ./0001-Skip-testing-restore-with-permission-failure.patch
-    ];
+  patches = [
+    # The TestRestoreWithPermissionFailure test fails in Nix’s build sandbox
+    ./0001-Skip-testing-restore-with-permission-failure.patch
+  ];
 
   vendorHash = "sha256-GWFaCfiE8Ph2uBTBI0E47pH+EJsMsMr1NDuaIGvyXRM=";
 

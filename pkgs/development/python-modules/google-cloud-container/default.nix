@@ -37,11 +37,10 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  disabledTests =
-    [
-      # Test requires credentials
-      "test_list_clusters"
-    ];
+  disabledTests = [
+    # Test requires credentials
+    "test_list_clusters"
+  ];
 
   pythonImportsCheck = [
     "google.cloud.container"

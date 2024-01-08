@@ -29,11 +29,10 @@ let
       wcag-contrast-ratio
     ];
 
-    disabledTestPaths =
-      [
-        # 5 lines diff, including one nix store path in 20000+ lines
-        "tests/examplefiles/bash/ltmain.sh"
-      ];
+    disabledTestPaths = [
+      # 5 lines diff, including one nix store path in 20000+ lines
+      "tests/examplefiles/bash/ltmain.sh"
+    ];
 
     pythonImportsCheck = [ "pygments" ];
 

@@ -42,11 +42,10 @@ stdenv.mkDerivation rec {
       "-DWITH_MPC=yes"
       "-DBUILD_FOR_DISTRIBUTION=yes"
     ]
-    ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64)
-      [
-        # error: unrecognized instruction mnemonic, did you mean: bit, cnt, hint, ins, not?
-        "-DBUILD_TESTS=OFF"
-      ];
+    ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [
+      # error: unrecognized instruction mnemonic, did you mean: bit, cnt, hint, ins, not?
+      "-DBUILD_TESTS=OFF"
+    ];
 
   doCheck = true;
 

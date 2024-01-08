@@ -42,11 +42,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-FqyNuV5xlim6YZSbmfiib+upRqgdGFIVsoN5u0EWsLQ=";
   };
 
-  patches =
-    [
-      # disable tests for des/md5, which we don't support any more
-      ./disable-legacy-crypt-tests.patch
-    ];
+  patches = [
+    # disable tests for des/md5, which we don't support any more
+    ./disable-legacy-crypt-tests.patch
+  ];
 
   postPatch = ''
     patchShebangs tests

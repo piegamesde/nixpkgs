@@ -23,15 +23,14 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-gwKxBBG5PtG4/RxX4sUC25ZeG8K2urqVkFDKL7NS4ZI=";
   };
 
-  patches =
-    [
-      # pull pending upstream inclusion fix for ncurses-6.3: sent upstream over email.
-      (fetchpatch {
-        name = "ncurses-6.3.patch";
-        url = "https://pagure.io/fork/slyfox/gfs2-utils/c/c927b635f380cca77665195a3aaae804d92870a4.patch";
-        sha256 = "sha256-0M1xAqRXoUi2el03WODF/nqEe9JEE5GehMWs776QZNI=";
-      })
-    ];
+  patches = [
+    # pull pending upstream inclusion fix for ncurses-6.3: sent upstream over email.
+    (fetchpatch {
+      name = "ncurses-6.3.patch";
+      url = "https://pagure.io/fork/slyfox/gfs2-utils/c/c927b635f380cca77665195a3aaae804d92870a4.patch";
+      sha256 = "sha256-0M1xAqRXoUi2el03WODF/nqEe9JEE5GehMWs776QZNI=";
+    })
+  ];
   postPatch = ''
     # Apply fix for ncurses-6.3. Upstream development branch already reworked the code.
     # To be removed on next reelase.

@@ -256,16 +256,14 @@ in
       };
     };
 
-    services.tor.settings.SOCKSPort =
-      mkIf cfg.enableTor
-        [
-          # Route HTTP traffic over a faster port (without IsolateDestAddr).
-          {
-            addr = "127.0.0.1";
-            port = 9063;
-            IsolateDestAddr = false;
-          }
-        ];
+    services.tor.settings.SOCKSPort = mkIf cfg.enableTor [
+      # Route HTTP traffic over a faster port (without IsolateDestAddr).
+      {
+        addr = "127.0.0.1";
+        port = 9063;
+        IsolateDestAddr = false;
+      }
+    ];
 
     services.privoxy.settings =
       {

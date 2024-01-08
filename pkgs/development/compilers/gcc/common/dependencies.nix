@@ -67,8 +67,7 @@ in
           targetPackages.stdenv.cc.bintools # newly-built gcc will be used
         ]
       else
-        assert targetPlatform == hostPlatform;
-        [
+        assert targetPlatform == hostPlatform; [
           # build != host == target
           stdenv.cc
         ]

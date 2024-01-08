@@ -24,15 +24,14 @@ let
     hash = "sha256-QHiZPYFwDQzbXVSuhwzQqBRXlkG9QVU+Jl6SKvBoCwQ=";
   };
 
-  patches =
-    [
-      # https://github.com/java-decompiler/jd-gui/pull/362
-      (fetchpatch {
-        name = "nebula-plugin-gradle-6-compatibility.patch";
-        url = "https://github.com/java-decompiler/jd-gui/commit/91f805f9dc8ce0097460e63c8095ccea870687e6.patch";
-        hash = "sha256-9eaM9Mx2FaKIhGSOHjATKN/CrtvJeXyrH8Mdx8LNtpE=";
-      })
-    ];
+  patches = [
+    # https://github.com/java-decompiler/jd-gui/pull/362
+    (fetchpatch {
+      name = "nebula-plugin-gradle-6-compatibility.patch";
+      url = "https://github.com/java-decompiler/jd-gui/commit/91f805f9dc8ce0097460e63c8095ccea870687e6.patch";
+      hash = "sha256-9eaM9Mx2FaKIhGSOHjATKN/CrtvJeXyrH8Mdx8LNtpE=";
+    })
+  ];
 
   deps = stdenv.mkDerivation {
     name = "${pname}-deps";

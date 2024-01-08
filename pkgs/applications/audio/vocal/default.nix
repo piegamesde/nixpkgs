@@ -63,16 +63,15 @@ stdenv.mkDerivation rec {
     glib-networking
   ];
 
-  patches =
-    [
-      # granite 6.0.0 removed about dialogs
-      # see: https://github.com/needle-and-thread/vocal/issues/483
-      (fetchpatch {
-        name = "remove-about.patch";
-        url = "https://raw.githubusercontent.com/archlinux/svntogit-community/03543ffdb6cd52ce1a8293f3303225b3afac2431/trunk/remove-about.patch";
-        sha256 = "sha256-yGD7BYOTmqs4h+Odh/mB3fI1HM7GDO6F+QaHpRUD5p4=";
-      })
-    ];
+  patches = [
+    # granite 6.0.0 removed about dialogs
+    # see: https://github.com/needle-and-thread/vocal/issues/483
+    (fetchpatch {
+      name = "remove-about.patch";
+      url = "https://raw.githubusercontent.com/archlinux/svntogit-community/03543ffdb6cd52ce1a8293f3303225b3afac2431/trunk/remove-about.patch";
+      sha256 = "sha256-yGD7BYOTmqs4h+Odh/mB3fI1HM7GDO6F+QaHpRUD5p4=";
+    })
+  ];
 
   postPatch = ''
     # Fix build with vala 0.56

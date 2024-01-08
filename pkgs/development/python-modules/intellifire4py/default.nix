@@ -39,11 +39,10 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  disabledTests =
-    [
-      # Test file is missing
-      "test_json_files"
-    ];
+  disabledTests = [
+    # Test file is missing
+    "test_json_files"
+  ];
 
   pythonImportsCheck = [ "intellifire4py" ];
 

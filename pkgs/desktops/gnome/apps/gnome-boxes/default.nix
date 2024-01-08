@@ -56,12 +56,11 @@ stdenv.mkDerivation rec {
     sha256 = "OJcGDWlvf6LZEudywnYdvlNDOrXxnr+kvE6Jc4X6ulM=";
   };
 
-  patches =
-    [
-      # Fix path to libgovf-0.1.so in the gir file. We patch gobject-introspection to hardcode absolute paths but
-      # our Meson patch will only pass the info when install_dir is absolute as well.
-      ./fix-gir-lib-path.patch
-    ];
+  patches = [
+    # Fix path to libgovf-0.1.so in the gir file. We patch gobject-introspection to hardcode absolute paths but
+    # our Meson patch will only pass the info when install_dir is absolute as well.
+    ./fix-gir-lib-path.patch
+  ];
 
   doCheck = true;
 

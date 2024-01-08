@@ -43,12 +43,10 @@ buildPythonPackage rec {
       # sensitive to platform, causes false negatives on darwin
       "test_import"
     ]
-    ++
-      lib.optionals (stdenv.isAarch64 && pythonOlder "3.9")
-        [
-          # AssertionError: assert 'foo' in ['setup']
-          "test_init_extension_module"
-        ]
+    ++ lib.optionals (stdenv.isAarch64 && pythonOlder "3.9") [
+      # AssertionError: assert 'foo' in ['setup']
+      "test_init_extension_module"
+    ]
     ++ lib.optionals (pythonAtLeast "3.11") [
       # disabled until 3.11 is added to _SUPPORTED_PYTHONS in jedi/api/environment.py
       "test_find_system_environments"

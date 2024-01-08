@@ -69,11 +69,10 @@ buildPythonPackage rec {
       "test_guess_format_for_parse"
       "rdflib.extras.infixowl"
     ]
-    ++ lib.optionals stdenv.isDarwin
-      [
-        # Require loopback network access
-        "TestGraphHTTP"
-      ];
+    ++ lib.optionals stdenv.isDarwin [
+      # Require loopback network access
+      "TestGraphHTTP"
+    ];
 
   pythonImportsCheck = [ "rdflib" ];
 

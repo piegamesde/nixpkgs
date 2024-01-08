@@ -22,11 +22,10 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  disabledTests =
-    [
-      # Disabling tests that require a functional DNS IPv{4,6} stack to pass
-      "test_create_connection_has_proper_timeout"
-    ];
+  disabledTests = [
+    # Disabling tests that require a functional DNS IPv{4,6} stack to pass
+    "test_create_connection_has_proper_timeout"
+  ];
 
   pythonImportsCheck = [ "rfc6555" ];
 

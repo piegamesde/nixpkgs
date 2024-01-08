@@ -30,11 +30,10 @@ buildPythonPackage rec {
     twine
   ];
 
-  disabledTests =
-    [
-      # tests pip install, which unsuprisingly fails
-      "test_hatch_build"
-    ];
+  disabledTests = [
+    # tests pip install, which unsuprisingly fails
+    "test_hatch_build"
+  ];
 
   meta = with lib; {
     changelog = "https://github.com/jupyterlab/hatch-jupyter-builder/releases/tag/v${version}";

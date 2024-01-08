@@ -60,11 +60,10 @@ buildPythonPackage rec {
   # Skip http tests
   SKIP_TRUE_HTTP = true;
 
-  disabledTestPaths =
-    [
-      # Requires a live Redis instance
-      "tests/main/test_redis.py"
-    ];
+  disabledTestPaths = [
+    # Requires a live Redis instance
+    "tests/main/test_redis.py"
+  ];
 
   disabledTests = [
     # tests that require network access (like DNS lookups)

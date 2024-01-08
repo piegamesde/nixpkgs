@@ -40,11 +40,10 @@ buildPythonPackage rec {
       --replace " --flake8 --cov=pycarwings2 --cache-clear --ignore=venv --verbose" ""
   '';
 
-  disabledTests =
-    [
-      # Test requires network access
-      "test_bad_password"
-    ];
+  disabledTests = [
+    # Test requires network access
+    "test_bad_password"
+  ];
 
   pythonImportsCheck = [ "pycarwings2" ];
 

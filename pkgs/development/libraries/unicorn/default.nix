@@ -26,12 +26,10 @@ stdenv.mkDerivation rec {
 
   buildInputs = lib.optionals stdenv.isDarwin [ IOKit ];
 
-  cmakeFlags =
-    lib.optionals (stdenv.isDarwin && stdenv.isAarch64)
-      [
-        # Some x86 tests are interrupted by signal 10
-        "-DCMAKE_CTEST_ARGUMENTS=--exclude-regex;test_x86"
-      ];
+  cmakeFlags = lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [
+    # Some x86 tests are interrupted by signal 10
+    "-DCMAKE_CTEST_ARGUMENTS=--exclude-regex;test_x86"
+  ];
 
   doCheck = true;
 

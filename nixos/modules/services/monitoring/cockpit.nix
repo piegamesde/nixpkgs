@@ -206,13 +206,12 @@ in
       };
       serviceConfig = {
         RuntimeDirectory = "cockpit/tls";
-        ExecStartPre =
-          [
-            # cockpit-tls runs in a more constrained environment, these + means that these commands
-            # will run with full privilege instead of inside that constrained environment
-            # See https://www.freedesktop.org/software/systemd/man/systemd.service.html#ExecStart= for details
-            "+${cfg.package}/libexec/cockpit-certificate-ensure --for-cockpit-tls"
-          ];
+        ExecStartPre = [
+          # cockpit-tls runs in a more constrained environment, these + means that these commands
+          # will run with full privilege instead of inside that constrained environment
+          # See https://www.freedesktop.org/software/systemd/man/systemd.service.html#ExecStart= for details
+          "+${cfg.package}/libexec/cockpit-certificate-ensure --for-cockpit-tls"
+        ];
         ExecStart = "${cfg.package}/libexec/cockpit-tls";
         User = "root";
         Group = "";

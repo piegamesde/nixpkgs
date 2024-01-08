@@ -39,11 +39,10 @@ buildPythonPackage rec {
     typeguard
   ];
 
-  disabledTests =
-    [
-      # tries to download data
-      "test_pandas_stubs_fork_is_synchronized"
-    ];
+  disabledTests = [
+    # tries to download data
+    "test_pandas_stubs_fork_is_synchronized"
+  ];
 
   disabledTestPaths = [
     # missing pyright import:

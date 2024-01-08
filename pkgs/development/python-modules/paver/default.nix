@@ -36,11 +36,10 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "paver" ];
 
-  disabledTestPaths =
-    [
-      # Test depends on distutils
-      "paver/tests/test_setuputils.py"
-    ];
+  disabledTestPaths = [
+    # Test depends on distutils
+    "paver/tests/test_setuputils.py"
+  ];
 
   meta = with lib; {
     description = "A Python-based build/distribution/deployment scripting tool";

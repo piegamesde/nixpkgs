@@ -40,15 +40,14 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  patches =
-    [
-      # Add missing <atomic> content to fix gcc compilation for RISCV architecture
-      # https://github.com/libjxl/libjxl/pull/2211
-      (fetchpatch {
-        url = "https://github.com/libjxl/libjxl/commit/22d12d74e7bc56b09cfb1973aa89ec8d714fa3fc.patch";
-        hash = "sha256-X4fbYTMS+kHfZRbeGzSdBW5jQKw8UN44FEyFRUtw0qo=";
-      })
-    ];
+  patches = [
+    # Add missing <atomic> content to fix gcc compilation for RISCV architecture
+    # https://github.com/libjxl/libjxl/pull/2211
+    (fetchpatch {
+      url = "https://github.com/libjxl/libjxl/commit/22d12d74e7bc56b09cfb1973aa89ec8d714fa3fc.patch";
+      hash = "sha256-X4fbYTMS+kHfZRbeGzSdBW5jQKw8UN44FEyFRUtw0qo=";
+    })
+  ];
 
   nativeBuildInputs =
     [

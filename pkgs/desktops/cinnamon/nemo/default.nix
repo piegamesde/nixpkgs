@@ -33,12 +33,11 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-HdDe2VE9LQqiwFrUSIctOi/ffNOmLy6SyG30EL8UA5Q=";
   };
 
-  patches =
-    [
-      # Load extensions from NEMO_EXTENSION_DIR environment variable
-      # https://github.com/NixOS/nixpkgs/issues/78327
-      ./load-extensions-from-env.patch
-    ];
+  patches = [
+    # Load extensions from NEMO_EXTENSION_DIR environment variable
+    # https://github.com/NixOS/nixpkgs/issues/78327
+    ./load-extensions-from-env.patch
+  ];
 
   outputs = [
     "out"
@@ -67,11 +66,10 @@ stdenv.mkDerivation rec {
     shared-mime-info
   ];
 
-  mesonFlags =
-    [
-      # use locales from cinnamon-translations
-      "--localedir=${cinnamon-translations}/share/locale"
-    ];
+  mesonFlags = [
+    # use locales from cinnamon-translations
+    "--localedir=${cinnamon-translations}/share/locale"
+  ];
 
   # Taken from libnemo-extension.pc.
   passthru.extensiondir = "lib/nemo/extensions-3.0";

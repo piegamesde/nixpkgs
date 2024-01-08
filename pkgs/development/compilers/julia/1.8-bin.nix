@@ -51,11 +51,10 @@ stdenv.mkDerivation rec {
     }
     .${stdenv.hostPlatform.system} or (throw "Unsupported system: ${stdenv.hostPlatform.system}");
 
-  patches =
-    [
-      # https://github.com/JuliaLang/julia/commit/f5eeba35d9bf20de251bb9160cc935c71e8b19ba
-      ./patches/1.8-bin/0001-allow-skipping-internet-required-tests.patch
-    ];
+  patches = [
+    # https://github.com/JuliaLang/julia/commit/f5eeba35d9bf20de251bb9160cc935c71e8b19ba
+    ./patches/1.8-bin/0001-allow-skipping-internet-required-tests.patch
+  ];
 
   postPatch = ''
     # Julia fails to pick up our Certification Authority root certificates, but

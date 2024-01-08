@@ -31,17 +31,16 @@ stdenv.mkDerivation (
       "man"
     ];
 
-    patches =
-      [
-        # When building for Darwin, test/run uses dwarfdump, whereas on
-        # Linux it uses objdump. We don't have dwarfdump packaged for
-        # Darwin, so this patch updates the test to also use objdump on
-        # Darwin.
-        (substituteAll {
-          src = ./force-objdump-on-darwin.patch;
-          objdump = "${binutils.bintools}/bin/objdump";
-        })
-      ];
+    patches = [
+      # When building for Darwin, test/run uses dwarfdump, whereas on
+      # Linux it uses objdump. We don't have dwarfdump packaged for
+      # Darwin, so this patch updates the test to also use objdump on
+      # Darwin.
+      (substituteAll {
+        src = ./force-objdump-on-darwin.patch;
+        objdump = "${binutils.bintools}/bin/objdump";
+      })
+    ];
 
     nativeBuildInputs = [
       asciidoctor
@@ -50,21 +49,18 @@ stdenv.mkDerivation (
     ];
     buildInputs = [ zstd ];
 
-    cmakeFlags =
-      [
-        # Build system does not autodetect redis library presence.
-        # Requires explicit flag.
-        "-DREDIS_STORAGE_BACKEND=OFF"
-      ];
+    cmakeFlags = [
+      # Build system does not autodetect redis library presence.
+      # Requires explicit flag.
+      "-DREDIS_STORAGE_BACKEND=OFF"
+    ];
 
     doCheck = true;
-    nativeCheckInputs =
-      [
-        # test/run requires the compgen function which is available in
-        # bashInteractive, but not bash.
-        bashInteractive
-      ]
-      ++ lib.optional stdenv.isDarwin xcodebuild;
+    nativeCheckInputs = [
+      # test/run requires the compgen function which is available in
+      # bashInteractive, but not bash.
+      bashInteractive
+    ] ++ lib.optional stdenv.isDarwin xcodebuild;
 
     checkPhase =
       let

@@ -55,11 +55,10 @@ buildPythonPackage rec {
     "test_plugin_mqtt_general"
   ];
 
-  disabledTestPaths =
-    [
-      # AttributeError: module 'apprise.plugins' has no attribute 'NotifyBulkSMS'
-      "test/test_plugin_bulksms.py"
-    ];
+  disabledTestPaths = [
+    # AttributeError: module 'apprise.plugins' has no attribute 'NotifyBulkSMS'
+    "test/test_plugin_bulksms.py"
+  ];
 
   postInstall = ''
     installManPage packaging/man/apprise.1

@@ -45,11 +45,10 @@ buildPythonPackage rec {
 
   pytestFlagsArray = [ "tests" ];
 
-  disabledTests =
-    [
-      # AssertionError: assert [OptionInfo(p...
-      "test_deep_options"
-    ];
+  disabledTests = [
+    # AssertionError: assert [OptionInfo(p...
+    "test_deep_options"
+  ];
 
   pythonImportsCheck = [ "typed_settings" ];
 

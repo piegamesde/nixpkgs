@@ -53,17 +53,15 @@ buildPythonPackage rec {
     rm -r google
   '';
 
-  disabledTestPaths =
-    [
-      # requires credentials
-      "tests/system/gapic/v1beta1/test_system_tables_client_v1.py"
-    ];
+  disabledTestPaths = [
+    # requires credentials
+    "tests/system/gapic/v1beta1/test_system_tables_client_v1.py"
+  ];
 
-  disabledTests =
-    [
-      # requires credentials
-      "test_prediction_client_client_info"
-    ];
+  disabledTests = [
+    # requires credentials
+    "test_prediction_client_client_info"
+  ];
 
   pythonImportsCheck = [
     "google.cloud.automl"

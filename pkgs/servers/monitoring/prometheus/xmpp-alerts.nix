@@ -19,16 +19,15 @@ python3Packages.buildPythonApplication rec {
     sha256 = "sha256-PwShGS1rbfZCK5OS6Cnn+mduOpWAD4fC69mcGB5GB1c=";
   };
 
-  patches =
-    [
-      # Required until https://github.com/jelmer/prometheus-xmpp-alerts/pull/33 is merged
-      # and contained in a release
-      (fetchpatch {
-        name = "Fix-outdated-entrypoint-definiton.patch";
-        url = "https://github.com/jelmer/prometheus-xmpp-alerts/commit/c41dd41dbd3c781b874bcf0708f6976e6252b621.patch";
-        hash = "sha256-G7fRLSXbkI5EDgGf4n9xSVs54IPD0ev8rTEFffRvLY0=";
-      })
-    ];
+  patches = [
+    # Required until https://github.com/jelmer/prometheus-xmpp-alerts/pull/33 is merged
+    # and contained in a release
+    (fetchpatch {
+      name = "Fix-outdated-entrypoint-definiton.patch";
+      url = "https://github.com/jelmer/prometheus-xmpp-alerts/commit/c41dd41dbd3c781b874bcf0708f6976e6252b621.patch";
+      hash = "sha256-G7fRLSXbkI5EDgGf4n9xSVs54IPD0ev8rTEFffRvLY0=";
+    })
+  ];
 
   postPatch = ''
     substituteInPlace setup.cfg \

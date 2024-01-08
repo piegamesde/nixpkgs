@@ -29,11 +29,10 @@ stdenv.mkDerivation rec {
     "-DCMAKE_RUNTIME_OUTPUT_DIRECTORY=Release"
   ];
 
-  patches =
-    [
-      # Add missing header include
-      ./missing-header.diff
-    ];
+  patches = [
+    # Add missing header include
+    ./missing-header.diff
+  ];
 
   postInstall =
     let

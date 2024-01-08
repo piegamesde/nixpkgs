@@ -51,11 +51,10 @@ stdenv.mkDerivation rec {
     "--chronyrundir=/run/chrony"
   ] ++ lib.optional stdenv.isLinux "--enable-scfilter";
 
-  patches =
-    [
-      # Cleanup the installation script
-      ./makefile.patch
-    ];
+  patches = [
+    # Cleanup the installation script
+    ./makefile.patch
+  ];
 
   postPatch = ''
     patchShebangs test

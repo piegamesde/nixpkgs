@@ -38,11 +38,10 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  disabledTestPaths =
-    [
-      # We don't have a screen
-      "tests/test_screeninfo.py"
-    ];
+  disabledTestPaths = [
+    # We don't have a screen
+    "tests/test_screeninfo.py"
+  ];
 
   pythonImportsCheck = [ "screeninfo" ];
 

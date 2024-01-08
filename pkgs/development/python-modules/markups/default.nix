@@ -40,11 +40,10 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  disabledTests =
-    [
-      # AssertionError: '.selector .ch { color: #408080' not found in 'pre...
-      "test_get_pygments_stylesheet"
-    ];
+  disabledTests = [
+    # AssertionError: '.selector .ch { color: #408080' not found in 'pre...
+    "test_get_pygments_stylesheet"
+  ];
 
   pythonImportsCheck = [ "markups" ];
 

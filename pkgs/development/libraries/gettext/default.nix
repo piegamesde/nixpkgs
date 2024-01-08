@@ -48,14 +48,13 @@ stdenv.mkDerivation rec {
       "--disable-csharp"
       "--with-xz"
     ]
-    ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform)
-      [
-        # On cross building, gettext supposes that the wchar.h from libc
-        # does not fulfill gettext needs, so it tries to work with its
-        # own wchar.h file, which does not cope well with the system's
-        # wchar.h and stddef.h (gcc-4.3 - glibc-2.9)
-        "gl_cv_func_wcwidth_works=yes"
-      ];
+    ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
+      # On cross building, gettext supposes that the wchar.h from libc
+      # does not fulfill gettext needs, so it tries to work with its
+      # own wchar.h file, which does not cope well with the system's
+      # wchar.h and stddef.h (gcc-4.3 - glibc-2.9)
+      "gl_cv_func_wcwidth_works=yes"
+    ];
 
   postPatch =
     ''

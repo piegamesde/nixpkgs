@@ -31,13 +31,12 @@ stdenv.mkDerivation {
     sha256 = "LHUs6kl1srS6Xektx+jmm4SXLR47VuQ9IhYbBxf2Wc8=";
   };
 
-  patches =
-    [
-      # Fix builf with latest Vala
-      # https://code.launchpad.net/~jtojnar/libunity/libunity
-      # Did not send upstream because Ubuntu is stuck on Vala 0.48.
-      ./fix-vala.patch
-    ];
+  patches = [
+    # Fix builf with latest Vala
+    # https://code.launchpad.net/~jtojnar/libunity/libunity
+    # Did not send upstream because Ubuntu is stuck on Vala 0.48.
+    ./fix-vala.patch
+  ];
 
   nativeBuildInputs = [
     autoreconfHook

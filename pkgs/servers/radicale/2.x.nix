@@ -31,11 +31,10 @@ python3.pkgs.buildPythonApplication rec {
 
   nativeCheckInputs = with python3.pkgs; [ pytestCheckHook ];
 
-  disabledTests =
-    [
-      # uses unsupported crypt method
-      "test_htpasswd_crypt"
-    ];
+  disabledTests = [
+    # uses unsupported crypt method
+    "test_htpasswd_crypt"
+  ];
 
   meta = with lib; {
     homepage = "https://radicale.org/v2.html";

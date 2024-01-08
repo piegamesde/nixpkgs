@@ -19,14 +19,13 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [ hatchling ];
 
-  patches =
-    [
-      # Cannot use hatch-vcs, due to an inifinite recursion
-      (substituteAll {
-        src = ./version.patch;
-        inherit version;
-      })
-    ];
+  patches = [
+    # Cannot use hatch-vcs, due to an inifinite recursion
+    (substituteAll {
+      src = ./version.patch;
+      inherit version;
+    })
+  ];
 
   pythonImportsCheck = [ "iniconfig" ];
 

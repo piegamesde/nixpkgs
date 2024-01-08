@@ -43,11 +43,10 @@ buildPythonPackage rec {
     responses
   ];
 
-  disabledTests =
-    [
-      # needs some ini file.
-      "test_invalid_classifier"
-    ];
+  disabledTests = [
+    # needs some ini file.
+    "test_invalid_classifier"
+  ];
 
   meta = with lib; {
     description = "A simple packaging tool for simple packages";

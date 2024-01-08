@@ -68,11 +68,10 @@ python3.pkgs.buildPythonApplication rec {
     "$NIX_BUILD_CORES"
   ];
 
-  disabledTests =
-    [
-      # Tests require network access
-      "TestFTP"
-    ];
+  disabledTests = [
+    # Tests require network access
+    "TestFTP"
+  ];
 
   disabledTestPaths = [
     # Requires cmake, meson, autotools, apt-get, etc.

@@ -34,11 +34,10 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "pylsp_mypy" ];
 
-  disabledTests =
-    [
-      # Tests wants to call dmypy
-      "test_option_overrides_dmypy"
-    ];
+  disabledTests = [
+    # Tests wants to call dmypy
+    "test_option_overrides_dmypy"
+  ];
 
   meta = with lib; {
     description = "Mypy plugin for the Python LSP Server";

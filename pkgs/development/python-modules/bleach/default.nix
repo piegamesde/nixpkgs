@@ -36,11 +36,10 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  disabledTests =
-    [
-      # Disable network tests
-      "protocols"
-    ];
+  disabledTests = [
+    # Disable network tests
+    "protocols"
+  ];
 
   pythonImportsCheck = [ "bleach" ];
 

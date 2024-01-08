@@ -33,13 +33,12 @@ buildBazelPackage rec {
     sha256 = "sha256-IXS8yeyryBNpPkCpMcOUsdIlKo447d0a8aZKroFJOzM=";
   };
 
-  patches =
-    [
-      # Patch WORKSPACE file to not include windows-related dependencies,
-      # as they are removed by bazel, breaking the fixed output derivation
-      # TODO: fix upstream
-      ./remove-unused-deps.patch
-    ];
+  patches = [
+    # Patch WORKSPACE file to not include windows-related dependencies,
+    # as they are removed by bazel, breaking the fixed output derivation
+    # TODO: fix upstream
+    ./remove-unused-deps.patch
+  ];
 
   bazelFlags = [
     "--//bazel:use_local_flex_bison"

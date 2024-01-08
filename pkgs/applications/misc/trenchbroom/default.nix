@@ -64,11 +64,10 @@ stdenv.mkDerivation rec {
   QT_PLUGIN_PATH = "${qtbase}/${qtbase.qtPluginPrefix}";
   QT_QPA_PLATFORM = "offscreen";
 
-  cmakeFlags =
-    [
-      # https://github.com/TrenchBroom/TrenchBroom/issues/4002#issuecomment-1125390780
-      "-DCMAKE_PREFIX_PATH=cmake/packages"
-    ];
+  cmakeFlags = [
+    # https://github.com/TrenchBroom/TrenchBroom/issues/4002#issuecomment-1125390780
+    "-DCMAKE_PREFIX_PATH=cmake/packages"
+  ];
   ninjaFlags = [ "TrenchBroom" ];
   preBuild = "export HOME=$(mktemp -d)";
 

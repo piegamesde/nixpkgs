@@ -16,16 +16,15 @@ stdenv.mkDerivation rec {
     sha256 = "16bjgr0hy6an892m5r3x9yq6rqrl11n91f9rambq5ik1cxjqarxw";
   };
 
-  patches =
-    [
-      # The software has a non-standard install bash script which kind of works.
-      # However, to make it fully functional, the automatically detection of the
-      # program paths must be substituted with full paths.
-      (substituteAll {
-        src = ./install.patch;
-        inherit bash jre;
-      })
-    ];
+  patches = [
+    # The software has a non-standard install bash script which kind of works.
+    # However, to make it fully functional, the automatically detection of the
+    # program paths must be substituted with full paths.
+    (substituteAll {
+      src = ./install.patch;
+      inherit bash jre;
+    })
+  ];
 
   installPhase = ''
     runHook preInstall

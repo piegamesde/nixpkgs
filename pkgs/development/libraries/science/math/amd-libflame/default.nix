@@ -24,13 +24,12 @@ stdenv.mkDerivation rec {
     hash = "sha256-jESae5NqANw90RBbIHH2oGEq5/mudc4IONv50P/AeQ0=";
   };
 
-  patches =
-    [
-      # The LAPACKE interface is compiled as a separate static library,
-      # we want the main dynamic library to provide LAPACKE symbols.
-      # This patch adds lapacke.a to the shared library as well.
-      ./add-lapacke.diff
-    ];
+  patches = [
+    # The LAPACKE interface is compiled as a separate static library,
+    # we want the main dynamic library to provide LAPACKE symbols.
+    # This patch adds lapacke.a to the shared library as well.
+    ./add-lapacke.diff
+  ];
 
   passthru = {
     inherit blas64;

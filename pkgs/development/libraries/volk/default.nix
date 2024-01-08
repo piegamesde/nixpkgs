@@ -20,14 +20,13 @@ stdenv.mkDerivation rec {
     hash = "sha256-kI4IuO6TLplo5lLAGIPWQWtePcjIEWB9XaJDA6WlqSg=";
     fetchSubmodules = true;
   };
-  patches =
-    [
-      # Remove a failing test
-      (fetchpatch {
-        url = "https://github.com/gnuradio/volk/commit/fe2e4a73480bf2ac2e566052ea682817dddaf61f.patch";
-        hash = "sha256-Vko/Plk7u6UAr32lieU+T9G34Dkg9EW3Noi/NArpRL4=";
-      })
-    ];
+  patches = [
+    # Remove a failing test
+    (fetchpatch {
+      url = "https://github.com/gnuradio/volk/commit/fe2e4a73480bf2ac2e566052ea682817dddaf61f.patch";
+      hash = "sha256-Vko/Plk7u6UAr32lieU+T9G34Dkg9EW3Noi/NArpRL4=";
+    })
+  ];
 
   cmakeFlags =
     lib.optionals (!enableModTool) [ "-DENABLE_MODTOOL=OFF" ]

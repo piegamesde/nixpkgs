@@ -35,11 +35,10 @@ buildPythonPackage rec {
     pyyaml
   ];
 
-  disabledTestPaths =
-    [
-      # requires docker for integration test
-      "tests/integration"
-    ];
+  disabledTestPaths = [
+    # requires docker for integration test
+    "tests/integration"
+  ];
 
   meta = with lib; {
     changelog = "https://github.com/netbox-community/pynetbox/releases/tag/v${version}";

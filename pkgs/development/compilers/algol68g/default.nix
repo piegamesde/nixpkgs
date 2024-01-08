@@ -16,11 +16,10 @@ stdenv.mkDerivation rec {
     hash = "sha256-WCPM0MGP4Qo2ihF8w5JHSMSl0P6N/w2dgY/3PDQlZfA=";
   };
 
-  patches =
-    [
-      # add PNG support
-      ./0001-plotutils-png-support.diff
-    ];
+  patches = [
+    # add PNG support
+    ./0001-plotutils-png-support.diff
+  ];
 
   buildInputs = [
     gsl

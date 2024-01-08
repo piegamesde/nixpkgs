@@ -45,11 +45,10 @@ buildPythonPackage rec {
     setuptools-scm
   ];
 
-  pythonRemoveDeps =
-    [
-      # This is a darwin requirement missing pyobjc
-      "pyobjc-framework-LocalAuthentication"
-    ];
+  pythonRemoveDeps = [
+    # This is a darwin requirement missing pyobjc
+    "pyobjc-framework-LocalAuthentication"
+  ];
 
   propagatedBuildInputs = [
     keyring

@@ -42,11 +42,10 @@ buildPythonPackage rec {
     typing-extensions
   ];
 
-  disabledTests =
-    [
-      # DeprecationWarning: Deprecated call to `pkg_resources.declare_namespace('tests.testdata.python3.data.path_pkg_resources_1.package')`.
-      "test_identify_old_namespace_package_protocol"
-    ];
+  disabledTests = [
+    # DeprecationWarning: Deprecated call to `pkg_resources.declare_namespace('tests.testdata.python3.data.path_pkg_resources_1.package')`.
+    "test_identify_old_namespace_package_protocol"
+  ];
 
   passthru.tests = {
     inherit pylint;

@@ -80,11 +80,10 @@ buildPythonPackage rec {
     rm -r {libcst/tests,libcst/codegen/tests,libcst/m*/tests}
   '';
 
-  disabledTests =
-    [
-      # No files are generated
-      "test_codemod_formatter_error_input"
-    ];
+  disabledTests = [
+    # No files are generated
+    "test_codemod_formatter_error_input"
+  ];
 
   pythonImportsCheck = [ "libcst" ];
 

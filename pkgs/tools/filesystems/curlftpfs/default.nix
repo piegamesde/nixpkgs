@@ -19,13 +19,12 @@ stdenv.mkDerivation rec {
     sha256 = "0n397hmv21jsr1j7zx3m21i7ryscdhkdsyqpvvns12q7qwwlgd2f";
   };
 
-  patches =
-    [
-      # This removes AC_FUNC_MALLOC and AC_FUNC_REALLOC from configure.ac because
-      # it is known to cause problems. Search online for "rpl_malloc" and
-      # "rpl_realloc" to find out more.
-      ./fix-rpl_malloc.patch
-    ];
+  patches = [
+    # This removes AC_FUNC_MALLOC and AC_FUNC_REALLOC from configure.ac because
+    # it is known to cause problems. Search online for "rpl_malloc" and
+    # "rpl_realloc" to find out more.
+    ./fix-rpl_malloc.patch
+  ];
 
   nativeBuildInputs = [
     autoreconfHook

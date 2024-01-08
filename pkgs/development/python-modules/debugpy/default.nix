@@ -52,23 +52,20 @@ buildPythonPackage rec {
       # python.withPackages (ps: with ps; [ debugpy ])
       ./fix-test-pythonpath.patch
     ]
-    ++ lib.optionals stdenv.isLinux
-      [
-        # Hard code GDB path (used to attach to process)
-        (substituteAll {
-          src = ./hardcode-gdb.patch;
-          inherit gdb;
-        })
-      ]
-    ++
-      lib.optionals stdenv.isDarwin
-        [
-          # Hard code LLDB path (used to attach to process)
-          (substituteAll {
-            src = ./hardcode-lldb.patch;
-            inherit (llvmPackages) lldb;
-          })
-        ];
+    ++ lib.optionals stdenv.isLinux [
+      # Hard code GDB path (used to attach to process)
+      (substituteAll {
+        src = ./hardcode-gdb.patch;
+        inherit gdb;
+      })
+    ]
+    ++ lib.optionals stdenv.isDarwin [
+      # Hard code LLDB path (used to attach to process)
+      (substituteAll {
+        src = ./hardcode-lldb.patch;
+        inherit (llvmPackages) lldb;
+      })
+    ];
 
   # Remove pre-compiled "attach" libraries and recompile for host platform
   # Compile flags taken from linux_and_mac/compile_linux.sh & linux_and_mac/compile_mac.sh
@@ -116,11 +113,10 @@ buildPythonPackage rec {
   # Fixes hanging tests on Darwin
   __darwinAllowLocalNetworking = true;
 
-  disabledTests =
-    [
-      # https://github.com/microsoft/debugpy/issues/1241
-      "test_flask_breakpoint_multiproc"
-    ];
+  disabledTests = [
+    # https://github.com/microsoft/debugpy/issues/1241
+    "test_flask_breakpoint_multiproc"
+  ];
 
   pythonImportsCheck = [ "debugpy" ];
 

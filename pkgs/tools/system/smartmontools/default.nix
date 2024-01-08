@@ -36,11 +36,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-pUT4gI0MWM+w50JMoYQcuFipdJIrA11QXU5MJIvjois=";
   };
 
-  patches =
-    [
-      # fixes darwin build
-      ./smartmontools.patch
-    ];
+  patches = [
+    # fixes darwin build
+    ./smartmontools.patch
+  ];
   postPatch = ''
     cp -v ${driverdb} drivedb.h
   '';

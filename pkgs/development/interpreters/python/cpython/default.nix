@@ -295,23 +295,20 @@ stdenv.mkDerivation {
     '';
 
   patches =
-    optionals (version == "3.10.9")
-      [
-        # https://github.com/python/cpython/issues/100160
-        ./3.10/asyncio-deprecation.patch
-      ]
-    ++
-      optionals (version == "3.11.1")
-        [
-          # https://github.com/python/cpython/issues/100160
-          (fetchpatch {
-            name = "asyncio-deprecation-3.11.patch";
-            url = "https://github.com/python/cpython/commit/3fae04b10e2655a20a3aadb5e0d63e87206d0c67.diff";
-            revert = true;
-            excludes = [ "Misc/NEWS.d/*" ];
-            hash = "sha256-PmkXf2D9trtW1gXZilRIWgdg2Y47JfELq1z4DuG3wJY=";
-          })
-        ]
+    optionals (version == "3.10.9") [
+      # https://github.com/python/cpython/issues/100160
+      ./3.10/asyncio-deprecation.patch
+    ]
+    ++ optionals (version == "3.11.1") [
+      # https://github.com/python/cpython/issues/100160
+      (fetchpatch {
+        name = "asyncio-deprecation-3.11.patch";
+        url = "https://github.com/python/cpython/commit/3fae04b10e2655a20a3aadb5e0d63e87206d0c67.diff";
+        revert = true;
+        excludes = [ "Misc/NEWS.d/*" ];
+        hash = "sha256-PmkXf2D9trtW1gXZilRIWgdg2Y47JfELq1z4DuG3wJY=";
+      })
+    ]
     ++ [
       # Disable the use of ldconfig in ctypes.util.find_library (since
       # ldconfig doesn't work on NixOS), and don't use
@@ -324,56 +321,46 @@ stdenv.mkDerivation {
       # errors.
       ./virtualenv-permissions.patch
     ]
-    ++
-      optionals mimetypesSupport
-        [
-          # Make the mimetypes module refer to the right file
-          ./mimetypes.patch
-        ]
-    ++
-      optionals (pythonAtLeast "3.7" && pythonOlder "3.11")
-        [
-          # Fix darwin build https://bugs.python.org/issue34027
-          ./3.7/darwin-libutil.patch
-        ]
+    ++ optionals mimetypesSupport [
+      # Make the mimetypes module refer to the right file
+      ./mimetypes.patch
+    ]
+    ++ optionals (pythonAtLeast "3.7" && pythonOlder "3.11") [
+      # Fix darwin build https://bugs.python.org/issue34027
+      ./3.7/darwin-libutil.patch
+    ]
     ++ optionals (pythonAtLeast "3.11") [ ./3.11/darwin-libutil.patch ]
-    ++
-      optionals (pythonAtLeast "3.9" && pythonOlder "3.11" && stdenv.isDarwin)
-        [
-          # Stop checking for TCL/TK in global macOS locations
-          ./3.9/darwin-tcl-tk.patch
-        ]
-    ++
-      optionals (isPy3k && hasDistutilsCxxPatch && pythonOlder "3.12")
-        [
-          # Fix for http://bugs.python.org/issue1222585
-          # Upstream distutils is calling C compiler to compile C++ code, which
-          # only works for GCC and Apple Clang. This makes distutils to call C++
-          # compiler when needed.
-          (
-            if pythonAtLeast "3.7" && pythonOlder "3.11" then
-              ./3.7/python-3.x-distutils-C++.patch
-            else if pythonAtLeast "3.11" then
-              ./3.11/python-3.x-distutils-C++.patch
-            else
-              fetchpatch {
-                url = "https://bugs.python.org/file48016/python-3.x-distutils-C++.patch";
-                sha256 = "1h18lnpx539h5lfxyk379dxwr8m2raigcjixkf133l4xy3f4bzi2";
-              }
-          )
-        ]
+    ++ optionals (pythonAtLeast "3.9" && pythonOlder "3.11" && stdenv.isDarwin) [
+      # Stop checking for TCL/TK in global macOS locations
+      ./3.9/darwin-tcl-tk.patch
+    ]
+    ++ optionals (isPy3k && hasDistutilsCxxPatch && pythonOlder "3.12") [
+      # Fix for http://bugs.python.org/issue1222585
+      # Upstream distutils is calling C compiler to compile C++ code, which
+      # only works for GCC and Apple Clang. This makes distutils to call C++
+      # compiler when needed.
+      (
+        if pythonAtLeast "3.7" && pythonOlder "3.11" then
+          ./3.7/python-3.x-distutils-C++.patch
+        else if pythonAtLeast "3.11" then
+          ./3.11/python-3.x-distutils-C++.patch
+        else
+          fetchpatch {
+            url = "https://bugs.python.org/file48016/python-3.x-distutils-C++.patch";
+            sha256 = "1h18lnpx539h5lfxyk379dxwr8m2raigcjixkf133l4xy3f4bzi2";
+          }
+      )
+    ]
     ++ optionals (pythonOlder "3.12") [
       # LDSHARED now uses $CC instead of gcc. Fixes cross-compilation of extension modules.
       ./3.8/0001-On-all-posix-systems-not-just-Darwin-set-LDSHARED-if.patch
       # Use sysconfigdata to find headers. Fixes cross-compilation of extension modules.
       ./3.7/fix-finding-headers-when-cross-compiling.patch
     ]
-    ++
-      optionals stdenv.hostPlatform.isLoongArch64
-        [
-          # https://github.com/python/cpython/issues/90656
-          ./loongarch-support.patch
-        ];
+    ++ optionals stdenv.hostPlatform.isLoongArch64 [
+      # https://github.com/python/cpython/issues/90656
+      ./loongarch-support.patch
+    ];
 
   postPatch =
     ''
@@ -413,12 +400,10 @@ stdenv.mkDerivation {
     ++ optionals enableFramework [ "--enable-framework=${placeholder "out"}/Library/Frameworks" ]
     ++ optionals enableOptimizations [ "--enable-optimizations" ]
     ++ optionals enableLTO [ "--with-lto" ]
-    ++
-      optionals (pythonOlder "3.7")
-        [
-          # This is unconditionally true starting in CPython 3.7.
-          "--with-threads"
-        ]
+    ++ optionals (pythonOlder "3.7") [
+      # This is unconditionally true starting in CPython 3.7.
+      "--with-threads"
+    ]
     ++ optionals (sqlite != null && isPy3k) [ "--enable-loadable-sqlite-extensions" ]
     ++ optionals (openssl' != null) [ "--with-openssl=${openssl'.dev}" ]
     ++ optionals (libxcrypt != null) [
@@ -450,13 +435,11 @@ stdenv.mkDerivation {
     ++ optionals (stdenv.hostPlatform != stdenv.buildPlatform && pythonAtLeast "3.11") [
       "--with-build-python=${pythonForBuildInterpreter}"
     ]
-    ++
-      optionals stdenv.hostPlatform.isLinux
-        [
-          # Never even try to use lchmod on linux,
-          # don't rely on detecting glibc-isms.
-          "ac_cv_func_lchmod=no"
-        ]
+    ++ optionals stdenv.hostPlatform.isLinux [
+      # Never even try to use lchmod on linux,
+      # don't rely on detecting glibc-isms.
+      "ac_cv_func_lchmod=no"
+    ]
     ++ optionals tzdataSupport [ "--with-tzpath=${tzdata}/share/zoneinfo" ]
     ++ optional static "LDFLAGS=-static";
 

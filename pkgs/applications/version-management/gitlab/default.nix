@@ -181,11 +181,10 @@ stdenv.mkDerivation {
     nettools
   ];
 
-  patches =
-    [
-      # Change hardcoded paths to the NixOS equivalent
-      ./remove-hardcoded-locations.patch
-    ];
+  patches = [
+    # Change hardcoded paths to the NixOS equivalent
+    ./remove-hardcoded-locations.patch
+  ];
 
   postPatch = ''
     ${lib.optionalString (!gitlabEnterprise) ''

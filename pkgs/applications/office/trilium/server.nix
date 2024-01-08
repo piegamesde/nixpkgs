@@ -25,11 +25,10 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ stdenv.cc.cc.lib ];
 
-  patches =
-    [
-      # patch logger to use console instead of rolling files
-      ./0001-Use-console-logger-instead-of-rolling-files.patch
-    ];
+  patches = [
+    # patch logger to use console instead of rolling files
+    ./0001-Use-console-logger-instead-of-rolling-files.patch
+  ];
 
   installPhase = ''
     runHook preInstall

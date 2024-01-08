@@ -53,11 +53,10 @@ buildPythonPackage rec {
     werkzeug
   ];
 
-  disabledTestPaths =
-    [
-      # requires network access
-      "tests/management/commands/test_pipchecker.py"
-    ];
+  disabledTestPaths = [
+    # requires network access
+    "tests/management/commands/test_pipchecker.py"
+  ];
 
   meta = with lib; {
     description = "A collection of custom extensions for the Django Framework";

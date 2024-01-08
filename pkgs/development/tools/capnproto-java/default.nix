@@ -18,14 +18,13 @@ stdenv.mkDerivation rec {
     hash = "sha256:1512x70xa6mlg9dmr84r8xbf0jzysjal51ivhhh2ppl97yiqjgls";
   };
 
-  patches =
-    [
-      # Add make install rule
-      (fetchpatch {
-        url = "https://github.com/capnproto/capnproto-java/commit/e96448d3f5737db25e55cd268652712b69db5cc0.diff";
-        sha256 = "0f3vyap1zsxy675900pzg5ngh7bf9icllm1w04q64g8i91sdzljl";
-      })
-    ];
+  patches = [
+    # Add make install rule
+    (fetchpatch {
+      url = "https://github.com/capnproto/capnproto-java/commit/e96448d3f5737db25e55cd268652712b69db5cc0.diff";
+      sha256 = "0f3vyap1zsxy675900pzg5ngh7bf9icllm1w04q64g8i91sdzljl";
+    })
+  ];
 
   nativeBuildInputs = [ pkg-config ];
 

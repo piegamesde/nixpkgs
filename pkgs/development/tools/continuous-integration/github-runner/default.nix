@@ -143,12 +143,10 @@ buildDotnetModule rec {
       "RunnerLayoutParts_CheckExternalsHash"
       "RunnerLayoutParts_CheckDotnetRuntimeHash"
     ]
-    ++
-      lib.optionals (stdenv.hostPlatform.system == "aarch64-linux")
-        [
-          # "JavaScript Actions in Alpine containers are only supported on x64 Linux runners. Detected Linux Arm64"
-          "GitHub.Runner.Common.Tests.Worker.StepHostL0.DetermineNodeRuntimeVersionInAlpineContainerAsync"
-        ]
+    ++ lib.optionals (stdenv.hostPlatform.system == "aarch64-linux") [
+      # "JavaScript Actions in Alpine containers are only supported on x64 Linux runners. Detected Linux Arm64"
+      "GitHub.Runner.Common.Tests.Worker.StepHostL0.DetermineNodeRuntimeVersionInAlpineContainerAsync"
+    ]
     ++ lib.optionals DOTNET_SYSTEM_GLOBALIZATION_INVARIANT [
       "GitHub.Runner.Common.Tests.ProcessExtensionL0.SuccessReadProcessEnv"
       "GitHub.Runner.Common.Tests.Util.StringUtilL0.FormatUsesInvariantCulture"

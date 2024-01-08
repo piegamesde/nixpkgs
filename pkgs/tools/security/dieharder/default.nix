@@ -16,11 +16,10 @@ stdenv.mkDerivation rec {
     hash = "sha256-bP8P+DlMVTVJrHQzNZzPyVX7JnlCYDFGIN+l5M1Lcn8=";
   };
 
-  patches =
-    [
-      # Include missing stdint.h header
-      ./stdint.patch
-    ];
+  patches = [
+    # Include missing stdint.h header
+    ./stdint.patch
+  ];
 
   # Workaround build failure on -fno-common toolchains:
   #   ld: include/dieharder/parse.h:21: multiple definition of `splitbuf';

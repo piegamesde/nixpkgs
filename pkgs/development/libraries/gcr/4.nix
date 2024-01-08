@@ -72,12 +72,11 @@ stdenv.mkDerivation rec {
 
   nativeCheckInputs = [ python3 ];
 
-  mesonFlags =
-    [
-      # We are still using ssh-agent from gnome-keyring.
-      # https://github.com/NixOS/nixpkgs/issues/140824
-      "-Dssh_agent=false"
-    ];
+  mesonFlags = [
+    # We are still using ssh-agent from gnome-keyring.
+    # https://github.com/NixOS/nixpkgs/issues/140824
+    "-Dssh_agent=false"
+  ];
 
   doCheck = false; # fails 21 out of 603 tests, needs dbus daemon
 

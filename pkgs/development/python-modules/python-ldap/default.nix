@@ -44,11 +44,10 @@ buildPythonPackage rec {
     export SCHEMA="${openldap}/etc/schema"
   '';
 
-  disabledTests =
-    [
-      # https://github.com/python-ldap/python-ldap/issues/501
-      "test_tls_ext_noca"
-    ];
+  disabledTests = [
+    # https://github.com/python-ldap/python-ldap/issues/501
+    "test_tls_ext_noca"
+  ];
 
   doCheck = !stdenv.isDarwin;
 

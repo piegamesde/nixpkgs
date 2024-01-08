@@ -44,11 +44,10 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "update_dotdee" ];
 
-  disabledTests =
-    [
-      # TypeError: %o format: an integer is required, not str
-      "test_executable"
-    ];
+  disabledTests = [
+    # TypeError: %o format: an integer is required, not str
+    "test_executable"
+  ];
 
   meta = with lib; {
     description = "Generic modularized configuration file manager";

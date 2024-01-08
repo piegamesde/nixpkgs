@@ -37,11 +37,10 @@ buildPythonPackage rec {
     pytest-asyncio
   ];
 
-  disabledTests =
-    [
-      # require credentials
-      "test_annotate_video"
-    ];
+  disabledTests = [
+    # require credentials
+    "test_annotate_video"
+  ];
 
   pythonImportsCheck = [
     "google.cloud.videointelligence"

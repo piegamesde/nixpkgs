@@ -62,17 +62,14 @@ stdenv.mkDerivation rec {
   '';
 
   env.NIX_CFLAGS_COMPILE = toString (
-    lib.optionals stdenv.cc.isGNU
-      [
-        # Needed with GCC 12 but breaks on darwin (with clang)
-        "-Wno-error=maybe-uninitialized"
-      ]
-    ++
-      lib.optionals stdenv.cc.isClang
-        [
-          # fix "argument unused during compilation"
-          "-Wno-unused-command-line-argument"
-        ]
+    lib.optionals stdenv.cc.isGNU [
+      # Needed with GCC 12 but breaks on darwin (with clang)
+      "-Wno-error=maybe-uninitialized"
+    ]
+    ++ lib.optionals stdenv.cc.isClang [
+      # fix "argument unused during compilation"
+      "-Wno-unused-command-line-argument"
+    ]
   );
 
   # TODO: add jbmc support

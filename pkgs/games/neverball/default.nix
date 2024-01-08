@@ -20,16 +20,15 @@ stdenv.mkDerivation rec {
     url = "https://neverball.org/neverball-${version}.tar.gz";
     sha256 = "184gm36c6p6vaa6gwrfzmfh86klhnb03pl40ahsjsvprlk667zkk";
   };
-  patches =
-    [
-      # Pull upstream fix for -fno-common toolchains
-      #   https://github.com/Neverball/neverball/pull/198
-      (fetchpatch {
-        name = "fno-common.patch";
-        url = "https://github.com/Neverball/neverball/commit/a42492b8db06934c7a794630db92e3ff6ebaadaa.patch";
-        sha256 = "0sqyxfwpl4xxra8iz87j5rxzwani16xra2xl4l5z61shvq30308h";
-      })
-    ];
+  patches = [
+    # Pull upstream fix for -fno-common toolchains
+    #   https://github.com/Neverball/neverball/pull/198
+    (fetchpatch {
+      name = "fno-common.patch";
+      url = "https://github.com/Neverball/neverball/commit/a42492b8db06934c7a794630db92e3ff6ebaadaa.patch";
+      sha256 = "0sqyxfwpl4xxra8iz87j5rxzwani16xra2xl4l5z61shvq30308h";
+    })
+  ];
 
   buildInputs = [
     libpng

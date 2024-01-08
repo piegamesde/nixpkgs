@@ -129,18 +129,14 @@ buildPythonPackage rec {
       # fails to compile
       "--deselect=pyarrow/tests/test_cython.py::test_cython_api"
     ]
-    ++
-      lib.optionals (pythonAtLeast "3.11")
-        [
-          # Repr output is printing number instead of enum name so these tests fail
-          "--deselect=pyarrow/tests/test_fs.py::test_get_file_info"
-        ]
-    ++
-      lib.optionals stdenv.isLinux
-        [
-          # this test requires local networking
-          "--deselect=pyarrow/tests/test_fs.py::test_filesystem_from_uri_gcs"
-        ];
+    ++ lib.optionals (pythonAtLeast "3.11") [
+      # Repr output is printing number instead of enum name so these tests fail
+      "--deselect=pyarrow/tests/test_fs.py::test_get_file_info"
+    ]
+    ++ lib.optionals stdenv.isLinux [
+      # this test requires local networking
+      "--deselect=pyarrow/tests/test_fs.py::test_filesystem_from_uri_gcs"
+    ];
 
   disabledTests = [ "GcsFileSystem" ];
 

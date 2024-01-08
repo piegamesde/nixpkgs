@@ -34,12 +34,10 @@ stdenv.mkDerivation rec {
     "PREFIX=$(out)"
   ];
 
-  env.NIX_CFLAGS_COMPILE =
-    toString
-      [
-        # Needed with GCC 12
-        "-Wno-error=address"
-      ];
+  env.NIX_CFLAGS_COMPILE = toString [
+    # Needed with GCC 12
+    "-Wno-error=address"
+  ];
 
   meta = with lib; {
     description = "Emulate a Cisco-style telnet command-line interface";

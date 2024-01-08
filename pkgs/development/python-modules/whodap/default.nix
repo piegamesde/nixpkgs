@@ -29,11 +29,10 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  disabledTestPaths =
-    [
-      # Requires network access
-      "tests/test_client.py"
-    ];
+  disabledTestPaths = [
+    # Requires network access
+    "tests/test_client.py"
+  ];
 
   pythonImportsCheck = [ "whodap" ];
 

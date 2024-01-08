@@ -19,15 +19,14 @@ stdenv.mkDerivation rec {
     hash = "sha256-kKj4fCgphoe3lojJfARwpITxQh7E6ehUew9FVEW63uQ=";
   };
 
-  patches =
-    [
-      # Avoid multiple definitions of CLOCK_REALTIME on macOS 11,
-      # see https://github.com/emikulic/darkstat/pull/2
-      (fetchpatch {
-        url = "https://github.com/emikulic/darkstat/commit/d2fd232e1167dee6e7a2d88b9ab7acf2a129f697.diff";
-        sha256 = "0z5mpyc0q65qb6cn4xcrxl0vx21d8ibzaam5kjyrcw4icd8yg4jb";
-      })
-    ];
+  patches = [
+    # Avoid multiple definitions of CLOCK_REALTIME on macOS 11,
+    # see https://github.com/emikulic/darkstat/pull/2
+    (fetchpatch {
+      url = "https://github.com/emikulic/darkstat/commit/d2fd232e1167dee6e7a2d88b9ab7acf2a129f697.diff";
+      sha256 = "0z5mpyc0q65qb6cn4xcrxl0vx21d8ibzaam5kjyrcw4icd8yg4jb";
+    })
+  ];
 
   nativeBuildInputs = [ autoreconfHook ];
 

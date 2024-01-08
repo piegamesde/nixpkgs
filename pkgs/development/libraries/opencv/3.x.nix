@@ -341,12 +341,10 @@ stdenv.mkDerivation {
       "-DWITH_LAPACK=OFF"
     ]
     ++ lib.optionals enablePython [ "-DOPENCV_SKIP_PYTHON_LOADER=ON" ]
-    ++
-      lib.optionals enableEigen
-        [
-          # Autodetection broken by https://github.com/opencv/opencv/pull/13337
-          "-DEIGEN_INCLUDE_PATH=${eigen}/include/eigen3"
-        ];
+    ++ lib.optionals enableEigen [
+      # Autodetection broken by https://github.com/opencv/opencv/pull/13337
+      "-DEIGEN_INCLUDE_PATH=${eigen}/include/eigen3"
+    ];
 
   postBuild = lib.optionalString enableDocs ''
     make doxygen

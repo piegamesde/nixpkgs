@@ -20,14 +20,13 @@ buildPythonPackage rec {
     hash = "sha256-EDm94oeFO0t7Yboi2DdhgyQ094UG2nYt+wYCkb8yiX0=";
   };
 
-  patches =
-    [
-      # Patch path for VLC
-      (substituteAll {
-        src = ./vlc-paths.patch;
-        libvlcPath = "${libvlc}/lib/libvlc.so.5";
-      })
-    ];
+  patches = [
+    # Patch path for VLC
+    (substituteAll {
+      src = ./vlc-paths.patch;
+      libvlcPath = "${libvlc}/lib/libvlc.so.5";
+    })
+  ];
 
   propagatedBuildInputs = [ setuptools ];
 

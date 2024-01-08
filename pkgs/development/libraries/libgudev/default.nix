@@ -64,11 +64,10 @@ stdenv.mkDerivation rec {
     glib
   ];
 
-  mesonFlags =
-    [
-      # There's a dependency cycle with umockdev and the tests fail to LD_PRELOAD anyway
-      "-Dtests=disabled"
-    ];
+  mesonFlags = [
+    # There's a dependency cycle with umockdev and the tests fail to LD_PRELOAD anyway
+    "-Dtests=disabled"
+  ];
 
   passthru = {
     updateScript = gnome.updateScript {

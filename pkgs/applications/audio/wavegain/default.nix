@@ -16,15 +16,14 @@ stdenv.mkDerivation {
     sha256 = "0wghqnsbypmr4xcrhb568bfjdnxzzp8qgnws3jslzmzf34dpk5ls";
   };
 
-  patches =
-    [
-      # Upstream fix for -fno-common toolchains.
-      (fetchpatch {
-        name = "fno-common.patch";
-        url = "https://github.com/MestreLion/wavegain/commit/ee5e0f9a0ce34c0cf2769ea6566685a54b938304.patch";
-        sha256 = "11yi0czdn5h5bsqp23cww6yn9lm60cij8i1pzfwcfhgyf6f8ym1n";
-      })
-    ];
+  patches = [
+    # Upstream fix for -fno-common toolchains.
+    (fetchpatch {
+      name = "fno-common.patch";
+      url = "https://github.com/MestreLion/wavegain/commit/ee5e0f9a0ce34c0cf2769ea6566685a54b938304.patch";
+      sha256 = "11yi0czdn5h5bsqp23cww6yn9lm60cij8i1pzfwcfhgyf6f8ym1n";
+    })
+  ];
 
   makeFlags = [ "CC=${stdenv.cc.targetPrefix}cc" ];
 

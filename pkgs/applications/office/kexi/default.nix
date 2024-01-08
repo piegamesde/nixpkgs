@@ -80,17 +80,16 @@ mkDerivation rec {
 
   propagatedUserEnvPkgs = [ kproperty ];
 
-  patches =
-    [
-      # Changes in Qt 5.13 mean that QDate isn't exported from certain places,
-      # which the build was relying on. This patch explicitly imports QDate where
-      # needed.
-      # Should be unnecessary with kexi >= 3.3
-      (fetchpatch {
-        url = "https://cgit.kde.org/kexi.git/patch/src/plugins/forms/widgets/kexidbdatepicker.cpp?id=511d99b7745a6ce87a208bdbf69e631f1f136d53";
-        sha256 = "0m5cwq2v46gb1b12p7acck6dadvn7sw4xf8lkqikj9hvzq3r1dnj";
-      })
-    ];
+  patches = [
+    # Changes in Qt 5.13 mean that QDate isn't exported from certain places,
+    # which the build was relying on. This patch explicitly imports QDate where
+    # needed.
+    # Should be unnecessary with kexi >= 3.3
+    (fetchpatch {
+      url = "https://cgit.kde.org/kexi.git/patch/src/plugins/forms/widgets/kexidbdatepicker.cpp?id=511d99b7745a6ce87a208bdbf69e631f1f136d53";
+      sha256 = "0m5cwq2v46gb1b12p7acck6dadvn7sw4xf8lkqikj9hvzq3r1dnj";
+    })
+  ];
 
   meta = with lib; {
     description = "A open source visual database applications creator, a long-awaited competitor for programs like MS Access or Filemaker";

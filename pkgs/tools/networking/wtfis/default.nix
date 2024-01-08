@@ -19,11 +19,10 @@ python3.pkgs.buildPythonApplication {
     hash = "sha256-bHgv5+HoM1hFhpkqml+HxqiMDvKbMqsTH+zYtDrV7Ko=";
   };
 
-  patches =
-    [
-      # TODO: get rid of that newbie patch
-      ./000-pyproject-remove-versions.diff
-    ];
+  patches = [
+    # TODO: get rid of that newbie patch
+    ./000-pyproject-remove-versions.diff
+  ];
 
   format = "pyproject";
 

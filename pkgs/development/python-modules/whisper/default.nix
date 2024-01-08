@@ -25,11 +25,10 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  disabledTests =
-    [
-      # whisper-resize.py: not found
-      "test_resize_with_aggregate"
-    ];
+  disabledTests = [
+    # whisper-resize.py: not found
+    "test_resize_with_aggregate"
+  ];
 
   pythonImportsCheck = [ "whisper" ];
 

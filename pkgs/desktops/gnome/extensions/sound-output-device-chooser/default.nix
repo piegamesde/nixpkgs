@@ -20,15 +20,14 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-iPc95LmDsYizLg45wpU+vFx/N6MR2hewSHqoRsePC/4=";
   };
 
-  patches =
-    [
-      # Fix paths to libpulse and python
-      (substituteAll {
-        src = ./fix-paths.patch;
-        libpulse = "${libpulseaudio}/lib/libpulse.so";
-        python = python3.interpreter;
-      })
-    ];
+  patches = [
+    # Fix paths to libpulse and python
+    (substituteAll {
+      src = ./fix-paths.patch;
+      libpulse = "${libpulseaudio}/lib/libpulse.so";
+      python = python3.interpreter;
+    })
+  ];
 
   dontBuild = true;
 

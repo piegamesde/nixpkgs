@@ -131,11 +131,10 @@ stdenv.mkDerivation rec {
       cctools
     ];
 
-  patches =
-    [
-      # Patch out remote download of nodejs from build script
-      ./remove-node-download.patch
-    ];
+  patches = [
+    # Patch out remote download of nodejs from build script
+    ./remove-node-download.patch
+  ];
 
   postPatch = ''
     export HOME=$PWD

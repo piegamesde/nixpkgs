@@ -21,11 +21,10 @@ stdenv.mkDerivation rec {
     sha256 = "130cjafck1jlqv92mxbn47yhxd2ccwwnprk605c6lmm941i3kq0d";
   };
 
-  patches =
-    [
-      # adapted from upstream commit; will be fixed in next version
-      ./narrowing-fixes.patch
-    ];
+  patches = [
+    # adapted from upstream commit; will be fixed in next version
+    ./narrowing-fixes.patch
+  ];
 
   postPatch =
     ''

@@ -78,10 +78,9 @@ stdenv.mkDerivation rec {
     sha256 = "0gyq4fkbd2fv7m1mm9xrvn6rk6f4jsmbv8bnlhingmnrvyncnmnr";
   };
 
-  patches =
-    [
-      #    ./CVE-2019-9232.CVE-2019-9325.CVE-2019-9371.CVE-2019-9433.patch
-    ];
+  patches = [
+    #    ./CVE-2019-9232.CVE-2019-9325.CVE-2019-9371.CVE-2019-9433.patch
+  ];
 
   postPatch = ''
     patchShebangs --build \

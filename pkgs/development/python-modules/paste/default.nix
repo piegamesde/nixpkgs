@@ -41,11 +41,10 @@ buildPythonPackage rec {
       # requires network connection
       "test_proxy_to_website"
     ]
-    ++ lib.optionals (pythonAtLeast "3.11")
-      [
-        # https://github.com/cdent/paste/issues/72
-        "test_form"
-      ];
+    ++ lib.optionals (pythonAtLeast "3.11") [
+      # https://github.com/cdent/paste/issues/72
+      "test_form"
+    ];
 
   pythonNamespaces = [ "paste" ];
 

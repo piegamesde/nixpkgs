@@ -122,11 +122,10 @@ buildPythonApplication rec {
     cp -r src/baserow/core/management/backup $out/lib/${python.libPrefix}/site-packages/baserow/core/management/
   '';
 
-  disabledTests =
-    [
-      # Disable linting checks
-      "flake8_plugins"
-    ];
+  disabledTests = [
+    # Disable linting checks
+    "flake8_plugins"
+  ];
 
   disabledTestPaths = [
     # Disable premium tests

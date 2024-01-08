@@ -36,12 +36,11 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  disabledTests =
-    [
-      # chain doesn't validate because end-entitys certificate expired
-      # https://github.com/ralphje/signify/issues/27
-      "test_revoked_certificate"
-    ];
+  disabledTests = [
+    # chain doesn't validate because end-entitys certificate expired
+    # https://github.com/ralphje/signify/issues/27
+    "test_revoked_certificate"
+  ];
 
   meta = with lib; {
     homepage = "https://github.com/ralphje/signify";

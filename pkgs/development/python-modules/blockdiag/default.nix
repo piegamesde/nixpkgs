@@ -46,11 +46,10 @@ buildPythonPackage rec {
 
   pytestFlagsArray = [ "src/blockdiag/tests/" ];
 
-  disabledTests =
-    [
-      # Test require network access
-      "test_app_cleans_up_images"
-    ];
+  disabledTests = [
+    # Test require network access
+    "test_app_cleans_up_images"
+  ];
 
   pythonImportsCheck = [ "blockdiag" ];
 

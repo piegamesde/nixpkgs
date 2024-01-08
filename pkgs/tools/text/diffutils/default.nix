@@ -20,12 +20,11 @@ stdenv.mkDerivation rec {
     hash = "sha256-2A076QogGGjeg9eNrTQTrYgWDMU7zDbrnq98INvwI/E=";
   };
 
-  patches =
-    [
-      # Backport of a fix for 'diff -D' output.
-      # TODO: remove when updating to 3.10.
-      ./fix-diff-D.patch
-    ];
+  patches = [
+    # Backport of a fix for 'diff -D' output.
+    # TODO: remove when updating to 3.10.
+    ./fix-diff-D.patch
+  ];
 
   postPatch = ''
     # avoid the need for help2man

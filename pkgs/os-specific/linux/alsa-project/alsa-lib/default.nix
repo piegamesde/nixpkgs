@@ -17,14 +17,13 @@ stdenv.mkDerivation (
       hash = "sha256-GrAbdOM0JcqZwuNsCET9aIgnMZO9iYJA/o+TrMvL80c=";
     };
 
-    patches =
-      [
-        # Add a "libs" field to the syntax recognized in the /etc/asound.conf file.
-        # The nixos modules for pulseaudio, jack, and pipewire are leveraging this
-        # "libs" field to declare locations for both native and 32bit plugins, in
-        # order to support apps with 32bit sound running on x86_64 architecture.
-        ./alsa-plugin-conf-multilib.patch
-      ];
+    patches = [
+      # Add a "libs" field to the syntax recognized in the /etc/asound.conf file.
+      # The nixos modules for pulseaudio, jack, and pipewire are leveraging this
+      # "libs" field to declare locations for both native and 32bit plugins, in
+      # order to support apps with 32bit sound running on x86_64 architecture.
+      ./alsa-plugin-conf-multilib.patch
+    ];
 
     enableParallelBuilding = true;
 

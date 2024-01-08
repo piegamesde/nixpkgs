@@ -20,11 +20,10 @@ buildPythonPackage rec {
     hash = "sha256-r6TJ6YGL0cygz+F6g6wiqBfBa/QKhynZ92C6lHTZ2rI=";
   };
 
-  patches =
-    [
-      # Add support for NIX_SSL_CERT_FILE
-      ./env.patch
-    ];
+  patches = [
+    # Add support for NIX_SSL_CERT_FILE
+    ./env.patch
+  ];
 
   postPatch = ''
     # Use our system-wide ca-bundle instead of the bundled one
@@ -32,11 +31,10 @@ buildPythonPackage rec {
     ln -snvf "${cacert}/etc/ssl/certs/ca-bundle.crt" "certifi/cacert.pem"
   '';
 
-  propagatedNativeBuildInputs =
-    [
-      # propagate cacerts setup-hook to set up `NIX_SSL_CERT_FILE`
-      cacert
-    ];
+  propagatedNativeBuildInputs = [
+    # propagate cacerts setup-hook to set up `NIX_SSL_CERT_FILE`
+    cacert
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

@@ -48,22 +48,19 @@ buildPythonPackage {
     patchelf
   ];
 
-  buildInputs =
-    with cudaPackages;
-    [
-      # $out/${sitePackages}/nvfuser/_C*.so wants libnvToolsExt.so.1 but torch/lib only ships
-      # libnvToolsExt-$hash.so.1
-      cuda_nvtx
-    ];
+  buildInputs = with cudaPackages; [
+    # $out/${sitePackages}/nvfuser/_C*.so wants libnvToolsExt.so.1 but torch/lib only ships
+    # libnvToolsExt-$hash.so.1
+    cuda_nvtx
+  ];
 
-  autoPatchelfIgnoreMissingDeps =
-    [
-      # This is the hardware-dependent userspace driver that comes from
-      # nvidia_x11 package. It must be deployed at runtime in
-      # /run/opengl-driver/lib or pointed at by LD_LIBRARY_PATH variable, rather
-      # than pinned in runpath
-      "libcuda.so.1"
-    ];
+  autoPatchelfIgnoreMissingDeps = [
+    # This is the hardware-dependent userspace driver that comes from
+    # nvidia_x11 package. It must be deployed at runtime in
+    # /run/opengl-driver/lib or pointed at by LD_LIBRARY_PATH variable, rather
+    # than pinned in runpath
+    "libcuda.so.1"
+  ];
 
   propagatedBuildInputs = [
     future

@@ -36,11 +36,10 @@ stdenv.mkDerivation rec {
     "info"
   ];
 
-  configureFlags =
-    [
-      # >=1.4.9 requires this even with readline in inputs
-      "--enable-history"
-    ];
+  configureFlags = [
+    # >=1.4.9 requires this even with readline in inputs
+    "--enable-history"
+  ];
 
   nativeBuildInputs = [
     pkg-config

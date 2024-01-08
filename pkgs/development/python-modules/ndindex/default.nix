@@ -44,11 +44,10 @@ buildPythonPackage rec {
     pytestCheckHook
   ] ++ passthru.optional-dependencies.arrays;
 
-  pytestFlagsArray =
-    [
-      # pytest.PytestRemovedIn8Warning: Passing None has been deprecated.
-      "--deselect=ndindex/tests/test_ndindex.py::test_ndindex_invalid"
-    ];
+  pytestFlagsArray = [
+    # pytest.PytestRemovedIn8Warning: Passing None has been deprecated.
+    "--deselect=ndindex/tests/test_ndindex.py::test_ndindex_invalid"
+  ];
 
   meta = with lib; {
     description = "";

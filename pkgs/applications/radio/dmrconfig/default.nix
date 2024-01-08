@@ -18,15 +18,14 @@ stdenv.mkDerivation rec {
     sha256 = "1qwix75z749628w583fwp7m7kxbj0k3g159sxb7vgqxbadqqz1ab";
   };
 
-  patches =
-    [
-      # Pull upstream fix for -fno-common toolchains.
-      (fetchpatch {
-        name = "fno-common.patch";
-        url = "https://github.com/OpenRTX/dmrconfig/commit/1a6901488db26262a6b69f80b0e795864e9e8d0a.patch";
-        sha256 = "03px1y95a8aspd251i1jj8ggqfjvkqby4lhn5pb7l5c1lzh6h762";
-      })
-    ];
+  patches = [
+    # Pull upstream fix for -fno-common toolchains.
+    (fetchpatch {
+      name = "fno-common.patch";
+      url = "https://github.com/OpenRTX/dmrconfig/commit/1a6901488db26262a6b69f80b0e795864e9e8d0a.patch";
+      sha256 = "03px1y95a8aspd251i1jj8ggqfjvkqby4lhn5pb7l5c1lzh6h762";
+    })
+  ];
 
   buildInputs = [
     libusb1

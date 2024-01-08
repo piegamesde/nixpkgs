@@ -29,11 +29,10 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  disabledTests =
-    [
-      # requires a postgresql server
-      "test_slash_dp_pattern_schema"
-    ];
+  disabledTests = [
+    # requires a postgresql server
+    "test_slash_dp_pattern_schema"
+  ];
 
   meta = with lib; {
     description = "Meta-commands handler for Postgres Database";

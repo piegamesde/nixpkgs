@@ -219,11 +219,10 @@ python3Packages.buildPythonApplication rec {
 
   nativeCheckInputs = with python3Packages; [ pytestCheckHook ] ++ pythonPath;
 
-  pytestFlagsArray =
-    [
-      # always show more information when tests fail
-      "-vv"
-    ];
+  pytestFlagsArray = [
+    # always show more information when tests fail
+    "-vv"
+  ];
 
   postInstall = ''
     make -C doc

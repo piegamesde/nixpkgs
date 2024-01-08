@@ -37,11 +37,10 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  disabledTests =
-    [
-      # Test requires network access
-      "test_invalid_station_id"
-    ];
+  disabledTests = [
+    # Test requires network access
+    "test_invalid_station_id"
+  ];
 
   pythonImportsCheck = [ "gios" ];
 

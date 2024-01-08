@@ -40,12 +40,11 @@ buildPythonPackage rec {
     pytestCheckHook
     hypothesis
   ];
-  disabledTestPaths =
-    [
-      # "test_snapshots" tries to match generated output against stored snapshots.
-      # They are highly sensitive dep versions, which we unlike upstream do not pin.
-      "test/test_snapshot.py"
-    ];
+  disabledTestPaths = [
+    # "test_snapshots" tries to match generated output against stored snapshots.
+    # They are highly sensitive dep versions, which we unlike upstream do not pin.
+    "test/test_snapshot.py"
+  ];
 
   pytestFlagsArray = [
     ''-m "not slow"'' # skip tests marked slow

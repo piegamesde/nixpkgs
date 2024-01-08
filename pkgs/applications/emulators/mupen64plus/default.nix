@@ -23,19 +23,18 @@ stdenv.mkDerivation rec {
     sha256 = "1a21n4gqdvag6krwcjm5bnyw5phrlxw6m0mk73jy53iq03f3s96m";
   };
 
-  patches =
-    [
-      # Pull upstream fix for -fno-common toolchains:
-      #  https://github.com/mupen64plus/mupen64plus-core/pull/736
-      (fetchpatch {
-        name = "fno-common.patch";
-        url = "https://github.com/mupen64plus/mupen64plus-core/commit/39975200ad4926cfc79c96609b64696289065502.patch";
-        sha256 = "0kdshp9xdkharn3d1g1pvxhh761pa1v5w07iq0wf9l380r2m6gbv";
-        # a/something -> a/source/mupen64plus-core/something
-        stripLen = 1;
-        extraPrefix = "source/mupen64plus-core/";
-      })
-    ];
+  patches = [
+    # Pull upstream fix for -fno-common toolchains:
+    #  https://github.com/mupen64plus/mupen64plus-core/pull/736
+    (fetchpatch {
+      name = "fno-common.patch";
+      url = "https://github.com/mupen64plus/mupen64plus-core/commit/39975200ad4926cfc79c96609b64696289065502.patch";
+      sha256 = "0kdshp9xdkharn3d1g1pvxhh761pa1v5w07iq0wf9l380r2m6gbv";
+      # a/something -> a/source/mupen64plus-core/something
+      stripLen = 1;
+      extraPrefix = "source/mupen64plus-core/";
+    })
+  ];
 
   nativeBuildInputs = [
     pkg-config

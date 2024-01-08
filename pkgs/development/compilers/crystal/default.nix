@@ -122,16 +122,15 @@ let
                   inherit tzdata;
                 })
               ]
-              ++ lib.optionals (lib.versionOlder version "1.2.0")
-                [
-                  # add support for DWARF5 debuginfo, fixes builds on recent compilers
-                  # the PR is 8 commits from 2019, so just fetch the whole thing
-                  # and hope it doesn't change
-                  (fetchpatch {
-                    url = "https://github.com/crystal-lang/crystal/pull/11399.patch";
-                    sha256 = "sha256-CjNpkQQ2UREADmlyLUt7zbhjXf0rTjFhNbFYLwJKkc8=";
-                  })
-                ];
+              ++ lib.optionals (lib.versionOlder version "1.2.0") [
+                # add support for DWARF5 debuginfo, fixes builds on recent compilers
+                # the PR is 8 commits from 2019, so just fetch the whole thing
+                # and hope it doesn't change
+                (fetchpatch {
+                  url = "https://github.com/crystal-lang/crystal/pull/11399.patch";
+                  sha256 = "sha256-CjNpkQQ2UREADmlyLUt7zbhjXf0rTjFhNbFYLwJKkc8=";
+                })
+              ];
 
             outputs = [
               "out"
@@ -221,11 +220,10 @@ let
               [
                 "--single-module" # needed for deterministic builds
               ]
-              ++ lib.optionals (lib.versionAtLeast version "1.3.0" && lib.versionOlder version "1.6.1")
-                [
-                  # ffi is only used by the interpreter and its spec are broken on < 1.6.1
-                  "-Dwithout_ffi"
-                ];
+              ++ lib.optionals (lib.versionAtLeast version "1.3.0" && lib.versionOlder version "1.6.1") [
+                # ffi is only used by the interpreter and its spec are broken on < 1.6.1
+                "-Dwithout_ffi"
+              ];
 
             # This makes sure we don't keep depending on the previous version of
             # crystal used to build this one.

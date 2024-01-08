@@ -30,16 +30,15 @@ stdenv.mkDerivation rec {
     sha256 = "09jwk2i8qd8c7wrn9xbqcwm32720dwxis22kf3jpbg8mn6w6i757";
   };
 
-  patches =
-    [
-      # Pull pending patch for -fno-common tuulchain support:
-      #   https://github.com/GNUFreetalk/freetalk/pull/39
-      (fetchpatch {
-        name = "fno-common.patch";
-        url = "https://github.com/GNUFreetalk/freetalk/commit/f04d6bc8422be44cdf51b29c9a4310f20a18775a.patch";
-        sha256 = "1zjm56cdibnqabgcwl2bx79dj6dmqjf40zghqwwb0lfi60v1njqf";
-      })
-    ];
+  patches = [
+    # Pull pending patch for -fno-common tuulchain support:
+    #   https://github.com/GNUFreetalk/freetalk/pull/39
+    (fetchpatch {
+      name = "fno-common.patch";
+      url = "https://github.com/GNUFreetalk/freetalk/commit/f04d6bc8422be44cdf51b29c9a4310f20a18775a.patch";
+      sha256 = "1zjm56cdibnqabgcwl2bx79dj6dmqjf40zghqwwb0lfi60v1njqf";
+    })
+  ];
 
   preConfigure = ''
     ./autogen.sh

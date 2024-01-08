@@ -68,12 +68,10 @@ buildPythonPackage {
       scp
       xmltodict
     ]
-    ++
-      lib.optionals (withNetbox)
-        [
-          # ansible_collections/netbox/netbox/pyproject.toml
-          pynetbox
-        ]
+    ++ lib.optionals (withNetbox) [
+      # ansible_collections/netbox/netbox/pyproject.toml
+      pynetbox
+    ]
   );
 
   # don't try and fail to strip 48000+ non strippable files, it takes >5 minutes!

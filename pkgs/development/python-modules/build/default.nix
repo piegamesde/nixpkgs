@@ -66,11 +66,10 @@ buildPythonPackage rec {
       "test_output"
       "test_wheel_metadata"
     ]
-    ++ lib.optionals stdenv.isDarwin
-      [
-        # Expects Apple's Python and its quirks
-        "test_can_get_venv_paths_with_conflicting_default_scheme"
-      ];
+    ++ lib.optionals stdenv.isDarwin [
+      # Expects Apple's Python and its quirks
+      "test_can_get_venv_paths_with_conflicting_default_scheme"
+    ];
 
   pythonImportsCheck = [ "build" ];
 

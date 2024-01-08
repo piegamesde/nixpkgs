@@ -137,11 +137,10 @@ let
     };
     gr-blocks = {
       cmakeEnableFlag = "GR_BLOCKS";
-      runtime =
-        [
-          # Required to compile wavfile blocks.
-          libsndfile
-        ];
+      runtime = [
+        # Required to compile wavfile blocks.
+        libsndfile
+      ];
     };
     gr-fec = {
       cmakeEnableFlag = "GR_FEC";
@@ -215,12 +214,10 @@ let
     };
     gr-utils = {
       cmakeEnableFlag = "GR_UTILS";
-      pythonRuntime =
-        with python.pkgs;
-        [
-          # For gr_plot
-          matplotlib
-        ];
+      pythonRuntime = with python.pkgs; [
+        # For gr_plot
+        matplotlib
+      ];
     };
     gr-modtool = {
       pythonRuntime = with python.pkgs; [
@@ -299,11 +296,10 @@ stdenv.mkDerivation {
     dontWrapQtApps
     meta
     ;
-  patches =
-    [
-      # Not accepted upstream, see https://github.com/gnuradio/gnuradio/pull/5227
-      ./modtool-newmod-permissions.patch
-    ];
+  patches = [
+    # Not accepted upstream, see https://github.com/gnuradio/gnuradio/pull/5227
+    ./modtool-newmod-permissions.patch
+  ];
   passthru =
     shared.passthru
     // {

@@ -27,16 +27,15 @@ buildGoModule rec {
     sha256 = "sha256-MF7K3WasG1xLdw1kWz6xVYrdfuZW5GUq6dlS0pPOkHI=";
   };
 
-  patches =
-    [
-      # https://github.com/evilsocket/opensnitch/pull/384 don't require
-      # a configuration file in /etc
-      (fetchpatch {
-        name = "dont-require-config-in-etc.patch";
-        url = "https://github.com/evilsocket/opensnitch/commit/8a3f63f36aa92658217bbbf46d39e6d20b2c0791.patch";
-        sha256 = "sha256-WkwjKTQZppR0nqvRO4xiQoKZ307NvuUwoRx+boIpuTg=";
-      })
-    ];
+  patches = [
+    # https://github.com/evilsocket/opensnitch/pull/384 don't require
+    # a configuration file in /etc
+    (fetchpatch {
+      name = "dont-require-config-in-etc.patch";
+      url = "https://github.com/evilsocket/opensnitch/commit/8a3f63f36aa92658217bbbf46d39e6d20b2c0791.patch";
+      sha256 = "sha256-WkwjKTQZppR0nqvRO4xiQoKZ307NvuUwoRx+boIpuTg=";
+    })
+  ];
 
   modRoot = "daemon";
 

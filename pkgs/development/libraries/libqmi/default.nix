@@ -40,15 +40,14 @@ stdenv.mkDerivation rec {
     hash = "sha256-XIbeWgkPiJL8hN8Rb6KFt5Q5sG3KsiEQr0EnhwmI6h8=";
   };
 
-  patches =
-    [
-      # Fix pkg-config file missing qrtr in Requires.
-      # https://gitlab.freedesktop.org/mobile-broadband/libqmi/-/issues/99
-      (fetchpatch2 {
-        url = "https://gitlab.freedesktop.org/mobile-broadband/libqmi/-/commit/7d08150910974c6bd2c29f887c2c6d4a3526e085.patch";
-        hash = "sha256-LFrlm2ZqLqewLGO2FxL5kFYbZ7HaxdxvVHsFHYSgZ4Y=";
-      })
-    ];
+  patches = [
+    # Fix pkg-config file missing qrtr in Requires.
+    # https://gitlab.freedesktop.org/mobile-broadband/libqmi/-/issues/99
+    (fetchpatch2 {
+      url = "https://gitlab.freedesktop.org/mobile-broadband/libqmi/-/commit/7d08150910974c6bd2c29f887c2c6d4a3526e085.patch";
+      hash = "sha256-LFrlm2ZqLqewLGO2FxL5kFYbZ7HaxdxvVHsFHYSgZ4Y=";
+    })
+  ];
 
   nativeBuildInputs =
     [

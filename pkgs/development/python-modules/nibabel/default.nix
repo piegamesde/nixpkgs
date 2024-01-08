@@ -47,10 +47,9 @@ buildPythonPackage rec {
     dicomfs = [ pillow ] ++ dicom;
     minc2 = [ h5py ];
     spm = [ scipy ];
-    zstd =
-      [
-        # TODO: pyzstd
-      ];
+    zstd = [
+      # TODO: pyzstd
+    ];
   };
 
   nativeCheckInputs = [
@@ -65,11 +64,10 @@ buildPythonPackage rec {
     export PATH=$out/bin:$PATH
   '';
 
-  disabledTests =
-    [
-      # https://github.com/nipy/nibabel/issues/951
-      "test_filenames"
-    ];
+  disabledTests = [
+    # https://github.com/nipy/nibabel/issues/951
+    "test_filenames"
+  ];
 
   meta = with lib; {
     homepage = "https://nipy.org/nibabel";

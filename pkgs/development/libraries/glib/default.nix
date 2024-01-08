@@ -155,20 +155,18 @@ stdenv.mkDerivation (
           Foundation
         ]
       )
-      ++
-        lib.optionals buildDocs
-          [
-            # Note: this needs to be both in buildInputs and nativeBuildInputs. The
-            # Meson gtkdoc module uses find_program to look it up (-> build dep), but
-            # glib's own Meson configuration uses the host pkg-config to find its
-            # version (-> host dep). We could technically go and fix this in glib, add
-            # pkg-config to depsBuildBuild, but this would be a futile exercise since
-            # Meson's gtkdoc integration does not support cross compilation[1] anyway
-            # and this derivation disables the docs build when cross compiling.
-            #
-            # [1] https://github.com/mesonbuild/meson/issues/2003
-            gtk-doc
-          ];
+      ++ lib.optionals buildDocs [
+        # Note: this needs to be both in buildInputs and nativeBuildInputs. The
+        # Meson gtkdoc module uses find_program to look it up (-> build dep), but
+        # glib's own Meson configuration uses the host pkg-config to find its
+        # version (-> host dep). We could technically go and fix this in glib, add
+        # pkg-config to depsBuildBuild, but this would be a futile exercise since
+        # Meson's gtkdoc integration does not support cross compilation[1] anyway
+        # and this derivation disables the docs build when cross compiling.
+        #
+        # [1] https://github.com/mesonbuild/meson/issues/2003
+        gtk-doc
+      ];
 
     strictDeps = true;
 

@@ -25,11 +25,10 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "face" ];
 
-  disabledTests =
-    [
-      # Assertion error as we take the Python release into account
-      "test_search_prs_basic"
-    ];
+  disabledTests = [
+    # Assertion error as we take the Python release into account
+    "test_search_prs_basic"
+  ];
 
   meta = with lib; {
     description = "A command-line interface parser and framework";

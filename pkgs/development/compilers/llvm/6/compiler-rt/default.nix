@@ -59,14 +59,12 @@ stdenv.mkDerivation {
       "-DCMAKE_TRY_COMPILE_TARGET_TYPE=STATIC_LIBRARY"
     ]
     ++ lib.optionals (bareMetal) [ "-DCOMPILER_RT_OS_DIR=baremetal" ]
-    ++
-      lib.optionals (stdenv.hostPlatform.isDarwin)
-        [
-          # The compiler-rt build infrastructure sniffs supported platforms on Darwin
-          # and finds i386;x86_64;x86_64h. We only build for x86_64, so linking fails
-          # when it tries to use libc++ and libc++api for i386.
-          "-DDARWIN_osx_ARCHS=${stdenv.hostPlatform.darwinArch}"
-        ];
+    ++ lib.optionals (stdenv.hostPlatform.isDarwin) [
+      # The compiler-rt build infrastructure sniffs supported platforms on Darwin
+      # and finds i386;x86_64;x86_64h. We only build for x86_64, so linking fails
+      # when it tries to use libc++ and libc++api for i386.
+      "-DDARWIN_osx_ARCHS=${stdenv.hostPlatform.darwinArch}"
+    ];
 
   outputs = [
     "out"

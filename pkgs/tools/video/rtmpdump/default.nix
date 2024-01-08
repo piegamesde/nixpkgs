@@ -24,14 +24,13 @@ stdenv.mkDerivation {
     sha256 = "0vchr0f0d5fi0zaa16jywva5db3x9dyws7clqaq32gwh5drbkvs0";
   };
 
-  patches =
-    [
-      # Fix build with OpenSSL 1.1
-      (fetchpatch {
-        url = "https://gitweb.gentoo.org/repo/gentoo.git/plain/media-video/rtmpdump/files/rtmpdump-openssl-1.1.patch?id=1e7bef484f96e7647f5f0911d3c8caa48131c33b";
-        sha256 = "1wds98pk8qr7shkfl8k49iirxiwd972h18w84bamiqln29wv6ql1";
-      })
-    ];
+  patches = [
+    # Fix build with OpenSSL 1.1
+    (fetchpatch {
+      url = "https://gitweb.gentoo.org/repo/gentoo.git/plain/media-video/rtmpdump/files/rtmpdump-openssl-1.1.patch?id=1e7bef484f96e7647f5f0911d3c8caa48131c33b";
+      sha256 = "1wds98pk8qr7shkfl8k49iirxiwd972h18w84bamiqln29wv6ql1";
+    })
+  ];
 
   makeFlags =
     [

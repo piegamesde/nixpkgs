@@ -43,12 +43,11 @@ stdenv.mkDerivation rec {
       ]
     );
 
-  patches =
-    [
-      # Backport alignment related panics from zig-master to 0.10.
-      # Upstream issue: https://github.com/ziglang/zig/issues/14559
-      ./zig_14559.patch
-    ];
+  patches = [
+    # Backport alignment related panics from zig-master to 0.10.
+    # Upstream issue: https://github.com/ziglang/zig/issues/14559
+    ./zig_14559.patch
+  ];
 
   preBuild = ''
     export HOME=$TMPDIR;

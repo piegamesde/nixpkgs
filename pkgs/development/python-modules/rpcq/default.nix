@@ -44,11 +44,10 @@ buildPythonPackage rec {
       --replace "msgpack>=0.6,<1.0" "msgpack"
   '';
 
-  disabledTests =
-    [
-      # Test doesn't work properly on Hydra
-      "test_client_backlog"
-    ];
+  disabledTests = [
+    # Test doesn't work properly on Hydra
+    "test_client_backlog"
+  ];
 
   pythonImportsCheck = [ "rpcq" ];
 

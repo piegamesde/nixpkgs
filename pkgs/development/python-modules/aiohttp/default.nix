@@ -87,12 +87,11 @@ buildPythonPackage rec {
       pytestCheckHook
       re-assert
     ]
-    ++ lib.optionals (!(stdenv.isDarwin && stdenv.isAarch64))
-      [
-        # Optional test dependency. Depends indirectly on pyopenssl, which is
-        # broken on aarch64-darwin.
-        trustme
-      ];
+    ++ lib.optionals (!(stdenv.isDarwin && stdenv.isAarch64)) [
+      # Optional test dependency. Depends indirectly on pyopenssl, which is
+      # broken on aarch64-darwin.
+      trustme
+    ];
 
   disabledTests =
     [

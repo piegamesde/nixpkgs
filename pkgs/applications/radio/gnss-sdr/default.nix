@@ -33,13 +33,12 @@ gnuradio.pkgs.mkDerivation rec {
     sha256 = "sha256-0aAjkrVAswoRL/KANBSZ5Jq4Y9VwOHZKUKLpXDdKtk8=";
   };
 
-  patches =
-    [
-      # Use the relative install location for volk_gnsssdr_module and
-      # cpu_features which is bundled in the source. NOTE: Perhaps this patch
-      # should be sent upstream.
-      ./fix_libcpu_features_install_path.patch
-    ];
+  patches = [
+    # Use the relative install location for volk_gnsssdr_module and
+    # cpu_features which is bundled in the source. NOTE: Perhaps this patch
+    # should be sent upstream.
+    ./fix_libcpu_features_install_path.patch
+  ];
 
   nativeBuildInputs = [
     cmake

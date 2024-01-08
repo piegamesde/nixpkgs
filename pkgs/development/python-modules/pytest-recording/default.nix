@@ -41,11 +41,10 @@ buildPythonPackage rec {
 
   disabledTests =
     [ "test_block_network_with_allowed_hosts" ]
-    ++ lib.optionals stdenv.isDarwin
-      [
-        # Missing socket.AF_NETLINK
-        "test_other_socket"
-      ];
+    ++ lib.optionals stdenv.isDarwin [
+      # Missing socket.AF_NETLINK
+      "test_other_socket"
+    ];
 
   pytestFlagsArray = [ "tests" ];
 

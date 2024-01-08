@@ -43,11 +43,10 @@ stdenv.mkDerivation rec {
     cd ..
   '';
 
-  configureFlags =
-    [
-      # We're not going to start test servers in the sandbox anyway.
-      "--without-cppunit"
-    ];
+  configureFlags = [
+    # We're not going to start test servers in the sandbox anyway.
+    "--without-cppunit"
+  ];
 
   meta = with lib; {
     homepage = "https://zookeeper.apache.org";

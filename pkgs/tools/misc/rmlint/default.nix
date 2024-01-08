@@ -34,11 +34,10 @@ stdenv.mkDerivation rec {
     sha256 = "15xfkcw1bkfyf3z8kl23k3rlv702m0h7ghqxvhniynvlwbgh6j2x";
   };
 
-  patches =
-    [
-      # pass through NIX_* environment variables to scons.
-      ./scons-nix-env.patch
-    ];
+  patches = [
+    # pass through NIX_* environment variables to scons.
+    ./scons-nix-env.patch
+  ];
 
   nativeBuildInputs =
     [

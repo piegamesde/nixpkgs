@@ -17,11 +17,10 @@ stdenv.mkDerivation rec {
     sha256 = "0x48sxpgxznb1ymx8shw437pcgk76ka5rx0zhn9b3cyi9jlq1yld";
   };
 
-  patches =
-    [
-      # https://github.com/Edward-Wu/srt-live-server/pull/94
-      ./fix-insecure-printfs.patch
-    ];
+  patches = [
+    # https://github.com/Edward-Wu/srt-live-server/pull/94
+    ./fix-insecure-printfs.patch
+  ];
 
   buildInputs = [
     srt

@@ -44,12 +44,11 @@ stdenv.mkDerivation rec {
     patchShebangs scripts
   '';
 
-  mesonFlags =
-    [
-      # Tests are located at https://github.com/openzim/zim-testing-suite
-      # "...some tests need up to 16GB of memory..."
-      "-Dtest_data_dir=none"
-    ];
+  mesonFlags = [
+    # Tests are located at https://github.com/openzim/zim-testing-suite
+    # "...some tests need up to 16GB of memory..."
+    "-Dtest_data_dir=none"
+  ];
 
   meta = with lib; {
     description = "Reference implementation of the ZIM specification";

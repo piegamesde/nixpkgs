@@ -20,12 +20,11 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = lib.optional stdenv.isDarwin fixDarwinDylibNames;
   buildInputs = [ libX11 ];
 
-  patches =
-    [
-      # Changes the socket path from /run/spnav.sock to $XDG_RUNTIME_DIR/spnav.sock
-      # to allow for a user service
-      ./configure-socket-path.patch
-    ];
+  patches = [
+    # Changes the socket path from /run/spnav.sock to $XDG_RUNTIME_DIR/spnav.sock
+    # to allow for a user service
+    ./configure-socket-path.patch
+  ];
 
   configureFlags = [ "--disable-debug" ];
   makeFlags = [

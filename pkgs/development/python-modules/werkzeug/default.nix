@@ -30,11 +30,10 @@ buildPythonPackage rec {
 
   propagatedBuildInputs =
     [ markupsafe ]
-    ++ lib.optionals (!stdenv.isDarwin)
-      [
-        # watchdog requires macos-sdk 10.13+
-        watchdog
-      ];
+    ++ lib.optionals (!stdenv.isDarwin) [
+      # watchdog requires macos-sdk 10.13+
+      watchdog
+    ];
 
   nativeCheckInputs = [
     ephemeral-port-reserve
@@ -45,18 +44,16 @@ buildPythonPackage rec {
 
   disabledTests = lib.optionals stdenv.isDarwin [ "test_get_machine_id" ];
 
-  disabledTestPaths =
-    [
-      # ConnectionRefusedError: [Errno 111] Connection refused
-      "tests/test_serving.py"
-    ];
+  disabledTestPaths = [
+    # ConnectionRefusedError: [Errno 111] Connection refused
+    "tests/test_serving.py"
+  ];
 
-  pytestFlagsArray =
-    [
-      # don't run tests that are marked with filterwarnings, they fail with
-      # warnings._OptionError: unknown warning category: 'pytest.PytestUnraisableExceptionWarning'
-      "-m 'not filterwarnings'"
-    ];
+  pytestFlagsArray = [
+    # don't run tests that are marked with filterwarnings, they fail with
+    # warnings._OptionError: unknown warning category: 'pytest.PytestUnraisableExceptionWarning'
+    "-m 'not filterwarnings'"
+  ];
 
   passthru.tests = {
     inherit moto sentry-sdk;

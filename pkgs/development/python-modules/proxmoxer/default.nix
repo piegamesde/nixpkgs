@@ -35,11 +35,10 @@ buildPythonPackage rec {
     responses
   ];
 
-  disabledTestPaths =
-    [
-      # Tests require openssh_wrapper which is outdated and not available
-      "tests/test_openssh.py"
-    ];
+  disabledTestPaths = [
+    # Tests require openssh_wrapper which is outdated and not available
+    "tests/test_openssh.py"
+  ];
 
   pythonImportsCheck = [ "proxmoxer" ];
 

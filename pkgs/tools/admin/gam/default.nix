@@ -18,11 +18,10 @@ python3.pkgs.buildPythonApplication rec {
 
   sourceRoot = "source/src";
 
-  patches =
-    [
-      # Also disables update check
-      ./signal_files_as_env_vars.patch
-    ];
+  patches = [
+    # Also disables update check
+    ./signal_files_as_env_vars.patch
+  ];
 
   propagatedBuildInputs = with python3.pkgs; [
     distro

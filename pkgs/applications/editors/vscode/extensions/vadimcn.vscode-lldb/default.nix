@@ -97,11 +97,10 @@ stdenv.mkDerivation {
     cp -r ${nodeDeps}/lib/{node_modules,package-lock.json} .
   '';
 
-  cmakeFlags =
-    [
-      # Do not append timestamp to version.
-      "-DVERSION_SUFFIX="
-    ];
+  cmakeFlags = [
+    # Do not append timestamp to version.
+    "-DVERSION_SUFFIX="
+  ];
   makeFlags = [ "vsix_bootstrap" ];
 
   installPhase = ''

@@ -24,11 +24,10 @@ stdenv.mkDerivation rec {
     qtbase
   ];
 
-  patches =
-    [
-      # Patch cmake file to link against the obs build output, instead of its sources
-      ./fix-build.patch
-    ];
+  patches = [
+    # Patch cmake file to link against the obs build output, instead of its sources
+    ./fix-build.patch
+  ];
 
   dontWrapQtApps = true;
 

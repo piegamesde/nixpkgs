@@ -37,15 +37,14 @@ buildPythonApplication rec {
     sha256 = "05lvpi3wgyi741sd8lgcslj8i7yi3wz7jwl7ca3y539y50hwrdas";
   };
 
-  patches =
-    [
-      # Fix build with 0.61, can be removed on next update
-      # https://hydra.nixos.org/build/171052557/nixlog/1
-      (fetchpatch {
-        url = "https://github.com/vagnum08/cpupower-gui/commit/97f8ac02fe33e412b59d3f3968c16a217753e74b.patch";
-        sha256 = "XYnpm03kq8JLMjAT73BMCJWlzz40IAuHESm715VV6G0=";
-      })
-    ];
+  patches = [
+    # Fix build with 0.61, can be removed on next update
+    # https://hydra.nixos.org/build/171052557/nixlog/1
+    (fetchpatch {
+      url = "https://github.com/vagnum08/cpupower-gui/commit/97f8ac02fe33e412b59d3f3968c16a217753e74b.patch";
+      sha256 = "XYnpm03kq8JLMjAT73BMCJWlzz40IAuHESm715VV6G0=";
+    })
+  ];
 
   nativeBuildInputs = [
     appstream-glib

@@ -65,11 +65,10 @@ buildPythonPackage rec {
     "test_imap_batches_unordered_output_buffer_size"
   ];
 
-  disabledTestPaths =
-    [
-      # TypeError:  int() argument must be a string, a bytes-like object or a number, not 'NoneType'
-      "test/augmenters/test_pooling.py"
-    ];
+  disabledTestPaths = [
+    # TypeError:  int() argument must be a string, a bytes-like object or a number, not 'NoneType'
+    "test/augmenters/test_pooling.py"
+  ];
 
   pythonImportsCheck = [ "imgaug" ];
 

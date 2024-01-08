@@ -42,11 +42,10 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  disabledTestPaths =
-    [
-      # Examples are prefix with test_
-      "examples/"
-    ];
+  disabledTestPaths = [
+    # Examples are prefix with test_
+    "examples/"
+  ];
 
   pythonImportsCheck = [ "regenmaschine" ];
 

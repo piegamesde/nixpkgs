@@ -105,13 +105,11 @@ buildPythonPackage rec {
       "test_overwrite"
       "test_options"
     ]
-    ++
-      lib.optionals (stdenv.hostPlatform.isAarch || stdenv.hostPlatform.isRiscV)
-        [
-          # unknown reason so far
-          # https://github.com/adobe-type-tools/afdko/issues/1425
-          "test_spec"
-        ]
+    ++ lib.optionals (stdenv.hostPlatform.isAarch || stdenv.hostPlatform.isRiscV) [
+      # unknown reason so far
+      # https://github.com/adobe-type-tools/afdko/issues/1425
+      "test_spec"
+    ]
     ++ lib.optionals (stdenv.hostPlatform.isi686) [ "test_type1mm_inputs" ];
 
   passthru.tests = {

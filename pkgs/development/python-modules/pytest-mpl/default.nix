@@ -41,11 +41,10 @@ buildPythonPackage rec {
     "test_hash_missing"
   ];
 
-  disabledTestPaths =
-    [
-      # Following are broken since at least a1548780dbc79d76360580691dc1bb4af4e837f6
-      "tests/subtests/test_subtest.py"
-    ];
+  disabledTestPaths = [
+    # Following are broken since at least a1548780dbc79d76360580691dc1bb4af4e837f6
+    "tests/subtests/test_subtest.py"
+  ];
 
   preCheck = ''
     export HOME=$(mktemp -d)

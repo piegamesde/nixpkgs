@@ -42,20 +42,18 @@ stdenv.mkDerivation rec {
       gcc
       # replaces ecl's own gc which other packages can depend on, thus propagated
     ]
-    ++ lib.optionals useBoehmgc
-      [
-        # replaces ecl's own gc which other packages can depend on, thus propagated
-        boehmgc
-      ];
-
-  patches =
-    [
-      # https://gitlab.com/embeddable-common-lisp/ecl/-/merge_requests/1
-      (fetchpatch {
-        url = "https://git.sagemath.org/sage.git/plain/build/pkgs/ecl/patches/write_error.patch?h=9.2";
-        sha256 = "0hfxacpgn4919hg0mn4wf4m8r7y592r4gw7aqfnva7sckxi6w089";
-      })
+    ++ lib.optionals useBoehmgc [
+      # replaces ecl's own gc which other packages can depend on, thus propagated
+      boehmgc
     ];
+
+  patches = [
+    # https://gitlab.com/embeddable-common-lisp/ecl/-/merge_requests/1
+    (fetchpatch {
+      url = "https://git.sagemath.org/sage.git/plain/build/pkgs/ecl/patches/write_error.patch?h=9.2";
+      sha256 = "0hfxacpgn4919hg0mn4wf4m8r7y592r4gw7aqfnva7sckxi6w089";
+    })
+  ];
 
   configureFlags =
     [

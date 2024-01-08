@@ -89,11 +89,10 @@ stdenv.mkDerivation rec {
 
   makeFlags =
     [ "SDLCONFIG=${SDL2}/bin/sdl2-config" ]
-    ++ lib.optionals stdenv.isDarwin
-      [
-        # broken, see: https://github.com/NixOS/nixpkgs/issues/19098
-        "LTO=0"
-      ];
+    ++ lib.optionals stdenv.isDarwin [
+      # broken, see: https://github.com/NixOS/nixpkgs/issues/19098
+      "LTO=0"
+    ];
 
   enableParallelBuilding = true;
 

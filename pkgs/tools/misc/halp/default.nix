@@ -22,11 +22,10 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-beYDb8+UKPLkkzey95Da8Ft2NwH2JZZsBLNvoW8FJN4=";
 
-  patches =
-    [
-      # patch tests to point to the correct target directory
-      ./fix-target-dir.patch
-    ];
+  patches = [
+    # patch tests to point to the correct target directory
+    ./fix-target-dir.patch
+  ];
 
   nativeBuildInputs = [ installShellFiles ];
 
@@ -37,11 +36,10 @@ rustPlatform.buildRustPackage rec {
   # tests are failing on darwin
   doCheck = !stdenv.isDarwin;
 
-  checkFlags =
-    [
-      # requires internet access
-      "--skip=helper::docs::cheat::tests::test_fetch_cheat_sheet"
-    ];
+  checkFlags = [
+    # requires internet access
+    "--skip=helper::docs::cheat::tests::test_fetch_cheat_sheet"
+  ];
 
   postPatch = ''
     substituteInPlace src/helper/args/mod.rs \

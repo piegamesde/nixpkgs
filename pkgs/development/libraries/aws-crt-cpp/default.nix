@@ -33,12 +33,11 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-z/9ifBv4KbH5RiR1t1Dz8cCWZlHrMSyB8/w4pdTscw0=";
   };
 
-  patches =
-    [
-      # Correct include path for split outputs.
-      # https://github.com/awslabs/aws-crt-cpp/pull/325
-      ./0001-build-Make-includedir-properly-overrideable.patch
-    ];
+  patches = [
+    # Correct include path for split outputs.
+    # https://github.com/awslabs/aws-crt-cpp/pull/325
+    ./0001-build-Make-includedir-properly-overrideable.patch
+  ];
 
   postPatch = ''
     substituteInPlace CMakeLists.txt --replace '-Werror' ""

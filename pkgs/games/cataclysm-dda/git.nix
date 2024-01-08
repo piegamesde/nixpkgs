@@ -38,11 +38,10 @@ let
         inherit rev sha256;
       };
 
-      patches =
-        [
-          # Unconditionally look for translation files in $out/share/locale
-          ./locale-path.patch
-        ];
+      patches = [
+        # Unconditionally look for translation files in $out/share/locale
+        ./locale-path.patch
+      ];
 
       makeFlags = common.makeFlags ++ [ "VERSION=git-${version}-${lib.substring 0 8 src.rev}" ];
 

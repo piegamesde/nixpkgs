@@ -26,14 +26,13 @@ stdenv.mkDerivation rec {
     sha256 = "ctggXzc3qA+m2/nJ9lmR/pERj0YyPko3MTttm8e85cU=";
   };
 
-  patches =
-    [
-      # Fix function detection for btf__type_cnt()
-      (fetchpatch {
-        url = "https://github.com/xdp-project/xdp-tools/commit/a7df567634af77381832a2212c5f5099b07734f3.patch";
-        sha256 = "n6qG/bojSGUowrAaJWxecYpWdv9OceHkoaGlhbl81hA=";
-      })
-    ];
+  patches = [
+    # Fix function detection for btf__type_cnt()
+    (fetchpatch {
+      url = "https://github.com/xdp-project/xdp-tools/commit/a7df567634af77381832a2212c5f5099b07734f3.patch";
+      sha256 = "n6qG/bojSGUowrAaJWxecYpWdv9OceHkoaGlhbl81hA=";
+    })
+  ];
 
   outputs = [
     "out"

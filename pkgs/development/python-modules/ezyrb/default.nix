@@ -40,11 +40,10 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "ezyrb" ];
 
-  disabledTestPaths =
-    [
-      # Exclude long tests
-      "tests/test_podae.py"
-    ];
+  disabledTestPaths = [
+    # Exclude long tests
+    "tests/test_podae.py"
+  ];
 
   meta = with lib; {
     description = "Easy Reduced Basis method";

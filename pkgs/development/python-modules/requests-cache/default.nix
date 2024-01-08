@@ -75,17 +75,15 @@ buildPythonPackage rec {
     export HOME=$(mktemp -d);
   '';
 
-  pytestFlagsArray =
-    [
-      # Integration tests require local DBs
-      "tests/unit"
-    ];
+  pytestFlagsArray = [
+    # Integration tests require local DBs
+    "tests/unit"
+  ];
 
-  disabledTests =
-    [
-      # Tests are flaky in the sandbox
-      "test_remove_expired_responses"
-    ];
+  disabledTests = [
+    # Tests are flaky in the sandbox
+    "test_remove_expired_responses"
+  ];
 
   pythonImportsCheck = [ "requests_cache" ];
 

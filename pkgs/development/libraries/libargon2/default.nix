@@ -19,14 +19,13 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = lib.optionals stdenv.isDarwin [ fixDarwinDylibNames ];
 
-  patches =
-    [
-      # TODO: remove when https://github.com/P-H-C/phc-winner-argon2/pull/277 is merged + released
-      (fetchpatch {
-        url = "https://github.com/P-H-C/phc-winner-argon2/commit/cd1c1d8d204e4ec4557e358013567c097cb70562.patch";
-        sha256 = "0whqv8b6q9602n7vxpzbd8bk8wz22r1jz9x5lrm9z7ib3wz81c8a";
-      })
-    ];
+  patches = [
+    # TODO: remove when https://github.com/P-H-C/phc-winner-argon2/pull/277 is merged + released
+    (fetchpatch {
+      url = "https://github.com/P-H-C/phc-winner-argon2/commit/cd1c1d8d204e4ec4557e358013567c097cb70562.patch";
+      sha256 = "0whqv8b6q9602n7vxpzbd8bk8wz22r1jz9x5lrm9z7ib3wz81c8a";
+    })
+  ];
 
   makeFlags = [
     "AR=${stdenv.cc.targetPrefix}ar" # Fix cross-compilation

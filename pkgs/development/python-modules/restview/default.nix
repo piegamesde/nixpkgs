@@ -33,11 +33,10 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "restview" ];
 
-  disabledTests =
-    [
-      # Tests are comparing output
-      "rest_to_html"
-    ];
+  disabledTests = [
+    # Tests are comparing output
+    "rest_to_html"
+  ];
 
   meta = with lib; {
     description = "ReStructuredText viewer";

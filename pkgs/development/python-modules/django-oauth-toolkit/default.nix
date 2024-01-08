@@ -54,11 +54,10 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  disabledTests =
-    [
-      # Failed to get a valid response from authentication server. Status code: 404, Reason: Not Found.
-      "test_response_when_auth_server_response_return_404"
-    ];
+  disabledTests = [
+    # Failed to get a valid response from authentication server. Status code: 404, Reason: Not Found.
+    "test_response_when_auth_server_response_return_404"
+  ];
 
   meta = with lib; {
     description = "OAuth2 goodies for the Djangonauts";

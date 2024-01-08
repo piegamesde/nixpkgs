@@ -17,11 +17,10 @@ stdenv.mkDerivation (
       hash = "sha256-NrlyptSul1hN0YaSX7vDl9JssgYyp2wvUqx2U80IG1g=";
     };
 
-    configureFlags =
-      [
-        # change yacc to byacc
-        "--program-transform-name='s,^,b,'"
-      ];
+    configureFlags = [
+      # change yacc to byacc
+      "--program-transform-name='s,^,b,'"
+    ];
 
     doCheck = true;
 

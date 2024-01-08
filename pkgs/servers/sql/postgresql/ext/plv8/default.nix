@@ -23,12 +23,11 @@ stdenv.mkDerivation (
       hash = "sha256-LodC2eQJSm5fLckrjm2RuejZhmOyQMJTv9b0iPCnzKQ=";
     };
 
-    patches =
-      [
-        # Allow building with system v8.
-        # https://github.com/plv8/plv8/pull/505 (rejected)
-        ./0001-build-Allow-using-V8-from-system.patch
-      ];
+    patches = [
+      # Allow building with system v8.
+      # https://github.com/plv8/plv8/pull/505 (rejected)
+      ./0001-build-Allow-using-V8-from-system.patch
+    ];
 
     nativeBuildInputs = [ perl ];
 
@@ -46,11 +45,10 @@ stdenv.mkDerivation (
       "V8_OUTDIR=${v8}/lib"
     ];
 
-    installFlags =
-      [
-        # PGXS only supports installing to postgresql prefix so we need to redirect this
-        "DESTDIR=${placeholder "out"}"
-      ];
+    installFlags = [
+      # PGXS only supports installing to postgresql prefix so we need to redirect this
+      "DESTDIR=${placeholder "out"}"
+    ];
 
     # No configure script.
     dontConfigure = true;

@@ -26,11 +26,10 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  disabledTestPaths =
-    [
-      # Broken due to removed discoverables in https://github.com/home-assistant-libs/netdisco/commit/477db5a1dc93919a6c5bd61b4b1d3c80e75785bd
-      "tests/test_xboxone.py"
-    ];
+  disabledTestPaths = [
+    # Broken due to removed discoverables in https://github.com/home-assistant-libs/netdisco/commit/477db5a1dc93919a6c5bd61b4b1d3c80e75785bd
+    "tests/test_xboxone.py"
+  ];
 
   pythonImportsCheck = [
     "netdisco"

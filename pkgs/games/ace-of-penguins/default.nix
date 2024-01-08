@@ -19,11 +19,10 @@ stdenv.mkDerivation rec {
     hash = "sha256-H+47BTOSGkKHPAYj8z2HOgZ7HuxY8scMAUSRRueaTM4=";
   };
 
-  patches =
-    [
-      # Fixes a bunch of miscompilations in modern environments
-      ./fixup-miscompilations.patch
-    ];
+  patches = [
+    # Fixes a bunch of miscompilations in modern environments
+    ./fixup-miscompilations.patch
+  ];
 
   nativeBuildInputs = [ copyDesktopItems ];
 

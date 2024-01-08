@@ -33,11 +33,10 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  disabledTestPaths =
-    [
-      # Disable linting checks
-      "tests/test_pyflakes.py"
-    ];
+  disabledTestPaths = [
+    # Disable linting checks
+    "tests/test_pyflakes.py"
+  ];
 
   pythonImportsCheck = [ "doitpy" ];
 

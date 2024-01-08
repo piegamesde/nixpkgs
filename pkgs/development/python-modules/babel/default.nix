@@ -37,12 +37,11 @@ buildPythonPackage rec {
     pytz
   ];
 
-  disabledTests =
-    [
-      # fails on days switching from and to daylight saving time in EST
-      # https://github.com/python-babel/babel/issues/988
-      "test_format_time"
-    ];
+  disabledTests = [
+    # fails on days switching from and to daylight saving time in EST
+    # https://github.com/python-babel/babel/issues/988
+    "test_format_time"
+  ];
 
   meta = with lib; {
     homepage = "https://babel.pocoo.org/";

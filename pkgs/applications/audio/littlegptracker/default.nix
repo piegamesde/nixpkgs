@@ -23,12 +23,11 @@ stdenv.mkDerivation rec {
     SDL
   ] ++ lib.optional stdenv.isDarwin Foundation ++ lib.optional stdenv.isLinux jack2;
 
-  patches =
-    [
-      # Remove outdated (pre-64bit) checks that would fail on modern platforms
-      # (see description in patch file)
-      ./0001-Remove-coherency-checks.patch
-    ];
+  patches = [
+    # Remove outdated (pre-64bit) checks that would fail on modern platforms
+    # (see description in patch file)
+    ./0001-Remove-coherency-checks.patch
+  ];
 
   preBuild = "cd projects";
 

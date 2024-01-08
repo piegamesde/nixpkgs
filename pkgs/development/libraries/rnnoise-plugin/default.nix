@@ -32,12 +32,10 @@ stdenv.mkDerivation rec {
     pkg-config
   ];
 
-  patches =
-    lib.optionals stdenv.isDarwin
-      [
-        # Ubsan seems to be broken on aarch64-darwin, it produces linker errors similar to https://github.com/NixOS/nixpkgs/issues/140751
-        ./disable-ubsan.patch
-      ];
+  patches = lib.optionals stdenv.isDarwin [
+    # Ubsan seems to be broken on aarch64-darwin, it produces linker errors similar to https://github.com/NixOS/nixpkgs/issues/140751
+    ./disable-ubsan.patch
+  ];
 
   buildInputs =
     [

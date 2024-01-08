@@ -29,16 +29,15 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  patches =
-    [
-      # Pull patch pending upstream upstream inclusion for -fno-common toolchains:
-      #   https://github.com/kenorb-contrib/tg/pull/61
-      (fetchpatch {
-        name = "fno-common.patch";
-        url = "https://github.com/kenorb-contrib/tg/commit/aad2e644fffa16066b227741d54de31bddb04ff8.patch";
-        sha256 = "sha256-LAa5J4BVj3QCiDSs+p2bynDroMSIqCeexQvrgaDl6OE=";
-      })
-    ];
+  patches = [
+    # Pull patch pending upstream upstream inclusion for -fno-common toolchains:
+    #   https://github.com/kenorb-contrib/tg/pull/61
+    (fetchpatch {
+      name = "fno-common.patch";
+      url = "https://github.com/kenorb-contrib/tg/commit/aad2e644fffa16066b227741d54de31bddb04ff8.patch";
+      sha256 = "sha256-LAa5J4BVj3QCiDSs+p2bynDroMSIqCeexQvrgaDl6OE=";
+    })
+  ];
 
   buildInputs = [
     jansson

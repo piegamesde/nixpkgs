@@ -39,11 +39,10 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  disabledTests =
-    [
-      # requires credentials
-      "test_list_device_registries"
-    ];
+  disabledTests = [
+    # requires credentials
+    "test_list_device_registries"
+  ];
 
   pythonImportsCheck = [
     "google.cloud.iot"

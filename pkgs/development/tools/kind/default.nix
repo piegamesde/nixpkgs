@@ -16,11 +16,10 @@ buildGoModule rec {
     sha256 = "sha256-ei0klTKLTyxhCkwhG/CSswFd1JPimCMR32pKwPYPvQU=";
   };
 
-  patches =
-    [
-      # fix kernel module path used by kind
-      ./kernel-module-path.patch
-    ];
+  patches = [
+    # fix kernel module path used by kind
+    ./kernel-module-path.patch
+  ];
 
   vendorSha256 = "sha256-J/sJd2LLMBr53Z3sGrWgnWA8Ry+XqqfCEObqFyUD96g=";
 

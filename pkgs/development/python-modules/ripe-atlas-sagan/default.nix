@@ -38,11 +38,10 @@ buildPythonPackage rec {
 
   pytestFlagsArray = [ "tests/*.py" ];
 
-  disabledTests =
-    [
-      # This test fail for unknown reason, I suspect it to be flaky.
-      "test_invalid_country_code"
-    ];
+  disabledTests = [
+    # This test fail for unknown reason, I suspect it to be flaky.
+    "test_invalid_country_code"
+  ];
 
   pythonImportsCheck = [ "ripe.atlas.sagan" ];
 

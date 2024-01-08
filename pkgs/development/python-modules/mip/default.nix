@@ -47,14 +47,13 @@ buildPythonPackage rec {
     find . -type f -exec ${dos2unix}/bin/dos2unix {} \;
   '';
 
-  patches =
-    [
-      # Some tests try to be smart and dynamically construct a path to their test
-      # inputs. Unfortunately, since the test phase is run after installation,
-      # those paths point to the Nix store, which no longer contains the test
-      # data. This patch hardcodes the data path to point to the source directory.
-      ./test-data-path.patch
-    ];
+  patches = [
+    # Some tests try to be smart and dynamically construct a path to their test
+    # inputs. Unfortunately, since the test phase is run after installation,
+    # those paths point to the Nix store, which no longer contains the test
+    # data. This patch hardcodes the data path to point to the source directory.
+    ./test-data-path.patch
+  ];
 
   postPatch = ''
     # Allow cffi versions with a different patch level to be used

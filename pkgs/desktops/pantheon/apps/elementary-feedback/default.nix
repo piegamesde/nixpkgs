@@ -28,14 +28,13 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-QvqyaI9szZuYuE3D6o4zjr5J6mvEzNHqTBWii+gjyMc=";
   };
 
-  patches =
-    [
-      # The standard location to the metadata pool where metadata
-      # will be read from is likely hardcoded as /usr/share/metainfo
-      # https://github.com/ximion/appstream/blob/v0.15.2/src/as-pool.c#L117
-      # https://www.freedesktop.org/software/appstream/docs/chap-Metadata.html#spec-component-location
-      ./fix-metadata-path.patch
-    ];
+  patches = [
+    # The standard location to the metadata pool where metadata
+    # will be read from is likely hardcoded as /usr/share/metainfo
+    # https://github.com/ximion/appstream/blob/v0.15.2/src/as-pool.c#L117
+    # https://www.freedesktop.org/software/appstream/docs/chap-Metadata.html#spec-component-location
+    ./fix-metadata-path.patch
+  ];
 
   nativeBuildInputs = [
     meson

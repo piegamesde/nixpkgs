@@ -24,11 +24,10 @@ buildPythonApplication rec {
 
   PDM_PEP517_SCM_VERSION = version;
 
-  patches =
-    [
-      # Test timeouts occasionally cause the build to fail
-      ./disable-test-timeouts.patch
-    ];
+  patches = [
+    # Test timeouts occasionally cause the build to fail
+    ./disable-test-timeouts.patch
+  ];
 
   nativeBuildInputs = [ pdm-pep517 ];
 

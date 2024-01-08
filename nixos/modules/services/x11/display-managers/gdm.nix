@@ -200,12 +200,10 @@ in
         "d /run/gdm/.config/pulse 0711 gdm gdm"
         "L+ /run/gdm/.config/pulse/${pulseConfig.name} - - - - ${pulseConfig}"
       ]
-      ++
-        optionals config.services.gnome.gnome-initial-setup.enable
-          [
-            # Create stamp file for gnome-initial-setup to prevent it starting in GDM.
-            "f /run/gdm/.config/gnome-initial-setup-done 0711 gdm gdm - yes"
-          ];
+      ++ optionals config.services.gnome.gnome-initial-setup.enable [
+        # Create stamp file for gnome-initial-setup to prevent it starting in GDM.
+        "f /run/gdm/.config/gnome-initial-setup-done 0711 gdm gdm - yes"
+      ];
 
     # Otherwise GDM will not be able to start correctly and display Wayland sessions
     systemd.packages = with pkgs.gnome; [

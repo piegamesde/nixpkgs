@@ -99,11 +99,10 @@ stdenv.mkDerivation rec {
 
   nativeCheckInputs = [ xvfb-run ];
 
-  mesonFlags =
-    [
-      # TODO: https://github.com/NixOS/nixpkgs/issues/36468
-      "-Dc_args=-I${glib.dev}/include/gio-unix-2.0"
-    ];
+  mesonFlags = [
+    # TODO: https://github.com/NixOS/nixpkgs/issues/36468
+    "-Dc_args=-I${glib.dev}/include/gio-unix-2.0"
+  ];
 
   # Tests do not work with GStreamer 1.18.
   # https://gitlab.gnome.org/GNOME/totem/-/issues/450

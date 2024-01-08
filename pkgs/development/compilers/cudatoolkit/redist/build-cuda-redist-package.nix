@@ -32,14 +32,13 @@ backendStdenv.mkDerivation {
     autoAddOpenGLRunpathHook
   ];
 
-  buildInputs =
-    [
-      # autoPatchelfHook will search for a libstdc++ and we're giving it
-      # one that is compatible with the rest of nixpkgs, even when
-      # nvcc forces us to use an older gcc
-      # NB: We don't actually know if this is the right thing to do
-      stdenv.cc.cc.lib
-    ];
+  buildInputs = [
+    # autoPatchelfHook will search for a libstdc++ and we're giving it
+    # one that is compatible with the rest of nixpkgs, even when
+    # nvcc forces us to use an older gcc
+    # NB: We don't actually know if this is the right thing to do
+    stdenv.cc.cc.lib
+  ];
 
   # Picked up by autoPatchelf
   # Needed e.g. for libnvrtc to locate (dlopen) libnvrtc-builtins

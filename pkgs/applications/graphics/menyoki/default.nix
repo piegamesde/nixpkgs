@@ -40,11 +40,10 @@ rustPlatform.buildRustPackage rec {
   buildNoDefaultFeatures = !withSki;
   buildFeatures = lib.optional withSixel "sixel";
 
-  checkFlags =
-    [
-      # sometimes fails on lower end machines
-      "--skip=record::fps::tests::test_fps"
-    ];
+  checkFlags = [
+    # sometimes fails on lower end machines
+    "--skip=record::fps::tests::test_fps"
+  ];
 
   postInstall = ''
     installManPage man/*

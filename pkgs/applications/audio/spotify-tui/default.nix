@@ -44,11 +44,10 @@ rustPlatform.buildRustPackage rec {
     })
   ];
 
-  patches =
-    [
-      # Use patched rspotify
-      ./Cargo.toml.patch
-    ];
+  patches = [
+    # Use patched rspotify
+    ./Cargo.toml.patch
+  ];
 
   preBuild =
     let
@@ -67,11 +66,10 @@ rustPlatform.buildRustPackage rec {
           cp -R . $out
         '';
 
-        patches =
-          [
-            # add `collection` variant
-            ./0001-Add-Collection-SearchType.patch
-          ];
+        patches = [
+          # add `collection` variant
+          ./0001-Add-Collection-SearchType.patch
+        ];
       };
     in
     ''

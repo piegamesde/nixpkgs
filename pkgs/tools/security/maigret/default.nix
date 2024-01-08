@@ -67,11 +67,10 @@ python3.pkgs.buildPythonApplication rec {
   pythonRelaxDeps = true;
   pythonRemoveDeps = [ "future-annotations" ];
 
-  pytestFlagsArray =
-    [
-      # DeprecationWarning: There is no current event loop
-      "-W ignore::DeprecationWarning"
-    ];
+  pytestFlagsArray = [
+    # DeprecationWarning: There is no current event loop
+    "-W ignore::DeprecationWarning"
+  ];
 
   disabledTests =
     [
@@ -83,12 +82,11 @@ python3.pkgs.buildPythonApplication rec {
       "test_self_check_db_negative_enabled"
       "test_self_check_db_positive_enable"
     ]
-    ++ lib.optionals stdenv.isDarwin
-      [
-        # AsyncioProgressbarExecutor is slower on darwin than it should be,
-        # Upstream issue: https://github.com/soxoj/maigret/issues/679
-        "test_asyncio_progressbar_executor"
-      ];
+    ++ lib.optionals stdenv.isDarwin [
+      # AsyncioProgressbarExecutor is slower on darwin than it should be,
+      # Upstream issue: https://github.com/soxoj/maigret/issues/679
+      "test_asyncio_progressbar_executor"
+    ];
 
   pythonImportsCheck = [ "maigret" ];
 

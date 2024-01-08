@@ -15,11 +15,10 @@ stdenv.mkDerivation rec {
     sha256 = "008537ns659pw2aag15imwjrxj73j26aqq90h285is6kz8gmv06v";
   };
 
-  patches =
-    [
-      # Upstream patch to fix parallel build failure
-      ./parallel-make.patch
-    ];
+  patches = [
+    # Upstream patch to fix parallel build failure
+    ./parallel-make.patch
+  ];
 
   outputs = [
     "out"

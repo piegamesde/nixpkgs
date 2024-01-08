@@ -48,19 +48,17 @@ let
   sources = callPackage ../sources.nix { };
 
   # Tools invoked by swift at run-time.
-  runtimeDeps =
-    lib.optionals stdenv.isDarwin
-      [
-        # libtool is used for static linking. This is part of cctools, but adding
-        # that as a build input puts an unwrapped linker in PATH, and breaks
-        # builds. This small derivation exposes just libtool.
-        # NOTE: The same applies to swift-driver, but that is currently always
-        # invoked via the old `swift` / `swiftc`. May change in the future.
-        (runCommandLocal "libtool" { } ''
-          mkdir -p $out/bin
-          ln -s ${cctools}/bin/libtool $out/bin/libtool
-        '')
-      ];
+  runtimeDeps = lib.optionals stdenv.isDarwin [
+    # libtool is used for static linking. This is part of cctools, but adding
+    # that as a build input puts an unwrapped linker in PATH, and breaks
+    # builds. This small derivation exposes just libtool.
+    # NOTE: The same applies to swift-driver, but that is currently always
+    # invoked via the old `swift` / `swiftc`. May change in the future.
+    (runCommandLocal "libtool" { } ''
+      mkdir -p $out/bin
+      ln -s ${cctools}/bin/libtool $out/bin/libtool
+    '')
+  ];
 
   # There are apparently multiple naming conventions on Darwin. Swift uses the
   # xcrun naming convention. See `configure_sdk_darwin` calls in CMake files.

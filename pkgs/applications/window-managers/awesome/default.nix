@@ -123,12 +123,10 @@ stdenv.mkDerivation rec {
     xcbutilxrm
   ] ++ lib.optional gtk3Support gtk3;
 
-  cmakeFlags =
-    [
-      #"-DGENERATE_MANPAGES=ON"
-      "-DOVERRIDE_VERSION=${version}"
-    ]
-    ++ lib.optional lua.pkgs.isLuaJIT "-DLUA_LIBRARY=${lua}/lib/libluajit-5.1.so";
+  cmakeFlags = [
+    #"-DGENERATE_MANPAGES=ON"
+    "-DOVERRIDE_VERSION=${version}"
+  ] ++ lib.optional lua.pkgs.isLuaJIT "-DLUA_LIBRARY=${lua}/lib/libluajit-5.1.so";
 
   GI_TYPELIB_PATH = "${pango.out}/lib/girepository-1.0";
   # LUA_CPATH and LUA_PATH are used only for *building*, see the --search flags

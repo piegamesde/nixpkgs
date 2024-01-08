@@ -31,11 +31,10 @@ stdenv.mkDerivation rec {
   env.NIX_CFLAGS_COMPILE = toString [ "-I${libtirpc.dev}/include/tirpc" ];
   NIX_LDFLAGS = [ "-ltirpc" ];
 
-  patches =
-    [
-      # patch has been also sent upstream and might be included in future versions
-      ./fix-missing-stdint.patch
-    ];
+  patches = [
+    # patch has been also sent upstream and might be included in future versions
+    ./fix-missing-stdint.patch
+  ];
 
   preConfigure = ''
     ./autogen.sh

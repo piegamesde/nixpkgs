@@ -57,14 +57,13 @@ stdenv.mkDerivation rec {
     libXext
   ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ Cocoa ];
 
-  patches =
-    [
-      # https://github.com/yvt/openspades/pull/793 fix Darwin build
-      (fetchpatch {
-        url = "https://github.com/yvt/openspades/commit/2d13704fefc475b279337e89057b117f711a35d4.diff";
-        sha256 = "1i7rcpjzkjhbv5pp6byzrxv7sb1iamqq5k1vyqlvkbr38k2dz0rv";
-      })
-    ];
+  patches = [
+    # https://github.com/yvt/openspades/pull/793 fix Darwin build
+    (fetchpatch {
+      url = "https://github.com/yvt/openspades/commit/2d13704fefc475b279337e89057b117f711a35d4.diff";
+      sha256 = "1i7rcpjzkjhbv5pp6byzrxv7sb1iamqq5k1vyqlvkbr38k2dz0rv";
+    })
+  ];
 
   cmakeFlags = [ "-DOPENSPADES_INSTALL_BINARY=bin" ];
 

@@ -44,12 +44,11 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-OTi4B4tzkboy4Su0I5di+uE0aDoMLsGnUQXDAso+Xj8=";
   };
 
-  cmakeFlags =
-    [
-      # Remove this when upgrading to a KMyMoney release that includes
-      # https://invent.kde.org/office/kmymoney/-/merge_requests/118
-      "-DENABLE_WEBENGINE=ON"
-    ];
+  cmakeFlags = [
+    # Remove this when upgrading to a KMyMoney release that includes
+    # https://invent.kde.org/office/kmymoney/-/merge_requests/118
+    "-DENABLE_WEBENGINE=ON"
+  ];
 
   # Hidden dependency that wasn't included in CMakeLists.txt:
   env.NIX_CFLAGS_COMPILE = "-I${kitemmodels.dev}/include/KF5";

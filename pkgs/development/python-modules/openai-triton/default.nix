@@ -227,12 +227,11 @@ buildPythonPackage {
     + ''
       cd test/unit
     '';
-  pythonImportsCheck =
-    [
-      # Circular dependency on torch
-      # "triton"
-      # "triton.language"
-    ];
+  pythonImportsCheck = [
+    # Circular dependency on torch
+    # "triton"
+    # "triton.language"
+  ];
 
   # Ultimately, torch is our test suite:
   passthru.tests = {

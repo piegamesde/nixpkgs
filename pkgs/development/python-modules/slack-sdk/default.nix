@@ -58,11 +58,10 @@ buildPythonPackage rec {
     export HOME=$(mktemp -d)
   '';
 
-  disabledTestPaths =
-    [
-      # Exclude tests that requires network features
-      "integration_tests"
-    ];
+  disabledTestPaths = [
+    # Exclude tests that requires network features
+    "integration_tests"
+  ];
 
   disabledTests = [
     # Requires network features

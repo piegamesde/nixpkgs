@@ -27,12 +27,10 @@ stdenv.mkDerivation rec {
         sha256 = "sha256-KwwP76v0DXNW73p/YBvwUOPdKMAcVdbQSKexD/uFOYo=";
       })
     ]
-    ++ (lib.optionals stdenv.cc.isClang
-      [
-        # https://github.com/wolfcw/libfaketime/issues/277
-        ./0001-Remove-unsupported-clang-flags.patch
-      ]
-    );
+    ++ (lib.optionals stdenv.cc.isClang [
+      # https://github.com/wolfcw/libfaketime/issues/277
+      ./0001-Remove-unsupported-clang-flags.patch
+    ]);
 
   postPatch = ''
     patchShebangs test src

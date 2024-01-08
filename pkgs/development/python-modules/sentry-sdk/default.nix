@@ -77,11 +77,10 @@ buildPythonPackage rec {
       executing
       pure-eval
     ];
-    quart =
-      [
-        # quart missing
-        blinker
-      ];
+    quart = [
+      # quart missing
+      blinker
+    ];
     rq = [ rq ];
     sanic = [ sanic ];
     sqlalchemy = [ sqlalchemy ];
@@ -104,11 +103,10 @@ buildPythonPackage rec {
 
   doCheck = !stdenv.isDarwin;
 
-  disabledTests =
-    [
-      # Issue with the asseration
-      "test_auto_enabling_integrations_catches_import_error"
-    ];
+  disabledTests = [
+    # Issue with the asseration
+    "test_auto_enabling_integrations_catches_import_error"
+  ];
 
   disabledTestPaths =
     [
@@ -116,11 +114,10 @@ buildPythonPackage rec {
       # upgrade depencies, so don't bother testing them.
       "tests/integrations/"
     ]
-    ++ lib.optionals (stdenv.buildPlatform != "x86_64-linux")
-      [
-        # test crashes on aarch64
-        "tests/test_transport.py"
-      ];
+    ++ lib.optionals (stdenv.buildPlatform != "x86_64-linux") [
+      # test crashes on aarch64
+      "tests/test_transport.py"
+    ];
 
   pythonImportsCheck = [ "sentry_sdk" ];
 

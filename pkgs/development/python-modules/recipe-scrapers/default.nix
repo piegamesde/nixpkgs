@@ -39,11 +39,10 @@ buildPythonPackage rec {
     responses
   ];
 
-  disabledTestPaths =
-    [
-      # This is not actual code, just some pre-written boiler-plate template
-      "templates/test_scraper.py"
-    ];
+  disabledTestPaths = [
+    # This is not actual code, just some pre-written boiler-plate template
+    "templates/test_scraper.py"
+  ];
 
   pythonImportsCheck = [ "recipe_scrapers" ];
 

@@ -21,11 +21,10 @@ rustPlatform.buildRustPackage rec {
 
   cargoSha256 = "sha256-0JJpGSOwayPB3cn7OpBjsOiK4WQNbil3gYrfkqG2cS8=";
 
-  checkFlags =
-    [
-      # failure: path::tests::test_relative_to_parent
-      "--skip=path::tests::test_relative_to_parent"
-    ];
+  checkFlags = [
+    # failure: path::tests::test_relative_to_parent
+    "--skip=path::tests::test_relative_to_parent"
+  ];
 
   meta = with lib; {
     description = "A hackable, minimal, fast TUI file explorer";

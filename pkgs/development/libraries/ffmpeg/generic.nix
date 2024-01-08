@@ -410,12 +410,10 @@ stdenv.mkDerivation (
         (enableFeature buildAvfilter "avfilter")
         (enableFeature buildAvformat "avformat")
       ]
-      ++
-        optionals (lib.versionOlder version "5")
-          [
-            # Ffmpeg > 4 doesn't know about the flag anymore
-            (enableFeature buildAvresample "avresample")
-          ]
+      ++ optionals (lib.versionOlder version "5") [
+        # Ffmpeg > 4 doesn't know about the flag anymore
+        (enableFeature buildAvresample "avresample")
+      ]
       ++ [
         (enableFeature buildAvutil "avutil")
         (enableFeature (buildPostproc && withGPL) "postproc")

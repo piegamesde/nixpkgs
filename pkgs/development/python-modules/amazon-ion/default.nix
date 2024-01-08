@@ -36,11 +36,10 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  disabledTests =
-    [
-      # ValueError: Exceeds the limit (4300) for integer string conversion
-      "test_roundtrips"
-    ];
+  disabledTests = [
+    # ValueError: Exceeds the limit (4300) for integer string conversion
+    "test_roundtrips"
+  ];
 
   pythonImportsCheck = [ "amazon.ion" ];
 

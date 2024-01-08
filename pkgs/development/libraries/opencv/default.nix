@@ -45,12 +45,11 @@ stdenv.mkDerivation rec {
     sha256 = "062js7zhh4ixi2wk61wyi23qp9zsk5vw24iz2i5fab2hp97y5zq3";
   };
 
-  patches =
-    [
-      # Don't include a copy of the CMake status output in the
-      # build. This causes a runtime dependency on GCC.
-      ./no-build-info.patch
-    ];
+  patches = [
+    # Don't include a copy of the CMake status output in the
+    # build. This causes a runtime dependency on GCC.
+    ./no-build-info.patch
+  ];
 
   # This prevents cmake from using libraries in impure paths (which causes build failure on non NixOS)
   postPatch = ''

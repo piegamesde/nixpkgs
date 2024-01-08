@@ -50,11 +50,10 @@ stdenv.mkDerivation rec {
     udisks2
   ];
 
-  mesonFlags =
-    [
-      # Does not play nice with the nix-snowflake logo
-      "-Dwallpaper=false"
-    ];
+  mesonFlags = [
+    # Does not play nice with the nix-snowflake logo
+    "-Dwallpaper=false"
+  ];
 
   passthru = {
     updateScript = nix-update-script { };

@@ -36,11 +36,10 @@ stdenv.mkDerivation (
       sed '/BUILD_TIMESTAMP=/s/=.*/=1970-01-01T00:01+0000/' -i ./configure
     '';
 
-    configureFlags =
-      [
-        # See https://dev.gnupg.org/T6257#164567
-        "--enable-install-gpg-error-config"
-      ];
+    configureFlags = [
+      # See https://dev.gnupg.org/T6257#164567
+      "--enable-install-gpg-error-config"
+    ];
 
     outputs = [
       "out"

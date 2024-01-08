@@ -59,11 +59,10 @@ buildPythonPackage rec {
     pytestCheckHook
   ] ++ passthru.optional-dependencies.serial;
 
-  disabledTestPaths =
-    [
-      # We don't support all interfaces
-      "test/test_interface_canalystii.py"
-    ];
+  disabledTestPaths = [
+    # We don't support all interfaces
+    "test/test_interface_canalystii.py"
+  ];
 
   disabledTests =
     [

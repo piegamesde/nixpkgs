@@ -43,11 +43,10 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "sigma.backends.opensearch" ];
 
-  disabledTests =
-    [
-      # Tests requires network access
-      "test_connect_lucene"
-    ];
+  disabledTests = [
+    # Tests requires network access
+    "test_connect_lucene"
+  ];
 
   meta = with lib; {
     description = "Library to support OpenSearch for pySigma";

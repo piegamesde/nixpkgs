@@ -19,11 +19,10 @@ buildGoModule rec {
 
   vendorHash = "sha256-3tmNZd1FH1D/1w4gRmaul2epKb70phSUAjUBCbPV3Ak=";
 
-  patches =
-    [
-      # Fixes log file path for tests.
-      ./fix-test-dir.patch
-    ];
+  patches = [
+    # Fixes log file path for tests.
+    ./fix-test-dir.patch
+  ];
 
   buildInputs = [ alsa-lib ];
 

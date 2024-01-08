@@ -33,11 +33,10 @@ buildPythonPackage rec {
     ulimit -n 1024
   '';
 
-  disabledTests =
-    [
-      # RuntimeError: no running event loop
-      "test_blank_line_fix"
-    ];
+  disabledTests = [
+    # RuntimeError: no running event loop
+    "test_blank_line_fix"
+  ];
 
   pythonImportsCheck = [ "questionary" ];
 

@@ -28,14 +28,13 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-DaIBtWmce+58OOhqFG5802c3EprBAtDXhjiSPIImoOM=";
   };
 
-  patches =
-    [
-      # Hardcode GSettings schema path to avoid crashes from missing schemas
-      (substituteAll {
-        src = ./hardcode-gsettings.patch;
-        gds_gsettings_path = glib.getSchemaPath gsettings-desktop-schemas;
-      })
-    ];
+  patches = [
+    # Hardcode GSettings schema path to avoid crashes from missing schemas
+    (substituteAll {
+      src = ./hardcode-gsettings.patch;
+      gds_gsettings_path = glib.getSchemaPath gsettings-desktop-schemas;
+    })
+  ];
 
   nativeBuildInputs = [
     cmake

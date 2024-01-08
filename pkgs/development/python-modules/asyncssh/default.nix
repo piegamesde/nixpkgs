@@ -53,22 +53,20 @@ buildPythonPackage rec {
     pytestCheckHook
   ] ++ lib.flatten (builtins.attrValues passthru.optional-dependencies);
 
-  patches =
-    [
-      # Reverts https://github.com/ronf/asyncssh/commit/4b3dec994b3aa821dba4db507030b569c3a32730
-      #
-      # This changed the test to avoid setting the sticky bit
-      # because that's not allowed for plain files in FreeBSD.
-      # However that broke the test on NixOS, failing with
-      # "Operation not permitted"
-      ./fix-sftp-chmod-test-nixos.patch
-    ];
+  patches = [
+    # Reverts https://github.com/ronf/asyncssh/commit/4b3dec994b3aa821dba4db507030b569c3a32730
+    #
+    # This changed the test to avoid setting the sticky bit
+    # because that's not allowed for plain files in FreeBSD.
+    # However that broke the test on NixOS, failing with
+    # "Operation not permitted"
+    ./fix-sftp-chmod-test-nixos.patch
+  ];
 
-  disabledTestPaths =
-    [
-      # Disables windows specific test (specifically the GSSAPI wrapper for Windows)
-      "tests/sspi_stub.py"
-    ];
+  disabledTestPaths = [
+    # Disables windows specific test (specifically the GSSAPI wrapper for Windows)
+    "tests/sspi_stub.py"
+  ];
 
   disabledTests = [
     # No PIN set

@@ -29,16 +29,15 @@ stdenv.mkDerivation rec {
     sha256 = "0f2rki8i27pkd9r0gz03cdl1g4vnmvp0j49nhxqn275vi8lmgr0q";
   };
 
-  patches =
-    [
-      # Pull patch pending upstream inclusion for -fno-common toolchain support:
-      #   https://github.com/jimevins/glabels/pull/76
-      (fetchpatch {
-        name = "fno-common.patch";
-        url = "https://github.com/jimevins/glabels/commit/f64e3f34e3631330fff2fb48ab271ff9c6160229.patch";
-        sha256 = "13q6g4bxzvzwjnvzkvijds2b6yvc4xqbdwgqnwmj65ln6ngxz8sa";
-      })
-    ];
+  patches = [
+    # Pull patch pending upstream inclusion for -fno-common toolchain support:
+    #   https://github.com/jimevins/glabels/pull/76
+    (fetchpatch {
+      name = "fno-common.patch";
+      url = "https://github.com/jimevins/glabels/commit/f64e3f34e3631330fff2fb48ab271ff9c6160229.patch";
+      sha256 = "13q6g4bxzvzwjnvzkvijds2b6yvc4xqbdwgqnwmj65ln6ngxz8sa";
+    })
+  ];
 
   nativeBuildInputs = [
     autoreconfHook

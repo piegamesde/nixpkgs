@@ -20,14 +20,13 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-lTk2sTllKHRUaWPPEkC4qU5K10oRaLrdWBgN4MUGKeo=";
   };
 
-  patches =
-    [
-      # Fix parallel build and avoid static linking of binary.
-      (fetchpatch {
-        url = "https://gitweb.gentoo.org/repo/gentoo.git/plain/media-gfx/apngasm/files/apngasm-3.1.10-static.patch?id=45fd0cde71ca2ae0e7e38ab67400d84b86b593d7";
-        sha256 = "sha256-eKthgInWxXEqN5PupvVf9wVQDElxsPYRFXT7pMc6vIU=";
-      })
-    ];
+  patches = [
+    # Fix parallel build and avoid static linking of binary.
+    (fetchpatch {
+      url = "https://gitweb.gentoo.org/repo/gentoo.git/plain/media-gfx/apngasm/files/apngasm-3.1.10-static.patch?id=45fd0cde71ca2ae0e7e38ab67400d84b86b593d7";
+      sha256 = "sha256-eKthgInWxXEqN5PupvVf9wVQDElxsPYRFXT7pMc6vIU=";
+    })
+  ];
 
   nativeBuildInputs = [ cmake ];
 

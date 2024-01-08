@@ -50,11 +50,10 @@ stdenv.mkDerivation rec {
       --replace /usr/bin/devmon "$out/bin/devmon"
   '';
 
-  patches =
-    [
-      # sys/stat.h header missing on src/device-info.h
-      ./device-info-sys-stat.patch
-    ];
+  patches = [
+    # sys/stat.h header missing on src/device-info.h
+    ./device-info-sys-stat.patch
+  ];
 
   meta = with lib; {
     homepage = "https://ignorantguru.github.io/udevil/";

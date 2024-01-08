@@ -88,12 +88,10 @@ buildPythonPackage rec {
       "test_dump_certificate_request"
       "test_export_text"
     ]
-    ++
-      lib.optionals stdenv.is32bit
-        [
-          # https://github.com/pyca/pyopenssl/issues/974
-          "test_verify_with_time"
-        ];
+    ++ lib.optionals stdenv.is32bit [
+      # https://github.com/pyca/pyopenssl/issues/974
+      "test_verify_with_time"
+    ];
 
   meta = with lib; {
     description = "Python wrapper around the OpenSSL library";

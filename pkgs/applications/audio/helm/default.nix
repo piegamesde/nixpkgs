@@ -47,14 +47,13 @@ stdenv.mkDerivation {
   enableParallelBuilding = true;
   makeFlags = [ "DESTDIR=$(out)" ];
 
-  patches =
-    [
-      # gcc9 compatibility https://github.com/mtytel/helm/pull/233
-      (fetchpatch {
-        url = "https://github.com/mtytel/helm/commit/cb611a80bd5a36d31bfc31212ebbf79aa86c6f08.patch";
-        sha256 = "1i2289srcfz17c3zzab6f51aznzdj62kk53l4afr32bkjh9s4ixk";
-      })
-    ];
+  patches = [
+    # gcc9 compatibility https://github.com/mtytel/helm/pull/233
+    (fetchpatch {
+      url = "https://github.com/mtytel/helm/commit/cb611a80bd5a36d31bfc31212ebbf79aa86c6f08.patch";
+      sha256 = "1i2289srcfz17c3zzab6f51aznzdj62kk53l4afr32bkjh9s4ixk";
+    })
+  ];
 
   prePatch = ''
     sed -i 's|usr/||g' Makefile

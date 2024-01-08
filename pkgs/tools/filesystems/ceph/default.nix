@@ -178,11 +178,10 @@ let
 
       nativeCheckInputs = [ pytestCheckHook ];
 
-      disabledTests =
-        [
-          # requires network access
-          "test_valid_addr"
-        ];
+      disabledTests = [
+        # requires network access
+        "test_valid_addr"
+      ];
 
       meta = getMeta "Ceph common module for code shared by manager modules";
     };

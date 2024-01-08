@@ -38,12 +38,10 @@ stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  depsBuildBuild =
-    lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform)
-      [
-        # provides ical-glib-src-generator that runs during build
-        libical
-      ];
+  depsBuildBuild = lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
+    # provides ical-glib-src-generator that runs during build
+    libical
+  ];
 
   nativeBuildInputs =
     [
@@ -61,11 +59,10 @@ stdenv.mkDerivation rec {
       # gtk-doc docbook_xsl docbook_xml_dtd_43 # for docs
     ]
     ++ lib.optionals stdenv.isDarwin [ fixDarwinDylibNames ];
-  nativeInstallCheckInputs =
-    [
-      # running libical-glib tests
-      (python3.pythonForBuild.withPackages (pkgs: with pkgs; [ pygobject3 ]))
-    ];
+  nativeInstallCheckInputs = [
+    # running libical-glib tests
+    (python3.pythonForBuild.withPackages (pkgs: with pkgs; [ pygobject3 ]))
+  ];
 
   buildInputs = [
     glib
@@ -83,12 +80,11 @@ stdenv.mkDerivation rec {
       "-DIMPORT_ICAL_GLIB_SRC_GENERATOR=${lib.getDev pkgsBuildBuild.libical}/lib/cmake/LibIcal/IcalGlibSrcGenerator.cmake"
     ];
 
-  patches =
-    [
-      # Will appear in 3.1.0
-      # https://github.com/libical/libical/issues/350
-      ./respect-env-tzdir.patch
-    ];
+  patches = [
+    # Will appear in 3.1.0
+    # https://github.com/libical/libical/issues/350
+    ./respect-env-tzdir.patch
+  ];
 
   # Using install check so we do not have to manually set
   # LD_LIBRARY_PATH and GI_TYPELIB_PATH variables

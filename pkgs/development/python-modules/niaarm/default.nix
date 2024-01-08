@@ -32,11 +32,10 @@ buildPythonPackage rec {
     pandas
   ];
 
-  disabledTests =
-    [
-      # Test requires extra nltk data dependency
-      "test_text_mining"
-    ];
+  disabledTests = [
+    # Test requires extra nltk data dependency
+    "test_text_mining"
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

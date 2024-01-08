@@ -79,11 +79,10 @@ buildPythonPackage rec {
       # Exclude tornado tests
       "tests/contrib/asyncio/tornado/tornado_tests.py"
     ]
-    ++ lib.optionals stdenv.isDarwin
-      [
-        # Flaky tests on Darwin
-        "tests/utils/threading_tests.py"
-      ];
+    ++ lib.optionals stdenv.isDarwin [
+      # Flaky tests on Darwin
+      "tests/utils/threading_tests.py"
+    ];
 
   pythonImportsCheck = [ "elasticapm" ];
 

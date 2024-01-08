@@ -32,11 +32,10 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  disabledTests =
-    [
-      # pytest-flaky is not available at the moment
-      "test_bug_31"
-    ];
+  disabledTests = [
+    # pytest-flaky is not available at the moment
+    "test_bug_31"
+  ];
 
   pythonImportsCheck = [ "pytest_jsonreport" ];
 

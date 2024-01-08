@@ -23,15 +23,14 @@ stdenv.mkDerivation rec {
     sha256 = "1nizicl0mc9pslc6065mnrs0fnn8sh7ca8iiw7w9ix57zrhabpld";
   };
 
-  patches =
-    [
-      # Pull upstream fix for -fno-common toolchain
-      (fetchpatch {
-        name = "fno-common.patch";
-        url = "https://github.com/audiohacked/OpenCorsairLink/commit/d600c7ff032a3911d30b039844a31f0b3acfe26a.patch";
-        sha256 = "030rwka5bvf79x6ir18vqb09izhz1crp94x5gqjxwv3b20vvv4kx";
-      })
-    ];
+  patches = [
+    # Pull upstream fix for -fno-common toolchain
+    (fetchpatch {
+      name = "fno-common.patch";
+      url = "https://github.com/audiohacked/OpenCorsairLink/commit/d600c7ff032a3911d30b039844a31f0b3acfe26a.patch";
+      sha256 = "030rwka5bvf79x6ir18vqb09izhz1crp94x5gqjxwv3b20vvv4kx";
+    })
+  ];
 
   meta = with lib; {
     description = "Linux and Mac OS support for the CorsairLink Devices ";

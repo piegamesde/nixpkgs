@@ -38,15 +38,14 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-6ZOdlOCIDy5aWQre15+SrTH/vhY9OeTffY/uTSroELc=";
   };
 
-  patches =
-    [
-      # Fix global search action disabled at startup
-      # https://github.com/elementary/code/pull/1254
-      (fetchpatch {
-        url = "https://github.com/elementary/code/commit/1e75388b07c060cc10ecd612076f235b1833fab8.patch";
-        sha256 = "sha256-8Djh1orMcmICdYwQFENJCaYlXK0E52NhCmuhlHCz7oM=";
-      })
-    ];
+  patches = [
+    # Fix global search action disabled at startup
+    # https://github.com/elementary/code/pull/1254
+    (fetchpatch {
+      url = "https://github.com/elementary/code/commit/1e75388b07c060cc10ecd612076f235b1833fab8.patch";
+      sha256 = "sha256-8Djh1orMcmICdYwQFENJCaYlXK0E52NhCmuhlHCz7oM=";
+    })
+  ];
 
   nativeBuildInputs = [
     appstream

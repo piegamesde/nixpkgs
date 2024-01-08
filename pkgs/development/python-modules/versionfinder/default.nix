@@ -33,17 +33,15 @@ buildPythonPackage rec {
     requests
   ];
 
-  disabledTestPaths =
-    [
-      # Acceptance tests use the network
-      "versionfinder/tests/test_acceptance.py"
-    ];
+  disabledTestPaths = [
+    # Acceptance tests use the network
+    "versionfinder/tests/test_acceptance.py"
+  ];
 
-  disabledTests =
-    [
-      # Tests are out-dated
-      "TestFindPipInfo"
-    ];
+  disabledTests = [
+    # Tests are out-dated
+    "TestFindPipInfo"
+  ];
 
   pythonImportsCheck = [ "versionfinder" ];
 

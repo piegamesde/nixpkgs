@@ -62,11 +62,10 @@ buildPythonPackage rec {
   # their ci only runs unit tests, there are also integration and fuzzing tests
   pytestFlagsArray = [ "./tests/test_unit" ];
 
-  disabledTestPaths =
-    [
-      # ModuleNotFoundError: No module named 'wilderness'
-      "tests/test_unit/test_console.py"
-    ];
+  disabledTestPaths = [
+    # ModuleNotFoundError: No module named 'wilderness'
+    "tests/test_unit/test_console.py"
+  ];
 
   meta = with lib; {
     description = "CleverCSV is a Python package for handling messy CSV files";

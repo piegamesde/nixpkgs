@@ -31,11 +31,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-PLpB9sy9xehipN5S9okCHm1mPm5MaZMVaFqCBvFUiTw=";
   };
 
-  patches =
-    [
-      # https://forum.juce.com/t/juce-and-macos-11-arm/40285/24
-      ./undef-fpret-on-aarch64-darwin.patch
-    ];
+  patches = [
+    # https://forum.juce.com/t/juce-and-macos-11-arm/40285/24
+    ./undef-fpret-on-aarch64-darwin.patch
+  ];
 
   nativeBuildInputs = [
     cmake

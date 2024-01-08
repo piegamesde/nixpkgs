@@ -37,14 +37,13 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-ccLk8O0UJwy7WZYr5Bq2XqaSFNe4i7HQehmVoB5C2Yg=";
   };
 
-  patches =
-    [
-      # Use proper glib devdoc path.
-      (substituteAll {
-        src = ./glib-devdoc.patch;
-        glib_devdoc = glib.devdoc;
-      })
-    ];
+  patches = [
+    # Use proper glib devdoc path.
+    (substituteAll {
+      src = ./glib-devdoc.patch;
+      glib_devdoc = glib.devdoc;
+    })
+  ];
 
   nativeBuildInputs = [
     pkg-config

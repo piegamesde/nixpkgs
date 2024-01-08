@@ -129,11 +129,10 @@ buildPythonPackage rec {
     "tests/models/test_teacher_forcing_logits.py"
     "tests/models/test_text_generation.py"
   ];
-  disabledTests =
-    [
-      # unstable. A xgboost-enabled test. possibly related: https://github.com/slundberg/shap/issues/2480
-      "test_provided_background_tree_path_dependent"
-    ];
+  disabledTests = [
+    # unstable. A xgboost-enabled test. possibly related: https://github.com/slundberg/shap/issues/2480
+    "test_provided_background_tree_path_dependent"
+  ];
 
   #pytestFlagsArray = ["-x" "-W" "ignore"]; # uncomment this to debug
 

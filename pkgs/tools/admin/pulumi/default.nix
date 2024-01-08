@@ -47,11 +47,10 @@ buildGoModule rec {
 
   doCheck = true;
 
-  disabledTests =
-    [
-      # Flaky test
-      "TestPendingDeleteOrder"
-    ];
+  disabledTests = [
+    # Flaky test
+    "TestPendingDeleteOrder"
+  ];
 
   nativeCheckInputs = [ git ];
 

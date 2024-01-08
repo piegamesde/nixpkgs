@@ -407,16 +407,15 @@ in
     system.systemBuilderArgs = lib.optionalAttrs (config.system.forbiddenDependenciesRegex != "") {
       inherit (config.system) forbiddenDependenciesRegex;
       closureInfo = pkgs.closureInfo {
-        rootPaths =
-          [
-            # override to avoid  infinite recursion (and to allow using extraDependencies to add forbidden dependencies)
-            (config.system.build.toplevel.overrideAttrs (
-              _: {
-                extraDependencies = [ ];
-                closureInfo = null;
-              }
-            ))
-          ];
+        rootPaths = [
+          # override to avoid  infinite recursion (and to allow using extraDependencies to add forbidden dependencies)
+          (config.system.build.toplevel.overrideAttrs (
+            _: {
+              extraDependencies = [ ];
+              closureInfo = null;
+            }
+          ))
+        ];
       };
     };
 

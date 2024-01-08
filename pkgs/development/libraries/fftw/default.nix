@@ -42,11 +42,10 @@ stdenv.mkDerivation (
     nativeBuildInputs = [ gfortran ];
 
     buildInputs =
-      lib.optionals stdenv.cc.isClang
-        [
-          # TODO: This may mismatch the LLVM version sin the stdenv, see #79818.
-          llvmPackages.openmp
-        ]
+      lib.optionals stdenv.cc.isClang [
+        # TODO: This may mismatch the LLVM version sin the stdenv, see #79818.
+        llvmPackages.openmp
+      ]
       ++ lib.optional enableMpi mpi;
 
     configureFlags =

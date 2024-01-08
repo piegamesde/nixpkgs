@@ -43,11 +43,10 @@ stdenv.mkDerivation rec {
     sha256 = "U6b7KxkK03xZhsrtPpi+3nw8YCOZ7k+TyPwFQwPXbas=";
   };
 
-  patches =
-    [
-      # Needed for wingpanel-indicator-network and switchboard-plug-network
-      ./hardcode-gsettings.patch
-    ];
+  patches = [
+    # Needed for wingpanel-indicator-network and switchboard-plug-network
+    ./hardcode-gsettings.patch
+  ];
 
   nativeBuildInputs = [
     meson
@@ -70,12 +69,10 @@ stdenv.mkDerivation rec {
       mobile-broadband-provider-info
     ]
     ++ lib.optionals withGtk4 [ gtk4 ]
-    ++
-      lib.optionals withGnome
-        [
-          # advanced certificate chooser
-          gcr_4
-        ];
+    ++ lib.optionals withGnome [
+      # advanced certificate chooser
+      gcr_4
+    ];
 
   mesonFlags = [
     "-Dgcr=${lib.boolToString withGnome}"

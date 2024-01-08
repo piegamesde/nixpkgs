@@ -41,14 +41,13 @@ mkDerivation rec {
     rev = "v${version}";
     sha256 = "sha256-3NSHUdTyAC/WOhkB6yBrqtV3LV4Hl1m3poB3ojtJMfs=";
   };
-  patches =
-    [
-      # See https://github.com/musescore/MuseScore/issues/15571
-      (fetchpatch {
-        url = "https://github.com/musescore/MuseScore/commit/365be5dfb7296ebee4677cb74b67c1721bc2cf7b.patch";
-        hash = "sha256-tJ2M21i3geO9OsjUQKNatSXTkJ5U9qMT4RLNdJnyoKw=";
-      })
-    ];
+  patches = [
+    # See https://github.com/musescore/MuseScore/issues/15571
+    (fetchpatch {
+      url = "https://github.com/musescore/MuseScore/commit/365be5dfb7296ebee4677cb74b67c1721bc2cf7b.patch";
+      hash = "sha256-tJ2M21i3geO9OsjUQKNatSXTkJ5U9qMT4RLNdJnyoKw=";
+    })
+  ];
 
   cmakeFlags = [
     "-DMUSESCORE_BUILD_CONFIG=release"

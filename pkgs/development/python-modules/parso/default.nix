@@ -20,12 +20,10 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  disabledTests =
-    lib.optionals (pythonAtLeast "3.10")
-      [
-        # python changed exception message format in 3.10, 3.10 not yet supported
-        "test_python_exception_matches"
-      ];
+  disabledTests = lib.optionals (pythonAtLeast "3.10") [
+    # python changed exception message format in 3.10, 3.10 not yet supported
+    "test_python_exception_matches"
+  ];
 
   meta = with lib; {
     description = "A Python Parser";

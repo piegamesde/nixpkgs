@@ -46,11 +46,10 @@ buildPythonPackage rec {
       # ConnectionResetError: [Errno 54] Connection reset by peer
       "test_peer_listener_timeout"
     ]
-    ++ lib.optionals (pythonAtLeast "3.11")
-      [
-        # TypeError: Passing coroutines is forbidden, use tasks explicitly.
-        "test_snitun_runner_updown"
-      ];
+    ++ lib.optionals (pythonAtLeast "3.11") [
+      # TypeError: Passing coroutines is forbidden, use tasks explicitly.
+      "test_snitun_runner_updown"
+    ];
 
   pythonImportsCheck = [ "snitun" ];
 

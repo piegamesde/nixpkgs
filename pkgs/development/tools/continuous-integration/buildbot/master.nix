@@ -112,12 +112,11 @@ let
       glibcLocales
     ];
 
-    patches =
-      [
-        # This patch disables the test that tries to read /etc/os-release which
-        # is not accessible in sandboxed builds.
-        ./skip_test_linux_distro.patch
-      ];
+    patches = [
+      # This patch disables the test that tries to read /etc/os-release which
+      # is not accessible in sandboxed builds.
+      ./skip_test_linux_distro.patch
+    ];
 
     postPatch = ''
       substituteInPlace buildbot/scripts/logwatcher.py --replace '/usr/bin/tail' "$(type -P tail)"

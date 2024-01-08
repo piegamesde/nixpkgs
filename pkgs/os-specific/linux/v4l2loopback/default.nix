@@ -17,11 +17,10 @@ stdenv.mkDerivation rec {
     hash = "sha256-gLFtR7s+3LUQ0BZxHbmaArHbufuphbtAX99nxJU3c84=";
   };
 
-  patches =
-    [
-      # fix bug https://github.com/umlaeute/v4l2loopback/issues/535
-      ./revert-pr518.patch
-    ];
+  patches = [
+    # fix bug https://github.com/umlaeute/v4l2loopback/issues/535
+    ./revert-pr518.patch
+  ];
 
   hardeningDisable = [
     "format"

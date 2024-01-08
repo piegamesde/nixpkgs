@@ -1157,13 +1157,12 @@ self: super:
               "out"
               "dev"
             ];
-            patches =
-              [
-                # The build process tries to create the specified logdir when building.
-                #
-                # We set it to /var/log which can't be touched from inside the sandbox causing the build to hard-fail
-                ./dont-create-logdir-during-build.patch
-              ];
+            patches = [
+              # The build process tries to create the specified logdir when building.
+              #
+              # We set it to /var/log which can't be touched from inside the sandbox causing the build to hard-fail
+              ./dont-create-logdir-during-build.patch
+            ];
             buildInputs = commonBuildInputs ++ [
               libdrm
               mesa
@@ -1192,12 +1191,10 @@ self: super:
               "--with-os-name=Nix" # r13y, embeds the build machine's kernel version otherwise
             ] ++ lib.optionals stdenv.hostPlatform.isMusl [ "--disable-tls" ];
 
-            env.NIX_CFLAGS_COMPILE =
-              toString
-                [
-                  # Needed with GCC 12
-                  "-Wno-error=array-bounds"
-                ];
+            env.NIX_CFLAGS_COMPILE = toString [
+              # Needed with GCC 12
+              "-Wno-error=array-bounds"
+            ];
 
             postInstall = ''
               rm -fr $out/share/X11/xkb/compiled # otherwise X will try to write in it
@@ -1356,15 +1353,14 @@ self: super:
               "--with-launchdaemons-dir=\${out}/LaunchDaemons"
               "--with-launchagents-dir=\${out}/LaunchAgents"
             ];
-          patches =
-            [
-              # don't unset DBUS_SESSION_BUS_ADDRESS in startx
-              (fetchpatch {
-                name = "dont-unset-DBUS_SESSION_BUS_ADDRESS.patch";
-                url = "https://raw.githubusercontent.com/archlinux/svntogit-packages/40f3ac0a31336d871c76065270d3f10e922d06f3/trunk/fs46369.patch";
-                sha256 = "18kb88i3s9nbq2jxl7l2hyj6p56c993hivk8mzxg811iqbbawkp7";
-              })
-            ];
+          patches = [
+            # don't unset DBUS_SESSION_BUS_ADDRESS in startx
+            (fetchpatch {
+              name = "dont-unset-DBUS_SESSION_BUS_ADDRESS.patch";
+              url = "https://raw.githubusercontent.com/archlinux/svntogit-packages/40f3ac0a31336d871c76065270d3f10e922d06f3/trunk/fs46369.patch";
+              sha256 = "18kb88i3s9nbq2jxl7l2hyj6p56c993hivk8mzxg811iqbbawkp7";
+            })
+          ];
           postPatch = ''
             # Avoid replacement of word-looking cpp's builtin macros in Nix's cross-compiled paths
             substituteInPlace Makefile.in --replace "PROGCPPDEFS =" "PROGCPPDEFS = -Dlinux=linux -Dunix=unix"
@@ -1421,15 +1417,14 @@ self: super:
   xf86videoopenchrome = super.xf86videoopenchrome.overrideAttrs (
     attrs: {
       buildInputs = attrs.buildInputs ++ [ xorg.libXv ];
-      patches =
-        [
-          # Pull upstream fix for -fno-common toolchains.
-          (fetchpatch {
-            name = "fno-common.patch";
-            url = "https://github.com/freedesktop/openchrome-xf86-video-openchrome/commit/edb46574d4686c59e80569ba236d537097dcdd0e.patch";
-            sha256 = "0xqawg9zzwb7x5vaf3in60isbkl3zfjq0wcnfi45s3hiii943sxz";
-          })
-        ];
+      patches = [
+        # Pull upstream fix for -fno-common toolchains.
+        (fetchpatch {
+          name = "fno-common.patch";
+          url = "https://github.com/freedesktop/openchrome-xf86-video-openchrome/commit/edb46574d4686c59e80569ba236d537097dcdd0e.patch";
+          sha256 = "0xqawg9zzwb7x5vaf3in60isbkl3zfjq0wcnfi45s3hiii943sxz";
+        })
+      ];
     }
   );
 

@@ -186,18 +186,15 @@ qtModule {
     + postPatch;
 
   env.NIX_CFLAGS_COMPILE = toString (
-    lib.optionals stdenv.cc.isGNU
-      [
-        # with gcc8, -Wclass-memaccess became part of -Wall and this exceeds the logging limit
-        "-Wno-class-memaccess"
-      ]
-    ++
-      lib.optionals (stdenv.hostPlatform.gcc.arch or "" == "sandybridge")
-        [
-          # it fails when compiled with -march=sandybridge https://github.com/NixOS/nixpkgs/pull/59148#discussion_r276696940
-          # TODO: investigate and fix properly
-          "-march=westmere"
-        ]
+    lib.optionals stdenv.cc.isGNU [
+      # with gcc8, -Wclass-memaccess became part of -Wall and this exceeds the logging limit
+      "-Wno-class-memaccess"
+    ]
+    ++ lib.optionals (stdenv.hostPlatform.gcc.arch or "" == "sandybridge") [
+      # it fails when compiled with -march=sandybridge https://github.com/NixOS/nixpkgs/pull/59148#discussion_r276696940
+      # TODO: investigate and fix properly
+      "-march=westmere"
+    ]
     ++ lib.optionals stdenv.cc.isClang [ "-Wno-elaborated-enum-base" ]
   );
 
@@ -270,12 +267,10 @@ qtModule {
       libdrm
       xorg.libxkbfile
     ]
-    ++
-      lib.optionals pipewireSupport
-        [
-          # Pipewire
-          pipewire_0_2
-        ]
+    ++ lib.optionals pipewireSupport [
+      # Pipewire
+      pipewire_0_2
+    ]
 
     # FIXME These dependencies shouldn't be needed but can't find a way
     # around it. Chromium pulls this in while bootstrapping GN.

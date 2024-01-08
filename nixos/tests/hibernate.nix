@@ -69,11 +69,10 @@ makeTest {
         };
 
         virtualisation.diskSize = 8 * 1024;
-        virtualisation.emptyDiskImages =
-          [
-            # Small root disk for installer
-            512
-          ];
+        virtualisation.emptyDiskImages = [
+          # Small root disk for installer
+          512
+        ];
         virtualisation.rootDevice = "/dev/vdb";
       };
   };

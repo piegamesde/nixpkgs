@@ -28,11 +28,10 @@ buildPythonPackage rec {
     rm tests/conftest.py
   '';
 
-  disabledTests =
-    [
-      # TypeError: object Lock can't be used in 'await' expression
-      "test_alock"
-    ];
+  disabledTests = [
+    # TypeError: object Lock can't be used in 'await' expression
+    "test_alock"
+  ];
 
   meta = with lib; {
     description = "Simple python rate limiting object";

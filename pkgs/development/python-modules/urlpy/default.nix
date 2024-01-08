@@ -23,12 +23,10 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  disabledTests =
-    lib.optionals (pythonAtLeast "3.9")
-      [
-        # Fails with "AssertionError: assert 'unknown' == ''"
-        "test_unknown_protocol"
-      ];
+  disabledTests = lib.optionals (pythonAtLeast "3.9") [
+    # Fails with "AssertionError: assert 'unknown' == ''"
+    "test_unknown_protocol"
+  ];
 
   pythonImportsCheck = [ "urlpy" ];
 

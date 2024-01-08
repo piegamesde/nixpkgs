@@ -35,11 +35,10 @@ stdenv.mkDerivation (
       sha256 = "19f2x0pkxvf9figa0pl6xqlcz8fblvqb19mcnj632p0l8vk6qdv2";
     };
 
-    patches =
-      [
-        # see https://github.com/pothosware/SoapySDR/issues/352 for upstream issue
-        ./fix-pkgconfig.patch
-      ];
+    patches = [
+      # see https://github.com/pothosware/SoapySDR/issues/352 for upstream issue
+      ./fix-pkgconfig.patch
+    ];
 
     nativeBuildInputs = [
       cmake

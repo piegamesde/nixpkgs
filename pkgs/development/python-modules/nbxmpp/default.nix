@@ -26,11 +26,10 @@ buildPythonPackage rec {
     hash = "sha256-PL+qNxeNubGSLqSci4uhRWtOIqs10p+A1VPfTwCLu84=";
   };
 
-  nativeBuildInputs =
-    [
-      # required for pythonImportsCheck otherwise libsoup cannot be found
-      gobject-introspection
-    ];
+  nativeBuildInputs = [
+    # required for pythonImportsCheck otherwise libsoup cannot be found
+    gobject-introspection
+  ];
 
   buildInputs = [ precis-i18n ];
 

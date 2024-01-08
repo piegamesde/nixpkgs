@@ -46,11 +46,10 @@ buildPythonPackage rec {
     pytest-xdist
   ];
 
-  disabledTestPaths =
-    [
-      # CLI test tests the CLI which we can't do until after install
-      "tests/test_extractcode_cli.py"
-    ];
+  disabledTestPaths = [
+    # CLI test tests the CLI which we can't do until after install
+    "tests/test_extractcode_cli.py"
+  ];
 
   disabledTests = [
     # test_uncompress_* wants to use a binary to extract instead of the provided library

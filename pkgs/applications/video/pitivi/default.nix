@@ -30,13 +30,12 @@ python3.pkgs.buildPythonApplication rec {
     sha256 = "PX1OFEeavqMPvF613BKgxwErxqW2huw6mQxo8YpBS/M=";
   };
 
-  patches =
-    [
-      # By default, the build picks up environment variables like PYTHONPATH
-      # and saves them to the generated binary. This would make the build-time
-      # dependencies part of the closure so we remove it.
-      ./prevent-closure-contamination.patch
-    ];
+  patches = [
+    # By default, the build picks up environment variables like PYTHONPATH
+    # and saves them to the generated binary. This would make the build-time
+    # dependencies part of the closure so we remove it.
+    ./prevent-closure-contamination.patch
+  ];
 
   nativeBuildInputs = [
     meson

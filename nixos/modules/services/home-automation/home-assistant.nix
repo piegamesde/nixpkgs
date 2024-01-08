@@ -137,12 +137,11 @@ in
           "met"
           "esphome"
         ]
-        ++ optionals pkgs.stdenv.hostPlatform.isAarch
-          [
-            # Use the platform as an indicator that we might be running on a RaspberryPi and include
-            # relevant components
-            "rpi_power"
-          ];
+        ++ optionals pkgs.stdenv.hostPlatform.isAarch [
+          # Use the platform as an indicator that we might be running on a RaspberryPi and include
+          # relevant components
+          "rpi_power"
+        ];
       example = literalExpression ''
         [
           "analytics"
@@ -491,13 +490,11 @@ in
               "CAP_NET_ADMIN"
               "CAP_NET_RAW"
             ]
-            ++
-              lib.optionals (useComponent "emulated_hue")
-                [
-                  # Alexa looks for the service on port 80
-                  # https://www.home-assistant.io/integrations/emulated_hue
-                  "CAP_NET_BIND_SERVICE"
-                ]
+            ++ lib.optionals (useComponent "emulated_hue") [
+              # Alexa looks for the service on port 80
+              # https://www.home-assistant.io/integrations/emulated_hue
+              "CAP_NET_BIND_SERVICE"
+            ]
             ++ lib.optionals (useComponent "nmap_tracker") [
               # https://www.home-assistant.io/integrations/nmap_tracker#linux-capabilities
               "CAP_NET_ADMIN"

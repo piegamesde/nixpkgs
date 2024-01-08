@@ -35,11 +35,10 @@ stdenv.mkDerivation rec {
       ln -s ${opensslSourceArchive} $sourceRoot/openssl_source/openssl-${opensslVersion}.tar.gz
     '';
 
-  patches =
-    [
-      # https://github.com/intel/intel-sgx-ssl/pull/111
-      ./intel-sgx-ssl-pr-111.patch
-    ];
+  patches = [
+    # https://github.com/intel/intel-sgx-ssl/pull/111
+    ./intel-sgx-ssl-pr-111.patch
+  ];
 
   postPatch = ''
     patchShebangs Linux/build_openssl.sh

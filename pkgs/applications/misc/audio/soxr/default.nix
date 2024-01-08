@@ -14,11 +14,10 @@ stdenv.mkDerivation rec {
     sha256 = "12aql6svkplxq5fjycar18863hcq84c5kx8g6f4rj0lcvigw24di";
   };
 
-  patches =
-    [
-      # Remove once https://sourceforge.net/p/soxr/code/merge-requests/5/ is merged.
-      ./arm64-check.patch
-    ];
+  patches = [
+    # Remove once https://sourceforge.net/p/soxr/code/merge-requests/5/ is merged.
+    ./arm64-check.patch
+  ];
 
   outputs = [
     "out"

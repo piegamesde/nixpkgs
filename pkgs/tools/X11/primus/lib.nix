@@ -30,14 +30,13 @@ stdenv.mkDerivation {
     sha256 = "118jm57ccawskb8vjq3a9dpa2gh72nxzvx2zk7zknpy0arrdznj1";
   };
 
-  patches =
-    [
-      # Bump buffer size for long library paths.
-      (fetchpatch {
-        url = "https://github.com/abbradar/primus/commit/2f429e232581c556df4f4bf210aee8a0c99c60b7.patch";
-        sha256 = "1da6ynz7r7x98495i329sf821308j1rpy8prcdraqahz7p4c89nc";
-      })
-    ];
+  patches = [
+    # Bump buffer size for long library paths.
+    (fetchpatch {
+      url = "https://github.com/abbradar/primus/commit/2f429e232581c556df4f4bf210aee8a0c99c60b7.patch";
+      sha256 = "1da6ynz7r7x98495i329sf821308j1rpy8prcdraqahz7p4c89nc";
+    })
+  ];
 
   buildInputs = [
     libX11

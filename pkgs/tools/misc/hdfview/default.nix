@@ -20,11 +20,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-08De/yy9lZUIxNqccS2nL7IE/2gYo0NPAKcHH46M8rg=";
   };
 
-  patches =
-    [
-      # Hardcode isUbuntu=false to avoid calling hostname to detect os
-      ./0001-Hardcode-isUbuntu-false-to-avoid-hostname-dependency.patch
-    ];
+  patches = [
+    # Hardcode isUbuntu=false to avoid calling hostname to detect os
+    ./0001-Hardcode-isUbuntu-false-to-avoid-hostname-dependency.patch
+  ];
 
   nativeBuildInputs = [
     ant

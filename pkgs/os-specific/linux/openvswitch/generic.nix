@@ -40,11 +40,10 @@ stdenv.mkDerivation rec {
     "man"
   ];
 
-  patches =
-    [
-      # 8: vsctl-bashcomp - argument completion FAILED (completion.at:664)
-      ./patches/disable-bash-arg-completion-test.patch
-    ];
+  patches = [
+    # 8: vsctl-bashcomp - argument completion FAILED (completion.at:664)
+    ./patches/disable-bash-arg-completion-test.patch
+  ];
 
   nativeBuildInputs = [
     autoconf

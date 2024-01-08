@@ -33,16 +33,15 @@ stdenv.mkDerivation rec {
     hash = "sha256-cuc6Ks8g9ZCT4h1WAWBuQFhzUD6zXzRvpiHeI+mbOzk=";
   };
 
-  patches =
-    [
-      # Fix generating data
-      # Note: upstream is not willing to merge our fix
-      # https://gitlab.freedesktop.org/libnice/libnice/merge_requests/35#note_98871
-      (fetchpatch {
-        url = "https://gitlab.freedesktop.org/libnice/libnice/commit/d470c4bf4f2449f7842df26ca1ce1efb63452bc6.patch";
-        sha256 = "0z74vizf92flfw1m83p7yz824vfykmnm0xbnk748bnnyq186i6mg";
-      })
-    ];
+  patches = [
+    # Fix generating data
+    # Note: upstream is not willing to merge our fix
+    # https://gitlab.freedesktop.org/libnice/libnice/merge_requests/35#note_98871
+    (fetchpatch {
+      url = "https://gitlab.freedesktop.org/libnice/libnice/commit/d470c4bf4f2449f7842df26ca1ce1efb63452bc6.patch";
+      sha256 = "0z74vizf92flfw1m83p7yz824vfykmnm0xbnk748bnnyq186i6mg";
+    })
+  ];
 
   nativeBuildInputs = [
     meson

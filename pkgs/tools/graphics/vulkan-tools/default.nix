@@ -61,12 +61,11 @@ stdenv.mkDerivation rec {
 
   libraryPath = lib.strings.makeLibraryPath [ vulkan-loader ];
 
-  patches =
-    [
-      # Vulkan-Tools expects to find the MoltenVK ICD and `libMoltenVK.dylib` in its source repo.
-      # Patch it to use the already-built binaries and ICD in nixpkgs.
-      ./use-nix-moltenvk.patch
-    ];
+  patches = [
+    # Vulkan-Tools expects to find the MoltenVK ICD and `libMoltenVK.dylib` in its source repo.
+    # Patch it to use the already-built binaries and ICD in nixpkgs.
+    ./use-nix-moltenvk.patch
+  ];
 
   # vkcube.app and vkcubepp.app require `ibtool`, but the version in `xib2nib` is not capable of
   # building these apps. Build them using `ibtool` from Xcode, but don’t allow any other binaries

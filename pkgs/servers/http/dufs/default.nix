@@ -30,11 +30,10 @@ rustPlatform.buildRustPackage rec {
   # FIXME: checkPhase on darwin will leave some zombie spawn processes
   # see https://github.com/NixOS/nixpkgs/issues/205620
   doCheck = !stdenv.isDarwin;
-  checkFlags =
-    [
-      # tests depend on network interface, may fail with virtual IPs.
-      "--skip=validate_printed_urls"
-    ];
+  checkFlags = [
+    # tests depend on network interface, may fail with virtual IPs.
+    "--skip=validate_printed_urls"
+  ];
 
   meta = with lib; {
     description = "A file server that supports static serving, uploading, searching, accessing control, webdav";

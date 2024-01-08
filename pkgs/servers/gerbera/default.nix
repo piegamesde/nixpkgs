@@ -129,12 +129,10 @@ stdenv.mkDerivation rec {
       --replace /usr/lib/mysql     ${lib.getLib libmysqlclient}/lib/mariadb
   '';
 
-  cmakeFlags =
-    [
-      # systemd service will be generated alongside the service
-      "-DWITH_SYSTEMD=OFF"
-    ]
-    ++ map (e: "-DWITH_${e.name}=${if e.enable then "ON" else "OFF"}") options;
+  cmakeFlags = [
+    # systemd service will be generated alongside the service
+    "-DWITH_SYSTEMD=OFF"
+  ] ++ map (e: "-DWITH_${e.name}=${if e.enable then "ON" else "OFF"}") options;
 
   nativeBuildInputs = [
     cmake

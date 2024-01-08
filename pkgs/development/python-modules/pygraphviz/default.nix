@@ -22,17 +22,16 @@ buildPythonPackage rec {
     extension = "zip";
   };
 
-  patches =
-    [
-      # pygraphviz depends on graphviz executables and wc being in PATH
-      (substituteAll {
-        src = ./path.patch;
-        path = lib.makeBinPath [
-          graphviz
-          coreutils
-        ];
-      })
-    ];
+  patches = [
+    # pygraphviz depends on graphviz executables and wc being in PATH
+    (substituteAll {
+      src = ./path.patch;
+      path = lib.makeBinPath [
+        graphviz
+        coreutils
+      ];
+    })
+  ];
 
   nativeBuildInputs = [ pkg-config ];
 

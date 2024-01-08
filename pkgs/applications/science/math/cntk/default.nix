@@ -49,17 +49,16 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  patches =
-    [
-      # Fix build with protobuf 3.18+
-      # Remove with onnx submodule bump to 1.9+
-      (fetchpatch {
-        url = "https://github.com/onnx/onnx/commit/d3bc82770474761571f950347560d62a35d519d7.patch";
-        extraPrefix = "Source/CNTKv2LibraryDll/proto/onnx/onnx_repo/";
-        stripLen = 1;
-        sha256 = "00raqj8wx30b06ky6cdp5vvc1mrzs7hglyi6h58hchw5lhrwkzxp";
-      })
-    ];
+  patches = [
+    # Fix build with protobuf 3.18+
+    # Remove with onnx submodule bump to 1.9+
+    (fetchpatch {
+      url = "https://github.com/onnx/onnx/commit/d3bc82770474761571f950347560d62a35d519d7.patch";
+      extraPrefix = "Source/CNTKv2LibraryDll/proto/onnx/onnx_repo/";
+      stripLen = 1;
+      sha256 = "00raqj8wx30b06ky6cdp5vvc1mrzs7hglyi6h58hchw5lhrwkzxp";
+    })
+  ];
 
   postPatch = ''
     # Fix build with protobuf 3.18+

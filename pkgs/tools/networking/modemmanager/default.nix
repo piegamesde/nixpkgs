@@ -34,12 +34,11 @@ stdenv.mkDerivation rec {
     hash = "sha256-/A4WTsUQVeZDi5ei6qBvqoWYLKdRcZaYZU8/qWOPrvM=";
   };
 
-  patches =
-    [
-      # Since /etc is the domain of NixOS, not Nix, we cannot install files there.
-      # But these are just placeholders so we do not need to install them at all.
-      ./no-dummy-dirs-in-sysconfdir.patch
-    ];
+  patches = [
+    # Since /etc is the domain of NixOS, not Nix, we cannot install files there.
+    # But these are just placeholders so we do not need to install them at all.
+    ./no-dummy-dirs-in-sysconfdir.patch
+  ];
 
   nativeBuildInputs = [
     meson

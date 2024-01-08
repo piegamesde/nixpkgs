@@ -24,11 +24,10 @@ stdenv.mkDerivation rec {
   prePatch = ''
     ln -s share/julia/test
   '';
-  patches =
-    [
-      # Source release Nix patch(es) relevant for binary releases as well.
-      ./patches/1.6-bin/0005-nix-Enable-parallel-unit-tests-for-sandbox.patch
-    ];
+  patches = [
+    # Source release Nix patch(es) relevant for binary releases as well.
+    ./patches/1.6-bin/0005-nix-Enable-parallel-unit-tests-for-sandbox.patch
+  ];
   postPatch = ''
     # Revert symlink hack.
     rm test

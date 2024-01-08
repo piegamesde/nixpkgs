@@ -40,11 +40,10 @@ python3.pkgs.buildPythonApplication rec {
     pandoc
     git
   ];
-  disabledTests =
-    [
-      # assumes we have checked out the full repo (including remotes)
-      "test_real_get_github_repos"
-    ];
+  disabledTests = [
+    # assumes we have checked out the full repo (including remotes)
+    "test_real_get_github_repos"
+  ];
 
   passthru.tests = {
     version = testers.testVersion { package = scriv; };

@@ -54,11 +54,10 @@ stdenv.mkDerivation rec {
       # libXext is a transitive dependency of libXi
       libXext
     ]
-    ++ lib.optionals (lib.meta.availableOn stdenv.hostPlatform systemd)
-      [
-        # libsystemd is a needed for dbus-broker support
-        systemd
-      ];
+    ++ lib.optionals (lib.meta.availableOn stdenv.hostPlatform systemd) [
+      # libsystemd is a needed for dbus-broker support
+      systemd
+    ];
 
   # In atspi-2.pc dbus-1 glib-2.0
   # In atk.pc gobject-2.0
@@ -78,11 +77,10 @@ stdenv.mkDerivation rec {
       # the at-spi2-core libraries.
       "-Ddbus_daemon=/run/current-system/sw/bin/dbus-daemon"
     ]
-    ++ lib.optionals stdenv.hostPlatform.isLinux
-      [
-        # Same as the above, but for dbus-broker
-        "-Ddbus_broker=/run/current-system/sw/bin/dbus-broker-launch"
-      ];
+    ++ lib.optionals stdenv.hostPlatform.isLinux [
+      # Same as the above, but for dbus-broker
+      "-Ddbus_broker=/run/current-system/sw/bin/dbus-broker-launch"
+    ];
 
   passthru = {
     updateScript = gnome.updateScript {

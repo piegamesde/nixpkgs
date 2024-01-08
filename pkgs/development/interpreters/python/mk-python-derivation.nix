@@ -218,18 +218,14 @@ let
             eggInstallHook
           ]
           ++ lib.optionals (!(format == "other") || dontUsePipInstall) [ pipInstallHook ]
-          ++
-            lib.optionals (stdenv.buildPlatform == stdenv.hostPlatform)
-              [
-                # This is a test, however, it should be ran independent of the checkPhase and checkInputs
-                pythonImportsCheckHook
-              ]
-          ++
-            lib.optionals (python.pythonAtLeast "3.3")
-              [
-                # Optionally enforce PEP420 for python3
-                pythonNamespacesHook
-              ]
+          ++ lib.optionals (stdenv.buildPlatform == stdenv.hostPlatform) [
+            # This is a test, however, it should be ran independent of the checkPhase and checkInputs
+            pythonImportsCheckHook
+          ]
+          ++ lib.optionals (python.pythonAtLeast "3.3") [
+            # Optionally enforce PEP420 for python3
+            pythonNamespacesHook
+          ]
           ++ lib.optionals withDistOutput [ pythonOutputDistHook ]
           ++ nativeBuildInputs;
 
@@ -254,14 +250,12 @@ let
         doInstallCheck = attrs.doCheck or true;
         nativeInstallCheckInputs =
           [ ]
-          ++
-            lib.optionals (format == "setuptools")
-              [
-                # Longer-term we should get rid of this and require
-                # users of this function to set the `installCheckPhase` or
-                # pass in a hook that sets it.
-                setuptoolsCheckHook
-              ]
+          ++ lib.optionals (format == "setuptools") [
+            # Longer-term we should get rid of this and require
+            # users of this function to set the `installCheckPhase` or
+            # pass in a hook that sets it.
+            setuptoolsCheckHook
+          ]
           ++ nativeCheckInputs;
         installCheckInputs = checkInputs;
 

@@ -49,17 +49,16 @@ stdenv.mkDerivation rec {
   dontStrip = true;
   buildInputs = [ ncurses ] ++ optionals useX11 x11deps;
 
-  patches =
-    [
-      # glibc 2.34 changed SIGSTKSZ from a #define'd integer to an
-      # expression involving a function call.  This broke all code that
-      # used SIGSTKSZ as the size of a statically-allocated array.  This
-      # patch is also applied by the ocaml/4.07.nix expression.
-      (fetchpatch {
-        url = "https://github.com/ocaml/ocaml/commit/dd28ac0cf4365bd0ea1bcc374cbc5e95a6f39bea.patch";
-        sha256 = "sha256-OmyovAu+8sgg3n5YD29Cytx3u/9PO2ofMsmrwiKUxks=";
-      })
-    ];
+  patches = [
+    # glibc 2.34 changed SIGSTKSZ from a #define'd integer to an
+    # expression involving a function call.  This broke all code that
+    # used SIGSTKSZ as the size of a statically-allocated array.  This
+    # patch is also applied by the ocaml/4.07.nix expression.
+    (fetchpatch {
+      url = "https://github.com/ocaml/ocaml/commit/dd28ac0cf4365bd0ea1bcc374cbc5e95a6f39bea.patch";
+      sha256 = "sha256-OmyovAu+8sgg3n5YD29Cytx3u/9PO2ofMsmrwiKUxks=";
+    })
+  ];
 
   postConfigure = ''
     tar -xvzf $metaocaml

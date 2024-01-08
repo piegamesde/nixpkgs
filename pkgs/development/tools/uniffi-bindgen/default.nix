@@ -23,11 +23,10 @@ rustPlatform.buildRustPackage rec {
 
   nativeBuildInputs = [ makeWrapper ];
 
-  checkFlags =
-    [
-      # this test assumes it is run from the repository
-      "--skip=test::test_guessing_of_crate_root_directory_from_udl_file"
-    ];
+  checkFlags = [
+    # this test assumes it is run from the repository
+    "--skip=test::test_guessing_of_crate_root_directory_from_udl_file"
+  ];
 
   postFixup = ''
     wrapProgram "$out/bin/uniffi-bindgen" \

@@ -73,12 +73,11 @@ let
         sha256 = "sha256-qEZoQ6h4XAvSnJ7/gLXBb1qrzeYa6Jp6nij9VFo8MwQ=";
       };
 
-      patches =
-        [
-          # Build script tries to find Clang OpenCL headers under ${llvm}
-          # Work around it by specifying that directory manually.
-          ./opencl-headers-dir.patch
-        ];
+      patches = [
+        # Build script tries to find Clang OpenCL headers under ${llvm}
+        # Work around it by specifying that directory manually.
+        ./opencl-headers-dir.patch
+      ];
 
       # Uses linker flags that are not supported on Darwin.
       postPatch = lib.optionalString stdenv.isDarwin ''

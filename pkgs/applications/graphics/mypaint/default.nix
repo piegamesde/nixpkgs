@@ -40,15 +40,14 @@ buildPythonApplication rec {
     fetchSubmodules = true;
   };
 
-  patches =
-    [
-      # Fix build due to setuptools issue.
-      # https://github.com/mypaint/mypaint/pull/1183
-      (fetchpatch {
-        url = "https://github.com/mypaint/mypaint/commit/423950bec96d6057eac70442de577364d784a847.patch";
-        sha256 = "OxJJOi20bFMRibL59zx6svtMrkgeMYyEvbdSXbZHqpc=";
-      })
-    ];
+  patches = [
+    # Fix build due to setuptools issue.
+    # https://github.com/mypaint/mypaint/pull/1183
+    (fetchpatch {
+      url = "https://github.com/mypaint/mypaint/commit/423950bec96d6057eac70442de577364d784a847.patch";
+      sha256 = "OxJJOi20bFMRibL59zx6svtMrkgeMYyEvbdSXbZHqpc=";
+    })
+  ];
 
   nativeBuildInputs = [
     gettext

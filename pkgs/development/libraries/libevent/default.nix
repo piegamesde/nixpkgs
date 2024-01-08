@@ -18,14 +18,13 @@ stdenv.mkDerivation rec {
     sha256 = "1fq30imk8zd26x8066di3kpc5zyfc5z6frr3zll685zcx4dxxrlj";
   };
 
-  patches =
-    [
-      # Don't define BIO_get_init() for LibreSSL 3.5+
-      (fetchpatch {
-        url = "https://github.com/libevent/libevent/commit/883630f76cbf512003b81de25cd96cb75c6cf0f9.patch";
-        sha256 = "sha256-VPJqJUAovw6V92jpqIXkIR1xYGbxIWxaHr8cePWI2SU=";
-      })
-    ];
+  patches = [
+    # Don't define BIO_get_init() for LibreSSL 3.5+
+    (fetchpatch {
+      url = "https://github.com/libevent/libevent/commit/883630f76cbf512003b81de25cd96cb75c6cf0f9.patch";
+      sha256 = "sha256-VPJqJUAovw6V92jpqIXkIR1xYGbxIWxaHr8cePWI2SU=";
+    })
+  ];
 
   preConfigure = lib.optionalString (lib.versionAtLeast stdenv.hostPlatform.darwinMinVersion "11") ''
     MACOSX_DEPLOYMENT_TARGET=10.16

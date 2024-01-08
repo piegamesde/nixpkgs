@@ -24,14 +24,13 @@ buildPythonPackage rec {
     hash = "sha256-R2ttLoFd6Ic0KZl49dzN5NtWAqPpXRaeki6X8CRGsCw=";
   };
 
-  patches =
-    [
-      # Backport Python 3.11 support.
-      (fetchpatch {
-        url = "https://patch-diff.githubusercontent.com/raw/astropy/pyvo/pull/385.patch";
-        sha256 = "IHf3W9fIT8XFvyM41PUiJkt1j+B3RkX3TS4FOnRUMDk=";
-      })
-    ];
+  patches = [
+    # Backport Python 3.11 support.
+    (fetchpatch {
+      url = "https://patch-diff.githubusercontent.com/raw/astropy/pyvo/pull/385.patch";
+      sha256 = "IHf3W9fIT8XFvyM41PUiJkt1j+B3RkX3TS4FOnRUMDk=";
+    })
+  ];
 
   SETUPTOOLS_SCM_PRETEND_VERSION = version;
 
@@ -49,11 +48,10 @@ buildPythonPackage rec {
     requests-mock
   ];
 
-  disabledTestPaths =
-    [
-      # touches network
-      "pyvo/dal/tests/test_datalink.py"
-    ];
+  disabledTestPaths = [
+    # touches network
+    "pyvo/dal/tests/test_datalink.py"
+  ];
 
   pythonImportsCheck = [ "pyvo" ];
 

@@ -38,11 +38,10 @@ buildPythonPackage rec {
       "test_floats_prefixed"
       "test_subcounter_prefixed"
     ]
-    ++ lib.optionals stdenv.isDarwin
-      [
-        # https://github.com/Rockhopper-Technologies/enlighten/issues/44
-        "test_autorefresh"
-      ];
+    ++ lib.optionals stdenv.isDarwin [
+      # https://github.com/Rockhopper-Technologies/enlighten/issues/44
+      "test_autorefresh"
+    ];
 
   meta = with lib; {
     description = "Enlighten Progress Bar for Python Console Apps";

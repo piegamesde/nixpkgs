@@ -20,11 +20,10 @@ stdenv.mkDerivation rec {
     sha256 = "0jwazg99wk2l7r390ggw0yr8xipl07bp0qynni141xss530i6d1a";
   };
 
-  patches =
-    [
-      # http://zhu-qy.blogspot.com.es/2012/11/slackware-14-i-still-got-xxgdb-all-ptys.html
-      ./xxgdb-pty.patch
-    ];
+  patches = [
+    # http://zhu-qy.blogspot.com.es/2012/11/slackware-14-i-still-got-xxgdb-all-ptys.html
+    ./xxgdb-pty.patch
+  ];
 
   nativeBuildInputs = [
     imake

@@ -73,11 +73,10 @@ buildPythonPackage rec {
       # UnboundLocalError: local variable 'child' referenced before assignment
       "test_system_interrupt"
     ]
-    ++ lib.optionals (stdenv.isDarwin)
-      [
-        # FileNotFoundError: [Errno 2] No such file or directory: 'pbpaste'
-        "test_clipboard_get"
-      ];
+    ++ lib.optionals (stdenv.isDarwin) [
+      # FileNotFoundError: [Errno 2] No such file or directory: 'pbpaste'
+      "test_clipboard_get"
+    ];
 
   meta = with lib; {
     description = "IPython: Productive Interactive Computing";

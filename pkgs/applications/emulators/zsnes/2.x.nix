@@ -38,12 +38,10 @@ stdenv.mkDerivation (
 
     dontConfigure = true;
 
-    env.NIX_CFLAGS_COMPILE =
-      toString
-        [
-          # Until upstream fixes the issues...
-          "-Wp,-D_FORTIFY_SOURCE=0"
-        ];
+    env.NIX_CFLAGS_COMPILE = toString [
+      # Until upstream fixes the issues...
+      "-Wp,-D_FORTIFY_SOURCE=0"
+    ];
 
     installFlags = [ "PREFIX=${placeholder "out"}" ];
 

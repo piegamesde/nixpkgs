@@ -18,17 +18,16 @@ stdenv.mkDerivation rec {
     hash = "sha256-wYZkKVDXKCugycx/ZYhjV0BjM/NrEM0R6A4WFhs/WPU=";
   };
 
-  patches =
-    [
-      # Re-enable RTTI, without which other applications can't subclass
-      # snappy::Source (this breaks Ceph, as one example)
-      # https://tracker.ceph.com/issues/53060
-      # https://build.opensuse.org/package/show/openSUSE:Factory/snappy
-      (fetchpatch {
-        url = "https://build.opensuse.org/public/source/openSUSE:Factory/snappy/reenable-rtti.patch?rev=a759aa6fba405cd40025e3f0ab89941d";
-        sha256 = "sha256-RMuM5yd6zP1eekN/+vfS54EyY4cFbGDVor1E1vj3134=";
-      })
-    ];
+  patches = [
+    # Re-enable RTTI, without which other applications can't subclass
+    # snappy::Source (this breaks Ceph, as one example)
+    # https://tracker.ceph.com/issues/53060
+    # https://build.opensuse.org/package/show/openSUSE:Factory/snappy
+    (fetchpatch {
+      url = "https://build.opensuse.org/public/source/openSUSE:Factory/snappy/reenable-rtti.patch?rev=a759aa6fba405cd40025e3f0ab89941d";
+      sha256 = "sha256-RMuM5yd6zP1eekN/+vfS54EyY4cFbGDVor1E1vj3134=";
+    })
+  ];
 
   outputs = [
     "out"

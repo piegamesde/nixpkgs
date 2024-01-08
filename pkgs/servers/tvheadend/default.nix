@@ -44,17 +44,16 @@ stdenv.mkDerivation {
     "man"
   ];
 
-  patches =
-    [
-      # Pull upstream fix for -fno-common toolchain
-      #   https://github.com/tvheadend/tvheadend/pull/1342
-      # TODO: can be removed with 4.3 release.
-      (fetchpatch {
-        name = "fno-common.patch";
-        url = "https://github.com/tvheadend/tvheadend/commit/bd92f1389f1aacdd08e913b0383a0ca9dc223153.patch";
-        sha256 = "17bsx6mnv4pjiayvx1d57dphva0kvlppvnmmaym06dh4524pnly1";
-      })
-    ];
+  patches = [
+    # Pull upstream fix for -fno-common toolchain
+    #   https://github.com/tvheadend/tvheadend/pull/1342
+    # TODO: can be removed with 4.3 release.
+    (fetchpatch {
+      name = "fno-common.patch";
+      url = "https://github.com/tvheadend/tvheadend/commit/bd92f1389f1aacdd08e913b0383a0ca9dc223153.patch";
+      sha256 = "17bsx6mnv4pjiayvx1d57dphva0kvlppvnmmaym06dh4524pnly1";
+    })
+  ];
 
   nativeBuildInputs = [
     makeWrapper
@@ -83,12 +82,10 @@ stdenv.mkDerivation {
       "-Wno-error=format-truncation"
       "-Wno-error=stringop-truncation"
     ]
-    ++
-      lib.optionals (stdenv.cc.isGNU && lib.versionAtLeast stdenv.cc.version "12")
-        [
-          # Needed with GCC 12 but unrecognized with GCC 9
-          "-Wno-error=use-after-free"
-        ]
+    ++ lib.optionals (stdenv.cc.isGNU && lib.versionAtLeast stdenv.cc.version "12") [
+      # Needed with GCC 12 but unrecognized with GCC 9
+      "-Wno-error=use-after-free"
+    ]
   );
 
   configureFlags = [

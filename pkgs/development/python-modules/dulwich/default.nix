@@ -68,11 +68,10 @@ buildPythonPackage rec {
     "test_commit_no_encode_decode"
   ];
 
-  disabledTestPaths =
-    [
-      # missing test inputs
-      "dulwich/contrib/test_swift_smoke.py"
-    ];
+  disabledTestPaths = [
+    # missing test inputs
+    "dulwich/contrib/test_swift_smoke.py"
+  ];
 
   pythonImportsCheck = [ "dulwich" ];
 

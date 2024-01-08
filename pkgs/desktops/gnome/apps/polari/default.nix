@@ -38,13 +38,12 @@ stdenv.mkDerivation rec {
     sha256 = "F6GS3uYfWOPNRHJQC+cBGUa5n75SvFrBJPqurC8zQUc=";
   };
 
-  patches =
-    [
-      # Upstream runs the thumbnailer by passing it to gjs.
-      # If we wrap it in a shell script, gjs can no longer run it.
-      # Let’s change the code to run the script directly by making it executable and having gjs in shebang.
-      ./make-thumbnailer-wrappable.patch
-    ];
+  patches = [
+    # Upstream runs the thumbnailer by passing it to gjs.
+    # If we wrap it in a shell script, gjs can no longer run it.
+    # Let’s change the code to run the script directly by making it executable and having gjs in shebang.
+    ./make-thumbnailer-wrappable.patch
+  ];
 
   propagatedUserEnvPkgs = [
     telepathy-idle

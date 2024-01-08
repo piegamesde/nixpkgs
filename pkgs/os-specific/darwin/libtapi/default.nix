@@ -25,12 +25,11 @@ stdenv.mkDerivation {
   # Also means we don't have to manually fix the result with install_name_tool.
   patches =
     [ ./disable-rpath.patch ]
-    ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform)
-      [
-        # TODO: make unconditional and rebuild the world
-        # TODO: send upstream
-        ./native-clang-tblgen.patch
-      ];
+    ++ lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
+      # TODO: make unconditional and rebuild the world
+      # TODO: send upstream
+      ./native-clang-tblgen.patch
+    ];
 
   nativeBuildInputs = [
     cmake

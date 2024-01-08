@@ -21,17 +21,16 @@ let
           };
           # Environment variable used in shapely/_buildcfg.py
           GEOS_LIBRARY_PATH = "${geos}/lib/libgeos_c${stdenv.hostPlatform.extensions.sharedLibrary}";
-          patches =
-            [
-              # Patch to search form GOES .so/.dylib files in a Nix-aware way
-              (substituteAll {
-                src = ./shapely-library-paths.patch;
-                libgeos_c = GEOS_LIBRARY_PATH;
-                libc =
-                  lib.optionalString (!stdenv.isDarwin)
-                    "${stdenv.cc.libc}/lib/libc${stdenv.hostPlatform.extensions.sharedLibrary}.6";
-              })
-            ];
+          patches = [
+            # Patch to search form GOES .so/.dylib files in a Nix-aware way
+            (substituteAll {
+              src = ./shapely-library-paths.patch;
+              libgeos_c = GEOS_LIBRARY_PATH;
+              libc =
+                lib.optionalString (!stdenv.isDarwin)
+                  "${stdenv.cc.libc}/lib/libc${stdenv.hostPlatform.extensions.sharedLibrary}.6";
+            })
+          ];
         }
       );
     };

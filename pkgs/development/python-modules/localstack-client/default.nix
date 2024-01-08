@@ -29,11 +29,10 @@ buildPythonPackage rec {
   doCheck = false;
   nativeCheckInputs = [ pytestCheckHook ];
 
-  disabledTests =
-    [
-      # Has trouble creating a socket
-      "test_session"
-    ];
+  disabledTests = [
+    # Has trouble creating a socket
+    "test_session"
+  ];
 
   # For tests
   __darwinAllowLocalNetworking = true;

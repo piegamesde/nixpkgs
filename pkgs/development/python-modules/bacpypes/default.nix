@@ -28,11 +28,10 @@ buildPythonPackage rec {
     pytest-runner
   ];
   dontUseSetuptoolsCheck = true;
-  disabledTests =
-    [
-      # Test fails with a an error: AssertionError: assert 30 == 31
-      "test_recurring_task_5"
-    ];
+  disabledTests = [
+    # Test fails with a an error: AssertionError: assert 30 == 31
+    "test_recurring_task_5"
+  ];
 
   meta = with lib; {
     homepage = "https://github.com/JoelBender/bacpypes";

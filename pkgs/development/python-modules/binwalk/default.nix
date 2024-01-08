@@ -33,17 +33,16 @@ buildPythonPackage rec {
     hash = "sha256-hlPbzqGRSXcIqlI+SNKq37CnnHd1IoMBNSjhyeAM1TE=";
   };
 
-  patches =
-    [
-      # test_firmware_zip fails with 2.3.3 upgrade
-      # https://github.com/ReFirmLabs/binwalk/issues/566
-      (fetchpatch {
-        url = "https://github.com/ReFirmLabs/binwalk/commit/dd4f2efd275c9dd1001130e82e0f985110cd2754.patch";
-        sha256 = "1707n4nf1d1ay1yn4i8qlrvj2c1120g88hjwyklpsc2s2dcnqj9r";
-        includes = [ "testing/tests/test_firmware_zip.py" ];
-        revert = true;
-      })
-    ];
+  patches = [
+    # test_firmware_zip fails with 2.3.3 upgrade
+    # https://github.com/ReFirmLabs/binwalk/issues/566
+    (fetchpatch {
+      url = "https://github.com/ReFirmLabs/binwalk/commit/dd4f2efd275c9dd1001130e82e0f985110cd2754.patch";
+      sha256 = "1707n4nf1d1ay1yn4i8qlrvj2c1120g88hjwyklpsc2s2dcnqj9r";
+      includes = [ "testing/tests/test_firmware_zip.py" ];
+      revert = true;
+    })
+  ];
 
   propagatedBuildInputs =
     [

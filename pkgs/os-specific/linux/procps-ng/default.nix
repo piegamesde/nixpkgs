@@ -28,17 +28,15 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-RRiz56r9NOwH0AY9JQ/UdJmbILIAIYw65W9dIRPxQbQ=";
   };
 
-  patches =
-    lib.optionals stdenv.hostPlatform.isMusl
-      [
-        # NOTE: Starting from 4.x we will not need a patch anymore, but need to add
-        # "--disable-w" to configureFlags instead to prevent the utmp errors
-        (fetchpatch {
-          name = "musl-fix-includes.patch";
-          url = "https://git.alpinelinux.org/aports/plain/main/procps/musl-fixes.patch?id=37cb5b6ef194db66d9ed07c8ecab59bca3b91215";
-          sha256 = "sha256-DphAvESmVg1U3bJABU95R++QD34odStCl82EF0vmht0=";
-        })
-      ];
+  patches = lib.optionals stdenv.hostPlatform.isMusl [
+    # NOTE: Starting from 4.x we will not need a patch anymore, but need to add
+    # "--disable-w" to configureFlags instead to prevent the utmp errors
+    (fetchpatch {
+      name = "musl-fix-includes.patch";
+      url = "https://git.alpinelinux.org/aports/plain/main/procps/musl-fixes.patch?id=37cb5b6ef194db66d9ed07c8ecab59bca3b91215";
+      sha256 = "sha256-DphAvESmVg1U3bJABU95R++QD34odStCl82EF0vmht0=";
+    })
+  ];
 
   buildInputs = [ ncurses ] ++ lib.optional withSystemd systemd;
   nativeBuildInputs = [ pkg-config ];

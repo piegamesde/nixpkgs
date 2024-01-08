@@ -22,11 +22,10 @@ stdenv.mkDerivation (
 
     sourceRoot = "source/src";
 
-    patches =
-      [
-        # Remove FAQ
-        ./no-FAQ.patch
-      ];
+    patches = [
+      # Remove FAQ
+      ./no-FAQ.patch
+    ];
 
     postPatch = ''
       substituteInPlace Makefile --replace 'strip' '${stdenv.cc.targetPrefix}strip'

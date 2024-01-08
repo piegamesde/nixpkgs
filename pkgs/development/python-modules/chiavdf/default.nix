@@ -23,14 +23,13 @@ buildPythonPackage rec {
     hash = "sha256-ilT7tCdX8ak3qmpXJ0LITf0ZGAdFSN4tm6GKw06A/m8=";
   };
 
-  patches =
-    [
-      # prevent CMake from trying to get libraries on the Internet
-      (substituteAll {
-        src = ./dont_fetch_dependencies.patch;
-        pybind11_src = pybind11.src;
-      })
-    ];
+  patches = [
+    # prevent CMake from trying to get libraries on the Internet
+    (substituteAll {
+      src = ./dont_fetch_dependencies.patch;
+      pybind11_src = pybind11.src;
+    })
+  ];
 
   # x86 instructions are needed for this component
   BUILD_VDF_CLIENT = lib.optionalString (!stdenv.isx86_64) "N";

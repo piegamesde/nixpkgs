@@ -58,11 +58,10 @@ stdenv.mkDerivation rec {
   dontConfigure = true;
 
   enableParallelBuilding = true;
-  makeFlags =
-    [
-      # The following values appear in the generated .pc file
-      "prefix=${placeholder "lib"}"
-    ];
+  makeFlags = [
+    # The following values appear in the generated .pc file
+    "prefix=${placeholder "lib"}"
+  ];
 
   # We do not mention targets (like "doc") explicitly in makeFlags
   # because the Makefile would not print warnings about too old

@@ -52,15 +52,14 @@ python3Packages.buildPythonApplication rec {
     xlib
   ];
 
-  patches =
-    [
-      # Fix paths
-      (substituteAll {
-        src = ./fix-paths.patch;
-        libcanberra = libcanberra-gtk3;
-        inherit libpulseaudio;
-      })
-    ];
+  patches = [
+    # Fix paths
+    (substituteAll {
+      src = ./fix-paths.patch;
+      libcanberra = libcanberra-gtk3;
+      inherit libpulseaudio;
+    })
+  ];
 
   # no tests
   doCheck = false;

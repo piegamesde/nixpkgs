@@ -16,12 +16,10 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ liblockfile ];
 
-  env.NIX_CFLAGS_COMPILE =
-    toString
-      [
-        # Needed with GCC 12
-        "-Wno-error=format-overflow"
-      ];
+  env.NIX_CFLAGS_COMPILE = toString [
+    # Needed with GCC 12
+    "-Wno-error=format-overflow"
+  ];
 
   installPhase = ''
     runHook preInstall

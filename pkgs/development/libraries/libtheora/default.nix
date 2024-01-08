@@ -18,14 +18,13 @@ stdenv.mkDerivation rec {
     sha256 = "0swiaj8987n995rc7hw0asvpwhhzpjiws8kr3s6r44bqqib2k5a0";
   };
 
-  patches =
-    [
-      # fix error in autoconf scripts
-      (fetchpatch {
-        url = "https://github.com/xiph/theora/commit/28cc6dbd9b2a141df94f60993256a5fca368fa54.diff";
-        sha256 = "16jqrq4h1b3krj609vbpzd5845cvkbh3mwmjrcdg35m490p19x9k";
-      })
-    ];
+  patches = [
+    # fix error in autoconf scripts
+    (fetchpatch {
+      url = "https://github.com/xiph/theora/commit/28cc6dbd9b2a141df94f60993256a5fca368fa54.diff";
+      sha256 = "16jqrq4h1b3krj609vbpzd5845cvkbh3mwmjrcdg35m490p19x9k";
+    })
+  ];
 
   configureFlags = [ "--disable-examples" ];
 

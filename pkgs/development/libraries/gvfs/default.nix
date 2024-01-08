@@ -53,16 +53,15 @@ stdenv.mkDerivation rec {
     sha256 = "q5BZpnalN+2+ohOIwqr+Gn4sjxrC39xtZFUCMwdUV/0=";
   };
 
-  patches =
-    [
-      # Hardcode the ssh path again.
-      # https://gitlab.gnome.org/GNOME/gvfs/-/issues/465
-      (fetchpatch2 {
-        url = "https://gitlab.gnome.org/GNOME/gvfs/-/commit/8327383e262e1e7f32750a8a2d3dd708195b0f53.patch";
-        hash = "sha256-ReD7qkezGeiJHyo9jTqEQNBjECqGhV9nSD+dYYGZWJ8=";
-        revert = true;
-      })
-    ];
+  patches = [
+    # Hardcode the ssh path again.
+    # https://gitlab.gnome.org/GNOME/gvfs/-/issues/465
+    (fetchpatch2 {
+      url = "https://gitlab.gnome.org/GNOME/gvfs/-/commit/8327383e262e1e7f32750a8a2d3dd708195b0f53.patch";
+      hash = "sha256-ReD7qkezGeiJHyo9jTqEQNBjECqGhV9nSD+dYYGZWJ8=";
+      revert = true;
+    })
+  ];
 
   postPatch = ''
     # patchShebangs requires executable file
@@ -142,12 +141,10 @@ stdenv.mkDerivation rec {
       "-Dgoogle=false"
     ]
     ++ lib.optionals (avahi == null) [ "-Ddnssd=false" ]
-    ++
-      lib.optionals (samba == null)
-        [
-          # Xfce don't want samba
-          "-Dsmb=false"
-        ];
+    ++ lib.optionals (samba == null) [
+      # Xfce don't want samba
+      "-Dsmb=false"
+    ];
 
   doCheck = false; # fails with "ModuleNotFoundError: No module named 'gi'"
   doInstallCheck = doCheck;

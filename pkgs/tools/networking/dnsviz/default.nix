@@ -18,11 +18,10 @@ buildPythonApplication rec {
     sha256 = "sha256-x6LdPVQFfsJIuKde1+LbFKz5bBEi+Mri9sVH0nGsbCU=";
   };
 
-  patches =
-    [
-      # override DNSVIZ_INSTALL_PREFIX with $out
-      ./fix-path.patch
-    ];
+  patches = [
+    # override DNSVIZ_INSTALL_PREFIX with $out
+    ./fix-path.patch
+  ];
 
   propagatedBuildInputs = [
     dnspython

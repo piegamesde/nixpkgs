@@ -71,11 +71,10 @@ in
           ${optionalString cfg.withRemoteIp "-r true"} \
           ${optionalString (cfg.wireguardConfig != null) "-n ${escapeShellArg cfg.wireguardConfig}"}
       '';
-      RestrictAddressFamilies =
-        [
-          # Need AF_NETLINK to collect data
-          "AF_NETLINK"
-        ];
+      RestrictAddressFamilies = [
+        # Need AF_NETLINK to collect data
+        "AF_NETLINK"
+      ];
     };
   };
 }

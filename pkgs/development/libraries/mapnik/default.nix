@@ -85,11 +85,10 @@ stdenv.mkDerivation rec {
     postgresql
   ];
 
-  cmakeFlags =
-    [
-      # Would require qt otherwise.
-      "-DBUILD_DEMO_VIEWER=OFF"
-    ];
+  cmakeFlags = [
+    # Would require qt otherwise.
+    "-DBUILD_DEMO_VIEWER=OFF"
+  ];
 
   # mapnik-config is currently not build with CMake. So we use the SCons for
   # this one. We can't add SCons to nativeBuildInputs though, as stdenv would

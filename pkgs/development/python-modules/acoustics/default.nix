@@ -44,11 +44,10 @@ buildPythonPackage rec {
 
   pytestFlagsArray = [ "-Wignore::DeprecationWarning" ];
 
-  disabledTestPaths =
-    [
-      # ValueError: Unknown window type: "hanning"
-      "tests/standards/test_iso_1996_2_2007.py"
-    ];
+  disabledTestPaths = [
+    # ValueError: Unknown window type: "hanning"
+    "tests/standards/test_iso_1996_2_2007.py"
+  ];
 
   pythonImportsCheck = [ "acoustics" ];
 

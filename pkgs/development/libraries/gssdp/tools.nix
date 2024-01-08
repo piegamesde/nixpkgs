@@ -15,15 +15,14 @@ stdenv.mkDerivation rec {
   pname = "gssdp-tools";
   inherit (gssdp_1_6) version src;
 
-  patches =
-    [
-      # Allow building tools separately from the library.
-      # This is needed to break the depenency cycle.
-      (substituteAll {
-        src = ./standalone-tools.patch;
-        inherit version;
-      })
-    ];
+  patches = [
+    # Allow building tools separately from the library.
+    # This is needed to break the depenency cycle.
+    (substituteAll {
+      src = ./standalone-tools.patch;
+      inherit version;
+    })
+  ];
 
   nativeBuildInputs = [
     meson

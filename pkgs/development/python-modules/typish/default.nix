@@ -27,19 +27,16 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  disabledTestPaths =
-    [
-      # Requires a very old version of nptyping
-      # which has a circular dependency on typish
-      "tests/functions/test_instance_of.py"
-    ];
+  disabledTestPaths = [
+    # Requires a very old version of nptyping
+    # which has a circular dependency on typish
+    "tests/functions/test_instance_of.py"
+  ];
 
-  disabledTests =
-    lib.optionals (pythonAtLeast "3.11")
-      [
-        # https://github.com/ramonhagenaars/typish/issues/32
-        "test_get_origin"
-      ];
+  disabledTests = lib.optionals (pythonAtLeast "3.11") [
+    # https://github.com/ramonhagenaars/typish/issues/32
+    "test_get_origin"
+  ];
 
   pythonImportsCheck = [ "typish" ];
 

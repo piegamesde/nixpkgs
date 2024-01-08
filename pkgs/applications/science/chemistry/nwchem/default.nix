@@ -44,15 +44,14 @@ stdenv.mkDerivation rec {
     sha256 = "1ckhcjaw1hzdsmm1x2fva27c4rs3r0h82qivg72v53idz880hbp3";
   };
 
-  patches =
-    [
-      # Fix Python 3.10 compatibility
-      (fetchpatch {
-        name = "python3.10";
-        url = "https://github.com/nwchemgit/nwchem/commit/638401361c6f294164a4f820ff867a62ac836fd5.patch";
-        sha256 = "sha256-yUZb3wWYZm1dX0HwvffksFwhVdb7ix1p8ooJnqiSgEg=";
-      })
-    ];
+  patches = [
+    # Fix Python 3.10 compatibility
+    (fetchpatch {
+      name = "python3.10";
+      url = "https://github.com/nwchemgit/nwchem/commit/638401361c6f294164a4f820ff867a62ac836fd5.patch";
+      sha256 = "sha256-yUZb3wWYZm1dX0HwvffksFwhVdb7ix1p8ooJnqiSgEg=";
+    })
+  ];
 
   nativeBuildInputs = [
     perl

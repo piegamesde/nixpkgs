@@ -98,11 +98,10 @@ mkDerivation rec {
     qttools
   ];
 
-  cmakeFlags =
-    [
-      # poppler uses std::optional
-      "-DWANT_CPP17=ON"
-    ];
+  cmakeFlags = [
+    # poppler uses std::optional
+    "-DWANT_CPP17=ON"
+  ];
 
   meta = with lib; {
     maintainers = with maintainers; [

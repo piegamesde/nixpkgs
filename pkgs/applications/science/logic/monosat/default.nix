@@ -30,14 +30,13 @@ let
     inherit rev sha256;
   };
 
-  patches =
-    [
-      # Python 3.8 compatibility
-      (fetchpatch {
-        url = "https://github.com/sambayless/monosat/commit/a5079711d0df0451f9840f3a41248e56dbb03967.patch";
-        sha256 = "1p2y0jw8hb9c90nbffhn86k1dxd6f6hk5v70dfmpzka3y6g1ksal";
-      })
-    ];
+  patches = [
+    # Python 3.8 compatibility
+    (fetchpatch {
+      url = "https://github.com/sambayless/monosat/commit/a5079711d0df0451f9840f3a41248e56dbb03967.patch";
+      sha256 = "1p2y0jw8hb9c90nbffhn86k1dxd6f6hk5v70dfmpzka3y6g1ksal";
+    })
+  ];
 
   # source behind __linux__ check assumes system is also x86 and
   # tries to disable x86/x87-specific extended precision mode

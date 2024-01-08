@@ -16,11 +16,10 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ libX11 ];
 
-  patches =
-    [
-      # Fix compilation; remove when next release arrives
-      ./0001-fix-attributes.patch
-    ];
+  patches = [
+    # Fix compilation; remove when next release arrives
+    ./0001-fix-attributes.patch
+  ];
 
   dontAddPrefix = true;
 

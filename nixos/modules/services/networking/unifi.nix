@@ -178,11 +178,10 @@ in
         LogsDirectory = "unifi";
         CacheDirectory = "unifi";
 
-        TemporaryFileSystem =
-          [
-            # required as we want to create bind mounts below
-            "${stateDir}/webapps:rw"
-          ];
+        TemporaryFileSystem = [
+          # required as we want to create bind mounts below
+          "${stateDir}/webapps:rw"
+        ];
 
         # We must create the binary directories as bind mounts instead of symlinks
         # This is because the controller resolves all symlinks to absolute paths

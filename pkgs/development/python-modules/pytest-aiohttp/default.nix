@@ -35,12 +35,11 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  disabledTestPaths =
-    [
-      # pytest 7.2.0 incompatibilities
-      # https://github.com/aio-libs/pytest-aiohttp/issues/50
-      "tests/test_fixtures.py"
-    ];
+  disabledTestPaths = [
+    # pytest 7.2.0 incompatibilities
+    # https://github.com/aio-libs/pytest-aiohttp/issues/50
+    "tests/test_fixtures.py"
+  ];
 
   meta = with lib; {
     homepage = "https://github.com/aio-libs/pytest-aiohttp/";

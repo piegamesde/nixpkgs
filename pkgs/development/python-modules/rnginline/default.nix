@@ -19,16 +19,15 @@ buildPythonPackage rec {
     hash = "sha256-j4W4zwHA4yA6iAFVa/LDKp00eeCX3PbmWkjd2LSUGfk=";
   };
 
-  patches =
-    [
-      # Fix failing tests. Should be included in releases after 0.0.2
-      # https://github.com/h4l/rnginline/issues/3
-      (fetchpatch {
-        url = "https://github.com/h4l/rnginline/commit/b1d1c8cda2a17d46627309950f2442021749c07e.patch";
-        hash = "sha256-XbisEwun2wPOp7eqW2YDVdayJ4sjAMG/ezFwgoCKe9o=";
-        name = "fix_tests_failing_collect.patch";
-      })
-    ];
+  patches = [
+    # Fix failing tests. Should be included in releases after 0.0.2
+    # https://github.com/h4l/rnginline/issues/3
+    (fetchpatch {
+      url = "https://github.com/h4l/rnginline/commit/b1d1c8cda2a17d46627309950f2442021749c07e.patch";
+      hash = "sha256-XbisEwun2wPOp7eqW2YDVdayJ4sjAMG/ezFwgoCKe9o=";
+      name = "fix_tests_failing_collect.patch";
+    })
+  ];
 
   propagatedBuildInputs = [
     docopt

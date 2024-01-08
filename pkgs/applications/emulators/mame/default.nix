@@ -118,13 +118,12 @@ stdenv.mkDerivation rec {
     which
   ];
 
-  patches =
-    [
-      # by default MAME assumes that paths with stock resources are relative and
-      # that you run MAME changing to install directory, so we add absolute paths
-      # here
-      ./001-use-absolute-paths.diff
-    ];
+  patches = [
+    # by default MAME assumes that paths with stock resources are relative and
+    # that you run MAME changing to install directory, so we add absolute paths
+    # here
+    ./001-use-absolute-paths.diff
+  ];
 
   # Since the bug described in https://github.com/NixOS/nixpkgs/issues/135438,
   # it is not possible to use substituteAll

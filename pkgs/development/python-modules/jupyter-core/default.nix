@@ -46,11 +46,10 @@ buildPythonPackage rec {
     export HOME=$TMPDIR
   '';
 
-  disabledTests =
-    [
-      # creates a temporary script, which isn't aware of PYTHONPATH
-      "test_argv0"
-    ];
+  disabledTests = [
+    # creates a temporary script, which isn't aware of PYTHONPATH
+    "test_argv0"
+  ];
 
   postCheck = ''
     $out/bin/jupyter --help > /dev/null

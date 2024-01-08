@@ -35,11 +35,10 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  disabledTestPaths =
-    [
-      # FileNotFoundError: [Errno 2] No such file or directory: 'data/genes.fasta.gz'
-      "tests/test_Fasta_bgzip.py"
-    ];
+  disabledTestPaths = [
+    # FileNotFoundError: [Errno 2] No such file or directory: 'data/genes.fasta.gz'
+    "tests/test_Fasta_bgzip.py"
+  ];
 
   pythonImportsCheck = [ "pyfaidx" ];
 

@@ -37,11 +37,10 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  disabledTests =
-    [
-      # https://github.com/bcwaldon/warlock/issues/64
-      "test_recursive_models"
-    ];
+  disabledTests = [
+    # https://github.com/bcwaldon/warlock/issues/64
+    "test_recursive_models"
+  ];
 
   pythonImportsCheck = [ "warlock" ];
 

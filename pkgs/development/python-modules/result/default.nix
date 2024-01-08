@@ -28,11 +28,10 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  disabledTestPaths =
-    [
-      #TODO: figure out the failure "match o:" Invalid Syntax
-      "tests/test_pattern_matching.py"
-    ];
+  disabledTestPaths = [
+    #TODO: figure out the failure "match o:" Invalid Syntax
+    "tests/test_pattern_matching.py"
+  ];
 
   pythonImportsCheck = [ "result" ];
 

@@ -27,12 +27,11 @@ stdenv.mkDerivation rec {
     hash = "sha256-fq9vrC8mVlxdhljUKiE3meBfTTvGjnxxbnF030ExWIY=";
   };
 
-  patches =
-    [
-      # Disable tests requiring networking:
-      # "Error connecting to new server with address 192.0.2.1:53: connecting socket to 192.0.2.1:53: Network is unreachable"
-      ./disable-network-tests.patch
-    ];
+  patches = [
+    # Disable tests requiring networking:
+    # "Error connecting to new server with address 192.0.2.1:53: connecting socket to 192.0.2.1:53: Network is unreachable"
+    ./disable-network-tests.patch
+  ];
 
   nativeBuildInputs = [
     pkg-config

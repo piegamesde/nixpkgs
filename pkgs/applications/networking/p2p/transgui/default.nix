@@ -29,14 +29,13 @@ stdenv.mkDerivation rec {
     sha256 = "1x9wzii3q9zanpik4xc99jqsfrqch8vjmlx12jrvczxcfy51b1ba";
   };
 
-  patches =
-    [
-      # TDDO: remove when transgui updates for transmission-daemon v3 rpc protocol
-      (fetchpatch {
-        url = "https://github.com/transmission-remote-gui/transgui/commit/9275c3fb877dd753a1940d1b900630cdc09a0cc2.patch";
-        sha256 = "0w2x7gcxp5kqczdz7ckfqhdz9hhkm62k8gcws54d6km7x9vc1023";
-      })
-    ];
+  patches = [
+    # TDDO: remove when transgui updates for transmission-daemon v3 rpc protocol
+    (fetchpatch {
+      url = "https://github.com/transmission-remote-gui/transgui/commit/9275c3fb877dd753a1940d1b900630cdc09a0cc2.patch";
+      sha256 = "0w2x7gcxp5kqczdz7ckfqhdz9hhkm62k8gcws54d6km7x9vc1023";
+    })
+  ];
 
   nativeBuildInputs = [
     pkg-config

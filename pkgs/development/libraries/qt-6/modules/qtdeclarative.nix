@@ -18,9 +18,8 @@ qtModule {
     openssl
     python3
   ];
-  patches =
-    [
-      # prevent headaches from stale qmlcache data
-      ../patches/qtdeclarative-default-disable-qmlcache.patch
-    ];
+  patches = [
+    # prevent headaches from stale qmlcache data
+    ../patches/qtdeclarative-default-disable-qmlcache.patch
+  ];
 }

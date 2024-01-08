@@ -60,11 +60,10 @@ python3.pkgs.buildPythonApplication rec {
     export HOME=$(mktemp -d);
   '';
 
-  pytestFlagsArray =
-    [
-      # --fast skips tests which try to start a devpi-server improperly
-      "--fast"
-    ];
+  pytestFlagsArray = [
+    # --fast skips tests which try to start a devpi-server improperly
+    "--fast"
+  ];
 
   LC_ALL = "en_US.UTF-8";
 

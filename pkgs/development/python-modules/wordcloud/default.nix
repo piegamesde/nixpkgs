@@ -50,11 +50,10 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "wordcloud" ];
 
-  disabledTests =
-    [
-      # Don't tests CLI
-      "test_cli_as_executable"
-    ];
+  disabledTests = [
+    # Don't tests CLI
+    "test_cli_as_executable"
+  ];
 
   meta = with lib; {
     description = "Word cloud generator in Python";

@@ -27,12 +27,10 @@ stdenv.mkDerivation rec {
   ];
   makeFlags = [ "wimboot.x86_64.efi" ];
 
-  env.NIX_CFLAGS_COMPILE =
-    toString
-      [
-        # Needed with GCC 12
-        "-Wno-error=array-bounds"
-      ];
+  env.NIX_CFLAGS_COMPILE = toString [
+    # Needed with GCC 12
+    "-Wno-error=array-bounds"
+  ];
 
   installPhase = ''
     mkdir -p $out/share/wimboot/

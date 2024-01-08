@@ -30,13 +30,11 @@ stdenv.mkDerivation rec {
     hash = "sha256-UQQ8oBEnOxmSN4ZyW4LdPZYvd5eB9EmdR0UvE1wgMZw=";
   };
 
-  cmakeFlags =
-    lib.optionals stdenv.isi686
-      [
-        # We don't want to build the plugin for 32bit. The library integrates with
-        # the 64bit plugin but it's necessary to be loaded into 32bit games.
-        "-DBUILD_PLUGIN=OFF"
-      ];
+  cmakeFlags = lib.optionals stdenv.isi686 [
+    # We don't want to build the plugin for 32bit. The library integrates with
+    # the 64bit plugin but it's necessary to be loaded into 32bit games.
+    "-DBUILD_PLUGIN=OFF"
+  ];
 
   nativeBuildInputs = [
     cmake

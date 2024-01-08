@@ -20,14 +20,13 @@ stdenv.mkDerivation {
     cp $src multiline.pl
   '';
 
-  patches =
-    [
-      # The script requires a special Perl environment.
-      (substituteAll {
-        src = ./libpath.patch;
-        env = PodParser;
-      })
-    ];
+  patches = [
+    # The script requires a special Perl environment.
+    (substituteAll {
+      src = ./libpath.patch;
+      env = PodParser;
+    })
+  ];
 
   passthru.scripts = [ "multiline.pl" ];
 

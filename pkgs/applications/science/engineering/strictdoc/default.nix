@@ -76,11 +76,10 @@ buildPythonApplication rec {
 
   pythonImportsCheck = [ "strictdoc" ];
 
-  disabledTests =
-    [
-      # fixture 'fs' not found
-      "test_001_load_from_files"
-    ];
+  disabledTests = [
+    # fixture 'fs' not found
+    "test_001_load_from_files"
+  ];
 
   meta = with lib; {
     description = "Software requirements specification tool";

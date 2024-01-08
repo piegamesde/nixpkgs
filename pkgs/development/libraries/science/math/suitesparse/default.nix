@@ -70,11 +70,10 @@ stdenv.mkDerivation rec {
       "LAPACK=-llapack"
     ];
 
-  buildFlags =
-    [
-      # Build individual shared libraries, not demos
-      "library"
-    ];
+  buildFlags = [
+    # Build individual shared libraries, not demos
+    "library"
+  ];
 
   meta = with lib; {
     homepage = "http://faculty.cse.tamu.edu/davis/suitesparse.html";

@@ -31,14 +31,13 @@ buildDunePackage rec {
     hash = "sha256-z/9NUBjeFWE63Z/e8OyzDiy8hrn6qzjaiBH8G9MPeos=";
   };
 
-  patches =
-    [
-      # Pytorch 2.0 support. Drop when it reaches a release
-      (fetchpatch {
-        url = "https://github.com/LaurentMazare/ocaml-torch/commit/ef7ef30cafecb09e45ec1ed8ce4bedae5947cfa5.patch";
-        hash = "sha256-smdwKy40iIISp/25L2J4az6KmqFS1soeChBElUyhl5A=";
-      })
-    ];
+  patches = [
+    # Pytorch 2.0 support. Drop when it reaches a release
+    (fetchpatch {
+      url = "https://github.com/LaurentMazare/ocaml-torch/commit/ef7ef30cafecb09e45ec1ed8ce4bedae5947cfa5.patch";
+      hash = "sha256-smdwKy40iIISp/25L2J4az6KmqFS1soeChBElUyhl5A=";
+    })
+  ];
 
   buildInputs = [ dune-configurator ];
 

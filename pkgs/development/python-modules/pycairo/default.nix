@@ -37,13 +37,12 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  mesonFlags =
-    [
-      # This is only used for figuring out what version of Python is in
-      # use, and related stuff like figuring out what the install prefix
-      # should be, but it does need to be able to execute Python code.
-      "-Dpython=${python.pythonForBuild.interpreter}"
-    ];
+  mesonFlags = [
+    # This is only used for figuring out what version of Python is in
+    # use, and related stuff like figuring out what the install prefix
+    # should be, but it does need to be able to execute Python code.
+    "-Dpython=${python.pythonForBuild.interpreter}"
+  ];
 
   meta = with lib; {
     description = "Python 3 bindings for cairo";

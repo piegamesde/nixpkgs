@@ -86,11 +86,10 @@ buildPythonPackage rec {
 
   pytestFlagsArray = [ "tests/unit" ];
 
-  disabledTestPaths =
-    [
-      # requires puresasl
-      "tests/unit/advanced/test_auth.py"
-    ];
+  disabledTestPaths = [
+    # requires puresasl
+    "tests/unit/advanced/test_auth.py"
+  ];
 
   disabledTests = [
     # doesn't seem to be intended to be run directly

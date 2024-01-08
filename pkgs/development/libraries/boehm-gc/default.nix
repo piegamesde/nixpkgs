@@ -14,11 +14,10 @@ stdenv.mkDerivation (
     version = "8.2.2";
 
     src = fetchurl {
-      urls =
-        [
-          # "https://www.hboehm.info/gc/gc_source/gc-${finalAttrs.version}.tar.gz"
-          "https://github.com/ivmai/bdwgc/releases/download/v${finalAttrs.version}/gc-${finalAttrs.version}.tar.gz"
-        ];
+      urls = [
+        # "https://www.hboehm.info/gc/gc_source/gc-${finalAttrs.version}.tar.gz"
+        "https://github.com/ivmai/bdwgc/releases/download/v${finalAttrs.version}/gc-${finalAttrs.version}.tar.gz"
+      ];
       sha256 = "sha256-8wEHvLBi4JIKeQ//+lbZUSNIVGhZNkwjoUviZLOINqA=";
     };
 
@@ -43,14 +42,12 @@ stdenv.mkDerivation (
     # don't forget to disable the fix (and if the next release does
     # not fix the problem the test failure will be a reminder to
     # extend the set of versions requiring the workaround).
-    makeFlags =
-      lib.optionals (stdenv.hostPlatform.isPower64 && finalAttrs.version == "8.2.2")
-        [
-          # do not use /proc primitives to track dirty bits; see:
-          # https://github.com/ivmai/bdwgc/issues/479#issuecomment-1279687537
-          # https://github.com/ivmai/bdwgc/blob/54522af853de28f45195044dadfd795c4e5942aa/include/private/gcconfig.h#L741
-          "CFLAGS_EXTRA=-DNO_SOFT_VDB"
-        ];
+    makeFlags = lib.optionals (stdenv.hostPlatform.isPower64 && finalAttrs.version == "8.2.2") [
+      # do not use /proc primitives to track dirty bits; see:
+      # https://github.com/ivmai/bdwgc/issues/479#issuecomment-1279687537
+      # https://github.com/ivmai/bdwgc/blob/54522af853de28f45195044dadfd795c4e5942aa/include/private/gcconfig.h#L741
+      "CFLAGS_EXTRA=-DNO_SOFT_VDB"
+    ];
 
     # `gctest` fails under emulation on aarch64-darwin
     doCheck = !(stdenv.isDarwin && stdenv.isx86_64);

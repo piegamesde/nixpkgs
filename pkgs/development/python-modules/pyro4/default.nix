@@ -40,11 +40,10 @@ buildPythonPackage rec {
     PYTHONPATH=tests/PyroTests:$PYTHONPATH
   '';
 
-  disabledTestPaths =
-    [
-      # ignore network related tests, which fail in sandbox
-      "tests/PyroTests/test_naming.py"
-    ];
+  disabledTestPaths = [
+    # ignore network related tests, which fail in sandbox
+    "tests/PyroTests/test_naming.py"
+  ];
 
   disabledTests = [
     "StartNSfunc"

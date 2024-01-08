@@ -64,11 +64,10 @@ buildPythonPackage rec {
     unicodecsv
   ];
 
-  disabledTestPaths =
-    [
-      # test_tablib needs MarkupPy, which isn't packaged yet
-      "tests/test_tablib.py"
-    ];
+  disabledTestPaths = [
+    # test_tablib needs MarkupPy, which isn't packaged yet
+    "tests/test_tablib.py"
+  ];
 
   pythonImportsCheck = [ "tablib" ];
 

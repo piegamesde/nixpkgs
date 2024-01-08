@@ -37,12 +37,10 @@ stdenv.mkDerivation rec {
     "--with-x-locale-root=${libX11.out}/share/X11/locale"
   ];
 
-  env.NIX_CFLAGS_COMPILE =
-    toString
-      [
-        # Needed with GCC 12
-        "-Wno-error=array-bounds"
-      ];
+  env.NIX_CFLAGS_COMPILE = toString [
+    # Needed with GCC 12
+    "-Wno-error=array-bounds"
+  ];
 
   preBuild = lib.optionalString stdenv.isDarwin ''
     sed -i 's/,--version-script=.*$//' Makefile

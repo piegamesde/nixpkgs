@@ -50,12 +50,11 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "statmake" ];
 
-  disabledTests =
-    [
-      # Test requires an update as later cattrs is present in Nixpkgs
-      # https://github.com/daltonmaag/statmake/issues/42
-      "test_load_stylespace_broken_range"
-    ];
+  disabledTests = [
+    # Test requires an update as later cattrs is present in Nixpkgs
+    # https://github.com/daltonmaag/statmake/issues/42
+    "test_load_stylespace_broken_range"
+  ];
 
   meta = with lib; {
     description = "Applies STAT information from a Stylespace to a variable font";

@@ -15,14 +15,13 @@ stdenv.mkDerivation rec {
 
   src = fetchurl { inherit url sha256; };
 
-  patches =
-    [
-      # Fix buidling on platforms other than x86
-      (substituteAll {
-        src = ./configure.patch;
-        msse = lib.optionalString stdenv.isx86_64 "-msse";
-      })
-    ];
+  patches = [
+    # Fix buidling on platforms other than x86
+    (substituteAll {
+      src = ./configure.patch;
+      msse = lib.optionalString stdenv.isx86_64 "-msse";
+    })
+  ];
 
   doCheck = true;
 

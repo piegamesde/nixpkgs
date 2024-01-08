@@ -30,11 +30,10 @@ with lib;
       malcontent-ui
     ];
 
-    services.dbus.packages =
-      [
-        # D-Bus services are in `out`, not the default `bin` output that would be picked up by `makeDbusConf`.
-        pkgs.malcontent.out
-      ];
+    services.dbus.packages = [
+      # D-Bus services are in `out`, not the default `bin` output that would be picked up by `makeDbusConf`.
+      pkgs.malcontent.out
+    ];
 
     services.accounts-daemon.enable = true;
   };

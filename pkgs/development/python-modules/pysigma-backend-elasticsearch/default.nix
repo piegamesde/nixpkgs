@@ -39,11 +39,10 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "sigma.backends.elasticsearch" ];
 
-  disabledTests =
-    [
-      # Tests requires network access
-      "test_connect_lucene"
-    ];
+  disabledTests = [
+    # Tests requires network access
+    "test_connect_lucene"
+  ];
 
   meta = with lib; {
     description = "Library to support Elasticsearch for pySigma";

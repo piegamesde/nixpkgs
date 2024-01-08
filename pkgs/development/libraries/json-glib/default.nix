@@ -32,11 +32,10 @@ stdenv.mkDerivation rec {
     sha256 = "luyYvnqR9t3jNjZyDj2i/27LuQ52zKpJSX8xpoVaSQ4=";
   };
 
-  patches =
-    [
-      # Add option for changing installation path of installed tests.
-      ./meson-add-installed-tests-prefix-option.patch
-    ];
+  patches = [
+    # Add option for changing installation path of installed tests.
+    ./meson-add-installed-tests-prefix-option.patch
+  ];
 
   strictDeps = true;
 

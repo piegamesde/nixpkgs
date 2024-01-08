@@ -77,11 +77,10 @@ buildPythonPackage rec {
     webob
   ] ++ lib.flatten (lib.attrValues passthru.optional-dependencies);
 
-  disabledTestPaths =
-    [
-      # Requires secrets and additional configuration
-      "tests/integration/contrib/django/"
-    ];
+  disabledTestPaths = [
+    # Requires secrets and additional configuration
+    "tests/integration/contrib/django/"
+  ];
 
   pythonImportsCheck = [
     "openapi_core"

@@ -23,8 +23,7 @@ stdenv.mkDerivation rec {
       # grub-install isn't smart enough.
       ./symlink.patch
     ]
-    ++ (lib.optional buggyBiosCDSupport ./buggybios.patch)
-    ++ map fetchurl (import ./grub1.patches.nix);
+    ++ (lib.optional buggyBiosCDSupport ./buggybios.patch) ++ map fetchurl (import ./grub1.patches.nix);
 
   preConfigure = ''
     substituteInPlace ./configure.ac --replace 'AC_PREREQ(2.61)' 'AC_PREREQ(2.64)'

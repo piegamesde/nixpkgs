@@ -50,11 +50,10 @@ buildPythonPackage {
 
   buildInputs = [ protobuf ];
 
-  propagatedNativeBuildInputs =
-    [
-      # For protoc of the same version.
-      buildPackages."protobuf${lib.versions.major protobuf.version}_${lib.versions.minor protobuf.version}"
-    ];
+  propagatedNativeBuildInputs = [
+    # For protoc of the same version.
+    buildPackages."protobuf${lib.versions.major protobuf.version}_${lib.versions.minor protobuf.version}"
+  ];
 
   setupPyGlobalFlags = [ "--cpp_implementation" ];
 

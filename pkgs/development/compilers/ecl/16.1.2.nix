@@ -39,11 +39,10 @@ stdenv.mkDerivation rec {
       mpfr
       gcc
     ]
-    ++ lib.optionals useBoehmgc
-      [
-        # replaces ecl's own gc which other packages can depend on, thus propagated
-        boehmgc
-      ];
+    ++ lib.optionals useBoehmgc [
+      # replaces ecl's own gc which other packages can depend on, thus propagated
+      boehmgc
+    ];
 
   configureFlags = [
     (if threadSupport then "--enable-threads" else "--disable-threads")

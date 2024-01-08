@@ -31,11 +31,10 @@ stdenv.mkDerivation rec {
     librsvg
   ];
 
-  propagatedBuildInputs =
-    [
-      # For convenience, we can specify adwaita-icon-theme only in packages
-      hicolor-icon-theme
-    ];
+  propagatedBuildInputs = [
+    # For convenience, we can specify adwaita-icon-theme only in packages
+    hicolor-icon-theme
+  ];
 
   dontDropIconThemeCache = true;
 

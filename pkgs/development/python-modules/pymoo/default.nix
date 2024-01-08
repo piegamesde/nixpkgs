@@ -37,14 +37,13 @@ buildPythonPackage rec {
     hash = "sha256-iGWPepZw3kJzw5HKV09CvemVvkvFQ38GVP+BAryBSs0=";
   };
 
-  patches =
-    [
-      # https://github.com/anyoptimization/pymoo/pull/407
-      (fetchpatch {
-        url = "https://github.com/anyoptimization/pymoo/commit/be57ece64275469daece1e8ef12b2b6ee05362c9.diff";
-        hash = "sha256-BLPrUqNbAsAecfYahESEJF6LD+kehUYmkTvl/nvyqII=";
-      })
-    ];
+  patches = [
+    # https://github.com/anyoptimization/pymoo/pull/407
+    (fetchpatch {
+      url = "https://github.com/anyoptimization/pymoo/commit/be57ece64275469daece1e8ef12b2b6ee05362c9.diff";
+      hash = "sha256-BLPrUqNbAsAecfYahESEJF6LD+kehUYmkTvl/nvyqII=";
+    })
+  ];
 
   postPatch = ''
     substituteInPlace setup.py \

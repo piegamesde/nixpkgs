@@ -223,12 +223,11 @@ in
     # Use discount from nixpkgs instead of vendored version
     dontBuild = false;
     buildInputs = [ discount ];
-    patches =
-      [
-        # Adapted from Debian:
-        # https://sources.debian.org/data/main/r/ruby-rdiscount/2.1.8-1/debian/patches/01_use-system-libmarkdown.patch
-        ./rdiscount-use-nixpkgs-libmarkdown.patch
-      ];
+    patches = [
+      # Adapted from Debian:
+      # https://sources.debian.org/data/main/r/ruby-rdiscount/2.1.8-1/debian/patches/01_use-system-libmarkdown.patch
+      ./rdiscount-use-nixpkgs-libmarkdown.patch
+    ];
   };
 
   ethon = attrs: {

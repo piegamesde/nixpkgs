@@ -19,16 +19,15 @@ stdenv.mkDerivation rec {
     sha256 = "0pzwml3yhysn8vyffw9q9p9rs8gixqkmg4n715vm23ib6wxbliqs";
   };
 
-  patches =
-    [
-      # Fix pending upstream inclusion for ncurses-6.3 support:
-      #  https://github.com/stragulus/mp3blaster/pull/8
-      (fetchpatch {
-        name = "ncurses-6.3.patch";
-        url = "https://github.com/stragulus/mp3blaster/commit/62168cba5eaba6ffe56943552837cf033cfa96ed.patch";
-        sha256 = "088l27kl1l58lwxfnw5x2n64sdjy925ycphni3icwag7zvpj0xz1";
-      })
-    ];
+  patches = [
+    # Fix pending upstream inclusion for ncurses-6.3 support:
+    #  https://github.com/stragulus/mp3blaster/pull/8
+    (fetchpatch {
+      name = "ncurses-6.3.patch";
+      url = "https://github.com/stragulus/mp3blaster/commit/62168cba5eaba6ffe56943552837cf033cfa96ed.patch";
+      sha256 = "088l27kl1l58lwxfnw5x2n64sdjy925ycphni3icwag7zvpj0xz1";
+    })
+  ];
 
   buildInputs = [
     ncurses

@@ -29,11 +29,10 @@ stdenv.mkDerivation rec {
     sha256 = "1kvxn8mc35igk4vigi5cp7w3wpxk2z3bgwllfm4n3h2jfs0vkpib";
   };
 
-  patches =
-    [
-      # GCC9 doesn't allow default value in friend declaration.
-      ./fix-declaration-gcc9.patch
-    ];
+  patches = [
+    # GCC9 doesn't allow default value in friend declaration.
+    ./fix-declaration-gcc9.patch
+  ];
 
   prePatch = ''
     patch -p1 -i ${../avy/minisat-fenv.patch} -d minisat

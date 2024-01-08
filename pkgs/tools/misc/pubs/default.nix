@@ -48,19 +48,17 @@ python3.pkgs.buildPythonApplication rec {
     pytestCheckHook
   ];
 
-  disabledTestPaths =
-    [
-      # Disabling git tests because they expect git to be preconfigured
-      # with the user's details. See
-      # https://github.com/NixOS/nixpkgs/issues/94663
-      "tests/test_git.py"
-    ];
+  disabledTestPaths = [
+    # Disabling git tests because they expect git to be preconfigured
+    # with the user's details. See
+    # https://github.com/NixOS/nixpkgs/issues/94663
+    "tests/test_git.py"
+  ];
 
-  disabledTests =
-    [
-      # https://github.com/pubs/pubs/issues/276
-      "test_readme"
-    ];
+  disabledTests = [
+    # https://github.com/pubs/pubs/issues/276
+    "test_readme"
+  ];
 
   meta = with lib; {
     description = "Command-line bibliography manager";

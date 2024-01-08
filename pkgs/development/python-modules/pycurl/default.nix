@@ -23,16 +23,15 @@ buildPythonPackage rec {
     hash = "sha256-qGOtGP9Hj1VFkkBXiHza5CLhsnRuQWdGFfaHSY6luIo=";
   };
 
-  patches =
-    [
-      # Pull upstream patch for curl-3.83:
-      #  https://github.com/pycurl/pycurl/pull/753
-      (fetchpatch {
-        name = "curl-3.83.patch";
-        url = "https://github.com/pycurl/pycurl/commit/d47c68b1364f8a1a45ab8c584c291d44b762f7b1.patch";
-        hash = "sha256-/lGq7O7ZyytzBAxWJPigcWdvypM7OHLBcp9ItmX7z1g=";
-      })
-    ];
+  patches = [
+    # Pull upstream patch for curl-3.83:
+    #  https://github.com/pycurl/pycurl/pull/753
+    (fetchpatch {
+      name = "curl-3.83.patch";
+      url = "https://github.com/pycurl/pycurl/commit/d47c68b1364f8a1a45ab8c584c291d44b762f7b1.patch";
+      hash = "sha256-/lGq7O7ZyytzBAxWJPigcWdvypM7OHLBcp9ItmX7z1g=";
+    })
+  ];
 
   preConfigure = ''
     substituteInPlace setup.py --replace '--static-libs' '--libs'
@@ -52,11 +51,10 @@ buildPythonPackage rec {
     flaky
   ];
 
-  pytestFlagsArray =
-    [
-      # don't pick up the tests directory below examples/
-      "tests"
-    ];
+  pytestFlagsArray = [
+    # don't pick up the tests directory below examples/
+    "tests"
+  ];
 
   preCheck = ''
     export HOME=$TMPDIR
@@ -76,11 +74,10 @@ buildPythonPackage rec {
       # AssertionError: assert 'crypto' in ['curl']
       "test_ssl_in_static_libs"
     ]
-    ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64)
-      [
-        # Fatal Python error: Segmentation fault
-        "cadata_test"
-      ];
+    ++ lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [
+      # Fatal Python error: Segmentation fault
+      "cadata_test"
+    ];
 
   meta = with lib; {
     homepage = "http://pycurl.io/";

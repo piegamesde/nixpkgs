@@ -26,14 +26,13 @@ stdenv.mkDerivation rec {
     bison
   ];
 
-  patches =
-    [
-      # Remove UTMPX support on Makefrag file
-      (fetchurl {
-        url = "http://svn.exactcode.de/t2/trunk/package/games/bsd-games/dm-noutmpx.patch";
-        sha256 = "1k3qp3jj0dksjr4dnppv6dvkwslrgk9c7p2n9vipqildpxgqp7w2";
-      })
-    ];
+  patches = [
+    # Remove UTMPX support on Makefrag file
+    (fetchurl {
+      url = "http://svn.exactcode.de/t2/trunk/package/games/bsd-games/dm-noutmpx.patch";
+      sha256 = "1k3qp3jj0dksjr4dnppv6dvkwslrgk9c7p2n9vipqildpxgqp7w2";
+    })
+  ];
 
   hardeningDisable = [ "format" ];
 

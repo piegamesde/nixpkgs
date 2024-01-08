@@ -51,11 +51,10 @@ buildPythonPackage rec {
     "dask_glm/tests/test_utils.py"
   ];
 
-  disabledTests =
-    [
-      # missing fixture with distributed>=2022.8.0
-      "test_determinism_distributed"
-    ];
+  disabledTests = [
+    # missing fixture with distributed>=2022.8.0
+    "test_determinism_distributed"
+  ];
 
   meta = with lib; {
     description = "Generalized Linear Models with Dask";

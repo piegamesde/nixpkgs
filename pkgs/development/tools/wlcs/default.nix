@@ -22,16 +22,15 @@ stdenv.mkDerivation rec {
     hash = "sha256-QxmWxu+w77/WE5pGXMWXm+NP95QmYo2O8ltZYrgCIWw=";
   };
 
-  patches =
-    [
-      # Improves pkg-config paths even more
-      # Remove when https://github.com/MirServer/wlcs/pull/260 merged & in a release
-      (fetchpatch {
-        name = "0001-wlcs-pkgsconfig-Use-better-path-concatenations.patch";
-        url = "https://github.com/MirServer/wlcs/pull/260/commits/20f28d82fa4dfa6a6e27212dbd6b0f2e8a833c69.patch";
-        hash = "sha256-m8zPD27JbX/vN2YQgNhcRsh/O+qLfvoeky5E5ZEeD1I=";
-      })
-    ];
+  patches = [
+    # Improves pkg-config paths even more
+    # Remove when https://github.com/MirServer/wlcs/pull/260 merged & in a release
+    (fetchpatch {
+      name = "0001-wlcs-pkgsconfig-Use-better-path-concatenations.patch";
+      url = "https://github.com/MirServer/wlcs/pull/260/commits/20f28d82fa4dfa6a6e27212dbd6b0f2e8a833c69.patch";
+      hash = "sha256-m8zPD27JbX/vN2YQgNhcRsh/O+qLfvoeky5E5ZEeD1I=";
+    })
+  ];
 
   nativeBuildInputs = [
     cmake
@@ -44,12 +43,10 @@ stdenv.mkDerivation rec {
     wayland
   ];
 
-  env.NIX_CFLAGS_COMPILE =
-    toString
-      [
-        # Needed with GCC 12
-        "-Wno-error=maybe-uninitialized"
-      ];
+  env.NIX_CFLAGS_COMPILE = toString [
+    # Needed with GCC 12
+    "-Wno-error=maybe-uninitialized"
+  ];
 
   passthru.updateScript = gitUpdater { rev-prefix = "v"; };
 

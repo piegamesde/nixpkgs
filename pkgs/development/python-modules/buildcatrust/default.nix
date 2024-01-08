@@ -15,11 +15,10 @@ buildPythonPackage rec {
   };
 
   nativeCheckInputs = [ pytestCheckHook ];
-  disabledTestPaths =
-    [
-      # Non-hermetic, needs internet access (e.g. attempts to retrieve NSS store).
-      "buildcatrust/tests/test_nonhermetic.py"
-    ];
+  disabledTestPaths = [
+    # Non-hermetic, needs internet access (e.g. attempts to retrieve NSS store).
+    "buildcatrust/tests/test_nonhermetic.py"
+  ];
 
   pythonImportsCheck = [
     "buildcatrust"

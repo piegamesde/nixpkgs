@@ -56,11 +56,10 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  disabledTests =
-    [
-      # Test fails with: Assertion error
-      "test_handle_event_request_fault_exception_logging_syntax_error"
-    ];
+  disabledTests = [
+    # Test fails with: Assertion error
+    "test_handle_event_request_fault_exception_logging_syntax_error"
+  ];
 
   pythonImportsCheck = [
     "awslambdaric"

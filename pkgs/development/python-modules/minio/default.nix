@@ -45,11 +45,10 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  disabledTestPaths =
-    [
-      # example credentials aren't present
-      "tests/unit/credentials_test.py"
-    ];
+  disabledTestPaths = [
+    # example credentials aren't present
+    "tests/unit/credentials_test.py"
+  ];
 
   pythonImportsCheck = [ "minio" ];
 

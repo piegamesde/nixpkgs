@@ -31,12 +31,11 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  patches =
-    [
-      # Can't use fetchpatch or fetchpatch2 because of https://github.com/NixOS/nixpkgs/issues/32084
-      # Using fetchurl instead is also not a good idea, see https://github.com/NixOS/nixpkgs/issues/32084#issuecomment-727223713
-      ./rename-VERSION-to-VERSION.txt.patch
-    ];
+  patches = [
+    # Can't use fetchpatch or fetchpatch2 because of https://github.com/NixOS/nixpkgs/issues/32084
+    # Using fetchurl instead is also not a good idea, see https://github.com/NixOS/nixpkgs/issues/32084#issuecomment-727223713
+    ./rename-VERSION-to-VERSION.txt.patch
+  ];
 
   postPatch = ''
     # set compiled-in DATA_DIR so resources can be found

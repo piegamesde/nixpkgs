@@ -67,11 +67,10 @@ let
       rm -r skimage
     '';
 
-    disabledTestPaths =
-      [
-        # Requires network access (actually some data is loaded via `skimage._shared.testing.fetch` in the global scope, which calls `pytest.skip` when a network is unaccessible, leading to a pytest collection error).
-        "${installedPackageRoot}/skimage/filters/rank/tests/test_rank.py"
-      ];
+    disabledTestPaths = [
+      # Requires network access (actually some data is loaded via `skimage._shared.testing.fetch` in the global scope, which calls `pytest.skip` when a network is unaccessible, leading to a pytest collection error).
+      "${installedPackageRoot}/skimage/filters/rank/tests/test_rank.py"
+    ];
     pytestFlagsArray =
       [
         "${installedPackageRoot}"

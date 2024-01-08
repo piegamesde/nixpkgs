@@ -40,11 +40,10 @@ stdenv.mkDerivation rec {
     readline
   ];
 
-  patches =
-    [
-      # Fixes some small annoyances on src/makefile
-      ./0001-small-fixes.patch
-    ];
+  patches = [
+    # Fixes some small annoyances on src/makefile
+    ./0001-small-fixes.patch
+  ];
 
   postPatch = ''
     substituteInPlace src/makefile --replace\

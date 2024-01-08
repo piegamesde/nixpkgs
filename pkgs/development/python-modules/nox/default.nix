@@ -30,15 +30,14 @@ buildPythonPackage rec {
     hash = "sha256-N70yBZyrtdQvgaJzkskG3goHit8eH0di9jHycuAwzfU=";
   };
 
-  patches =
-    [
-      # Remove rogue mocking of py._path, https://github.com/wntrblm/nox/pull/677
-      (fetchpatch {
-        name = "remove-py-pyth.patch";
-        url = "https://github.com/wntrblm/nox/commit/44d06b679761e21d76bb96b2b8ffe0ffbe3d4fd0.patch";
-        hash = "sha256-KRDVwbBMBd4GdiAcGJyS7DTNUw3Pumt0JO1igx6npnc=";
-      })
-    ];
+  patches = [
+    # Remove rogue mocking of py._path, https://github.com/wntrblm/nox/pull/677
+    (fetchpatch {
+      name = "remove-py-pyth.patch";
+      url = "https://github.com/wntrblm/nox/commit/44d06b679761e21d76bb96b2b8ffe0ffbe3d4fd0.patch";
+      hash = "sha256-KRDVwbBMBd4GdiAcGJyS7DTNUw3Pumt0JO1igx6npnc=";
+    })
+  ];
 
   nativeBuildInputs = [ setuptools ];
 
@@ -62,11 +61,10 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "nox" ];
 
-  disabledTestPaths =
-    [
-      # AttributeError: module 'tox.config' has...
-      "tests/test_tox_to_nox.py"
-    ];
+  disabledTestPaths = [
+    # AttributeError: module 'tox.config' has...
+    "tests/test_tox_to_nox.py"
+  ];
 
   meta = with lib; {
     description = "Flexible test automation for Python";

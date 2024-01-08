@@ -91,11 +91,10 @@ buildPythonPackage rec {
     "tests/data"
   ];
 
-  pytestFlagsArray =
-    [
-      # see tox.ini
-      "-k 'not notebooks'"
-    ];
+  pytestFlagsArray = [
+    # see tox.ini
+    "-k 'not notebooks'"
+  ];
 
   pythonImportsCheck = [ "labelbox" ];
 

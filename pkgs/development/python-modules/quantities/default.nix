@@ -30,11 +30,10 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  disabledTests =
-    [
-      # test fails with numpy 1.24
-      "test_mul"
-    ];
+  disabledTests = [
+    # test fails with numpy 1.24
+    "test_mul"
+  ];
 
   pythonImportsCheck = [ "quantities" ];
 

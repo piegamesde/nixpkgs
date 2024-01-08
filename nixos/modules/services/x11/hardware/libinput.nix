@@ -331,14 +331,13 @@ in
       (mkX11ConfigForDevice "touchpad" "Touchpad")
     ];
 
-    assertions =
-      [
-        # already present in synaptics.nix
-        /* {
-             assertion = !config.services.xserver.synaptics.enable;
-             message = "Synaptics and libinput are incompatible, you cannot enable both (in services.xserver).";
-           }
-        */
-      ];
+    assertions = [
+      # already present in synaptics.nix
+      /* {
+           assertion = !config.services.xserver.synaptics.enable;
+           message = "Synaptics and libinput are incompatible, you cannot enable both (in services.xserver).";
+         }
+      */
+    ];
   };
 }

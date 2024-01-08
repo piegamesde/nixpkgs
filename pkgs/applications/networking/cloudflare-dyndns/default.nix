@@ -29,15 +29,14 @@ python3.pkgs.buildPythonApplication rec {
 
   nativeCheckInputs = with python3.pkgs; [ pytestCheckHook ];
 
-  patches =
-    [
-      # Switch to poetry-core, https://github.com/kissgyorgy/cloudflare-dyndns/pull/22
-      (fetchpatch {
-        name = "switch-to-poetry-core.patch";
-        url = "https://github.com/kissgyorgy/cloudflare-dyndns/commit/741ed1ccb3373071ce15683a3b8ddc78d64866f8.patch";
-        sha256 = "sha256-mjSah0DWptZB6cjhP6dJg10BpJylPSQ2K4TKda7VmHw=";
-      })
-    ];
+  patches = [
+    # Switch to poetry-core, https://github.com/kissgyorgy/cloudflare-dyndns/pull/22
+    (fetchpatch {
+      name = "switch-to-poetry-core.patch";
+      url = "https://github.com/kissgyorgy/cloudflare-dyndns/commit/741ed1ccb3373071ce15683a3b8ddc78d64866f8.patch";
+      sha256 = "sha256-mjSah0DWptZB6cjhP6dJg10BpJylPSQ2K4TKda7VmHw=";
+    })
+  ];
 
   postPatch = ''
     substituteInPlace pyproject.toml \

@@ -83,11 +83,10 @@ resholve.mkDerivation rec {
         # dynamic based on CLI flag
         "$_SHUNIT_LINENO_" = true;
       };
-      execer =
-        [
-          # drop after https://github.com/abathur/binlore/issues/2
-          "cannot:${ncurses}/bin/tput"
-        ];
+      execer = [
+        # drop after https://github.com/abathur/binlore/issues/2
+        "cannot:${ncurses}/bin/tput"
+      ];
     };
   };
 

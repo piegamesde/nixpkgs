@@ -194,17 +194,14 @@ stdenv.mkDerivation rec {
       # tries to call unwrapped executable
       "test_SetPROJAuxDbPaths"
     ]
-    ++ lib.optionals (!stdenv.isx86_64)
-      [
-        # likely precision-related expecting x87 behaviour
-        "test_jp2openjpeg_22"
-      ]
-    ++
-      lib.optionals stdenv.isDarwin
-        [
-          # flaky on macos
-          "test_rda_download_queue"
-        ]
+    ++ lib.optionals (!stdenv.isx86_64) [
+      # likely precision-related expecting x87 behaviour
+      "test_jp2openjpeg_22"
+    ]
+    ++ lib.optionals stdenv.isDarwin [
+      # flaky on macos
+      "test_rda_download_queue"
+    ]
     ++ lib.optionals (lib.versionOlder proj.version "8") [
       "test_ogr_parquet_write_crs_without_id_in_datum_ensemble_members"
     ];

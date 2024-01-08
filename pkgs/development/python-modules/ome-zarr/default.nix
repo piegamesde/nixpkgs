@@ -28,15 +28,14 @@ buildPythonPackage rec {
     hash = "sha256-dpweOuqruh7mAqmSaNbehLCr8OCLe1IZNWV4bpHpTl0=";
   };
 
-  patches =
-    [
-      # remove after next release:
-      (fetchpatch {
-        name = "fix-writer-bug";
-        url = "https://github.com/ome/ome-zarr-py/commit/c1302e05998dfe2faf94b0f958c92888681f5ffa.patch";
-        hash = "sha256-1WANObABUXkjqeGdnmg0qJ48RcZcuAwgitZyMwiRYUw=";
-      })
-    ];
+  patches = [
+    # remove after next release:
+    (fetchpatch {
+      name = "fix-writer-bug";
+      url = "https://github.com/ome/ome-zarr-py/commit/c1302e05998dfe2faf94b0f958c92888681f5ffa.patch";
+      hash = "sha256-1WANObABUXkjqeGdnmg0qJ48RcZcuAwgitZyMwiRYUw=";
+    })
+  ];
 
   propagatedBuildInputs = [
     numpy
@@ -52,11 +51,10 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  disabledTests =
-    [
-      # attempts to access network
-      "test_s3_info"
-    ];
+  disabledTests = [
+    # attempts to access network
+    "test_s3_info"
+  ];
 
   pythonImportsCheck = [
     "ome_zarr"

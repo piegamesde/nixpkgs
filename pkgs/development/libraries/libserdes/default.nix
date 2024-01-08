@@ -41,14 +41,13 @@ stdenv.mkDerivation rec {
 
   makeFlags = [ "GEN_PKG_CONFIG=y" ];
 
-  patches =
-    [
-      # Fix compatibility with Avro master branch
-      (fetchpatch {
-        url = "https://github.com/confluentinc/libserdes/commit/d7a355e712ab63ec77f6722fb5a9e8056e7416a2.patch";
-        sha256 = "14bdx075n4lxah63kp7phld9xqlz3pzs03yf3wbq4nmkgwac10dh";
-      })
-    ];
+  patches = [
+    # Fix compatibility with Avro master branch
+    (fetchpatch {
+      url = "https://github.com/confluentinc/libserdes/commit/d7a355e712ab63ec77f6722fb5a9e8056e7416a2.patch";
+      sha256 = "14bdx075n4lxah63kp7phld9xqlz3pzs03yf3wbq4nmkgwac10dh";
+    })
+  ];
 
   postPatch = ''
     patchShebangs configure lds-gen.pl

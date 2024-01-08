@@ -18,14 +18,13 @@ buildGoModule rec {
 
   vendorHash = "sha256-o7MbN/6n7fkp/yqYyQbfWBUqI09/JYh5jtV31gjNf6w=";
 
-  patches =
-    [
-      # Update x/sys to support go 1.17.
-      (fetchpatch {
-        url = "https://github.com/cortesi/devd/commit/5f4720bf41399736b4e7e1a493da6c87a583d0b2.patch";
-        hash = "sha256-WDN08XNsDPuZwBCE8iDXgGAWFwx2UTwqRkhzKMtPKR8=";
-      })
-    ];
+  patches = [
+    # Update x/sys to support go 1.17.
+    (fetchpatch {
+      url = "https://github.com/cortesi/devd/commit/5f4720bf41399736b4e7e1a493da6c87a583d0b2.patch";
+      hash = "sha256-WDN08XNsDPuZwBCE8iDXgGAWFwx2UTwqRkhzKMtPKR8=";
+    })
+  ];
 
   subPackages = [ "cmd/devd" ];
 

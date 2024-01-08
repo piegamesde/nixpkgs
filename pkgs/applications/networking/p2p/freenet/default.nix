@@ -28,14 +28,13 @@ let
     sha256 = "08awwr8n80b4cdzzb3y8hf2fzkr1f2ly4nlq779d6pvi5jymqdvv";
   };
 
-  patches =
-    [
-      # gradle 7 support
-      (fetchpatch {
-        url = "https://github.com/freenet/fred/pull/827.patch";
-        sha256 = "sha256-T1zymxRTADVhhwp2TyB+BC/J4gZsT/CUuMrT4COlpTY=";
-      })
-    ];
+  patches = [
+    # gradle 7 support
+    (fetchpatch {
+      url = "https://github.com/freenet/fred/pull/827.patch";
+      sha256 = "sha256-T1zymxRTADVhhwp2TyB+BC/J4gZsT/CUuMrT4COlpTY=";
+    })
+  ];
 in
 stdenv.mkDerivation rec {
   pname = "freenet";

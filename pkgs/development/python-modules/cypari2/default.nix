@@ -20,16 +20,15 @@ buildPythonPackage rec {
     sha256 = "17beb467d3cb39fffec3227c468f0dd8db8a09129faeb95a6bb4c84b2b6c6683";
   };
 
-  patches =
-    [
-      # patch to avoid some segfaults in sage's totallyreal.pyx test.
-      # (https://trac.sagemath.org/ticket/27267). depends on Cython patch.
-      (fetchpatch {
-        name = "use-trashcan-for-gen.patch";
-        url = "https://git.sagemath.org/sage.git/plain/build/pkgs/cypari/patches/trashcan.patch?id=b6ea17ef8e4d652de0a85047bac8d41e90b25555";
-        hash = "sha256-w4kktWb9/aR9z4CjrUvAMOxEwRN2WkubaKzQttN8rU8=";
-      })
-    ];
+  patches = [
+    # patch to avoid some segfaults in sage's totallyreal.pyx test.
+    # (https://trac.sagemath.org/ticket/27267). depends on Cython patch.
+    (fetchpatch {
+      name = "use-trashcan-for-gen.patch";
+      url = "https://git.sagemath.org/sage.git/plain/build/pkgs/cypari/patches/trashcan.patch?id=b6ea17ef8e4d652de0a85047bac8d41e90b25555";
+      hash = "sha256-w4kktWb9/aR9z4CjrUvAMOxEwRN2WkubaKzQttN8rU8=";
+    })
+  ];
 
   # This differs slightly from the default python installPhase in that it pip-installs
   # "." instead of "*.whl".

@@ -40,26 +40,25 @@ stdenv.mkDerivation rec {
     sha256 = "/m9Nvlhsa4uiQGOU4gLyLQCdZCqW6zpU8y9qIdCEzcs=";
   };
 
-  patches =
-    [
-      # grl-chromaprint requires the following GStreamer elements:
-      # * fakesink (gstreamer)
-      # * playbin (gst-plugins-base)
-      # * chromaprint (gst-plugins-bad)
-      (substituteAll {
-        src = ./chromaprint-gst-plugins.patch;
-        load_plugins =
-          lib.concatMapStrings
-            (plugin: ''gst_registry_scan_path(gst_registry_get(), "${lib.getLib plugin}/lib/gstreamer-1.0");'')
-            (
-              with gst_all_1; [
-                gstreamer
-                gst-plugins-base
-                gst-plugins-bad
-              ]
-            );
-      })
-    ];
+  patches = [
+    # grl-chromaprint requires the following GStreamer elements:
+    # * fakesink (gstreamer)
+    # * playbin (gst-plugins-base)
+    # * chromaprint (gst-plugins-bad)
+    (substituteAll {
+      src = ./chromaprint-gst-plugins.patch;
+      load_plugins =
+        lib.concatMapStrings
+          (plugin: ''gst_registry_scan_path(gst_registry_get(), "${lib.getLib plugin}/lib/gstreamer-1.0");'')
+          (
+            with gst_all_1; [
+              gstreamer
+              gst-plugins-base
+              gst-plugins-bad
+            ]
+          );
+    })
+  ];
 
   nativeBuildInputs = [
     meson

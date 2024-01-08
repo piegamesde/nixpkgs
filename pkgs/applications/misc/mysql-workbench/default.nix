@@ -146,18 +146,14 @@ stdenv.mkDerivation rec {
       # error: 'OGRErr OGRSpatialReference::importFromWkt(char**)' is deprecated
       "-Wno-error=deprecated-declarations"
     ]
-    ++
-      lib.optionals stdenv.isAarch64
-        [
-          # error: narrowing conversion of '-1' from 'int' to 'char'
-          "-Wno-error=narrowing"
-        ]
-    ++
-      lib.optionals (stdenv.cc.isGNU && lib.versionAtLeast stdenv.cc.version "12")
-        [
-          # Needed with GCC 12 but problematic with some old GCCs
-          "-Wno-error=maybe-uninitialized"
-        ]
+    ++ lib.optionals stdenv.isAarch64 [
+      # error: narrowing conversion of '-1' from 'int' to 'char'
+      "-Wno-error=narrowing"
+    ]
+    ++ lib.optionals (stdenv.cc.isGNU && lib.versionAtLeast stdenv.cc.version "12") [
+      # Needed with GCC 12 but problematic with some old GCCs
+      "-Wno-error=maybe-uninitialized"
+    ]
   );
 
   cmakeFlags = [

@@ -41,15 +41,14 @@ stdenv.mkDerivation rec {
     sha256 = "bJSeUsi+zCBU2qzWBJAfZs5c9wml+pHEu3ysyTm1Pqk=";
   };
 
-  patches =
-    [
-      # Fix build with meson 0.61.
-      # sendto/meson.build:24:5: ERROR: Function does not take positional arguments.
-      (fetchpatch {
-        url = "https://gitlab.gnome.org/GNOME/gnome-bluetooth/-/commit/755fd758f866d3a3f7ca482942beee749f13a91e.patch";
-        sha256 = "sha256-N0MJ0pYO411o2CTNZHWmEoG2m5TGUjR6YW6HSXHTR/A=";
-      })
-    ];
+  patches = [
+    # Fix build with meson 0.61.
+    # sendto/meson.build:24:5: ERROR: Function does not take positional arguments.
+    (fetchpatch {
+      url = "https://gitlab.gnome.org/GNOME/gnome-bluetooth/-/commit/755fd758f866d3a3f7ca482942beee749f13a91e.patch";
+      sha256 = "sha256-N0MJ0pYO411o2CTNZHWmEoG2m5TGUjR6YW6HSXHTR/A=";
+    })
+  ];
 
   nativeBuildInputs = [
     meson

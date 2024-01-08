@@ -41,11 +41,10 @@ python3.pkgs.buildPythonApplication rec {
       ]
     );
 
-  disabledTests =
-    [
-      # Test requires network access
-      "test_rollback_without_version"
-    ];
+  disabledTests = [
+    # Test requires network access
+    "test_rollback_without_version"
+  ];
 
   pythonImportsCheck = [ "gigalixir" ];
 

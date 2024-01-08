@@ -28,15 +28,14 @@ stdenv.mkDerivation rec {
     "dev"
   ];
 
-  patches =
-    [
-      # Fix tests for statically linked variant upstream PR is
-      # https://github.com/libuv/libuv/pull/3735
-      (fetchpatch {
-        url = "https://github.com/libuv/libuv/commit/9d898acc564351dde74e9ed9865144e5c41f5beb.patch";
-        sha256 = "sha256-6XsjrseD8a+ny887EKOX0NmHocLMXGf2YL13vkNHUZ0=";
-      })
-    ];
+  patches = [
+    # Fix tests for statically linked variant upstream PR is
+    # https://github.com/libuv/libuv/pull/3735
+    (fetchpatch {
+      url = "https://github.com/libuv/libuv/commit/9d898acc564351dde74e9ed9865144e5c41f5beb.patch";
+      sha256 = "sha256-6XsjrseD8a+ny887EKOX0NmHocLMXGf2YL13vkNHUZ0=";
+    })
+  ];
 
   postPatch =
     let
@@ -115,13 +114,11 @@ stdenv.mkDerivation rec {
           "process_priority"
           "udp_create_early_bad_bind"
         ]
-        ++
-          lib.optionals stdenv.isAarch32
-            [
-              # I observe this test failing with some regularity on ARMv7:
-              # https://github.com/libuv/libuv/issues/1871
-              "shutdown_close_pipe"
-            ];
+        ++ lib.optionals stdenv.isAarch32 [
+          # I observe this test failing with some regularity on ARMv7:
+          # https://github.com/libuv/libuv/issues/1871
+          "shutdown_close_pipe"
+        ];
       tdRegexp = lib.concatStringsSep "\\|" toDisable;
     in
     lib.optionalString doCheck ''

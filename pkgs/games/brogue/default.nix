@@ -17,16 +17,15 @@ stdenv.mkDerivation rec {
     url = "https://sites.google.com/site/broguegame/brogue-${version}-linux-amd64.tbz2";
     sha256 = "0i042zb3axjf0cpgpdh8hvfn66dbfizidyvw0iymjk2n760z2kx7";
   };
-  patches =
-    [
-      # Pull upstream fix for -fno-common toolchains:
-      #  https://github.com/tmewett/BrogueCE/pull/63
-      (fetchpatch {
-        name = "fno-common.patch";
-        url = "https://github.com/tmewett/BrogueCE/commit/2c7ed0c48d9efd06bf0a2589ba967c0a22a8fa87.patch";
-        sha256 = "19lr2fa25dh79klm4f4kqyyqq7w5xmw9z0fvylkcckqvcv7dwhp3";
-      })
-    ];
+  patches = [
+    # Pull upstream fix for -fno-common toolchains:
+    #  https://github.com/tmewett/BrogueCE/pull/63
+    (fetchpatch {
+      name = "fno-common.patch";
+      url = "https://github.com/tmewett/BrogueCE/commit/2c7ed0c48d9efd06bf0a2589ba967c0a22a8fa87.patch";
+      sha256 = "19lr2fa25dh79klm4f4kqyyqq7w5xmw9z0fvylkcckqvcv7dwhp3";
+    })
+  ];
 
   prePatch = ''
     sed -i Makefile -e 's,LIBTCODDIR=.*,LIBTCODDIR=${libtcod},g' \

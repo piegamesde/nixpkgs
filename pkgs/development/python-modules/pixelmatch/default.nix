@@ -34,12 +34,11 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  pytestFlagsArray =
-    [
-      # Incompatible types in assignment
-      #"--mypy"
-      "--benchmark-disable"
-    ];
+  pytestFlagsArray = [
+    # Incompatible types in assignment
+    #"--mypy"
+    "--benchmark-disable"
+  ];
 
   pythonImportsCheck = [ "pixelmatch" ];
 

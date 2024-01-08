@@ -20,13 +20,11 @@ toPythonModule (
     orig: {
       pname = "${python.libPrefix}-sigrok";
 
-      patches =
-        orig.patches or [ ]
-        ++ [
-          # Makes libsigrok install the bindings into site-packages properly (like
-          # we expect) instead of making a version-specific *.egg subdirectory.
-          ./python-install.patch
-        ];
+      patches = orig.patches or [ ] ++ [
+        # Makes libsigrok install the bindings into site-packages properly (like
+        # we expect) instead of making a version-specific *.egg subdirectory.
+        ./python-install.patch
+      ];
 
       nativeBuildInputs =
         orig.nativeBuildInputs or [ ]

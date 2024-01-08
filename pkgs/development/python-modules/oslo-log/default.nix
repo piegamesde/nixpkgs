@@ -44,11 +44,10 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  disabledTests =
-    [
-      # not compatible with sandbox
-      "test_logging_handle_error"
-    ];
+  disabledTests = [
+    # not compatible with sandbox
+    "test_logging_handle_error"
+  ];
 
   pythonImportsCheck = [ "oslo_log" ];
 

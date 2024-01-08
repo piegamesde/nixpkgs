@@ -253,11 +253,10 @@ in
 
       environment.sessionVariables.GNOME_SESSION_DEBUG = mkIf cfg.debug "1";
 
-      environment.pathsToLink =
-        [
-          # FIXME: modules should link subdirs of `/share` rather than relying on this
-          "/share"
-        ];
+      environment.pathsToLink = [
+        # FIXME: modules should link subdirs of `/share` rather than relying on this
+        "/share"
+      ];
 
       # Otherwise you can't store NetworkManager Secrets with
       # "Store the password only for this user"

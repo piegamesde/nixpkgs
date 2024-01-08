@@ -27,14 +27,13 @@ buildPythonPackage rec {
       --replace "fido2 == 0.9.3" "fido2"
   '';
 
-  patches =
-    [
-      # https://github.com/trustcrypto/onlykey-solo-python/pull/2
-      (fetchpatch {
-        url = "https://github.com/trustcrypto/onlykey-solo-python/commit/c5a86506f940d4e8fbb670ed665ddca48779cbe9.patch";
-        hash = "sha256-LhCUR5QH9Je/Nr185HgQxfkCtat8W2Huv62zr5Mlrn4=";
-      })
-    ];
+  patches = [
+    # https://github.com/trustcrypto/onlykey-solo-python/pull/2
+    (fetchpatch {
+      url = "https://github.com/trustcrypto/onlykey-solo-python/commit/c5a86506f940d4e8fbb670ed665ddca48779cbe9.patch";
+      hash = "sha256-LhCUR5QH9Je/Nr185HgQxfkCtat8W2Huv62zr5Mlrn4=";
+    })
+  ];
 
   propagatedBuildInputs = [
     click

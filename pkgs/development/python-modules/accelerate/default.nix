@@ -59,11 +59,10 @@ buildPythonPackage rec {
       # (remove for next release)
       "test_gradient_sync_cpu_multi"
     ]
-    ++ lib.optionals (stdenv.isLinux && stdenv.isAarch64)
-      [
-        # usual aarch64-linux RuntimeError: DataLoader worker (pid(s) <...>) exited unexpectedly
-        "CheckpointTest"
-      ];
+    ++ lib.optionals (stdenv.isLinux && stdenv.isAarch64) [
+      # usual aarch64-linux RuntimeError: DataLoader worker (pid(s) <...>) exited unexpectedly
+      "CheckpointTest"
+    ];
   # numerous instances of torch.multiprocessing.spawn.ProcessRaisedException:
   doCheck = !stdenv.isDarwin;
   pythonImportsCheck = [ "accelerate" ];

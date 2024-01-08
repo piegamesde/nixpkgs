@@ -43,15 +43,14 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-l/iv5SJTUhZUHrvx47VG0Spr6zio8OuF8m5naTSq1CU=";
   };
 
-  patches =
-    [
-      # Fix build with libraw 0.21, can be removed on next update
-      # https://hydra.nixos.org/build/209327709/nixlog/1
-      (fetchpatch {
-        url = "https://gitlab.gnome.org/GNOME/gthumb/-/commit/da0d3f22a5c3a141211d943e7d963d14090011ec.patch";
-        sha256 = "sha256-/l9US19rKxIUJjZ+oynGLr/9PKJPg9VUuA/VSuIT5AQ=";
-      })
-    ];
+  patches = [
+    # Fix build with libraw 0.21, can be removed on next update
+    # https://hydra.nixos.org/build/209327709/nixlog/1
+    (fetchpatch {
+      url = "https://gitlab.gnome.org/GNOME/gthumb/-/commit/da0d3f22a5c3a141211d943e7d963d14090011ec.patch";
+      sha256 = "sha256-/l9US19rKxIUJjZ+oynGLr/9PKJPg9VUuA/VSuIT5AQ=";
+    })
+  ];
 
   nativeBuildInputs = [
     bison

@@ -28,15 +28,14 @@ stdenv.mkDerivation rec {
 
   mesonFlags = [ "-Dwerror=false" ];
 
-  patches =
-    [
-      # Fixes build on 32bit platforms. Patch is upstream, but unreleased
-      (fetchpatch {
-        name = "grim-fix-32bit-printf.patch";
-        url = "https://git.sr.ht/~emersion/grim/commit/89e02e663fabc534b7e7039514f60a8c5d70070d.patch";
-        sha256 = "1gwb060v3q856p84y0mqqpkqmgb9jwn70y4mzv35y4b9xld8inci";
-      })
-    ];
+  patches = [
+    # Fixes build on 32bit platforms. Patch is upstream, but unreleased
+    (fetchpatch {
+      name = "grim-fix-32bit-printf.patch";
+      url = "https://git.sr.ht/~emersion/grim/commit/89e02e663fabc534b7e7039514f60a8c5d70070d.patch";
+      sha256 = "1gwb060v3q856p84y0mqqpkqmgb9jwn70y4mzv35y4b9xld8inci";
+    })
+  ];
 
   nativeBuildInputs = [
     meson

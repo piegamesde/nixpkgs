@@ -59,11 +59,10 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  disabledTests =
-    [
-      # pyhanko_certvalidator.errors.DisallowedAlgorithmError
-      "test_validate"
-    ];
+  disabledTests = [
+    # pyhanko_certvalidator.errors.DisallowedAlgorithmError
+    "test_validate"
+  ];
 
   pythonImportsCheck = [ "certomancer" ];
 

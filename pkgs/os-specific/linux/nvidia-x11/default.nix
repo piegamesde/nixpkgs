@@ -106,14 +106,13 @@ rec {
     prePatch = "pushd kernel";
     postPatch = "popd";
 
-    patches =
-      [
-        # source: https://gist.github.com/joanbm/d10e9cbbbb8e245b6e7e27b2db338faf
-        (fetchpatch {
-          url = "https://gist.github.com/joanbm/d10e9cbbbb8e245b6e7e27b2db338faf/raw/f5d5238bdbaa16cd4008658a0f82b9dd84f1b38f/nvidia-470xx-fix-linux-6.3.patch";
-          hash = "sha256-mR+vXDHgVhWC0JeLgGlbNVCH8XTs7XnhEJS6BV75tI8=";
-        })
-      ];
+    patches = [
+      # source: https://gist.github.com/joanbm/d10e9cbbbb8e245b6e7e27b2db338faf
+      (fetchpatch {
+        url = "https://gist.github.com/joanbm/d10e9cbbbb8e245b6e7e27b2db338faf/raw/f5d5238bdbaa16cd4008658a0f82b9dd84f1b38f/nvidia-470xx-fix-linux-6.3.patch";
+        hash = "sha256-mR+vXDHgVhWC0JeLgGlbNVCH8XTs7XnhEJS6BV75tI8=";
+      })
+    ];
   };
 
   # Last one supporting x86

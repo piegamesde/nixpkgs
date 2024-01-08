@@ -39,11 +39,10 @@ stdenv.mkDerivation rec {
     libdrm
   ];
 
-  NIX_CFLAGS_COMPILE =
-    [
-      # gstcameradeinterlace.cpp:55:10: fatal error: gst/video/video.h: No such file or directory
-      "-I${gst_all_1.gst-plugins-base.dev}/include/gstreamer-1.0"
-    ];
+  NIX_CFLAGS_COMPILE = [
+    # gstcameradeinterlace.cpp:55:10: fatal error: gst/video/video.h: No such file or directory
+    "-I${gst_all_1.gst-plugins-base.dev}/include/gstreamer-1.0"
+  ];
 
   enableParallelBuilding = true;
 

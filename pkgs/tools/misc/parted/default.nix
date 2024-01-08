@@ -75,10 +75,9 @@ stdenv.mkDerivation rec {
     homepage = "https://www.gnu.org/software/parted/";
     license = lib.licenses.gpl3Plus;
 
-    maintainers =
-      [
-        # Add your name here!
-      ];
+    maintainers = [
+      # Add your name here!
+    ];
 
     # GNU Parted requires libuuid, which is part of util-linux-ng.
     platforms = lib.platforms.linux;

@@ -53,14 +53,12 @@ buildPythonPackage rec {
     hash = "sha256-ADqfUw6IDLLNF3y6GvciC5qkLe+cSvwqL8Pua+frKyI=";
   };
 
-  patches =
-    lib.optionals python.hasDistutilsCxxPatch
-      [
-        # We patch cpython/distutils to fix https://bugs.python.org/issue1222585
-        # Patching of numpy.distutils is needed to prevent it from undoing the
-        # patch to distutils.
-        ./numpy-distutils-C++.patch
-      ];
+  patches = lib.optionals python.hasDistutilsCxxPatch [
+    # We patch cpython/distutils to fix https://bugs.python.org/issue1222585
+    # Patching of numpy.distutils is needed to prevent it from undoing the
+    # patch to distutils.
+    ./numpy-distutils-C++.patch
+  ];
 
   nativeBuildInputs = [
     gfortran

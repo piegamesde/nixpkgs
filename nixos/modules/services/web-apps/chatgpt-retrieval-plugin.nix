@@ -110,10 +110,9 @@ in
       };
     };
 
-    systemd.tmpfiles.rules =
-      [
-        # create the directory for static files for fastapi
-        "C /var/lib/chatgpt-retrieval-plugin/.well-known - - - - ${pkgs.chatgpt-retrieval-plugin}/${pkgs.python3Packages.python.sitePackages}/.well-known"
-      ];
+    systemd.tmpfiles.rules = [
+      # create the directory for static files for fastapi
+      "C /var/lib/chatgpt-retrieval-plugin/.well-known - - - - ${pkgs.chatgpt-retrieval-plugin}/${pkgs.python3Packages.python.sitePackages}/.well-known"
+    ];
   };
 }

@@ -19,15 +19,13 @@
 let
   angstrom' = angstrom.overrideAttrs (
     attrs: {
-      patches =
-        attrs.patches or [ ]
-        ++ [
-          # mldoc requires Angstrom to expose `unsafe_lookahead`
-          (fetchpatch {
-            url = "https://github.com/logseq/angstrom/commit/bbe36c99c13678937d4c983a427e02a733d6cc24.patch";
-            sha256 = "sha256-RapY1QJ8U0HOqJ9TFDnCYB4tFLFuThESzdBZqjYuDUA=";
-          })
-        ];
+      patches = attrs.patches or [ ] ++ [
+        # mldoc requires Angstrom to expose `unsafe_lookahead`
+        (fetchpatch {
+          url = "https://github.com/logseq/angstrom/commit/bbe36c99c13678937d4c983a427e02a733d6cc24.patch";
+          sha256 = "sha256-RapY1QJ8U0HOqJ9TFDnCYB4tFLFuThESzdBZqjYuDUA=";
+        })
+      ];
     }
   );
   uri' = uri.override { angstrom = angstrom'; };

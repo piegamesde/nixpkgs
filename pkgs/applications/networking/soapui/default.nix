@@ -31,29 +31,28 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  patches =
-    [
-      # Adjust java path to point to derivation paths
-      (writeText "soapui-${version}.patch" ''
-        --- a/bin/soapui.sh
-        +++ b/bin/soapui.sh
-        @@ -50,7 +50,7 @@
-         #JAVA 16
-         JAVA_OPTS="$JAVA_OPTS --illegal-access=permit"
+  patches = [
+    # Adjust java path to point to derivation paths
+    (writeText "soapui-${version}.patch" ''
+      --- a/bin/soapui.sh
+      +++ b/bin/soapui.sh
+      @@ -50,7 +50,7 @@
+       #JAVA 16
+       JAVA_OPTS="$JAVA_OPTS --illegal-access=permit"
 
-        -JFXRTPATH=`java -cp $SOAPUI_CLASSPATH com.eviware.soapui.tools.JfxrtLocator`
-        +JFXRTPATH=`${jdk}/bin/java -cp $SOAPUI_CLASSPATH com.eviware.soapui.tools.JfxrtLocator`
-         SOAPUI_CLASSPATH=$JFXRTPATH:$SOAPUI_CLASSPATH
+      -JFXRTPATH=`java -cp $SOAPUI_CLASSPATH com.eviware.soapui.tools.JfxrtLocator`
+      +JFXRTPATH=`${jdk}/bin/java -cp $SOAPUI_CLASSPATH com.eviware.soapui.tools.JfxrtLocator`
+       SOAPUI_CLASSPATH=$JFXRTPATH:$SOAPUI_CLASSPATH
 
-         if $darwin
-        @@ -85,4 +85,4 @@
-         echo =
-         echo ================================
+       if $darwin
+      @@ -85,4 +85,4 @@
+       echo =
+       echo ================================
 
-        -java $JAVA_OPTS -cp $SOAPUI_CLASSPATH com.eviware.soapui.SoapUI "$@"
-        +${jdk}/bin/java $JAVA_OPTS -cp $SOAPUI_CLASSPATH com.eviware.soapui.SoapUI "$@"
-      '')
-    ];
+      -java $JAVA_OPTS -cp $SOAPUI_CLASSPATH com.eviware.soapui.SoapUI "$@"
+      +${jdk}/bin/java $JAVA_OPTS -cp $SOAPUI_CLASSPATH com.eviware.soapui.SoapUI "$@"
+    '')
+  ];
 
   passthru.tests = {
     inherit (nixosTests) soapui;

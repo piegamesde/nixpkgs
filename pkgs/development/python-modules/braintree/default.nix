@@ -31,11 +31,10 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "braintree" ];
 
-  disabledTestPaths =
-    [
-      # Don't test integrations
-      "tests/integration"
-    ];
+  disabledTestPaths = [
+    # Don't test integrations
+    "tests/integration"
+  ];
 
   meta = with lib; {
     description = "Python library for integration with Braintree";

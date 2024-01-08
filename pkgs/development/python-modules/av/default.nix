@@ -102,11 +102,10 @@ buildPythonPackage rec {
     "--deselect=tests/test_videoframe.py::TestVideoFrameImage::test_roundtrip"
   ];
 
-  disabledTests =
-    [
-      # urlopen fails during DNS resolution
-      "test_writing_to_custom_io"
-    ];
+  disabledTests = [
+    # urlopen fails during DNS resolution
+    "test_writing_to_custom_io"
+  ];
 
   disabledTestPaths = [
     # urlopen fails during DNS resolution

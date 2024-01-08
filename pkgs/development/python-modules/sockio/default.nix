@@ -65,11 +65,10 @@ buildPythonPackage rec {
     "test_root_socket_for_url"
   ];
 
-  disabledTestPaths =
-    [
-      # We don't care about Python 2.x
-      "tests/test_py2.py"
-    ];
+  disabledTestPaths = [
+    # We don't care about Python 2.x
+    "tests/test_py2.py"
+  ];
 
   meta = with lib; {
     description = "Implementation of the Modbus protocol";

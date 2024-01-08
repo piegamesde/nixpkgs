@@ -52,11 +52,10 @@ python3.pkgs.buildPythonApplication rec {
     "SSL"
   ];
 
-  disabledTestPaths =
-    [
-      # Tests require a running Docker instance
-      "tests/plugins-docker/test_executors.py"
-    ];
+  disabledTestPaths = [
+    # Tests require a running Docker instance
+    "tests/plugins-docker/test_executors.py"
+  ];
 
   pythonImportsCheck = [ "faraday_agent_dispatcher" ];
 

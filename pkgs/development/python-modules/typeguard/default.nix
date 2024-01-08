@@ -45,17 +45,15 @@ buildPythonPackage rec {
     typing-extensions
   ];
 
-  disabledTestPaths =
-    [
-      # mypy tests aren't passing with latest mypy
-      "tests/mypy"
-    ];
+  disabledTestPaths = [
+    # mypy tests aren't passing with latest mypy
+    "tests/mypy"
+  ];
 
-  disabledTests =
-    [
-      # not compatible with python3.10
-      "test_typed_dict"
-    ];
+  disabledTests = [
+    # not compatible with python3.10
+    "test_typed_dict"
+  ];
 
   meta = with lib; {
     description = "This library provides run-time type checking for functions defined with argument type annotations";

@@ -36,11 +36,10 @@ buildPythonPackage rec {
     "aiohue.discovery"
   ];
 
-  disabledTestPaths =
-    [
-      # File are prefixed with test_
-      "examples/"
-    ];
+  disabledTestPaths = [
+    # File are prefixed with test_
+    "examples/"
+  ];
 
   meta = with lib; {
     description = "Python package to talk to Philips Hue";

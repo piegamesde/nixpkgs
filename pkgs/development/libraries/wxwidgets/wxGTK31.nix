@@ -44,11 +44,10 @@ stdenv.mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  patches =
-    [
-      # https://github.com/wxWidgets/wxWidgets/issues/17942
-      ./patches/0001-fix-assertion-using-hide-in-destroy.patch
-    ];
+  patches = [
+    # https://github.com/wxWidgets/wxWidgets/issues/17942
+    ./patches/0001-fix-assertion-using-hide-in-destroy.patch
+  ];
 
   nativeBuildInputs = [ pkg-config ];
 

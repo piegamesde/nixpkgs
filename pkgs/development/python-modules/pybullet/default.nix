@@ -25,11 +25,10 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [ numpy ];
 
-  patches =
-    [
-      # make sure X11 and OpenGL can be found at runtime
-      ./static-libs.patch
-    ];
+  patches = [
+    # make sure X11 and OpenGL can be found at runtime
+    ./static-libs.patch
+  ];
 
   meta = with lib; {
     description = "Open-source software for robot simulation, integrated with OpenAI Gym";

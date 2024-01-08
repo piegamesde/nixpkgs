@@ -38,11 +38,10 @@ buildPythonPackage rec {
     robotstatuschecker
   ];
 
-  disabledTestPaths =
-    [
-      # https://github.com/robotframework/SeleniumLibrary/issues/1804
-      "utest/test/keywords/test_webdrivercache.py"
-    ];
+  disabledTestPaths = [
+    # https://github.com/robotframework/SeleniumLibrary/issues/1804
+    "utest/test/keywords/test_webdrivercache.py"
+  ];
 
   disabledTests = [
     "test_create_opera_executable_path_not_set"

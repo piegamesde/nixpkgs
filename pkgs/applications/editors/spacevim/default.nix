@@ -50,11 +50,10 @@ stdenv.mkDerivation rec {
     runHook postBuild
   '';
 
-  patches =
-    [
-      # Don't generate helptags at runtime into read-only $SPACEVIMDIR
-      ./helptags.patch
-    ];
+  patches = [
+    # Don't generate helptags at runtime into read-only $SPACEVIMDIR
+    ./helptags.patch
+  ];
 
   installPhase = ''
     runHook preInstall

@@ -43,11 +43,10 @@ in
           --web.listen-address ${cfg.listenAddress}:${toString cfg.port} ${concatStringsSep " " cfg.extraFlags}
       '';
       RestrictAddressFamilies =
-        optionals (collectorIsEnabled "logind" || collectorIsEnabled "systemd")
-          [
-            # needs access to dbus via unix sockets (logind/systemd)
-            "AF_UNIX"
-          ]
+        optionals (collectorIsEnabled "logind" || collectorIsEnabled "systemd") [
+          # needs access to dbus via unix sockets (logind/systemd)
+          "AF_UNIX"
+        ]
         ++ optionals
           (collectorIsEnabled "network_route" || collectorIsEnabled "wifi" || !collectorIsDisabled "netdev")
           [

@@ -254,16 +254,14 @@ buildStdenv.mkDerivation ({
         hash = "sha256-iPqmofsmgvlFNm+mqVPbdgMKmP68ANuzYu+PzfCpoNA=";
       })
     ]
-    ++
-      lib.optionals (lib.versionOlder version "114.0")
-        [
-          # https://bugzilla.mozilla.org/show_bug.cgi?id=1830040
-          # https://hg.mozilla.org/mozilla-central/rev/cddb250a28d8
-          (fetchpatch {
-            url = "https://git.alpinelinux.org/aports/plain/community/firefox/avoid-redefinition.patch?id=2f620d205ed0f9072bbd7714b5ec1b7bf6911c12";
-            hash = "sha256-fLUYaJwhrC/wF24HkuWn2PHqz7LlAaIZ1HYjRDB2w9A=";
-          })
-        ]
+    ++ lib.optionals (lib.versionOlder version "114.0") [
+      # https://bugzilla.mozilla.org/show_bug.cgi?id=1830040
+      # https://hg.mozilla.org/mozilla-central/rev/cddb250a28d8
+      (fetchpatch {
+        url = "https://git.alpinelinux.org/aports/plain/community/firefox/avoid-redefinition.patch?id=2f620d205ed0f9072bbd7714b5ec1b7bf6911c12";
+        hash = "sha256-fLUYaJwhrC/wF24HkuWn2PHqz7LlAaIZ1HYjRDB2w9A=";
+      })
+    ]
     ++ lib.optional (lib.versionOlder version "111") ./env_var_for_system_dir-ff86.patch
     ++ lib.optional (lib.versionAtLeast version "111") ./env_var_for_system_dir-ff111.patch
     ++ lib.optional (lib.versionAtLeast version "96") ./no-buildconfig-ffx96.patch

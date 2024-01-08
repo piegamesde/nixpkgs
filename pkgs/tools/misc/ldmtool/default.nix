@@ -28,14 +28,13 @@ stdenv.mkDerivation rec {
     sha256 = "1fy5wbmk8kwl86lzswq0d1z2j5y023qzfm2ppm8knzv9c47kniqk";
   };
 
-  patches =
-    [
-      # Remove useage of deprecrated G_PARAM_PRIVATE
-      (fetchpatch {
-        url = "https://github.com/mdbooth/libldm/commit/ee1b37a034038f09d61b121cc8b3651024acc46f.patch";
-        sha256 = "02y34kbcpcpffvy1n9yqngvdldmxmvdkha1v2xjqvrnclanpigcp";
-      })
-    ];
+  patches = [
+    # Remove useage of deprecrated G_PARAM_PRIVATE
+    (fetchpatch {
+      url = "https://github.com/mdbooth/libldm/commit/ee1b37a034038f09d61b121cc8b3651024acc46f.patch";
+      sha256 = "02y34kbcpcpffvy1n9yqngvdldmxmvdkha1v2xjqvrnclanpigcp";
+    })
+  ];
 
   preConfigure = ''
     sed -i docs/reference/ldmtool/Makefile.am \

@@ -23,11 +23,10 @@ buildPythonPackage rec {
   doCheck = false;
 
   #
-  pythonImportsCheck =
-    [
-      # tries to import matplotlib, which can't work with doCheck disabled
-      #"matplotlib_inline"
-    ];
+  pythonImportsCheck = [
+    # tries to import matplotlib, which can't work with doCheck disabled
+    #"matplotlib_inline"
+  ];
 
   passthru.tests = {
     inherit ipython;

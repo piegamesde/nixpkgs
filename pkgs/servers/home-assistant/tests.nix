@@ -80,31 +80,26 @@ let
   };
 
   extraPytestFlagsArray = {
-    dnsip =
-      [
-        # Tries to resolve DNS entries
-        "--deselect tests/components/dnsip/test_config_flow.py::test_options_flow"
-      ];
-    history_stats =
-      [
-        # Flaky: AssertionError: assert '0.0' == '12.0'
-        "--deselect tests/components/history_stats/test_sensor.py::test_end_time_with_microseconds_zeroed"
-      ];
-    modbus =
-      [
-        # homeassistant.components.modbus.modbus:modbus.py:317 Pymodbus: modbusTest: Modbus Error: test connect exception
-        "--deselect tests/components/modbus/test_init.py::test_pymodbus_connect_fail"
-      ];
-    modem_callerid =
-      [
-        # aioserial mock produces wrong state
-        "--deselect tests/components/modem_callerid/test_init.py::test_setup_entry"
-      ];
-    unifiprotect =
-      [
-        # "TypeError: object Mock can't be used in 'await' expression
-        "--deselect tests/components/unifiprotect/test_repairs.py::test_ea_warning_fix"
-      ];
+    dnsip = [
+      # Tries to resolve DNS entries
+      "--deselect tests/components/dnsip/test_config_flow.py::test_options_flow"
+    ];
+    history_stats = [
+      # Flaky: AssertionError: assert '0.0' == '12.0'
+      "--deselect tests/components/history_stats/test_sensor.py::test_end_time_with_microseconds_zeroed"
+    ];
+    modbus = [
+      # homeassistant.components.modbus.modbus:modbus.py:317 Pymodbus: modbusTest: Modbus Error: test connect exception
+      "--deselect tests/components/modbus/test_init.py::test_pymodbus_connect_fail"
+    ];
+    modem_callerid = [
+      # aioserial mock produces wrong state
+      "--deselect tests/components/modem_callerid/test_init.py::test_setup_entry"
+    ];
+    unifiprotect = [
+      # "TypeError: object Mock can't be used in 'await' expression
+      "--deselect tests/components/unifiprotect/test_repairs.py::test_ea_warning_fix"
+    ];
   };
 in
 lib.listToAttrs (

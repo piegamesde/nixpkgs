@@ -18,15 +18,14 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-lUX9T31cYZEi+0DgF52EDSL9yiSHa8ToMxhpQFKHOGk=";
   };
 
-  patches =
-    [
-      # Add the --disable-general-dynamic-tls configure option:
-      # https://bugzilla.redhat.com/show_bug.cgi?id=1483558
-      (fetchpatch {
-        url = "https://src.fedoraproject.org/rpms/gperftools/raw/f62d87a34f56f64fb8eb86727e34fbc2d3f5294a/f/gperftools-2.7.90-disable-generic-dynamic-tls.patch";
-        sha256 = "02falhpaqkl27hl1dib4yvmhwsddmgbw0krb46w31fyf3awb2ydv";
-      })
-    ];
+  patches = [
+    # Add the --disable-general-dynamic-tls configure option:
+    # https://bugzilla.redhat.com/show_bug.cgi?id=1483558
+    (fetchpatch {
+      url = "https://src.fedoraproject.org/rpms/gperftools/raw/f62d87a34f56f64fb8eb86727e34fbc2d3f5294a/f/gperftools-2.7.90-disable-generic-dynamic-tls.patch";
+      sha256 = "02falhpaqkl27hl1dib4yvmhwsddmgbw0krb46w31fyf3awb2ydv";
+    })
+  ];
 
   nativeBuildInputs = [ autoreconfHook ];
 

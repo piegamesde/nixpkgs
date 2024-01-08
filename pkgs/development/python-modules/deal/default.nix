@@ -80,11 +80,10 @@ buildPythonPackage rec {
     "test_exception_hook"
   ];
 
-  disabledTestPaths =
-    [
-      # needs internet access
-      "tests/test_runtime/test_offline.py"
-    ];
+  disabledTestPaths = [
+    # needs internet access
+    "tests/test_runtime/test_offline.py"
+  ];
 
   pythonImportsCheck = [ "deal" ];
 

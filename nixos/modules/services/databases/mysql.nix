@@ -387,12 +387,11 @@ in
 
       unitConfig.RequiresMountsFor = cfg.dataDir;
 
-      path =
-        [
-          # Needed for the mysql_install_db command in the preStart script
-          # which calls the hostname command.
-          pkgs.nettools
-        ];
+      path = [
+        # Needed for the mysql_install_db command in the preStart script
+        # which calls the hostname command.
+        pkgs.nettools
+      ];
 
       preStart =
         if isMariaDB then

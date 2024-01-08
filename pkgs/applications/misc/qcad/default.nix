@@ -29,11 +29,10 @@ mkDerivation rec {
     sha256 = "sha256-NizAUyj6YbfjxXDQkVaqzkp11WMJlt4FMr72i3Cn564=";
   };
 
-  patches =
-    [
-      # Patch directory lookup, remove __DATE__ and executable name
-      ./application-dir.patch
-    ];
+  patches = [
+    # Patch directory lookup, remove __DATE__ and executable name
+    ./application-dir.patch
+  ];
 
   postPatch = ''
     if ! [ -d src/3rdparty/qt-labs-qtscriptgenerator-${qtbase.version} ]; then

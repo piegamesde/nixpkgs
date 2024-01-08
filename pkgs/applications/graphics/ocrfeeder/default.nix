@@ -53,12 +53,11 @@ stdenv.mkDerivation rec {
       ]
     ))
   ];
-  patches =
-    [
-      # Compiles, but doesn't launch without this, see:
-      # https://gitlab.gnome.org/GNOME/ocrfeeder/-/issues/83
-      ./fix-launch.diff
-    ];
+  patches = [
+    # Compiles, but doesn't launch without this, see:
+    # https://gitlab.gnome.org/GNOME/ocrfeeder/-/issues/83
+    ./fix-launch.diff
+  ];
 
   enginesPath = lib.makeBinPath ([ tesseract4 ] ++ extraOcrEngines);
 

@@ -100,16 +100,15 @@ mkDerivation rec {
     rev = "v" + version;
     sha256 = "1g2khdsjmsi4zzynkq8chd11cbdhjzmi37r9jhpal0b730nq9x7l";
   };
-  patches =
-    [
-      # already merged into master, so it can go during the next release
-      (fetchpatch {
-        url = "https://patch-diff.githubusercontent.com/raw/dfaust/soundkonverter/pull/87.patch";
-        sha256 = "sha256-XIpD4ZMTZVcu+F27OtpRy51H+uQgpd5l22IZ6XsD64w=";
-        name = "soundkonverter_taglib.patch";
-        stripLen = 1;
-      })
-    ];
+  patches = [
+    # already merged into master, so it can go during the next release
+    (fetchpatch {
+      url = "https://patch-diff.githubusercontent.com/raw/dfaust/soundkonverter/pull/87.patch";
+      sha256 = "sha256-XIpD4ZMTZVcu+F27OtpRy51H+uQgpd5l22IZ6XsD64w=";
+      name = "soundkonverter_taglib.patch";
+      stripLen = 1;
+    })
+  ];
 
   nativeBuildInputs = [
     cmake

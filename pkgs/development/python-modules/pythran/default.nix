@@ -29,16 +29,15 @@ buildPythonPackage rec {
     hash = "sha256-F9gUZOTSuiqvfGoN4yQqwUg9mnCeBntw5eHO7ZnjpzI=";
   };
 
-  patches =
-    [
-      # Hardcode path to mp library
-      (substituteAll {
-        src = ./0001-hardcode-path-to-libgomp.patch;
-        gomp = "${
-          if stdenv.cc.isClang then openmp else stdenv.cc.cc.lib
-        }/lib/libgomp${stdenv.hostPlatform.extensions.sharedLibrary}";
-      })
-    ];
+  patches = [
+    # Hardcode path to mp library
+    (substituteAll {
+      src = ./0001-hardcode-path-to-libgomp.patch;
+      gomp = "${
+        if stdenv.cc.isClang then openmp else stdenv.cc.cc.lib
+      }/lib/libgomp${stdenv.hostPlatform.extensions.sharedLibrary}";
+    })
+  ];
 
   propagatedBuildInputs = [
     ply

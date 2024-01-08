@@ -37,15 +37,14 @@ stdenv.mkDerivation rec {
     hash = "sha256-K4EBZC3zuLKF9Qw4i24f0hYKlOgRM7MR4Ck2ZoTYi6I=";
   };
 
-  patches =
-    [
-      # Plugins directory is normally fixed during compile time. This patch makes
-      # it possible to set the plugins directory run time with an environment
-      # variable MEDIASTREAMER_PLUGINS_DIR. This makes it possible to construct a
-      # plugin directory with desired plugins and wrap executables so that the
-      # environment variable points to that directory.
-      ./plugins_dir.patch
-    ];
+  patches = [
+    # Plugins directory is normally fixed during compile time. This patch makes
+    # it possible to set the plugins directory run time with an environment
+    # variable MEDIASTREAMER_PLUGINS_DIR. This makes it possible to construct a
+    # plugin directory with desired plugins and wrap executables so that the
+    # environment variable points to that directory.
+    ./plugins_dir.patch
+  ];
 
   nativeBuildInputs = [
     cmake

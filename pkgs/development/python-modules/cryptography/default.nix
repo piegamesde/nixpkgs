@@ -90,13 +90,11 @@ buildPythonPackage rec {
 
   pytestFlagsArray = [ "--disable-pytest-warnings" ];
 
-  disabledTestPaths =
-    lib.optionals (stdenv.isDarwin && stdenv.isAarch64)
-      [
-        # aarch64-darwin forbids W+X memory, but this tests depends on it:
-        # * https://cffi.readthedocs.io/en/latest/using.html#callbacks
-        "tests/hazmat/backends/test_openssl_memleak.py"
-      ];
+  disabledTestPaths = lib.optionals (stdenv.isDarwin && stdenv.isAarch64) [
+    # aarch64-darwin forbids W+X memory, but this tests depends on it:
+    # * https://cffi.readthedocs.io/en/latest/using.html#callbacks
+    "tests/hazmat/backends/test_openssl_memleak.py"
+  ];
 
   meta = with lib; {
     description = "A package which provides cryptographic recipes and primitives";

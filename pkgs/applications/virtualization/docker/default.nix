@@ -172,16 +172,15 @@ rec {
             ]
           );
 
-          patches =
-            [
-              # This patch incorporates code from a PR fixing using buildkit with the ZFS graph driver.
-              # It could be removed when a version incorporating this patch is released.
-              (fetchpatch {
-                name = "buildkit-zfs.patch";
-                url = "https://github.com/moby/moby/pull/43136.patch";
-                hash = "sha256-1WZfpVnnqFwLMYqaHLploOodls0gHF8OCp7MrM26iX8=";
-              })
-            ];
+          patches = [
+            # This patch incorporates code from a PR fixing using buildkit with the ZFS graph driver.
+            # It could be removed when a version incorporating this patch is released.
+            (fetchpatch {
+              name = "buildkit-zfs.patch";
+              url = "https://github.com/moby/moby/pull/43136.patch";
+              hash = "sha256-1WZfpVnnqFwLMYqaHLploOodls0gHF8OCp7MrM26iX8=";
+            })
+          ];
 
           postPatch = ''
             patchShebangs hack/make.sh hack/make/

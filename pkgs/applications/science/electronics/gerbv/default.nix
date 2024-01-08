@@ -22,16 +22,15 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-xe6AjEIwzmvjrRCrY8VHCYOG1DAicE3iXduTeOYgU7Q=";
   };
 
-  patches =
-    [
-      # Pull patch pending upstream inclusion for -fno-common toolchains:
-      #  https://sourceforge.net/p/gerbv/patches/84/
-      (fetchpatch {
-        name = "fnoc-mmon.patch";
-        url = "https://sourceforge.net/p/gerbv/patches/84/attachment/0001-gerbv-fix-build-on-gcc-10-fno-common.patch";
-        sha256 = "1avfbkqhxl7wxn1z19y30ilkwvdgpdkzhzawrs5y3damxmqq8ggk";
-      })
-    ];
+  patches = [
+    # Pull patch pending upstream inclusion for -fno-common toolchains:
+    #  https://sourceforge.net/p/gerbv/patches/84/
+    (fetchpatch {
+      name = "fnoc-mmon.patch";
+      url = "https://sourceforge.net/p/gerbv/patches/84/attachment/0001-gerbv-fix-build-on-gcc-10-fno-common.patch";
+      sha256 = "1avfbkqhxl7wxn1z19y30ilkwvdgpdkzhzawrs5y3damxmqq8ggk";
+    })
+  ];
 
   nativeBuildInputs = [
     autoreconfHook

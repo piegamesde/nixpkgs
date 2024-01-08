@@ -48,11 +48,10 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  pytestFlagsArray =
-    [
-      # only unit tests as integration tests need a OpenSSH client/server setup
-      "tests/unit"
-    ];
+  pytestFlagsArray = [
+    # only unit tests as integration tests need a OpenSSH client/server setup
+    "tests/unit"
+  ];
 
   meta = with lib; {
     homepage = "https://bundlewrap.org/";

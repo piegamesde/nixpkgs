@@ -39,11 +39,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-NeOX18CvlbtDvHvvf/8pQlwdpAD6DNhq6NO9L/L52Zk=";
   };
 
-  patches =
-    [
-      # Use a plain name for the pkg-config file
-      ./pkg-config.patch
-    ];
+  patches = [
+    # Use a plain name for the pkg-config file
+    ./pkg-config.patch
+  ];
 
   postPatch = ''
     patchShebangs ./fdep/fortran_dependencies.pl

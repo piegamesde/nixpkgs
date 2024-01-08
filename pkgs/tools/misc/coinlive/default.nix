@@ -25,11 +25,10 @@ rustPlatform.buildRustPackage rec {
 
   buildInputs = [ openssl ] ++ lib.optionals stdenv.isDarwin [ Security ];
 
-  checkFlags =
-    [
-      # requires network access
-      "--skip=utils::test_get_infos"
-    ];
+  checkFlags = [
+    # requires network access
+    "--skip=utils::test_get_infos"
+  ];
 
   meta = with lib; {
     description = "Live cryptocurrency prices CLI";

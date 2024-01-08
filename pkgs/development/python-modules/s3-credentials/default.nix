@@ -41,11 +41,10 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "s3_credentials" ];
 
-  disabledTests =
-    [
-      # AssertionError: assert 'directory/th...ory/...
-      "test_put_objects"
-    ];
+  disabledTests = [
+    # AssertionError: assert 'directory/th...ory/...
+    "test_put_objects"
+  ];
 
   meta = with lib; {
     description = "Python CLI utility for creating credentials for accessing S3 buckets";

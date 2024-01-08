@@ -32,15 +32,14 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-LmYplJr1Mg4yNg9eP02FXf9mL1FnzNBhpted3GpmlQ0=";
   };
 
-  patches =
-    [
-      # remove when updating past 2.0.1
-      (fetchpatch {
-        name = "fix-install-directories";
-        url = "https://github.com/k4zmu2a/SpaceCadetPinball/commit/d8ee1b9bfeee21d3981a40e735411393392bc1f6.patch";
-        sha256 = "sha256-BtCDJ+a9AFaOM8nyId0eU9GN/gUQT2kFCO4RIVTzZlE=";
-      })
-    ];
+  patches = [
+    # remove when updating past 2.0.1
+    (fetchpatch {
+      name = "fix-install-directories";
+      url = "https://github.com/k4zmu2a/SpaceCadetPinball/commit/d8ee1b9bfeee21d3981a40e735411393392bc1f6.patch";
+      sha256 = "sha256-BtCDJ+a9AFaOM8nyId0eU9GN/gUQT2kFCO4RIVTzZlE=";
+    })
+  ];
 
   nativeBuildInputs = [
     cmake

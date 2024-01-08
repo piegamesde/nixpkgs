@@ -107,11 +107,10 @@ stdenv.mkDerivation {
     })
   ];
 
-  cmakeFlags =
-    [
-      # Building as a shared library isn't officially supported and may break at any time.
-      "-DBUILD_SHARED_LIBS=OFF"
-    ];
+  cmakeFlags = [
+    # Building as a shared library isn't officially supported and may break at any time.
+    "-DBUILD_SHARED_LIBS=OFF"
+  ];
 
   propagatedBuildInputs = [
     # Required for linking downstream binaries.

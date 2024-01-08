@@ -17,11 +17,10 @@ stdenv.mkDerivation rec {
     sha256 = "06cwhimm71safmwvp6nhxp6hvxsg62whnbgbgiflsqb8mgg40n7n";
   };
 
-  patches =
-    [
-      # From https://patchwork.openembedded.org/patch/180019/
-      ./glibc-2.34-fix.patch
-    ];
+  patches = [
+    # From https://patchwork.openembedded.org/patch/180019/
+    ./glibc-2.34-fix.patch
+  ];
 
   configureFlags = [
     "--sysconfdir=/etc"

@@ -27,19 +27,18 @@ buildPythonPackage rec {
     sha256 = "40708492ed0a41e900d36933b9b9ab7b575c72ebf3eee81293c626e301aa7ea1";
   };
 
-  patches =
-    [
-      # enable later pandas versions, remove next bump
-      (fetchpatch {
-        url = "https://github.com/pvlib/pvlib-python/commit/010a2adc9e9ef6fe9f2aea4c02d7e6ede9f96a53.patch";
-        sha256 = "0jibn4khixz6hv6racmp86m5mcms0ysz1y5bgpplw1kcvf8sn04x";
-        excludes = [
-          "pvlib/tests/test_inverter.py"
-          "docs/sphinx/source/whatsnew/v0.8.0.rst"
-          "ci/requirements-py35-min.yml"
-        ];
-      })
-    ];
+  patches = [
+    # enable later pandas versions, remove next bump
+    (fetchpatch {
+      url = "https://github.com/pvlib/pvlib-python/commit/010a2adc9e9ef6fe9f2aea4c02d7e6ede9f96a53.patch";
+      sha256 = "0jibn4khixz6hv6racmp86m5mcms0ysz1y5bgpplw1kcvf8sn04x";
+      excludes = [
+        "pvlib/tests/test_inverter.py"
+        "docs/sphinx/source/whatsnew/v0.8.0.rst"
+        "ci/requirements-py35-min.yml"
+      ];
+    })
+  ];
 
   nativeCheckInputs = [
     pytestCheckHook

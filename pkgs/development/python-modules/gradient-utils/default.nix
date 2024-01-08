@@ -53,11 +53,10 @@ buildPythonPackage rec {
     export HOSTNAME=myhost-experimentId
   '';
 
-  disabledTestPaths =
-    [
-      # Requires a working Prometheus push gateway
-      "tests/integration/test_metrics.py"
-    ];
+  disabledTestPaths = [
+    # Requires a working Prometheus push gateway
+    "tests/integration/test_metrics.py"
+  ];
 
   pythonImportsCheck = [ "gradient_utils" ];
 

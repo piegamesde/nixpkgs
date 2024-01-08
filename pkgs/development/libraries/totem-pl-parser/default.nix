@@ -22,14 +22,13 @@ stdenv.mkDerivation rec {
     sha256 = "wN8PaNXPnX2kPIHH8T8RFYNYNo+Ywi1Hci870EvTrBw=";
   };
 
-  patches =
-    [
-      # Upstream MR: https://gitlab.gnome.org/GNOME/totem-pl-parser/-/merge_requests/46
-      (fetchpatch {
-        url = "https://gitlab.gnome.org/GNOME/totem-pl-parser/-/commit/f4f69c9b99095416aaed18a73f7486ad9eb04aa9.patch";
-        sha256 = "sha256-Uya5fgFgauv5rIpVK3CDGCieyMus7VjcLMMe/vQ2WWY=";
-      })
-    ];
+  patches = [
+    # Upstream MR: https://gitlab.gnome.org/GNOME/totem-pl-parser/-/merge_requests/46
+    (fetchpatch {
+      url = "https://gitlab.gnome.org/GNOME/totem-pl-parser/-/commit/f4f69c9b99095416aaed18a73f7486ad9eb04aa9.patch";
+      sha256 = "sha256-Uya5fgFgauv5rIpVK3CDGCieyMus7VjcLMMe/vQ2WWY=";
+    })
+  ];
 
   passthru = {
     updateScript = gnome.updateScript {

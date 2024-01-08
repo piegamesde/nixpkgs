@@ -35,12 +35,10 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  disabledTests =
-    [
-      # No running SSH available
-      "test_connect_error"
-    ]
-    ++ lib.optionals stdenv.isDarwin [ "test_feed_xml_error" ];
+  disabledTests = [
+    # No running SSH available
+    "test_connect_error"
+  ] ++ lib.optionals stdenv.isDarwin [ "test_feed_xml_error" ];
 
   pythonImportsCheck = [ "gvm" ];
 

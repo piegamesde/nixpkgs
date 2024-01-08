@@ -94,11 +94,10 @@ stdenv.mkDerivation rec {
     discord-rpc
   ];
 
-  cmakeFlags =
-    [
-      # RPATH of binary /nix/store/.../bin/... contains a forbidden reference to /build/
-      "-DCMAKE_SKIP_BUILD_RPATH=ON"
-    ];
+  cmakeFlags = [
+    # RPATH of binary /nix/store/.../bin/... contains a forbidden reference to /build/
+    "-DCMAKE_SKIP_BUILD_RPATH=ON"
+  ];
 
   WITH_FONTS = "NO";
   WITH_UPDATER = "NO";

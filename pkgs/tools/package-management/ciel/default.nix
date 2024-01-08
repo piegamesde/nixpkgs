@@ -51,16 +51,15 @@ rustPlatform.buildRustPackage rec {
     zlib
   ];
 
-  patches =
-    [
-      # cli,completions: use canonicalize path to find libexec location
-      # FIXME: remove this patch after https://github.com/AOSC-Dev/ciel-rs/pull/16 is merged
-      (fetchpatch {
-        name = "use-canonicalize-path-to-find-libexec.patch";
-        url = "https://github.com/AOSC-Dev/ciel-rs/pull/16.patch";
-        sha256 = "sha256-ELK2KpOuoBS774apomUIo8q1eXYs/FX895G7eBdgOQg=";
-      })
-    ];
+  patches = [
+    # cli,completions: use canonicalize path to find libexec location
+    # FIXME: remove this patch after https://github.com/AOSC-Dev/ciel-rs/pull/16 is merged
+    (fetchpatch {
+      name = "use-canonicalize-path-to-find-libexec.patch";
+      url = "https://github.com/AOSC-Dev/ciel-rs/pull/16.patch";
+      sha256 = "sha256-ELK2KpOuoBS774apomUIo8q1eXYs/FX895G7eBdgOQg=";
+    })
+  ];
 
   postInstall = ''
     mv -v "$out/bin/ciel-rs" "$out/bin/ciel"

@@ -26,15 +26,14 @@ buildPythonPackage rec {
     hash = "sha256-fsLo22PR9WdX2FazPgr8B8dFq6EM1LLTpRFGEm/ymCE=";
   };
 
-  patches =
-    [
-      # Switch to poetry-core, https://github.com/HENNGE/arsenic/pull/160
-      (fetchpatch {
-        name = "switch-to-poetry-core.patch";
-        url = "https://github.com/HENNGE/arsenic/commit/ca82894a5f1e832ab9283a245258b334bdd48855.patch";
-        hash = "sha256-ECCUaJF4MRmFOKH1C6HowJ+zmbEPPiS7h9DlKw5otZc=";
-      })
-    ];
+  patches = [
+    # Switch to poetry-core, https://github.com/HENNGE/arsenic/pull/160
+    (fetchpatch {
+      name = "switch-to-poetry-core.patch";
+      url = "https://github.com/HENNGE/arsenic/commit/ca82894a5f1e832ab9283a245258b334bdd48855.patch";
+      hash = "sha256-ECCUaJF4MRmFOKH1C6HowJ+zmbEPPiS7h9DlKw5otZc=";
+    })
+  ];
 
   pythonRelaxDeps = [ "structlog" ];
 

@@ -195,12 +195,10 @@ stdenv.mkDerivation rec {
     ++ optionals (stdenv.hostPlatform != stdenv.buildPlatform) [
       "--bundled-libraries=!asn1_compile,!compile_et"
     ]
-    ++
-      optionals stdenv.isAarch32
-        [
-          # https://bugs.gentoo.org/683148
-          "--jobs 1"
-        ];
+    ++ optionals stdenv.isAarch32 [
+      # https://bugs.gentoo.org/683148
+      "--jobs 1"
+    ];
 
   # python-config from build Python gives incorrect values when cross-compiling.
   # If python-config is not found, the build falls back to using the sysconfig

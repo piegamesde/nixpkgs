@@ -32,11 +32,10 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  disabledTests =
-    [
-      # https://github.com/sqlobject/sqlobject/issues/179
-      "test_fail"
-    ];
+  disabledTests = [
+    # https://github.com/sqlobject/sqlobject/issues/179
+    "test_fail"
+  ];
 
   pythonImportsCheck = [ "sqlobject" ];
 

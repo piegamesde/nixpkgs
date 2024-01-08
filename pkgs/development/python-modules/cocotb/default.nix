@@ -48,11 +48,10 @@ buildPythonPackage rec {
       substituteInPlace cocotb_build_libs.py --replace "-flto" ""
     '';
 
-  patches =
-    [
-      # Fix "can't link with bundle (MH_BUNDLE) only dylibs (MH_DYLIB) file" error
-      ./0001-Patch-LDCXXSHARED-for-macOS-along-with-LDSHARED.patch
-    ];
+  patches = [
+    # Fix "can't link with bundle (MH_BUNDLE) only dylibs (MH_DYLIB) file" error
+    ./0001-Patch-LDCXXSHARED-for-macOS-along-with-LDSHARED.patch
+  ];
 
   nativeCheckInputs = [
     cocotb-bus

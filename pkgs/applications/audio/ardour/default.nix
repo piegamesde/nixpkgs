@@ -76,11 +76,10 @@ stdenv.mkDerivation rec {
     stripRoot = false;
   };
 
-  patches =
-    [
-      # AS=as in the environment causes build failure https://tracker.ardour.org/view.php?id=8096
-      ./as-flags.patch
-    ];
+  patches = [
+    # AS=as in the environment causes build failure https://tracker.ardour.org/view.php?id=8096
+    ./as-flags.patch
+  ];
 
   # Ardour's wscript requires git revision and date to be available.
   # Since they are not, let's generate the file manually.

@@ -165,12 +165,10 @@ stdenv.mkDerivation rec {
       "${setTarget}.musl-root=${pkgsBuildTarget.targetPackages.stdenv.cc.libc}"
     ]
     ++ optionals (rust.IsNoStdTarget stdenv.targetPlatform) [ "--disable-docs" ]
-    ++
-      optionals (stdenv.isDarwin && stdenv.isx86_64)
-        [
-          # https://github.com/rust-lang/rust/issues/92173
-          "--set rust.jemalloc"
-        ];
+    ++ optionals (stdenv.isDarwin && stdenv.isx86_64) [
+      # https://github.com/rust-lang/rust/issues/92173
+      "--set rust.jemalloc"
+    ];
 
   # The bootstrap.py will generated a Makefile that then executes the build.
   # The BOOTSTRAP_ARGS used by this Makefile must include all flags to pass

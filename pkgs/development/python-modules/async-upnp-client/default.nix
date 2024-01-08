@@ -60,11 +60,10 @@ buildPythonPackage rec {
     "test_unsubscribe"
   ] ++ lib.optionals stdenv.isDarwin [ "test_deferred_callback_url" ];
 
-  disabledTestPaths =
-    [
-      # Tries to bind to multicast socket and fails to find proper interface
-      "tests/test_ssdp_listener.py"
-    ];
+  disabledTestPaths = [
+    # Tries to bind to multicast socket and fails to find proper interface
+    "tests/test_ssdp_listener.py"
+  ];
 
   pythonImportsCheck = [ "async_upnp_client" ];
 

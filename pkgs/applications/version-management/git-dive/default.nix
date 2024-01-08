@@ -38,11 +38,10 @@ rustPlatform.buildRustPackage rec {
   # don't use vendored libgit2
   buildNoDefaultFeatures = true;
 
-  checkFlags =
-    [
-      # requires internet access
-      "--skip=screenshot"
-    ];
+  checkFlags = [
+    # requires internet access
+    "--skip=screenshot"
+  ];
 
   preCheck = ''
     export HOME=$(mktemp -d)

@@ -53,11 +53,10 @@ buildPythonPackage rec {
     rich
   ];
 
-  disabledTests =
-    [
-      # requires credentials
-      "test_write_log_entries"
-    ];
+  disabledTests = [
+    # requires credentials
+    "test_write_log_entries"
+  ];
 
   preCheck = ''
     # prevent google directory from shadowing google imports

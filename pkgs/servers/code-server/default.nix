@@ -153,11 +153,10 @@ stdenv.mkDerivation rec {
       xcbuild
     ];
 
-  patches =
-    [
-      # remove git calls from vscode build script
-      ./build-vscode-nogit.patch
-    ];
+  patches = [
+    # remove git calls from vscode build script
+    ./build-vscode-nogit.patch
+  ];
 
   postPatch = ''
     export HOME=$PWD

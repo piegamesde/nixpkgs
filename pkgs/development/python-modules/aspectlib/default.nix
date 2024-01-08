@@ -24,15 +24,14 @@ buildPythonPackage rec {
     hash = "sha256-pLRhudoLUxrry5PvzePegIpyxgIm3Y2QLEZ9E/r3zpI=";
   };
 
-  patches =
-    [
-      # https://github.com/ionelmc/python-aspectlib/pull/25
-      (fetchpatch {
-        name = "darwin-compat.patch";
-        url = "https://github.com/ionelmc/python-aspectlib/commit/ef2c12304f08723dc8e79d1c59bc32c946d758dc.patch";
-        hash = "sha256-gtPFtwDsGIMkHTyuoiLk+SAGgB2Wyx/Si9HIdoIsvI8=";
-      })
-    ];
+  patches = [
+    # https://github.com/ionelmc/python-aspectlib/pull/25
+    (fetchpatch {
+      name = "darwin-compat.patch";
+      url = "https://github.com/ionelmc/python-aspectlib/commit/ef2c12304f08723dc8e79d1c59bc32c946d758dc.patch";
+      hash = "sha256-gtPFtwDsGIMkHTyuoiLk+SAGgB2Wyx/Si9HIdoIsvI8=";
+    })
+  ];
 
   nativeBuildInputs = [ setuptools ];
 

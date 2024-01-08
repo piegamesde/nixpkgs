@@ -47,12 +47,10 @@ let
           sha256 = "sha256-WDJMMIWZHNqxxAKeHiZDxtPjfsfQAWsbYv+0o0PiJQs=";
         };
 
-        patches =
-          lib.optionals deleteHDCPBlobBeforeBuild
-            [
-              # this is a rebased version of https://gitlab.com/vicencb/kevinboot/-/blob/master/atf.patch
-              ./remove-hdcp-blob.patch
-            ];
+        patches = lib.optionals deleteHDCPBlobBeforeBuild [
+          # this is a rebased version of https://gitlab.com/vicencb/kevinboot/-/blob/master/atf.patch
+          ./remove-hdcp-blob.patch
+        ];
 
         postPatch = lib.optionalString deleteHDCPBlobBeforeBuild ''
           rm plat/rockchip/rk3399/drivers/dp/hdcp.bin

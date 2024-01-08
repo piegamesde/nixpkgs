@@ -96,11 +96,10 @@ buildPythonPackage rec {
       "mypyc"
       "mypyc.analysis"
     ]
-    ++ lib.optionals (!stdenv.hostPlatform.isi686)
-      [
-        # ImportError: cannot import name 'map_instance_to_supertype' from partially initialized module 'mypy.maptype' (most likely due to a circular import)
-        "mypy.report"
-      ];
+    ++ lib.optionals (!stdenv.hostPlatform.isi686) [
+      # ImportError: cannot import name 'map_instance_to_supertype' from partially initialized module 'mypy.maptype' (most likely due to a circular import)
+      "mypy.report"
+    ];
 
   checkInputs = [
     attrs

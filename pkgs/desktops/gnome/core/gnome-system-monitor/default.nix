@@ -31,11 +31,10 @@ stdenv.mkDerivation rec {
     sha256 = "wrq37dupKCfEyN5EKT5+PITJ5QdvMZhYh/+Jac7EXm4=";
   };
 
-  patches =
-    [
-      # Fix pkexec detection on NixOS.
-      ./fix-paths.patch
-    ];
+  patches = [
+    # Fix pkexec detection on NixOS.
+    ./fix-paths.patch
+  ];
 
   nativeBuildInputs = [
     pkg-config

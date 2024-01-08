@@ -42,11 +42,10 @@ buildPythonPackage rec {
     pytest-asyncio
   ] ++ passthru.optional-dependencies.pandas;
 
-  disabledTests =
-    [
-      # requires credentials
-      "test_list_monitored_resource_descriptors"
-    ];
+  disabledTests = [
+    # requires credentials
+    "test_list_monitored_resource_descriptors"
+  ];
 
   pythonImportsCheck = [
     "google.cloud.monitoring"

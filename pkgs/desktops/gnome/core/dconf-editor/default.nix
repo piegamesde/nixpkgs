@@ -30,12 +30,11 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-k1o8Lddswqk81a7ppU05R/sRHrOW9LY9xfC6j40JkTY=";
   };
 
-  patches =
-    [
-      # Look for compiled schemas in NIX_GSETTINGS_OVERRIDES_DIR
-      # environment variable, to match what we patched GLib to do.
-      ./schema-override-variable.patch
-    ];
+  patches = [
+    # Look for compiled schemas in NIX_GSETTINGS_OVERRIDES_DIR
+    # environment variable, to match what we patched GLib to do.
+    ./schema-override-variable.patch
+  ];
 
   nativeBuildInputs = [
     meson

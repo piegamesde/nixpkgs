@@ -26,12 +26,10 @@ buildPythonPackage rec {
 
   pytestFlagsArray = [ "tests/testextensions.py" ];
 
-  disabledTests =
-    lib.optionals (pythonAtLeast "3.11")
-      [
-        # https://github.com/python/mypy_extensions/issues/24
-        "test_typeddict_errors"
-      ];
+  disabledTests = lib.optionals (pythonAtLeast "3.11") [
+    # https://github.com/python/mypy_extensions/issues/24
+    "test_typeddict_errors"
+  ];
 
   pythonImportsCheck = [ "mypy_extensions" ];
 

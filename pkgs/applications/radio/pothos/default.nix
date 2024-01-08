@@ -31,11 +31,10 @@ mkDerivation rec {
     fetchSubmodules = true;
   };
 
-  patches =
-    [
-      # spuce's CMakeLists.txt uses QT5_USE_Modules, which does not seem to work on Nix
-      ./spuce.patch
-    ];
+  patches = [
+    # spuce's CMakeLists.txt uses QT5_USE_Modules, which does not seem to work on Nix
+    ./spuce.patch
+  ];
 
   nativeBuildInputs = [
     cmake

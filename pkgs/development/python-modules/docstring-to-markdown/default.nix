@@ -20,11 +20,10 @@ buildPythonPackage rec {
     hash = "sha256-c0gk1s/+25+pWUpi8geDQZ0f9JBeuvvFQ9MFskRnY6U=";
   };
 
-  patches =
-    [
-      # So pytest-flake8 and pytest-cov won't be needed
-      ./remove-coverage-tests.patch
-    ];
+  patches = [
+    # So pytest-flake8 and pytest-cov won't be needed
+    ./remove-coverage-tests.patch
+  ];
 
   nativeCheckInputs = [ pytestCheckHook ];
 

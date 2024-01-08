@@ -23,14 +23,13 @@ stdenv.mkDerivation rec {
     hash = "sha256-9MJnify4zcDBSZVJZCN/XupN5xax+U4PLee54gVVw3Q=";
   };
 
-  patches =
-    [
-      # Fix CMake relative install dir assumptions (https://github.com/ros/urdfdom/pull/142)
-      (fetchpatch {
-        url = "https://github.com/ros/urdfdom/commit/cbe6884d267779463bb444be851f6404e692cc0a.patch";
-        hash = "sha256-1gTRKIGqiSRion76bGecSfFJSBskYUJguUIa6ePIiX4=";
-      })
-    ];
+  patches = [
+    # Fix CMake relative install dir assumptions (https://github.com/ros/urdfdom/pull/142)
+    (fetchpatch {
+      url = "https://github.com/ros/urdfdom/commit/cbe6884d267779463bb444be851f6404e692cc0a.patch";
+      hash = "sha256-1gTRKIGqiSRion76bGecSfFJSBskYUJguUIa6ePIiX4=";
+    })
+  ];
 
   nativeBuildInputs = [
     cmake

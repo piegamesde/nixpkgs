@@ -32,11 +32,10 @@ import ./make-test-python.nix (
           package =
             (pkgs.home-assistant.override {
               extraPackages = ps: with ps; [ colorama ];
-              extraComponents =
-                [
-                  # test char-tty device allow propagation into the service
-                  "zha"
-                ];
+              extraComponents = [
+                # test char-tty device allow propagation into the service
+                "zha"
+              ];
             });
 
           # provide component dependencies explicitly from the module

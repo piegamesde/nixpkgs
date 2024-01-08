@@ -45,11 +45,10 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-cTZua1AbLMjkMhlUk2aMttj6HdwpJYnRYPuvukSxfwc=";
   };
 
-  patches =
-    [
-      # https://github.com/neomutt/neomutt/issues/3773#issuecomment-1493295144
-      ./fix-open-very-large-mailbox.patch
-    ];
+  patches = [
+    # https://github.com/neomutt/neomutt/issues/3773#issuecomment-1493295144
+    ./fix-open-very-large-mailbox.patch
+  ];
 
   buildInputs = [
     cyrus_sasl

@@ -62,12 +62,11 @@ buildPythonPackage rec {
     trio
   ] ++ passlib.optional-dependencies.bcrypt ++ pydantic.optional-dependencies.email;
 
-  pytestFlagsArray =
-    [
-      # ignoring deprecation warnings to avoid test failure from
-      # tests/test_tutorial/test_testing/test_tutorial001.py
-      "-W ignore::DeprecationWarning"
-    ];
+  pytestFlagsArray = [
+    # ignoring deprecation warnings to avoid test failure from
+    # tests/test_tutorial/test_testing/test_tutorial001.py
+    "-W ignore::DeprecationWarning"
+  ];
 
   disabledTestPaths = [
     # Disabled tests require orjson which requires rust nightly

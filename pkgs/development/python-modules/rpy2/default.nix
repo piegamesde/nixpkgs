@@ -34,12 +34,11 @@ buildPythonPackage rec {
     hash = "sha256-+B8K+wHjxvUVwJVzvFhcDhx+OF7IFBXOCmImjGBex/w=";
   };
 
-  patches =
-    [
-      # R_LIBS_SITE is used by the nix r package to point to the installed R libraries.
-      # This patch sets R_LIBS_SITE when rpy2 is imported.
-      ./rpy2-3.x-r-libs-site.patch
-    ];
+  patches = [
+    # R_LIBS_SITE is used by the nix r package to point to the installed R libraries.
+    # This patch sets R_LIBS_SITE when rpy2 is imported.
+    ./rpy2-3.x-r-libs-site.patch
+  ];
 
   postPatch = ''
     substituteInPlace 'rpy2/rinterface_lib/embedded.py' --replace '@NIX_R_LIBS_SITE@' "$R_LIBS_SITE"

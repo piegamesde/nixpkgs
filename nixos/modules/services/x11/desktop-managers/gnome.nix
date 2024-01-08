@@ -573,13 +573,11 @@ in
         gnome-shell
       ];
 
-      services.udev.packages =
-        with pkgs.gnome;
-        [
-          # Force enable KMS modifiers for devices that require them.
-          # https://gitlab.gnome.org/GNOME/mutter/-/merge_requests/1443
-          mutter
-        ];
+      services.udev.packages = with pkgs.gnome; [
+        # Force enable KMS modifiers for devices that require them.
+        # https://gitlab.gnome.org/GNOME/mutter/-/merge_requests/1443
+        mutter
+      ];
 
       services.avahi.enable = mkDefault true;
 
@@ -665,13 +663,11 @@ in
               totem
               yelp
             ]
-            ++
-              lib.optionals config.services.flatpak.enable
-                [
-                  # Since PackageKit Nix support is not there yet,
-                  # only install gnome-software if flatpak is enabled.
-                  gnome-software
-                ]
+            ++ lib.optionals config.services.flatpak.enable [
+              # Since PackageKit Nix support is not there yet,
+              # only install gnome-software if flatpak is enabled.
+              gnome-software
+            ]
           )
           config.environment.gnome.excludePackages;
 

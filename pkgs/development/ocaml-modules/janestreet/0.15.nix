@@ -602,14 +602,13 @@ with self;
       ppx_assert
       stdio
     ];
-    patches =
-      [
-        # remove on next release
-        (fetchpatch {
-          url = "https://github.com/janestreet/jst-config/commit/e5fdac6e5df9ba93e014a4d2db841fdbf209446f.patch";
-          sha256 = "sha256-8hVC76z5ilYD/++xRHVswy/l+zzDt63jH4hfSJ/rPaA=";
-        })
-      ];
+    patches = [
+      # remove on next release
+      (fetchpatch {
+        url = "https://github.com/janestreet/jst-config/commit/e5fdac6e5df9ba93e014a4d2db841fdbf209446f.patch";
+        sha256 = "sha256-8hVC76z5ilYD/++xRHVswy/l+zzDt63jH4hfSJ/rPaA=";
+      })
+    ];
   };
 
   ocaml-compiler-libs = janePackage {

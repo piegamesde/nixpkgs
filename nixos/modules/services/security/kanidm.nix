@@ -323,11 +323,10 @@ in
             "-/etc/ssl"
             "-/etc/static/ssl"
           ];
-          BindPaths =
-            [
-              # To create the socket
-              "/run/kanidm-unixd:/var/run/kanidm-unixd"
-            ];
+          BindPaths = [
+            # To create the socket
+            "/run/kanidm-unixd:/var/run/kanidm-unixd"
+          ];
           # Needs to connect to kanidmd
           PrivateNetwork = lib.mkForce false;
           RestrictAddressFamilies = [

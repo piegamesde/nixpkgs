@@ -116,11 +116,10 @@ buildPythonPackage rec {
     "test_vgg19_cpu"
     "test_zfnet512_cpu"
   ];
-  disabledTestPaths =
-    [
-      # Unexpected output fields from running code: {'stderr'}
-      "onnx/examples/np_array_tensorproto.ipynb"
-    ];
+  disabledTestPaths = [
+    # Unexpected output fields from running code: {'stderr'}
+    "onnx/examples/np_array_tensorproto.ipynb"
+  ];
   postCheck = ''
     # run "cpp" tests
     .setuptools-cmake-build/onnx_gtests

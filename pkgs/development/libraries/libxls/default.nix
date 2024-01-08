@@ -18,14 +18,13 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-vjmYByk+IDBon8xGR1+oNaEQTiJK+IVpDXsG1IyVNoY=";
   };
 
-  patches =
-    [
-      # Fix cross-compilation
-      (fetchpatch {
-        url = "https://github.com/libxls/libxls/commit/007e63c1f5e19bc73292f267c85d7dd14e9ecb38.patch";
-        sha256 = "sha256-PjPHuXth4Yaq9nVfk5MYJMRo5B0R6YA1KEqgwfjF3PM=";
-      })
-    ];
+  patches = [
+    # Fix cross-compilation
+    (fetchpatch {
+      url = "https://github.com/libxls/libxls/commit/007e63c1f5e19bc73292f267c85d7dd14e9ecb38.patch";
+      sha256 = "sha256-PjPHuXth4Yaq9nVfk5MYJMRo5B0R6YA1KEqgwfjF3PM=";
+    })
+  ];
 
   nativeBuildInputs = [
     autoreconfHook

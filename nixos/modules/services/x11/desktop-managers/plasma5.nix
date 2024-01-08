@@ -383,11 +383,10 @@ in
       # Extra services for D-Bus activation
       services.dbus.packages = [ plasma5.kactivitymanagerd ];
 
-      environment.pathsToLink =
-        [
-          # FIXME: modules should link subdirs of `/share` rather than relying on this
-          "/share"
-        ];
+      environment.pathsToLink = [
+        # FIXME: modules should link subdirs of `/share` rather than relying on this
+        "/share"
+      ];
 
       environment.etc."X11/xkb".source = xcfg.xkbDir;
 

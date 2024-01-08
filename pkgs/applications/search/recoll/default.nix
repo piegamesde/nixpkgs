@@ -59,11 +59,10 @@ mkDerivation rec {
 
   env.NIX_CFLAGS_COMPILE = toString [ "-DNIXPKGS" ];
 
-  patches =
-    [
-      # fix "No/bad main configuration file" error
-      ./fix-datadir.patch
-    ];
+  patches = [
+    # fix "No/bad main configuration file" error
+    ./fix-datadir.patch
+  ];
 
   nativeBuildInputs = [
     file

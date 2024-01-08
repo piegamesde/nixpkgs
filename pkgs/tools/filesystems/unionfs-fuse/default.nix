@@ -17,14 +17,13 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-EJryML6E0CW4kvsqMRqV3cq77j50HuylNzgaHD6CL/o=";
   };
 
-  patches =
-    [
-      # Prevent the unionfs daemon from being killed during
-      # shutdown. See
-      # http://www.freedesktop.org/wiki/Software/systemd/RootStorageDaemons/
-      # for details.
-      ./prevent-kill-on-shutdown.patch
-    ];
+  patches = [
+    # Prevent the unionfs daemon from being killed during
+    # shutdown. See
+    # http://www.freedesktop.org/wiki/Software/systemd/RootStorageDaemons/
+    # for details.
+    ./prevent-kill-on-shutdown.patch
+  ];
 
   postPatch = lib.optionalString stdenv.isDarwin ''
     substituteInPlace CMakeLists.txt \

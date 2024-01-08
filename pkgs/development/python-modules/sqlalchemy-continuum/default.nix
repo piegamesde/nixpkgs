@@ -50,11 +50,10 @@ buildPythonPackage rec {
   # Indicate tests that we don't have a database server at hand
   DB = "sqlite";
 
-  disabledTestPaths =
-    [
-      # Test doesn't support latest SQLAlchemy
-      "tests/plugins/test_flask.py"
-    ];
+  disabledTestPaths = [
+    # Test doesn't support latest SQLAlchemy
+    "tests/plugins/test_flask.py"
+  ];
 
   pythonImportsCheck = [ "sqlalchemy_continuum" ];
 

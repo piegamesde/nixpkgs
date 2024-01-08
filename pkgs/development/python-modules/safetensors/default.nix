@@ -28,16 +28,15 @@ buildPythonPackage rec {
     hash = "sha256-Qpb5lTw1WEME9tWEGfxC8l8dK9mGMH2rz+O+xGCrUxw";
   };
 
-  patches =
-    [
-      # remove after next release
-      (fetchpatch {
-        name = "commit-cargo-lockfile";
-        relative = "bindings/python";
-        url = "https://github.com/huggingface/safetensors/commit/a7061b4235b59312010b2dd6f9597381428ee9a2.patch";
-        hash = "sha256-iH4vQOL2LU93kd0dSS8/JJxKGb+kDstqnExjYSSwi78";
-      })
-    ];
+  patches = [
+    # remove after next release
+    (fetchpatch {
+      name = "commit-cargo-lockfile";
+      relative = "bindings/python";
+      url = "https://github.com/huggingface/safetensors/commit/a7061b4235b59312010b2dd6f9597381428ee9a2.patch";
+      hash = "sha256-iH4vQOL2LU93kd0dSS8/JJxKGb+kDstqnExjYSSwi78";
+    })
+  ];
 
   cargoDeps = rustPlatform.fetchCargoTarball {
     inherit src patches;

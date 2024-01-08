@@ -41,11 +41,10 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  disabledTestPaths =
-    [
-      # Connection error
-      "t/unit/test_schedulers.py"
-    ];
+  disabledTestPaths = [
+    # Connection error
+    "t/unit/test_schedulers.py"
+  ];
 
   pythonImportsCheck = [ "django_celery_beat" ];
 

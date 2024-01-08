@@ -42,11 +42,10 @@ python.pkgs.buildPythonApplication rec {
 
   pythonImportsCheck = [ "csvkit" ];
 
-  disabledTests =
-    [
-      # Test is comparing CLI output
-      "test_decimal_format"
-    ];
+  disabledTests = [
+    # Test is comparing CLI output
+    "test_decimal_format"
+  ];
 
   meta = with lib; {
     changelog = "https://github.com/wireservice/csvkit/blob/${version}/CHANGELOG.rst";

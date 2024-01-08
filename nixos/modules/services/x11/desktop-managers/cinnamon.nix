@@ -207,11 +207,10 @@ in
       # Override GSettings schemas
       environment.sessionVariables.NIX_GSETTINGS_OVERRIDES_DIR = "${nixos-gsettings-overrides}/share/gsettings-schemas/nixos-gsettings-overrides/glib-2.0/schemas";
 
-      environment.pathsToLink =
-        [
-          # FIXME: modules should link subdirs of `/share` rather than relying on this
-          "/share" # TODO: https://github.com/NixOS/nixpkgs/issues/47173
-        ];
+      environment.pathsToLink = [
+        # FIXME: modules should link subdirs of `/share` rather than relying on this
+        "/share" # TODO: https://github.com/NixOS/nixpkgs/issues/47173
+      ];
 
       # Shell integration for VTE terminals
       programs.bash.vteIntegration = mkDefault true;

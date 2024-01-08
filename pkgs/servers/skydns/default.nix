@@ -18,14 +18,13 @@ buildGoModule rec {
 
   vendorHash = "sha256-J3+DACU9JuazGCZZrfKxHukG5M+nb+WbV3eTG8EaT/w=";
 
-  patches =
-    [
-      # Add Go Modules support
-      (fetchpatch {
-        url = "https://github.com/skynetservices/skydns/commit/37be34cd64a3037a6d5a3b3dbb673f391e9d7eb1.patch";
-        hash = "sha256-JziYREg3vw8NMIPd8Zv8An7XUj+U6dvgRcaZph0DLPg=";
-      })
-    ];
+  patches = [
+    # Add Go Modules support
+    (fetchpatch {
+      url = "https://github.com/skynetservices/skydns/commit/37be34cd64a3037a6d5a3b3dbb673f391e9d7eb1.patch";
+      hash = "sha256-JziYREg3vw8NMIPd8Zv8An7XUj+U6dvgRcaZph0DLPg=";
+    })
+  ];
 
   subPackages = [ "." ];
 

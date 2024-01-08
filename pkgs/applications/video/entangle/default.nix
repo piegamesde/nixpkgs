@@ -52,15 +52,14 @@ stdenv.mkDerivation rec {
     sha256 = "hz2WSDOjriQSavFlDT+35x1X5MeInq80ZrSP1WR/td0=";
   };
 
-  patches =
-    [
-      # Fix build with meson 0.61, can be removed on next update
-      # https://gitlab.com/entangle/entangle/-/issues/67
-      (fetchpatch {
-        url = "https://gitlab.com/entangle/entangle/-/commit/54795d275a93e94331a614c8712740fcedbdd4f0.patch";
-        sha256 = "iEgqGjKa0xwSdctwvNdEV361l9nx+bz53xn3fuDgtzY=";
-      })
-    ];
+  patches = [
+    # Fix build with meson 0.61, can be removed on next update
+    # https://gitlab.com/entangle/entangle/-/issues/67
+    (fetchpatch {
+      url = "https://gitlab.com/entangle/entangle/-/commit/54795d275a93e94331a614c8712740fcedbdd4f0.patch";
+      sha256 = "iEgqGjKa0xwSdctwvNdEV361l9nx+bz53xn3fuDgtzY=";
+    })
+  ];
 
   nativeBuildInputs = [
     itstool

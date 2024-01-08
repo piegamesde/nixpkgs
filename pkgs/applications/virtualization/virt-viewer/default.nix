@@ -44,15 +44,14 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-pD+iMlxMHHelyMmAZaww7wURohrJjlkPIjQIabrZq9A=";
   };
 
-  patches =
-    [
-      # Fix build with meson 0.61. Should be fixed in the next release.
-      # https://gitlab.com/virt-viewer/virt-viewer/-/merge_requests/120
-      (fetchpatch {
-        url = "https://gitlab.com/virt-viewer/virt-viewer/-/commit/98d9f202ef768f22ae21b5c43a080a1aa64a7107.patch";
-        sha256 = "sha256-3AbnkbhWOh0aNjUkmVoSV/9jFQtvTllOr7plnkntb2o=";
-      })
-    ];
+  patches = [
+    # Fix build with meson 0.61. Should be fixed in the next release.
+    # https://gitlab.com/virt-viewer/virt-viewer/-/merge_requests/120
+    (fetchpatch {
+      url = "https://gitlab.com/virt-viewer/virt-viewer/-/commit/98d9f202ef768f22ae21b5c43a080a1aa64a7107.patch";
+      sha256 = "sha256-3AbnkbhWOh0aNjUkmVoSV/9jFQtvTllOr7plnkntb2o=";
+    })
+  ];
 
   nativeBuildInputs = [
     glib

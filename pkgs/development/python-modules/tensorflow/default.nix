@@ -129,12 +129,11 @@ let
         cudatoolkit.lib
         cudatoolkit.out
       ]
-      ++ lib.optionals (lib.versionOlder cudatoolkit.version "11")
-        [
-          # for some reason some of the required libs are in the targets/x86_64-linux
-          # directory; not sure why but this works around it
-          "${cudatoolkit}/targets/${stdenv.system}"
-        ];
+      ++ lib.optionals (lib.versionOlder cudatoolkit.version "11") [
+        # for some reason some of the required libs are in the targets/x86_64-linux
+        # directory; not sure why but this works around it
+        "${cudatoolkit}/targets/${stdenv.system}"
+      ];
   };
 
   # Tensorflow expects bintools at hard-coded paths, e.g. /usr/bin/ar
@@ -229,11 +228,10 @@ let
     src = _bazel-build.deps;
 
     prePatch = "pushd llvm-raw";
-    patches =
-      [
-        # Fix a vendored config.h that requires the 10.13 SDK
-        ./llvm_bazel_fix_macos_10_12_sdk.patch
-      ];
+    patches = [
+      # Fix a vendored config.h that requires the 10.13 SDK
+      ./llvm_bazel_fix_macos_10_12_sdk.patch
+    ];
     postPatch = ''
       touch {BUILD,WORKSPACE}
       popd

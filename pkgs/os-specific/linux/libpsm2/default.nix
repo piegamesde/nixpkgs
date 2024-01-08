@@ -20,12 +20,11 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ pkg-config ];
   buildInputs = [ numactl ];
 
-  makeFlags =
-    [
-      # Disable blanket -Werror to avoid build failures
-      # on fresh toolchains like gcc-11.
-      "WERROR="
-    ];
+  makeFlags = [
+    # Disable blanket -Werror to avoid build failures
+    # on fresh toolchains like gcc-11.
+    "WERROR="
+  ];
 
   installFlags = [
     "DESTDIR=$(out)"

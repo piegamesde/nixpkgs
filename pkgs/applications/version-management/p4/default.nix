@@ -26,16 +26,15 @@ let
         stripRoot = false;
       };
     in
-    linkFarm "android-zlib-contrib"
-      [
-        # We only want to keep the contrib directory as the other files conflict
-        # with p4's own zlib files. (For the same reason, we can't use the
-        # cone-based Git sparse checkout, either.)
-        {
-          name = "contrib";
-          path = "${src}/contrib";
-        }
-      ];
+    linkFarm "android-zlib-contrib" [
+      # We only want to keep the contrib directory as the other files conflict
+      # with p4's own zlib files. (For the same reason, we can't use the
+      # cone-based Git sparse checkout, either.)
+      {
+        name = "contrib";
+        path = "${src}/contrib";
+      }
+    ];
   libcxxUnified = symlinkJoin {
     inherit (libcxx) name;
     paths = [

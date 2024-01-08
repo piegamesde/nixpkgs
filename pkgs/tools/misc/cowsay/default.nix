@@ -26,15 +26,14 @@ stdenv.mkDerivation rec {
     hash = "sha256-t1grmCPQhRgwS64RjEwkK61F2qxxMBKuv0/DzBTnL3s=";
   };
 
-  patches =
-    [
-      # Install cowthink as a symlink, not a copy
-      # See https://github.com/cowsay-org/cowsay/pull/18
-      (fetchpatch {
-        url = "https://github.com/cowsay-org/cowsay/commit/9e129fa0933cf1837672c97f5ae5ad4a1a10ec11.patch";
-        hash = "sha256-zAYEUAM5MkyMONAl5BXj8hBHRalQVAOdpxgiM+Ewmlw=";
-      })
-    ];
+  patches = [
+    # Install cowthink as a symlink, not a copy
+    # See https://github.com/cowsay-org/cowsay/pull/18
+    (fetchpatch {
+      url = "https://github.com/cowsay-org/cowsay/commit/9e129fa0933cf1837672c97f5ae5ad4a1a10ec11.patch";
+      hash = "sha256-zAYEUAM5MkyMONAl5BXj8hBHRalQVAOdpxgiM+Ewmlw=";
+    })
+  ];
 
   nativeBuildInputs = [ makeWrapper ];
   buildInputs = [ perl ];

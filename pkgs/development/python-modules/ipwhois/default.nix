@@ -41,11 +41,10 @@ buildPythonPackage rec {
       LD_PRELOAD=${libredirect}/lib/libredirect.so
   '';
 
-  disabledTestPaths =
-    [
-      # Tests require network access
-      "ipwhois/tests/online/"
-    ];
+  disabledTestPaths = [
+    # Tests require network access
+    "ipwhois/tests/online/"
+  ];
 
   disabledTests = [
     "test_lookup"

@@ -24,12 +24,11 @@ stdenv.mkDerivation rec {
     hash = "sha256-C/awQpp1Q/0adx3YVNTq6ruEAzcjL5G7SkOCgpvAA50=";
   };
 
-  patches =
-    [
-      # This patch adds an option to pad filesystems (increasing size) in
-      # exchange for better chunking / binary diff calculation.
-      ./4k-align.patch
-    ];
+  patches = [
+    # This patch adds an option to pad filesystems (increasing size) in
+    # exchange for better chunking / binary diff calculation.
+    ./4k-align.patch
+  ];
 
   strictDeps = true;
   nativeBuildInputs =

@@ -27,16 +27,15 @@ stdenv.mkDerivation rec {
     sha256 = "1zrcnc5dn5fgcl3vklfpbp3m0qzi2n2viw59vw5fhwkysvp670y7";
   };
 
-  patches =
-    [
-      # Fix build with meson 0.61
-      # data/meson.build:85:0: ERROR: gnome.compile_resources takes exactly 2 arguments, but got 3.
-      # https://gitlab.gnome.org/World/design/icon-library/-/merge_requests/54
-      (fetchpatch {
-        url = "https://gitlab.gnome.org/World/design/icon-library/-/commit/c629dbf6670f9bb0b98ff21c17110489b58f5c85.patch";
-        sha256 = "UKC1CPaM58/z0zINN794luWZdoFx1zGxETPb8VtbO3E=";
-      })
-    ];
+  patches = [
+    # Fix build with meson 0.61
+    # data/meson.build:85:0: ERROR: gnome.compile_resources takes exactly 2 arguments, but got 3.
+    # https://gitlab.gnome.org/World/design/icon-library/-/merge_requests/54
+    (fetchpatch {
+      url = "https://gitlab.gnome.org/World/design/icon-library/-/commit/c629dbf6670f9bb0b98ff21c17110489b58f5c85.patch";
+      sha256 = "UKC1CPaM58/z0zINN794luWZdoFx1zGxETPb8VtbO3E=";
+    })
+  ];
 
   nativeBuildInputs = [
     cargo

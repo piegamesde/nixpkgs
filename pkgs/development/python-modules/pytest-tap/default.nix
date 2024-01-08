@@ -28,11 +28,10 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  disabledTests =
-    [
-      # Fixed in 4ed0138bf659c348b6dfb8bb701ae1989625d3d8 and hopefully in next release
-      "test_unittest_expected_failure"
-    ];
+  disabledTests = [
+    # Fixed in 4ed0138bf659c348b6dfb8bb701ae1989625d3d8 and hopefully in next release
+    "test_unittest_expected_failure"
+  ];
 
   pythonImportsCheck = [ "pytest_tap" ];
 

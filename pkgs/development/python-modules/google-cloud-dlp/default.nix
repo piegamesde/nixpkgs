@@ -37,11 +37,10 @@ buildPythonPackage rec {
     pytest-asyncio
   ];
 
-  disabledTests =
-    [
-      # Test requires credentials
-      "test_inspect_content"
-    ];
+  disabledTests = [
+    # Test requires credentials
+    "test_inspect_content"
+  ];
 
   pythonImportsCheck = [
     "google.cloud.dlp"

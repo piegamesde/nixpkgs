@@ -33,11 +33,10 @@ stdenv.mkDerivation {
     sha256 = "sha256-m40ezt1bXoH78ZGOh2dSp92UjgXBoNuhCrhjhC1FrNU=";
   };
 
-  patches =
-    [
-      # fix location of timezone data for TZ= completion
-      ./tz_completion.patch
-    ];
+  patches = [
+    # fix location of timezone data for TZ= completion
+    ./tz_completion.patch
+  ];
 
   strictDeps = true;
   nativeBuildInputs =

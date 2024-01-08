@@ -80,12 +80,11 @@ let
         cudatoolkit.lib
         cudatoolkit.out
       ]
-      ++ lib.optionals (lib.versionOlder cudatoolkit.version "11")
-        [
-          # for some reason some of the required libs are in the targets/x86_64-linux
-          # directory; not sure why but this works around it
-          "${cudatoolkit}/targets/${stdenv.system}"
-        ];
+      ++ lib.optionals (lib.versionOlder cudatoolkit.version "11") [
+        # for some reason some of the required libs are in the targets/x86_64-linux
+        # directory; not sure why but this works around it
+        "${cudatoolkit}/targets/${stdenv.system}"
+      ];
   };
 
   cudatoolkit_cc_joined = symlinkJoin {
@@ -246,15 +245,13 @@ let
       bazelFlags =
         bazelFlags
         ++ [ "--config=avx_posix" ]
-        ++
-          lib.optionals cudaSupport
-            [
-              # ideally we'd add this unconditionally too, but it doesn't work on darwin
-              # we make this conditional on `cudaSupport` instead of the system, so that the hash for both
-              # the cuda and the non-cuda deps can be computed on linux, since a lot of contributors don't
-              # have access to darwin machines
-              "--config=cuda"
-            ]
+        ++ lib.optionals cudaSupport [
+          # ideally we'd add this unconditionally too, but it doesn't work on darwin
+          # we make this conditional on `cudaSupport` instead of the system, so that the hash for both
+          # the cuda and the non-cuda deps can be computed on linux, since a lot of contributors don't
+          # have access to darwin machines
+          "--config=cuda"
+        ]
         ++ [ "--config=mkl_open_source_only" ];
 
       sha256 =

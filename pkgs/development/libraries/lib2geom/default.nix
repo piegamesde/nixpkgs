@@ -30,16 +30,15 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-xkUxcAk8KJkL482R7pvgmCT+5I8aUMm/q25pvK3ZPuY=";
   };
 
-  patches =
-    [
-      # Fixed upstream, remove when the new version releases:
-      # https://gitlab.com/inkscape/lib2geom/-/issues/49
-      (fetchpatch {
-        name = "expect-double-eq-in-choose-test.patch";
-        url = "https://gitlab.com/inkscape/lib2geom/-/commit/5b7c75dd3841cb415f163f0a81f556c57d3e0a83.patch";
-        sha256 = "RMgwJkylrGFTTrqBzqs5j2LMSLsHhcE/UT1pKBZnU50=";
-      })
-    ];
+  patches = [
+    # Fixed upstream, remove when the new version releases:
+    # https://gitlab.com/inkscape/lib2geom/-/issues/49
+    (fetchpatch {
+      name = "expect-double-eq-in-choose-test.patch";
+      url = "https://gitlab.com/inkscape/lib2geom/-/commit/5b7c75dd3841cb415f163f0a81f556c57d3e0a83.patch";
+      sha256 = "RMgwJkylrGFTTrqBzqs5j2LMSLsHhcE/UT1pKBZnU50=";
+    })
+  ];
 
   nativeBuildInputs = [
     cmake

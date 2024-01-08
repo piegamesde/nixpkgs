@@ -48,11 +48,10 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "mypy_boto3_builder" ];
 
-  disabledTests =
-    [
-      # Tests require network access
-      "TestBotocoreChangelogChangelog"
-    ];
+  disabledTests = [
+    # Tests require network access
+    "TestBotocoreChangelogChangelog"
+  ];
 
   meta = with lib; {
     description = "Type annotations builder for boto3";

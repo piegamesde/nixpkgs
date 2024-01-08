@@ -17,12 +17,10 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ autoreconfHook ];
 
-  env.NIX_CFLAGS_COMPILE =
-    toString
-      [
-        # Needed with GCC 12
-        "-std=c++14"
-      ];
+  env.NIX_CFLAGS_COMPILE = toString [
+    # Needed with GCC 12
+    "-std=c++14"
+  ];
 
   meta = with lib; {
     description = "Library to access GSM mobile phones through GSM modems";

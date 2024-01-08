@@ -34,11 +34,10 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "boto3" ];
 
-  disabledTestPaths =
-    [
-      # Integration tests require networking
-      "tests/integration"
-    ];
+  disabledTestPaths = [
+    # Integration tests require networking
+    "tests/integration"
+  ];
 
   meta = with lib; {
     homepage = "https://github.com/boto/boto3";

@@ -47,13 +47,12 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  disabledTests =
-    [
-      # # Our two manual scans succeeded and the periodic one was attempted
-      # assert len(mock_scan.mock_calls) == 3
-      # AssertionError: assert 4 == 3
-      "test_periodic_scan_priority"
-    ];
+  disabledTests = [
+    # # Our two manual scans succeeded and the periodic one was attempted
+    # assert len(mock_scan.mock_calls) == 3
+    # AssertionError: assert 4 == 3
+    "test_periodic_scan_priority"
+  ];
 
   pythonImportsCheck = [
     "zigpy.application"

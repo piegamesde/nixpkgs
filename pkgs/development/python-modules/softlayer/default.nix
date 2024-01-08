@@ -65,11 +65,10 @@ buildPythonPackage rec {
     export HOME=$(mktemp -d)
   '';
 
-  disabledTestPaths =
-    [
-      # Test fails with ConnectionError trying to connect to api.softlayer.com
-      "tests/transports/soap_tests.py.unstable"
-    ];
+  disabledTestPaths = [
+    # Test fails with ConnectionError trying to connect to api.softlayer.com
+    "tests/transports/soap_tests.py.unstable"
+  ];
 
   pythonImportsCheck = [ "SoftLayer" ];
 

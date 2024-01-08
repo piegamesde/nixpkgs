@@ -32,11 +32,10 @@ python3.pkgs.buildPythonApplication rec {
 
   pythonImportsCheck = [ "clairvoyance" ];
 
-  disabledTests =
-    [
-      # KeyError
-      "test_probe_typename"
-    ];
+  disabledTests = [
+    # KeyError
+    "test_probe_typename"
+  ];
 
   meta = with lib; {
     description = "Tool to obtain GraphQL API schemas";

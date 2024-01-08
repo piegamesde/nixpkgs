@@ -46,17 +46,15 @@ buildPythonPackage rec {
 
   pytestFlagsArray = [ "-v" ];
 
-  disabledTests =
-    [
-      # https://github.com/Zac-HD/hypothesmith/issues/21
-      "test_source_code_from_libcst_node_type"
-    ];
+  disabledTests = [
+    # https://github.com/Zac-HD/hypothesmith/issues/21
+    "test_source_code_from_libcst_node_type"
+  ];
 
-  disabledTestPaths =
-    [
-      # missing blib2to3
-      "tests/test_syntactic.py"
-    ];
+  disabledTestPaths = [
+    # missing blib2to3
+    "tests/test_syntactic.py"
+  ];
 
   pythonImportsCheck = [ "hypothesmith" ];
 

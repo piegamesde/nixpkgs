@@ -33,11 +33,10 @@ python3.pkgs.buildPythonApplication rec {
     export HOME=$(mktemp -d);
   '';
 
-  disabledTests =
-    [
-      # Assertion Error
-      "test_query_metadata2"
-    ];
+  disabledTests = [
+    # Assertion Error
+    "test_query_metadata2"
+  ];
 
   pythonImportsCheck = [ "depscan" ];
 

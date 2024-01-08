@@ -74,11 +74,10 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  disabledTestPaths =
-    [
-      # No need to test the version number
-      "cirq_rigetti/_version_test.py"
-    ];
+  disabledTestPaths = [
+    # No need to test the version number
+    "cirq_rigetti/_version_test.py"
+  ];
 
   # cirq's importlib hook doesn't work here
   #pythonImportsCheck = [ "cirq_rigetti" ];

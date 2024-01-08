@@ -40,12 +40,11 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [ "pyhocon" ];
 
-  disabledTestPaths =
-    [
-      # pyparsing.exceptions.ParseException: Expected end of text, found '='
-      # https://github.com/chimpler/pyhocon/issues/273
-      "tests/test_tool.py"
-    ];
+  disabledTestPaths = [
+    # pyparsing.exceptions.ParseException: Expected end of text, found '='
+    # https://github.com/chimpler/pyhocon/issues/273
+    "tests/test_tool.py"
+  ];
 
   disabledTests = [
     # AssertionError: assert ConfigTree([(...

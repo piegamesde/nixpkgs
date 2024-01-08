@@ -36,11 +36,10 @@ buildPythonPackage rec {
     rm -r google
   '';
 
-  disabledTests =
-    [
-      # requires credentials
-      "test_quota"
-    ];
+  disabledTests = [
+    # requires credentials
+    "test_quota"
+  ];
 
   pythonImportsCheck = [ "google.cloud.dns" ];
 

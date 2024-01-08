@@ -39,11 +39,10 @@ buildPythonPackage rec {
 
   nativeCheckInputs = [ pytestCheckHook ];
 
-  disabledTests =
-    [
-      # mismatch in expected data structure
-      "test_parse_advertisement_data_curtain"
-    ];
+  disabledTests = [
+    # mismatch in expected data structure
+    "test_parse_advertisement_data_curtain"
+  ];
 
   pythonImportsCheck = [ "switchbot" ];
 

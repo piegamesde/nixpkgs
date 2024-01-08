@@ -34,12 +34,11 @@ buildPythonPackage rec {
     pytestCheckHook
   ];
 
-  disabledTests =
-    [
-      # incompatible with setuptools-scm>=7
-      # https://github.com/ofek/hatch-vcs/issues/8
-      "test_write"
-    ];
+  disabledTests = [
+    # incompatible with setuptools-scm>=7
+    # https://github.com/ofek/hatch-vcs/issues/8
+    "test_write"
+  ];
 
   pythonImportsCheck = [ "hatch_vcs" ];
 

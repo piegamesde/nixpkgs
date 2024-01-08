@@ -30,11 +30,10 @@ stdenv.mkDerivation rec {
       cmake
       python3
     ]
-    ++ lib.optionals stdenv.hostPlatform.isDarwin
-      [
-        # TODO: could be replaced by setting CMAKE_INSTALL_NAME_DIR?
-        fixDarwinDylibNames
-      ];
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [
+      # TODO: could be replaced by setting CMAKE_INSTALL_NAME_DIR?
+      fixDarwinDylibNames
+    ];
 
   meta = with lib; {
     description = "Lightweight multi-platform, multi-architecture assembler framework";

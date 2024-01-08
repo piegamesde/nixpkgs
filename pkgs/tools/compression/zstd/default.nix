@@ -39,12 +39,11 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ cmake ] ++ lib.optional stdenv.isDarwin fixDarwinDylibNames;
   buildInputs = lib.optional stdenv.hostPlatform.isUnix bash;
 
-  patches =
-    [
-      # This patches makes sure we do not attempt to use the MD5 implementation
-      # of the host platform when running the tests
-      ./playtests-darwin.patch
-    ];
+  patches = [
+    # This patches makes sure we do not attempt to use the MD5 implementation
+    # of the host platform when running the tests
+    ./playtests-darwin.patch
+  ];
 
   postPatch = lib.optionalString (!static) ''
     substituteInPlace build/cmake/CMakeLists.txt \

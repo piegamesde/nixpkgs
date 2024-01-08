@@ -32,19 +32,16 @@ buildPythonPackage rec {
     tzdata
   ];
 
-  disabledTestPaths =
-    [
-      # These tests are based on timings, which fail
-      # on slow or overloaded machines.
-      "tests/test_performance.py"
-    ];
+  disabledTestPaths = [
+    # These tests are based on timings, which fail
+    # on slow or overloaded machines.
+    "tests/test_performance.py"
+  ];
 
-  disabledTests =
-    lib.optionals (pythonAtLeast "3.11")
-      [
-        # https://github.com/ramonhagenaars/jsons/issues/187
-        "test_dump_load_parameterized_collections"
-      ];
+  disabledTests = lib.optionals (pythonAtLeast "3.11") [
+    # https://github.com/ramonhagenaars/jsons/issues/187
+    "test_dump_load_parameterized_collections"
+  ];
 
   pythonImportsCheck = [ "jsons" ];
 

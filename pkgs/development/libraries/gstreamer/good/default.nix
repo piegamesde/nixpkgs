@@ -127,12 +127,10 @@ stdenv.mkDerivation rec {
       wavpack
     ]
     ++ lib.optionals raspiCameraSupport [ libraspberrypi ]
-    ++
-      lib.optionals gtkSupport
-        [
-          # for gtksink
-          gtk3
-        ]
+    ++ lib.optionals gtkSupport [
+      # for gtksink
+      gtk3
+    ]
     ++ lib.optionals qt5Support (
       with qt5; [
         qtbase
@@ -185,12 +183,11 @@ stdenv.mkDerivation rec {
       scripts/extract-release-date-from-doap-file.py
   '';
 
-  NIX_LDFLAGS =
-    [
-      # linking error on Darwin
-      # https://github.com/NixOS/nixpkgs/pull/70690#issuecomment-553694896
-      "-lncurses"
-    ];
+  NIX_LDFLAGS = [
+    # linking error on Darwin
+    # https://github.com/NixOS/nixpkgs/pull/70690#issuecomment-553694896
+    "-lncurses"
+  ];
 
   # fails 1 tests with "Unexpected critical/warning: g_object_set_is_valid_property: object class 'GstRtpStorage' has no property named ''"
   doCheck = false;

@@ -43,17 +43,15 @@ buildPythonPackage rec {
   # enabled when building passthru.tests.
   doCheck = false;
 
-  pytestFlagsArray =
-    [
-      # Avoids an ImportMismatchError.
-      "--ignore=build"
-    ];
+  pytestFlagsArray = [
+    # Avoids an ImportMismatchError.
+    "--ignore=build"
+  ];
 
-  disabledTestPaths =
-    [
-      # Examples are prefixed with test_
-      "examples/"
-    ];
+  disabledTestPaths = [
+    # Examples are prefixed with test_
+    "examples/"
+  ];
 
   passthru.tests = {
     runTests = nestedtext.overrideAttrs (_: { doCheck = true; });

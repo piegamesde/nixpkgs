@@ -45,11 +45,10 @@ stdenv.mkDerivation rec {
     re2
   ];
 
-  patches =
-    [
-      # Default libexec would be set to /nix/store/*-bear//nix/store/*-bear/libexec/...
-      ./no-double-relative.patch
-    ];
+  patches = [
+    # Default libexec would be set to /nix/store/*-bear//nix/store/*-bear/libexec/...
+    ./no-double-relative.patch
+  ];
 
   meta = with lib; {
     description = "Tool that generates a compilation database for clang tooling";

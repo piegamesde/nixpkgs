@@ -16,11 +16,10 @@ stdenv.mkDerivation rec {
     hash = "sha256-847JAoDEfA9K4LB8z9cqSw+GTImqmITBylB/4odLDb0=";
   };
 
-  patches =
-    [
-      # patch csvheader to use csvquote from the derivation
-      ./csvquote-path.patch
-    ];
+  patches = [
+    # patch csvheader to use csvquote from the derivation
+    ./csvquote-path.patch
+  ];
 
   nativeBuildInputs = [ patsh ];
 

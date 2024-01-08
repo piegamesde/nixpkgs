@@ -34,12 +34,11 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  configureFlags =
-    [
-      # The bundled version does not build on aarch64-darwin:
-      # https://github.com/akopytov/sysbench/issues/416
-      "--with-system-luajit"
-    ];
+  configureFlags = [
+    # The bundled version does not build on aarch64-darwin:
+    # https://github.com/akopytov/sysbench/issues/416
+    "--with-system-luajit"
+  ];
 
   passthru.tests = {
     versionTest = testers.testVersion { package = sysbench; };

@@ -62,11 +62,10 @@ stdenv.mkDerivation rec {
       "-DBUILD_ODBC_DRIVER=${enableFeature withOdbc}"
       "-DJDBC_DRIVER=${enableFeature withJdbc}"
     ]
-    ++ lib.optionals doInstallCheck
-      [
-        # development settings
-        "-DBUILD_UNITTESTS=ON"
-      ];
+    ++ lib.optionals doInstallCheck [
+      # development settings
+      "-DBUILD_UNITTESTS=ON"
+    ];
 
   doInstallCheck = true;
 

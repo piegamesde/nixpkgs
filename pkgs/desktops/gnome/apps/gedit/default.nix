@@ -41,12 +41,11 @@ stdenv.mkDerivation rec {
     sha256 = "O7sbN3XUwnfa9UqqtEsOuDpOsfCfA5GAAEHJ5WiT7BE=";
   };
 
-  patches =
-    [
-      # We patch gobject-introspection and meson to store absolute paths to libraries in typelibs
-      # but that requires the install_dir is an absolute path.
-      ./correct-gir-lib-path.patch
-    ];
+  patches = [
+    # We patch gobject-introspection and meson to store absolute paths to libraries in typelibs
+    # but that requires the install_dir is an absolute path.
+    ./correct-gir-lib-path.patch
+  ];
 
   nativeBuildInputs = [
     desktop-file-utils

@@ -26,12 +26,11 @@ stdenv.mkDerivation rec {
     jre
   ];
 
-  patches =
-    [
-      # Make home.dir and config.dir configurable through the
-      # KC_HOME_DIR and KC_CONF_DIR environment variables.
-      ./config_vars.patch
-    ];
+  patches = [
+    # Make home.dir and config.dir configurable through the
+    # KC_HOME_DIR and KC_CONF_DIR environment variables.
+    ./config_vars.patch
+  ];
 
   buildPhase =
     ''
