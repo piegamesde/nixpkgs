@@ -24,7 +24,8 @@ let
     if stdenv.hostPlatform != stdenv.buildPlatform then
       glibcCross
     else
-      assert stdenv.hostPlatform.libc == "glibc"; stdenv.cc.libc;
+      assert stdenv.hostPlatform.libc == "glibc";
+      stdenv.cc.libc;
 in
 
 stdenv.mkDerivation rec {

@@ -235,8 +235,12 @@ rec {
           // {
             inherit (drv.${outputName}) type outputName;
             outputSpecified = true;
-            drvPath = assert condition; drv.${outputName}.drvPath;
-            outPath = assert condition; drv.${outputName}.outPath;
+            drvPath =
+              assert condition;
+              drv.${outputName}.drvPath;
+            outPath =
+              assert condition;
+              drv.${outputName}.outPath;
           }
           //
             # TODO: give the derivation control over the outputs.
@@ -252,8 +256,12 @@ rec {
     in
     commonAttrs
     // {
-      drvPath = assert condition; drv.drvPath;
-      outPath = assert condition; drv.outPath;
+      drvPath =
+        assert condition;
+        drv.drvPath;
+      outPath =
+        assert condition;
+        drv.outPath;
     };
 
   /* Strip a derivation of all non-essential attributes, returning

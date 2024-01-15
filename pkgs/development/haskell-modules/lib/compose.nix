@@ -192,7 +192,10 @@ rec {
     }
   );
   unmarkBroken = overrideCabal (drv: { broken = false; });
-  markBrokenVersion = version: drv: assert drv.version == version; markBroken drv;
+  markBrokenVersion =
+    version: drv:
+    assert drv.version == version;
+    markBroken drv;
   markUnbroken = overrideCabal (drv: { broken = false; });
 
   enableLibraryProfiling = overrideCabal (drv: { enableLibraryProfiling = true; });

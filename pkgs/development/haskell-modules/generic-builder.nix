@@ -787,7 +787,9 @@ lib.fix (
             # we don't use this at all, and instead put the setupDepends in the main
             # `ghcWithPackages`. This way we don't have two wrapper scripts called `ghc`
             # shadowing each other on the PATH.
-            ghcEnvForBuild = assert isCross; buildHaskellPackages.ghcWithPackages (_: setupHaskellDepends);
+            ghcEnvForBuild =
+              assert isCross;
+              buildHaskellPackages.ghcWithPackages (_: setupHaskellDepends);
 
             ghcEnv = withPackages (
               _: otherBuildInputsHaskell ++ propagatedBuildInputs ++ lib.optionals (!isCross) setupHaskellDepends

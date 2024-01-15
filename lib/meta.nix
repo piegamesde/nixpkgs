@@ -125,9 +125,14 @@ rec {
   */
   getLicenseFromSpdxId =
     let
-      spdxLicenses = lib.mapAttrs (id: ls: assert lib.length ls == 1; builtins.head ls) (
-        lib.groupBy (l: lib.toLower l.spdxId) (lib.filter (l: l ? spdxId) (lib.attrValues lib.licenses))
-      );
+      spdxLicenses =
+        lib.mapAttrs
+          (
+            id: ls:
+            assert lib.length ls == 1;
+            builtins.head ls
+          )
+          (lib.groupBy (l: lib.toLower l.spdxId) (lib.filter (l: l ? spdxId) (lib.attrValues lib.licenses)));
     in
     licstr:
     spdxLicenses.${lib.toLower licstr}

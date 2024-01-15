@@ -87,7 +87,8 @@ import ./make-test-python.nix (
         networking.firewall = firewallSettings;
 
         services.consul =
-          assert builtins.elem thisConsensusServerHost allConsensusServerHosts; {
+          assert builtins.elem thisConsensusServerHost allConsensusServerHosts;
+          {
             enable = true;
             inherit webUi;
             extraConfig = defaultExtraConfig // {

@@ -309,8 +309,12 @@ tl
     xz = tlpdbxz;
   };
 
-  bin = assert assertions; bin;
-  combine = assert assertions; combine;
+  bin =
+    assert assertions;
+    bin;
+  combine =
+    assert assertions;
+    combine;
 
   # Pre-defined combined packages for TeX Live schemes,
   # to make nix-env usage more comfortable and build selected on Hydra.

@@ -839,7 +839,10 @@ rec {
         => "-Dengine=opengl"
   */
   mesonOption =
-    feature: value: assert (lib.isString feature); assert (lib.isString value); "-D${feature}=${value}";
+    feature: value:
+    assert (lib.isString feature);
+    assert (lib.isString value);
+    "-D${feature}=${value}";
 
   /* Create a -D<condition>={true,false} string that can be passed to typical
       Meson invocations.

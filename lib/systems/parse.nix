@@ -26,7 +26,11 @@ let
 
   setTypes =
     type:
-    mapAttrs (name: value: assert type.check value; setType type.name ({ inherit name; } // value));
+    mapAttrs (
+      name: value:
+      assert type.check value;
+      setType type.name ({ inherit name; } // value)
+    );
 in
 
 rec {
@@ -742,7 +746,10 @@ rec {
 
   isSystem = isType "system";
 
-  mkSystem = components: assert types.parsedPlatform.check components; setType "system" components;
+  mkSystem =
+    components:
+    assert types.parsedPlatform.check components;
+    setType "system" components;
 
   mkSkeletonFromList =
     l:
@@ -843,10 +850,12 @@ rec {
       cpu,
       # Optional, but fallback too complex for here.
       # Inferred below instead.
-      vendor ? assert false; null,
+      vendor ? assert false;
+        null,
       kernel,
       # Also inferred below
-      abi ? assert false; null,
+      abi ? assert false;
+        null,
     }@args:
     let
       getCpu = name: cpuTypes.${name} or (throw "Unknown CPU type: ${name}");

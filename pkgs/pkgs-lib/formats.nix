@@ -125,7 +125,8 @@ rec {
       listToValue ? null,
       ...
     }@args:
-    assert !listsAsDuplicateKeys || listToValue == null; {
+    assert !listsAsDuplicateKeys || listToValue == null;
+    {
 
       type =
         with lib.types;
@@ -182,7 +183,8 @@ rec {
       listToValue ? null,
       ...
     }@args:
-    assert !listsAsDuplicateKeys || listToValue == null; {
+    assert !listsAsDuplicateKeys || listToValue == null;
+    {
 
       type =
         with lib.types;

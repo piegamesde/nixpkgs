@@ -160,7 +160,10 @@ let
 
       inherit (core) meta;
     };
-  optionalDep = cond: dep: assert cond -> dep != null; lib.optional cond dep;
+  optionalDep =
+    cond: dep:
+    assert cond -> dep != null;
+    lib.optional cond dep;
 in
 {
   batdiff = script "batdiff" (

@@ -32,7 +32,8 @@ let
         let
           pos = builtins.unsafeGetAttrPos n maintainers;
         in
-        assert pos == null -> throw "maintainers entry ${n} is malformed"; {
+        assert pos == null -> throw "maintainers entry ${n} is malformed";
+        {
           name = n;
           line = pos.line;
           key = toLower (simplify n);

@@ -145,9 +145,11 @@ self: super:
   # 2023-04-03: https://github.com/haskell/haskell-language-server/issues/3546#issuecomment-1494139751
   # There will probably be a new revision soon.
   hls-tactics-plugin =
-    assert super.hls-tactics-plugin.version == "1.8.0.0"; doJailbreak super.hls-tactics-plugin;
+    assert super.hls-tactics-plugin.version == "1.8.0.0";
+    doJailbreak super.hls-tactics-plugin;
   hls-brittany-plugin =
-    assert super.hls-brittany-plugin.version == "1.1.0.0"; doJailbreak super.hls-brittany-plugin;
+    assert super.hls-brittany-plugin.version == "1.1.0.0";
+    doJailbreak super.hls-brittany-plugin;
 
   hls-hlint-plugin = super.hls-hlint-plugin.override {
     # For "ghc-lib" flag see https://github.com/haskell/haskell-language-server/issues/3185#issuecomment-1250264515
@@ -548,7 +550,9 @@ self: super:
   opencv-extra = dontCheck (appendPatch ./patches/opencv-fix-116.patch super.opencv-extra);
 
   # Too strict lower bound on hspec
-  graphql = assert lib.versionOlder self.hspec.version "2.10"; doJailbreak super.graphql;
+  graphql =
+    assert lib.versionOlder self.hspec.version "2.10";
+    doJailbreak super.graphql;
 
   # https://github.com/ekmett/structures/issues/3
   structures = dontCheck super.structures;
@@ -826,7 +830,9 @@ self: super:
   # Test suite is missing an import from hspec
   # https://github.com/haskell-works/tasty-discover/issues/9
   # https://github.com/commercialhaskell/stackage/issues/6584#issuecomment-1326522815
-  tasty-discover = assert super.tasty-discover.version == "4.2.2"; dontCheck super.tasty-discover;
+  tasty-discover =
+    assert super.tasty-discover.version == "4.2.2";
+    dontCheck super.tasty-discover;
 
   # Known issue with nondeterministic test suite failure
   # https://github.com/nomeata/tasty-expected-failure/issues/21
@@ -1368,7 +1374,9 @@ self: super:
       (drv: {
         # Allow hnix 0.16, needs unreleased bounds change
         # https://github.com/dhall-lang/dhall-haskell/pull/2474
-        jailbreak = assert drv.version == "1.0.9" && drv.revision == "1"; true;
+        jailbreak =
+          assert drv.version == "1.0.9" && drv.revision == "1";
+          true;
       })
       super.dhall-nixpkgs
   );
@@ -2390,7 +2398,9 @@ self: super:
       (doJailbreak super.jsaddle);
 
   # 2022-03-22: Jailbreak for base bound: https://github.com/reflex-frp/reflex-dom/pull/433
-  reflex-dom = assert super.reflex-dom.version == "0.6.1.1"; doJailbreak super.reflex-dom;
+  reflex-dom =
+    assert super.reflex-dom.version == "0.6.1.1";
+    doJailbreak super.reflex-dom;
 
   # Tests need to lookup target triple x86_64-unknown-linux
   # https://github.com/llvm-hs/llvm-hs/issues/334
@@ -2781,7 +2791,9 @@ self: super:
   system-fileio = doJailbreak super.system-fileio;
 
   # Bounds too strict on base and ghc-prim: https://github.com/tibbe/ekg-core/pull/43 (merged); waiting on hackage release
-  ekg-core = assert super.ekg-core.version == "0.1.1.7"; doJailbreak super.ekg-core;
+  ekg-core =
+    assert super.ekg-core.version == "0.1.1.7";
+    doJailbreak super.ekg-core;
   hasura-ekg-core = doJailbreak super.hasura-ekg-core;
 
   # https://github.com/Synthetica9/nix-linter/issues/65
@@ -2830,7 +2842,14 @@ self: super:
         url = "https://github.com/taffybar/taffybar/commit/2e428ba550fc51067526a0350b91185acef72d19.patch";
         sha256 = "1lpcz671mk5cwqffjfi9ncc0d67bmwgzypy3i37a2fhfmxd0y3nl";
       })
-      ((p: assert p.version == "4.0.0"; p) super.taffybar);
+      (
+        (
+          p:
+          assert p.version == "4.0.0";
+          p
+        )
+          super.taffybar
+      );
 
   # lucid-htmx has restrictive upper bounds on lucid and servant:
   #
@@ -2857,7 +2876,9 @@ self: super:
   clash-prelude = dontCheck super.clash-prelude;
 
   # Too strict upper bound on th-desugar, fixed in 3.1.1
-  singletons-th = assert super.singletons-th.version == "3.1"; doJailbreak super.singletons-th;
+  singletons-th =
+    assert super.singletons-th.version == "3.1";
+    doJailbreak super.singletons-th;
   singletons-base = doJailbreak super.singletons-base;
 
   # Ships a broken Setup.hs
@@ -2997,7 +3018,8 @@ self: super:
 
   # Too strict lower bound on hspec
   wai-token-bucket-ratelimiter =
-    assert lib.versionOlder self.hspec.version "2.10"; doJailbreak super.wai-token-bucket-ratelimiter;
+    assert lib.versionOlder self.hspec.version "2.10";
+    doJailbreak super.wai-token-bucket-ratelimiter;
 
   # doctest <0.19
   polysemy = doJailbreak super.polysemy;
@@ -3069,7 +3091,9 @@ self: super:
   # 2023-04-05: The last version to support libsoup-2.4, required for
   # compatability with other gi- packages.
   # Take another look when gi-webkit2 updates as it may have become compatible with libsoup-3
-  gi-soup = assert versions.major self.gi-webkit2.version == "4"; self.gi-soup_2_4_28;
+  gi-soup =
+    assert versions.major self.gi-webkit2.version == "4";
+    self.gi-soup_2_4_28;
 
   llvm-ffi = super.llvm-ffi.override { LLVM = pkgs.llvmPackages_13.libllvm; };
 

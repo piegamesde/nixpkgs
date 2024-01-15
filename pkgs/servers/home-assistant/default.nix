@@ -363,7 +363,9 @@ let
 in
 python.pkgs.buildPythonApplication rec {
   pname = "homeassistant";
-  version = assert (componentPackages.version == hassVersion); hassVersion;
+  version =
+    assert (componentPackages.version == hassVersion);
+    hassVersion;
   format = "pyproject";
 
   # check REQUIRED_PYTHON_VER in homeassistant/const.py

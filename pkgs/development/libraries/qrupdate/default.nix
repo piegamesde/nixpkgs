@@ -21,7 +21,8 @@ stdenv.mkDerivation rec {
   };
 
   cmakeFlags =
-    assert (blas.isILP64 == lapack.isILP64); [
+    assert (blas.isILP64 == lapack.isILP64);
+    [
       "-DCMAKE_Fortran_FLAGS=${
         toString (
           [ "-std=legacy" ]

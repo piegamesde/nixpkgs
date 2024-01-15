@@ -80,7 +80,8 @@ let
       ...
     }:
     (lib.optionalString bundledByPath (
-      assert gemFiles.gemdir != null; "cp -a ${gemFiles.gemdir}/* $out/"
+      assert gemFiles.gemdir != null;
+      "cp -a ${gemFiles.gemdir}/* $out/"
     ) # */
     );
 

@@ -77,7 +77,8 @@ stdenv.mkDerivation rec {
   ] ++ lib.optionals systemdSupport [ systemd ];
 
   propagatedBuildInputs =
-    assert (gtkVersion == "3" || gtkVersion == "4"); [
+    assert (gtkVersion == "3" || gtkVersion == "4");
+    [
       # Required by vte-2.91.pc.
       (if gtkVersion == "3" then gtk3 else gtk4)
       glib

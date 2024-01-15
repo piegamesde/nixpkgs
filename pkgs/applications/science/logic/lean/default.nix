@@ -32,7 +32,8 @@ stdenv.mkDerivation rec {
   doCheck = true;
 
   preConfigure =
-    assert builtins.stringLength src.rev == 40; ''
+    assert builtins.stringLength src.rev == 40;
+    ''
       substituteInPlace src/githash.h.in \
         --subst-var-by GIT_SHA1 "${src.rev}"
       substituteInPlace library/init/version.lean.in \

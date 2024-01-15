@@ -25,7 +25,8 @@ let
 
   addrOpts =
     v:
-    assert v == 4 || v == 6; {
+    assert v == 4 || v == 6;
+    {
       options = {
         address = mkOption {
           type = types.str;

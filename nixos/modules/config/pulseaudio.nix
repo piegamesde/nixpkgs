@@ -311,7 +311,9 @@ in
     (mkIf systemWide {
       users.users.pulse = {
         # For some reason, PulseAudio wants UID == GID.
-        uid = assert uid == gid; uid;
+        uid =
+          assert uid == gid;
+          uid;
         group = "pulse";
         extraGroups = [ "audio" ];
         description = "PulseAudio system service user";

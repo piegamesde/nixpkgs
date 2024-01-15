@@ -55,7 +55,8 @@ rec {
   metricbeat7 = beat "metricbeat" {
     meta.description = "Lightweight shipper for metrics";
     passthru.tests = lib.optionalAttrs config.allowUnfree (
-      assert metricbeat7.drvPath == nixosTests.elk.unfree.ELK-7.elkPackages.metricbeat.drvPath; {
+      assert metricbeat7.drvPath == nixosTests.elk.unfree.ELK-7.elkPackages.metricbeat.drvPath;
+      {
         elk = nixosTests.elk.unfree.ELK-7;
       }
     );

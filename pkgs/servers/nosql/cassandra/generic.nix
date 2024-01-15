@@ -110,7 +110,9 @@ stdenv.mkDerivation rec {
         test = nixosTests."cassandra_${generation}";
       in
       {
-        nixos = assert test.testPackage.version == version; test;
+        nixos =
+          assert test.testPackage.version == version;
+          test;
       };
 
     updateScript = callPackage ./update-script.nix { inherit generation; };

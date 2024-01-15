@@ -78,7 +78,8 @@ let
       ];
     };
     passthru.tests = lib.optionalAttrs (config.allowUnfree && enableUnfree) (
-      assert this.drvPath == nixosTests.elk.unfree.ELK-7.elkPackages.logstash.drvPath; {
+      assert this.drvPath == nixosTests.elk.unfree.ELK-7.elkPackages.logstash.drvPath;
+      {
         elk = nixosTests.elk.unfree.ELK-7;
       }
     );

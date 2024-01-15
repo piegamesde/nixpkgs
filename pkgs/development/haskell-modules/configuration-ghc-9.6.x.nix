@@ -6,7 +6,14 @@ let
   inherit (pkgs) lib;
 
   jailbreakWhileRevision =
-    rev: overrideCabal (old: { jailbreak = assert old.revision or "0" == toString rev; true; });
+    rev:
+    overrideCabal (
+      old: {
+        jailbreak =
+          assert old.revision or "0" == toString rev;
+          true;
+      }
+    );
   checkAgainAfter =
     pkg: ver: msg: act:
     if builtins.compareVersions pkg.version ver <= 0 then
@@ -114,8 +121,12 @@ self: super: {
   #
 
   # base >= 4.18 is allowed in those newer versions
-  boring = assert !(self ? boring_0_2_1); doJailbreak super.boring;
-  these = assert !(self ? assoc_1_2); doJailbreak super.these;
+  boring =
+    assert !(self ? boring_0_2_1);
+    doJailbreak super.boring;
+  these =
+    assert !(self ? assoc_1_2);
+    doJailbreak super.these;
 
   # XXX: We probably should be using semigroupoids 6.0.1 which is intended for 9.6
   semigroupoids = doJailbreak super.semigroupoids;

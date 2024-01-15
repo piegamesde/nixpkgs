@@ -731,7 +731,8 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
     assert isBuiltByNixpkgsCompiler prevStage.gcc-unwrapped;
     assert isBuiltByNixpkgsCompiler prevStage.coreutils;
     assert isBuiltByNixpkgsCompiler prevStage.gnugrep;
-    assert isBuiltByNixpkgsCompiler prevStage.patchelf; {
+    assert isBuiltByNixpkgsCompiler prevStage.patchelf;
+    {
       inherit config overlays;
       stdenv = import ../generic rec {
         name = "stdenv-linux";
@@ -894,7 +895,8 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
     assert isBuiltByNixpkgsCompiler prevStage.gcc-unwrapped;
     assert isBuiltByNixpkgsCompiler prevStage.coreutils;
     assert isBuiltByNixpkgsCompiler prevStage.gnugrep;
-    assert isBuiltByNixpkgsCompiler prevStage.patchelf; {
+    assert isBuiltByNixpkgsCompiler prevStage.patchelf;
+    {
       inherit (prevStage) config overlays stdenv;
     }
   )

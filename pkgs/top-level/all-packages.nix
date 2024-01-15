@@ -17379,7 +17379,9 @@ with pkgs;
   pharo = pharo-vms.multi-vm-wrapper;
   pharo-cog32 = pharo-vms.cog32;
   pharo-spur32 = pharo-vms.spur32;
-  pharo-spur64 = assert stdenv.is64bit; pharo-vms.spur64;
+  pharo-spur64 =
+    assert stdenv.is64bit;
+    pharo-vms.spur64;
   pharo-launcher = callPackage ../development/pharo/launcher { };
 
   protege-distribution = callPackage ../development/web/protege-distribution { };
@@ -20579,7 +20581,8 @@ with pkgs;
       throw "Unknown libc ${name}";
 
   libcCross =
-    assert stdenv.targetPlatform != stdenv.buildPlatform; libcCrossChooser stdenv.targetPlatform.libc;
+    assert stdenv.targetPlatform != stdenv.buildPlatform;
+    libcCrossChooser stdenv.targetPlatform.libc;
 
   threadsCross =
     if stdenv.targetPlatform.isMinGW && !(stdenv.targetPlatform.useLLVM or false) then

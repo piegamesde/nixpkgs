@@ -36,7 +36,8 @@ import ./make-test-python.nix (
           assert !(builtins.tryEval (utils.escapeSystemdExecArgs [ { } ])).success;
           assert !(builtins.tryEval (utils.escapeSystemdExecArgs [ null ])).success;
           assert !(builtins.tryEval (utils.escapeSystemdExecArgs [ false ])).success;
-          assert !(builtins.tryEval (utils.escapeSystemdExecArgs [ (_: _) ])).success; {
+          assert !(builtins.tryEval (utils.escapeSystemdExecArgs [ (_: _) ])).success;
+          {
             description = "Echo to the journal";
             serviceConfig.Type = "oneshot";
             serviceConfig.ExecStart = ''
