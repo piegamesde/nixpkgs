@@ -2,7 +2,9 @@ import ./make-test-python.nix (
   { pkgs, ... }:
   {
     name = "restart-by-activation-script";
-    meta = with pkgs.lib.maintainers; { maintainers = [ das_j ]; };
+    meta = with pkgs.lib.maintainers; {
+      maintainers = [ das_j ];
+    };
 
     nodes.machine =
       { pkgs, ... }:

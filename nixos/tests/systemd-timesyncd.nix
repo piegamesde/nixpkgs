@@ -22,7 +22,8 @@ import ./make-test-python.nix (
       current = mkVM { };
       pre1909 = mkVM (
         { lib, ... }:
-        with lib; {
+        with lib;
+        {
           # create the path that should be migrated by our activation script when
           # upgrading to a newer nixos version
           system.stateVersion = "19.03";

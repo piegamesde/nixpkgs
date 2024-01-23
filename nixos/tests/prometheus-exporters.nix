@@ -1511,7 +1511,9 @@ mapAttrs
           ${nodeName}.shutdown()
         '';
 
-        meta = with maintainers; { maintainers = [ willibutz ]; };
+        meta = with maintainers; {
+          maintainers = [ willibutz ];
+        };
       }
     ))
   )

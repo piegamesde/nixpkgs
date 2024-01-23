@@ -9,7 +9,8 @@ let
   configFormat = pkgs.formats.json { };
   configFile = configFormat.generate "meshcentral-config.json" cfg.settings;
 in
-with lib; {
+with lib;
+{
   options.services.meshcentral = with types; {
     enable = mkEnableOption (lib.mdDoc "MeshCentral computer management server");
     package = mkOption {

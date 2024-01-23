@@ -322,10 +322,11 @@ rec {
           # A shell word used to specify the names of the customized executables.
           # The shell variable $exe can be used to refer to the wrapped executable's name.
           # Examples: "my-$exe", "$exe-with-plugins", "\${exe/vim/v1m}"
-          executableName ? if lib.hasInfix "vim" name then
-            lib.replaceStrings [ "vim" ] [ "$exe" ] name
-          else
-            "\${exe/vim/${lib.escapeShellArg name}}",
+          executableName ?
+            if lib.hasInfix "vim" name then
+              lib.replaceStrings [ "vim" ] [ "$exe" ] name
+            else
+              "\${exe/vim/${lib.escapeShellArg name}}",
           # A custom vimrc configuration, treated as an argument to vimrcContent (see the documentation in this file).
           vimrcConfig ? null,
           # A custom vimrc file.

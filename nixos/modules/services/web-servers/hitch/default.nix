@@ -32,7 +32,8 @@ let
       ]
     );
 in
-with lib; {
+with lib;
+{
   options = {
     services.hitch = {
       enable = mkEnableOption (lib.mdDoc "Hitch Server");

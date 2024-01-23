@@ -114,7 +114,8 @@ stdenv.mkDerivation (
         ++ lib.optional sdlSupport pkgs.SDL2
         ++ lib.optional usbSupport pkgs.libusb1
         ++ lib.optionals gstreamerSupport (
-          with pkgs.gst_all_1; [
+          with pkgs.gst_all_1;
+          [
             gstreamer
             gst-plugins-base
             gst-plugins-good
@@ -142,7 +143,8 @@ stdenv.mkDerivation (
           pkgs.libdrm
         ]
         ++ lib.optionals stdenv.isDarwin (
-          with pkgs.buildPackages.darwin.apple_sdk.frameworks; [
+          with pkgs.buildPackages.darwin.apple_sdk.frameworks;
+          [
             CoreServices
             Foundation
             ForceFeedback
@@ -162,7 +164,8 @@ stdenv.mkDerivation (
           ]
         )
         ++ lib.optionals (stdenv.isLinux && !waylandSupport) (
-          with pkgs.xorg; [
+          with pkgs.xorg;
+          [
             libX11
             libXi
             libXcursor
@@ -174,7 +177,8 @@ stdenv.mkDerivation (
           ]
         )
         ++ lib.optionals waylandSupport (
-          with pkgs; [
+          with pkgs;
+          [
             wayland
             libxkbcommon
             wayland-protocols

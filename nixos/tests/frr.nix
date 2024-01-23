@@ -29,7 +29,9 @@ import ./make-test-python.nix (
   {
     name = "frr";
 
-    meta = with pkgs.lib.maintainers; { maintainers = [ hexa ]; };
+    meta = with pkgs.lib.maintainers; {
+      maintainers = [ hexa ];
+    };
 
     nodes = {
 

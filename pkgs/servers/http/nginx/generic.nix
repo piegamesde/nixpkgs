@@ -42,7 +42,9 @@ outer@{
   postInstall ? "",
   meta ? null,
   nginx-doc ? outer.nginx-doc,
-  passthru ? { tests = { }; },
+  passthru ? {
+    tests = { };
+  },
 }:
 
 let
@@ -256,7 +258,8 @@ stdenv.mkDerivation {
     if meta != null then
       meta
     else
-      with lib; {
+      with lib;
+      {
         description = "A reverse proxy and lightweight webserver";
         homepage = "http://nginx.org";
         license = [ licenses.bsd2 ] ++ concatMap (m: m.meta.license) modules;

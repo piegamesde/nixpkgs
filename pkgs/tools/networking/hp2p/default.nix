@@ -28,24 +28,22 @@ stdenv.mkDerivation rec {
   ];
   buildInputs =
     [ mpi ]
-    ++ (
-      with python3Packages; [
-        python
-        numpy
-        matplotlib
-        plotly
-        mpldatacursor
-      ]
-    );
-  pythonPath =
-    (
-      with python3Packages; [
-        numpy
-        matplotlib
-        plotly
-        mpldatacursor
-      ]
-    );
+    ++ (with python3Packages; [
+      python
+      numpy
+      matplotlib
+      plotly
+      mpldatacursor
+    ]);
+  pythonPath = (
+    with python3Packages;
+    [
+      numpy
+      matplotlib
+      plotly
+      mpldatacursor
+    ]
+  );
 
   preConfigure = ''
     patchShebangs autogen.sh

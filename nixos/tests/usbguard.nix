@@ -2,7 +2,9 @@ import ./make-test-python.nix (
   { pkgs, ... }:
   {
     name = "usbguard";
-    meta = with pkgs.lib.maintainers; { maintainers = [ tnias ]; };
+    meta = with pkgs.lib.maintainers; {
+      maintainers = [ tnias ];
+    };
 
     nodes.machine =
       { ... }:

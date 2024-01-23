@@ -2,7 +2,9 @@ import ./make-test-python.nix (
   { pkgs, lib, ... }:
   {
     name = "plausible";
-    meta = with lib.maintainers; { maintainers = [ ma27 ]; };
+    meta = with lib.maintainers; {
+      maintainers = [ ma27 ];
+    };
 
     nodes.machine =
       { pkgs, ... }:

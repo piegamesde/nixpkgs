@@ -10,7 +10,8 @@
 let
   phpExt = php.withExtensions (
     { enabled, all }:
-    with all; [
+    with all;
+    [
       filter
       mysqlnd
       mysqli

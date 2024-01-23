@@ -52,7 +52,8 @@ buildFHSEnv {
   targetPkgs =
     pkgs:
     with pkgs;
-    with xorg; [
+    with xorg;
+    [
       libICE
       libSM
       libX11

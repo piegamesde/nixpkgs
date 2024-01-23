@@ -41,8 +41,7 @@ stdenv.mkDerivation rec {
     pkg-config
     cmake
     (python3.withPackages (
-      pp:
-      with pp; [
+      pp: with pp; [
         pp.protobuf
         setuptools
       ]

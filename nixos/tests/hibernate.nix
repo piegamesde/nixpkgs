@@ -56,7 +56,8 @@ makeTest {
         pkgs,
         ...
       }:
-      with lib; {
+      with lib;
+      {
         imports = [
           ../modules/profiles/installation-device.nix
           ../modules/profiles/base.nix

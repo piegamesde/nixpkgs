@@ -53,7 +53,8 @@ stdenv.mkDerivation rec {
     ++ lib.optional enableCuda cudaPackages.cudatoolkit;
 
   propagatedBuildInputs = lib.optionals enablePython (
-    with python3Packages; [
+    with python3Packages;
+    [
       python
       numpy
       cython

@@ -6,8 +6,7 @@
 }:
 let
   packages =
-    self:
-    with self; {
+    self: with self; {
 
       # For compiling information, see:
       # - https://github.com/lxqt/lxqt/wiki/Building-from-source

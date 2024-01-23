@@ -30,14 +30,12 @@ stdenv.mkDerivation rec {
       installShellFiles
       removeReferencesTo
     ]
-    ++ (
-      with ocamlPackages; [
-        ocaml
-        findlib
-        ocamlbuild
-        menhir
-      ]
-    );
+    ++ (with ocamlPackages; [
+      ocaml
+      findlib
+      ocamlbuild
+      menhir
+    ]);
 
   buildInputs = with ocamlPackages; [
     batteries

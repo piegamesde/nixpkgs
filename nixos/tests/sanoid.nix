@@ -13,7 +13,9 @@ import ./make-test-python.nix (
   in
   {
     name = "sanoid";
-    meta = with pkgs.lib.maintainers; { maintainers = [ lopsided98 ]; };
+    meta = with pkgs.lib.maintainers; {
+      maintainers = [ lopsided98 ];
+    };
 
     nodes = {
       source =

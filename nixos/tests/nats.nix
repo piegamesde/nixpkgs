@@ -9,7 +9,9 @@ import ./make-test-python.nix (
   { pkgs, lib, ... }:
   {
     name = "nats";
-    meta = with pkgs.lib; { maintainers = with maintainers; [ c0deaddict ]; };
+    meta = with pkgs.lib; {
+      maintainers = with maintainers; [ c0deaddict ];
+    };
 
     nodes =
       let

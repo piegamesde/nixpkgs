@@ -13,7 +13,8 @@
 let
   src = lib.getAttr wineRelease (callPackage ./sources.nix { });
 in
-with src; {
+with src;
+{
   wine32 = pkgsi686Linux.callPackage ./base.nix {
     pname = "wine";
     inherit

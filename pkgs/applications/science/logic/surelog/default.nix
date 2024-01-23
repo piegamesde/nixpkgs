@@ -31,8 +31,7 @@ stdenv.mkDerivation rec {
     pkg-config
     openjdk
     (python3.withPackages (
-      p:
-      with p; [
+      p: with p; [
         psutil
         orderedmultidict
       ]

@@ -33,12 +33,10 @@ stdenv.mkDerivation rec {
     license = licenses.bsd2;
     maintainers =
       teams.sage.members
-      ++ (
-        with maintainers; [
-          abbradar
-          AndersonTorres
-        ]
-      );
+      ++ (with maintainers; [
+        abbradar
+        AndersonTorres
+      ]);
     platforms = platforms.unix;
   };
 }

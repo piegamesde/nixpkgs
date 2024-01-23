@@ -1,5 +1,4 @@
-lib: version:
-with lib; {
+lib: version: with lib; {
   homepage = "https://openjdk.java.net/";
   license = licenses.gpl2Only;
   description = "The open-source Java Development Kit";

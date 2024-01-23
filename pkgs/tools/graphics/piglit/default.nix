@@ -41,8 +41,7 @@ stdenv.mkDerivation rec {
     libxcb
     libxkbcommon
     (python3.withPackages (
-      ps:
-      with ps; [
+      ps: with ps; [
         mako
         numpy
       ]

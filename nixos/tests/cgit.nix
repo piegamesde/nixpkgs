@@ -8,7 +8,9 @@ import ./make-test-python.nix (
   in
   {
     name = "cgit";
-    meta = with pkgs.lib.maintainers; { maintainers = [ schnusch ]; };
+    meta = with pkgs.lib.maintainers; {
+      maintainers = [ schnusch ];
+    };
 
     nodes = {
       server =

@@ -68,21 +68,19 @@ stdenv.mkDerivation (
     ];
     buildInputs =
       extraBuildInputs
-      ++ (
-        with xorg; [
-          libXi
-          libXcursor
-          libXdamage
-          libXrandr
-          libXcomposite
-          libXext
-          libXfixes
-          libXrender
-          libX11
-          libXtst
-          libXScrnSaver
-        ]
-      )
+      ++ (with xorg; [
+        libXi
+        libXcursor
+        libXdamage
+        libXrandr
+        libXcomposite
+        libXext
+        libXfixes
+        libXrender
+        libX11
+        libXtst
+        libXScrnSaver
+      ])
       ++ [
         mesa # libgbm
         gtk3

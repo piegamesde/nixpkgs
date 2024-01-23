@@ -42,8 +42,7 @@ stdenv.mkDerivation rec {
     gtkspell3
     isocodes
     (python3.withPackages (
-      ps:
-      with ps; [
+      ps: with ps; [
         pyenchant
         sane
         pillow

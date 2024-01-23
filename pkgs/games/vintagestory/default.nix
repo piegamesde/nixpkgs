@@ -42,12 +42,10 @@ stdenv.mkDerivation rec {
       SDL2
       freealut
     ]
-    ++ (
-      with xorg; [
-        libX11
-        libXi
-      ]
-    )
+    ++ (with xorg; [
+      libX11
+      libXi
+    ])
   );
 
   desktopItems = makeDesktopItem {

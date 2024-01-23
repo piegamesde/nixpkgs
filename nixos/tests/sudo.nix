@@ -7,11 +7,14 @@ import ./make-test-python.nix (
   { pkgs, ... }:
   {
     name = "sudo";
-    meta = with pkgs.lib.maintainers; { maintainers = [ lschuermann ]; };
+    meta = with pkgs.lib.maintainers; {
+      maintainers = [ lschuermann ];
+    };
 
     nodes.machine =
       { lib, ... }:
-      with lib; {
+      with lib;
+      {
         users.groups = {
           foobar = { };
           barfoo = { };

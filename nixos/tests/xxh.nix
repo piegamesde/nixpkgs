@@ -34,7 +34,9 @@ import ./make-test-python.nix (
   in
   {
     name = "xxh";
-    meta = with lib.maintainers; { maintainers = [ lom ]; };
+    meta = with lib.maintainers; {
+      maintainers = [ lom ];
+    };
 
     nodes = {
       server =

@@ -58,7 +58,8 @@ stdenv.mkDerivation rec {
       gtest
     ]
     ++ lib.optionals pythonSupport (
-      with python3Packages; [
+      with python3Packages;
+      [
         setuptools
         wheel
         pip

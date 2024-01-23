@@ -1,7 +1,8 @@
 # This file provides a top-level function that will be used by both nixpkgs and nixos
 # to generate mod directories for use at runtime by factorio.
 { lib, stdenv }:
-with lib; {
+with lib;
+{
   mkModDirDrv =
     mods: modsDatFile: # a list of mod derivations
     let

@@ -136,7 +136,8 @@ stdenv.mkDerivation (
       ++ optionals javacSupport javacPackages
       ++ optional systemdSupport systemd
       ++ optionals stdenv.isDarwin (
-        with pkgs.darwin.apple_sdk.frameworks; [
+        with pkgs.darwin.apple_sdk.frameworks;
+        [
           AGL
           Carbon
           Cocoa

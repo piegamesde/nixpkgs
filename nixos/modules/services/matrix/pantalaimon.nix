@@ -19,8 +19,8 @@ let
         Notifications = false;
       };
 
-      ${name} =
-        (recursiveUpdate
+      ${name} = (
+        recursiveUpdate
           {
             Homeserver = instanceConfig.homeserver;
             ListenAddress = instanceConfig.listenAddress;
@@ -32,7 +32,7 @@ let
             UseKeyring = false;
           }
           instanceConfig.extraSettings
-        );
+      );
     };
 
   mkPantalaimonService =

@@ -22,7 +22,9 @@ let
     name = "${packageSet}-${variant}";
     value = makeTest {
       inherit name;
-      meta = with pkgs.lib.maintainers; { maintainers = [ chkno ]; };
+      meta = with pkgs.lib.maintainers; {
+        maintainers = [ chkno ];
+      };
 
       nodes.machine =
         { pkgs, ... }:

@@ -68,18 +68,17 @@ stdenv.mkDerivation rec {
       libiconv
       libevent
     ]
-    ++ (
-      with perlPackages; [
-        perl
-        XMLParser
-      ]
-    )
+    ++ (with perlPackages; [
+      perl
+      XMLParser
+    ])
     ++ lib.optionals stdenv.isFreeBSD [ libpcap ]
     ++ lib.optionals gtk3Support [ gtk3 ]
     ++ lib.optionals qt5Support [ qt5 ];
 
   propagatedBuildInputs = lib.optionals withPython (
-    with python.pkgs; [
+    with python.pkgs;
+    [
       python
       pygobject3
       dbus-python

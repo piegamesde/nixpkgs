@@ -41,9 +41,10 @@
       platforms = platforms.all;
     };
   };
-  inkcut =
-    (runCommand "inkcut-inkscape-plugin" { } ''
+  inkcut = (
+    runCommand "inkcut-inkscape-plugin" { } ''
       mkdir -p $out/share/inkscape/extensions
       cp ${inkcut}/share/inkscape/extensions/* $out/share/inkscape/extensions
-    '');
+    ''
+  );
 }

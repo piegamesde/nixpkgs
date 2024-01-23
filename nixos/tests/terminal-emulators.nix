@@ -127,7 +127,9 @@ mapAttrs
     }:
     makeTest {
       name = "terminal-emulator-${name}";
-      meta = with pkgs.lib.maintainers; { maintainers = [ jjjollyjim ]; };
+      meta = with pkgs.lib.maintainers; {
+        maintainers = [ jjjollyjim ];
+      };
 
       machine =
         { pkgsInner, ... }:

@@ -246,7 +246,8 @@ in
           onlyoffice-prestart = pkgs.writeShellScript "onlyoffice-prestart" ''
             PATH=$PATH:${
               lib.makeBinPath (
-                with pkgs; [
+                with pkgs;
+                [
                   jq
                   moreutils
                   config.services.postgresql.package

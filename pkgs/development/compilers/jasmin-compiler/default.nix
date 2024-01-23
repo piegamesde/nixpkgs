@@ -31,15 +31,13 @@ stdenv.mkDerivation rec {
       mpfr
       ppl
     ]
-    ++ (
-      with ocamlPackages; [
-        apron
-        batteries
-        menhirLib
-        yojson
-        zarith
-      ]
-    );
+    ++ (with ocamlPackages; [
+      apron
+      batteries
+      menhirLib
+      yojson
+      zarith
+    ]);
 
   installPhase = ''
     runHook preInstall

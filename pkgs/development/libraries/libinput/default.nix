@@ -31,8 +31,7 @@ let
   sphinx-build =
     let
       env = python3.withPackages (
-        pp:
-        with pp; [
+        pp: with pp; [
           sphinx
           recommonmark
           sphinx-rtd-theme
@@ -85,8 +84,7 @@ stdenv.mkDerivation rec {
       mtdev
       libwacom
       (python3.withPackages (
-        pp:
-        with pp; [
+        pp: with pp; [
           pp.libevdev # already in scope
           pyudev
           pyyaml

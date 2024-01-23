@@ -61,7 +61,9 @@ import ./make-test-python.nix (
 
   {
     name = "libreswan";
-    meta = with lib.maintainers; { maintainers = [ rnhmjoj ]; };
+    meta = with lib.maintainers; {
+      maintainers = [ rnhmjoj ];
+    };
 
     # Our protagonist
     nodes.alice =

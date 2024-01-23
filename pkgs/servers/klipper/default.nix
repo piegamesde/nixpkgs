@@ -24,8 +24,7 @@ stdenv.mkDerivation rec {
 
   buildInputs = [
     (python3.withPackages (
-      p:
-      with p; [
+      p: with p; [
         cffi
         pyserial
         greenlet

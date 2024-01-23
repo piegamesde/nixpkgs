@@ -42,16 +42,14 @@ stdenv.mkDerivation rec {
       librsvg
       libappindicator-gtk3
     ]
-    ++ (
-      with gst_all_1; [
-        gstreamer
-        gst-plugins-base
-        gst-plugins-good
-        gst-plugins-bad
-        gst-plugins-ugly
-        gst-libav
-      ]
-    )
+    ++ (with gst_all_1; [
+      gstreamer
+      gst-plugins-base
+      gst-plugins-good
+      gst-plugins-bad
+      gst-plugins-ugly
+      gst-libav
+    ])
     ++ lib.optional pulseaudioSupport libpulseaudio;
 
   meta = with lib; {

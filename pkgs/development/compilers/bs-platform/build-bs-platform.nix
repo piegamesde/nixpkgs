@@ -13,20 +13,24 @@
   version,
   src,
   patches ? [ ],
-  ocaml ? (import ./ocaml.nix {
-    version = ocaml-version;
-    inherit lib stdenv;
-    src = "${src}/ocaml";
-  }),
-  custom-ninja ? (ninja.overrideAttrs (
-    attrs: {
-      src = runCommand "ninja-patched-source" { } ''
-        mkdir -p $out
-        tar zxvf ${src}/vendor/ninja.tar.gz -C $out
-      '';
-      patches = [ ];
+  ocaml ? (
+    import ./ocaml.nix {
+      version = ocaml-version;
+      inherit lib stdenv;
+      src = "${src}/ocaml";
     }
-  )),
+  ),
+  custom-ninja ? (
+    ninja.overrideAttrs (
+      attrs: {
+        src = runCommand "ninja-patched-source" { } ''
+          mkdir -p $out
+          tar zxvf ${src}/vendor/ninja.tar.gz -C $out
+        '';
+        patches = [ ];
+      }
+    )
+  ),
 }:
 
 let

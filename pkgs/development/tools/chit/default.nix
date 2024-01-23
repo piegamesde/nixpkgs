@@ -26,7 +26,8 @@ rustPlatform.buildRustPackage rec {
     [ ]
     ++ lib.optionals stdenv.isLinux [ openssl ]
     ++ lib.optionals stdenv.isDarwin (
-      with darwin.apple_sdk.frameworks; [
+      with darwin.apple_sdk.frameworks;
+      [
         CoreFoundation
         CoreServices
         Security

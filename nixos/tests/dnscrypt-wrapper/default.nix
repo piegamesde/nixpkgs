@@ -2,7 +2,9 @@ import ../make-test-python.nix (
   { pkgs, ... }:
   {
     name = "dnscrypt-wrapper";
-    meta = with pkgs.lib.maintainers; { maintainers = [ rnhmjoj ]; };
+    meta = with pkgs.lib.maintainers; {
+      maintainers = [ rnhmjoj ];
+    };
 
     nodes = {
       server =

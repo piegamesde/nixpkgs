@@ -11,8 +11,7 @@ let
   dataDir = "/var/lib/sympa";
   runtimeDir = "/run/sympa";
   perlEnv = perl.withPackages (
-    p:
-    with p; [
+    p: with p; [
       ArchiveZip
       CGI
       CGIFast

@@ -3,7 +3,9 @@ import ./make-test-python.nix (
   {
     name = "enlightenment";
 
-    meta = with pkgs.lib.maintainers; { maintainers = [ romildo ]; };
+    meta = with pkgs.lib.maintainers; {
+      maintainers = [ romildo ];
+    };
 
     nodes.machine =
       { ... }:

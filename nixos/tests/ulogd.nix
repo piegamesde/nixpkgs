@@ -3,7 +3,9 @@ import ./make-test-python.nix (
   {
     name = "ulogd";
 
-    meta = with lib; { maintainers = with maintainers; [ p-h ]; };
+    meta = with lib; {
+      maintainers = with maintainers; [ p-h ];
+    };
 
     nodes.machine =
       { ... }:

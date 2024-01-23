@@ -130,46 +130,42 @@ self: super: {
   # See https://github.com/NixOS/nixpkgs/pull/205902 for why we use `self.<package>.scope`
   hls-haddock-comments-plugin = unmarkBroken (
     addBuildDepends
-      (
-        with self.hls-haddock-comments-plugin.scope; [
-          ghc-exactprint
-          ghcide
-          hls-plugin-api
-          hls-refactor-plugin
-          lsp-types
-          unordered-containers
-        ]
-      )
+      (with self.hls-haddock-comments-plugin.scope; [
+        ghc-exactprint
+        ghcide
+        hls-plugin-api
+        hls-refactor-plugin
+        lsp-types
+        unordered-containers
+      ])
       super.hls-haddock-comments-plugin
   );
 
   hls-tactics-plugin = unmarkBroken (
     addBuildDepends
-      (
-        with self.hls-tactics-plugin.scope; [
-          aeson
-          extra
-          fingertree
-          generic-lens
-          ghc-exactprint
-          ghc-source-gen
-          ghcide
-          hls-graph
-          hls-plugin-api
-          hls-refactor-plugin
-          hyphenation
-          lens
-          lsp
-          megaparsec
-          parser-combinators
-          prettyprinter
-          refinery
-          retrie
-          syb
-          unagi-chan
-          unordered-containers
-        ]
-      )
+      (with self.hls-tactics-plugin.scope; [
+        aeson
+        extra
+        fingertree
+        generic-lens
+        ghc-exactprint
+        ghc-source-gen
+        ghcide
+        hls-graph
+        hls-plugin-api
+        hls-refactor-plugin
+        hyphenation
+        lens
+        lsp
+        megaparsec
+        parser-combinators
+        prettyprinter
+        refinery
+        retrie
+        syb
+        unagi-chan
+        unordered-containers
+      ])
       super.hls-tactics-plugin
   );
 

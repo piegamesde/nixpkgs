@@ -5,8 +5,7 @@
 }:
 
 lib.makeScope pkgs.newScope (
-  self:
-  with self; {
+  self: with self; {
     updateScript = callPackage ./update.nix { };
 
     # Temporary helper until gdk-pixbuf supports multiple cache files.

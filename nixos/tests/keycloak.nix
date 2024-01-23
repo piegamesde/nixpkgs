@@ -14,7 +14,9 @@ let
     in
     {
       name = "keycloak";
-      meta = with pkgs.lib.maintainers; { maintainers = [ talyz ]; };
+      meta = with pkgs.lib.maintainers; {
+        maintainers = [ talyz ];
+      };
 
       nodes = {
         keycloak =

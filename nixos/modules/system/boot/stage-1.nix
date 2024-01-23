@@ -660,8 +660,9 @@ in
     };
 
     boot.initrd.compressor = mkOption {
-      default =
-        (if lib.versionAtLeast config.boot.kernelPackages.kernel.version "5.9" then "zstd" else "gzip");
+      default = (
+        if lib.versionAtLeast config.boot.kernelPackages.kernel.version "5.9" then "zstd" else "gzip"
+      );
       defaultText = literalMD "`zstd` if the kernel supports it (5.9+), `gzip` if not";
       type = types.either types.str (types.functionTo types.str);
       description = lib.mdDoc ''

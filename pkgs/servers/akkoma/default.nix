@@ -41,8 +41,8 @@ beamPackages.mixRelease rec {
 
   mixNixDeps = import ./mix.nix {
     inherit beamPackages lib;
-    overrides =
-      (final: prev: {
+    overrides = (
+      final: prev: {
         # mix2nix does not support git dependencies yet,
         # so we need to add them manually
         captcha = beamPackages.buildMix rec {
@@ -178,11 +178,14 @@ beamPackages.mixRelease rec {
               cp ${cfgFile} config/config.exs
             '';
         };
-      });
+      }
+    );
   };
 
   passthru = {
-    tests = with nixosTests; { inherit akkoma akkoma-confined; };
+    tests = with nixosTests; {
+      inherit akkoma akkoma-confined;
+    };
     inherit mixNixDeps;
   };
 

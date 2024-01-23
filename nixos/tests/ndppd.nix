@@ -2,7 +2,9 @@ import ./make-test-python.nix (
   { pkgs, lib, ... }:
   {
     name = "ndppd";
-    meta = with pkgs.lib.maintainers; { maintainers = [ fpletz ]; };
+    meta = with pkgs.lib.maintainers; {
+      maintainers = [ fpletz ];
+    };
 
     nodes = {
       upstream =

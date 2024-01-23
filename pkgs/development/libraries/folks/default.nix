@@ -68,8 +68,7 @@ stdenv.mkDerivation rec {
   nativeCheckInputs = [
     dbus
     (python3.withPackages (
-      pp:
-      with pp; [
+      pp: with pp; [
         python-dbusmock
         # The following possibly need to be propagated by dbusmock
         # if they are not optional

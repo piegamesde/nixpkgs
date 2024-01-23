@@ -42,15 +42,13 @@ stdenv.mkDerivation rec {
       libsoup
       keybinder3
     ]
-    ++ (
-      with gst_all_1; [
-        gstreamer
-        gst-plugins-base
-        gst-plugins-good
-        gst-plugins-bad
-        gst-plugins-ugly
-      ]
-    );
+    ++ (with gst_all_1; [
+      gstreamer
+      gst-plugins-base
+      gst-plugins-good
+      gst-plugins-bad
+      gst-plugins-ugly
+    ]);
 
   postPatch = ''
     patchShebangs scripts

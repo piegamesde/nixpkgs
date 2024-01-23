@@ -11,7 +11,9 @@ import ../make-test-python.nix (
   in
   {
     name = "wireguard";
-    meta = with pkgs.lib.maintainers; { maintainers = [ ma27 ]; };
+    meta = with pkgs.lib.maintainers; {
+      maintainers = [ ma27 ];
+    };
 
     nodes = {
       peer0 = peer {

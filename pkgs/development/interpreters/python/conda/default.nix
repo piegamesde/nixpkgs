@@ -11,21 +11,19 @@
       pkgs.gcc-unwrapped
       pkgs.libGL
     ]
-    ++ (
-      with pkgs.xorg; [
-        libSM
-        libICE
-        libX11
-        libXau
-        libXdamage
-        libXi
-        libXrender
-        libXrandr
-        libXcomposite
-        libXcursor
-        libXtst
-        libXScrnSaver
-      ]
-    )
+    ++ (with pkgs.xorg; [
+      libSM
+      libICE
+      libX11
+      libXau
+      libXdamage
+      libXi
+      libXrender
+      libXrandr
+      libXcomposite
+      libXcursor
+      libXtst
+      libXScrnSaver
+    ])
   );
 }

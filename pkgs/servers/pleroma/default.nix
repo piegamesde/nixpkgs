@@ -27,8 +27,8 @@ beamPackages.mixRelease rec {
 
   mixNixDeps = import ./mix.nix {
     inherit beamPackages lib;
-    overrides =
-      (final: prev: {
+    overrides = (
+      final: prev: {
         # mix2nix does not support git dependencies yet,
         # so we need to add them manually
         gettext = beamPackages.buildMix rec {
@@ -179,7 +179,8 @@ beamPackages.mixRelease rec {
             buildInputs = [ libxcrypt-legacy ];
             postInstall = "mv $out/lib/erlang/lib/crypt-${version}/priv/{hex-source-crypt-${version},crypt}.so";
           };
-      });
+      }
+    );
   };
 
   passthru = {

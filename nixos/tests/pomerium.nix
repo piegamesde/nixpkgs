@@ -2,7 +2,9 @@ import ./make-test-python.nix (
   { pkgs, lib, ... }:
   {
     name = "pomerium";
-    meta = with lib.maintainers; { maintainers = [ lukegb ]; };
+    meta = with lib.maintainers; {
+      maintainers = [ lukegb ];
+    };
 
     nodes =
       let

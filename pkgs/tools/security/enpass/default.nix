@@ -39,7 +39,8 @@ let
 
   # used of both wrappers and libpath
   libPath = lib.makeLibraryPath (
-    with xorg; [
+    with xorg;
+    [
       mesa.drivers
       libGLU
       libGL

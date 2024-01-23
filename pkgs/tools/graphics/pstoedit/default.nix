@@ -44,7 +44,8 @@ stdenv.mkDerivation rec {
       libwebp
     ]
     ++ lib.optionals stdenv.isDarwin (
-      with darwin.apple_sdk.frameworks; [
+      with darwin.apple_sdk.frameworks;
+      [
         libiconv
         ApplicationServices
       ]

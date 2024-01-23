@@ -5,7 +5,9 @@ import ./make-test-python.nix (
   in
   {
     name = "dnscrypt-proxy2";
-    meta = with pkgs.lib.maintainers; { maintainers = [ joachifm ]; };
+    meta = with pkgs.lib.maintainers; {
+      maintainers = [ joachifm ];
+    };
 
     nodes = {
       # A client running the recommended setup: DNSCrypt proxy as a forwarder

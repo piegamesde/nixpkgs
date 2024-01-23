@@ -57,14 +57,12 @@ stdenv.mkDerivation rec {
       glib-networking
       libnotify
     ]
-    ++ (
-      with gst_all_1; [
-        gstreamer
-        gst-plugins-base
-        gst-plugins-good
-        gst-plugins-bad
-      ]
-    );
+    ++ (with gst_all_1; [
+      gstreamer
+      gst-plugins-base
+      gst-plugins-good
+      gst-plugins-bad
+    ]);
 
   pythonPath = with python3Packages; [
     pygobject3

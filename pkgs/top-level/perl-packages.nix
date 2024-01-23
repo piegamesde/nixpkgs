@@ -25819,14 +25819,12 @@ with self;
         TestException
         TestWarn
       ]
-      ++ (
-        with pkgs; [
-          gsl
-          freeglut
-          xorg.libXmu
-          xorg.libXi
-        ]
-      );
+      ++ (with pkgs; [
+        gsl
+        freeglut
+        xorg.libXmu
+        xorg.libXi
+      ]);
 
     propagatedBuildInputs = [
       AstroFITSHeader
@@ -36291,7 +36289,8 @@ with self;
         AlienLibxml2
       ]
       ++ lib.optionals stdenv.isDarwin (
-        with pkgs; [
+        with pkgs;
+        [
           libiconv
           zlib
         ]

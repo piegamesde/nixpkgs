@@ -60,7 +60,8 @@ stdenv.mkDerivation (
         which
       ]
       ++ lists.optionals pythonSupport (
-        with python3Packages; [
+        with python3Packages;
+        [
           pip
           setuptools
           wheel
@@ -70,7 +71,8 @@ stdenv.mkDerivation (
     buildInputs =
       [ cuda-redist ]
       ++ lib.optionals pythonSupport (
-        with python3Packages; [
+        with python3Packages;
+        [
           pybind11
           python
         ]

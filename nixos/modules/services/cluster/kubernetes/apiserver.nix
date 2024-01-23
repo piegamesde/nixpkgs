@@ -15,8 +15,9 @@ let
 
   isRBACEnabled = elem "RBAC" cfg.authorizationMode;
 
-  apiserverServiceIP =
-    (concatStringsSep "." (take 3 (splitString "." cfg.serviceClusterIpRange)) + ".1");
+  apiserverServiceIP = (
+    concatStringsSep "." (take 3 (splitString "." cfg.serviceClusterIpRange)) + ".1"
+  );
 in
 {
 

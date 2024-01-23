@@ -109,14 +109,13 @@ let
           inherit (erlang.meta) platforms;
         } // meta;
 
-        passthru =
-          (
-            {
-              packageName = pname;
-              env = shell self;
-            }
-            // (if attrs ? passthru then attrs.passthru else { })
-          );
+        passthru = (
+          {
+            packageName = pname;
+            env = shell self;
+          }
+          // (if attrs ? passthru then attrs.passthru else { })
+        );
       }
       // customPhases
     );

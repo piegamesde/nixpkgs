@@ -148,20 +148,18 @@ python3Packages.buildPythonApplication rec {
       zip
       zstd
     ]
-    ++ (
-      with python3Packages; [
-        argcomplete
-        debian
-        defusedxml
-        jsondiff
-        jsbeautifier
-        libarchive-c
-        python-magic
-        progressbar33
-        pypdf2
-        tlsh
-      ]
-    )
+    ++ (with python3Packages; [
+      argcomplete
+      debian
+      defusedxml
+      jsondiff
+      jsbeautifier
+      libarchive-c
+      python-magic
+      progressbar33
+      pypdf2
+      tlsh
+    ])
     ++ lib.optionals stdenv.isLinux [
       python3Packages.pyxattr
       python3Packages.rpm
@@ -206,15 +204,13 @@ python3Packages.buildPythonApplication rec {
         radare2
         xmlbeans
       ]
-      ++ (
-        with python3Packages; [
-          androguard
-          binwalk
-          guestfs
-          h5py
-          pdfminer-six
-        ]
-      )
+      ++ (with python3Packages; [
+        androguard
+        binwalk
+        guestfs
+        h5py
+        pdfminer-six
+      ])
     );
 
   nativeCheckInputs = with python3Packages; [ pytestCheckHook ] ++ pythonPath;

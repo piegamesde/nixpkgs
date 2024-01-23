@@ -74,8 +74,8 @@ let
 
   openasar = callPackage ./openasar.nix { };
 
-  packages =
-    (builtins.mapAttrs
+  packages = (
+    builtins.mapAttrs
       (
         _: value:
         callPackage package (
@@ -110,6 +110,6 @@ let
           desktopName = "Discord Canary";
         };
       }
-    );
+  );
 in
 packages.${branch}

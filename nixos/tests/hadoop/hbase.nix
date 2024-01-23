@@ -6,7 +6,8 @@ import ../make-test-python.nix (
     hbase ? pkgs.hbase,
     ...
   }:
-  with pkgs.lib; {
+  with pkgs.lib;
+  {
     name = "hadoop-hbase";
 
     nodes =

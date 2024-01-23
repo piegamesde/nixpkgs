@@ -32,7 +32,8 @@ let
     Slice = "lcd.slice";
   };
 in
-with lib; {
+with lib;
+{
 
   meta.maintainers = with maintainers; [ peterhoeg ];
 

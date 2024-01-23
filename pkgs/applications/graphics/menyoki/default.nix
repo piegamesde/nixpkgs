@@ -30,7 +30,8 @@ rustPlatform.buildRustPackage rec {
   buildInputs =
     lib.optional withSixel libsixel
     ++ lib.optionals stdenv.isLinux (
-      with xorg; [
+      with xorg;
+      [
         libX11
         libXrandr
       ]

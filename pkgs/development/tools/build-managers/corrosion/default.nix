@@ -31,13 +31,11 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs =
     [ cmake ]
-    ++ (
-      with rustPlatform; [
-        cargoSetupHook
-        rust.cargo
-        rust.rustc
-      ]
-    );
+    ++ (with rustPlatform; [
+      cargoSetupHook
+      rust.cargo
+      rust.rustc
+    ]);
 
   meta = with lib; {
     description = "Tool for integrating Rust into an existing CMake project";

@@ -23,7 +23,9 @@ import ./make-test-python.nix (
   { pkgs, ... }:
   {
     name = "trafficserver";
-    meta = with pkgs.lib.maintainers; { maintainers = [ midchildan ]; };
+    meta = with pkgs.lib.maintainers; {
+      maintainers = [ midchildan ];
+    };
 
     nodes = {
       ats =
@@ -86,8 +88,7 @@ import ./make-test-python.nix (
         { pkgs, lib, ... }:
         let
           python = pkgs.python3.withPackages (
-            ps:
-            with ps; [
+            ps: with ps; [
               httpbin
               gunicorn
               gevent

@@ -13,7 +13,8 @@ let
 
   packages =
     with beamPackages;
-    with self; {
+    with self;
+    {
       argon2_elixir = buildMix rec {
         name = "argon2_elixir";
         version = "3.0.0";

@@ -3,7 +3,9 @@ import ./make-test-python.nix (
   {
     name = "deepin";
 
-    meta = with lib; { maintainers = teams.deepin.members; };
+    meta = with lib; {
+      maintainers = teams.deepin.members;
+    };
 
     nodes.machine =
       { ... }:

@@ -158,13 +158,11 @@ python3Packages.buildPythonApplication {
       curl
       pkg-config
     ]
-    ++ (
-      with rustPlatform; [
-        myCargoSetupHook
-        rust.cargo
-        rust.rustc
-      ]
-    );
+    ++ (with rustPlatform; [
+      myCargoSetupHook
+      rust.cargo
+      rust.rustc
+    ]);
 
   buildInputs =
     [ openssl ]

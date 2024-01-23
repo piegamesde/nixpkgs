@@ -20,8 +20,7 @@ appimageTools.wrapType2 {
   inherit pname src version;
 
   extraPkgs =
-    pkgs:
-    with pkgs; [
+    pkgs: with pkgs; [
       R
       zlib
       libusb-compat-0_1

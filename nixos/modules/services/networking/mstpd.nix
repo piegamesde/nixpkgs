@@ -7,7 +7,8 @@
 let
   cfg = config.services.mstpd;
 in
-with lib; {
+with lib;
+{
   options.services.mstpd = {
 
     enable = mkOption {

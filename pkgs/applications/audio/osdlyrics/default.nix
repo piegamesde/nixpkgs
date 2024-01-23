@@ -41,8 +41,7 @@ stdenv.mkDerivation rec {
     libnotify
     python3.pkgs.wrapPython
     (python3.withPackages (
-      pp:
-      with pp; [
+      pp: with pp; [
         chardet
         dbus-python
         future

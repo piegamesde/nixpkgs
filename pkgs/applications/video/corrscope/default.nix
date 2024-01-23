@@ -26,12 +26,10 @@ mkDerivationWith python3Packages.buildPythonApplication rec {
 
   nativeBuildInputs =
     [ wrapQtAppsHook ]
-    ++ (
-      with python3Packages; [
-        poetry-core
-        pythonRelaxDepsHook
-      ]
-    );
+    ++ (with python3Packages; [
+      poetry-core
+      pythonRelaxDepsHook
+    ]);
 
   buildInputs = [
     ffmpeg

@@ -101,8 +101,8 @@ rec {
         builtins.attrNames pkgConfig
       );
 
-      postInstall =
-        (builtins.map
+      postInstall = (
+        builtins.map
           (
             key:
             if (pkgConfig.${key} ? postInstall) then
@@ -115,7 +115,7 @@ rec {
               ""
           )
           (builtins.attrNames pkgConfig)
-        );
+      );
 
       # build-time JSON generation to avoid IFD
       # see https://nixos.wiki/wiki/Import_From_Derivation

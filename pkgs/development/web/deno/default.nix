@@ -35,15 +35,13 @@ rustPlatform.buildRustPackage rec {
       libiconv
       darwin.libobjc
     ]
-    ++ (
-      with darwin.apple_sdk.frameworks; [
-        Security
-        CoreServices
-        Metal
-        Foundation
-        QuartzCore
-      ]
-    )
+    ++ (with darwin.apple_sdk.frameworks; [
+      Security
+      CoreServices
+      Metal
+      Foundation
+      QuartzCore
+    ])
   );
 
   buildAndTestSubdir = "cli";

@@ -38,7 +38,8 @@ rustPlatform.buildRustPackage rec {
       libgit2
     ]
     ++ lib.optionals stdenv.isDarwin (
-      with darwin.apple_sdk.frameworks; [
+      with darwin.apple_sdk.frameworks;
+      [
         curl
         Security
         AppKit

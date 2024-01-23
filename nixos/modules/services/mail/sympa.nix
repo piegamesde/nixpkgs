@@ -388,43 +388,42 @@ in
 
   config = mkIf cfg.enable {
 
-    services.sympa.settings =
-      (
-        mapAttrs (_: v: mkDefault v) {
-          domain = if cfg.mainDomain != null then cfg.mainDomain else head fqdns;
-          listmaster = concatStringsSep "," cfg.listMasters;
-          lang = cfg.lang;
+    services.sympa.settings = (
+      mapAttrs (_: v: mkDefault v) {
+        domain = if cfg.mainDomain != null then cfg.mainDomain else head fqdns;
+        listmaster = concatStringsSep "," cfg.listMasters;
+        lang = cfg.lang;
 
-          home = "${dataDir}/list_data";
-          arc_path = "${dataDir}/arc";
-          bounce_path = "${dataDir}/bounce";
+        home = "${dataDir}/list_data";
+        arc_path = "${dataDir}/arc";
+        bounce_path = "${dataDir}/bounce";
 
-          sendmail = "${pkgs.system-sendmail}/bin/sendmail";
+        sendmail = "${pkgs.system-sendmail}/bin/sendmail";
 
-          db_type = cfg.database.type;
-          db_name = cfg.database.name;
-        }
-        // (optionalAttrs (cfg.database.host != null) { db_host = cfg.database.host; })
-        // (optionalAttrs mysqlLocal {
-          db_host = "localhost"; # use unix domain socket
-        })
-        // (optionalAttrs pgsqlLocal {
-          db_host = "/run/postgresql"; # use unix domain socket
-        })
-        // (optionalAttrs (cfg.database.port != null) { db_port = cfg.database.port; })
-        // (optionalAttrs (cfg.database.user != null) { db_user = cfg.database.user; })
-        // (optionalAttrs (cfg.mta.type == "postfix") {
-          sendmail_aliases = "${dataDir}/sympa_transport";
-          aliases_program = "${pkgs.postfix}/bin/postmap";
-          aliases_db_type = "hash";
-        })
-        // (optionalAttrs cfg.web.enable {
-          static_content_path = "${dataDir}/static_content";
-          css_path = "${dataDir}/static_content/css";
-          pictures_path = "${dataDir}/static_content/pictures";
-          mhonarc = "${pkgs.perlPackages.MHonArc}/bin/mhonarc";
-        })
-      );
+        db_type = cfg.database.type;
+        db_name = cfg.database.name;
+      }
+      // (optionalAttrs (cfg.database.host != null) { db_host = cfg.database.host; })
+      // (optionalAttrs mysqlLocal {
+        db_host = "localhost"; # use unix domain socket
+      })
+      // (optionalAttrs pgsqlLocal {
+        db_host = "/run/postgresql"; # use unix domain socket
+      })
+      // (optionalAttrs (cfg.database.port != null) { db_port = cfg.database.port; })
+      // (optionalAttrs (cfg.database.user != null) { db_user = cfg.database.user; })
+      // (optionalAttrs (cfg.mta.type == "postfix") {
+        sendmail_aliases = "${dataDir}/sympa_transport";
+        aliases_program = "${pkgs.postfix}/bin/postmap";
+        aliases_db_type = "hash";
+      })
+      // (optionalAttrs cfg.web.enable {
+        static_content_path = "${dataDir}/static_content";
+        css_path = "${dataDir}/static_content/css";
+        pictures_path = "${dataDir}/static_content/pictures";
+        mhonarc = "${pkgs.perlPackages.MHonArc}/bin/mhonarc";
+      })
+    );
 
     services.sympa.settingsFile =
       {

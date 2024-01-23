@@ -146,7 +146,8 @@ stdenv.mkDerivation (
         util-linuxMinimal # for libmount
       ]
       ++ lib.optionals stdenv.isDarwin (
-        with darwin.apple_sdk.frameworks; [
+        with darwin.apple_sdk.frameworks;
+        [
           AppKit
           Carbon
           Cocoa
@@ -335,12 +336,10 @@ stdenv.mkDerivation (
       license = licenses.lgpl21Plus;
       maintainers =
         teams.gnome.members
-        ++ (
-          with maintainers; [
-            lovek323
-            raskin
-          ]
-        );
+        ++ (with maintainers; [
+          lovek323
+          raskin
+        ]);
       pkgConfigModules = [
         "gio-2.0"
         "gobject-2.0"

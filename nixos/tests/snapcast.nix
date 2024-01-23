@@ -10,7 +10,9 @@ import ./make-test-python.nix (
   in
   {
     name = "snapcast";
-    meta = with pkgs.lib.maintainers; { maintainers = [ hexa ]; };
+    meta = with pkgs.lib.maintainers; {
+      maintainers = [ hexa ];
+    };
 
     nodes = {
       server = {

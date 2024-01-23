@@ -16,7 +16,8 @@ let
 in
 base.withExtensions (
   { all, ... }:
-  with all; ([
+  with all;
+  ([
     bcmath
     calendar
     curl

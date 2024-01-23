@@ -53,21 +53,19 @@ buildPythonPackage rec {
       zlib
       icu
     ]
-    ++ (
-      with rPackages; [
-        # packages expected by the test framework
-        ggplot2
-        dplyr
-        RSQLite
-        broom
-        DBI
-        dbplyr
-        hexbin
-        lazyeval
-        lme4
-        tidyr
-      ]
-    )
+    ++ (with rPackages; [
+      # packages expected by the test framework
+      ggplot2
+      dplyr
+      RSQLite
+      broom
+      DBI
+      dbplyr
+      hexbin
+      lazyeval
+      lme4
+      tidyr
+    ])
     ++ extraRPackages
     ++ rWrapper.recommendedPackages;
 

@@ -388,20 +388,18 @@ in
         libevdev
         udev
       ]
-      ++ (
-        with xorg; [
-          libSM
-          libX11
-          libXi
-          libpthreadstubs
-          libxcb
-          xcbutil
-          libXext
-          libXrandr
-          libXinerama
-          libXxf86vm
-        ]
-      );
+      ++ (with xorg; [
+        libSM
+        libX11
+        libXi
+        libpthreadstubs
+        libxcb
+        xcbutil
+        libXext
+        libXrandr
+        libXinerama
+        libXxf86vm
+      ]);
     makefile = "Makefile";
     cmakeFlags = [
       "-DLIBRETRO=ON"

@@ -82,7 +82,8 @@ mkDerivation {
     ]
     ++ (
       if lib.versionAtLeast gnuradio.versionAttr.major "3.9" then
-        with python.pkgs; [
+        with python.pkgs;
+        [
           pybind11
           numpy
         ]

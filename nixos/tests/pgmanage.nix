@@ -7,7 +7,9 @@ import ./make-test-python.nix (
   in
   {
     name = "pgmanage";
-    meta = with pkgs.lib.maintainers; { maintainers = [ basvandijk ]; };
+    meta = with pkgs.lib.maintainers; {
+      maintainers = [ basvandijk ];
+    };
     nodes = {
       one =
         { config, pkgs, ... }:

@@ -67,22 +67,20 @@ stdenv.mkDerivation rec {
       libGL
       libGLU
     ]
-    ++ (
-      with xorg; [
-        libX11
-        libXext
-        libXtst
-        libXi
-        libXmu
-        libXrender
-        libxcb
-        libXcursor
-        libXfixes
-        libXrandr
-        libICE
-        libSM
-      ]
-    );
+    ++ (with xorg; [
+      libX11
+      libXext
+      libXtst
+      libXi
+      libXmu
+      libXrender
+      libxcb
+      libXcursor
+      libXfixes
+      libXrandr
+      libICE
+      libSM
+    ]);
 
   # some bundled libs are found through LD_LIBRARY_PATH
   autoPatchelfIgnoreMissingDeps = true;

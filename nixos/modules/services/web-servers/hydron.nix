@@ -8,7 +8,8 @@
 let
   cfg = config.services.hydron;
 in
-with lib; {
+with lib;
+{
   options.services.hydron = {
     enable = mkEnableOption (lib.mdDoc "hydron");
 

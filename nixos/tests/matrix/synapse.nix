@@ -57,7 +57,9 @@ import ../make-test-python.nix (
   {
 
     name = "matrix-synapse";
-    meta = with pkgs.lib; { maintainers = teams.matrix.members; };
+    meta = with pkgs.lib; {
+      maintainers = teams.matrix.members;
+    };
 
     nodes = {
       # Since 0.33.0, matrix-synapse doesn't allow underscores in server names

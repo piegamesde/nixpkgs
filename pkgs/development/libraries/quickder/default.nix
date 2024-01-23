@@ -34,8 +34,7 @@ stdenv.mkDerivation rec {
     arpa2cm
     arpa2common
     (python3.withPackages (
-      ps:
-      with ps; [
+      ps: with ps; [
         asn1ate
         colored
         pyparsing

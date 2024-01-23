@@ -142,7 +142,8 @@ in
       propagatedBuildInputs =
         o.propagatedBuildInputs
         ++ lib.optionals after_1_6 (
-          with coq.ocamlPackages; [
+          with coq.ocamlPackages;
+          [
             findlib
             zarith
           ]

@@ -28,7 +28,8 @@ buildPythonPackage rec {
       udev
     ]
     ++ lib.optionals stdenv.isDarwin (
-      with darwin.apple_sdk.frameworks; [
+      with darwin.apple_sdk.frameworks;
+      [
         AppKit
         CoreFoundation
         IOKit

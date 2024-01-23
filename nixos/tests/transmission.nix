@@ -2,7 +2,9 @@ import ./make-test-python.nix (
   { pkgs, ... }:
   {
     name = "transmission";
-    meta = with pkgs.lib.maintainers; { maintainers = [ coconnor ]; };
+    meta = with pkgs.lib.maintainers; {
+      maintainers = [ coconnor ];
+    };
 
     nodes.machine =
       { ... }:

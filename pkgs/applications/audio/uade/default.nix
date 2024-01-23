@@ -58,8 +58,7 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optionals withWriteAudio [
       (python3.withPackages (
-        p:
-        with p; [
+        p: with p; [
           pillow
           tqdm
           more-itertools

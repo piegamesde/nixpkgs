@@ -19,8 +19,7 @@ let
   # NOTE This is needed to download & run another Python program internally in
   #      order to generate test cases for library-checker problems.
   pythonEnv = python.withPackages (
-    ps:
-    with ps; [
+    ps: with ps; [
       colorlog
       jinja2
       markdown

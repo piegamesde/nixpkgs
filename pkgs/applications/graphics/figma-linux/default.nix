@@ -41,18 +41,16 @@ stdenv.mkDerivation rec {
       nss
       pango
     ]
-    ++ (
-      with pkgs.xorg; [
-        libX11
-        libXcomposite
-        libXdamage
-        libXext
-        libXfixes
-        libXrandr
-        libxcb
-        libxshmfence
-      ]
-    );
+    ++ (with pkgs.xorg; [
+      libX11
+      libXcomposite
+      libXdamage
+      libXext
+      libXfixes
+      libXrandr
+      libxcb
+      libxshmfence
+    ]);
 
   runtimeDependencies = with pkgs; [ eudev ];
 

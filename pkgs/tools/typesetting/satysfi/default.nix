@@ -76,18 +76,16 @@ ocamlPackages.buildDunePackage rec {
       otfm
       yojson-with-position
     ]
-    ++ (
-      with ocamlPackages; [
-        menhirLib
-        batteries
-        camlimages
-        core_kernel
-        ppx_deriving
-        uutf
-        omd
-        re
-      ]
-    );
+    ++ (with ocamlPackages; [
+      menhirLib
+      batteries
+      camlimages
+      core_kernel
+      ppx_deriving
+      uutf
+      omd
+      re
+    ]);
 
   postInstall = ''
     mkdir -p $out/share/satysfi/dist/fonts

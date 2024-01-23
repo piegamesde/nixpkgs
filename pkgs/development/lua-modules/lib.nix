@@ -133,17 +133,16 @@ rec {
         rocks_subdir = rocksSubdir;
         # first tree is the default target where new rocks are installed,
         # any other trees in the list are treated as additional sources of installed rocks for matching dependencies.
-        rocks_trees =
-          (
-            [
-              {
-                name = "current";
-                root = "${placeholder "out"}";
-                rocks_dir = "current";
-              }
-            ]
-            ++ rocksTrees
-          );
+        rocks_trees = (
+          [
+            {
+              name = "current";
+              root = "${placeholder "out"}";
+              rocks_dir = "current";
+            }
+          ]
+          ++ rocksTrees
+        );
       }
       // lib.optionalAttrs lua.pkgs.isLuaJIT {
         # Luajit provides some additional functionality built-in; this exposes

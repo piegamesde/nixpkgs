@@ -2,7 +2,9 @@ import ../make-test-python.nix (
   { pkgs, ... }:
   {
     name = "maddy-unencrypted";
-    meta = with pkgs.lib.maintainers; { maintainers = [ onny ]; };
+    meta = with pkgs.lib.maintainers; {
+      maintainers = [ onny ];
+    };
 
     nodes = {
       server =

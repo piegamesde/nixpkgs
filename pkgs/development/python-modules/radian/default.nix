@@ -44,12 +44,10 @@ buildPythonPackage rec {
       rchitect
       six
     ]
-    ++ (
-      with rPackages; [
-        reticulate
-        askpass
-      ]
-    );
+    ++ (with rPackages; [
+      reticulate
+      askpass
+    ]);
 
   nativeCheckInputs = [
     pytestCheckHook

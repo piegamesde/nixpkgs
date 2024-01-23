@@ -65,23 +65,19 @@ stdenv.mkDerivation rec {
       iconTheme
       gtk3
     ]
-    ++ (
-      with gst_all_1; [
-        gstreamer
-        gst-plugins-base
-        gst-plugins-good
-      ]
-    )
-    ++ (
-      with python3.pkgs; [
-        bsddb3
-        dbus-python
-        mutagen
-        pygobject3
-        pycairo
-        gst-python
-      ]
-    )
+    ++ (with gst_all_1; [
+      gstreamer
+      gst-plugins-base
+      gst-plugins-good
+    ])
+    ++ (with python3.pkgs; [
+      bsddb3
+      dbus-python
+      mutagen
+      pygobject3
+      pycairo
+      gst-python
+    ])
     ++ lib.optional deviceDetectionSupport udisks
     ++ lib.optional notificationSupport libnotify
     ++ lib.optional scalableIconSupport librsvg

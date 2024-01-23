@@ -6,7 +6,9 @@ import ../make-test-python.nix (
   in
   {
     name = "maddy-tls";
-    meta = with pkgs.lib.maintainers; { maintainers = [ onny ]; };
+    meta = with pkgs.lib.maintainers; {
+      maintainers = [ onny ];
+    };
 
     nodes = {
       server =

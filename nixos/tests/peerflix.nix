@@ -4,7 +4,9 @@ import ./make-test-python.nix (
   { pkgs, ... }:
   {
     name = "peerflix";
-    meta = with pkgs.lib.maintainers; { maintainers = [ offline ]; };
+    meta = with pkgs.lib.maintainers; {
+      maintainers = [ offline ];
+    };
 
     nodes = {
       peerflix = { ... }: { services.peerflix.enable = true; };

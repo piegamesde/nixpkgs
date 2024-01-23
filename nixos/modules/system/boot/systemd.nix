@@ -494,16 +494,18 @@ in
 
     system.nssModules = [ cfg.package.out ];
     system.nssDatabases = {
-      hosts =
-        (mkMerge [
+      hosts = (
+        mkMerge [
           (mkOrder 400 [ "mymachines" ]) # 400 to ensure it comes before resolve (which is mkBefore'd)
           (mkOrder 999 [ "myhostname" ]) # after files (which is 998), but before regular nss modules
-        ]);
+        ]
+      );
       passwd = (mkMerge [ (mkAfter [ "systemd" ]) ]);
-      group =
-        (mkMerge [
+      group = (
+        mkMerge [
           (mkAfter [ "[success=merge] systemd" ]) # need merge so that NSS won't stop at file-based groups
-        ]);
+        ]
+      );
     };
 
     environment.systemPackages = [ cfg.package ];

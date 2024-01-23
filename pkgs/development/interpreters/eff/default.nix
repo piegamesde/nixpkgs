@@ -25,14 +25,12 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs =
     [ which ]
-    ++ (
-      with ocamlPackages; [
-        ocaml
-        findlib
-        ocamlbuild
-        menhir
-      ]
-    );
+    ++ (with ocamlPackages; [
+      ocaml
+      findlib
+      ocamlbuild
+      menhir
+    ]);
 
   buildInputs = with ocamlPackages; [
     js_of_ocaml

@@ -13,7 +13,9 @@ import ./make-test-python.nix (
   in
   {
     name = "musescore";
-    meta = with pkgs.lib.maintainers; { maintainers = [ turion ]; };
+    meta = with pkgs.lib.maintainers; {
+      maintainers = [ turion ];
+    };
 
     nodes.machine =
       { ... }:

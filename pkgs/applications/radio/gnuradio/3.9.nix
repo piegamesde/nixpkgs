@@ -241,8 +241,8 @@ let
       runtime = [ soapysdr ];
     };
   };
-  shared =
-    (import ./shared.nix {
+  shared = (
+    import ./shared.nix {
       inherit
         stdenv
         lib
@@ -257,7 +257,8 @@ let
         ;
       qt = qt5;
       gtk = gtk3;
-    });
+    }
+  );
   inherit (shared) hasFeature; # function
 in
 

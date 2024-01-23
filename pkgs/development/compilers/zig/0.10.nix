@@ -35,13 +35,11 @@ stdenv.mkDerivation rec {
       libxml2
       zlib
     ]
-    ++ (
-      with llvmPackages; [
-        libclang
-        lld
-        llvm
-      ]
-    );
+    ++ (with llvmPackages; [
+      libclang
+      lld
+      llvm
+    ]);
 
   patches = [
     # Backport alignment related panics from zig-master to 0.10.

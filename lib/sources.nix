@@ -150,14 +150,13 @@ let
       origSrc = if isFiltered then src.origSrc else src;
     in
     lib.cleanSourceWith {
-      filter =
-        (
-          path: type:
-          let
-            relPath = lib.removePrefix (toString origSrc + "/") (toString path);
-          in
-          lib.any (re: match re relPath != null) regexes
-        );
+      filter = (
+        path: type:
+        let
+          relPath = lib.removePrefix (toString origSrc + "/") (toString path);
+        in
+        lib.any (re: match re relPath != null) regexes
+      );
       inherit src;
     };
 

@@ -38,7 +38,8 @@ stdenv.mkDerivation {
       libevdev
     ]
     ++ lib.optionals withPython (
-      with python3Packages; [
+      with python3Packages;
+      [
         python
         pybind11
       ]

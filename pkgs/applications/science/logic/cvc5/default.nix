@@ -42,8 +42,7 @@ stdenv.mkDerivation rec {
     boost
     jdk
     (python3.withPackages (
-      ps:
-      with ps; [
+      ps: with ps; [
         pyparsing
         toml
       ]

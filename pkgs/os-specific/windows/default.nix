@@ -9,8 +9,7 @@
 }:
 
 lib.makeScope newScope (
-  self:
-  with self; {
+  self: with self; {
 
     cygwinSetup = callPackage ./cygwin-setup { };
 

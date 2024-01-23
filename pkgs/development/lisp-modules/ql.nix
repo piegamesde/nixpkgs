@@ -9,8 +9,8 @@ let
 
   # FIXME: automatically add nativeLibs based on conditions signalled
 
-  overrides =
-    (self: super: {
+  overrides = (
+    self: super: {
       cl_plus_ssl = super.cl_plus_ssl.overrideLispAttrs (o: { nativeLibs = [ pkgs.openssl ]; });
       cl-cffi-gtk-glib = super.cl-cffi-gtk-glib.overrideLispAttrs (o: { nativeLibs = [ pkgs.glib ]; });
       cl-cffi-gtk-cairo = super.cl-cffi-gtk-cairo.overrideLispAttrs (o: { nativeLibs = [ pkgs.cairo ]; });
@@ -211,7 +211,8 @@ let
           lispLibs = o.lispLibs ++ [ self.mcclim ];
         }
       );
-    });
+    }
+  );
 
   qlpkgs =
     if builtins.pathExists ./imported.nix then

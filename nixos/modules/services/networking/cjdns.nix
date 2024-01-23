@@ -287,22 +287,21 @@ in
             fi
           '';
 
-      script =
-        (
-          if cfg.confFile != null then
-            "${pkg}/bin/cjdroute < ${cfg.confFile}"
-          else
-            ''
-              source /etc/cjdns.keys
-              (cat <<'EOF'
-              ${cjdrouteConf}
-              EOF
-              ) | sed \
-                  -e "s/@CJDNS_ADMIN_PASSWORD@/$CJDNS_ADMIN_PASSWORD/g" \
-                  -e "s/@CJDNS_PRIVATE_KEY@/$CJDNS_PRIVATE_KEY/g" \
-                  | ${pkg}/bin/cjdroute
-            ''
-        );
+      script = (
+        if cfg.confFile != null then
+          "${pkg}/bin/cjdroute < ${cfg.confFile}"
+        else
+          ''
+            source /etc/cjdns.keys
+            (cat <<'EOF'
+            ${cjdrouteConf}
+            EOF
+            ) | sed \
+                -e "s/@CJDNS_ADMIN_PASSWORD@/$CJDNS_ADMIN_PASSWORD/g" \
+                -e "s/@CJDNS_PRIVATE_KEY@/$CJDNS_PRIVATE_KEY/g" \
+                | ${pkg}/bin/cjdroute
+          ''
+      );
 
       startLimitIntervalSec = 0;
       serviceConfig = {

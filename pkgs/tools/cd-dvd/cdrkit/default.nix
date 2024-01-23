@@ -29,7 +29,8 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optionals stdenv.isLinux [ libcap ]
     ++ lib.optionals stdenv.isDarwin (
-      with darwin.apple_sdk.frameworks; [
+      with darwin.apple_sdk.frameworks;
+      [
         Carbon
         IOKit
         iconv

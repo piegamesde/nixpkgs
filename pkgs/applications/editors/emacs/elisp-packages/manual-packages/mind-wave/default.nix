@@ -60,8 +60,7 @@ melpaBuild rec {
   packageRequires = [ pkgs.emacsPackages.markdown-mode ];
   buildInputs = [
     (pkgs.python3.withPackages (
-      ps:
-      with ps; [
+      ps: with ps; [
         openai
         epc
         sexpdata

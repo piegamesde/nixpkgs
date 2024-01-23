@@ -63,12 +63,10 @@ in
   iolib = x: {
     propagatedBuildInputs =
       (x.propagatedBuildInputs or [ ])
-      ++ (
-        with pkgs; [
-          libfixposix
-          gcc
-        ]
-      );
+      ++ (with pkgs; [
+        libfixposix
+        gcc
+      ]);
     overrides =
       y:
       (x.overrides y)
@@ -82,7 +80,8 @@ in
   };
   cxml = skipBuildPhase;
   wookie = addNativeLibs (
-    with pkgs; [
+    with pkgs;
+    [
       libuv
       openssl
     ]
@@ -403,7 +402,8 @@ in
       ]
       (extraLispDeps (with quicklisp-to-nix-packages; [ flexi-streams ]));
   cl-gobject-introspection = addNativeLibs (
-    with pkgs; [
+    with pkgs;
+    [
       glib
       gobject-introspection
     ]

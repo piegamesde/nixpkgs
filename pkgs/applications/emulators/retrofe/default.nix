@@ -46,13 +46,11 @@ stdenv.mkDerivation {
       sqlite
       zlib
     ]
-    ++ (
-      with gst_all_1; [
-        gst-libav
-        gst-plugins-base
-        gst-plugins-good
-      ]
-    );
+    ++ (with gst_all_1; [
+      gst-libav
+      gst-plugins-base
+      gst-plugins-good
+    ]);
 
   configurePhase = ''
     cmake RetroFE/Source -BRetroFE/Build -DCMAKE_BUILD_TYPE=Release \

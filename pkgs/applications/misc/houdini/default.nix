@@ -29,25 +29,23 @@ buildFHSEnv rec {
       libudev0-shim
       tbb
     ]
-    ++ (
-      with xorg; [
-        libICE
-        libSM
-        libXmu
-        libXi
-        libXext
-        libX11
-        libXrender
-        libXcursor
-        libXfixes
-        libXrender
-        libXcomposite
-        libXdamage
-        libXtst
-        libxcb
-        libXScrnSaver
-      ]
-    );
+    ++ (with xorg; [
+      libICE
+      libSM
+      libXmu
+      libXi
+      libXext
+      libX11
+      libXrender
+      libXcursor
+      libXfixes
+      libXrender
+      libXcomposite
+      libXdamage
+      libXtst
+      libxcb
+      libXScrnSaver
+    ]);
 
   passthru = {
     inherit unwrapped;

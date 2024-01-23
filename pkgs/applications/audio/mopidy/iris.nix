@@ -15,13 +15,11 @@ python3Packages.buildPythonApplication rec {
 
   propagatedBuildInputs =
     [ mopidy ]
-    ++ (
-      with python3Packages; [
-        configobj
-        requests
-        tornado
-      ]
-    );
+    ++ (with python3Packages; [
+      configobj
+      requests
+      tornado
+    ]);
 
   # no tests implemented
   doCheck = false;

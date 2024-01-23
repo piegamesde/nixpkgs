@@ -271,12 +271,12 @@ lib.makeScope pkgs.newScope (
                         files = pkgMeta.files or lockFiles.${normalizedName};
                         pythonPackages = self;
 
-                        sourceSpec =
-                          ((normalizePackageSet pyProject.tool.poetry.dependencies or { }).${normalizedName}
+                        sourceSpec = (
+                          (normalizePackageSet pyProject.tool.poetry.dependencies or { }).${normalizedName}
                             or (normalizePackageSet pyProject.tool.poetry.dev-dependencies or { }).${normalizedName}
                               or (normalizePackageSet pyProject.tool.poetry.group.dev.dependencies or { }).${normalizedName} # Poetry 1.2.0+
                                 or { }
-                          );
+                        );
                       }
                     );
                   }
@@ -449,20 +449,19 @@ lib.makeScope pkgs.newScope (
           builtins.attrNames editablePackageSources
         );
 
-        allEditablePackageSources =
-          (
-            (getEditableDeps (pyProject.tool.poetry."dependencies" or { }))
-            // (getEditableDeps (pyProject.tool.poetry."dev-dependencies" or { }))
-            // (
-              # Poetry>=1.2.0
-              if pyProject.tool.poetry.group or { } != { } then
-                builtins.foldl' (acc: g: acc // getEditableDeps pyProject.tool.poetry.group.${g}.dependencies) { }
-                  groups
-              else
-                { }
-            )
-            // editablePackageSources
-          );
+        allEditablePackageSources = (
+          (getEditableDeps (pyProject.tool.poetry."dependencies" or { }))
+          // (getEditableDeps (pyProject.tool.poetry."dev-dependencies" or { }))
+          // (
+            # Poetry>=1.2.0
+            if pyProject.tool.poetry.group or { } != { } then
+              builtins.foldl' (acc: g: acc // getEditableDeps pyProject.tool.poetry.group.${g}.dependencies) { }
+                groups
+            else
+              { }
+          )
+          // editablePackageSources
+        );
 
         editablePackageSources' = builtins.removeAttrs allEditablePackageSources excludedEditablePackageNames;
 

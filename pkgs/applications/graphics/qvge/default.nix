@@ -23,11 +23,12 @@ stdenv.mkDerivation rec {
 
   sourceRoot = "${src.name}/src";
 
-  patches =
-    (substituteAll {
+  patches = (
+    substituteAll {
       src = ./set-graphviz-path.patch;
       inherit graphviz;
-    });
+    }
+  );
 
   nativeBuildInputs = [
     wrapQtAppsHook

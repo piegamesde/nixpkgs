@@ -51,12 +51,10 @@ python.pkgs.buildPythonApplication rec {
       gobject-introspection
       wrapGAppsHook
     ]
-    ++ (
-      with python.pkgs; [
-        poetry-core
-        pythonRelaxDepsHook
-      ]
-    );
+    ++ (with python.pkgs; [
+      poetry-core
+      pythonRelaxDepsHook
+    ]);
 
   # Can be removed in later versions (probably > 0.11.16)
   pythonRelaxDeps = [

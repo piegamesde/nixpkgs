@@ -14,87 +14,85 @@ let
   expandCamelCase = replaceStrings upperChars (map (s: " ${s}") lowerChars);
   expandCamelCaseAttrs = mapAttrs' (name: value: nameValuePair (expandCamelCase name) value);
 
-  makeServices =
-    (
-      daemonType: daemonIds:
-      mkMerge (
-        map
-          (daemonId: {
-            "ceph-${daemonType}-${daemonId}" = makeService daemonType daemonId cfg.global.clusterName pkgs.ceph;
-          })
-          daemonIds
-      )
-    );
+  makeServices = (
+    daemonType: daemonIds:
+    mkMerge (
+      map
+        (daemonId: {
+          "ceph-${daemonType}-${daemonId}" = makeService daemonType daemonId cfg.global.clusterName pkgs.ceph;
+        })
+        daemonIds
+    )
+  );
 
-  makeService =
-    (
-      daemonType: daemonId: clusterName: ceph:
-      let
-        stateDirectory = "ceph/${
-          if daemonType == "rgw" then "radosgw" else daemonType
-        }/${clusterName}-${daemonId}";
-      in
-      {
-        enable = true;
-        description = "Ceph ${builtins.replaceStrings lowerChars upperChars daemonType} daemon ${daemonId}";
-        after = [
-          "network-online.target"
-          "time-sync.target"
-        ] ++ optional (daemonType == "osd") "ceph-mon.target";
-        wants = [
-          "network-online.target"
-          "time-sync.target"
-        ];
-        partOf = [ "ceph-${daemonType}.target" ];
-        wantedBy = [ "ceph-${daemonType}.target" ];
+  makeService = (
+    daemonType: daemonId: clusterName: ceph:
+    let
+      stateDirectory = "ceph/${
+        if daemonType == "rgw" then "radosgw" else daemonType
+      }/${clusterName}-${daemonId}";
+    in
+    {
+      enable = true;
+      description = "Ceph ${builtins.replaceStrings lowerChars upperChars daemonType} daemon ${daemonId}";
+      after = [
+        "network-online.target"
+        "time-sync.target"
+      ] ++ optional (daemonType == "osd") "ceph-mon.target";
+      wants = [
+        "network-online.target"
+        "time-sync.target"
+      ];
+      partOf = [ "ceph-${daemonType}.target" ];
+      wantedBy = [ "ceph-${daemonType}.target" ];
 
-        path = [ pkgs.getopt ];
+      path = [ pkgs.getopt ];
 
-        # Don't start services that are not yet initialized
-        unitConfig.ConditionPathExists = "/var/lib/${stateDirectory}/keyring";
-        startLimitBurst =
-          if daemonType == "osd" then
-            30
-          else if
-            lib.elem daemonType [
-              "mgr"
-              "mds"
-            ]
-          then
-            3
-          else
-            5;
-        startLimitIntervalSec = 60 * 30; # 30 mins
+      # Don't start services that are not yet initialized
+      unitConfig.ConditionPathExists = "/var/lib/${stateDirectory}/keyring";
+      startLimitBurst =
+        if daemonType == "osd" then
+          30
+        else if
+          lib.elem daemonType [
+            "mgr"
+            "mds"
+          ]
+        then
+          3
+        else
+          5;
+      startLimitIntervalSec = 60 * 30; # 30 mins
 
-        serviceConfig =
-          {
-            LimitNOFILE = 1048576;
-            LimitNPROC = 1048576;
-            Environment = "CLUSTER=${clusterName}";
-            ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
-            PrivateDevices = "yes";
-            PrivateTmp = "true";
-            ProtectHome = "true";
-            ProtectSystem = "full";
-            Restart = "on-failure";
-            StateDirectory = stateDirectory;
-            User = "ceph";
-            Group = if daemonType == "osd" then "disk" else "ceph";
-            ExecStart = ''
-              ${ceph.out}/bin/${if daemonType == "rgw" then "radosgw" else "ceph-${daemonType}"} \
-                                  -f --cluster ${clusterName} --id ${daemonId}'';
-          }
-          // optionalAttrs (daemonType == "osd") {
-            ExecStartPre = "${ceph.lib}/libexec/ceph/ceph-osd-prestart.sh --id ${daemonId} --cluster ${clusterName}";
-            RestartSec = "20s";
-            PrivateDevices = "no"; # osd needs disk access
-          }
-          // optionalAttrs (daemonType == "mon") { RestartSec = "10"; };
-      }
-    );
+      serviceConfig =
+        {
+          LimitNOFILE = 1048576;
+          LimitNPROC = 1048576;
+          Environment = "CLUSTER=${clusterName}";
+          ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
+          PrivateDevices = "yes";
+          PrivateTmp = "true";
+          ProtectHome = "true";
+          ProtectSystem = "full";
+          Restart = "on-failure";
+          StateDirectory = stateDirectory;
+          User = "ceph";
+          Group = if daemonType == "osd" then "disk" else "ceph";
+          ExecStart = ''
+            ${ceph.out}/bin/${if daemonType == "rgw" then "radosgw" else "ceph-${daemonType}"} \
+                                -f --cluster ${clusterName} --id ${daemonId}'';
+        }
+        // optionalAttrs (daemonType == "osd") {
+          ExecStartPre = "${ceph.lib}/libexec/ceph/ceph-osd-prestart.sh --id ${daemonId} --cluster ${clusterName}";
+          RestartSec = "20s";
+          PrivateDevices = "no"; # osd needs disk access
+        }
+        // optionalAttrs (daemonType == "mon") { RestartSec = "10"; };
+    }
+  );
 
-  makeTarget =
-    (daemonType: {
+  makeTarget = (
+    daemonType: {
       "ceph-${daemonType}" = {
         description = "Ceph target allowing to start/stop all ceph-${daemonType} services at once";
         partOf = [ "ceph.target" ];
@@ -102,7 +100,8 @@ let
         before = [ "ceph.target" ];
         unitConfig.StopWhenUnneeded = true;
       };
-    });
+    }
+  );
 in
 {
   options.services.ceph = {

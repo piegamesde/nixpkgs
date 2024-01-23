@@ -222,24 +222,24 @@ in
     systemd.services.sanoid = {
       description = "Sanoid snapshot service";
       serviceConfig = {
-        ExecStartPre =
-          (map
+        ExecStartPre = (
+          map
             (buildAllowCommand "allow" [
               "snapshot"
               "mount"
               "destroy"
             ])
             datasets
-          );
-        ExecStopPost =
-          (map
+        );
+        ExecStopPost = (
+          map
             (buildAllowCommand "unallow" [
               "snapshot"
               "mount"
               "destroy"
             ])
             datasets
-          );
+        );
         ExecStart = lib.escapeShellArgs (
           [
             "${cfg.package}/bin/sanoid"

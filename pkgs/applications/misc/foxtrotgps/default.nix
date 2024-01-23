@@ -57,8 +57,7 @@ stdenv.mkDerivation rec {
     libexif
     sqlite.dev
     (python3Packages.python.withPackages (
-      pythonPackages:
-      with python3Packages; [
+      pythonPackages: with python3Packages; [
         beautifulsoup4
         feedparser
         sqlalchemy

@@ -74,5 +74,7 @@ with lib;
     };
   };
 
-  meta = with lib; { maintainers = with maintainers; [ ratsclub ]; };
+  meta = with lib; {
+    maintainers = with maintainers; [ ratsclub ];
+  };
 }

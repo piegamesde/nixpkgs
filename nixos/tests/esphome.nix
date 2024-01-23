@@ -5,7 +5,8 @@ import ./make-test-python.nix (
     testPort = 6052;
     unixSocket = "/run/esphome/esphome.sock";
   in
-  with lib; {
+  with lib;
+  {
     name = "esphome";
     meta.maintainers = with pkgs.lib.maintainers; [ oddlama ];
 

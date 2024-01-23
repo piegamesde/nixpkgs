@@ -35,12 +35,10 @@ stdenv.mkDerivation rec {
       dbus
       libjack2
     ]
-    ++ (
-      with python3Packages; [
-        python
-        dbus-python
-      ]
-    );
+    ++ (with python3Packages; [
+      python
+      dbus-python
+    ]);
 
   postInstall = ''
     wrapProgram $out/bin/a2j_control --set PYTHONPATH $PYTHONPATH

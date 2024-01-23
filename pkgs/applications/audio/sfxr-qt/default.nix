@@ -43,8 +43,7 @@ mkDerivation rec {
     cmake
     extra-cmake-modules
     (python3.withPackages (
-      pp:
-      with pp; [
+      pp: with pp; [
         pyyaml
         jinja2
         setuptools

@@ -4,7 +4,9 @@ import ./make-test-python.nix (
   { pkgs, ... }:
   {
     name = "influxdb";
-    meta = with pkgs.lib.maintainers; { maintainers = [ offline ]; };
+    meta = with pkgs.lib.maintainers; {
+      maintainers = [ offline ];
+    };
 
     nodes = {
       one =

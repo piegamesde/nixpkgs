@@ -4,7 +4,9 @@ import ./make-test-python.nix (
   { pkgs, ... }:
   {
     name = "gvisor";
-    meta = with pkgs.lib.maintainers; { maintainers = [ andrew-d ]; };
+    meta = with pkgs.lib.maintainers; {
+      maintainers = [ andrew-d ];
+    };
 
     nodes = {
       gvisor =

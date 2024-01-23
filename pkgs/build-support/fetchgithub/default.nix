@@ -23,13 +23,12 @@
 
 let
 
-  position =
-    (
-      if args.meta.description or null != null then
-        builtins.unsafeGetAttrPos "description" args.meta
-      else
-        builtins.unsafeGetAttrPos "rev" args
-    );
+  position = (
+    if args.meta.description or null != null then
+      builtins.unsafeGetAttrPos "description" args.meta
+    else
+      builtins.unsafeGetAttrPos "rev" args
+  );
   baseUrl = "https://${githubBase}/${owner}/${repo}";
   newMeta = meta // {
     homepage = meta.homepage or baseUrl;

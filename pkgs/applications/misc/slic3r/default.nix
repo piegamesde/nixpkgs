@@ -29,35 +29,33 @@ stdenv.mkDerivation rec {
   ];
   buildInputs =
     [ boost ]
-    ++ (
-      with perlPackages; [
-        perl
-        EncodeLocale
-        MathClipper
-        ExtUtilsXSpp
-        MathConvexHullMonotoneChain
-        MathGeometryVoronoi
-        MathPlanePath
-        Moo
-        IOStringy
-        ClassXSAccessor
-        Wx
-        GrowlGNTP
-        NetDBus
-        ImportInto
-        XMLSAX
-        ExtUtilsMakeMaker
-        OpenGL
-        WxGLCanvas
-        ModuleBuild
-        LWP
-        ExtUtilsCppGuess
-        ModuleBuildWithXSpp
-        ExtUtilsTypemapsDefault
-        DevelChecklib
-        locallib
-      ]
-    );
+    ++ (with perlPackages; [
+      perl
+      EncodeLocale
+      MathClipper
+      ExtUtilsXSpp
+      MathConvexHullMonotoneChain
+      MathGeometryVoronoi
+      MathPlanePath
+      Moo
+      IOStringy
+      ClassXSAccessor
+      Wx
+      GrowlGNTP
+      NetDBus
+      ImportInto
+      XMLSAX
+      ExtUtilsMakeMaker
+      OpenGL
+      WxGLCanvas
+      ModuleBuild
+      LWP
+      ExtUtilsCppGuess
+      ModuleBuildWithXSpp
+      ExtUtilsTypemapsDefault
+      DevelChecklib
+      locallib
+    ]);
 
   desktopItem = makeDesktopItem {
     name = "slic3r";

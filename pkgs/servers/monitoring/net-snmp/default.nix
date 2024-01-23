@@ -15,8 +15,7 @@
 let
 
   perlWithPkgs = perl.withPackages (
-    ps:
-    with ps; [
+    ps: with ps; [
       JSON
       TermReadKey
       Tk

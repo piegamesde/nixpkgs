@@ -916,24 +916,22 @@ in
             };
 
             locations."@proxy" = {
-              proxyPass =
-                (
-                  if cfg.enableUnixSocket then
-                    "http://unix:/run/mastodon-web/web.socket"
-                  else
-                    "http://127.0.0.1:${toString (cfg.webPort)}"
-                );
+              proxyPass = (
+                if cfg.enableUnixSocket then
+                  "http://unix:/run/mastodon-web/web.socket"
+                else
+                  "http://127.0.0.1:${toString (cfg.webPort)}"
+              );
               proxyWebsockets = true;
             };
 
             locations."/api/v1/streaming/" = {
-              proxyPass =
-                (
-                  if cfg.enableUnixSocket then
-                    "http://unix:/run/mastodon-streaming/streaming.socket"
-                  else
-                    "http://127.0.0.1:${toString (cfg.streamingPort)}/"
-                );
+              proxyPass = (
+                if cfg.enableUnixSocket then
+                  "http://unix:/run/mastodon-streaming/streaming.socket"
+                else
+                  "http://127.0.0.1:${toString (cfg.streamingPort)}/"
+              );
               proxyWebsockets = true;
             };
           };

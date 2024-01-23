@@ -43,7 +43,9 @@ import ./make-test-python.nix (
   in
   {
     name = "unbound";
-    meta = with pkgs.lib.maintainers; { maintainers = [ andir ]; };
+    meta = with pkgs.lib.maintainers; {
+      maintainers = [ andir ];
+    };
 
     nodes = {
 

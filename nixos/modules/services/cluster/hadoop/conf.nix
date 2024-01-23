@@ -40,7 +40,8 @@ let
   '';
 in
 pkgs.runCommand "hadoop-conf" { } (
-  with cfg; ''
+  with cfg;
+  ''
     mkdir -p $out/
     cp ${siteXml "core-site.xml" (coreSite // coreSiteInternal)}/* $out/
     cp ${siteXml "hdfs-site.xml" (hdfsSiteDefault // hdfsSite // hdfsSiteInternal)}/* $out/

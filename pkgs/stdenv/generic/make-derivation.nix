@@ -125,12 +125,12 @@ let
       # Including it then would cause needless mass rebuilds.
       #
       # TODO(@Ericson2314): Make [ "build" "host" ] always the default / resolve #87909
-      configurePlatforms ? lib.optionals
-        (stdenv.hostPlatform != stdenv.buildPlatform || config.configurePlatformsByDefault)
-        [
-          "build"
-          "host"
-        ],
+      configurePlatforms ?
+        lib.optionals (stdenv.hostPlatform != stdenv.buildPlatform || config.configurePlatformsByDefault)
+          [
+            "build"
+            "host"
+          ],
 
       # TODO(@Ericson2314): Make unconditional / resolve #33599
       # Check phase
@@ -149,14 +149,14 @@ let
       meta ? { },
       passthru ? { },
       pos ? # position used in error messages and for meta.position
-        (
-          if attrs.meta.description or null != null then
-            builtins.unsafeGetAttrPos "description" attrs.meta
-          else if attrs.version or null != null then
-            builtins.unsafeGetAttrPos "version" attrs
-          else
-            builtins.unsafeGetAttrPos "name" attrs
-        ),
+          (
+            if attrs.meta.description or null != null then
+              builtins.unsafeGetAttrPos "description" attrs.meta
+            else if attrs.version or null != null then
+              builtins.unsafeGetAttrPos "version" attrs
+            else
+              builtins.unsafeGetAttrPos "name" attrs
+          ),
       separateDebugInfo ? false,
       outputs ? [ "out" ],
       __darwinAllowLocalNetworking ? false,
@@ -170,7 +170,8 @@ let
 
       patches ? [ ],
 
-      __contentAddressed ? (!attrs ? outputHash) # Fixed-output drvs can't be content addressed too
+      __contentAddressed ?
+        (!attrs ? outputHash) # Fixed-output drvs can't be content addressed too
         && config.contentAddressedByDefault,
 
       # Experimental.  For simple packages mostly just works,

@@ -35,12 +35,10 @@ stdenv.mkDerivation rec {
   ];
   propagatedBuildInputs =
     [ gettext ]
-    ++ (
-      with perlPackages; [
-        perl
-        XMLParser
-      ]
-    );
+    ++ (with perlPackages; [
+      perl
+      XMLParser
+    ]);
 
   postInstall = lib.optionalString (stdenv.hostPlatform != stdenv.buildPlatform) ''
     for f in $out/bin/*; do

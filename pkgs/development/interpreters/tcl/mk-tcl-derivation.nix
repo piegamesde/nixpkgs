@@ -39,8 +39,8 @@ let
     "--exec-prefix=${placeholder "out"}"
   ];
 
-  self =
-    (stdenv.mkDerivation (
+  self = (
+    stdenv.mkDerivation (
       (builtins.removeAttrs attrs [
         "addTclConfigureFlags"
         "checkPhase"
@@ -77,6 +77,7 @@ let
         } // meta;
       }
       // optionalAttrs (attrs ? checkPhase) { installCheckPhase = attrs.checkPhase; }
-    ));
+    )
+  );
 in
 lib.extendDerivation true passthru self

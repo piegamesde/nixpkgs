@@ -131,7 +131,8 @@ stdenv.mkDerivation {
       zlib
     ]
     ++ lib.optionals withQt (
-      with qt5; [
+      with qt5;
+      [
         qtbase
         qtmultimedia
         qtsvg

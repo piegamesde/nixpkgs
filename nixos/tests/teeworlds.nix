@@ -12,7 +12,9 @@ import ./make-test-python.nix (
   in
   {
     name = "teeworlds";
-    meta = with pkgs.lib.maintainers; { maintainers = [ hax404 ]; };
+    meta = with pkgs.lib.maintainers; {
+      maintainers = [ hax404 ];
+    };
 
     nodes = {
       server = {

@@ -2,7 +2,9 @@ import ./make-test-python.nix (
   { pkgs, ... }:
   {
     name = "service-runner";
-    meta = with pkgs.lib.maintainers; { maintainers = [ roberth ]; };
+    meta = with pkgs.lib.maintainers; {
+      maintainers = [ roberth ];
+    };
 
     nodes = {
       machine =

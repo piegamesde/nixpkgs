@@ -11,8 +11,7 @@ let
   cfg = config.services.etebase-server;
 
   pythonEnv = pkgs.python3.withPackages (
-    ps:
-    with ps; [
+    ps: with ps; [
       etebase-server
       daphne
     ]

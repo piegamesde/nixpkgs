@@ -1,5 +1,6 @@
 { lib, extendModules, ... }:
-with lib; {
+with lib;
+{
   imports = [
 
     {

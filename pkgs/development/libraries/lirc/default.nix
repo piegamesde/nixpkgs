@@ -20,8 +20,7 @@
 
 let
   pythonEnv = python3.pythonForBuild.withPackages (
-    p:
-    with p; [
+    p: with p; [
       pyyaml
       setuptools
     ]

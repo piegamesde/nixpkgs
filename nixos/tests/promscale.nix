@@ -21,7 +21,9 @@ let
     postgresql-name: postgresql-package:
     makeTest {
       name = postgresql-name;
-      meta = with pkgs.lib.maintainers; { maintainers = [ anpin ]; };
+      meta = with pkgs.lib.maintainers; {
+        maintainers = [ anpin ];
+      };
 
       nodes.machine =
         { config, pkgs, ... }:

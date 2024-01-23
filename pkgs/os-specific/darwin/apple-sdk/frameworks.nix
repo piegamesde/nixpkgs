@@ -9,7 +9,8 @@
 }:
 
 with frameworks;
-with libs; {
+with libs;
+{
   AGL = {
     inherit Carbon OpenGL;
   };

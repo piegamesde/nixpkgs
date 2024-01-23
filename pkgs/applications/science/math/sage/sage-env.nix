@@ -60,8 +60,8 @@ assert (!blas.isILP64) && (!lapack.isILP64);
 # dependencies.
 
 let
-  runtimepath =
-    (lib.makeBinPath ([
+  runtimepath = (
+    lib.makeBinPath ([
       "@sage-local@"
       "@sage-local@/build"
       pythonEnv
@@ -98,7 +98,8 @@ let
       flintqs
       jdk # only needed for `jmol` which may be replaced in the future
       less # needed to prevent transient test errors until https://github.com/ipython/ipython/pull/11864 is resolved
-    ]));
+    ])
+  );
 in
 writeTextFile rec {
   name = "sage-env";

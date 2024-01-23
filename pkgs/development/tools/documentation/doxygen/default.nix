@@ -32,7 +32,8 @@ stdenv.mkDerivation rec {
   buildInputs =
     [ libiconv ]
     ++ lib.optionals (qt5 != null) (
-      with qt5; [
+      with qt5;
+      [
         qtbase
         wrapQtAppsHook
       ]

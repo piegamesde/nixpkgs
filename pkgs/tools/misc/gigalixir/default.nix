@@ -33,13 +33,11 @@ python3.pkgs.buildPythonApplication rec {
 
   nativeCheckInputs =
     [ git ]
-    ++ (
-      with python3.pkgs; [
-        httpretty
-        pytestCheckHook
-        sure
-      ]
-    );
+    ++ (with python3.pkgs; [
+      httpretty
+      pytestCheckHook
+      sure
+    ]);
 
   disabledTests = [
     # Test requires network access

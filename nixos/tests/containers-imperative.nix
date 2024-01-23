@@ -43,7 +43,8 @@ import ./make-test-python.nix (
               };
             };
           in
-          with pkgs; [
+          with pkgs;
+          [
             stdenv
             stdenvNoCC
             emptyContainer.config.containers.foo.path

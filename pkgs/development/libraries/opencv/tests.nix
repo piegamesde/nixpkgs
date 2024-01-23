@@ -79,7 +79,8 @@ in
 runCommand "opencv4-tests"
   {
     nativeBuildInputs = lib.optionals enableGStreamer (
-      with gst_all_1; [
+      with gst_all_1;
+      [
         gstreamer
         gst-plugins-base
         gst-plugins-good

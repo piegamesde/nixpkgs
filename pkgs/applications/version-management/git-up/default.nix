@@ -16,16 +16,14 @@ pythonPackages.buildPythonApplication rec {
   # git should be on path for tool to work correctly
   propagatedBuildInputs =
     [ git ]
-    ++ (
-      with pythonPackages; [
-        click
-        colorama
-        docopt
-        gitpython
-        six
-        termcolor
-      ]
-    );
+    ++ (with pythonPackages; [
+      click
+      colorama
+      docopt
+      gitpython
+      six
+      termcolor
+    ]);
 
   nativeCheckInputs = [
     git

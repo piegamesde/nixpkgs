@@ -57,18 +57,16 @@ python3.pkgs.buildPythonApplication rec {
       gsettings-desktop-schemas
       libnotify
     ]
-    ++ (
-      with gst_all_1; [
-        gstreamer
-        gst-editing-services
-        gst-plugins-base
-        (gst-plugins-good.override { gtkSupport = true; })
-        gst-plugins-bad
-        gst-plugins-ugly
-        gst-libav
-        gst-devtools
-      ]
-    );
+    ++ (with gst_all_1; [
+      gstreamer
+      gst-editing-services
+      gst-plugins-base
+      (gst-plugins-good.override { gtkSupport = true; })
+      gst-plugins-bad
+      gst-plugins-ugly
+      gst-libav
+      gst-devtools
+    ]);
 
   pythonPath = with python3.pkgs; [
     pygobject3

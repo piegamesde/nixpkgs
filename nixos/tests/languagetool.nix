@@ -5,7 +5,9 @@ import ./make-test-python.nix (
   in
   {
     name = "languagetool";
-    meta = with lib.maintainers; { maintainers = [ fbeffa ]; };
+    meta = with lib.maintainers; {
+      maintainers = [ fbeffa ];
+    };
 
     nodes.machine =
       { ... }:

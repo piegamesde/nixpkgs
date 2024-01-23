@@ -1,7 +1,8 @@
 # Test a minimal HDFS cluster with no HA
 import ../make-test-python.nix (
   { package, lib, ... }:
-  with lib; {
+  with lib;
+  {
     name = "hadoop-hdfs";
 
     nodes =

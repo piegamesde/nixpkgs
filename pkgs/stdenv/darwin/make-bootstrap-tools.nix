@@ -1,7 +1,9 @@
 {
   pkgspath ? ../../..,
   test-pkgspath ? pkgspath,
-  localSystem ? { system = builtins.currentSystem; },
+  localSystem ? {
+    system = builtins.currentSystem;
+  },
   crossSystem ? null,
   bootstrapFiles ? null,
 }:

@@ -120,8 +120,7 @@ stdenv.mkDerivation rec {
 
   propagatedBuildInputs = [
     (python3.withPackages (
-      ps:
-      with ps; [
+      ps: with ps; [
         numpy
         matplotlib
         mpi4py

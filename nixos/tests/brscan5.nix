@@ -5,7 +5,9 @@ import ./make-test-python.nix (
   { pkgs, ... }:
   {
     name = "brscan5";
-    meta = with pkgs.lib.maintainers; { maintainers = [ mattchrist ]; };
+    meta = with pkgs.lib.maintainers; {
+      maintainers = [ mattchrist ];
+    };
 
     nodes.machine =
       { pkgs, ... }:

@@ -7,11 +7,14 @@ import ./make-test-python.nix (
   in
   {
     name = "misc";
-    meta = with pkgs.lib.maintainers; { maintainers = [ eelco ]; };
+    meta = with pkgs.lib.maintainers; {
+      maintainers = [ eelco ];
+    };
 
     nodes.machine =
       { lib, ... }:
-      with lib; {
+      with lib;
+      {
         swapDevices = mkOverride 0 [
           {
             device = "/root/swapfile";

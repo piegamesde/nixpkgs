@@ -7,8 +7,7 @@
 }:
 let
   pyenv = python3.withPackages (
-    pp:
-    with pp; [
+    pp: with pp; [
       beautifulsoup4
       certifi
       colorama

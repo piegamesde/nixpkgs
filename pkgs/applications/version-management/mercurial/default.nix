@@ -73,7 +73,8 @@ let
         installShellFiles
       ]
       ++ lib.optionals rustSupport (
-        with rustPlatform; [
+        with rustPlatform;
+        [
           cargoSetupHook
           rust.cargo
           rust.rustc

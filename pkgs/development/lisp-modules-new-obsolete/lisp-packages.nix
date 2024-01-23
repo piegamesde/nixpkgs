@@ -106,8 +106,8 @@ let
   #
   # Wrapper around stdenv.mkDerivation for building ASDF systems.
   #
-  build-asdf-system =
-    (makeOverridableLispPackage (
+  build-asdf-system = (
+    makeOverridableLispPackage (
       {
         pname,
         version,
@@ -313,7 +313,8 @@ let
           }
         )
       )
-    ));
+    )
+  );
 
   # Build the set of lisp packages using `lisp`
   # These packages are defined manually for one reason or another:

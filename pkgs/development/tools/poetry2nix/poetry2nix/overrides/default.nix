@@ -225,7 +225,8 @@ lib.composeManyExtensions [
               with pkgs;
               (old.nativeBuildInputs or [ ])
               ++ lib.optionals (lib.versionAtLeast old.version "4") (
-                with pkgs.rustPlatform; [
+                with pkgs.rustPlatform;
+                [
                   rust.rustc
                   rust.cargo
                   cargoSetupHook
@@ -417,7 +418,8 @@ lib.composeManyExtensions [
               ++ lib.optionals (lib.versionAtLeast old.version "3.4") [ self.setuptools-rust ]
               ++ lib.optional (!self.isPyPy) pyBuildPackages.cffi
               ++ lib.optional (lib.versionAtLeast old.version "3.5" && !isWheel) (
-                with pkgs.rustPlatform; [
+                with pkgs.rustPlatform;
+                [
                   cargoSetupHook
                   rust.cargo
                   rust.rustc
@@ -555,15 +557,16 @@ lib.composeManyExtensions [
         }
       );
 
-      django =
-        (super.django.overridePythonAttrs (
+      django = (
+        super.django.overridePythonAttrs (
           old: {
             propagatedNativeBuildInputs = (old.propagatedNativeBuildInputs or [ ]) ++ [
               pkgs.gettext
               self.pytest-runner
             ];
           }
-        ));
+        )
+      );
 
       django-bakery = super.django-bakery.overridePythonAttrs (
         old: {
@@ -1420,12 +1423,13 @@ lib.composeManyExtensions [
         let
           cfg = pkgs.writeTextFile {
             name = "mpi.cfg";
-            text =
-              (lib.generators.toINI { } {
+            text = (
+              lib.generators.toINI { } {
                 mpi = {
                   mpicc = "${pkgs.mpi.outPath}/bin/mpicc";
                 };
-              });
+              }
+            );
           };
         in
         {
@@ -1528,8 +1532,8 @@ lib.composeManyExtensions [
           blasImplementation = lib.nameFromURL blas.name "-";
           cfg = pkgs.writeTextFile {
             name = "site.cfg";
-            text =
-              (lib.generators.toINI { } {
+            text = (
+              lib.generators.toINI { } {
                 ${blasImplementation} =
                   {
                     include_dirs = "${blas}/include";
@@ -1539,7 +1543,8 @@ lib.composeManyExtensions [
                     mkl_libs = "mkl_rt";
                     lapack_libs = "";
                   };
-              });
+              }
+            );
           };
         in
         {
@@ -1611,7 +1616,8 @@ lib.composeManyExtensions [
         buildInputs =
           [ self.scikit-build ]
           ++ lib.optionals stdenv.isDarwin (
-            with pkgs.darwin.apple_sdk.frameworks; [
+            with pkgs.darwin.apple_sdk.frameworks;
+            [
               AVFoundation
               Cocoa
               CoreMedia
@@ -2987,8 +2993,7 @@ lib.composeManyExtensions [
         old:
         let
           localPython = self.python.withPackages (
-            ps:
-            with ps; [
+            ps: with ps; [
               setuptools
               numpy
               six

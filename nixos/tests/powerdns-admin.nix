@@ -127,7 +127,8 @@ let
     };
   };
 in
-with matrix; {
+with matrix;
+{
   postgresql = makeAppTest "postgresql" [
     backend.postgresql
     listen.tcp

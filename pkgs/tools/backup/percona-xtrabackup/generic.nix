@@ -70,13 +70,11 @@ stdenv.mkDerivation rec {
       xxd
       zlib
     ]
-    ++ (
-      with perlPackages; [
-        perl
-        DBI
-        DBDmysql
-      ]
-    );
+    ++ (with perlPackages; [
+      perl
+      DBI
+      DBDmysql
+    ]);
 
   patches = extraPatches;
 

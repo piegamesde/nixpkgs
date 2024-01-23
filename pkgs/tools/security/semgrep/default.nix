@@ -73,14 +73,12 @@ buildPythonApplication rec {
       git
       pytestCheckHook
     ]
-    ++ (
-      with pythonPackages; [
-        pytest-snapshot
-        pytest-mock
-        pytest-freezegun
-        types-freezegun
-      ]
-    );
+    ++ (with pythonPackages; [
+      pytest-snapshot
+      pytest-mock
+      pytest-freezegun
+      types-freezegun
+    ]);
   disabledTests = [
     # requires networking
     "test_send"

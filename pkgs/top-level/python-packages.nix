@@ -6,8 +6,7 @@
 #
 # For more details, please see the Python section in the Nixpkgs manual.
 
-self: super:
-with self; {
+self: super: with self; {
 
   bootstrapped-pip = toPythonModule (callPackage ../development/python-modules/bootstrapped-pip { });
 

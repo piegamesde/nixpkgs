@@ -47,8 +47,7 @@ stdenv.mkDerivation rec {
     gtk3
     ibus
     (python3.withPackages (
-      pypkgs:
-      with pypkgs; [
+      pypkgs: with pypkgs; [
         dbus-python
         pygobject3
         (toPythonModule ibus)

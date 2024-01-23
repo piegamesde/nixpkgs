@@ -15,7 +15,8 @@ deployAndroidPackage {
   nativeBuildInputs = [ makeWrapper ] ++ lib.optionals (os == "linux") [ autoPatchelfHook ];
   buildInputs =
     lib.optionals (os == "linux") (
-      with pkgs; [
+      with pkgs;
+      [
         glibc
         libcxx
         libGL
@@ -32,20 +33,18 @@ deployAndroidPackage {
         alsa-lib
       ]
     )
-    ++ (
-      with pkgs.xorg; [
-        libX11
-        libXext
-        libXdamage
-        libXfixes
-        libxcb
-        libXcomposite
-        libXcursor
-        libXi
-        libXrender
-        libXtst
-      ]
-    );
+    ++ (with pkgs.xorg; [
+      libX11
+      libXext
+      libXdamage
+      libXfixes
+      libxcb
+      libXcomposite
+      libXcursor
+      libXi
+      libXrender
+      libXtst
+    ]);
   patchInstructions = lib.optionalString (os == "linux") ''
     addAutoPatchelfSearchPath $packageBaseDir/lib
     addAutoPatchelfSearchPath $packageBaseDir/lib64

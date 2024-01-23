@@ -35,16 +35,14 @@ stdenv.mkDerivation rec {
       glfw
       libpng
     ]
-    ++ (
-      with xorg; [
-        libXrandr
-        libXinerama
-        libXcursor
-        libXi
-        libXxf86vm
-        libXext
-      ]
-    );
+    ++ (with xorg; [
+      libXrandr
+      libXinerama
+      libXcursor
+      libXi
+      libXxf86vm
+      libXext
+    ]);
 
   dontWrapGApps = true; # We also need zenity (see below)
 

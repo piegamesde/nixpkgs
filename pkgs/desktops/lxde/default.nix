@@ -5,8 +5,7 @@
 }:
 
 lib.makeScope pkgs.newScope (
-  self:
-  with self; {
+  self: with self; {
 
     inherit (pkgs) gtk2-x11;
 

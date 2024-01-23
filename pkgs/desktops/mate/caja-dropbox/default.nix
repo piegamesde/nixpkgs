@@ -39,8 +39,7 @@ stdenv.mkDerivation rec {
     gobject-introspection
     gdk-pixbuf
     (python3.withPackages (
-      ps:
-      with ps; [
+      ps: with ps; [
         docutils
         pygobject3
       ]

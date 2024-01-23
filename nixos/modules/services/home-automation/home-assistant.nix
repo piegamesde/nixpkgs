@@ -65,15 +65,16 @@ let
   # Final list of components passed into the package to include required dependencies
   extraComponents = filter useComponent availableComponents;
 
-  package =
-    (cfg.package.override (
+  package = (
+    cfg.package.override (
       oldArgs: {
         # Respect overrides that already exist in the passed package and
         # concat it with values passed via the module.
         extraComponents = oldArgs.extraComponents or [ ] ++ extraComponents;
         extraPackages = ps: (oldArgs.extraPackages or (_: [ ]) ps) ++ (cfg.extraPackages ps);
       }
-    ));
+    )
+  );
 in
 {
   imports = [
@@ -606,12 +607,13 @@ in
           # Hardening
           AmbientCapabilities = capabilities;
           CapabilityBoundingSet = capabilities;
-          DeviceAllow =
-            (optionals (any useComponent componentsUsingSerialDevices) [
+          DeviceAllow = (
+            optionals (any useComponent componentsUsingSerialDevices) [
               "char-ttyACM rw"
               "char-ttyAMA rw"
               "char-ttyUSB rw"
-            ]);
+            ]
+          );
           DevicePolicy = "closed";
           LockPersonality = true;
           MemoryDenyWriteExecute = true;

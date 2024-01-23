@@ -7,7 +7,9 @@ import ./make-test-python.nix (
   {
     name = "gobgpd";
 
-    meta = with pkgs.lib.maintainers; { maintainers = [ higebu ]; };
+    meta = with pkgs.lib.maintainers; {
+      maintainers = [ higebu ];
+    };
 
     nodes = {
       node1 =

@@ -18,7 +18,8 @@
   zlib,
   buildLlvmTools,
   debugVersion ? false,
-  doCheck ? stdenv.isLinux
+  doCheck ?
+    stdenv.isLinux
     && (!stdenv.isx86_32)
     && (!stdenv.hostPlatform.isRiscV)
     && (stdenv.hostPlatform == stdenv.buildPlatform),

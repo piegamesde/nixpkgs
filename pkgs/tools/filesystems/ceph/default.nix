@@ -143,8 +143,7 @@ let
   };
 
   getMeta =
-    description:
-    with lib; {
+    description: with lib; {
       homepage = "https://ceph.io/en/";
       inherit description;
       license = with licenses; [
@@ -214,8 +213,7 @@ let
 
   # TODO: split this off in build and runtime environment
   ceph-python-env = python.withPackages (
-    ps:
-    with ps; [
+    ps: with ps; [
       ceph-common
 
       # build time

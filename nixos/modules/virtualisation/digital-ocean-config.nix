@@ -5,7 +5,8 @@
   modulesPath,
   ...
 }:
-with lib; {
+with lib;
+{
   imports = [
     (modulesPath + "/profiles/qemu-guest.nix")
     (modulesPath + "/virtualisation/digital-ocean-init.nix")

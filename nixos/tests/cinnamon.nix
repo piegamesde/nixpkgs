@@ -3,7 +3,9 @@ import ./make-test-python.nix (
   {
     name = "cinnamon";
 
-    meta = with lib; { maintainers = teams.cinnamon.members; };
+    meta = with lib; {
+      maintainers = teams.cinnamon.members;
+    };
 
     nodes.machine =
       { nodes, ... }:

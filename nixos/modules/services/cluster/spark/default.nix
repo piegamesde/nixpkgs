@@ -7,7 +7,8 @@
 let
   cfg = config.services.spark;
 in
-with lib; {
+with lib;
+{
   options = {
     services.spark = {
       master = {

@@ -1,8 +1,8 @@
 import ./make-test-python.nix (
   { pkgs, lib, ... }:
   let
-    gpgKeyring =
-      (pkgs.runCommand "gpg-keyring" { buildInputs = [ pkgs.gnupg ]; } ''
+    gpgKeyring = (
+      pkgs.runCommand "gpg-keyring" { buildInputs = [ pkgs.gnupg ]; } ''
         mkdir -p $out
         export GNUPGHOME=$out
         cat > foo <<EOF
@@ -22,10 +22,11 @@ import ./make-test-python.nix (
         gpg --batch --generate-key foo
         rm $out/S.gpg-agent $out/S.gpg-agent.*
         gpg --export bob@foo.bar -a > $out/pubkey.gpg
-      '');
+      ''
+    );
 
-    nspawnImages =
-      (pkgs.runCommand "localhost"
+    nspawnImages = (
+      pkgs.runCommand "localhost"
         {
           buildInputs = [
             pkgs.coreutils
@@ -48,7 +49,7 @@ import ./make-test-python.nix (
           cp -R ${gpgKeyring}/* $GNUPGHOME
           gpg --batch --sign --detach-sign --output SHA256SUMS.gpg SHA256SUMS
         ''
-      );
+    );
   in
   {
     name = "systemd-nspawn";

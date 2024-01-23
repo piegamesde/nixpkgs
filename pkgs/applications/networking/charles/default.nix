@@ -81,17 +81,19 @@ let
     };
 in
 {
-  charles4 =
-    (generic {
+  charles4 = (
+    generic {
       version = "4.6.2";
       sha256 = "0r5rann7cq665ih0pa66k52081gylk85ashrwq1khbv2jf80yy52";
       platform = "_amd64";
       jdk = jdk11;
-    });
-  charles3 =
-    (generic {
+    }
+  );
+  charles3 = (
+    generic {
       version = "3.12.3";
       sha256 = "13zk82ny1w5zd9qcs9qkq0kdb22ni5byzajyshpxdfm4zv6p32ss";
       jdk = jdk8.jre;
-    });
+    }
+  );
 }

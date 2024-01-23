@@ -301,6 +301,8 @@ in
 
     withDocs = true;
 
-    extraMeta = with lib; { license = licenses.asl20; };
+    extraMeta = with lib; {
+      license = licenses.asl20;
+    };
   };
 }

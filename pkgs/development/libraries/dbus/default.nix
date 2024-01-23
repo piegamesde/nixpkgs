@@ -68,7 +68,8 @@ stdenv.mkDerivation rec {
 
   buildInputs =
     lib.optionals x11Support (
-      with xorg; [
+      with xorg;
+      [
         libX11
         libICE
         libSM

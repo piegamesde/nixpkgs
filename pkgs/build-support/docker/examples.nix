@@ -539,7 +539,8 @@ rec {
           uid,
           gid ? uid,
         }:
-        with pkgs; [
+        with pkgs;
+        [
           (writeTextDir "etc/shadow" ''
             root:!x:::::::
             ${user}:!:::::::
@@ -695,8 +696,8 @@ rec {
   etc =
     let
       inherit (pkgs) lib;
-      nixosCore =
-        (evalMinimalConfig (
+      nixosCore = (
+        evalMinimalConfig (
           { config, ... }:
           {
             imports = [
@@ -712,7 +713,8 @@ rec {
               # mode = "0755";
             };
           }
-        ));
+        )
+      );
     in
     pkgs.dockerTools.streamLayeredImage {
       name = "etc";

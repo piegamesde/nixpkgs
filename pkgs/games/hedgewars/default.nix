@@ -28,8 +28,7 @@
 
 let
   ghc = ghcWithPackages (
-    pkgs:
-    with pkgs; [
+    pkgs: with pkgs; [
       SHA
       bytestring
       entropy

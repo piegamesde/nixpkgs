@@ -13,7 +13,9 @@ import ./make-test-python.nix (
   in
   {
     name = "charliecloud";
-    meta = with pkgs.lib.maintainers; { maintainers = [ bzizou ]; };
+    meta = with pkgs.lib.maintainers; {
+      maintainers = [ bzizou ];
+    };
 
     nodes = {
       host =

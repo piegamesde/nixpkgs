@@ -42,8 +42,7 @@ stdenv.mkDerivation rec {
       zimg
       libass
       (python3.withPackages (
-        ps:
-        with ps; [
+        ps: with ps; [
           sphinx
           cython
         ]

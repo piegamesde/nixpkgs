@@ -61,7 +61,8 @@ stdenv.mkDerivation rec {
       bash
     ]
     ++ optionals withXorg (
-      with xorg; [
+      with xorg;
+      [
         libXrender
         libXaw
         libXpm

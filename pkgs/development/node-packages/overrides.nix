@@ -112,7 +112,8 @@ final: prev: {
   bitwarden-cli = prev."@bitwarden/cli".override {
     name = "bitwarden-cli";
     nativeBuildInputs =
-      with pkgs; [ pkg-config ] ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.CoreText ];
+      with pkgs;
+      [ pkg-config ] ++ lib.optionals stdenv.isDarwin [ darwin.apple_sdk.frameworks.CoreText ];
     buildInputs = with pkgs; [
       pixman
       cairo

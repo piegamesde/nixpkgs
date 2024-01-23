@@ -56,8 +56,7 @@
 
 let
   pythonEnv = python3.withPackages (
-    pp:
-    with pp; [
+    pp: with pp; [
       dbus-python
       setproctitle
       pygobject3

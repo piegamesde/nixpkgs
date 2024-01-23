@@ -91,7 +91,8 @@ stdenv.mkDerivation rec {
     ++ lib.optionals enableDocumentation [ hotdoc ]
     ++ lib.optionals qt5Support (with qt5; [ qtbase ])
     ++ lib.optionals qt6Support (
-      with qt6; [
+      with qt6;
+      [
         qtbase
         qttools
       ]
@@ -132,7 +133,8 @@ stdenv.mkDerivation rec {
       gtk3
     ]
     ++ lib.optionals qt5Support (
-      with qt5; [
+      with qt5;
+      [
         qtbase
         qtdeclarative
         qtwayland
@@ -140,7 +142,8 @@ stdenv.mkDerivation rec {
       ]
     )
     ++ lib.optionals qt6Support (
-      with qt6; [
+      with qt6;
+      [
         qtbase
         qtdeclarative
         qtwayland

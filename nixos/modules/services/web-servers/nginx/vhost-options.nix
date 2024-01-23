@@ -5,7 +5,8 @@
 
 { config, lib, ... }:
 
-with lib; {
+with lib;
+{
   options = {
     serverName = mkOption {
       type = types.nullOr types.str;

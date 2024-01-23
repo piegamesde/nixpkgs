@@ -68,8 +68,8 @@ let
           # document.
           specialisationInjector =
             let
-              specialisationLoader =
-                (lib.mapAttrsToList
+              specialisationLoader = (
+                lib.mapAttrsToList
                   (
                     childName: childToplevel:
                     lib.escapeShellArgs [
@@ -79,7 +79,7 @@ let
                     ]
                   )
                   children
-                );
+              );
             in
             lib.escapeShellArgs [
               "${pkgs.jq}/bin/jq"

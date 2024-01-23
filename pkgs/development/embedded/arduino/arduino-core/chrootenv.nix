@@ -13,14 +13,12 @@ buildFHSEnv {
 
   targetPkgs =
     pkgs:
-    (
-      with pkgs; [
-        ncurses
-        arduino-unwrapped
-        zlib
-        (python3.withPackages (p: with p; [ pyserial ]))
-      ]
-    );
+    (with pkgs; [
+      ncurses
+      arduino-unwrapped
+      zlib
+      (python3.withPackages (p: with p; [ pyserial ]))
+    ]);
   multiPkgs = null;
 
   extraInstallCommands = ''

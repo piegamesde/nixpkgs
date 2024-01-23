@@ -10,14 +10,15 @@ let
 
   inherit (lib) mkOption types;
 
-  podmanPackage =
-    (pkgs.podman.override {
+  podmanPackage = (
+    pkgs.podman.override {
       extraPackages =
         cfg.extraPackages
         # setuid shadow
         ++ [ "/run/wrappers" ]
         ++ lib.optional (builtins.elem "zfs" config.boot.supportedFilesystems) config.boot.zfs.package;
-    });
+    }
+  );
 
   # Provides a fake "docker" binary mapping to podman
   dockerCompat =

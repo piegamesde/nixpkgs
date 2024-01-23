@@ -118,17 +118,15 @@ stdenv.mkDerivation rec {
       fribidi
       harfbuzz
     ]
-    ++ (
-      with xorg; [
-        libICE
-        libSM
-        libXcursor
-        libXdamage
-        libXi
-        libXrandr
-        libXrender
-      ]
-    )
+    ++ (with xorg; [
+      libICE
+      libSM
+      libXcursor
+      libXdamage
+      libXi
+      libXrandr
+      libXrender
+    ])
     ++ lib.optionals stdenv.isDarwin [ AppKit ]
     ++ lib.optionals trackerSupport [ tracker ]
     ++ lib.optionals waylandSupport [

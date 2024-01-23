@@ -26,7 +26,9 @@ import ./make-test-python.nix (
   in
   {
     name = "quorum";
-    meta = with pkgs.lib.maintainers; { maintainers = [ mmahut ]; };
+    meta = with pkgs.lib.maintainers; {
+      maintainers = [ mmahut ];
+    };
 
     nodes = {
       machine =

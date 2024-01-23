@@ -3,7 +3,9 @@ import ./make-test-python.nix (
   {
     name = "budgie";
 
-    meta = with lib; { maintainers = [ maintainers.federicoschonborn ]; };
+    meta = with lib; {
+      maintainers = [ maintainers.federicoschonborn ];
+    };
 
     nodes.machine =
       { ... }:

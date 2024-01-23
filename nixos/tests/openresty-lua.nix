@@ -9,7 +9,9 @@ import ./make-test-python.nix (
   in
   {
     name = "openresty-lua";
-    meta = with pkgs.lib.maintainers; { maintainers = [ bbigras ]; };
+    meta = with pkgs.lib.maintainers; {
+      maintainers = [ bbigras ];
+    };
 
     nodes = {
       webserver =

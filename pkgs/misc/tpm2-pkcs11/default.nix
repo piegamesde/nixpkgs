@@ -60,8 +60,7 @@ stdenv.mkDerivation rec {
     sqlite
     libyaml
     (python3.withPackages (
-      ps:
-      with ps; [
+      ps: with ps; [
         packaging
         pyyaml
         cryptography

@@ -54,8 +54,7 @@ mkDerivation rec {
     pulseaudioFull
     (
       (python3.withPackages (
-        ps:
-        with ps; [
+        ps: with ps; [
           pyqt5
           dbus-python
         ]

@@ -28,12 +28,10 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ makeWrapper ];
   buildInputs =
     [ which ]
-    ++ (
-      with perlPackages; [
-        JSON
-        perl
-      ]
-    );
+    ++ (with perlPackages; [
+      JSON
+      perl
+    ]);
 
   installPhase = ''
     make PREFIX=$out

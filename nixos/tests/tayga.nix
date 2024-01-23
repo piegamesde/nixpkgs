@@ -27,7 +27,9 @@ import ./make-test-python.nix (
 
   {
     name = "tayga";
-    meta = with pkgs.lib.maintainers; { maintainers = [ hax404 ]; };
+    meta = with pkgs.lib.maintainers; {
+      maintainers = [ hax404 ];
+    };
 
     nodes = {
       # The server is configured with static IPv4 addresses. RFC 6052 Section 3.1

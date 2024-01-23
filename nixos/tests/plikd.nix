@@ -2,7 +2,9 @@ import ./make-test-python.nix (
   { lib, ... }:
   {
     name = "plikd";
-    meta = with lib.maintainers; { maintainers = [ freezeboy ]; };
+    meta = with lib.maintainers; {
+      maintainers = [ freezeboy ];
+    };
 
     nodes.machine =
       { pkgs, ... }:

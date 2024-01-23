@@ -102,12 +102,10 @@ let
         pkg-config
         gettext
       ]
-      ++ (
-        with perlPackages; [
-          perl
-          XMLParser
-        ]
-      )
+      ++ (with perlPackages; [
+        perl
+        XMLParser
+      ])
       ++ lib.optional stdenv.isLinux gtk2
       ++ lib.optional stdenv.isDarwin gtk2-x11;
 

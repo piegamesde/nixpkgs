@@ -10,7 +10,9 @@
 import ./make-test-python.nix
   {
     name = "avahi";
-    meta = with pkgs.lib.maintainers; { maintainers = [ eelco ]; };
+    meta = with pkgs.lib.maintainers; {
+      maintainers = [ eelco ];
+    };
 
     nodes =
       let

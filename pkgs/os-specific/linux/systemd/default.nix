@@ -98,7 +98,8 @@
   withHwdb ? true,
   withImportd ? !stdenv.hostPlatform.isMusl,
   withKmod ? true,
-  withLibBPF ? lib.versionAtLeast buildPackages.llvmPackages.clang.version "10.0"
+  withLibBPF ?
+    lib.versionAtLeast buildPackages.llvmPackages.clang.version "10.0"
     && (stdenv.hostPlatform.isAarch -> lib.versionAtLeast stdenv.hostPlatform.parsed.cpu.version "6") # assumes hard floats
     && !stdenv.hostPlatform.isMips64 # see https://github.com/NixOS/nixpkgs/pull/194149#issuecomment-1266642211
     # buildPackages.targetPackages.llvmPackages is the same as llvmPackages,
@@ -454,8 +455,7 @@ stdenv.mkDerivation (
         docbook_xml_dtd_45
         bash
         (buildPackages.python3Packages.python.withPackages (
-          ps:
-          with ps; [
+          ps: with ps; [
             lxml
             jinja2
           ]

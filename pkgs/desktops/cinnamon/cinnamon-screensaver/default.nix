@@ -63,8 +63,7 @@ stdenv.mkDerivation rec {
     xorg.libXrandr
 
     (python3.withPackages (
-      pp:
-      with pp; [
+      pp: with pp; [
         pygobject3
         setproctitle
         python3.pkgs.xapp # The scope prefix is required

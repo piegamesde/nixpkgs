@@ -53,12 +53,10 @@ buildPythonPackage rec {
 
   nativeBuildInputs =
     [ pkg-config ]
-    ++ (
-      with rustPlatform; [
-        cargoSetupHook
-        maturinBuildHook
-      ]
-    );
+    ++ (with rustPlatform; [
+      cargoSetupHook
+      maturinBuildHook
+    ]);
 
   buildInputs =
     [ openssl ]

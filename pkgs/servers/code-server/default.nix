@@ -138,12 +138,10 @@ stdenv.mkDerivation rec {
   ];
   buildInputs =
     lib.optionals (!stdenv.isDarwin) [ libsecret ]
-    ++ (
-      with xorg; [
-        libX11
-        libxkbfile
-      ]
-    )
+    ++ (with xorg; [
+      libX11
+      libxkbfile
+    ])
     ++ lib.optionals stdenv.isDarwin [
       AppKit
       Cocoa

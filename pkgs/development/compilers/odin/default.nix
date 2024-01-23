@@ -39,7 +39,8 @@ stdenv.mkDerivation rec {
 
     wrapProgram $out/bin/odin --prefix PATH : ${
       lib.makeBinPath (
-        with llvmPackages; [
+        with llvmPackages;
+        [
           bintools
           llvm
           clang

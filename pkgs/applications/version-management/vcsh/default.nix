@@ -26,13 +26,11 @@ stdenv.mkDerivation rec {
 
   nativeCheckInputs =
     [ ]
-    ++ (
-      with perlPackages; [
-        perl
-        ShellCommand
-        TestMost
-      ]
-    );
+    ++ (with perlPackages; [
+      perl
+      ShellCommand
+      TestMost
+    ]);
 
   outputs = [
     "out"

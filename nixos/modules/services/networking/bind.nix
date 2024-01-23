@@ -236,7 +236,8 @@ in
       zones = mkOption {
         default = [ ];
         type =
-          with types; coercedTo (listOf attrs) bindZoneCoerce (attrsOf (types.submodule bindZoneOptions));
+          with types;
+          coercedTo (listOf attrs) bindZoneCoerce (attrsOf (types.submodule bindZoneOptions));
         description = lib.mdDoc ''
           List of zones we claim authority over.
         '';

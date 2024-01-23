@@ -27,12 +27,10 @@ stdenv.mkDerivation rec {
       libxml2
       libxslt
     ]
-    ++ (
-      with perlPackages; [
-        perl
-        XMLParser
-      ]
-    );
+    ++ (with perlPackages; [
+      perl
+      XMLParser
+    ]);
   configureFlags = [ "--with-xml-catalog=${docbook_xml_dtd_42}/xml/dtd/docbook/docbook.cat" ];
 
   meta = with lib; {

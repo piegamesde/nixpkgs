@@ -35,7 +35,8 @@ let
       xprop
     ]
     ++ lib.optionals stdenv.isDarwin (
-      with darwin; [
+      with darwin;
+      [
         adv_cmds
         DarwinTools
         system_cmds

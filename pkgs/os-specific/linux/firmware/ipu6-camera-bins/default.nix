@@ -69,7 +69,8 @@ stdenv.mkDerivation {
         }
         .${ipuVersion};
     in
-    with lib; {
+    with lib;
+    {
       description = "${generation} IPU firmware and proprietary image processing libraries";
       homepage = "https://github.com/intel/ipu6-camera-bins";
       license = licenses.issl;

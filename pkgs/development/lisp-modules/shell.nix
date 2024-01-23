@@ -4,8 +4,7 @@ in
 pkgs.mkShell {
   nativeBuildInputs = [
     (pkgs.sbcl.withPackages (
-      ps:
-      with ps; [
+      ps: with ps; [
         alexandria
         str
         dexador

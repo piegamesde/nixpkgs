@@ -5,8 +5,7 @@
 }:
 
 lib.makeExtensible (
-  self:
-  with self; {
+  self: with self; {
     inherit wayfirePlugins;
 
     callPackage = newScope self;

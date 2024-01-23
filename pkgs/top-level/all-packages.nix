@@ -10301,14 +10301,16 @@ with pkgs;
   inherit (callPackage ../servers/nextcloud { }) nextcloud24 nextcloud25 nextcloud26;
 
   nextcloud24Packages = throw "Nextcloud24 is EOL!";
-  nextcloud25Packages =
-    (callPackage ../servers/nextcloud/packages {
+  nextcloud25Packages = (
+    callPackage ../servers/nextcloud/packages {
       apps = lib.importJSON ../servers/nextcloud/packages/25.json;
-    });
-  nextcloud26Packages =
-    (callPackage ../servers/nextcloud/packages {
+    }
+  );
+  nextcloud26Packages = (
+    callPackage ../servers/nextcloud/packages {
       apps = lib.importJSON ../servers/nextcloud/packages/26.json;
-    });
+    }
+  );
 
   nextcloud-client = libsForQt5.callPackage ../applications/networking/nextcloud-client { };
 
@@ -15277,12 +15279,13 @@ with pkgs;
 
   tacacsplus = callPackage ../servers/tacacsplus { };
 
-  tamarin-prover =
-    (haskellPackages.callPackage ../applications/science/logic/tamarin-prover {
+  tamarin-prover = (
+    haskellPackages.callPackage ../applications/science/logic/tamarin-prover {
       # NOTE: do not use the haskell packages 'graphviz' and 'maude'
       inherit maude which;
       graphviz = graphviz-nox;
-    });
+    }
+  );
 
   inherit
     (callPackage ../development/compilers/haxe { inherit (darwin.apple_sdk.frameworks) Security; })
@@ -16525,7 +16528,8 @@ with pkgs;
       # default.
       libcxx ? null,
       extraPackages ?
-        lib.optional (cc.isGNU or false && stdenv.targetPlatform.isMinGW) threadsCross.package,
+        lib.optional (cc.isGNU or false && stdenv.targetPlatform.isMinGW)
+          threadsCross.package,
       nixSupport ? { },
       ...
     }@extraArgs:
@@ -18779,7 +18783,8 @@ with pkgs;
   openai = with python3Packages; toPythonApplication openai;
 
   openai-full =
-    with python3Packages; toPythonApplication (openai.override { withOptionalDependencies = true; });
+    with python3Packages;
+    toPythonApplication (openai.override { withOptionalDependencies = true; });
 
   openai-whisper = with python3.pkgs; toPythonApplication openai-whisper;
 
@@ -19735,8 +19740,7 @@ with pkgs;
   certbot = python3.pkgs.toPythonApplication python3.pkgs.certbot;
 
   certbot-full = certbot.withPlugins (
-    cp:
-    with cp; [
+    cp: with cp; [
       certbot-dns-cloudflare
       certbot-dns-rfc2136
       certbot-dns-route53
@@ -31067,19 +31071,18 @@ with pkgs;
     inherit (qt6) wrapQtAppsHook qtbase qtcharts;
   };
 
-  jetbrains =
-    (
-      recurseIntoAttrs (
-        callPackages ../applications/editors/jetbrains {
-          vmopts = config.jetbrains.vmopts or null;
-          jdk = jetbrains.jdk;
-        }
-      )
-      // {
-        jdk = callPackage ../development/compilers/jetbrains-jdk { };
-        jcef = callPackage ../development/compilers/jetbrains-jdk/jcef.nix { };
+  jetbrains = (
+    recurseIntoAttrs (
+      callPackages ../applications/editors/jetbrains {
+        vmopts = config.jetbrains.vmopts or null;
+        jdk = jetbrains.jdk;
       }
-    );
+    )
+    // {
+      jdk = callPackage ../development/compilers/jetbrains-jdk { };
+      jcef = callPackage ../development/compilers/jetbrains-jdk/jcef.nix { };
+    }
+  );
 
   jmusicbot = callPackage ../applications/audio/jmusicbot { };
 
@@ -31428,8 +31431,7 @@ with pkgs;
   hyper-haskell = callPackage ../development/tools/haskell/hyper-haskell {
     hyper-haskell-server = hyper-haskell-server-with-packages.override {
       packages =
-        self:
-        with self; [
+        self: with self; [
           hyper-extra
           diagrams
           csound-catalog
@@ -32005,7 +32007,8 @@ with pkgs;
   klayout = libsForQt5.callPackage ../applications/misc/klayout { };
 
   klee = callPackage ../applications/science/logic/klee (
-    with llvmPackages_11; {
+    with llvmPackages_11;
+    {
       clang = clang;
       llvm = llvm;
       stdenv = stdenv;
@@ -39997,8 +40000,7 @@ with pkgs;
   winePackagesFor =
     wineBuild:
     lib.makeExtensible (
-      self:
-      with self; {
+      self: with self; {
         callPackage = newScope self;
 
         inherit wineBuild;
@@ -40047,12 +40049,13 @@ with pkgs;
 
   inherit (callPackage ../servers/web-apps/wordpress { }) wordpress wordpress6_1 wordpress6_2;
 
-  wordpressPackages =
-    (callPackage ../servers/web-apps/wordpress/packages {
+  wordpressPackages = (
+    callPackage ../servers/web-apps/wordpress/packages {
       plugins = lib.importJSON ../servers/web-apps/wordpress/packages/plugins.json;
       themes = lib.importJSON ../servers/web-apps/wordpress/packages/themes.json;
       languages = lib.importJSON ../servers/web-apps/wordpress/packages/languages.json;
-    });
+    }
+  );
 
   wprecon = callPackage ../tools/security/wprecon { };
 

@@ -34,8 +34,7 @@ stdenv.mkDerivation rec {
     glib
     libyaml
     (python3.withPackages (
-      p:
-      with p; [
+      p: with p; [
         pyyaml
         netifaces
       ]

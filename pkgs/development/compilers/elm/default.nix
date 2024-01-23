@@ -204,7 +204,8 @@ lib.makeScope pkgs.newScope (
   // (hs92Pkgs self).elmPkgs
   // (
     with elmLib;
-    with (hs810Pkgs self).elmPkgs; {
+    with (hs810Pkgs self).elmPkgs;
+    {
       elm-verify-examples = patchBinwrap [ elmi-to-json ] nodePkgs.elm-verify-examples // {
         meta =
           with lib;

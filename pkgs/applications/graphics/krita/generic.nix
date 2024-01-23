@@ -112,7 +112,8 @@ mkDerivation rec {
   postPatch =
     let
       pythonPath = python3Packages.makePythonPath (
-        with python3Packages; [
+        with python3Packages;
+        [
           sip
           setuptools
         ]

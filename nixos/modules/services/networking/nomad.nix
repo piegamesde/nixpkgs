@@ -148,14 +148,12 @@ in
 
       path =
         cfg.extraPackages
-        ++ (
-          with pkgs; [
-            # Client mode requires at least the following:
-            coreutils
-            iproute2
-            iptables
-          ]
-        );
+        ++ (with pkgs; [
+          # Client mode requires at least the following:
+          coreutils
+          iproute2
+          iptables
+        ]);
 
       serviceConfig = mkMerge [
         {

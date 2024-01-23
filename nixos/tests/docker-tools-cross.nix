@@ -39,7 +39,9 @@ import ./make-test-python.nix (
   in
   {
     name = "docker-tools";
-    meta = with pkgs.lib.maintainers; { maintainers = [ roberth ]; };
+    meta = with pkgs.lib.maintainers; {
+      maintainers = [ roberth ];
+    };
 
     nodes = {
       docker =

@@ -6,8 +6,7 @@
 }:
 let
   python = python3.withPackages (
-    ps:
-    with ps; [
+    ps: with ps; [
       usbrelay-py
       paho-mqtt
     ]

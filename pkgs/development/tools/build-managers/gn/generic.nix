@@ -44,7 +44,8 @@ stdenv.mkDerivation {
   ];
   buildInputs = lib.optionals stdenv.isDarwin (
     with darwin;
-    with apple_sdk.frameworks; [
+    with apple_sdk.frameworks;
+    [
       libobjc
       cctools
 

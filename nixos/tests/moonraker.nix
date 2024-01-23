@@ -2,7 +2,9 @@ import ./make-test-python.nix (
   { pkgs, ... }:
   {
     name = "moonraker";
-    meta = with pkgs.lib.maintainers; { maintainers = [ zhaofengli ]; };
+    meta = with pkgs.lib.maintainers; {
+      maintainers = [ zhaofengli ];
+    };
 
     nodes = {
       printer =

@@ -22,8 +22,7 @@
 let
   # TODO: try to add a python library, see toPythonModule in doc/languages-frameworks/python.section.md
   python3WithLibs = python3.withPackages (
-    ps:
-    with ps; [
+    ps: with ps; [
       # In data/lib/python-lottie/requirements.txt
       numpy
       pillow

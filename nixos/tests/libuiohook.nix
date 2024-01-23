@@ -2,7 +2,9 @@ import ./make-test-python.nix (
   { pkgs, lib, ... }:
   {
     name = "libuiohook";
-    meta = with lib.maintainers; { maintainers = [ anoa ]; };
+    meta = with lib.maintainers; {
+      maintainers = [ anoa ];
+    };
 
     nodes.client =
       { nodes, ... }:

@@ -3,7 +3,9 @@ import ./make-test-python.nix (
 
   {
     name = "sssd";
-    meta = with pkgs.lib.maintainers; { maintainers = [ bbigras ]; };
+    meta = with pkgs.lib.maintainers; {
+      maintainers = [ bbigras ];
+    };
     nodes.machine = { pkgs, ... }: { services.sssd.enable = true; };
 
     testScript = ''

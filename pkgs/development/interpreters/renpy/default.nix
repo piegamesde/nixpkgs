@@ -52,17 +52,15 @@ stdenv.mkDerivation rec {
       fribidi
       zlib
     ]
-    ++ (
-      with python3.pkgs; [
-        python
-        pygame_sdl2
-        tkinter
-        future
-        six
-        pefile
-        requests
-      ]
-    );
+    ++ (with python3.pkgs; [
+      python
+      pygame_sdl2
+      tkinter
+      future
+      six
+      pefile
+      requests
+    ]);
 
   RENPY_DEPS_INSTALL = lib.concatStringsSep "::" (
     map (path: path) [

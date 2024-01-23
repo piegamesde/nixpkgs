@@ -5,8 +5,7 @@
 }:
 
 lib.makeScope pkgs.newScope (
-  self:
-  with self; {
+  self: with self; {
     iso-flags-png-320x420 = pkgs.iso-flags.overrideAttrs (
       p:
       p

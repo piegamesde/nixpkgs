@@ -23,7 +23,8 @@ stdenv.mkDerivation rec {
   buildInputs =
     [ ffmpeg_4 ]
     ++ lib.optionals stdenv.isDarwin (
-      with darwin.apple_sdk.frameworks; [
+      with darwin.apple_sdk.frameworks;
+      [
         Accelerate
         CoreGraphics
         CoreVideo

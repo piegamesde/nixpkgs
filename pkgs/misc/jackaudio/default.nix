@@ -98,18 +98,17 @@ stdenv.mkDerivation (
       ++ lib.optional (optLibffado != null) "--firewire"
       ++ lib.optional (optAlsaLib != null) "--alsa";
 
-    postInstall =
-      (
-        if libOnly then
-          ''
-            rm -rf $out/{bin,share}
-            rm -rf $out/lib/{jack,libjacknet*,libjackserver*}
-          ''
-        else
-          ''
-            wrapProgram $out/bin/jack_control --set PYTHONPATH $PYTHONPATH
-          ''
-      );
+    postInstall = (
+      if libOnly then
+        ''
+          rm -rf $out/{bin,share}
+          rm -rf $out/lib/{jack,libjacknet*,libjackserver*}
+        ''
+      else
+        ''
+          wrapProgram $out/bin/jack_control --set PYTHONPATH $PYTHONPATH
+        ''
+    );
 
     passthru.tests.pkg-config = testers.testMetaPkgConfig finalAttrs.finalPackage;
 

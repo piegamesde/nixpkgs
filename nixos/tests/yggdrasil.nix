@@ -28,7 +28,9 @@ import ./make-test-python.nix (
   { pkgs, ... }:
   {
     name = "yggdrasil";
-    meta = with pkgs.lib.maintainers; { maintainers = [ gazally ]; };
+    meta = with pkgs.lib.maintainers; {
+      maintainers = [ gazally ];
+    };
 
     nodes = rec {
       # Alice is listening for peerings on a specified port,

@@ -52,7 +52,9 @@ import ./make-test-python.nix (
   {
     name = "gitolite";
 
-    meta = with pkgs.lib.maintainers; { maintainers = [ bjornfor ]; };
+    meta = with pkgs.lib.maintainers; {
+      maintainers = [ bjornfor ];
+    };
 
     nodes = {
 

@@ -48,13 +48,11 @@ let
   ];
   recommendedDisplayInformationPrograms = lib.optionals withRecommendedDisplayInformationPrograms (
     [ glxinfo ]
-    ++ (
-      with xorg; [
-        xdpyinfo
-        xprop
-        xrandr
-      ]
-    )
+    ++ (with xorg; [
+      xdpyinfo
+      xprop
+      xrandr
+    ])
   );
   programs =
     [

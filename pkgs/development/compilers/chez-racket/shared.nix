@@ -35,7 +35,8 @@ stdenv.mkDerivation (
     '';
 
     nativeBuildInputs = lib.optionals stdenv.isDarwin (
-      with darwin; [
+      with darwin;
+      [
         cctools
         autoSignDarwinBinariesHook
       ]

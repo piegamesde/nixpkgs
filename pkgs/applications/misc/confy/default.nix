@@ -38,8 +38,7 @@ stdenv.mkDerivation rec {
     libhandy
     libnotify
     (python3.withPackages (
-      ps:
-      with ps; [
+      ps: with ps; [
         icalendar
         pygobject3
       ]

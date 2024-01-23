@@ -6,8 +6,7 @@
 }:
 
 lib.makeScope pkgs.newScope (
-  self:
-  with self; {
+  self: with self; {
 
     switchboardPlugs = [
       switchboard-plug-a11y

@@ -33,7 +33,8 @@ stdenv.mkDerivation rec {
     ++ lib.optional enableFortran gfortran
     ++ lib.optional enableOpenMP llvmPackages.openmp
     ++ lib.optionals enablePython (
-      with python3Packages; [
+      with python3Packages;
+      [
         cython
         numpy
         python

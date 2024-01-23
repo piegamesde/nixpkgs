@@ -3,7 +3,9 @@ import ./make-test-python.nix (
 
   {
     name = "ksm";
-    meta = with lib.maintainers; { maintainers = [ rnhmjoj ]; };
+    meta = with lib.maintainers; {
+      maintainers = [ rnhmjoj ];
+    };
 
     nodes.machine =
       { ... }:

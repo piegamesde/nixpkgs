@@ -65,8 +65,7 @@ python.pkgs.buildPythonApplication rec {
       {
         nativeBuildInputs = [
           (python3.withPackages (
-            ps:
-            with ps; [
+            ps: with ps; [
               mypy
               pytest
               markdown-it-py

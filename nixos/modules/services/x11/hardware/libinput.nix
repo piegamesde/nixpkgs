@@ -258,8 +258,8 @@ let
 in
 {
 
-  imports =
-    (map
+  imports = (
+    map
       (
         option:
         mkRenamedOptionModule
@@ -297,7 +297,7 @@ in
         "disableWhileTyping"
         "additionalOptions"
       ]
-    );
+  );
 
   options = {
 

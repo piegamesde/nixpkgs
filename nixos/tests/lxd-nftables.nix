@@ -10,7 +10,9 @@ import ./make-test-python.nix (
   {
     name = "lxd-nftables";
 
-    meta = with pkgs.lib.maintainers; { maintainers = [ patryk27 ]; };
+    meta = with pkgs.lib.maintainers; {
+      maintainers = [ patryk27 ];
+    };
 
     nodes.machine =
       { lib, ... }:

@@ -49,18 +49,16 @@ python3Packages.buildPythonApplication rec {
     gobject-introspection
   ];
   propagatedBuildInputs =
-    (
-      with python3Packages; [
-        i3ipc
-        netifaces
-        psutil
-        pybluez
-        pygobject3
-        requests
-        dasbus
-        setuptools
-      ]
-    )
+    (with python3Packages; [
+      i3ipc
+      netifaces
+      psutil
+      pybluez
+      pygobject3
+      requests
+      dasbus
+      setuptools
+    ])
     # Run-time GTK dependency required by the Tray module
     ++ [ libdbusmenu-gtk3 ];
 

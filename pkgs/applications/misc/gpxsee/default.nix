@@ -31,12 +31,13 @@ stdenv.mkDerivation rec {
     hash = "sha256-3s+LPD4KcnSWrg4JHPcbUjilwztjX8lAdQpx0h4dH0Y=";
   };
 
-  patches =
-    (substituteAll {
+  patches = (
+    substituteAll {
       # See https://github.com/NixOS/nixpkgs/issues/86054
       src = ./fix-qttranslations-path.diff;
       inherit qttranslations;
-    });
+    }
+  );
 
   buildInputs =
     [

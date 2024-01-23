@@ -32,13 +32,11 @@ buildPythonPackage rec {
 
   nativeBuildInputs =
     [ setuptools-rust ]
-    ++ (
-      with rustPlatform; [
-        cargoSetupHook
-        rust.cargo
-        rust.rustc
-      ]
-    );
+    ++ (with rustPlatform; [
+      cargoSetupHook
+      rust.cargo
+      rust.rustc
+    ]);
 
   # Tests depend on json-stream, which depends on this package.
   # To avoid infinite recursion, we only enable tests when building passthru.tests.

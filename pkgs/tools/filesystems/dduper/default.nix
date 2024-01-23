@@ -20,8 +20,7 @@ let
     }
   );
   py3 = python3.withPackages (
-    ps:
-    with ps; [
+    ps: with ps; [
       prettytable
       numpy
     ]

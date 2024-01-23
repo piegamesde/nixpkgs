@@ -50,8 +50,7 @@ mkDerivation rec {
     aspell
     gettext
     (perl.withPackages (
-      p:
-      with p; [
+      p: with p; [
         GetoptLong
         TermShellUI
       ]

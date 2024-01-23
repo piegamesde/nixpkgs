@@ -39,12 +39,10 @@ in
     old:
     (addToBuildInputsWithPkgConfig pkgs.cairo old)
     // (addToPropagatedBuildInputs
-      (
-        with chickenEggs; [
-          srfi-1
-          srfi-13
-        ]
-      )
+      (with chickenEggs; [
+        srfi-1
+        srfi-13
+      ])
       old
     );
   cmark = addToBuildInputs pkgs.cmark;

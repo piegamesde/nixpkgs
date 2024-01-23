@@ -12,11 +12,12 @@ if lib.versionOlder ocaml.version "4.07" then
 else
 
   let
-    z3-with-ocaml =
-      (z3.override {
+    z3-with-ocaml = (
+      z3.override {
         ocamlBindings = true;
         inherit ocaml findlib zarith;
-      });
+      }
+    );
   in
 
   stdenv.mkDerivation {

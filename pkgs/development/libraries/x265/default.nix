@@ -7,8 +7,9 @@
   nasm,
 
   # NUMA support enabled by default on NUMA platforms:
-  numaSupport ?
-    (stdenv.hostPlatform.isLinux && (stdenv.hostPlatform.isx86 || stdenv.hostPlatform.isAarch64)),
+  numaSupport ? (
+    stdenv.hostPlatform.isLinux && (stdenv.hostPlatform.isx86 || stdenv.hostPlatform.isAarch64)
+  ),
   numactl,
 
   # Multi bit-depth support (8bit+10bit+12bit):

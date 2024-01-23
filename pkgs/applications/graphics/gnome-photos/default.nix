@@ -61,8 +61,7 @@ stdenv.mkDerivation rec {
     ninja
     pkg-config
     (python3.withPackages (
-      pkgs:
-      with pkgs; [
+      pkgs: with pkgs; [
         dogtail
         pygobject3
         pyatspi

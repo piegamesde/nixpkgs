@@ -21,8 +21,7 @@ appimageTools.wrapType2 {
   inherit pname version src;
 
   extraPkgs =
-    pkgs:
-    with pkgs; [
+    pkgs: with pkgs; [
       polkit
       udev
     ];

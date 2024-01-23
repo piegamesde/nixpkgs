@@ -20,8 +20,7 @@
 
 let
   pythonEnv = python3.withPackages (
-    pypkgs:
-    with pypkgs; [
+    pypkgs: with pypkgs; [
       injector
       matplotlib
       peewee

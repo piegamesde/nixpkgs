@@ -5,7 +5,8 @@ import ./make-test-python.nix (
     port = 3142;
     defaultPort = 8083;
   in
-  with lib; {
+  with lib;
+  {
     name = "calibre-web";
     meta.maintainers = with pkgs.lib.maintainers; [ pborzenkov ];
 

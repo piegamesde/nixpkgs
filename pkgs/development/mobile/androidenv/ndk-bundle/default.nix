@@ -14,7 +14,8 @@
 let
   runtime_paths =
     lib.makeBinPath (
-      with pkgsHostHost; [
+      with pkgsHostHost;
+      [
         coreutils
         file
         findutils

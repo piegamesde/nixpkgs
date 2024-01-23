@@ -35,20 +35,16 @@ stdenv.mkDerivation rec {
       perlPackages.perl
       pkg-config
     ]
-    ++ (
-      with ocamlPackages; [
-        ocaml
-        findlib
-      ]
-    );
+    ++ (with ocamlPackages; [
+      ocaml
+      findlib
+    ]);
   buildInputs =
     [ libxml2 ]
-    ++ (
-      with perlPackages; [
-        perl
-        IOStringy
-      ]
-    )
+    ++ (with perlPackages; [
+      perl
+      IOStringy
+    ])
     ++ lib.optionals stdenv.isDarwin [ libintl ];
 
   enableParallelBuilding = true;

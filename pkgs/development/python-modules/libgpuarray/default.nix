@@ -35,7 +35,8 @@ buildPythonPackage rec {
 
   libraryPath = lib.makeLibraryPath (
     lib.optionals cudaSupport (
-      with cudaPackages; [
+      with cudaPackages;
+      [
         cudatoolkit.lib
         cudatoolkit.out
       ]

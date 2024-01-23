@@ -7,7 +7,9 @@ import ./make-test-python.nix (
   in
   {
     name = "lemmy";
-    meta = with lib.maintainers; { maintainers = [ mightyiam ]; };
+    meta = with lib.maintainers; {
+      maintainers = [ mightyiam ];
+    };
 
     nodes = {
       client = { };

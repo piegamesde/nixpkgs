@@ -3,7 +3,9 @@ import ./make-test-python.nix (
 
   {
     name = "cage";
-    meta = with pkgs.lib.maintainers; { maintainers = [ matthewbauer ]; };
+    meta = with pkgs.lib.maintainers; {
+      maintainers = [ matthewbauer ];
+    };
 
     nodes.machine =
       { ... }:

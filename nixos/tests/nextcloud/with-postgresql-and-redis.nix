@@ -12,7 +12,9 @@ args@{
   in
   {
     name = "nextcloud-with-postgresql-and-redis";
-    meta = with pkgs.lib.maintainers; { maintainers = [ eqyiel ]; };
+    meta = with pkgs.lib.maintainers; {
+      maintainers = [ eqyiel ];
+    };
 
     nodes = {
       # The only thing the client needs to do is download a file.

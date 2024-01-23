@@ -30,11 +30,12 @@ let
   update = ".0.2.1";
   build = "+1";
   repover = "${major}${update}${build}";
-  gradle_ =
-    (gradle_7.override {
+  gradle_ = (
+    gradle_7.override {
       # note: gradle does not yet support running on 19
       java = openjdk17_headless;
-    });
+    }
+  );
 
   makePackage =
     args:

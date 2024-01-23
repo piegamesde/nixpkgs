@@ -53,8 +53,7 @@ let
   };
 
   perlEnv = perl.withPackages (
-    p:
-    with p; [
+    p: with p; [
       x2go-perl
       DBI
       DBDSQLite

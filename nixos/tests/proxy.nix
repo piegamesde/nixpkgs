@@ -15,7 +15,9 @@ import ./make-test-python.nix (
   in
   {
     name = "proxy";
-    meta = with pkgs.lib.maintainers; { maintainers = [ eelco ]; };
+    meta = with pkgs.lib.maintainers; {
+      maintainers = [ eelco ];
+    };
 
     nodes = {
       proxy =

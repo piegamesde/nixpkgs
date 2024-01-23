@@ -84,12 +84,10 @@ let
       # Dependencies of anki
       targetPkgs =
         pkgs:
-        (
-          with pkgs; [
-            xorg.libxkbfile
-            krb5
-          ]
-        );
+        (with pkgs; [
+          xorg.libxkbfile
+          krb5
+        ]);
 
       runScript = writeShellScript "anki-wrapper.sh" ''
         exec ${unpacked}/bin/anki ${lib.strings.escapeShellArgs commandLineArgs}

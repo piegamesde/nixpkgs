@@ -383,7 +383,8 @@ in
       services.kubernetes = {
 
         apiserver = mkIf top.apiserver.enable (
-          with cfg.certs.apiServer; {
+          with cfg.certs.apiServer;
+          {
             etcd = with cfg.certs.apiserverEtcdClient; {
               servers = [ "https://etcd.local:2379" ];
               certFile = mkDefault cert;

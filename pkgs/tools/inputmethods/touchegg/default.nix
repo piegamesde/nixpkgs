@@ -58,17 +58,15 @@ stdenv.mkDerivation rec {
       gtk3-x11
       pcre
     ]
-    ++ (
-      with xorg; [
-        libX11
-        libXtst
-        libXrandr
-        libXi
-        libXdmcp
-        libpthreadstubs
-        libxcb
-      ]
-    );
+    ++ (with xorg; [
+      libX11
+      libXtst
+      libXrandr
+      libXi
+      libXdmcp
+      libpthreadstubs
+      libxcb
+    ]);
 
   PKG_CONFIG_SYSTEMD_SYSTEMDSYSTEMUNITDIR = "${placeholder "out"}/lib/systemd/system";
 

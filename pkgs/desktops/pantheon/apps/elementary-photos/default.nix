@@ -71,15 +71,13 @@ stdenv.mkDerivation rec {
       sqlite
       webkitgtk
     ]
-    ++ (
-      with gst_all_1; [
-        gst-plugins-bad
-        gst-plugins-base
-        gst-plugins-good
-        gst-plugins-ugly
-        gstreamer
-      ]
-    );
+    ++ (with gst_all_1; [
+      gst-plugins-bad
+      gst-plugins-base
+      gst-plugins-good
+      gst-plugins-ugly
+      gstreamer
+    ]);
 
   mesonFlags = [ "-Dplugins=false" ];
 

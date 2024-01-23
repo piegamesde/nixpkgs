@@ -46,24 +46,20 @@ stdenv.mkDerivation rec {
       pkg-config
       qemu
     ]
-    ++ (
-      with perlPackages; [
-        GetoptLong
-        libintl-perl
-        ModuleBuild
-        perl
-        Po4a
-      ]
-    )
-    ++ (
-      with ocamlPackages; [
-        findlib
-        gettext-stub
-        ocaml
-        ocaml_gettext
-        ounit2
-      ]
-    );
+    ++ (with perlPackages; [
+      GetoptLong
+      libintl-perl
+      ModuleBuild
+      perl
+      Po4a
+    ])
+    ++ (with ocamlPackages; [
+      findlib
+      gettext-stub
+      ocaml
+      ocaml_gettext
+      ounit2
+    ]);
 
   buildInputs = [
     bash-completion

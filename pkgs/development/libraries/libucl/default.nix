@@ -50,7 +50,8 @@ stdenv.mkDerivation rec {
   enableParallelBuilding = true;
 
   configureFlags =
-    with lib; mapAttrsToList (feat: enabled: strings.enableFeature enabled feat) features;
+    with lib;
+    mapAttrsToList (feat: enabled: strings.enableFeature enabled feat) features;
 
   meta = with lib; {
     description = "Universal configuration library parser";

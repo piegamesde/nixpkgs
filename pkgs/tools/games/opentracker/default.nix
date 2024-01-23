@@ -57,14 +57,12 @@ buildDotnetModule rec {
       openssl
       xinput
     ]
-    ++ (
-      with xorg; [
-        libICE
-        libSM
-        libX11
-        libXi
-      ]
-    );
+    ++ (with xorg; [
+      libICE
+      libSM
+      libX11
+      libXi
+    ]);
 
   # Attempts to patchelf unneeded SOs
   autoPatchelfIgnoreMissingDeps = [

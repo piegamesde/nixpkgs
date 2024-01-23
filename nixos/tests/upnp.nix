@@ -16,7 +16,9 @@ import ./make-test-python.nix (
   in
   {
     name = "upnp";
-    meta = with pkgs.lib.maintainers; { maintainers = [ bobvanderlinden ]; };
+    meta = with pkgs.lib.maintainers; {
+      maintainers = [ bobvanderlinden ];
+    };
 
     nodes = {
       router =

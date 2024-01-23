@@ -3,7 +3,9 @@ import ./make-test-python.nix (
   {
     name = "systemd-user-tmpfiles-rules";
 
-    meta = with lib.maintainers; { maintainers = [ schnusch ]; };
+    meta = with lib.maintainers; {
+      maintainers = [ schnusch ];
+    };
 
     nodes.machine =
       { ... }:

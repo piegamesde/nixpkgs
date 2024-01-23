@@ -24,13 +24,11 @@ nimPackages.buildNimPackage rec {
       termbox
       pcre
     ]
-    ++ (
-      with nimPackages; [
-        noise
-        nimbox
-        lscolors
-      ]
-    );
+    ++ (with nimPackages; [
+      noise
+      nimbox
+      lscolors
+    ]);
 
   meta = with lib; {
     description = "Terminal file manager written in nim";

@@ -10,8 +10,8 @@ let
     { name, ... }@argSet:
     derivation {
       inherit name;
-      text =
-        (builtins.toJSON (
+      text = (
+        builtins.toJSON (
           lib.filterAttrs
             (
               n: v:
@@ -21,7 +21,8 @@ let
               ]
             )
             argSet
-        ));
+        )
+      );
       builder = stdenv.shell;
       args = [
         "-c"

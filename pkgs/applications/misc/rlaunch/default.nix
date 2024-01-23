@@ -32,7 +32,8 @@ rustPlatform.buildRustPackage rec {
   postFixup = ''
     patchelf --set-rpath ${
       lib.makeLibraryPath (
-        with xorg; [
+        with xorg;
+        [
           libX11
           libXft
           libXinerama

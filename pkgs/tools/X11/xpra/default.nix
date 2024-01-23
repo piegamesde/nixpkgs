@@ -112,15 +112,13 @@ buildPythonApplication rec {
       libXtst
       xorgproto
     ]
-    ++ (
-      with gst_all_1; [
-        gst-libav
-        gst-plugins-bad
-        gst-plugins-base
-        gst-plugins-good
-        gstreamer
-      ]
-    )
+    ++ (with gst_all_1; [
+      gst-libav
+      gst-plugins-bad
+      gst-plugins-base
+      gst-plugins-good
+      gstreamer
+    ])
     ++ [
       atk.out
       cairo

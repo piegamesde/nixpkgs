@@ -17,8 +17,8 @@ let
   deps = import ./rebar-deps.nix {
     inherit fetchHex fetchFromGitHub fetchgit;
     builder = buildRebar3;
-    overrides =
-      (self: super: {
+    overrides = (
+      self: super: {
         proper = super.proper.overrideAttrs (_: { configurePhase = "true"; });
         redbug = super.redbug.overrideAttrs (
           _: {
@@ -27,7 +27,8 @@ let
             '';
           }
         );
-      });
+      }
+    );
   };
 in
 rebar3Relx {

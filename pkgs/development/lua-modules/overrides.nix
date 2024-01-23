@@ -44,8 +44,7 @@
   zziplib,
 }:
 
-final: prev:
-with prev; {
+final: prev: with prev; {
   ##########################################3
   #### manual fixes for generated packages
   ##########################################3

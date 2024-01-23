@@ -151,8 +151,8 @@ in
                 ./native-comp-driver-options-28.patch
               else
                 ./native-comp-driver-options.patch;
-            backendPath =
-              (lib.concatStringsSep " " (
+            backendPath = (
+              lib.concatStringsSep " " (
                 builtins.map (x: ''"-B${x}"'') (
                   [
                     # Paths necessary so the JIT compiler finds its libraries:
@@ -166,7 +166,8 @@ in
                     "${lib.getBin stdenv.cc.bintools.bintools}/bin"
                   ]
                 )
-              ));
+              )
+            );
           })
         ];
 

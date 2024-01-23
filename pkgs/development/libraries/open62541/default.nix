@@ -73,7 +73,8 @@ stdenv.mkDerivation (
         python3Packages.python
       ]
       ++ lib.optionals withDoc (
-        with python3Packages; [
+        with python3Packages;
+        [
           sphinx
           sphinx_rtd_theme
           graphviz-nox

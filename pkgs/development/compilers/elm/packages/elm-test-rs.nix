@@ -19,7 +19,8 @@ rustPlatform.buildRustPackage rec {
   buildInputs =
     lib.optionals (!stdenv.isDarwin) [ openssl ]
     ++ lib.optionals stdenv.isDarwin (
-      with darwin.apple_sdk.frameworks; [
+      with darwin.apple_sdk.frameworks;
+      [
         Security
         CoreServices
       ]

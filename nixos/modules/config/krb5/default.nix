@@ -42,8 +42,8 @@ let
         };
   };
 
-  mergedConfig =
-    (recursiveUpdate defaultConfig {
+  mergedConfig = (
+    recursiveUpdate defaultConfig {
       inherit (config.krb5)
         kerberos
         libdefaults
@@ -55,7 +55,8 @@ let
         extraConfig
         config
         ;
-    });
+    }
+  );
 
   filterEmbeddedMetadata =
     value:

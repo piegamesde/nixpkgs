@@ -4,7 +4,8 @@
   pkgs,
   ...
 }:
-with lib; {
+with lib;
+{
   imports = [
     ../profiles/headless.nix
     ../profiles/qemu-guest.nix

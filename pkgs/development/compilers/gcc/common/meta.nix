@@ -1,6 +1,7 @@
 { lib, version }:
 
-with lib; {
+with lib;
+{
   homepage = "https://gcc.gnu.org/";
   license = licenses.gpl3Plus; # runtime support libraries are typically LGPLv3+
   description = "GNU Compiler Collection, version ${version}";

@@ -2,7 +2,9 @@ import ./make-test-python.nix (
   { pkgs, ... }:
   {
     name = "trickster";
-    meta = with pkgs.lib; { maintainers = with maintainers; [ _1000101 ]; };
+    meta = with pkgs.lib; {
+      maintainers = with maintainers; [ _1000101 ];
+    };
 
     nodes = {
       prometheus =

@@ -17,7 +17,9 @@ let
     }:
     makeTest {
       name = "${name}-backup";
-      meta = with pkgs.lib.maintainers; { maintainers = [ rvl ]; };
+      meta = with pkgs.lib.maintainers; {
+        maintainers = [ rvl ];
+      };
 
       nodes = {
         master =

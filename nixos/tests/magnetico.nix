@@ -6,7 +6,9 @@ import ./make-test-python.nix (
   in
   {
     name = "magnetico";
-    meta = with pkgs.lib.maintainers; { maintainers = [ rnhmjoj ]; };
+    meta = with pkgs.lib.maintainers; {
+      maintainers = [ rnhmjoj ];
+    };
 
     nodes.machine =
       { ... }:

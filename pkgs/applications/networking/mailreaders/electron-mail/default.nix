@@ -29,8 +29,7 @@ appimageTools.wrapType2 {
   '';
 
   extraPkgs =
-    pkgs:
-    with pkgs; [
+    pkgs: with pkgs; [
       libsecret
       libappindicator-gtk3
     ];

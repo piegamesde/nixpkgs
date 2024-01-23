@@ -14,7 +14,9 @@ import ./make-test-python.nix (
   { pkgs, ... }:
   rec {
     name = "logrotate";
-    meta = with pkgs.lib.maintainers; { maintainers = [ martinetd ]; };
+    meta = with pkgs.lib.maintainers; {
+      maintainers = [ martinetd ];
+    };
 
     nodes = {
       defaultMachine = { ... }: { };

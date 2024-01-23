@@ -53,17 +53,15 @@ stdenv.mkDerivation rec {
       openssl
       unixODBC
     ]
-    ++ (
-      with xorg; [
-        libX11
-        libXext
-        libXtst
-        libXi
-        libXmu
-        libXrender
-        libxcb
-      ]
-    );
+    ++ (with xorg; [
+      libX11
+      libXext
+      libXtst
+      libXi
+      libXmu
+      libXrender
+      libxcb
+    ]);
 
   ldpath =
     lib.makeLibraryPath buildInputs

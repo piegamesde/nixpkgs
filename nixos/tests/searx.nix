@@ -3,7 +3,9 @@ import ./make-test-python.nix (
 
   {
     name = "searx";
-    meta = with pkgs.lib.maintainers; { maintainers = [ rnhmjoj ]; };
+    meta = with pkgs.lib.maintainers; {
+      maintainers = [ rnhmjoj ];
+    };
 
     # basic setup: searx running the built-in webserver
     nodes.base =

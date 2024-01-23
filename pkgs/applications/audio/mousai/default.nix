@@ -46,13 +46,11 @@ stdenv.mkDerivation rec {
       pkg-config
       wrapGAppsHook4
     ]
-    ++ (
-      with rustPlatform; [
-        cargoSetupHook
-        rust.cargo
-        rust.rustc
-      ]
-    );
+    ++ (with rustPlatform; [
+      cargoSetupHook
+      rust.cargo
+      rust.rustc
+    ]);
 
   buildInputs = [
     dbus

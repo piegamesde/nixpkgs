@@ -71,16 +71,14 @@ python3.pkgs.buildPythonApplication rec {
       gsettings-desktop-schemas
       tracker
     ]
-    ++ (
-      with gst_all_1; [
-        gstreamer
-        gst-plugins-base
-        gst-plugins-good
-        gst-plugins-bad
-        gst-plugins-ugly
-        gst-libav
-      ]
-    );
+    ++ (with gst_all_1; [
+      gstreamer
+      gst-plugins-base
+      gst-plugins-good
+      gst-plugins-bad
+      gst-plugins-ugly
+      gst-libav
+    ]);
 
   pythonPath = with python3.pkgs; [
     pycairo

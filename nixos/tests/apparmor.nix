@@ -2,7 +2,9 @@ import ./make-test-python.nix (
   { pkgs, ... }:
   {
     name = "apparmor";
-    meta = with pkgs.lib.maintainers; { maintainers = [ julm ]; };
+    meta = with pkgs.lib.maintainers; {
+      maintainers = [ julm ];
+    };
 
     nodes.machine =
       {
@@ -11,7 +13,8 @@ import ./make-test-python.nix (
         config,
         ...
       }:
-      with lib; {
+      with lib;
+      {
         security.apparmor.enable = mkDefault true;
       };
 

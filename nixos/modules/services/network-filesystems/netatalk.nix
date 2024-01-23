@@ -57,8 +57,8 @@ in
     };
   };
 
-  imports =
-    (map
+  imports = (
+    map
       (
         option:
         mkRemovedOptionModule
@@ -74,7 +74,7 @@ in
         "homes"
         "volumes"
       ]
-    );
+  );
 
   config = mkIf cfg.enable {
 

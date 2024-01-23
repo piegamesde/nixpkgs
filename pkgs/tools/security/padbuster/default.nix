@@ -18,8 +18,7 @@ stdenv.mkDerivation rec {
 
   buildInputs = [
     (perl.withPackages (
-      ps:
-      with ps; [
+      ps: with ps; [
         LWP
         LWPProtocolHttps
         CryptSSLeay

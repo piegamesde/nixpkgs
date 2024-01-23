@@ -5,7 +5,8 @@
   ...
 }:
 
-with lib; {
+with lib;
+{
   meta = {
     maintainers = teams.freedesktop.members;
   };

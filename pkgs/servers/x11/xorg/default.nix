@@ -1,8 +1,7 @@
 # THIS IS A GENERATED FILE.  DO NOT EDIT!
 { lib, pixman }:
 
-self:
-with self; {
+self: with self; {
 
   inherit pixman;
 

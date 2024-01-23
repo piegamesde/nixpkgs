@@ -32,8 +32,7 @@ stdenv.mkDerivation rec {
     gobject-introspection
     ladspaPlugins
     (python3.withPackages (
-      ps:
-      with ps; [
+      ps: with ps; [
         mlt
         pygobject3
         dbus-python

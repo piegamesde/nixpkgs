@@ -3,7 +3,9 @@ import ../make-test-python.nix (
   {
     name = "healthchecks";
 
-    meta = with lib.maintainers; { maintainers = [ phaer ]; };
+    meta = with lib.maintainers; {
+      maintainers = [ phaer ];
+    };
 
     nodes.machine =
       { ... }:

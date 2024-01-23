@@ -5,8 +5,7 @@
 }:
 
 lib.makeScope pkgs.newScope (
-  self:
-  with self; {
+  self: with self; {
 
     dockapps-sources = pkgs.fetchgit {
       url = "https://repo.or.cz/dockapps.git";

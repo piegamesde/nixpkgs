@@ -101,11 +101,12 @@ buildGoModule rec {
   '';
 
   # $data is not available in go-modules.drv and preBuild isn't needed
-  overrideModAttrs =
-    (_: {
+  overrideModAttrs = (
+    _: {
       postPatch = null;
       preBuild = null;
-    });
+    }
+  );
 
   passthru = {
     data-compressed =

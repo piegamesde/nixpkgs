@@ -7,7 +7,8 @@
 let
   cfg = config.services.ivpn;
 in
-with lib; {
+with lib;
+{
   options.services.ivpn = {
     enable = mkOption {
       type = types.bool;

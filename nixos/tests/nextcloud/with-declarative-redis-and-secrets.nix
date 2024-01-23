@@ -13,7 +13,9 @@ import ../make-test-python.nix (
   in
   {
     name = "nextcloud-with-declarative-redis";
-    meta = with pkgs.lib.maintainers; { maintainers = [ eqyiel ]; };
+    meta = with pkgs.lib.maintainers; {
+      maintainers = [ eqyiel ];
+    };
 
     nodes = {
       # The only thing the client needs to do is download a file.

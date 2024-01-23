@@ -19,8 +19,7 @@
 let
   rev = "7e1e6a4c349e720d75c892cd7230b29c35148342";
   python = python3.withPackages (
-    ps:
-    with ps; [
+    ps: with ps; [
       epc
       orjson
       sexpdata

@@ -39,8 +39,7 @@ buildFHSEnv {
   runScript = "${jdk}/bin/java -jar ${src}";
 
   targetPkgs =
-    pkgs:
-    with pkgs; [
+    pkgs: with pkgs; [
       alsa-lib
       at-spi2-core
       cairo

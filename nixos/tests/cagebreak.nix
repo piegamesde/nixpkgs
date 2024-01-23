@@ -10,7 +10,9 @@ import ./make-test-python.nix (
   in
   {
     name = "cagebreak";
-    meta = with pkgs.lib.maintainers; { maintainers = [ berbiche ]; };
+    meta = with pkgs.lib.maintainers; {
+      maintainers = [ berbiche ];
+    };
 
     nodes.machine =
       { config, ... }:

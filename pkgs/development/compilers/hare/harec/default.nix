@@ -36,7 +36,8 @@ stdenv.mkDerivation (
       # The upstream developers do not like proprietary operating systems; see
       # https://harelang.org/platforms/
       platforms =
-        with lib.platforms; lib.intersectLists (freebsd ++ linux) (aarch64 ++ x86_64 ++ riscv64);
+        with lib.platforms;
+        lib.intersectLists (freebsd ++ linux) (aarch64 ++ x86_64 ++ riscv64);
       badPlatforms = lib.platforms.darwin;
     };
   }

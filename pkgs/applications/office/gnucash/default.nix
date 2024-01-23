@@ -61,13 +61,11 @@ stdenv.mkDerivation rec {
       swig
       webkitgtk
     ]
-    ++ (
-      with perlPackages; [
-        JSONParse
-        FinanceQuote
-        perl
-      ]
-    );
+    ++ (with perlPackages; [
+      JSONParse
+      FinanceQuote
+      perl
+    ]);
 
   patches = [
     # this patch disables test-gnc-timezone and test-gnc-datetime which fail due to nix datetime challenges

@@ -5,7 +5,9 @@ import ./make-test-python.nix (
   { pkgs, lib, ... }:
   {
     name = "ipv6";
-    meta = with pkgs.lib.maintainers; { maintainers = [ eelco ]; };
+    meta = with pkgs.lib.maintainers; {
+      maintainers = [ eelco ];
+    };
 
     nodes = {
       # We use lib.mkForce here to remove the interface configuration

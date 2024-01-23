@@ -8,7 +8,9 @@ import ./make-test-python.nix (
   {
     name = "hbase-standalone";
 
-    meta = with lib.maintainers; { maintainers = [ illustris ]; };
+    meta = with lib.maintainers; {
+      maintainers = [ illustris ];
+    };
 
     nodes = {
       hbase =

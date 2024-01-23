@@ -10,14 +10,12 @@
 let
 
   qt5Deps =
-    pkgs:
-    with pkgs.qt5; [
+    pkgs: with pkgs.qt5; [
       qtbase
       qtmultimedia
     ];
   gnomeDeps =
-    pkgs:
-    with pkgs; [
+    pkgs: with pkgs; [
       gnome.zenity
       gtksourceview
       gnome-desktop
@@ -25,8 +23,7 @@ let
       webkitgtk
     ];
   xorgDeps =
-    pkgs:
-    with pkgs.xorg; [
+    pkgs: with pkgs.xorg; [
       libX11
       libXrender
       libXrandr

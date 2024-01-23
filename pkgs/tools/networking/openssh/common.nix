@@ -194,12 +194,10 @@ stdenv.mkDerivation rec {
       platforms = platforms.unix ++ platforms.windows;
       maintainers =
         (extraMeta.maintainers or [ ])
-        ++ (
-          with maintainers; [
-            eelco
-            aneeshusa
-          ]
-        );
+        ++ (with maintainers; [
+          eelco
+          aneeshusa
+        ]);
       mainProgram = "ssh";
     }
     // extraMeta;

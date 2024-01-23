@@ -223,8 +223,7 @@ let
       (lib.importJSON ./versions.json);
 
   updateScript_python = python39.withPackages (
-    p:
-    with p; [
+    p: with p; [
       packaging
       beautifulsoup4
       requests

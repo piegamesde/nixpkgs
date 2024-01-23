@@ -4,7 +4,9 @@ import ./make-test-python.nix (
   {
     name = "pantheon";
 
-    meta = with lib; { maintainers = teams.pantheon.members; };
+    meta = with lib; {
+      maintainers = teams.pantheon.members;
+    };
 
     nodes.machine =
       { ... }:

@@ -6,10 +6,11 @@
 }:
 
 let
-  phpWithExts =
-    (php.withExtensions (
+  phpWithExts = (
+    php.withExtensions (
       { all, ... }:
-      with all; [
+      with all;
+      [
         curl
         filter
         iconv
@@ -18,7 +19,8 @@ let
         simplexml
         sqlite3
       ]
-    ));
+    )
+  );
   phpBin = "${phpWithExts}/bin/php";
 in
 (writeShellScriptBin "rss-bridge-cli" ''

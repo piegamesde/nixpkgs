@@ -69,8 +69,7 @@ let
       lua;
 
   pyEnv = python3.withPackages (
-    ps:
-    with ps; [
+    ps: with ps; [
       pynvim
       msgpack
     ]

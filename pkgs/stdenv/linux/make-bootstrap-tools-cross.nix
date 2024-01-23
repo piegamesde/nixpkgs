@@ -15,7 +15,8 @@ let
     import ./make-bootstrap-tools.nix { pkgs = releaseLib.pkgsForCross crossSystem system; };
 in
 lib.mapAttrs (n: make) (
-  with lib.systems.examples; {
+  with lib.systems.examples;
+  {
     armv5tel = sheevaplug;
     pogoplug4 = pogoplug4;
     armv6l = raspberryPi;

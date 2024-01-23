@@ -1,7 +1,9 @@
 { pkgs, lib, ... }:
 {
   name = "agate";
-  meta = with lib.maintainers; { maintainers = [ jk ]; };
+  meta = with lib.maintainers; {
+    maintainers = [ jk ];
+  };
 
   nodes = {
     geminiserver =

@@ -82,12 +82,10 @@ stdenv.mkDerivation rec {
       file
       python3
     ]
-    ++ (
-      with perlPackages; [
-        perl
-        ExtUtilsMakeMaker
-      ]
-    )
+    ++ (with perlPackages; [
+      perl
+      ExtUtilsMakeMaker
+    ])
     ++ lib.optionals stdenv.isLinux [ linuxHeaders ];
 
   buildInputs =

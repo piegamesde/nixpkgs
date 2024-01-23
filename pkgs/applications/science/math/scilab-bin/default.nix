@@ -86,19 +86,17 @@ let
         ncurses5
         stdenv.cc.cc
       ]
-      ++ (
-        with xorg; [
-          libX11
-          libXcursor
-          libXext
-          libXft
-          libXi
-          libXrandr
-          libXrender
-          libXtst
-          libXxf86vm
-        ]
-      );
+      ++ (with xorg; [
+        libX11
+        libXcursor
+        libXext
+        libXft
+        libXi
+        libXrandr
+        libXrender
+        libXtst
+        libXxf86vm
+      ]);
 
     installPhase = ''
       runHook preInstall

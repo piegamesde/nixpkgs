@@ -244,16 +244,18 @@ in
           setgid = true;
           setuid = false;
         };
-        mlocate =
-          (mkIf isMLocate {
+        mlocate = (
+          mkIf isMLocate {
             group = "mlocate";
             source = "${cfg.locate}/bin/locate";
-          });
-        plocate =
-          (mkIf isPLocate {
+          }
+        );
+        plocate = (
+          mkIf isPLocate {
             group = "plocate";
             source = "${cfg.locate}/bin/plocate";
-          });
+          }
+        );
       in
       mkIf isMorPLocate {
         locate = mkMerge [
@@ -261,13 +263,14 @@ in
           mlocate
           plocate
         ];
-        plocate =
-          (mkIf isPLocate (
+        plocate = (
+          mkIf isPLocate (
             mkMerge [
               common
               plocate
             ]
-          ));
+          )
+        );
       };
 
     nixpkgs.config = {

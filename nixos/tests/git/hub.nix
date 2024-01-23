@@ -2,7 +2,9 @@ import ../make-test-python.nix (
   { pkgs, ... }:
   {
     name = "hub";
-    meta = with pkgs.lib.maintainers; { maintainers = [ nequissimus ]; };
+    meta = with pkgs.lib.maintainers; {
+      maintainers = [ nequissimus ];
+    };
 
     nodes.hub = { pkgs, ... }: { environment.systemPackages = [ pkgs.hub ]; };
 

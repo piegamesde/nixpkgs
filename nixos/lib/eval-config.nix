@@ -30,10 +30,11 @@ evalConfigArgs@{
   check ? true,
   prefix ? [ ],
   lib ? import ../../lib,
-  extraModules ? let
-    e = builtins.getEnv "NIXOS_EXTRA_MODULE_PATH";
-  in
-  if e == "" then [ ] else [ (import e) ],
+  extraModules ?
+    let
+      e = builtins.getEnv "NIXOS_EXTRA_MODULE_PATH";
+    in
+    if e == "" then [ ] else [ (import e) ],
 }:
 
 let

@@ -61,15 +61,13 @@ stdenv.mkDerivation rec {
       libadwaita
       webkitgtk_6_0
     ]
-    ++ (
-      with gst_all_1; [
-        gstreamer
-        gst-libav
-        gst-plugins-base
-        (gst-plugins-good.override { gtkSupport = true; })
-        gst-plugins-bad
-      ]
-    );
+    ++ (with gst_all_1; [
+      gstreamer
+      gst-libav
+      gst-plugins-base
+      (gst-plugins-good.override { gtkSupport = true; })
+      gst-plugins-bad
+    ]);
 
   dontPatchShebangs = true;
 

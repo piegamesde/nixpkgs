@@ -26,10 +26,11 @@
   threadSupport ? stdenv.hostPlatform.isx86,
   x11Support ? stdenv.hostPlatform.isx86,
   dllSupport ? true,
-  withModules ? [
-    "pcre"
-    "rawsock"
-  ]
+  withModules ?
+    [
+      "pcre"
+      "rawsock"
+    ]
     ++ lib.optionals stdenv.isLinux [
       "bindings/glibc"
       "zlib"

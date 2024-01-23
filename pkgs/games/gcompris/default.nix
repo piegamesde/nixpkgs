@@ -50,14 +50,12 @@ stdenv.mkDerivation rec {
       qtsensors
       qtxmlpatterns
     ]
-    ++ (
-      with gst_all_1; [
-        gstreamer
-        gst-plugins-base
-        gst-plugins-good
-        gst-plugins-bad
-      ]
-    );
+    ++ (with gst_all_1; [
+      gstreamer
+      gst-plugins-base
+      gst-plugins-good
+      gst-plugins-bad
+    ]);
 
   postInstall = ''
     install -Dm444 ../org.kde.gcompris.desktop     -t $out/share/applications

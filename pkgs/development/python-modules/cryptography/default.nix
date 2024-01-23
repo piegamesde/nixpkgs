@@ -58,12 +58,10 @@ buildPythonPackage rec {
       rustPlatform.cargoSetupHook
       setuptools-rust
     ]
-    ++ (
-      with rustPlatform; [
-        rust.cargo
-        rust.rustc
-      ]
-    );
+    ++ (with rustPlatform; [
+      rust.cargo
+      rust.rustc
+    ]);
 
   buildInputs =
     [ openssl ]

@@ -1,8 +1,7 @@
 { lib, pkgs }:
 
 lib.makeScope pkgs.newScope (
-  self:
-  with self; {
+  self: with self; {
 
     #### CORE EFL
     efl = callPackage ./efl { };

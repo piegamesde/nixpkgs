@@ -52,7 +52,8 @@ stdenv.mkDerivation rec {
       udev
     ]
     ++ lib.optionals stdenv.isDarwin (
-      with darwin.apple_sdk.frameworks; [
+      with darwin.apple_sdk.frameworks;
+      [
         Carbon
         Cocoa
         OpenAL

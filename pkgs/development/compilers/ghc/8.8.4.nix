@@ -67,8 +67,10 @@
   ),
 
   enableHaddockProgram ?
-    # Disabled for cross; see note [HADDOCK_DOCS].
-    (stdenv.targetPlatform == stdenv.hostPlatform),
+      # Disabled for cross; see note [HADDOCK_DOCS].
+      (
+        stdenv.targetPlatform == stdenv.hostPlatform
+      ),
 
   # Whether to disable the large address space allocator
   # necessary fix for iOS: https://www.reddit.com/r/haskell/comments/4ttdz1/building_an_osxi386_to_iosarm64_cross_compiler/d5qvd67/

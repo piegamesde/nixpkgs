@@ -28,15 +28,15 @@ let
 
   kernelPackages = config.boot.kernelPackages;
 
-  gst =
-    (
-      with pkgs.gst_all_1; [
-        gst-plugins-bad
-        gst-plugins-base
-        gst-plugins-good
-        gstreamer.out
-      ]
-    );
+  gst = (
+    with pkgs.gst_all_1;
+    [
+      gst-plugins-bad
+      gst-plugins-base
+      gst-plugins-good
+      gstreamer.out
+    ]
+  );
 
   instanceOpts =
     { name, ... }:

@@ -3,7 +3,9 @@ import ./make-test-python.nix (
   {
     name = "netbird";
 
-    meta = with pkgs.lib.maintainers; { maintainers = [ misuzu ]; };
+    meta = with pkgs.lib.maintainers; {
+      maintainers = [ misuzu ];
+    };
 
     nodes = {
       node = { ... }: { services.netbird.enable = true; };

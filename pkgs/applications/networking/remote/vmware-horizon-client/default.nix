@@ -77,8 +77,7 @@ let
       runScript = "${vmwareHorizonClientFiles}/bin/${name}_wrapper";
 
       targetPkgs =
-        pkgs:
-        with pkgs; [
+        pkgs: with pkgs; [
           at-spi2-atk
           atk
           cairo

@@ -135,14 +135,15 @@ in
 
       services.hadoop.gatewayRole.enable = true;
 
-      networking.firewall.allowedTCPPorts =
-        (mkIf cfg.yarn.resourcemanager.openFirewall [
+      networking.firewall.allowedTCPPorts = (
+        mkIf cfg.yarn.resourcemanager.openFirewall [
           8088 # resourcemanager.webapp.address
           8030 # resourcemanager.scheduler.address
           8031 # resourcemanager.resource-tracker.address
           8032 # resourcemanager.address
           8033 # resourcemanager.admin.address
-        ]);
+        ]
+      );
     })
 
     (mkIf cfg.yarn.nodemanager.enable {

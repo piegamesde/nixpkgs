@@ -97,13 +97,11 @@ stdenv.mkDerivation rec {
 
   nativeCheckInputs =
     [ iproute2 ]
-    ++ (
-      with python3.pkgs; [
-        netaddr
-        pyparsing
-        pytest
-      ]
-    );
+    ++ (with python3.pkgs; [
+      netaddr
+      pyparsing
+      pytest
+    ]);
 
   meta = with lib; {
     changelog = "https://www.openvswitch.org/releases/NEWS-${version}.txt";

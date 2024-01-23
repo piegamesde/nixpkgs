@@ -46,8 +46,7 @@ let
     lua.override { inherit packageOverrides; };
 
   luaEnv = overrideLua.withPackages (
-    ps:
-    with ps; [
+    ps: with ps; [
       luazip
       luafilesystem
       lrexlib-pcre

@@ -44,15 +44,13 @@ stdenv.mkDerivation rec {
       granite7
       gtk4
     ]
-    ++ (
-      with gst_all_1; [
-        gst-plugins-bad
-        gst-plugins-base
-        gst-plugins-good
-        gst-plugins-ugly
-        gstreamer
-      ]
-    );
+    ++ (with gst_all_1; [
+      gst-plugins-bad
+      gst-plugins-base
+      gst-plugins-good
+      gst-plugins-ugly
+      gstreamer
+    ]);
 
   postPatch = ''
     chmod +x meson/post_install.py

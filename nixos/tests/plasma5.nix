@@ -3,7 +3,9 @@ import ./make-test-python.nix (
 
   {
     name = "plasma5";
-    meta = with pkgs.lib.maintainers; { maintainers = [ ttuegel ]; };
+    meta = with pkgs.lib.maintainers; {
+      maintainers = [ ttuegel ];
+    };
 
     nodes.machine =
       { ... }:

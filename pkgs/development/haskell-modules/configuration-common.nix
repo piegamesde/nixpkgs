@@ -974,8 +974,8 @@ self: super:
       super.structured-haskell-mode;
 
   # Make elisp files available at a location where people expect it.
-  hindent =
-    (overrideCabal
+  hindent = (
+    overrideCabal
       (drv: {
         # We cannot easily byte-compile these files, unfortunately, because they
         # depend on a new version of haskell-mode that we don't have yet.
@@ -987,7 +987,7 @@ self: super:
         doCheck = false; # https://github.com/chrisdone/hindent/issues/299
       })
       super.hindent
-    );
+  );
 
   # https://github.com/basvandijk/concurrent-extra/issues/12
   concurrent-extra = dontCheck super.concurrent-extra;

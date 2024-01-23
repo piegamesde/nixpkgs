@@ -96,8 +96,7 @@ buildFun:
 
 let
   python3WithPackages = python3.pythonForBuild.withPackages (
-    ps:
-    with ps; [
+    ps: with ps; [
       ply
       jinja2
       setuptools

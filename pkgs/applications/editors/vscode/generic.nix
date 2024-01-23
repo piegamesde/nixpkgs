@@ -229,24 +229,22 @@ let
       # additional libraries which are commonly needed for extensions
       targetPkgs =
         pkgs:
-        (
-          with pkgs; [
-            # ld-linux-x86-64-linux.so.2 and others
-            glibc
+        (with pkgs; [
+          # ld-linux-x86-64-linux.so.2 and others
+          glibc
 
-            # dotnet
-            curl
-            icu
-            libunwind
-            libuuid
-            lttng-ust
-            openssl
-            zlib
+          # dotnet
+          curl
+          icu
+          libunwind
+          libuuid
+          lttng-ust
+          openssl
+          zlib
 
-            # mono
-            krb5
-          ]
-        )
+          # mono
+          krb5
+        ])
         ++ additionalPkgs pkgs;
 
       extraBwrapArgs = [ "--bind-try /etc/nixos/ /etc/nixos/" ];

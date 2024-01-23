@@ -29,14 +29,15 @@ import ./make-test-python.nix (
           inherit configDir;
 
           # provide dependencies through package overrides
-          package =
-            (pkgs.home-assistant.override {
+          package = (
+            pkgs.home-assistant.override {
               extraPackages = ps: with ps; [ colorama ];
               extraComponents = [
                 # test char-tty device allow propagation into the service
                 "zha"
               ];
-            });
+            }
+          );
 
           # provide component dependencies explicitly from the module
           extraComponents = [ "mqtt" ];

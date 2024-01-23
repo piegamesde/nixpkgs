@@ -29,17 +29,15 @@ ocamlPackages.buildDunePackage rec {
 
   buildInputs =
     [ libdrm ]
-    ++ (
-      with ocamlPackages; [
-        dune-configurator
-        ppx_cstruct
-        wayland
-        cmdliner
-        logs
-        cstruct-lwt
-        ppx_cstruct
-      ]
-    );
+    ++ (with ocamlPackages; [
+      dune-configurator
+      ppx_cstruct
+      wayland
+      cmdliner
+      logs
+      cstruct-lwt
+      ppx_cstruct
+    ]);
 
   doCheck = true;
 

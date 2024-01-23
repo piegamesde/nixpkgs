@@ -6,7 +6,9 @@ import ./make-test-python.nix (
   in
   {
     name = "uptermd";
-    meta = with pkgs.lib.maintainers; { maintainers = [ fleaz ]; };
+    meta = with pkgs.lib.maintainers; {
+      maintainers = [ fleaz ];
+    };
 
     nodes = {
       server =

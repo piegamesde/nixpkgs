@@ -113,7 +113,8 @@ stdenv.mkDerivation (
         libintl
       ]
       ++ optionals stdenv.isDarwin (
-        with darwin.apple_sdk.frameworks; [
+        with darwin.apple_sdk.frameworks;
+        [
           CoreGraphics
           CoreText
           ApplicationServices

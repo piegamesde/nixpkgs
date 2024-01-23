@@ -19,8 +19,7 @@
 
 let
   pythonEnv = python3.withPackages (
-    pp:
-    with pp; [
+    pp: with pp; [
       grpcio-tools
       protobuf
       pygobject3

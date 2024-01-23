@@ -6,8 +6,8 @@
   overrides ? (self: super: { }),
 }:
 let
-  packages =
-    (self: {
+  packages = (
+    self: {
       active-window-kak = buildKakounePluginFrom2Nix {
         pname = "active-window-kak";
         version = "2022-11-14";
@@ -235,6 +235,7 @@ let
         };
         meta.homepage = "https://github.com/adrusi/zig.kak/";
       };
-    });
+    }
+  );
 in
 lib.fix' (lib.extends overrides packages)

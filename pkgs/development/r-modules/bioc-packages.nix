@@ -7,7 +7,8 @@
 let
   derive2 = derive { biocVersion = "3.16"; };
 in
-with self; {
+with self;
+{
   ABSSeq = derive2 {
     name = "ABSSeq";
     version = "1.52.0";

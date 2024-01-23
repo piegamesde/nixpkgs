@@ -58,8 +58,7 @@ let
   };
 
   carbonOpts =
-    name:
-    with config.ids; ''
+    name: with config.ids; ''
       --nodaemon --syslog --prefix=${name} --pidfile /run/${name}/${name}.pid ${name}
     '';
 

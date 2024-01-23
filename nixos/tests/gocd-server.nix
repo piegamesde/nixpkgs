@@ -7,7 +7,9 @@ import ./make-test-python.nix (
 
   {
     name = "gocd-server";
-    meta = with pkgs.lib.maintainers; { maintainers = [ swarren83 ]; };
+    meta = with pkgs.lib.maintainers; {
+      maintainers = [ swarren83 ];
+    };
 
     nodes = {
       server =

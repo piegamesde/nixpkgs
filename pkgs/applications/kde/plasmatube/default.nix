@@ -32,14 +32,12 @@ mkDerivation {
       qtmultimedia
       qtquickcontrols2
     ]
-    ++ (
-      with gst_all_1; [
-        gst-plugins-bad
-        gst-plugins-base
-        gst-plugins-good
-        gstreamer
-      ]
-    );
+    ++ (with gst_all_1; [
+      gst-plugins-bad
+      gst-plugins-base
+      gst-plugins-good
+      gstreamer
+    ]);
 
   preFixup = ''
     qtWrapperArgs+=("''${gappsWrapperArgs[@]}")

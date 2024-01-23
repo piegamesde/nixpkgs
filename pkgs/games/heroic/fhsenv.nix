@@ -37,8 +37,7 @@ buildFHSEnv {
   multiPkgs =
     let
       xorgDeps =
-        pkgs:
-        with pkgs.xorg; [
+        pkgs: with pkgs.xorg; [
           libpthreadstubs
           libSM
           libX11

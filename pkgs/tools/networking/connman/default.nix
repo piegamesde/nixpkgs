@@ -1,8 +1,7 @@
 { lib, pkgs }:
 
 lib.makeScope pkgs.newScope (
-  self:
-  with self; {
+  self: with self; {
 
     # All the defaults
     connman = callPackage ./connman { };

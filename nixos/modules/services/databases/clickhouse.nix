@@ -7,7 +7,8 @@
 let
   cfg = config.services.clickhouse;
 in
-with lib; {
+with lib;
+{
 
   ###### interface
 

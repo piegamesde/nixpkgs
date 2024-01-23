@@ -50,12 +50,10 @@ stdenv.mkDerivation rec {
     ]
     ++
       # Coq Support
-      (
-        with coqPackages; [
-          coq
-          flocq
-        ]
-      );
+      (with coqPackages; [
+        coq
+        flocq
+      ]);
 
   propagatedBuildInputs = with ocamlPackages; [
     camlzip

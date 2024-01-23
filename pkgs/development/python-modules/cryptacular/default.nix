@@ -31,5 +31,7 @@ buildPythonPackage rec {
   # https://bitbucket.org/dholth/cryptacular/issues/11
   disabled = isPy27 || pythonAtLeast "3.6";
 
-  meta = with lib; { maintainers = with maintainers; [ domenkozar ]; };
+  meta = with lib; {
+    maintainers = with maintainers; [ domenkozar ];
+  };
 }

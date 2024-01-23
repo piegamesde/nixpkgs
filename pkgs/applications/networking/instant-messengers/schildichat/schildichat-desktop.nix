@@ -137,12 +137,10 @@ stdenv.mkDerivation rec {
     changelog = "https://github.com/SchildiChat/schildichat-desktop/releases";
     maintainers =
       teams.matrix.members
-      ++ (
-        with maintainers; [
-          kloenk
-          yuka
-        ]
-      );
+      ++ (with maintainers; [
+        kloenk
+        yuka
+      ]);
     license = licenses.asl20;
     platforms = platforms.all;
   };

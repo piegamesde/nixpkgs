@@ -29,14 +29,15 @@
 let
   dmdConfFile = writeTextFile {
     name = "dmd.conf";
-    text =
-      (lib.generators.toINI { } {
+    text = (
+      lib.generators.toINI { } {
         Environment = {
           DFLAGS = "-I@out@/include/dmd -L-L@out@/lib -fPIC ${
             lib.optionalString (!targetPackages.stdenv.cc.isClang) "-L--export-dynamic"
           }";
         };
-      });
+      }
+    );
   };
 
   bits = builtins.toString stdenv.hostPlatform.parsed.cpu.bits;

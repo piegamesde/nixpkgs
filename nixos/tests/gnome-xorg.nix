@@ -2,7 +2,9 @@ import ./make-test-python.nix (
   { pkgs, lib, ... }:
   {
     name = "gnome-xorg";
-    meta = with lib; { maintainers = teams.gnome.members; };
+    meta = with lib; {
+      maintainers = teams.gnome.members;
+    };
 
     nodes.machine =
       { nodes, ... }:

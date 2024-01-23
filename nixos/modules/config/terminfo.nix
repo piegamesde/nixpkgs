@@ -26,7 +26,8 @@ with lib;
     # can be generated with: filter (drv: (builtins.tryEval (drv ? terminfo)).value) (attrValues pkgs)
     environment.systemPackages = mkIf config.environment.enableAllTerminfo (
       map (x: x.terminfo) (
-        with pkgs; [
+        with pkgs;
+        [
           alacritty
           foot
           kitty

@@ -181,12 +181,10 @@ let
               };
               nativeBuildInputs =
                 [ autoPatchelfHook ]
-                ++ (
-                  with python.pkgs; [
-                    condaUnpackHook
-                    condaInstallHook
-                  ]
-                );
+                ++ (with python.pkgs; [
+                  condaUnpackHook
+                  condaInstallHook
+                ]);
               buildInputs = [ pythonCondaPackages.condaPatchelfLibs ];
               propagatedBuildInputs = with python.pkgs; [
                 chardet

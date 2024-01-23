@@ -3,7 +3,9 @@ import ./make-test-python.nix (
   {
     name = "hedgedoc";
 
-    meta = with lib.maintainers; { maintainers = [ willibutz ]; };
+    meta = with lib.maintainers; {
+      maintainers = [ willibutz ];
+    };
 
     nodes = {
       hedgedocSqlite =

@@ -37,8 +37,7 @@ let
   apparmor-version = "3.1.3";
 
   apparmor-meta =
-    component:
-    with lib; {
+    component: with lib; {
       homepage = "https://apparmor.net/";
       description = "A mandatory access control system - ${component}";
       license = licenses.gpl2;

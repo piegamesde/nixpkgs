@@ -53,14 +53,15 @@ stdenv.mkDerivation rec {
   ];
 
   # JUCE dlopen's these at runtime, crashes without them
-  NIX_LDFLAGS =
-    (toString [
+  NIX_LDFLAGS = (
+    toString [
       "-lX11"
       "-lXext"
       "-lXcursor"
       "-lXinerama"
       "-lXrandr"
-    ]);
+    ]
+  );
 
   cmakeFlags = [
     "-DCMAKE_AR=${gcc-unwrapped}/bin/gcc-ar"

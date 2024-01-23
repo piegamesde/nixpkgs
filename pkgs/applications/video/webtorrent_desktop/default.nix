@@ -38,7 +38,8 @@ runCommand "${pname}-${version}"
       targetPkgs =
         pkgs:
         with pkgs;
-        with xorg; [
+        with xorg;
+        [
           alsa-lib
           atk
           at-spi2-core

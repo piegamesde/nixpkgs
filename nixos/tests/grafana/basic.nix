@@ -97,7 +97,9 @@ import ../make-test-python.nix (
   {
     name = "grafana-basic";
 
-    meta = with maintainers; { maintainers = [ willibutz ]; };
+    meta = with maintainers; {
+      maintainers = [ willibutz ];
+    };
 
     inherit nodes;
 

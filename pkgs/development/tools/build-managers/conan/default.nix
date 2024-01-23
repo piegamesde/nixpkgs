@@ -51,15 +51,13 @@ python3.pkgs.buildPythonApplication rec {
       pkg-config
       zlib
     ]
-    ++ (
-      with python3.pkgs; [
-        mock
-        parameterized
-        pytest-xdist
-        pytestCheckHook
-        webtest
-      ]
-    );
+    ++ (with python3.pkgs; [
+      mock
+      parameterized
+      pytest-xdist
+      pytestCheckHook
+      webtest
+    ]);
 
   pythonImportsCheck = [ "conan" ];
 

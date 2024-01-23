@@ -111,12 +111,10 @@ stdenv.mkDerivation rec {
       gtest
       libpulseaudio
     ]
-    ++ (
-      with gst_all_1; [
-        gstreamer
-        gst-plugins-base
-      ]
-    );
+    ++ (with gst_all_1; [
+      gstreamer
+      gst-plugins-base
+    ]);
 
   env.NIX_CFLAGS_COMPILE = toString [
     "-I${gst_all_1.gstreamer.dev}/include/gstreamer-1.0"

@@ -51,7 +51,8 @@
   # Non-GNU/Linux OSes are currently "impure" platforms, with their libc
   # outside of the store.  Thus, GCC, GFortran, & co. must always look for files
   # in standard system directories (/usr/include, etc.)
-  noSysDirs ? stdenv.buildPlatform.system != "x86_64-freebsd"
+  noSysDirs ?
+    stdenv.buildPlatform.system != "x86_64-freebsd"
     && stdenv.buildPlatform.system != "i686-freebsd"
     && stdenv.buildPlatform.system != "x86_64-solaris"
     && stdenv.buildPlatform.system != "x86_64-kfreebsd-gnu",

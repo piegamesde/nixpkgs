@@ -28,13 +28,11 @@ stdenv.mkDerivation rec {
   ];
   buildInputs = [ libminc ];
   propagatedBuildInputs =
-    (
-      with perlPackages; [
-        perl
-        GetoptTabular
-        MNI-Perllib
-      ]
-    )
+    (with perlPackages; [
+      perl
+      GetoptTabular
+      MNI-Perllib
+    ])
     ++ [
       octave
       coreutils

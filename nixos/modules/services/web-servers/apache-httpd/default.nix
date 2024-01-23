@@ -118,26 +118,25 @@ let
     }
     ++ cfg.extraModules;
 
-  loggingConf =
-    (
-      if cfg.logFormat != "none" then
-        ''
-          ErrorLog ${cfg.logDir}/error.log
+  loggingConf = (
+    if cfg.logFormat != "none" then
+      ''
+        ErrorLog ${cfg.logDir}/error.log
 
-          LogLevel notice
+        LogLevel notice
 
-          LogFormat "%h %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\"" combined
-          LogFormat "%h %l %u %t \"%r\" %>s %b" common
-          LogFormat "%{Referer}i -> %U" referer
-          LogFormat "%{User-agent}i" agent
+        LogFormat "%h %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\"" combined
+        LogFormat "%h %l %u %t \"%r\" %>s %b" common
+        LogFormat "%{Referer}i -> %U" referer
+        LogFormat "%{User-agent}i" agent
 
-          CustomLog ${cfg.logDir}/access.log ${cfg.logFormat}
-        ''
-      else
-        ''
-          ErrorLog /dev/null
-        ''
-    );
+        CustomLog ${cfg.logDir}/access.log ${cfg.logFormat}
+      ''
+    else
+      ''
+        ErrorLog /dev/null
+      ''
+  );
 
   browserHacks = ''
     <IfModule mod_setenvif.c>

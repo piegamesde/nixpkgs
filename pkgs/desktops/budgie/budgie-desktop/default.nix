@@ -88,12 +88,10 @@ stdenv.mkDerivation rec {
       sassc
       upower
     ]
-    ++ (
-      with gst_all_1; [
-        gstreamer
-        gst-plugins-base
-      ]
-    );
+    ++ (with gst_all_1; [
+      gstreamer
+      gst-plugins-base
+    ]);
 
   passthru.providedSessions = [ "budgie-desktop" ];
 

@@ -2,7 +2,9 @@ import ./make-test-python.nix (
   { pkgs, ... }:
   {
     name = "smokeping";
-    meta = with pkgs.lib.maintainers; { maintainers = [ cransom ]; };
+    meta = with pkgs.lib.maintainers; {
+      maintainers = [ cransom ];
+    };
 
     nodes = {
       sm =

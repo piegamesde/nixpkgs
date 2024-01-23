@@ -13,7 +13,9 @@ import ./make-test-python.nix (
   {
     name = "grafana-agent";
 
-    meta = with lib.maintainers; { maintainers = [ zimbatm ]; };
+    meta = with lib.maintainers; {
+      maintainers = [ zimbatm ];
+    };
 
     inherit nodes;
 

@@ -2,7 +2,9 @@
 
 {
   system ? builtins.currentSystem,
-  config ? { allowUnfree = true; },
+  config ? {
+    allowUnfree = true;
+  },
   pkgs ? import ../.. { inherit system config; },
 }:
 
@@ -37,7 +39,8 @@ let
       '';
     };
 in
-with pkgs; {
+with pkgs;
+{
   unifiLTS = makeAppTest unifiLTS;
   unifi5 = makeAppTest unifi5;
   unifi6 = makeAppTest unifi6;

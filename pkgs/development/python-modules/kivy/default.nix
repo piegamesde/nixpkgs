@@ -58,7 +58,8 @@ buildPythonPackage rec {
       libcxx
     ]
     ++ lib.optionals withGstreamer (
-      with gst_all_1; [
+      with gst_all_1;
+      [
         # NOTE: The degree to which gstreamer actually works is unclear
         gstreamer
         gst-plugins-base

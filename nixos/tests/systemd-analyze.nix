@@ -7,7 +7,9 @@ import ./make-test-python.nix (
 
   {
     name = "systemd-analyze";
-    meta = with pkgs.lib.maintainers; { maintainers = [ raskin ]; };
+    meta = with pkgs.lib.maintainers; {
+      maintainers = [ raskin ];
+    };
 
     nodes.machine =
       { pkgs, lib, ... }:

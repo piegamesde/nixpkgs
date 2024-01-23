@@ -103,7 +103,8 @@ in
     environment.systemPackages =
       [ pkgs.rasdaemon ]
       ++ optionals (cfg.testing) (
-        with pkgs.error-inject; [
+        with pkgs.error-inject;
+        [
           edac-inject
           mce-inject
           aer-inject

@@ -91,52 +91,51 @@ let
       };
     };
 
-  nodeNumberModule =
-    (
-      regular@{ config, name, ... }:
-      {
-        options = {
-          virtualisation.test.nodeName = mkOption {
-            internal = true;
-            default = name;
-            # We need to force this in specilisations, otherwise it'd be
-            # readOnly = true;
-            description = mdDoc ''
-              The `name` in `nodes.<name>`; stable across `specialisations`.
-            '';
-          };
-          virtualisation.test.nodeNumber = mkOption {
-            internal = true;
-            type = types.int;
-            readOnly = true;
-            default = nodeNumbers.${config.virtualisation.test.nodeName};
-            description = mdDoc ''
-              A unique number assigned for each node in `nodes`.
-            '';
-          };
-
-          # specialisations override the `name` module argument,
-          # so we push the real `virtualisation.test.nodeName`.
-          specialisation = mkOption {
-            type = types.attrsOf (
-              types.submodule {
-                options.configuration = mkOption {
-                  type = types.submoduleWith {
-                    modules = [
-                      {
-                        config.virtualisation.test.nodeName =
-                          # assert regular.config.virtualisation.test.nodeName != "configuration";
-                          regular.config.virtualisation.test.nodeName;
-                      }
-                    ];
-                  };
-                };
-              }
-            );
-          };
+  nodeNumberModule = (
+    regular@{ config, name, ... }:
+    {
+      options = {
+        virtualisation.test.nodeName = mkOption {
+          internal = true;
+          default = name;
+          # We need to force this in specilisations, otherwise it'd be
+          # readOnly = true;
+          description = mdDoc ''
+            The `name` in `nodes.<name>`; stable across `specialisations`.
+          '';
         };
-      }
-    );
+        virtualisation.test.nodeNumber = mkOption {
+          internal = true;
+          type = types.int;
+          readOnly = true;
+          default = nodeNumbers.${config.virtualisation.test.nodeName};
+          description = mdDoc ''
+            A unique number assigned for each node in `nodes`.
+          '';
+        };
+
+        # specialisations override the `name` module argument,
+        # so we push the real `virtualisation.test.nodeName`.
+        specialisation = mkOption {
+          type = types.attrsOf (
+            types.submodule {
+              options.configuration = mkOption {
+                type = types.submoduleWith {
+                  modules = [
+                    {
+                      config.virtualisation.test.nodeName =
+                        # assert regular.config.virtualisation.test.nodeName != "configuration";
+                        regular.config.virtualisation.test.nodeName;
+                    }
+                  ];
+                };
+              };
+            }
+          );
+        };
+      };
+    }
+  );
 in
 {
   config = {

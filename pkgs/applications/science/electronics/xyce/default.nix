@@ -126,8 +126,7 @@ stdenv.mkDerivation rec {
       bc
       perl
       (python3.withPackages (
-        ps:
-        with ps; [
+        ps: with ps; [
           numpy
           scipy
         ]

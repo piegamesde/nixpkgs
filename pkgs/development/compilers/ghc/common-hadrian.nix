@@ -2,10 +2,11 @@
   version,
   rev ? null,
   sha256,
-  url ? if rev != null then
-    "https://gitlab.haskell.org/ghc/ghc.git"
-  else
-    "https://downloads.haskell.org/ghc/${version}/ghc-${version}-src.tar.xz",
+  url ?
+    if rev != null then
+      "https://gitlab.haskell.org/ghc/ghc.git"
+    else
+      "https://downloads.haskell.org/ghc/${version}/ghc-${version}-src.tar.xz",
 
 }:
 
@@ -39,13 +40,14 @@
   # GHC can be built with system libffi or a bundled one.
   libffi ? null,
 
-  useLLVM ? !(
-    stdenv.targetPlatform.isx86
-    || stdenv.targetPlatform.isPower
-    || stdenv.targetPlatform.isSparc
-    || (stdenv.targetPlatform.isAarch64 && stdenv.targetPlatform.isDarwin)
-    || stdenv.targetPlatform.isGhcjs
-  ),
+  useLLVM ?
+    !(
+      stdenv.targetPlatform.isx86
+      || stdenv.targetPlatform.isPower
+      || stdenv.targetPlatform.isSparc
+      || (stdenv.targetPlatform.isAarch64 && stdenv.targetPlatform.isDarwin)
+      || stdenv.targetPlatform.isGhcjs
+    ),
   # LLVM is conceptually a run-time-only depedendency, but for
   # non-x86, we need LLVM to bootstrap later stages, so it becomes a
   # build-time dependency too.
@@ -86,25 +88,26 @@
 
   # What flavour to build. Flavour string may contain a flavour and flavour
   # transformers as accepted by hadrian.
-  ghcFlavour ? let
-    # TODO(@sternenseemann): does using the static flavour make sense?
-    baseFlavour = "release";
-    # Note: in case hadrian's flavour transformers cease being expressive
-    # enough for us, we'll need to resort to defining a "nixpkgs" flavour
-    # in hadrianUserSettings and using that instead.
-    transformers =
-      lib.optionals useLLVM [ "llvm" ]
-      ++ lib.optionals (!enableShared) [
-        "no_dynamic_libs"
-        "no_dynamic_ghc"
-      ]
-      ++ lib.optionals (!enableProfiledLibs) [ "no_profiled_libs" ]
-      # While split sections are now enabled by default in ghc 8.8 for windows,
-      # they seem to lead to `too many sections` errors when building base for
-      # profiling.
-      ++ lib.optionals (!stdenv.targetPlatform.isWindows) [ "split_sections" ];
-  in
-  baseFlavour + lib.concatMapStrings (t: "+${t}") transformers,
+  ghcFlavour ?
+    let
+      # TODO(@sternenseemann): does using the static flavour make sense?
+      baseFlavour = "release";
+      # Note: in case hadrian's flavour transformers cease being expressive
+      # enough for us, we'll need to resort to defining a "nixpkgs" flavour
+      # in hadrianUserSettings and using that instead.
+      transformers =
+        lib.optionals useLLVM [ "llvm" ]
+        ++ lib.optionals (!enableShared) [
+          "no_dynamic_libs"
+          "no_dynamic_ghc"
+        ]
+        ++ lib.optionals (!enableProfiledLibs) [ "no_profiled_libs" ]
+        # While split sections are now enabled by default in ghc 8.8 for windows,
+        # they seem to lead to `too many sections` errors when building base for
+        # profiling.
+        ++ lib.optionals (!stdenv.targetPlatform.isWindows) [ "split_sections" ];
+    in
+    baseFlavour + lib.concatMapStrings (t: "+${t}") transformers,
 
   # Contents of the UserSettings.hs file to use when compiling hadrian.
   hadrianUserSettings ? ''

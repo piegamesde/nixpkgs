@@ -3,7 +3,9 @@ import ./make-test-python.nix (
 
   {
     name = "morty";
-    meta = with pkgs.lib.maintainers; { maintainers = [ leenaars ]; };
+    meta = with pkgs.lib.maintainers; {
+      maintainers = [ leenaars ];
+    };
 
     nodes = {
       mortyProxyWithKey =

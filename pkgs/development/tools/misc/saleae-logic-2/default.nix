@@ -37,8 +37,7 @@ appimageTools.wrapType2 {
     '';
 
   extraPkgs =
-    pkgs:
-    with pkgs; [
+    pkgs: with pkgs; [
       wget
       unzip
       glib

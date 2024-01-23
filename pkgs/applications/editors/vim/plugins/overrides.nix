@@ -754,8 +754,7 @@ self: super:
       sha256 = "10d6dh0czdpgfpzqs5vzxfffkm0460qjzi2mfkacgghqf3iwkbja";
     };
     passthru.python3Dependencies =
-      ps:
-      with ps; [
+      ps: with ps; [
         pynvim
         jupyter-client
         ueberzug
@@ -1150,8 +1149,7 @@ self: super:
           gobject-introspection
           glib
           (python3.withPackages (
-            ps:
-            with ps; [
+            ps: with ps; [
               pygobject3
               pynvim
               dbus-python

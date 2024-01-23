@@ -3,7 +3,9 @@ import ./make-test-python.nix (
   {
     name = "flannel";
 
-    meta = with lib.maintainers; { maintainers = [ offline ]; };
+    meta = with lib.maintainers; {
+      maintainers = [ offline ];
+    };
 
     nodes =
       let

@@ -331,7 +331,8 @@ python3Packages.buildPythonApplication {
       if withPlugin then
         licenses.unfree
       else
-        with licenses; [
+        with licenses;
+        [
           mit
           bsd2
           gpl2Plus

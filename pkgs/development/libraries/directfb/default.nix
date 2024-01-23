@@ -82,7 +82,8 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optional enableSDL SDL
     ++ lib.optionals enableX11 (
-      with xorg; [
+      with xorg;
+      [
         xorgproto
         libX11
         libXext

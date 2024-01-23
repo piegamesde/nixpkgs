@@ -24,13 +24,11 @@ python3Packages.buildPythonApplication rec {
   doCheck = false;
 
   propagatedBuildInputs =
-    (
-      with python3Packages; [
-        boto
-        gevent
-        google-cloud-storage
-      ]
-    )
+    (with python3Packages; [
+      boto
+      gevent
+      google-cloud-storage
+    ])
     ++ [
       postgresql
       lzop

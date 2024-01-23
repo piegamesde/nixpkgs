@@ -2,7 +2,9 @@ import ./make-test-python.nix (
   { pkgs, ... }:
   {
     name = "rasdaemon";
-    meta = with pkgs.lib.maintainers; { maintainers = [ evils ]; };
+    meta = with pkgs.lib.maintainers; {
+      maintainers = [ evils ];
+    };
 
     nodes.machine =
       { pkgs, ... }:

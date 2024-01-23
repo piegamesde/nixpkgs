@@ -16,7 +16,9 @@ with pkgs.lib;
 
 makeTest {
   name = "amazon-init";
-  meta = with maintainers; { maintainers = [ urbas ]; };
+  meta = with maintainers; {
+    maintainers = [ urbas ];
+  };
   nodes.machine =
     { ... }:
     {

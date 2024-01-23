@@ -10,8 +10,7 @@
 
 let
   python = python3.withPackages (
-    ps:
-    with ps; [
+    ps: with ps; [
       pygobject3
       (toPythonModule ibus)
       pyxdg

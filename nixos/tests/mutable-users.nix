@@ -4,7 +4,9 @@ import ./make-test-python.nix (
   { pkgs, ... }:
   {
     name = "mutable-users";
-    meta = with pkgs.lib.maintainers; { maintainers = [ gleber ]; };
+    meta = with pkgs.lib.maintainers; {
+      maintainers = [ gleber ];
+    };
 
     nodes = {
       machine = { ... }: { users.mutableUsers = false; };

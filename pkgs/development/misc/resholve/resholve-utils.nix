@@ -233,14 +233,15 @@ rec {
          actually resholve it separately below (after we
          generate binlore for it).
       */
-      unresholved =
-        (stdenv.mkDerivation (
+      unresholved = (
+        stdenv.mkDerivation (
           (removeAttrs attrs [ "solutions" ])
           // {
             inherit version src;
             pname = "${pname}-unresholved";
           }
-        ));
+        )
+      );
     in
     /* resholve in a separate derivation; some concerns:
        - we aren't keeping many of the user's args, so they

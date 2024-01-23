@@ -43,32 +43,30 @@ stdenv.mkDerivation rec {
       which
       highlight
     ]
-    ++ (
-      with perlPackages; [
-        perl
-        TextMarkdown
-        URI
-        HTMLParser
-        HTMLScrubber
-        HTMLTemplate
-        TimeDate
-        gettext
-        DBFile
-        CGISession
-        CGIFormBuilder
-        LocaleGettext
-        RpcXML
-        XMLSimple
-        ImageMagick
-        YAML
-        YAMLLibYAML
-        HTMLTree
-        AuthenPassphrase
-        NetOpenIDConsumer
-        LWPxParanoidAgent
-        CryptSSLeay
-      ]
-    )
+    ++ (with perlPackages; [
+      perl
+      TextMarkdown
+      URI
+      HTMLParser
+      HTMLScrubber
+      HTMLTemplate
+      TimeDate
+      gettext
+      DBFile
+      CGISession
+      CGIFormBuilder
+      LocaleGettext
+      RpcXML
+      XMLSimple
+      ImageMagick
+      YAML
+      YAMLLibYAML
+      HTMLTree
+      AuthenPassphrase
+      NetOpenIDConsumer
+      LWPxParanoidAgent
+      CryptSSLeay
+    ])
     ++ lib.optionals docutilsSupport [
       (python.withPackages (pp: with pp; [ pygments ]))
       docutils

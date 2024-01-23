@@ -4,7 +4,8 @@
   lib,
   ...
 }:
-with lib; {
+with lib;
+{
   options.programs.sharing = {
     enable = mkEnableOption (
       lib.mdDoc ''

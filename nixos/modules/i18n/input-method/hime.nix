@@ -5,7 +5,8 @@
   ...
 }:
 
-with lib; {
+with lib;
+{
   config = mkIf (config.i18n.inputMethod.enabled == "hime") {
     i18n.inputMethod.package = pkgs.hime;
     environment.variables = {

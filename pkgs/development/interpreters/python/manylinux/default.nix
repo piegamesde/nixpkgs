@@ -38,7 +38,8 @@ let
 
   # https://www.python.org/dev/peps/pep-0599/
   manylinux2014Libs = getLibOutputs (
-    with pkgs; {
+    with pkgs;
+    {
       "libgcc_s.so.1" = glibc;
       "libstdc++.so.6" = stdenv.cc.cc;
       "libm.so.6" = glibc;
@@ -67,13 +68,11 @@ let
   # https://www.python.org/dev/peps/pep-0513/
   manylinux1Libs = getLibOutputs (
     manylinux2010Libs
-    // (
-      with pkgs; {
-        "libpanelw.so.5" = ncurses5;
-        "libncursesw.so.5" = ncurses5;
-        "libcrypt.so.1" = libxcrypt;
-      }
-    )
+    // (with pkgs; {
+      "libpanelw.so.5" = ncurses5;
+      "libncursesw.so.5" = ncurses5;
+      "libcrypt.so.1" = libxcrypt;
+    })
   );
 in
 {

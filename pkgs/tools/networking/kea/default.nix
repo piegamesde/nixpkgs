@@ -56,12 +56,10 @@ stdenv.mkDerivation rec {
       autoreconfHook
       pkg-config
     ]
-    ++ (
-      with python3.pkgs; [
-        sphinxHook
-        sphinx-rtd-theme
-      ]
-    );
+    ++ (with python3.pkgs; [
+      sphinxHook
+      sphinx-rtd-theme
+    ]);
 
   sphinxBuilders = [
     "html"

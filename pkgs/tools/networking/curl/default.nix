@@ -13,7 +13,8 @@
   gnutls,
   gsaslSupport ? false,
   gsasl,
-  gssSupport ? with stdenv.hostPlatform;
+  gssSupport ?
+    with stdenv.hostPlatform;
     (
       !isWindows
       &&

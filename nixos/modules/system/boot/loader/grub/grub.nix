@@ -132,8 +132,8 @@ let
     concatMap (args: args.devices) cfg.mirroredBoots
   );
 
-  convertedFont =
-    (pkgs.runCommand "grub-font-converted.pf2" { } (
+  convertedFont = (
+    pkgs.runCommand "grub-font-converted.pf2" { } (
       builtins.concatStringsSep " " (
         [
           "${realGrub}/bin/grub-mkfont"
@@ -143,7 +143,8 @@ let
         ]
         ++ (optional (cfg.fontSize != null) "--size ${toString cfg.fontSize}")
       )
-    ));
+    )
+  );
 
   defaultSplash = pkgs.nixos-artwork.wallpapers.simple-dark-gray-bootloader.gnomeFilePath;
 in
@@ -848,8 +849,7 @@ in
             inherit (config.system.nixos) distroName;
           };
           perl = pkgs.perl.withPackages (
-            p:
-            with p; [
+            p: with p; [
               FileSlurp
               FileCopyRecursive
               XMLLibXML

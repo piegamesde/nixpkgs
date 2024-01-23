@@ -7,7 +7,9 @@ import ./make-test-python.nix (
   in
   {
     name = "convos";
-    meta = with pkgs.lib.maintainers; { maintainers = [ sgo ]; };
+    meta = with pkgs.lib.maintainers; {
+      maintainers = [ sgo ];
+    };
 
     nodes = {
       machine =

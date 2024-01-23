@@ -19,7 +19,8 @@ stdenv.mkDerivation rec {
   };
 
   ADDFLAGS =
-    with darwin.apple_sdk.frameworks; lib.optional stdenv.isDarwin "-F${IOKit}/Library/Frameworks/";
+    with darwin.apple_sdk.frameworks;
+    lib.optional stdenv.isDarwin "-F${IOKit}/Library/Frameworks/";
 
   buildInputs =
     with darwin.apple_sdk;

@@ -52,8 +52,7 @@ stdenv.mkDerivation {
     # only for build, the install command also wants to use GTK through introspection
     # but we are using Nix for installation so we will not need that.
     (python3.withPackages (
-      ps:
-      with ps; [
+      ps: with ps; [
         docutils
         pygobject3
       ]

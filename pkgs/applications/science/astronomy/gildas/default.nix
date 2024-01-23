@@ -18,8 +18,7 @@
 
 let
   python3Env = python3.withPackages (
-    ps:
-    with ps; [
+    ps: with ps; [
       numpy
       setuptools
     ]

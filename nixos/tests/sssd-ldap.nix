@@ -12,7 +12,9 @@ import ./make-test-python.nix (
   {
     name = "sssd-ldap";
 
-    meta = with pkgs.lib.maintainers; { maintainers = [ bbigras ]; };
+    meta = with pkgs.lib.maintainers; {
+      maintainers = [ bbigras ];
+    };
 
     nodes.machine =
       { pkgs, ... }:

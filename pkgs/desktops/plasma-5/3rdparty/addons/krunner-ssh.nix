@@ -6,8 +6,7 @@
 }:
 let
   pythonEnv = python3.withPackages (
-    p:
-    with p; [
+    p: with p; [
       dbus-python
       pygobject3
     ]

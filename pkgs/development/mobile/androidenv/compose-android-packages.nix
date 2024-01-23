@@ -53,14 +53,14 @@ let
       addons ? [ ],
     }:
     let
-      mkRepoRuby =
-        (ruby.withPackages (
-          pkgs:
-          with pkgs; [
+      mkRepoRuby = (
+        ruby.withPackages (
+          pkgs: with pkgs; [
             slop
             nokogiri
           ]
-        ));
+        )
+      );
       mkRepoRubyArguments = lib.lists.flatten [
         (builtins.map
           (package: [
@@ -168,35 +168,34 @@ let
 in
 rec {
   deployAndroidPackages = callPackage ./deploy-androidpackages.nix { inherit stdenv lib mkLicenses; };
-  deployAndroidPackage =
-    (
+  deployAndroidPackage = (
+    {
+      package,
+      os ? null,
+      buildInputs ? [ ],
+      patchInstructions ? "",
+      meta ? { },
+      ...
+    }@args:
+    let
+      extraParams = removeAttrs args [
+        "package"
+        "os"
+        "buildInputs"
+        "patchInstructions"
+      ];
+    in
+    deployAndroidPackages (
       {
-        package,
-        os ? null,
-        buildInputs ? [ ],
-        patchInstructions ? "",
-        meta ? { },
-        ...
-      }@args:
-      let
-        extraParams = removeAttrs args [
-          "package"
-          "os"
-          "buildInputs"
-          "patchInstructions"
-        ];
-      in
-      deployAndroidPackages (
-        {
-          inherit os buildInputs meta;
-          packages = [ package ];
-          patchesInstructions = {
-            "${package.name}" = patchInstructions;
-          };
-        }
-        // extraParams
-      )
-    );
+        inherit os buildInputs meta;
+        packages = [ package ];
+        patchesInstructions = {
+          "${package.name}" = patchInstructions;
+        };
+      }
+      // extraParams
+    )
+  );
 
   platform-tools = callPackage ./platform-tools.nix {
     inherit deployAndroidPackage;

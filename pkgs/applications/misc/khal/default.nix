@@ -25,13 +25,11 @@ python3.pkgs.buildPythonApplication rec {
       glibcLocales
       installShellFiles
     ]
-    ++ (
-      with python3.pkgs; [
-        setuptools-scm
-        sphinx
-        sphinxcontrib_newsfeed
-      ]
-    );
+    ++ (with python3.pkgs; [
+      setuptools-scm
+      sphinx
+      sphinxcontrib_newsfeed
+    ]);
 
   propagatedBuildInputs = with python3.pkgs; [
     atomicwrites
@@ -69,8 +67,7 @@ python3.pkgs.buildPythonApplication rec {
     # man page
     PATH="${
       python3.withPackages (
-        ps:
-        with ps; [
+        ps: with ps; [
           sphinx
           sphinxcontrib_newsfeed
         ]

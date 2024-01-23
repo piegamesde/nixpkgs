@@ -19,8 +19,7 @@
 
 let
   perl' = perl.withPackages (
-    p:
-    with p; [
+    p: with p; [
       AuthenSASL
       ConvertASN1
       IOSocketSSL

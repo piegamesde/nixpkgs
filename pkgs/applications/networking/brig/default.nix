@@ -30,7 +30,8 @@ buildGoModule rec {
     ++ (
       with lib;
       mapAttrsToList (n: v: "-X github.com/sahib/brig/version.${n}=${v}") (
-        with versions; {
+        with versions;
+        {
           Major = major version;
           Minor = minor version;
           Patch = patch version;

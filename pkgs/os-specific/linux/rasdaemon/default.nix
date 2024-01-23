@@ -33,8 +33,7 @@ stdenv.mkDerivation rec {
     kmod
     sqlite
     (perl.withPackages (
-      ps:
-      with ps; [
+      ps: with ps; [
         DBI
         DBDSQLite
       ]

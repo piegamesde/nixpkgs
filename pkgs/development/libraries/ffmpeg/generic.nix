@@ -72,11 +72,13 @@
   withModplug ? withFullDeps && !stdenv.isDarwin, # ModPlug support
   withMp3lame ? withHeadlessDeps, # LAME MP3 encoder
   withMysofa ? withFullDeps, # HRTF support via SOFAlizer
-  withNvdec ? withHeadlessDeps
+  withNvdec ?
+    withHeadlessDeps
     && !stdenv.isDarwin
     && stdenv.hostPlatform == stdenv.buildPlatform
     && !stdenv.isAarch32,
-  withNvenc ? withHeadlessDeps
+  withNvenc ?
+    withHeadlessDeps
     && !stdenv.isDarwin
     && stdenv.hostPlatform == stdenv.buildPlatform
     && !stdenv.isAarch32,
@@ -160,7 +162,8 @@
   buildPostproc ? withHeadlessDeps, # Build postproc library
   buildSwresample ? withHeadlessDeps, # Build swresample library
   buildSwscale ? withHeadlessDeps, # Build swscale library
-  withLib ? buildAvcodec
+  withLib ?
+    buildAvcodec
     || buildAvdevice
     || buildAvfilter
     || buildAvformat

@@ -21,12 +21,10 @@ python3Packages.buildPythonApplication rec {
   # are download statistically linked during runtime
   buildInputs =
     [ singularity ]
-    ++ (
-      with python3Packages; [
-        pytest-runner
-        pycurl
-      ]
-    );
+    ++ (with python3Packages; [
+      pytest-runner
+      pycurl
+    ]);
 
   patches = [
     (fetchpatch {

@@ -17,7 +17,8 @@ let
     }
   );
 in
-with pkgs; rec {
+with pkgs;
+rec {
 
   coreutilsMinimal = coreutils.override (
     args: {

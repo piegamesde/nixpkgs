@@ -579,7 +579,8 @@ in
           pkgs.maliit-keyboard
         ]
         ++ lib.optionals (cfg.mobile.installRecommendedSoftware) (
-          with libsForQt5.plasmaMobileGear; [
+          with libsForQt5.plasmaMobileGear;
+          [
             # Additional software made for Plasma Mobile.
             alligator
             angelfish

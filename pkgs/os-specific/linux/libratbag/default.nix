@@ -47,8 +47,7 @@ stdenv.mkDerivation rec {
     json-glib
     libunistring
     (python3.withPackages (
-      ps:
-      with ps; [
+      ps: with ps; [
         evdev
         pygobject3
       ]

@@ -2,7 +2,9 @@ import ./make-test-python.nix (
   { pkgs, ... }:
   {
     name = "ergo";
-    meta = with pkgs.lib.maintainers; { maintainers = [ mmahut ]; };
+    meta = with pkgs.lib.maintainers; {
+      maintainers = [ mmahut ];
+    };
 
     nodes = {
       machine =

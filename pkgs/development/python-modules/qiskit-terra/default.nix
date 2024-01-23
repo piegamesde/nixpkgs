@@ -70,13 +70,11 @@ buildPythonPackage rec {
 
   nativeBuildInputs =
     [ setuptools-rust ]
-    ++ (
-      with rustPlatform; [
-        rust.rustc
-        rust.cargo
-        cargoSetupHook
-      ]
-    );
+    ++ (with rustPlatform; [
+      rust.rustc
+      rust.cargo
+      cargoSetupHook
+    ]);
 
   cargoDeps = rustPlatform.fetchCargoTarball {
     inherit src;

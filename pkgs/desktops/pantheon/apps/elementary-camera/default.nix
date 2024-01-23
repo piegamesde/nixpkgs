@@ -47,17 +47,15 @@ stdenv.mkDerivation rec {
       libgee
       libhandy
     ]
-    ++ (
-      with gst_all_1; [
-        gst-plugins-bad
-        gst-plugins-base
-        # gtkSupport needed for gtksink
-        # https://github.com/elementary/camera/issues/181
-        (gst-plugins-good.override { gtkSupport = true; })
-        gst-plugins-ugly
-        gstreamer
-      ]
-    );
+    ++ (with gst_all_1; [
+      gst-plugins-bad
+      gst-plugins-base
+      # gtkSupport needed for gtksink
+      # https://github.com/elementary/camera/issues/181
+      (gst-plugins-good.override { gtkSupport = true; })
+      gst-plugins-ugly
+      gstreamer
+    ]);
 
   postPatch = ''
     chmod +x meson/post_install.py

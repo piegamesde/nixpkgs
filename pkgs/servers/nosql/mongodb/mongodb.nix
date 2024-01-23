@@ -38,8 +38,7 @@ let
     if versionAtLeast version "6.0" then
       rec {
         python = scons.python.withPackages (
-          ps:
-          with ps; [
+          ps: with ps; [
             pyyaml
             cheetah3
             psutil
@@ -57,8 +56,7 @@ let
     else
       rec {
         python = scons.python.withPackages (
-          ps:
-          with ps; [
+          ps: with ps; [
             pyyaml
             cheetah3
             psutil

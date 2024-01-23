@@ -2,7 +2,9 @@ import ./make-test-python.nix (
   { pkgs, lib, ... }:
   {
     name = "babeld";
-    meta = with pkgs.lib.maintainers; { maintainers = [ hexa ]; };
+    meta = with pkgs.lib.maintainers; {
+      maintainers = [ hexa ];
+    };
 
     nodes = {
       client =

@@ -173,7 +173,8 @@ let
       set ? { },
     }:
     pkgs.runCommand "${name}-wrapper" { nativeBuildInputs = [ pkgs.makeWrapper ]; } (
-      with lib; ''
+      with lib;
+      ''
         makeWrapper "${original}" "$out/bin/${name}" \
           ${concatStringsSep " \\\n " (mapAttrsToList (name: value: ''--set ${name} "${value}"'') set)}
       ''
@@ -247,11 +248,10 @@ let
 
   mkUsersConfig = name: cfg: {
     users.${cfg.user} = {
-      openssh.authorizedKeys.keys =
-        (
-          map (mkAuthorizedKey cfg false) cfg.authorizedKeys
-          ++ map (mkAuthorizedKey cfg true) cfg.authorizedKeysAppendOnly
-        );
+      openssh.authorizedKeys.keys = (
+        map (mkAuthorizedKey cfg false) cfg.authorizedKeys
+        ++ map (mkAuthorizedKey cfg true) cfg.authorizedKeysAppendOnly
+      );
       useDefaultShell = true;
       group = cfg.group;
       isSystemUser = true;
@@ -817,7 +817,8 @@ in
   ###### implementation
 
   config = mkIf (with config.services.borgbackup; jobs != { } || repos != { }) (
-    with config.services.borgbackup; {
+    with config.services.borgbackup;
+    {
       assertions =
         mapAttrsToList mkPassAssertion jobs
         ++ mapAttrsToList mkKeysAssertion repos

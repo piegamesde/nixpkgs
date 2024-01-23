@@ -25,8 +25,7 @@
 
 let
   pythonEnv = pythonPackages.python.withPackages (
-    p:
-    with p; [
+    p: with p; [
       regex
       setuptools
       levenshtein

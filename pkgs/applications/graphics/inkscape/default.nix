@@ -111,12 +111,10 @@ stdenv.mkDerivation rec {
       gdk-pixbuf # for setup hook
       wrapGAppsHook
     ]
-    ++ (
-      with perlPackages; [
-        perl
-        XMLParser
-      ]
-    );
+    ++ (with perlPackages; [
+      perl
+      XMLParser
+    ]);
 
   buildInputs =
     [

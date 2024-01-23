@@ -2,12 +2,15 @@ import ./make-test-python.nix (
   { pkgs, ... }:
   {
     name = "ferm";
-    meta = with pkgs.lib.maintainers; { maintainers = [ mic92 ]; };
+    meta = with pkgs.lib.maintainers; {
+      maintainers = [ mic92 ];
+    };
 
     nodes = {
       client =
         { pkgs, ... }:
-        with pkgs.lib; {
+        with pkgs.lib;
+        {
           networking = {
             dhcpcd.enable = false;
             interfaces.eth1.ipv6.addresses = mkOverride 0 [
@@ -26,7 +29,8 @@ import ./make-test-python.nix (
         };
       server =
         { pkgs, ... }:
-        with pkgs.lib; {
+        with pkgs.lib;
+        {
           networking = {
             dhcpcd.enable = false;
             useNetworkd = true;

@@ -2,7 +2,8 @@
 # Do not edit, put overrides in apple_sdk.nix instead.
 { libs, frameworks }:
 with libs;
-with frameworks; {
+with frameworks;
+{
   AGL = {
     inherit Carbon OpenGL;
   };

@@ -189,7 +189,9 @@ import ../make-test-python.nix (
         };
     };
 
-    meta = with pkgs.lib.maintainers; { maintainers = [ euank ]; };
+    meta = with pkgs.lib.maintainers; {
+      maintainers = [ euank ];
+    };
 
     testScript = ''
       machines = [server, server2, agent]

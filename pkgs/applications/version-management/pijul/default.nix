@@ -33,7 +33,8 @@ rustPlatform.buildRustPackage rec {
     ]
     ++ (lib.optionals gitImportSupport [ libgit2 ])
     ++ (lib.optionals stdenv.isDarwin (
-      with darwin.apple_sdk.frameworks; [
+      with darwin.apple_sdk.frameworks;
+      [
         CoreServices
         Security
         SystemConfiguration

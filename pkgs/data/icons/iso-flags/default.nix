@@ -24,8 +24,7 @@ stdenvNoCC.mkDerivation {
     inkscape
     librsvg
     (perl.withPackages (
-      pp:
-      with pp; [
+      pp: with pp; [
         JSON
         XMLLibXML
       ]

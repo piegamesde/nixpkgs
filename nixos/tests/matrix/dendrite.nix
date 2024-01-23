@@ -9,7 +9,9 @@ import ../make-test-python.nix (
   in
   {
     name = "dendrite";
-    meta = with pkgs.lib; { maintainers = teams.matrix.members; };
+    meta = with pkgs.lib; {
+      maintainers = teams.matrix.members;
+    };
 
     nodes = {
       homeserver =

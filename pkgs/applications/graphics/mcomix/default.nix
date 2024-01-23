@@ -34,14 +34,14 @@ python3.pkgs.buildPythonApplication rec {
     wrapGAppsHook
     gobject-introspection
   ];
-  propagatedBuildInputs =
-    (
-      with python3.pkgs; [
-        pillow
-        pygobject3
-        pycairo
-      ]
-    );
+  propagatedBuildInputs = (
+    with python3.pkgs;
+    [
+      pillow
+      pygobject3
+      pycairo
+    ]
+  );
 
   # Tests are broken
   doCheck = false;

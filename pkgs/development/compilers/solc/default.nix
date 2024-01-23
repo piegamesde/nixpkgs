@@ -105,8 +105,7 @@ let
           jq
           ncurses
           (python3.withPackages (
-            ps:
-            with ps; [
+            ps: with ps; [
               colorama
               deepdiff
               devtools

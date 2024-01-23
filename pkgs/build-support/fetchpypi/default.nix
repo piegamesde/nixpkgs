@@ -30,15 +30,14 @@ let
         # Fetch a source tarball.
         "mirror://pypi/${builtins.substring 0 1 pname}/${pname}/${pname}-${version}.${extension}";
 
-      compute =
-        (
-          if format == "wheel" then
-            computeWheelUrl
-          else if format == "setuptools" then
-            computeSourceUrl
-          else
-            throw "Unsupported format ${format}"
-        );
+      compute = (
+        if format == "wheel" then
+          computeWheelUrl
+        else if format == "setuptools" then
+          computeSourceUrl
+        else
+          throw "Unsupported format ${format}"
+      );
     in
     compute (builtins.removeAttrs attrs [ "format" ]);
 in

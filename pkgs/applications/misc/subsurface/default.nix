@@ -31,14 +31,15 @@
 let
   version = "5.0.10";
 
-  subsurfaceSrc =
-    (fetchFromGitHub {
+  subsurfaceSrc = (
+    fetchFromGitHub {
       owner = "Subsurface";
       repo = "subsurface";
       rev = "v${version}";
       hash = "sha256-KzUBhFGvocaS1VrVT2stvKrj3uVxYka+dyYZUfkIoNs=";
       fetchSubmodules = true;
-    });
+    }
+  );
 
   libdc = stdenv.mkDerivation {
     pname = "libdivecomputer-ssrf";

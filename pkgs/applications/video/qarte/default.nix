@@ -8,8 +8,7 @@
 
 let
   pythonEnv = python3.withPackages (
-    ps:
-    with ps; [
+    ps: with ps; [
       m3u8
       pyqt5_with_qtmultimedia
     ]

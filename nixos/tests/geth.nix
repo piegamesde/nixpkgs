@@ -2,7 +2,9 @@ import ./make-test-python.nix (
   { pkgs, ... }:
   {
     name = "geth";
-    meta = with pkgs.lib; { maintainers = with maintainers; [ bachp ]; };
+    meta = with pkgs.lib; {
+      maintainers = with maintainers; [ bachp ];
+    };
 
     nodes.machine =
       { ... }:

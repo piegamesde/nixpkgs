@@ -171,12 +171,10 @@ stdenv.mkDerivation (
       homepage = "https://gi.readthedocs.io/";
       maintainers =
         teams.gnome.members
-        ++ (
-          with maintainers; [
-            lovek323
-            artturin
-          ]
-        );
+        ++ (with maintainers; [
+          lovek323
+          artturin
+        ]);
       pkgConfigModules = [ "gobject-introspection-1.0" ];
       platforms = platforms.unix;
       license = with licenses; [

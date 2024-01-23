@@ -108,15 +108,13 @@ let
     mongo = (ps: [ ps.pymongo ]);
     network = (ps: [ ps.psutil ]);
     nginx = (ps: [ ]);
-    postgres =
-      (
-        ps:
-        with ps; [
-          pg8000
-          psycopg2
-          semver
-        ]
-      );
+    postgres = (
+      ps: with ps; [
+        pg8000
+        psycopg2
+        semver
+      ]
+    );
     process = (ps: [ ps.psutil ]);
   };
 

@@ -58,7 +58,9 @@ import ./make-test-python.nix (
   in
   {
     name = "mpd";
-    meta = with pkgs.lib.maintainers; { maintainers = [ emmanuelrosa ]; };
+    meta = with pkgs.lib.maintainers; {
+      maintainers = [ emmanuelrosa ];
+    };
 
     nodes = {
       client = { ... }: { };

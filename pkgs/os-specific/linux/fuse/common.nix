@@ -107,12 +107,10 @@ stdenv.mkDerivation rec {
 
   nativeCheckInputs =
     [ which ]
-    ++ (
-      with python3Packages; [
-        python
-        pytest
-      ]
-    );
+    ++ (with python3Packages; [
+      python
+      pytest
+    ]);
 
   checkPhase = ''
     python3 -m pytest test/

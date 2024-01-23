@@ -7,7 +7,9 @@ import ./make-test-python.nix (
 
   {
     name = "login";
-    meta = with pkgs.lib.maintainers; { maintainers = [ eelco ]; };
+    meta = with pkgs.lib.maintainers; {
+      maintainers = [ eelco ];
+    };
 
     nodes.machine =
       { pkgs, lib, ... }:

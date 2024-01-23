@@ -5,7 +5,9 @@ import ./make-test-python.nix (
   in
   {
     name = "keter";
-    meta = with pkgs.lib.maintainers; { maintainers = [ jappie ]; };
+    meta = with pkgs.lib.maintainers; {
+      maintainers = [ jappie ];
+    };
 
     nodes.machine =
       { config, pkgs, ... }:

@@ -121,7 +121,8 @@ import ./make-test-python.nix (
                     driver.close()
                   '';
             in
-            with pkgs; [
+            with pkgs;
+            [
               firefox-unwrapped
               geckodriver
               seleniumScript

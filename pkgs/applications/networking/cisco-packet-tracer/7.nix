@@ -53,8 +53,7 @@ let
     runScript = "${ptFiles}/bin/packettracer7";
 
     targetPkgs =
-      pkgs:
-      with pkgs; [
+      pkgs: with pkgs; [
         alsa-lib
         dbus
         expat

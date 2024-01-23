@@ -50,13 +50,11 @@ stdenv.mkDerivation rec {
       libxml2 # xmllint
       wrapGAppsHook4
     ]
-    ++ (
-      with rustPlatform; [
-        cargoSetupHook
-        rust.cargo
-        rust.rustc
-      ]
-    );
+    ++ (with rustPlatform; [
+      cargoSetupHook
+      rust.cargo
+      rust.rustc
+    ]);
 
   buildInputs =
     [
@@ -64,15 +62,13 @@ stdenv.mkDerivation rec {
       dbus
       libadwaita
     ]
-    ++ (
-      with gst_all_1; [
-        gstreamer
-        gst-plugins-base
-        gst-plugins-good
-        gst-plugins-bad
-        gst-plugins-ugly
-      ]
-    )
+    ++ (with gst_all_1; [
+      gstreamer
+      gst-plugins-base
+      gst-plugins-good
+      gst-plugins-bad
+      gst-plugins-ugly
+    ])
     ++ lib.optionals stdenv.isDarwin [
       Foundation
       SystemConfiguration

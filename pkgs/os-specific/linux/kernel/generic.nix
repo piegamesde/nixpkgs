@@ -294,12 +294,10 @@ let
       old: {
         nativeBuildInputs =
           old.nativeBuildInputs or [ ]
-          ++ (
-            with buildPackages; [
-              pkg-config
-              ncurses
-            ]
-          );
+          ++ (with buildPackages; [
+            pkg-config
+            ncurses
+          ]);
       }
     );
 

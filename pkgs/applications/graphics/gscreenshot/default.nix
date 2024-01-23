@@ -54,13 +54,11 @@ python3Packages.buildPythonApplication rec {
       xclip
       python3Packages.xlib
     ]
-    ++ (
-      with python3Packages; [
-        pillow
-        pygobject3
-        setuptools
-      ]
-    );
+    ++ (with python3Packages; [
+      pillow
+      pygobject3
+      setuptools
+    ]);
 
   patches = [ ./0001-Changing-paths-to-be-nix-compatible.patch ];
 

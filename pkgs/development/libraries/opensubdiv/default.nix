@@ -56,7 +56,8 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optional (openclSupport && !stdenv.isDarwin) ocl-icd
     ++ lib.optionals stdenv.isDarwin (
-      with darwin.apple_sdk.frameworks; [
+      with darwin.apple_sdk.frameworks;
+      [
         OpenCL
         Cocoa
         CoreVideo

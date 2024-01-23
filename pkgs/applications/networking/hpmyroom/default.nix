@@ -55,12 +55,10 @@ mkDerivation rec {
       stdenv.cc.cc # For libstdc++
       xorg.libX11
     ]
-    ++ (
-      with gst_all_1; [
-        gstreamer
-        gst-plugins-base
-      ]
-    );
+    ++ (with gst_all_1; [
+      gstreamer
+      gst-plugins-base
+    ]);
 
   unpackPhase = ''
     rpmextract $src

@@ -24,7 +24,8 @@ assert lib.asserts.assertMsg (usePipewire != usePulseaudio)
 
 let
   pluginPath = lib.makeSearchPathOutput "lib" "lib/gstreamer-1.0" (
-    with gst_all_1; [
+    with gst_all_1;
+    [
       gstreamer
       gst-plugins-base
       gst-plugins-good

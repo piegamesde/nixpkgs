@@ -21,7 +21,9 @@ import ../make-test-python.nix (
   }:
   {
     name = "wireguard-with-namespaces";
-    meta = with pkgs.lib.maintainers; { maintainers = [ asymmetric ]; };
+    meta = with pkgs.lib.maintainers; {
+      maintainers = [ asymmetric ];
+    };
 
     nodes = {
       # interface should be created in the socketNamespace

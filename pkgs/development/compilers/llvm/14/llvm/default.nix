@@ -20,7 +20,8 @@
   which,
   buildLlvmTools,
   debugVersion ? false,
-  doCheck ? stdenv.isLinux
+  doCheck ?
+    stdenv.isLinux
     && (!stdenv.isx86_32)
     && (!stdenv.hostPlatform.isMusl)
     && (stdenv.hostPlatform == stdenv.buildPlatform),

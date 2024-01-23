@@ -419,11 +419,12 @@ let
                 # make-options-doc/default.nix
                 (
                   let
-                    self =
-                      (pkgs.python3Minimal.override {
+                    self = (
+                      pkgs.python3Minimal.override {
                         inherit self;
                         includeSiteCustomize = true;
-                      });
+                      }
+                    );
                   in
                   self.withPackages (p: [ p.mistune ])
                 )

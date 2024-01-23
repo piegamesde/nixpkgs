@@ -33,13 +33,11 @@ mkDerivation rec {
       qtbase
       qtsvg
     ]
-    ++ (
-      with python3Packages; [
-        jinja2
-        python
-        msgpack
-      ]
-    );
+    ++ (with python3Packages; [
+      jinja2
+      python
+      msgpack
+    ]);
 
   nativeBuildInputs = [
     cmake

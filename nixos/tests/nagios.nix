@@ -2,7 +2,9 @@ import ./make-test-python.nix (
   { pkgs, ... }:
   {
     name = "nagios";
-    meta = with pkgs.lib.maintainers; { maintainers = [ symphorien ]; };
+    meta = with pkgs.lib.maintainers; {
+      maintainers = [ symphorien ];
+    };
 
     nodes.machine =
       { lib, ... }:

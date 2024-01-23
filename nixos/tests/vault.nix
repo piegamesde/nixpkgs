@@ -2,7 +2,9 @@ import ./make-test-python.nix (
   { pkgs, ... }:
   {
     name = "vault";
-    meta = with pkgs.lib.maintainers; { maintainers = [ lnl7 ]; };
+    meta = with pkgs.lib.maintainers; {
+      maintainers = [ lnl7 ];
+    };
     nodes.machine =
       { pkgs, ... }:
       {

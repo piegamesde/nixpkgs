@@ -518,13 +518,11 @@ builtins.intersectAttrs super {
       (drv: {
         executableSystemDepends =
           (drv.executableSystemDepends or [ ])
-          ++ (
-            with pkgs; [
-              gnome.adwaita-icon-theme # Fix error: Icon 'window-close' not present in theme ...
-              wrapGAppsHook # Fix error: GLib-GIO-ERROR **: No GSettings schemas are installed on the system
-              gtk3 # Fix error: GLib-GIO-ERROR **: Settings schema 'org.gtk.Settings.FileChooser' is not installed
-            ]
-          );
+          ++ (with pkgs; [
+            gnome.adwaita-icon-theme # Fix error: Icon 'window-close' not present in theme ...
+            wrapGAppsHook # Fix error: GLib-GIO-ERROR **: No GSettings schemas are installed on the system
+            gtk3 # Fix error: GLib-GIO-ERROR **: Settings schema 'org.gtk.Settings.FileChooser' is not installed
+          ]);
         postPatch =
           (drv.postPatch or "")
           + ''
@@ -867,12 +865,10 @@ builtins.intersectAttrs super {
       })
       (
         addBuildTools
-          (
-            with pkgs.buildPackages; [
-              makeWrapper
-              python3Packages.sphinx
-            ]
-          )
+          (with pkgs.buildPackages; [
+            makeWrapper
+            python3Packages.sphinx
+          ])
           super.futhark
       );
 
@@ -896,7 +892,8 @@ builtins.intersectAttrs super {
             wrapProgram $out/bin/git-annex \
               --prefix PATH : "${
                 pkgs.lib.makeBinPath (
-                  with pkgs; [
+                  with pkgs;
+                  [
                     coreutils
                     lsof
                   ]

@@ -43,18 +43,16 @@ stdenv.mkDerivation rec {
         libxkbcommon
         xinput
       ]
-      ++ (
-        with xorg; [
-          libXau
-          libXdmcp
-          libXi
-          libXinerama
-          libXt
-          libXtst
-          libXext
-          libxkbfile
-        ]
-      );
+      ++ (with xorg; [
+        libXau
+        libXdmcp
+        libXi
+        libXinerama
+        libXt
+        libXtst
+        libXext
+        libxkbfile
+      ]);
 
   outputs = [
     "out"

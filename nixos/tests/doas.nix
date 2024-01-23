@@ -3,7 +3,9 @@ import ./make-test-python.nix (
   { lib, ... }:
   {
     name = "doas";
-    meta = with lib.maintainers; { maintainers = [ cole-h ]; };
+    meta = with lib.maintainers; {
+      maintainers = [ cole-h ];
+    };
 
     nodes.machine =
       { ... }:

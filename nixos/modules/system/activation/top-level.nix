@@ -123,8 +123,7 @@ let
 
       # Needed by switch-to-configuration.
       perl = pkgs.perl.withPackages (
-        p:
-        with p; [
+        p: with p; [
           ConfigIniFiles
           FileSlurp
         ]

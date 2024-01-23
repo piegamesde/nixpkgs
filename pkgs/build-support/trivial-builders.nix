@@ -912,14 +912,15 @@ rec {
   applyPatches =
     {
       src,
-      name ? (
-        if builtins.typeOf src == "path" then
-          builtins.baseNameOf src
-        else if builtins.isAttrs src && builtins.hasAttr "name" src then
-          src.name
-        else
-          throw "applyPatches: please supply a `name` argument because a default name can only be computed when the `src` is a path or is an attribute set with a `name` attribute."
-      )
+      name ?
+        (
+          if builtins.typeOf src == "path" then
+            builtins.baseNameOf src
+          else if builtins.isAttrs src && builtins.hasAttr "name" src then
+            src.name
+          else
+            throw "applyPatches: please supply a `name` argument because a default name can only be computed when the `src` is a path or is an attribute set with a `name` attribute."
+        )
         + "-patched",
       patches ? [ ],
       postPatch ? "",

@@ -23,8 +23,8 @@
 }:
 
 let
-  davinci =
-    (stdenv.mkDerivation rec {
+  davinci = (
+    stdenv.mkDerivation rec {
       pname = "davinci-resolve";
       version = "17.4.3";
 
@@ -140,13 +140,13 @@ let
         done
         ln -s $out/libs/libcrypto.so.1.1 $out/libs/libcrypt.so.1
       '';
-    });
+    }
+  );
 in
 buildFHSEnv {
   name = "davinci-resolve";
   targetPkgs =
-    pkgs:
-    with pkgs; [
+    pkgs: with pkgs; [
       librsvg
       libGLU
       libGL

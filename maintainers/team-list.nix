@@ -28,7 +28,8 @@
 */
 
 { lib }:
-with lib.maintainers; {
+with lib.maintainers;
+{
   acme = {
     members = [
       aanderse

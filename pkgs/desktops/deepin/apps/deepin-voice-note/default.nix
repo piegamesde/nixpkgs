@@ -54,13 +54,11 @@ stdenv.mkDerivation rec {
       libvlc
       gtest
     ]
-    ++ (
-      with gst_all_1; [
-        gstreamer
-        gst-plugins-base
-        gst-plugins-good
-      ]
-    );
+    ++ (with gst_all_1; [
+      gstreamer
+      gst-plugins-base
+      gst-plugins-good
+    ]);
 
   strictDeps = true;
 

@@ -29,7 +29,8 @@ buildPythonPackage rec {
 
   buildInputs =
     with pkgs;
-    with xorg; [
+    with xorg;
+    [
       coin3d
       soqt
       qtbase

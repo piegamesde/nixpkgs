@@ -46,7 +46,9 @@ let
     postgresql-name: postgresql-package:
     makeTest {
       name = postgresql-name;
-      meta = with pkgs.lib.maintainers; { maintainers = [ typetetris ]; };
+      meta = with pkgs.lib.maintainers; {
+        maintainers = [ typetetris ];
+      };
 
       nodes.machine =
         { ... }:

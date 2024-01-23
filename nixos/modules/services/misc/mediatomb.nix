@@ -43,7 +43,8 @@ let
 
   transcodingConfig =
     if cfg.transcoding then
-      with pkgs; ''
+      with pkgs;
+      ''
         <transcoding enabled="yes">
           <mimetype-profile-mappings>
             <transcode mimetype="video/x-flv" using="vlcmpeg" />

@@ -47,7 +47,8 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optional cudaSupport cudaPackages.cudatoolkit
     ++ lib.optionals enablePython (
-      with pythonPackages; [
+      with pythonPackages;
+      [
         python
         pybind11
       ]

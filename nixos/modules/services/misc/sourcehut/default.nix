@@ -119,8 +119,7 @@ let
 
   # Specialized python containing all the modules
   python = pkgs.sourcehut.python.withPackages (
-    ps:
-    with ps; [
+    ps: with ps; [
       gunicorn
       eventlet
       # For monitoring Celery: sudo -u listssrht celery --app listssrht.process -b redis+socket:///run/redis-sourcehut/redis.sock?virtual_host=1 flower

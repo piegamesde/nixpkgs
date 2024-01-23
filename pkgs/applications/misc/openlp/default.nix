@@ -18,12 +18,14 @@
   vlcSupport ? false,
   gstreamerSupport ? false,
   gst_all_1,
-  gstPlugins ? (gst: [
-    gst.gst-plugins-base
-    gst.gst-plugins-good
-    gst.gst-plugins-bad
-    gst.gst-plugins-ugly
-  ]),
+  gstPlugins ? (
+    gst: [
+      gst.gst-plugins-base
+      gst.gst-plugins-good
+      gst.gst-plugins-bad
+      gst.gst-plugins-ugly
+    ]
+  ),
 
 #, enableMySql ? false      # Untested. If interested, contact maintainer.
 #, enablePostgreSql ? false # Untested. If interested, contact maintainer.

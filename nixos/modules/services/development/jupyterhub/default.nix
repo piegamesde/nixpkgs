@@ -11,10 +11,11 @@ let
 
   cfg = config.services.jupyterhub;
 
-  kernels =
-    (pkgs.jupyter-kernel.create {
+  kernels = (
+    pkgs.jupyter-kernel.create {
       definitions = if cfg.kernels != null then cfg.kernels else pkgs.jupyter-kernel.default;
-    });
+    }
+  );
 
   jupyterhubConfig = pkgs.writeText "jupyterhub_config.py" ''
     c.JupyterHub.bind_url = "http://${cfg.host}:${toString cfg.port}"
@@ -80,8 +81,7 @@ in
     jupyterhubEnv = mkOption {
       type = types.package;
       default = pkgs.python3.withPackages (
-        p:
-        with p; [
+        p: with p; [
           jupyterhub
           jupyterhub-systemdspawner
         ]
@@ -105,8 +105,7 @@ in
     jupyterlabEnv = mkOption {
       type = types.package;
       default = pkgs.python3.withPackages (
-        p:
-        with p; [
+        p: with p; [
           jupyterhub
           jupyterlab
         ]

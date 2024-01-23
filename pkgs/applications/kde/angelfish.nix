@@ -50,13 +50,11 @@ else
         corrosion
         extra-cmake-modules
       ]
-      ++ (
-        with rustPlatform; [
-          cargoSetupHook
-          rust.cargo
-          rust.rustc
-        ]
-      );
+      ++ (with rustPlatform; [
+        cargoSetupHook
+        rust.cargo
+        rust.rustc
+      ]);
 
     buildInputs = [
       kconfig

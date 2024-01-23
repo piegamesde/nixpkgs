@@ -76,8 +76,7 @@ stdenv.mkDerivation rec {
     libarchive
     pkg-config
     (python.withPackages (
-      ps:
-      with ps; [
+      ps: with ps; [
         cython
         pybind11
         setuptools

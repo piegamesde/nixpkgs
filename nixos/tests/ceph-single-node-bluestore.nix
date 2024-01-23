@@ -211,7 +211,9 @@ import ./make-test-python.nix (
   in
   {
     name = "basic-single-node-ceph-cluster-bluestore";
-    meta = with pkgs.lib.maintainers; { maintainers = [ lukegb ]; };
+    meta = with pkgs.lib.maintainers; {
+      maintainers = [ lukegb ];
+    };
 
     nodes = {
       monA = generateHost {

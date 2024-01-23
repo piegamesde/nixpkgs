@@ -187,8 +187,7 @@ rec {
     let
       version = "2.038";
       emojiPythonEnv = buildPackages.python3.withPackages (
-        p:
-        with p; [
+        p: with p; [
           fonttools
           nototools
         ]

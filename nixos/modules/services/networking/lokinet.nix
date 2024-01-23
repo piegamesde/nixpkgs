@@ -13,7 +13,8 @@ let
     lib.filterAttrsRecursive (n: v: v != null) cfg.settings
   );
 in
-with lib; {
+with lib;
+{
   options.services.lokinet = {
     enable = mkEnableOption (lib.mdDoc "Lokinet daemon");
 

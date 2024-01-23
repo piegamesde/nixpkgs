@@ -63,12 +63,10 @@ stdenv.mkDerivation rec {
       curl
       texLive
     ]
-    ++ (
-      with python3Packages; [
-        python
-        pyqt5
-      ]
-    );
+    ++ (with python3Packages; [
+      python
+      pyqt5
+    ]);
 
   propagatedBuildInputs =
     [ glm ]
@@ -79,7 +77,8 @@ stdenv.mkDerivation rec {
       mesa.osmesa
     ]
     ++ lib.optionals stdenv.isDarwin (
-      with darwin.apple_sdk.frameworks; [
+      with darwin.apple_sdk.frameworks;
+      [
         OpenGL
         GLUT
         Cocoa

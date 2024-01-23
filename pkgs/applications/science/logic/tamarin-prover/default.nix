@@ -63,12 +63,10 @@ let
     // {
       postPatch = replaceSymlinks;
       libraryHaskellDepends =
-        (
-          with haskellPackages; [
-            attoparsec
-            HUnit
-          ]
-        )
+        (with haskellPackages; [
+          attoparsec
+          HUnit
+        ])
         ++ [ tamarin-prover-utils ];
     }
   );
@@ -79,14 +77,12 @@ let
       postPatch = replaceSymlinks;
       doHaddock = false; # broken
       libraryHaskellDepends =
-        (
-          with haskellPackages; [
-            aeson
-            aeson-pretty
-            parallel
-            uniplate
-          ]
-        )
+        (with haskellPackages; [
+          aeson
+          aeson-pretty
+          parallel
+          uniplate
+        ])
         ++ [
           tamarin-prover-utils
           tamarin-prover-term
@@ -156,26 +152,24 @@ mkDerivation (
     checkPhase = "./dist/build/tamarin-prover/tamarin-prover test";
 
     executableHaskellDepends =
-      (
-        with haskellPackages; [
-          binary-instances
-          binary-orphans
-          blaze-html
-          conduit
-          file-embed
-          gitrev
-          http-types
-          lifted-base
-          monad-control
-          resourcet
-          shakespeare
-          threads
-          wai
-          warp
-          yesod-core
-          yesod-static
-        ]
-      )
+      (with haskellPackages; [
+        binary-instances
+        binary-orphans
+        blaze-html
+        conduit
+        file-embed
+        gitrev
+        http-types
+        lifted-base
+        monad-control
+        resourcet
+        shakespeare
+        threads
+        wai
+        warp
+        yesod-core
+        yesod-static
+      ])
       ++ [
         tamarin-prover-utils
         tamarin-prover-sapic

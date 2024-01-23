@@ -51,7 +51,8 @@ let
     ps:
     lib.optional withManual ps.sphinx
     ++ lib.optionals pythonSupport (
-      with ps; [
+      with ps;
+      [
         pybindgen
         pygccxml
       ]

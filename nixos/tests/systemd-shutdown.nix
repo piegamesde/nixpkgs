@@ -9,7 +9,9 @@ import ./make-test-python.nix (
   in
   {
     name = "systemd-shutdown";
-    meta = with pkgs.lib.maintainers; { maintainers = [ das_j ]; };
+    meta = with pkgs.lib.maintainers; {
+      maintainers = [ das_j ];
+    };
 
     nodes.machine = {
       imports = [ ../modules/profiles/minimal.nix ];

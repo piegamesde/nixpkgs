@@ -2,7 +2,9 @@ import ./make-test-python.nix (
   { pkgs, ... }:
   {
     name = "firejail";
-    meta = with pkgs.lib.maintainers; { maintainers = [ sgo ]; };
+    meta = with pkgs.lib.maintainers; {
+      maintainers = [ sgo ];
+    };
 
     nodes.machine =
       { ... }:

@@ -102,7 +102,8 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optionals enableGL (
       if stdenv.isDarwin then
-        with darwin.apple_sdk.frameworks; [
+        with darwin.apple_sdk.frameworks;
+        [
           GLUT
           OpenGL
         ]

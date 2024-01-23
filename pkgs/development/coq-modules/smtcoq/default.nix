@@ -52,12 +52,10 @@ mkCoqDerivation {
       veriT'
       zchaff
     ]
-    ++ (
-      with coq.ocamlPackages; [
-        num
-        zarith
-      ]
-    );
+    ++ (with coq.ocamlPackages; [
+      num
+      zarith
+    ]);
   mlPlugin = true;
   nativeBuildInputs = (with pkgs; [ gnumake42 ]) ++ (with coq.ocamlPackages; [ ocamlbuild ]);
 

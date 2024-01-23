@@ -26,11 +26,12 @@ let
   # define a shortcut to get to onlykey.
   onlykey = self."${onlykeyPkg}";
 
-  super =
-    (import ./onlykey.nix {
+  super = (
+    import ./onlykey.nix {
       inherit pkgs;
       inherit (stdenv.hostPlatform) system;
-    });
+    }
+  );
 
   self = super // {
     "${onlykeyPkg}" = super."${onlykeyPkg}".override (

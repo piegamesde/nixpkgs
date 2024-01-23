@@ -52,7 +52,9 @@
     "configuration-ghc-8.10.x.nix"
   ],
   nixpkgsPath ? ../../..,
-  config ? { allowBroken = true; },
+  config ? {
+    allowBroken = true;
+  },
   skipEvalErrors ? true,
   skipBinaryGHCs ? true,
 }:

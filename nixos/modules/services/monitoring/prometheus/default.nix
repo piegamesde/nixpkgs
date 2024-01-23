@@ -25,7 +25,8 @@ let
   reload = pkgs.writeShellScriptBin "reload-prometheus" ''
     PATH="${
       makeBinPath (
-        with pkgs; [
+        with pkgs;
+        [
           systemd
           coreutils
           gnugrep

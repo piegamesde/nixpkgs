@@ -75,13 +75,12 @@ let
   parseExpressions =
     exprs:
     let
-      splitCond =
-        (
-          s:
-          builtins.map (x: stripStr (if builtins.typeOf x == "list" then (builtins.elemAt x 0) else x)) (
-            builtins.split " (and|or) " (s + " ")
-          )
-        );
+      splitCond = (
+        s:
+        builtins.map (x: stripStr (if builtins.typeOf x == "list" then (builtins.elemAt x 0) else x)) (
+          builtins.split " (and|or) " (s + " ")
+        )
+      );
       mapfn =
         expr:
         (
@@ -117,15 +116,14 @@ let
     let
       variables = {
         os_name = (if python.pname == "jython" then "java" else "posix");
-        sys_platform =
-          (
-            if stdenv.isLinux then
-              "linux"
-            else if stdenv.isDarwin then
-              "darwin"
-            else
-              throw "Unsupported platform"
-          );
+        sys_platform = (
+          if stdenv.isLinux then
+            "linux"
+          else if stdenv.isDarwin then
+            "darwin"
+          else
+            throw "Unsupported platform"
+        );
         platform_machine = targetMachine;
         platform_python_implementation =
           let
@@ -140,15 +138,14 @@ let
               throw "Unsupported implementation ${impl}"
           );
         platform_release = ""; # Field not reproducible
-        platform_system =
-          (
-            if stdenv.isLinux then
-              "Linux"
-            else if stdenv.isDarwin then
-              "Darwin"
-            else
-              throw "Unsupported platform"
-          );
+        platform_system = (
+          if stdenv.isLinux then
+            "Linux"
+          else if stdenv.isDarwin then
+            "Darwin"
+          else
+            throw "Unsupported platform"
+        );
         platform_version = ""; # Field not reproducible
         python_version = python.passthru.pythonVersion;
         python_full_version = python.version;

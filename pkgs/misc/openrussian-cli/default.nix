@@ -13,8 +13,7 @@
 }:
 let
   luaEnv = lua.withPackages (
-    p:
-    with p; [
+    p: with p; [
       luasql-sqlite3
       luautf8
     ]

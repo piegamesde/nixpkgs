@@ -1,7 +1,8 @@
 import ./make-test-python.nix (
   { pkgs, lib, ... }:
 
-  with pkgs; {
+  with pkgs;
+  {
     name = "pgjwt";
     meta = with lib.maintainers; {
       maintainers = [

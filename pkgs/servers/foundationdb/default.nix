@@ -47,7 +47,8 @@ let
     sha256 = "1v9q2fyc73msigcykjnbmfig45zcrkrzcg87b0r6mxpnby8iryl1";
   };
 in
-with builtins; {
+with builtins;
+{
 
   # Older versions use the bespoke 'vsmake' build system
   # ------------------------------------------------------

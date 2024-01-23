@@ -10,7 +10,8 @@
 
 let
   overridePkgs = lib.optionals (!runtimeOnly) (
-    with pkgs; [
+    with pkgs;
+    [
       libgpg-error
       libpulseaudio
       alsa-lib

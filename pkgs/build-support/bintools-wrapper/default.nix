@@ -16,17 +16,18 @@
   gnugrep ? null,
   netbsd ? null,
   netbsdCross ? null,
-  sharedLibraryLoader ? if libc == null then
-    null
-  else if stdenvNoCC.targetPlatform.isNetBSD then
-    if !(targetPackages ? netbsdCross) then
-      netbsd.ld_elf_so
-    else if libc != targetPackages.netbsdCross.headers then
-      targetPackages.netbsdCross.ld_elf_so
-    else
+  sharedLibraryLoader ?
+    if libc == null then
       null
-  else
-    lib.getLib libc,
+    else if stdenvNoCC.targetPlatform.isNetBSD then
+      if !(targetPackages ? netbsdCross) then
+        netbsd.ld_elf_so
+      else if libc != targetPackages.netbsdCross.headers then
+        targetPackages.netbsdCross.ld_elf_so
+      else
+        null
+    else
+      lib.getLib libc,
   nativeTools,
   noLibc ? false,
   nativeLibc,

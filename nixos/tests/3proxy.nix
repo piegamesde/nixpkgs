@@ -1,7 +1,9 @@
 { lib, pkgs, ... }:
 {
   name = "3proxy";
-  meta = with lib.maintainers; { maintainers = [ misuzu ]; };
+  meta = with lib.maintainers; {
+    maintainers = [ misuzu ];
+  };
 
   nodes = {
     peer0 =

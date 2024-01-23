@@ -34,30 +34,30 @@ perlPackages.buildPerlPackage rec {
 
   buildTools = [ ];
   nativeBuildInputs = [ makeWrapper ];
-  buildInputs =
-    (
-      with perlPackages; [
-        CGI
-        DataStructureUtil
-        FileCopyRecursive
-        HTTPProxy
-        HTTPServerSimple
-        HTTPServerSimpleAuthen
-        IOCapture
-        IOSocketSSL
-        IPCRun
-        JSON
-        LWPProtocolHttps
-        ModuleInstall
-        NetSNMP
-        TestCompile
-        TestDeep
-        TestException
-        TestMockModule
-        TestMockObject
-        TestNoWarnings
-      ]
-    );
+  buildInputs = (
+    with perlPackages;
+    [
+      CGI
+      DataStructureUtil
+      FileCopyRecursive
+      HTTPProxy
+      HTTPServerSimple
+      HTTPServerSimpleAuthen
+      IOCapture
+      IOSocketSSL
+      IPCRun
+      JSON
+      LWPProtocolHttps
+      ModuleInstall
+      NetSNMP
+      TestCompile
+      TestDeep
+      TestException
+      TestMockModule
+      TestMockObject
+      TestNoWarnings
+    ]
+  );
   propagatedBuildInputs = with perlPackages; [
     FileWhich
     LWP

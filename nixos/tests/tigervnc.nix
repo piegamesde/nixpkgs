@@ -7,7 +7,9 @@
 with import ../lib/testing-python.nix { inherit system pkgs; };
 makeTest {
   name = "tigervnc";
-  meta = with pkgs.lib.maintainers; { maintainers = [ lheckemann ]; };
+  meta = with pkgs.lib.maintainers; {
+    maintainers = [ lheckemann ];
+  };
 
   nodes = {
     server =

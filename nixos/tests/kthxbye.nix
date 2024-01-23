@@ -3,7 +3,9 @@ import ./make-test-python.nix (
   {
     name = "kthxbye";
 
-    meta = with lib.maintainers; { maintainers = [ nukaduka ]; };
+    meta = with lib.maintainers; {
+      maintainers = [ nukaduka ];
+    };
 
     nodes.server =
       { ... }:

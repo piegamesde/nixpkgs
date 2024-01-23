@@ -6,5 +6,7 @@
 }:
 
 lib.makeScope newScope (
-  self: with self; { query = callPackage ./query.nix { inherit IOKit CoreFoundation; }; }
+  self: with self; {
+    query = callPackage ./query.nix { inherit IOKit CoreFoundation; };
+  }
 )

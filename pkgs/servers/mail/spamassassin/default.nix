@@ -29,29 +29,29 @@ perlPackages.buildPerlPackage rec {
     makeWrapper
     perlPackages.ExtUtilsMakeMaker
   ];
-  buildInputs =
-    (
-      with perlPackages; [
-        HTMLParser
-        NetCIDRLite
-        NetDNS
-        NetAddrIP
-        DBFile
-        HTTPDate
-        MailDKIM
-        LWP
-        LWPProtocolHttps
-        IOSocketSSL
-        DBI
-        EncodeDetect
-        IPCountry
-        NetIdent
-        Razor2ClientAgent
-        MailSPF
-        NetDNSResolverProgrammable
-        Socket6
-      ]
-    );
+  buildInputs = (
+    with perlPackages;
+    [
+      HTMLParser
+      NetCIDRLite
+      NetDNS
+      NetAddrIP
+      DBFile
+      HTTPDate
+      MailDKIM
+      LWP
+      LWPProtocolHttps
+      IOSocketSSL
+      DBI
+      EncodeDetect
+      IPCountry
+      NetIdent
+      Razor2ClientAgent
+      MailSPF
+      NetDNSResolverProgrammable
+      Socket6
+    ]
+  );
 
   # Enabling 'taint' mode is desirable, but that flag disables support
   # for the PERL5LIB environment variable. Needs further investigation.

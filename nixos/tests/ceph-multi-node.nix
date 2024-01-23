@@ -257,7 +257,9 @@ import ./make-test-python.nix (
   in
   {
     name = "basic-multi-node-ceph-cluster";
-    meta = with pkgs.lib.maintainers; { maintainers = [ lejonet ]; };
+    meta = with pkgs.lib.maintainers; {
+      maintainers = [ lejonet ];
+    };
 
     nodes = {
       monA = generateHost {

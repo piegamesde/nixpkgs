@@ -44,13 +44,11 @@ stdenv.mkDerivation rec {
       libxml2
       libgee
     ]
-    ++ (
-      with gst_all_1; [
-        gstreamer
-        gst-plugins-base
-        gst-plugins-bad
-      ]
-    );
+    ++ (with gst_all_1; [
+      gstreamer
+      gst-plugins-base
+      gst-plugins-bad
+    ]);
 
   meta = with lib; {
     description = "Get what motivates you done, without losing concentration";

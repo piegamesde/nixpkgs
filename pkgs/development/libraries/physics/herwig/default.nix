@@ -39,12 +39,10 @@ stdenv.mkDerivation rec {
       zlib
     ]
     # There is a bug that requires for default PDF's to be present during the build
-    ++ (
-      with lhapdf.pdf_sets; [
-        CT14lo
-        CT14nlo
-      ]
-    );
+    ++ (with lhapdf.pdf_sets; [
+      CT14lo
+      CT14nlo
+    ]);
 
   postPatch = ''
     patchShebangs ./

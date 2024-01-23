@@ -12,7 +12,8 @@ let
   cfg = config.services.vdirsyncer;
 
   toIniJson =
-    with generators; toINI { mkKeyValue = mkKeyValueDefault { mkValueString = builtins.toJSON; } "="; };
+    with generators;
+    toINI { mkKeyValue = mkKeyValueDefault { mkValueString = builtins.toJSON; } "="; };
 
   toConfigFile =
     name: cfg':

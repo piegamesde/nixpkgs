@@ -33,8 +33,8 @@
 # Neither gnome-inform7 nor its dependencies ratify and chimara have tagged releases in the GTK3 branch yet.
 
 let
-  ratify =
-    (stdenv.mkDerivation {
+  ratify = (
+    stdenv.mkDerivation {
       pname = "ratify";
       version = "unstable-2021-02-21";
       src = fetchFromGitHub {
@@ -57,10 +57,11 @@ let
         vala
         gtk-doc
       ];
-    });
+    }
+  );
 
-  chimara =
-    (stdenv.mkDerivation {
+  chimara = (
+    stdenv.mkDerivation {
       pname = "chimara";
       version = "unstable-2021-04-06";
       src = fetchFromGitHub {
@@ -94,7 +95,8 @@ let
       preConfigure = ''
         patchShebangs build-aux/meson_post_install.py
       '';
-    });
+    }
+  );
 in
 stdenv.mkDerivation {
   pname = "gnome-inform7";

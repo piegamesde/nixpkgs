@@ -63,7 +63,8 @@ rec {
       # though they can still appear as values of a list.
       # By default, everything is printed verbatim and complex types
       # are forbidden (lists, attrsets, functions). `null` values are omitted.
-      mkOption ? k: v:
+      mkOption ?
+        k: v:
         if v == null then
           [ ]
         else

@@ -19,8 +19,8 @@
 
 let
   python = python310.override {
-    packageOverrides =
-      (self: super: {
+    packageOverrides = (
+      self: super: {
         matplotlib = super.matplotlib.override { enableGtk3 = true; };
         sqlalchemy = super.sqlalchemy.overridePythonAttrs (
           old: rec {
@@ -32,7 +32,8 @@ let
             };
           }
         );
-      });
+      }
+    );
   };
 in
 python.pkgs.buildPythonApplication rec {
@@ -86,12 +87,10 @@ python.pkgs.buildPythonApplication rec {
       perl
       xvfb-run
     ]
-    ++ (
-      with python.pkgs; [
-        mysqlclient
-        psycopg2
-      ]
-    );
+    ++ (with python.pkgs; [
+      mysqlclient
+      psycopg2
+    ]);
 
   checkPhase = ''
     env HOME=$TEMPDIR TZDIR=${tzdata}/share/zoneinfo \

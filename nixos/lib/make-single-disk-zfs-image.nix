@@ -29,7 +29,9 @@
   rootPoolName ? "tank",
 
   # zpool properties
-  rootPoolProperties ? { autoexpand = "on"; },
+  rootPoolProperties ? {
+    autoexpand = "on";
+  },
   # pool-wide filesystem properties
   rootPoolFilesystemProperties ? {
     acltype = "posixacl";
@@ -106,14 +108,16 @@ let
   };
 
   modulesTree = pkgs.aggregateModules (
-    with config.boot.kernelPackages; [
+    with config.boot.kernelPackages;
+    [
       kernel
       zfs
     ]
   );
 
   tools = lib.makeBinPath (
-    with pkgs; [
+    with pkgs;
+    [
       config.system.build.nixos-enter
       config.system.build.nixos-install
       dosfstools

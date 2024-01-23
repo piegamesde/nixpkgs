@@ -31,8 +31,7 @@ stdenv.mkDerivation rec {
     busybox
     # for $out/bin/apkbuild-cpan and $out/bin/apkbuild-pypi
     (perl.withPackages (
-      ps:
-      with ps; [
+      ps: with ps; [
         LWP
         JSON
         ModuleBuildTiny

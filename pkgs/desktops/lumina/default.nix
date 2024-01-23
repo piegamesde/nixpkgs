@@ -2,8 +2,7 @@
 
 let
   packages =
-    self:
-    with self; {
+    self: with self; {
 
       lumina = callPackage ./lumina { };
       lumina-calculator = callPackage ./lumina-calculator { };

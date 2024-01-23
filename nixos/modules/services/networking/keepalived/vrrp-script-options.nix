@@ -1,7 +1,8 @@
 { lib }:
 
 with lib;
-with lib.types; {
+with lib.types;
+{
   options = {
 
     script = mkOption {

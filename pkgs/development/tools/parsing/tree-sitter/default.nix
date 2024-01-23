@@ -44,18 +44,17 @@ let
 
   update-all-grammars = callPackage ./update.nix { };
 
-  fetchGrammar =
-    (
-      v:
-      fetchgit {
-        inherit (v)
-          url
-          rev
-          sha256
-          fetchSubmodules
-          ;
-      }
-    );
+  fetchGrammar = (
+    v:
+    fetchgit {
+      inherit (v)
+        url
+        rev
+        sha256
+        fetchSubmodules
+        ;
+    }
+  );
 
   grammars = runCommand "grammars" { } (
     ''

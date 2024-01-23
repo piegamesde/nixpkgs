@@ -31,8 +31,7 @@ buildFHSEnvChroot rec {
   name = "quartus-prime-lite"; # wrapped
 
   targetPkgs =
-    pkgs:
-    with pkgs; [
+    pkgs: with pkgs; [
       # quartus requirements
       glib
       xorg.libICE

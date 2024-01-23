@@ -579,7 +579,8 @@ self: super:
   libpciaccess = super.libpciaccess.overrideAttrs (
     attrs: {
       buildInputs = lib.optionals stdenv.hostPlatform.isNetBSD (
-        with netbsd; [
+        with netbsd;
+        [
           libarch
           libpci
         ]
@@ -981,7 +982,8 @@ self: super:
       patchIn =
         name: layout:
         with layout;
-        with lib; ''
+        with lib;
+        ''
           # install layout files
           ${optionalString (compatFile != null) "cp '${compatFile}'   'compat/${name}'"}
           ${optionalString (geometryFile != null) "cp '${geometryFile}' 'geometry/${name}'"}

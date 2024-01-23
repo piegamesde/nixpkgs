@@ -3,7 +3,9 @@ import ./make-test-python.nix (
 
   {
     name = "leaps";
-    meta = with pkgs.lib.maintainers; { maintainers = [ qknight ]; };
+    meta = with pkgs.lib.maintainers; {
+      maintainers = [ qknight ];
+    };
 
     nodes = {
       client = { };

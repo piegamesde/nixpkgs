@@ -72,8 +72,8 @@ let
   sanitizeId = builtins.replaceStrings [ "'" ] [ "-prime" ];
 
   urlPrefix = "https://github.com/NixOS/nixpkgs/blob/${revision}";
-  xmlstrings =
-    (nixpkgsLib.strings.concatMapStrings
+  xmlstrings = (
+    nixpkgsLib.strings.concatMapStrings
       (
         { name, value }:
         ''
@@ -88,7 +88,7 @@ let
         ''
       )
       relativeLocs
-    );
+  );
 in
 pkgs.writeText "locations.xml" ''
   <section xmlns="http://docbook.org/ns/docbook"

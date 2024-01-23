@@ -4,7 +4,9 @@ import ./make-test-python.nix (
   { pkgs, ... }:
   {
     name = "traefik";
-    meta = with pkgs.lib.maintainers; { maintainers = [ joko ]; };
+    meta = with pkgs.lib.maintainers; {
+      maintainers = [ joko ];
+    };
 
     nodes = {
       client = { config, pkgs, ... }: { environment.systemPackages = [ pkgs.curl ]; };

@@ -91,19 +91,17 @@ stdenv.mkDerivation rec {
       pango
       zlib
     ]
-    ++ (
-      with xorg; [
-        libX11
-        libXext
-        libXft
-        libXi
-        libXrender
-        libXScrnSaver
-        libXt
-        pixman
-        xorgproto
-      ]
-    )
+    ++ (with xorg; [
+      libX11
+      libXext
+      libXft
+      libXi
+      libXrender
+      libXScrnSaver
+      libXt
+      pixman
+      xorgproto
+    ])
     ++ lib.optionals withGTK3 [ gtk3 ];
 
   enableParallelBuilding = true;

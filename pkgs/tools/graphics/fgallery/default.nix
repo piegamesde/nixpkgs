@@ -33,14 +33,14 @@ stdenv.mkDerivation rec {
     makeWrapper
     unzip
   ];
-  buildInputs =
-    (
-      with perlPackages; [
-        perl
-        ImageExifTool
-        CpanelJSONXS
-      ]
-    );
+  buildInputs = (
+    with perlPackages;
+    [
+      perl
+      ImageExifTool
+      CpanelJSONXS
+    ]
+  );
 
   installPhase = ''
     mkdir -p "$out/bin"

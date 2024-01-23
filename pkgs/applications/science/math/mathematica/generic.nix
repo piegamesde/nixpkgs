@@ -113,26 +113,24 @@ stdenv.mkDerivation {
       xcbutilkeysyms
       xkeyboard_config
     ]
-    ++ (
-      with xorg; [
-        libICE
-        libSM
-        libX11
-        libXScrnSaver
-        libXcomposite
-        libXcursor
-        libXdamage
-        libXext
-        libXfixes
-        libXi
-        libXinerama
-        libXmu
-        libXrandr
-        libXrender
-        libXtst
-        libxcb
-      ]
-    )
+    ++ (with xorg; [
+      libICE
+      libSM
+      libX11
+      libXScrnSaver
+      libXcomposite
+      libXcursor
+      libXdamage
+      libXext
+      libXfixes
+      libXi
+      libXinerama
+      libXmu
+      libXrandr
+      libXrender
+      libXtst
+      libxcb
+    ])
     ++ lib.optional cudaSupport cudaEnv;
 
   wrapProgramFlags =

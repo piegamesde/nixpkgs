@@ -3,7 +3,9 @@ import ./make-test-python.nix (
 
   {
     name = "buildkite-agent";
-    meta = with pkgs.lib.maintainers; { maintainers = [ flokli ]; };
+    meta = with pkgs.lib.maintainers; {
+      maintainers = [ flokli ];
+    };
 
     nodes.machine =
       { pkgs, ... }:

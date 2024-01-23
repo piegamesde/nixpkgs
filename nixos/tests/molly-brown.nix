@@ -7,7 +7,9 @@ import ./make-test-python.nix (
   {
 
     name = "molly-brown";
-    meta = with pkgs.lib.maintainers; { maintainers = [ ehmry ]; };
+    meta = with pkgs.lib.maintainers; {
+      maintainers = [ ehmry ];
+    };
 
     nodes = {
 

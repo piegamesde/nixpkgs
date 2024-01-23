@@ -103,7 +103,8 @@ import ./make-test-python.nix (
                       name = pkgs.writeShellScript "kea-run-hooks" ''
                         export PATH="${
                           lib.makeBinPath (
-                            with pkgs; [
+                            with pkgs;
+                            [
                               coreutils
                               iproute2
                             ]

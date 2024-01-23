@@ -2,7 +2,9 @@ import ./make-test-python.nix (
   { pkgs, ... }:
   {
     name = "litestream";
-    meta = with pkgs.lib.maintainers; { maintainers = [ jwygoda ]; };
+    meta = with pkgs.lib.maintainers; {
+      maintainers = [ jwygoda ];
+    };
 
     nodes.machine =
       { pkgs, ... }:

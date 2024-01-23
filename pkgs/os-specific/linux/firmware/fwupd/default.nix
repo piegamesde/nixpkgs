@@ -59,8 +59,7 @@
 
 let
   python = python3.withPackages (
-    p:
-    with p; [
+    p: with p; [
       pygobject3
       setuptools
     ]

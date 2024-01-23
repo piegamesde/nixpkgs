@@ -7,8 +7,7 @@
 
 let
   packages =
-    self:
-    with self; {
+    self: with self; {
 
       # Libs
       libcprime = libsForQt5.callPackage ../applications/misc/cubocore-packages/libcprime { };

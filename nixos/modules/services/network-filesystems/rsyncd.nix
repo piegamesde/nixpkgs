@@ -62,8 +62,8 @@ in
     };
   };
 
-  imports =
-    (map
+  imports = (
+    map
       (
         option:
         mkRemovedOptionModule
@@ -81,7 +81,7 @@ in
         "user"
         "group"
       ]
-    );
+  );
 
   config = mkIf cfg.enable {
 

@@ -2,8 +2,7 @@
 
 let
   packages =
-    self:
-    with self; {
+    self: with self; {
 
       # Update script tailored to mate packages from git repository
       mateUpdateScript =

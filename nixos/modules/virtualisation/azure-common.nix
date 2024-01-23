@@ -1,6 +1,7 @@
 { lib, pkgs, ... }:
 
-with lib; {
+with lib;
+{
   imports = [ ../profiles/headless.nix ];
 
   require = [ ./azure-agent.nix ];

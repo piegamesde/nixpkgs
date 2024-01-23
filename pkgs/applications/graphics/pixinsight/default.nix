@@ -97,18 +97,16 @@ stdenv.mkDerivation rec {
       qtvirtualkeyboard
       qtmultimedia
     ]
-    ++ (
-      with xorg; [
-        libX11
-        libXdamage
-        xrandr
-        libXtst
-        libXcomposite
-        libXext
-        libXfixes
-        libXrandr
-      ]
-    );
+    ++ (with xorg; [
+      libX11
+      libXdamage
+      xrandr
+      libXtst
+      libXcomposite
+      libXext
+      libXfixes
+      libXrandr
+    ]);
 
   postPatch = ''
     patchelf ./installer \

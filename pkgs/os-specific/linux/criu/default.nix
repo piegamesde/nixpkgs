@@ -82,12 +82,10 @@ stdenv.mkDerivation rec {
   ];
   propagatedBuildInputs =
     [ protobufc ]
-    ++ (
-      with python3.pkgs; [
-        python
-        python3.pkgs.protobuf
-      ]
-    );
+    ++ (with python3.pkgs; [
+      python
+      python3.pkgs.protobuf
+    ]);
 
   postPatch = ''
     substituteInPlace ./Documentation/Makefile \

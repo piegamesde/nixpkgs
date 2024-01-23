@@ -6,7 +6,9 @@ import ./make-test-python.nix (
   { pkgs, ... }:
   {
     name = "alps";
-    meta = with pkgs.lib.maintainers; { maintainers = [ hmenke ]; };
+    meta = with pkgs.lib.maintainers; {
+      maintainers = [ hmenke ];
+    };
 
     nodes = {
       server = {

@@ -356,11 +356,12 @@ in
                 };
                 macvlanConfig = optionalAttrs (macvlan.mode != null) { Mode = macvlan.mode; };
               };
-              networks."40-${macvlan.interface}" =
-                (mkMerge [
+              networks."40-${macvlan.interface}" = (
+                mkMerge [
                   (genericNetwork (mkOverride 999))
                   { macvlan = [ name ]; }
-                ]);
+                ]
+              );
             }
           )
         ))
@@ -407,11 +408,12 @@ in
                   ));
               };
               networks = mkIf (sit.dev != null) {
-                "40-${sit.dev}" =
-                  (mkMerge [
+                "40-${sit.dev}" = (
+                  mkMerge [
                     (genericNetwork (mkOverride 999))
                     { tunnel = [ name ]; }
-                  ]);
+                  ]
+                );
               };
             }
           )
@@ -430,11 +432,12 @@ in
                   // (optionalAttrs (gre.ttl != null) { TTL = gre.ttl; });
               };
               networks = mkIf (gre.dev != null) {
-                "40-${gre.dev}" =
-                  (mkMerge [
+                "40-${gre.dev}" = (
+                  mkMerge [
                     (genericNetwork (mkOverride 999))
                     { tunnel = [ name ]; }
-                  ]);
+                  ]
+                );
               };
             }
           )
@@ -449,11 +452,12 @@ in
                 };
                 vlanConfig.Id = vlan.id;
               };
-              networks."40-${vlan.interface}" =
-                (mkMerge [
+              networks."40-${vlan.interface}" = (
+                mkMerge [
                   (genericNetwork (mkOverride 999))
                   { vlan = [ name ]; }
-                ]);
+                ]
+              );
             }
           )
         ))

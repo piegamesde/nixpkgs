@@ -22,8 +22,7 @@
 let
   inherit (python3.pkgs) pyqt5 dbus-python;
   python = python3.withPackages (
-    pkgs:
-    with pkgs; [
+    pkgs: with pkgs; [
       pyqt5
       dbus-python
     ]

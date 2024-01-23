@@ -56,15 +56,13 @@ stdenv.mkDerivation rec {
       libadwaita
       libsecret
     ]
-    ++ (
-      with gst_all_1; [
-        gstreamer
-        gst-libav
-        gst-plugins-base
-        (gst-plugins-good.override { gtkSupport = true; })
-        gst-plugins-bad
-      ]
-    );
+    ++ (with gst_all_1; [
+      gstreamer
+      gst-libav
+      gst-plugins-base
+      (gst-plugins-good.override { gtkSupport = true; })
+      gst-plugins-bad
+    ]);
 
   passthru = {
     updateScript = nix-update-script { attrPath = "tuba"; };

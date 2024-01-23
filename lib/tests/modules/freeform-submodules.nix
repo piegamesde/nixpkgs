@@ -1,5 +1,6 @@
 { lib, options, ... }:
-with lib.types; {
+with lib.types;
+{
 
   options.fooDeclarations = lib.mkOption {
     default = (options.free.type.getSubOptions [ ])._freeformOptions.foo.declarations;

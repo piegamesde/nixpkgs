@@ -210,11 +210,10 @@ in
         message = ''The "inmem" storage expects no services.vault.storagePath nor services.vault.storageConfig'';
       }
       {
-        assertion =
-          (
-            (cfg.storageBackend == "file" -> (cfg.storagePath != null && cfg.storageConfig == null))
-            && (cfg.storagePath != null -> (cfg.storageBackend == "file" || cfg.storageBackend == "raft"))
-          );
+        assertion = (
+          (cfg.storageBackend == "file" -> (cfg.storagePath != null && cfg.storageConfig == null))
+          && (cfg.storagePath != null -> (cfg.storageBackend == "file" || cfg.storageBackend == "raft"))
+        );
         message = ''You must set services.vault.storagePath only when using the "file" or "raft" backend'';
       }
     ];

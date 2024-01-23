@@ -1,6 +1,8 @@
 {
   lib,
-  buildPackages ? { inherit stdenvNoCC; },
+  buildPackages ? {
+    inherit stdenvNoCC;
+  },
   stdenvNoCC,
   curl, # Note that `curl' may be `null', in case of the native stdenvNoCC.
   cacert ? null,

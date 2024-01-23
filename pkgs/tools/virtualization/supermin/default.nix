@@ -27,12 +27,10 @@ stdenv.mkDerivation (
         perl
         pkg-config
       ]
-      ++ (
-        with ocamlPackages; [
-          findlib
-          ocaml
-        ]
-      );
+      ++ (with ocamlPackages; [
+        findlib
+        ocaml
+      ]);
     buildInputs = lib.optionals stdenv.hostPlatform.isGnu [
       glibc
       glibc.static

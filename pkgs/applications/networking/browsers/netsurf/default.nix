@@ -1,8 +1,7 @@
 { lib, pkgs }:
 
 lib.makeScope pkgs.newScope (
-  self:
-  with self; {
+  self: with self; {
     # ui can be: gtk2, gtk3, sixel, framebuffer. Note that console display (sixel)
     # requires a terminal that supports `sixel` capabilities, such as mlterm
     # or xterm -ti 340

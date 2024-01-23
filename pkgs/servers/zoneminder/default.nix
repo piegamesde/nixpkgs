@@ -182,28 +182,26 @@ stdenv.mkDerivation rec {
       zlib
       util-linuxMinimal # for libmount
     ]
-    ++ (
-      with perlPackages; [
-        # build-time dependencies
-        DateManip
-        DBI
-        DBDmysql
-        LWP
-        SysMmap
-        # run-time dependencies not checked at build-time
-        ClassStdFast
-        DataDump
-        DeviceSerialPort
-        JSONMaybeXS
-        LWPProtocolHttps
-        NumberBytesHuman
-        SysCPU
-        SysMemInfo
-        TimeDate
-        CryptEksblowfish
-        DataEntropy # zmupdate.pl
-      ]
-    );
+    ++ (with perlPackages; [
+      # build-time dependencies
+      DateManip
+      DBI
+      DBDmysql
+      LWP
+      SysMmap
+      # run-time dependencies not checked at build-time
+      ClassStdFast
+      DataDump
+      DeviceSerialPort
+      JSONMaybeXS
+      LWPProtocolHttps
+      NumberBytesHuman
+      SysCPU
+      SysMemInfo
+      TimeDate
+      CryptEksblowfish
+      DataEntropy # zmupdate.pl
+    ]);
 
   nativeBuildInputs = [
     cmake

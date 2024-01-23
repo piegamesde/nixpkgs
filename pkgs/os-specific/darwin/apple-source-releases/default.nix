@@ -196,12 +196,10 @@ let
       // attrs
       // {
         meta =
-          (
-            with lib; {
-              platforms = platforms.darwin;
-              license = licenses.apsl20;
-            }
-          )
+          (with lib; {
+            platforms = platforms.darwin;
+            license = licenses.apsl20;
+          })
           // (attrs.meta or { });
       }
     );

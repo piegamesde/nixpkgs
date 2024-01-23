@@ -56,25 +56,21 @@ llvmPackages_15.stdenv.mkDerivation {
   version = "2.2.0";
   inherit src;
   nativeBuildInputs =
-    (
-      with pkgs; [
-        sbcl
-        git
-        pkg-config
-        fmt
-        gmpxx
-        libelf
-        boost
-        libunwind
-        ninja
-      ]
-    )
-    ++ (
-      with llvmPackages_15; [
-        llvm
-        libclang
-      ]
-    );
+    (with pkgs; [
+      sbcl
+      git
+      pkg-config
+      fmt
+      gmpxx
+      libelf
+      boost
+      libunwind
+      ninja
+    ])
+    ++ (with llvmPackages_15; [
+      llvm
+      libclang
+    ]);
   configurePhase = ''
     export SOURCE_DATE_EPOCH=1
     export ASDF_OUTPUT_TRANSLATIONS=$(pwd):$(pwd)/__fasls

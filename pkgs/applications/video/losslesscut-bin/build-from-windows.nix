@@ -33,10 +33,8 @@ stdenvNoCC.mkDerivation {
 
   meta =
     metaCommon
-    // (
-      with lib; {
-        platforms = platforms.windows;
-        mainProgram = "LosslessCut.exe";
-      }
-    );
+    // (with lib; {
+      platforms = platforms.windows;
+      mainProgram = "LosslessCut.exe";
+    });
 }

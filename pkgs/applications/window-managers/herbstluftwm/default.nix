@@ -87,8 +87,7 @@ stdenv.mkDerivation rec {
 
   nativeCheckInputs = [
     (python3.withPackages (
-      ps:
-      with ps; [
+      ps: with ps; [
         ewmh
         pytest
         xlib

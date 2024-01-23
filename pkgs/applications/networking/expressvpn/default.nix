@@ -73,8 +73,7 @@ let
     # it ships with, hence the FHS environment.
 
     targetPkgs =
-      pkgs:
-      with pkgs; [
+      pkgs: with pkgs; [
         expressvpnBase
         inotify-tools
         iproute2

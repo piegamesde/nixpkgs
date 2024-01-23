@@ -24,7 +24,9 @@ import ./make-test-python.nix (
 
   {
     name = "ncdns";
-    meta = with pkgs.lib.maintainers; { maintainers = [ rnhmjoj ]; };
+    meta = with pkgs.lib.maintainers; {
+      maintainers = [ rnhmjoj ];
+    };
 
     nodes.server =
       { ... }:

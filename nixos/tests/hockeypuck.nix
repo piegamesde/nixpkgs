@@ -1,8 +1,8 @@
 import ./make-test-python.nix (
   { lib, pkgs, ... }:
   let
-    gpgKeyring =
-      (pkgs.runCommand "gpg-keyring" { buildInputs = [ pkgs.gnupg ]; } ''
+    gpgKeyring = (
+      pkgs.runCommand "gpg-keyring" { buildInputs = [ pkgs.gnupg ]; } ''
         mkdir -p $out
         export GNUPGHOME=$out
         cat > foo <<EOF
@@ -21,7 +21,8 @@ import ./make-test-python.nix (
         EOF
         gpg --batch --generate-key foo
         rm $out/S.gpg-agent $out/S.gpg-agent.*
-      '');
+      ''
+    );
   in
   {
     name = "hockeypuck";

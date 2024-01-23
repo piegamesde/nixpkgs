@@ -56,13 +56,11 @@ stdenv.mkDerivation rec {
       netcdf
       pdal
     ]
-    ++ (
-      with python3Packages; [
-        python-dateutil
-        numpy
-        wxPython_4_2
-      ]
-    );
+    ++ (with python3Packages; [
+      python-dateutil
+      numpy
+      wxPython_4_2
+    ]);
 
   buildInputs = [
     cairo

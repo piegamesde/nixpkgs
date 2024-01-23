@@ -26,19 +26,17 @@ python3Packages.buildPythonApplication rec {
   nativeBuildInputs = with python3Packages; [ versioningit ];
 
   propagatedBuildInputs =
-    (
-      with python3Packages; [
-        isodate
-        lxml
-        pycountry
-        pycryptodome
-        pysocks
-        requests
-        websocket-client
-        urllib3
-        certifi
-      ]
-    )
+    (with python3Packages; [
+      isodate
+      lxml
+      pycountry
+      pycryptodome
+      pysocks
+      requests
+      websocket-client
+      urllib3
+      certifi
+    ])
     ++ [ ffmpeg ];
 
   meta = with lib; {

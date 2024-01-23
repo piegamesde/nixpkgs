@@ -84,10 +84,11 @@ let
     }:
     let
       inherit (import ./libgenerated.nix lib self) melpaDerivation;
-      super =
-        (lib.listToAttrs (
+      super = (
+        lib.listToAttrs (
           builtins.filter (s: s != null) (map (melpaDerivation variant) (lib.importJSON archiveJson))
-        ));
+        )
+      );
 
       overrides =
         lib.optionalAttrs (variant == "stable") {

@@ -70,12 +70,10 @@ mkDerivation rec {
     ]
     ++ (
       if stdenv.isDarwin then
-        (
-          with darwin.apple_sdk.frameworks; [
-            OpenGL
-            GLUT
-          ]
-        )
+        (with darwin.apple_sdk.frameworks; [
+          OpenGL
+          GLUT
+        ])
       else
         [
           libGLU

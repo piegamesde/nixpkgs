@@ -20,7 +20,8 @@ buildPythonPackage rec {
   };
 
   buildInputs = lib.optionals stdenv.isDarwin (
-    with darwin.apple_sdk.frameworks; [
+    with darwin.apple_sdk.frameworks;
+    [
       Accelerate
       AudioToolbox
       CoreVideo

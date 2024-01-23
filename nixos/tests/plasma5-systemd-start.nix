@@ -3,7 +3,9 @@ import ./make-test-python.nix (
 
   {
     name = "plasma5-systemd-start";
-    meta = with pkgs.lib.maintainers; { maintainers = [ oxalica ]; };
+    meta = with pkgs.lib.maintainers; {
+      maintainers = [ oxalica ];
+    };
 
     nodes.machine =
       { ... }:

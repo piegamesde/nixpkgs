@@ -34,17 +34,15 @@ python3Packages.buildPythonApplication rec {
 
   propagatedBuildInputs =
     [ nix ]
-    ++ (
-      with python3Packages; [
-        click
-        colorama
-        pyyaml
-        requests
-        setuptools
-        toml
-        zodb
-      ]
-    );
+    ++ (with python3Packages; [
+      click
+      colorama
+      pyyaml
+      requests
+      setuptools
+      toml
+      zodb
+    ]);
 
   postBuild = "make -C doc";
 

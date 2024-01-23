@@ -55,7 +55,9 @@ in
 {
   localMail = makeTest {
     name = "parsedmarc-local-mail";
-    meta = with lib.maintainers; { maintainers = [ talyz ]; };
+    meta = with lib.maintainers; {
+      maintainers = [ talyz ];
+    };
 
     nodes.parsedmarc =
       { nodes, ... }:
@@ -128,7 +130,9 @@ in
     in
     makeTest {
       name = "parsedmarc-external-mail";
-      meta = with lib.maintainers; { maintainers = [ talyz ]; };
+      meta = with lib.maintainers; {
+        maintainers = [ talyz ];
+      };
 
       nodes = {
         parsedmarc =

@@ -110,8 +110,7 @@ stdenv.mkDerivation rec {
   nativeCheckInputs = [
     dbus
     (python3.pythonForBuild.withPackages (
-      pp:
-      with pp; [
+      pp: with pp; [
         dbus-python
         (python-dbusmock.overridePythonAttrs (
           attrs: {

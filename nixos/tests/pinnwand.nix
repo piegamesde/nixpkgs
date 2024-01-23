@@ -6,7 +6,9 @@ import ./make-test-python.nix (
   in
   {
     name = "pinnwand";
-    meta = with pkgs.lib.maintainers; { maintainers = [ hexa ]; };
+    meta = with pkgs.lib.maintainers; {
+      maintainers = [ hexa ];
+    };
 
     nodes = {
       server =

@@ -49,18 +49,16 @@ stdenv.mkDerivation rec {
       readline
       xine-lib
     ]
-    ++ (
-      with xorg; [
-        libXext
-        libXft
-        libXi
-        libXinerama
-        libXtst
-        libXv
-        libXxf86vm
-        xorgproto
-      ]
-    );
+    ++ (with xorg; [
+      libXext
+      libXft
+      libXi
+      libXinerama
+      libXtst
+      libXv
+      libXxf86vm
+      xorgproto
+    ]);
 
   configureFlags = [ "--with-readline=${readline.dev}" ];
 

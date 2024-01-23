@@ -21,7 +21,9 @@ args@{
   in
   {
     name = "nextcloud-openssl";
-    meta = with pkgs.lib.maintainers; { maintainers = [ ma27 ]; };
+    meta = with pkgs.lib.maintainers; {
+      maintainers = [ ma27 ];
+    };
     nodes.nextcloudwithopenssl1 = {
       imports = [ nextcloudBase ];
       services.nextcloud.hostName = "nextcloudwithopenssl1";

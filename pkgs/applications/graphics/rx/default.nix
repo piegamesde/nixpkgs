@@ -32,7 +32,8 @@ rustPlatform.buildRustPackage rec {
   ];
 
   buildInputs = optionals stdenv.isLinux (
-    with xorg; [
+    with xorg;
+    [
       # glfw-sys dependencies:
       libX11
       libXrandr

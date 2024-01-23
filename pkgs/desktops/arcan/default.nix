@@ -5,8 +5,7 @@
 }:
 
 lib.makeScope pkgs.newScope (
-  self:
-  with self; {
+  self: with self; {
     # Dependencies
 
     espeak = pkgs.espeak-ng;

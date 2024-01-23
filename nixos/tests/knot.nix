@@ -42,7 +42,9 @@ import ./make-test-python.nix (
   in
   {
     name = "knot";
-    meta = with pkgs.lib.maintainers; { maintainers = [ hexa ]; };
+    meta = with pkgs.lib.maintainers; {
+      maintainers = [ hexa ];
+    };
 
     nodes = {
       primary =

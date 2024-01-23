@@ -13,8 +13,7 @@
 
 let
   pythonEnv = python3.withPackages (
-    ps:
-    with ps; [
+    ps: with ps; [
       chardet
       cheetah3
       cherrypy

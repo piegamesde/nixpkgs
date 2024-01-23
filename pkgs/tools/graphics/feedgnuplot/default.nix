@@ -40,13 +40,11 @@ perlPackages.buildPerlPackage rec {
       gnuplot
       perl
     ]
-    ++ (
-      with perlPackages; [
-        ListMoreUtils
-        IPCRun
-        StringShellQuote
-      ]
-    );
+    ++ (with perlPackages; [
+      ListMoreUtils
+      IPCRun
+      StringShellQuote
+    ]);
 
   # Fontconfig error: Cannot load default config file
   FONTCONFIG_FILE = fontsConf;

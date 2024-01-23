@@ -7,7 +7,8 @@
   rxvt-unicode-plugins,
   perlPackages,
   nixosTests,
-  configure ? { availablePlugins, ... }:
+  configure ?
+    { availablePlugins, ... }:
     {
       plugins = builtins.attrValues availablePlugins;
       extraDeps = [ ];

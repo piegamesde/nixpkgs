@@ -98,16 +98,14 @@ buildPythonApplication rec {
       pango
       webkitgtk
     ]
-    ++ (
-      with gst_all_1; [
-        gst-libav
-        gst-plugins-bad
-        gst-plugins-base
-        gst-plugins-good
-        gst-plugins-ugly
-        gstreamer
-      ]
-    );
+    ++ (with gst_all_1; [
+      gst-libav
+      gst-plugins-bad
+      gst-plugins-base
+      gst-plugins-good
+      gst-plugins-ugly
+      gstreamer
+    ]);
 
   # See `install_requires` in https://github.com/lutris/lutris/blob/master/setup.py
   propagatedBuildInputs = [

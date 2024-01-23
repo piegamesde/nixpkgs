@@ -199,16 +199,14 @@ in
       after = [ "network.target" ];
       wantedBy = [ "multi-user.target" ];
       path =
-        (
-          with pkgs; [
-            curl
-            gawk
-            iproute2
-            which
-            procps
-            bash
-          ]
-        )
+        (with pkgs; [
+          curl
+          gawk
+          iproute2
+          which
+          procps
+          bash
+        ])
         ++ lib.optional cfg.python.enable (pkgs.python3.withPackages cfg.python.extraPackages)
         ++ lib.optional config.virtualisation.libvirtd.enable (config.virtualisation.libvirtd.package);
       environment = {

@@ -17,7 +17,8 @@ import ./make-test-python.nix (
       ADMIN_PASSWORD=${password}
     '';
   in
-  with lib; {
+  with lib;
+  {
     name = "miniflux";
     meta.maintainers = with pkgs.lib.maintainers; [ ];
 

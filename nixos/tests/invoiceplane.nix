@@ -3,7 +3,9 @@ import ./make-test-python.nix (
 
   {
     name = "invoiceplane";
-    meta = with pkgs.lib.maintainers; { maintainers = [ onny ]; };
+    meta = with pkgs.lib.maintainers; {
+      maintainers = [ onny ];
+    };
 
     nodes = {
       invoiceplane_caddy =

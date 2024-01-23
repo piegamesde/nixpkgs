@@ -3,7 +3,9 @@ import ./make-test-python.nix (
 
   {
     name = "systemd-journal";
-    meta = with pkgs.lib.maintainers; { maintainers = [ lewo ]; };
+    meta = with pkgs.lib.maintainers; {
+      maintainers = [ lewo ];
+    };
 
     nodes.machine = { pkgs, lib, ... }: { services.journald.enableHttpGateway = true; };
 

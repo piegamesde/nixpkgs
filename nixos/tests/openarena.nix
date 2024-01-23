@@ -13,7 +13,9 @@ import ./make-test-python.nix (
   in
   {
     name = "openarena";
-    meta = with pkgs.lib.maintainers; { maintainers = [ fpletz ]; };
+    meta = with pkgs.lib.maintainers; {
+      maintainers = [ fpletz ];
+    };
 
     nodes = {
       server = {

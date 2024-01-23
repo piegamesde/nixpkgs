@@ -31,16 +31,17 @@ let
       # "https://registry.terraform.io/providers/vancluever/acme"
       homepage ? "",
       # "registry.terraform.io/vancluever/acme"
-      provider-source-address ? lib.replaceStrings
-        [
-          "https://registry"
-          ".io/providers"
-        ]
-        [
-          "registry"
-          ".io"
-        ]
-        homepage,
+      provider-source-address ?
+        lib.replaceStrings
+          [
+            "https://registry"
+            ".io/providers"
+          ]
+          [
+            "registry"
+            ".io"
+          ]
+          homepage,
       ...
     }@attrs:
     assert lib.stringLength provider-source-address > 0;

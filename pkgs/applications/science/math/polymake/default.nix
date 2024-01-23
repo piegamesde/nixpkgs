@@ -57,14 +57,12 @@ stdenv.mkDerivation rec {
       nauty
       openjdk
     ]
-    ++ (
-      with perlPackages; [
-        JSON
-        TermReadLineGnu
-        TermReadKey
-        XMLSAX
-      ]
-    );
+    ++ (with perlPackages; [
+      JSON
+      TermReadLineGnu
+      TermReadKey
+      XMLSAX
+    ]);
 
   ninjaFlags = [
     "-C"

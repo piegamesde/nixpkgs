@@ -1580,8 +1580,7 @@ let
     systemfonts = old.systemfonts.overrideAttrs (attrs: { preConfigure = "patchShebangs configure"; });
 
     littler = old.littler.overrideAttrs (
-      attrs:
-      with pkgs; {
+      attrs: with pkgs; {
         buildInputs = [
           pcre
           xz
@@ -1610,8 +1609,7 @@ let
     );
 
     sodium = old.sodium.overrideAttrs (
-      attrs:
-      with pkgs; {
+      attrs: with pkgs; {
         preConfigure = ''
           patchShebangs configure
         '';
@@ -1731,7 +1729,8 @@ let
     rhdf5filters = old.rhdf5filters.overrideAttrs (
       attrs: {
         propagatedBuildInputs =
-          with pkgs; attrs.propagatedBuildInputs ++ [ (hdf5-blosc.override { hdf5 = self.Rhdf5lib.hdf5; }) ];
+          with pkgs;
+          attrs.propagatedBuildInputs ++ [ (hdf5-blosc.override { hdf5 = self.Rhdf5lib.hdf5; }) ];
         patches = [ ./patches/rhdf5filters.patch ];
       }
     );

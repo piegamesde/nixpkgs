@@ -41,12 +41,13 @@ mkDerivation rec {
     sha256 = "sha256-15G9YjT3qBKbeOKfb/IgXOO+DaJaTULP9NJn/MFYZS8=";
   };
 
-  patches =
-    (substituteAll {
+  patches = (
+    substituteAll {
       # See https://github.com/NixOS/nixpkgs/issues/86054
       src = ./fix-qttranslations-path.patch;
       inherit qttranslations;
-    });
+    }
+  );
 
   buildInputs = [
     akonadi-contacts

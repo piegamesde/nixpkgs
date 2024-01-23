@@ -102,8 +102,7 @@ rec {
 
     # Most of the packages were taken from the Steam chroot
     targetPkgs =
-      pkgs:
-      with pkgs; [
+      pkgs: with pkgs; [
         gtk3
         bashInteractive
         gnome.zenity
@@ -120,8 +119,7 @@ rec {
     # list of libraries expected in an appimage environment:
     # https://github.com/AppImage/pkg2appimage/blob/master/excludelist
     multiPkgs =
-      pkgs:
-      with pkgs; [
+      pkgs: with pkgs; [
         desktop-file-utils
         xorg.libXcomposite
         xorg.libXtst

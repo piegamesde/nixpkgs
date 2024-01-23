@@ -115,7 +115,8 @@ let
       name = "Loopback";
       nodes.client =
         { pkgs, ... }:
-        with pkgs.lib; {
+        with pkgs.lib;
+        {
           networking.useDHCP = false;
           networking.useNetworkd = networkd;
         };
@@ -132,7 +133,8 @@ let
       nodes.router = router;
       nodes.client =
         { pkgs, ... }:
-        with pkgs.lib; {
+        with pkgs.lib;
+        {
           virtualisation.vlans = [
             1
             2
@@ -204,7 +206,8 @@ let
       name = "RouteType";
       nodes.client =
         { pkgs, ... }:
-        with pkgs.lib; {
+        with pkgs.lib;
+        {
           networking = {
             useDHCP = false;
             useNetworkd = networkd;
@@ -250,7 +253,8 @@ let
       nodes.router = router;
       nodes.client =
         { pkgs, ... }:
-        with pkgs.lib; {
+        with pkgs.lib;
+        {
           virtualisation.vlans = [
             1
             2
@@ -312,7 +316,8 @@ let
       nodes.router = router;
       nodes.client =
         { pkgs, ... }:
-        with pkgs.lib; {
+        with pkgs.lib;
+        {
           virtualisation.vlans = [
             1
             2
@@ -363,7 +368,8 @@ let
         node =
           address:
           { pkgs, ... }:
-          with pkgs.lib; {
+          with pkgs.lib;
+          {
             virtualisation.vlans = [
               1
               2
@@ -419,7 +425,8 @@ let
         node =
           { address, vlan }:
           { pkgs, ... }:
-          with pkgs.lib; {
+          with pkgs.lib;
+          {
             virtualisation.vlans = [ vlan ];
             networking = {
               useNetworkd = networkd;
@@ -445,7 +452,8 @@ let
         };
         nodes.router =
           { pkgs, ... }:
-          with pkgs.lib; {
+          with pkgs.lib;
+          {
             virtualisation.vlans = [
               1
               2
@@ -495,7 +503,8 @@ let
       nodes.router = router;
       nodes.client =
         { pkgs, ... }:
-        with pkgs.lib; {
+        with pkgs.lib;
+        {
           environment.systemPackages = [ pkgs.iptables ]; # to debug firewall rules
           virtualisation.vlans = [ 1 ];
           networking = {
@@ -624,7 +633,8 @@ let
             address6,
           }:
           { pkgs, ... }:
-          with pkgs.lib; {
+          with pkgs.lib;
+          {
             virtualisation.vlans = [ 1 ];
             networking = {
               useNetworkd = networkd;
@@ -722,7 +732,8 @@ let
       let
         node =
           { pkgs, ... }:
-          with pkgs.lib; {
+          with pkgs.lib;
+          {
             networking = {
               useNetworkd = networkd;
               useDHCP = false;
@@ -874,7 +885,8 @@ let
         node =
           address:
           { pkgs, ... }:
-          with pkgs.lib; {
+          with pkgs.lib;
+          {
             #virtualisation.vlans = [ 1 ];
             networking = {
               useNetworkd = networkd;
@@ -921,7 +933,8 @@ let
         node =
           number:
           { pkgs, ... }:
-          with pkgs.lib; {
+          with pkgs.lib;
+          {
             virtualisation.vlans = [ 1 ];
             networking = {
               #useNetworkd = networkd;
@@ -1084,7 +1097,8 @@ let
         };
       nodes.client_with_privacy =
         { pkgs, ... }:
-        with pkgs.lib; {
+        with pkgs.lib;
+        {
           virtualisation.vlans = [ 1 ];
           networking = {
             useNetworkd = networkd;
@@ -1099,7 +1113,8 @@ let
         };
       nodes.client =
         { pkgs, ... }:
-        with pkgs.lib; {
+        with pkgs.lib;
+        {
           virtualisation.vlans = [ 1 ];
           networking = {
             useNetworkd = networkd;

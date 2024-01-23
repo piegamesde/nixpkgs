@@ -46,13 +46,11 @@ stdenv.mkDerivation rec {
       gtk3
       (lib.getLib dconf)
     ]
-    ++ (
-      with gst_all_1; [
-        gstreamer
-        gst-plugins-base
-        gst-plugins-good
-      ]
-    )
+    ++ (with gst_all_1; [
+      gstreamer
+      gst-plugins-base
+      gst-plugins-good
+    ])
     ++ (lib.optional (aria2 != null) aria2);
 
   enableParallelBuilding = true;

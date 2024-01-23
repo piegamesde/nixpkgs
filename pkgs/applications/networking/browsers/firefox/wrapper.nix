@@ -52,7 +52,7 @@ let
       pname ? applicationName,
       version ? lib.getVersion browser,
       desktopName ? # applicationName with first letter capitalized
-        (lib.toUpper (lib.substring 0 1 applicationName) + lib.substring 1 (-1) applicationName),
+          (lib.toUpper (lib.substring 0 1 applicationName) + lib.substring 1 (-1) applicationName),
       nameSuffix ? "",
       icon ? applicationName,
       wmClass ? applicationName,
@@ -112,7 +112,8 @@ let
         ++ lib.optional gssSupport libkrb5
         ++ lib.optional useGlvnd libglvnd
         ++ lib.optionals (cfg.enableQuakeLive or false) (
-          with xorg; [
+          with xorg;
+          [
             stdenv.cc
             libX11
             libXxf86dga

@@ -10,8 +10,7 @@
 
 let
   pythonEnv = python3.withPackages (
-    packages:
-    with packages; [
+    packages: with packages; [
       tornado
       pyserial-asyncio
       pillow

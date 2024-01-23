@@ -2,7 +2,9 @@ import ./make-test-python.nix (
   { lib, ... }:
   {
     name = "without-nix";
-    meta = with lib.maintainers; { maintainers = [ ericson2314 ]; };
+    meta = with lib.maintainers; {
+      maintainers = [ ericson2314 ];
+    };
 
     nodes.machine =
       { ... }:

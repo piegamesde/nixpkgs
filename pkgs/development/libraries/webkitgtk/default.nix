@@ -171,14 +171,12 @@ stdenv.mkDerivation (
         sqlite
         woff2
       ]
-      ++ (
-        with xorg; [
-          libXdamage
-          libXdmcp
-          libXt
-          libXtst
-        ]
-      )
+      ++ (with xorg; [
+        libXdamage
+        libXdmcp
+        libXt
+        libXtst
+      ])
       ++ lib.optionals stdenv.isDarwin [
         libedit
         readline

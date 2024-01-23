@@ -58,24 +58,23 @@ pythonPackages.buildPythonApplication rec {
 
   buildInputs = [ pythonPackages.libxslt ];
 
-  pythonPath =
-    (
-      with pythonPackages;
-      [
-        prettytable
-        boto
-        boto3
-        hetzner
-        apache-libcloud
-        adal
-        # Go back to sqlite once Python 2.7.13 is released
-        pysqlite
-        datadog
-        python-digitalocean
-      ]
-      ++ lib.optional (!libvirt.passthru.libvirt.meta.insecure or true) libvirt
-      ++ nixopsAzurePackages
-    );
+  pythonPath = (
+    with pythonPackages;
+    [
+      prettytable
+      boto
+      boto3
+      hetzner
+      apache-libcloud
+      adal
+      # Go back to sqlite once Python 2.7.13 is released
+      pysqlite
+      datadog
+      python-digitalocean
+    ]
+    ++ lib.optional (!libvirt.passthru.libvirt.meta.insecure or true) libvirt
+    ++ nixopsAzurePackages
+  );
 
   checkPhase =
     # Ensure, that there are no (python) import errors

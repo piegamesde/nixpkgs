@@ -66,8 +66,7 @@ let
       libExt = stdenv.hostPlatform.extensions.sharedLibrary;
 
       mytopEnv = buildPackages.perl.withPackages (
-        p:
-        with p; [
+        p: with p; [
           DBDmysql
           DBI
           TermReadKey

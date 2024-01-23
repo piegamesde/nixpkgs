@@ -4,7 +4,9 @@ import ./make-test-python.nix (
   {
     name = "loki";
 
-    meta = with lib.maintainers; { maintainers = [ willibutz ]; };
+    meta = with lib.maintainers; {
+      maintainers = [ willibutz ];
+    };
 
     nodes.machine =
       { ... }:

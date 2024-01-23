@@ -3,7 +3,9 @@ import ./make-test-python.nix (
   {
     name = "mod_perl";
 
-    meta = with pkgs.lib.maintainers; { maintainers = [ sgo ]; };
+    meta = with pkgs.lib.maintainers; {
+      maintainers = [ sgo ];
+    };
 
     nodes.machine =
       {

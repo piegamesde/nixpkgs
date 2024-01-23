@@ -36,7 +36,8 @@ stdenv.mkDerivation rec {
       ladspaH
     ]
     ++ lib.optionals stdenv.isDarwin (
-      with darwin.apple_sdk.frameworks; [
+      with darwin.apple_sdk.frameworks;
+      [
         Accelerate
         CoreGraphics
         CoreVideo

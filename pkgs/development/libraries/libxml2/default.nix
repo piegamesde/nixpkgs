@@ -14,7 +14,8 @@
   libiconv,
   # Python limits cross-compilation to an allowlist of host OSes.
   # https://github.com/python/cpython/blob/dfad678d7024ab86d265d84ed45999e031a03691/configure.ac#L534-L562
-  pythonSupport ? enableShared
+  pythonSupport ?
+    enableShared
     && (
       stdenv.hostPlatform == stdenv.buildPlatform
       || stdenv.hostPlatform.isCygwin

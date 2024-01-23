@@ -3,7 +3,9 @@ import ../make-test-python.nix (
   {
     name = "stratis";
 
-    meta = with pkgs.lib.maintainers; { maintainers = [ nickcao ]; };
+    meta = with pkgs.lib.maintainers; {
+      maintainers = [ nickcao ];
+    };
 
     nodes.machine =
       { pkgs, ... }:

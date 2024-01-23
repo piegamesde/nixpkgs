@@ -4,7 +4,9 @@ import ./make-test-python.nix (
   { pkgs, ... }:
   {
     name = "victoriametrics";
-    meta = with pkgs.lib.maintainers; { maintainers = [ yorickvp ]; };
+    meta = with pkgs.lib.maintainers; {
+      maintainers = [ yorickvp ];
+    };
 
     nodes = {
       one = { ... }: { services.victoriametrics.enable = true; };

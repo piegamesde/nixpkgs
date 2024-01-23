@@ -4,7 +4,8 @@
   lib,
   ...
 }:
-with lib; {
+with lib;
+{
   options.programs.kdeconnect = {
     enable = mkEnableOption (
       lib.mdDoc ''

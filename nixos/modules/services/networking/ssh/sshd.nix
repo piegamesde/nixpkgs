@@ -37,10 +37,11 @@ let
       throw "unsupported type ${builtins.typeOf v}: ${(lib.generators.toPretty { }) v}";
 
   # dont use the "=" operator
-  settingsFormat =
-    (pkgs.formats.keyValue {
+  settingsFormat = (
+    pkgs.formats.keyValue {
       mkKeyValue = lib.generators.mkKeyValueDefault { mkValueString = mkValueStringSshd; } " ";
-    });
+    }
+  );
 
   configFile = settingsFormat.generate "config" cfg.settings;
   sshconf = pkgs.runCommand "sshd.conf-validated" { nativeBuildInputs = [ validationPackage ]; } ''

@@ -10,8 +10,7 @@ buildFHSEnv {
   runScript = "${sparrow-unwrapped}/bin/sparrow";
 
   targetPkgs =
-    pkgs:
-    with pkgs; [
+    pkgs: with pkgs; [
       sparrow-unwrapped
       pcsclite
     ];

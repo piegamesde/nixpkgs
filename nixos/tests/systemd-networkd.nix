@@ -132,7 +132,9 @@ import ./make-test-python.nix (
   { pkgs, ... }:
   {
     name = "networkd";
-    meta = with pkgs.lib.maintainers; { maintainers = [ ninjatrappeur ]; };
+    meta = with pkgs.lib.maintainers; {
+      maintainers = [ ninjatrappeur ];
+    };
     nodes = {
       node1 =
         { pkgs, ... }@attrs:

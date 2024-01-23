@@ -73,7 +73,8 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optional enableSystemd systemd
     ++ lib.optionals stdenv.isDarwin (
-      with darwin; [
+      with darwin;
+      [
         configd
         apple_sdk.frameworks.ApplicationServices
       ]

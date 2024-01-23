@@ -36,7 +36,8 @@ let
     ''}
 
     ${optionalString (cfg.backend.service == "sql" && cfg.backend.sql.driver == "native_pgsql") (
-      with cfg.backend; ''
+      with cfg.backend;
+      ''
         Driver = ${sql.driver}
         ${optionalString (sql.database != null) "Database = ${sql.database}"}
         ${optionalString (sql.host != null) "Host = ${sql.host}"}
@@ -244,7 +245,8 @@ in
         with cfg.backend;
 
         optionalString (service == "files") (
-          with files; ''
+          with files;
+          ''
             mkdir -m 755 -p ${inboxPath} ${outboxPath} ${sentSMSPath} ${errorSMSPath}
             chown ${cfg.user} -R ${inboxPath}
             chown ${cfg.user} -R ${outboxPath}

@@ -31,8 +31,8 @@ rec {
     let
       arg = (merger init (defaultMergeArg init x));
       # now add the function with composed args already applied to the final attrs
-      base =
-        (setAttrMerge "passthru" { } (f arg) (
+      base = (
+        setAttrMerge "passthru" { } (f arg) (
           z:
           z
           // {
@@ -48,7 +48,8 @@ rec {
               )
               // x;
           }
-        ));
+        )
+      );
       withStdOverrides = base // {
         override = base.passthru.function;
       };

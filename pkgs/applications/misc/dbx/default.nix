@@ -56,14 +56,12 @@ python3.pkgs.buildPythonApplication rec {
 
   nativeCheckInputs =
     [ git ]
-    ++ (
-      with python3.pkgs; [
-        pytest-asyncio
-        pytest-mock
-        pytest-timeout
-        pytestCheckHook
-      ]
-    );
+    ++ (with python3.pkgs; [
+      pytest-asyncio
+      pytest-mock
+      pytest-timeout
+      pytestCheckHook
+    ]);
 
   preCheck = ''
     export HOME=$(mktemp -d)

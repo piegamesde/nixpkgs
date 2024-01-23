@@ -6,7 +6,9 @@ import ./make-test-python.nix (
   in
   {
     name = "etebase-server";
-    meta = with pkgs.lib.maintainers; { maintainers = [ felschr ]; };
+    meta = with pkgs.lib.maintainers; {
+      maintainers = [ felschr ];
+    };
 
     nodes.machine =
       { pkgs, ... }:

@@ -12,8 +12,7 @@ runCommand "update-python-libraries"
       nix
       nix-prefetch-git
       (python3.withPackages (
-        ps:
-        with ps; [
+        ps: with ps; [
           packaging
           requests
           toolz

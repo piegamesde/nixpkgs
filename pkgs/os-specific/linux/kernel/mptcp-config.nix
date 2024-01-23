@@ -1,5 +1,6 @@
 { lib }:
-with lib.kernel; {
+with lib.kernel;
+{
   # DRM_AMDGPU = yes;
 
   IPV6 = yes;

@@ -21,7 +21,8 @@ mkDerivation rec {
 
   nativeBuildInputs = [ cmake ] ++ lib.optionals withGstreamer [ pkg-config ];
   buildInputs = lib.optionals withGstreamer (
-    with gst_all_1; [
+    with gst_all_1;
+    [
       gstreamer
       gst-plugins-bad
       gst-plugins-base

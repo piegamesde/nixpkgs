@@ -21,7 +21,9 @@ import ./make-test-python.nix (
   { pkgs, ... }:
   {
     name = "cjdns";
-    meta = with pkgs.lib.maintainers; { maintainers = [ ehmry ]; };
+    meta = with pkgs.lib.maintainers; {
+      maintainers = [ ehmry ];
+    };
 
     nodes = {
       # Alice finds peers over over ETHInterface.

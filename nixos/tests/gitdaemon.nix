@@ -9,7 +9,9 @@ import ./make-test-python.nix (
   {
     name = "gitdaemon";
 
-    meta = with pkgs.lib.maintainers; { maintainers = [ tilpner ]; };
+    meta = with pkgs.lib.maintainers; {
+      maintainers = [ tilpner ];
+    };
 
     nodes = {
       server =

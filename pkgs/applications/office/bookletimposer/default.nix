@@ -37,8 +37,7 @@ python3.pkgs.buildPythonApplication rec {
   propagatedBuildInputs = [
     gtk3
     (python3.withPackages (
-      ps:
-      with ps; [
+      ps: with ps; [
         distutils_extra
         pypdf2
         pygobject3

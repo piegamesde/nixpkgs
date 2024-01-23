@@ -60,7 +60,8 @@ let
   libPathFor =
     pkgs:
     lib.makeLibraryPath (
-      with pkgs; [
+      with pkgs;
+      [
         libdrm
         xorg.libXext
         xorg.libX11

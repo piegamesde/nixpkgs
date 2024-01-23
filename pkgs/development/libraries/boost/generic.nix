@@ -14,12 +14,13 @@
   boost-build,
   fetchpatch,
   which,
-  toolset ? if stdenv.cc.isClang then
-    "clang"
-  else if stdenv.cc.isGNU then
-    "gcc"
-  else
-    null,
+  toolset ?
+    if stdenv.cc.isClang then
+      "clang"
+    else if stdenv.cc.isGNU then
+      "gcc"
+    else
+      null,
   enableRelease ? true,
   enableDebug ? false,
   enableSingleThreaded ? false,

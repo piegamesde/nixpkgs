@@ -44,7 +44,8 @@ stdenv.mkDerivation rec {
     for b in $bin/bin/opendmarc-{expire,import,params,reports}; do
       wrapProgram $b --set PERL5LIB ${
         perlPackages.makeFullPerlPath (
-          with perlPackages; [
+          with perlPackages;
+          [
             Switch
             DBI
             DBDmysql

@@ -27,12 +27,10 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs =
     [ makeWrapper ]
-    ++ (
-      with ocamlPackages; [
-        ocaml
-        findlib
-      ]
-    );
+    ++ (with ocamlPackages; [
+      ocaml
+      findlib
+    ]);
 
   buildInputs =
     [
@@ -42,14 +40,12 @@ stdenv.mkDerivation rec {
       mpfr
       gmp
     ]
-    ++ (
-      with ocamlPackages; [
-        camlp4
-        lablgl
-        camlimages
-        num
-      ]
-    );
+    ++ (with ocamlPackages; [
+      camlp4
+      lablgl
+      camlimages
+      num
+    ]);
 
   postPatch = ''
     for f in callbacks*/Makefile src/Makefile; do

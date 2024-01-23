@@ -5,7 +5,9 @@ import ./make-test-python.nix (
   {
     name = "nested";
 
-    meta = with pkgs.lib.maintainers; { maintainers = [ sorki ]; };
+    meta = with pkgs.lib.maintainers; {
+      maintainers = [ sorki ];
+    };
 
     nodes.machine =
       { lib, ... }:

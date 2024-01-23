@@ -1,7 +1,9 @@
 { pkgs, lib, ... }:
 {
   name = "stargazer";
-  meta = with lib.maintainers; { maintainers = [ gaykitty ]; };
+  meta = with lib.maintainers; {
+    maintainers = [ gaykitty ];
+  };
 
   nodes = {
     geminiserver =

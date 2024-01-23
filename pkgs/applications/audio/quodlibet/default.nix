@@ -78,12 +78,10 @@ python3.pkgs.buildPythonApplication rec {
       gobject-introspection
       wrapGAppsHook
     ]
-    ++ (
-      with python3.pkgs; [
-        sphinxHook
-        sphinx-rtd-theme
-      ]
-    );
+    ++ (with python3.pkgs; [
+      sphinxHook
+      sphinx-rtd-theme
+    ]);
 
   buildInputs =
     [
@@ -141,13 +139,11 @@ python3.pkgs.buildPythonApplication rec {
       hicolor-icon-theme
       xvfb-run
     ]
-    ++ (
-      with python3.pkgs; [
-        polib
-        pytest
-        pytest-xdist
-      ]
-    );
+    ++ (with python3.pkgs; [
+      polib
+      pytest
+      pytest-xdist
+    ]);
 
   pytestFlags =
     [

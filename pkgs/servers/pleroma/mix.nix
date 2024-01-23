@@ -13,7 +13,8 @@ let
 
   packages =
     with beamPackages;
-    with self; {
+    with self;
+    {
       accept = buildRebar3 rec {
         name = "accept";
         version = "0.3.5";

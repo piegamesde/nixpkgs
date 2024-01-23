@@ -40,15 +40,13 @@ in
   } // cfg.extraEnvironment;
 
   path =
-    (
-      with pkgs; [
-        bash
-        coreutils
-        git
-        gnutar
-        gzip
-      ]
-    )
+    (with pkgs; [
+      bash
+      coreutils
+      git
+      gnutar
+      gzip
+    ])
     ++ [ config.nix.package ]
     ++ cfg.extraPackages;
 

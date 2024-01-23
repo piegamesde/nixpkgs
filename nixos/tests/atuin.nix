@@ -7,7 +7,8 @@ import ./make-test-python.nix (
     testPass = "password";
     testEmail = "test.testerman@test.com";
   in
-  with lib; {
+  with lib;
+  {
     name = "atuin";
     meta.maintainers = with pkgs.lib.maintainers; [ devusb ];
 

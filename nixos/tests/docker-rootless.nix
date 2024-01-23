@@ -4,7 +4,9 @@ import ./make-test-python.nix (
   { lib, pkgs, ... }:
   {
     name = "docker-rootless";
-    meta = with pkgs.lib.maintainers; { maintainers = [ abbradar ]; };
+    meta = with pkgs.lib.maintainers; {
+      maintainers = [ abbradar ];
+    };
 
     nodes = {
       machine =

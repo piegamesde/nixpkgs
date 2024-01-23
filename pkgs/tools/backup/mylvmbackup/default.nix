@@ -32,7 +32,8 @@ stdenv.mkDerivation rec {
     wrapProgram "$out/bin/mylvmbackup" \
       --prefix PERL5LIB : "${
         perlPackages.makePerlPath (
-          with perlPackages; [
+          with perlPackages;
+          [
             ConfigIniFiles
             DBDmysql
             DBI

@@ -28,7 +28,9 @@ import ./make-test-python.nix (
 
   {
     name = "privoxy";
-    meta = with lib.maintainers; { maintainers = [ rnhmjoj ]; };
+    meta = with lib.maintainers; {
+      maintainers = [ rnhmjoj ];
+    };
 
     nodes.machine =
       { ... }:

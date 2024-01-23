@@ -5,7 +5,8 @@
   ...
 }:
 
-with lib; {
+with lib;
+{
   config = mkIf (config.i18n.inputMethod.enabled == "nabi") {
     i18n.inputMethod.package = pkgs.nabi;
 

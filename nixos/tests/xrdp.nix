@@ -2,7 +2,9 @@ import ./make-test-python.nix (
   { pkgs, ... }:
   {
     name = "xrdp";
-    meta = with pkgs.lib.maintainers; { maintainers = [ ]; };
+    meta = with pkgs.lib.maintainers; {
+      maintainers = [ ];
+    };
 
     nodes = {
       server =

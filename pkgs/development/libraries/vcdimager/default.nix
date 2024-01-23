@@ -28,7 +28,8 @@ stdenv.mkDerivation rec {
       libiconv
     ]
     ++ lib.optionals stdenv.isDarwin (
-      with darwin.apple_sdk.frameworks; [
+      with darwin.apple_sdk.frameworks;
+      [
         IOKit
         DiskArbitration
       ]

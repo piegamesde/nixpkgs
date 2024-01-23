@@ -3,7 +3,9 @@ import ./make-test-python.nix (
   {
     name = "invidious";
 
-    meta = with pkgs.lib.maintainers; { maintainers = [ sbruder ]; };
+    meta = with pkgs.lib.maintainers; {
+      maintainers = [ sbruder ];
+    };
 
     nodes.machine =
       {

@@ -50,8 +50,7 @@
 }:
 
 lib.makeScope pkgs.newScope (
-  self:
-  with self; {
+  self: with self; {
     buildPecl = import ../build-support/build-pecl.nix {
       php = php.unwrapped;
       inherit lib;

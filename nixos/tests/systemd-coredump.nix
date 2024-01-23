@@ -17,7 +17,9 @@ import ./make-test-python.nix (
 
   {
     name = "systemd-coredump";
-    meta = with pkgs.lib.maintainers; { maintainers = [ squalus ]; };
+    meta = with pkgs.lib.maintainers; {
+      maintainers = [ squalus ];
+    };
 
     nodes.machine1 = { pkgs, lib, ... }: commonConfig;
     nodes.machine2 =

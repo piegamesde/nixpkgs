@@ -30,7 +30,9 @@ import ./make-test-python.nix (
   in
   {
     name = "minio";
-    meta = with pkgs.lib.maintainers; { maintainers = [ bachp ]; };
+    meta = with pkgs.lib.maintainers; {
+      maintainers = [ bachp ];
+    };
 
     nodes = {
       machine =

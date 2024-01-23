@@ -10,8 +10,7 @@ in
 buildFHSEnv {
   name = "shticker_book_unwritten";
   targetPkgs =
-    pkgs:
-    with pkgs; [
+    pkgs: with pkgs; [
       alsa-lib
       libglvnd
       libpulseaudio

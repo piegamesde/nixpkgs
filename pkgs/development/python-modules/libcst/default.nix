@@ -53,12 +53,10 @@ buildPythonPackage rec {
       setuptools-scm
       rustPlatform.cargoSetupHook
     ]
-    ++ (
-      with rustPlatform; [
-        rust.cargo
-        rust.rustc
-      ]
-    );
+    ++ (with rustPlatform; [
+      rust.cargo
+      rust.rustc
+    ]);
 
   buildInputs = lib.optionals stdenv.isDarwin [ libiconv ];
 

@@ -36,12 +36,10 @@ stdenv.mkDerivation rec {
       fftw
       zita-alsa-pcmi
     ]
-    ++ (
-      with qt5; [
-        qtbase
-        qttools
-      ]
-    );
+    ++ (with qt5; [
+      qtbase
+      qttools
+    ]);
 
   meta = with lib; {
     description = "Realtime modular synthesizer for ALSA";

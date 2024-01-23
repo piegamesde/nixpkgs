@@ -323,14 +323,12 @@ let
 
         lispLibs =
           super.nyxt.lispLibs
-          ++ (
-            with super; [
-              cl-cffi-gtk
-              cl-webkit2
-              mk-string-metrics
-              cl-css
-            ]
-          );
+          ++ (with super; [
+            cl-cffi-gtk
+            cl-webkit2
+            mk-string-metrics
+            cl-css
+          ]);
 
         src = pkgs.fetchzip {
           url = "https://github.com/atlas-engineer/nyxt/archive/2.2.4.tar.gz";

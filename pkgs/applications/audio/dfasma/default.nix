@@ -18,7 +18,9 @@ let
       repo = "REAPER";
       owner = "gillesdegottex";
     };
-    meta = with lib; { license = licenses.asl20; };
+    meta = with lib; {
+      license = licenses.asl20;
+    };
   };
 
   libqaudioextra = {
@@ -28,7 +30,9 @@ let
       repo = "libqaudioextra";
       owner = "gillesdegottex";
     };
-    meta = with lib; { license = licenses.gpl3Plus; };
+    meta = with lib; {
+      license = licenses.gpl3Plus;
+    };
   };
 in
 mkDerivation rec {

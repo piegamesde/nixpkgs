@@ -84,33 +84,32 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    services.lemmy.settings =
-      (
-        mapAttrs (name: mkDefault) {
-          bind = "127.0.0.1";
-          tls_enabled = true;
-          pictrs_url = with config.services.pict-rs; "http://${address}:${toString port}";
-          actor_name_max_length = 20;
+    services.lemmy.settings = (
+      mapAttrs (name: mkDefault) {
+        bind = "127.0.0.1";
+        tls_enabled = true;
+        pictrs_url = with config.services.pict-rs; "http://${address}:${toString port}";
+        actor_name_max_length = 20;
 
-          rate_limit.message = 180;
-          rate_limit.message_per_second = 60;
-          rate_limit.post = 6;
-          rate_limit.post_per_second = 600;
-          rate_limit.register = 3;
-          rate_limit.register_per_second = 3600;
-          rate_limit.image = 6;
-          rate_limit.image_per_second = 3600;
-        }
-        // {
-          database = mapAttrs (name: mkDefault) {
-            user = "lemmy";
-            host = "/run/postgresql";
-            port = 5432;
-            database = "lemmy";
-            pool_size = 5;
-          };
-        }
-      );
+        rate_limit.message = 180;
+        rate_limit.message_per_second = 60;
+        rate_limit.post = 6;
+        rate_limit.post_per_second = 600;
+        rate_limit.register = 3;
+        rate_limit.register_per_second = 3600;
+        rate_limit.image = 6;
+        rate_limit.image_per_second = 3600;
+      }
+      // {
+        database = mapAttrs (name: mkDefault) {
+          user = "lemmy";
+          host = "/run/postgresql";
+          port = 5432;
+          database = "lemmy";
+          pool_size = 5;
+        };
+      }
+    );
 
     services.postgresql = mkIf cfg.database.createLocally {
       enable = true;

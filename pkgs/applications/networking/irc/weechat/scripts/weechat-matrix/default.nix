@@ -18,8 +18,7 @@
 
 let
   scriptPython = python.withPackages (
-    ps:
-    with ps; [
+    ps: with ps; [
       aiohttp
       requests
       python-magic

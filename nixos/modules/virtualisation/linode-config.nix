@@ -4,7 +4,8 @@
   pkgs,
   ...
 }:
-with lib; {
+with lib;
+{
   imports = [ ../profiles/qemu-guest.nix ];
 
   services.openssh = {

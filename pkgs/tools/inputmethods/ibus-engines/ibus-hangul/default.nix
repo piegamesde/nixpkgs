@@ -41,8 +41,7 @@ stdenv.mkDerivation rec {
     ibus
     libhangul
     (python3.withPackages (
-      pypkgs:
-      with pypkgs; [
+      pypkgs: with pypkgs; [
         pygobject3
         (toPythonModule ibus)
       ]

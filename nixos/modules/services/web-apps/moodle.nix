@@ -90,7 +90,8 @@ let
   phpExt = pkgs.php81.buildEnv {
     extensions =
       { all, ... }:
-      with all; [
+      with all;
+      [
         iconv
         mbstring
         curl

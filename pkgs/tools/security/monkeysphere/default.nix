@@ -64,12 +64,10 @@ stdenv.mkDerivation rec {
         procps
         lockfileProgs
       ]
-      ++ (
-        with perlPackages; [
-          CryptOpenSSLRSA
-          CryptOpenSSLBignum
-        ]
-      )
+      ++ (with perlPackages; [
+        CryptOpenSSLRSA
+        CryptOpenSSLBignum
+      ])
     );
 
   makeFlags = [

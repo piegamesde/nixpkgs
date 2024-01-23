@@ -2,7 +2,9 @@ import ./make-test-python.nix (
   { lib, ... }:
   {
     name = "systemd-bpf";
-    meta = with lib.maintainers; { maintainers = [ veehaitch ]; };
+    meta = with lib.maintainers; {
+      maintainers = [ veehaitch ];
+    };
     nodes = {
       node1 = {
         virtualisation.vlans = [ 1 ];

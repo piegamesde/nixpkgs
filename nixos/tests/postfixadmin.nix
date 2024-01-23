@@ -2,7 +2,9 @@ import ./make-test-python.nix (
   { pkgs, ... }:
   {
     name = "postfixadmin";
-    meta = with pkgs.lib.maintainers; { maintainers = [ globin ]; };
+    meta = with pkgs.lib.maintainers; {
+      maintainers = [ globin ];
+    };
 
     nodes = {
       postfixadmin =

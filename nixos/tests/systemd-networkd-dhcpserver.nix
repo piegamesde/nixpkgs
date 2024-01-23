@@ -5,7 +5,9 @@ import ./make-test-python.nix (
   { pkgs, ... }:
   {
     name = "systemd-networkd-dhcpserver";
-    meta = with pkgs.lib.maintainers; { maintainers = [ tomfitzhenry ]; };
+    meta = with pkgs.lib.maintainers; {
+      maintainers = [ tomfitzhenry ];
+    };
     nodes = {
       router =
         { config, pkgs, ... }:

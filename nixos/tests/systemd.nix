@@ -37,7 +37,8 @@ import ./make-test-python.nix (
           #!${pkgs.runtimeShell}
           PATH=${
             lib.makeBinPath (
-              with pkgs; [
+              with pkgs;
+              [
                 util-linux
                 coreutils
               ]

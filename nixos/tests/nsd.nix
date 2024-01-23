@@ -12,7 +12,9 @@ import ./make-test-python.nix (
   { pkgs, ... }:
   {
     name = "nsd";
-    meta = with pkgs.lib.maintainers; { maintainers = [ aszlig ]; };
+    meta = with pkgs.lib.maintainers; {
+      maintainers = [ aszlig ];
+    };
 
     nodes = {
       clientv4 =

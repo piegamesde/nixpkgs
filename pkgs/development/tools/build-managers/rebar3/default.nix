@@ -124,8 +124,8 @@ let
     let
       pluginLibDirs = map (p: "${p}/lib/erlang/lib") (lib.unique (plugins ++ globalPlugins));
       globalPluginNames = lib.unique (map (p: p.packageName) globalPlugins);
-      rebar3Patched =
-        (rebar3.overrideAttrs (
+      rebar3Patched = (
+        rebar3.overrideAttrs (
           old: {
 
             # skip-plugins.patch is necessary because otherwise rebar3 will always
@@ -142,7 +142,8 @@ let
             # our patches cause the tests to fail
             doCheck = false;
           }
-        ));
+        )
+      );
     in
     stdenv.mkDerivation {
       pname = "rebar3-with-plugins";

@@ -2,7 +2,9 @@ import ./make-test-python.nix (
   { pkgs, ... }:
   {
     name = "sfxr-qt";
-    meta = with pkgs.lib.maintainers; { maintainers = [ fgaz ]; };
+    meta = with pkgs.lib.maintainers; {
+      maintainers = [ fgaz ];
+    };
 
     machine =
       { config, pkgs, ... }:

@@ -85,7 +85,8 @@ stdenv.mkDerivation rec {
       p11-kit
     ]
     ++ optionals withGstreamer (
-      with gst_all_1; [
+      with gst_all_1;
+      [
         glib-networking
         gstreamer
         gst-libav

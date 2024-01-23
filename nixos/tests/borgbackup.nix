@@ -37,7 +37,9 @@ import ./make-test-python.nix (
   in
   {
     name = "borgbackup";
-    meta = with pkgs.lib; { maintainers = with maintainers; [ dotlambda ]; };
+    meta = with pkgs.lib; {
+      maintainers = with maintainers; [ dotlambda ];
+    };
 
     nodes = {
       client =

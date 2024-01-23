@@ -53,12 +53,10 @@ stdenv.mkDerivation rec {
       gnome.adwaita-icon-theme
       gnome.anjuta
     ]
-    ++ (
-      with perlPackages; [
-        perl
-        XMLParser
-      ]
-    );
+    ++ (with perlPackages; [
+      perl
+      XMLParser
+    ]);
 
   # Workaround build failure on -fno-common toolchains like upstream
   # gcc-10. Otherwise build fails as:

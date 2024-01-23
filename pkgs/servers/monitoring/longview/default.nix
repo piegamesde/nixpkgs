@@ -39,22 +39,20 @@ stdenv.mkDerivation rec {
       perl
       glibc
     ]
-    ++ (
-      with perlPackages; [
-        LWP
-        LWPProtocolHttps
-        MozillaCA
-        CryptSSLeay
-        IOSocketINET6
-        LinuxDistribution
-        JSONPP
-        JSON
-        LogLogLite
-        TryTiny
-        DBI
-        DBDmysql
-      ]
-    );
+    ++ (with perlPackages; [
+      LWP
+      LWPProtocolHttps
+      MozillaCA
+      CryptSSLeay
+      IOSocketINET6
+      LinuxDistribution
+      JSONPP
+      JSON
+      LogLogLite
+      TryTiny
+      DBI
+      DBDmysql
+    ]);
 
   dontBuild = true;
 

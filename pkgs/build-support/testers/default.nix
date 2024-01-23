@@ -131,12 +131,13 @@
     let
       # The nixos/lib/testing-python.nix module, preapplied with arguments that
       # make sense for this evaluation of Nixpkgs.
-      nixosTesting =
-        (import ../../../nixos/lib/testing-python.nix {
+      nixosTesting = (
+        import ../../../nixos/lib/testing-python.nix {
           inherit (stdenv.hostPlatform) system;
           inherit pkgs;
           extraConfigurations = [ ({ lib, ... }: { config.nixpkgs.pkgs = lib.mkDefault pkgs; }) ];
-        });
+        }
+      );
     in
     test:
     let

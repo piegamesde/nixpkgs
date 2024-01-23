@@ -41,8 +41,8 @@ let
   # Cf. https://nixos.org/manual/nixpkgs/unstable/#sec-cross-infra
   ptxas = "${pkgsTargetTarget.cudaPackages.cuda_nvcc}/bin/ptxas";
 
-  llvm =
-    (llvmPackages.llvm.override {
+  llvm = (
+    llvmPackages.llvm.override {
       llvmTargetsToBuild = [
         "NATIVE"
         "NVPTX"
@@ -50,7 +50,8 @@ let
       # Upstream CI sets these too:
       # targetProjects = [ "mlir" ];
       extraCMakeFlags = [ "-DLLVM_INSTALL_UTILS=ON" ];
-    });
+    }
+  );
 in
 buildPythonPackage {
   inherit pname version;

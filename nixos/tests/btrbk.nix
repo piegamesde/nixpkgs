@@ -17,7 +17,9 @@ import ./make-test-python.nix (
   in
   {
     name = "btrbk";
-    meta = with pkgs.lib; { maintainers = with maintainers; [ symphorien ]; };
+    meta = with pkgs.lib; {
+      maintainers = with maintainers; [ symphorien ];
+    };
 
     nodes = {
       archive =

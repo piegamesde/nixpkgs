@@ -31,12 +31,10 @@ buildPythonPackage rec {
 
   nativeBuildInputs =
     [ setuptools-rust ]
-    ++ (
-      with rustPlatform; [
-        cargoSetupHook
-        maturinBuildHook
-      ]
-    );
+    ++ (with rustPlatform; [
+      cargoSetupHook
+      maturinBuildHook
+    ]);
 
   cargoDeps = rustPlatform.fetchCargoTarball {
     inherit src;

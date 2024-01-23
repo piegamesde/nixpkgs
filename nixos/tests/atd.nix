@@ -3,7 +3,9 @@ import ./make-test-python.nix (
 
   {
     name = "atd";
-    meta = with pkgs.lib.maintainers; { maintainers = [ bjornfor ]; };
+    meta = with pkgs.lib.maintainers; {
+      maintainers = [ bjornfor ];
+    };
 
     nodes.machine =
       { ... }:

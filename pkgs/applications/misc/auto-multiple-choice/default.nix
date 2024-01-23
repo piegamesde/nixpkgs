@@ -125,25 +125,23 @@ stdenv.mkDerivation (
         pango
         poppler
       ]
-      ++ (
-        with perlPackages; [
-          perl
-          ArchiveZip
-          Cairo
-          CairoGObject
-          DBDSQLite
-          DBI
-          Glib
-          GlibObjectIntrospection
-          Gtk3
-          LocaleGettext
-          PerlMagick
-          TextCSV
-          XMLParser
-          XMLSimple
-          XMLWriter
-        ]
-      );
+      ++ (with perlPackages; [
+        perl
+        ArchiveZip
+        Cairo
+        CairoGObject
+        DBDSQLite
+        DBI
+        Glib
+        GlibObjectIntrospection
+        Gtk3
+        LocaleGettext
+        PerlMagick
+        TextCSV
+        XMLParser
+        XMLSimple
+        XMLWriter
+      ]);
 
     passthru = {
       tlType = "run";

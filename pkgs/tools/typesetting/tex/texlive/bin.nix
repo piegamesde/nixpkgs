@@ -647,18 +647,16 @@ rec {
         freetype
         ghostscript
       ]
-      ++ (
-        with xorg; [
-          libX11
-          libXaw
-          libXi
-          libXpm
-          libXmu
-          libXaw
-          libXext
-          libXfixes
-        ]
-      );
+      ++ (with xorg; [
+        libX11
+        libXaw
+        libXi
+        libXpm
+        libXmu
+        libXaw
+        libXext
+        libXfixes
+      ]);
 
     preConfigure = "cd texk/xdvik";
 

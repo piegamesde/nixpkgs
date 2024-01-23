@@ -3,7 +3,9 @@ import ./make-test-python.nix (
 
   {
     name = "gnupg";
-    meta = with lib.maintainers; { maintainers = [ rnhmjoj ]; };
+    meta = with lib.maintainers; {
+      maintainers = [ rnhmjoj ];
+    };
 
     # server for testing SSH
     nodes.server =

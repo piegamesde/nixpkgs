@@ -11,8 +11,7 @@ let
   mkOcamlPackages =
     ocaml:
     (lib.makeScope newScope (
-      self:
-      with self; {
+      self: with self; {
         inherit ocaml;
 
         ### A ###

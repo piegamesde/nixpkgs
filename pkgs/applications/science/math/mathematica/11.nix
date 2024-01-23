@@ -64,22 +64,20 @@ stdenv.mkDerivation rec {
       libGL
       libGLU
     ]
-    ++ (
-      with xorg; [
-        libX11
-        libXext
-        libXtst
-        libXi
-        libXmu
-        libXrender
-        libxcb
-        libXcursor
-        libXfixes
-        libXrandr
-        libICE
-        libSM
-      ]
-    );
+    ++ (with xorg; [
+      libX11
+      libXext
+      libXtst
+      libXi
+      libXmu
+      libXrender
+      libxcb
+      libXcursor
+      libXfixes
+      libXrandr
+      libICE
+      libSM
+    ]);
 
   ldpath =
     lib.makeLibraryPath buildInputs

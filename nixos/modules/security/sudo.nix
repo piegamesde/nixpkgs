@@ -229,16 +229,15 @@ in
         commands = [
           {
             command = "ALL";
-            options =
-              (
-                if cfg.wheelNeedsPassword then
-                  [ "SETENV" ]
-                else
-                  [
-                    "NOPASSWD"
-                    "SETENV"
-                  ]
-              );
+            options = (
+              if cfg.wheelNeedsPassword then
+                [ "SETENV" ]
+              else
+                [
+                  "NOPASSWD"
+                  "SETENV"
+                ]
+            );
           }
         ];
       }

@@ -42,14 +42,12 @@ stdenv.mkDerivation rec {
       libiconv
       bash
     ]
-    ++ (
-      with perlPackages; [
-        perl
-        XMLSAX
-        XMLParser
-        XMLNamespaceSupport
-      ]
-    );
+    ++ (with perlPackages; [
+      perl
+      XMLSAX
+      XMLParser
+      XMLNamespaceSupport
+    ]);
 
   postConfigure = ''
     # Broken substitution is used for `perl/config.pl', which leaves literal

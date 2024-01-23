@@ -25,7 +25,9 @@ import ./make-test-python.nix (
   in
   {
     name = "discourse";
-    meta = with pkgs.lib.maintainers; { maintainers = [ talyz ]; };
+    meta = with pkgs.lib.maintainers; {
+      maintainers = [ talyz ];
+    };
 
     nodes.discourse =
       { nodes, ... }:

@@ -86,7 +86,8 @@ stdenv.mkDerivation rec {
     ]
     ++ lib.optional (withNetRocks && !stdenv.isDarwin) samba # broken on darwin
     ++ lib.optionals withPython (
-      with python3Packages; [
+      with python3Packages;
+      [
         python
         cffi
         debugpy

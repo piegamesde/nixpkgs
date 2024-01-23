@@ -2,7 +2,9 @@ import ./make-test-python.nix (
   { pkgs, ... }:
   {
     name = "hardened";
-    meta = with pkgs.lib.maintainers; { maintainers = [ joachifm ]; };
+    meta = with pkgs.lib.maintainers; {
+      maintainers = [ joachifm ];
+    };
 
     nodes.machine =
       {
@@ -11,7 +13,8 @@ import ./make-test-python.nix (
         config,
         ...
       }:
-      with lib; {
+      with lib;
+      {
         users.users.alice = {
           isNormalUser = true;
           extraGroups = [ "proc" ];
