@@ -70,7 +70,11 @@ import ./make-test-python.nix (
           };
         };
 
-      client = { config, pkgs, ... }: { programs.nbd.enable = true; };
+      client =
+        { config, pkgs, ... }:
+        {
+          programs.nbd.enable = true;
+        };
     };
 
     testScript = ''

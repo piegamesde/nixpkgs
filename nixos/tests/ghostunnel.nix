@@ -39,7 +39,11 @@ import ./make-test-python.nix (
             1443
           ];
         };
-      client = { pkgs, ... }: { environment.systemPackages = [ pkgs.curl ]; };
+      client =
+        { pkgs, ... }:
+        {
+          environment.systemPackages = [ pkgs.curl ];
+        };
     };
 
     testScript = ''

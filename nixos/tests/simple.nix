@@ -6,7 +6,11 @@ import ./make-test-python.nix (
       maintainers = [ eelco ];
     };
 
-    nodes.machine = { ... }: { imports = [ ../modules/profiles/minimal.nix ]; };
+    nodes.machine =
+      { ... }:
+      {
+        imports = [ ../modules/profiles/minimal.nix ];
+      };
 
     testScript = ''
       start_all()

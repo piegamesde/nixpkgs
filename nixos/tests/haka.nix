@@ -9,7 +9,11 @@ import ./make-test-python.nix (
     };
 
     nodes = {
-      haka = { ... }: { services.haka.enable = true; };
+      haka =
+        { ... }:
+        {
+          services.haka.enable = true;
+        };
     };
 
     testScript = ''

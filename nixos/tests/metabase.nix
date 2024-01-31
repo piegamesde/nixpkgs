@@ -7,7 +7,11 @@ import ./make-test-python.nix (
     };
 
     nodes = {
-      machine = { ... }: { services.metabase.enable = true; };
+      machine =
+        { ... }:
+        {
+          services.metabase.enable = true;
+        };
     };
 
     testScript = ''

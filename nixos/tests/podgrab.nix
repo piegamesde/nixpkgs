@@ -8,7 +8,11 @@ import ./make-test-python.nix (
     name = "podgrab";
 
     nodes = {
-      default = { ... }: { services.podgrab.enable = true; };
+      default =
+        { ... }:
+        {
+          services.podgrab.enable = true;
+        };
 
       customized =
         { ... }:

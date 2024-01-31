@@ -68,7 +68,11 @@ import ./make-test-python.nix (
 
     nodes =
       let
-        client = { pkgs, ... }: { environment.systemPackages = with pkgs; [ mosquitto ]; };
+        client =
+          { pkgs, ... }:
+          {
+            environment.systemPackages = with pkgs; [ mosquitto ];
+          };
       in
       {
         server =

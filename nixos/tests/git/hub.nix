@@ -6,7 +6,11 @@ import ../make-test-python.nix (
       maintainers = [ nequissimus ];
     };
 
-    nodes.hub = { pkgs, ... }: { environment.systemPackages = [ pkgs.hub ]; };
+    nodes.hub =
+      { pkgs, ... }:
+      {
+        environment.systemPackages = [ pkgs.hub ];
+      };
 
     testScript = ''
       assert "git version ${pkgs.git.version}\nhub version ${pkgs.hub.version}\n" in hub.succeed("hub version")

@@ -135,7 +135,14 @@
         import ../../../nixos/lib/testing-python.nix {
           inherit (stdenv.hostPlatform) system;
           inherit pkgs;
-          extraConfigurations = [ ({ lib, ... }: { config.nixpkgs.pkgs = lib.mkDefault pkgs; }) ];
+          extraConfigurations = [
+            (
+              { lib, ... }:
+              {
+                config.nixpkgs.pkgs = lib.mkDefault pkgs;
+              }
+            )
+          ];
         }
       );
     in

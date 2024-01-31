@@ -7,7 +7,11 @@ import ./make-test-python.nix (
       maintainers = [ lewo ];
     };
 
-    nodes.machine = { pkgs, lib, ... }: { services.journald.enableHttpGateway = true; };
+    nodes.machine =
+      { pkgs, lib, ... }:
+      {
+        services.journald.enableHttpGateway = true;
+      };
 
     testScript = ''
       machine.wait_for_unit("multi-user.target")

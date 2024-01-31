@@ -70,7 +70,11 @@ import ./make-test-python.nix (
           '';
         };
 
-      client = { pkgs, ... }: { environment.systemPackages = [ pkgs.git ]; };
+      client =
+        { pkgs, ... }:
+        {
+          environment.systemPackages = [ pkgs.git ];
+        };
     };
 
     testScript = ''

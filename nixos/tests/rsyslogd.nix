@@ -30,7 +30,11 @@ with pkgs.lib;
     name = "rsyslogd-test2";
     meta.maintainers = [ pkgs.lib.maintainers.aanderse ];
 
-    nodes.machine = { config, pkgs, ... }: { services.rsyslogd.enable = true; };
+    nodes.machine =
+      { config, pkgs, ... }:
+      {
+        services.rsyslogd.enable = true;
+      };
 
     # ensure rsyslogd is receiving messages from journald
     testScript = ''

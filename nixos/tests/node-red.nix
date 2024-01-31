@@ -7,7 +7,11 @@ import ./make-test-python.nix (
     };
 
     nodes = {
-      client = { config, pkgs, ... }: { environment.systemPackages = [ pkgs.curl ]; };
+      client =
+        { config, pkgs, ... }:
+        {
+          environment.systemPackages = [ pkgs.curl ];
+        };
       nodered =
         { config, pkgs, ... }:
         {

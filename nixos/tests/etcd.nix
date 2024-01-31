@@ -10,7 +10,11 @@ import ./make-test-python.nix (
     };
 
     nodes = {
-      node = { ... }: { services.etcd.enable = true; };
+      node =
+        { ... }:
+        {
+          services.etcd.enable = true;
+        };
     };
 
     testScript = ''

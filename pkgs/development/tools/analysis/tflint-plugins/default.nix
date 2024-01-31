@@ -1,1 +1,4 @@
-{ callPackage, ... }: { tflint-ruleset-aws = callPackage ./tflint-ruleset-aws.nix { }; }
+{ callPackage, ... }:
+{
+  tflint-ruleset-aws = callPackage ./tflint-ruleset-aws.nix { };
+}

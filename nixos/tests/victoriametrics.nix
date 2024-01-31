@@ -9,7 +9,11 @@ import ./make-test-python.nix (
     };
 
     nodes = {
-      one = { ... }: { services.victoriametrics.enable = true; };
+      one =
+        { ... }:
+        {
+          services.victoriametrics.enable = true;
+        };
     };
 
     testScript = ''

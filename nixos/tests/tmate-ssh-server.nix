@@ -33,7 +33,11 @@ import ./make-test-python.nix (
           services.openssh.enable = true;
           users.users.root.openssh.authorizedKeys.keys = [ snakeOilPublicKey ];
         };
-      client2 = { ... }: { environment.systemPackages = [ pkgs.openssh ]; };
+      client2 =
+        { ... }:
+        {
+          environment.systemPackages = [ pkgs.openssh ];
+        };
     };
     testScript = ''
       start_all()

@@ -4,7 +4,11 @@ import ./make-test-python.nix (
     name = "gollum";
 
     nodes = {
-      webserver = { pkgs, lib, ... }: { services.gollum.enable = true; };
+      webserver =
+        { pkgs, lib, ... }:
+        {
+          services.gollum.enable = true;
+        };
     };
 
     testScript =

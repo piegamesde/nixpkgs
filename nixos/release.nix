@@ -420,7 +420,12 @@ rec {
               configuration
               versionModule
               ./maintainers/scripts/ec2/amazon-image.nix
-              ({ ... }: { amazonImage.sizeMB = "auto"; })
+              (
+                { ... }:
+                {
+                  amazonImage.sizeMB = "auto";
+                }
+              )
             ];
           }).config.system.build.amazonImage
         )
@@ -532,7 +537,12 @@ rec {
       }
     );
 
-    ec2 = makeClosure ({ ... }: { imports = [ modules/virtualisation/amazon-image.nix ]; });
+    ec2 = makeClosure (
+      { ... }:
+      {
+        imports = [ modules/virtualisation/amazon-image.nix ];
+      }
+    );
 
     kde = makeClosure (
       { ... }:

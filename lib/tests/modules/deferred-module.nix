@@ -64,7 +64,11 @@ in
 
     {
       _file = "nodes-foo-c-is-a.nix";
-      nodes.foo = { config, ... }: { settingsDict.c = config.settingsDict.a; };
+      nodes.foo =
+        { config, ... }:
+        {
+          settingsDict.c = config.settingsDict.a;
+        };
     }
   ];
 }

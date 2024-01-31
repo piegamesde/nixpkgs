@@ -7,7 +7,11 @@ import ./make-test-python.nix (
     };
 
     nodes = {
-      machine = { ... }: { services.freenet.enable = true; };
+      machine =
+        { ... }:
+        {
+          services.freenet.enable = true;
+        };
     };
 
     testScript = ''

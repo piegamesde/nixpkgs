@@ -1,1 +1,4 @@
-{ callPackage }: { test-thisroot = callPackage ./test-thisroot.nix { }; }
+{ callPackage }:
+{
+  test-thisroot = callPackage ./test-thisroot.nix { };
+}

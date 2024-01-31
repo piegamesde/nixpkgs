@@ -43,7 +43,11 @@ import ./make-test-python.nix (
         };
 
         specialisation = {
-          withGlibcNscd.configuration = { ... }: { services.nscd.enableNsncd = false; };
+          withGlibcNscd.configuration =
+            { ... }:
+            {
+              services.nscd.enableNsncd = false;
+            };
           withUnscd.configuration =
             { ... }:
             {

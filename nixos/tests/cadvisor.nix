@@ -7,7 +7,11 @@ import ./make-test-python.nix (
     };
 
     nodes = {
-      machine = { ... }: { services.cadvisor.enable = true; };
+      machine =
+        { ... }:
+        {
+          services.cadvisor.enable = true;
+        };
 
       influxdb =
         { lib, ... }:

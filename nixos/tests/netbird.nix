@@ -8,7 +8,11 @@ import ./make-test-python.nix (
     };
 
     nodes = {
-      node = { ... }: { services.netbird.enable = true; };
+      node =
+        { ... }:
+        {
+          services.netbird.enable = true;
+        };
     };
 
     testScript = ''

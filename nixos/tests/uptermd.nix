@@ -2,7 +2,11 @@ import ./make-test-python.nix (
   { pkgs, ... }:
 
   let
-    client = { pkgs, ... }: { environment.systemPackages = [ pkgs.upterm ]; };
+    client =
+      { pkgs, ... }:
+      {
+        environment.systemPackages = [ pkgs.upterm ];
+      };
   in
   {
     name = "uptermd";

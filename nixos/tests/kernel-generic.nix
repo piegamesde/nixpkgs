@@ -21,7 +21,11 @@ let
             ];
           };
 
-          nodes.machine = { ... }: { boot.kernelPackages = linuxPackages; };
+          nodes.machine =
+            { ... }:
+            {
+              boot.kernelPackages = linuxPackages;
+            };
 
           testScript = ''
             assert "Linux" in machine.succeed("uname -s")

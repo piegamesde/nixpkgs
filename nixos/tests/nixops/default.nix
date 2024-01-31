@@ -45,7 +45,11 @@ let
             # TODO: make this efficient, https://github.com/NixOS/nixpkgs/issues/180529
             system.includeBuildDependencies = true;
           };
-        server = { lib, ... }: { imports = [ ./legacy/base-configuration.nix ]; };
+        server =
+          { lib, ... }:
+          {
+            imports = [ ./legacy/base-configuration.nix ];
+          };
       };
 
       testScript =

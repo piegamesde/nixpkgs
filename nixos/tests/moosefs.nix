@@ -53,7 +53,11 @@ import ./make-test-python.nix (
         };
       };
 
-    client = { pkgs, ... }: { services.moosefs.client.enable = true; };
+    client =
+      { pkgs, ... }:
+      {
+        services.moosefs.client.enable = true;
+      };
   in
   {
     name = "moosefs";

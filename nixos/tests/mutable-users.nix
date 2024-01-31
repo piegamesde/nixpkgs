@@ -9,7 +9,11 @@ import ./make-test-python.nix (
     };
 
     nodes = {
-      machine = { ... }: { users.mutableUsers = false; };
+      machine =
+        { ... }:
+        {
+          users.mutableUsers = false;
+        };
       mutable =
         { ... }:
         {

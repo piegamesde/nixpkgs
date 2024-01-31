@@ -22,7 +22,11 @@ import ./make-test-python.nix (
     };
 
     nodes = {
-      client = { ... }: { imports = [ client_base ]; };
+      client =
+        { ... }:
+        {
+          imports = [ client_base ];
+        };
 
       client_c1 =
         { lib, ... }:

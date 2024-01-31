@@ -5,9 +5,17 @@ import ./make-test-python.nix (
     meta.maintainers = with pkgs.lib.maintainers; [ lheckemann ];
 
     nodes = {
-      node_eutz = { pkgs, ... }: { time.timeZone = "Europe/Amsterdam"; };
+      node_eutz =
+        { pkgs, ... }:
+        {
+          time.timeZone = "Europe/Amsterdam";
+        };
 
-      node_nulltz = { pkgs, ... }: { time.timeZone = null; };
+      node_nulltz =
+        { pkgs, ... }:
+        {
+          time.timeZone = null;
+        };
     };
 
     testScript =

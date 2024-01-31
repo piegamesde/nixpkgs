@@ -107,7 +107,10 @@ import ./make-test-python.nix (
 
         specialisation = {
           declarativeContents.configuration =
-            { ... }: { services.openldap.declarativeContents."dc=example" = dbContents; };
+            { ... }:
+            {
+              services.openldap.declarativeContents."dc=example" = dbContents;
+            };
           mutableConfig.configuration =
             { ... }:
             {

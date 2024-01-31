@@ -9,7 +9,11 @@ import ./make-test-python.nix (
     };
 
     nodes = {
-      peerflix = { ... }: { services.peerflix.enable = true; };
+      peerflix =
+        { ... }:
+        {
+          services.peerflix.enable = true;
+        };
     };
 
     testScript = ''

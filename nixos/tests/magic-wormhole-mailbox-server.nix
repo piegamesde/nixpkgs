@@ -21,7 +21,11 @@ import ./make-test-python.nix (
           environment.systemPackages = [ pkgs.magic-wormhole ];
         };
 
-      client_bob = { ... }: { environment.systemPackages = [ pkgs.magic-wormhole ]; };
+      client_bob =
+        { ... }:
+        {
+          environment.systemPackages = [ pkgs.magic-wormhole ];
+        };
     };
 
     testScript = ''

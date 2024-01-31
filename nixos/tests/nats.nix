@@ -15,7 +15,11 @@ import ./make-test-python.nix (
 
     nodes =
       let
-        client = { pkgs, ... }: { environment.systemPackages = with pkgs; [ natscli ]; };
+        client =
+          { pkgs, ... }:
+          {
+            environment.systemPackages = with pkgs; [ natscli ];
+          };
       in
       {
         server =

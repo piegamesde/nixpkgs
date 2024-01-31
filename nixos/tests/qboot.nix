@@ -3,7 +3,11 @@ import ./make-test-python.nix (
   {
     name = "qboot";
 
-    nodes.machine = { ... }: { virtualisation.bios = pkgs.qboot; };
+    nodes.machine =
+      { ... }:
+      {
+        virtualisation.bios = pkgs.qboot;
+      };
 
     testScript = ''
       start_all()

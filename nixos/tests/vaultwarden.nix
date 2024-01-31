@@ -166,7 +166,11 @@ let
             }
           ];
 
-        client = { pkgs, ... }: { environment.systemPackages = [ pkgs.bitwarden-cli ]; };
+        client =
+          { pkgs, ... }:
+          {
+            environment.systemPackages = [ pkgs.bitwarden-cli ];
+          };
       };
 
       testScript = ''

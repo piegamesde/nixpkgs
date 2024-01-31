@@ -122,7 +122,11 @@ import ../make-test-python.nix (
           };
 
         # Client that resides in the "external" VLAN
-        testclient = { ... }: { virtualisation.vlans = [ 2 ]; };
+        testclient =
+          { ... }:
+          {
+            virtualisation.vlans = [ 2 ];
+          };
       };
 
     testScript = ''

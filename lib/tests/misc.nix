@@ -1568,7 +1568,11 @@ runTests {
             options.bar = lib.mkOption { };
           };
 
-        module = { lib, ... }: { options.foo = lib.mkOption { type = lib.types.submodule submodule; }; };
+        module =
+          { lib, ... }:
+          {
+            options.foo = lib.mkOption { type = lib.types.submodule submodule; };
+          };
 
         options = (evalModules { modules = [ module ]; }).options;
 
