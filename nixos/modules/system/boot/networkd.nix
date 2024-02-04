@@ -2624,9 +2624,7 @@ let
         Parent = "root";
         QuantumBytes = "300k";
       };
-      type =
-        types.addCheck (types.attrsOf unitOption)
-          check.network.sectionDeficitRoundRobinSchedulerClass;
+      type = types.addCheck (types.attrsOf unitOption) check.network.sectionDeficitRoundRobinSchedulerClass;
       description = lib.mdDoc ''
         Each attribute in this set specifies an option in the
         `[DeficitRoundRobinSchedulerClass]` section of the unit.  See

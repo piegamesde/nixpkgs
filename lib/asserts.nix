@@ -44,8 +44,7 @@ rec {
     val:
     # The list of valid values
     xs:
-    assertMsg (lib.elem val xs)
-      "${name} must be one of ${lib.generators.toPretty { } xs}, but is: ${
-        lib.generators.toPretty { } val
-      }";
+    assertMsg (lib.elem val xs) "${name} must be one of ${lib.generators.toPretty { } xs}, but is: ${
+      lib.generators.toPretty { } val
+    }";
 }

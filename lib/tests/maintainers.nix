@@ -30,9 +30,7 @@ let
 
       checks =
         lib.optional (checkedAttrs.github != null && checkedAttrs.githubId == null) ''
-          echo ${
-            lib.escapeShellArg (lib.showOption prefix)
-          }': If `github` is specified, `githubId` must be too.'
+          echo ${lib.escapeShellArg (lib.showOption prefix)}': If `github` is specified, `githubId` must be too.'
           # Calling this too often would hit non-authenticated API limits, but this
           # shouldn't happen since such errors will get fixed rather quickly
           info=$(curl -sS https://api.github.com/users/${checkedAttrs.github})
@@ -44,16 +42,12 @@ let
           lib.optional
             (checkedAttrs.email == null && checkedAttrs.github == null && checkedAttrs.matrix == null)
             ''
-              echo ${
-                lib.escapeShellArg (lib.showOption prefix)
-              }': At least one of `email`, `github` or `matrix` must be specified, so that users know how to reach you.'
+              echo ${lib.escapeShellArg (lib.showOption prefix)}': At least one of `email`, `github` or `matrix` must be specified, so that users know how to reach you.'
             ''
         ++
           lib.optional (checkedAttrs.email != null && lib.hasSuffix "noreply.github.com" checkedAttrs.email)
             ''
-              echo ${
-                lib.escapeShellArg (lib.showOption prefix)
-              }': If an email address is given, it should allow people to reach you. If you do not want that, you can just provide `github` or `matrix` instead.'
+              echo ${lib.escapeShellArg (lib.showOption prefix)}': If an email address is given, it should allow people to reach you. If you do not want that, you can just provide `github` or `matrix` instead.'
             '';
     in
     lib.deepSeq checkedAttrs checks;

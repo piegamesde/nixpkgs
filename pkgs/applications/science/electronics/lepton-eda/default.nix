@@ -23,9 +23,7 @@ stdenv.mkDerivation rec {
   version = "1.9.17-20211219";
 
   src = fetchurl {
-    url = "https://github.com/lepton-eda/lepton-eda/releases/download/${version}/lepton-eda-${
-      builtins.head (lib.splitString "-" version)
-    }.tar.gz";
+    url = "https://github.com/lepton-eda/lepton-eda/releases/download/${version}/lepton-eda-${builtins.head (lib.splitString "-" version)}.tar.gz";
     sha256 = "sha256-lOneKeJUcw6jOX/3iv9BDWOJ3xip/vGhzxHHNAbtsS8=";
   };
 

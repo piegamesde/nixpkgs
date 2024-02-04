@@ -149,8 +149,7 @@ rec {
           ({ supportedFeatures, ... }: supportedFeatures == [ ]);
     in
 
-    assert lib.assertMsg (lib.all validateFeatures scripts)
-      "Combining update scripts with features enabled (other than a single script with “commit” and all other with “silent”) is currently unsupported.";
+    assert lib.assertMsg (lib.all validateFeatures scripts) "Combining update scripts with features enabled (other than a single script with “commit” and all other with “silent”) is currently unsupported.";
     assert lib.assertMsg
       (
         builtins.length (

@@ -87,9 +87,7 @@ stdenv.mkDerivation (
     doCheck = false;
 
     preConfigure = ''
-      export TCNN_CUDA_ARCHITECTURES=${
-        strings.concatStringsSep ";" (lists.map cudaFlags.dropDot cudaFlags.cudaCapabilities)
-      }
+      export TCNN_CUDA_ARCHITECTURES=${strings.concatStringsSep ";" (lists.map cudaFlags.dropDot cudaFlags.cudaCapabilities)}
       export CUDA_HOME=${cuda-native-redist}
       export LIBRARY_PATH=${cuda-native-redist}/lib/stubs:$LIBRARY_PATH
       export CC=${backendStdenv.cc}/bin/cc

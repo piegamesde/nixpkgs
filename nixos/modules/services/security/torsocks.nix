@@ -29,9 +29,7 @@ let
       name = name;
       text = ''
         #!${pkgs.runtimeShell}
-        TORSOCKS_CONF_FILE=${
-          pkgs.writeText "torsocks.conf" (configFile server)
-        } ${pkgs.torsocks}/bin/torsocks "$@"
+        TORSOCKS_CONF_FILE=${pkgs.writeText "torsocks.conf" (configFile server)} ${pkgs.torsocks}/bin/torsocks "$@"
       '';
       executable = true;
       destination = "/bin/${name}";

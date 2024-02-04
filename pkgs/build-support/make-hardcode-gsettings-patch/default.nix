@@ -47,9 +47,7 @@ runCommand "hardcode-gsettings.patch"
     unpackPhase
     cd "''${sourceRoot:-.}"
     set -x
-    cp ${
-      builtins.toFile "glib-schema-to-var.json" (builtins.toJSON schemaIdToVariableMapping)
-    } ./glib-schema-to-var.json
+    cp ${builtins.toFile "glib-schema-to-var.json" (builtins.toJSON schemaIdToVariableMapping)} ./glib-schema-to-var.json
     git init
     git add -A
     spatch --sp-file "${./hardcode-gsettings.cocci}" --dir . --in-place

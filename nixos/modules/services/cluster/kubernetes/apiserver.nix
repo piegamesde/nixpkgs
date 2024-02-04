@@ -462,18 +462,8 @@ in
             ${top.package}/bin/kube-apiserver \
                           --allow-privileged=${boolToString cfg.allowPrivileged} \
                           --authorization-mode=${concatStringsSep "," cfg.authorizationMode} \
-                            ${
-                              optionalString (elem "ABAC" cfg.authorizationMode)
-                                "--authorization-policy-file=${
-                                  pkgs.writeText "kube-auth-policy.jsonl" (
-                                    concatMapStringsSep "\n" (l: builtins.toJSON l) cfg.authorizationPolicy
-                                  )
-                                }"
-                            } \
-                            ${
-                              optionalString (elem "Webhook" cfg.authorizationMode)
-                                "--authorization-webhook-config-file=${cfg.webhookConfig}"
-                            } \
+                            ${optionalString (elem "ABAC" cfg.authorizationMode) "--authorization-policy-file=${pkgs.writeText "kube-auth-policy.jsonl" (concatMapStringsSep "\n" (l: builtins.toJSON l) cfg.authorizationPolicy)}"} \
+                            ${optionalString (elem "Webhook" cfg.authorizationMode) "--authorization-webhook-config-file=${cfg.webhookConfig}"} \
                           --bind-address=${cfg.bindAddress} \
                           ${
                             optionalString (cfg.advertiseAddress != null) "--advertise-address=${cfg.advertiseAddress}"

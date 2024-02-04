@@ -191,9 +191,7 @@ in
       };
       description = lib.mdDoc ''
         Endpoints to scrobble to.
-        If the endpoint is one of "${
-          concatStringsSep ''", "'' (attrNames endpointUrls)
-        }" the url is set automatically.
+        If the endpoint is one of "${concatStringsSep ''", "'' (attrNames endpointUrls)}" the url is set automatically.
       '';
     };
   };

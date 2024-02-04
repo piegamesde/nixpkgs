@@ -410,9 +410,9 @@ in
 
     # Export for use in other modules
     system.build.fileSystems = fileSystems;
-    system.build.earlyMountScript =
-      makeSpecialMounts
-        (toposort fsBefore (attrValues config.boot.specialFileSystems)).result;
+    system.build.earlyMountScript = makeSpecialMounts (toposort fsBefore (
+      attrValues config.boot.specialFileSystems
+    )).result;
 
     boot.supportedFilesystems = map (fs: fs.fsType) fileSystems;
 

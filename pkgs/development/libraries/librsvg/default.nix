@@ -107,11 +107,7 @@ stdenv.mkDerivation rec {
   doCheck = false; # all tests fail on libtool-generated rsvg-convert not being able to find coreutils
 
   GDK_PIXBUF_QUERYLOADERS = writeScript "gdk-pixbuf-loader-loaders-wrapped" ''
-    ${
-      lib.optionalString (stdenv.hostPlatform.emulatorAvailable buildPackages) (
-        stdenv.hostPlatform.emulator buildPackages
-      )
-    } ${lib.getDev gdk-pixbuf}/bin/gdk-pixbuf-query-loaders
+    ${lib.optionalString (stdenv.hostPlatform.emulatorAvailable buildPackages) (stdenv.hostPlatform.emulator buildPackages)} ${lib.getDev gdk-pixbuf}/bin/gdk-pixbuf-query-loaders
   '';
 
   preConfigure = ''

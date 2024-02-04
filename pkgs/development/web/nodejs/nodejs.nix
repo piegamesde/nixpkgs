@@ -282,9 +282,7 @@ let
       ];
       platforms = platforms.linux ++ platforms.darwin;
       mainProgram = "node";
-      knownVulnerabilities =
-        optional (versionOlder version "14")
-          "This NodeJS release has reached its end of life. See https://nodejs.org/en/about/releases/.";
+      knownVulnerabilities = optional (versionOlder version "14") "This NodeJS release has reached its end of life. See https://nodejs.org/en/about/releases/.";
     };
 
     passthru.python = python; # to ensure nodeEnv uses the same version

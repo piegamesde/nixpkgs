@@ -351,9 +351,7 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
       };
 
       # `gettext` comes with obsolete config.sub/config.guess that don't recognize LoongArch64.
-      extraNativeBuildInputs =
-        lib.optional (localSystem.isLoongArch64)
-          prevStage.updateAutotoolsGnuConfigScriptsHook;
+      extraNativeBuildInputs = lib.optional (localSystem.isLoongArch64) prevStage.updateAutotoolsGnuConfigScriptsHook;
     }
   )
 
@@ -454,9 +452,7 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
       };
 
       # `gettext` comes with obsolete config.sub/config.guess that don't recognize LoongArch64.
-      extraNativeBuildInputs =
-        lib.optional (localSystem.isLoongArch64)
-          prevStage.updateAutotoolsGnuConfigScriptsHook;
+      extraNativeBuildInputs = lib.optional (localSystem.isLoongArch64) prevStage.updateAutotoolsGnuConfigScriptsHook;
     }
   )
 

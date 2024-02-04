@@ -94,10 +94,7 @@ in
       { nodes }:
       let
         esPort = toString nodes.parsedmarc.config.services.elasticsearch.port;
-        valueObject =
-          lib.optionalString
-            (lib.versionAtLeast nodes.parsedmarc.config.services.elasticsearch.package.version "7")
-            ".value";
+        valueObject = lib.optionalString (lib.versionAtLeast nodes.parsedmarc.config.services.elasticsearch.package.version "7") ".value";
       in
       ''
         parsedmarc.start()
@@ -204,10 +201,7 @@ in
         { nodes }:
         let
           esPort = toString nodes.parsedmarc.config.services.elasticsearch.port;
-          valueObject =
-            lib.optionalString
-              (lib.versionAtLeast nodes.parsedmarc.config.services.elasticsearch.package.version "7")
-              ".value";
+          valueObject = lib.optionalString (lib.versionAtLeast nodes.parsedmarc.config.services.elasticsearch.package.version "7") ".value";
         in
         ''
           mail.start()

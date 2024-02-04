@@ -107,9 +107,7 @@ stdenv.mkDerivation rec {
           util-linux
         ]
         ++ lib.optional enableRDW networkmanager
-        ++
-          lib.optional (lib.meta.availableOn stdenv.hostPlatform x86_energy_perf_policy)
-            x86_energy_perf_policy
+        ++ lib.optional (lib.meta.availableOn stdenv.hostPlatform x86_energy_perf_policy) x86_energy_perf_policy
       );
     in
     ''

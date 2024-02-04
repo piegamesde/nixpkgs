@@ -1310,9 +1310,7 @@ rec {
       inherit from to;
       visible = false;
       warn = lib.isInOldestRelease sinceRelease;
-      use =
-        lib.warnIf (lib.isInOldestRelease sinceRelease)
-          "Obsolete option `${showOption from}' is used. It was renamed to `${showOption to}'.";
+      use = lib.warnIf (lib.isInOldestRelease sinceRelease) "Obsolete option `${showOption from}' is used. It was renamed to `${showOption to}'.";
     };
 
   /* Return a module that causes a warning to be shown if any of the "from"

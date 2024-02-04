@@ -29,9 +29,7 @@ import ../../make-test-python.nix (
           mkdir -p /var/lib/grafana/dashboards
           chown -R grafana:grafana /var/lib/grafana
           chmod 0700 -R /var/lib/grafana/dashboards
-          cp ${
-            pkgs.writeText "test.json" (builtins.readFile ./test_dashboard.json)
-          } /var/lib/grafana/dashboards/
+          cp ${pkgs.writeText "test.json" (builtins.readFile ./test_dashboard.json)} /var/lib/grafana/dashboards/
         '';
       };
     };

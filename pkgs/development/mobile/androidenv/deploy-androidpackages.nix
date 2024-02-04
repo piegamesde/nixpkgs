@@ -72,9 +72,7 @@ let
       xmlns:ns13="http://schemas.android.com/sdk/android/repo/sys-img2/02"
       xmlns:ns14="http://schemas.android.com/sdk/android/repo/sys-img2/01"
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-      <license id="${package.license}" type="text">${
-        lib.concatStringsSep "---" (mkLicenses package.license)
-      }</license>
+      <license id="${package.license}" type="text">${lib.concatStringsSep "---" (mkLicenses package.license)}</license>
       <localPackage path="${builtins.replaceStrings [ "/" ] [ ";" ] package.path}" obsolete="${
         if (lib.hasAttrByPath [ "obsolete" ] package) then package.obsolete else "false"
       }">

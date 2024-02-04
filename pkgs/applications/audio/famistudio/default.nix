@@ -14,9 +14,7 @@ stdenv.mkDerivation rec {
   version = "4.0.6";
 
   src = fetchzip {
-    url = "https://github.com/BleuBleu/FamiStudio/releases/download/${version}/FamiStudio${
-      lib.strings.concatStrings (lib.splitVersion version)
-    }-LinuxAMD64.zip";
+    url = "https://github.com/BleuBleu/FamiStudio/releases/download/${version}/FamiStudio${lib.strings.concatStrings (lib.splitVersion version)}-LinuxAMD64.zip";
     stripRoot = false;
     sha256 = "sha256-Se9EIQTjZQM5qqzlEB4hGVRHDFdu6GecNGpw9gYMbW4=";
   };

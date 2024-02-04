@@ -36,8 +36,6 @@ in
 
     # Kernel 5.9 spams warnings whenever userspace writes to CPU MSRs.
     # See https://github.com/erpalma/throttled/issues/215
-    boot.kernelParams =
-      optional (versionAtLeast config.boot.kernelPackages.kernel.version "5.9")
-        "msr.allow_writes=on";
+    boot.kernelParams = optional (versionAtLeast config.boot.kernelPackages.kernel.version "5.9") "msr.allow_writes=on";
   };
 }

@@ -90,9 +90,7 @@ stdenv.mkDerivation rec {
 
     # slightly janky fix for gsettings_schemadir being removed
     substituteInPlace data/config.js.in \
-      --subst-var-by GSETTINGS_SCHEMA_DIR ${
-        glib.makeSchemaPath (placeholder "out") "${pname}-${version}"
-      }
+      --subst-var-by GSETTINGS_SCHEMA_DIR ${glib.makeSchemaPath (placeholder "out") "${pname}-${version}"}
   '';
 
   postFixup = ''

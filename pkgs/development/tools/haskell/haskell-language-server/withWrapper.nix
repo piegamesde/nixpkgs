@@ -65,9 +65,7 @@ stdenv.mkDerivation {
   version = haskellPackages.haskell-language-server.version;
   buildCommand = ''
     mkdir -p $out/bin
-    ln -s ${
-      tunedHls (getPackages (builtins.head supportedGhcVersions))
-    }/bin/haskell-language-server-wrapper $out/bin/haskell-language-server-wrapper
+    ln -s ${tunedHls (getPackages (builtins.head supportedGhcVersions))}/bin/haskell-language-server-wrapper $out/bin/haskell-language-server-wrapper
     ${concatMapStringsSep "\n" makeSymlinks supportedGhcVersions}
   '';
   meta = haskellPackages.haskell-language-server.meta // {

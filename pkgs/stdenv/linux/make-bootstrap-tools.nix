@@ -314,10 +314,8 @@ rec {
 
       ''
       + lib.optionalString (stdenv.hostPlatform.libc == "glibc") ''
-        rtld=$(echo ${bootstrapTools}/lib/${
-          builtins.unsafeDiscardStringContext # only basename
-            (builtins.baseNameOf binutils.dynamicLinker)
-        })
+        rtld=$(echo ${bootstrapTools}/lib/${builtins.unsafeDiscardStringContext # only basename
+          (builtins.baseNameOf binutils.dynamicLinker)})
         libc_includes=${bootstrapTools}/include-glibc
       ''
       + lib.optionalString (stdenv.hostPlatform.libc == "musl") ''

@@ -1358,9 +1358,7 @@ in
       "L+ /run/gitlab/tmp - - - - ${cfg.statePath}/tmp"
       "L+ /run/gitlab/uploads - - - - ${cfg.statePath}/uploads"
 
-      "L+ /run/gitlab/shell-config.yml - - - - ${
-        pkgs.writeText "config.yml" (builtins.toJSON gitlabShellConfig)
-      }"
+      "L+ /run/gitlab/shell-config.yml - - - - ${pkgs.writeText "config.yml" (builtins.toJSON gitlabShellConfig)}"
     ];
 
     systemd.services.gitlab-config = {

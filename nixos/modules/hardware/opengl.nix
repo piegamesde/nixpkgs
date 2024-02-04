@@ -181,8 +181,6 @@ in
     hardware.opengl.package = mkDefault pkgs.mesa.drivers;
     hardware.opengl.package32 = mkDefault pkgs.pkgsi686Linux.mesa.drivers;
 
-    boot.extraModulePackages =
-      optional (elem "virtualbox" videoDrivers)
-        kernelPackages.virtualboxGuestAdditions;
+    boot.extraModulePackages = optional (elem "virtualbox" videoDrivers) kernelPackages.virtualboxGuestAdditions;
   };
 }

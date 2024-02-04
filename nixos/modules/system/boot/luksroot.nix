@@ -518,12 +518,10 @@ let
                   echo
                 ''
             }
-            ${
-              optionalString (lib.versionOlder kernelPackages.kernel.version "5.4") ''
-                echo "On systems with Linux Kernel < 5.4, it might take a while to initialize the CRNG, you might want to use linuxPackages_latest."
-                echo "Please move your mouse to create needed randomness."
-              ''
-            }
+            ${optionalString (lib.versionOlder kernelPackages.kernel.version "5.4") ''
+          echo "On systems with Linux Kernel < 5.4, it might take a while to initialize the CRNG, you might want to use linuxPackages_latest."
+          echo "Please move your mouse to create needed randomness."
+        ''}
               echo "Waiting for your FIDO2 device..."
               fido2luks open${optionalString dev.allowDiscards " --allow-discards"} ${dev.device} ${dev.name} "${builtins.concatStringsSep "," fido2luksCredentials}" --await-dev ${toString dev.fido2.gracePeriod} --salt string:$passphrase
             if [ $? -ne 0 ]; then

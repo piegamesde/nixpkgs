@@ -44,9 +44,7 @@ stdenv.mkDerivation {
     '';
   dontStrip = true;
   postFixup = ''
-    wrapProgram $out/bin/sqitch --prefix PERL5LIB : ${
-      lib.escapeShellArg (perlPackages.makeFullPerlPath modules)
-    }
+    wrapProgram $out/bin/sqitch --prefix PERL5LIB : ${lib.escapeShellArg (perlPackages.makeFullPerlPath modules)}
   '';
 
   meta = {

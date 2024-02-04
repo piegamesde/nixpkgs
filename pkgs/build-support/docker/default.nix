@@ -1171,9 +1171,7 @@ rec {
 
       # A binary that calls the command to build the derivation
       builder = writeShellScriptBin "buildDerivation" ''
-        exec ${lib.escapeShellArg (stringValue drv.drvAttrs.builder)} ${
-          lib.escapeShellArgs (map stringValue drv.drvAttrs.args)
-        }
+        exec ${lib.escapeShellArg (stringValue drv.drvAttrs.builder)} ${lib.escapeShellArgs (map stringValue drv.drvAttrs.args)}
       '';
 
       staticPath = "${dirOf shell}:${lib.makeBinPath [ builder ]}";
