@@ -751,7 +751,7 @@ rec {
         lib.mapAttrs'
           (name: value: {
             inherit value;
-            name = lib.head (builtins.match "${builtins.storeDir}/[${nixHashChars}]+-(.*).drv" name);
+            name = lib.head (builtins.match "${builtins.storeDir}/[${nixHashChars}]+-(.*)\.drv" name);
           })
           derivations;
       # The syntax of output paths differs between outputs named `out`

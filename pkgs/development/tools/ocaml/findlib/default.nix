@@ -46,15 +46,15 @@ stdenv.mkDerivation rec {
 
   setupHook = writeText "setupHook.sh" ''
     addOCamlPath () {
-        if test -d "$1/lib/ocaml/${ocaml.version}/site-lib"; then
-            export OCAMLPATH="''${OCAMLPATH-}''${OCAMLPATH:+:}$1/lib/ocaml/${ocaml.version}/site-lib/"
+        if test -d "''$1/lib/ocaml/${ocaml.version}/site-lib"; then
+            export OCAMLPATH="''${OCAMLPATH-}''${OCAMLPATH:+:}''$1/lib/ocaml/${ocaml.version}/site-lib/"
         fi
-        if test -d "$1/lib/ocaml/${ocaml.version}/site-lib/stublibs"; then
-            export CAML_LD_LIBRARY_PATH="''${CAML_LD_LIBRARY_PATH-}''${CAML_LD_LIBRARY_PATH:+:}$1/lib/ocaml/${ocaml.version}/site-lib/stublibs"
+        if test -d "''$1/lib/ocaml/${ocaml.version}/site-lib/stublibs"; then
+            export CAML_LD_LIBRARY_PATH="''${CAML_LD_LIBRARY_PATH-}''${CAML_LD_LIBRARY_PATH:+:}''$1/lib/ocaml/${ocaml.version}/site-lib/stublibs"
         fi
     }
     exportOcamlDestDir () {
-        export OCAMLFIND_DESTDIR="$out/lib/ocaml/${ocaml.version}/site-lib/"
+        export OCAMLFIND_DESTDIR="''$out/lib/ocaml/${ocaml.version}/site-lib/"
     }
     createOcamlDestDir () {
         if test -n "''${createFindlibDestdir-}"; then

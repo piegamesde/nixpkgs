@@ -53,13 +53,7 @@ in
     environment.systemPackages = [ pkgs.imwheel ];
 
     environment.etc."X11/imwheel/imwheelrc".source = pkgs.writeText "imwheelrc" (
-      concatStringsSep "\n\n" (
-        mapAttrsToList
-          (rule: conf: ''
-            "${rule}"
-            ${conf}'')
-          cfg.rules
-      )
+      concatStringsSep "\n\n" (mapAttrsToList (rule: conf: "\"${rule}\"\n${conf}") cfg.rules)
     );
 
     systemd.user.services.imwheel = {

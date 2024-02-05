@@ -115,8 +115,8 @@ let
     logfile: tag:
     let
       rotated = map (i: "${logfile}.${toString i}") (range 1 9);
-      all = concatMapStringsSep " " (f: ''"${f}"'') ([ logfile ] ++ rotated);
-      logcmd = ''tail -F ${all} 2> /dev/null | logger -t "${tag}"'';
+      all = concatMapStringsSep " " (f: "\"${f}\"") ([ logfile ] ++ rotated);
+      logcmd = "tail -F ${all} 2> /dev/null | logger -t \"${tag}\"";
     in
     if debug then "machine.execute(ru('${logcmd} & disown'))" else "pass";
 

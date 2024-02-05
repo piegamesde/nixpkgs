@@ -30,7 +30,7 @@ buildGoModule rec {
   preCheck = ''
     pushd test/binaries/
     for f in *.py; do
-      patchShebangs $f
+      patchShebangs ''$f
     done
     popd
     export COD_TEST_BINARY="''${NIX_BUILD_TOP}/go/bin/cod"

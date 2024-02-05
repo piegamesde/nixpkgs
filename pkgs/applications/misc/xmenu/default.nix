@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
     libXinerama
   ];
 
-  postPatch = ''sed -i "s:/usr/local:$out:" config.mk'';
+  postPatch = "sed -i \"s:/usr/local:$out:\" config.mk";
 
   meta = with lib; {
     description = "A menu utility for X";

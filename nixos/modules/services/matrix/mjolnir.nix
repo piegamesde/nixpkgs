@@ -218,7 +218,7 @@ in
       wantedBy = [ "multi-user.target" ];
 
       serviceConfig = {
-        ExecStart = "${pkgs.mjolnir}/bin/mjolnir";
+        ExecStart = ''${pkgs.mjolnir}/bin/mjolnir'';
         ExecStartPre = [ generateConfig ];
         WorkingDirectory = cfg.dataPath;
         StateDirectory = "mjolnir";

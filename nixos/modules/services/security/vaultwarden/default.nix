@@ -63,13 +63,7 @@ let
     // configEnv;
 
   configFile = pkgs.writeText "vaultwarden.env" (
-    concatStrings (
-      mapAttrsToList
-        (name: value: ''
-          ${name}=${value}
-        '')
-        configEnv
-    )
+    concatStrings (mapAttrsToList (name: value: "${name}=${value}\n") configEnv)
   );
 
   vaultwarden = cfg.package.override { inherit (cfg) dbBackend; };

@@ -78,7 +78,7 @@ let
         buildFlags = [ "--without-imlib2-config" ];
       };
       mini_racer = attrs: {
-        buildFlags = [ ''--with-v8-dir="${v8}"'' ];
+        buildFlags = [ "--with-v8-dir=\"${v8}\"" ];
         dontBuild = false;
         postPatch = ''
           substituteInPlace ext/mini_racer_extension/extconf.rb \

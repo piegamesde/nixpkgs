@@ -28,10 +28,10 @@ let
     "!a" = "still not! a comment";
     "!b" = "still not ! a comment";
     "dos paths" = "C:\\Program Files\\Nix For Windows\\nix.exe";
-    "a 	\nb" = " c";
-    "angry 	\nkey" = ''
+    "a \t\nb" = " c";
+    "angry \t\nkey" = ''
       multi
-      ${"	line\r"}
+      ${"\tline\r"}
        space-
         indented
       trailing-space${" "}
@@ -74,7 +74,7 @@ stdenv.mkDerivation {
     )
   );
 
-  src = lib.sourceByRegex ./. [ ".*.java" ];
+  src = lib.sourceByRegex ./. [ ".*\.java" ];
   # On Linux, this can be C.UTF-8, but darwin + zulu requires en_US.UTF-8
   LANG = "en_US.UTF-8";
   buildPhase = ''

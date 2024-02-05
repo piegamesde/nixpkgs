@@ -21,7 +21,12 @@ stdenv.mkDerivation {
   # need at least .config and include
   kernel = kernel.dev;
 
-  buildPhase = "\n    echo make KBUILD=$(echo $kernel/lib/modules/*/build);\n    echo -n $kernel/lib/modules/*/build > kbuild_path\n    export PATH=${kmod}/sbin:$PATH\n    make KBUILD=$(echo $kernel/lib/modules/*/build);\n  ";
+  buildPhase = "
+    echo make KBUILD=$(echo \$kernel/lib/modules/*/build);
+    echo -n $kernel/lib/modules/*/build > kbuild_path
+    export PATH=${kmod}/sbin:$PATH
+    make KBUILD=$(echo \$kernel/lib/modules/*/build);
+  ";
 
   installPhase = ''
     make install KBUILD=$(cat kbuild_path) DESTDIR=$out

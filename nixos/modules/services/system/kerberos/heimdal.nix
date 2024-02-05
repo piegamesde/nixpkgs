@@ -32,9 +32,7 @@ let
                   target,
                   ...
                 }:
-                ''
-                  ${principal}	${concatStringsSep "," (toList access)}	${target}
-                ''
+                "${principal}\t${concatStringsSep "," (toList access)}\t${target}\n"
               )
             )
             acl

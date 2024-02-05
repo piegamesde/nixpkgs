@@ -4,9 +4,8 @@ rec {
   baseName = "cl-shellwords";
   version = "20150923-git";
 
-  description = ''
-    Common Lisp port of Ruby's shellwords.rb, for escaping and
-    splitting strings to be passed to a shell.'';
+  description = "Common Lisp port of Ruby's shellwords.rb, for escaping and
+splitting strings to be passed to a shell.";
 
   deps = [ args."cl-ppcre" ];
 

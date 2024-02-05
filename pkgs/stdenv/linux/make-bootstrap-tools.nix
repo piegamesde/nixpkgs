@@ -293,7 +293,7 @@ rec {
       "ash"
       "-e"
       "-c"
-      ''eval "$buildCommand"''
+      "eval \"$buildCommand\""
     ];
 
     buildCommand =

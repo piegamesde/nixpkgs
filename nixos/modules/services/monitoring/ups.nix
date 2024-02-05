@@ -224,7 +224,9 @@ in
       "nut/ups.conf".source = pkgs.writeText "ups.conf" ''
         maxstartdelay = ${toString cfg.maxStartDelay}
 
-        ${flip concatStringsSep (forEach (attrValues cfg.ups) (ups: ups.summary)) "\n\n          "}
+        ${flip concatStringsSep (forEach (attrValues cfg.ups) (ups: ups.summary)) "
+
+          "}
       '';
       "nut/upssched.conf".source = cfg.schedulerRules;
       # These file are containing private information and thus should not

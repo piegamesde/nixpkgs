@@ -67,7 +67,7 @@ let
   replaceSecret =
     secretFile: placeholder: targetFile:
     optionalString (secretFile != null)
-      "${pkgs.replace-secret}/bin/replace-secret '${placeholder}' '${secretFile}' '${targetFile}' ";
+      ''${pkgs.replace-secret}/bin/replace-secret '${placeholder}' '${secretFile}' '${targetFile}' '';
 
   preStart = pkgs.writeShellScript "mpdscribble-pre-start" ''
     cp -f "${cfgTemplate}" "${cfgFile}"
@@ -191,7 +191,7 @@ in
       };
       description = lib.mdDoc ''
         Endpoints to scrobble to.
-        If the endpoint is one of "${concatStringsSep ''", "'' (attrNames endpointUrls)}" the url is set automatically.
+        If the endpoint is one of "${concatStringsSep "\", \"" (attrNames endpointUrls)}" the url is set automatically.
       '';
     };
   };

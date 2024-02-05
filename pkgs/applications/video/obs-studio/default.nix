@@ -127,7 +127,7 @@ stdenv.mkDerivation rec {
   # DL_OPENGL is an explicit path. Not sure if there's a better way
   # to handle this.
   cmakeFlags = [
-    ''-DCMAKE_CXX_FLAGS=-DDL_OPENGL=\"$(out)/lib/libobs-opengl.so\"''
+    "-DCMAKE_CXX_FLAGS=-DDL_OPENGL=\\\"$(out)/lib/libobs-opengl.so\\\""
     "-DOBS_VERSION_OVERRIDE=${version}"
     "-Wno-dev" # kill dev warnings that are useless for packaging
     # Add support for browser source

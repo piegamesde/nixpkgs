@@ -83,9 +83,10 @@ in
       };
       postMountCommands =
         concatMapStrings
-          (dev: ''
-            cryptsetup luksOpen --key-file ${dev.encrypted.keyFile} ${dev.encrypted.blkDev} ${dev.encrypted.label};
-          '')
+          (
+            dev:
+            "cryptsetup luksOpen --key-file ${dev.encrypted.keyFile} ${dev.encrypted.blkDev} ${dev.encrypted.label};\n"
+          )
           keyedEncDevs;
     };
   };

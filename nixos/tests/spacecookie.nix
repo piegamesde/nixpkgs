@@ -2,9 +2,7 @@ let
   gopherRoot = "/tmp/gopher";
   gopherHost = "gopherd";
   gopherClient = "client";
-  fileContent = ''
-    Hello Gopher!
-  '';
+  fileContent = "Hello Gopher!\n";
   fileName = "file.txt";
 in
 import ./make-test-python.nix (

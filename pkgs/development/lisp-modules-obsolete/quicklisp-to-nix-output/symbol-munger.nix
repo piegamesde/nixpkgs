@@ -4,9 +4,8 @@ rec {
   baseName = "symbol-munger";
   version = "20150407-git";
 
-  description = ''
-    Functions to convert between the spacing and
-      capitalization conventions of various environments'';
+  description = "Functions to convert between the spacing and
+  capitalization conventions of various environments";
 
   deps = [
     args."alexandria"

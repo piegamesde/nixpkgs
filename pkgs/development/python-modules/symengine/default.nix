@@ -48,7 +48,7 @@ buildPythonPackage rec {
 
   setupPyBuildFlags = [
     "--symengine-dir=${symengine}/"
-    ''--define="CYTHON_BIN=${cython}/bin/cython"''
+    "--define=\"CYTHON_BIN=${cython}/bin/cython\""
   ];
 
   checkPhase = ''

@@ -88,7 +88,7 @@ llvmPackages_14.stdenv.mkDerivation rec {
     "-DRP_ENABLE_TESTS=OFF"
     "-Wno-dev"
     "-DGIT_VER=${version}"
-    ''-DGIT_CLEAN_DIRTY=""''
+    "-DGIT_CLEAN_DIRTY=\"\""
   ];
 
   buildInputs = [

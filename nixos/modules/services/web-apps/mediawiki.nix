@@ -136,7 +136,7 @@ let
       $wgDBuser = "${cfg.database.user}";
       ${
         optionalString (cfg.database.passwordFile != null)
-          ''$wgDBpassword = file_get_contents("${cfg.database.passwordFile}");''
+          "$wgDBpassword = file_get_contents(\"${cfg.database.passwordFile}\");"
       }
 
       ${

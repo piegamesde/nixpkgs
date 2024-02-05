@@ -224,13 +224,7 @@ let
     optionalString (listen != [ ]) ''
       <VirtualHost ${concatMapStringsSep " " (listen: "${listen.ip}:${toString listen.port}") listen}>
           ServerName ${hostOpts.hostName}
-          ${
-            concatMapStrings
-              (alias: ''
-                ServerAlias ${alias}
-              '')
-              hostOpts.serverAliases
-          }
+          ${concatMapStrings (alias: "ServerAlias ${alias}\n") hostOpts.serverAliases}
           ${optionalString (adminAddr != null) "ServerAdmin ${adminAddr}"}
           <IfModule mod_ssl.c>
               SSLEngine off
@@ -254,13 +248,7 @@ let
     + optionalString (listenSSL != [ ]) ''
       <VirtualHost ${concatMapStringsSep " " (listen: "${listen.ip}:${toString listen.port}") listenSSL}>
           ServerName ${hostOpts.hostName}
-          ${
-            concatMapStrings
-              (alias: ''
-                ServerAlias ${alias}
-              '')
-              hostOpts.serverAliases
-          }
+          ${concatMapStrings (alias: "ServerAlias ${alias}\n") hostOpts.serverAliases}
           ${optionalString (adminAddr != null) "ServerAdmin ${adminAddr}"}
           SSLEngine on
           SSLCertificateFile ${sslServerCert}

@@ -139,7 +139,7 @@ let
       prefix ? "",
     }:
     nameValuePair "zfs-import-${pool}" {
-      description = ''Import ZFS pool "${pool}"'';
+      description = "Import ZFS pool \"${pool}\"";
       # we need systemd-udev-settle to ensure devices are available
       # In the future, hopefully someone will complete this:
       # https://github.com/zfsonlinux/zfs/pull/4943
@@ -223,13 +223,13 @@ let
                 if isInt v then
                   toString v
                 else if isString v then
-                  ''"${v}"''
+                  "\"${v}\""
                 else if true == v then
                   "1"
                 else if false == v then
                   "0"
                 else if isList v then
-                  ''"'' + (concatStringsSep " " v) + ''"''
+                  "\"" + (concatStringsSep " " v) + "\""
                 else
                   err "this value is" (toString v);
             }
@@ -751,7 +751,7 @@ in
           createSyncService =
             pool:
             nameValuePair "zfs-sync-${pool}" {
-              description = ''Sync ZFS pool "${pool}"'';
+              description = "Sync ZFS pool \"${pool}\"";
               wantedBy = [ "shutdown.target" ];
               unitConfig = {
                 DefaultDependencies = false;

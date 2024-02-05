@@ -1040,13 +1040,7 @@ self: super:
               <shortDescription>${name}</shortDescription>
               <description>${layout.description}</description>
               <languageList>
-                ${
-                  concatMapStrings
-                    (lang: ''
-                      <iso639Id>${lang}</iso639Id>
-                    '')
-                    layout.languages
-                }
+                ${concatMapStrings (lang: "<iso639Id>${lang}</iso639Id>\n") layout.languages}
               </languageList>
             </configItem>
             <variantList/>

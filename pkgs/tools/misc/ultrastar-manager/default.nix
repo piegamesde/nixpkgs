@@ -92,7 +92,7 @@ let
 
         # plugins use the application’s binary folder (wtf)
         for f in $(grep -lr "QCoreApplication::applicationDirPath" src/plugins); do
-          ${patchApplicationPath "$f" "$out"}
+          ${patchApplicationPath "$f" "\$out"}
         done
 
       '';

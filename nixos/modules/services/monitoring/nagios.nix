@@ -41,7 +41,7 @@ let
         cfg_dir = "${nagiosObjectDefsDir}";
         nagios_user = "nagios";
         nagios_group = "nagios";
-        illegal_macro_output_chars = ''`~$&|'"<>'';
+        illegal_macro_output_chars = "`~$&|'\"<>";
         retain_state_information = "1";
       };
       lines = mapAttrsToList (key: value: "${key}=${value}") (default // cfg.extraConfig);
@@ -102,7 +102,7 @@ in
   options = {
     services.nagios = {
       enable = mkEnableOption (
-        lib.mdDoc "[Nagios](http://www.nagios.org/) to monitor your system or network."
+        lib.mdDoc ''[Nagios](http://www.nagios.org/) to monitor your system or network.''
       );
 
       objectDefs = mkOption {

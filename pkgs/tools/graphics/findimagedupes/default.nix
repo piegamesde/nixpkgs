@@ -47,7 +47,11 @@ stdenv.mkDerivation rec {
       --replace "Graphics::Magick" "Image::Magick"
   '';
 
-  buildPhase = "\n    runHook preBuild\n    ${perl}/bin/pod2man findimagedupes > findimagedupes.1\n    runHook postBuild\n  ";
+  buildPhase = "
+    runHook preBuild
+    ${perl}/bin/pod2man findimagedupes > findimagedupes.1
+    runHook postBuild
+  ";
 
   installPhase = ''
     runHook preInstall

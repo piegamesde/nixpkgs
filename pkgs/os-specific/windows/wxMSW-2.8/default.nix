@@ -24,11 +24,16 @@ stdenv.mkDerivation rec {
     "--with-opengl"
   ];
 
-  preConfigure = "\n    substituteInPlace configure --replace /usr /no-such-path\n  ";
+  preConfigure = "
+    substituteInPlace configure --replace /usr /no-such-path
+  ";
 
   postBuild = "(cd contrib/src && make)";
 
-  postInstall = "\n    (cd contrib/src && make install)\n    (cd $out/include && ln -s wx-*/* .)\n  ";
+  postInstall = "
+    (cd contrib/src && make install)
+    (cd $out/include && ln -s wx-*/* .)
+  ";
 
   passthru = {
     inherit compat24 compat26 unicode;

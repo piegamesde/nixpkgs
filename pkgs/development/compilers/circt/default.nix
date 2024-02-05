@@ -56,7 +56,7 @@ stdenv.mkDerivation rec {
   #
   # As a temporary fix, we disabled these tests when using clang stdenv
   # cannot use lib.optionalString as it creates an empty string, disabling all tests
-  LIT_FILTER_OUT = if stdenv.cc.isClang then "CIRCT :: Target/ExportSystemC/.*.mlir" else null;
+  LIT_FILTER_OUT = if stdenv.cc.isClang then "CIRCT :: Target/ExportSystemC/.*\.mlir" else null;
 
   preConfigure = ''
     substituteInPlace test/circt-reduce/test/annotation-remover.mlir --replace "/usr/bin/env" "${coreutils}/bin/env"

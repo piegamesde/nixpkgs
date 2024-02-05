@@ -10,13 +10,7 @@ with lib;
 let
   cfg = config.services.monero;
 
-  listToConf =
-    option: list:
-    concatMapStrings
-      (value: ''
-        ${option}=${value}
-      '')
-      list;
+  listToConf = option: list: concatMapStrings (value: "${option}=${value}\n") list;
 
   login = (cfg.rpc.user != null && cfg.rpc.password != null);
 

@@ -433,7 +433,7 @@ let
       lib.optionals stdenv.isDarwin [ "-fno-common" ]
       ++ lib.optionals enableOpenCL [
         "-UPIPE_SEARCH_DIR"
-        ''-DPIPE_SEARCH_DIR="${placeholder "opencl"}/lib/gallium-pipe"''
+        "-DPIPE_SEARCH_DIR=\"${placeholder "opencl"}/lib/gallium-pipe\""
       ]
     );
 

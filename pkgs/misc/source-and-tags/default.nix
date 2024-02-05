@@ -81,7 +81,17 @@
               name = "${deriv.name}_haskell";
               # tagCmd = "${toString ghcsAndLibs.ghc68.ghc}/bin/hasktags --ignore-close-implementation --ctags `find . -type f -name \"*.*hs\"`; sort tags > \$TAG_FILE"; }
               # *.*hs.* to catch gtk2hs .hs.pp files
-              tagCmd = "\n                   srcs=\"`find . -type f -name \"*.*hs\"; find . -type f -name \"*.*hs*\";`\"\n                   [ -z \"$srcs\" ] || {\n                    # without this creating tag files for lifted-base fails\n                    export LC_ALL=en_US.UTF-8\n                    export LANG=en_US.UTF-8\n                    ${lib.optionalString stdenv.isLinux "export LOCALE_ARCHIVE=${glibcLocales}/lib/locale/locale-archive;"}\n\n                    ${toString hasktags}/bin/hasktags --ignore-close-implementation --ctags .\n                    mv tags $TAG_FILE\n                   }";
+              tagCmd = "
+                   srcs=\"`find . -type f -name \"*.*hs\"; find . -type f -name \"*.*hs*\";`\"
+                   [ -z \"$srcs\" ] || {
+                    # without this creating tag files for lifted-base fails
+                    export LC_ALL=en_US.UTF-8
+                    export LANG=en_US.UTF-8
+                    ${lib.optionalString stdenv.isLinux "export LOCALE_ARCHIVE=${glibcLocales}/lib/locale/locale-archive;"}
+
+                    ${toString hasktags}/bin/hasktags --ignore-close-implementation --ctags .
+                    mv tags \$TAG_FILE
+                   }";
             }
           ];
         };
@@ -99,7 +109,7 @@
           createTagFiles = [
             {
               inherit (deriv) name;
-              tagCmd = "${toString ctags}/bin/ctags --sort=yes -o $TAG_FILE -R .";
+              tagCmd = "${toString ctags}/bin/ctags --sort=yes -o \$TAG_FILE -R .";
             }
           ];
         };

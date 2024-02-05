@@ -117,7 +117,7 @@ stdenv.mkDerivation rec {
 
   # set the R package buildPhase to null because lightgbm has a
   # custom builder script that builds and installs in one step
-  buildPhase = lib.optionals rLibrary "";
+  buildPhase = lib.optionals rLibrary '''';
 
   inherit doCheck;
 
@@ -138,7 +138,7 @@ stdenv.mkDerivation rec {
       cp -r com $out
       cp -r lightgbmlib.jar $out
     ''
-    + ""
+    + ''''
     + lib.optionalString javaWrapper ''
       cp -r java $out
       cp -r com $out

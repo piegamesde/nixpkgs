@@ -21,28 +21,15 @@
 
   let
     link_arguments = map (x: ''"${x.filename}" '') dictlist;
-    databases = lib.concatStrings (
-      map
-        (x: ''
-          ${x.name}  ${x.filename}
-        '')
-        dictlist
-    );
-    allow = lib.concatStrings (
-      map
-        (x: ''
-          allow ${x}
-        '')
-        allowList
-    );
-    deny = lib.concatStrings (
-      map
-        (x: ''
-          deny ${x}
-        '')
-        denyList
-    );
-    accessSection = "\n  access {\n    ${allow}\n    ${deny}\n  }\n";
+    databases = lib.concatStrings (map (x: "${x.name}  ${x.filename}\n") dictlist);
+    allow = lib.concatStrings (map (x: "allow ${x}\n") allowList);
+    deny = lib.concatStrings (map (x: "deny ${x}\n") denyList);
+    accessSection = "
+  access {
+    ${allow}
+    ${deny}
+  }
+";
     installPhase = ''
         mkdir -p $out/share/dictd
       cd $out/share/dictd

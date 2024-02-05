@@ -167,8 +167,8 @@ stdenv.mkDerivation rec {
         --replace "@out@" "$out"
 
       # the turning
-      sed -i -e 's@^PASS=.*$@PASS=$out/bin/pass@' \
-             -e 's@^GPGS=.*$@GPG=${gnupg}/bin/gpg2@' \
+      sed -i -e 's@^PASS=.*''$@PASS=$out/bin/pass@' \
+             -e 's@^GPGS=.*''$@GPG=${gnupg}/bin/gpg2@' \
              -e '/which gpg/ d' \
         tests/setup.sh
     ''

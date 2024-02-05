@@ -109,10 +109,7 @@ import ./make-test-python.nix (
                 }
               '';
               variables = {
-                content = ''
-                  # Header
-
-                  Hello world!'';
+                content = "# Header\n\nHello world!";
                 description = "";
                 editor = "markdown";
                 isPrivate = false;

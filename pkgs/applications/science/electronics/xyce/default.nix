@@ -149,7 +149,7 @@ stdenv.mkDerivation rec {
     # Gold standard has additional ":R" suffix in result column label
     echo "Output/HB/hb-step-tecplot.cir" >> $EXLUDE_TESTS_FILE
     # This test makes Xyce access /sys/class/net when run with MPI
-    ${lib.optionalString withMPI ''echo "CommandLine/command_line.cir" >> $EXLUDE_TESTS_FILE''}
+    ${lib.optionalString withMPI "echo \"CommandLine/command_line.cir\" >> $EXLUDE_TESTS_FILE"}
 
     $TEST_ROOT/TestScripts/run_xyce_regression \
       --output="$(pwd)/Xyce_Test" \

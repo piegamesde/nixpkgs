@@ -3168,7 +3168,9 @@ let
       + optionalString (def.xfrm != [ ]) ''
         ${concatStringsSep "\n" (map (s: "Xfrm=${s}") def.xfrm)}
       ''
-      + "\n"
+      + ''
+
+      ''
       + flip concatMapStrings def.addresses (
         x: ''
           [Address]

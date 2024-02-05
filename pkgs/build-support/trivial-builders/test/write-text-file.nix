@@ -5,7 +5,7 @@ in
 writeTextFile {
   name = "weird-names";
   destination = "/etc/${veryWeirdName}";
-  text = "passed!";
+  text = ''passed!'';
   checkPhase = ''
     # intentionally hardcode everything here, to make sure
     # Nix does not mess with file paths

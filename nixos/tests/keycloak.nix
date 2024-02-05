@@ -9,7 +9,7 @@ let
   keycloakTest = import ./make-test-python.nix (
     { pkgs, databaseType, ... }:
     let
-      initialAdminPassword = ''h4Iho"JFn't2>iQIR9'';
+      initialAdminPassword = "h4Iho\"JFn't2>iQIR9";
       adminPasswordFile = pkgs.writeText "admin-password" "${initialAdminPassword}";
     in
     {
@@ -40,7 +40,7 @@ let
                 type = databaseType;
                 username = "bogus";
                 name = "also bogus";
-                passwordFile = "${pkgs.writeText "dbPassword" "wzf6\\\"vO\"Cb\\nP>p#6;c&o?eu=q'THE''H'''E"}";
+                passwordFile = "${pkgs.writeText "dbPassword" ''wzf6\"vO"Cb\nP>p#6;c&o?eu=q'THE'''H''''E''}";
               };
               plugins = with config.services.keycloak.package.plugins; [
                 keycloak-discord

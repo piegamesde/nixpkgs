@@ -40,7 +40,7 @@ let
         let
           a = cfg.tcp.anonymousClients.allowedIpRanges;
         in
-        optional (a != [ ]) "auth-ip-acl=${concatStringsSep ";" a}";
+        optional (a != [ ]) ''auth-ip-acl=${concatStringsSep ";" a}'';
     in
     writeTextFile {
       name = "default.pa";

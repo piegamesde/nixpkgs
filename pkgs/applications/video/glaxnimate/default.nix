@@ -69,7 +69,7 @@ stdenv.mkDerivation rec {
     python3WithLibs
   ];
 
-  qtWrapperArgs = [ "--prefix PATH : ${python3WithLibs}/bin" ];
+  qtWrapperArgs = [ ''--prefix PATH : ${python3WithLibs}/bin'' ];
 
   passthru.tests.version = lib.optionalAttrs stdenv.isLinux (
     testers.testVersion {

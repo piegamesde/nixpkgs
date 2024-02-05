@@ -6,9 +6,8 @@ rec {
 
   parasites = [ "arrows/test" ];
 
-  description = ''
-    Implements -> and ->> from Clojure, as well as several expansions on the
-    idea.'';
+  description = "Implements -> and ->> from Clojure, as well as several expansions on the
+idea.";
 
   deps = [ args."hu_dot_dwim_dot_stefil" ];
 

@@ -356,9 +356,9 @@ rec {
       escapeElixir = escape [
         "\\"
         "#"
-        ''"''
+        "\""
       ];
-      string = value: ''"${escapeElixir value}"'';
+      string = value: "\"${escapeElixir value}\"";
 
       attrs =
         set:

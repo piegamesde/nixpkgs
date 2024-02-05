@@ -66,7 +66,7 @@ let
     };
 
     extraArgs = mkOption {
-      description = mdDoc ''Extra command line arguments to pass to `wstunnel`. Attributes of the form `argName = true;` will be translated to `--argName`, and `argName = "value"` to `--argName=value`.'';
+      description = mdDoc "Extra command line arguments to pass to `wstunnel`. Attributes of the form `argName = true;` will be translated to `--argName`, and `argName = \"value\"` to `--argName=value`.";
       type = with types; attrsOf (either str bool);
       default = { };
       example = {
@@ -359,7 +359,7 @@ let
             ${
               concatStringsSep " " (builtins.map (x: "--localToRemote=${localRemoteToString x}") localToRemote)
             } \
-            ${concatStringsSep " " (mapAttrsToList (n: v: ''--customHeaders="${n}: ${v}"'') customHeaders)} \
+            ${concatStringsSep " " (mapAttrsToList (n: v: "--customHeaders=\"${n}: ${v}\"") customHeaders)} \
             ${
               optionalString (dynamicToRemote != null)
                 "--dynamicToRemote=${utils.escapeSystemdExecArg (hostPortToString dynamicToRemote)}"

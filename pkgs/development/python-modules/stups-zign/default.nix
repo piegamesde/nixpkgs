@@ -35,7 +35,9 @@ buildPythonPackage rec {
     stups-cli-support
   ];
 
-  preCheck = "\n    export HOME=$TEMPDIR\n  ";
+  preCheck = "
+    export HOME=$TEMPDIR
+  ";
 
   nativeCheckInputs = [
     pytest

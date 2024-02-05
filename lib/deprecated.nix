@@ -415,19 +415,10 @@ rec {
       ]
     )
     // listToAttrs (
-      map
-        (
-          n:
-          nameValuePair n (
-            a: b: ''
-              ${a}
-              ${b}''
-          )
-        )
-        [
-          "preConfigure"
-          "postInstall"
-        ]
+      map (n: nameValuePair n (a: b: "${a}\n${b}")) [
+        "preConfigure"
+        "postInstall"
+      ]
     );
 
   nixType =

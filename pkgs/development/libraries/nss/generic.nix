@@ -130,7 +130,7 @@ stdenv.mkDerivation rec {
   env.NIX_CFLAGS_COMPILE = toString (
     [
       "-Wno-error"
-      ''-DNIX_NSS_LIBDIR="${placeholder "out"}/lib/"''
+      "-DNIX_NSS_LIBDIR=\"${placeholder "out"}/lib/\""
     ]
     ++ lib.optionals stdenv.hostPlatform.is64bit [ "-DNSS_USE_64=1" ]
     ++ lib.optionals stdenv.hostPlatform.isILP32 [

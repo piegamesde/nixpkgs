@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
 
   makeFlags = [
     "DESTDIR=$(out)"
-    ''libdir="/lib"''
+    "libdir=\"/lib\""
   ];
 
   postInstall = ''

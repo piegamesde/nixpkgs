@@ -20,7 +20,9 @@ in
       session = [
         {
           name = "openbox";
-          start = "\n          ${pkgs.openbox}/bin/openbox-session\n        ";
+          start = "
+          ${pkgs.openbox}/bin/openbox-session
+        ";
         }
       ];
     };

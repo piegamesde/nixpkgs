@@ -114,10 +114,7 @@ stdenv.mkDerivation (
       ''
       +
         # Generate code to install the icons
-        (lib.concatMapStringsSep
-          ''
-            ;
-          ''
+        (lib.concatMapStringsSep ";\n"
           (res: "install -Dm644 -T ../ui/icons/xemu_${res}.png $out/share/icons/hicolor/${res}/apps/xemu.png")
           [
             "16x16"

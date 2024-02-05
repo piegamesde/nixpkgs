@@ -79,9 +79,9 @@ buildPythonPackage {
       let
         cudaVersion = lib.concatStrings (lib.splitVersion torch.cudaPackages.cudaMajorMinorVersion);
       in
-      "make CUDA_VERSION=${cudaVersion} cuda${cudaMajorVersion}x"
+      ''make CUDA_VERSION=${cudaVersion} cuda${cudaMajorVersion}x''
     else
-      "make CUDA_VERSION=CPU cpuonly";
+      ''make CUDA_VERSION=CPU cpuonly'';
 
   nativeBuildInputs = [ setuptools ] ++ lib.optionals torch.cudaSupport [ cuda-native-redist ];
   buildInputs = lib.optionals torch.cudaSupport [ cuda-redist ];

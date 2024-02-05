@@ -323,14 +323,7 @@ let
   torrc = pkgs.writeText "torrc" (
     genTorrc cfg.settings
     + concatStrings (
-      mapAttrsToList
-        (
-          name: onion:
-          ''
-            HiddenServiceDir ${onion.path}
-          ''
-          + genTorrc onion.settings
-        )
+      mapAttrsToList (name: onion: "HiddenServiceDir ${onion.path}\n" + genTorrc onion.settings)
         cfg.relay.onionServices
     )
   );

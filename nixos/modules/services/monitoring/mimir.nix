@@ -42,7 +42,7 @@ in
       default = pkgs.mimir;
       defaultText = lib.literalExpression "pkgs.mimir";
       type = types.package;
-      description = lib.mdDoc "Mimir package to use.";
+      description = lib.mdDoc ''Mimir package to use.'';
     };
   };
 

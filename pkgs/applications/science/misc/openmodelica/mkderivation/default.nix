@@ -62,7 +62,7 @@ let
   # Simple to to m4 configuration scripts
   postPatch =
     lib.optionalString ifDeps ''
-      sed -i $(find -name omhome.m4) -e 's|if test ! -z "$USINGPRESETBUILDDIR"|if test ! -z "$USINGPRESETBUILDDIR" -a -z "$OMHOME"|'
+      sed -i ''$(find -name omhome.m4) -e 's|if test ! -z "$USINGPRESETBUILDDIR"|if test ! -z "$USINGPRESETBUILDDIR" -a -z "$OMHOME"|'
     ''
     + appendByAttr "postPatch" "\n" pkg;
 

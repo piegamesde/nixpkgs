@@ -226,9 +226,7 @@ runCommand "make-wrapper-test"
     + mkTest "test-args foo" "abc foo xyz"
 
     # --run works
-    + mkTest "test-run" ''
-      bar
-      VAR=''
+    + mkTest "test-run" "bar\nVAR="
     # --run & --set works
     + mkTest "test-run-and-set" "VAR=bar"
 

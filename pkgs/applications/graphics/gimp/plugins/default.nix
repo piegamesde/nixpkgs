@@ -325,7 +325,9 @@ lib.makeScope pkgs.newScope (
         gexiv2
       ];
 
-      installPhase = "\n      installPlugin gimp-lensfun\n    ";
+      installPhase = "
+      installPlugin gimp-lensfun
+    ";
 
       meta = {
         description = "GIMP plugin to correct lens distortion using the lensfun library and database";

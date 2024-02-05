@@ -340,10 +340,7 @@ stdenv.mkDerivation (
         + optionalString (args ? meta && args.meta ? description) " (${args.meta.description})";
       longDescription =
         (args.meta.longDescription or "")
-        + ''
-
-          Includes:
-        ''
+        + "\nIncludes:\n"
         + withXenfiles (name: x: "* ${name}: ${x.meta.description or "(No description)"}.");
       platforms = [ "x86_64-linux" ];
       maintainers = [ ];

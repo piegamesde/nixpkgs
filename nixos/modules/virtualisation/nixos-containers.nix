@@ -178,7 +178,7 @@ let
       } \
       ${
         optionalString (cfg.tmpfs != null && cfg.tmpfs != [ ])
-          "--tmpfs=${concatStringsSep " --tmpfs=" cfg.tmpfs}"
+          ''--tmpfs=${concatStringsSep " --tmpfs=" cfg.tmpfs}''
       } \
       ${containerInit cfg} "''${SYSTEM_PATH:-/nix/var/nix/profiles/system}/init"
   '';

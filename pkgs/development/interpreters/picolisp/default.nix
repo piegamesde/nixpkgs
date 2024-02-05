@@ -30,7 +30,7 @@ stdenv.mkDerivation rec {
       EOF
     ''}
   '';
-  sourceRoot = "picoLisp/src${lib.optionalString stdenv.is64bit "64"}";
+  sourceRoot = ''picoLisp/src${lib.optionalString stdenv.is64bit "64"}'';
   postBuild = ''
     cd ../src; make gate
   '';

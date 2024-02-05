@@ -15,14 +15,7 @@ let
     desc: elemType: check:
     types.addCheck elemType check // { description = "${elemType.description} (with check: ${desc})"; };
 
-  isNonEmpty =
-    s:
-    (builtins.match
-      ''
-        [ 	
-        ]*''
-      s
-    ) == null;
+  isNonEmpty = s: (builtins.match "[ \t\n]*" s) == null;
   nonEmptyStr = addCheckDesc "non-empty" types.str isNonEmpty;
 
   fileSystems' = toposort fsBefore (attrValues config.fileSystems);
@@ -234,7 +227,7 @@ let
         builtins.replaceStrings
           [
             " "
-            "	"
+            "\t"
           ]
           [
             "\\040"
@@ -402,9 +395,9 @@ in
             let
               fs = head (filter notAutoResizable fileSystems);
             in
-            ''Mountpoint '${fs.mountPoint}': 'autoResize = true' is not supported for 'fsType = "${fs.fsType}"':${
+            "Mountpoint '${fs.mountPoint}': 'autoResize = true' is not supported for 'fsType = \"${fs.fsType}\"':${
               optionalString (fs.fsType == "auto") " fsType has to be explicitly set and"
-            } only the ext filesystems and f2fs support it.'';
+            } only the ext filesystems and f2fs support it.";
         }
       ];
 
@@ -451,11 +444,7 @@ in
         ${makeFstabEntries fileSystems { }}
 
         # Swap devices.
-        ${flip concatMapStrings config.swapDevices (
-          sw: ''
-            ${sw.realDevice} none swap ${swapOptions sw}
-          ''
-        )}
+        ${flip concatMapStrings config.swapDevices (sw: "${sw.realDevice} none swap ${swapOptions sw}\n")}
       '';
 
     boot.initrd.systemd.storePaths = [ initrdFstab ];

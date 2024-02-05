@@ -21,11 +21,7 @@ let
     listen:
     (
       ${
-        concatMapStringsSep
-          ''
-            ,
-          ''
-          (addr: ''{ host: "${addr}"; port: "${toString cfg.port}"; }'')
+        concatMapStringsSep ",\n" (addr: ''{ host: "${addr}"; port: "${toString cfg.port}"; }'')
           cfg.listenAddresses
       }
     );

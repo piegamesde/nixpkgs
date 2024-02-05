@@ -198,7 +198,7 @@ let
         tempAddress = mkOption {
           type = types.enum (lib.attrNames tempaddrValues);
           default = cfg.tempAddresses;
-          defaultText = literalExpression "config.networking.tempAddresses";
+          defaultText = literalExpression ''config.networking.tempAddresses'';
           description = lib.mdDoc ''
             When IPv6 is enabled with SLAAC, this option controls the use of
             temporary address (aka privacy extensions) on this

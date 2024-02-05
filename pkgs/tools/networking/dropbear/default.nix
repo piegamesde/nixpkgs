@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
   configureFlags = lib.optional enableStatic "LDFLAGS=-static";
 
   CFLAGS = lib.pipe (lib.attrNames dflags) [
-    (builtins.map (name: ''-D${name}=\"${dflags.${name}}\"''))
+    (builtins.map (name: "-D${name}=\\\"${dflags.${name}}\\\""))
     (lib.concatStringsSep " ")
   ];
 

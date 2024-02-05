@@ -37,7 +37,7 @@ stdenv.mkDerivation rec {
     "WISH=${tk}/bin/wish"
     "rman=${rman}/bin/rman"
     # TODO package glimpse https://github.com/gvelez17/glimpse
-    ''glimpse=""''
+    "glimpse=\"\""
   ];
 
   preBuild = ''

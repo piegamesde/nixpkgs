@@ -30,13 +30,7 @@ rec {
         indentation
         + (
           if isAttrs value then
-            ''
-              ${name} {
-            ''
-            + mkConf (indent + 2) value
-            + "\n"
-            + indentation
-            + "}"
+            "${name} {\n" + mkConf (indent + 2) value + "\n" + indentation + "}"
           else
             "${name} = ${value}"
         )

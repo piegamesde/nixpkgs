@@ -80,7 +80,7 @@ stdenv.mkDerivation rec {
 
   cmakeFlags = lib.optionals (stdenv.buildPlatform != stdenv.hostPlatform) [ "-DBITFIELDS_HTOL=0" ];
 
-  makeFlags = [ "PREFIX=$(out)" ];
+  makeFlags = [ "PREFIX=\$(out)" ];
 
   meta = {
     description = "Portable command-line CD/DVD recorder software, mostly compatible with cdrtools";

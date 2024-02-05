@@ -9,9 +9,8 @@ rec {
     "mgl-pax/navigate"
   ];
 
-  description = ''
-    Exploratory programming tool and documentation
-      generator.'';
+  description = "Exploratory programming tool and documentation
+  generator.";
 
   deps = [
     args."_3bmd"

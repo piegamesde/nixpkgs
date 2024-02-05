@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
 
   postPatch = lib.optionalString stdenv.isDarwin ''
     substituteInPlace CMakeLists.txt \
-      --replace "\$ORIGIN" "\''${CMAKE_INSTALL_PREFIX}/lib"
+      --replace "\''$ORIGIN" "\''${CMAKE_INSTALL_PREFIX}/lib"
   '';
 
   cmakeFlags =

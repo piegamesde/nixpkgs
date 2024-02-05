@@ -108,7 +108,7 @@ stdenv.mkDerivation (
             "check_pubsub_subscribe_rt_levels"
             "check_pubsub_multiple_subscribe_rt_levels"
           ];
-        regex = "^(${builtins.concatStringsSep "|" disabledTests})$";
+        regex = "^(${builtins.concatStringsSep "|" disabledTests})\$";
       in
       lib.optionalString (disabledTests != [ ]) ''
         checkFlagsArray+=(ARGS="-E ${lib.escapeRegex regex}")

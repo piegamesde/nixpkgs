@@ -148,11 +148,7 @@ let
       builtins.map
         (
           licenseName:
-          builtins.map
-            (licenseText: ''
-              --- ${licenseName} ---
-              ${licenseText}'')
-            (mkLicenses licenseName)
+          builtins.map (licenseText: "--- ${licenseName} ---\n${licenseText}") (mkLicenses licenseName)
         )
         licenseNames
     );

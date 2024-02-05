@@ -65,7 +65,7 @@ let
               if [[ "''${hookName-}" != postHook ]]; then
                   postHooks+=("source @dev@/nix-support/setup-hook")
               else
-                  # Propagate $''${out} output
+                  # Propagate $${out} output
                   propagatedUserEnvPkgs+=" @${out}@"
 
                   if [ -z "$outputDev" ]; then

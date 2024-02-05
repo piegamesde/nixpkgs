@@ -11,23 +11,13 @@ let
     with lib;
     pkgs.writeText "hitch.conf" (
       concatStringsSep "\n" [
-        (''backend = "${cfg.backend}"'')
-        (concatMapStrings
-          (s: ''
-            frontend = "${s}"
-          '')
-          cfg.frontend
-        )
-        (concatMapStrings
-          (s: ''
-            pem-file = "${s}"
-          '')
-          cfg.pem-files
-        )
-        (''ciphers = "${cfg.ciphers}"'')
-        (''ocsp-dir = "${ocspDir}"'')
-        ''user = "${cfg.user}"''
-        ''group = "${cfg.group}"''
+        ("backend = \"${cfg.backend}\"")
+        (concatMapStrings (s: "frontend = \"${s}\"\n") cfg.frontend)
+        (concatMapStrings (s: "pem-file = \"${s}\"\n") cfg.pem-files)
+        ("ciphers = \"${cfg.ciphers}\"")
+        ("ocsp-dir = \"${ocspDir}\"")
+        "user = \"${cfg.user}\""
+        "group = \"${cfg.group}\""
         cfg.extraConfig
       ]
     );

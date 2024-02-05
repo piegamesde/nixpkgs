@@ -53,7 +53,7 @@ python3Packages.buildPythonApplication rec {
 
   makeWrapperArgs = [
     "--chdir ${placeholder "out"}/share/social-engineer-toolkit"
-    ''--prefix PYTHONPATH : "${placeholder "out"}/share/social-engineer-toolkit"''
+    "--prefix PYTHONPATH : \"${placeholder "out"}/share/social-engineer-toolkit\""
   ];
 
   # Project has no tests

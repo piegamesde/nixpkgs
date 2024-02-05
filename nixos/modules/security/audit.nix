@@ -34,11 +34,7 @@ let
 
     # Put the rules in a temporary file owned and only readable by root
     rulesfile="$(mktemp)"
-    ${concatMapStrings
-      (x: ''
-        echo '${x}' >> $rulesfile
-      '')
-      cfg.rules}
+    ${concatMapStrings (x: "echo '${x}' >> $rulesfile\n") cfg.rules}
 
     # Apply the requested rules
     auditctl -R "$rulesfile"

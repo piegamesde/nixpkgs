@@ -9,7 +9,7 @@
   # Tests that we can send custom headers with spaces in them
   header =
     let
-      headerValue = ''Test '" <- These are some quotes'';
+      headerValue = "Test '\" <- These are some quotes";
     in
     testers.invalidateFetcherByDrvHash fetchurl {
       url = "https://httpbin.org/headers";

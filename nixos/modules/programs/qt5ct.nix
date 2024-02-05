@@ -10,7 +10,7 @@ with lib;
         "qt5ct"
         "enable"
       ]
-      ''Use qt5.platformTheme = "qt5ct" instead.''
+      "Use qt5.platformTheme = \"qt5ct\" instead."
     )
   ];
 }

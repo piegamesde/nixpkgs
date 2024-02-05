@@ -90,7 +90,7 @@ let
       type = with lib.types; nullOr path;
       default = lib.getExe pkgs.ghostscript;
       defaultText = lib.literalExpression "lib.getExe pkgs.ghostscript";
-      example = lib.literalExpression "\${pkgs.ghostscript}/bin/ps2pdf";
+      example = lib.literalExpression ''''${pkgs.ghostscript}/bin/ps2pdf'';
       description = lib.mdDoc "location of GhostScript binary";
     };
   };
@@ -137,11 +137,7 @@ let
       config.confFileText = lib.pipe config.settings [
         (lib.filterAttrs (key: value: value != null))
         (lib.mapAttrs (key: builtins.toString))
-        (lib.mapAttrsToList (
-          key: value: ''
-            ${key} ${value}
-          ''
-        ))
+        (lib.mapAttrsToList (key: value: "${key} ${value}\n"))
         lib.concatStrings
       ];
     };
@@ -153,9 +149,8 @@ let
     (lib.mapAttrs (name: lib.getAttr "confFileText"))
     (lib.mapAttrs (name: pkgs.writeText "cups-pdf-${name}.conf"))
     (lib.mapAttrsToList (
-      name: confFile: ''
-        ln --symbolic --no-target-directory ${confFile} /var/lib/cups/cups-pdf-${name}.conf
-      ''
+      name: confFile:
+      "ln --symbolic --no-target-directory ${confFile} /var/lib/cups/cups-pdf-${name}.conf\n"
     ))
     lib.concatStrings
   ];

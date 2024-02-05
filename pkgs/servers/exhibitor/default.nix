@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
         echo "maven hangs while downloading :("
       done
     '';
-    installPhase = "find $out/.m2 -type f \\! -regex '.+\\(pom\\|jar\\|xml\\|sha1\\)' -delete"; # delete files with lastModified timestamps inside
+    installPhase = ''find $out/.m2 -type f \! -regex '.+\(pom\|jar\|xml\|sha1\)' -delete''; # delete files with lastModified timestamps inside
     outputHashAlgo = "sha256";
     outputHashMode = "recursive";
     outputHash = mavenDependenciesSha256;

@@ -221,7 +221,7 @@ in
         Needed for monitoring jitsi.
       '';
       default = [ ];
-      example = literalExpression ''[ "colibri" "rest" ]'';
+      example = literalExpression "[ \"colibri\" \"rest\" ]";
     };
   };
 
@@ -254,10 +254,7 @@ in
 
         script =
           (concatStrings (
-            mapAttrsToList
-              (name: xmppConfig: ''
-                export ${toVarName name}=$(cat ${xmppConfig.passwordFile})
-              '')
+            mapAttrsToList (name: xmppConfig: "export ${toVarName name}=$(cat ${xmppConfig.passwordFile})\n")
               cfg.xmppConfigs
           ))
           + ''

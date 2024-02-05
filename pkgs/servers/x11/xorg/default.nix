@@ -227,7 +227,7 @@ self: with self; {
           ];
           buildInputs = [ fontutil ];
           configureFlags = [ "--with-fontrootdir=$(out)/lib/X11/fonts" ];
-          postPatch = "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
+          postPatch = ''substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' '';
           meta.platforms = lib.platforms.unix;
         }
       )
@@ -266,7 +266,7 @@ self: with self; {
           ];
           buildInputs = [ fontutil ];
           configureFlags = [ "--with-fontrootdir=$(out)/lib/X11/fonts" ];
-          postPatch = "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
+          postPatch = ''substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' '';
           meta.platforms = lib.platforms.unix;
         }
       )
@@ -305,7 +305,7 @@ self: with self; {
           ];
           buildInputs = [ fontutil ];
           configureFlags = [ "--with-fontrootdir=$(out)/lib/X11/fonts" ];
-          postPatch = "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
+          postPatch = ''substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' '';
           meta.platforms = lib.platforms.unix;
         }
       )
@@ -344,7 +344,7 @@ self: with self; {
           ];
           buildInputs = [ fontutil ];
           configureFlags = [ "--with-fontrootdir=$(out)/lib/X11/fonts" ];
-          postPatch = "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
+          postPatch = ''substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' '';
           meta.platforms = lib.platforms.unix;
         }
       )
@@ -380,7 +380,7 @@ self: with self; {
           ];
           buildInputs = [ fontutil ];
           configureFlags = [ "--with-fontrootdir=$(out)/lib/X11/fonts" ];
-          postPatch = "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
+          postPatch = ''substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' '';
           meta.platforms = lib.platforms.unix;
         }
       )
@@ -447,7 +447,7 @@ self: with self; {
           ];
           buildInputs = [ fontutil ];
           configureFlags = [ "--with-fontrootdir=$(out)/lib/X11/fonts" ];
-          postPatch = "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
+          postPatch = ''substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' '';
           meta.platforms = lib.platforms.unix;
         }
       )
@@ -486,7 +486,7 @@ self: with self; {
           ];
           buildInputs = [ fontutil ];
           configureFlags = [ "--with-fontrootdir=$(out)/lib/X11/fonts" ];
-          postPatch = "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
+          postPatch = ''substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' '';
           meta.platforms = lib.platforms.unix;
         }
       )
@@ -525,7 +525,7 @@ self: with self; {
           ];
           buildInputs = [ fontutil ];
           configureFlags = [ "--with-fontrootdir=$(out)/lib/X11/fonts" ];
-          postPatch = "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
+          postPatch = ''substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' '';
           meta.platforms = lib.platforms.unix;
         }
       )
@@ -564,7 +564,7 @@ self: with self; {
           ];
           buildInputs = [ fontutil ];
           configureFlags = [ "--with-fontrootdir=$(out)/lib/X11/fonts" ];
-          postPatch = "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
+          postPatch = ''substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' '';
           meta.platforms = lib.platforms.unix;
         }
       )
@@ -603,7 +603,7 @@ self: with self; {
           ];
           buildInputs = [ fontutil ];
           configureFlags = [ "--with-fontrootdir=$(out)/lib/X11/fonts" ];
-          postPatch = "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
+          postPatch = ''substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' '';
           meta.platforms = lib.platforms.unix;
         }
       )
@@ -639,7 +639,7 @@ self: with self; {
           ];
           buildInputs = [ fontutil ];
           configureFlags = [ "--with-fontrootdir=$(out)/lib/X11/fonts" ];
-          postPatch = "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
+          postPatch = ''substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' '';
           meta.platforms = lib.platforms.unix;
         }
       )
@@ -675,7 +675,7 @@ self: with self; {
           ];
           buildInputs = [ fontutil ];
           configureFlags = [ "--with-fontrootdir=$(out)/lib/X11/fonts" ];
-          postPatch = "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
+          postPatch = ''substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' '';
           meta.platforms = lib.platforms.unix;
         }
       )
@@ -713,7 +713,7 @@ self: with self; {
           ];
           buildInputs = [ fontutil ];
           configureFlags = [ "--with-fontrootdir=$(out)/lib/X11/fonts" ];
-          postPatch = "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
+          postPatch = ''substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' '';
           meta.platforms = lib.platforms.unix;
         }
       )
@@ -751,7 +751,7 @@ self: with self; {
           ];
           buildInputs = [ fontutil ];
           configureFlags = [ "--with-fontrootdir=$(out)/lib/X11/fonts" ];
-          postPatch = "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
+          postPatch = ''substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' '';
           meta.platforms = lib.platforms.unix;
         }
       )
@@ -787,7 +787,7 @@ self: with self; {
           ];
           buildInputs = [ fontutil ];
           configureFlags = [ "--with-fontrootdir=$(out)/lib/X11/fonts" ];
-          postPatch = "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
+          postPatch = ''substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' '';
           meta.platforms = lib.platforms.unix;
         }
       )
@@ -825,7 +825,7 @@ self: with self; {
           ];
           buildInputs = [ fontutil ];
           configureFlags = [ "--with-fontrootdir=$(out)/lib/X11/fonts" ];
-          postPatch = "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
+          postPatch = ''substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' '';
           meta.platforms = lib.platforms.unix;
         }
       )
@@ -863,7 +863,7 @@ self: with self; {
           ];
           buildInputs = [ fontutil ];
           configureFlags = [ "--with-fontrootdir=$(out)/lib/X11/fonts" ];
-          postPatch = "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
+          postPatch = ''substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' '';
           meta.platforms = lib.platforms.unix;
         }
       )
@@ -901,7 +901,7 @@ self: with self; {
           ];
           buildInputs = [ fontutil ];
           configureFlags = [ "--with-fontrootdir=$(out)/lib/X11/fonts" ];
-          postPatch = "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
+          postPatch = ''substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' '';
           meta.platforms = lib.platforms.unix;
         }
       )
@@ -939,7 +939,7 @@ self: with self; {
           ];
           buildInputs = [ fontutil ];
           configureFlags = [ "--with-fontrootdir=$(out)/lib/X11/fonts" ];
-          postPatch = "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
+          postPatch = ''substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' '';
           meta.platforms = lib.platforms.unix;
         }
       )
@@ -975,7 +975,7 @@ self: with self; {
           ];
           buildInputs = [ fontutil ];
           configureFlags = [ "--with-fontrootdir=$(out)/lib/X11/fonts" ];
-          postPatch = "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
+          postPatch = ''substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' '';
           meta.platforms = lib.platforms.unix;
         }
       )
@@ -1013,7 +1013,7 @@ self: with self; {
           ];
           buildInputs = [ fontutil ];
           configureFlags = [ "--with-fontrootdir=$(out)/lib/X11/fonts" ];
-          postPatch = "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
+          postPatch = ''substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' '';
           meta.platforms = lib.platforms.unix;
         }
       )
@@ -1051,7 +1051,7 @@ self: with self; {
           ];
           buildInputs = [ fontutil ];
           configureFlags = [ "--with-fontrootdir=$(out)/lib/X11/fonts" ];
-          postPatch = "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
+          postPatch = ''substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' '';
           meta.platforms = lib.platforms.unix;
         }
       )
@@ -1089,7 +1089,7 @@ self: with self; {
           ];
           buildInputs = [ fontutil ];
           configureFlags = [ "--with-fontrootdir=$(out)/lib/X11/fonts" ];
-          postPatch = "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
+          postPatch = ''substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' '';
           meta.platforms = lib.platforms.unix;
         }
       )
@@ -1127,7 +1127,7 @@ self: with self; {
           ];
           buildInputs = [ fontutil ];
           configureFlags = [ "--with-fontrootdir=$(out)/lib/X11/fonts" ];
-          postPatch = "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
+          postPatch = ''substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' '';
           meta.platforms = lib.platforms.unix;
         }
       )
@@ -1163,7 +1163,7 @@ self: with self; {
           ];
           buildInputs = [ fontutil ];
           configureFlags = [ "--with-fontrootdir=$(out)/lib/X11/fonts" ];
-          postPatch = "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
+          postPatch = ''substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' '';
           meta.platforms = lib.platforms.unix;
         }
       )
@@ -1199,7 +1199,7 @@ self: with self; {
           ];
           buildInputs = [ fontutil ];
           configureFlags = [ "--with-fontrootdir=$(out)/lib/X11/fonts" ];
-          postPatch = "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
+          postPatch = ''substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' '';
           meta.platforms = lib.platforms.unix;
         }
       )
@@ -1238,7 +1238,7 @@ self: with self; {
           ];
           buildInputs = [ fontutil ];
           configureFlags = [ "--with-fontrootdir=$(out)/lib/X11/fonts" ];
-          postPatch = "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
+          postPatch = ''substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' '';
           meta.platforms = lib.platforms.unix;
         }
       )
@@ -1276,7 +1276,7 @@ self: with self; {
           ];
           buildInputs = [ fontutil ];
           configureFlags = [ "--with-fontrootdir=$(out)/lib/X11/fonts" ];
-          postPatch = "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
+          postPatch = ''substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' '';
           meta.platforms = lib.platforms.unix;
         }
       )
@@ -1315,7 +1315,7 @@ self: with self; {
           ];
           buildInputs = [ fontutil ];
           configureFlags = [ "--with-fontrootdir=$(out)/lib/X11/fonts" ];
-          postPatch = "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
+          postPatch = ''substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' '';
           meta.platforms = lib.platforms.unix;
         }
       )
@@ -1353,7 +1353,7 @@ self: with self; {
           ];
           buildInputs = [ fontutil ];
           configureFlags = [ "--with-fontrootdir=$(out)/lib/X11/fonts" ];
-          postPatch = "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
+          postPatch = ''substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' '';
           meta.platforms = lib.platforms.unix;
         }
       )
@@ -1391,7 +1391,7 @@ self: with self; {
           ];
           buildInputs = [ fontutil ];
           configureFlags = [ "--with-fontrootdir=$(out)/lib/X11/fonts" ];
-          postPatch = "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
+          postPatch = ''substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' '';
           meta.platforms = lib.platforms.unix;
         }
       )
@@ -1429,7 +1429,7 @@ self: with self; {
           ];
           buildInputs = [ fontutil ];
           configureFlags = [ "--with-fontrootdir=$(out)/lib/X11/fonts" ];
-          postPatch = "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
+          postPatch = ''substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' '';
           meta.platforms = lib.platforms.unix;
         }
       )
@@ -1532,7 +1532,7 @@ self: with self; {
           ];
           buildInputs = [ fontutil ];
           configureFlags = [ "--with-fontrootdir=$(out)/lib/X11/fonts" ];
-          postPatch = "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
+          postPatch = ''substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' '';
           meta.platforms = lib.platforms.unix;
         }
       )
@@ -1568,7 +1568,7 @@ self: with self; {
           ];
           buildInputs = [ fontutil ];
           configureFlags = [ "--with-fontrootdir=$(out)/lib/X11/fonts" ];
-          postPatch = "substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' ";
+          postPatch = ''substituteInPlace configure --replace 'MAPFILES_PATH=`pkg-config' 'MAPFILES_PATH=`$PKG_CONFIG' '';
           meta.platforms = lib.platforms.unix;
         }
       )

@@ -134,7 +134,7 @@ let
           done
           set -e
           ${lib.concatMapStringsSep "\n"
-            (o: ''grep '${o}' $out || {  echo 'output "${o}" not found in:'; cat $out; exit 23; }'')
+            (o: "grep '${o}' $out || {  echo 'output \"${o}\" not found in:'; cat $out; exit 23; }")
             expectedTestOutputs}
         ''
       else
@@ -181,9 +181,7 @@ let
             sorted = builtins.sort (a: b: a < b) expectedFiles;
             concatenated = builtins.concatStringsSep "\n" sorted;
           in
-          ''
-            ${concatenated}
-          '';
+          "${concatenated}\n";
       };
     in
     runCommand "assert-outputs-${name}" { } (

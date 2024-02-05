@@ -6,9 +6,8 @@ rec {
 
   parasites = [ "calispel-test" ];
 
-  description = ''
-    Thread-safe message-passing channels, in the style of
-    the occam programming language.'';
+  description = "Thread-safe message-passing channels, in the style of
+the occam programming language.";
 
   deps = [
     args."alexandria"

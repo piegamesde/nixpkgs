@@ -58,7 +58,7 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ cmake ];
 
   hardeningDisable = [ "fortify" ];
-  cmakeFlags = [ ''-DSDL2_gpu_INCLUDE_DIR="${sdl-gpu}/include"'' ];
+  cmakeFlags = [ "-DSDL2_gpu_INCLUDE_DIR=\"${sdl-gpu}/include\"" ];
 
   # Riko4 needs the data/ and scripts/ directories to be in its PWD.
   installPhase = ''

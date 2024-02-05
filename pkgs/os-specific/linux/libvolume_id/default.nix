@@ -13,10 +13,15 @@ stdenv.mkDerivation rec {
     sha256 = "029z04vdxxsl8gycm9whcljhv6dy4b12ybsxdb99jr251gl1ifs5";
   };
 
-  preBuild = "\n    makeFlagsArray=(prefix=$out E=echo RANLIB=${stdenv.cc.targetPrefix}ranlib INSTALL='install -c')\n  ";
+  preBuild = "
+    makeFlagsArray=(prefix=$out E=echo RANLIB=${stdenv.cc.targetPrefix}ranlib INSTALL='install -c')
+  ";
 
   # Work around a broken Makefile.
-  postInstall = "\n    rm $out/lib/libvolume_id.so.0\n    cp -f libvolume_id.so.0 $out/lib/\n  ";
+  postInstall = "
+    rm $out/lib/libvolume_id.so.0
+    cp -f libvolume_id.so.0 $out/lib/
+  ";
 
   meta = with lib; {
     platforms = platforms.linux;

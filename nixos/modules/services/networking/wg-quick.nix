@@ -266,54 +266,28 @@ let
             ${concatMapStringsSep "\n" (address: "Address = ${address}") values.address}
             ${concatMapStringsSep "\n" (dns: "DNS = ${dns}") values.dns}
           ''
-          + optionalString (values.table != null) ''
-            Table = ${values.table}
-          ''
-          + optionalString (values.mtu != null) ''
-            MTU = ${toString values.mtu}
-          ''
-          + optionalString (values.privateKey != null) ''
-            PrivateKey = ${values.privateKey}
-          ''
-          + optionalString (values.listenPort != null) ''
-            ListenPort = ${toString values.listenPort}
-          ''
-          + optionalString (preUpFile != null) ''
-            PreUp = ${preUpFile}
-          ''
-          + optionalString (postUpFile != null) ''
-            PostUp = ${postUpFile}
-          ''
-          + optionalString (preDownFile != null) ''
-            PreDown = ${preDownFile}
-          ''
-          + optionalString (postDownFile != null) ''
-            PostDown = ${postDownFile}
-          ''
+          + optionalString (values.table != null) "Table = ${values.table}\n"
+          + optionalString (values.mtu != null) "MTU = ${toString values.mtu}\n"
+          + optionalString (values.privateKey != null) "PrivateKey = ${values.privateKey}\n"
+          + optionalString (values.listenPort != null) "ListenPort = ${toString values.listenPort}\n"
+          + optionalString (preUpFile != null) "PreUp = ${preUpFile}\n"
+          + optionalString (postUpFile != null) "PostUp = ${postUpFile}\n"
+          + optionalString (preDownFile != null) "PreDown = ${preDownFile}\n"
+          + optionalString (postDownFile != null) "PostDown = ${postDownFile}\n"
           +
             concatMapStringsSep "\n"
               (
                 peer:
                 assert assertMsg (!((peer.presharedKeyFile != null) && (peer.presharedKey != null)))
                   "Only one of presharedKey or presharedKeyFile may be set";
-                ''
-                  [Peer]
-                ''
-                + ''
-                  PublicKey = ${peer.publicKey}
-                ''
-                + optionalString (peer.presharedKey != null) ''
-                  PresharedKey = ${peer.presharedKey}
-                ''
-                + optionalString (peer.endpoint != null) ''
-                  Endpoint = ${peer.endpoint}
-                ''
-                + optionalString (peer.persistentKeepalive != null) ''
-                  PersistentKeepalive = ${toString peer.persistentKeepalive}
-                ''
-                + optionalString (peer.allowedIPs != [ ]) ''
-                  AllowedIPs = ${concatStringsSep "," peer.allowedIPs}
-                ''
+                "[Peer]\n"
+                + "PublicKey = ${peer.publicKey}\n"
+                + optionalString (peer.presharedKey != null) "PresharedKey = ${peer.presharedKey}\n"
+                + optionalString (peer.endpoint != null) "Endpoint = ${peer.endpoint}\n"
+                +
+                  optionalString (peer.persistentKeepalive != null)
+                    "PersistentKeepalive = ${toString peer.persistentKeepalive}\n"
+                + optionalString (peer.allowedIPs != [ ]) "AllowedIPs = ${concatStringsSep "," peer.allowedIPs}\n"
               )
               values.peers;
       };

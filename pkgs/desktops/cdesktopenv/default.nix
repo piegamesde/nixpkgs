@@ -126,7 +126,7 @@ stdenv.mkDerivation rec {
   '';
 
   preBuild = ''
-        while IFS= read -r -d $'\0' i; do
+        while IFS= read -r -d ''$'\0' i; do
           substituteInPlace "$i" --replace /usr/dt $out/opt/dt
         done < <(find "." -type f -exec grep -Iq /usr/dt {} \; -and -print0)
 

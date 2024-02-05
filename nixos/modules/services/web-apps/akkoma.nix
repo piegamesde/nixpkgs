@@ -288,7 +288,7 @@ let
     let
       esc = escape [
         ":"
-        "\\"
+        ''\''
       ];
     in
     if (cfg.initDb.password != null) then

@@ -28,7 +28,7 @@ buildGoModule rec {
   '';
 
   # Install icons
-  postInstall = "make install DESTDIR=$out ";
+  postInstall = ''make install DESTDIR=$out '';
 
   meta = with lib; {
     description = "A gopsutil-based command to display system usage info";

@@ -393,7 +393,7 @@ let
       touch $out
       while read -r path
       do printf >>$out "%s,\n" ${
-        lib.concatMapStringsSep " " (x: ''"${x}"'') (baseRules ++ additionalRules)
+        lib.concatMapStringsSep " " (x: "\"${x}\"") (baseRules ++ additionalRules)
       }
       done <${closureInfo { inherit rootPaths; }}/store-paths
     '';

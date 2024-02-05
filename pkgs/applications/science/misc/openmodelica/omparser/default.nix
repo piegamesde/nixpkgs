@@ -22,9 +22,8 @@ mkOpenModelicaDerivation rec {
   patches = [ ./Makefile.in.patch ];
 
   meta = with lib; {
-    description = ''
-      An antlr4-based parser of Modelica files from OpenModelica
-      suite'';
+    description = "An antlr4-based parser of Modelica files from OpenModelica
+suite";
     homepage = "https://openmodelica.org";
     license = licenses.gpl3Only;
     maintainers = with maintainers; [

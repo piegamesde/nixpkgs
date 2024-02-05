@@ -59,7 +59,7 @@ let
     };
 
     configurePlatformsByDefault = mkMassRebuild {
-      feature = ''set `configurePlatforms` to `["build" "host"]` by default'';
+      feature = "set `configurePlatforms` to `[\"build\" \"host\"]` by default";
     };
 
     contentAddressedByDefault = mkMassRebuild {

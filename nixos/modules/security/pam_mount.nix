@@ -148,9 +148,7 @@ in
                 mountpoint = user.home;
               } // user.pamMount;
             in
-            ''
-              <volume ${concatStringsSep " " (mapAttrsToList mkAttr attrs)} />
-            '';
+            "<volume ${concatStringsSep " " (mapAttrsToList mkAttr attrs)} />\n";
         in
         pkgs.writeText "pam_mount.conf.xml" ''
           <?xml version="1.0" encoding="utf-8" ?>

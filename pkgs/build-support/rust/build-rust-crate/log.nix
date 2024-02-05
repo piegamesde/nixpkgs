@@ -40,11 +40,11 @@ in
 {
   echo_colored = colors: ''
     echo_colored() {
-      ${echo_conditional_colored_body colors "\\033[0;1;32m"}
+      ${echo_conditional_colored_body colors ''\033[0;1;32m''}
     }
 
     echo_error() {
-      ${echo_conditional_colored_body colors "\\033[0;1;31m"}
+      ${echo_conditional_colored_body colors ''\033[0;1;31m''}
     }
   '';
 

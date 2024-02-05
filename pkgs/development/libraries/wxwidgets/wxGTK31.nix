@@ -120,7 +120,11 @@ stdenv.mkDerivation rec {
         "-framework System" "-lSystem"
     '';
 
-  postInstall = "\n    pushd $out/include\n    ln -s wx-*/* .\n    popd\n  ";
+  postInstall = "
+    pushd $out/include
+    ln -s wx-*/* .
+    popd
+  ";
 
   enableParallelBuilding = true;
 

@@ -47,7 +47,7 @@ let
     arg:
     if builtins.isPath arg then
       {
-        args = args ++ [ { __rawShell = ''"''$${builtins.toString maxArgIndex}"''; } ];
+        args = args ++ [ { __rawShell = "\"\$${builtins.toString maxArgIndex}\""; } ];
         maxArgIndex = maxArgIndex + 1;
         paths = paths ++ [ arg ];
       }
@@ -182,7 +182,7 @@ rec {
       command = [
         "sh"
         "-c"
-        ''cp --no-preserve=all "$(nix-build -A ${attr})" "$0" > /dev/null''
+        "cp --no-preserve=all \"$(nix-build -A ${attr})\" \"$0\" > /dev/null"
         path
       ];
       supportedFeatures = [ "silent" ];

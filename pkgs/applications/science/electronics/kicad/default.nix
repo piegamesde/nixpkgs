@@ -200,9 +200,7 @@ stdenv.mkDerivation rec {
       flatten [
         "runHook preInstall"
 
-        (optionalString (withScripting) ''
-          buildPythonPath "${base} $pythonPath" 
-        '')
+        (optionalString (withScripting) "buildPythonPath \"${base} $pythonPath\" \n")
 
         # wrap each of the directly usable tools
         (map

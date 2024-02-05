@@ -24,9 +24,7 @@ let
     let
       interface = getAttr name cfg.interfaces;
     in
-    ''
-      interface ${name} ${paramsString interface}
-    '';
+    "interface ${name} ${paramsString interface}\n";
 
   configFile =
     with cfg;

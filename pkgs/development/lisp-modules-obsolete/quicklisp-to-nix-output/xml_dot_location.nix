@@ -6,9 +6,8 @@ rec {
 
   parasites = [ "xml.location/test" ];
 
-  description = ''
-    This system provides a convenient interface for
-     manipulating XML data. It is inspired by the xmltio library.'';
+  description = "This system provides a convenient interface for
+ manipulating XML data. It is inspired by the xmltio library.";
 
   deps = [
     args."alexandria"

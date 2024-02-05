@@ -98,7 +98,7 @@ stdenv.mkDerivation (
       owner = finalAttrs.src.owner;
       repo = finalAttrs.src.repo;
       page = "tags?per_page=2";
-      filter = ''.[1].name | split("-") | .[1]'';
+      filter = ".[1].name | split(\"-\") | .[1]";
     };
 
     meta = with lib; {

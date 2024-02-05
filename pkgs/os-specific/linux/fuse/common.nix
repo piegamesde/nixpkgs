@@ -119,9 +119,7 @@ stdenv.mkDerivation rec {
   doCheck = false; # v2: no tests, v3: all tests get skipped in a sandbox
 
   postFixup =
-    ''
-      cd $out
-    ''
+    "cd $out\n"
     + (
       if isFuse3 then
         ''

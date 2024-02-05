@@ -138,8 +138,8 @@ python3Packages.buildPythonApplication rec {
   '';
 
   makeWrapperArgs = [
-    ''--set GI_TYPELIB_PATH "$GI_TYPELIB_PATH"''
-    ''--set GST_PLUGIN_SYSTEM_PATH_1_0 "$GST_PLUGIN_SYSTEM_PATH_1_0"''
+    "--set GI_TYPELIB_PATH \"$GI_TYPELIB_PATH\""
+    "--set GST_PLUGIN_SYSTEM_PATH_1_0 \"$GST_PLUGIN_SYSTEM_PATH_1_0\""
     "--prefix PATH : ${lib.makeBinPath pluginWrapperBins}"
   ];
 

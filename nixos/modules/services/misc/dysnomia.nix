@@ -19,15 +19,11 @@ let
           property = properties.${propertyName};
         in
         if isList property then
-          ''
-            ${propertyName}=(${
-              lib.concatMapStrings (elem: ''"${toString elem}" '') (properties.${propertyName})
-            })
-          ''
+          "${propertyName}=(${
+            lib.concatMapStrings (elem: "\"${toString elem}\" ") (properties.${propertyName})
+          })\n"
         else
-          ''
-            ${propertyName}="${toString property}"
-          ''
+          "${propertyName}=\"${toString property}\"\n"
       )
       (builtins.attrNames properties);
 
@@ -74,9 +70,7 @@ let
           let
             component = cfg.components.${containerName}.${componentName};
           in
-          ''
-            ln -s ${component} ${containerName}/${componentName}
-          ''
+          "ln -s ${component} ${containerName}/${componentName}\n"
         )
         (builtins.attrNames (cfg.components.${containerName} or { }))}
     '';

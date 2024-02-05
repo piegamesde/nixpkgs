@@ -77,7 +77,7 @@ stdenv.mkDerivation rec {
             lib.escape
               [
                 "\\"
-                ''"''
+                "\""
                 " "
               ]
               (toString pluginsDir)

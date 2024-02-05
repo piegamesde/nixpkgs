@@ -179,24 +179,24 @@ in
         name = mkOption {
           type = types.str;
           default = "Snipe-IT Asset Management";
-          description = lib.mdDoc ''Mail "from" name.'';
+          description = lib.mdDoc "Mail \"from\" name.";
         };
         address = mkOption {
           type = types.str;
           default = "mail@example.com";
-          description = lib.mdDoc ''Mail "from" address.'';
+          description = lib.mdDoc "Mail \"from\" address.";
         };
       };
       replyTo = {
         name = mkOption {
           type = types.str;
           default = "Snipe-IT Asset Management";
-          description = lib.mdDoc ''Mail "reply-to" name.'';
+          description = lib.mdDoc "Mail \"reply-to\" name.";
         };
         address = mkOption {
           type = types.str;
           default = "mail@example.com";
-          description = lib.mdDoc ''Mail "reply-to" address.'';
+          description = lib.mdDoc "Mail \"reply-to\" address.";
         };
       };
     };
@@ -401,9 +401,9 @@ in
           locations = {
             "/" = {
               index = "index.php";
-              extraConfig = "try_files $uri $uri/ /index.php?$query_string;";
+              extraConfig = ''try_files $uri $uri/ /index.php?$query_string;'';
             };
-            "~ .php$" = {
+            "~ \.php$" = {
               extraConfig = ''
                 try_files $uri $uri/ /index.php?$query_string;
                 include ${config.services.nginx.package}/conf/fastcgi_params;
@@ -415,7 +415,7 @@ in
                   "fastcgi_param HTTPS on;"}
               '';
             };
-            "~ .(js|css|gif|png|ico|jpg|jpeg)$" = {
+            "~ \.(js|css|gif|png|ico|jpg|jpeg)$" = {
               extraConfig = "expires 365d;";
             };
           };
@@ -448,7 +448,7 @@ in
                 if isInt v then
                   toString v
                 else if isString v then
-                  ''"${v}"''
+                  "\"${v}\""
                 else if true == v then
                   "true"
                 else if false == v then

@@ -523,9 +523,7 @@ rec {
           (
             n:
             let
-              s = optionalString (env.${n} != null) ''
-                Environment=${builtins.toJSON "${n}=${env.${n}}"}
-              '';
+              s = optionalString (env.${n} != null) "Environment=${builtins.toJSON "${n}=${env.${n}}"}\n";
             in
             # systemd max line length is now 1MiB
             # https://github.com/systemd/systemd/commit/e6dde451a51dc5aaa7f4d98d39b8fe735f73d2af

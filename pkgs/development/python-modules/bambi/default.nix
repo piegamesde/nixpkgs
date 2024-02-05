@@ -36,7 +36,7 @@ buildPythonPackage rec {
     scipy
   ];
 
-  preCheck = "export HOME=$(mktemp -d)";
+  preCheck = ''export HOME=$(mktemp -d)'';
 
   nativeCheckInputs = [
     blackjax

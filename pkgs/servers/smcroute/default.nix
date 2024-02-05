@@ -26,7 +26,7 @@ stdenv.mkDerivation rec {
 
   configureFlags = [
     "--localstatedir=/var"
-    "--with-systemd=$(out)/lib/systemd/system"
+    "--with-systemd=\$(out)/lib/systemd/system"
   ];
 
   meta = with lib; {

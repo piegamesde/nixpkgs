@@ -34,7 +34,7 @@ in
         -m memdisk.tar -o "grub-${efiSystemsBuild.${stdenv.hostPlatform.system}.target}-xen.bin" \
         $(ls "${grub2_xen}/lib/grub/${
           efiSystemsBuild.${stdenv.hostPlatform.system}.target
-        }-xen/" |grep 'mod$'|grep -v '^all_video\.mod$')
+        }-xen/" |grep 'mod''$'|grep -v '^all_video\.mod''$')
       mkdir -p "$out/lib/grub-xen"
       cp "grub-${efiSystemsBuild.${stdenv.hostPlatform.system}.target}-xen.bin" $out/lib/grub-xen/
     '';

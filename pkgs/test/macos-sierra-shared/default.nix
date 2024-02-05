@@ -45,7 +45,7 @@ let
         #include <cstdlib>
         #include <iostream>
 
-        ${toString (lib.genList (i: ''extern "C" unsigned int asdf_${toString i}(void); '') count)}
+        ${toString (lib.genList (i: "extern \"C\" unsigned int asdf_${toString i}(void); ") count)}
 
         unsigned int (*funs[])(void) = {
           ${toString (lib.genList (i: "asdf_${toString i},") count)}

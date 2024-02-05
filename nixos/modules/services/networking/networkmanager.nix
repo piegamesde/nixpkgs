@@ -83,17 +83,7 @@ let
     });
   '';
 
-  ns =
-    xs:
-    pkgs.writeText "nameservers" (
-      concatStrings (
-        map
-          (s: ''
-            nameserver ${s}
-          '')
-          xs
-      )
-    );
+  ns = xs: pkgs.writeText "nameservers" (concatStrings (map (s: "nameserver ${s}\n") xs));
 
   overrideNameserversScript = pkgs.writeScript "02overridedns" ''
     #!/bin/sh

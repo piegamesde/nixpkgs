@@ -162,7 +162,7 @@ stdenv.mkDerivation rec {
       "CONF_MODPATH_NVIDIA=${nvidia_x11.bin}/lib/xorg/modules"
     ];
 
-  CFLAGS = [ ''-DX_MODULE_APPENDS=\"${xmodules}\"'' ];
+  CFLAGS = [ "-DX_MODULE_APPENDS=\\\"${xmodules}\\\"" ];
 
   postInstall = ''
     wrapProgram "$out/sbin/bumblebeed" \

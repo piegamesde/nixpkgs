@@ -20,7 +20,7 @@ let
   envFile = pkgs.writeText "nifi.env" (
     lib.concatMapStrings (s: s + "\n") (
       (lib.concatLists (
-        lib.mapAttrsToList (name: value: if value != null then [ ''${name}="${toString value}"'' ] else [ ])
+        lib.mapAttrsToList (name: value: if value != null then [ "${name}=\"${toString value}\"" ] else [ ])
           env
       ))
     )

@@ -115,9 +115,7 @@ stdenv.mkDerivation rec {
         + ''
           \1CFLAGS = `pkg-config --cflags \2`\
           \1LIBS = `pkg-config --libs \2`''
-        + ''
-          /
-        ''
+        + "/\n"
         + ''
           }
           # fix WebKit libs not being there

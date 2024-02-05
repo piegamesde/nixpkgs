@@ -43,7 +43,7 @@ let
     else if types.float.check v then
       toString v
     else if types.str.check v then
-      ''"${escape [ ''"'' ] v}"''
+      "\"${escape [ "\"" ] v}\""
     else if builtins.isList v then
       "[ ${concatMapStringsSep " , " mkValueString v} ]"
     else if types.attrs.check v then

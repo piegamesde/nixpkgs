@@ -94,7 +94,7 @@ stdenv.mkDerivation (
           fix_offset PRELUDE_POSITION
         ''
       else
-        "";
+        '''';
     dontStrip = true;
 
     meta = with lib; {

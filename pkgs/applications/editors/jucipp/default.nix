@@ -79,8 +79,8 @@ stdenv.mkDerivation rec {
 
   lintIncludes =
     let
-      p = ''arguments.emplace_back("-I'';
-      e = ''");'';
+      p = "arguments.emplace_back(\"-I";
+      e = "\");";
       v = lib.getVersion llvmPackages.clang;
     in
     p

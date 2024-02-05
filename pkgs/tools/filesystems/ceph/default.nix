@@ -376,7 +376,7 @@ rec {
       # no matching function for call to 'parquet::PageReader::Open(std::shared_ptr<arrow::io::InputStream>&, int64_t, arrow::Compression::type, parquet::MemoryPool*, parquet::CryptoContext*)'
       "-DWITH_RADOSGW_SELECT_PARQUET:BOOL=OFF"
       # WITH_XFS has been set default ON from Ceph 16, keeping it optional in nixpkgs for now
-      "-DWITH_XFS=${if optLibxfs != null then "ON" else "OFF"}"
+      ''-DWITH_XFS=${if optLibxfs != null then "ON" else "OFF"}''
     ] ++ lib.optional stdenv.isLinux "-DWITH_SYSTEM_LIBURING=ON";
 
     postFixup = ''

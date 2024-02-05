@@ -64,8 +64,8 @@ let
 
       doCheck = true;
       preCheck = ''
-        export PREVIOUS_${ldLibPathEnvName}=$''${ldLibPathEnvName}
-        export ${ldLibPathEnvName}="$''${ldLibPathEnvName}:$(realpath tls/):$(realpath ssl/):$(realpath crypto/)"
+        export PREVIOUS_${ldLibPathEnvName}=$${ldLibPathEnvName}
+        export ${ldLibPathEnvName}="$${ldLibPathEnvName}:$(realpath tls/):$(realpath ssl/):$(realpath crypto/)"
       '';
       postCheck = ''
         export ${ldLibPathEnvName}=$PREVIOUS_${ldLibPathEnvName}

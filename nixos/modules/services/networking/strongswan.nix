@@ -39,10 +39,7 @@ let
           mapAttrsToList
             (
               sec: attrs:
-              ''
-                ${type} ${sec}
-              ''
-              + (concatStringsSep "\n" (mapAttrsToList (k: v: "  ${k}=${v}") attrs))
+              "${type} ${sec}\n" + (concatStringsSep "\n" (mapAttrsToList (k: v: "  ${k}=${v}") attrs))
             )
             sections
         );

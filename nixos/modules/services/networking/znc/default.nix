@@ -67,7 +67,7 @@ let
               (
                 subname:
                 optionals (value.${subname} != null) (
-                  [ "<${name} ${subname}>" ] ++ map (line: "	${line}") (toLines value.${subname}) ++ [ "</${name}>" ]
+                  [ "<${name} ${subname}>" ] ++ map (line: "\t${line}") (toLines value.${subname}) ++ [ "</${name}>" ]
                 )
               )
               (filter (v: v != null) (attrNames value));

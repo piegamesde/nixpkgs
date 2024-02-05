@@ -50,7 +50,7 @@ in
 {
   options = {
     services.freeciv = {
-      enable = mkEnableOption (lib.mdDoc "freeciv");
+      enable = mkEnableOption (lib.mdDoc ''freeciv'');
       settings = mkOption {
         description = lib.mdDoc ''
           Parameters of freeciv-server.

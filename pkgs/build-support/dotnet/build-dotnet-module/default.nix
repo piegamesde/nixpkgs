@@ -301,7 +301,7 @@ stdenvNoCC.mkDerivation (
           cd "$src"
           echo "Restoring project..."
 
-          for rid in "${lib.concatStringsSep ''" "'' runtimeIds}"; do
+          for rid in "${lib.concatStringsSep "\" \"" runtimeIds}"; do
               (( ''${#projectFiles[@]} == 0 )) && dotnetRestore "" "$rid"
 
               for project in ''${projectFiles[@]-} ''${testProjectFiles[@]-}; do

@@ -9,11 +9,10 @@ rec {
     "hunchentoot-test"
   ];
 
-  description = ''
-    Hunchentoot is a HTTP server based on USOCKET and
-      BORDEAUX-THREADS.  It supports HTTP 1.1, serves static files, has a
-      simple framework for user-defined handlers and can be extended
-      through subclassing.'';
+  description = "Hunchentoot is a HTTP server based on USOCKET and
+  BORDEAUX-THREADS.  It supports HTTP 1.1, serves static files, has a
+  simple framework for user-defined handlers and can be extended
+  through subclassing.";
 
   deps = [
     args."alexandria"

@@ -45,9 +45,7 @@ let
               let
                 access_code = map (a: aclMap.${a}) (toList access);
               in
-              ''
-                ${principal} ${concatStrings access_code} ${target}
-              ''
+              "${principal} ${concatStrings access_code} ${target}\n"
             )
             acl
         ))

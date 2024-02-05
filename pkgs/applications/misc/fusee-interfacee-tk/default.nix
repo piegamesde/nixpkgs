@@ -45,9 +45,8 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://github.com/nh-server/fusee-interfacee-tk";
     description = "A tool to send .bin files to a Nintendo Switch in RCM mode";
-    longDescription = ''
-      A mod of falquinhos Fusée Launcher for use with Nintendo Homebrew Switch Guide. It also adds the ability to mount SD while in RCM.
-          Must be run as sudo.'';
+    longDescription = "A mod of falquinhos Fusée Launcher for use with Nintendo Homebrew Switch Guide. It also adds the ability to mount SD while in RCM.
+    Must be run as sudo.";
     maintainers = with maintainers; [ kristian-brucaj ];
     license = licenses.gpl2;
   };

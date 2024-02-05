@@ -692,13 +692,13 @@ stdenv.mkDerivation (
           ]
           ++ lib.optionals withImportd [
             {
-              search = ''"gpg"'';
-              replacement = ''\"${gnupg}/bin/gpg\"'';
+              search = "\"gpg\"";
+              replacement = "\\\"${gnupg}/bin/gpg\\\"";
               where = [ "src/import/pull-common.c" ];
             }
             {
-              search = ''"tar"'';
-              replacement = ''\"${gnutar}/bin/tar\"'';
+              search = "\"tar\"";
+              replacement = "\\\"${gnutar}/bin/tar\\\"";
               where = [
                 "src/import/export-tar.c"
                 "src/import/import-common.c"
@@ -733,7 +733,7 @@ stdenv.mkDerivation (
             where,
             ignore ? [ ],
           }:
-          map (path: ''substituteInPlace ${path} --replace '${search}' "${replacement}"'') where;
+          map (path: "substituteInPlace ${path} --replace '${search}' \"${replacement}\"") where;
         mkEnsureSubstituted =
           {
             replacement,
@@ -789,16 +789,16 @@ stdenv.mkDerivation (
         # Can't say ${polkit.bin}/bin/pkttyagent here because that would
         # lead to a cyclic dependency.
         "-UPOLKIT_AGENT_BINARY_PATH"
-        ''-DPOLKIT_AGENT_BINARY_PATH="/run/current-system/sw/bin/pkttyagent"''
+        "-DPOLKIT_AGENT_BINARY_PATH=\"/run/current-system/sw/bin/pkttyagent\""
 
         # Set the release_agent on /sys/fs/cgroup/systemd to the
         # currently running systemd (/run/current-system/systemd) so
         # that we don't use an obsolete/garbage-collected release agent.
         "-USYSTEMD_CGROUP_AGENTS_PATH"
-        ''-DSYSTEMD_CGROUP_AGENTS_PATH="/run/current-system/systemd/lib/systemd/systemd-cgroups-agent"''
+        "-DSYSTEMD_CGROUP_AGENTS_PATH=\"/run/current-system/systemd/lib/systemd/systemd-cgroups-agent\""
 
         "-USYSTEMD_BINARY_PATH"
-        ''-DSYSTEMD_BINARY_PATH="/run/current-system/systemd/lib/systemd/systemd"''
+        "-DSYSTEMD_BINARY_PATH=\"/run/current-system/systemd/lib/systemd/systemd\""
       ]
       ++ lib.optionals stdenv.hostPlatform.isMusl [ "-D__UAPI_DEF_ETHHDR=0" ]
     );

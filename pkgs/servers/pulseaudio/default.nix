@@ -243,8 +243,8 @@ stdenv.mkDerivation rec {
     # add .so symlinks for modules to be found under macOS
     + lib.optionalString stdenv.isDarwin ''
       for file in $out/lib/pulseaudio/modules/*.dylib; do
-        ln -s "$file" "''${file%.dylib}.so"
-        ln -s "$file" "$out/lib/pulseaudio/$(basename $file .dylib).so"
+        ln -s "''$file" "''${file%.dylib}.so"
+        ln -s "''$file" "$out/lib/pulseaudio/''$(basename ''$file .dylib).so"
       done
     ''
     # put symlinks to binaries in `$prefix/bin`;

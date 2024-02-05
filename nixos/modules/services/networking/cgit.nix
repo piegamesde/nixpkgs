@@ -43,11 +43,11 @@ let
         "~"
         "#"
         " "
-        "	"
+        "\t"
         "\n"
         "\r"
-        "v"
-        "f"
+        "\v"
+        "\f"
       ];
     in
     replaceStrings special (map (c: "\\${c}") special);

@@ -83,7 +83,7 @@ let
           };
         }
       else
-        throw ''Constraint "${constraintStr}" could not be parsed''
+        throw "Constraint \"${constraintStr}\" could not be parsed"
     );
   satisfiesSemver =
     version: constraint:

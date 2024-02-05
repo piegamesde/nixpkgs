@@ -164,7 +164,7 @@ let
         (mapc (lambda (arg)
           (when (file-directory-p (concat arg "/lib/coq/${coq-version}/user-contrib"))
             (setenv "COQPATH" (concat (getenv "COQPATH") ":" arg "/lib/coq/${coq-version}/user-contrib")))) '(${
-              concatStringsSep " " (map (pkg: ''"${pkg}"'') pkgs)
+              concatStringsSep " " (map (pkg: "\"${pkg}\"") pkgs)
             }))
         ; TODO Abstract this pattern from here and nixBufferBuilders.withPackages!
         (defvar nixpkgs--coq-buffer-count 0)
@@ -226,14 +226,14 @@ let
       RM=$(type -tp rm)
       substituteInPlace tools/beautify-archive --replace "/bin/rm" "$RM"
       ${lib.optionalString (!coqAtLeast "8.7")
-        ''substituteInPlace configure.ml --replace "md5 -q" "md5sum"''}
+        "substituteInPlace configure.ml --replace \"md5 -q\" \"md5sum\""}
       ${csdpPatch}
     '';
 
     setupHook = writeText "setupHook.sh" ''
       addCoqPath () {
-        if test -d "$1/lib/coq/${coq-version}/user-contrib"; then
-          export COQPATH="''${COQPATH-}''${COQPATH:+:}$1/lib/coq/${coq-version}/user-contrib/"
+        if test -d "''$1/lib/coq/${coq-version}/user-contrib"; then
+          export COQPATH="''${COQPATH-}''${COQPATH:+:}''$1/lib/coq/${coq-version}/user-contrib/"
         fi
       }
 

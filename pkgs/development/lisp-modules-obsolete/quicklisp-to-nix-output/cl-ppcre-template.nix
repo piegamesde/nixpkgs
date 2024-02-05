@@ -4,12 +4,11 @@ rec {
   baseName = "cl-ppcre-template";
   version = "cl-unification-20200925-git";
 
-  description = ''
-    A system used to conditionally load the CL-PPCRE Template.
+  description = "A system used to conditionally load the CL-PPCRE Template.
 
-    This system is not required and it is handled only if CL-PPCRE is
-    available.  If it is, then the library provides the
-    REGULAR-EXPRESSION-TEMPLATE.'';
+This system is not required and it is handled only if CL-PPCRE is
+available.  If it is, then the library provides the
+REGULAR-EXPRESSION-TEMPLATE.";
 
   deps = [
     args."cl-ppcre"

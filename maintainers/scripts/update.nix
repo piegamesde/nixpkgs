@@ -168,10 +168,7 @@ let
     else if path != null then
       packagesWithUpdateScript path pkgs
     else
-      builtins.throw ''
-        No arguments provided.
-
-        ${helpText}'';
+      builtins.throw "No arguments provided.\n\n${helpText}";
 
   helpText = ''
     Please run:

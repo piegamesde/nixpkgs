@@ -398,13 +398,13 @@ stdenv.mkDerivation (
         "-I"
         "${openssl.dev}/include"
         "-system-sqlite"
-        "-${if mysqlSupport then "plugin" else "no"}-sql-mysql"
-        "-${if postgresql != null then "plugin" else "no"}-sql-psql"
+        ''-${if mysqlSupport then "plugin" else "no"}-sql-mysql''
+        ''-${if postgresql != null then "plugin" else "no"}-sql-psql''
 
         "-make libs"
         "-make tools"
-        "-${lib.optionalString (!buildExamples) "no"}make examples"
-        "-${lib.optionalString (!buildTests) "no"}make tests"
+        ''-${lib.optionalString (!buildExamples) "no"}make examples''
+        ''-${lib.optionalString (!buildTests) "no"}make tests''
       ]
       ++ (
         if stdenv.isDarwin then
@@ -434,7 +434,7 @@ stdenv.mkDerivation (
 
             "-libinput"
 
-            "-${lib.optionalString (cups == null) "no-"}cups"
+            ''-${lib.optionalString (cups == null) "no-"}cups''
             "-dbus-linked"
             "-glib"
           ]

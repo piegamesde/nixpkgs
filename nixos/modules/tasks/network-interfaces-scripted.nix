@@ -645,10 +645,10 @@ let
                 # Remove Dead Interfaces
                 ip link show "${n}" >/dev/null 2>&1 && ip link delete "${n}"
                 ip link add name "${n}" type sit \
-                  ${optionalString (v.remote != null) ''remote "${v.remote}"''} \
-                  ${optionalString (v.local != null) ''local "${v.local}"''} \
+                  ${optionalString (v.remote != null) "remote \"${v.remote}\""} \
+                  ${optionalString (v.local != null) "local \"${v.local}\""} \
                   ${optionalString (v.ttl != null) "ttl ${toString v.ttl}"} \
-                  ${optionalString (v.dev != null) ''dev "${v.dev}"''} \
+                  ${optionalString (v.dev != null) "dev \"${v.dev}\""} \
                   ${
                     optionalString (v.encapsulation != null)
                       "encap ${v.encapsulation.type} encap-dport ${toString v.encapsulation.port} ${
@@ -688,10 +688,10 @@ let
                 # Remove Dead Interfaces
                 ip link show "${n}" >/dev/null 2>&1 && ip link delete "${n}"
                 ip link add name "${n}" type ${v.type} \
-                  ${optionalString (v.remote != null) ''remote "${v.remote}"''} \
-                  ${optionalString (v.local != null) ''local "${v.local}"''} \
+                  ${optionalString (v.remote != null) "remote \"${v.remote}\""} \
+                  ${optionalString (v.local != null) "local \"${v.local}\""} \
                   ${optionalString (v.ttl != null) "${ttlarg} ${toString v.ttl}"} \
-                  ${optionalString (v.dev != null) ''dev "${v.dev}"''}
+                  ${optionalString (v.dev != null) "dev \"${v.dev}\""}
                 ip link set "${n}" up
               '';
               postStop = ''

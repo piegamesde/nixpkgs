@@ -22,12 +22,11 @@ stdenv.mkDerivation rec {
 
   installPhase =
     let
-      copy_pvpanic = arch: version: ''
-        mkdir -p $out/${arch}/qemupanic; cp pvpanic/${version}/${arch}/* $out/${arch}/qemupanic/. 
-      '';
-      copy_pciserial = arch: ''
-        mkdir -p $out/${arch}/qemupciserial; cp qemupciserial/* $out/${arch}/qemupciserial/. 
-      '';
+      copy_pvpanic =
+        arch: version:
+        "mkdir -p $out/${arch}/qemupanic; cp pvpanic/${version}/${arch}/* $out/${arch}/qemupanic/. \n";
+      copy_pciserial =
+        arch: "mkdir -p $out/${arch}/qemupciserial; cp qemupciserial/* $out/${arch}/qemupciserial/. \n";
       copy_agent = arch: ''
         mkdir -p $out/${arch}/qemuagent
         cp guest-agent/${

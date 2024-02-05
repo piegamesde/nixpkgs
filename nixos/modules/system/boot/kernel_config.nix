@@ -72,7 +72,7 @@ let
         ];
     in
     if (val == "") then
-      ''""''
+      "\"\""
     else if val == "y" || val == "m" || val == "n" then
       val
     else if all isNumber (stringToCharacters val) then
@@ -104,13 +104,9 @@ let
         if val == null then
           ""
         else if (item.optional) then
-          ''
-            ${key}? ${mkValue val}
-          ''
+          "${key}? ${mkValue val}\n"
         else
-          ''
-            ${key} ${mkValue val}
-          '';
+          "${key} ${mkValue val}\n";
 
       mkConf = cfg: concatStrings (mapAttrsToList mkConfigLine cfg);
     in

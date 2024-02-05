@@ -57,7 +57,7 @@ let
         (name: value: ''
           Autochanger {
             Name = "${name}";
-            Device = ${concatStringsSep ", " (map (a: ''"${a}"'') value.devices)};
+            Device = ${concatStringsSep ", " (map (a: "\"${a}\"") value.devices)};
             Changer Device =  "${value.changerDevice}";
             Changer Command = "${value.changerCommand}";
             ${value.extraAutochangerConfig}
@@ -227,7 +227,9 @@ let
           description = lib.mdDoc ''
             Extra configuration to be passed in Autochanger directive.
           '';
-          example = "\n";
+          example = ''
+
+          '';
         };
       };
     };

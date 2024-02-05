@@ -87,14 +87,14 @@ mkDerivation rec {
     + lib.optionalString withClangPlugins ''
       # Fix paths for llvm/clang includes directories.
       substituteInPlace src/shared/clang/clang_defines.pri \
-        --replace '$$clean_path($''${LLVM_LIBDIR}/clang/$''${LLVM_VERSION}/include)' '${clang_qt_vendor}/lib/clang/8.0.0/include' \
-        --replace '$$clean_path($''${LLVM_BINDIR})' '${clang_qt_vendor}/bin'
+        --replace '$$clean_path($${LLVM_LIBDIR}/clang/$${LLVM_VERSION}/include)' '${clang_qt_vendor}/lib/clang/8.0.0/include' \
+        --replace '$$clean_path($${LLVM_BINDIR})' '${clang_qt_vendor}/bin'
 
       # Fix paths to libclang library.
       substituteInPlace src/shared/clang/clang_installation.pri \
-        --replace 'LIBCLANG_LIBS = -L$''${LLVM_LIBDIR}' 'LIBCLANG_LIBS = -L${llvmPackages_8.libclang.lib}/lib' \
-        --replace 'LIBCLANG_LIBS += $''${CLANG_LIB}' 'LIBCLANG_LIBS += -lclang' \
-        --replace 'LIBTOOLING_LIBS = -L$''${LLVM_LIBDIR}' 'LIBTOOLING_LIBS = -L${clang_qt_vendor}/lib' \
+        --replace 'LIBCLANG_LIBS = -L$${LLVM_LIBDIR}' 'LIBCLANG_LIBS = -L${llvmPackages_8.libclang.lib}/lib' \
+        --replace 'LIBCLANG_LIBS += $${CLANG_LIB}' 'LIBCLANG_LIBS += -lclang' \
+        --replace 'LIBTOOLING_LIBS = -L$${LLVM_LIBDIR}' 'LIBTOOLING_LIBS = -L${clang_qt_vendor}/lib' \
         --replace 'LLVM_CXXFLAGS ~= s,-gsplit-dwarf,' '${
           lib.concatStringsSep "\n" [
             "LLVM_CXXFLAGS ~= s,-gsplit-dwarf,"

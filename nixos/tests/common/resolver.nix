@@ -69,7 +69,7 @@
               matchAliases =
                 str:
                 let
-                  matched = builtins.match "[ 	]+(${reHost})(.*)" str;
+                  matched = builtins.match "[ \t]+(${reHost})(.*)" str;
                   continue = lib.singleton (lib.head matched) ++ matchAliases (lib.last matched);
                 in
                 if matched == null then [ ] else continue;
@@ -77,7 +77,7 @@
               matchLine =
                 str:
                 let
-                  result = builtins.match "[ 	]*(${reIp})[ 	]+(${reHost})(.*)" str;
+                  result = builtins.match "[ \t]*(${reIp})[ \t]+(${reHost})(.*)" str;
                 in
                 if result == null then
                   null
@@ -90,13 +90,7 @@
               skipLine =
                 str:
                 let
-                  rest =
-                    builtins.match
-                      ''
-                        [^
-                        ]*
-                        (.*)''
-                      str;
+                  rest = builtins.match "[^\n]*\n(.*)" str;
                 in
                 if rest == null then "" else lib.head rest;
 

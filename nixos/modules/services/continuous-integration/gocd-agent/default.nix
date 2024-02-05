@@ -194,7 +194,7 @@ in
         // {
           NIX_REMOTE = "daemon";
           AGENT_WORK_DIR = cfg.workDir;
-          AGENT_STARTUP_ARGS = "${concatStringsSep " " cfg.startupOptions}";
+          AGENT_STARTUP_ARGS = ''${concatStringsSep " " cfg.startupOptions}'';
           LOG_DIR = cfg.workDir;
           LOG_FILE = "${cfg.workDir}/go-agent-start.log";
         }

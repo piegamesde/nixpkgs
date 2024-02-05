@@ -5,7 +5,7 @@
   owner ? "",
   repo ? "",
   page ? "releases?per_page=1",
-  filter ? ''.[0].tag_name | split("-") | .[1]'',
+  filter ? ".[0].tag_name | split(\"-\") | .[1]",
 }:
 
 let

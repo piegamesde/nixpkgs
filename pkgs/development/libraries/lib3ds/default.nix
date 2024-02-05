@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ unzip ];
 
   meta = {
-    description = ''Library for managing 3D-Studio Release 3 and 4 ".3DS" files'';
+    description = "Library for managing 3D-Studio Release 3 and 4 \".3DS\" files";
     homepage = "https://lib3ds.sourceforge.net/";
     license = "LGPL";
     platforms = lib.platforms.unix;

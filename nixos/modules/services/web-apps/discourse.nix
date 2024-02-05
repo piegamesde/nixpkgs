@@ -920,7 +920,7 @@ in
             };
             "~ ^/uploads/short-url/" = proxy { };
             "~ ^/secure-media-uploads/" = proxy { };
-            "~* (fonts|assets|plugins|uploads)/.*.(eot|ttf|woff|woff2|ico|otf)$".extraConfig =
+            "~* (fonts|assets|plugins|uploads)/.*\.(eot|ttf|woff|woff2|ico|otf)$".extraConfig =
               cache_1y
               + ''
                 add_header Access-Control-Allow-Origin *;

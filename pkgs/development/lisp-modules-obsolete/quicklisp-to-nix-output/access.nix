@@ -6,9 +6,8 @@ rec {
 
   parasites = [ "access-test" ];
 
-  description = ''
-    A library providing functions that unify data-structure access for Common Lisp:
-          access and (setf access)'';
+  description = "A library providing functions that unify data-structure access for Common Lisp:
+      access and (setf access)";
 
   deps = [
     args."alexandria"

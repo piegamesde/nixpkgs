@@ -43,7 +43,7 @@ stdenv.mkDerivation rec {
   configureFlags = [ "--without-dbus" ];
   enableParallelBuilding = true;
 
-  postInstall = "ln -s $out/lib/purple-2 $out/share/pidgin-sipe";
+  postInstall = "ln -s \$out/lib/purple-2 \$out/share/pidgin-sipe";
 
   meta = with lib; {
     description = "SIPE plugin for Pidgin IM";

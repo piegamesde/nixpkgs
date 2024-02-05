@@ -166,7 +166,7 @@ mapAttrs
             '')
             (pkgs.writeShellScriptBin "run-in-this-term" "sudo -u alice run-in-this-term-wrapped $1")
 
-            (pkgs.writeShellScriptBin "run-in-this-term-wrapped" ''command="$(which "$1")"; ${cmd}'')
+            (pkgs.writeShellScriptBin "run-in-this-term-wrapped" "command=\"$(which \"$1\")\"; ${cmd}")
           ];
 
           # Helpful reminder to add this test to passthru.tests

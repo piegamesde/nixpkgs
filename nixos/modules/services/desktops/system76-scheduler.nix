@@ -85,7 +85,7 @@ let
           "fifo"
         ]
       );
-      example = literalExpression ''"batch"'';
+      example = literalExpression "\"batch\"";
       description = mdDoc "CPU scheduler class.";
     };
     prio = {
@@ -101,7 +101,7 @@ let
           "realtime"
         ]
       );
-      example = literalExpression ''"best-effort"'';
+      example = literalExpression "\"best-effort\"";
       description = mdDoc "IO scheduler class.";
     };
     ioPrio = {
@@ -127,9 +127,9 @@ let
     let
       p = cfg.settings.cfsProfiles.${name};
     in
-    ''${name} latency=${toString p.latency} nr-latency=${toString p.nr-latency} wakeup-granularity=${toString p.wakeup-granularity} bandwidth-size=${toString p.bandwidth-size} preempt="${p.preempt}"'';
+    "${name} latency=${toString p.latency} nr-latency=${toString p.nr-latency} wakeup-granularity=${toString p.wakeup-granularity} bandwidth-size=${toString p.bandwidth-size} preempt=\"${p.preempt}\"";
 
-  prioToString = class: prio: if prio == null then ''"${class}"'' else "(${class})${toString prio}";
+  prioToString = class: prio: if prio == null then "\"${class}\"" else "(${class})${toString prio}";
 
   schedulerProfileToString =
     name: a: indent:
@@ -138,10 +138,9 @@ let
       ++ (optional (a.nice != null) "nice=${toString a.nice}")
       ++ (optional (a.class != null) "sched=${prioToString a.class a.prio}")
       ++ (optional (a.ioClass != null) "io=${prioToString a.ioClass a.ioPrio}")
-      ++ (optional ((builtins.length a.matchers) != 0) (''
-        {
-        ${concatStringsSep "\n" (map (m: "  ${indent}${m}") a.matchers)}
-        ${indent}}''))
+      ++ (optional ((builtins.length a.matchers) != 0) (
+        "{\n${concatStringsSep "\n" (map (m: "  ${indent}${m}") a.matchers)}\n${indent}}"
+      ))
     );
 in
 {
@@ -353,21 +352,12 @@ in
 
       {
         "system76-scheduler/process-scheduler/02-config.kdl".text =
-          ''
-            exceptions {
-            ${concatStringsSep "\n" (map (e: "  ${e}") cfg.exceptions)}
-            }
-          ''
-          + ''
-            assignments {
-          ''
+          "exceptions {\n${concatStringsSep "\n" (map (e: "  ${e}") cfg.exceptions)}\n}\n"
+          + "assignments {\n"
           + (concatStringsSep "\n" (
             map (name: schedulerProfileToString name cfg.assignments.${name} "  ") (attrNames cfg.assignments)
           ))
-          + ''
-
-            }
-          '';
+          + "\n}\n";
       }
     ];
   };

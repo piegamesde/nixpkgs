@@ -4,7 +4,7 @@ rec {
   baseName = "xsubseq";
   version = "20170830-git";
 
-  description = ''Efficient way to manage "subseq"s in Common Lisp'';
+  description = "Efficient way to manage \"subseq\"s in Common Lisp";
 
   deps = [ ];
 

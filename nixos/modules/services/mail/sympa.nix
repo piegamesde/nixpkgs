@@ -50,15 +50,7 @@ let
     // commonServiceConfig;
 
   configVal = value: if isBool value then if value then "on" else "off" else toString value;
-  configGenerator =
-    c:
-    concatStrings (
-      flip mapAttrsToList c (
-        key: val: ''
-          ${key}	${configVal val}
-        ''
-      )
-    );
+  configGenerator = c: concatStrings (flip mapAttrsToList c (key: val: "${key}\t${configVal val}\n"));
 
   mainConfig = pkgs.writeText "sympa.conf" (configGenerator cfg.settings);
   robotConfig = fqdn: domain: pkgs.writeText "${fqdn}-robot.conf" (configGenerator domain.settings);

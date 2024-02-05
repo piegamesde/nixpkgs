@@ -19,14 +19,14 @@ let
   valFlag =
     name: val:
     optionalString (val != null)
-      ''-${name} "${
+      "-${name} \"${
         escape
           [
             "\\"
-            ''"''
+            "\""
           ]
           (toString val)
-      }"'';
+      }\"";
   boolFlag = name: val: optionalString val "-${name}";
   flags = [
     (valFlag "port" cfg.port)

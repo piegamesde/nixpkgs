@@ -89,7 +89,7 @@ let
           '';
           apply =
             let
-              from = ''services.rspamd.workers."${name}".type'';
+              from = "services.rspamd.workers.\"${name}\".type";
               files = options.type.files;
               warning = "The option `${from}` defined in ${showFiles files} has enum value `proxy` which has been renamed to `rspamd_proxy`";
             in
@@ -185,7 +185,7 @@ let
 
   mkBindSockets =
     enabled: socks:
-    concatStringsSep "\n  " (flatten (map (each: ''bind_socket = "${each.rawEntry}";'') socks));
+    concatStringsSep "\n  " (flatten (map (each: "bind_socket = \"${each.rawEntry}\";") socks));
 
   rspamdConfFile = pkgs.writeText "rspamd.conf" ''
     .include "$CONFDIR/common.conf"
@@ -220,7 +220,7 @@ let
               }
               ${mkBindSockets value.enable value.bindSockets}
               ${optionalString (value.count != null) "count = ${toString value.count};"}
-              ${concatStringsSep "\n  " (map (each: ''.include "${each}"'') value.includes)}
+              ${concatStringsSep "\n  " (map (each: ".include \"${each}\"") value.includes)}
               .include(try=true; priority=1,duplicate=merge) "$LOCAL_CONFDIR/local.d/worker-${includeName}.inc"
               .include(try=${tryOverride}; priority=10) "$LOCAL_CONFDIR/override.d/worker-${includeName}.inc"
             }

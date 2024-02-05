@@ -32,7 +32,7 @@ in
         "networking"
         "hostConf"
       ]
-      ''Use environment.etc."host.conf" instead.''
+      "Use environment.etc.\"host.conf\" instead."
     )
   ];
 

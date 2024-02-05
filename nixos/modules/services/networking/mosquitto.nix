@@ -13,17 +13,11 @@ let
   # note that mosquitto config parsing is very simplistic as of may 2021.
   # often times they'll e.g. strtok() a line, check the first two tokens, and ignore the rest.
   # there's no escaping available either, so we have to prevent any being necessary.
-  str =
-    types.strMatching ''
-      [^
-      ]*''
-    // {
-      description = "single-line string";
-    };
+  str = types.strMatching "[^\r\n]*" // {
+    description = "single-line string";
+  };
   path = types.addCheck types.path (p: str.check "${p}");
-  configKey = types.strMatching ''
-    [^
-    	 ]+'';
+  configKey = types.strMatching "[^\r\n\t ]+";
   optionType =
     with types;
     oneOf [
@@ -124,12 +118,7 @@ let
     prefix: users:
     mapAttrsToList
       (n: _: {
-        assertion =
-          builtins.match
-            ''
-              [^:
-              ]+''
-            n != null;
+        assertion = builtins.match "[^:\r\n]+" n != null;
         message = "Invalid user name ${n} in ${prefix}";
       })
       users

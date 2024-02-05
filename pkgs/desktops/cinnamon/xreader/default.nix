@@ -73,9 +73,8 @@ stdenv.mkDerivation rec {
   ];
 
   meta = with lib; {
-    description = ''
-      A document viewer capable of displaying multiple and single page
-      document formats like PDF and Postscript'';
+    description = "A document viewer capable of displaying multiple and single page
+document formats like PDF and Postscript";
     homepage = "https://github.com/linuxmint/xreader";
     license = licenses.gpl2Plus;
     platforms = platforms.linux;

@@ -13,18 +13,18 @@ in
   meta.maintainers = [ maintainers.camillemndn ];
 
   options.services.jellyseerr = {
-    enable = mkEnableOption (mdDoc "Jellyseerr, a requests manager for Jellyfin");
+    enable = mkEnableOption (mdDoc ''Jellyseerr, a requests manager for Jellyfin'');
 
     openFirewall = mkOption {
       type = types.bool;
       default = false;
-      description = mdDoc "Open port in the firewall for the Jellyseerr web interface.";
+      description = mdDoc ''Open port in the firewall for the Jellyseerr web interface.'';
     };
 
     port = mkOption {
       type = types.port;
       default = 5055;
-      description = mdDoc "The port which the Jellyseerr web UI should listen to.";
+      description = mdDoc ''The port which the Jellyseerr web UI should listen to.'';
     };
   };
 

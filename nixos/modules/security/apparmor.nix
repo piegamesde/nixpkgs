@@ -136,7 +136,7 @@ in
       map
         (policy: {
           assertion = match ".*/.*" policy == null;
-          message = ''`security.apparmor.policies."${policy}"' must not contain a slash.'';
+          message = "`security.apparmor.policies.\"${policy}\"' must not contain a slash.";
           # Because, for instance, aa-remove-unknown uses profiles_names_list() in rc.apparmor.functions
           # which does not recurse into sub-directories.
         })
@@ -163,14 +163,9 @@ in
         cache-loc /var/cache/apparmor
         Include /etc/apparmor.d
       ''
-      +
-        concatMapStrings
-          (p: ''
-            Include ${p}/etc/apparmor.d
-          '')
-          cfg.packages;
+      + concatMapStrings (p: "Include ${p}/etc/apparmor.d\n") cfg.packages;
     # For aa-logprof
-    environment.etc."apparmor/apparmor.conf".text = "";
+    environment.etc."apparmor/apparmor.conf".text = '''';
     # For aa-logprof
     environment.etc."apparmor/severity.db".source = pkgs.apparmor-utils + "/etc/apparmor/severity.db";
     environment.etc."apparmor/logprof.conf".source =

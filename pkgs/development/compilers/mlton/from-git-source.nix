@@ -27,7 +27,7 @@ stdenv.mkDerivation {
   enableParallelBuilding = false;
 
   preBuild = ''
-    find . -type f | grep -v -e '\.tgz$' | xargs sed -i "s@/usr/bin/env bash@$(type -p bash)@"
+    find . -type f | grep -v -e '\.tgz''$' | xargs sed -i "s@/usr/bin/env bash@$(type -p bash)@"
     sed -i "s|/tmp|$TMPDIR|" bin/regression
 
     makeFlagsArray=(

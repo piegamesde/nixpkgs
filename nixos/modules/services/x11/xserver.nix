@@ -516,7 +516,7 @@ in
           }
           {
             output = "DVI-1";
-            monitorConfig = ''Option "Rotate" "left"'';
+            monitorConfig = "Option \"Rotate\" \"left\"";
           }
         ];
         type =

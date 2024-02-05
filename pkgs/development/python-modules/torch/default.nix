@@ -273,14 +273,13 @@ buildPythonPackage rec {
 
       # Doesn't pick up the environment variable?
       substituteInPlace third_party/kineto/libkineto/CMakeLists.txt \
-        --replace "\$ENV{ROCM_SOURCE_DIR}" "${rocmtoolkit_joined}" \
+        --replace "\''$ENV{ROCM_SOURCE_DIR}" "${rocmtoolkit_joined}" \
         --replace "/opt/rocm" "${rocmtoolkit_joined}"
 
       # Strangely, this is never set in cmake
       substituteInPlace cmake/public/LoadHIP.cmake \
         --replace "set(ROCM_PATH \$ENV{ROCM_PATH})" \
-          "set(ROCM_PATH \$ENV{ROCM_PATH})
-      set(ROCM_VERSION ${lib.concatStrings (lib.intersperse "0" (lib.splitString "." hip.version))})"
+          "set(ROCM_PATH \$ENV{ROCM_PATH})''\nset(ROCM_VERSION ${lib.concatStrings (lib.intersperse "0" (lib.splitString "." hip.version))})"
     ''
     # error: no member named 'aligned_alloc' in the global namespace; did you mean simply 'aligned_alloc'
     # This lib overrided aligned_alloc hence the error message. Tltr: his function is linkable but not in header.

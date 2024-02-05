@@ -93,7 +93,7 @@ python.pkgs.buildPythonApplication rec {
     mv $out/share/bcc/man $out/share/
 
     find $out/share/bcc/tools -type f -executable -print0 | \
-    while IFS= read -r -d $'\0' f; do
+    while IFS= read -r -d ''$'\0' f; do
       bin=$out/bin/$(basename $f)
       if [ ! -e $bin ]; then
         ln -s $f $bin

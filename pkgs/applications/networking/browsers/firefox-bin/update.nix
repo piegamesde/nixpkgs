@@ -48,7 +48,7 @@ writeScript "update-${pname}" ''
            sort --version-sort | \
            grep -v "funnelcake" | \
            grep -e "${lib.optionalString isBeta "b"}\([[:digit:]]\|[[:digit:]][[:digit:]]\)$" | ${
-             lib.optionalString (!isBeta) ''grep -v "b" |''
+             lib.optionalString (!isBeta) "grep -v \"b\" |"
            } \
            tail -1`
 

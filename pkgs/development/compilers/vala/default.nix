@@ -76,7 +76,7 @@ let
       # so add the build vala in nativeBuildInputs
       preBuild =
         lib.optionalString (disableGraphviz && (stdenv.buildPlatform == stdenv.hostPlatform))
-          ''buildFlagsArray+=("VALAC=$(pwd)/compiler/valac")'';
+          "buildFlagsArray+=(\"VALAC=$(pwd)/compiler/valac\")";
 
       outputs = [
         "out"

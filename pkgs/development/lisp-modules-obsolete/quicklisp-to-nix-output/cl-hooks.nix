@@ -6,9 +6,8 @@ rec {
 
   parasites = [ "cl-hooks/test" ];
 
-  description = ''
-    This system provides the hooks extension point
-    mechanism (as known, e.g., from GNU Emacs).'';
+  description = "This system provides the hooks extension point
+mechanism (as known, e.g., from GNU Emacs).";
 
   deps = [
     args."alexandria"

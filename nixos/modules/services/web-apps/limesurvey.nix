@@ -244,7 +244,7 @@ in
           username = cfg.database.user;
           password =
             mkIf (cfg.database.passwordFile != null)
-              ''file_get_contents("${toString cfg.database.passwordFile}");'';
+              "file_get_contents(\"${toString cfg.database.passwordFile}\");";
           tablePrefix = "limesurvey_";
         };
         assetManager.basePath = "${stateDir}/tmp/assets";

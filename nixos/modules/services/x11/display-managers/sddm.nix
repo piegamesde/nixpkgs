@@ -17,11 +17,7 @@ let
   iniFmt = pkgs.formats.ini { };
 
   xserverWrapper = pkgs.writeShellScript "xserver-wrapper" ''
-    ${concatMapStrings
-      (n: ''
-        export ${n}="${getAttr n xEnv}"
-      '')
-      (attrNames xEnv)}
+    ${concatMapStrings (n: "export ${n}=\"${getAttr n xEnv}\"\n") (attrNames xEnv)}
     exec systemd-cat -t xserver-wrapper ${dmcfg.xserverBin} ${toString dmcfg.xserverArgs} "$@"
   '';
 

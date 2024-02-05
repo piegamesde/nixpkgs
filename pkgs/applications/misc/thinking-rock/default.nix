@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
 
   buildPhase = ''
     # only keep /bin/tr
-    ls -1 bin/* | grep -ve  'bin/tr$' | xargs rm
+    ls -1 bin/* | grep -ve  'bin/tr''$' | xargs rm
     # don't keep the other .exe file either
     find . -iname "*.exe" | xargs -n1 rm
     mkdir -p $out/{nix-support/tr-files,bin}

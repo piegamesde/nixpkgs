@@ -64,10 +64,10 @@ stdenv.mkDerivation rec {
       templateSubstitutions = lib.concatStringsSep "; " [
         "s#Noto Color Emoji#Twitter Color Emoji#"
         "s#NotoColorEmoji#TwitterColorEmoji#"
-        "s#Copyright .* Google Inc\\.#Twitter, Inc and other contributors.#"
+        ''s#Copyright .* Google Inc\.#Twitter, Inc and other contributors.#''
         "s# Version .*# ${version}#"
         "s#.*is a trademark.*##"
-        "s#Google, Inc\\.#Twitter, Inc and other contributors#"
+        ''s#Google, Inc\.#Twitter, Inc and other contributors#''
         "s#http://www.google.com/get/noto/#https://twemoji.twitter.com/#"
         "s#.*is licensed under.*#      Creative Commons Attribution 4.0 International#"
         "s#http://scripts.sil.org/OFL#http://creativecommons.org/licenses/by/4.0/#"

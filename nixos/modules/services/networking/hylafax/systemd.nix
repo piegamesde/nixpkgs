@@ -191,9 +191,9 @@ let
     serviceConfig.ExecStart = concatStringsSep " " [
       "${pkgs.hylafaxplus}/spool/bin/faxcron"
       ''-q "${cfg.spoolAreaPath}"''
-      "-info ${toString cfg.faxcron.infoDays}"
-      "-log  ${toString cfg.faxcron.logDays}"
-      "-rcv  ${toString cfg.faxcron.rcvDays}"
+      ''-info ${toString cfg.faxcron.infoDays}''
+      ''-log  ${toString cfg.faxcron.logDays}''
+      ''-rcv  ${toString cfg.faxcron.rcvDays}''
     ];
   };
 
@@ -210,8 +210,8 @@ let
       "-v"
       (optionalString (cfg.faxqclean.archiving != "never") "-a")
       (optionalString (cfg.faxqclean.archiving == "always") "-A")
-      "-j ${toString (cfg.faxqclean.doneqMinutes * 60)}"
-      "-d ${toString (cfg.faxqclean.docqMinutes * 60)}"
+      ''-j ${toString (cfg.faxqclean.doneqMinutes * 60)}''
+      ''-d ${toString (cfg.faxqclean.docqMinutes * 60)}''
     ];
   };
 

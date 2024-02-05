@@ -151,7 +151,7 @@ let
 
   yesOrNo = b: if b then "yes" else "no";
   maybeString = prefix: x: if x == null then "" else ''${prefix} "${x}"'';
-  maybeToString = prefix: x: if x == null then "" else "${prefix} ${toString x}";
+  maybeToString = prefix: x: if x == null then "" else ''${prefix} ${toString x}'';
   forEach = pre: l: concatMapStrings (x: pre + x + "\n") l;
 
   keyConfigFile = concatStrings (

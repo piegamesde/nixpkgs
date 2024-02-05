@@ -117,8 +117,8 @@ stdenv.mkDerivation (
       (
         if crossCompiling then
           [
-            ''-Dlibpth=""''
-            ''-Dglibpth=""''
+            "-Dlibpth=\"\""
+            "-Dglibpth=\"\""
             "-Ddefault_inc_excludes_dot"
           ]
         else
@@ -136,7 +136,7 @@ stdenv.mkDerivation (
         "-Dlocincpth=${libcInc}/include"
         "-Dloclibpth=${libcLib}/lib"
       ]
-      ++ lib.optionals ((builtins.match "5\\.[0-9]*[13579]\\..+" version) != null) [
+      ++ lib.optionals ((builtins.match ''5\.[0-9]*[13579]\..+'' version) != null) [
         "-Dusedevel"
         "-Uversiononly"
       ]

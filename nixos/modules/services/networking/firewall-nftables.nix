@@ -64,7 +64,7 @@ in
       }
       {
         assertion = cfg.pingLimit == null || !(hasPrefix "--" cfg.pingLimit);
-        message = ''nftables syntax like "2/second" should be used in networking.firewall.pingLimit'';
+        message = "nftables syntax like \"2/second\" should be used in networking.firewall.pingLimit";
       }
       {
         assertion = config.networking.nftables.rulesetFile == null;

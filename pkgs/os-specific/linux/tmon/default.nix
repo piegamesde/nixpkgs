@@ -18,7 +18,7 @@ stdenv.mkDerivation {
   '';
 
   makeFlags = kernel.makeFlags ++ [
-    ''INSTALL_ROOT="$(out)"''
+    "INSTALL_ROOT=\"$(out)\""
     "BINDIR=bin"
   ];
   NIX_CFLAGS_LINK = "-lgcc_s";

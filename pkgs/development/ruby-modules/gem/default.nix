@@ -91,7 +91,7 @@ lib.makeOverridable (
         else if type == "url" then
           fetchurl attrs.source
         else
-          throw ''buildRubyGem: don't know how to build a gem of type "${type}"''
+          throw "buildRubyGem: don't know how to build a gem of type \"${type}\""
       );
     documentFlag = if document == [ ] then "-N" else "--document ${lib.concatStringsSep "," document}";
   in

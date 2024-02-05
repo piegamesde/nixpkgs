@@ -17,7 +17,9 @@ stdenv.mkDerivation rec {
     sha256 = "0kfibbjmy85r3k92cdchha78nzb6silkgn1zaq9g8qaf1l0w0hrs";
   };
 
-  preInstall = "\n    mkdir -p $out/man/man{1,8} $out/sbin $out/bin\n  ";
+  preInstall = "
+    mkdir -p $out/man/man{1,8} $out/sbin $out/bin
+  ";
 
   meta = {
     description = "Netkit TFTP client and server";

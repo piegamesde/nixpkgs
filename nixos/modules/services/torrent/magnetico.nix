@@ -18,13 +18,7 @@ let
       credentialsFile
     else
       pkgs.writeText "magnetico-credentials" (
-        concatStrings (
-          mapAttrsToList
-            (user: hash: ''
-              ${user}:${hash}
-            '')
-            cfg.web.credentials
-        )
+        concatStrings (mapAttrsToList (user: hash: "${user}:${hash}\n") cfg.web.credentials)
       );
 
   # default options in magneticod/main.go

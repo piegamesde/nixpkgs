@@ -28,7 +28,9 @@ buildPythonPackage rec {
     stups-zign
   ];
 
-  preCheck = "\n    export HOME=$TEMPDIR\n  ";
+  preCheck = "
+    export HOME=$TEMPDIR
+  ";
 
   nativeCheckInputs = [
     pytest

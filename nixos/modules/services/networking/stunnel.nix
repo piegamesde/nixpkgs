@@ -14,13 +14,13 @@ let
 
   verifyRequiredField = type: field: n: c: {
     assertion = hasAttr field c;
-    message = ''stunnel: "${n}" ${type} configuration - Field ${field} is required.'';
+    message = "stunnel: \"${n}\" ${type} configuration - Field ${field} is required.";
   };
 
   verifyChainPathAssert = n: c: {
     assertion = (c.verifyHostname or null) == null || (c.verifyChain || c.verifyPeer);
     message =
-      ''stunnel: "${n}" client configuration - hostname verification ''
+      "stunnel: \"${n}\" client configuration - hostname verification "
       + "is not possible without either verifyChain or verifyPeer enabled";
   };
 

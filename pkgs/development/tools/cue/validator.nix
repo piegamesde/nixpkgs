@@ -20,5 +20,5 @@ writeShellScript "validate-using-cue" ''
         --concrete \
         "$1" \
         ${cueSchemaFile} \
-        ${lib.optionalString (document != null) ''-d "${document}"''}
+        ${lib.optionalString (document != null) "-d \"${document}\""}
 ''

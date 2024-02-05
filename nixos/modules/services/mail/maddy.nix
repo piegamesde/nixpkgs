@@ -176,7 +176,7 @@ in
       hostname = mkOption {
         default = "localhost";
         type = with types; uniq string;
-        example = "example.com";
+        example = ''example.com'';
         description = lib.mdDoc ''
           Hostname to use. It should be FQDN.
         '';
@@ -185,7 +185,7 @@ in
       primaryDomain = mkOption {
         default = "localhost";
         type = with types; uniq string;
-        example = "mail.example.com";
+        example = ''mail.example.com'';
         description = lib.mdDoc ''
           Primary MX domain to use. It should be FQDN.
         '';

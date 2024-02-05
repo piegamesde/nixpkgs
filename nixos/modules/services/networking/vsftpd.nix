@@ -108,11 +108,7 @@ let
   ];
 
   configFile = pkgs.writeText "vsftpd.conf" ''
-    ${concatMapStrings
-      (x: ''
-        ${x.cfgText}
-      '')
-      optionDescription}
+    ${concatMapStrings (x: "${x.cfgText}\n") optionDescription}
     ${optionalString (cfg.rsaCertFile != null) ''
       ssl_enable=YES
       rsa_cert_file=${cfg.rsaCertFile}
@@ -166,13 +162,7 @@ in
 
       userlistFile = mkOption {
         type = types.path;
-        default = pkgs.writeText "userlist" (
-          concatMapStrings
-            (x: ''
-              ${x}
-            '')
-            cfg.userlist
-        );
+        default = pkgs.writeText "userlist" (concatMapStrings (x: "${x}\n") cfg.userlist);
         defaultText = literalExpression ''pkgs.writeText "userlist" (concatMapStrings (x: "''${x}\n") cfg.userlist)'';
         description = lib.mdDoc ''
           Newline separated list of names to be allowed/denied if {option}`userlistEnable`

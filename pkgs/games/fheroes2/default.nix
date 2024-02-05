@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
 
   makeFlags = [
     "FHEROES2_STRICT_COMPILATION=1"
-    ''FHEROES2_DATA="${placeholder "out"}/share/fheroes2"''
+    "FHEROES2_DATA=\"${placeholder "out"}/share/fheroes2\""
   ];
 
   enableParallelBuilding = true;

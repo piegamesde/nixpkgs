@@ -39,7 +39,7 @@
 }@attrs:
 
 lib.throwIf (attrs ? name)
-  ''buildPerlPackage: `name` ("${attrs.name}") is deprecated, use `pname` and `version` instead''
+  "buildPerlPackage: `name` (\"${attrs.name}\") is deprecated, use `pname` and `version` instead"
 
   (
     let

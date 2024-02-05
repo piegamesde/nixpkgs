@@ -72,7 +72,7 @@ stdenv.mkDerivation rec {
     '';
 
   buildPhase =
-    ""
+    ''''
     + lib.optionalString stdenv.isLinux ''
       make
     ''

@@ -31,16 +31,16 @@ let
       ''"${
         lib.escape
           [
-            "$"
-            ''"''
+            "\$"
+            "\""
             "\\"
-            "`"
+            "\`"
           ]
           s
       }"'';
   attrsToText =
     attrs:
-    concatStringsSep "\n" (mapAttrsToList (n: v: "${n}=${escapeIfNeccessary (toString v)}") attrs)
+    concatStringsSep "\n" (mapAttrsToList (n: v: ''${n}=${escapeIfNeccessary (toString v)}'') attrs)
     + "\n";
 
   osReleaseContents = {

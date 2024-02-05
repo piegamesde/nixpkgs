@@ -62,9 +62,9 @@ let
     ''
     + (lib.concatStrings (
       lib.mapAttrsToList
-        (name: grammar: ''
-          ln -s ${if grammar ? src then grammar.src else fetchGrammar grammar} $out/${name}
-        '')
+        (
+          name: grammar: "ln -s ${if grammar ? src then grammar.src else fetchGrammar grammar} $out/${name}\n"
+        )
         (import ./grammars { inherit lib; })
     ))
   );

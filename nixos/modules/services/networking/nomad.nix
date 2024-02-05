@@ -196,7 +196,7 @@ in
     assertions = [
       {
         assertion = cfg.dropPrivileges -> cfg.settings.data_dir == "/var/lib/nomad";
-        message = ''settings.data_dir must be equal to "/var/lib/nomad" if dropPrivileges is true'';
+        message = "settings.data_dir must be equal to \"/var/lib/nomad\" if dropPrivileges is true";
       }
     ];
 

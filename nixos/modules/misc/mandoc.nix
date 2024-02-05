@@ -20,7 +20,7 @@ in
       manPath = lib.mkOption {
         type = with lib.types; listOf str;
         default = [ "share/man" ];
-        example = lib.literalExpression ''[ "share/man" "share/man/fr" ]'';
+        example = lib.literalExpression "[ \"share/man\" \"share/man/fr\" ]";
         description = lib.mdDoc ''
           Change the manpath, i. e. the directories where
           {manpage}`man(1)`

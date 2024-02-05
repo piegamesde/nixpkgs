@@ -59,10 +59,7 @@ in
       mode = "0644";
       text =
         (fileContents "${pkgs.iproute2}/etc/iproute2/rt_tables")
-        + (optionalString (cfg.rttablesExtraConfig != "") ''
-
-
-          ${cfg.rttablesExtraConfig}'');
+        + (optionalString (cfg.rttablesExtraConfig != "") "\n\n${cfg.rttablesExtraConfig}");
     };
   };
 }

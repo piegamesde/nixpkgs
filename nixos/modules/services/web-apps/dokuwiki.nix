@@ -22,7 +22,7 @@ let
     hostName: cfg:
     let
       inherit (cfg) acl;
-      acl_gen = concatMapStringsSep "\n" (l: "${l.page} 	 ${l.actor} 	 ${toString l.level}");
+      acl_gen = concatMapStringsSep "\n" (l: "${l.page} \t ${l.actor} \t ${toString l.level}");
     in
     pkgs.writeText "acl.auth-${hostName}.php" ''
       # acl.auth.php
@@ -45,9 +45,7 @@ let
     name: text:
     pkgs.writeTextFile {
       inherit name;
-      text = ''
-        <?php
-        ${text}'';
+      text = "<?php\n${text}";
       checkPhase = "${pkgs.php81}/bin/php --syntax-check $target";
     };
 
@@ -244,16 +242,12 @@ let
               visible = false;
               apply =
                 x:
-                throw ''
-                  The option ${ecPath} can no longer be used since it's been removed.
-                  ${replaceExtraConfig}'';
+                throw "The option ${ecPath} can no longer be used since it's been removed.\n${replaceExtraConfig}";
             };
             config.assertions = [
               {
                 assertion = !ecOpt.isDefined;
-                message = ''
-                  The option definition `${ecPath}' in ${showFiles ecOpt.files} no longer has any effect; please remove it.
-                  ${replaceExtraConfig}'';
+                message = "The option definition `${ecPath}' in ${showFiles ecOpt.files} no longer has any effect; please remove it.\n${replaceExtraConfig}";
               }
               {
                 assertion = config.mergedConfig.useacl -> (config.acl != null || config.aclFile != null);
@@ -650,14 +644,14 @@ in
                     extraConfig = "internal;";
                   };
 
-                  "~ ^/lib.*.(js|css|gif|png|ico|jpg|jpeg)$" = {
+                  "~ ^/lib.*\.(js|css|gif|png|ico|jpg|jpeg)$" = {
                     extraConfig = "expires 365d;";
                   };
 
                   "/" = {
                     priority = 1;
                     index = "doku.php";
-                    extraConfig = "try_files $uri $uri/ @dokuwiki;";
+                    extraConfig = ''try_files $uri $uri/ @dokuwiki;'';
                   };
 
                   "@dokuwiki" = {

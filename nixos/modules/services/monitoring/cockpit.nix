@@ -175,7 +175,7 @@ in
       socketConfig = {
         ListenStream = cfg.port;
         ExecStartPost = [
-          ''-${cfg.package}/share/cockpit/motd/update-motd "" localhost''
+          "-${cfg.package}/share/cockpit/motd/update-motd \"\" localhost"
           "-${pkgs.coreutils}/bin/ln -snf active.motd /run/cockpit/motd"
         ];
         ExecStopPost = "-${pkgs.coreutils}/bin/ln -snf inactive.motd /run/cockpit/motd";

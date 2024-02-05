@@ -37,5 +37,9 @@ stdenv.mkDerivation rec {
     inherit (nixosTests) gocd-server;
   };
 
-  buildCommand = "\n    unzip $src -d $out\n    mv $out/go-server-${version} $out/go-server\n    mkdir -p $out/go-server/conf\n  ";
+  buildCommand = "
+    unzip $src -d $out
+    mv $out/go-server-${version} $out/go-server
+    mkdir -p $out/go-server/conf
+  ";
 }

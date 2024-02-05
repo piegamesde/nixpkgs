@@ -250,7 +250,7 @@ rec {
         let
           mkKeyValue = mkKeyValueDefault { } " = " k;
         in
-        concatStringsSep "\n" (map (kv: "	" + mkKeyValue kv) (lib.toList v));
+        concatStringsSep "\n" (map (kv: "\t" + mkKeyValue kv) (lib.toList v));
 
       # converts { a.b.c = 5; } to { "a.b".c = 5; } for toINI
       gitFlattenAttrs =
@@ -344,20 +344,8 @@ rec {
         with builtins;
         let
           isPath = v: typeOf v == "path";
-          introSpace =
-            if multiline then
-              ''
-
-                ${indent}  ''
-            else
-              " ";
-          outroSpace =
-            if multiline then
-              ''
-
-                ${indent}''
-            else
-              " ";
+          introSpace = if multiline then "\n${indent}  " else " ";
+          outroSpace = if multiline then "\n${indent}" else " ";
         in
         if isInt v then
           toString v
@@ -371,7 +359,7 @@ rec {
             lines = filter (v: !isList v) (builtins.split "\n" v);
             escapeSingleline = libStr.escape [
               "\\"
-              ''"''
+              "\""
               "\${"
             ];
             escapeMultiline =
@@ -384,7 +372,7 @@ rec {
                   "''\${"
                   "'''"
                 ];
-            singlelineResult = ''"'' + concatStringsSep "\\n" (map escapeSingleline lines) + ''"'';
+            singlelineResult = "\"" + concatStringsSep "\\n" (map escapeSingleline lines) + "\"";
             multilineResult =
               let
                 escapedLines = map escapeMultiline lines;
@@ -482,7 +470,7 @@ rec {
       key = ind: x: literal ind "<key>${x}</key>";
       float = ind: x: literal ind "<real>${toString x}</real>";
 
-      indent = ind: expr "	${ind}";
+      indent = ind: expr "\t${ind}";
 
       item = ind: libStr.concatMapStringsSep "\n" (indent ind);
 
@@ -513,8 +501,8 @@ rec {
               (
                 name: value:
                 lib.optionals (attrFilter name value) [
-                  (key "	${ind}" name)
-                  (expr "	${ind}" value)
+                  (key "\t${ind}" name)
+                  (expr "\t${ind}" value)
                 ]
               )
               x
@@ -599,20 +587,8 @@ rec {
     with builtins;
     let
       innerIndent = "${indent}  ";
-      introSpace =
-        if multiline then
-          ''
-
-            ${innerIndent}''
-        else
-          " ";
-      outroSpace =
-        if multiline then
-          ''
-
-            ${indent}''
-        else
-          " ";
+      introSpace = if multiline then "\n${innerIndent}" else " ";
+      outroSpace = if multiline then "\n${indent}" else " ";
       innerArgs = args // {
         indent = if asBindings then indent else innerIndent;
         asBindings = false;
@@ -628,11 +604,7 @@ rec {
       generatedBindings =
         assert lib.assertMsg (badVarNames == [ ]) "Bad Lua var names: ${toPretty { } badVarNames}";
         libStr.concatStrings (
-          lib.attrsets.mapAttrsToList
-            (key: value: ''
-              ${indent}${key} = ${toLua innerArgs value}
-            '')
-            v
+          lib.attrsets.mapAttrsToList (key: value: "${indent}${key} = ${toLua innerArgs value}\n") v
         );
 
       # https://en.wikibooks.org/wiki/Lua_Programming/variable#Variable_names

@@ -116,7 +116,7 @@ let
   envFile = pkgs.writeText "mastodon.env" (
     lib.concatMapStrings (s: s + "\n") (
       (lib.concatLists (
-        lib.mapAttrsToList (name: value: if value != null then [ ''${name}="${toString value}"'' ] else [ ])
+        lib.mapAttrsToList (name: value: if value != null then [ "${name}=\"${toString value}\"" ] else [ ])
           env
       ))
     )
@@ -124,12 +124,7 @@ let
 
   mastodonTootctl =
     let
-      sourceExtraEnv =
-        lib.concatMapStrings
-          (p: ''
-            source ${p}
-          '')
-          cfg.extraEnvFiles;
+      sourceExtraEnv = lib.concatMapStrings (p: "source ${p}\n") cfg.extraEnvFiles;
     in
     pkgs.writeShellScriptBin "mastodon-tootctl" ''
       set -a
@@ -665,7 +660,7 @@ in
                 lib.mapAttrsToList (_: v: builtins.elem "scheduler" v.jobClasses || v.jobClasses == [ ])
                   cfg.sidekiqProcesses
               );
-            message = ''There must be one and only one Sidekiq queue in services.mastodon.sidekiqProcesses with jobClass "scheduler".'';
+            message = "There must be one and only one Sidekiq queue in services.mastodon.sidekiqProcesses with jobClass \"scheduler\".";
           }
         ];
 

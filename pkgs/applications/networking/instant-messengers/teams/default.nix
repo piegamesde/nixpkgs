@@ -173,7 +173,7 @@ let
       zcat < Teams_osx_app.pkg/Payload | cpio -i
     '';
 
-    sourceRoot = "Microsoft Teams.app";
+    sourceRoot = "Microsoft\ Teams.app";
     dontPatch = true;
     dontConfigure = true;
     dontBuild = true;

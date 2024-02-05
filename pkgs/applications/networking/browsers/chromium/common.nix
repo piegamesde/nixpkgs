@@ -128,15 +128,15 @@ let
       # https://source.chromium.org/gn/gn/+/master:docs/language.md
       mkGnString =
         value:
-        ''"${
+        "\"${
           lib.escape
             [
-              ''"''
+              "\""
               "$"
               "\\"
             ]
             value
-        }"'';
+        }\"";
       sanitize =
         value:
         if value == true then

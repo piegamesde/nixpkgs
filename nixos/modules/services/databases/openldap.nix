@@ -105,12 +105,7 @@ let
         ${lib.concatStringsSep "\n" (lib.flatten (lib.mapAttrsToList valueToLdif attrs))}
       ''
     ]
-    ++ (map
-      (path: ''
-        include: file://${path}
-      '')
-      includes
-    )
+    ++ (map (path: "include: file://${path}\n") includes)
     ++ (lib.flatten (lib.mapAttrsToList (name: value: attrsToLdif "${name},${dn}" value) children));
 in
 {

@@ -97,9 +97,7 @@ let
       any = "waitip";
       ipv4 = "waitip 4";
       ipv6 = "waitip 6";
-      both = ''
-        waitip 4
-        waitip 6'';
+      both = "waitip 4\nwaitip 6";
       if-carrier-up = "";
     }
     .${cfg.wait}}

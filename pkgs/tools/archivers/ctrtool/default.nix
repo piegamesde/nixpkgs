@@ -23,7 +23,10 @@ stdenv.mkDerivation rec {
   ];
   enableParallelBuilding = true;
 
-  installPhase = "\n    mkdir $out/bin -p\n    cp ctrtool${stdenv.hostPlatform.extensions.executable} $out/bin/\n  ";
+  installPhase = "
+    mkdir $out/bin -p
+    cp ctrtool${stdenv.hostPlatform.extensions.executable} $out/bin/
+  ";
 
   meta = with lib; {
     license = licenses.mit;

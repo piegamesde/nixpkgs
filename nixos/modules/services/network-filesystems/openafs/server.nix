@@ -61,15 +61,7 @@ let
 
   netInfo =
     if (cfg.advertisedAddresses != [ ]) then
-      pkgs.writeText "NetInfo" (
-        (concatStringsSep
-          ''
-
-            f ''
-          cfg.advertisedAddresses
-        )
-        + "\n"
-      )
+      pkgs.writeText "NetInfo" ((concatStringsSep "\nf " cfg.advertisedAddresses) + "\n")
     else
       null;
 

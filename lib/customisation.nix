@@ -161,7 +161,7 @@ rec {
           # Only take the first couple results
           (lib.take 3)
           # Quote all entries
-          (map (x: ''"'' + x + ''"''))
+          (map (x: "\"" + x + "\""))
         ];
 
       prettySuggestions =
@@ -187,7 +187,7 @@ rec {
             else
               "<unknown location>";
         in
-        ''Function called without required argument "${arg}" at ''
+        "Function called without required argument \"${arg}\" at "
         + "${loc'}${prettySuggestions (getSuggestions arg)}";
 
       # Only show the error for the first missing argument

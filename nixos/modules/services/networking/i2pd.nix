@@ -103,13 +103,7 @@ let
     }
     // mkEndpointOpt name "127.0.0.1" 0;
 
-  sec =
-    name:
-    ''
-
-      [''
-    + name
-    + "]";
+  sec = name: "\n[" + name + "]";
   notice = "# DO NOT EDIT -- this file has been generated automatically.";
   i2pdConf =
     let

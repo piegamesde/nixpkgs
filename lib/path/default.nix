@@ -34,10 +34,10 @@ let
     else if value == "" then
       "The given string is empty"
     else if substring 0 1 value == "/" then
-      ''The given string "${value}" starts with a `/`, representing an absolute path''
+      "The given string \"${value}\" starts with a `/`, representing an absolute path"
     # We don't support ".." components, see ./path.md#parent-directory
     else if match "(.*/)?\\.\\.(/.*)?" value != null then
-      ''The given string "${value}" contains a `..` component, which is not allowed in subpaths''
+      "The given string \"${value}\" contains a `..` component, which is not allowed in subpaths"
     else
       null;
 
@@ -145,7 +145,7 @@ in
     path:
     # The subpath string to append
     subpath:
-    assert assertMsg (isPath path) "lib.path.append: The first argument is of type ${builtins.typeOf path}, but a path was expected";
+    assert assertMsg (isPath path) ''lib.path.append: The first argument is of type ${builtins.typeOf path}, but a path was expected'';
     assert assertMsg (isValid subpath) ''
       lib.path.append: Second argument is not a valid subpath string:
           ${subpathInvalidReason subpath}'';

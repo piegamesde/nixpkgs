@@ -233,11 +233,7 @@ rec {
       (head defs).value
     else
       assert length defs > 1;
-      throw ''
-        The option `${showOption loc}' is defined multiple times while it's expected to be unique.
-        ${message}
-        Definition values:${showDefs defs}
-        ${prioritySuggestion}'';
+      throw "The option `${showOption loc}' is defined multiple times while it's expected to be unique.\n${message}\nDefinition values:${showDefs defs}\n${prioritySuggestion}";
 
   # "Merge" option definitions by checking that they all have the same value.
   mergeEqualOption =
@@ -254,14 +250,12 @@ rec {
         (
           first: def:
           if def.value != first.value then
-            throw ''
-              The option `${showOption loc}' has conflicting definition values:${
-                showDefs [
-                  first
-                  def
-                ]
-              }
-              ${prioritySuggestion}''
+            throw "The option `${showOption loc}' has conflicting definition values:${
+              showDefs [
+                first
+                def
+              ]
+            }\n${prioritySuggestion}"
           else
             first
         )
@@ -504,9 +498,7 @@ rec {
             else
               ": " + value;
         in
-        ''
-
-          - In `${def.file}'${result}''
+        "\n- In `${def.file}'${result}"
       )
       defs;
 

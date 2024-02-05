@@ -32,7 +32,7 @@ stdenv.mkDerivation {
   installPhase =
     let
       gameDir = "$out/openarena-$version";
-      interpreter = ''$(< "$NIX_CC/nix-support/dynamic-linker")'';
+      interpreter = "$(< \"$NIX_CC/nix-support/dynamic-linker\")";
       libPath = lib.makeLibraryPath [
         SDL
         libglvnd

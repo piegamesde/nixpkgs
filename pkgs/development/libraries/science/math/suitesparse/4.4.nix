@@ -54,7 +54,7 @@ stdenv.mkDerivation rec {
     '';
 
   makeFlags = [
-    ''PREFIX="$(out)"''
+    "PREFIX=\"$(out)\""
     "INSTALL_LIB=$(out)/lib"
     "INSTALL_INCLUDE=$(out)/include"
     "BLAS=-lblas"

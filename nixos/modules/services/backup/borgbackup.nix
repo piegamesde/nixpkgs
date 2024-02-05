@@ -62,7 +62,7 @@ let
       + ''
         (
           set -o pipefail
-          ${optionalString (cfg.dumpCommand != null) "${escapeShellArg cfg.dumpCommand} | \\"}
+          ${optionalString (cfg.dumpCommand != null) ''${escapeShellArg cfg.dumpCommand} | \''}
           borg create $extraArgs \
             --compression ${cfg.compression} \
             --exclude-from ${mkExcludeFile cfg} \

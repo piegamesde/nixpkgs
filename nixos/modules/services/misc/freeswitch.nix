@@ -95,11 +95,10 @@ in
       serviceConfig = {
         DynamicUser = true;
         StateDirectory = "freeswitch";
-        ExecStart = ''
-          ${pkg}/bin/freeswitch -nf \
-                    -mod ${pkg}/lib/freeswitch/mod \
-                    -conf ${configPath} \
-                    -base /var/lib/freeswitch'';
+        ExecStart = "${pkg}/bin/freeswitch -nf \\
+          -mod ${pkg}/lib/freeswitch/mod \\
+          -conf ${configPath} \\
+          -base /var/lib/freeswitch";
         ExecReload = "${pkg}/bin/fs_cli -x reloadxml";
         Restart = "on-failure";
         RestartSec = "5s";

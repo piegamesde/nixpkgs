@@ -39,7 +39,7 @@ stdenv.mkDerivation rec {
     /^PATH=[^ ]*/s,,PATH=\$PATH:\$PLAN9/bin,
     # no xcbuild nonsense
     /^if.* = Darwin/+;/^fi/-c
-    ${"	"}export NPROC=$NIX_BUILD_CORES
+    ${"\t"}export NPROC=$NIX_BUILD_CORES
     .
     # remove absolute include paths from fontsrv test
     /cc -o a.out -c -I.*freetype2/;/x11.c/j

@@ -26,24 +26,12 @@ let
   snmpGlobalDefs =
     with cfg.snmp;
     optionalString enable (
-      optionalString (socket != null) ''
-        snmp_socket ${socket}
-      ''
-      + optionalString enableKeepalived ''
-        enable_snmp_keepalived
-      ''
-      + optionalString enableChecker ''
-        enable_snmp_checker
-      ''
-      + optionalString enableRfc ''
-        enable_snmp_rfc
-      ''
-      + optionalString enableRfcV2 ''
-        enable_snmp_rfcv2
-      ''
-      + optionalString enableRfcV3 ''
-        enable_snmp_rfcv3
-      ''
+      optionalString (socket != null) "snmp_socket ${socket}\n"
+      + optionalString enableKeepalived "enable_snmp_keepalived\n"
+      + optionalString enableChecker "enable_snmp_checker\n"
+      + optionalString enableRfc "enable_snmp_rfc\n"
+      + optionalString enableRfcV2 "enable_snmp_rfcv2\n"
+      + optionalString enableRfcV3 "enable_snmp_rfcv3\n"
       + optionalString enableTraps "enable_traps"
     );
 

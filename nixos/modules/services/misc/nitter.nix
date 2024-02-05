@@ -19,7 +19,7 @@ let
               mkValueString =
                 v:
                 if isString v then
-                  ''"'' + (strings.escape [ ''"'' ] (toString v)) + ''"''
+                  "\"" + (strings.escape [ "\"" ] (toString v)) + "\""
                 else
                   generators.mkValueStringDefault { } v;
             }

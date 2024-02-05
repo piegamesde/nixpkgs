@@ -258,7 +258,7 @@ rec {
                 final.parsed.kernel.name == pkgs.stdenv.hostPlatform.parsed.kernel.name
                 && pkgs.stdenv.hostPlatform.canExecute final
               then
-                ''${pkgs.runtimeShell} -c '"$@"' --''
+                "${pkgs.runtimeShell} -c '\"$@\"' --"
               else if final.isWindows then
                 "${wine}/bin/wine${lib.optionalString (final.parsed.cpu.bits == 64) "64"}"
               else if final.isLinux && pkgs.stdenv.hostPlatform.isLinux && final.qemuArch != null then

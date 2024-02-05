@@ -118,8 +118,8 @@ let
   );
 
   tes3mp-server-run = ''
-    config="''${XDG_CONFIG_HOME:-$HOME/.config}"/openmw
-    data="''${XDG_DATA_HOME:-$HOME/.local/share}"/openmw
+    config="''${XDG_CONFIG_HOME:-''$HOME/.config}"/openmw
+    data="''${XDG_DATA_HOME:-''$HOME/.local/share}"/openmw
     if [[ ! -f "$config"/tes3mp-server.cfg && ! -d "$data"/server ]]; then
       mkdir -p "$config"
       echo [Plugins] > "$config"/tes3mp-server.cfg

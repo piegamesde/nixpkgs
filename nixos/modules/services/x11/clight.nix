@@ -23,14 +23,7 @@ let
     else if isList v then
       "[ " + concatMapStringsSep ", " toConf v + " ]"
     else if isAttrs v then
-      ''
-
-        {
-      ''
-      + convertAttrs v
-      + ''
-
-        }''
+      "\n{\n" + convertAttrs v + "\n}"
     else
       abort "clight.toConf: unexpected type (v = ${v})";
 

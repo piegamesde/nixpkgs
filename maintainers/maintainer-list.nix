@@ -14364,7 +14364,7 @@
     email = "strager.nds@gmail.com";
     github = "strager";
     githubId = 48666;
-    name = ''Matthew "strager" Glazar'';
+    name = "Matthew \"strager\" Glazar";
   };
   strikerlulu = {
     email = "strikerlulu7@gmail.com";

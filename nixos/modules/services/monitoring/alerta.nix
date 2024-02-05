@@ -17,7 +17,7 @@ let
       DATABASE_NAME = '${cfg.databaseName}'
       LOG_FILE = '${cfg.logDir}/alertad.log'
       LOG_FORMAT = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
-      CORS_ORIGINS = [ ${concatMapStringsSep ", " (s: ''"'' + s + ''"'') cfg.corsOrigins} ];
+      CORS_ORIGINS = [ ${concatMapStringsSep ", " (s: "\"" + s + "\"") cfg.corsOrigins} ];
       AUTH_REQUIRED = ${if cfg.authenticationRequired then "True" else "False"}
       SIGNUP_ENABLED = ${if cfg.signupEnabled then "True" else "False"}
       ${cfg.extraConfig}

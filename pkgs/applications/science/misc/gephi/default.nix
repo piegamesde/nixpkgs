@@ -31,7 +31,7 @@ let
       done
     '';
     # keep only *.{pom,jar,sha1,nbm} and delete all ephemeral files with lastModified timestamps inside
-    installPhase = "find $out/.m2 -type f -regex '.+\\(\\.lastUpdated\\|resolver-status\\.properties\\|_remote\\.repositories\\)' -delete";
+    installPhase = ''find $out/.m2 -type f -regex '.+\(\.lastUpdated\|resolver-status\.properties\|_remote\.repositories\)' -delete'';
     outputHashAlgo = "sha256";
     outputHashMode = "recursive";
     outputHash = "sha256-kIPsZN0alRAgiMbckQnMWKOKtCZ37D/6MgT17VYcr+s=";

@@ -231,7 +231,7 @@ in
       # Make sure that the final value has all fields for sake of other modules
       # referring to this.
       apply = lib.systems.elaborate;
-      defaultText = literalExpression "config.nixpkgs.hostPlatform";
+      defaultText = literalExpression ''config.nixpkgs.hostPlatform'';
       description = lib.mdDoc ''
         Specifies the platform on which NixOS should be built.
         By default, NixOS is built on the system where it runs, but you can

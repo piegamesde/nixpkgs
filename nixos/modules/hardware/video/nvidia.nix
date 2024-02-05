@@ -35,7 +35,7 @@ let
   primeEnabled = syncCfg.enable || reverseSyncCfg.enable || offloadCfg.enable;
   nvidiaPersistencedEnabled = cfg.nvidiaPersistenced;
   nvidiaSettings = cfg.nvidiaSettings;
-  busIDType = types.strMatching "([[:print:]]+[:@][0-9]{1,3}:[0-9]{1,2}:[0-9])?";
+  busIDType = types.strMatching "([[:print:]]+[\:\@][0-9]{1,3}\:[0-9]{1,2}\:[0-9])?";
 
   ibtSupport = cfg.open || (nvidia_x11.ibtSupport or false);
 in
@@ -423,7 +423,7 @@ in
           display = !offloadCfg.enable;
           deviceSection = optionalString primeEnabled ''
             BusID "${pCfg.nvidiaBusId}"
-            ${optionalString pCfg.allowExternalGpu ''Option "AllowExternalGpus"''}
+            ${optionalString pCfg.allowExternalGpu "Option \"AllowExternalGpus\""}
           '';
           screenSection =
             ''
@@ -459,7 +459,7 @@ in
             else
               igpuDriver;
           providerCmdParams =
-            if syncCfg.enable then ''"${gpuProviderName}" NVIDIA-0'' else ''NVIDIA-G0 "${gpuProviderName}"'';
+            if syncCfg.enable then "\"${gpuProviderName}\" NVIDIA-0" else "NVIDIA-G0 \"${gpuProviderName}\"";
         in
         optionalString (syncCfg.enable || reverseSyncCfg.enable) ''
           # Added by nvidia configuration module for Optimus/PRIME.
@@ -582,7 +582,7 @@ in
         ''
           # Create /dev/nvidia-uvm when the nvidia-uvm module is loaded.
           KERNEL=="nvidia", RUN+="${pkgs.runtimeShell} -c 'mknod -m 666 /dev/nvidiactl c $$(grep nvidia-frontend /proc/devices | cut -d \  -f 1) 255'"
-          KERNEL=="nvidia", RUN+="${pkgs.runtimeShell} -c 'for i in $$(cat /proc/driver/nvidia/gpus/*/information | grep Minor | cut -d \  -f 4); do mknod -m 666 /dev/nvidia$''${i} c $$(grep nvidia-frontend /proc/devices | cut -d \  -f 1) $''${i}; done'"
+          KERNEL=="nvidia", RUN+="${pkgs.runtimeShell} -c 'for i in $$(cat /proc/driver/nvidia/gpus/*/information | grep Minor | cut -d \  -f 4); do mknod -m 666 /dev/nvidia$${i} c $$(grep nvidia-frontend /proc/devices | cut -d \  -f 1) $${i}; done'"
           KERNEL=="nvidia_modeset", RUN+="${pkgs.runtimeShell} -c 'mknod -m 666 /dev/nvidia-modeset c $$(grep nvidia-frontend /proc/devices | cut -d \  -f 1) 254'"
           KERNEL=="nvidia_uvm", RUN+="${pkgs.runtimeShell} -c 'mknod -m 666 /dev/nvidia-uvm c $$(grep nvidia-uvm /proc/devices | cut -d \  -f 1) 0'"
           KERNEL=="nvidia_uvm", RUN+="${pkgs.runtimeShell} -c 'mknod -m 666 /dev/nvidia-uvm-tools c $$(grep nvidia-uvm /proc/devices | cut -d \  -f 1) 1'"

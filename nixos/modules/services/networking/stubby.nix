@@ -20,7 +20,7 @@ in
           "stubby"
           "debugLogging"
         ]
-        ''Use services.stubby.logLevel = "debug"; instead.''
+        "Use services.stubby.logLevel = \"debug\"; instead."
       )
     ]
     ++ map

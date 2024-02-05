@@ -28,12 +28,8 @@ let
       '';
 
   graphiteLocalSettings = pkgs.writeText "graphite_local_settings.py" (
-    ''
-      STATIC_ROOT = '${staticDir}'
-    ''
-    + optionalString (config.time.timeZone != null) ''
-      TIME_ZONE = '${config.time.timeZone}'
-    ''
+    "STATIC_ROOT = '${staticDir}'\n"
+    + optionalString (config.time.timeZone != null) "TIME_ZONE = '${config.time.timeZone}'\n"
     + cfg.web.extraConfig
   );
 

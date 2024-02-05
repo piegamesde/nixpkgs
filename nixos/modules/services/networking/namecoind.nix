@@ -13,13 +13,7 @@ let
   useSSL = (cfg.rpc.certificate != null) && (cfg.rpc.key != null);
   useRPC = (cfg.rpc.user != null) && (cfg.rpc.password != null);
 
-  listToConf =
-    option: list:
-    concatMapStrings
-      (value: ''
-        ${option}=${value}
-      '')
-      list;
+  listToConf = option: list: concatMapStrings (value: "${option}=${value}\n") list;
 
   configFile = pkgs.writeText "namecoin.conf" (
     ''

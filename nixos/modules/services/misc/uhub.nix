@@ -72,7 +72,7 @@ in
                     options = {
                       plugin = mkOption {
                         type = path;
-                        example = literalExpression "$\${pkgs.uhub}/plugins/mod_auth_sqlite.so";
+                        example = literalExpression "$${pkgs.uhub}/plugins/mod_auth_sqlite.so";
                         description = lib.mdDoc "Path to plugin file.";
                       };
                       settings = mkOption {

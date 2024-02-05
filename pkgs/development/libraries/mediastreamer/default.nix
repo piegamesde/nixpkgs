@@ -79,7 +79,7 @@ stdenv.mkDerivation rec {
   cmakeFlags = [
     "-DENABLE_STATIC=NO" # Do not build static libraries
     "-DENABLE_QT_GL=ON" # Build necessary MSQOGL plugin for Linphone desktop
-    ''-DCMAKE_C_FLAGS=-DGIT_VERSION="v${version}"''
+    "-DCMAKE_C_FLAGS=-DGIT_VERSION=\"v${version}\""
     "-DENABLE_STRICT=NO" # Disable -Werror
     "-DENABLE_UNIT_TESTS=NO" # Do not build test executables
   ];

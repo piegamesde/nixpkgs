@@ -49,7 +49,7 @@ stdenv.mkDerivation rec {
   doCheck = false;
 
   meta = with lib; {
-    description = ''Open-source alternative of Discord desktop's "app.asar".'';
+    description = "Open-source alternative of Discord desktop's \"app.asar\".";
     homepage = "https://openasar.dev";
     license = licenses.mit;
     maintainers = with maintainers; [ pedrohlc ];

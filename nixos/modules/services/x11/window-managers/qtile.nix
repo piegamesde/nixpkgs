@@ -66,7 +66,7 @@ in
         name = "qtile";
         start = ''
           ${pyEnv}/bin/qtile start -b ${cfg.backend} \
-          ${optionalString (cfg.configFile != null) ''--config "${cfg.configFile}"''} &
+          ${optionalString (cfg.configFile != null) "--config \"${cfg.configFile}\""} &
           waitPID=$!
         '';
       }

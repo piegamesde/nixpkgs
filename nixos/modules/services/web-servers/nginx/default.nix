@@ -384,7 +384,8 @@ let
             }:
             # UDP listener for QUIC transport protocol.
             (optionalString (ssl && vhost.quic) (
-              "\n            listen ${addr}:${toString port} quic "
+              "
+            listen ${addr}:${toString port} quic "
               + optionalString vhost.default "default_server "
               + optionalString vhost.reuseport "reuseport "
               + optionalString (extraParameters != [ ]) (
@@ -402,7 +403,9 @@ let
               )
               + ";"
             ))
-            + "\n\n            listen ${addr}:${toString port} "
+            + "
+
+            listen ${addr}:${toString port} "
             + optionalString (ssl && vhost.http2) "http2 "
             + optionalString ssl "ssl "
             + optionalString vhost.default "default_server "

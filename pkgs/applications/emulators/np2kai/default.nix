@@ -98,8 +98,8 @@ let
   x11BuildFlags = concatStringsSep " " [
     "SDL2_CONFIG=sdl2-config"
     "SDL_CONFIG=sdl-config"
-    ''SDL_CFLAGS="$(sdl${sdlInfix}-config --cflags)"''
-    ''SDL_LIBS="$(sdl${sdlInfix}-config --libs) -lSDL${sdlInfix}_mixer -lSDL${sdlInfix}_ttf"''
+    "SDL_CFLAGS=\"$(sdl${sdlInfix}-config --cflags)\""
+    "SDL_LIBS=\"$(sdl${sdlInfix}-config --libs) -lSDL${sdlInfix}_mixer -lSDL${sdlInfix}_ttf\""
   ];
   x11Bins = concatStringsSep " " (
     optionals enable16Bit [ "xnp2kai" ]

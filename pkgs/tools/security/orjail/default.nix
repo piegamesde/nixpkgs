@@ -37,8 +37,8 @@ stdenv.mkDerivation rec {
     # firejail will fail reading /etc/hosts, therefore remove --hostname arg
     # https://github.com/netblue30/firejail/issues/2758
     substituteInPlace $out/bin/orjail \
-      --replace $'TORBIN=\n' $'TORBIN=${tor}/bin/tor\n' \
-      --replace $'FIREJAILBIN=\n' $'FIREJAILBIN=${firejail}/bin/firejail\n' \
+      --replace ''$'TORBIN=\n' ''$'TORBIN=${tor}/bin/tor\n' \
+      --replace ''$'FIREJAILBIN=\n' ''$'FIREJAILBIN=${firejail}/bin/firejail\n' \
       --replace 'iptables -' '${iptables}/bin/iptables -' \
       --replace 'mktemp /tmp/' 'mktemp ' \
       --replace '--hostname=host ' ""

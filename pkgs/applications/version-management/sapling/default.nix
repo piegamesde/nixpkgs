@@ -118,11 +118,7 @@ python3Packages.buildPythonApplication {
   postUnpack = ''
     mkdir $sourceRoot/hack_pydeps
     ${lib.concatStrings (
-      map
-        (li: ''
-          ln -s ${fetchurl li} $sourceRoot/hack_pydeps/${baseNameOf li.url}
-        '')
-        links
+      map (li: "ln -s ${fetchurl li} $sourceRoot/hack_pydeps/${baseNameOf li.url}\n") links
     )}
     sed -i "s|https://files.pythonhosted.org/packages/[[:alnum:]]*/[[:alnum:]]*/[[:alnum:]]*/|file://$NIX_BUILD_TOP/$sourceRoot/hack_pydeps/|g" $sourceRoot/setup.py
   '';

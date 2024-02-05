@@ -423,7 +423,7 @@ self: super:
     old: {
       postInstall = ''
         substituteInPlace $out/autoload/copilot/agent.vim \
-          --replace "  let node = get(g:, 'copilot_node_command', ''')" \
+          --replace "  let node = get(g:, 'copilot_node_command', '')" \
                     "  let node = get(g:, 'copilot_node_command', '${nodejs}/bin/node')"
       '';
     }

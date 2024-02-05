@@ -278,14 +278,7 @@ in
                        prefix="${virtualHost.name}_access_log." pattern="combined" resolveHosts="false"/>
               '');
             hostElementsString = concatMapStringsSep "\n" hostElementForVirtualHost cfg.virtualHosts;
-            hostElementsSedString =
-              replaceStrings [ "\n" ]
-                [
-                  ''
-                    \
-                  ''
-                ]
-                hostElementsString;
+            hostElementsSedString = replaceStrings [ "\n" ] [ "\\\n" ] hostElementsString;
           in
           ''
             # Create a modified server.xml which also includes all virtual hosts

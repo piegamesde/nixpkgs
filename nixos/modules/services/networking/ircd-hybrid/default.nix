@@ -41,25 +41,11 @@ let
       ;
 
     cryptoSettings =
-      (optionalString (cfg.rsaKey != null) ''
-        rsa_private_key_file = "${cfg.rsaKey}";
-      '')
-      + (optionalString (cfg.certificate != null) ''
-        ssl_certificate_file = "${cfg.certificate}";
-      '');
+      (optionalString (cfg.rsaKey != null) "rsa_private_key_file = \"${cfg.rsaKey}\";\n")
+      + (optionalString (cfg.certificate != null) "ssl_certificate_file = \"${cfg.certificate}\";\n");
 
     extraListen =
-      map
-        (
-          ip:
-          ''host = "''
-          + ip
-          + ''
-            ";
-            port = 6665 .. 6669, ''
-          + extraPort
-          + "; "
-        )
+      map (ip: "host = \"" + ip + "\";\nport = 6665 .. 6669, " + extraPort + "; ")
         cfg.extraIPs;
 
     builder = ./builder.sh;

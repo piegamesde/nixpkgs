@@ -40,12 +40,12 @@ let
       os' = prefix: val: optionalString (val != null) (prefix + "${val}");
       flatten = key: value: "&${key}=${value}";
     in
-    ''--stream.stream="${opt.type}://''
+    "--stream.stream=\"${opt.type}://"
     + os opt.location
     + "?"
     + os' "name=" name
     + concatStrings (mapAttrsToList flatten opt.query)
-    + ''"'';
+    + "\"";
 
   optionalNull = val: ret: optional (val != null) ret;
 
@@ -71,7 +71,7 @@ let
       "--http.bind_to_address=${cfg.http.listenAddress}"
       "--http.port=${toString cfg.http.port}"
     ]
-    ++ optional (cfg.http.docRoot != null) ''--http.doc_root="${toString cfg.http.docRoot}"''
+    ++ optional (cfg.http.docRoot != null) "--http.doc_root=\"${toString cfg.http.docRoot}\""
   );
 in
 {

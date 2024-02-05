@@ -172,11 +172,7 @@ stdenv.mkDerivation (rec {
       makeWrapper "''$${primaryBinary}/${primaryBinary}" "$out/bin/${primaryBinary}"
     ''
     + builtins.concatStringsSep "" (
-      map
-        (binaryAlias: ''
-          ln -s $out/bin/${primaryBinary} $out/bin/${binaryAlias}
-        '')
-        primaryBinaryAliases
+      map (binaryAlias: "ln -s $out/bin/${primaryBinary} $out/bin/${binaryAlias}\n") primaryBinaryAliases
     )
     + ''
       mkdir -p "$out/share/applications"

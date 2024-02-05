@@ -22,7 +22,7 @@ attrsOrig@{
   ...
 }:
 let
-  arrayToShell = (a: toString (map (lib.escape (lib.stringToCharacters "\\ ';$`()|<>	")) a));
+  arrayToShell = (a: toString (map (lib.escape (lib.stringToCharacters "\\ ';$`()|<>\t")) a));
 
   attrs = {
     inherit pname version;

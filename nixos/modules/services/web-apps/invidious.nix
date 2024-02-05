@@ -26,7 +26,7 @@ let
             "."
             +
               lib.optionalString (cfg.database.host != null)
-                ''[0].db.password = "'"'"$(cat ${lib.escapeShellArg cfg.database.passwordFile})"'"'"''
+                "[0].db.password = \"'\"'\"$(cat ${lib.escapeShellArg cfg.database.passwordFile})\"'\"'\""
             + " | .[0]"
             + lib.optionalString (cfg.extraSettingsFile != null) " * .[1]";
           jqFiles = [ settingsFile ] ++ lib.optional (cfg.extraSettingsFile != null) cfg.extraSettingsFile;

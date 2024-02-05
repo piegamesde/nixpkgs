@@ -6,10 +6,9 @@ rec {
 
   parasites = [ "cl-environments/test" ];
 
-  description = ''
-    Implements the CLTL2 environment access functionality
-                    for implementations which do not provide the
-                    functionality to the programmer.'';
+  description = "Implements the CLTL2 environment access functionality
+                for implementations which do not provide the
+                functionality to the programmer.";
 
   deps = [
     args."alexandria"

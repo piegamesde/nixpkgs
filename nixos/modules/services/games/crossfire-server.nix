@@ -141,9 +141,7 @@ in
                 )
                 (fileContents "${cfg.package}/etc/crossfire/${name}")
               )
-              + ''
-
-                ${value}'';
+              + "\n${value}";
           }
         )
         (

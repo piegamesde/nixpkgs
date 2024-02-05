@@ -6,9 +6,8 @@ rec {
 
   parasites = [ "salza2/test" ];
 
-  description = ''
-    Create compressed data in the ZLIB, DEFLATE, or GZIP
-      data formats'';
+  description = "Create compressed data in the ZLIB, DEFLATE, or GZIP
+  data formats";
 
   deps = [
     args."chipz"

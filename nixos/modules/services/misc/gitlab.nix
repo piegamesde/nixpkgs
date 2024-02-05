@@ -48,7 +48,7 @@ let
   databaseActuallyCreateLocally = cfg.databaseCreateLocally && cfg.databaseHost == "";
 
   gitalyToml = pkgs.writeText "gitaly.toml" ''
-    socket_path = "${lib.escape [ ''"'' ] gitalySocket}"
+    socket_path = "${lib.escape [ "\"" ] gitalySocket}"
     runtime_dir = "/run/gitaly"
     bin_dir = "${cfg.packages.gitaly}/bin"
     prometheus_listen_addr = "localhost:9236"
@@ -77,8 +77,8 @@ let
         mapAttrs
           (k: v: ''
             [[storage]]
-            name = "${lib.escape [ ''"'' ] k}"
-            path = "${lib.escape [ ''"'' ] v.path}"
+            name = "${lib.escape [ "\"" ] k}"
+            path = "${lib.escape [ "\"" ] v.path}"
           '')
           gitlabConfig.production.repositories.storages
       )
@@ -1554,7 +1554,7 @@ in
         TimeoutSec = "infinity";
         Restart = "always";
         WorkingDirectory = "${cfg.packages.gitlab}/share/gitlab";
-        ExecStart = ''${cfg.packages.gitlab.rubyEnv}/bin/sidekiq -C "${cfg.packages.gitlab}/share/gitlab/config/sidekiq_queues.yml" -e production'';
+        ExecStart = "${cfg.packages.gitlab.rubyEnv}/bin/sidekiq -C \"${cfg.packages.gitlab}/share/gitlab/config/sidekiq_queues.yml\" -e production";
       };
     };
 

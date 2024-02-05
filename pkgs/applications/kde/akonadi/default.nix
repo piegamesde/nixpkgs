@@ -78,7 +78,7 @@ mkDerivation {
     ''-DNIXPKGS_POSTGRES_PG_UPGRADE=\"${lib.optionalString postgresSupport "${lib.getBin postgresql}/bin/pg_upgrade"}\"''
     ''-DNIXPKGS_POSTGRES_INITDB=\"${lib.optionalString postgresSupport "${lib.getBin postgresql}/bin/initdb"}\"''
     ''-DNIX_OUT=\"${placeholder "out"}\"''
-    "-I${lib.getDev kio}/include/KF5" # Fixes: kio_version.h: No such file or directory
+    ''-I${lib.getDev kio}/include/KF5'' # Fixes: kio_version.h: No such file or directory
   ];
 
   cmakeFlags = lib.optional (defaultDriver != "MYSQL") "-DDATABASE_BACKEND=${defaultDriver}";

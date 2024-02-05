@@ -6,10 +6,9 @@ rec {
 
   parasites = [ "fset/test" ];
 
-  description = ''
-    A functional set-theoretic collections library.
-    See: http://www.ergy.com/FSet.html
-  '';
+  description = "A functional set-theoretic collections library.
+See: http://www.ergy.com/FSet.html
+";
 
   deps = [
     args."misc-extensions"

@@ -57,10 +57,9 @@ python3.pkgs.buildPythonPackage rec {
   '';
 
   meta = {
-    description = ''
-      The Microsoft Azure Linux Agent (waagent)
-                         manages Linux provisioning and VM interaction with the Azure
-                         Fabric Controller'';
+    description = "The Microsoft Azure Linux Agent (waagent)
+                   manages Linux provisioning and VM interaction with the Azure
+                   Fabric Controller";
     homepage = "https://github.com/Azure/WALinuxAgent";
     license = with lib.licenses; [ asl20 ];
   };

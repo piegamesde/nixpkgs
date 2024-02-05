@@ -111,7 +111,7 @@ in
       [ ]
       ++
         optional (cfg.settings ? update_manager)
-          "Enabling update_manager is not supported on NixOS and will lead to non-removable warnings in some clients."
+          ''Enabling update_manager is not supported on NixOS and will lead to non-removable warnings in some clients.''
       ++ optional (cfg.configDir != null) ''
         services.moonraker.configDir has been deprecated upstream and will be removed.
 

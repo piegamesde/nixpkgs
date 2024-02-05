@@ -51,7 +51,7 @@ let
     # NOTE: file_get_contents adds newline at the end of returned string
     $DB['PASSWORD'] = ${
       if cfg.database.passwordFile != null then
-        ''trim(file_get_contents('${cfg.database.passwordFile}'), "\r\n")''
+        "trim(file_get_contents('${cfg.database.passwordFile}'), \"\\r\\n\")"
       else
         "''"
     };

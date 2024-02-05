@@ -45,9 +45,7 @@ nixt.mkSuite "LibreOffice Updater" {
 
   "should extract sha256 from html" =
     let
-      sha256Html = ''
-        50ed3deb8d9c987516e2687ebb865bca15486c69da79f1b6d74381e43f2ec863  LibreOffice_7.3.3_MacOS_aarch64.dmg
-      '';
+      sha256Html = "50ed3deb8d9c987516e2687ebb865bca15486c69da79f1b6d74381e43f2ec863  LibreOffice_7.3.3_MacOS_aarch64.dmg\n";
       actual = extractSha256FromHtml sha256Html;
     in
     "50ed3deb8d9c987516e2687ebb865bca15486c69da79f1b6d74381e43f2ec863" == actual;

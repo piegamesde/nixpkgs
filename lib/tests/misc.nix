@@ -213,11 +213,7 @@ runTests {
       "b"
       "c"
     ];
-    expected = ''
-      a
-      b
-      c
-    '';
+    expected = "a\nb\nc\n";
   };
 
   testSplitStringsSimple = {
@@ -461,7 +457,7 @@ runTests {
     ("42%25" == strings.escapeURL "42%")
     (
       "%20%3F%26%3D%23%2B%25%21%3C%3E%23%22%7B%7D%7C%5C%5E%5B%5D%60%09%3A%2F%40%24%27%28%29%2A%2C%3B"
-      == strings.escapeURL " ?&=#+%!<>#\"{}|\\^[]`	:/@$'()*,;"
+      == strings.escapeURL " ?&=#+%!<>#\"{}|\\^[]`\t:/@$'()*,;"
     )
   ];
 
@@ -800,7 +796,7 @@ runTests {
   };
 
   testToIntShouldThrowErrorIfItCouldNotConvertToInt = {
-    expr = builtins.tryEval (toInt ''"foo"'');
+    expr = builtins.tryEval (toInt "\"foo\"");
     expected = {
       success = false;
       value = false;
@@ -975,7 +971,7 @@ runTests {
 
   testMkKeyValueDefault = {
     expr = generators.mkKeyValueDefault { } ":" "f:oo" "bar";
-    expected = "f\\:oo:bar";
+    expected = ''f\:oo:bar'';
   };
 
   testMkValueString = {
@@ -1087,7 +1083,7 @@ runTests {
       globalSection = { };
       sections = { };
     };
-    expected = "";
+    expected = '''';
   };
 
   testToINIWithGlobalSectionGlobalEmptyIsTheSameAsToINI =
@@ -1188,7 +1184,7 @@ runTests {
         float = 0.1337;
         bool = true;
         emptystring = "";
-        string = ''fn''${o}"r\d'';
+        string = "fn\${o}\"r\\d";
         newlinestring = "\n";
         path = /. + "/foo";
         null_ = null;
@@ -1219,14 +1215,14 @@ runTests {
         bool = "true";
         emptystring = ''""'';
         string = ''"fn\''${o}\"r\\d"'';
-        newlinestring = ''"\n"'';
+        newlinestring = "\"\\n\"";
         path = "/foo";
         null_ = "null";
         function = "<function>";
         functionArgs = "<function, args: {arg?, foo}>";
         list = "[ 3 4 ${function} [ false ] ]";
         emptylist = "[ ]";
-        attrs = ''{ foo = null; "foo b/ar" = "baz"; }'';
+        attrs = "{ foo = null; \"foo b/ar\" = \"baz\"; }";
         emptyattrs = "{ }";
         drv = "<derivation ${deriv.name}>";
       };
@@ -1246,17 +1242,7 @@ runTests {
           }
           a
       );
-      expected = ''
-        {
-          b = 1;
-          c = {
-            b = "<unevaluated>";
-            c = {
-              b = "<unevaluated>";
-              c = "<unevaluated>";
-            };
-          };
-        }'';
+      expected = "{\n  b = 1;\n  c = {\n    b = \"<unevaluated>\";\n    c = {\n      b = \"<unevaluated>\";\n      c = \"<unevaluated>\";\n    };\n  };\n}";
     };
 
   testToPrettyLimitThrow =
@@ -1291,14 +1277,7 @@ runTests {
           }
           a
       );
-      expected = ''
-        {
-          b = <function, args: {a, b}>;
-          c = {
-            d = "<unevaluated>";
-          };
-          value = "<unevaluated>";
-        }'';
+      expected = "{\n  b = <function, args: {a, b}>;\n  c = {\n    d = \"<unevaluated>\";\n  };\n  value = \"<unevaluated>\";\n}";
     };
 
   testToPrettyMultiline = {
@@ -1340,8 +1319,17 @@ runTests {
           foo = null;
         }'';
       newlinestring = "''\n  \n''";
-      multilinestring = "''\n  hello\n  ''\${there}\n  te'''st\n''";
-      multilinestring' = "''\n  hello\n  there\n  test''";
+      multilinestring = ''
+        '''
+          hello
+          '''''${there}
+          te''''st
+        ''''';
+      multilinestring' = ''
+        '''
+          hello
+          there
+          test''''';
     };
   };
 
@@ -1355,12 +1343,12 @@ runTests {
 
   testToLuaEmptyAttrSet = {
     expr = generators.toLua { } { };
-    expected = "{}";
+    expected = ''{}'';
   };
 
   testToLuaEmptyList = {
     expr = generators.toLua { } [ ];
-    expected = "{}";
+    expected = ''{}'';
   };
 
   testToLuaListOfVariousTypes = {
@@ -1405,7 +1393,7 @@ runTests {
       41
       43
     ];
-    expected = "{ 41, 43 }";
+    expected = ''{ 41, 43 }'';
   };
 
   testToLuaEmptyBindings = {
@@ -1500,7 +1488,7 @@ runTests {
       "-X"
       "PUT"
       "--data"
-      ''{"id":0}''
+      "{\"id\":0}"
       "--retry"
       "3"
       "--url"
@@ -1820,7 +1808,7 @@ runTests {
       "10"
       "bar"
     ];
-    expected = ''foo."10".bar'';
+    expected = "foo.\"10\".bar";
   };
 
   testShowAttrPathEmpty = {

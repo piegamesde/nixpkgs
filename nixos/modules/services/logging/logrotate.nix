@@ -23,9 +23,7 @@ let
     then
       null
     else if builtins.elem n [ "frequency" ] then
-      ''
-        ${v}
-      ''
+      "${v}\n"
     else if
       builtins.elem n [
         "firstaction"
@@ -35,27 +33,15 @@ let
         "preremove"
       ]
     then
-      ''
-        ${n}
-            ${v}
-          endscript
-      ''
+      "${n}\n    ${v}\n  endscript\n"
     else if isInt v then
-      ''
-        ${n} ${toString v}
-      ''
+      "${n} ${toString v}\n"
     else if v == true then
-      ''
-        ${n}
-      ''
+      "${n}\n"
     else if v == false then
-      ''
-        no${n}
-      ''
+      "no${n}\n"
     else
-      ''
-        ${n} ${v}
-      '';
+      "${n} ${v}\n";
   generateSection =
     indent: settings:
     concatStringsSep (fixedWidthString indent " " "") (

@@ -14,7 +14,7 @@ let
 
     file=/var/lib/hddtemp/hddtemp.db
 
-    drives=(${toString (map (e: "$(realpath ${lib.escapeShellArg e}) ") cfg.drives)})
+    drives=(${toString (map (e: ''$(realpath ${lib.escapeShellArg e}) '') cfg.drives)})
 
     cp ${pkgs.hddtemp}/share/hddtemp/hddtemp.db $file
     ${lib.concatMapStringsSep "\n" (e: "echo ${lib.escapeShellArg e} >> $file") cfg.dbEntries}

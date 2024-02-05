@@ -16,9 +16,7 @@ let
       lib.mapAttrsToList
         (
           frequency: binaries:
-          ''
-            mkdir -p $out/${frequency}
-          ''
+          "mkdir -p $out/${frequency}\n"
           + (lib.concatStringsSep "\n" (
             map (path: "ln -s ${path} $out/${frequency}/$(basename ${path})") binaries
           ))

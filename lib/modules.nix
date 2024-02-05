@@ -804,11 +804,9 @@ rec {
                 let
                   nonOptions = filter (m: !isOption m.options) decls;
                 in
-                throw ''
-                  The option `${showOption loc}' in module `${(lib.head optionDecls)._file}' would be a parent of the following options, but its type `${
-                    (lib.head optionDecls).options.type.description or "<no description>"
-                  }' does not support nested options.
-                  ${showRawDecls loc nonOptions}''
+                throw "The option `${showOption loc}' in module `${(lib.head optionDecls)._file}' would be a parent of the following options, but its type `${
+                  (lib.head optionDecls).options.type.description or "<no description>"
+                }' does not support nested options.\n${showRawDecls loc nonOptions}"
             else
               mergeModules' loc decls defns
           )
@@ -1144,16 +1142,7 @@ rec {
 
   mkAssert =
     assertion: message: content:
-    mkIf
-      (
-        if assertion then
-          true
-        else
-          throw ''
-
-            Failed assertion: ${message}''
-      )
-      content;
+    mkIf (if assertion then true else throw "\nFailed assertion: ${message}") content;
 
   mkMerge = contents: {
     _type = "merge";

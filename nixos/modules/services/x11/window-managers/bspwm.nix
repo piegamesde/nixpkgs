@@ -64,9 +64,9 @@ in
       start = ''
         export _JAVA_AWT_WM_NONREPARENTING=1
         SXHKD_SHELL=/bin/sh ${cfg.sxhkd.package}/bin/sxhkd ${
-          optionalString (cfg.sxhkd.configFile != null) ''-c "${cfg.sxhkd.configFile}"''
+          optionalString (cfg.sxhkd.configFile != null) "-c \"${cfg.sxhkd.configFile}\""
         } &
-        ${cfg.package}/bin/bspwm ${optionalString (cfg.configFile != null) ''-c "${cfg.configFile}"''} &
+        ${cfg.package}/bin/bspwm ${optionalString (cfg.configFile != null) "-c \"${cfg.configFile}\""} &
         waitPID=$!
       '';
     };

@@ -32,7 +32,7 @@ in
         type = types.package;
         default = pkgs.xonsh;
         defaultText = literalExpression "pkgs.xonsh";
-        example = literalExpression ''pkgs.xonsh.override { configFile = "/path/to/xonshrc"; }'';
+        example = literalExpression "pkgs.xonsh.override { configFile = \"/path/to/xonshrc\"; }";
         description = lib.mdDoc ''
           xonsh package to use.
         '';

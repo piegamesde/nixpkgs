@@ -511,7 +511,7 @@ rec {
     in
     with prevStage;
     stageFun 1 prevStage {
-      extraPreHook = ''export NIX_CFLAGS_COMPILE+=" -F${bootstrapTools}/Library/Frameworks"'';
+      extraPreHook = "export NIX_CFLAGS_COMPILE+=\" -F${bootstrapTools}/Library/Frameworks\"";
       extraNativeBuildInputs = [ ];
       extraBuildInputs = [ pkgs.darwin.CF ];
       libcxx = pkgs."${finalLlvmPackages}".libcxx;

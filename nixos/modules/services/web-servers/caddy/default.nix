@@ -357,19 +357,19 @@ in
         # If the empty string is assigned to this option, the list of commands to start is reset, prior assignments of this option will have no effect.
         ExecStart = [
           ""
-          "${cfg.package}/bin/caddy run --config ${cfg.configFile} ${
+          ''${cfg.package}/bin/caddy run --config ${cfg.configFile} ${
             optionalString (cfg.adapter != null) "--adapter ${cfg.adapter}"
-          } ${optionalString cfg.resume "--resume"}"
+          } ${optionalString cfg.resume "--resume"}''
         ];
         ExecReload = [
           ""
-          "${cfg.package}/bin/caddy reload --config ${cfg.configFile} ${
+          ''${cfg.package}/bin/caddy reload --config ${cfg.configFile} ${
             optionalString (cfg.adapter != null) "--adapter ${cfg.adapter}"
-          } --force"
+          } --force''
         ];
-        ExecStartPre = "${cfg.package}/bin/caddy validate --config ${cfg.configFile} ${
+        ExecStartPre = ''${cfg.package}/bin/caddy validate --config ${cfg.configFile} ${
           optionalString (cfg.adapter != null) "--adapter ${cfg.adapter}"
-        }";
+        }'';
         User = cfg.user;
         Group = cfg.group;
         ReadWriteDirectories = cfg.dataDir;

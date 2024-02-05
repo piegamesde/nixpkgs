@@ -227,7 +227,7 @@ stdenv.mkDerivation {
         (lambda (arg)
           (when (file-directory-p (concat arg "/include"))
             (setenv "NIX_CFLAGS_COMPILE_${suffixSalt}" (concat (getenv "NIX_CFLAGS_COMPILE_${suffixSalt}") " -isystem " arg "/include"))))
-        '(${concatStringsSep " " (map (pkg: ''"${pkg}"'') pkgs)}))
+        '(${concatStringsSep " " (map (pkg: "\"${pkg}\"") pkgs)}))
     '';
 
     inherit expand-response-params;

@@ -43,9 +43,7 @@ import ./make-test-python.nix (
           locations."/".root = pkgs.writeTextFile {
             name = "bad-day";
             destination = "/how-are-you/index.html";
-            text = ''
-              I've had a bad day!
-            '';
+            text = "I've had a bad day!\n";
           };
           locations."/ads".extraConfig = ''
             return 200 "Hot Nixpkgs PRs in your area. Click here!\n";

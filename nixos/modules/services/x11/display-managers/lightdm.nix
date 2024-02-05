@@ -22,11 +22,7 @@ let
   # lightdm runs with clearenv(), but we need a few things in the environment for X to startup
   xserverWrapper = writeScript "xserver-wrapper" ''
     #! ${pkgs.bash}/bin/bash
-    ${concatMapStrings
-      (n: ''
-        export ${n}="${getAttr n xEnv}"
-      '')
-      (attrNames xEnv)}
+    ${concatMapStrings (n: "export ${n}=\"${getAttr n xEnv}\"\n") (attrNames xEnv)}
 
     display=$(echo "$@" | xargs -n 1 | grep -P ^:\\d\$ | head -n 1 | sed s/^://)
     if [ -z "$display" ]
@@ -172,7 +168,7 @@ in
       };
 
       background = mkOption {
-        type = types.either types.path (types.strMatching "^#[0-9]{6}$");
+        type = types.either types.path (types.strMatching "^#[0-9]\{6\}$");
         # Manual cannot depend on packages, we are actually setting the default in config below.
         defaultText = literalExpression "pkgs.nixos-artwork.wallpapers.simple-dark-gray-bottom.gnomeFilePath";
         description = lib.mdDoc ''

@@ -4,9 +4,8 @@ rec {
   baseName = "lfarm-common";
   version = "lfarm-20150608-git";
 
-  description = ''
-    (private) Common components of lfarm, a library for distributing
-    work across machines.'';
+  description = "(private) Common components of lfarm, a library for distributing
+work across machines.";
 
   deps = [
     args."alexandria"

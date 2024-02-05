@@ -67,9 +67,7 @@ let
             +
               optionalString (config.networking.domain != null)
                 "${config.networking.hostName}.${config.networking.domain} "
-            + ''
-              ${config.networking.hostName}
-            ''
+            + "${config.networking.hostName}\n"
           )
         );
 

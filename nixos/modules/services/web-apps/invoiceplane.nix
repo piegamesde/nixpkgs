@@ -27,7 +27,7 @@ let
         if cfg.database.passwordFile == null then
           ""
         else
-          ''trim(file_get_contents('${cfg.database.passwordFile}'), "\r\n")''
+          "trim(file_get_contents('${cfg.database.passwordFile}'), \"\\r\\n\")"
       }
       DB_DATABASE=${cfg.database.name}
       DB_PORT=${toString cfg.database.port}

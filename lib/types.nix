@@ -408,29 +408,14 @@ let
         name = "nonEmptyStr";
         description = "non-empty string";
         descriptionClass = "noun";
-        check =
-          x:
-          str.check x
-          &&
-            builtins.match
-              ''
-                [ 	
-                ]*''
-              x == null;
+        check = x: str.check x && builtins.match "[ \t\n]*" x == null;
         inherit (str) merge;
       };
 
       # Allow a newline character at the end and trim it in the merge function.
       singleLineStr =
         let
-          inherit
-            (strMatching ''
-              [^
-              ]*
-              ?'')
-            check
-            merge
-            ;
+          inherit (strMatching "[^\n\r]*\n?") check merge;
         in
         mkOptionType {
           name = "singleLineStr";
@@ -964,7 +949,7 @@ let
                 if intersecting == { } then
                   lhs.specialArgs // rhs.specialArgs
                 else
-                  throw ''A submoduleWith option is declared multiple times with the same specialArgs "${toString (attrNames intersecting)}"'';
+                  throw "A submoduleWith option is declared multiple times with the same specialArgs \"${toString (attrNames intersecting)}\"";
               shorthandOnlyDefinesConfig =
                 if lhs.shorthandOnlyDefinesConfig == null then
                   rhs.shorthandOnlyDefinesConfig
@@ -1001,7 +986,7 @@ let
             else if builtins.isBool v then
               boolToString v
             else
-              "<${builtins.typeOf v}>";
+              ''<${builtins.typeOf v}>'';
         in
         mkOptionType rec {
           name = "enum";

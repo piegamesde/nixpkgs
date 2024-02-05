@@ -235,7 +235,7 @@ in
       graphics = false;
 
       sharedDirectories.keys = {
-        source = ''"$KEYS"'';
+        source = "\"$KEYS\"";
         target = keysDirectory;
       };
 

@@ -176,9 +176,9 @@ in
 
       ${optionalString (length (cfg.plugins) > 0) "plugins=(${concatStringsSep " " cfg.plugins})"}
 
-      ${optionalString (custom != null) ''ZSH_CUSTOM="${custom}"''}
+      ${optionalString (custom != null) "ZSH_CUSTOM=\"${custom}\""}
 
-      ${optionalString (stringLength (cfg.theme) > 0) ''ZSH_THEME="${cfg.theme}"''}
+      ${optionalString (stringLength (cfg.theme) > 0) "ZSH_THEME=\"${cfg.theme}\""}
 
       ${optionalString (cfg.cacheDir != null) ''
         if [[ ! -d "${cfg.cacheDir}" ]]; then

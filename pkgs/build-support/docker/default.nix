@@ -995,9 +995,9 @@ rec {
           ${optionalString enableFakechroot ''
             export FAKECHROOT_EXCLUDE_PATH=/dev:/proc:/sys:${builtins.storeDir}:$out/layer.tar
           ''}
-          ${optionalString enableFakechroot "fakechroot chroot $PWD/old_out "}fakeroot bash -c '
+          ${optionalString enableFakechroot ''fakechroot chroot $PWD/old_out ''}fakeroot bash -c '
             source $stdenv/setup
-            ${optionalString (!enableFakechroot) "cd old_out"}
+            ${optionalString (!enableFakechroot) ''cd old_out''}
             eval "$fakeRootCommands"
             tar \
               --sort name \

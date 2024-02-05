@@ -68,7 +68,7 @@ stdenv.mkDerivation rec {
   cmakeFlags =
     [
       "-DPROC_TARGET_NUMBER=2"
-      ''-DCACHE_NAME_SUFFIX=""''
+      "-DCACHE_NAME_SUFFIX=\"\""
     ]
     ++ lib.optionals stdenv.isDarwin [
       "-DCMAKE_OSX_DEPLOYMENT_TARGET=${stdenv.hostPlatform.darwinMinVersion}"

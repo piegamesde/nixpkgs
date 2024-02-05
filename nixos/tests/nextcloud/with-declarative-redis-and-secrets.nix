@@ -54,8 +54,8 @@ import ../make-test-python.nix (
               # password handled via secretfile below
             };
             extraOptions.memcache = {
-              local = "OCMemcacheRedis";
-              locking = "OCMemcacheRedis";
+              local = "\OC\Memcache\Redis";
+              locking = "\OC\Memcache\Redis";
             };
           };
 

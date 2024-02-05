@@ -19,11 +19,7 @@ stdenv.mkDerivation {
   installPhase = ''
     mkdir "$out"
     for f in modprobe.d/*.conf; do
-      echo "
-
-    ## file: "`basename "$f"`"
-
-    " >> "$out"/modprobe.conf
+      echo "''\n''\n## file: "`basename "$f"`"''\n''\n" >> "$out"/modprobe.conf
       cat "$f" >> "$out"/modprobe.conf
       # https://bugs.launchpad.net/ubuntu/+source/kmod/+bug/1475945
       sed -i '/^blacklist i2c_i801/d' $out/modprobe.conf

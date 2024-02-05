@@ -63,7 +63,10 @@ import ./generic.nix
         dontConfigure = true;
         dontBuild = true;
 
-        installPhase = "\n      mkdir -p $out\n      cp -r * $out\n    ";
+        installPhase = "
+      mkdir -p $out
+      cp -r * $out
+    ";
       };
 
       elpa2nix = ./elpa2nix.el;

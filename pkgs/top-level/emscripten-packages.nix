@@ -152,7 +152,7 @@ rec {
       cp *.rng $out/share
       cp README.md $doc/share/${pname}
     '';
-    checkPhase = "";
+    checkPhase = '''';
   };
 
   zlib = (pkgs.zlib.override { stdenv = pkgs.emscriptenStdenv; }).overrideAttrs (

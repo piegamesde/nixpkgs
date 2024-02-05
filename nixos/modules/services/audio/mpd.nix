@@ -193,7 +193,7 @@ in
                   default = [ "read" ];
                   description = lib.mdDoc ''
                     List of permissions that are granted with this password.
-                    Permissions can be "${concatStringsSep ''", "'' perms}".
+                    Permissions can be "${concatStringsSep "\", \"" perms}".
                   '';
                 };
             };
@@ -265,7 +265,7 @@ in
             imap0
               (
                 i: c:
-                "${pkgs.replace-secret}/bin/replace-secret '{{password-${toString i}}}' '${c.passwordFile}' /run/mpd/mpd.conf"
+                ''${pkgs.replace-secret}/bin/replace-secret '{{password-${toString i}}}' '${c.passwordFile}' /run/mpd/mpd.conf''
               )
               cfg.credentials
           )

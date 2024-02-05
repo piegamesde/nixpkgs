@@ -86,15 +86,7 @@ let
       let
         configLines = concatLists (map (splitString "\n") (mapAttrsToList mkRelation value));
       in
-      (concatStringsSep
-        ''
-
-          ${indent}''
-        ([ "{" ] ++ configLines)
-      )
-      + ''
-
-        }''
+      (concatStringsSep "\n${indent}" ([ "{" ] ++ configLines)) + "\n}"
     else
       value;
 

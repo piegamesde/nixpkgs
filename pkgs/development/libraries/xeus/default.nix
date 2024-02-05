@@ -34,7 +34,7 @@ stdenv.mkDerivation rec {
   cmakeFlags = [ "-DXEUS_BUILD_TESTS=ON" ];
 
   doCheck = true;
-  preCheck = "export LD_LIBRARY_PATH=$PWD";
+  preCheck = ''export LD_LIBRARY_PATH=$PWD'';
 
   meta = with lib; {
     homepage = "https://xeus.readthedocs.io";

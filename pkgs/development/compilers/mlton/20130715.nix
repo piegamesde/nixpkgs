@@ -57,7 +57,7 @@ stdenv.mkDerivation rec {
   configurePhase =
     ''
       # Fix paths in the source.
-      find . -type f | grep -v -e '\.tgz$' | xargs sed -i "s@/usr/bin/env bash@$(type -p bash)@"
+      find . -type f | grep -v -e '\.tgz''$' | xargs sed -i "s@/usr/bin/env bash@$(type -p bash)@"
 
       substituteInPlace $(pwd)/Makefile --replace '/bin/cp' $(type -p cp)
       substituteInPlace bin/mlton-script --replace gcc cc

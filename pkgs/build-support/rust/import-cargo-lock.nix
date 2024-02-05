@@ -39,7 +39,7 @@ let
   parseGit =
     src:
     let
-      parts = builtins.match "git\\+([^?]+)(\\?(rev|tag|branch)=(.*))?#(.*)" src;
+      parts = builtins.match ''git\+([^?]+)(\?(rev|tag|branch)=(.*))?#(.*)'' src;
       type = builtins.elemAt parts 2; # rev, tag or branch
       value = builtins.elemAt parts 3;
     in
@@ -237,7 +237,7 @@ let
         cat > $out/.cargo-config <<EOF
         [source."${gitParts.url}"]
         git = "${gitParts.url}"
-        ${lib.optionalString (gitParts ? type) ''${gitParts.type} = "${gitParts.value}"''}
+        ${lib.optionalString (gitParts ? type) "${gitParts.type} = \"${gitParts.value}\""}
         replace-with = "vendored-sources"
         EOF
       ''

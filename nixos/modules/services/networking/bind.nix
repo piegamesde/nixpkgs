@@ -113,25 +113,13 @@ let
               if master then
                 ''
                   allow-transfer {
-                    ${
-                      concatMapStrings
-                        (ip: ''
-                          ${ip};
-                        '')
-                        slaves
-                    }
+                    ${concatMapStrings (ip: "${ip};\n") slaves}
                   };
                 ''
               else
                 ''
                   masters {
-                    ${
-                      concatMapStrings
-                        (ip: ''
-                          ${ip};
-                        '')
-                        masters
-                    }
+                    ${concatMapStrings (ip: "${ip};\n") masters}
                   };
                 ''
             }

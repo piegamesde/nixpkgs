@@ -79,7 +79,7 @@ with lib;
         "networking"
         "vpnc"
       ]
-      ''Use environment.etc."vpnc/service.conf" instead.''
+      "Use environment.etc.\"vpnc/service.conf\" instead."
     )
     (mkRemovedOptionModule
       [

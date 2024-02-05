@@ -2957,7 +2957,7 @@ with self;
       hash = "sha256-x1+S40QizFplqwXRVYQrcBRSQ06a77ZJ1uIonEfvZwg=";
     };
     meta = {
-      description = ''Report errors from perspective of caller of a "clan" of modules'';
+      description = "Report errors from perspective of caller of a \"clan\" of modules";
       homepage = "https://github.com/karenetheridge/Carp-Clan";
       license = with lib.licenses; [
         artistic1
@@ -4941,7 +4941,7 @@ with self;
       PackageStash
     ];
     meta = {
-      description = ''A working (require "Class::Name") and more'';
+      description = "A working (require \"Class::Name\") and more";
       homepage = "https://github.com/moose/Class-Load";
       license = with lib.licenses; [
         artistic1
@@ -9366,7 +9366,7 @@ with self;
       \$(BASEEXT)\$(OBJ_EXT): \$(BASEEXT).xsi
 
       \$(BASEEXT).xsi: \$(DBI_DRIVER_XST) $autodir/Driver_xst.h
-      	\$(PERL) -p -e "s/~DRIVER~/\$(BASEEXT)/g" \$(DBI_DRIVER_XST) > \$(BASEEXT).xsi
+      ''\t\$(PERL) -p -e "s/~DRIVER~/\$(BASEEXT)/g" \$(DBI_DRIVER_XST) > \$(BASEEXT).xsi
 
       # ---
       ';
@@ -13360,7 +13360,7 @@ with self;
       TestFatal
     ];
     meta = {
-      description = ''Define functions and methods with parameter lists ("subroutine signatures")'';
+      description = "Define functions and methods with parameter lists (\"subroutine signatures\")";
       license = with lib.licenses; [
         artistic1
         gpl1Plus
@@ -19232,7 +19232,7 @@ with self;
       URI
     ];
 
-    buildPhase = ''perl Build.PL --install_base=$out --install_path="sbin=$out/bin" --install_path="lib=$out/${perl.libPrefix}"; ./Build build '';
+    buildPhase = "perl Build.PL --install_base=$out --install_path=\"sbin=$out/bin\" --install_path=\"lib=$out/${perl.libPrefix}\"; ./Build build ";
 
     doCheck = false; # The main test performs network access
     meta = {

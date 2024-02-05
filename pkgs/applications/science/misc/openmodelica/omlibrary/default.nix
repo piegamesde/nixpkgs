@@ -32,9 +32,8 @@ mkOpenModelicaDerivation {
   '';
 
   meta = with lib; {
-    description = ''
-      A collection of Modelica libraries to use with OpenModelica,
-      including Modelica Standard Library'';
+    description = "A collection of Modelica libraries to use with OpenModelica,
+including Modelica Standard Library";
     homepage = "https://openmodelica.org";
     license = licenses.gpl3Only;
     maintainers = with maintainers; [

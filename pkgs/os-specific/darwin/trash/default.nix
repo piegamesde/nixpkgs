@@ -39,9 +39,8 @@ stdenv.mkDerivation rec {
 
   meta = {
     homepage = "https://github.com/ali-rantakari/trash";
-    description = ''
-      Small command-line program for OS X that moves files or
-          folders to the trash.'';
+    description = "Small command-line program for OS X that moves files or
+    folders to the trash.";
     platforms = lib.platforms.darwin;
     license = lib.licenses.mit;
   };

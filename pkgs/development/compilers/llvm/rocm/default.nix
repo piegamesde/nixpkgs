@@ -50,8 +50,7 @@ let
       ln -s ../cmake/Modules/FindLibEdit.cmake cmake/modules
 
       substituteInPlace CMakeLists.txt \
-        --replace "include(CheckIncludeFile)" "include(CheckIncludeFile)
-      find_package(LibEdit)"
+        --replace "include(CheckIncludeFile)" "include(CheckIncludeFile)''\nfind_package(LibEdit)"
 
       # `No such file or directory: '/build/source/clang/tools/scan-build/bin/scan-build'`
       rm test/Analysis/scan-build/*.test
@@ -317,9 +316,7 @@ rec {
 
       # We can run these
       substituteInPlace ../compiler-rt/test/CMakeLists.txt \
-        --replace "endfunction()" "endfunction()
-      add_subdirectory(builtins)
-      add_subdirectory(shadowcallstack)"
+        --replace "endfunction()" "endfunction()''\nadd_subdirectory(builtins)''\nadd_subdirectory(shadowcallstack)"
     '';
 
     extraLicenses = [ lib.licenses.mit ];
@@ -388,8 +385,7 @@ rec {
 
       # GPU compilation uses builtin `lld`
       substituteInPlace $out/bin/{clang,clang++} \
-        --replace "-MM) dontLink=1 ;;" "-MM | --cuda-device-only) dontLink=1 ;;
-      --cuda-host-only | --cuda-compile-host-device) dontLink=0 ;;"
+        --replace "-MM) dontLink=1 ;;" "-MM | --cuda-device-only) dontLink=1 ;;''\n--cuda-host-only | --cuda-compile-host-device) dontLink=0 ;;"
     '';
   };
 

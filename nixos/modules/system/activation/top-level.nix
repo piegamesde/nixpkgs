@@ -138,10 +138,7 @@ let
 
   baseSystemAssertWarn =
     if failedAssertions != [ ] then
-      throw ''
-
-        Failed assertions:
-        ${concatStringsSep "\n" (map (x: "- ${x}") failedAssertions)}''
+      throw "\nFailed assertions:\n${concatStringsSep "\n" (map (x: "- ${x}") failedAssertions)}"
     else
       showWarnings config.warnings baseSystem;
 

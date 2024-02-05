@@ -485,9 +485,7 @@ stdenv.mkDerivation {
       mkdir $package_tests
       cp -R $src/samples $package_tests/
     ''
-    + lib.optionalString runAccuracyTests ''
-      mv ./bin/*test* $package_tests/ 
-    ''
+    + lib.optionalString runAccuracyTests "mv ./bin/*test* $package_tests/ \n"
     + lib.optionalString runPerformanceTests "mv ./bin/*perf* $package_tests/";
 
   # By default $out/lib/pkgconfig/opencv4.pc looks something like this:

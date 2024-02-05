@@ -50,7 +50,7 @@ in
         environment file.
 
         By default, Litestream will perform environment variable expansion
-        within the config file before reading it. Any references to $VAR or
+        within the config file before reading it. Any references to ''$VAR or
         ''${VAR} formatted variables will be replaced with their environment
         variable values. If no value is set then it will be replaced with an
         empty string.

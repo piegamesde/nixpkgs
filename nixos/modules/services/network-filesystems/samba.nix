@@ -21,13 +21,7 @@ let
       share = getAttr name cfg.shares;
     in
     "[${name}]\n "
-    + (smbToString (
-      map
-        (key: ''
-          ${key} = ${smbToString (getAttr key share)}
-        '')
-        (attrNames share)
-    ));
+    + (smbToString (map (key: "${key} = ${smbToString (getAttr key share)}\n") (attrNames share)));
 
   configFile = pkgs.writeText "smb.conf" (
     if cfg.configText != null then

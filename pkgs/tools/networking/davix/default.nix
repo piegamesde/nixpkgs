@@ -73,10 +73,9 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Toolkit for Http-based file management";
 
-    longDescription = ''
-      Davix is a toolkit designed for file
-          operations with Http based protocols (WebDav, Amazon S3, ...).
-          Davix provides an API and a set of command line tools'';
+    longDescription = "Davix is a toolkit designed for file
+    operations with Http based protocols (WebDav, Amazon S3, ...).
+    Davix provides an API and a set of command line tools";
 
     license = licenses.lgpl2Plus;
     homepage = "https://github.com/cern-fts/davix";

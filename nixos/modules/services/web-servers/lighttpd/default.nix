@@ -71,12 +71,9 @@ let
   maybeModuleString =
     moduleName: optionalString (elem moduleName cfg.enableModules) ''"${moduleName}"'';
 
-  modulesIncludeString =
-    concatStringsSep
-      ''
-        ,
-      ''
-      (filter (x: x != "") (map maybeModuleString allKnownModules));
+  modulesIncludeString = concatStringsSep ",\n" (
+    filter (x: x != "") (map maybeModuleString allKnownModules)
+  );
 
   configFile =
     if cfg.configText != "" then

@@ -20,8 +20,8 @@ makePythonHook
         #       at the last position.
         quoteVariants = [
           "'\"'''\"'"
-          ''"""''
-          ''"''
+          "\"\"\""
+          "\""
           "'\"'\"'"
         ]; # hey Vim: ''
 
@@ -30,7 +30,7 @@ makePythonHook
           let
             label = "q${toString labelNum}";
             isSingle = lib.elem quote [
-              ''"''
+              "\""
               "'\"'\"'"
             ];
             endQuote = if isSingle then "[^\\\\]${quote}" else quote;

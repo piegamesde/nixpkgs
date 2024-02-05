@@ -55,7 +55,7 @@ in
       '';
       example = "https://matrix.example.org";
       default = "http://${cfg.address}:${toString cfg.port}";
-      defaultText = "http://$\${cfg.address}:$\${toString cfg.port}";
+      defaultText = "http://$${cfg.address}:$${toString cfg.port}";
     };
 
     address = mkOption {

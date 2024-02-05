@@ -196,11 +196,11 @@ in
     };
 
     minio = {
-      enable = mkEnableOption (lib.mdDoc "local minio integration");
+      enable = mkEnableOption (lib.mdDoc ''local minio integration'');
     };
 
     nginx = {
-      enable = mkEnableOption (lib.mdDoc "local nginx integration");
+      enable = mkEnableOption (lib.mdDoc ''local nginx integration'');
       virtualHost = mkOption {
         type = types.attrs;
         default = { };
@@ -209,15 +209,15 @@ in
     };
 
     postfix = {
-      enable = mkEnableOption (lib.mdDoc "local postfix integration");
+      enable = mkEnableOption (lib.mdDoc ''local postfix integration'');
     };
 
     postgresql = {
-      enable = mkEnableOption (lib.mdDoc "local postgresql integration");
+      enable = mkEnableOption (lib.mdDoc ''local postgresql integration'');
     };
 
     redis = {
-      enable = mkEnableOption (lib.mdDoc "local redis integration in a dedicated redis-server");
+      enable = mkEnableOption (lib.mdDoc ''local redis integration in a dedicated redis-server'');
     };
 
     settings = mkOption {
@@ -230,7 +230,7 @@ in
             example = "example.com";
           };
           environment = mkOption {
-            description = lib.mdDoc ''Values other than "production" adds a banner to each page.'';
+            description = lib.mdDoc "Values other than \"production\" adds a banner to each page.";
             type = types.enum [
               "development"
               "production"
@@ -958,8 +958,8 @@ in
                 # but hgsrht-hook-changegroup looks up ./config.ini
                 "${pkgs.writeShellScript "hgsrht-hook-changegroup" ''
                   set -e
-                  test -e "$PWD"/config.ini ||
-                  ln -s /run/sourcehut/hgsrht/config.ini "$PWD"/config.ini
+                  test -e "''$PWD"/config.ini ||
+                  ln -s /run/sourcehut/hgsrht/config.ini "''$PWD"/config.ini
                   set -x
                   exec -a "$0" ${cfg.python}/bin/hgsrht-hook-changegroup "$@"
                 ''}:/usr/bin/hgsrht-hook-changegroup"
@@ -1388,9 +1388,7 @@ in
         serviceConfig.Restart = "always";
         serviceConfig.RestartSec = "5s";
         preStart =
-          ''
-            set -x
-          ''
+          "set -x\n"
           + concatStringsSep "\n\n" (
             attrValues (
               mapAttrs

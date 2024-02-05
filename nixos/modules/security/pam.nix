@@ -542,9 +542,9 @@ let
               u2f = config.security.pam.u2f;
             in
             optionalString cfg.u2fAuth (
-              "auth ${u2f.control} ${pkgs.pam_u2f}/lib/security/pam_u2f.so ${optionalString u2f.debug "debug"} ${
+              ''auth ${u2f.control} ${pkgs.pam_u2f}/lib/security/pam_u2f.so ${optionalString u2f.debug "debug"} ${
                 optionalString (u2f.authFile != null) "authfile=${u2f.authFile}"
-              } "
+              } ''
               + ''
                 ${optionalString u2f.interactive "interactive"} ${optionalString u2f.cue "cue"} ${
                   optionalString (u2f.appId != null) "appid=${u2f.appId}"
@@ -816,9 +816,7 @@ let
             item,
             value,
           }:
-          ''
-            ${domain} ${type} ${item} ${toString value}
-          ''
+          "${domain} ${type} ${item} ${toString value}\n"
         )
         limits
     );
@@ -1440,11 +1438,9 @@ in
       let
         isEnabled = test: fold or false (map test (attrValues config.security.pam.services));
       in
-      lib.concatMapStrings
-        (name: ''
-          r ${config.environment.etc."pam.d/${name}".source},
-        '')
-        (attrNames config.security.pam.services)
+      lib.concatMapStrings (name: "r ${config.environment.etc."pam.d/${name}".source},\n") (
+        attrNames config.security.pam.services
+      )
       + ''
         mr ${getLib pkgs.pam}/lib/security/pam_filter/*,
         mr ${getLib pkgs.pam}/lib/security/pam_*.so,

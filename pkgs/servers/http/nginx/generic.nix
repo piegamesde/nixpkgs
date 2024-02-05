@@ -228,10 +228,7 @@ stdenv.mkDerivation {
   postInstall =
     let
       noSourceRefs =
-        lib.concatMapStrings
-          (m: ''
-            remove-references-to -t ${m.src} $out/sbin/nginx
-          '')
+        lib.concatMapStrings (m: "remove-references-to -t ${m.src} $out/sbin/nginx\n")
           modules;
     in
     noSourceRefs + postInstall;

@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
 
   installPhase =
     let
-      interpreter = ''$(< "$NIX_CC/nix-support/dynamic-linker")'';
+      interpreter = "$(< \"$NIX_CC/nix-support/dynamic-linker\")";
       libPath = lib.makeLibraryPath [
         libXft
         libX11

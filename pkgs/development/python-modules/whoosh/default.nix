@@ -26,9 +26,8 @@ buildPythonPackage rec {
   '';
 
   meta = with lib; {
-    description = ''
-      Fast, pure-Python full text indexing, search, and spell
-      checking library.'';
+    description = "Fast, pure-Python full text indexing, search, and spell
+checking library.";
     homepage = "https://bitbucket.org/mchaput/whoosh";
     license = licenses.bsd2;
     maintainers = with maintainers; [ ];

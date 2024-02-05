@@ -105,8 +105,8 @@ let
     ];
 
     installFlags = lib.optionals pythonSupport [
-      ''pythondir="${placeholder "py"}/${python.sitePackages}"''
-      ''pyexecdir="${placeholder "py"}/${python.sitePackages}"''
+      "pythondir=\"${placeholder "py"}/${python.sitePackages}\""
+      "pyexecdir=\"${placeholder "py"}/${python.sitePackages}\""
     ];
 
     enableParallelBuilding = true;

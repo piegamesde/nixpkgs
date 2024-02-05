@@ -102,13 +102,8 @@ import ./make-test-python.nix {
         (
           let
             symlink =
-              pkgs.runCommand "symlink"
-                {
-                  target = pkgs.writeText "symlink-target" ''
-                    got me
-                  '';
-                }
-                ''ln -s "$target" "$out"'';
+              pkgs.runCommand "symlink" { target = pkgs.writeText "symlink-target" "got me\n"; }
+                "ln -s \"$target\" \"$out\"";
           in
           {
             config.confinement.packages = lib.singleton symlink;
@@ -158,18 +153,14 @@ import ./make-test-python.nix {
           '';
         }
         {
-          config.environment.FOOBAR = pkgs.writeText "foobar" ''
-            eek
-          '';
+          config.environment.FOOBAR = pkgs.writeText "foobar" "eek\n";
           testScript = ''
             with subtest("check if only Exec* dependencies are included"):
                 machine.succeed('test "$(chroot-exec \'cat "$FOOBAR"\')" != eek')
           '';
         }
         {
-          config.environment.FOOBAR = pkgs.writeText "foobar" ''
-            eek
-          '';
+          config.environment.FOOBAR = pkgs.writeText "foobar" "eek\n";
           config.confinement.fullUnit = true;
           testScript = ''
             with subtest("check if all unit dependencies are included"):

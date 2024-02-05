@@ -37,8 +37,7 @@ buildPythonPackage rec {
 
   postPatch = ''
     substituteInPlace pyproject.toml \
-      --replace "[tool.sip.project]" "[tool.sip.project]
-    sip-include-dirs = [\"${pyqt5}/${python.sitePackages}/PyQt5/bindings\"]"
+      --replace "[tool.sip.project]" "[tool.sip.project]''\nsip-include-dirs = [\"${pyqt5}/${python.sitePackages}/PyQt5/bindings\"]"
   '';
 
   outputs = [

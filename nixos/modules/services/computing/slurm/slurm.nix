@@ -22,20 +22,8 @@ let
     SlurmUser=${cfg.user}
     ${optionalString (cfg.controlMachine != null) "controlMachine=${cfg.controlMachine}"}
     ${optionalString (cfg.controlAddr != null) "controlAddr=${cfg.controlAddr}"}
-    ${toString (
-      map
-        (x: ''
-          NodeName=${x}
-        '')
-        cfg.nodeName
-    )}
-    ${toString (
-      map
-        (x: ''
-          PartitionName=${x}
-        '')
-        cfg.partitionName
-    )}
+    ${toString (map (x: "NodeName=${x}\n") cfg.nodeName)}
+    ${toString (map (x: "PartitionName=${x}\n") cfg.partitionName)}
     PlugStackConfig=${plugStackConfig}/plugstack.conf
     ProctrackType=${cfg.procTrackType}
     ${cfg.extraConfig}

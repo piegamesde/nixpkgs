@@ -6,9 +6,8 @@ rec {
 
   parasites = [ "collectors-test" ];
 
-  description = ''
-    A library providing various collector type macros
-       pulled from arnesi into its own library and stripped of dependencies'';
+  description = "A library providing various collector type macros
+   pulled from arnesi into its own library and stripped of dependencies";
 
   deps = [
     args."alexandria"

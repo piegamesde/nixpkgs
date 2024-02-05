@@ -107,9 +107,8 @@ stdenv.mkDerivation rec {
         +
           lib.optionalString (builtins.length runtimeDeps > 0)
             " --prefix PATH : ${lib.makeBinPath runtimeDeps}";
-      wrapMonkeysphere = runtimeDeps: program: ''
-        wrapProgram $out/bin/${program} ${wrapperArgs runtimeDeps}
-      '';
+      wrapMonkeysphere =
+        runtimeDeps: program: "wrapProgram $out/bin/${program} ${wrapperArgs runtimeDeps}\n";
       wrapPrograms = runtimeDeps: programs: lib.concatMapStrings (wrapMonkeysphere runtimeDeps) programs;
     in
     wrapPrograms [ gnupg ] [

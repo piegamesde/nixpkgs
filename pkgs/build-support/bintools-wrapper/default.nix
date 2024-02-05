@@ -166,7 +166,7 @@ stdenv.mkDerivation {
             (setenv "NIX_LDFLAGS_${suffixSalt}" (concat (getenv "NIX_LDFLAGS_${suffixSalt}") " -L" arg "/lib")))
           (when (file-directory-p (concat arg "/lib64"))
             (setenv "NIX_LDFLAGS_${suffixSalt}" (concat (getenv "NIX_LDFLAGS_${suffixSalt}") " -L" arg "/lib64"))))
-        '(${concatStringsSep " " (map (pkg: ''"${pkg}"'') pkgs)}))
+        '(${concatStringsSep " " (map (pkg: "\"${pkg}\"") pkgs)}))
     '';
   };
 

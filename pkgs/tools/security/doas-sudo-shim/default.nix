@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
 
   installFlags = [
     "DESTDIR=$(out)"
-    ''PREFIX=""''
+    "PREFIX=\"\""
   ];
 
   postInstall = ''

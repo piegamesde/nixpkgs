@@ -31,7 +31,7 @@ stdenv.mkDerivation rec {
   ];
 
   meta = with lib; {
-    description = ''The "Activate Windows" watermark ported to Linux'';
+    description = "The \"Activate Windows\" watermark ported to Linux";
     homepage = "https://github.com/MrGlockenspiel/activate-linux";
     license = licenses.gpl3;
     maintainers = with maintainers; [ alexnortung ];

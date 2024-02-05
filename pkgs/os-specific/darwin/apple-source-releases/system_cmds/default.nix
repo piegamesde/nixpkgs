@@ -34,7 +34,7 @@ appleDerivation {
       "-DDAEMON_GID=1"
       "-DDEFAULT_AT_QUEUE='a'"
       "-DDEFAULT_BATCH_QUEUE='b'"
-      ''-DPERM_PATH="/usr/lib/cron/"''
+      "-DPERM_PATH=\"/usr/lib/cron/\""
       "-DOPEN_DIRECTORY"
       "-DNO_DIRECT_RPC"
       "-DAPPLE_GETCONF_UNDERSCORE"
@@ -42,7 +42,7 @@ appleDerivation {
       "-DUSE_PAM"
       "-DUSE_BSM_AUDIT"
       "-D_PW_NAME_LEN=MAXLOGNAME"
-      ''-D_PW_YPTOKEN="__YP!"''
+      "-D_PW_YPTOKEN=\"__YP!\""
       "-DAHZV1=64 "
       "-DAU_SESSION_FLAG_HAS_TTY=0x4000"
       "-DAU_SESSION_FLAG_HAS_AUTHENTICATED=0x4000"

@@ -831,7 +831,7 @@ in
 
         data_path = "${cfg.dataDir}"
         plugin_paths = {
-          ${lib.concatStringsSep ", " (map (n: ''"${n}"'') cfg.extraPluginPaths)}
+          ${lib.concatStringsSep ", " (map (n: "\"${n}\"") cfg.extraPluginPaths)}
         }
 
         ${optionalString (cfg.ssl != null) (createSSLOptsStr cfg.ssl)}
