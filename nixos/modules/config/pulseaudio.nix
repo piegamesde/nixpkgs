@@ -273,9 +273,7 @@ in
           modulePaths =
             builtins.map (drv: "${drv}/lib/pulseaudio/modules")
               # User-provided extra modules take precedence
-              (
-                overriddenModules ++ [ overriddenPackage ]
-              );
+              (overriddenModules ++ [ overriddenPackage ]);
         in
         lib.concatStringsSep ":" modulePaths;
     })

@@ -70,8 +70,8 @@ stdenv.mkDerivation {
         echo "setting rpath for $lib..."
         patchelf --set-rpath "${rpath}:$out/lib" "$lib"
         ${lib.optionalString cudaSupport ''
-        addOpenGLRunpath "$lib"
-      ''}
+          addOpenGLRunpath "$lib"
+        ''}
       done
     ''
     + lib.optionalString stdenv.isDarwin ''

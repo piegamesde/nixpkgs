@@ -51,9 +51,9 @@ in
   noisily = colors: verbose: ''
       noisily() {
     	  ${lib.optionalString verbose ''
-            echo_colored -n "Running "
-            echo $@
-      	  ''}
+               echo_colored -n "Running "
+               echo $@
+         	  ''}
     	  $@
       }
   '';

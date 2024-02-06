@@ -143,9 +143,7 @@ rec {
           (
             lib.filterAttrs (name: value: !value)
               # Filter out arguments that would be passed
-              (
-                removeAttrs fargs (lib.attrNames allArgs)
-              )
+              (removeAttrs fargs (lib.attrNames allArgs))
           );
 
       # Get a list of suggested argument names for a given missing one

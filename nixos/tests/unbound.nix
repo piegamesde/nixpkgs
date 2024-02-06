@@ -240,8 +240,8 @@ import ./make-test-python.nix (
               auth-zone:
                 name: something.local.
                 zonefile: ${pkgs.writeText "zone" ''
-                something.local. IN A 3.4.5.6
-              ''}
+                  something.local. IN A 3.4.5.6
+                ''}
             '';
           };
         };

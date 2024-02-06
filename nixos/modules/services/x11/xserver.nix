@@ -111,8 +111,8 @@ let
             Section "Monitor"
               Identifier "${current.name}"
               ${optionalString (current.config.primary) ''
-              Option "Primary" "true"
-            ''}
+                Option "Primary" "true"
+              ''}
               ${
                 optionalString (previous != [ ]) ''
                   Option "RightOf" "${(head previous).name}"

@@ -123,9 +123,9 @@ stdenv.mkDerivation {
         yes "" | ${sdk}/bin/avdmanager create avd --force -n device -k "system-images;android-${platformVersion};${systemImageType};${abiVersion}" -p $ANDROID_AVD_HOME $NIX_ANDROID_AVD_FLAGS
 
         ${lib.optionalString enableGPU ''
-      # Enable GPU acceleration
-      echo "hw.gpu.enabled=yes" >> $ANDROID_AVD_HOME/device.avd/config.ini
-    ''}
+          # Enable GPU acceleration
+          echo "hw.gpu.enabled=yes" >> $ANDROID_AVD_HOME/device.avd/config.ini
+        ''}
 
         ${
           lib.concatMapStrings

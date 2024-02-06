@@ -320,9 +320,7 @@ in
                       head (
                         map (optN: valTransform (do.${optN}))
                           # only map those that exist
-                          (
-                            filter (o: do ? ${o}) optNames
-                          )
+                          (filter (o: do ? ${o}) optNames)
                       )
                     );
                   in

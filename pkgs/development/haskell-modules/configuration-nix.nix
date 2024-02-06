@@ -546,9 +546,7 @@ builtins.intersectAttrs super {
         sha256 = "10m22k35bi6cci798vjpy4c2l08lq5nmmj24iwp0aflvmjdgscdb";
       })
       # dyre's tests appear to be trying to directly call GHC.
-      (
-        dontCheck super.dyre
-      );
+      (dontCheck super.dyre);
 
   # https://github.com/edwinb/EpiVM/issues/13
   # https://github.com/edwinb/EpiVM/issues/14

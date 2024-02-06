@@ -384,9 +384,7 @@ rec {
         (
           removeAttrs mergeAttrBy2
             # don't merge attrs which are neither in x nor y
-            (
-              filter (a: !x ? ${a} && !y ? ${a}) (attrNames mergeAttrBy2)
-            )
+            (filter (a: !x ? ${a} && !y ? ${a}) (attrNames mergeAttrBy2))
         )
       )
     ];

@@ -1422,8 +1422,8 @@ in
 
             openssl rand -hex 32 > ${cfg.statePath}/gitlab_shell_secret
             ${optionalString cfg.pages.enable ''
-            openssl rand -base64 32 > ${cfg.pages.settings.api-secret-key}
-          ''}
+              openssl rand -base64 32 > ${cfg.pages.settings.api-secret-key}
+            ''}
 
             rm -f '${cfg.statePath}/config/database.yml'
 

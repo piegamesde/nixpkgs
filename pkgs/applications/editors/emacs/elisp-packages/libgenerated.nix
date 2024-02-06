@@ -120,9 +120,7 @@ in
                   map toString
                     # Hack: Melpa archives contains versions with parse errors such as [ 4 4 -4 413 ] which should be 4.4-413
                     # This filter method is still technically wrong, but it's computationally cheap enough and tapers over the issue
-                    (
-                      builtins.filter (n: n >= 0) version
-                    )
+                    (builtins.filter (n: n >= 0) version)
                 )
               );
               # TODO: Broken should not result in src being null (hack to avoid eval errors)

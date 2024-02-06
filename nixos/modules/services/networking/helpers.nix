@@ -4,7 +4,7 @@
   ip46tables() {
     iptables -w "$@"
     ${lib.optionalString config.networking.enableIPv6 ''
-    ip6tables -w "$@"
-  ''}
+      ip6tables -w "$@"
+    ''}
   }
 ''

@@ -20,9 +20,7 @@ rec {
       tex =
         pkgs.texlive.combine
           # always include basic stuff you need for LaTeX
-          (
-            { inherit (pkgs.texlive) scheme-basic; } // texPackages
-          );
+          ({ inherit (pkgs.texlive) scheme-basic; } // texPackages);
     in
 
     pkgs.stdenv.mkDerivation {

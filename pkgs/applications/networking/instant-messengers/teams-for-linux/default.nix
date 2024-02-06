@@ -88,19 +88,19 @@ stdenv.mkDerivation rec {
     # Linux needs 'aplay' for notification sounds, 'libpulse' for meeting sound, and 'libpipewire' for screen sharing
     makeWrapper '${electron}/bin/electron' "$out/bin/teams-for-linux" \
       ${lib.optionalString stdenv.isLinux ''
-      --prefix PATH : ${
-        lib.makeBinPath [
-          alsa-utils
-          which
-        ]
-      } \
-      --prefix LD_LIBRARY_PATH : ${
-        lib.makeLibraryPath [
-          libpulseaudio
-          pipewire
-        ]
-      } \
-    ''} \
+        --prefix PATH : ${
+          lib.makeBinPath [
+            alsa-utils
+            which
+          ]
+        } \
+        --prefix LD_LIBRARY_PATH : ${
+          lib.makeLibraryPath [
+            libpulseaudio
+            pipewire
+          ]
+        } \
+      ''} \
       --add-flags "$out/share/teams-for-linux/app.asar" \
       --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations}}"
 

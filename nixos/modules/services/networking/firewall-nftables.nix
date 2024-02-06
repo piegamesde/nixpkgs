@@ -85,8 +85,8 @@ in
               fib saddr . mark ${optionalString (cfg.checkReversePath != "loose") ". iif"} oif exists accept
 
               ${optionalString cfg.logReversePathDrops ''
-              log level info prefix "rpfilter drop: "
-            ''}
+                log level info prefix "rpfilter drop: "
+              ''}
 
             }
           ''
@@ -109,8 +109,8 @@ in
           }
 
           ${optionalString cfg.logRefusedConnections ''
-        tcp flags syn / fin,syn,rst,ack log level info prefix "refused connection: "
-      ''}
+            tcp flags syn / fin,syn,rst,ack log level info prefix "refused connection: "
+          ''}
           ${
             optionalString (cfg.logRefusedPackets && !cfg.logRefusedUnicastsOnly) ''
               pkttype broadcast log level info prefix "refused broadcast: "
@@ -118,13 +118,13 @@ in
             ''
           }
           ${optionalString cfg.logRefusedPackets ''
-        pkttype host log level info prefix "refused packet: "
-      ''}
+            pkttype host log level info prefix "refused packet: "
+          ''}
 
           ${optionalString cfg.rejectPackets ''
-        meta l4proto tcp reject with tcp reset
-        reject
-      ''}
+            meta l4proto tcp reject with tcp reset
+            reject
+          ''}
 
         }
 
@@ -150,10 +150,10 @@ in
           }
 
           ${optionalString cfg.allowPing ''
-        icmp type echo-request ${
-          optionalString (cfg.pingLimit != null) "limit rate ${cfg.pingLimit}"
-        } accept comment "allow ping"
-      ''}
+            icmp type echo-request ${
+              optionalString (cfg.pingLimit != null) "limit rate ${cfg.pingLimit}"
+            } accept comment "allow ping"
+          ''}
 
           icmpv6 type != { nd-redirect, 139 } accept comment "Accept all ICMPv6 messages except redirects and node information queries (type 139).  See RFC 4890, section 4.4."
           ip6 daddr fe80::/64 udp dport 546 accept comment "DHCPv6 client"
@@ -163,29 +163,29 @@ in
         }
 
         ${optionalString cfg.filterForward ''
-        chain forward {
-          type filter hook forward priority filter; policy drop;
+          chain forward {
+            type filter hook forward priority filter; policy drop;
 
-          ct state vmap {
-            invalid : drop,
-            established : accept,
-            related : accept,
-            new : jump forward-allow,
-            untracked : jump forward-allow,
+            ct state vmap {
+              invalid : drop,
+              established : accept,
+              related : accept,
+              new : jump forward-allow,
+              untracked : jump forward-allow,
+            }
+
           }
 
-        }
+          chain forward-allow {
 
-        chain forward-allow {
+            icmpv6 type != { router-renumbering, 139 } accept comment "Accept all ICMPv6 messages except renumbering and node information queries (type 139).  See RFC 4890, section 4.3."
 
-          icmpv6 type != { router-renumbering, 139 } accept comment "Accept all ICMPv6 messages except renumbering and node information queries (type 139).  See RFC 4890, section 4.3."
+            ct status dnat accept comment "allow port forward"
 
-          ct status dnat accept comment "allow port forward"
+            ${cfg.extraForwardRules}
 
-          ${cfg.extraForwardRules}
-
-        }
-      ''}
+          }
+        ''}
 
       }
 

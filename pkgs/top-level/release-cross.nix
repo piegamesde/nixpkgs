@@ -257,9 +257,7 @@ in
       # Unfortunately `bootstrapTools` also clobbers its own `system`
       # attribute, so there is no way to detect this -- we must add it
       # as a special case.
-      (
-        builtins.removeAttrs tools [ "bootstrapTools" ]
-      );
+      (builtins.removeAttrs tools [ "bootstrapTools" ]);
 
   # Cross-built nixStatic for platforms for enabled-but-unsupported platforms
   mips64el-nixCrossStatic = mapTestOnCross lib.systems.examples.mips64el-linux-gnuabi64 nixCrossStatic;

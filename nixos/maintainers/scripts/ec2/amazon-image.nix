@@ -73,12 +73,12 @@ in
         { modulesPath, ... }: {
           imports = [ "''${modulesPath}/virtualisation/amazon-image.nix" ];
           ${optionalString config.ec2.efi ''
-          ec2.efi = true;
-        ''}
+            ec2.efi = true;
+          ''}
           ${optionalString config.ec2.zfs.enable ''
-          ec2.zfs.enable = true;
-          networking.hostId = "${config.networking.hostId}";
-        ''}
+            ec2.zfs.enable = true;
+            networking.hostId = "${config.networking.hostId}";
+          ''}
         }
       '';
 

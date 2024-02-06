@@ -130,10 +130,10 @@ mapAttrs
                   machine.wait_until_succeeds(
                       ru(
                           "${xdo "create_new_win-select_main_window" ''
-            search --onlyvisible --name "startup done"
-            windowfocus --sync
-            windowactivate --sync
-          ''}"
+                            search --onlyvisible --name "startup done"
+                            windowfocus --sync
+                            windowactivate --sync
+                          ''}"
                       )
                   )
                   machine.send_key("ctrl-n")
@@ -141,10 +141,10 @@ mapAttrs
                   machine.wait_until_succeeds(
                       ru(
                           "${xdo "create_new_win-wait_for_window" ''
-            search --onlyvisible --name "New Tab"
-            windowfocus --sync
-            windowactivate --sync
-          ''}"
+                            search --onlyvisible --name "New Tab"
+                            windowfocus --sync
+                            windowactivate --sync
+                          ''}"
                       )
                   )
 
@@ -154,10 +154,10 @@ mapAttrs
               machine.wait_until_succeeds(
                   ru(
                       "${xdo "close_new_tab_win-select_main_window" ''
-            search --onlyvisible --name "New Tab"
-            windowfocus --sync
-            windowactivate --sync
-          ''}"
+                        search --onlyvisible --name "New Tab"
+                        windowfocus --sync
+                        windowactivate --sync
+                      ''}"
                   )
               )
               machine.send_key("ctrl-w")
@@ -165,8 +165,8 @@ mapAttrs
               machine.wait_until_fails(
                   ru(
                       "${xdo "close_new_tab_win-wait_for_close" ''
-            search --onlyvisible --name "New Tab"
-          ''}"
+                        search --onlyvisible --name "New Tab"
+                      ''}"
                   )
               )
 
@@ -181,8 +181,8 @@ mapAttrs
               machine.succeed(
                   ru(
                       "${xdo "copy-all" ''
-            key --delay 1000 Ctrl+a Ctrl+c
-          ''}"
+                        key --delay 1000 Ctrl+a Ctrl+c
+                      ''}"
                   )
               )
               clipboard = machine.succeed(
@@ -205,12 +205,12 @@ mapAttrs
           machine.wait_until_succeeds(
               ru(
                   "${xdo "check-startup" ''
-            search --sync --onlyvisible --name "startup done"
-            # close first start help popup
-            key -delay 1000 Escape
-            windowfocus --sync
-            windowactivate --sync
-          ''}"
+                    search --sync --onlyvisible --name "startup done"
+                    # close first start help popup
+                    key -delay 1000 Escape
+                    windowfocus --sync
+                    windowactivate --sync
+                  ''}"
               )
           )
 
@@ -240,8 +240,8 @@ mapAttrs
               machine.succeed(
                   ru(
                       "${xdo "find-window-after-copy" ''
-            search --onlyvisible --name "Sandbox Status"
-          ''}"
+                        search --onlyvisible --name "Sandbox Status"
+                      ''}"
                   )
               )
 
@@ -253,8 +253,8 @@ mapAttrs
               machine.succeed(
                   ru(
                       "${xdo "copy-sandbox-info" ''
-            key --delay 1000 Ctrl+a Ctrl+c
-          ''}"
+                        key --delay 1000 Ctrl+a Ctrl+c
+                      ''}"
                   )
               )
 
