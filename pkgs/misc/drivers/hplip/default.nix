@@ -70,7 +70,8 @@ let
   ];
 in
 
-assert withPlugin
+assert
+  withPlugin
   ->
     builtins.elem hplipArch pluginArches
     || throw "HPLIP plugin not supported on ${stdenv.hostPlatform.system}";

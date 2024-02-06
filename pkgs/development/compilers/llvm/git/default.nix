@@ -50,14 +50,15 @@
   # specified.
   monorepoSrc ? null,
 }:
-assert let
-  int = a: if a then 1 else 0;
-  xor = a: b: ((builtins.bitXor (int a) (int b)) == 1);
-in
-lib.assertMsg (xor (gitRelease != null) (officialRelease != null)) (
-  "must specify `gitRelease` or `officialRelease`"
-  + (lib.optionalString (gitRelease != null) " — not both")
-);
+assert
+  let
+    int = a: if a then 1 else 0;
+    xor = a: b: ((builtins.bitXor (int a) (int b)) == 1);
+  in
+  lib.assertMsg (xor (gitRelease != null) (officialRelease != null)) (
+    "must specify `gitRelease` or `officialRelease`"
+    + (lib.optionalString (gitRelease != null) " — not both")
+  );
 let
   monorepoSrc' = monorepoSrc;
 in

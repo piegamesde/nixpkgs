@@ -66,9 +66,11 @@
 with builtins;
 
 assert goPackagePath != "" -> throw "`goPackagePath` is not needed with `buildGoModule`";
-assert (vendorSha256 == "_unset" && vendorHash == "_unset")
+assert
+  (vendorSha256 == "_unset" && vendorHash == "_unset")
   -> throw "either `vendorHash` or `vendorSha256` is required";
-assert (vendorSha256 != "_unset" && vendorHash != "_unset")
+assert
+  (vendorSha256 != "_unset" && vendorHash != "_unset")
   -> throw "both `vendorHash` and `vendorSha256` set. only one can be set.";
 
 let

@@ -84,7 +84,8 @@
   meta ? { },
 }:
 
-assert wxSupport
+assert
+  wxSupport
   -> (
     if stdenv.isDarwin then
       wxGTK != null

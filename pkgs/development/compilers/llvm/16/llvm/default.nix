@@ -76,8 +76,9 @@ let
     else
       python3;
 in
-assert (lib.assertMsg (!enableGoldPlugin)
-  "Gold plugin cannot be enabled on LLVM16 due to a upstream issue: https://github.com/llvm/llvm-project/issues/61350"
+assert (
+  lib.assertMsg (!enableGoldPlugin)
+    "Gold plugin cannot be enabled on LLVM16 due to a upstream issue: https://github.com/llvm/llvm-project/issues/61350"
 );
 stdenv.mkDerivation (
   rec {

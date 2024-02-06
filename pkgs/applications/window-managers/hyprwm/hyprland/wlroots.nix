@@ -41,9 +41,11 @@ let
     }
   );
 in
-assert (lib.assertMsg (hidpiXWayland -> enableXWayland) ''
-  wlroots-hyprland: cannot have hidpiXWayland when enableXWayland is false.
-'');
+assert (
+  lib.assertMsg (hidpiXWayland -> enableXWayland) ''
+    wlroots-hyprland: cannot have hidpiXWayland when enableXWayland is false.
+  ''
+);
 (wlroots.overrideAttrs (
   old: {
     version = "0.17.0-dev";

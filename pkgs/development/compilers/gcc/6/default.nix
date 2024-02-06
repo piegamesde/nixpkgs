@@ -240,7 +240,8 @@ let
 in
 
 # We need all these X libraries when building AWT with GTK.
-assert x11Support
+assert
+  x11Support
   ->
     (filter (x: x == null) (
       [

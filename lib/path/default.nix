@@ -145,7 +145,8 @@ in
     path:
     # The subpath string to append
     subpath:
-    assert assertMsg (isPath path) ''lib.path.append: The first argument is of type ${builtins.typeOf path}, but a path was expected'';
+    assert assertMsg (isPath path)
+      ''lib.path.append: The first argument is of type ${builtins.typeOf path}, but a path was expected'';
     assert assertMsg (isValid subpath) ''
       lib.path.append: Second argument is not a valid subpath string:
           ${subpathInvalidReason subpath}'';

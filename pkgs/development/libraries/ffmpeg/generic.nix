@@ -315,9 +315,11 @@ assert withUnfree -> withGPL && withGPLv3;
 # *  Build dependencies
 assert withPixelutils -> buildAvutil;
 # *  Program dependencies
-assert buildFfmpeg
+assert
+  buildFfmpeg
   -> buildAvcodec && buildAvfilter && buildAvformat && (buildSwresample || buildAvresample);
-assert buildFfplay
+assert
+  buildFfplay
   -> buildAvcodec && buildAvformat && buildSwscale && (buildSwresample || buildAvresample);
 assert buildFfprobe -> buildAvcodec && buildAvformat;
 # *  Library dependencies

@@ -12,7 +12,8 @@
   withBlas ? true,
 }:
 
-assert withBlas
+assert
+  withBlas
   -> openblas != null && blas.implementation == "openblas" && lapack.implementation == "openblas";
 
 stdenv.mkDerivation rec {

@@ -40,7 +40,8 @@ stdenv.mkDerivation {
   inherit version;
 
   src =
-    assert !acceptLicense
+    assert
+      !acceptLicense
       -> throw ''
         Use of the "SEGGER JLink Software and Documentation pack" requires the
         acceptance of the following licenses:

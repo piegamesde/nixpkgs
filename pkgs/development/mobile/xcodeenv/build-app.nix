@@ -27,7 +27,8 @@
   ...
 }@args:
 
-assert release
+assert
+  release
   ->
     certificateFile != null
     && certificatePassword != null

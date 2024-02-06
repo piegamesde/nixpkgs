@@ -39,7 +39,8 @@
     ++ lib.optional x11Support "clx/new-clx",
 }:
 
-assert x11Support
+assert
+  x11Support
   -> (
     libX11 != null
     && libXau != null

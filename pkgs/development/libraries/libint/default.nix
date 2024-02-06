@@ -104,21 +104,27 @@ assert (
 assert (oneBodyDerivOrd >= 0 && oneBodyDerivOrd <= 4);
 
 # Check that valid basis shell orders are used, see https://github.com/evaleev/libint/wiki
-assert (builtins.elem cartGaussOrd [
-  "standard"
-  "intv3"
-  "gamess"
-  "orca"
-  "bagel"
-]);
-assert (builtins.elem shGaussOrd [
-  "standard"
-  "gaussian"
-]);
-assert (builtins.elem shellSet [
-  "standard"
-  "orca"
-]);
+assert (
+  builtins.elem cartGaussOrd [
+    "standard"
+    "intv3"
+    "gamess"
+    "orca"
+    "bagel"
+  ]
+);
+assert (
+  builtins.elem shGaussOrd [
+    "standard"
+    "gaussian"
+  ]
+);
+assert (
+  builtins.elem shellSet [
+    "standard"
+    "orca"
+  ]
+);
 
 let
   pname = "libint";

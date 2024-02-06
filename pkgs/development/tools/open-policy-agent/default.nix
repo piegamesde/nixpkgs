@@ -8,7 +8,8 @@
   enableWasmEval ? false,
 }:
 
-assert enableWasmEval && stdenv.isDarwin
+assert
+  enableWasmEval && stdenv.isDarwin
   -> builtins.throw "building with wasm on darwin is failing in nixpkgs";
 
 buildGoModule rec {

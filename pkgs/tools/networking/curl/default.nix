@@ -71,14 +71,15 @@
 # cgit) that are needed here should be included directly in Nixpkgs as
 # files.
 
-assert !(
-  (lib.count (x: x) [
-    gnutlsSupport
-    opensslSupport
-    wolfsslSupport
-    rustlsSupport
-  ]) > 1
-);
+assert
+  !(
+    (lib.count (x: x) [
+      gnutlsSupport
+      opensslSupport
+      wolfsslSupport
+      rustlsSupport
+    ]) > 1
+  );
 
 stdenv.mkDerivation (
   finalAttrs: {

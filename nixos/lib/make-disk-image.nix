@@ -194,36 +194,43 @@
   additionalPaths ? [ ],
 }:
 
-assert (lib.assertOneOf "partitionTableType" partitionTableType [
-  "legacy"
-  "legacy+gpt"
-  "efi"
-  "hybrid"
-  "none"
-]);
-assert (lib.assertMsg (fsType == "ext4" && deterministic -> rootFSUID != null)
-  "In deterministic mode with a ext4 partition, rootFSUID must be non-null, by default, it is equal to rootGPUID."
+assert (
+  lib.assertOneOf "partitionTableType" partitionTableType [
+    "legacy"
+    "legacy+gpt"
+    "efi"
+    "hybrid"
+    "none"
+  ]
+);
+assert (
+  lib.assertMsg (fsType == "ext4" && deterministic -> rootFSUID != null)
+    "In deterministic mode with a ext4 partition, rootFSUID must be non-null, by default, it is equal to rootGPUID."
 );
 # We use -E offset=X below, which is only supported by e2fsprogs
-assert (lib.assertMsg (partitionTableType != "none" -> fsType == "ext4")
-  "to produce a partition table, we need to use -E offset flag which is support only for fsType = ext4"
+assert (
+  lib.assertMsg (partitionTableType != "none" -> fsType == "ext4")
+    "to produce a partition table, we need to use -E offset flag which is support only for fsType = ext4"
 );
-assert (lib.assertMsg
-  (
-    touchEFIVars
-    ->
-      partitionTableType == "hybrid" || partitionTableType == "efi" || partitionTableType == "legacy+gpt"
-  )
-  "EFI variables can be used only with a partition table of type: hybrid, efi or legacy+gpt."
+assert (
+  lib.assertMsg
+    (
+      touchEFIVars
+      ->
+        partitionTableType == "hybrid" || partitionTableType == "efi" || partitionTableType == "legacy+gpt"
+    )
+    "EFI variables can be used only with a partition table of type: hybrid, efi or legacy+gpt."
 );
 # If only Nix store image, then: contents must be empty, configFile must be unset, and we should no install bootloader.
-assert (lib.assertMsg (onlyNixStore -> contents == [ ] && configFile == null && !installBootLoader)
-  "In a only Nix store image, the contents must be empty, no configuration must be provided and no bootloader should be installed."
+assert (
+  lib.assertMsg (onlyNixStore -> contents == [ ] && configFile == null && !installBootLoader)
+    "In a only Nix store image, the contents must be empty, no configuration must be provided and no bootloader should be installed."
 );
 # Either both or none of {user,group} need to be set
-assert (lib.assertMsg
-  (lib.all (attrs: ((attrs.user or null) == null) == ((attrs.group or null) == null)) contents)
-  "Contents of the disk image should set none of {user, group} or both at the same time."
+assert (
+  lib.assertMsg
+    (lib.all (attrs: ((attrs.user or null) == null) == ((attrs.group or null) == null)) contents)
+    "Contents of the disk image should set none of {user, group} or both at the same time."
 );
 
 with lib;

@@ -30,11 +30,13 @@
   ...
 }@args:
 
-assert (builtins.elem format [
-  "make"
-  "crystal"
-  "shards"
-]);
+assert (
+  builtins.elem format [
+    "make"
+    "crystal"
+    "shards"
+  ]
+);
 let
   mkDerivationArgs = builtins.removeAttrs args [
     "format"

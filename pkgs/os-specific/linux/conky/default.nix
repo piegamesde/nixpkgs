@@ -61,7 +61,8 @@
   libxml2 ? null,
 }:
 
-assert docsSupport
+assert
+  docsSupport
   ->
     docbook2x != null
     && libxslt != null

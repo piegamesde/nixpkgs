@@ -33,7 +33,8 @@ stdenv.mkDerivation rec {
   version = "10.2.0";
 
   src =
-    assert !acceptLicense
+    assert
+      !acceptLicense
       -> throw ''
         You must accept the XMLmind XML Editor Personal Edition License at
         https://www.xmlmind.com/xmleditor/license_xxe_perso.html

@@ -19,7 +19,8 @@
   ...
 }@args:
 
-assert release
+assert
+  release
   -> keyStore != null && keyAlias != null && keyStorePassword != null && keyAliasPassword != null;
 
 let
