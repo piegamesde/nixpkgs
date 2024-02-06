@@ -193,30 +193,21 @@ in
     ./display-managers/default.nix
     ./window-managers/default.nix
     ./desktop-managers/default.nix
-    (mkRemovedOptionModule
-      [
-        "services"
-        "xserver"
-        "startGnuPGAgent"
-      ]
-      "See the 16.09 release notes for more information."
-    )
-    (mkRemovedOptionModule
-      [
-        "services"
-        "xserver"
-        "startDbusSession"
-      ]
-      "The user D-Bus session is now always socket activated and this option can safely be removed."
-    )
-    (mkRemovedOptionModule
-      [
-        "services"
-        "xserver"
-        "useXFS"
-      ]
-      "Use services.xserver.fontPath instead of useXFS"
-    )
+    (mkRemovedOptionModule [
+      "services"
+      "xserver"
+      "startGnuPGAgent"
+    ] "See the 16.09 release notes for more information.")
+    (mkRemovedOptionModule [
+      "services"
+      "xserver"
+      "startDbusSession"
+    ] "The user D-Bus session is now always socket activated and this option can safely be removed.")
+    (mkRemovedOptionModule [
+      "services"
+      "xserver"
+      "useXFS"
+    ] "Use services.xserver.fontPath instead of useXFS")
     (mkRemovedOptionModule
       [
         "services"
@@ -347,18 +338,16 @@ in
         ];
         # TODO(@oxij): think how to easily add the rest, like those nvidia things
         relatedPackages = concatLists (
-          mapAttrsToList
-            (
-              n: v:
-              optional (hasPrefix "xf86video" n) {
-                path = [
-                  "xorg"
-                  n
-                ];
-                title = removePrefix "xf86video" n;
-              }
-            )
-            pkgs.xorg
+          mapAttrsToList (
+            n: v:
+            optional (hasPrefix "xf86video" n) {
+              path = [
+                "xorg"
+                n
+              ];
+              title = removePrefix "xf86video" n;
+            }
+          ) pkgs.xorg
         );
         description = lib.mdDoc ''
           The names of the video drivers the configuration
@@ -727,10 +716,9 @@ in
     services.xserver.drivers = flip concatMap cfg.videoDrivers (
       name:
       let
-        driver =
-          attrByPath [ name ]
-            (if xorg ? ${"xf86video" + name} then { modules = [ xorg.${"xf86video" + name} ]; } else null)
-            knownVideoDrivers;
+        driver = attrByPath [ name ] (
+          if xorg ? ${"xf86video" + name} then { modules = [ xorg.${"xf86video" + name} ]; } else null
+        ) knownVideoDrivers;
       in
       optional (driver != null) (
         {
@@ -793,25 +781,23 @@ in
       );
 
     environment.systemPackages =
-      utils.removePackagesByName
-        [
-          xorg.xorgserver.out
-          xorg.xrandr
-          xorg.xrdb
-          xorg.setxkbmap
-          xorg.iceauth # required for KDE applications (it's called by dcopserver)
-          xorg.xlsclients
-          xorg.xset
-          xorg.xsetroot
-          xorg.xinput
-          xorg.xprop
-          xorg.xauth
-          pkgs.xterm
-          pkgs.xdg-utils
-          xorg.xf86inputevdev.out # get evdev.4 man page
-          pkgs.nixos-icons # needed for gnome and pantheon about dialog, nixos-manual and maybe more
-        ]
-        config.services.xserver.excludePackages
+      utils.removePackagesByName [
+        xorg.xorgserver.out
+        xorg.xrandr
+        xorg.xrdb
+        xorg.setxkbmap
+        xorg.iceauth # required for KDE applications (it's called by dcopserver)
+        xorg.xlsclients
+        xorg.xset
+        xorg.xsetroot
+        xorg.xinput
+        xorg.xprop
+        xorg.xauth
+        pkgs.xterm
+        pkgs.xdg-utils
+        xorg.xf86inputevdev.out # get evdev.4 man page
+        pkgs.nixos-icons # needed for gnome and pantheon about dialog, nixos-manual and maybe more
+      ] config.services.xserver.excludePackages
       ++ optional (elem "virtualbox" cfg.videoDrivers) xorg.xrefresh;
 
     environment.pathsToLink = [ "/share/X11" ];
@@ -855,9 +841,9 @@ in
       '';
 
       # TODO: move declaring the systemd service to its own mkIf
-      script =
-        mkIf (config.systemd.services.display-manager.enable == true)
-          "${cfg.displayManager.job.execCmd}";
+      script = mkIf (
+        config.systemd.services.display-manager.enable == true
+      ) "${cfg.displayManager.job.execCmd}";
 
       # Stop restarting if the display manager stops (crashes) 2 times
       # in one minute. Starting X typically takes 3-4s.
@@ -904,8 +890,9 @@ in
           preferLocalBuild = true;
         }
         ''
-          ${optionalString (config.environment.sessionVariables ? XKB_CONFIG_ROOT)
-            "export XKB_CONFIG_ROOT=${config.environment.sessionVariables.XKB_CONFIG_ROOT}"}
+          ${optionalString (
+            config.environment.sessionVariables ? XKB_CONFIG_ROOT
+          ) "export XKB_CONFIG_ROOT=${config.environment.sessionVariables.XKB_CONFIG_ROOT}"}
           xkbvalidate "$xkbModel" "$layout" "$xkbVariant" "$xkbOptions"
           touch "$out"
         ''
@@ -1000,8 +987,9 @@ in
                           }
                         ${indent cfg.extraDisplaySettings}
                           ${
-                            optionalString (cfg.virtualScreen != null)
-                              "Virtual ${toString cfg.virtualScreen.x} ${toString cfg.virtualScreen.y}"
+                            optionalString (
+                              cfg.virtualScreen != null
+                            ) "Virtual ${toString cfg.virtualScreen.x} ${toString cfg.virtualScreen.y}"
                           }
                         EndSubSection
                       '';

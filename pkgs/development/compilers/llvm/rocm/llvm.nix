@@ -109,9 +109,9 @@ stdenv.mkDerivation (
       ++ lib.optionals (finalAttrs.passthru.isLLVM && targetProjects != [ ]) [
         "-DLLVM_ENABLE_PROJECTS=${lib.concatStringsSep ";" targetProjects}"
       ]
-      ++
-        lib.optionals ((finalAttrs.passthru.isLLVM || targetDir == "runtimes") && targetRuntimes != [ ])
-          [ "-DLLVM_ENABLE_RUNTIMES=${lib.concatStringsSep ";" targetRuntimes}" ]
+      ++ lib.optionals (
+        (finalAttrs.passthru.isLLVM || targetDir == "runtimes") && targetRuntimes != [ ]
+      ) [ "-DLLVM_ENABLE_RUNTIMES=${lib.concatStringsSep ";" targetRuntimes}" ]
       ++ lib.optionals (finalAttrs.passthru.isLLVM || finalAttrs.passthru.isClang) [
         "-DLLVM_ENABLE_RTTI=ON"
         "-DLLVM_ENABLE_EH=ON"

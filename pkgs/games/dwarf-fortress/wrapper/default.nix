@@ -54,26 +54,23 @@ let
     ignoreCollisions = true;
   };
 
-  settings_ =
-    lib.recursiveUpdate
-      {
-        init = {
-          PRINT_MODE =
-            if enableTextMode then
-              "TEXT"
-            else if enableTWBT then
-              "TWBT"
-            else if stdenv.hostPlatform.isDarwin then
-              "STANDARD" # https://www.bay12games.com/dwarves/mantisbt/view.php?id=11680
-            else
-              null;
-          INTRO = enableIntro;
-          TRUETYPE = enableTruetype;
-          FPS = enableFPS;
-          SOUND = enableSound;
-        };
-      }
-      settings;
+  settings_ = lib.recursiveUpdate {
+    init = {
+      PRINT_MODE =
+        if enableTextMode then
+          "TEXT"
+        else if enableTWBT then
+          "TWBT"
+        else if stdenv.hostPlatform.isDarwin then
+          "STANDARD" # https://www.bay12games.com/dwarves/mantisbt/view.php?id=11680
+        else
+          null;
+      INTRO = enableIntro;
+      TRUETYPE = enableTruetype;
+      FPS = enableFPS;
+      SOUND = enableSound;
+    };
+  } settings;
 
   forEach = attrs: f: lib.concatStrings (lib.mapAttrsToList f attrs);
 

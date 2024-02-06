@@ -87,14 +87,11 @@ in
         "extraOptions"
       ]
     )
-    (mkRemovedOptionModule
-      [
-        "networking"
-        "resolvconf"
-        "useHostResolvConf"
-      ]
-      "This option was never used for anything anyways"
-    )
+    (mkRemovedOptionModule [
+      "networking"
+      "resolvconf"
+      "useHostResolvConf"
+    ] "This option was never used for anything anyways")
   ];
 
   options = {

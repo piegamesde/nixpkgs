@@ -220,12 +220,10 @@ let
 
   defaultPrefsFile = pkgs.writeText "nixos-default-prefs.js" (
     lib.concatStringsSep "\n" (
-      lib.mapAttrsToList
-        (key: value: ''
-          // ${value.reason}
-          pref("${key}", ${builtins.toJSON value.value});
-        '')
-        defaultPrefs
+      lib.mapAttrsToList (key: value: ''
+        // ${value.reason}
+        pref("${key}", ${builtins.toJSON value.value});
+      '') defaultPrefs
     )
   );
 in
@@ -435,9 +433,9 @@ buildStdenv.mkDerivation ({
     ]
     # elf-hack is broken when using clang+lld:
     # https://bugzilla.mozilla.org/show_bug.cgi?id=1482204
-    ++
-      lib.optional (ltoSupport && (buildStdenv.isAarch32 || buildStdenv.isi686 || buildStdenv.isx86_64))
-        "--disable-elf-hack"
+    ++ lib.optional (
+      ltoSupport && (buildStdenv.isAarch32 || buildStdenv.isi686 || buildStdenv.isx86_64)
+    ) "--disable-elf-hack"
     ++ lib.optional (!drmSupport) "--disable-eme"
     ++ [
       (enableFeature alsaSupport "alsa")

@@ -59,20 +59,18 @@ let
         }
 
         mkdir -p "$out/etc"
-        ${concatMapStringsSep "\n"
-          (
-            etcEntry:
-            escapeShellArgs [
-              "makeEtcEntry"
-              # Force local source paths to be added to the store
-              "${etcEntry.source}"
-              etcEntry.target
-              etcEntry.mode
-              etcEntry.user
-              etcEntry.group
-            ]
-          )
-          etc'}
+        ${concatMapStringsSep "\n" (
+          etcEntry:
+          escapeShellArgs [
+            "makeEtcEntry"
+            # Force local source paths to be added to the store
+            "${etcEntry.source}"
+            etcEntry.target
+            etcEntry.mode
+            etcEntry.user
+            etcEntry.group
+          ]
+        ) etc'}
       '';
 in
 

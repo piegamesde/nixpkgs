@@ -79,14 +79,17 @@ assert bluezSupport -> bluez != null;
 
 assert enableFramework -> stdenv.isDarwin;
 
-assert lib.assertMsg (reproducibleBuild -> stripBytecode)
-  "Deterministic builds require stripping bytecode.";
+assert lib.assertMsg (
+  reproducibleBuild -> stripBytecode
+) "Deterministic builds require stripping bytecode.";
 
-assert lib.assertMsg (reproducibleBuild -> (!enableOptimizations))
-  "Deterministic builds are not achieved when optimizations are enabled.";
+assert lib.assertMsg (
+  reproducibleBuild -> (!enableOptimizations)
+) "Deterministic builds are not achieved when optimizations are enabled.";
 
-assert lib.assertMsg (reproducibleBuild -> (!rebuildBytecode))
-  "Deterministic builds are not achieved when (default unoptimized) bytecode is created.";
+assert lib.assertMsg (
+  reproducibleBuild -> (!rebuildBytecode)
+) "Deterministic builds are not achieved when (default unoptimized) bytecode is created.";
 
 with lib;
 
@@ -142,14 +145,11 @@ let
       buildPackages.stdenv.cc
       pythonForBuild
     ]
-    ++
-      optionals
-        (
-          stdenv.cc.isClang
-          && (!stdenv.hostPlatform.useAndroidPrebuilt or false)
-          && (enableLTO || enableOptimizations)
-        )
-        [ stdenv.cc.cc.libllvm.out ];
+    ++ optionals (
+      stdenv.cc.isClang
+      && (!stdenv.hostPlatform.useAndroidPrebuilt or false)
+      && (enableLTO || enableOptimizations)
+    ) [ stdenv.cc.cc.libllvm.out ];
 
   buildInputs =
     filter (p: p != null) (

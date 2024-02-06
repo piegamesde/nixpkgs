@@ -90,8 +90,9 @@ rec {
 
   assertByteFormat =
     name: group: attr:
-    optional (attr ? ${name} && !isByteFormat attr.${name})
-      "Systemd ${group} field `${name}' must be in byte format [0-9]+[KMGT].";
+    optional (
+      attr ? ${name} && !isByteFormat attr.${name}
+    ) "Systemd ${group} field `${name}' must be in byte format [0-9]+[KMGT].";
 
   hexChars = stringToCharacters "0123456789abcdefABCDEF";
 
@@ -102,20 +103,23 @@ rec {
 
   assertMacAddress =
     name: group: attr:
-    optional (attr ? ${name} && !isMacAddress attr.${name})
-      "Systemd ${group} field `${name}' must be a valid mac address.";
+    optional (
+      attr ? ${name} && !isMacAddress attr.${name}
+    ) "Systemd ${group} field `${name}' must be a valid mac address.";
 
   isPort = i: i >= 0 && i <= 65535;
 
   assertPort =
     name: group: attr:
-    optional (attr ? ${name} && !isPort attr.${name})
-      "Error on the systemd ${group} field `${name}': ${attr.name} is not a valid port number.";
+    optional (
+      attr ? ${name} && !isPort attr.${name}
+    ) "Error on the systemd ${group} field `${name}': ${attr.name} is not a valid port number.";
 
   assertValueOneOf =
     name: values: group: attr:
-    optional (attr ? ${name} && !elem attr.${name} values)
-      "Systemd ${group} field `${name}' cannot have value `${toString attr.${name}}'.";
+    optional (
+      attr ? ${name} && !elem attr.${name} values
+    ) "Systemd ${group} field `${name}' cannot have value `${toString attr.${name}}'.";
 
   assertHasField =
     name: group: attr:
@@ -123,26 +127,30 @@ rec {
 
   assertRange =
     name: min: max: group: attr:
-    optional (attr ? ${name} && !(min <= attr.${name} && max >= attr.${name}))
-      "Systemd ${group} field `${name}' is outside the range [${toString min},${toString max}]";
+    optional (
+      attr ? ${name} && !(min <= attr.${name} && max >= attr.${name})
+    ) "Systemd ${group} field `${name}' is outside the range [${toString min},${toString max}]";
 
   assertMinimum =
     name: min: group: attr:
-    optional (attr ? ${name} && attr.${name} < min)
-      "Systemd ${group} field `${name}' must be greater than or equal to ${toString min}";
+    optional (
+      attr ? ${name} && attr.${name} < min
+    ) "Systemd ${group} field `${name}' must be greater than or equal to ${toString min}";
 
   assertOnlyFields =
     fields: group: attr:
     let
       badFields = filter (name: !elem name fields) (attrNames attr);
     in
-    optional (badFields != [ ])
-      "Systemd ${group} has extra fields [${concatStringsSep " " badFields}].";
+    optional (
+      badFields != [ ]
+    ) "Systemd ${group} has extra fields [${concatStringsSep " " badFields}].";
 
   assertInt =
     name: group: attr:
-    optional (attr ? ${name} && !isInt attr.${name})
-      "Systemd ${group} field `${name}' is not an integer";
+    optional (
+      attr ? ${name} && !isInt attr.${name}
+    ) "Systemd ${group} field `${name}' is not an integer";
 
   checkUnitConfig =
     group: checks: attrs:
@@ -150,18 +158,15 @@ rec {
       # We're applied at the top-level type (attrsOf unitOption), so the actual
       # unit options might contain attributes from mkOverride and mkIf that we need to
       # convert into single values before checking them.
-      defs =
-        mapAttrs
-          (const (
-            v:
-            if v._type or "" == "override" then
-              v.content
-            else if v._type or "" == "if" then
-              v.content
-            else
-              v
-          ))
-          attrs;
+      defs = mapAttrs (const (
+        v:
+        if v._type or "" == "override" then
+          v.content
+        else if v._type or "" == "if" then
+          v.content
+        else
+          v
+      )) attrs;
       errors = concatMap (c: c group defs) checks;
     in
     if errors == [ ] then true else builtins.trace (concatStringsSep "\n" errors) false;
@@ -179,16 +184,12 @@ rec {
     as:
     concatStrings (
       concatLists (
-        mapAttrsToList
-          (
-            name: value:
-            map
-              (x: ''
-                ${name}=${toOption x}
-              '')
-              (if isList value then value else [ value ])
-          )
-          as
+        mapAttrsToList (
+          name: value:
+          map (x: ''
+            ${name}=${toOption x}
+          '') (if isList value then value else [ value ])
+        ) as
       )
     );
 
@@ -278,9 +279,9 @@ rec {
         for i in ${
           toString (
             mapAttrsToList (n: v: v.unit) (
-              lib.filterAttrs
-                (n: v: (attrByPath [ "overrideStrategy" ] "asDropinIfExists" v) == "asDropinIfExists")
-                units
+              lib.filterAttrs (
+                n: v: (attrByPath [ "overrideStrategy" ] "asDropinIfExists" v) == "asDropinIfExists"
+              ) units
             )
           )
         }; do
@@ -323,46 +324,34 @@ rec {
 
         # Create service aliases from aliases option.
         ${concatStrings (
-          mapAttrsToList
-            (
-              name: unit:
-              concatMapStrings
-                (name2: ''
-                  ln -sfn '${name}' $out/'${name2}'
-                '')
-                (unit.aliases or [ ])
-            )
-            units
+          mapAttrsToList (
+            name: unit:
+            concatMapStrings (name2: ''
+              ln -sfn '${name}' $out/'${name2}'
+            '') (unit.aliases or [ ])
+          ) units
         )}
 
         # Create .wants and .requires symlinks from the wantedBy and
         # requiredBy options.
         ${concatStrings (
-          mapAttrsToList
-            (
-              name: unit:
-              concatMapStrings
-                (name2: ''
-                  mkdir -p $out/'${name2}.wants'
-                  ln -sfn '../${name}' $out/'${name2}.wants'/
-                '')
-                (unit.wantedBy or [ ])
-            )
-            units
+          mapAttrsToList (
+            name: unit:
+            concatMapStrings (name2: ''
+              mkdir -p $out/'${name2}.wants'
+              ln -sfn '../${name}' $out/'${name2}.wants'/
+            '') (unit.wantedBy or [ ])
+          ) units
         )}
 
         ${concatStrings (
-          mapAttrsToList
-            (
-              name: unit:
-              concatMapStrings
-                (name2: ''
-                  mkdir -p $out/'${name2}.requires'
-                  ln -sfn '../${name}' $out/'${name2}.requires'/
-                '')
-                (unit.requiredBy or [ ])
-            )
-            units
+          mapAttrsToList (
+            name: unit:
+            concatMapStrings (name2: ''
+              mkdir -p $out/'${name2}.requires'
+              ln -sfn '../${name}' $out/'${name2}.requires'/
+            '') (unit.requiredBy or [ ])
+          ) units
         )}
 
         ${optionalString (type == "system") ''
@@ -519,20 +508,18 @@ rec {
         ${let
           env = cfg.globalEnvironment // def.environment;
         in
-        concatMapStrings
-          (
-            n:
-            let
-              s = optionalString (env.${n} != null) "Environment=${builtins.toJSON "${n}=${env.${n}}"}\n";
-            in
-            # systemd max line length is now 1MiB
-            # https://github.com/systemd/systemd/commit/e6dde451a51dc5aaa7f4d98d39b8fe735f73d2af
-            if stringLength s >= 1048576 then
-              throw "The value of the environment variable ‘${n}’ in systemd service ‘${name}.service’ is too long."
-            else
-              s
-          )
-          (attrNames env)}
+        concatMapStrings (
+          n:
+          let
+            s = optionalString (env.${n} != null) "Environment=${builtins.toJSON "${n}=${env.${n}}"}\n";
+          in
+          # systemd max line length is now 1MiB
+          # https://github.com/systemd/systemd/commit/e6dde451a51dc5aaa7f4d98d39b8fe735f73d2af
+          if stringLength s >= 1048576 then
+            throw "The value of the environment variable ‘${n}’ in systemd service ‘${name}.service’ is too long."
+          else
+            s
+        ) (attrNames env)}
         ${if def ? reloadIfChanged && def.reloadIfChanged then
           ''
             X-ReloadIfChanged=true

@@ -42,9 +42,9 @@
 
 let
   basename = "gdb";
-  targetPrefix =
-    lib.optionalString (stdenv.targetPlatform != stdenv.hostPlatform)
-      "${stdenv.targetPlatform.config}-";
+  targetPrefix = lib.optionalString (
+    stdenv.targetPlatform != stdenv.hostPlatform
+  ) "${stdenv.targetPlatform.config}-";
 in
 
 assert pythonSupport -> python3 != null;

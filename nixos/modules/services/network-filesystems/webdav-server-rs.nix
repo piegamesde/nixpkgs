@@ -9,13 +9,10 @@ with lib;
 let
   cfg = config.services.webdav-server-rs;
   format = pkgs.formats.toml { };
-  settings =
-    recursiveUpdate
-      {
-        server.uid = config.users.users."${cfg.user}".uid;
-        server.gid = config.users.groups."${cfg.group}".gid;
-      }
-      cfg.settings;
+  settings = recursiveUpdate {
+    server.uid = config.users.users."${cfg.user}".uid;
+    server.gid = config.users.groups."${cfg.group}".gid;
+  } cfg.settings;
 in
 {
   options = {

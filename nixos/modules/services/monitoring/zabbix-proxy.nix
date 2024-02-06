@@ -53,14 +53,11 @@ in
 
 {
   imports = [
-    (lib.mkRemovedOptionModule
-      [
-        "services"
-        "zabbixProxy"
-        "extraConfig"
-      ]
-      "Use services.zabbixProxy.settings instead."
-    )
+    (lib.mkRemovedOptionModule [
+      "services"
+      "zabbixProxy"
+      "extraConfig"
+    ] "Use services.zabbixProxy.settings instead.")
   ];
 
   # interface

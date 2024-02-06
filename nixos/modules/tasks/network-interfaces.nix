@@ -24,15 +24,12 @@ let
   slaves =
     concatMap (i: i.interfaces) (attrValues cfg.bonds)
     ++ concatMap (i: i.interfaces) (attrValues cfg.bridges)
-    ++
-      concatMap
-        (
-          i:
-          attrNames (
-            filterAttrs (name: config: !(config.type == "internal" || hasAttr name cfg.interfaces)) i.interfaces
-          )
-        )
-        (attrValues cfg.vswitches);
+    ++ concatMap (
+      i:
+      attrNames (
+        filterAttrs (name: config: !(config.type == "internal" || hasAttr name cfg.interfaces)) i.interfaces
+      )
+    ) (attrValues cfg.vswitches);
 
   slaveIfs = map (i: cfg.interfaces.${i}) (filter (i: cfg.interfaces ? ${i}) slaves);
 
@@ -1709,23 +1706,20 @@ in
         (pkgs.writeTextFile rec {
           name = "ipv6-privacy-extensions.rules";
           destination = "/etc/udev/rules.d/99-${name}";
-          text =
-            concatMapStrings
-              (
-                i:
-                let
-                  opt = i.tempAddress;
-                  val = tempaddrValues.${opt}.sysctl;
-                  msg = tempaddrValues.${opt}.description;
-                in
-                ''
-                  # override to ${msg} for ${i.name}
-                  ACTION=="add", SUBSYSTEM=="net", RUN+="${pkgs.procps}/bin/sysctl net.ipv6.conf.${
-                    replaceStrings [ "." ] [ "/" ] i.name
-                  }.use_tempaddr=${val}"
-                ''
-              )
-              (filter (i: i.tempAddress != cfg.tempAddresses) interfaces);
+          text = concatMapStrings (
+            i:
+            let
+              opt = i.tempAddress;
+              val = tempaddrValues.${opt}.sysctl;
+              msg = tempaddrValues.${opt}.description;
+            in
+            ''
+              # override to ${msg} for ${i.name}
+              ACTION=="add", SUBSYSTEM=="net", RUN+="${pkgs.procps}/bin/sysctl net.ipv6.conf.${
+                replaceStrings [ "." ] [ "/" ] i.name
+              }.use_tempaddr=${val}"
+            ''
+          ) (filter (i: i.tempAddress != cfg.tempAddresses) interfaces);
         })
       ]
       ++ lib.optional (cfg.wlanInterfaces != { }) (
@@ -1772,14 +1766,18 @@ in
 
                   # Configure the current interface
                   ${pkgs.iw}/bin/iw dev ${device} set type ${current.type}
-                  ${optionalString (current.type == "mesh" && current.meshID != null)
-                    "${pkgs.iw}/bin/iw dev ${device} set meshid ${current.meshID}"}
-                  ${optionalString (current.type == "monitor" && current.flags != null)
-                    "${pkgs.iw}/bin/iw dev ${device} set monitor ${current.flags}"}
-                  ${optionalString (current.type == "managed" && current.fourAddr != null)
-                    "${pkgs.iw}/bin/iw dev ${device} set 4addr ${if current.fourAddr then "on" else "off"}"}
-                  ${optionalString (current.mac != null)
-                    "${pkgs.iproute2}/bin/ip link set dev ${device} address ${current.mac}"}
+                  ${optionalString (
+                    current.type == "mesh" && current.meshID != null
+                  ) "${pkgs.iw}/bin/iw dev ${device} set meshid ${current.meshID}"}
+                  ${optionalString (
+                    current.type == "monitor" && current.flags != null
+                  ) "${pkgs.iw}/bin/iw dev ${device} set monitor ${current.flags}"}
+                  ${optionalString (
+                    current.type == "managed" && current.fourAddr != null
+                  ) "${pkgs.iw}/bin/iw dev ${device} set 4addr ${if current.fourAddr then "on" else "off"}"}
+                  ${optionalString (
+                    current.mac != null
+                  ) "${pkgs.iproute2}/bin/ip link set dev ${device} address ${current.mac}"}
                 '';
 
               # Udev script to execute for a new WLAN interface. The script configures the new WLAN interface.
@@ -1789,14 +1787,18 @@ in
                   #!${pkgs.runtimeShell}
                   # Configure the new interface
                   ${pkgs.iw}/bin/iw dev ${new._iName} set type ${new.type}
-                  ${optionalString (new.type == "mesh" && new.meshID != null)
-                    "${pkgs.iw}/bin/iw dev ${new._iName} set meshid ${new.meshID}"}
-                  ${optionalString (new.type == "monitor" && new.flags != null)
-                    "${pkgs.iw}/bin/iw dev ${new._iName} set monitor ${new.flags}"}
-                  ${optionalString (new.type == "managed" && new.fourAddr != null)
-                    "${pkgs.iw}/bin/iw dev ${new._iName} set 4addr ${if new.fourAddr then "on" else "off"}"}
-                  ${optionalString (new.mac != null)
-                    "${pkgs.iproute2}/bin/ip link set dev ${new._iName} address ${new.mac}"}
+                  ${optionalString (
+                    new.type == "mesh" && new.meshID != null
+                  ) "${pkgs.iw}/bin/iw dev ${new._iName} set meshid ${new.meshID}"}
+                  ${optionalString (
+                    new.type == "monitor" && new.flags != null
+                  ) "${pkgs.iw}/bin/iw dev ${new._iName} set monitor ${new.flags}"}
+                  ${optionalString (
+                    new.type == "managed" && new.fourAddr != null
+                  ) "${pkgs.iw}/bin/iw dev ${new._iName} set 4addr ${if new.fourAddr then "on" else "off"}"}
+                  ${optionalString (
+                    new.mac != null
+                  ) "${pkgs.iproute2}/bin/ip link set dev ${new._iName} address ${new.mac}"}
                 '';
 
               # Udev attributes for systemd to name the device and to create a .device target.

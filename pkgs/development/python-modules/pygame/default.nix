@@ -44,21 +44,17 @@ buildPythonPackage rec {
     (substituteAll {
       src = ./fix-dependency-finding.patch;
       buildinputs_include = builtins.toJSON (
-        builtins.concatMap
-          (dep: [
-            "${lib.getDev dep}/"
-            "${lib.getDev dep}/include"
-            "${lib.getDev dep}/include/SDL2"
-          ])
-          buildInputs
+        builtins.concatMap (dep: [
+          "${lib.getDev dep}/"
+          "${lib.getDev dep}/include"
+          "${lib.getDev dep}/include/SDL2"
+        ]) buildInputs
       );
       buildinputs_lib = builtins.toJSON (
-        builtins.concatMap
-          (dep: [
-            "${lib.getLib dep}/"
-            "${lib.getLib dep}/lib"
-          ])
-          buildInputs
+        builtins.concatMap (dep: [
+          "${lib.getLib dep}/"
+          "${lib.getLib dep}/lib"
+        ]) buildInputs
       );
     })
   ];

@@ -66,13 +66,11 @@ in
     map
       (
         option:
-        mkRemovedOptionModule
-          [
-            "services"
-            "rsyncd"
-            option
-          ]
-          "This option was removed in favor of `services.rsyncd.settings`."
+        mkRemovedOptionModule [
+          "services"
+          "rsyncd"
+          option
+        ] "This option was removed in favor of `services.rsyncd.settings`."
       )
       [
         "address"

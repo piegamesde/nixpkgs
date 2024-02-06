@@ -61,13 +61,11 @@ let
   */
   extractPaths =
     maxArgIndex: command:
-    builtins.foldl' processArg
-      {
-        inherit maxArgIndex;
-        args = [ ];
-        paths = [ ];
-      }
-      command;
+    builtins.foldl' processArg {
+      inherit maxArgIndex;
+      args = [ ];
+      paths = [ ];
+    } command;
   /* processCommand : { maxArgIndex : Int, commands : [[ShellArg]], paths : [FilePath] } → [ (String|FilePath) ] → { maxArgIndex : Int, commands : [[ShellArg]], paths : [FilePath] }
      Helper reducer function for extracting file paths from individual commands.
   */
@@ -91,13 +89,11 @@ let
   */
   extractCommands =
     maxArgIndex: commands:
-    builtins.foldl' processCommand
-      {
-        inherit maxArgIndex;
-        commands = [ ];
-        paths = [ ];
-      }
-      commands;
+    builtins.foldl' processCommand {
+      inherit maxArgIndex;
+      commands = [ ];
+      paths = [ ];
+    } commands;
 
   /* commandsToShellInvocation : [[ (String|FilePath) ]] → [ (String|FilePath) ]
      Converts a list of commands into a single command by turning them into a shell script and passing them to `sh -c`.
@@ -151,23 +147,19 @@ rec {
 
     assert lib.assertMsg (lib.all validateFeatures scripts)
       "Combining update scripts with features enabled (other than a single script with “commit” and all other with “silent”) is currently unsupported.";
-    assert lib.assertMsg
-      (
-        builtins.length (
-          lib.unique (
-            builtins.map
-              (
-                {
-                  attrPath ? null,
-                  ...
-                }:
-                attrPath
-              )
-              scripts
-          )
-        ) == 1
-      )
-      "Combining update scripts with different attr paths is currently unsupported.";
+    assert lib.assertMsg (
+      builtins.length (
+        lib.unique (
+          builtins.map (
+            {
+              attrPath ? null,
+              ...
+            }:
+            attrPath
+          ) scripts
+        )
+      ) == 1
+    ) "Combining update scripts with different attr paths is currently unsupported.";
 
     {
       command = commandsToShellInvocation (builtins.map ({ command, ... }: command) scripts);

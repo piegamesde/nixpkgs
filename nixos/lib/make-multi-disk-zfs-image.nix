@@ -150,17 +150,17 @@ let
   stringifyProperties =
     prefix: properties:
     lib.concatStringsSep " \\\n" (
-      lib.mapAttrsToList
-        (property: value: "${prefix} ${lib.escapeShellArg property}=${lib.escapeShellArg value}")
-        properties
+      lib.mapAttrsToList (
+        property: value: "${prefix} ${lib.escapeShellArg property}=${lib.escapeShellArg value}"
+      ) properties
     );
 
   createDatasets =
     let
       datasetlist = lib.mapAttrsToList lib.nameValuePair datasets;
-      sorted =
-        lib.sort (left: right: (lib.stringLength left.name) < (lib.stringLength right.name))
-          datasetlist;
+      sorted = lib.sort (
+        left: right: (lib.stringLength left.name) < (lib.stringLength right.name)
+      ) datasetlist;
       cmd =
         { name, value }:
         let
@@ -174,9 +174,9 @@ let
     let
       datasetlist = lib.mapAttrsToList lib.nameValuePair datasets;
       mounts = lib.filter ({ value, ... }: hasDefinedMount value) datasetlist;
-      sorted =
-        lib.sort (left: right: (lib.stringLength left.value.mount) < (lib.stringLength right.value.mount))
-          mounts;
+      sorted = lib.sort (
+        left: right: (lib.stringLength left.value.mount) < (lib.stringLength right.value.mount)
+      ) mounts;
       cmd =
         { name, value }:
         ''
@@ -190,9 +190,9 @@ let
     let
       datasetlist = lib.mapAttrsToList lib.nameValuePair datasets;
       mounts = lib.filter ({ value, ... }: hasDefinedMount value) datasetlist;
-      sorted =
-        lib.sort (left: right: (lib.stringLength left.value.mount) > (lib.stringLength right.value.mount))
-          mounts;
+      sorted = lib.sort (
+        left: right: (lib.stringLength left.value.mount) > (lib.stringLength right.value.mount)
+      ) mounts;
       cmd =
         { name, value }:
         ''
@@ -212,16 +212,13 @@ let
           nixpkgs-fmt
         ];
         filesystems = builtins.toJSON {
-          fileSystems =
-            lib.mapAttrs'
-              (dataset: attrs: {
-                name = attrs.mount;
-                value = {
-                  fsType = "zfs";
-                  device = "${dataset}";
-                };
-              })
-              mountable;
+          fileSystems = lib.mapAttrs' (dataset: attrs: {
+            name = attrs.mount;
+            value = {
+              fsType = "zfs";
+              device = "${dataset}";
+            };
+          }) mountable;
         };
         passAsFile = [ "filesystems" ];
       }

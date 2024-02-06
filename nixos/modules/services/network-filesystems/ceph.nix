@@ -17,11 +17,9 @@ let
   makeServices = (
     daemonType: daemonIds:
     mkMerge (
-      map
-        (daemonId: {
-          "ceph-${daemonType}-${daemonId}" = makeService daemonType daemonId cfg.global.clusterName pkgs.ceph;
-        })
-        daemonIds
+      map (daemonId: {
+        "ceph-${daemonType}-${daemonId}" = makeService daemonType daemonId cfg.global.clusterName pkgs.ceph;
+      }) daemonIds
     )
   );
 

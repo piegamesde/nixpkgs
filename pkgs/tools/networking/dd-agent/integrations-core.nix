@@ -120,16 +120,13 @@ let
 
   # All integrations (default + extra):
   integrations = defaultIntegrations // extraIntegrations;
-  builtIntegrations =
-    mapAttrs
-      (
-        pname: fdeps:
-        buildIntegration {
-          inherit pname;
-          propagatedBuildInputs = (fdeps python.pkgs) ++ [ datadog_checks_base ];
-        }
-      )
-      integrations;
+  builtIntegrations = mapAttrs (
+    pname: fdeps:
+    buildIntegration {
+      inherit pname;
+      propagatedBuildInputs = (fdeps python.pkgs) ++ [ datadog_checks_base ];
+    }
+  ) integrations;
 in
 builtIntegrations
 // {

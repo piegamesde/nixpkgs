@@ -45,21 +45,19 @@ let
       cp wrapper.c $out
     '';
   tests =
-    lib.genAttrs
-      [
-        "add-flags"
-        "argv0"
-        "basic"
-        "chdir"
-        "combination"
-        "env"
-        "inherit-argv0"
-        "invalid-env"
-        "overlength-strings"
-        "prefix"
-        "suffix"
-      ]
-      makeGoldenTest
+    lib.genAttrs [
+      "add-flags"
+      "argv0"
+      "basic"
+      "chdir"
+      "combination"
+      "env"
+      "inherit-argv0"
+      "invalid-env"
+      "overlength-strings"
+      "prefix"
+      "suffix"
+    ] makeGoldenTest
     // lib.optionalAttrs (!stdenv.isDarwin) {
       cross =
         pkgsCross.${if stdenv.buildPlatform.isAarch64 then "gnu64" else "aarch64-multiplatform"}.callPackage

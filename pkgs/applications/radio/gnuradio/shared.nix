@@ -17,13 +17,11 @@
 
 rec {
   version = builtins.concatStringsSep "." (
-    lib.attrVals
-      [
-        "major"
-        "minor"
-        "patch"
-      ]
-      versionAttr
+    lib.attrVals [
+      "major"
+      "minor"
+      "patch"
+    ] versionAttr
   );
   src =
     if overrideSrc != { } then
@@ -39,44 +37,37 @@ rec {
   # specified.
   hasFeature = feat: (if builtins.hasAttr feat features then features.${feat} else true);
   nativeBuildInputs = lib.flatten (
-    lib.mapAttrsToList
-      (
-        feat: info:
-        (lib.optionals (hasFeature feat) (
-          (lib.optionals (builtins.hasAttr "native" info) info.native)
-          ++ (lib.optionals (builtins.hasAttr "pythonNative" info) info.pythonNative)
-        ))
-      )
-      featuresInfo
+    lib.mapAttrsToList (
+      feat: info:
+      (lib.optionals (hasFeature feat) (
+        (lib.optionals (builtins.hasAttr "native" info) info.native)
+        ++ (lib.optionals (builtins.hasAttr "pythonNative" info) info.pythonNative)
+      ))
+    ) featuresInfo
   );
   buildInputs = lib.flatten (
-    lib.mapAttrsToList
-      (
-        feat: info:
-        (lib.optionals (hasFeature feat) (
-          (lib.optionals (builtins.hasAttr "runtime" info) info.runtime)
-          ++ (lib.optionals (builtins.hasAttr "pythonRuntime" info) info.pythonRuntime)
-        ))
-      )
-      featuresInfo
+    lib.mapAttrsToList (
+      feat: info:
+      (lib.optionals (hasFeature feat) (
+        (lib.optionals (builtins.hasAttr "runtime" info) info.runtime)
+        ++ (lib.optionals (builtins.hasAttr "pythonRuntime" info) info.pythonRuntime)
+      ))
+    ) featuresInfo
   );
-  cmakeFlags =
-    lib.mapAttrsToList
-      (
-        feat: info:
-        (
-          if feat == "basic" then
-            # Abuse this unavoidable "iteration" to set this flag which we want as
-            # well - it means: Don't turn on features just because their deps are
-            # satisfied, let only our cmakeFlags decide.
-            "-DENABLE_DEFAULT=OFF"
-          else if hasFeature feat then
-            "-DENABLE_${info.cmakeEnableFlag}=ON"
-          else
-            "-DENABLE_${info.cmakeEnableFlag}=OFF"
-        )
-      )
-      featuresInfo;
+  cmakeFlags = lib.mapAttrsToList (
+    feat: info:
+    (
+      if feat == "basic" then
+        # Abuse this unavoidable "iteration" to set this flag which we want as
+        # well - it means: Don't turn on features just because their deps are
+        # satisfied, let only our cmakeFlags decide.
+        "-DENABLE_DEFAULT=OFF"
+      else if hasFeature feat then
+        "-DENABLE_${info.cmakeEnableFlag}=ON"
+      else
+        "-DENABLE_${info.cmakeEnableFlag}=OFF"
+    )
+  ) featuresInfo;
   disallowedReferences =
     [
       # TODO: Should this be conditional?

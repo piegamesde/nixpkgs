@@ -201,14 +201,12 @@ in
             -not \( ${concatMapStringsSep " -o " ({ local, ... }: "-name '${baseNameOf local}*'") rules} \) \
           ''
         } -delete
-        ${concatMapStrings
-          (
-            { file, local }:
-            ''
-              ln -sf '${file}' "${local}"
-            ''
-          )
-          rules}
+        ${concatMapStrings (
+          { file, local }:
+          ''
+            ln -sf '${file}' "${local}"
+          ''
+        ) rules}
       ''
     );
 

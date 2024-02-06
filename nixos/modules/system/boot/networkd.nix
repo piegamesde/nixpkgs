@@ -3371,12 +3371,10 @@ let
   mkUnitFiles =
     prefix: cfg:
     listToAttrs (
-      map
-        (name: {
-          name = "${prefix}systemd/network/${name}";
-          value.source = "${cfg.units.${name}.unit}/${name}";
-        })
-        (attrNames cfg.units)
+      map (name: {
+        name = "${prefix}systemd/network/${name}";
+        value.source = "${cfg.units.${name}.unit}/${name}";
+      }) (attrNames cfg.units)
     );
 
   commonOptions = visible: {

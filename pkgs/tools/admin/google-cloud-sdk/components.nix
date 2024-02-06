@@ -70,19 +70,17 @@ let
     lib.fix (
       self:
       builtins.listToAttrs (
-        builtins.map
-          (component: {
-            name = component.id;
-            value = componentFromSnapshot self {
-              inherit
-                component
-                revision
-                schema_version
-                version
-                ;
-            };
-          })
-          components
+        builtins.map (component: {
+          name = component.id;
+          value = componentFromSnapshot self {
+            inherit
+              component
+              revision
+              schema_version
+              version
+              ;
+          };
+        }) components
       )
     );
 
@@ -103,40 +101,27 @@ let
       # Architectures supported by this component.  Defaults to all available
       # architectures.
       architectures = builtins.filter (arch: builtins.elem arch (builtins.attrNames arches)) (
-        lib.attrByPath
-          [
-            "platform"
-            "architectures"
-          ]
-          allArches
-          component
+        lib.attrByPath [
+          "platform"
+          "architectures"
+        ] allArches component
       );
       # Operating systems supported by this component
-      operating_systems =
-        builtins.filter (os: builtins.elem os (builtins.attrNames oses))
-          component.platform.operating_systems;
+      operating_systems = builtins.filter (
+        os: builtins.elem os (builtins.attrNames oses)
+      ) component.platform.operating_systems;
     in
     mkComponent {
       pname = component.id;
       version = component.version.version_string;
-      src =
-        lib.optionalString
-          (lib.hasAttrByPath
-            [
-              "data"
-              "source"
-            ]
-            component
-          )
-          "${baseUrl}/${component.data.source}";
-      sha256 =
-        lib.attrByPath
-          [
-            "data"
-            "checksum"
-          ]
-          ""
-          component;
+      src = lib.optionalString (lib.hasAttrByPath [
+        "data"
+        "source"
+      ] component) "${baseUrl}/${component.data.source}";
+      sha256 = lib.attrByPath [
+        "data"
+        "checksum"
+      ] "" component;
       dependencies = builtins.map (dep: builtins.getAttr dep components) component.dependencies;
       platforms =
         if component.platform == { } then

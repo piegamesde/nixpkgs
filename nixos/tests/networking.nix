@@ -668,14 +668,11 @@ let
         nodes.client1 =
           args@{ pkgs, ... }:
           mkMerge [
-            (node
-              {
-                address4 = "192.168.1.1";
-                remote = "192.168.1.2";
-                address6 = "fc00::1";
-              }
-              args
-            )
+            (node {
+              address4 = "192.168.1.1";
+              remote = "192.168.1.2";
+              address6 = "fc00::1";
+            } args)
             {
               networking = {
                 firewall.extraCommands = "iptables -A INPUT -p 41 -j ACCEPT";
@@ -689,14 +686,11 @@ let
         nodes.client2 =
           args@{ pkgs, ... }:
           mkMerge [
-            (node
-              {
-                address4 = "192.168.1.2";
-                remote = "192.168.1.1";
-                address6 = "fc00::2";
-              }
-              args
-            )
+            (node {
+              address4 = "192.168.1.2";
+              remote = "192.168.1.1";
+              address6 = "fc00::2";
+            } args)
             {
               networking = {
                 firewall.allowedUDPPorts = [ 9001 ];
@@ -1353,11 +1347,9 @@ let
       };
   };
 in
-mapAttrs
-  (const (
-    attrs:
-    makeTest (
-      attrs // { name = "${attrs.name}-Networking-${if networkd then "Networkd" else "Scripted"}"; }
-    )
-  ))
-  testCases
+mapAttrs (const (
+  attrs:
+  makeTest (
+    attrs // { name = "${attrs.name}-Networking-${if networkd then "Networkd" else "Scripted"}"; }
+  )
+)) testCases

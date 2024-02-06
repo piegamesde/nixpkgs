@@ -6,14 +6,11 @@
 }:
 
 let
-  validator =
-    writeCueValidator
-      (writeText "schema.cue" ''
-        #Def1: {
-          field1: string
-        }
-      '')
-      { document = "#Def1"; };
+  validator = writeCueValidator (writeText "schema.cue" ''
+    #Def1: {
+      field1: string
+    }
+  '') { document = "#Def1"; };
 in
 runCommand "cue-validation" { } ''
   cat > valid.json <<EOF

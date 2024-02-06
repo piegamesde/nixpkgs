@@ -14,16 +14,12 @@ let
 
   isConfined = config.systemd.services.akkoma.confinement.enable;
   hasSmtp =
-    (attrByPath
-      [
-        ":pleroma"
-        "Pleroma.Emails.Mailer"
-        "adapter"
-        "value"
-      ]
-      null
-      ex
-    ) == "Swoosh.Adapters.SMTP";
+    (attrByPath [
+      ":pleroma"
+      "Pleroma.Emails.Mailer"
+      "adapter"
+      "value"
+    ] null ex) == "Swoosh.Adapters.SMTP";
 
   isAbsolutePath = v: isString v && substring 0 1 v == "/";
   isSecret = v: isAttrs v && v ? _secret && isAbsolutePath v._secret;
@@ -126,44 +122,40 @@ let
   erlAddr =
     addr:
     fileContents (
-      pkgs.runCommand addr
-        {
-          nativeBuildInputs = with pkgs; [ elixir ];
-          code = ''
-            case :inet.parse_address('${addr}') do
-              {:ok, addr} -> IO.inspect addr
-              {:error, _} -> System.halt(65)
-            end
-          '';
-          passAsFile = [ "code" ];
-        }
-        ''elixir "$codePath" >"$out"''
+      pkgs.runCommand addr {
+        nativeBuildInputs = with pkgs; [ elixir ];
+        code = ''
+          case :inet.parse_address('${addr}') do
+            {:ok, addr} -> IO.inspect addr
+            {:error, _} -> System.halt(65)
+          end
+        '';
+        passAsFile = [ "code" ];
+      } ''elixir "$codePath" >"$out"''
     );
 
   format = pkgs.formats.elixirConf { };
   configFile = format.generate "config.exs" (
     replaceSec (
-      attrsets.updateManyAttrsByPath
-        [
-          {
-            path = [
-              ":pleroma"
-              "Pleroma.Web.Endpoint"
-              "http"
-              "ip"
-            ];
-            update =
-              addr:
-              if isAbsolutePath addr then
-                format.lib.mkTuple [
-                  (format.lib.mkAtom ":local")
-                  addr
-                ]
-              else
-                format.lib.mkRaw (erlAddr addr);
-          }
-        ]
-        cfg.config
+      attrsets.updateManyAttrsByPath [
+        {
+          path = [
+            ":pleroma"
+            "Pleroma.Web.Endpoint"
+            "http"
+            "ip"
+          ];
+          update =
+            addr:
+            if isAbsolutePath addr then
+              format.lib.mkTuple [
+                (format.lib.mkAtom ":local")
+                addr
+              ]
+            else
+              format.lib.mkRaw (erlAddr addr);
+        }
+      ] cfg.config
     )
   );
 
@@ -267,16 +259,14 @@ let
       trap 'rm -f "$tmp"' EXIT TERM
 
       cat ${escapeShellArg configFile} >"$tmp"
-      ${concatMapStrings
-        (file: ''
-          replace-secret ${
-            escapeShellArgs [
-              (sha256 file)
-              file
-            ]
-          } "$tmp"
-        '')
-        secretPaths}
+      ${concatMapStrings (file: ''
+        replace-secret ${
+          escapeShellArgs [
+            (sha256 file)
+            file
+          ]
+        } "$tmp"
+      '') secretPaths}
 
       chown ${escapeShellArg cfg.user}:${escapeShellArg cfg.group} "$tmp"
       chmod 0400 "$tmp"
@@ -457,22 +447,18 @@ let
 
   staticFiles = pkgs.runCommandLocal "akkoma-static" { } ''
     ${concatStringsSep "\n" (
-      mapAttrsToList
-        (key: val: ''
-          mkdir -p $out/frontends/${escapeShellArg val.name}/
-          ln -s ${escapeShellArg val.package} $out/frontends/${escapeShellArg val.name}/${escapeShellArg val.ref}
-        '')
-        cfg.frontends
+      mapAttrsToList (key: val: ''
+        mkdir -p $out/frontends/${escapeShellArg val.name}/
+        ln -s ${escapeShellArg val.package} $out/frontends/${escapeShellArg val.name}/${escapeShellArg val.ref}
+      '') cfg.frontends
     )}
 
     ${optionalString (cfg.extraStatic != null) (
       concatStringsSep "\n" (
-        mapAttrsToList
-          (key: val: ''
-            mkdir -p "$out/$(dirname ${escapeShellArg key})"
-            ln -s ${escapeShellArg val} $out/${escapeShellArg key}
-          '')
-          cfg.extraStatic
+        mapAttrsToList (key: val: ''
+          mkdir -p "$out/$(dirname ${escapeShellArg key})"
+          ln -s ${escapeShellArg val} $out/${escapeShellArg key}
+        '') cfg.extraStatic
       )
     )}
   '';
@@ -906,16 +892,13 @@ in
 
               ":frontends" = mkOption {
                 type = elixirValue;
-                default =
-                  mapAttrs
-                    (
-                      key: val:
-                      format.lib.mkMap {
-                        name = val.name;
-                        ref = val.ref;
-                      }
-                    )
-                    cfg.frontends;
+                default = mapAttrs (
+                  key: val:
+                  format.lib.mkMap {
+                    name = val.name;
+                    ref = val.ref;
+                  }
+                ) cfg.frontends;
                 defaultText = literalExpression ''
                   lib.mapAttrs (key: val:
                     (pkgs.formats.elixirConf { }).lib.mkMap { name = val.name; ref = val.ref; })
@@ -1219,14 +1202,11 @@ in
           RestrictSUIDSGID = true;
           RemoveIPC = true;
 
-          CapabilityBoundingSet =
-            mkIf
-              (any (port: port > 0 && port < 1024) [
-                web.http.port
-                cfg.dist.epmdPort
-                cfg.dist.portMin
-              ])
-              [ "CAP_NET_BIND_SERVICE" ];
+          CapabilityBoundingSet = mkIf (any (port: port > 0 && port < 1024) [
+            web.http.port
+            cfg.dist.epmdPort
+            cfg.dist.portMin
+          ]) [ "CAP_NET_BIND_SERVICE" ];
 
           NoNewPrivileges = true;
           SystemCallFilter = [

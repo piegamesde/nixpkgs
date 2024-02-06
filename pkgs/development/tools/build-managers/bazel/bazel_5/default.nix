@@ -255,16 +255,14 @@ stdenv.mkDerivation rec {
           attrs' = removeAttrs attrs [ "buildInputs" ];
           buildInputs = attrs.buildInputs or [ ];
         in
-        runCommandCC name
-          (
-            {
-              inherit buildInputs;
-              preferLocalBuild = true;
-              meta.platforms = platforms;
-            }
-            // attrs'
-          )
-          script;
+        runCommandCC name (
+          {
+            inherit buildInputs;
+            preferLocalBuild = true;
+            meta.platforms = platforms;
+          }
+          // attrs'
+        ) script;
 
       # bazel wants to extract itself into $install_dir/install every time it runs,
       # so let’s do that only once.

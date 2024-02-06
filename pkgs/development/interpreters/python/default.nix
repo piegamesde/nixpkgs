@@ -40,25 +40,19 @@
               items:
               let
                 exceptions = [ stdenv ];
-                providesSetupHook =
-                  lib.attrByPath
-                    [
-                      "provides"
-                      "setupHook"
-                    ]
-                    false;
+                providesSetupHook = lib.attrByPath [
+                  "provides"
+                  "setupHook"
+                ] false;
                 valid =
                   value: pythonPackages.hasPythonModule value || providesSetupHook value || lib.elem value exceptions;
                 func =
                   name: value:
                   if lib.isDerivation value then
-                    lib.extendDerivation
-                      (
-                        valid value
-                        || throw "${name} should use `buildPythonPackage` or `toPythonModule` if it is to be part of the Python packages set."
-                      )
-                      { }
-                      value
+                    lib.extendDerivation (
+                      valid value
+                      || throw "${name} should use `buildPythonPackage` or `toPythonModule` if it is to be part of the Python packages set."
+                    ) { } value
                   else
                     value;
               in

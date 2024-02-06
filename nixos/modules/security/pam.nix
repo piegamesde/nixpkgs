@@ -563,11 +563,13 @@ let
               auth ${ussh.control} ${pkgs.pam_ussh}/lib/security/pam_ussh.so ${
                 optionalString (ussh.caFile != null) "ca_file=${ussh.caFile}"
               } ${
-                optionalString (ussh.authorizedPrincipals != null)
-                  "authorized_principals=${ussh.authorizedPrincipals}"
+                optionalString (
+                  ussh.authorizedPrincipals != null
+                ) "authorized_principals=${ussh.authorizedPrincipals}"
               } ${
-                optionalString (ussh.authorizedPrincipalsFile != null)
-                  "authorized_principals_file=${ussh.authorizedPrincipalsFile}"
+                optionalString (
+                  ussh.authorizedPrincipalsFile != null
+                ) "authorized_principals_file=${ussh.authorizedPrincipalsFile}"
               } ${optionalString (ussh.group != null) "group=${ussh.group}"}
             ''
           )
@@ -808,17 +810,15 @@ let
   makeLimitsConf =
     limits:
     pkgs.writeText "limits.conf" (
-      concatMapStrings
-        (
-          {
-            domain,
-            type,
-            item,
-            value,
-          }:
-          "${domain} ${type} ${item} ${toString value}\n"
-        )
-        limits
+      concatMapStrings (
+        {
+          domain,
+          type,
+          item,
+          value,
+        }:
+        "${domain} ${type} ${item} ${toString value}\n"
+      ) limits
     );
 
   limitsType =

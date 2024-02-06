@@ -132,10 +132,9 @@ let
     else
       "";
 
-  expand-response-params =
-    lib.optionalString
-      (buildPackages ? stdenv && buildPackages.stdenv.hasCC && buildPackages.stdenv.cc != "/dev/null")
-      (import ../expand-response-params { inherit (buildPackages) stdenv; });
+  expand-response-params = lib.optionalString (
+    buildPackages ? stdenv && buildPackages.stdenv.hasCC && buildPackages.stdenv.cc != "/dev/null"
+  ) (import ../expand-response-params { inherit (buildPackages) stdenv; });
 in
 
 stdenv.mkDerivation {
@@ -477,13 +476,10 @@ stdenv.mkDerivation {
     (if bintools_ ? meta then removeAttrs bintools.meta [ "priority" ] else { })
     // {
       description =
-        lib.attrByPath
-          [
-            "meta"
-            "description"
-          ]
-          "System binary utilities"
-          bintools_
+        lib.attrByPath [
+          "meta"
+          "description"
+        ] "System binary utilities" bintools_
         + " (wrapper script)";
       priority = 10;
     }

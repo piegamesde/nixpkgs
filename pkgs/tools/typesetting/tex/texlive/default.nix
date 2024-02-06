@@ -270,21 +270,19 @@ let
         # the derivations make up the TeX package and optionally (for backward compatibility) its dependencies
         tlPkgToSets =
           { pkgs, ... }:
-          map
-            (
-              {
-                tlType,
-                version ? "",
-                outputName ? "",
-                ...
-              }@pkg:
-              {
-                # outputName required to distinguish among bin.core-big outputs
-                key = "${pkg.pname or pkg.name}.${tlType}-${version}-${outputName}";
-                inherit pkg;
-              }
-            )
-            pkgs;
+          map (
+            {
+              tlType,
+              version ? "",
+              outputName ? "",
+              ...
+            }@pkg:
+            {
+              # outputName required to distinguish among bin.core-big outputs
+              key = "${pkg.pname or pkg.name}.${tlType}-${version}-${outputName}";
+              inherit pkg;
+            }
+          ) pkgs;
         pkgListToSets = lib.concatMap tlPkgToSets;
       in
       builtins.genericClosure {
@@ -294,11 +292,12 @@ let
     );
 
   assertions =
-    lib.assertMsg (tlpdbVersion.year == version.texliveYear)
-      "TeX Live year in texlive does not match tlpdb.nix, refusing to evaluate"
-    &&
-      lib.assertMsg (tlpdbVersion.frozen == version.final)
-        "TeX Live final status in texlive does not match tlpdb.nix, refusing to evaluate";
+    lib.assertMsg (
+      tlpdbVersion.year == version.texliveYear
+    ) "TeX Live year in texlive does not match tlpdb.nix, refusing to evaluate"
+    && lib.assertMsg (
+      tlpdbVersion.frozen == version.final
+    ) "TeX Live final status in texlive does not match tlpdb.nix, refusing to evaluate";
 in
 tl
 // {

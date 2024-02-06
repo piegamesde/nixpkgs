@@ -11,9 +11,9 @@
 }:
 let
   cfg = config.boot.bootspec;
-  children =
-    lib.mapAttrs (childName: childConfig: childConfig.configuration.system.build.toplevel)
-      config.specialisation;
+  children = lib.mapAttrs (
+    childName: childConfig: childConfig.configuration.system.build.toplevel
+  ) config.specialisation;
   schemas = {
     v1 = rec {
       filename = "boot.json";
@@ -69,16 +69,14 @@ let
           specialisationInjector =
             let
               specialisationLoader = (
-                lib.mapAttrsToList
-                  (
-                    childName: childToplevel:
-                    lib.escapeShellArgs [
-                      "--slurpfile"
-                      childName
-                      "${childToplevel}/${filename}"
-                    ]
-                  )
-                  children
+                lib.mapAttrsToList (
+                  childName: childToplevel:
+                  lib.escapeShellArgs [
+                    "--slurpfile"
+                    childName
+                    "${childToplevel}/${filename}"
+                  ]
+                ) children
               );
             in
             lib.escapeShellArgs [

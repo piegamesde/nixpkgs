@@ -27,15 +27,12 @@ stdenv.mkDerivation {
     ''
       mkdir -p $out/bin
     ''
-    +
-      lib.concatMapStringsSep "\n"
-        (game: ''
-          makeWrapper ${env}/bin/yquake2 $out/bin/yquake2-${game.title} \
-            --add-flags "+set game ${game.id}"
-          makeWrapper ${env}/bin/yq2ded $out/bin/yq2ded-${game.title} \
-            --add-flags "+set game ${game.id}"
-        '')
-        games;
+    + lib.concatMapStringsSep "\n" (game: ''
+      makeWrapper ${env}/bin/yquake2 $out/bin/yquake2-${game.title} \
+        --add-flags "+set game ${game.id}"
+      makeWrapper ${env}/bin/yq2ded $out/bin/yq2ded-${game.title} \
+        --add-flags "+set game ${game.id}"
+    '') games;
 
   meta = {
     inherit description;

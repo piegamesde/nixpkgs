@@ -34,24 +34,21 @@ let
       // (optionalAttrs (cfg.server.listenAddress != null) { listenaddr = cfg.server.listenAddress; })
     );
   };
-  exportSections =
-    mapAttrs
-      (
-        _:
-        {
-          path,
-          allowAddresses,
-          extraOptions,
-        }:
-        extraOptions
-        // {
-          exportname = path;
-        }
-        // (optionalAttrs (allowAddresses != null) {
-          authfile = pkgs.writeText "authfile" (concatStringsSep "\n" allowAddresses);
-        })
-      )
-      cfg.server.exports;
+  exportSections = mapAttrs (
+    _:
+    {
+      path,
+      allowAddresses,
+      extraOptions,
+    }:
+    extraOptions
+    // {
+      exportname = path;
+    }
+    // (optionalAttrs (allowAddresses != null) {
+      authfile = pkgs.writeText "authfile" (concatStringsSep "\n" allowAddresses);
+    })
+  ) cfg.server.exports;
   serverConfig = pkgs.writeText "nbd-server-config" ''
     ${lib.generators.toINI { } genericSection}
     ${lib.generators.toINI { } exportSections}

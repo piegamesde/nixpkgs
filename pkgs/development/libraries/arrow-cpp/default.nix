@@ -49,12 +49,10 @@
   enableGcs ? (!stdenv.isDarwin) && (lib.versionAtLeast grpc.cxxStandard "17"), # google-cloud-cpp is not supported on darwin, needs to support C++17
 }:
 
-assert lib.asserts.assertMsg
-  (
-    (enableS3 && stdenv.isDarwin)
-    -> (lib.versionOlder boost.version "1.69" || lib.versionAtLeast boost.version "1.70")
-  )
-  "S3 on Darwin requires Boost != 1.69";
+assert lib.asserts.assertMsg (
+  (enableS3 && stdenv.isDarwin)
+  -> (lib.versionOlder boost.version "1.69" || lib.versionAtLeast boost.version "1.70")
+) "S3 on Darwin requires Boost != 1.69";
 
 let
   arrow-testing = fetchFromGitHub {

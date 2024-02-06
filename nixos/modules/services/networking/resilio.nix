@@ -12,20 +12,17 @@ let
 
   resilioSync = pkgs.resilio-sync;
 
-  sharedFoldersRecord =
-    map
-      (entry: {
-        dir = entry.directory;
+  sharedFoldersRecord = map (entry: {
+    dir = entry.directory;
 
-        use_relay_server = entry.useRelayServer;
-        use_tracker = entry.useTracker;
-        use_dht = entry.useDHT;
+    use_relay_server = entry.useRelayServer;
+    use_tracker = entry.useTracker;
+    use_dht = entry.useDHT;
 
-        search_lan = entry.searchLAN;
-        use_sync_trash = entry.useSyncTrash;
-        known_hosts = entry.knownHosts;
-      })
-      cfg.sharedFolders;
+    search_lan = entry.searchLAN;
+    use_sync_trash = entry.useSyncTrash;
+    known_hosts = entry.knownHosts;
+  }) cfg.sharedFolders;
 
   configFile = pkgs.writeText "config.json" (
     builtins.toJSON (
@@ -54,22 +51,19 @@ let
     )
   );
 
-  sharedFoldersSecretFiles =
-    map
-      (entry: {
-        dir = entry.directory;
-        secretFile =
-          if builtins.hasAttr "secret" entry then
-            toString (
-              pkgs.writeTextFile {
-                name = "secret-file";
-                text = entry.secret;
-              }
-            )
-          else
-            entry.secretFile;
-      })
-      cfg.sharedFolders;
+  sharedFoldersSecretFiles = map (entry: {
+    dir = entry.directory;
+    secretFile =
+      if builtins.hasAttr "secret" entry then
+        toString (
+          pkgs.writeTextFile {
+            name = "secret-file";
+            text = entry.secret;
+          }
+        )
+      else
+        entry.secretFile;
+  }) cfg.sharedFolders;
 
   runConfigPath = "/run/rslsync/config.json";
 
@@ -79,8 +73,9 @@ let
         ${pkgs.jq}/bin/jq \
           '.shared_folders |= map(.secret = $ARGS.named[.dir])' \
           ${
-            lib.concatMapStringsSep " \\\n  " (entry: ''--arg '${entry.dir}' "$(cat '${entry.secretFile}')"'')
-              sharedFoldersSecretFiles
+            lib.concatMapStringsSep " \\\n  " (
+              entry: ''--arg '${entry.dir}' "$(cat '${entry.secretFile}')"''
+            ) sharedFoldersSecretFiles
           } \
           <${configFile} \
           >${runConfigPath}

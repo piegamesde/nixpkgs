@@ -15,16 +15,13 @@
 }:
 
 let
-  setupHookDarwin =
-    makeSetupHook
-      {
-        name = "darwin-avr-gcc-hook";
-        substitutions = {
-          darwinSuffixSalt = stdenv.cc.suffixSalt;
-          avrSuffixSalt = avrgcc.suffixSalt;
-        };
-      }
-      ./setup-hook-darwin.sh;
+  setupHookDarwin = makeSetupHook {
+    name = "darwin-avr-gcc-hook";
+    substitutions = {
+      darwinSuffixSalt = stdenv.cc.suffixSalt;
+      avrSuffixSalt = avrgcc.suffixSalt;
+    };
+  } ./setup-hook-darwin.sh;
 in
 stdenv.mkDerivation rec {
   pname = "simavr";

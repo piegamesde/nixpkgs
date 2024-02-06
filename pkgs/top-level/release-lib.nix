@@ -19,12 +19,10 @@ with lib;
 rec {
 
   pkgs = packageSet (
-    lib.recursiveUpdate
-      {
-        system = "x86_64-linux";
-        config.allowUnsupportedSystem = true;
-      }
-      nixpkgsArgs
+    lib.recursiveUpdate {
+      system = "x86_64-linux";
+      config.allowUnsupportedSystem = true;
+    } nixpkgsArgs
   );
   inherit lib;
 

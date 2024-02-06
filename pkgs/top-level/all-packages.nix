@@ -173,40 +173,32 @@ with pkgs;
 
   ### BUILD SUPPORT
 
-  auditBlasHook =
-    makeSetupHook
-      {
-        name = "auto-blas-hook";
-        propagatedBuildInputs = [
-          blas
-          lapack
-        ];
-      }
-      ../build-support/setup-hooks/audit-blas.sh;
+  auditBlasHook = makeSetupHook {
+    name = "auto-blas-hook";
+    propagatedBuildInputs = [
+      blas
+      lapack
+    ];
+  } ../build-support/setup-hooks/audit-blas.sh;
 
-  autoreconfHook =
-    callPackage
-      (
-        {
-          makeSetupHook,
-          autoconf,
-          automake,
-          gettext,
-          libtool,
-        }:
-        makeSetupHook
-          {
-            name = "autoreconf-hook";
-            propagatedBuildInputs = [
-              autoconf
-              automake
-              gettext
-              libtool
-            ];
-          }
-          ../build-support/setup-hooks/autoreconf.sh
-      )
-      { };
+  autoreconfHook = callPackage (
+    {
+      makeSetupHook,
+      autoconf,
+      automake,
+      gettext,
+      libtool,
+    }:
+    makeSetupHook {
+      name = "autoreconf-hook";
+      propagatedBuildInputs = [
+        autoconf
+        automake
+        gettext
+        libtool
+      ];
+    } ../build-support/setup-hooks/autoreconf.sh
+  ) { };
 
   autoreconfHook264 = autoreconfHook.override {
     autoconf = autoconf264;
@@ -217,18 +209,15 @@ with pkgs;
 
   autorestic = callPackage ../tools/backup/autorestic { };
 
-  autoPatchelfHook =
-    makeSetupHook
-      {
-        name = "auto-patchelf-hook";
-        propagatedBuildInputs = [ bintools ];
-        substitutions = {
-          pythonInterpreter = "${python3.withPackages (ps: [ ps.pyelftools ])}/bin/python";
-          autoPatchelfScript = ../build-support/setup-hooks/auto-patchelf.py;
-        };
-        meta.platforms = lib.platforms.linux;
-      }
-      ../build-support/setup-hooks/auto-patchelf.sh;
+  autoPatchelfHook = makeSetupHook {
+    name = "auto-patchelf-hook";
+    propagatedBuildInputs = [ bintools ];
+    substitutions = {
+      pythonInterpreter = "${python3.withPackages (ps: [ ps.pyelftools ])}/bin/python";
+      autoPatchelfScript = ../build-support/setup-hooks/auto-patchelf.py;
+    };
+    meta.platforms = lib.platforms.linux;
+  } ../build-support/setup-hooks/auto-patchelf.sh;
 
   appflowy = callPackage ../applications/office/appflowy { };
 
@@ -239,15 +228,12 @@ with pkgs;
   bindle = callPackage ../servers/bindle { inherit (darwin.apple_sdk.frameworks) Security; };
 
   canonicalize-jar = callPackage ../build-support/java/canonicalize-jar.nix { };
-  canonicalize-jars-hook =
-    makeSetupHook
-      {
-        name = "canonicalize-jars-hook";
-        substitutions = {
-          canonicalize_jar = canonicalize-jar;
-        };
-      }
-      ../build-support/setup-hooks/canonicalize-jars.sh;
+  canonicalize-jars-hook = makeSetupHook {
+    name = "canonicalize-jars-hook";
+    substitutions = {
+      canonicalize_jar = canonicalize-jar;
+    };
+  } ../build-support/setup-hooks/canonicalize-jars.sh;
 
   ensureNewerSourcesHook =
     { year }:
@@ -394,26 +380,20 @@ with pkgs;
   # ValueError: ZIP does not support timestamps before 1980
   ensureNewerSourcesForZipFilesHook = ensureNewerSourcesHook { year = "1980"; };
 
-  updateAutotoolsGnuConfigScriptsHook =
-    makeSetupHook
-      {
-        name = "update-autotools-gnu-config-scripts-hook";
-        substitutions = {
-          gnu_config = gnu-config;
-        };
-      }
-      ../build-support/setup-hooks/update-autotools-gnu-config-scripts.sh;
+  updateAutotoolsGnuConfigScriptsHook = makeSetupHook {
+    name = "update-autotools-gnu-config-scripts-hook";
+    substitutions = {
+      gnu_config = gnu-config;
+    };
+  } ../build-support/setup-hooks/update-autotools-gnu-config-scripts.sh;
 
-  gogUnpackHook =
-    makeSetupHook
-      {
-        name = "gog-unpack-hook";
-        propagatedBuildInputs = [
-          innoextract
-          file-rename
-        ];
-      }
-      ../build-support/setup-hooks/gog-unpack.sh;
+  gogUnpackHook = makeSetupHook {
+    name = "gog-unpack-hook";
+    propagatedBuildInputs = [
+      innoextract
+      file-rename
+    ];
+  } ../build-support/setup-hooks/gog-unpack.sh;
 
   buildEnv = callPackage ../build-support/buildenv { }; # not actually a package
 
@@ -1064,9 +1044,9 @@ with pkgs;
 
   lazydocker = callPackage ../tools/misc/lazydocker { };
 
-  ld-is-cc-hook =
-    makeSetupHook { name = "ld-is-cc-hook"; }
-      ../build-support/setup-hooks/ld-is-cc-hook.sh;
+  ld-is-cc-hook = makeSetupHook {
+    name = "ld-is-cc-hook";
+  } ../build-support/setup-hooks/ld-is-cc-hook.sh;
 
   libgflow = callPackage ../development/libraries/libgflow { };
   libgtkflow3 = callPackage ../development/libraries/libgtkflow3 { };
@@ -1076,15 +1056,15 @@ with pkgs;
 
   madonctl = callPackage ../applications/misc/madonctl { };
 
-  copyDesktopItems =
-    makeSetupHook { name = "copy-desktop-items-hook"; }
-      ../build-support/setup-hooks/copy-desktop-items.sh;
+  copyDesktopItems = makeSetupHook {
+    name = "copy-desktop-items-hook";
+  } ../build-support/setup-hooks/copy-desktop-items.sh;
 
   makeDesktopItem = callPackage ../build-support/make-desktopitem { };
 
-  copyPkgconfigItems =
-    makeSetupHook { name = "copy-pkg-config-items-hook"; }
-      ../build-support/setup-hooks/copy-pkgconfig-items.sh;
+  copyPkgconfigItems = makeSetupHook {
+    name = "copy-pkg-config-items-hook";
+  } ../build-support/setup-hooks/copy-pkgconfig-items.sh;
 
   makePkgconfigItem = callPackage ../build-support/make-pkgconfigitem { };
 
@@ -1101,24 +1081,21 @@ with pkgs;
 
   makeWrapper = makeShellWrapper;
 
-  makeShellWrapper =
-    makeSetupHook
-      {
-        name = "make-shell-wrapper-hook";
-        propagatedBuildInputs = [ dieHook ];
-        substitutions = {
-          # targetPackages.runtimeShell only exists when pkgs == targetPackages (when targetPackages is not  __raw)
-          shell =
-            if targetPackages ? runtimeShell then
-              targetPackages.runtimeShell
-            else
-              throw "makeWrapper/makeShellWrapper must be in nativeBuildInputs";
-        };
-        passthru = {
-          tests = tests.makeWrapper;
-        };
-      }
-      ../build-support/setup-hooks/make-wrapper.sh;
+  makeShellWrapper = makeSetupHook {
+    name = "make-shell-wrapper-hook";
+    propagatedBuildInputs = [ dieHook ];
+    substitutions = {
+      # targetPackages.runtimeShell only exists when pkgs == targetPackages (when targetPackages is not  __raw)
+      shell =
+        if targetPackages ? runtimeShell then
+          targetPackages.runtimeShell
+        else
+          throw "makeWrapper/makeShellWrapper must be in nativeBuildInputs";
+    };
+    passthru = {
+      tests = tests.makeWrapper;
+    };
+  } ../build-support/setup-hooks/make-wrapper.sh;
 
   makeBinaryWrapper = callPackage ../build-support/setup-hooks/make-binary-wrapper { };
 
@@ -1173,9 +1150,9 @@ with pkgs;
 
   pathsFromGraph = ../build-support/kernel/paths-from-graph.pl;
 
-  pruneLibtoolFiles =
-    makeSetupHook { name = "prune-libtool-files"; }
-      ../build-support/setup-hooks/prune-libtool-files.sh;
+  pruneLibtoolFiles = makeSetupHook {
+    name = "prune-libtool-files";
+  } ../build-support/setup-hooks/prune-libtool-files.sh;
 
   closureInfo = callPackage ../build-support/closure-info.nix { };
 
@@ -1183,13 +1160,10 @@ with pkgs;
 
   setupSystemdUnits = callPackage ../build-support/setup-systemd-units.nix { };
 
-  shortenPerlShebang =
-    makeSetupHook
-      {
-        name = "shorten-perl-shebang-hook";
-        propagatedBuildInputs = [ dieHook ];
-      }
-      ../build-support/setup-hooks/shorten-perl-shebang.sh;
+  shortenPerlShebang = makeSetupHook {
+    name = "shorten-perl-shebang-hook";
+    propagatedBuildInputs = [ dieHook ];
+  } ../build-support/setup-hooks/shorten-perl-shebang.sh;
 
   singularity-tools = callPackage ../build-support/singularity-tools { };
 
@@ -1224,67 +1198,58 @@ with pkgs;
 
   inherit (lib.systems) platforms;
 
-  setJavaClassPath =
-    makeSetupHook { name = "set-java-classpath-hook"; }
-      ../build-support/setup-hooks/set-java-classpath.sh;
+  setJavaClassPath = makeSetupHook {
+    name = "set-java-classpath-hook";
+  } ../build-support/setup-hooks/set-java-classpath.sh;
 
-  fixDarwinDylibNames =
-    makeSetupHook
-      {
-        name = "fix-darwin-dylib-names-hook";
-        substitutions = {
-          inherit (binutils) targetPrefix;
-        };
-        meta.platforms = lib.platforms.darwin;
-      }
-      ../build-support/setup-hooks/fix-darwin-dylib-names.sh;
+  fixDarwinDylibNames = makeSetupHook {
+    name = "fix-darwin-dylib-names-hook";
+    substitutions = {
+      inherit (binutils) targetPrefix;
+    };
+    meta.platforms = lib.platforms.darwin;
+  } ../build-support/setup-hooks/fix-darwin-dylib-names.sh;
 
   writeDarwinBundle = callPackage ../build-support/make-darwin-bundle/write-darwin-bundle.nix { };
 
-  desktopToDarwinBundle =
-    makeSetupHook
-      {
-        name = "desktop-to-darwin-bundle-hook";
-        propagatedBuildInputs = [
-          writeDarwinBundle
-          librsvg
-          imagemagick
-          python3Packages.icnsutil
-        ];
-      }
-      ../build-support/setup-hooks/desktop-to-darwin-bundle.sh;
+  desktopToDarwinBundle = makeSetupHook {
+    name = "desktop-to-darwin-bundle-hook";
+    propagatedBuildInputs = [
+      writeDarwinBundle
+      librsvg
+      imagemagick
+      python3Packages.icnsutil
+    ];
+  } ../build-support/setup-hooks/desktop-to-darwin-bundle.sh;
 
-  keepBuildTree =
-    makeSetupHook { name = "keep-build-tree-hook"; }
-      ../build-support/setup-hooks/keep-build-tree.sh;
+  keepBuildTree = makeSetupHook {
+    name = "keep-build-tree-hook";
+  } ../build-support/setup-hooks/keep-build-tree.sh;
 
-  moveBuildTree =
-    makeSetupHook { name = "move-build-tree-hook"; }
-      ../build-support/setup-hooks/move-build-tree.sh;
+  moveBuildTree = makeSetupHook {
+    name = "move-build-tree-hook";
+  } ../build-support/setup-hooks/move-build-tree.sh;
 
-  enableGCOVInstrumentation =
-    makeSetupHook { name = "enable-gcov-instrumentation-hook"; }
-      ../build-support/setup-hooks/enable-coverage-instrumentation.sh;
+  enableGCOVInstrumentation = makeSetupHook {
+    name = "enable-gcov-instrumentation-hook";
+  } ../build-support/setup-hooks/enable-coverage-instrumentation.sh;
 
-  makeGCOVReport =
-    makeSetupHook
-      {
-        name = "make-gcov-report-hook";
-        propagatedBuildInputs = [
-          lcov
-          enableGCOVInstrumentation
-        ];
-      }
-      ../build-support/setup-hooks/make-coverage-analysis-report.sh;
+  makeGCOVReport = makeSetupHook {
+    name = "make-gcov-report-hook";
+    propagatedBuildInputs = [
+      lcov
+      enableGCOVInstrumentation
+    ];
+  } ../build-support/setup-hooks/make-coverage-analysis-report.sh;
 
   makeHardcodeGsettingsPatch = callPackage ../build-support/make-hardcode-gsettings-patch { };
 
   # intended to be used like nix-build -E 'with import <nixpkgs> { }; enableDebugging fooPackage'
   enableDebugging = pkg: pkg.override { stdenv = stdenvAdapters.keepDebugInfo pkg.stdenv; };
 
-  findXMLCatalogs =
-    makeSetupHook { name = "find-xml-catalogs-hook"; }
-      ../build-support/setup-hooks/find-xml-catalogs.sh;
+  findXMLCatalogs = makeSetupHook {
+    name = "find-xml-catalogs-hook";
+  } ../build-support/setup-hooks/find-xml-catalogs.sh;
 
   wrapGAppsHook = callPackage ../build-support/setup-hooks/wrap-gapps-hook {
     makeWrapper = makeBinaryWrapper;
@@ -1294,30 +1259,27 @@ with pkgs;
 
   wrapGAppsNoGuiHook = wrapGAppsHook.override { isGraphical = false; };
 
-  separateDebugInfo =
-    makeSetupHook { name = "separate-debug-info-hook"; }
-      ../build-support/setup-hooks/separate-debug-info.sh;
+  separateDebugInfo = makeSetupHook {
+    name = "separate-debug-info-hook";
+  } ../build-support/setup-hooks/separate-debug-info.sh;
 
-  setupDebugInfoDirs =
-    makeSetupHook { name = "setup-debug-info-dirs-hook"; }
-      ../build-support/setup-hooks/setup-debug-info-dirs.sh;
+  setupDebugInfoDirs = makeSetupHook {
+    name = "setup-debug-info-dirs-hook";
+  } ../build-support/setup-hooks/setup-debug-info-dirs.sh;
 
-  useOldCXXAbi =
-    makeSetupHook { name = "use-old-cxx-abi-hook"; }
-      ../build-support/setup-hooks/use-old-cxx-abi.sh;
+  useOldCXXAbi = makeSetupHook {
+    name = "use-old-cxx-abi-hook";
+  } ../build-support/setup-hooks/use-old-cxx-abi.sh;
 
   iconConvTools = callPackage ../build-support/icon-conv-tools { };
 
-  validatePkgConfig =
-    makeSetupHook
-      {
-        name = "validate-pkg-config";
-        propagatedBuildInputs = [
-          findutils
-          pkg-config
-        ];
-      }
-      ../build-support/setup-hooks/validate-pkg-config.sh;
+  validatePkgConfig = makeSetupHook {
+    name = "validate-pkg-config";
+    propagatedBuildInputs = [
+      findutils
+      pkg-config
+    ];
+  } ../build-support/setup-hooks/validate-pkg-config.sh;
 
   patchPpdFilesHook = callPackage ../build-support/setup-hooks/patch-ppd-files { };
 
@@ -1872,16 +1834,13 @@ with pkgs;
   # Git with SVN support, but without GUI.
   gitSVN = lowPrio (git.override { svnSupport = true; });
 
-  git-doc =
-    lib.addMetaAttrs
-      {
-        description = "Additional documentation for Git";
-        longDescription = ''
-          This package contains additional documentation (HTML and text files) that
-          is referenced in the man pages of Git.
-        '';
-      }
-      gitFull.doc;
+  git-doc = lib.addMetaAttrs {
+    description = "Additional documentation for Git";
+    longDescription = ''
+      This package contains additional documentation (HTML and text files) that
+      is referenced in the man pages of Git.
+    '';
+  } gitFull.doc;
 
   gitMinimal = git.override {
     withManual = false;
@@ -5442,17 +5401,15 @@ with pkgs;
   # [Errno 8] Exec format error: './gdk3-scan'
   mesonEmulatorHook =
     if (!stdenv.buildPlatform.canExecute stdenv.targetPlatform) then
-      makeSetupHook
-        {
-          name = "mesonEmulatorHook";
-          substitutions = {
-            crossFile = writeText "cross-file.conf" ''
-              [binaries]
-              exe_wrapper = ${lib.escapeShellArg (stdenv.targetPlatform.emulator buildPackages)}
-            '';
-          };
-        }
-        ../development/tools/build-managers/meson/emulator-hook.sh
+      makeSetupHook {
+        name = "mesonEmulatorHook";
+        substitutions = {
+          crossFile = writeText "cross-file.conf" ''
+            [binaries]
+            exe_wrapper = ${lib.escapeShellArg (stdenv.targetPlatform.emulator buildPackages)}
+          '';
+        };
+      } ../development/tools/build-managers/meson/emulator-hook.sh
     else
       throw "mesonEmulatorHook has to be in a conditional to check if the target binaries can be executed i.e. (!stdenv.buildPlatform.canExecute stdenv.hostPlatform)";
 
@@ -16527,9 +16484,9 @@ with pkgs;
       # want the C++ library to be explicitly chosen by the caller, and null by
       # default.
       libcxx ? null,
-      extraPackages ?
-        lib.optional (cc.isGNU or false && stdenv.targetPlatform.isMinGW)
-          threadsCross.package,
+      extraPackages ? lib.optional (
+        cc.isGNU or false && stdenv.targetPlatform.isMinGW
+      ) threadsCross.package,
       nixSupport ? { },
       ...
     }@extraArgs:
@@ -17916,21 +17873,19 @@ with pkgs;
       };
 
   ccacheStdenv = lowPrio (
-    makeOverridable
-      (
-        { stdenv, ... }@extraArgs:
-        overrideCC stdenv (
-          buildPackages.ccacheWrapper.override (
-            {
-              inherit (stdenv) cc;
-            }
-            // lib.optionalAttrs (builtins.hasAttr "extraConfig" extraArgs) {
-              extraConfig = extraArgs.extraConfig;
-            }
-          )
+    makeOverridable (
+      { stdenv, ... }@extraArgs:
+      overrideCC stdenv (
+        buildPackages.ccacheWrapper.override (
+          {
+            inherit (stdenv) cc;
+          }
+          // lib.optionalAttrs (builtins.hasAttr "extraConfig" extraArgs) {
+            extraConfig = extraArgs.extraConfig;
+          }
         )
       )
-      { inherit stdenv; }
+    ) { inherit stdenv; }
   );
 
   cccc = callPackage ../development/tools/analysis/cccc { };
@@ -18147,15 +18102,12 @@ with pkgs;
   #       '';
   #     };
   #
-  distccWrapper =
-    makeOverridable
-      (
-        {
-          extraConfig ? "",
-        }:
-        wrapCC (distcc.links extraConfig)
-      )
-      { };
+  distccWrapper = makeOverridable (
+    {
+      extraConfig ? "",
+    }:
+    wrapCC (distcc.links extraConfig)
+  ) { };
   distccStdenv = lowPrio (overrideCC stdenv buildPackages.distccWrapper);
 
   distccMasquerade =
@@ -19354,22 +19306,16 @@ with pkgs;
   };
   xcodebuild6 = xcodebuild.override { stdenv = llvmPackages_6.stdenv; };
   xcbuild = xcodebuild;
-  xcbuildHook =
-    makeSetupHook
-      {
-        name = "xcbuild-hook";
-        propagatedBuildInputs = [ xcbuild ];
-      }
-      ../development/tools/xcbuild/setup-hook.sh;
+  xcbuildHook = makeSetupHook {
+    name = "xcbuild-hook";
+    propagatedBuildInputs = [ xcbuild ];
+  } ../development/tools/xcbuild/setup-hook.sh;
 
   # xcbuild with llvm 6
-  xcbuild6Hook =
-    makeSetupHook
-      {
-        name = "xcbuild6-hook";
-        propagatedBuildInputs = [ xcodebuild6 ];
-      }
-      ../development/tools/xcbuild/setup-hook.sh;
+  xcbuild6Hook = makeSetupHook {
+    name = "xcbuild6-hook";
+    propagatedBuildInputs = [ xcodebuild6 ];
+  } ../development/tools/xcbuild/setup-hook.sh;
 
   xcpretty = callPackage ../development/tools/xcpretty { };
 
@@ -22833,24 +22779,18 @@ with pkgs;
   mediastreamer-openh264 = callPackage ../development/libraries/mediastreamer/msopenh264.nix { };
 
   memorymapping = callPackage ../development/libraries/memorymapping { };
-  memorymappingHook =
-    makeSetupHook
-      {
-        name = "memorymapping-hook";
-        propagatedBuildInputs = [ memorymapping ];
-      }
-      ../development/libraries/memorymapping/setup-hook.sh;
+  memorymappingHook = makeSetupHook {
+    name = "memorymapping-hook";
+    propagatedBuildInputs = [ memorymapping ];
+  } ../development/libraries/memorymapping/setup-hook.sh;
 
   memray = callPackage ../development/tools/memray { };
 
   memstream = callPackage ../development/libraries/memstream { };
-  memstreamHook =
-    makeSetupHook
-      {
-        name = "memstream-hook";
-        propagatedBuildInputs = [ memstream ];
-      }
-      ../development/libraries/memstream/setup-hook.sh;
+  memstreamHook = makeSetupHook {
+    name = "memstream-hook";
+    propagatedBuildInputs = [ memstream ];
+  } ../development/libraries/memstream/setup-hook.sh;
 
   menu-cache = callPackage ../development/libraries/menu-cache { };
 
@@ -22917,12 +22857,10 @@ with pkgs;
   microsoft_gsl = callPackage ../development/libraries/microsoft_gsl { };
 
   microsoft-edge = callPackage (import ../applications/networking/browsers/microsoft-edge).stable { };
-  microsoft-edge-beta =
-    callPackage (import ../applications/networking/browsers/microsoft-edge).beta
-      { };
-  microsoft-edge-dev =
-    callPackage (import ../applications/networking/browsers/microsoft-edge).dev
-      { };
+  microsoft-edge-beta = callPackage (import ../applications/networking/browsers/microsoft-edge)
+    .beta { };
+  microsoft-edge-dev = callPackage (import ../applications/networking/browsers/microsoft-edge)
+    .dev { };
 
   micronucleus = callPackage ../development/tools/misc/micronucleus { };
 
@@ -23592,15 +23530,12 @@ with pkgs;
       ;
   };
 
-  qmake48Hook =
-    makeSetupHook
-      {
-        name = "qmake4.8-hook";
-        substitutions = {
-          qt4 = qt48;
-        };
-      }
-      ../development/libraries/qt-4.x/4.8/qmake-hook.sh;
+  qmake48Hook = makeSetupHook {
+    name = "qmake4.8-hook";
+    substitutions = {
+      qt4 = qt48;
+    };
+  } ../development/libraries/qt-4.x/4.8/qmake-hook.sh;
 
   qmake4Hook = qmake48Hook;
 
@@ -29988,10 +29923,9 @@ with pkgs;
 
   dablin = callPackage ../applications/radio/dablin { };
 
-  darcs =
-    haskell.lib.compose.overrideCabal
-      (drv: { configureFlags = (lib.remove "-flibrary" drv.configureFlags or [ ]) ++ [ "-f-library" ]; })
-      (haskell.lib.compose.justStaticExecutables haskellPackages.darcs);
+  darcs = haskell.lib.compose.overrideCabal (drv: {
+    configureFlags = (lib.remove "-flibrary" drv.configureFlags or [ ]) ++ [ "-f-library" ];
+  }) (haskell.lib.compose.justStaticExecutables haskellPackages.darcs);
 
   darkman = callPackage ../applications/misc/darkman { };
 

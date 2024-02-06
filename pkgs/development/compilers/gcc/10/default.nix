@@ -90,9 +90,9 @@ let
     ++ optional (targetPlatform.libc == "musl" && targetPlatform.isPower) ../ppc-musl.patch
 
     # Obtain latest patch with ../update-mcfgthread-patches.sh
-    ++
-      optional (!crossStageStatic && targetPlatform.isMinGW && threadsCross.model == "mcf")
-        ./Added-mcf-thread-model-support-from-mcfgthread.patch
+    ++ optional (
+      !crossStageStatic && targetPlatform.isMinGW && threadsCross.model == "mcf"
+    ) ./Added-mcf-thread-model-support-from-mcfgthread.patch
 
     ++ optional (buildPlatform.system == "aarch64-darwin" && targetPlatform != buildPlatform) (
       fetchpatch {
@@ -104,9 +104,9 @@ let
   # Cross-gcc settings (build == host != target)
   crossMingw = targetPlatform != hostPlatform && targetPlatform.libc == "msvcrt";
   stageNameAddon = if crossStageStatic then "stage-static" else "stage-final";
-  crossNameAddon =
-    optionalString (targetPlatform != hostPlatform)
-      "${targetPlatform.config}-${stageNameAddon}-";
+  crossNameAddon = optionalString (
+    targetPlatform != hostPlatform
+  ) "${targetPlatform.config}-${stageNameAddon}-";
 
   callFile = lib.callPackageWith {
     # lets

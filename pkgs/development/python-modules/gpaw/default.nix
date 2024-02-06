@@ -19,8 +19,9 @@
 
 assert lib.asserts.assertMsg (!blas.isILP64) "A 32 bit integer implementation of BLAS is required.";
 
-assert lib.asserts.assertMsg (!lapack.isILP64)
-  "A 32 bit integer implementation of LAPACK is required.";
+assert lib.asserts.assertMsg (
+  !lapack.isILP64
+) "A 32 bit integer implementation of LAPACK is required.";
 
 let
   gpawConfig = writeTextFile {

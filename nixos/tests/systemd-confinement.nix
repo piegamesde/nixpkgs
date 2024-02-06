@@ -101,9 +101,9 @@ import ./make-test-python.nix {
         }
         (
           let
-            symlink =
-              pkgs.runCommand "symlink" { target = pkgs.writeText "symlink-target" "got me\n"; }
-                "ln -s \"$target\" \"$out\"";
+            symlink = pkgs.runCommand "symlink" {
+              target = pkgs.writeText "symlink-target" "got me\n";
+            } "ln -s \"$target\" \"$out\"";
           in
           {
             config.confinement.packages = lib.singleton symlink;

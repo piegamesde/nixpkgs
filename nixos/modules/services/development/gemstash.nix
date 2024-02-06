@@ -15,12 +15,10 @@ let
   prefixColon =
     s:
     listToAttrs (
-      map
-        (attrName: {
-          name = ":${attrName}";
-          value = if isAttrs s.${attrName} then prefixColon s."${attrName}" else s."${attrName}";
-        })
-        (attrNames s)
+      map (attrName: {
+        name = ":${attrName}";
+        value = if isAttrs s.${attrName} then prefixColon s."${attrName}" else s."${attrName}";
+      }) (attrNames s)
     );
 
   # parse the port number out of the tcp://ip:port bind setting string

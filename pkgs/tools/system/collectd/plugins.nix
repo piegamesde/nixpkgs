@@ -180,8 +180,9 @@ let
 
   pluginBuildInputs =
     plugin:
-    lib.optionals (plugins ? ${plugin} && plugins.${plugin} ? buildInputs)
-      plugins.${plugin}.buildInputs;
+    lib.optionals (
+      plugins ? ${plugin} && plugins.${plugin} ? buildInputs
+    ) plugins.${plugin}.buildInputs;
 
   buildInputs =
     if enabledPlugins == null then

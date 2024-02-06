@@ -66,15 +66,17 @@ let
 
   replaceSecret =
     secretFile: placeholder: targetFile:
-    optionalString (secretFile != null)
-      ''${pkgs.replace-secret}/bin/replace-secret '${placeholder}' '${secretFile}' '${targetFile}' '';
+    optionalString (
+      secretFile != null
+    ) ''${pkgs.replace-secret}/bin/replace-secret '${placeholder}' '${secretFile}' '${targetFile}' '';
 
   preStart = pkgs.writeShellScript "mpdscribble-pre-start" ''
     cp -f "${cfgTemplate}" "${cfgFile}"
     ${replaceSecret cfg.passwordFile "{{MPD_PASSWORD}}" cfgFile}
     ${concatStringsSep "\n" (
-      mapAttrsToList (secname: cfg: replaceSecret cfg.passwordFile "{{${secname}_PASSWORD}}" cfgFile)
-        cfg.endpoints
+      mapAttrsToList (
+        secname: cfg: replaceSecret cfg.passwordFile "{{${secname}_PASSWORD}}" cfgFile
+      ) cfg.endpoints
     )}
   '';
 

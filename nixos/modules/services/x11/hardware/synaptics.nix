@@ -226,9 +226,9 @@ in
           if !cfg.horizontalScroll then
             ''Option "HorizScrollDelta" "0"''
           else
-            (optionalString (cfg.scrollDelta != null)
-              ''Option "HorizScrollDelta" "${toString cfg.scrollDelta}"''
-            )
+            (optionalString (
+              cfg.scrollDelta != null
+            ) ''Option "HorizScrollDelta" "${toString cfg.scrollDelta}"'')
         }
         ${cfg.additionalOptions}
       EndSection

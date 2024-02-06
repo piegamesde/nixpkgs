@@ -74,45 +74,43 @@ let
 
   # A map of names to each Dwarf Fortress package we know about.
   df-games = lib.listToAttrs (
-    map
-      (dfVersion: {
-        name = versionToName dfVersion;
-        value =
-          let
-            # I can't believe this syntax works. Spikes of Nix code indeed...
-            dwarf-fortress = callPackage ./game.nix {
-              inherit dfVersion;
-              inherit dwarf-fortress-unfuck;
-            };
-
-            dwarf-fortress-unfuck = callPackage ./unfuck.nix { inherit dfVersion; };
-
-            twbt = callPackage ./twbt { inherit dfVersion; };
-
-            dfhack = callPackage ./dfhack {
-              inherit (perlPackages) XMLLibXML XMLLibXSLT;
-              inherit dfVersion;
-              stdenv = gccStdenv;
-            };
-
-            dwarf-therapist = libsForQt5.callPackage ./dwarf-therapist/wrapper.nix {
-              inherit dwarf-fortress;
-              dwarf-therapist = dwarf-therapist-original;
-            };
-          in
-          callPackage ./wrapper {
-            inherit (self) themes;
-            inherit
-              dwarf-fortress
-              twbt
-              dfhack
-              dwarf-therapist
-              ;
-
-            jdk = jdk8; # TODO: remove override https://github.com/NixOS/nixpkgs/pull/89731
+    map (dfVersion: {
+      name = versionToName dfVersion;
+      value =
+        let
+          # I can't believe this syntax works. Spikes of Nix code indeed...
+          dwarf-fortress = callPackage ./game.nix {
+            inherit dfVersion;
+            inherit dwarf-fortress-unfuck;
           };
-      })
-      (lib.attrNames self.df-hashes)
+
+          dwarf-fortress-unfuck = callPackage ./unfuck.nix { inherit dfVersion; };
+
+          twbt = callPackage ./twbt { inherit dfVersion; };
+
+          dfhack = callPackage ./dfhack {
+            inherit (perlPackages) XMLLibXML XMLLibXSLT;
+            inherit dfVersion;
+            stdenv = gccStdenv;
+          };
+
+          dwarf-therapist = libsForQt5.callPackage ./dwarf-therapist/wrapper.nix {
+            inherit dwarf-fortress;
+            dwarf-therapist = dwarf-therapist-original;
+          };
+        in
+        callPackage ./wrapper {
+          inherit (self) themes;
+          inherit
+            dwarf-fortress
+            twbt
+            dfhack
+            dwarf-therapist
+            ;
+
+          jdk = jdk8; # TODO: remove override https://github.com/NixOS/nixpkgs/pull/89731
+        };
+    }) (lib.attrNames self.df-hashes)
   );
 
   self = rec {

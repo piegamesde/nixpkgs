@@ -177,31 +177,26 @@ in
           "readOnlyNixStore"
         ];
       })
-      (mkRemovedOptionModule
-        [
-          "nix"
-          "daemonNiceLevel"
-        ]
-        "Consider nix.daemonCPUSchedPolicy instead."
-      )
+      (mkRemovedOptionModule [
+        "nix"
+        "daemonNiceLevel"
+      ] "Consider nix.daemonCPUSchedPolicy instead.")
     ]
-    ++ mapAttrsToList
-      (
-        oldConf: newConf:
-        mkRenamedOptionModuleWith {
-          sinceRelease = 2205;
-          from = [
-            "nix"
-            oldConf
-          ];
-          to = [
-            "nix"
-            "settings"
-            newConf
-          ];
-        }
-      )
-      legacyConfMappings;
+    ++ mapAttrsToList (
+      oldConf: newConf:
+      mkRenamedOptionModuleWith {
+        sinceRelease = 2205;
+        from = [
+          "nix"
+          oldConf
+        ];
+        to = [
+          "nix"
+          "settings"
+          newConf
+        ];
+      }
+    ) legacyConfMappings;
 
   ###### interface
 
@@ -565,9 +560,9 @@ in
                       type = "path";
                       path = config.flake.outPath;
                     }
-                    //
-                      filterAttrs (n: _: n == "lastModified" || n == "rev" || n == "revCount" || n == "narHash")
-                        config.flake
+                    // filterAttrs (
+                      n: _: n == "lastModified" || n == "rev" || n == "revCount" || n == "narHash"
+                    ) config.flake
                   )
                 );
               };
@@ -812,46 +807,43 @@ in
     # List of machines for distributed Nix builds in the format
     # expected by build-remote.pl.
     environment.etc."nix/machines" = mkIf (cfg.buildMachines != [ ]) {
-      text =
-        concatMapStrings
-          (
-            machine:
-            (concatStringsSep " " (
-              [
-                "${optionalString (machine.protocol != null) "${machine.protocol}://"}${
-                  optionalString (machine.sshUser != null) "${machine.sshUser}@"
-                }${machine.hostName}"
-                (
-                  if machine.system != null then
-                    machine.system
-                  else if machine.systems != [ ] then
-                    concatStringsSep "," machine.systems
-                  else
-                    "-"
-                )
-                (if machine.sshKey != null then machine.sshKey else "-")
-                (toString machine.maxJobs)
-                (toString machine.speedFactor)
-                (
-                  let
-                    res = (machine.supportedFeatures ++ machine.mandatoryFeatures);
-                  in
-                  if (res == [ ]) then "-" else (concatStringsSep "," res)
-                )
-                (
-                  let
-                    res = machine.mandatoryFeatures;
-                  in
-                  if (res == [ ]) then "-" else (concatStringsSep "," machine.mandatoryFeatures)
-                )
-              ]
-              ++ optional (isNixAtLeast "2.4pre") (
-                if machine.publicHostKey != null then machine.publicHostKey else "-"
-              )
-            ))
-            + "\n"
+      text = concatMapStrings (
+        machine:
+        (concatStringsSep " " (
+          [
+            "${optionalString (machine.protocol != null) "${machine.protocol}://"}${
+              optionalString (machine.sshUser != null) "${machine.sshUser}@"
+            }${machine.hostName}"
+            (
+              if machine.system != null then
+                machine.system
+              else if machine.systems != [ ] then
+                concatStringsSep "," machine.systems
+              else
+                "-"
+            )
+            (if machine.sshKey != null then machine.sshKey else "-")
+            (toString machine.maxJobs)
+            (toString machine.speedFactor)
+            (
+              let
+                res = (machine.supportedFeatures ++ machine.mandatoryFeatures);
+              in
+              if (res == [ ]) then "-" else (concatStringsSep "," res)
+            )
+            (
+              let
+                res = machine.mandatoryFeatures;
+              in
+              if (res == [ ]) then "-" else (concatStringsSep "," machine.mandatoryFeatures)
+            )
+          ]
+          ++ optional (isNixAtLeast "2.4pre") (
+            if machine.publicHostKey != null then machine.publicHostKey else "-"
           )
-          cfg.buildMachines;
+        ))
+        + "\n"
+      ) cfg.buildMachines;
     };
 
     assertions =

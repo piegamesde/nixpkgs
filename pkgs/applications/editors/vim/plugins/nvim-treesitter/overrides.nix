@@ -20,21 +20,19 @@ let
   #   tree-sitter-ocaml_interface
   builtGrammars =
     generatedGrammars
-    // lib.concatMapAttrs
-      (
-        k: v:
-        let
-          replaced = lib.replaceStrings [ "_" ] [ "-" ] k;
-        in
-        {
-          "tree-sitter-${k}" = v;
-        }
-        // lib.optionalAttrs (k != replaced) {
-          ${replaced} = v;
-          "tree-sitter-${replaced}" = v;
-        }
-      )
-      generatedDerivations;
+    // lib.concatMapAttrs (
+      k: v:
+      let
+        replaced = lib.replaceStrings [ "_" ] [ "-" ] k;
+      in
+      {
+        "tree-sitter-${k}" = v;
+      }
+      // lib.optionalAttrs (k != replaced) {
+        ${replaced} = v;
+        "tree-sitter-${replaced}" = v;
+      }
+    ) generatedDerivations;
 
   grammarToPlugin =
     grammar:

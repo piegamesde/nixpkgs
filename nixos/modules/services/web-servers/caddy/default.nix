@@ -59,14 +59,11 @@ let
 in
 {
   imports = [
-    (mkRemovedOptionModule
-      [
-        "services"
-        "caddy"
-        "agree"
-      ]
-      "this option is no longer necessary for Caddy 2"
-    )
+    (mkRemovedOptionModule [
+      "services"
+      "caddy"
+      "agree"
+    ] "this option is no longer necessary for Caddy 2")
     (mkRenamedOptionModule
       [
         "services"
@@ -319,16 +316,14 @@ in
           message = "To specify an adapter other than 'caddyfile' please provide your own configuration via `services.caddy.configFile`";
         }
       ]
-      ++ map
-        (
-          name:
-          mkCertOwnershipAssertion {
-            inherit (cfg) group user;
-            cert = config.security.acme.certs.${name};
-            groups = config.users.groups;
-          }
-        )
-        acmeHosts;
+      ++ map (
+        name:
+        mkCertOwnershipAssertion {
+          inherit (cfg) group user;
+          cert = config.security.acme.certs.${name};
+          groups = config.users.groups;
+        }
+      ) acmeHosts;
 
     services.caddy.extraConfig = concatMapStringsSep "\n" mkVHostConf virtualHosts;
     services.caddy.globalConfig = ''
@@ -396,16 +391,13 @@ in
 
     security.acme.certs =
       let
-        certCfg =
-          map
-            (
-              useACMEHost:
-              nameValuePair useACMEHost {
-                group = mkDefault cfg.group;
-                reloadServices = [ "caddy.service" ];
-              }
-            )
-            acmeHosts;
+        certCfg = map (
+          useACMEHost:
+          nameValuePair useACMEHost {
+            group = mkDefault cfg.group;
+            reloadServices = [ "caddy.service" ];
+          }
+        ) acmeHosts;
       in
       listToAttrs certCfg;
   };

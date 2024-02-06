@@ -41,8 +41,9 @@ let
 
   mapAliases =
     aliases:
-    lib.mapAttrs (n: alias: removeDistribute (removeRecurseForDerivations (checkInPkgs n alias)))
-      aliases;
+    lib.mapAttrs (
+      n: alias: removeDistribute (removeRecurseForDerivations (checkInPkgs n alias))
+    ) aliases;
 in
 
 mapAliases ({
@@ -591,17 +592,14 @@ mapAliases ({
   gnome_themes_standard = throw "'gnome_themes_standard' has been renamed to/replaced by 'gnome-themes-standard'"; # Converted to throw 2022-02-22
 
   gnuradio-with-packages = gnuradio3_7.override {
-    extraPackages =
-      lib.attrVals
-        [
-          "osmosdr"
-          "ais"
-          "gsm"
-          "nacl"
-          "rds"
-          "limesdr"
-        ]
-        gnuradio3_7Packages;
+    extraPackages = lib.attrVals [
+      "osmosdr"
+      "ais"
+      "gsm"
+      "nacl"
+      "rds"
+      "limesdr"
+    ] gnuradio3_7Packages;
   }; # Added 2020-10-16
 
   gmock = gtest; # moved from top-level 2021-03-14

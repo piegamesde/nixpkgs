@@ -111,9 +111,9 @@ in
           WorkingDirectory = "/var/lib/photoprism";
           RuntimeDirectory = "photoprism";
 
-          LoadCredential =
-            lib.optionalString (cfg.passwordFile != null)
-              "PHOTOPRISM_ADMIN_PASSWORD:${cfg.passwordFile}";
+          LoadCredential = lib.optionalString (
+            cfg.passwordFile != null
+          ) "PHOTOPRISM_ADMIN_PASSWORD:${cfg.passwordFile}";
 
           CapabilityBoundingSet = "";
           LockPersonality = true;

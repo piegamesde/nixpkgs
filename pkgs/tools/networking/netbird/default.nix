@@ -83,20 +83,18 @@ buildGoModule rec {
 
   postInstall =
     lib.concatStringsSep "\n" (
-      lib.mapAttrsToList
-        (
-          module: binary:
-          ''
-            mv $out/bin/${lib.last (lib.splitString "/" module)} $out/bin/${binary}
-          ''
-          + lib.optionalString (!ui) ''
-            installShellCompletion --cmd ${binary} \
-              --bash <($out/bin/${binary} completion bash) \
-              --fish <($out/bin/${binary} completion fish) \
-              --zsh <($out/bin/${binary} completion zsh)
-          ''
-        )
-        modules
+      lib.mapAttrsToList (
+        module: binary:
+        ''
+          mv $out/bin/${lib.last (lib.splitString "/" module)} $out/bin/${binary}
+        ''
+        + lib.optionalString (!ui) ''
+          installShellCompletion --cmd ${binary} \
+            --bash <($out/bin/${binary} completion bash) \
+            --fish <($out/bin/${binary} completion fish) \
+            --zsh <($out/bin/${binary} completion zsh)
+        ''
+      ) modules
     )
     + lib.optionalString (stdenv.isLinux && ui) ''
       mkdir -p $out/share/pixmaps

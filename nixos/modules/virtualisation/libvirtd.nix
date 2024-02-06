@@ -138,14 +138,11 @@ in
 {
 
   imports = [
-    (mkRemovedOptionModule
-      [
-        "virtualisation"
-        "libvirtd"
-        "enableKVM"
-      ]
-      "Set the option `virtualisation.libvirtd.qemu.package' instead."
-    )
+    (mkRemovedOptionModule [
+      "virtualisation"
+      "libvirtd"
+      "enableKVM"
+    ] "Set the option `virtualisation.libvirtd.qemu.package' instead.")
     (mkRenamedOptionModule
       [
         "virtualisation"

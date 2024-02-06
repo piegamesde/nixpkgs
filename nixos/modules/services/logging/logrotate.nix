@@ -122,36 +122,27 @@ let
     '';
   };
 
-  mailOption =
-    optionalString (foldr (n: a: a || (n.mail or false) != false) false (attrValues cfg.settings))
-      "--mail=${pkgs.mailutils}/bin/mail";
+  mailOption = optionalString (foldr (n: a: a || (n.mail or false) != false) false (
+    attrValues cfg.settings
+  )) "--mail=${pkgs.mailutils}/bin/mail";
 in
 {
   imports = [
-    (mkRemovedOptionModule
-      [
-        "services"
-        "logrotate"
-        "config"
-      ]
-      "Modify services.logrotate.settings.header instead"
-    )
-    (mkRemovedOptionModule
-      [
-        "services"
-        "logrotate"
-        "extraConfig"
-      ]
-      "Modify services.logrotate.settings.header instead"
-    )
-    (mkRemovedOptionModule
-      [
-        "services"
-        "logrotate"
-        "paths"
-      ]
-      "Add attributes to services.logrotate.settings instead"
-    )
+    (mkRemovedOptionModule [
+      "services"
+      "logrotate"
+      "config"
+    ] "Modify services.logrotate.settings.header instead")
+    (mkRemovedOptionModule [
+      "services"
+      "logrotate"
+      "extraConfig"
+    ] "Modify services.logrotate.settings.header instead")
+    (mkRemovedOptionModule [
+      "services"
+      "logrotate"
+      "paths"
+    ] "Add attributes to services.logrotate.settings instead")
   ];
 
   options = {

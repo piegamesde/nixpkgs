@@ -485,23 +485,21 @@ rec {
   # Ensure that all packages used by the minimal NixOS config end up in the channel.
   dummy = forAllSystems (
     system:
-    pkgs.runCommand "dummy"
-      {
-        toplevel =
-          (import lib/eval-config.nix {
-            inherit system;
-            modules = singleton (
-              { ... }:
-              {
-                fileSystems."/".device = mkDefault "/dev/sda1";
-                boot.loader.grub.device = mkDefault "/dev/sda";
-                system.stateVersion = mkDefault "18.03";
-              }
-            );
-          }).config.system.build.toplevel;
-        preferLocalBuild = true;
-      }
-      "mkdir $out; ln -s $toplevel $out/dummy"
+    pkgs.runCommand "dummy" {
+      toplevel =
+        (import lib/eval-config.nix {
+          inherit system;
+          modules = singleton (
+            { ... }:
+            {
+              fileSystems."/".device = mkDefault "/dev/sda1";
+              boot.loader.grub.device = mkDefault "/dev/sda";
+              system.stateVersion = mkDefault "18.03";
+            }
+          );
+        }).config.system.build.toplevel;
+      preferLocalBuild = true;
+    } "mkdir $out; ln -s $toplevel $out/dummy"
   );
 
   # Provide container tarball for lxc, libvirt-lxc, docker-lxc, ...

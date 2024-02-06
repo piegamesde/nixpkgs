@@ -212,43 +212,34 @@ let
         '';
     };
 
-  zedConf =
-    generators.toKeyValue
-      {
-        mkKeyValue =
-          generators.mkKeyValueDefault
-            {
-              mkValueString =
-                v:
-                if isInt v then
-                  toString v
-                else if isString v then
-                  "\"${v}\""
-                else if true == v then
-                  "1"
-                else if false == v then
-                  "0"
-                else if isList v then
-                  "\"" + (concatStringsSep " " v) + "\""
-                else
-                  err "this value is" (toString v);
-            }
-            "=";
-      }
-      cfgZED.settings;
+  zedConf = generators.toKeyValue {
+    mkKeyValue = generators.mkKeyValueDefault {
+      mkValueString =
+        v:
+        if isInt v then
+          toString v
+        else if isString v then
+          "\"${v}\""
+        else if true == v then
+          "1"
+        else if false == v then
+          "0"
+        else if isList v then
+          "\"" + (concatStringsSep " " v) + "\""
+        else
+          err "this value is" (toString v);
+    } "=";
+  } cfgZED.settings;
 in
 
 {
 
   imports = [
-    (mkRemovedOptionModule
-      [
-        "boot"
-        "zfs"
-        "enableLegacyCrypto"
-      ]
-      "The corresponding package was removed from nixpkgs."
-    )
+    (mkRemovedOptionModule [
+      "boot"
+      "zfs"
+      "enableLegacyCrypto"
+    ] "The corresponding package was removed from nixpkgs.")
   ];
 
   ###### interface
@@ -496,13 +487,10 @@ in
     };
 
     services.zfs.expandOnBoot = mkOption {
-      type =
-        types.either
-          (types.enum [
-            "disabled"
-            "all"
-          ])
-          (types.listOf types.str);
+      type = types.either (types.enum [
+        "disabled"
+        "all"
+      ]) (types.listOf types.str);
       default = "disabled";
       example = [
         "tank"
@@ -633,52 +621,45 @@ in
               inherit cfgZfs;
             })
           ]
-          ++ (map
-            (pool: ''
-              echo -n "importing root ZFS pool \"${pool}\"..."
-              # Loop across the import until it succeeds, because the devices needed may not be discovered yet.
-              if ! poolImported "${pool}"; then
-                for trial in `seq 1 60`; do
-                  poolReady "${pool}" > /dev/null && msg="$(poolImport "${pool}" 2>&1)" && break
-                  sleep 1
-                  echo -n .
-                done
-                echo
-                if [[ -n "$msg" ]]; then
-                  echo "$msg";
-                fi
-                poolImported "${pool}" || poolImport "${pool}"  # Try one last time, e.g. to import a degraded pool.
+          ++ (map (pool: ''
+            echo -n "importing root ZFS pool \"${pool}\"..."
+            # Loop across the import until it succeeds, because the devices needed may not be discovered yet.
+            if ! poolImported "${pool}"; then
+              for trial in `seq 1 60`; do
+                poolReady "${pool}" > /dev/null && msg="$(poolImport "${pool}" 2>&1)" && break
+                sleep 1
+                echo -n .
+              done
+              echo
+              if [[ -n "$msg" ]]; then
+                echo "$msg";
               fi
-              ${if isBool cfgZfs.requestEncryptionCredentials then
-                optionalString cfgZfs.requestEncryptionCredentials ''
-                  zfs load-key -a
-                ''
-              else
-                concatMapStrings
-                  (fs: ''
-                    zfs load-key -- ${escapeShellArg fs}
-                  '')
-                  (filter (x: datasetToPool x == pool) cfgZfs.requestEncryptionCredentials)}
-            '')
-            rootPools
-          )
+              poolImported "${pool}" || poolImport "${pool}"  # Try one last time, e.g. to import a degraded pool.
+            fi
+            ${if isBool cfgZfs.requestEncryptionCredentials then
+              optionalString cfgZfs.requestEncryptionCredentials ''
+                zfs load-key -a
+              ''
+            else
+              concatMapStrings (fs: ''
+                zfs load-key -- ${escapeShellArg fs}
+              '') (filter (x: datasetToPool x == pool) cfgZfs.requestEncryptionCredentials)}
+          '') rootPools)
         );
 
         # Systemd in stage 1
         systemd = {
           packages = [ cfgZfs.package ];
           services = listToAttrs (
-            map
-              (
-                pool:
-                createImportService {
-                  inherit pool;
-                  systemd = config.boot.initrd.systemd.package;
-                  force = cfgZfs.forceImportRoot;
-                  prefix = "/sysroot";
-                }
-              )
-              rootPools
+            map (
+              pool:
+              createImportService {
+                inherit pool;
+                systemd = config.boot.initrd.systemd.package;
+                force = cfgZfs.forceImportRoot;
+                prefix = "/sysroot";
+              }
+            ) rootPools
           );
           extraBin = {
             # zpool and zfs are already in thanks to fsPackages
@@ -710,21 +691,19 @@ in
       };
 
       environment.etc =
-        genAttrs
-          (map (file: "zfs/zed.d/${file}") [
-            "all-syslog.sh"
-            "pool_import-led.sh"
-            "resilver_finish-start-scrub.sh"
-            "statechange-led.sh"
-            "vdev_attach-led.sh"
-            "zed-functions.sh"
-            "data-notify.sh"
-            "resilver_finish-notify.sh"
-            "scrub_finish-notify.sh"
-            "statechange-notify.sh"
-            "vdev_clear-led.sh"
-          ])
-          (file: { source = "${cfgZfs.package}/etc/${file}"; })
+        genAttrs (map (file: "zfs/zed.d/${file}") [
+          "all-syslog.sh"
+          "pool_import-led.sh"
+          "resilver_finish-start-scrub.sh"
+          "statechange-led.sh"
+          "vdev_attach-led.sh"
+          "zed-functions.sh"
+          "data-notify.sh"
+          "resilver_finish-notify.sh"
+          "scrub_finish-notify.sh"
+          "statechange-notify.sh"
+          "vdev_clear-led.sh"
+        ]) (file: { source = "${cfgZfs.package}/etc/${file}"; })
         // {
           "zfs/zed.d/zed.rc".text = zedConf;
           "zfs/zpool.d".source = "${cfgZfs.package}/etc/zfs/zpool.d/";
@@ -870,20 +849,18 @@ in
           numSnapshots = name: builtins.getAttr name cfgSnapshots;
         in
         builtins.listToAttrs (
-          map
-            (snapName: {
-              name = "zfs-snapshot-${snapName}";
-              value = {
-                description = "ZFS auto-snapshotting every ${descr snapName}";
-                after = [ "zfs-import.target" ];
-                serviceConfig = {
-                  Type = "oneshot";
-                  ExecStart = "${zfsAutoSnap} ${cfgSnapFlags} ${snapName} ${toString (numSnapshots snapName)}";
-                };
-                restartIfChanged = false;
+          map (snapName: {
+            name = "zfs-snapshot-${snapName}";
+            value = {
+              description = "ZFS auto-snapshotting every ${descr snapName}";
+              after = [ "zfs-import.target" ];
+              serviceConfig = {
+                Type = "oneshot";
+                ExecStart = "${zfsAutoSnap} ${cfgSnapFlags} ${snapName} ${toString (numSnapshots snapName)}";
               };
-            })
-            snapshotNames
+              restartIfChanged = false;
+            };
+          }) snapshotNames
         );
 
       systemd.timers =
@@ -891,18 +868,16 @@ in
           timer = name: if name == "frequent" then "*:0,15,30,45" else name;
         in
         builtins.listToAttrs (
-          map
-            (snapName: {
-              name = "zfs-snapshot-${snapName}";
-              value = {
-                wantedBy = [ "timers.target" ];
-                timerConfig = {
-                  OnCalendar = timer snapName;
-                  Persistent = "yes";
-                };
+          map (snapName: {
+            name = "zfs-snapshot-${snapName}";
+            value = {
+              wantedBy = [ "timers.target" ];
+              timerConfig = {
+                OnCalendar = timer snapName;
+                Persistent = "yes";
               };
-            })
-            snapshotNames
+            };
+          }) snapshotNames
         );
     })
 

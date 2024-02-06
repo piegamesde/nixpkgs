@@ -175,21 +175,19 @@ let
         # TODO: move out to a separate script; see #85000.
         ${optionalString (!config.boot.loader.supportsInitrdSecrets) (
           concatStringsSep "\n" (
-            mapAttrsToList
-              (
-                dest: source:
-                let
-                  source' = if source == null then dest else source;
-                in
-                ''
-                  mkdir -p $(dirname "$out/secrets/${dest}")
-                  # Some programs (e.g. ssh) doesn't like secrets to be
-                  # symlinks, so we use `cp -L` here to match the
-                  # behaviour when secrets are natively supported.
-                  cp -Lr ${source'} "$out/secrets/${dest}"
-                ''
-              )
-              config.boot.initrd.secrets
+            mapAttrsToList (
+              dest: source:
+              let
+                source' = if source == null then dest else source;
+              in
+              ''
+                mkdir -p $(dirname "$out/secrets/${dest}")
+                # Some programs (e.g. ssh) doesn't like secrets to be
+                # symlinks, so we use `cp -L` here to match the
+                # behaviour when secrets are natively supported.
+                cp -Lr ${source'} "$out/secrets/${dest}"
+              ''
+            ) config.boot.initrd.secrets
           )
         )}
 
@@ -366,15 +364,13 @@ let
       ;
 
     resumeDevices = map (sd: if sd ? device then sd.device else "/dev/disk/by-label/${sd.label}") (
-      filter
-        (
-          sd:
-          hasPrefix "/dev/" sd.device
-          && !sd.randomEncryption.enable
-          # Don't include zram devices
-          && !(hasPrefix "/dev/zram" sd.device)
-        )
-        config.swapDevices
+      filter (
+        sd:
+        hasPrefix "/dev/" sd.device
+        && !sd.randomEncryption.enable
+        # Don't include zram devices
+        && !(hasPrefix "/dev/zram" sd.device)
+      ) config.swapDevices
     );
 
     fsInfo =
@@ -456,13 +452,10 @@ let
           symlink = "/etc/multipath.conf";
         }
       ]
-      ++ (lib.mapAttrsToList
-        (symlink: options: {
-          inherit symlink;
-          object = options.source;
-        })
-        config.boot.initrd.extraFiles
-      );
+      ++ (lib.mapAttrsToList (symlink: options: {
+        inherit symlink;
+        object = options.source;
+      }) config.boot.initrd.extraFiles);
   };
 
   # Script to add secret files to the initrd at bootloader update time
@@ -501,18 +494,16 @@ let
       tmp=$(mktemp -d ''${TMPDIR:-/tmp}/initrd-secrets.XXXXXXXXXX)
 
       ${lib.concatStringsSep "\n" (
-        mapAttrsToList
-          (
-            dest: source:
-            let
-              source' = if source == null then dest else toString source;
-            in
-            ''
-              mkdir -p $(dirname "$tmp/.initrd-secrets/${dest}")
-              cp -a ${source'} "$tmp/.initrd-secrets/${dest}"
-            ''
-          )
-          config.boot.initrd.secrets
+        mapAttrsToList (
+          dest: source:
+          let
+            source' = if source == null then dest else toString source;
+          in
+          ''
+            mkdir -p $(dirname "$tmp/.initrd-secrets/${dest}")
+            cp -a ${source'} "$tmp/.initrd-secrets/${dest}"
+          ''
+        ) config.boot.initrd.secrets
       )}
 
       # mindepth 1 so that we don't change the mode of /
@@ -770,10 +761,9 @@ in
       {
         assertion =
           !config.boot.loader.supportsInitrdSecrets
-          ->
-            all
-              (source: builtins.isPath source || (builtins.isString source && hasPrefix builtins.storeDir source))
-              (attrValues config.boot.initrd.secrets);
+          -> all (
+            source: builtins.isPath source || (builtins.isString source && hasPrefix builtins.storeDir source)
+          ) (attrValues config.boot.initrd.secrets);
         message = ''
           boot.loader.initrd.secrets values must be unquoted paths when
           using a bootloader that doesn't natively support initrd

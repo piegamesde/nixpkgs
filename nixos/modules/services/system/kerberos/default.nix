@@ -18,19 +18,16 @@ let
         description = lib.mdDoc "Which principal the rule applies to";
       };
       access = mkOption {
-        type =
-          types.either
-            (types.listOf (
-              types.enum [
-                "add"
-                "cpw"
-                "delete"
-                "get"
-                "list"
-                "modify"
-              ]
-            ))
-            (types.enum [ "all" ]);
+        type = types.either (types.listOf (
+          types.enum [
+            "add"
+            "cpw"
+            "delete"
+            "get"
+            "list"
+            "modify"
+          ]
+        )) (types.enum [ "all" ]);
         default = "all";
         description = lib.mdDoc "The changes the principal is allowed to make.";
       };

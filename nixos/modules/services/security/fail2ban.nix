@@ -371,18 +371,24 @@ in
     services.fail2ban.jails.DEFAULT = ''
       # Bantime increment options
       bantime.increment = ${boolToString cfg.bantime-increment.enable}
-      ${optionalString (cfg.bantime-increment.rndtime != null)
-        "bantime.rndtime = ${cfg.bantime-increment.rndtime}"}
-      ${optionalString (cfg.bantime-increment.maxtime != null)
-        "bantime.maxtime = ${cfg.bantime-increment.maxtime}"}
-      ${optionalString (cfg.bantime-increment.factor != null)
-        "bantime.factor = ${cfg.bantime-increment.factor}"}
-      ${optionalString (cfg.bantime-increment.formula != null)
-        "bantime.formula = ${cfg.bantime-increment.formula}"}
-      ${optionalString (cfg.bantime-increment.multipliers != null)
-        "bantime.multipliers = ${cfg.bantime-increment.multipliers}"}
-      ${optionalString (cfg.bantime-increment.overalljails != null)
-        "bantime.overalljails = ${boolToString cfg.bantime-increment.overalljails}"}
+      ${optionalString (
+        cfg.bantime-increment.rndtime != null
+      ) "bantime.rndtime = ${cfg.bantime-increment.rndtime}"}
+      ${optionalString (
+        cfg.bantime-increment.maxtime != null
+      ) "bantime.maxtime = ${cfg.bantime-increment.maxtime}"}
+      ${optionalString (
+        cfg.bantime-increment.factor != null
+      ) "bantime.factor = ${cfg.bantime-increment.factor}"}
+      ${optionalString (
+        cfg.bantime-increment.formula != null
+      ) "bantime.formula = ${cfg.bantime-increment.formula}"}
+      ${optionalString (
+        cfg.bantime-increment.multipliers != null
+      ) "bantime.multipliers = ${cfg.bantime-increment.multipliers}"}
+      ${optionalString (
+        cfg.bantime-increment.overalljails != null
+      ) "bantime.overalljails = ${boolToString cfg.bantime-increment.overalljails}"}
       # Miscellaneous options
       ignoreip    = 127.0.0.1/8 ${optionalString config.networking.enableIPv6 "::1"} ${concatStringsSep " " cfg.ignoreIP}
       ${optionalString (cfg.bantime != null) ''

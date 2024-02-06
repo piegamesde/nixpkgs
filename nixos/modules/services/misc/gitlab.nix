@@ -74,13 +74,11 @@ let
 
     ${concatStringsSep "\n" (
       attrValues (
-        mapAttrs
-          (k: v: ''
-            [[storage]]
-            name = "${lib.escape [ "\"" ] k}"
-            path = "${lib.escape [ "\"" ] v.path}"
-          '')
-          gitlabConfig.production.repositories.storages
+        mapAttrs (k: v: ''
+          [[storage]]
+          name = "${lib.escape [ "\"" ] k}"
+          path = "${lib.escape [ "\"" ] v.path}"
+        '') gitlabConfig.production.repositories.storages
       )
     )}
   '';
@@ -289,31 +287,22 @@ in
         "path"
       ]
     )
-    (mkRemovedOptionModule
-      [
-        "services"
-        "gitlab"
-        "satelliteDir"
-      ]
-      ""
-    )
-    (mkRemovedOptionModule
-      [
-        "services"
-        "gitlab"
-        "logrotate"
-        "extraConfig"
-      ]
-      "Modify services.logrotate.settings.gitlab directly instead"
-    )
-    (mkRemovedOptionModule
-      [
-        "services"
-        "gitlab"
-        "pagesExtraArgs"
-      ]
-      "Use services.gitlab.pages.settings instead"
-    )
+    (mkRemovedOptionModule [
+      "services"
+      "gitlab"
+      "satelliteDir"
+    ] "")
+    (mkRemovedOptionModule [
+      "services"
+      "gitlab"
+      "logrotate"
+      "extraConfig"
+    ] "Modify services.logrotate.settings.gitlab directly instead")
+    (mkRemovedOptionModule [
+      "services"
+      "gitlab"
+      "pagesExtraArgs"
+    ] "Use services.gitlab.pages.settings instead")
   ];
 
   options = {

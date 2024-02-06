@@ -67,12 +67,10 @@ let
       toSet =
         list:
         builtins.listToAttrs (
-          map
-            (d: {
-              name = d.pname;
-              value = d;
-            })
-            list
+          map (d: {
+            name = d.pname;
+            value = d;
+          }) list
         );
       toList = attrValues;
       walk =
@@ -259,18 +257,16 @@ let
             let
               mkSystemsRegex =
                 systems:
-                concatMapStringsSep "\\|"
-                  (replaceStrings
-                    [
-                      "."
-                      "+"
-                    ]
-                    [
-                      "[.]"
-                      "[+]"
-                    ]
-                  )
-                  systems;
+                concatMapStringsSep "\\|" (replaceStrings
+                  [
+                    "."
+                    "+"
+                  ]
+                  [
+                    "[.]"
+                    "[+]"
+                  ]
+                ) systems;
             in
             ''
               mkdir -pv $out

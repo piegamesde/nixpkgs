@@ -68,13 +68,10 @@ let
           name = "rspamd_statfiles";
           type = "object";
           path = "{.statfiles[*]}";
-          labels =
-            recursiveUpdate
-              {
-                symbol = "{.symbol}";
-                type = "{.type}";
-              }
-              extraLabels;
+          labels = recursiveUpdate {
+            symbol = "{.symbol}";
+            type = "{.type}";
+          } extraLabels;
           values = {
             revision = "{.revision}";
             size = "{.size}";

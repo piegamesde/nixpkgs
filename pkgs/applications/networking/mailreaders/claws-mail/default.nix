@@ -331,9 +331,9 @@ stdenv.mkDerivation rec {
 
       "--disable-gdata-plugin" # Complains about missing libgdata, even when provided
     ]
-    ++ (map (feature: map (flag: lib.strings.enableFeature feature.enabled flag) feature.flags)
-      features
-    );
+    ++ (map (
+      feature: map (flag: lib.strings.enableFeature feature.enabled flag) feature.flags
+    ) features);
 
   enableParallelBuilding = true;
 

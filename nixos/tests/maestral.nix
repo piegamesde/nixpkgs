@@ -10,15 +10,13 @@ import ./make-test-python.nix (
       let
         common =
           attrs:
-          pkgs.lib.recursiveUpdate
-            {
-              imports = [ ./common/user-account.nix ];
-              systemd.user.services.maestral = {
-                description = "Maestral Dropbox Client";
-                serviceConfig.Type = "exec";
-              };
-            }
-            attrs;
+          pkgs.lib.recursiveUpdate {
+            imports = [ ./common/user-account.nix ];
+            systemd.user.services.maestral = {
+              description = "Maestral Dropbox Client";
+              serviceConfig.Type = "exec";
+            };
+          } attrs;
       in
       {
         cli =

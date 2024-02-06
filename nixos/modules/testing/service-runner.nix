@@ -48,11 +48,9 @@ let
           delete $ENV{$key};
       }
       ${concatStrings (
-        mapAttrsToList
-          (n: v: ''
-            $ENV{'${n}'} = '${v}';
-          '')
-          service.environment
+        mapAttrsToList (n: v: ''
+          $ENV{'${n}'} = '${v}';
+        '') service.environment
       )}
 
       # Run the ExecStartPre program.  FIXME: this could be a list.

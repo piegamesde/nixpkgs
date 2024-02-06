@@ -58,14 +58,11 @@ in
         "listenAddress"
       ]
     )
-    (mkRemovedOptionModule
-      [
-        "services"
-        "logstash"
-        "enableWeb"
-      ]
-      "The web interface was removed from logstash"
-    )
+    (mkRemovedOptionModule [
+      "services"
+      "logstash"
+      "enableWeb"
+    ] "The web interface was removed from logstash")
   ];
 
   ###### interface

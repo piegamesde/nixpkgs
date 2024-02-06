@@ -131,18 +131,14 @@ let
     inherit (cfg) strip;
 
     contents =
-      map
-        (path: {
-          object = path;
-          symlink = "";
-        })
-        (subtractLists cfg.suppressedStorePaths cfg.storePaths)
-      ++ mapAttrsToList
-        (_: v: {
-          object = v.source;
-          symlink = v.target;
-        })
-        (filterAttrs (_: v: v.enable) cfg.contents);
+      map (path: {
+        object = path;
+        symlink = "";
+      }) (subtractLists cfg.suppressedStorePaths cfg.storePaths)
+      ++ mapAttrsToList (_: v: {
+        object = v.source;
+        symlink = v.target;
+      }) (filterAttrs (_: v: v.enable) cfg.contents);
   };
 in
 {
@@ -511,26 +507,22 @@ in
         // mapAttrs' (n: v: nameValuePair "${n}.target" (targetToUnit n v)) cfg.targets
         // mapAttrs' (n: v: nameValuePair "${n}.timer" (timerToUnit n v)) cfg.timers
         // listToAttrs (
-          map
-            (
-              v:
-              let
-                n = escapeSystemdPath v.where;
-              in
-              nameValuePair "${n}.mount" (mountToUnit n v)
-            )
-            cfg.mounts
+          map (
+            v:
+            let
+              n = escapeSystemdPath v.where;
+            in
+            nameValuePair "${n}.mount" (mountToUnit n v)
+          ) cfg.mounts
         )
         // listToAttrs (
-          map
-            (
-              v:
-              let
-                n = escapeSystemdPath v.where;
-              in
-              nameValuePair "${n}.automount" (automountToUnit n v)
-            )
-            cfg.automounts
+          map (
+            v:
+            let
+              n = escapeSystemdPath v.where;
+            in
+            nameValuePair "${n}.automount" (automountToUnit n v)
+          ) cfg.automounts
         );
 
       # make sure all the /dev nodes are set up

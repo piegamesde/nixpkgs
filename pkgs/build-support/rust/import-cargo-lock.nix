@@ -94,20 +94,17 @@ let
   # workspace). By using the git commit SHA as a universal identifier,
   # the user does not have to specify the output hash for every package
   # individually.
-  gitShaOutputHash =
-    lib.mapAttrs'
-      (
-        nameVer: hash:
-        let
-          unusedHash = throw "A hash was specified for ${nameVer}, but there is no corresponding git dependency.";
-          rev = namesGitShas.${nameVer} or unusedHash;
-        in
-        {
-          name = rev;
-          value = hash;
-        }
-      )
-      outputHashes;
+  gitShaOutputHash = lib.mapAttrs' (
+    nameVer: hash:
+    let
+      unusedHash = throw "A hash was specified for ${nameVer}, but there is no corresponding git dependency.";
+      rev = namesGitShas.${nameVer} or unusedHash;
+    in
+    {
+      name = rev;
+      value = hash;
+    }
+  ) outputHashes;
 
   # We can't use the existing fetchCrate function, since it uses a
   # recursive hash of the unpacked crate.
@@ -131,16 +128,13 @@ let
   } // extraRegistries;
 
   # Replaces values inherited by workspace members.
-  replaceWorkspaceValues =
-    writers.writePython3 "replace-workspace-values"
-      {
-        libraries = with python3Packages; [
-          tomli
-          tomli-w
-        ];
-        flakeIgnore = [ "E501" ];
-      }
-      (builtins.readFile ./replace-workspace-values.py);
+  replaceWorkspaceValues = writers.writePython3 "replace-workspace-values" {
+    libraries = with python3Packages; [
+      tomli
+      tomli-w
+    ];
+    flakeIgnore = [ "E501" ];
+  } (builtins.readFile ./replace-workspace-values.py);
 
   # Fetch and unpack a crate.
   mkCrate =

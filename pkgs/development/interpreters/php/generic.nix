@@ -98,17 +98,13 @@ let
                 packageOverrides;
 
             allExtensionFunctions = prevExtensionFunctions ++ [ extensions ];
-            enabledExtensions =
-              builtins.foldl'
-                (
-                  enabled: f:
-                  f {
-                    inherit enabled;
-                    all = php-packages.extensions;
-                  }
-                )
-                [ ]
-                allExtensionFunctions;
+            enabledExtensions = builtins.foldl' (
+              enabled: f:
+              f {
+                inherit enabled;
+                all = php-packages.extensions;
+              }
+            ) [ ] allExtensionFunctions;
 
             getExtName = ext: ext.extensionName;
 
@@ -128,20 +124,18 @@ let
             # another plugin is placed before its dependency, it will
             # fail to load.
             extensionTexts = lib.listToAttrs (
-              map
-                (
-                  ext:
-                  let
-                    extName = getExtName ext;
-                    phpDeps = (ext.internalDeps or [ ]) ++ (ext.peclDeps or [ ]);
-                    type = "${lib.optionalString (ext.zendExtension or false) "zend_"}extension";
-                  in
-                  lib.nameValuePair extName {
-                    text = "${type}=${ext}/lib/php/extensions/${extName}.so";
-                    deps = map getExtName phpDeps;
-                  }
-                )
-                (enabledExtensions ++ (getDepsRecursively enabledExtensions))
+              map (
+                ext:
+                let
+                  extName = getExtName ext;
+                  phpDeps = (ext.internalDeps or [ ]) ++ (ext.peclDeps or [ ]);
+                  type = "${lib.optionalString (ext.zendExtension or false) "zend_"}extension";
+                in
+                lib.nameValuePair extName {
+                  text = "${type}=${ext}/lib/php/extensions/${extName}.so";
+                  deps = map getExtName phpDeps;
+                }
+              ) (enabledExtensions ++ (getDepsRecursively enabledExtensions))
             );
 
             extNames = map getExtName enabledExtensions;

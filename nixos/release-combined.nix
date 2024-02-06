@@ -42,15 +42,12 @@ rec {
     }
   );
 
-  nixpkgs =
-    builtins.removeAttrs
-      (removeMaintainers (
-        import ../pkgs/top-level/release.nix {
-          inherit supportedSystems;
-          nixpkgs = nixpkgsSrc;
-        }
-      ))
-      [ "unstable" ];
+  nixpkgs = builtins.removeAttrs (removeMaintainers (
+    import ../pkgs/top-level/release.nix {
+      inherit supportedSystems;
+      nixpkgs = nixpkgsSrc;
+    }
+  )) [ "unstable" ];
 
   tested =
     let
@@ -72,13 +69,10 @@ rec {
         [ "nixos.channel" ]
         (onFullSupported "nixos.dummy")
         (onAllSupported "nixos.iso_minimal")
-        (onSystems
-          [
-            "x86_64-linux"
-            "aarch64-linux"
-          ]
-          "nixos.amazonImage"
-        )
+        (onSystems [
+          "x86_64-linux"
+          "aarch64-linux"
+        ] "nixos.amazonImage")
         (onFullSupported "nixos.iso_plasma5")
         (onFullSupported "nixos.iso_gnome")
         (onFullSupported "nixos.manual")

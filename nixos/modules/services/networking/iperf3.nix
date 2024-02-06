@@ -87,8 +87,9 @@ let
             ${optionalString (cfg.bind != null) "--bind ${cfg.bind}"} \
             ${optionalString (cfg.rsaPrivateKey != null) "--rsa-private-key-path ${cfg.rsaPrivateKey}"} \
             ${
-              optionalString (cfg.authorizedUsersFile != null)
-                "--authorized-users-path ${cfg.authorizedUsersFile}"
+              optionalString (
+                cfg.authorizedUsersFile != null
+              ) "--authorized-users-path ${cfg.authorizedUsersFile}"
             } \
             ${optionalString cfg.verbose "--verbose"} \
             ${optionalString cfg.debug "--debug"} \

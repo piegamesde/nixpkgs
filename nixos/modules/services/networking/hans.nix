@@ -127,8 +127,9 @@ in
         };
       in
       listToAttrs (
-        mapAttrsToList (name: value: nameValuePair "hans-${name}" (createHansClientService name value))
-          cfg.clients
+        mapAttrsToList (
+          name: value: nameValuePair "hans-${name}" (createHansClientService name value)
+        ) cfg.clients
       )
       // {
         hans = mkIf (cfg.server.enable) {

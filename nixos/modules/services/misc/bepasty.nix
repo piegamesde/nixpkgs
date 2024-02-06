@@ -137,61 +137,58 @@ in
     environment.systemPackages = [ bepasty ];
 
     # creates gunicorn systemd service for each configured server
-    systemd.services =
-      mapAttrs'
-        (
-          name: server:
-          nameValuePair ("bepasty-server-${name}-gunicorn") ({
-            description = "Bepasty Server ${name}";
-            wantedBy = [ "multi-user.target" ];
-            after = [ "network.target" ];
-            restartIfChanged = true;
+    systemd.services = mapAttrs' (
+      name: server:
+      nameValuePair ("bepasty-server-${name}-gunicorn") ({
+        description = "Bepasty Server ${name}";
+        wantedBy = [ "multi-user.target" ];
+        after = [ "network.target" ];
+        restartIfChanged = true;
 
-            environment =
-              let
-                penv = python.buildEnv.override {
-                  extraLibs = [
-                    bepasty
-                    gevent
-                  ];
-                };
-              in
-              {
-                BEPASTY_CONFIG = "${server.workDir}/bepasty-${name}.conf";
-                PYTHONPATH = "${penv}/${python.sitePackages}/";
-              };
-
-            serviceConfig = {
-              Type = "simple";
-              PrivateTmp = true;
-              ExecStartPre =
-                assert server.secretKeyFile != null;
-                pkgs.writeScript "bepasty-server.${name}-init" ''
-                  #!/bin/sh
-                  mkdir -p "${server.workDir}"
-                  mkdir -p "${server.dataDir}"
-                  chown ${user}:${group} "${server.workDir}" "${server.dataDir}"
-                  cat > ${server.workDir}/bepasty-${name}.conf <<EOF
-                  SITENAME="${name}"
-                  STORAGE_FILESYSTEM_DIRECTORY="${server.dataDir}"
-                  SECRET_KEY="$(cat "${server.secretKeyFile}")"
-                  DEFAULT_PERMISSIONS="${server.defaultPermissions}"
-                  ${server.extraConfig}
-                  EOF
-                '';
-              ExecStart = ''
-                ${gunicorn}/bin/gunicorn bepasty.wsgi --name ${name} \
-                              -u ${user} \
-                              -g ${group} \
-                              --workers 3 --log-level=info \
-                              --bind=${server.bind} \
-                              --pid ${server.workDir}/gunicorn-${name}.pid \
-                              -k gevent
-              '';
+        environment =
+          let
+            penv = python.buildEnv.override {
+              extraLibs = [
+                bepasty
+                gevent
+              ];
             };
-          })
-        )
-        cfg.servers;
+          in
+          {
+            BEPASTY_CONFIG = "${server.workDir}/bepasty-${name}.conf";
+            PYTHONPATH = "${penv}/${python.sitePackages}/";
+          };
+
+        serviceConfig = {
+          Type = "simple";
+          PrivateTmp = true;
+          ExecStartPre =
+            assert server.secretKeyFile != null;
+            pkgs.writeScript "bepasty-server.${name}-init" ''
+              #!/bin/sh
+              mkdir -p "${server.workDir}"
+              mkdir -p "${server.dataDir}"
+              chown ${user}:${group} "${server.workDir}" "${server.dataDir}"
+              cat > ${server.workDir}/bepasty-${name}.conf <<EOF
+              SITENAME="${name}"
+              STORAGE_FILESYSTEM_DIRECTORY="${server.dataDir}"
+              SECRET_KEY="$(cat "${server.secretKeyFile}")"
+              DEFAULT_PERMISSIONS="${server.defaultPermissions}"
+              ${server.extraConfig}
+              EOF
+            '';
+          ExecStart = ''
+            ${gunicorn}/bin/gunicorn bepasty.wsgi --name ${name} \
+                          -u ${user} \
+                          -g ${group} \
+                          --workers 3 --log-level=info \
+                          --bind=${server.bind} \
+                          --pid ${server.workDir}/gunicorn-${name}.pid \
+                          -k gevent
+          '';
+        };
+      })
+    ) cfg.servers;
 
     users.users.${user} = {
       uid = config.ids.uids.bepasty;

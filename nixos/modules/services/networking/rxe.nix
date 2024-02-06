@@ -46,9 +46,9 @@ in
       serviceConfig = {
         Type = "oneshot";
         RemainAfterExit = true;
-        ExecStart =
-          map (x: "${pkgs.iproute2}/bin/rdma link add rxe_${x} type rxe netdev ${x}")
-            cfg.interfaces;
+        ExecStart = map (
+          x: "${pkgs.iproute2}/bin/rdma link add rxe_${x} type rxe netdev ${x}"
+        ) cfg.interfaces;
 
         ExecStop = map (x: "${pkgs.iproute2}/bin/rdma link delete rxe_${x}") cfg.interfaces;
       };

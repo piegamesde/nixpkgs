@@ -92,9 +92,8 @@ let
         ++ lib.optional (cfg.enableTridactylNative or false) tridactyl-native
         ++ lib.optional (cfg.enableGnomeExtensions or false) gnome-browser-connector
         ++ lib.optional (cfg.enableUgetIntegrator or false) uget-integrator
-        ++
-          lib.optional (cfg.enablePlasmaBrowserIntegration or false)
-            plasma5Packages.plasma-browser-integration
+        ++ lib.optional (cfg.enablePlasmaBrowserIntegration or false
+          ) plasma5Packages.plasma-browser-integration
         ++ lib.optional (cfg.enableFXCastBridge or false) fx_cast_bridge
         ++ extraNativeMessagingHosts;
       libs =
@@ -156,15 +155,13 @@ let
         else if requiresSigning && !lib.hasSuffix "esr" browser.name then
           throw "Nix addons are only supported without signature enforcement (eg. Firefox ESR)"
         else
-          builtins.map
-            (
-              a:
-              if !(builtins.hasAttr "extid" a) then
-                throw "nixExtensions has an invalid entry. Missing extid attribute. Please use fetchfirefoxaddon"
-              else
-                a
-            )
-            (lib.optionals usesNixExtensions nixExtensions);
+          builtins.map (
+            a:
+            if !(builtins.hasAttr "extid" a) then
+              throw "nixExtensions has an invalid entry. Missing extid attribute. Please use fetchfirefoxaddon"
+            else
+              a
+          ) (lib.optionals usesNixExtensions nixExtensions);
 
       enterprisePolicies = {
         policies =
@@ -179,18 +176,15 @@ let
                   installation_mode = "blocked";
                 };
               }
-              // lib.foldr
-                (
-                  e: ret:
-                  ret
-                  // {
-                    "${e.extid}" = {
-                      installation_mode = "allowed";
-                    };
-                  }
-                )
-                { }
-                extensions;
+              // lib.foldr (
+                e: ret:
+                ret
+                // {
+                  "${e.extid}" = {
+                    installation_mode = "allowed";
+                  };
+                }
+              ) { } extensions;
 
             Extensions = {
               Install = lib.foldr (e: ret: ret ++ [ "${e.outPath}/${e.extid}.xpi" ]) [ ] extensions;

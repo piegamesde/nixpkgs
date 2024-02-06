@@ -40,15 +40,13 @@ let
   # [ drv1 drv2 drv3 ]
   accumulateDerivations =
     jobList:
-    lib.concatMap
-      (
-        attrs:
-        if lib.isDerivation attrs then
-          [ attrs ]
-        else
-          lib.optionals (lib.isAttrs attrs) (accumulateDerivations (lib.attrValues attrs))
-      )
-      jobList;
+    lib.concatMap (
+      attrs:
+      if lib.isDerivation attrs then
+        [ attrs ]
+      else
+        lib.optionals (lib.isAttrs attrs) (accumulateDerivations (lib.attrValues attrs))
+    ) jobList;
 
   # names of all subsets of `pkgs.haskell.packages`
   #
@@ -168,16 +166,16 @@ let
           onlyConfigJobs =
             ghc: jobs:
             let
-              configFilteredJobset =
-                lib.filterAttrs (jobName: platforms: lib.elem ghc (config."${jobName}" or [ ]))
-                  jobs;
+              configFilteredJobset = lib.filterAttrs (
+                jobName: platforms: lib.elem ghc (config."${jobName}" or [ ])
+              ) jobs;
 
               # Remove platforms from each job that are not supported by GHC.
               # This is important so that we don't build jobs for platforms
               # where GHC can't be compiled.
-              jobsetWithGHCPlatforms =
-                lib.mapAttrs (_: platforms: lib.intersectLists jobs.ghc platforms)
-                  configFilteredJobset;
+              jobsetWithGHCPlatforms = lib.mapAttrs (
+                _: platforms: lib.intersectLists jobs.ghc platforms
+              ) configFilteredJobset;
             in
             jobsetWithGHCPlatforms;
         in
@@ -227,8 +225,9 @@ let
   # }
   removePlatforms =
     platformsToRemove: packageSet:
-    lib.mapAttrsRecursive (_: val: if lib.isList val then removeMany platformsToRemove val else val)
-      packageSet;
+    lib.mapAttrsRecursive (
+      _: val: if lib.isList val then removeMany platformsToRemove val else val
+    ) packageSet;
 
   jobs = recursiveUpdateMany [
     (mapTestOn {
@@ -395,20 +394,17 @@ let
       };
 
       # Get some cache going for MUSL-enabled GHC.
-      pkgsMusl.haskellPackages =
-        removePlatforms
-          [
-            # pkgsMusl is compiled natively with musl.  It is not
-            # cross-compiled (unlike pkgsStatic).  We can only
-            # natively bootstrap GHC with musl on x86_64-linux because
-            # upstream doesn't provide a musl bindist for aarch64.
-            "aarch64-linux"
+      pkgsMusl.haskellPackages = removePlatforms [
+        # pkgsMusl is compiled natively with musl.  It is not
+        # cross-compiled (unlike pkgsStatic).  We can only
+        # natively bootstrap GHC with musl on x86_64-linux because
+        # upstream doesn't provide a musl bindist for aarch64.
+        "aarch64-linux"
 
-            # musl only supports linux, not darwin.
-            "x86_64-darwin"
-            "aarch64-darwin"
-          ]
-          { inherit (packagePlatforms pkgs.pkgsMusl.haskellPackages) hello lens random; };
+        # musl only supports linux, not darwin.
+        "x86_64-darwin"
+        "aarch64-darwin"
+      ] { inherit (packagePlatforms pkgs.pkgsMusl.haskellPackages) hello lens random; };
 
       # Test some statically linked packages to catch regressions
       # and get some cache going for static compilation with GHC.
@@ -480,13 +476,10 @@ let
       cabal2nix = lib.subtractLists [ compilerNames.ghc961 ] released;
       cabal2nix-unstable = lib.subtractLists [ compilerNames.ghc961 ] released;
       funcmp = lib.subtractLists [ compilerNames.ghc961 ] released;
-      haskell-language-server =
-        lib.subtractLists
-          [
-            # Support ceased as of 1.9.0.0
-            compilerNames.ghc884
-          ]
-          released;
+      haskell-language-server = lib.subtractLists [
+        # Support ceased as of 1.9.0.0
+        compilerNames.ghc884
+      ] released;
       hoogle = lib.subtractLists [ compilerNames.ghc961 ] released;
       hlint = lib.subtractLists [ compilerNames.ghc961 ] released;
       hpack = lib.subtractLists [ compilerNames.ghc961 ] released;

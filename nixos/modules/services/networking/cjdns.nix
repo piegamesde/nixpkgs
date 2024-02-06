@@ -48,13 +48,12 @@ let
   cjdnsExtraHosts = pkgs.runCommand "cjdns-hosts" { } ''
     exec >$out
     ${concatStringsSep "\n" (
-      mapAttrsToList
-        (
-          k: v:
-          optionalString (v.hostname != "")
-            "echo $(${pkgs.cjdns}/bin/publictoip6 ${v.publicKey}) ${v.hostname}"
-        )
-        (cfg.ETHInterface.connectTo // cfg.UDPInterface.connectTo)
+      mapAttrsToList (
+        k: v:
+        optionalString (
+          v.hostname != ""
+        ) "echo $(${pkgs.cjdns}/bin/publictoip6 ${v.publicKey}) ${v.hostname}"
+      ) (cfg.ETHInterface.connectTo // cfg.UDPInterface.connectTo)
     )}
   '';
 
@@ -63,40 +62,38 @@ let
     x // { connectTo = mapAttrs (name: value: { inherit (value) password publicKey; }) x.connectTo; };
 
   cjdrouteConf = builtins.toJSON (
-    recursiveUpdate
-      {
-        admin = {
-          bind = cfg.admin.bind;
-          password = "@CJDNS_ADMIN_PASSWORD@";
+    recursiveUpdate {
+      admin = {
+        bind = cfg.admin.bind;
+        password = "@CJDNS_ADMIN_PASSWORD@";
+      };
+      authorizedPasswords = map (p: { password = p; }) cfg.authorizedPasswords;
+      interfaces = {
+        ETHInterface = if (cfg.ETHInterface.bind != "") then [ (parseModules cfg.ETHInterface) ] else [ ];
+        UDPInterface = if (cfg.UDPInterface.bind != "") then [ (parseModules cfg.UDPInterface) ] else [ ];
+      };
+
+      privateKey = "@CJDNS_PRIVATE_KEY@";
+
+      resetAfterInactivitySeconds = 100;
+
+      router = {
+        interface = {
+          type = "TUNInterface";
         };
-        authorizedPasswords = map (p: { password = p; }) cfg.authorizedPasswords;
-        interfaces = {
-          ETHInterface = if (cfg.ETHInterface.bind != "") then [ (parseModules cfg.ETHInterface) ] else [ ];
-          UDPInterface = if (cfg.UDPInterface.bind != "") then [ (parseModules cfg.UDPInterface) ] else [ ];
+        ipTunnel = {
+          allowedConnections = [ ];
+          outgoingConnections = [ ];
         };
+      };
 
-        privateKey = "@CJDNS_PRIVATE_KEY@";
-
-        resetAfterInactivitySeconds = 100;
-
-        router = {
-          interface = {
-            type = "TUNInterface";
-          };
-          ipTunnel = {
-            allowedConnections = [ ];
-            outgoingConnections = [ ];
-          };
-        };
-
-        security = [
-          {
-            exemptAngel = 1;
-            setuser = "nobody";
-          }
-        ];
-      }
-      cfg.extraConfig
+      security = [
+        {
+          exemptAngel = 1;
+          setuser = "nobody";
+        }
+      ];
+    } cfg.extraConfig
   );
 in
 

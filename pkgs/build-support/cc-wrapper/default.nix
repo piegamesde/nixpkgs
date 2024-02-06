@@ -117,9 +117,9 @@ let
       ]
       targetPlatform.config;
 
-  expand-response-params =
-    lib.optionalString ((buildPackages.stdenv.hasCC or false) && buildPackages.stdenv.cc != "/dev/null")
-      (import ../expand-response-params { inherit (buildPackages) stdenv; });
+  expand-response-params = lib.optionalString (
+    (buildPackages.stdenv.hasCC or false) && buildPackages.stdenv.cc != "/dev/null"
+  ) (import ../expand-response-params { inherit (buildPackages) stdenv; });
 
   useGccForLibs =
     useCcForLibs
@@ -682,8 +682,9 @@ stdenv.mkDerivation {
     ##
     + extraBuildCommands
     + lib.strings.concatStringsSep "; " (
-      lib.attrsets.mapAttrsToList (name: value: "echo ${toString value} >> $out/nix-support/${name}")
-        nixSupport
+      lib.attrsets.mapAttrsToList (
+        name: value: "echo ${toString value} >> $out/nix-support/${name}"
+      ) nixSupport
     );
 
   env = {
@@ -707,13 +708,10 @@ stdenv.mkDerivation {
     (if cc_ ? meta then removeAttrs cc.meta [ "priority" ] else { })
     // {
       description =
-        lib.attrByPath
-          [
-            "meta"
-            "description"
-          ]
-          "System C compiler"
-          cc_
+        lib.attrByPath [
+          "meta"
+          "description"
+        ] "System C compiler" cc_
         + " (wrapper script)";
       priority = 10;
     };

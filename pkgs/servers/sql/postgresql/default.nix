@@ -274,13 +274,10 @@ let
             in
             import ./packages.nix newSelf newSuper;
 
-          withPackages =
-            postgresqlWithPackages
-              {
-                inherit makeWrapper buildEnv;
-                postgresql = this;
-              }
-              this.pkgs;
+          withPackages = postgresqlWithPackages {
+            inherit makeWrapper buildEnv;
+            postgresql = this;
+          } this.pkgs;
 
           tests = {
             postgresql = nixosTests.postgresql-wal-receiver.${thisAttr};
@@ -406,16 +403,13 @@ let
   packages = mkPackages self;
 in
 packages
-//
-  self.lib.mapAttrs'
-    (
-      attrName: postgres:
-      self.lib.nameValuePair "${attrName}_jit" (
-        postgres.override rec {
-          jitSupport = true;
-          thisAttr = "${attrName}_jit";
-          this = self.${thisAttr};
-        }
-      )
-    )
-    packages
+// self.lib.mapAttrs' (
+  attrName: postgres:
+  self.lib.nameValuePair "${attrName}_jit" (
+    postgres.override rec {
+      jitSupport = true;
+      thisAttr = "${attrName}_jit";
+      this = self.${thisAttr};
+    }
+  )
+) packages

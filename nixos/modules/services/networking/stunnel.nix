@@ -35,12 +35,10 @@ let
       generators.mkValueStringDefault { } v;
   generateConfig =
     c:
-    generators.toINI
-      {
-        mkSectionName = id;
-        mkKeyValue = k: v: "${k} = ${mkValueString v}";
-      }
-      (removeNulls c);
+    generators.toINI {
+      mkSectionName = id;
+      mkKeyValue = k: v: "${k} = ${mkValueString v}";
+    } (removeNulls c);
 in
 
 {

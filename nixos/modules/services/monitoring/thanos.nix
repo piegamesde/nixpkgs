@@ -77,13 +77,11 @@ let
 
   toYAML =
     name: attrs:
-    pkgs.runCommand name
-      {
-        preferLocalBuild = true;
-        json = builtins.toFile "${name}.json" (builtins.toJSON attrs);
-        nativeBuildInputs = [ pkgs.remarshal ];
-      }
-      "json2yaml -i $json -o $out";
+    pkgs.runCommand name {
+      preferLocalBuild = true;
+      json = builtins.toFile "${name}.json" (builtins.toJSON attrs);
+      nativeBuildInputs = [ pkgs.remarshal ];
+    } "json2yaml -i $json -o $out";
 
   thanos =
     cmd:

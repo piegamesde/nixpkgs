@@ -49,14 +49,11 @@ in
 
 {
   imports = [
-    (mkRemovedOptionModule
-      [
-        "services"
-        "postgresql"
-        "extraConfig"
-      ]
-      "Use services.postgresql.settings instead."
-    )
+    (mkRemovedOptionModule [
+      "services"
+      "postgresql"
+      "extraConfig"
+    ] "Use services.postgresql.settings instead.")
   ];
 
   ###### interface
@@ -522,9 +519,9 @@ in
 
     environment.pathsToLink = [ "/share/postgresql" ];
 
-    system.extraDependencies =
-      lib.optional (cfg.checkConfig && pkgs.stdenv.hostPlatform == pkgs.stdenv.buildPlatform)
-        configFileCheck;
+    system.extraDependencies = lib.optional (
+      cfg.checkConfig && pkgs.stdenv.hostPlatform == pkgs.stdenv.buildPlatform
+    ) configFileCheck;
 
     systemd.services.postgresql = {
       description = "PostgreSQL Server";
@@ -575,36 +572,32 @@ in
           fi
         ''
         + optionalString (cfg.ensureDatabases != [ ]) ''
-          ${concatMapStrings
-            (database: ''
-              $PSQL -tAc "SELECT 1 FROM pg_database WHERE datname = '${database}'" | grep -q 1 || $PSQL -tAc 'CREATE DATABASE "${database}"'
-            '')
-            cfg.ensureDatabases}
+          ${concatMapStrings (database: ''
+            $PSQL -tAc "SELECT 1 FROM pg_database WHERE datname = '${database}'" | grep -q 1 || $PSQL -tAc 'CREATE DATABASE "${database}"'
+          '') cfg.ensureDatabases}
         ''
         + ''
-          ${concatMapStrings
-            (
-              user:
-              let
-                userPermissions = concatStringsSep "\n" (
-                  mapAttrsToList
-                    (database: permission: ''$PSQL -tAc 'GRANT ${permission} ON ${database} TO "${user.name}"' '')
-                    user.ensurePermissions
-                );
+          ${concatMapStrings (
+            user:
+            let
+              userPermissions = concatStringsSep "\n" (
+                mapAttrsToList (
+                  database: permission: ''$PSQL -tAc 'GRANT ${permission} ON ${database} TO "${user.name}"' ''
+                ) user.ensurePermissions
+              );
 
-                filteredClauses = filterAttrs (name: value: value != null) user.ensureClauses;
+              filteredClauses = filterAttrs (name: value: value != null) user.ensureClauses;
 
-                clauseSqlStatements = attrValues (mapAttrs (n: v: if v then n else "no${n}") filteredClauses);
+              clauseSqlStatements = attrValues (mapAttrs (n: v: if v then n else "no${n}") filteredClauses);
 
-                userClauses = ''$PSQL -tAc 'ALTER ROLE "${user.name}" ${concatStringsSep " " clauseSqlStatements}' '';
-              in
-              ''
-                $PSQL -tAc "SELECT 1 FROM pg_roles WHERE rolname='${user.name}'" | grep -q 1 || $PSQL -tAc 'CREATE USER "${user.name}"'
-                ${userPermissions}
-                ${userClauses}
-              ''
-            )
-            cfg.ensureUsers}
+              userClauses = ''$PSQL -tAc 'ALTER ROLE "${user.name}" ${concatStringsSep " " clauseSqlStatements}' '';
+            in
+            ''
+              $PSQL -tAc "SELECT 1 FROM pg_roles WHERE rolname='${user.name}'" | grep -q 1 || $PSQL -tAc 'CREATE USER "${user.name}"'
+              ${userPermissions}
+              ${userClauses}
+            ''
+          ) cfg.ensureUsers}
         '';
 
       serviceConfig = mkMerge [

@@ -22,13 +22,10 @@ rec {
       let
         relPath = lib.removePrefix ((toString root) + "/") name;
         matches = pair: (match (head pair) relPath) != null;
-        matched =
-          map
-            (pair: [
-              (matches pair)
-              (last pair)
-            ])
-            patterns;
+        matched = map (pair: [
+          (matches pair)
+          (last pair)
+        ]) patterns;
       in
       last (
         last (
@@ -146,14 +143,12 @@ rec {
         (last l)
       ];
     in
-    map
-      (
-        l: # `l' for "line"
-        mapPat
-          (l: handleSlashSuffix (handleSlashPrefix (handleHashesBangs (mapAroundCharclass substWildcards l))))
-          (computeNegation l)
-      )
-      (filter (l: !isList l && !isComment l) (split "\n" gitignore));
+    map (
+      l: # `l' for "line"
+      mapPat (
+        l: handleSlashSuffix (handleSlashPrefix (handleHashesBangs (mapAroundCharclass substWildcards l)))
+      ) (computeNegation l)
+    ) (filter (l: !isList l && !isComment l) (split "\n" gitignore));
 
   gitignoreFilter = ign: root: filterPattern (gitignoreToPatterns ign) root;
 

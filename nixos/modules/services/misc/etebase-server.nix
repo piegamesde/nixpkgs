@@ -25,22 +25,16 @@ let
 in
 {
   imports = [
-    (mkRemovedOptionModule
-      [
-        "services"
-        "etebase-server"
-        "customIni"
-      ]
-      "Set the option `services.etebase-server.settings' instead."
-    )
-    (mkRemovedOptionModule
-      [
-        "services"
-        "etebase-server"
-        "database"
-      ]
-      "Set the option `services.etebase-server.settings.database' instead."
-    )
+    (mkRemovedOptionModule [
+      "services"
+      "etebase-server"
+      "customIni"
+    ] "Set the option `services.etebase-server.settings' instead.")
+    (mkRemovedOptionModule [
+      "services"
+      "etebase-server"
+      "database"
+    ] "Set the option `services.etebase-server.settings.database' instead.")
     (mkRenamedOptionModule
       [
         "services"

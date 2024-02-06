@@ -12,20 +12,18 @@ let
 
   printProperties =
     properties:
-    concatMapStrings
-      (
-        propertyName:
-        let
-          property = properties.${propertyName};
-        in
-        if isList property then
-          "${propertyName}=(${
-            lib.concatMapStrings (elem: "\"${toString elem}\" ") (properties.${propertyName})
-          })\n"
-        else
-          "${propertyName}=\"${toString property}\"\n"
-      )
-      (builtins.attrNames properties);
+    concatMapStrings (
+      propertyName:
+      let
+        property = properties.${propertyName};
+      in
+      if isList property then
+        "${propertyName}=(${
+          lib.concatMapStrings (elem: "\"${toString elem}\" ") (properties.${propertyName})
+        })\n"
+      else
+        "${propertyName}=\"${toString property}\"\n"
+    ) (builtins.attrNames properties);
 
   properties = pkgs.stdenv.mkDerivation {
     name = "dysnomia-properties";
@@ -42,20 +40,18 @@ let
       mkdir -p $out
       cd $out
 
-      ${concatMapStrings
-        (
-          containerName:
-          let
-            containerProperties = cfg.containers.${containerName};
-          in
-          ''
-            cat > ${containerName} <<EOF
-            ${printProperties containerProperties}
-            type=${containerName}
-            EOF
-          ''
-        )
-        (builtins.attrNames cfg.containers)}
+      ${concatMapStrings (
+        containerName:
+        let
+          containerProperties = cfg.containers.${containerName};
+        in
+        ''
+          cat > ${containerName} <<EOF
+          ${printProperties containerProperties}
+          type=${containerName}
+          EOF
+        ''
+      ) (builtins.attrNames cfg.containers)}
     '';
   };
 
@@ -64,15 +60,13 @@ let
     ''
       mkdir ${containerName}
 
-      ${concatMapStrings
-        (
-          componentName:
-          let
-            component = cfg.components.${containerName}.${componentName};
-          in
-          "ln -s ${component} ${containerName}/${componentName}\n"
-        )
-        (builtins.attrNames (cfg.components.${containerName} or { }))}
+      ${concatMapStrings (
+        componentName:
+        let
+          component = cfg.components.${containerName}.${componentName};
+        in
+        "ln -s ${component} ${containerName}/${componentName}\n"
+      ) (builtins.attrNames (cfg.components.${containerName} or { }))}
     '';
 
   componentsDir = pkgs.stdenv.mkDerivation {
@@ -195,23 +189,20 @@ in
       origArgs:
       dysnomiaFlags
       // lib.optionalAttrs (cfg.enableLegacyModules) {
-        enableLegacy =
-          builtins.trace
-            ''
-              WARNING: Dysnomia has been configured to use the legacy 'process' and 'wrapper'
-              modules for compatibility reasons! If you rely on these modules, consider
-              migrating to better alternatives.
+        enableLegacy = builtins.trace ''
+          WARNING: Dysnomia has been configured to use the legacy 'process' and 'wrapper'
+          modules for compatibility reasons! If you rely on these modules, consider
+          migrating to better alternatives.
 
-              More information: https://raw.githubusercontent.com/svanderburg/dysnomia/f65a9a84827bcc4024d6b16527098b33b02e4054/README-legacy.md
+          More information: https://raw.githubusercontent.com/svanderburg/dysnomia/f65a9a84827bcc4024d6b16527098b33b02e4054/README-legacy.md
 
-              If you have migrated already or don't rely on these Dysnomia modules, you can
-              disable legacy mode with the following NixOS configuration option:
+          If you have migrated already or don't rely on these Dysnomia modules, you can
+          disable legacy mode with the following NixOS configuration option:
 
-              dysnomia.enableLegacyModules = false;
+          dysnomia.enableLegacyModules = false;
 
-              In a future version of Dysnomia (and NixOS) the legacy option will go away!
-            ''
-            true;
+          In a future version of Dysnomia (and NixOS) the legacy option will go away!
+        '' true;
       }
     );
 
@@ -243,55 +234,52 @@ in
         ++ optional (dysnomiaFlags.enableSubversionRepository) "subversion-repository";
     };
 
-    dysnomia.containers =
-      lib.recursiveUpdate
-        (
-          {
-            process = { };
-            wrapper = { };
-          }
-          // lib.optionalAttrs (config.services.httpd.enable) {
-            apache-webapplication = {
-              documentRoot = config.services.httpd.virtualHosts.localhost.documentRoot;
-            };
-          }
-          // lib.optionalAttrs (config.services.tomcat.axis2.enable) { axis2-webservice = { }; }
-          // lib.optionalAttrs (config.services.ejabberd.enable) {
-            ejabberd-dump = {
-              ejabberdUser = config.services.ejabberd.user;
-            };
-          }
-          // lib.optionalAttrs (config.services.mysql.enable) {
-            mysql-database = {
-              mysqlPort = config.services.mysql.port;
-              mysqlSocket = "/run/mysqld/mysqld.sock";
-            } // lib.optionalAttrs cfg.enableAuthentication { mysqlUsername = "root"; };
-          }
-          // lib.optionalAttrs (config.services.postgresql.enable) {
-            postgresql-database =
-              { }
-              // lib.optionalAttrs (cfg.enableAuthentication) { postgresqlUsername = "postgres"; };
-          }
-          // lib.optionalAttrs (config.services.tomcat.enable) {
-            tomcat-webapplication = {
-              tomcatPort = 8080;
-            };
-          }
-          // lib.optionalAttrs (config.services.mongodb.enable) { mongo-database = { }; }
-          // lib.optionalAttrs (config.services.influxdb.enable) {
-            influx-database = {
-              influxdbUsername = config.services.influxdb.user;
-              influxdbDataDir = "${config.services.influxdb.dataDir}/data";
-              influxdbMetaDir = "${config.services.influxdb.dataDir}/meta";
-            };
-          }
-          // lib.optionalAttrs (config.services.svnserve.enable) {
-            subversion-repository = {
-              svnBaseDir = config.services.svnserve.svnBaseDir;
-            };
-          }
-        )
-        cfg.extraContainerProperties;
+    dysnomia.containers = lib.recursiveUpdate (
+      {
+        process = { };
+        wrapper = { };
+      }
+      // lib.optionalAttrs (config.services.httpd.enable) {
+        apache-webapplication = {
+          documentRoot = config.services.httpd.virtualHosts.localhost.documentRoot;
+        };
+      }
+      // lib.optionalAttrs (config.services.tomcat.axis2.enable) { axis2-webservice = { }; }
+      // lib.optionalAttrs (config.services.ejabberd.enable) {
+        ejabberd-dump = {
+          ejabberdUser = config.services.ejabberd.user;
+        };
+      }
+      // lib.optionalAttrs (config.services.mysql.enable) {
+        mysql-database = {
+          mysqlPort = config.services.mysql.port;
+          mysqlSocket = "/run/mysqld/mysqld.sock";
+        } // lib.optionalAttrs cfg.enableAuthentication { mysqlUsername = "root"; };
+      }
+      // lib.optionalAttrs (config.services.postgresql.enable) {
+        postgresql-database =
+          { }
+          // lib.optionalAttrs (cfg.enableAuthentication) { postgresqlUsername = "postgres"; };
+      }
+      // lib.optionalAttrs (config.services.tomcat.enable) {
+        tomcat-webapplication = {
+          tomcatPort = 8080;
+        };
+      }
+      // lib.optionalAttrs (config.services.mongodb.enable) { mongo-database = { }; }
+      // lib.optionalAttrs (config.services.influxdb.enable) {
+        influx-database = {
+          influxdbUsername = config.services.influxdb.user;
+          influxdbDataDir = "${config.services.influxdb.dataDir}/data";
+          influxdbMetaDir = "${config.services.influxdb.dataDir}/meta";
+        };
+      }
+      // lib.optionalAttrs (config.services.svnserve.enable) {
+        subversion-repository = {
+          svnBaseDir = config.services.svnserve.svnBaseDir;
+        };
+      }
+    ) cfg.extraContainerProperties;
 
     boot.extraSystemdUnitPaths = [ "/etc/systemd-mutable/system" ];
 

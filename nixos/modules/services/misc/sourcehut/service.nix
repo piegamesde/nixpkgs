@@ -250,9 +250,9 @@ in
             {
               "${srvCfg.group}" = { };
             }
-            // optionalAttrs
-              (cfg.postgresql.enable && hasSuffix "0" (postgresql.settings.unix_socket_permissions or ""))
-              { "postgres".members = [ srvCfg.user ]; }
+            // optionalAttrs (
+              cfg.postgresql.enable && hasSuffix "0" (postgresql.settings.unix_socket_permissions or "")
+            ) { "postgres".members = [ srvCfg.user ]; }
             // optionalAttrs (cfg.redis.enable && hasSuffix "0" (redis.settings.unixsocketperm or "")) {
               "redis-sourcehut-${srvsrht}".members = [ srvCfg.user ];
             };
@@ -279,15 +279,12 @@ in
             local ${srvCfg.postgresql.database} ${srvCfg.user} trust
           '';
           ensureDatabases = [ srvCfg.postgresql.database ];
-          ensureUsers =
-            map
-              (name: {
-                inherit name;
-                ensurePermissions = {
-                  "DATABASE \"${srvCfg.postgresql.database}\"" = "ALL PRIVILEGES";
-                };
-              })
-              [ srvCfg.user ];
+          ensureUsers = map (name: {
+            inherit name;
+            ensurePermissions = {
+              "DATABASE \"${srvCfg.postgresql.database}\"" = "ALL PRIVILEGES";
+            };
+          }) [ srvCfg.user ];
         };
 
         services.sourcehut.services = mkDefault (
@@ -420,61 +417,52 @@ in
             };
           })
 
-          (mapAttrs
-            (
-              timerName: timer:
-              (baseService timerName { } (
-                mkMerge [
-                  {
-                    description = "sourcehut ${timerName} service";
-                    after = [
-                      "network.target"
-                      "${srvsrht}.service"
-                    ];
-                    serviceConfig = {
-                      Type = "oneshot";
-                      ExecStart = "${cfg.python}/bin/${timerName}";
-                    };
-                  }
-                  (timer.service or { })
-                ]
-              ))
-            )
-            extraTimers
-          )
+          (mapAttrs (
+            timerName: timer:
+            (baseService timerName { } (
+              mkMerge [
+                {
+                  description = "sourcehut ${timerName} service";
+                  after = [
+                    "network.target"
+                    "${srvsrht}.service"
+                  ];
+                  serviceConfig = {
+                    Type = "oneshot";
+                    ExecStart = "${cfg.python}/bin/${timerName}";
+                  };
+                }
+                (timer.service or { })
+              ]
+            ))
+          ) extraTimers)
 
-          (mapAttrs
-            (
-              serviceName: extraService:
-              baseService serviceName { } (
-                mkMerge [
-                  {
-                    description = "sourcehut ${serviceName} service";
-                    # So that extraServices have the PostgreSQL database initialized.
-                    after = [ "${srvsrht}.service" ];
-                    wantedBy = [ "${srvsrht}.service" ];
-                    partOf = [ "${srvsrht}.service" ];
-                    serviceConfig = {
-                      Type = "simple";
-                      Restart = mkDefault "always";
-                    };
-                  }
-                  extraService
-                ]
-              )
+          (mapAttrs (
+            serviceName: extraService:
+            baseService serviceName { } (
+              mkMerge [
+                {
+                  description = "sourcehut ${serviceName} service";
+                  # So that extraServices have the PostgreSQL database initialized.
+                  after = [ "${srvsrht}.service" ];
+                  wantedBy = [ "${srvsrht}.service" ];
+                  partOf = [ "${srvsrht}.service" ];
+                  serviceConfig = {
+                    Type = "simple";
+                    Restart = mkDefault "always";
+                  };
+                }
+                extraService
+              ]
             )
-            extraServices
-          )
+          ) extraServices)
         ];
 
-        systemd.timers =
-          mapAttrs
-            (timerName: timer: {
-              description = "sourcehut timer for ${timerName}";
-              wantedBy = [ "timers.target" ];
-              inherit (timer) timerConfig;
-            })
-            extraTimers;
+        systemd.timers = mapAttrs (timerName: timer: {
+          description = "sourcehut timer for ${timerName}";
+          wantedBy = [ "timers.target" ];
+          inherit (timer) timerConfig;
+        }) extraTimers;
       }
     ]
   );

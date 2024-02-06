@@ -61,20 +61,14 @@ in
   };
 
   imports = [
-    (lib.mkRemovedOptionModule
-      [
-        "services"
-        "bird"
-      ]
-      "Use services.bird2 instead"
-    )
-    (lib.mkRemovedOptionModule
-      [
-        "services"
-        "bird6"
-      ]
-      "Use services.bird2 instead"
-    )
+    (lib.mkRemovedOptionModule [
+      "services"
+      "bird"
+    ] "Use services.bird2 instead")
+    (lib.mkRemovedOptionModule [
+      "services"
+      "bird6"
+    ] "Use services.bird2 instead")
   ];
 
   ###### implementation

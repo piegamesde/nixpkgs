@@ -28,24 +28,18 @@ let
 in
 {
   imports = [
-    (mkRemovedOptionModule
-      [
-        "services"
-        "misc"
-        "nzbget"
-        "configFile"
-      ]
-      "The configuration of nzbget is now managed by users through the web interface."
-    )
-    (mkRemovedOptionModule
-      [
-        "services"
-        "misc"
-        "nzbget"
-        "dataDir"
-      ]
-      "The data directory for nzbget is now /var/lib/nzbget."
-    )
+    (mkRemovedOptionModule [
+      "services"
+      "misc"
+      "nzbget"
+      "configFile"
+    ] "The configuration of nzbget is now managed by users through the web interface.")
+    (mkRemovedOptionModule [
+      "services"
+      "misc"
+      "nzbget"
+      "dataDir"
+    ] "The data directory for nzbget is now /var/lib/nzbget.")
     (mkRemovedOptionModule
       [
         "services"

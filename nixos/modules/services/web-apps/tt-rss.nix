@@ -27,13 +27,10 @@ let
       password =
         if (cfg.database.password != null) then
           "'${
-            (escape
-              [
-                "'"
-                "\\"
-              ]
-              cfg.database.password
-            )
+            (escape [
+              "'"
+              "\\"
+            ] cfg.database.password)
           }'"
         else if (cfg.database.passwordFile != null) then
           "file_get_contents('${cfg.database.passwordFile}')"
@@ -63,12 +60,10 @@ let
         putenv('TTRSS_AUTH_AUTO_LOGIN=${boolToString cfg.auth.autoLogin}');
 
         putenv('TTRSS_FEED_CRYPT_KEY=${
-          escape
-            [
-              "'"
-              "\\"
-            ]
-            cfg.feedCryptKey
+          escape [
+            "'"
+            "\\"
+          ] cfg.feedCryptKey
         }');
 
 
@@ -111,38 +106,30 @@ let
         putenv('TTRSS_SMTP_SERVER=${cfg.email.server}');
         putenv('TTRSS_SMTP_LOGIN=${cfg.email.login}');
         putenv('TTRSS_SMTP_PASSWORD=${
-          escape
-            [
-              "'"
-              "\\"
-            ]
-            cfg.email.password
+          escape [
+            "'"
+            "\\"
+          ] cfg.email.password
         }');
         putenv('TTRSS_SMTP_SECURE=${cfg.email.security}');
 
         putenv('TTRSS_SMTP_FROM_NAME=${
-          escape
-            [
-              "'"
-              "\\"
-            ]
-            cfg.email.fromName
+          escape [
+            "'"
+            "\\"
+          ] cfg.email.fromName
         }');
         putenv('TTRSS_SMTP_FROM_ADDRESS=${
-          escape
-            [
-              "'"
-              "\\"
-            ]
-            cfg.email.fromAddress
+          escape [
+            "'"
+            "\\"
+          ] cfg.email.fromAddress
         }');
         putenv('TTRSS_DIGEST_SUBJECT=${
-          escape
-            [
-              "'"
-              "\\"
-            ]
-            cfg.email.digestSubject
+          escape [
+            "'"
+            "\\"
+          ] cfg.email.digestSubject
         }');
 
         ${cfg.extraConfig}

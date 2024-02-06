@@ -71,14 +71,11 @@ in
         "extraConfig"
       ]
     )
-    (mkRemovedOptionModule
-      [
-        "services"
-        "iodined"
-        "client"
-      ]
-      ""
-    )
+    (mkRemovedOptionModule [
+      "services"
+      "iodined"
+      "client"
+    ] "")
   ];
 
   ### configuration
@@ -216,8 +213,9 @@ in
         };
       in
       listToAttrs (
-        mapAttrsToList (name: value: nameValuePair "iodine-${name}" (createIodineClientService name value))
-          cfg.clients
+        mapAttrsToList (
+          name: value: nameValuePair "iodine-${name}" (createIodineClientService name value)
+        ) cfg.clients
       )
       // {
         iodined = mkIf (cfg.server.enable) {

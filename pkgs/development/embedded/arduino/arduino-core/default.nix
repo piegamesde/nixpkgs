@@ -248,17 +248,15 @@ stdenv.mkDerivation rec {
       patchelf --set-rpath ${rpath}:$out/lib $file || true
     done
 
-    ${lib.concatMapStringsSep "\n"
-      (
-        { jar, file }:
-        ''
-          jar xvf $out/${jar} ${file}
-          patchelf --set-rpath $rpath ${file}
-          jar uvf $out/${jar} ${file}
-          rm -f ${file}
-        ''
-      )
-      patchelfInJars}
+    ${lib.concatMapStringsSep "\n" (
+      { jar, file }:
+      ''
+        jar xvf $out/${jar} ${file}
+        patchelf --set-rpath $rpath ${file}
+        jar uvf $out/${jar} ${file}
+        rm -f ${file}
+      ''
+    ) patchelfInJars}
 
     # avrdude_bin is linked against libtinfo.so.5
     mkdir $out/lib/

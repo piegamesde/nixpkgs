@@ -17,13 +17,10 @@ let
 
   nagiosObjectDefs = cfg.objectDefs;
 
-  nagiosObjectDefsDir =
-    pkgs.runCommand "nagios-objects"
-      {
-        inherit nagiosObjectDefs;
-        preferLocalBuild = true;
-      }
-      "mkdir -p $out; ln -s $nagiosObjectDefs $out/";
+  nagiosObjectDefsDir = pkgs.runCommand "nagios-objects" {
+    inherit nagiosObjectDefs;
+    preferLocalBuild = true;
+  } "mkdir -p $out; ln -s $nagiosObjectDefs $out/";
 
   nagiosCfgFile =
     let
@@ -87,14 +84,11 @@ let
 in
 {
   imports = [
-    (mkRemovedOptionModule
-      [
-        "services"
-        "nagios"
-        "urlPath"
-      ]
-      "The urlPath option has been removed as it is hard coded to /nagios in the nagios package."
-    )
+    (mkRemovedOptionModule [
+      "services"
+      "nagios"
+      "urlPath"
+    ] "The urlPath option has been removed as it is hard coded to /nagios in the nagios package.")
   ];
 
   meta.maintainers = with lib.maintainers; [ symphorien ];

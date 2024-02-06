@@ -22,20 +22,16 @@ let
       if v == null then
         ""
       else
-        generators.mkKeyValueDefault
-          {
-            mkValueString =
-              v:
-              if v == true then
-                "yes"
-              else if v == false then
-                "no"
-              else
-                generators.mkValueStringDefault { } v;
-          }
-          "="
-          k
-          v;
+        generators.mkKeyValueDefault {
+          mkValueString =
+            v:
+            if v == true then
+              "yes"
+            else if v == false then
+              "no"
+            else
+              generators.mkValueStringDefault { } v;
+        } "=" k v;
   };
   configIniOfService =
     srv:
@@ -1026,25 +1022,19 @@ in
       extraConfig =
         let
           image_dirs = flatten (
-            mapAttrsToList
-              (
-                distro: revs:
-                mapAttrsToList
-                  (
-                    rev: archs:
-                    mapAttrsToList
-                      (
-                        arch: image:
-                        pkgs.runCommand "buildsrht-images" { } ''
-                          mkdir -p $out/${distro}/${rev}/${arch}
-                          ln -s ${image}/*.qcow2 $out/${distro}/${rev}/${arch}/root.img.qcow2
-                        ''
-                      )
-                      archs
-                  )
-                  revs
-              )
-              cfg.builds.images
+            mapAttrsToList (
+              distro: revs:
+              mapAttrsToList (
+                rev: archs:
+                mapAttrsToList (
+                  arch: image:
+                  pkgs.runCommand "buildsrht-images" { } ''
+                    mkdir -p $out/${distro}/${rev}/${arch}
+                    ln -s ${image}/*.qcow2 $out/${distro}/${rev}/${arch}/root.img.qcow2
+                  ''
+                ) archs
+              ) revs
+            ) cfg.builds.images
           );
           image_dir_pre = pkgs.symlinkJoin {
             name = "buildsrht-worker-images-pre";
@@ -1391,21 +1381,19 @@ in
           "set -x\n"
           + concatStringsSep "\n\n" (
             attrValues (
-              mapAttrs
-                (
-                  k: s:
-                  let
-                    srvMatch = builtins.match "^([a-z]*)\\.sr\\.ht$" k;
-                    srv = head srvMatch;
-                  in
-                  # Configure client(s) as "preauthorized"
-                  optionalString (srvMatch != null && cfg.${srv}.enable && ((s.oauth-client-id or null) != null)) ''
-                    # Configure ${srv}'s OAuth client as "preauthorized"
-                    ${postgresql.package}/bin/psql '${cfg.settings."meta.sr.ht".connection-string}' \
-                      -c "UPDATE oauthclient SET preauthorized = true WHERE client_id = '${s.oauth-client-id}'"
-                  ''
-                )
-                cfg.settings
+              mapAttrs (
+                k: s:
+                let
+                  srvMatch = builtins.match "^([a-z]*)\\.sr\\.ht$" k;
+                  srv = head srvMatch;
+                in
+                # Configure client(s) as "preauthorized"
+                optionalString (srvMatch != null && cfg.${srv}.enable && ((s.oauth-client-id or null) != null)) ''
+                  # Configure ${srv}'s OAuth client as "preauthorized"
+                  ${postgresql.package}/bin/psql '${cfg.settings."meta.sr.ht".connection-string}' \
+                    -c "UPDATE oauthclient SET preauthorized = true WHERE client_id = '${s.oauth-client-id}'"
+                ''
+              ) cfg.settings
             )
           );
         serviceConfig.ExecStart = "${pkgs.sourcehut.metasrht}/bin/metasrht-api -b ${cfg.listenAddress}:${toString (cfg.meta.port + 100)}";

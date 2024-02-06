@@ -84,16 +84,13 @@ let
 in
 {
   imports = [
-    (mkRemovedOptionModule
-      [
-        "services"
-        "xserver"
-        "displayManager"
-        "sddm"
-        "themes"
-      ]
-      "Set the option `services.xserver.displayManager.sddm.package' instead."
-    )
+    (mkRemovedOptionModule [
+      "services"
+      "xserver"
+      "displayManager"
+      "sddm"
+      "themes"
+    ] "Set the option `services.xserver.displayManager.sddm.package' instead.")
     (mkRenamedOptionModule
       [
         "services"
@@ -128,16 +125,13 @@ in
         "user"
       ]
     )
-    (mkRemovedOptionModule
-      [
-        "services"
-        "xserver"
-        "displayManager"
-        "sddm"
-        "extraConfig"
-      ]
-      "Set the option `services.xserver.displayManager.sddm.settings' instead."
-    )
+    (mkRemovedOptionModule [
+      "services"
+      "xserver"
+      "displayManager"
+      "sddm"
+      "extraConfig"
+    ] "Set the option `services.xserver.displayManager.sddm.settings' instead.")
   ];
 
   options = {

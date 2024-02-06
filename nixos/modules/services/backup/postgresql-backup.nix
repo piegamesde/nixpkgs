@@ -185,18 +185,16 @@ in
     })
     (mkIf (cfg.enable && !cfg.backupAll) {
       systemd.services = listToAttrs (
-        map
-          (
-            db:
-            let
-              cmd = "pg_dump ${cfg.pgdumpOptions} ${db}";
-            in
-            {
-              name = "postgresqlBackup-${db}";
-              value = postgresqlBackupService db cmd;
-            }
-          )
-          cfg.databases
+        map (
+          db:
+          let
+            cmd = "pg_dump ${cfg.pgdumpOptions} ${db}";
+          in
+          {
+            name = "postgresqlBackup-${db}";
+            value = postgresqlBackupService db cmd;
+          }
+        ) cfg.databases
       );
     })
   ];

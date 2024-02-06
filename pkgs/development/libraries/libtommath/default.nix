@@ -29,9 +29,9 @@ stdenv.mkDerivation rec {
 
   makefile = "makefile.shared";
 
-  env.NIX_CFLAGS_COMPILE =
-    lib.optionalString (stdenv.isDarwin && stdenv.isAarch64)
-      "-DTARGET_OS_IPHONE=0";
+  env.NIX_CFLAGS_COMPILE = lib.optionalString (
+    stdenv.isDarwin && stdenv.isAarch64
+  ) "-DTARGET_OS_IPHONE=0";
 
   enableParallelBuilding = true;
 

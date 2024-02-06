@@ -89,9 +89,9 @@ let
   coq-version = args.coq-version or (if version != "dev" then versions.majorMinor version else "dev");
   coqAtLeast = v: coq-version == "dev" || versionAtLeast coq-version v;
   buildIde = args.buildIde or (!coqAtLeast "8.14");
-  ideFlags =
-    optionalString (buildIde && !coqAtLeast "8.10")
-      "-lablgtkdir ${ocamlPackages.lablgtk}/lib/ocaml/*/site-lib/lablgtk2 -coqide opt";
+  ideFlags = optionalString (
+    buildIde && !coqAtLeast "8.10"
+  ) "-lablgtkdir ${ocamlPackages.lablgtk}/lib/ocaml/*/site-lib/lablgtk2 -coqide opt";
   csdpPatch = lib.optionalString (csdp != null) ''
     substituteInPlace plugins/micromega/sos.ml --replace "; csdp" "; ${csdp}/bin/csdp"
     substituteInPlace plugins/micromega/coq_micromega.ml --replace "System.is_in_system_path \"csdp\"" "true"
@@ -101,30 +101,28 @@ let
       customOCamlPackages
     else
       with versions;
-      switch coq-version
-        [
-          {
-            case = range "8.16" "8.17";
-            out = ocamlPackages_4_14;
-          }
-          {
-            case = range "8.14" "8.15";
-            out = ocamlPackages_4_12;
-          }
-          {
-            case = range "8.11" "8.13";
-            out = ocamlPackages_4_10;
-          }
-          {
-            case = range "8.7" "8.10";
-            out = ocamlPackages_4_09;
-          }
-          {
-            case = range "8.5" "8.6";
-            out = ocamlPackages_4_05;
-          }
-        ]
-        ocamlPackages_4_14;
+      switch coq-version [
+        {
+          case = range "8.16" "8.17";
+          out = ocamlPackages_4_14;
+        }
+        {
+          case = range "8.14" "8.15";
+          out = ocamlPackages_4_12;
+        }
+        {
+          case = range "8.11" "8.13";
+          out = ocamlPackages_4_10;
+        }
+        {
+          case = range "8.7" "8.10";
+          out = ocamlPackages_4_09;
+        }
+        {
+          case = range "8.5" "8.6";
+          out = ocamlPackages_4_05;
+        }
+      ] ocamlPackages_4_14;
   ocamlNativeBuildInputs =
     with ocamlPackages;
     [
@@ -225,8 +223,9 @@ let
       UNAME=$(type -tp uname)
       RM=$(type -tp rm)
       substituteInPlace tools/beautify-archive --replace "/bin/rm" "$RM"
-      ${lib.optionalString (!coqAtLeast "8.7")
-        "substituteInPlace configure.ml --replace \"md5 -q\" \"md5sum\""}
+      ${lib.optionalString (
+        !coqAtLeast "8.7"
+      ) "substituteInPlace configure.ml --replace \"md5 -q\" \"md5sum\""}
       ${csdpPatch}
     '';
 

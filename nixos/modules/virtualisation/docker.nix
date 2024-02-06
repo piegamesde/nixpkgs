@@ -270,13 +270,10 @@ in
   );
 
   imports = [
-    (mkRemovedOptionModule
-      [
-        "virtualisation"
-        "docker"
-        "socketActivation"
-      ]
-      "This option was removed and socket activation is now always active"
-    )
+    (mkRemovedOptionModule [
+      "virtualisation"
+      "docker"
+      "socketActivation"
+    ] "This option was removed and socket activation is now always active")
   ];
 }

@@ -66,14 +66,11 @@ in
         "welcometext"
       ]
     )
-    (mkRemovedOptionModule
-      [
-        "services"
-        "murmur"
-        "pidfile"
-      ]
-      "Hardcoded to /run/murmur/murmurd.pid now"
-    )
+    (mkRemovedOptionModule [
+      "services"
+      "murmur"
+      "pidfile"
+    ] "Hardcoded to /run/murmur/murmurd.pid now")
   ];
 
   options = {

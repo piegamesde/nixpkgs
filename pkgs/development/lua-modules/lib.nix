@@ -94,29 +94,24 @@ rec {
       rocksSubdir,
     }:
     let
-      rocksTrees =
-        lib.imap0
-          (i: dep: {
-            name = "dep-${toString i}";
-            root = "${dep}";
-            rocks_dir = "${dep}/${dep.rocksSubdir}";
-          })
-          requiredLuaRocks;
+      rocksTrees = lib.imap0 (i: dep: {
+        name = "dep-${toString i}";
+        root = "${dep}";
+        rocks_dir = "${dep}/${dep.rocksSubdir}";
+      }) requiredLuaRocks;
 
       # Explicitly point luarocks to the relevant locations for multiple-output
       # derivations that are external dependencies, to work around an issue it has
       # (https://github.com/luarocks/luarocks/issues/766)
       depVariables = zipAttrsWithLast (
-        lib.lists.map
-          (
-            { name, dep }:
-            {
-              "${name}_INCDIR" = "${lib.getDev dep}/include";
-              "${name}_LIBDIR" = "${lib.getLib dep}/lib";
-              "${name}_BINDIR" = "${lib.getBin dep}/bin";
-            }
-          )
-          externalDeps'
+        lib.lists.map (
+          { name, dep }:
+          {
+            "${name}_INCDIR" = "${lib.getDev dep}/include";
+            "${name}_LIBDIR" = "${lib.getLib dep}/lib";
+            "${name}_BINDIR" = "${lib.getBin dep}/bin";
+          }
+        ) externalDeps'
       );
       zipAttrsWithLast = lib.attrsets.zipAttrsWith (name: lib.lists.last);
 

@@ -35,8 +35,9 @@
   enableHAXM ? false,
 }:
 
-assert lib.assertMsg (enable16Bit || enable32Bit)
-  "Must enable 16-Bit and/or 32-Bit system variant.";
+assert lib.assertMsg (
+  enable16Bit || enable32Bit
+) "Must enable 16-Bit and/or 32-Bit system variant.";
 assert lib.assertMsg (enableSDL || enableX11) "Must enable SDL and/or X11 graphics interfaces.";
 assert lib.assertOneOf "withSDLVersion" withSDLVersion [
   "1"

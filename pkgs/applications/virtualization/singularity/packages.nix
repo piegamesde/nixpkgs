@@ -37,33 +37,30 @@ let
         defaultToSuid = null;
       };
 
-  singularity =
-    callPackage
-      (import ./generic.nix rec {
-        pname = "singularity-ce";
-        version = "3.11.1";
-        projectName = "singularity";
+  singularity = callPackage (import ./generic.nix rec {
+    pname = "singularity-ce";
+    version = "3.11.1";
+    projectName = "singularity";
 
-        src = fetchFromGitHub {
-          owner = "sylabs";
-          repo = "singularity";
-          rev = "v${version}";
-          hash = "sha256-gdgg6VN3Ily+2Remz6dZBhhfWIxyaBa4bIlFcgrA/uY=";
-        };
+    src = fetchFromGitHub {
+      owner = "sylabs";
+      repo = "singularity";
+      rev = "v${version}";
+      hash = "sha256-gdgg6VN3Ily+2Remz6dZBhhfWIxyaBa4bIlFcgrA/uY=";
+    };
 
-        # Update by running
-        # nix-prefetch -E "{ sha256 }: ((import ./. { }).singularity.override { vendorHash = sha256; }).go-modules"
-        # at the root directory of the Nixpkgs repository
-        vendorHash = "sha256-mBhlH6LSmcJuc6HbU/3Q9ii7vJkW9jcikBWCl8oeMOk=";
+    # Update by running
+    # nix-prefetch -E "{ sha256 }: ((import ./. { }).singularity.override { vendorHash = sha256; }).go-modules"
+    # at the root directory of the Nixpkgs repository
+    vendorHash = "sha256-mBhlH6LSmcJuc6HbU/3Q9ii7vJkW9jcikBWCl8oeMOk=";
 
-        # Do not build conmon from the Git submodule source,
-        # Use Nixpkgs provided version
-        extraConfigureFlags = [ "--without-conmon" ];
+    # Do not build conmon from the Git submodule source,
+    # Use Nixpkgs provided version
+    extraConfigureFlags = [ "--without-conmon" ];
 
-        extraDescription = " (Sylabs Inc's fork of Singularity, a.k.a. SingularityCE)";
-        extraMeta.homepage = "https://sylabs.io/";
-      })
-      { defaultToSuid = true; };
+    extraDescription = " (Sylabs Inc's fork of Singularity, a.k.a. SingularityCE)";
+    extraMeta.homepage = "https://sylabs.io/";
+  }) { defaultToSuid = true; };
 
   genOverridenNixos =
     package: packageName:

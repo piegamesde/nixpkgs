@@ -22,15 +22,13 @@ let
   toCommandsString =
     commands:
     concatStringsSep ", " (
-      map
-        (
-          command:
-          if (isString command) then
-            command
-          else
-            "${toCommandOptionsString command.options}${command.command}"
-        )
-        commands
+      map (
+        command:
+        if (isString command) then
+          command
+        else
+          "${toCommandOptionsString command.options}${command.command}"
+      ) commands
     );
 in
 
@@ -256,23 +254,20 @@ in
       # extraRules
       ${concatStringsSep "\n" (
         lists.flatten (
-          map
-            (
-              rule:
-              if (length rule.commands != 0) then
-                [
-                  (map (user: "${toUserString user}	${rule.host}=(${rule.runAs})	${toCommandsString rule.commands}")
-                    rule.users
-                  )
-                  (map
-                    (group: "${toGroupString group}	${rule.host}=(${rule.runAs})	${toCommandsString rule.commands}")
-                    rule.groups
-                  )
-                ]
-              else
-                [ ]
-            )
-            cfg.extraRules
+          map (
+            rule:
+            if (length rule.commands != 0) then
+              [
+                (map (
+                  user: "${toUserString user}	${rule.host}=(${rule.runAs})	${toCommandsString rule.commands}"
+                ) rule.users)
+                (map (
+                  group: "${toGroupString group}	${rule.host}=(${rule.runAs})	${toCommandsString rule.commands}"
+                ) rule.groups)
+              ]
+            else
+              [ ]
+          ) cfg.extraRules
         )
       )}
 

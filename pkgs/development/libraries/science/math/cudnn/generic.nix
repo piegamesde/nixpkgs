@@ -102,13 +102,10 @@ backendStdenv.mkDerivation {
   passthru = {
     inherit useCudatoolkitRunfile;
 
-    cudatoolkit =
-      trivial.warn
-        ''
-          cudnn.cudatoolkit passthru attribute is deprecated;
-          if your derivation uses cudnn directly, it should probably consume cudaPackages instead
-        ''
-        cudatoolkit;
+    cudatoolkit = trivial.warn ''
+      cudnn.cudatoolkit passthru attribute is deprecated;
+      if your derivation uses cudnn directly, it should probably consume cudaPackages instead
+    '' cudatoolkit;
 
     majorVersion = versions.major versionTriple;
   };

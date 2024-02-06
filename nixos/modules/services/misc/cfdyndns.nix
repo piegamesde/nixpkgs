@@ -12,14 +12,11 @@ let
 in
 {
   imports = [
-    (mkRemovedOptionModule
-      [
-        "services"
-        "cfdyndns"
-        "apikey"
-      ]
-      "Use services.cfdyndns.apikeyFile instead."
-    )
+    (mkRemovedOptionModule [
+      "services"
+      "cfdyndns"
+      "apikey"
+    ] "Use services.cfdyndns.apikeyFile instead.")
   ];
 
   options = {

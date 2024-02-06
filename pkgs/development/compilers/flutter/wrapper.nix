@@ -113,17 +113,14 @@ in
     ''
       for path in ${
         builtins.concatStringsSep " " (
-          builtins.foldl'
-            (
-              paths: pkg:
-              paths
-              ++ (map (directory: "'${pkg}/${directory}/pkgconfig'") [
-                "lib"
-                "share"
-              ])
-            )
-            [ ]
-            pkgConfigPackages
+          builtins.foldl' (
+            paths: pkg:
+            paths
+            ++ (map (directory: "'${pkg}/${directory}/pkgconfig'") [
+              "lib"
+              "share"
+            ])
+          ) [ ] pkgConfigPackages
         )
       }; do
         addToSearchPath FLUTTER_PKG_CONFIG_PATH "$path"

@@ -140,12 +140,10 @@ let
   mapListToAttrs =
     xs: f:
     builtins.listToAttrs (
-      map
-        (name: {
-          name = if builtins.isList name then builtins.elemAt name (builtins.length name - 1) else name;
-          value = f name;
-        })
-        xs
+      map (name: {
+        name = if builtins.isList name then builtins.elemAt name (builtins.length name - 1) else name;
+        value = f name;
+      }) xs
     );
 in
 

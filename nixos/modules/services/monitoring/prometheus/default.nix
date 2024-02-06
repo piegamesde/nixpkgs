@@ -76,10 +76,9 @@ let
         else
           generatedPrometheusYml;
     in
-    promtoolCheck
-      "check config ${lib.optionalString (cfg.checkConfig == "syntax-only") "--syntax-only"}"
-      "prometheus.yml"
-      yml;
+    promtoolCheck "check config ${
+      lib.optionalString (cfg.checkConfig == "syntax-only") "--syntax-only"
+    }" "prometheus.yml" yml;
 
   cmdlineArgs =
     cfg.extraFlags
@@ -98,15 +97,13 @@ let
     pred: x:
     if isAttrs x then
       listToAttrs (
-        concatMap
-          (
-            name:
-            let
-              v = x.${name};
-            in
-            if pred name v then [ (nameValuePair name (filterAttrsListRecursive pred v)) ] else [ ]
-          )
-          (attrNames x)
+        concatMap (
+          name:
+          let
+            v = x.${name};
+          in
+          if pred name v then [ (nameValuePair name (filterAttrsListRecursive pred v)) ] else [ ]
+        ) (attrNames x)
       )
     else if isList x then
       map (filterAttrsListRecursive pred) x
@@ -1685,14 +1682,11 @@ in
       ]
       "It has been removed since it was causing issues (https://github.com/NixOS/nixpkgs/issues/126083) and Prometheus now has native support for secret files, i.e. `basic_auth.password_file` and `authorization.credentials_file`."
     )
-    (mkRemovedOptionModule
-      [
-        "services"
-        "prometheus"
-        "alertmanagerTimeout"
-      ]
-      "Deprecated upstream and no longer had any effect"
-    )
+    (mkRemovedOptionModule [
+      "services"
+      "prometheus"
+      "alertmanagerTimeout"
+    ] "Deprecated upstream and no longer had any effect")
   ];
 
   options.services.prometheus = {

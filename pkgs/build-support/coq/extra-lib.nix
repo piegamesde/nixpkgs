@@ -96,16 +96,13 @@ recursiveUpdate lib (rec {
             tl = tail l;
           in
           if pred hd then
-            loop
-              (
-                vv
-                ++ [
-                  v
-                  hd
-                ]
-              )
-              [ ]
-              tl
+            loop (
+              vv
+              ++ [
+                v
+                hd
+              ]
+            ) [ ] tl
           else
             loop vv (v ++ [ hd ]) tl
       );
@@ -181,15 +178,10 @@ recursiveUpdate lib (rec {
         cl: var:
         if cl ? case then compare cl.case var else all (equal true) (zipListsWith compare cl.cases var);
     in
-    switch-if
-      (map
-        (cl: {
-          cond = combine cl var;
-          inherit (cl) out;
-        })
-        clauses
-      )
-      default;
+    switch-if (map (cl: {
+      cond = combine cl var;
+      inherit (cl) out;
+    }) clauses) default;
 
   /* Override arguments to mkCoqDerivation for a Coq library.
 

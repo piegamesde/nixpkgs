@@ -63,18 +63,16 @@ in
             content = builtins.readDir path;
           in
           map (n: import (path + ("/" + n))) (
-            builtins.filter
+            builtins.filter (
+              n:
               (
-                n:
-                (
-                  builtins.match ".*\\.nix" n != null
-                  &&
-                    # ignore Emacs lock files (.#foo.nix)
-                    builtins.match "\\.#.*" n == null
-                )
-                || builtins.pathExists (path + ("/" + n + "/default.nix"))
+                builtins.match ".*\\.nix" n != null
+                &&
+                  # ignore Emacs lock files (.#foo.nix)
+                  builtins.match "\\.#.*" n == null
               )
-              (builtins.attrNames content)
+              || builtins.pathExists (path + ("/" + n + "/default.nix"))
+            ) (builtins.attrNames content)
           )
         else
           # it's a file, so the result is the contents of the file itself

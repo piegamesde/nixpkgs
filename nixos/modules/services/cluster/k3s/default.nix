@@ -10,15 +10,13 @@ let
   cfg = config.services.k3s;
   removeOption =
     config: instruction:
-    lib.mkRemovedOptionModule
-      (
-        [
-          "services"
-          "k3s"
-        ]
-        ++ config
-      )
-      instruction;
+    lib.mkRemovedOptionModule (
+      [
+        "services"
+        "k3s"
+      ]
+      ++ config
+    ) instruction;
 in
 {
   imports = [ (removeOption [ "docker" ] "k3s docker option is no longer supported.") ];

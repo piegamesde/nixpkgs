@@ -245,8 +245,9 @@ backendStdenv.mkDerivation rec {
       ''}
 
       # Remove some cruft.
-      ${lib.optionalString ((lib.versionAtLeast version "7.0") && (lib.versionOlder version "10.1"))
-        "rm $out/bin/uninstall*"}
+      ${lib.optionalString (
+        (lib.versionAtLeast version "7.0") && (lib.versionOlder version "10.1")
+      ) "rm $out/bin/uninstall*"}
 
       # Fixup path to samples (needed for cuda 6.5 or else nsight will not find them)
       if [ -d "$out"/cuda-samples ]; then

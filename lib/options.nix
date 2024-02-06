@@ -246,22 +246,18 @@ rec {
     else if length defs == 1 then
       (head defs).value
     else
-      (foldl'
-        (
-          first: def:
-          if def.value != first.value then
-            throw "The option `${showOption loc}' has conflicting definition values:${
-              showDefs [
-                first
-                def
-              ]
-            }\n${prioritySuggestion}"
-          else
-            first
-        )
-        (head defs)
-        (tail defs)
-      ).value;
+      (foldl' (
+        first: def:
+        if def.value != first.value then
+          throw "The option `${showOption loc}' has conflicting definition values:${
+            showDefs [
+              first
+              def
+            ]
+          }\n${prioritySuggestion}"
+        else
+          first
+      ) (head defs) (tail defs)).value;
 
   /* Extracts values of all "value" keys of the given list.
 
@@ -289,48 +285,46 @@ rec {
 
   optionAttrSetToDocList' =
     _: options:
-    concatMap
-      (
-        opt:
-        let
-          name = showOption opt.loc;
-          docOption =
-            rec {
-              loc = opt.loc;
-              inherit name;
-              description = opt.description or null;
-              declarations = filter (x: x != unknownModule) opt.declarations;
-              internal = opt.internal or false;
-              visible = if (opt ? visible && opt.visible == "shallow") then true else opt.visible or true;
-              readOnly = opt.readOnly or false;
-              type = opt.type.description or "unspecified";
-            }
-            // optionalAttrs (opt ? example) {
-              example = builtins.addErrorContext "while evaluating the example of option `${name}`" (
-                renderOptionValue opt.example
-              );
-            }
-            // optionalAttrs (opt ? default) {
-              default = builtins.addErrorContext "while evaluating the default value of option `${name}`" (
-                renderOptionValue (opt.defaultText or opt.default)
-              );
-            }
-            // optionalAttrs (opt ? relatedPackages && opt.relatedPackages != null) {
-              inherit (opt) relatedPackages;
-            };
+    concatMap (
+      opt:
+      let
+        name = showOption opt.loc;
+        docOption =
+          rec {
+            loc = opt.loc;
+            inherit name;
+            description = opt.description or null;
+            declarations = filter (x: x != unknownModule) opt.declarations;
+            internal = opt.internal or false;
+            visible = if (opt ? visible && opt.visible == "shallow") then true else opt.visible or true;
+            readOnly = opt.readOnly or false;
+            type = opt.type.description or "unspecified";
+          }
+          // optionalAttrs (opt ? example) {
+            example = builtins.addErrorContext "while evaluating the example of option `${name}`" (
+              renderOptionValue opt.example
+            );
+          }
+          // optionalAttrs (opt ? default) {
+            default = builtins.addErrorContext "while evaluating the default value of option `${name}`" (
+              renderOptionValue (opt.defaultText or opt.default)
+            );
+          }
+          // optionalAttrs (opt ? relatedPackages && opt.relatedPackages != null) {
+            inherit (opt) relatedPackages;
+          };
 
-          subOptions =
-            let
-              ss = opt.type.getSubOptions opt.loc;
-            in
-            if ss != { } then optionAttrSetToDocList' opt.loc ss else [ ];
-          subOptionsVisible = docOption.visible && opt.visible or null != "shallow";
-        in
-        # To find infinite recursion in NixOS option docs:
-        # builtins.trace opt.loc
-        [ docOption ] ++ optionals subOptionsVisible subOptions
-      )
-      (collect isOption options);
+        subOptions =
+          let
+            ss = opt.type.getSubOptions opt.loc;
+          in
+          if ss != { } then optionAttrSetToDocList' opt.loc ss else [ ];
+        subOptionsVisible = docOption.visible && opt.visible or null != "shallow";
+      in
+      # To find infinite recursion in NixOS option docs:
+      # builtins.trace opt.loc
+      [ docOption ] ++ optionals subOptionsVisible subOptions
+    ) (collect isOption options);
 
   /* This function recursively removes all derivation attributes from
      `x` except for the `name` attribute.
@@ -368,12 +362,10 @@ rec {
       v
     else
       literalExpression (
-        lib.generators.toPretty
-          {
-            multiline = true;
-            allowPrettyValues = true;
-          }
-          v
+        lib.generators.toPretty {
+          multiline = true;
+          allowPrettyValues = true;
+        } v
       );
 
   /* For use in the `defaultText` and `example` option attributes. Causes the
@@ -469,38 +461,34 @@ rec {
 
   showDefs =
     defs:
-    concatMapStrings
-      (
-        def:
-        let
-          # Pretty print the value for display, if successful
-          prettyEval = builtins.tryEval (
-            lib.generators.toPretty { } (
-              lib.generators.withRecursion
-                {
-                  depthLimit = 10;
-                  throwOnDepthLimit = false;
-                }
-                def.value
-            )
-          );
-          # Split it into its lines
-          lines = filter (v: !isList v) (builtins.split "\n" prettyEval.value);
-          # Only display the first 5 lines, and indent them for better visibility
-          value = concatStringsSep "\n    " (take 5 lines ++ optional (length lines > 5) "...");
-          result =
-            # Don't print any value if evaluating the value strictly fails
-            if !prettyEval.success then
-              ""
-            # Put it on a new line if it consists of multiple
-            else if length lines > 1 then
-              ":\n    " + value
-            else
-              ": " + value;
-        in
-        "\n- In `${def.file}'${result}"
-      )
-      defs;
+    concatMapStrings (
+      def:
+      let
+        # Pretty print the value for display, if successful
+        prettyEval = builtins.tryEval (
+          lib.generators.toPretty { } (
+            lib.generators.withRecursion {
+              depthLimit = 10;
+              throwOnDepthLimit = false;
+            } def.value
+          )
+        );
+        # Split it into its lines
+        lines = filter (v: !isList v) (builtins.split "\n" prettyEval.value);
+        # Only display the first 5 lines, and indent them for better visibility
+        value = concatStringsSep "\n    " (take 5 lines ++ optional (length lines > 5) "...");
+        result =
+          # Don't print any value if evaluating the value strictly fails
+          if !prettyEval.success then
+            ""
+          # Put it on a new line if it consists of multiple
+          else if length lines > 1 then
+            ":\n    " + value
+          else
+            ": " + value;
+      in
+      "\n- In `${def.file}'${result}"
+    ) defs;
 
   showOptionWithDefLocs = opt: ''
     ${showOption opt.loc}, with values defined in:

@@ -308,12 +308,10 @@ let
           d=$(mktemp -d "--suffix=-$name")
         ''
         + toString (
-          map
-            (dep: ''
-              mkdir -p "$d/src/$(dirname "${dep.goPackagePath}")"
-              ln -s "${dep.src}" "$d/src/${dep.goPackagePath}"
-            '')
-            goPath
+          map (dep: ''
+            mkdir -p "$d/src/$(dirname "${dep.goPackagePath}")"
+            ln -s "${dep.src}" "$d/src/${dep.goPackagePath}"
+          '') goPath
         )
         + ''
           export GOPATH=${lib.concatStringsSep ":" ([ "$d" ] ++ [ "$GOPATH" ] ++ [ "$PWD" ] ++ extraSrcPaths)}
@@ -339,6 +337,6 @@ let
     }
   );
 in
-lib.warnIf (buildFlags != "" || buildFlagsArray != "")
-  "Use the `ldflags` and/or `tags` attributes instead of `buildFlags`/`buildFlagsArray`"
-  package
+lib.warnIf (
+  buildFlags != "" || buildFlagsArray != ""
+) "Use the `ldflags` and/or `tags` attributes instead of `buildFlags`/`buildFlagsArray`" package

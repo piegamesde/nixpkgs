@@ -170,8 +170,9 @@ let
               ip route replace default ${
                 optionalString (cfg.defaultGateway.metric != null) "metric ${toString cfg.defaultGateway.metric}"
               } via "${cfg.defaultGateway.address}" ${
-                optionalString (cfg.defaultGatewayWindowSize != null)
-                  "window ${toString cfg.defaultGatewayWindowSize}"
+                optionalString (
+                  cfg.defaultGatewayWindowSize != null
+                ) "window ${toString cfg.defaultGatewayWindowSize}"
               } ${
                 optionalString (cfg.defaultGateway.interface != null) "dev ${cfg.defaultGateway.interface}"
               } proto static
@@ -185,8 +186,9 @@ let
               ip -6 route replace default ${
                 optionalString (cfg.defaultGateway6.metric != null) "metric ${toString cfg.defaultGateway6.metric}"
               } via "${cfg.defaultGateway6.address}" ${
-                optionalString (cfg.defaultGatewayWindowSize != null)
-                  "window ${toString cfg.defaultGatewayWindowSize}"
+                optionalString (
+                  cfg.defaultGatewayWindowSize != null
+                ) "window ${toString cfg.defaultGatewayWindowSize}"
               } ${
                 optionalString (cfg.defaultGateway6.interface != null) "dev ${cfg.defaultGateway6.interface}"
               } proto static
@@ -465,19 +467,17 @@ let
                 echo "Configuring Open vSwitch ${n}..."
                 ovs-vsctl ${
                   concatStrings (
-                    mapAttrsToList
-                      (
-                        name: config:
-                        " -- add-port ${n} ${name}" + optionalString (config.vlan != null) " tag=${toString config.vlan}"
-                      )
-                      v.interfaces
+                    mapAttrsToList (
+                      name: config:
+                      " -- add-port ${n} ${name}" + optionalString (config.vlan != null) " tag=${toString config.vlan}"
+                    ) v.interfaces
                   )
                 } \
                   ${
                     concatStrings (
-                      mapAttrsToList
-                        (name: config: optionalString (config.type != null) " -- set interface ${name} type=${config.type}")
-                        v.interfaces
+                      mapAttrsToList (
+                        name: config: optionalString (config.type != null) " -- set interface ${name} type=${config.type}"
+                      ) v.interfaces
                     )
                   } \
                   ${concatMapStrings (x: " -- set-controller ${n} " + x) v.controllers} \
@@ -652,8 +652,9 @@ let
                   ${
                     optionalString (v.encapsulation != null)
                       "encap ${v.encapsulation.type} encap-dport ${toString v.encapsulation.port} ${
-                        optionalString (v.encapsulation.sourcePort != null)
-                          "encap-sport ${toString v.encapsulation.sourcePort}"
+                        optionalString (
+                          v.encapsulation.sourcePort != null
+                        ) "encap-sport ${toString v.encapsulation.sourcePort}"
                       }"
                   }
                 ip link set "${n}" up

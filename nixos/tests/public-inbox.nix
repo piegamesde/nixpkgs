@@ -103,15 +103,13 @@ import ./make-test-python.nix (
                 };
               };
           settings.coderepo = lib.listToAttrs (
-            map
-              (
-                path:
-                lib.nameValuePair (baseNameOf path) {
-                  dir = "/var/lib/gitolite/repositories/${path}.git";
-                  cgitUrl = "https://git.${domain}/${path}.git";
-                }
-              )
-              repositories
+            map (
+              path:
+              lib.nameValuePair (baseNameOf path) {
+                dir = "/var/lib/gitolite/repositories/${path}.git";
+                cgitUrl = "https://git.${domain}/${path}.git";
+              }
+            ) repositories
           );
         };
 

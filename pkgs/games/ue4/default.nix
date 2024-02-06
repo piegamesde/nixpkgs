@@ -15,18 +15,16 @@
 let
   deps = import ./cdn-deps.nix { inherit fetchurl; };
   linkDeps = writeScript "link-deps.sh" (
-    lib.concatMapStringsSep "\n"
-      (
-        hash:
-        let
-          prefix = lib.concatStrings (lib.take 2 (lib.stringToCharacters hash));
-        in
-        ''
-          mkdir -p .git/ue4-gitdeps/${prefix}
-          ln -s ${lib.getAttr hash deps} .git/ue4-gitdeps/${prefix}/${hash}
-        ''
-      )
-      (lib.attrNames deps)
+    lib.concatMapStringsSep "\n" (
+      hash:
+      let
+        prefix = lib.concatStrings (lib.take 2 (lib.stringToCharacters hash));
+      in
+      ''
+        mkdir -p .git/ue4-gitdeps/${prefix}
+        ln -s ${lib.getAttr hash deps} .git/ue4-gitdeps/${prefix}/${hash}
+      ''
+    ) (lib.attrNames deps)
   );
   libPath = lib.makeLibraryPath [
     xorg.libX11

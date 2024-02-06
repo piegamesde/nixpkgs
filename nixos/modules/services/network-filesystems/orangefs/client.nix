@@ -94,18 +94,15 @@ in
       };
     };
 
-    systemd.mounts =
-      map
-        (fs: {
-          requires = [ "orangefs-client.service" ];
-          after = [ "orangefs-client.service" ];
-          bindsTo = [ "orangefs-client.service" ];
-          wantedBy = [ "remote-fs.target" ];
-          type = "pvfs2";
-          options = concatStringsSep "," fs.options;
-          what = fs.target;
-          where = fs.mountPoint;
-        })
-        cfg.fileSystems;
+    systemd.mounts = map (fs: {
+      requires = [ "orangefs-client.service" ];
+      after = [ "orangefs-client.service" ];
+      bindsTo = [ "orangefs-client.service" ];
+      wantedBy = [ "remote-fs.target" ];
+      type = "pvfs2";
+      options = concatStringsSep "," fs.options;
+      what = fs.target;
+      where = fs.mountPoint;
+    }) cfg.fileSystems;
   };
 }

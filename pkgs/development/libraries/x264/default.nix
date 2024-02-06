@@ -55,9 +55,9 @@ stdenv.mkDerivation rec {
   configureFlags =
     lib.optional enableShared "--enable-shared"
     ++ lib.optional (!stdenv.isi686) "--enable-pic"
-    ++
-      lib.optional (stdenv.buildPlatform != stdenv.hostPlatform)
-        "--cross-prefix=${stdenv.cc.targetPrefix}";
+    ++ lib.optional (
+      stdenv.buildPlatform != stdenv.hostPlatform
+    ) "--cross-prefix=${stdenv.cc.targetPrefix}";
 
   nativeBuildInputs = lib.optional stdenv.hostPlatform.isx86 nasm;
 

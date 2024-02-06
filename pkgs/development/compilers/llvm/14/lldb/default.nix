@@ -58,14 +58,11 @@ stdenv.mkDerivation (
       #
       # See here for some context:
       # https://github.com/NixOS/nixpkgs/pull/194634#issuecomment-1272129132
-      ++
-        lib.optional
-          (
-            stdenv.targetPlatform.isDarwin
-            && !stdenv.targetPlatform.isAarch64
-            && (lib.versionOlder darwin.apple_sdk.sdk.version "11.0")
-          )
-          ./cpu_subtype_arm64e_replacement.patch;
+      ++ lib.optional (
+        stdenv.targetPlatform.isDarwin
+        && !stdenv.targetPlatform.isAarch64
+        && (lib.versionOlder darwin.apple_sdk.sdk.version "11.0")
+      ) ./cpu_subtype_arm64e_replacement.patch;
 
     outputs = [
       "out"

@@ -34,9 +34,9 @@ let
     ${cfg.extraDefaults}
   '';
 
-  purple_plugin_path =
-    lib.concatMapStringsSep ":" (plugin: "${plugin}/lib/pidgin/:${plugin}/lib/purple-2/")
-      cfg.libpurple_plugins;
+  purple_plugin_path = lib.concatMapStringsSep ":" (
+    plugin: "${plugin}/lib/pidgin/:${plugin}/lib/purple-2/"
+  ) cfg.libpurple_plugins;
 in
 
 {

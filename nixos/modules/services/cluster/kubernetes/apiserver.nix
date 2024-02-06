@@ -50,33 +50,24 @@ in
         "bindAddress"
       ]
     )
-    (mkRemovedOptionModule
-      [
-        "services"
-        "kubernetes"
-        "apiserver"
-        "insecureBindAddress"
-      ]
-      ""
-    )
-    (mkRemovedOptionModule
-      [
-        "services"
-        "kubernetes"
-        "apiserver"
-        "insecurePort"
-      ]
-      ""
-    )
-    (mkRemovedOptionModule
-      [
-        "services"
-        "kubernetes"
-        "apiserver"
-        "publicAddress"
-      ]
-      ""
-    )
+    (mkRemovedOptionModule [
+      "services"
+      "kubernetes"
+      "apiserver"
+      "insecureBindAddress"
+    ] "")
+    (mkRemovedOptionModule [
+      "services"
+      "kubernetes"
+      "apiserver"
+      "insecurePort"
+    ] "")
+    (mkRemovedOptionModule [
+      "services"
+      "kubernetes"
+      "apiserver"
+      "publicAddress"
+    ] "")
     (mkRenamedOptionModule
       [
         "services"
@@ -483,23 +474,27 @@ in
                             optionalString (cfg.basicAuthFile != null) "--basic-auth-file=${cfg.basicAuthFile}"
                           } \
                           ${
-                            optionalString (cfg.kubeletClientCaFile != null)
-                              "--kubelet-certificate-authority=${cfg.kubeletClientCaFile}"
+                            optionalString (
+                              cfg.kubeletClientCaFile != null
+                            ) "--kubelet-certificate-authority=${cfg.kubeletClientCaFile}"
                           } \
                           ${
-                            optionalString (cfg.kubeletClientCertFile != null)
-                              "--kubelet-client-certificate=${cfg.kubeletClientCertFile}"
+                            optionalString (
+                              cfg.kubeletClientCertFile != null
+                            ) "--kubelet-client-certificate=${cfg.kubeletClientCertFile}"
                           } \
                           ${
                             optionalString (cfg.kubeletClientKeyFile != null) "--kubelet-client-key=${cfg.kubeletClientKeyFile}"
                           } \
                           ${
-                            optionalString (cfg.preferredAddressTypes != null)
-                              "--kubelet-preferred-address-types=${cfg.preferredAddressTypes}"
+                            optionalString (
+                              cfg.preferredAddressTypes != null
+                            ) "--kubelet-preferred-address-types=${cfg.preferredAddressTypes}"
                           } \
                           ${
-                            optionalString (cfg.proxyClientCertFile != null)
-                              "--proxy-client-cert-file=${cfg.proxyClientCertFile}"
+                            optionalString (
+                              cfg.proxyClientCertFile != null
+                            ) "--proxy-client-cert-file=${cfg.proxyClientCertFile}"
                           } \
                           ${
                             optionalString (cfg.proxyClientKeyFile != null) "--proxy-client-key-file=${cfg.proxyClientKeyFile}"

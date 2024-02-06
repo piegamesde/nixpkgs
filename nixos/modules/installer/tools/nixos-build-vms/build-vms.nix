@@ -5,13 +5,10 @@
 }:
 
 let
-  nodes =
-    builtins.mapAttrs
-      (vm: module: {
-        _file = "${networkExpr}@node-${vm}";
-        imports = [ module ];
-      })
-      (import networkExpr);
+  nodes = builtins.mapAttrs (vm: module: {
+    _file = "${networkExpr}@node-${vm}";
+    imports = [ module ];
+  }) (import networkExpr);
 
   pkgs = import ../../../../.. { inherit system config; };
 

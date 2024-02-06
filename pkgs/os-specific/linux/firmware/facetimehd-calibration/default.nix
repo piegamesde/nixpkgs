@@ -69,19 +69,16 @@ stdenvNoCC.mkDerivation {
 
       mkdir -p $out/lib/firmware/facetimehd
     ''
-    +
-      lib.concatMapStrings
-        (
-          {
-            file,
-            offset,
-            size,
-          }:
-          ''
-            dd bs=1 skip=${offset} count=${size} if=AppleCamera.sys of=$out/lib/firmware/facetimehd/${file}
-          ''
-        )
-        calibrationFiles;
+    + lib.concatMapStrings (
+      {
+        file,
+        offset,
+        size,
+      }:
+      ''
+        dd bs=1 skip=${offset} count=${size} if=AppleCamera.sys of=$out/lib/firmware/facetimehd/${file}
+      ''
+    ) calibrationFiles;
 
   meta = with lib; {
     description = "facetimehd calibration";

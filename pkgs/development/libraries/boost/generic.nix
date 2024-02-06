@@ -191,9 +191,9 @@ stdenv.mkDerivation {
         extraPrefix = "libs/context/";
       }
     )
-    ++
-      lib.optional (lib.versionAtLeast version "1.70" && lib.versionOlder version "1.73")
-        ./cmake-paths.patch
+    ++ lib.optional (
+      lib.versionAtLeast version "1.70" && lib.versionOlder version "1.73"
+    ) ./cmake-paths.patch
     ++ lib.optional (lib.versionAtLeast version "1.73") ./cmake-paths-173.patch
     ++ lib.optional (version == "1.77.0") (
       fetchpatch {

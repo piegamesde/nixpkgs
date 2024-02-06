@@ -431,18 +431,16 @@ in
       services.xserver.displayManager.sessionPackages = [ pkgs.gnome.gnome-session.sessions ];
 
       environment.extraInit = ''
-        ${concatMapStrings
-          (p: ''
-            if [ -d "${p}/share/gsettings-schemas/${p.name}" ]; then
-              export XDG_DATA_DIRS=$XDG_DATA_DIRS''${XDG_DATA_DIRS:+:}${p}/share/gsettings-schemas/${p.name}
-            fi
+        ${concatMapStrings (p: ''
+          if [ -d "${p}/share/gsettings-schemas/${p.name}" ]; then
+            export XDG_DATA_DIRS=$XDG_DATA_DIRS''${XDG_DATA_DIRS:+:}${p}/share/gsettings-schemas/${p.name}
+          fi
 
-            if [ -d "${p}/lib/girepository-1.0" ]; then
-              export GI_TYPELIB_PATH=$GI_TYPELIB_PATH''${GI_TYPELIB_PATH:+:}${p}/lib/girepository-1.0
-              export LD_LIBRARY_PATH=$LD_LIBRARY_PATH''${LD_LIBRARY_PATH:+:}${p}/lib
-            fi
-          '')
-          cfg.sessionPath}
+          if [ -d "${p}/lib/girepository-1.0" ]; then
+            export GI_TYPELIB_PATH=$GI_TYPELIB_PATH''${GI_TYPELIB_PATH:+:}${p}/lib/girepository-1.0
+            export LD_LIBRARY_PATH=$LD_LIBRARY_PATH''${LD_LIBRARY_PATH:+:}${p}/lib
+          fi
+        '') cfg.sessionPath}
       '';
 
       environment.systemPackages = cfg.sessionPath;
@@ -463,20 +461,18 @@ in
           namesAreUnique = lib.unique wmNames == wmNames;
         in
         assert (assertMsg namesAreUnique "Flashback WM names must be unique.");
-        map
-          (
-            wm:
-            pkgs.gnome.gnome-flashback.mkSessionForWm {
-              inherit (wm)
-                wmName
-                wmLabel
-                wmCommand
-                enableGnomePanel
-                ;
-              inherit (cfg.flashback) panelModulePackages;
-            }
-          )
-          flashbackWms;
+        map (
+          wm:
+          pkgs.gnome.gnome-flashback.mkSessionForWm {
+            inherit (wm)
+              wmName
+              wmLabel
+              wmCommand
+              enableGnomePanel
+              ;
+            inherit (cfg.flashback) panelModulePackages;
+          }
+        ) flashbackWms;
 
       security.pam.services.gnome-flashback = {
         enableGnomeKeyring = true;
@@ -637,40 +633,38 @@ in
     (mkIf serviceCfg.core-utilities.enable {
       environment.systemPackages =
         with pkgs.gnome;
-        utils.removePackagesByName
-          (
-            [
-              baobab
-              cheese
-              eog
-              epiphany
-              pkgs.gnome-text-editor
-              gnome-calculator
-              gnome-calendar
-              gnome-characters
-              gnome-clocks
-              pkgs.gnome-console
-              gnome-contacts
-              gnome-font-viewer
-              gnome-logs
-              gnome-maps
-              gnome-music
-              pkgs.gnome-photos
-              gnome-system-monitor
-              gnome-weather
-              nautilus
-              pkgs.gnome-connections
-              simple-scan
-              totem
-              yelp
-            ]
-            ++ lib.optionals config.services.flatpak.enable [
-              # Since PackageKit Nix support is not there yet,
-              # only install gnome-software if flatpak is enabled.
-              gnome-software
-            ]
-          )
-          config.environment.gnome.excludePackages;
+        utils.removePackagesByName (
+          [
+            baobab
+            cheese
+            eog
+            epiphany
+            pkgs.gnome-text-editor
+            gnome-calculator
+            gnome-calendar
+            gnome-characters
+            gnome-clocks
+            pkgs.gnome-console
+            gnome-contacts
+            gnome-font-viewer
+            gnome-logs
+            gnome-maps
+            gnome-music
+            pkgs.gnome-photos
+            gnome-system-monitor
+            gnome-weather
+            nautilus
+            pkgs.gnome-connections
+            simple-scan
+            totem
+            yelp
+          ]
+          ++ lib.optionals config.services.flatpak.enable [
+            # Since PackageKit Nix support is not there yet,
+            # only install gnome-software if flatpak is enabled.
+            gnome-software
+          ]
+        ) config.environment.gnome.excludePackages;
 
       # Enable default program modules
       # Since some of these have a corresponding package, we only
@@ -700,48 +694,44 @@ in
     (mkIf serviceCfg.games.enable {
       environment.systemPackages =
         with pkgs.gnome;
-        utils.removePackagesByName
-          [
-            aisleriot
-            atomix
-            five-or-more
-            four-in-a-row
-            pkgs.gnome-2048
-            gnome-chess
-            gnome-klotski
-            gnome-mahjongg
-            gnome-mines
-            gnome-nibbles
-            gnome-robots
-            gnome-sudoku
-            gnome-taquin
-            gnome-tetravex
-            hitori
-            iagno
-            lightsoff
-            quadrapassel
-            swell-foop
-            tali
-          ]
-          config.environment.gnome.excludePackages;
+        utils.removePackagesByName [
+          aisleriot
+          atomix
+          five-or-more
+          four-in-a-row
+          pkgs.gnome-2048
+          gnome-chess
+          gnome-klotski
+          gnome-mahjongg
+          gnome-mines
+          gnome-nibbles
+          gnome-robots
+          gnome-sudoku
+          gnome-taquin
+          gnome-tetravex
+          hitori
+          iagno
+          lightsoff
+          quadrapassel
+          swell-foop
+          tali
+        ] config.environment.gnome.excludePackages;
     })
 
     # Adapt from https://gitlab.gnome.org/GNOME/gnome-build-meta/-/blob/3.38.0/elements/core/meta-gnome-core-developer-tools.bst
     (mkIf serviceCfg.core-developer-tools.enable {
       environment.systemPackages =
         with pkgs.gnome;
-        utils.removePackagesByName
-          [
-            dconf-editor
-            devhelp
-            pkgs.gnome-builder
-            # boxes would make sense in this option, however
-            # it doesn't function well enough to be included
-            # in default configurations.
-            # https://github.com/NixOS/nixpkgs/issues/60908
-            # gnome-boxes
-          ]
-          config.environment.gnome.excludePackages;
+        utils.removePackagesByName [
+          dconf-editor
+          devhelp
+          pkgs.gnome-builder
+          # boxes would make sense in this option, however
+          # it doesn't function well enough to be included
+          # in default configurations.
+          # https://github.com/NixOS/nixpkgs/issues/60908
+          # gnome-boxes
+        ] config.environment.gnome.excludePackages;
 
       services.sysprof.enable = notExcluded pkgs.sysprof;
     })

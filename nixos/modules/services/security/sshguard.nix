@@ -178,9 +178,9 @@ in
                 "-a ${toString cfg.attack_threshold}"
                 "-p ${toString cfg.blocktime}"
                 "-s ${toString cfg.detection_time}"
-                (optionalString (cfg.blacklist_threshold != null)
-                  "-b ${toString cfg.blacklist_threshold}:${cfg.blacklist_file}"
-                )
+                (optionalString (
+                  cfg.blacklist_threshold != null
+                ) "-b ${toString cfg.blacklist_threshold}:${cfg.blacklist_file}")
               ]
               ++ (map (name: "-w ${escapeShellArg name}") cfg.whitelist)
             );

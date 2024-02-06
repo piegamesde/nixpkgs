@@ -10,9 +10,9 @@ with lib;
 
 let
 
-  bootFs =
-    filterAttrs (n: fs: (fs.fsType == "bcachefs") && (utils.fsNeededForBoot fs))
-      config.fileSystems;
+  bootFs = filterAttrs (
+    n: fs: (fs.fsType == "bcachefs") && (utils.fsNeededForBoot fs)
+  ) config.fileSystems;
 
   commonFunctions = ''
     prompt() {

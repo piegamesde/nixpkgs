@@ -36,12 +36,10 @@ let
       makeSections =
         type: sections:
         concatStringsSep "\n\n" (
-          mapAttrsToList
-            (
-              sec: attrs:
-              "${type} ${sec}\n" + (concatStringsSep "\n" (mapAttrsToList (k: v: "  ${k}=${v}") attrs))
-            )
-            sections
+          mapAttrsToList (
+            sec: attrs:
+            "${type} ${sec}\n" + (concatStringsSep "\n" (mapAttrsToList (k: v: "  ${k}=${v}") attrs))
+          ) sections
         );
       setupConf = makeSections "config" { inherit setup; };
       connectionsConf = makeSections "conn" connections;

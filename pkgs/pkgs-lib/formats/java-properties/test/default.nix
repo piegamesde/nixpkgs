@@ -62,15 +62,13 @@ stdenv.mkDerivation {
   passAsFile = [ "expected" ];
   expected = concatStrings (
     attrValues (
-      mapAttrs
-        (key: value: ''
-          KEY
-          ${key}
-          VALUE
-          ${value}
+      mapAttrs (key: value: ''
+        KEY
+        ${key}
+        VALUE
+        ${value}
 
-        '')
-        input
+      '') input
     )
   );
 

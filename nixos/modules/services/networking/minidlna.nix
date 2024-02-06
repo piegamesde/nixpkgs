@@ -125,22 +125,16 @@ in
   };
 
   imports = [
-    (mkRemovedOptionModule
-      [
-        "services"
-        "minidlna"
-        "config"
-      ]
-      ""
-    )
-    (mkRemovedOptionModule
-      [
-        "services"
-        "minidlna"
-        "extraConfig"
-      ]
-      ""
-    )
+    (mkRemovedOptionModule [
+      "services"
+      "minidlna"
+      "config"
+    ] "")
+    (mkRemovedOptionModule [
+      "services"
+      "minidlna"
+      "extraConfig"
+    ] "")
     (mkRenamedOptionModule
       [
         "services"

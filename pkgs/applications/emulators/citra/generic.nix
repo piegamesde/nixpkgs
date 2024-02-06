@@ -33,8 +33,9 @@
   enableFdk ? false,
   fdk_aac,
 }:
-assert lib.assertMsg (!enableFfmpegAudioDecoder || !enableFdk)
-  "Can't enable both enableFfmpegAudioDecoder and enableFdk";
+assert lib.assertMsg (
+  !enableFfmpegAudioDecoder || !enableFdk
+) "Can't enable both enableFfmpegAudioDecoder and enableFdk";
 
 stdenv.mkDerivation rec {
   inherit pname version src;

@@ -35,23 +35,21 @@ let
 
       testScript = ''
         machine.wait_for_unit("multi-user.target")
-        ${concatMapStrings
-          (
-            exe:
-            ''
-              greeting = machine.succeed(
-                  "bash -c 'wine ${exe} 2> >(tee wine-stderr >&2)'"
-              )
-              assert 'Hello, world!' in greeting
-            ''
-            # only the full version contains Gecko, but the error is not printed reliably in other variants
-            + optionalString (variant == "full") ''
-              machine.fail(
-                  "fgrep 'Could not find Wine Gecko. HTML rendering will be disabled.' wine-stderr"
-              )
-            ''
-          )
-          exes}
+        ${concatMapStrings (
+          exe:
+          ''
+            greeting = machine.succeed(
+                "bash -c 'wine ${exe} 2> >(tee wine-stderr >&2)'"
+            )
+            assert 'Hello, world!' in greeting
+          ''
+          # only the full version contains Gecko, but the error is not printed reliably in other variants
+          + optionalString (variant == "full") ''
+            machine.fail(
+                "fgrep 'Could not find Wine Gecko. HTML rendering will be disabled.' wine-stderr"
+            )
+          ''
+        ) exes}
       '';
     };
   };

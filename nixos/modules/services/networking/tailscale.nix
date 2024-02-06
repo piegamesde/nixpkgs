@@ -99,9 +99,9 @@ in
       "net.ipv6.conf.all.forwarding" = mkOverride 97 true;
     };
 
-    networking.firewall.checkReversePath =
-      mkIf (cfg.useRoutingFeatures == "client" || cfg.useRoutingFeatures == "both")
-        "loose";
+    networking.firewall.checkReversePath = mkIf (
+      cfg.useRoutingFeatures == "client" || cfg.useRoutingFeatures == "both"
+    ) "loose";
 
     networking.dhcpcd.denyInterfaces = [ cfg.interfaceName ];
 

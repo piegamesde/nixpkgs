@@ -169,8 +169,9 @@ stdenv.mkDerivation (
     preConfigure =
       ''
         cat > config.over <<EOF
-        ${lib.optionalString (stdenv.hostPlatform.isLinux && stdenv.hostPlatform.isGnu)
-          ''osvers="gnulinux"''}
+        ${lib.optionalString (
+          stdenv.hostPlatform.isLinux && stdenv.hostPlatform.isGnu
+        ) ''osvers="gnulinux"''}
         myuname="nixpkgs"
         myhostname="nixpkgs"
         cf_by="nixpkgs"

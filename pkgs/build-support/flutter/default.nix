@@ -59,8 +59,9 @@ let
       preUnpack = ''
         ${lib.optionalString (!autoDepsList) ''
           if ! { [ '${lib.boolToString (depsListFile != null)}' = 'true' ] ${
-            lib.optionalString (depsListFile != null)
-              "&& cmp -s <(jq -Sc . '${depsListFile}') <(jq -Sc . '${finalAttrs.passthru.depsListFile}')"
+            lib.optionalString (
+              depsListFile != null
+            ) "&& cmp -s <(jq -Sc . '${depsListFile}') <(jq -Sc . '${finalAttrs.passthru.depsListFile}')"
           }; }; then
             echo 1>&2 -e '\nThe dependency list file was either not given or differs from the expected result.' \
                         '\nPlease choose one of the following solutions:' \
@@ -157,23 +158,20 @@ let
       builtins.fromJSON (builtins.readFile depsListFile)
   );
 in
-builtins.foldl'
-  (
-    prev: package:
-    if packageOverrideRepository ? ${package.name} then
-      prev.overrideAttrs (
-        packageOverrideRepository.${package.name} {
-          inherit (package)
-            name
-            version
-            kind
-            source
-            dependencies
-            ;
-        }
-      )
-    else
-      prev
-  )
-  baseDerivation
-  productPackages
+builtins.foldl' (
+  prev: package:
+  if packageOverrideRepository ? ${package.name} then
+    prev.overrideAttrs (
+      packageOverrideRepository.${package.name} {
+        inherit (package)
+          name
+          version
+          kind
+          source
+          dependencies
+          ;
+      }
+    )
+  else
+    prev
+) baseDerivation productPackages

@@ -45,13 +45,10 @@ in
   config =
     let
       dictdb = pkgs.dictDBCollector {
-        dictlist =
-          map
-            (x: {
-              name = x.name;
-              filename = x;
-            })
-            cfg.DBs;
+        dictlist = map (x: {
+          name = x.name;
+          filename = x;
+        }) cfg.DBs;
       };
     in
     mkIf cfg.enable {

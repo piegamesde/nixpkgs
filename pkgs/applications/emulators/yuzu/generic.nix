@@ -131,15 +131,12 @@ stdenv.mkDerivation rec {
     ln -sf ${compat-list} ./dist/compatibility_list/compatibility_list.json
   '';
 
-  passthru.updateScript =
-    runCommandLocal "yuzu-${branch}-updateScript"
-      {
-        script = substituteAll {
-          src = ./update.sh;
-          inherit branch;
-        };
-      }
-      "install -Dm755 $script $out";
+  passthru.updateScript = runCommandLocal "yuzu-${branch}-updateScript" {
+    script = substituteAll {
+      src = ./update.sh;
+      inherit branch;
+    };
+  } "install -Dm755 $script $out";
 
   meta = with lib; {
     homepage = "https://yuzu-emu.org";

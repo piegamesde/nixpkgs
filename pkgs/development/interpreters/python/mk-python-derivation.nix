@@ -298,7 +298,6 @@ let
       filename
     ];
 in
-lib.extendDerivation
-  (disabled -> throw "${name} not supported for interpreter ${python.executable}")
-  passthru
-  self
+lib.extendDerivation (
+  disabled -> throw "${name} not supported for interpreter ${python.executable}"
+) passthru self

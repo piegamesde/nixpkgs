@@ -10,95 +10,92 @@ with lib;
 let
   cfg = config.services.influxdb;
 
-  configOptions =
-    recursiveUpdate
+  configOptions = recursiveUpdate {
+    meta = {
+      bind-address = ":8088";
+      commit-timeout = "50ms";
+      dir = "${cfg.dataDir}/meta";
+      election-timeout = "1s";
+      heartbeat-timeout = "1s";
+      hostname = "localhost";
+      leader-lease-timeout = "500ms";
+      retention-autocreate = true;
+    };
+
+    data = {
+      dir = "${cfg.dataDir}/data";
+      wal-dir = "${cfg.dataDir}/wal";
+      max-wal-size = 104857600;
+      wal-enable-logging = true;
+      wal-flush-interval = "10m";
+      wal-partition-flush-delay = "2s";
+    };
+
+    cluster = {
+      shard-writer-timeout = "5s";
+      write-timeout = "5s";
+    };
+
+    retention = {
+      enabled = true;
+      check-interval = "30m";
+    };
+
+    http = {
+      enabled = true;
+      auth-enabled = false;
+      bind-address = ":8086";
+      https-enabled = false;
+      log-enabled = true;
+      pprof-enabled = false;
+      write-tracing = false;
+    };
+
+    monitor = {
+      store-enabled = false;
+      store-database = "_internal";
+      store-interval = "10s";
+    };
+
+    admin = {
+      enabled = true;
+      bind-address = ":8083";
+      https-enabled = false;
+    };
+
+    graphite = [ { enabled = false; } ];
+
+    udp = [ { enabled = false; } ];
+
+    collectd = [
       {
-        meta = {
-          bind-address = ":8088";
-          commit-timeout = "50ms";
-          dir = "${cfg.dataDir}/meta";
-          election-timeout = "1s";
-          heartbeat-timeout = "1s";
-          hostname = "localhost";
-          leader-lease-timeout = "500ms";
-          retention-autocreate = true;
-        };
-
-        data = {
-          dir = "${cfg.dataDir}/data";
-          wal-dir = "${cfg.dataDir}/wal";
-          max-wal-size = 104857600;
-          wal-enable-logging = true;
-          wal-flush-interval = "10m";
-          wal-partition-flush-delay = "2s";
-        };
-
-        cluster = {
-          shard-writer-timeout = "5s";
-          write-timeout = "5s";
-        };
-
-        retention = {
-          enabled = true;
-          check-interval = "30m";
-        };
-
-        http = {
-          enabled = true;
-          auth-enabled = false;
-          bind-address = ":8086";
-          https-enabled = false;
-          log-enabled = true;
-          pprof-enabled = false;
-          write-tracing = false;
-        };
-
-        monitor = {
-          store-enabled = false;
-          store-database = "_internal";
-          store-interval = "10s";
-        };
-
-        admin = {
-          enabled = true;
-          bind-address = ":8083";
-          https-enabled = false;
-        };
-
-        graphite = [ { enabled = false; } ];
-
-        udp = [ { enabled = false; } ];
-
-        collectd = [
-          {
-            enabled = false;
-            typesdb = "${pkgs.collectd-data}/share/collectd/types.db";
-            database = "collectd_db";
-            bind-address = ":25826";
-          }
-        ];
-
-        opentsdb = [ { enabled = false; } ];
-
-        continuous_queries = {
-          enabled = true;
-          log-enabled = true;
-          recompute-previous-n = 2;
-          recompute-no-older-than = "10m";
-          compute-runs-per-interval = 10;
-          compute-no-more-than = "2m";
-        };
-
-        hinted-handoff = {
-          enabled = true;
-          dir = "${cfg.dataDir}/hh";
-          max-size = 1073741824;
-          max-age = "168h";
-          retry-rate-limit = 0;
-          retry-interval = "1s";
-        };
+        enabled = false;
+        typesdb = "${pkgs.collectd-data}/share/collectd/types.db";
+        database = "collectd_db";
+        bind-address = ":25826";
       }
-      cfg.extraConfig;
+    ];
+
+    opentsdb = [ { enabled = false; } ];
+
+    continuous_queries = {
+      enabled = true;
+      log-enabled = true;
+      recompute-previous-n = 2;
+      recompute-no-older-than = "10m";
+      compute-runs-per-interval = 10;
+      compute-no-more-than = "2m";
+    };
+
+    hinted-handoff = {
+      enabled = true;
+      dir = "${cfg.dataDir}/hh";
+      max-size = 1073741824;
+      max-age = "168h";
+      retry-rate-limit = 0;
+      retry-interval = "1s";
+    };
+  } cfg.extraConfig;
 
   configFile = pkgs.runCommandLocal "config.toml" { } ''
     ${pkgs.buildPackages.remarshal}/bin/remarshal -if json -of toml \

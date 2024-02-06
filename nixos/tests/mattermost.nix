@@ -18,18 +18,15 @@ import ./make-test-python.nix (
         networking.hosts = {
           "127.0.0.1" = [ host ];
         };
-        services.mattermost =
-          lib.recursiveUpdate
-            {
-              enable = true;
-              inherit siteName;
-              listenAddress = "0.0.0.0:${port}";
-              siteUrl = url;
-              extraConfig = {
-                SupportSettings.AboutLink = "https://nixos.org";
-              };
-            }
-            mattermostConfig;
+        services.mattermost = lib.recursiveUpdate {
+          enable = true;
+          inherit siteName;
+          listenAddress = "0.0.0.0:${port}";
+          siteUrl = url;
+          extraConfig = {
+            SupportSettings.AboutLink = "https://nixos.org";
+          };
+        } mattermostConfig;
       };
   in
   {

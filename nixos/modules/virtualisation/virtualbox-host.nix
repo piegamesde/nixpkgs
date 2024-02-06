@@ -129,12 +129,10 @@ in
           in
           mkIf cfg.enableHardening (
             builtins.listToAttrs (
-              map
-                (x: {
-                  name = x;
-                  value = mkSuid x;
-                })
-                executables
+              map (x: {
+                name = x;
+                value = mkSuid x;
+              }) executables
             )
           );
 

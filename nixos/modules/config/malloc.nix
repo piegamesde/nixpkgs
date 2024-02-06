@@ -94,8 +94,9 @@ in
 
         - `libc`: the standard allocator provided by libc
         ${concatStringsSep "\n" (
-          mapAttrsToList (name: value: "- `${name}`: ${replaceStrings [ "\n" ] [ " " ] value.description}")
-            providers
+          mapAttrsToList (
+            name: value: "- `${name}`: ${replaceStrings [ "\n" ] [ " " ] value.description}"
+          ) providers
         )}
 
         ::: {.warning}
@@ -119,12 +120,10 @@ in
         r /etc/ld-nix.so.preload,
         r ${config.environment.etc."ld-nix.so.preload".source},
         include "${
-          pkgs.apparmorRulesFromClosure
-            {
-              name = "mallocLib";
-              baseRules = [ "mr $path/lib/**.so*" ];
-            }
-            [ mallocLib ]
+          pkgs.apparmorRulesFromClosure {
+            name = "mallocLib";
+            baseRules = [ "mr $path/lib/**.so*" ];
+          } [ mallocLib ]
         }"
       '';
     };

@@ -35,9 +35,9 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ cmake ];
 
   # https://gcc.gnu.org/bugzilla/show_bug.cgi?id=102823
-  env.NIX_CFLAGS_COMPILE =
-    lib.optionalString (stdenv.cc.isGNU && lib.versionAtLeast stdenv.cc.version "11")
-      "-fno-ipa-modref";
+  env.NIX_CFLAGS_COMPILE = lib.optionalString (
+    stdenv.cc.isGNU && lib.versionAtLeast stdenv.cc.version "11"
+  ) "-fno-ipa-modref";
 
   cmakeFlags = [
     "-DBUILD_SHARED_LIBS=OFF"

@@ -286,9 +286,9 @@ in
             preStart =
               with pkgs;
               let
-                files =
-                  mapAttrsToList (n: v: writeText "${n}.json" (builtins.toJSON v))
-                    top.addonManager.bootstrapAddons;
+                files = mapAttrsToList (
+                  n: v: writeText "${n}.json" (builtins.toJSON v)
+                ) top.addonManager.bootstrapAddons;
               in
               ''
                 export KUBECONFIG=${clusterAdminKubeconfig}
@@ -298,9 +298,9 @@ in
         ]
       );
 
-      environment.etc.${cfg.etcClusterAdminKubeconfig}.source =
-        mkIf (cfg.etcClusterAdminKubeconfig != null)
-          clusterAdminKubeconfig;
+      environment.etc.${cfg.etcClusterAdminKubeconfig}.source = mkIf (
+        cfg.etcClusterAdminKubeconfig != null
+      ) clusterAdminKubeconfig;
 
       environment.systemPackages = mkIf (top.kubelet.enable || top.proxy.enable) [
         (pkgs.writeScriptBin "nixos-kubernetes-node-join" ''

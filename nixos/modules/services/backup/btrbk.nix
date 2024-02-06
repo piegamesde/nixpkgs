@@ -268,26 +268,23 @@ in
       createHome = true;
       shell = "${pkgs.bash}/bin/bash";
       group = "btrbk";
-      openssh.authorizedKeys.keys =
-        map
-          (
-            v:
-            let
-              options = concatMapStringsSep " " (x: "--" + x) v.roles;
-              ioniceClass =
-                {
-                  "idle" = 3;
-                  "best-effort" = 2;
-                  "realtime" = 1;
-                }
-                .${cfg.ioSchedulingClass};
-              sudo_doas_flag = "--${sudo_doas}";
-            in
-            ''command="${pkgs.util-linux}/bin/ionice -t -c ${toString ioniceClass} ${
-              optionalString (cfg.niceness >= 1) "${pkgs.coreutils}/bin/nice -n ${toString cfg.niceness}"
-            } ${pkgs.btrbk}/share/btrbk/scripts/ssh_filter_btrbk.sh ${sudo_doas_flag} ${options}" ${v.key}''
-          )
-          cfg.sshAccess;
+      openssh.authorizedKeys.keys = map (
+        v:
+        let
+          options = concatMapStringsSep " " (x: "--" + x) v.roles;
+          ioniceClass =
+            {
+              "idle" = 3;
+              "best-effort" = 2;
+              "realtime" = 1;
+            }
+            .${cfg.ioSchedulingClass};
+          sudo_doas_flag = "--${sudo_doas}";
+        in
+        ''command="${pkgs.util-linux}/bin/ionice -t -c ${toString ioniceClass} ${
+          optionalString (cfg.niceness >= 1) "${pkgs.coreutils}/bin/nice -n ${toString cfg.niceness}"
+        } ${pkgs.btrbk}/share/btrbk/scripts/ssh_filter_btrbk.sh ${sudo_doas_flag} ${options}" ${v.key}''
+      ) cfg.sshAccess;
     };
     users.groups.btrbk = { };
     systemd.tmpfiles.rules = [
@@ -295,48 +292,39 @@ in
       "d /var/lib/btrbk/.ssh 0700 btrbk btrbk"
       "f /var/lib/btrbk/.ssh/config 0700 btrbk btrbk - StrictHostKeyChecking=accept-new"
     ];
-    environment.etc =
-      mapAttrs'
-        (name: instance: {
-          name = "btrbk/${name}.conf";
-          value.source = mkConfigFile name instance.settings;
-        })
-        cfg.instances;
-    systemd.services =
-      mapAttrs'
-        (name: _: {
-          name = "btrbk-${name}";
-          value = {
-            description = "Takes BTRFS snapshots and maintains retention policies.";
-            unitConfig.Documentation = "man:btrbk(1)";
-            path = [ "/run/wrappers" ] ++ cfg.extraPackages;
-            serviceConfig = {
-              User = "btrbk";
-              Group = "btrbk";
-              Type = "oneshot";
-              ExecStart = "${pkgs.btrbk}/bin/btrbk -c /etc/btrbk/${name}.conf run";
-              Nice = cfg.niceness;
-              IOSchedulingClass = cfg.ioSchedulingClass;
-              StateDirectory = "btrbk";
-            };
-          };
-        })
-        cfg.instances;
+    environment.etc = mapAttrs' (name: instance: {
+      name = "btrbk/${name}.conf";
+      value.source = mkConfigFile name instance.settings;
+    }) cfg.instances;
+    systemd.services = mapAttrs' (name: _: {
+      name = "btrbk-${name}";
+      value = {
+        description = "Takes BTRFS snapshots and maintains retention policies.";
+        unitConfig.Documentation = "man:btrbk(1)";
+        path = [ "/run/wrappers" ] ++ cfg.extraPackages;
+        serviceConfig = {
+          User = "btrbk";
+          Group = "btrbk";
+          Type = "oneshot";
+          ExecStart = "${pkgs.btrbk}/bin/btrbk -c /etc/btrbk/${name}.conf run";
+          Nice = cfg.niceness;
+          IOSchedulingClass = cfg.ioSchedulingClass;
+          StateDirectory = "btrbk";
+        };
+      };
+    }) cfg.instances;
 
-    systemd.timers =
-      mapAttrs'
-        (name: instance: {
-          name = "btrbk-${name}";
-          value = {
-            description = "Timer to take BTRFS snapshots and maintain retention policies.";
-            wantedBy = [ "timers.target" ];
-            timerConfig = {
-              OnCalendar = instance.onCalendar;
-              AccuracySec = "10min";
-              Persistent = true;
-            };
-          };
-        })
-        (filterAttrs (name: instance: instance.onCalendar != null) cfg.instances);
+    systemd.timers = mapAttrs' (name: instance: {
+      name = "btrbk-${name}";
+      value = {
+        description = "Timer to take BTRFS snapshots and maintain retention policies.";
+        wantedBy = [ "timers.target" ];
+        timerConfig = {
+          OnCalendar = instance.onCalendar;
+          AccuracySec = "10min";
+          Persistent = true;
+        };
+      };
+    }) (filterAttrs (name: instance: instance.onCalendar != null) cfg.instances);
   };
 }

@@ -32,16 +32,13 @@ let
   prevName = pname;
   prevPlatforms = platforms;
   prevConfigFlags = configureFlags;
-  setupHookDarwin =
-    makeSetupHook
-      {
-        name = "darwin-mingw-hook";
-        substitutions = {
-          darwinSuffixSalt = stdenv.cc.suffixSalt;
-          mingwGccsSuffixSalts = map (gcc: gcc.suffixSalt) mingwGccs;
-        };
-      }
-      ./setup-hook-darwin.sh;
+  setupHookDarwin = makeSetupHook {
+    name = "darwin-mingw-hook";
+    substitutions = {
+      darwinSuffixSalt = stdenv.cc.suffixSalt;
+      mingwGccsSuffixSalts = map (gcc: gcc.suffixSalt) mingwGccs;
+    };
+  } ./setup-hook-darwin.sh;
 in
 stdenv.mkDerivation (
   (lib.optionalAttrs (buildScript != null) { builder = buildScript; })

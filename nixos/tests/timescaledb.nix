@@ -88,13 +88,11 @@ let
         machine.shutdown()
       '';
     };
-  applicablePostgresqlVersions =
-    filterAttrs (_: value: versionAtLeast value.version "12")
-      postgresql-versions;
+  applicablePostgresqlVersions = filterAttrs (
+    _: value: versionAtLeast value.version "12"
+  ) postgresql-versions;
 in
-mapAttrs'
-  (name: package: {
-    inherit name;
-    value = make-postgresql-test name package;
-  })
-  applicablePostgresqlVersions
+mapAttrs' (name: package: {
+  inherit name;
+  value = make-postgresql-test name package;
+}) applicablePostgresqlVersions

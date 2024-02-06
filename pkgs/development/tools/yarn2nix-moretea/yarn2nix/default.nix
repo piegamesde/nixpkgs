@@ -102,19 +102,17 @@ rec {
       );
 
       postInstall = (
-        builtins.map
-          (
-            key:
-            if (pkgConfig.${key} ? postInstall) then
-              ''
-                for f in $(find -L -path '*/node_modules/${key}' -type d); do
-                  (cd "$f" && (${pkgConfig.${key}.postInstall}))
-                done
-              ''
-            else
-              ""
-          )
-          (builtins.attrNames pkgConfig)
+        builtins.map (
+          key:
+          if (pkgConfig.${key} ? postInstall) then
+            ''
+              for f in $(find -L -path '*/node_modules/${key}' -type d); do
+                (cd "$f" && (${pkgConfig.${key}.postInstall}))
+              done
+            ''
+          else
+            ""
+        ) (builtins.attrNames pkgConfig)
       );
 
       # build-time JSON generation to avoid IFD
@@ -135,13 +133,10 @@ rec {
             jq --slurpfile packageJSON "$packageJSON" '.resolutions = $packageJSON[0].resolutions + .resolutions' <"$baseJSONPath" >$out
           '';
 
-      workspaceDependencyLinks =
-        lib.concatMapStringsSep "\n"
-          (dep: ''
-            mkdir -p "deps/${dep.pname}"
-            ln -sf ${dep.packageJSON} "deps/${dep.pname}/package.json"
-          '')
-          workspaceDependencies;
+      workspaceDependencyLinks = lib.concatMapStringsSep "\n" (dep: ''
+        mkdir -p "deps/${dep.pname}"
+        ln -sf ${dep.packageJSON} "deps/${dep.pname}/package.json"
+      '') workspaceDependencies;
     in
     stdenv.mkDerivation {
       inherit preBuild postBuild name;
@@ -254,60 +249,56 @@ rec {
       packagePaths = lib.concatMap (expandGlob src) packageGlobs;
 
       packages = lib.listToAttrs (
-        map
-          (
-            src:
-            let
-              packageJSON = src + "/package.json";
+        map (
+          src:
+          let
+            packageJSON = src + "/package.json";
 
-              package = lib.importJSON packageJSON;
+            package = lib.importJSON packageJSON;
 
-              allDependencies = lib.foldl (a: b: a // b) { } (
-                map (field: lib.attrByPath [ field ] { } package) [
-                  "dependencies"
-                  "devDependencies"
-                ]
-              );
+            allDependencies = lib.foldl (a: b: a // b) { } (
+              map (field: lib.attrByPath [ field ] { } package) [
+                "dependencies"
+                "devDependencies"
+              ]
+            );
 
-              # { [name: String] : { pname : String, packageJSON : String, ... } } -> { [pname: String] : version } -> [{ pname : String, packageJSON : String, ... }]
-              getWorkspaceDependencies =
-                packages: allDependencies:
-                let
-                  packageList = lib.attrValues packages;
-                in
-                composeAll
-                  [
-                    (lib.filter (x: x != null))
-                    (lib.mapAttrsToList (
-                      pname: _version: lib.findFirst (package: package.pname == pname) null packageList
-                    ))
-                  ]
-                  allDependencies;
+            # { [name: String] : { pname : String, packageJSON : String, ... } } -> { [pname: String] : version } -> [{ pname : String, packageJSON : String, ... }]
+            getWorkspaceDependencies =
+              packages: allDependencies:
+              let
+                packageList = lib.attrValues packages;
+              in
+              composeAll [
+                (lib.filter (x: x != null))
+                (lib.mapAttrsToList (
+                  pname: _version: lib.findFirst (package: package.pname == pname) null packageList
+                ))
+              ] allDependencies;
 
-              workspaceDependencies = getWorkspaceDependencies packages allDependencies;
+            workspaceDependencies = getWorkspaceDependencies packages allDependencies;
 
-              name = reformatPackageName package.name;
-            in
-            {
-              inherit name;
-              value = mkYarnPackage (
-                builtins.removeAttrs attrs [ "packageOverrides" ]
-                // {
-                  inherit
-                    src
-                    packageJSON
-                    yarnLock
-                    nodejs
-                    yarn
-                    packageResolutions
-                    workspaceDependencies
-                    ;
-                }
-                // lib.attrByPath [ name ] { } packageOverrides
-              );
-            }
-          )
-          packagePaths
+            name = reformatPackageName package.name;
+          in
+          {
+            inherit name;
+            value = mkYarnPackage (
+              builtins.removeAttrs attrs [ "packageOverrides" ]
+              // {
+                inherit
+                  src
+                  packageJSON
+                  yarnLock
+                  nodejs
+                  yarn
+                  packageResolutions
+                  workspaceDependencies
+                  ;
+              }
+              // lib.attrByPath [ name ] { } packageOverrides
+            );
+          }
+        ) packagePaths
       );
     in
     packages;
@@ -382,18 +373,15 @@ rec {
         }
       '';
 
-      workspaceDependencyCopy =
-        lib.concatMapStringsSep "\n"
-          (dep: ''
-            # ensure any existing scope directory is not a symlink
-            linkDirToDirLinks "$(dirname node_modules/${dep.pname})"
-            mkdir -p "deps/${dep.pname}"
-            tar -xf "${dep}/tarballs/${dep.name}.tgz" --directory "deps/${dep.pname}" --strip-components=1
-            if [ ! -e "deps/${dep.pname}/node_modules" ]; then
-              ln -s "${deps}/deps/${dep.pname}/node_modules" "deps/${dep.pname}/node_modules"
-            fi
-          '')
-          workspaceDependenciesTransitive;
+      workspaceDependencyCopy = lib.concatMapStringsSep "\n" (dep: ''
+        # ensure any existing scope directory is not a symlink
+        linkDirToDirLinks "$(dirname node_modules/${dep.pname})"
+        mkdir -p "deps/${dep.pname}"
+        tar -xf "${dep}/tarballs/${dep.name}.tgz" --directory "deps/${dep.pname}" --strip-components=1
+        if [ ! -e "deps/${dep.pname}/node_modules" ]; then
+          ln -s "${deps}/deps/${dep.pname}/node_modules" "deps/${dep.pname}/node_modules"
+        fi
+      '') workspaceDependenciesTransitive;
     in
     stdenv.mkDerivation (
       builtins.removeAttrs attrs [
@@ -525,19 +513,17 @@ rec {
           in
           elem spdir dirsToInclude || (type == "regular" && elem subpath filesToInclude);
       in
-      builtins.filterSource
-        (mkFilter {
-          dirsToInclude = [
-            "bin"
-            "lib"
-          ];
-          filesToInclude = [
-            "package.json"
-            "yarn.lock"
-          ];
-          root = src;
-        })
-        src;
+      builtins.filterSource (mkFilter {
+        dirsToInclude = [
+          "bin"
+          "lib"
+        ];
+        filesToInclude = [
+          "package.json"
+          "yarn.lock"
+        ];
+        root = src;
+      }) src;
 
     # yarn2nix is the only package that requires the yarnNix option.
     # All the other projects can auto-generate that file.

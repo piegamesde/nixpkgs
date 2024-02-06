@@ -468,26 +468,24 @@ in
   config = {
 
     warnings = concatLists (
-      mapAttrsToList
-        (
-          name: service:
-          let
-            type = service.serviceConfig.Type or "";
-            restart = service.serviceConfig.Restart or "no";
-            hasDeprecated = builtins.hasAttr "StartLimitInterval" service.serviceConfig;
-          in
-          concatLists [
-            (optional (type == "oneshot" && (restart == "always" || restart == "on-success"))
-              "Service '${name}.service' with 'Type=oneshot' cannot have 'Restart=always' or 'Restart=on-success'"
-            )
-            (optional hasDeprecated "Service '${name}.service' uses the attribute 'StartLimitInterval' in the Service section, which is deprecated. See https://github.com/NixOS/nixpkgs/issues/45786."
-            )
-            (optional (service.reloadIfChanged && service.reloadTriggers != [ ])
-              "Service '${name}.service' has both 'reloadIfChanged' and 'reloadTriggers' set. This is probably not what you want, because 'reloadTriggers' behave the same whay as 'restartTriggers' if 'reloadIfChanged' is set."
-            )
-          ]
-        )
-        cfg.services
+      mapAttrsToList (
+        name: service:
+        let
+          type = service.serviceConfig.Type or "";
+          restart = service.serviceConfig.Restart or "no";
+          hasDeprecated = builtins.hasAttr "StartLimitInterval" service.serviceConfig;
+        in
+        concatLists [
+          (optional (type == "oneshot" && (restart == "always" || restart == "on-success"))
+            "Service '${name}.service' with 'Type=oneshot' cannot have 'Restart=always' or 'Restart=on-success'"
+          )
+          (optional hasDeprecated "Service '${name}.service' uses the attribute 'StartLimitInterval' in the Service section, which is deprecated. See https://github.com/NixOS/nixpkgs/issues/45786."
+          )
+          (optional (service.reloadIfChanged && service.reloadTriggers != [ ])
+            "Service '${name}.service' has both 'reloadIfChanged' and 'reloadTriggers' set. This is probably not what you want, because 'reloadTriggers' behave the same whay as 'restartTriggers' if 'reloadIfChanged' is set."
+          )
+        ]
+      ) cfg.services
     );
 
     system.build.units = cfg.units;
@@ -616,26 +614,22 @@ in
       // mapAttrs' (n: v: nameValuePair "${n}.target" (targetToUnit n v)) cfg.targets
       // mapAttrs' (n: v: nameValuePair "${n}.timer" (timerToUnit n v)) cfg.timers
       // listToAttrs (
-        map
-          (
-            v:
-            let
-              n = escapeSystemdPath v.where;
-            in
-            nameValuePair "${n}.mount" (mountToUnit n v)
-          )
-          cfg.mounts
+        map (
+          v:
+          let
+            n = escapeSystemdPath v.where;
+          in
+          nameValuePair "${n}.mount" (mountToUnit n v)
+        ) cfg.mounts
       )
       // listToAttrs (
-        map
-          (
-            v:
-            let
-              n = escapeSystemdPath v.where;
-            in
-            nameValuePair "${n}.automount" (automountToUnit n v)
-          )
-          cfg.automounts
+        map (
+          v:
+          let
+            n = escapeSystemdPath v.where;
+          in
+          nameValuePair "${n}.automount" (automountToUnit n v)
+        ) cfg.automounts
       );
 
     # Environment of PID 1
@@ -646,9 +640,9 @@ in
       LOCALE_ARCHIVE = "/run/current-system/sw/lib/locale/locale-archive";
       TZDIR = "/etc/zoneinfo";
       # If SYSTEMD_UNIT_PATH ends with an empty component (":"), the usual unit load path will be appended to the contents of the variable
-      SYSTEMD_UNIT_PATH =
-        lib.mkIf (config.boot.extraSystemdUnitPaths != [ ])
-          "${builtins.concatStringsSep ":" config.boot.extraSystemdUnitPaths}:";
+      SYSTEMD_UNIT_PATH = lib.mkIf (
+        config.boot.extraSystemdUnitPaths != [ ]
+      ) "${builtins.concatStringsSep ":" config.boot.extraSystemdUnitPaths}:";
     };
 
     system.requiredKernelConfig = map config.lib.kernelConfig.isEnabled [
@@ -673,13 +667,10 @@ in
     ];
 
     # Generate timer units for all services that have a ‘startAt’ value.
-    systemd.timers =
-      mapAttrs
-        (name: service: {
-          wantedBy = [ "timers.target" ];
-          timerConfig.OnCalendar = service.startAt;
-        })
-        (filterAttrs (name: service: service.enable && service.startAt != [ ]) cfg.services);
+    systemd.timers = mapAttrs (name: service: {
+      wantedBy = [ "timers.target" ];
+      timerConfig.OnCalendar = service.startAt;
+    }) (filterAttrs (name: service: service.enable && service.startAt != [ ]) cfg.services);
 
     # Some overrides to upstream units.
     systemd.services."systemd-backlight@".restartIfChanged = false;
@@ -709,9 +700,9 @@ in
     # https://github.com/systemd/systemd/pull/12226
     boot.kernel.sysctl."kernel.pid_max" = mkIf pkgs.stdenv.is64bit (lib.mkDefault 4194304);
 
-    boot.kernelParams =
-      optional (!cfg.enableUnifiedCgroupHierarchy)
-        "systemd.unified_cgroup_hierarchy=0";
+    boot.kernelParams = optional (
+      !cfg.enableUnifiedCgroupHierarchy
+    ) "systemd.unified_cgroup_hierarchy=0";
 
     # Avoid potentially degraded system state due to
     # "Userspace Out-Of-Memory (OOM) Killer was skipped because of a failed condition check (ConditionControlGroupController=v2)."
@@ -772,12 +763,9 @@ in
       "systemd"
       "services"
     ])
-    (mkRemovedOptionModule
-      [
-        "systemd"
-        "generator-packages"
-      ]
-      "Use systemd.packages instead."
-    )
+    (mkRemovedOptionModule [
+      "systemd"
+      "generator-packages"
+    ] "Use systemd.packages instead.")
   ];
 }

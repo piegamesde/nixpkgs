@@ -192,41 +192,35 @@ in
   };
 
   config = mkIf cfg.enable {
-    systemd.services =
-      mapAttrs'
-        (
-          name: cfg':
-          nameValuePair "vdirsyncer@${name}" (
-            foldr recursiveUpdate { } [
-              commonUnitConfig
-              (userUnitConfig name cfg')
-              {
-                description = "synchronize calendars and contacts (${name})";
-                environment.VDIRSYNCER_CONFIG = toConfigFile name cfg';
-                serviceConfig.ExecStart =
-                  (optional cfg'.forceDiscover (
-                    pkgs.writeShellScript "vdirsyncer-discover-yes" ''
-                      set -e
-                      yes | ${cfg.package}/bin/vdirsyncer discover
-                    ''
-                  ))
-                  ++ [ "${cfg.package}/bin/vdirsyncer sync" ];
-              }
-            ]
-          )
-        )
-        (filterAttrs (name: cfg': cfg'.enable) cfg.jobs);
-
-    systemd.timers =
-      mapAttrs'
-        (
-          name: cfg':
-          nameValuePair "vdirsyncer@${name}" {
-            wantedBy = [ "timers.target" ];
+    systemd.services = mapAttrs' (
+      name: cfg':
+      nameValuePair "vdirsyncer@${name}" (
+        foldr recursiveUpdate { } [
+          commonUnitConfig
+          (userUnitConfig name cfg')
+          {
             description = "synchronize calendars and contacts (${name})";
-            inherit (cfg') timerConfig;
+            environment.VDIRSYNCER_CONFIG = toConfigFile name cfg';
+            serviceConfig.ExecStart =
+              (optional cfg'.forceDiscover (
+                pkgs.writeShellScript "vdirsyncer-discover-yes" ''
+                  set -e
+                  yes | ${cfg.package}/bin/vdirsyncer discover
+                ''
+              ))
+              ++ [ "${cfg.package}/bin/vdirsyncer sync" ];
           }
-        )
-        cfg.jobs;
+        ]
+      )
+    ) (filterAttrs (name: cfg': cfg'.enable) cfg.jobs);
+
+    systemd.timers = mapAttrs' (
+      name: cfg':
+      nameValuePair "vdirsyncer@${name}" {
+        wantedBy = [ "timers.target" ];
+        description = "synchronize calendars and contacts (${name})";
+        inherit (cfg') timerConfig;
+      }
+    ) cfg.jobs;
   };
 }

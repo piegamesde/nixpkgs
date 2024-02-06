@@ -795,11 +795,9 @@ rec {
         inherit archs;
       }
       ''
-        ${lib.concatImapStrings
-          (i: pl: ''
-            gunzip < ${pl} > ./packages_${toString i}.xml
-          '')
-          packagesLists}
+        ${lib.concatImapStrings (i: pl: ''
+          gunzip < ${pl} > ./packages_${toString i}.xml
+        '') packagesLists}
         perl -w ${rpm/rpm-closure.pl} \
           ${
             lib.concatImapStrings (i: pl: "./packages_${toString i}.xml ${pl.snd} ") (
@@ -851,18 +849,15 @@ rec {
         QEMU_OPTS
         memSize
         ;
-      rpms =
-        import
-          (rpmClosureGenerator {
-            inherit
-              name
-              packagesLists
-              urlPrefixes
-              archs
-              ;
-            packages = packages ++ extraPackages;
-          })
-          { inherit fetchurl; };
+      rpms = import (rpmClosureGenerator {
+        inherit
+          name
+          packagesLists
+          urlPrefixes
+          archs
+          ;
+        packages = packages ++ extraPackages;
+      }) { inherit fetchurl; };
     };
 
   /* Like `rpmClosureGenerator', but now for Debian/Ubuntu releases
@@ -1450,29 +1445,20 @@ rec {
      addition to the default packages.
   */
   diskImageFuns =
-    (lib.mapAttrs
-      (
-        name: as: as2:
-        makeImageFromRPMDist (as // as2)
-      )
-      rpmDistros
-    )
-    // (lib.mapAttrs
-      (
-        name: as: as2:
-        makeImageFromDebDist (as // as2)
-      )
-      debDistros
-    );
+    (lib.mapAttrs (
+      name: as: as2:
+      makeImageFromRPMDist (as // as2)
+    ) rpmDistros)
+    // (lib.mapAttrs (
+      name: as: as2:
+      makeImageFromDebDist (as // as2)
+    ) debDistros);
 
   # Shorthand for `diskImageFuns.<attr> { extraPackages = ... }'.
-  diskImageExtraFuns =
-    lib.mapAttrs
-      (
-        name: f: extraPackages:
-        f { inherit extraPackages; }
-      )
-      diskImageFuns;
+  diskImageExtraFuns = lib.mapAttrs (
+    name: f: extraPackages:
+    f { inherit extraPackages; }
+  ) diskImageFuns;
 
   /* Default disk images generated from the `rpmDistros' and
      `debDistros' sets.

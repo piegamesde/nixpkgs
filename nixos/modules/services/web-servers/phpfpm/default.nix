@@ -172,22 +172,16 @@ let
 in
 {
   imports = [
-    (mkRemovedOptionModule
-      [
-        "services"
-        "phpfpm"
-        "poolConfigs"
-      ]
-      "Use services.phpfpm.pools instead."
-    )
-    (mkRemovedOptionModule
-      [
-        "services"
-        "phpfpm"
-        "phpIni"
-      ]
-      ""
-    )
+    (mkRemovedOptionModule [
+      "services"
+      "phpfpm"
+      "poolConfigs"
+    ] "Use services.phpfpm.pools instead.")
+    (mkRemovedOptionModule [
+      "services"
+      "phpfpm"
+      "phpIni"
+    ] "")
   ];
 
   options = {
@@ -275,17 +269,12 @@ in
   config = mkIf (cfg.pools != { }) {
 
     warnings =
-      mapAttrsToList
-        (pool: poolOpts: ''
-          Using config.services.phpfpm.pools.${pool}.listen is deprecated and will become unsupported in a future release. Please reference the read-only option config.services.phpfpm.pools.${pool}.socket to access the path of your socket.
-        '')
-        (filterAttrs (pool: poolOpts: poolOpts.listen != "") cfg.pools)
-      ++
-        mapAttrsToList
-          (pool: poolOpts: ''
-            Using config.services.phpfpm.pools.${pool}.extraConfig is deprecated and will become unsupported in a future release. Please migrate your configuration to config.services.phpfpm.pools.${pool}.settings.
-          '')
-          (filterAttrs (pool: poolOpts: poolOpts.extraConfig != null) cfg.pools)
+      mapAttrsToList (pool: poolOpts: ''
+        Using config.services.phpfpm.pools.${pool}.listen is deprecated and will become unsupported in a future release. Please reference the read-only option config.services.phpfpm.pools.${pool}.socket to access the path of your socket.
+      '') (filterAttrs (pool: poolOpts: poolOpts.listen != "") cfg.pools)
+      ++ mapAttrsToList (pool: poolOpts: ''
+        Using config.services.phpfpm.pools.${pool}.extraConfig is deprecated and will become unsupported in a future release. Please migrate your configuration to config.services.phpfpm.pools.${pool}.settings.
+      '') (filterAttrs (pool: poolOpts: poolOpts.extraConfig != null) cfg.pools)
       ++ optional (cfg.extraConfig != null) ''
         Using config.services.phpfpm.extraConfig is deprecated and will become unsupported in a future release. Please migrate your configuration to config.services.phpfpm.settings.
       '';
@@ -304,37 +293,34 @@ in
       wantedBy = [ "multi-user.target" ];
     };
 
-    systemd.services =
-      mapAttrs'
-        (
-          pool: poolOpts:
-          nameValuePair "phpfpm-${pool}" {
-            description = "PHP FastCGI Process Manager service for pool ${pool}";
-            after = [ "network.target" ];
-            wantedBy = [ "phpfpm.target" ];
-            partOf = [ "phpfpm.target" ];
-            serviceConfig =
-              let
-                cfgFile = fpmCfgFile pool poolOpts;
-                iniFile = phpIni poolOpts;
-              in
-              {
-                Slice = "phpfpm.slice";
-                PrivateDevices = true;
-                PrivateTmp = true;
-                ProtectSystem = "full";
-                ProtectHome = true;
-                # XXX: We need AF_NETLINK to make the sendmail SUID binary from postfix work
-                RestrictAddressFamilies = "AF_UNIX AF_INET AF_INET6 AF_NETLINK";
-                Type = "notify";
-                ExecStart = "${poolOpts.phpPackage}/bin/php-fpm -y ${cfgFile} -c ${iniFile}";
-                ExecReload = "${pkgs.coreutils}/bin/kill -USR2 $MAINPID";
-                RuntimeDirectory = "phpfpm";
-                RuntimeDirectoryPreserve = true; # Relevant when multiple processes are running
-                Restart = "always";
-              };
-          }
-        )
-        cfg.pools;
+    systemd.services = mapAttrs' (
+      pool: poolOpts:
+      nameValuePair "phpfpm-${pool}" {
+        description = "PHP FastCGI Process Manager service for pool ${pool}";
+        after = [ "network.target" ];
+        wantedBy = [ "phpfpm.target" ];
+        partOf = [ "phpfpm.target" ];
+        serviceConfig =
+          let
+            cfgFile = fpmCfgFile pool poolOpts;
+            iniFile = phpIni poolOpts;
+          in
+          {
+            Slice = "phpfpm.slice";
+            PrivateDevices = true;
+            PrivateTmp = true;
+            ProtectSystem = "full";
+            ProtectHome = true;
+            # XXX: We need AF_NETLINK to make the sendmail SUID binary from postfix work
+            RestrictAddressFamilies = "AF_UNIX AF_INET AF_INET6 AF_NETLINK";
+            Type = "notify";
+            ExecStart = "${poolOpts.phpPackage}/bin/php-fpm -y ${cfgFile} -c ${iniFile}";
+            ExecReload = "${pkgs.coreutils}/bin/kill -USR2 $MAINPID";
+            RuntimeDirectory = "phpfpm";
+            RuntimeDirectoryPreserve = true; # Relevant when multiple processes are running
+            Restart = "always";
+          };
+      }
+    ) cfg.pools;
   };
 }

@@ -11,35 +11,26 @@ let
 
   uniqueUrls = map (x: x.file) (
     genericClosure {
-      startSet =
-        map
-          (file: {
-            key = file.url;
-            inherit file;
-          })
-          urls;
+      startSet = map (file: {
+        key = file.url;
+        inherit file;
+      }) urls;
       operator = const [ ];
     }
   );
 
-  urls =
-    map
-      (drv: {
-        url = head (drv.urls or [ drv.url ]);
-        hash = drv.outputHash;
-        isPatch = (drv ? postFetch && drv.postFetch != "");
-        type = drv.outputHashAlgo;
-        name = drv.name;
-      })
-      fetchurlDependencies;
+  urls = map (drv: {
+    url = head (drv.urls or [ drv.url ]);
+    hash = drv.outputHash;
+    isPatch = (drv ? postFetch && drv.postFetch != "");
+    type = drv.outputHashAlgo;
+    name = drv.name;
+  }) fetchurlDependencies;
 
-  fetchurlDependencies =
-    filter
-      (
-        drv:
-        drv.outputHash or "" != "" && drv.outputHashMode or "flat" == "flat" && (drv ? url || drv ? urls)
-      )
-      dependencies;
+  fetchurlDependencies = filter (
+    drv:
+    drv.outputHash or "" != "" && drv.outputHashMode or "flat" == "flat" && (drv ? url || drv ? urls)
+  ) dependencies;
 
   dependencies = map (x: x.value) (
     genericClosure {

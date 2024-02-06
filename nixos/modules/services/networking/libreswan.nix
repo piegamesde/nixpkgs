@@ -18,12 +18,10 @@ let
     chars: str:
     let
       nonchars = filter (x: !(elem x.value chars)) (
-        imap0
-          (i: v: {
-            ind = i;
-            value = v;
-          })
-          (stringToCharacters str)
+        imap0 (i: v: {
+          ind = i;
+          value = v;
+        }) (stringToCharacters str)
       );
     in
     if length nonchars == 0 then
@@ -33,28 +31,21 @@ let
   indent =
     str:
     concatStrings (
-      concatMap
-        (s: [
-          "  "
-          (trim
-            [
-              " "
-              "\t"
-            ]
-            s
-          )
-          "\n"
-        ])
-        (splitString "\n" str)
+      concatMap (s: [
+        "  "
+        (trim [
+          " "
+          "\t"
+        ] s)
+        "\n"
+      ]) (splitString "\n" str)
     );
   configText = indent (toString cfg.configSetup);
   connectionText = concatStrings (
-    mapAttrsToList
-      (n: v: ''
-        conn ${n}
-        ${indent v}
-      '')
-      cfg.connections
+    mapAttrsToList (n: v: ''
+      conn ${n}
+      ${indent v}
+    '') cfg.connections
   );
 
   configFile = pkgs.writeText "ipsec-nixos.conf" ''
@@ -64,13 +55,10 @@ let
     ${connectionText}
   '';
 
-  policyFiles =
-    mapAttrs'
-      (name: text: {
-        name = "ipsec.d/policies/${name}";
-        value.source = pkgs.writeText "ipsec-policy-${name}" text;
-      })
-      cfg.policies;
+  policyFiles = mapAttrs' (name: text: {
+    name = "ipsec.d/policies/${name}";
+    value.source = pkgs.writeText "ipsec-policy-${name}" text;
+  }) cfg.policies;
 in
 
 {

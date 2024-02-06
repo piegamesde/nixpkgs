@@ -28,37 +28,29 @@ let
     modify = "m";
     all = "*";
   };
-  aclFiles =
-    mapAttrs
-      (
-        name:
-        { acl, ... }:
-        (pkgs.writeText "${name}.acl" (
-          concatMapStrings
-            (
-              {
-                principal,
-                access,
-                target,
-                ...
-              }:
-              let
-                access_code = map (a: aclMap.${a}) (toList access);
-              in
-              "${principal} ${concatStrings access_code} ${target}\n"
-            )
-            acl
-        ))
-      )
-      cfg.realms;
-  kdcConfigs =
-    mapAttrsToList
-      (name: value: ''
-        ${name} = {
-          acl_file = ${value}
-        }
-      '')
-      aclFiles;
+  aclFiles = mapAttrs (
+    name:
+    { acl, ... }:
+    (pkgs.writeText "${name}.acl" (
+      concatMapStrings (
+        {
+          principal,
+          access,
+          target,
+          ...
+        }:
+        let
+          access_code = map (a: aclMap.${a}) (toList access);
+        in
+        "${principal} ${concatStrings access_code} ${target}\n"
+      ) acl
+    ))
+  ) cfg.realms;
+  kdcConfigs = mapAttrsToList (name: value: ''
+    ${name} = {
+      acl_file = ${value}
+    }
+  '') aclFiles;
   kdcConfFile = pkgs.writeText "kdc.conf" ''
     [realms]
     ${concatStringsSep "\n" kdcConfigs}

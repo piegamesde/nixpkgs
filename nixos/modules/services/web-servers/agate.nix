@@ -90,12 +90,10 @@ in
         let
           prefixKeyList =
             key: list:
-            concatMap
-              (v: [
-                key
-                v
-              ])
-              list;
+            concatMap (v: [
+              key
+              v
+            ]) list;
           addresses = prefixKeyList "--addr" cfg.addresses;
           hostnames = prefixKeyList "--hostname" cfg.hostnames;
         in

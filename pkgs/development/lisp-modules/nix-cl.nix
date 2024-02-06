@@ -228,18 +228,16 @@ let
           let
             mkSystemsRegex =
               systems:
-              concatMapStringsSep "\\|"
-                (replaceStrings
-                  [
-                    "."
-                    "+"
-                  ]
-                  [
-                    "[.]"
-                    "[+]"
-                  ]
-                )
-                systems;
+              concatMapStringsSep "\\|" (replaceStrings
+                [
+                  "."
+                  "+"
+                ]
+                [
+                  "[.]"
+                  "[+]"
+                ]
+              ) systems;
           in
           ''
             mkdir -pv $out

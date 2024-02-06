@@ -23,14 +23,12 @@ let
 
       ${cfg.extraConfig}
 
-      ${lib.concatMapStrings
-        (machine: ''
-          host ${machine.hostName} {
-            hardware ethernet ${machine.ethernetAddress};
-            fixed-address${optionalString (postfix == "6") postfix} ${machine.ipAddress};
-          }
-        '')
-        cfg.machines}
+      ${lib.concatMapStrings (machine: ''
+        host ${machine.hostName} {
+          hardware ethernet ${machine.ethernetAddress};
+          fixed-address${optionalString (postfix == "6") postfix} ${machine.ipAddress};
+        }
+      '') cfg.machines}
     '';
 
   dhcpdService =

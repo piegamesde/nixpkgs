@@ -42,9 +42,9 @@ stdenv.mkDerivation (
       # Tries to run host platform binaries during the build
       # Will likely be disabled by default in 3.12, see:
       # https://github.com/Reference-LAPACK/lapack/issues/757
-      ++
-        lib.optional (!stdenv.buildPlatform.canExecute stdenv.hostPlatform)
-          "-DTEST_FORTRAN_COMPILER=OFF";
+      ++ lib.optional (
+        !stdenv.buildPlatform.canExecute stdenv.hostPlatform
+      ) "-DTEST_FORTRAN_COMPILER=OFF";
 
     passthru = {
       inherit blas64;

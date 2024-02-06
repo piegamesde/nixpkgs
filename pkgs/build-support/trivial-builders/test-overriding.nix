@@ -27,9 +27,9 @@ let
 
   callPackageCase =
     case:
-    callPackage
-      ({ writeShellScript }: writeShellScript "test-trivial-callpackage-overriding-${case}" extglobScript)
-      { };
+    callPackage (
+      { writeShellScript }: writeShellScript "test-trivial-callpackage-overriding-${case}" extglobScript
+    ) { };
 
   binCase = case: writeShellScriptBin "test-trivial-overriding-bin-${case}" extglobScript;
 
@@ -123,10 +123,8 @@ runCommand "test-writeShellScript-overriding"
     };
   }
   ''
-    ${lib.concatMapStrings
-      (test: ''
-        ${runTest test}
-      '')
-      (lib.attrValues writeTextOverrides)}
+    ${lib.concatMapStrings (test: ''
+      ${runTest test}
+    '') (lib.attrValues writeTextOverrides)}
     touch "$out"
   ''

@@ -260,13 +260,11 @@ in
 
         # Service definitions
         systemd.services.mfs-master = mkIf cfg.master.enable (
-          systemdService "master"
-            {
-              TimeoutStartSec = 1800;
-              TimeoutStopSec = 1800;
-              Restart = "no";
-            }
-            masterCfg
+          systemdService "master" {
+            TimeoutStartSec = 1800;
+            TimeoutStopSec = 1800;
+            Restart = "no";
+          } masterCfg
         );
 
         systemd.services.mfs-metalogger = mkIf cfg.metalogger.enable (

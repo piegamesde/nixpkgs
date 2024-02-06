@@ -261,11 +261,9 @@ stdenv.mkDerivation (
           --replace 'set(LLVM_BINARY_DIR "''${LLVM_INSTALL_PREFIX}")' 'set(LLVM_BINARY_DIR "''${LLVM_INSTALL_PREFIX}'"$lib"'")'
       ''
       + optionalString (stdenv.isDarwin && enableSharedLibraries) ''
-        ${lib.concatMapStringsSep "\n"
-          (v: ''
-            ln -s $lib/lib/libLLVM.dylib $lib/lib/libLLVM-${v}.dylib
-          '')
-          versionSuffixes}
+        ${lib.concatMapStringsSep "\n" (v: ''
+          ln -s $lib/lib/libLLVM.dylib $lib/lib/libLLVM-${v}.dylib
+        '') versionSuffixes}
       ''
       + optionalString (stdenv.buildPlatform != stdenv.hostPlatform) ''
         cp NATIVE/bin/llvm-config $dev/bin/llvm-config-native

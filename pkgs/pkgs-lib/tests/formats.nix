@@ -10,19 +10,15 @@ let
     let
       formatSet = format args;
       config = formatSet.type.merge [ ] (
-        imap1
-          (n: def: {
-            # We check the input values, so that
-            #  - we don't write nonsensical tests that will impede progress
-            #  - the test author has a slightly more realistic view of the
-            #    final format during development.
-            value =
-              lib.throwIfNot (formatSet.type.check def)
-                (builtins.trace def "definition does not pass the type's check function")
-                def;
-            file = "def${toString n}";
-          })
-          [ def ]
+        imap1 (n: def: {
+          # We check the input values, so that
+          #  - we don't write nonsensical tests that will impede progress
+          #  - the test author has a slightly more realistic view of the
+          #    final format during development.
+          value = lib.throwIfNot (formatSet.type.check def
+            ) (builtins.trace def "definition does not pass the type's check function") def;
+          file = "def${toString n}";
+        }) [ def ]
       );
     in
     formatSet.generate "test-format-file" config;
@@ -48,12 +44,10 @@ let
   runBuildTests =
     tests:
     pkgs.linkFarm "nixpkgs-pkgs-lib-format-tests" (
-      mapAttrsToList
-        (name: value: {
-          inherit name;
-          path = runBuildTest name value;
-        })
-        (filterAttrs (name: value: value != null) tests)
+      mapAttrsToList (name: value: {
+        inherit name;
+        path = runBuildTest name value;
+      }) (filterAttrs (name: value: value != null) tests)
     );
 in
 runBuildTests {

@@ -12,14 +12,11 @@ let
   # TODO: Use this for having proper parameters in the future
   mkTlpConfig =
     tlpConfig:
-    generators.toKeyValue
-      {
-        mkKeyValue =
-          generators.mkKeyValueDefault
-            { mkValueString = val: if isList val then "\"" + (toString val) + "\"" else toString val; }
-            "=";
-      }
-      tlpConfig;
+    generators.toKeyValue {
+      mkKeyValue = generators.mkKeyValueDefault {
+        mkValueString = val: if isList val then "\"" + (toString val) + "\"" else toString val;
+      } "=";
+    } tlpConfig;
 in
 {
   ###### interface

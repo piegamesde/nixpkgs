@@ -36,12 +36,10 @@ let
   # packages have free licenses, `unfree` otherwise
   isFree = lib.trivial.pipe foomatic-db-packages [
     (lib.lists.map (
-      lib.attrsets.attrByPath
-        [
-          "meta"
-          "license"
-        ]
-        lib.licenses.unfree
+      lib.attrsets.attrByPath [
+        "meta"
+        "license"
+      ] lib.licenses.unfree
     ))
     (lib.lists.all (lib.attrsets.attrByPath [ "free" ] true))
   ];

@@ -26,12 +26,10 @@ let
 
   bindLocalhost =
     cfg.settings != { }
-    && !hasAttrByPath
-      [
-        "server"
-        "hosts"
-      ]
-      cfg.settings;
+    && !hasAttrByPath [
+      "server"
+      "hosts"
+    ] cfg.settings;
 in
 {
   options.services.radicale = {
@@ -203,16 +201,10 @@ in
         ProtectKernelTunables = true;
         ProtectProc = "invisible";
         ProtectSystem = "strict";
-        ReadWritePaths =
-          lib.optional
-            (hasAttrByPath
-              [
-                "storage"
-                "filesystem_folder"
-              ]
-              cfg.settings
-            )
-            cfg.settings.storage.filesystem_folder;
+        ReadWritePaths = lib.optional (hasAttrByPath [
+          "storage"
+          "filesystem_folder"
+        ] cfg.settings) cfg.settings.storage.filesystem_folder;
         RemoveIPC = true;
         RestrictAddressFamilies = [
           "AF_INET"

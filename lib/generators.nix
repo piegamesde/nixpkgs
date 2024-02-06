@@ -128,12 +128,10 @@ rec {
       # apply transformations (e.g. escapes) to section names
       mkSectionName ? (
         name:
-        libStr.escape
-          [
-            "["
-            "]"
-          ]
-          name
+        libStr.escape [
+          "["
+          "]"
+        ] name
       ),
       # format a setting line from key and value
       mkKeyValue ? mkKeyValueDefault { } "=",
@@ -191,12 +189,10 @@ rec {
       # apply transformations (e.g. escapes) to section names
       mkSectionName ? (
         name:
-        libStr.escape
-          [
-            "["
-            "]"
-          ]
-          name
+        libStr.escape [
+          "["
+          "]"
+        ] name
       ),
       # format a setting line from key and value
       mkKeyValue ? mkKeyValueDefault { } "=",
@@ -420,14 +416,12 @@ rec {
             "{"
             + introSpace
             + libStr.concatStringsSep introSpace (
-              libAttr.mapAttrsToList
-                (
-                  name: value:
-                  "${libStr.escapeNixIdentifier name} = ${
-                    builtins.addErrorContext "while evaluating an attribute `${name}`" (go (indent + "  ") value)
-                  };"
-                )
-                v
+              libAttr.mapAttrsToList (
+                name: value:
+                "${libStr.escapeNixIdentifier name} = ${
+                  builtins.addErrorContext "while evaluating an attribute `${name}`" (go (indent + "  ") value)
+                };"
+              ) v
             )
             + outroSpace
             + "}"
@@ -497,15 +491,13 @@ rec {
         ind: x:
         libStr.concatStringsSep "\n" (
           lib.flatten (
-            lib.mapAttrsToList
-              (
-                name: value:
-                lib.optionals (attrFilter name value) [
-                  (key "\t${ind}" name)
-                  (expr "\t${ind}" value)
-                ]
-              )
-              x
+            lib.mapAttrsToList (
+              name: value:
+              lib.optionals (attrFilter name value) [
+                (key "\t${ind}" name)
+                (expr "\t${ind}" value)
+              ]
+            ) x
           )
         );
     in

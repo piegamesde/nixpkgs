@@ -113,14 +113,11 @@ in
               See its description for more information.
       ''
     )
-    (mkRemovedOptionModule
-      [
-        "services"
-        "keycloak"
-        "extraConfig"
-      ]
-      "Use `services.keycloak.settings' instead."
-    )
+    (mkRemovedOptionModule [
+      "services"
+      "keycloak"
+      "extraConfig"
+    ] "Use `services.keycloak.settings' instead.")
   ];
 
   options.services.keycloak =
@@ -557,16 +554,13 @@ in
       };
 
       isSecret = v: isAttrs v && v ? _secret && isString v._secret;
-      filteredConfig =
-        lib.converge
-          (lib.filterAttrsRecursive (
-            _: v:
-            !elem v [
-              { }
-              null
-            ]
-          ))
-          cfg.settings;
+      filteredConfig = lib.converge (lib.filterAttrsRecursive (
+        _: v:
+        !elem v [
+          { }
+          null
+        ]
+      )) cfg.settings;
       confFile = pkgs.writeText "keycloak.conf" (keycloakConfig filteredConfig);
       keycloakBuild = cfg.package.override {
         inherit confFile;

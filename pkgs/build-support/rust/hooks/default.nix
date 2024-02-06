@@ -29,154 +29,119 @@ let
   rustTargetPlatformSpec = rust.toRustTargetSpec stdenv.hostPlatform;
 in
 {
-  cargoBuildHook =
-    callPackage
-      (
-        { }:
-        makeSetupHook
-          {
-            name = "cargo-build-hook.sh";
-            propagatedBuildInputs = [ cargo ];
-            substitutions = {
-              inherit
-                ccForBuild
-                ccForHost
-                cxxForBuild
-                cxxForHost
-                rustBuildPlatform
-                rustTargetPlatform
-                rustTargetPlatformSpec
-                ;
-            };
-          }
-          ./cargo-build-hook.sh
-      )
-      { };
+  cargoBuildHook = callPackage (
+    { }:
+    makeSetupHook {
+      name = "cargo-build-hook.sh";
+      propagatedBuildInputs = [ cargo ];
+      substitutions = {
+        inherit
+          ccForBuild
+          ccForHost
+          cxxForBuild
+          cxxForHost
+          rustBuildPlatform
+          rustTargetPlatform
+          rustTargetPlatformSpec
+          ;
+      };
+    } ./cargo-build-hook.sh
+  ) { };
 
-  cargoCheckHook =
-    callPackage
-      (
-        { }:
-        makeSetupHook
-          {
-            name = "cargo-check-hook.sh";
-            propagatedBuildInputs = [ cargo ];
-            substitutions = {
-              inherit rustTargetPlatformSpec;
-            };
-          }
-          ./cargo-check-hook.sh
-      )
-      { };
+  cargoCheckHook = callPackage (
+    { }:
+    makeSetupHook {
+      name = "cargo-check-hook.sh";
+      propagatedBuildInputs = [ cargo ];
+      substitutions = {
+        inherit rustTargetPlatformSpec;
+      };
+    } ./cargo-check-hook.sh
+  ) { };
 
-  cargoInstallHook =
-    callPackage
-      (
-        { }:
-        makeSetupHook
-          {
-            name = "cargo-install-hook.sh";
-            propagatedBuildInputs = [ ];
-            substitutions = {
-              inherit shortTarget;
-            };
-          }
-          ./cargo-install-hook.sh
-      )
-      { };
+  cargoInstallHook = callPackage (
+    { }:
+    makeSetupHook {
+      name = "cargo-install-hook.sh";
+      propagatedBuildInputs = [ ];
+      substitutions = {
+        inherit shortTarget;
+      };
+    } ./cargo-install-hook.sh
+  ) { };
 
-  cargoNextestHook =
-    callPackage
-      (
-        { }:
-        makeSetupHook
-          {
-            name = "cargo-nextest-hook.sh";
-            propagatedBuildInputs = [
-              cargo
-              cargo-nextest
-            ];
-            substitutions = {
-              inherit rustTargetPlatformSpec;
-            };
-          }
-          ./cargo-nextest-hook.sh
-      )
-      { };
+  cargoNextestHook = callPackage (
+    { }:
+    makeSetupHook {
+      name = "cargo-nextest-hook.sh";
+      propagatedBuildInputs = [
+        cargo
+        cargo-nextest
+      ];
+      substitutions = {
+        inherit rustTargetPlatformSpec;
+      };
+    } ./cargo-nextest-hook.sh
+  ) { };
 
-  cargoSetupHook =
-    callPackage
-      (
-        { }:
-        makeSetupHook
-          {
-            name = "cargo-setup-hook.sh";
-            propagatedBuildInputs = [ ];
-            substitutions = {
-              defaultConfig = ../fetchcargo-default-config.toml;
+  cargoSetupHook = callPackage (
+    { }:
+    makeSetupHook {
+      name = "cargo-setup-hook.sh";
+      propagatedBuildInputs = [ ];
+      substitutions = {
+        defaultConfig = ../fetchcargo-default-config.toml;
 
-              # Specify the stdenv's `diff` by abspath to ensure that the user's build
-              # inputs do not cause us to find the wrong `diff`.
-              diff = "${lib.getBin buildPackages.diffutils}/bin/diff";
+        # Specify the stdenv's `diff` by abspath to ensure that the user's build
+        # inputs do not cause us to find the wrong `diff`.
+        diff = "${lib.getBin buildPackages.diffutils}/bin/diff";
 
-              cargoConfig = ''
-                [target."${rust.toRustTarget stdenv.buildPlatform}"]
-                "linker" = "${ccForBuild}"
-                ${lib.optionalString (stdenv.buildPlatform.config != stdenv.hostPlatform.config) ''
-                  [target."${shortTarget}"]
-                  "linker" = "${ccForHost}"
-                ''}
-                "rustflags" = [ "-C", "target-feature=${
-                  if stdenv.hostPlatform.isStatic then "+" else "-"
-                }crt-static" ]
-              '';
-            };
-          }
-          ./cargo-setup-hook.sh
-      )
-      { };
+        cargoConfig = ''
+          [target."${rust.toRustTarget stdenv.buildPlatform}"]
+          "linker" = "${ccForBuild}"
+          ${lib.optionalString (stdenv.buildPlatform.config != stdenv.hostPlatform.config) ''
+            [target."${shortTarget}"]
+            "linker" = "${ccForHost}"
+          ''}
+          "rustflags" = [ "-C", "target-feature=${
+            if stdenv.hostPlatform.isStatic then "+" else "-"
+          }crt-static" ]
+        '';
+      };
+    } ./cargo-setup-hook.sh
+  ) { };
 
-  maturinBuildHook =
-    callPackage
-      (
-        { }:
-        makeSetupHook
-          {
-            name = "maturin-build-hook.sh";
-            propagatedBuildInputs = [
-              cargo
-              maturin
-              rustc
-            ];
-            substitutions = {
-              inherit
-                ccForBuild
-                ccForHost
-                cxxForBuild
-                cxxForHost
-                rustBuildPlatform
-                rustTargetPlatform
-                rustTargetPlatformSpec
-                ;
-            };
-          }
-          ./maturin-build-hook.sh
-      )
-      { };
+  maturinBuildHook = callPackage (
+    { }:
+    makeSetupHook {
+      name = "maturin-build-hook.sh";
+      propagatedBuildInputs = [
+        cargo
+        maturin
+        rustc
+      ];
+      substitutions = {
+        inherit
+          ccForBuild
+          ccForHost
+          cxxForBuild
+          cxxForHost
+          rustBuildPlatform
+          rustTargetPlatform
+          rustTargetPlatformSpec
+          ;
+      };
+    } ./maturin-build-hook.sh
+  ) { };
 
-  bindgenHook =
-    callPackage
-      (
-        { }:
-        makeSetupHook
-          {
-            name = "rust-bindgen-hook";
-            substitutions = {
-              libclang = clang.cc.lib;
-              inherit clang;
-            };
-          }
-          ./rust-bindgen-hook.sh
-      )
-      { };
+  bindgenHook = callPackage (
+    { }:
+    makeSetupHook {
+      name = "rust-bindgen-hook";
+      substitutions = {
+        libclang = clang.cc.lib;
+        inherit clang;
+      };
+    } ./rust-bindgen-hook.sh
+  ) { };
 }

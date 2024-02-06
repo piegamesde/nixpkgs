@@ -57,17 +57,14 @@ let
     expr':
     let
       expr = " " + expr';
-      acc =
-        builtins.foldl' findSubExpressionsFun
-          {
-            exprs = [ ];
-            expr = expr;
-            pos = 0;
-            openP = 0;
-            exprPos = 0;
-            startPos = 0;
-          }
-          (lib.stringToCharacters expr);
+      acc = builtins.foldl' findSubExpressionsFun {
+        exprs = [ ];
+        expr = expr;
+        pos = 0;
+        openP = 0;
+        exprPos = 0;
+        startPos = 0;
+      } (lib.stringToCharacters expr);
       tailExpr = (substr acc.exprPos acc.pos expr);
       tailExprs = if tailExpr != "" then [ tailExpr ] else [ ];
     in
@@ -104,10 +101,9 @@ let
         );
       parse = expr: builtins.filter (x: x != null) (builtins.map mapfn (splitCond expr));
     in
-    builtins.foldl'
-      (acc: v: acc ++ (if builtins.typeOf v == "string" then parse v else [ (parseExpressions v) ]))
-      [ ]
-      exprs;
+    builtins.foldl' (
+      acc: v: acc ++ (if builtins.typeOf v == "string" then parse v else [ (parseExpressions v) ])
+    ) [ ] exprs;
 
   # Transform individual expressions to structured expressions
   # This function also performs variable substitution, replacing environment markers with their explicit values
@@ -287,13 +283,10 @@ let
           else if builtins.typeOf v == "list" then
             (
               let
-                ret =
-                  builtins.foldl' reduceExpressionsFun
-                    {
-                      value = true;
-                      cond = "and";
-                    }
-                    v;
+                ret = builtins.foldl' reduceExpressionsFun {
+                  value = true;
+                  cond = "and";
+                } v;
               in
               acc // { value = cond."${acc.cond}" acc.value ret.value; }
             )
@@ -301,13 +294,10 @@ let
             throw "Unsupported type"
         );
     in
-    (builtins.foldl' reduceExpressionsFun
-      {
-        value = true;
-        cond = "and";
-      }
-      exprs
-    ).value;
+    (builtins.foldl' reduceExpressionsFun {
+      value = true;
+      cond = "and";
+    } exprs).value;
 in
 e:
 builtins.foldl' (acc: v: v acc) e [

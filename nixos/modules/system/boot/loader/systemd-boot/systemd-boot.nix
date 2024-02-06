@@ -45,21 +45,17 @@ let
       empty_file=$(${pkgs.coreutils}/bin/mktemp)
 
       ${concatStrings (
-        mapAttrsToList
-          (n: v: ''
-            ${pkgs.coreutils}/bin/install -Dp "${v}" "${efi.efiSysMountPoint}/"${escapeShellArg n}
-            ${pkgs.coreutils}/bin/install -D $empty_file "${efi.efiSysMountPoint}/efi/nixos/.extra-files/"${escapeShellArg n}
-          '')
-          cfg.extraFiles
+        mapAttrsToList (n: v: ''
+          ${pkgs.coreutils}/bin/install -Dp "${v}" "${efi.efiSysMountPoint}/"${escapeShellArg n}
+          ${pkgs.coreutils}/bin/install -D $empty_file "${efi.efiSysMountPoint}/efi/nixos/.extra-files/"${escapeShellArg n}
+        '') cfg.extraFiles
       )}
 
       ${concatStrings (
-        mapAttrsToList
-          (n: v: ''
-            ${pkgs.coreutils}/bin/install -Dp "${pkgs.writeText n v}" "${efi.efiSysMountPoint}/loader/entries/"${escapeShellArg n}
-            ${pkgs.coreutils}/bin/install -D $empty_file "${efi.efiSysMountPoint}/efi/nixos/.extra-files/loader/entries/"${escapeShellArg n}
-          '')
-          cfg.extraEntries
+        mapAttrsToList (n: v: ''
+          ${pkgs.coreutils}/bin/install -Dp "${pkgs.writeText n v}" "${efi.efiSysMountPoint}/loader/entries/"${escapeShellArg n}
+          ${pkgs.coreutils}/bin/install -D $empty_file "${efi.efiSysMountPoint}/efi/nixos/.extra-files/loader/entries/"${escapeShellArg n}
+        '') cfg.extraEntries
       )}
     '';
   };
@@ -287,35 +283,30 @@ in
           message = "This kernel does not support the EFI boot stub";
         }
       ]
-      ++ concatMap
-        (filename: [
-          {
-            assertion = !(hasInfix "/" filename);
-            message = "boot.loader.systemd-boot.extraEntries.${lib.strings.escapeNixIdentifier filename} is invalid: entries within folders are not supported";
-          }
-          {
-            assertion = hasSuffix ".conf" filename;
-            message = "boot.loader.systemd-boot.extraEntries.${lib.strings.escapeNixIdentifier filename} is invalid: entries must have a .conf file extension";
-          }
-        ])
-        (builtins.attrNames cfg.extraEntries)
-      ++
-        concatMap
-          (filename: [
-            {
-              assertion = !(hasPrefix "/" filename);
-              message = "boot.loader.systemd-boot.extraFiles.${lib.strings.escapeNixIdentifier filename} is invalid: paths must not begin with a slash";
-            }
-            {
-              assertion = !(hasInfix ".." filename);
-              message = "boot.loader.systemd-boot.extraFiles.${lib.strings.escapeNixIdentifier filename} is invalid: paths must not reference the parent directory";
-            }
-            {
-              assertion = !(hasInfix "nixos/.extra-files" (toLower filename));
-              message = "boot.loader.systemd-boot.extraFiles.${lib.strings.escapeNixIdentifier filename} is invalid: files cannot be placed in the nixos/.extra-files directory";
-            }
-          ])
-          (builtins.attrNames cfg.extraFiles);
+      ++ concatMap (filename: [
+        {
+          assertion = !(hasInfix "/" filename);
+          message = "boot.loader.systemd-boot.extraEntries.${lib.strings.escapeNixIdentifier filename} is invalid: entries within folders are not supported";
+        }
+        {
+          assertion = hasSuffix ".conf" filename;
+          message = "boot.loader.systemd-boot.extraEntries.${lib.strings.escapeNixIdentifier filename} is invalid: entries must have a .conf file extension";
+        }
+      ]) (builtins.attrNames cfg.extraEntries)
+      ++ concatMap (filename: [
+        {
+          assertion = !(hasPrefix "/" filename);
+          message = "boot.loader.systemd-boot.extraFiles.${lib.strings.escapeNixIdentifier filename} is invalid: paths must not begin with a slash";
+        }
+        {
+          assertion = !(hasInfix ".." filename);
+          message = "boot.loader.systemd-boot.extraFiles.${lib.strings.escapeNixIdentifier filename} is invalid: paths must not reference the parent directory";
+        }
+        {
+          assertion = !(hasInfix "nixos/.extra-files" (toLower filename));
+          message = "boot.loader.systemd-boot.extraFiles.${lib.strings.escapeNixIdentifier filename} is invalid: files cannot be placed in the nixos/.extra-files directory";
+        }
+      ]) (builtins.attrNames cfg.extraFiles);
 
     boot.loader.grub.enable = mkDefault false;
 

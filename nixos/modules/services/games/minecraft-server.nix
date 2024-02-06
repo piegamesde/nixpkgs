@@ -18,12 +18,10 @@ let
 
   whitelistFile = pkgs.writeText "whitelist.json" (
     builtins.toJSON (
-      mapAttrsToList
-        (n: v: {
-          name = n;
-          uuid = v;
-        })
-        cfg.whitelist
+      mapAttrsToList (n: v: {
+        name = n;
+        uuid = v;
+      }) cfg.whitelist
     )
   );
 

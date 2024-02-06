@@ -95,14 +95,11 @@ let
                 { archive = "font-subset.zip"; }
                 linux-flutter-gtk
               ];
-              variants =
-                lib.genAttrs
-                  [
-                    "debug"
-                    "profile"
-                    "release"
-                  ]
-                  (variant: [ linux-flutter-gtk ]);
+              variants = lib.genAttrs [
+                "debug"
+                "profile"
+                "release"
+              ] (variant: [ linux-flutter-gtk ]);
             }
           );
     };
@@ -147,37 +144,27 @@ let
 
   artifactDerivations = {
     common = builtins.mapAttrs (name: mkArtifactDerivation) artifacts.common;
-    platform =
-      builtins.mapAttrs
-        (
-          os: architectures:
-          builtins.mapAttrs
-            (architecture: variants: {
-              base =
-                map (args: mkArtifactDerivation ({ platform = "${os}-${architecture}"; } // args))
-                  variants.base;
-              variants =
-                builtins.mapAttrs
-                  (
-                    variant: variantArtifacts:
-                    map
-                      (
-                        args:
-                        mkArtifactDerivation (
-                          {
-                            platform = "${os}-${architecture}";
-                            inherit variant;
-                          }
-                          // args
-                        )
-                      )
-                      variantArtifacts
-                  )
-                  variants.variants;
-            })
-            architectures
-        )
-        artifacts.platform;
+    platform = builtins.mapAttrs (
+      os: architectures:
+      builtins.mapAttrs (architecture: variants: {
+        base = map (
+          args: mkArtifactDerivation ({ platform = "${os}-${architecture}"; } // args)
+        ) variants.base;
+        variants = builtins.mapAttrs (
+          variant: variantArtifacts:
+          map (
+            args:
+            mkArtifactDerivation (
+              {
+                platform = "${os}-${architecture}";
+                inherit variant;
+              }
+              // args
+            )
+          ) variantArtifacts
+        ) variants.variants;
+      }) architectures
+    ) artifacts.platform;
   };
 in
 artifactDerivations

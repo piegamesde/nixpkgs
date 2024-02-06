@@ -34,20 +34,14 @@ let
           const ? { },
         }:
         lib.concatLists (
-          (lib.mapAttrsToList
-            (from: to: [
-              "-p"
-              "${from}:${to}"
-            ])
-            prefix
-          )
-          ++ (lib.mapAttrsToList
-            (from: to: [
-              "-c"
-              "${from}:${to}"
-            ])
-            const
-          )
+          (lib.mapAttrsToList (from: to: [
+            "-p"
+            "${from}:${to}"
+          ]) prefix)
+          ++ (lib.mapAttrsToList (from: to: [
+            "-c"
+            "${from}:${to}"
+          ]) const)
         );
 
       rewrites =

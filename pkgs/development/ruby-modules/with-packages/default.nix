@@ -27,22 +27,19 @@ let
     gemset:
     let
       realGemset = if builtins.isAttrs gemset then gemset else import gemset;
-      builtGems =
-        lib.mapAttrs
-          (
-            name: initialAttrs:
-            let
-              attrs = functions.applyGemConfigs (
-                {
-                  inherit ruby;
-                  gemName = name;
-                }
-                // initialAttrs
-              );
-            in
-            buildRubyGem (functions.composeGemAttrs ruby builtGems name attrs)
-          )
-          realGemset;
+      builtGems = lib.mapAttrs (
+        name: initialAttrs:
+        let
+          attrs = functions.applyGemConfigs (
+            {
+              inherit ruby;
+              gemName = name;
+            }
+            // initialAttrs
+          );
+        in
+        buildRubyGem (functions.composeGemAttrs ruby builtGems name attrs)
+      ) realGemset;
     in
     builtGems;
 

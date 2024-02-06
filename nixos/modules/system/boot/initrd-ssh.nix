@@ -243,11 +243,9 @@ in
 
         mkdir -p /root/.ssh
         ${concatStrings (
-          map
-            (key: ''
-              echo ${escapeShellArg key} >> /root/.ssh/authorized_keys
-            '')
-            cfg.authorizedKeys
+          map (key: ''
+            echo ${escapeShellArg key} >> /root/.ssh/authorized_keys
+          '') cfg.authorizedKeys
         )}
 
         ${flip concatMapStrings cfg.hostKeys (

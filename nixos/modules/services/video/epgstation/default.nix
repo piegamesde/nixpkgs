@@ -95,15 +95,13 @@ let
 
   removeOption =
     config: instruction:
-    lib.mkRemovedOptionModule
-      (
-        [
-          "services"
-          "epgstation"
-        ]
-        ++ config
-      )
-      instruction;
+    lib.mkRemovedOptionModule (
+      [
+        "services"
+        "epgstation"
+      ]
+      ++ config
+    ) instruction;
 in
 {
   meta.maintainers = with lib.maintainers; [ midchildan ];

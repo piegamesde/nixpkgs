@@ -112,14 +112,11 @@ let
         mkdir -p node_modules
         cd node_modules
       ''
-      + (lib.concatMapStrings
-        (dependency: ''
-          if [ ! -e "${dependency.name}" ]; then
-              ${composePackage dependency}
-          fi
-        '')
-        dependencies
-      )
+      + (lib.concatMapStrings (dependency: ''
+        if [ ! -e "${dependency.name}" ]; then
+            ${composePackage dependency}
+        fi
+      '') dependencies)
       + ''
         cd ..
       ''

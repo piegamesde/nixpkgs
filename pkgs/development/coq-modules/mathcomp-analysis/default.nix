@@ -152,20 +152,14 @@ let
 
         propagatedBuildInputs =
           intra-deps
-          ++
-            optionals
-              (elem package [
-                "classical"
-                "single"
-              ])
-              classical-deps
-          ++
-            optionals
-              (elem package [
-                "analysis"
-                "single"
-              ])
-              analysis-deps;
+          ++ optionals (elem package [
+            "classical"
+            "single"
+          ]) classical-deps
+          ++ optionals (elem package [
+            "analysis"
+            "single"
+          ]) analysis-deps;
 
         preBuild = ''
           cd ${pkgpath}
@@ -198,15 +192,13 @@ let
       );
       patched-derivation2 = patched-derivation1.overrideAttrs (
         o:
-        optionalAttrs
-          (
-            o.pname != null
-            && o.pname == "mathcomp-analysis"
-            && o.version != null
-            && o.version != "dev"
-            && versions.isLt "0.6" o.version
-          )
-          { preBuild = ""; }
+        optionalAttrs (
+          o.pname != null
+          && o.pname == "mathcomp-analysis"
+          && o.version != null
+          && o.version != "dev"
+          && versions.isLt "0.6" o.version
+        ) { preBuild = ""; }
       );
       patched-derivation = patched-derivation2.overrideAttrs (
         o:

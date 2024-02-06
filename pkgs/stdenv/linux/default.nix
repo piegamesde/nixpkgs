@@ -91,19 +91,15 @@
       # Try to find an architecture compatible with our current system. We
       # just try every bootstrap we’ve got and test to see if it is
       # compatible with or current architecture.
-      getCompatibleTools =
-        lib.foldl
-          (
-            v: system:
-            if v != null then
-              v
-            else if localSystem.canExecute (lib.systems.elaborate { inherit system; }) then
-              archLookupTable.${system}
-            else
-              null
-          )
+      getCompatibleTools = lib.foldl (
+        v: system:
+        if v != null then
+          v
+        else if localSystem.canExecute (lib.systems.elaborate { inherit system; }) then
+          archLookupTable.${system}
+        else
           null
-          (lib.attrNames archLookupTable);
+      ) null (lib.attrNames archLookupTable);
 
       archLookupTable = table.${localSystem.libc} or (abort "unsupported libc for the pure Linux stdenv");
       files =
@@ -560,9 +556,9 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
 
       # `gettext` comes with obsolete config.sub/config.guess that don't recognize LoongArch64.
       # `libtool` comes with obsolete config.sub/config.guess that don't recognize Risc-V.
-      extraNativeBuildInputs =
-        lib.optional (localSystem.isLoongArch64 || localSystem.isRiscV)
-          prevStage.updateAutotoolsGnuConfigScriptsHook;
+      extraNativeBuildInputs = lib.optional (
+        localSystem.isLoongArch64 || localSystem.isRiscV
+      ) prevStage.updateAutotoolsGnuConfigScriptsHook;
     }
   )
 
@@ -635,8 +631,9 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
         [ prevStage.patchelf ]
         ++
         # Many tarballs come with obsolete config.sub/config.guess that don't recognize aarch64.
-        lib.optional (!localSystem.isx86 || localSystem.libc == "musl")
-          prevStage.updateAutotoolsGnuConfigScriptsHook;
+        lib.optional (
+          !localSystem.isx86 || localSystem.libc == "musl"
+        ) prevStage.updateAutotoolsGnuConfigScriptsHook;
     }
   )
 
@@ -707,8 +704,9 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
         ]
         ++
         # Many tarballs come with obsolete config.sub/config.guess that don't recognize aarch64.
-        lib.optional (!localSystem.isx86 || localSystem.libc == "musl")
-          prevStage.updateAutotoolsGnuConfigScriptsHook;
+        lib.optional (
+          !localSystem.isx86 || localSystem.libc == "musl"
+        ) prevStage.updateAutotoolsGnuConfigScriptsHook;
     }
   )
 
@@ -748,8 +746,9 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
           [ prevStage.patchelf ]
           ++
           # Many tarballs come with obsolete config.sub/config.guess that don't recognize aarch64.
-          lib.optional (!localSystem.isx86 || localSystem.libc == "musl")
-            prevStage.updateAutotoolsGnuConfigScriptsHook;
+          lib.optional (
+            !localSystem.isx86 || localSystem.libc == "musl"
+          ) prevStage.updateAutotoolsGnuConfigScriptsHook;
 
         cc = prevStage.gcc;
 

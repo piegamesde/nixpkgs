@@ -164,14 +164,12 @@ in
 
     environment.etc = listToAttrs (
       attrValues (
-        mapAttrs
-          (name: value: {
-            name = "xdg/nvim/${name}";
-            value = value // {
-              target = "xdg/nvim/${value.target}";
-            };
-          })
-          cfg.runtime
+        mapAttrs (name: value: {
+          name = "xdg/nvim/${name}";
+          value = value // {
+            target = "xdg/nvim/${value.target}";
+          };
+        }) cfg.runtime
       )
     );
 

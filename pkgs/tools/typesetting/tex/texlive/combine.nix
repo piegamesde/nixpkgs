@@ -187,10 +187,9 @@ in
             # pick up the header
             + "2,/^% from/{ /^% from/!p; };\n"
             # pick up all sections matching packages that we combine
-            +
-              lib.concatMapStrings
-                (pname: section "^% from ${pname}:$" "^% from|^%%% No changes may be made beyond this point.$")
-                hyphenPNames
+            + lib.concatMapStrings (
+              pname: section "^% from ${pname}:$" "^% from|^%%% No changes may be made beyond this point.$"
+            ) hyphenPNames
             # pick up the footer (for language.def)
             + "/^%%% No changes may be made beyond this point.$/,$p;\n"
           );

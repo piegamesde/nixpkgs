@@ -176,11 +176,9 @@ let
         preBuild = ''
           # Aspell can't handle multiple data-dirs
           # Copy everything we might possibly need
-          ${lib.concatMapStringsSep "\n"
-            (p: ''
-              cp -a ${p}/lib/aspell/* .
-            '')
-            ([ aspell ] ++ langInputs)}
+          ${lib.concatMapStringsSep "\n" (p: ''
+            cp -a ${p}/lib/aspell/* .
+          '') ([ aspell ] ++ langInputs)}
           export ASPELL_CONF="data-dir $(pwd)"
 
           aspell-create() {

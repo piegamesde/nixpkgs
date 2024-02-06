@@ -26,8 +26,9 @@ let
       extraHosts = ''
         ${master.ip}  etcd.${domain}
         ${master.ip}  api.${domain}
-        ${concatMapStringsSep "\n" (machineName: "${machines.${machineName}.ip}  ${machineName}.${domain}")
-          (attrNames machines)}
+        ${concatMapStringsSep "\n" (
+          machineName: "${machines.${machineName}.ip}  ${machineName}.${domain}"
+        ) (attrNames machines)}
       '';
       wrapKubectl =
         with pkgs;
@@ -39,83 +40,77 @@ let
     makeTest {
       inherit name;
 
-      nodes =
-        mapAttrs
-          (
-            machineName: machine:
-            {
-              config,
-              pkgs,
-              lib,
-              nodes,
-              ...
-            }:
-            mkMerge [
-              {
-                boot.postBootCommands = "rm -fr /var/lib/kubernetes/secrets /tmp/shared/*";
-                virtualisation.memorySize = mkDefault 1536;
-                virtualisation.diskSize = mkDefault 4096;
-                networking = {
-                  inherit domain extraHosts;
-                  primaryIPAddress = mkForce machine.ip;
+      nodes = mapAttrs (
+        machineName: machine:
+        {
+          config,
+          pkgs,
+          lib,
+          nodes,
+          ...
+        }:
+        mkMerge [
+          {
+            boot.postBootCommands = "rm -fr /var/lib/kubernetes/secrets /tmp/shared/*";
+            virtualisation.memorySize = mkDefault 1536;
+            virtualisation.diskSize = mkDefault 4096;
+            networking = {
+              inherit domain extraHosts;
+              primaryIPAddress = mkForce machine.ip;
 
-                  firewall = {
-                    allowedTCPPorts = [
-                      10250 # kubelet
-                    ];
-                    trustedInterfaces = [ "mynet" ];
-
-                    extraCommands =
-                      concatMapStrings
-                        (node: ''
-                          iptables -A INPUT -s ${node.networking.primaryIPAddress} -j ACCEPT
-                        '')
-                        (attrValues nodes);
-                  };
-                };
-                programs.bash.enableCompletion = true;
-                environment.systemPackages = [ wrapKubectl ];
-                services.flannel.iface = "eth1";
-                services.kubernetes = {
-                  proxy.hostname = "${masterName}.${domain}";
-
-                  easyCerts = true;
-                  inherit (machine) roles;
-                  apiserver = {
-                    securePort = 443;
-                    advertiseAddress = master.ip;
-                  };
-                  masterAddress = "${masterName}.${config.networking.domain}";
-                };
-              }
-              (optionalAttrs (any (role: role == "master") machine.roles) {
-                networking.firewall.allowedTCPPorts = [
-                  443 # kubernetes apiserver
+              firewall = {
+                allowedTCPPorts = [
+                  10250 # kubelet
                 ];
-              })
-              (optionalAttrs (machine ? extraConfiguration) (
-                machine.extraConfiguration {
-                  inherit
-                    config
-                    pkgs
-                    lib
-                    nodes
-                    ;
-                }
-              ))
-              (optionalAttrs (extraConfiguration != null) (
-                extraConfiguration {
-                  inherit
-                    config
-                    pkgs
-                    lib
-                    nodes
-                    ;
-                }
-              ))
-            ]
-          )
-          machines;
+                trustedInterfaces = [ "mynet" ];
+
+                extraCommands = concatMapStrings (node: ''
+                  iptables -A INPUT -s ${node.networking.primaryIPAddress} -j ACCEPT
+                '') (attrValues nodes);
+              };
+            };
+            programs.bash.enableCompletion = true;
+            environment.systemPackages = [ wrapKubectl ];
+            services.flannel.iface = "eth1";
+            services.kubernetes = {
+              proxy.hostname = "${masterName}.${domain}";
+
+              easyCerts = true;
+              inherit (machine) roles;
+              apiserver = {
+                securePort = 443;
+                advertiseAddress = master.ip;
+              };
+              masterAddress = "${masterName}.${config.networking.domain}";
+            };
+          }
+          (optionalAttrs (any (role: role == "master") machine.roles) {
+            networking.firewall.allowedTCPPorts = [
+              443 # kubernetes apiserver
+            ];
+          })
+          (optionalAttrs (machine ? extraConfiguration) (
+            machine.extraConfiguration {
+              inherit
+                config
+                pkgs
+                lib
+                nodes
+                ;
+            }
+          ))
+          (optionalAttrs (extraConfiguration != null) (
+            extraConfiguration {
+              inherit
+                config
+                pkgs
+                lib
+                nodes
+                ;
+            }
+          ))
+        ]
+      ) machines;
 
       testScript =
         ''

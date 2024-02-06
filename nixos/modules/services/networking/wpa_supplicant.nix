@@ -110,9 +110,9 @@ let
   mkUnit =
     iface:
     let
-      deviceUnit =
-        optional (iface != null)
-          "sys-subsystem-net-devices-${utils.escapeSystemdPath iface}.device";
+      deviceUnit = optional (
+        iface != null
+      ) "sys-subsystem-net-devices-${utils.escapeSystemdPath iface}.device";
       configStr =
         if cfg.allowAuxiliaryImperativeNetworks then
           "-c /etc/wpa_supplicant.conf -I ${finalConfig}"

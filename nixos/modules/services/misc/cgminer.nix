@@ -16,9 +16,9 @@ let
   );
   mergedConfig =
     with builtins;
-    mapAttrsToList
-      (n: v: ''"${n}":  ${if isBool v then "" else ''"''}${convType v}${if isBool v then "" else ''"''}'')
-      cfg.config;
+    mapAttrsToList (
+      n: v: ''"${n}":  ${if isBool v then "" else ''"''}${convType v}${if isBool v then "" else ''"''}''
+    ) cfg.config;
 
   cgminerConfig = pkgs.writeText "cgminer.conf" ''
     {

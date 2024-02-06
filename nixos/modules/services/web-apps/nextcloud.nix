@@ -924,8 +924,9 @@ in
                 $CONFIG = [
                   'apps_paths' => [
                     ${
-                      optionalString (cfg.extraApps != { })
-                        "[ 'path' => '${cfg.home}/nix-apps', 'url' => '/nix-apps', 'writable' => false ],"
+                      optionalString (
+                        cfg.extraApps != { }
+                      ) "[ 'path' => '${cfg.home}/nix-apps', 'url' => '/nix-apps', 'writable' => false ],"
                     }
                     [ 'path' => '${cfg.home}/apps', 'url' => '/apps', 'writable' => false ],
                     [ 'path' => '${cfg.home}/store-apps', 'url' => '/store-apps', 'writable' => true ],
@@ -1006,12 +1007,10 @@ in
                       ${installFlags}
                 '';
               occSetTrustedDomainsCmd = concatStringsSep "\n" (
-                imap0
-                  (i: v: ''
-                    ${occ}/bin/nextcloud-occ config:system:set trusted_domains \
-                      ${toString i} --value="${toString v}"
-                  '')
-                  ([ cfg.hostName ] ++ cfg.config.extraTrustedDomains)
+                imap0 (i: v: ''
+                  ${occ}/bin/nextcloud-occ config:system:set trusted_domains \
+                    ${toString i} --value="${toString v}"
+                '') ([ cfg.hostName ] ++ cfg.config.extraTrustedDomains)
               );
             in
             {

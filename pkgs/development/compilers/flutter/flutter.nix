@@ -92,38 +92,31 @@ let
             (
               commands: os:
               commands
-              ++ (builtins.foldl'
-                (
-                  commands: architecture:
-                  commands
-                  ++ (builtins.foldl'
-                    (
-                      commands: variant:
-                      commands
-                      ++ (map
-                        (
-                          artifact:
-                          mkPlatformArtifactLinkCommand {
-                            inherit
-                              artifact
-                              os
-                              architecture
-                              variant
-                              ;
-                          }
-                        )
-                        engineArtifacts.platform.${os}.${architecture}.variants.${variant}
-                      )
-                    )
-                    (map (artifact: mkPlatformArtifactLinkCommand { inherit artifact os architecture; })
-                      engineArtifacts.platform.${os}.${architecture}.base
-                    )
-                    includedEngineArtifacts.platform.${os}.${architecture}
+              ++ (builtins.foldl' (
+                commands: architecture:
+                commands
+                ++ (builtins.foldl'
+                  (
+                    commands: variant:
+                    commands
+                    ++ (map (
+                      artifact:
+                      mkPlatformArtifactLinkCommand {
+                        inherit
+                          artifact
+                          os
+                          architecture
+                          variant
+                          ;
+                      }
+                    ) engineArtifacts.platform.${os}.${architecture}.variants.${variant})
                   )
+                  (map (
+                    artifact: mkPlatformArtifactLinkCommand { inherit artifact os architecture; }
+                  ) engineArtifacts.platform.${os}.${architecture}.base)
+                  includedEngineArtifacts.platform.${os}.${architecture}
                 )
-                [ ]
-                (builtins.attrNames includedEngineArtifacts.platform.${os})
-              )
+              ) [ ] (builtins.attrNames includedEngineArtifacts.platform.${os}))
             )
             [ ]
             (

@@ -19,8 +19,9 @@
   usePulseaudio ? false,
 }:
 
-assert lib.asserts.assertMsg (usePipewire != usePulseaudio)
-  "You need to enable one and only one of pulseaudio or pipewire support";
+assert lib.asserts.assertMsg (
+  usePipewire != usePulseaudio
+) "You need to enable one and only one of pulseaudio or pipewire support";
 
 let
   pluginPath = lib.makeSearchPathOutput "lib" "lib/gstreamer-1.0" (

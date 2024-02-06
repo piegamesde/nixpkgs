@@ -49,12 +49,9 @@ in
       systemPackages = [ cfg.package ];
 
       # tell mandoc about man pages
-      etc."man.conf".text =
-        lib.concatMapStrings
-          (path: ''
-            manpath /run/current-system/sw/${path}
-          '')
-          cfg.manPath;
+      etc."man.conf".text = lib.concatMapStrings (path: ''
+        manpath /run/current-system/sw/${path}
+      '') cfg.manPath;
 
       # create mandoc.db for whatis(1), apropos(1) and man(1) -k
       # TODO(@sternenseemman): fix symlinked directories not getting indexed,

@@ -91,8 +91,9 @@ let
           dir=${if releaseType == "escript" then "bin" else "rel"}
           mkdir -p "$out/$dir" "$out/bin"
           cp -R --preserve=mode "_build/${profile}/$dir" "$out"
-          ${lib.optionalString (releaseType == "release")
-            "find $out/rel/*/bin -type f -executable -exec ln -s -t $out/bin {} \\;"}
+          ${lib.optionalString (
+            releaseType == "release"
+          ) "find $out/rel/*/bin -type f -executable -exec ln -s -t $out/bin {} \\;"}
           runHook postInstall
         '';
 

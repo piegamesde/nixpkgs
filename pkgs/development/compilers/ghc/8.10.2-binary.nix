@@ -266,23 +266,20 @@ stdenv.mkDerivation rec {
               echo >&2 "GHC binary ${binDistUsed.exePathForLibraryCheck} could not be found in the bindist build directory (at ${buildExeGlob}) for arch ${stdenv.hostPlatform.system}, please check that ghcBinDists correctly reflect the bindist dependencies!"; exit 1;
             fi
           '')
-          (lib.concatMapStringsSep "\n"
-            (
-              { fileToCheckFor, nixPackage }:
-              lib.optionalString (fileToCheckFor != null) ''
-                echo "Checking bindist for ${fileToCheckFor} to ensure that is still used"
-                if ! readelf -d ${buildExeGlob} | grep "${fileToCheckFor}"; then
-                  echo >&2 "File ${fileToCheckFor} could not be found in ${binDistUsed.exePathForLibraryCheck} for arch ${stdenv.hostPlatform.system}, please check that ghcBinDists correctly reflect the bindist dependencies!"; exit 1;
-                fi
+          (lib.concatMapStringsSep "\n" (
+            { fileToCheckFor, nixPackage }:
+            lib.optionalString (fileToCheckFor != null) ''
+              echo "Checking bindist for ${fileToCheckFor} to ensure that is still used"
+              if ! readelf -d ${buildExeGlob} | grep "${fileToCheckFor}"; then
+                echo >&2 "File ${fileToCheckFor} could not be found in ${binDistUsed.exePathForLibraryCheck} for arch ${stdenv.hostPlatform.system}, please check that ghcBinDists correctly reflect the bindist dependencies!"; exit 1;
+              fi
 
-                echo "Checking that the nix package ${nixPackage} contains ${fileToCheckFor}"
-                if ! test -e "${lib.getLib nixPackage}/lib/${fileToCheckFor}"; then
-                  echo >&2 "Nix package ${nixPackage} did not contain ${fileToCheckFor} for arch ${stdenv.hostPlatform.system}, please check that ghcBinDists correctly reflect the bindist dependencies!"; exit 1;
-                fi
-              ''
-            )
-            binDistUsed.archSpecificLibraries
-          )
+              echo "Checking that the nix package ${nixPackage} contains ${fileToCheckFor}"
+              if ! test -e "${lib.getLib nixPackage}/lib/${fileToCheckFor}"; then
+                echo >&2 "Nix package ${nixPackage} did not contain ${fileToCheckFor} for arch ${stdenv.hostPlatform.system}, please check that ghcBinDists correctly reflect the bindist dependencies!"; exit 1;
+              fi
+            ''
+          ) binDistUsed.archSpecificLibraries)
         ]
       )
     # GHC has dtrace probes, which causes ld to try to open /usr/lib/libdtrace.dylib

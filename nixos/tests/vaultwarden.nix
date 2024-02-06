@@ -206,10 +206,8 @@ let
     };
 in
 builtins.listToAttrs (
-  map
-    (backend: {
-      name = backend;
-      value = makeVaultwardenTest backend;
-    })
-    backends
+  map (backend: {
+    name = backend;
+    value = makeVaultwardenTest backend;
+  }) backends
 )

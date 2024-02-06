@@ -28,14 +28,11 @@ in
       (
         config:
         let
-          libraryDir =
-            getAttrFromPath
-              [
-                "services"
-                "calibre-server"
-                "libraryDir"
-              ]
-              config;
+          libraryDir = getAttrFromPath [
+            "services"
+            "calibre-server"
+            "libraryDir"
+          ] config;
         in
         [ libraryDir ]
       )

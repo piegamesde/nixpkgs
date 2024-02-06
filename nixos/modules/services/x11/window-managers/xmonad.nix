@@ -31,14 +31,11 @@ let
     let
       xmonadAndPackages = self: [ self.xmonad ] ++ packages self;
       xmonadEnv = ghcWithPackages xmonadAndPackages;
-      configured =
-        pkgs.writers.writeHaskellBin "xmonad"
-          {
-            ghc = cfg.haskellPackages.ghc;
-            libraries = xmonadAndPackages cfg.haskellPackages;
-            inherit (cfg) ghcArgs;
-          }
-          cfg.config;
+      configured = pkgs.writers.writeHaskellBin "xmonad" {
+        ghc = cfg.haskellPackages.ghc;
+        libraries = xmonadAndPackages cfg.haskellPackages;
+        inherit (cfg) ghcArgs;
+      } cfg.config;
     in
     pkgs.runCommandLocal "xmonad" { nativeBuildInputs = [ pkgs.makeWrapper ]; } (
       ''

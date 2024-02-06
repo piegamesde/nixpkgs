@@ -38,11 +38,9 @@ let
       mkdir -p _checkouts _build/default/lib/
 
       ${toString (
-        lib.mapAttrsToList
-          (k: v: ''
-            cp -R --no-preserve=mode ${v} _checkouts/${k}
-          '')
-          deps
+        lib.mapAttrsToList (k: v: ''
+          cp -R --no-preserve=mode ${v} _checkouts/${k}
+        '') deps
       )}
 
       # Bootstrap script expects the dependencies in _build/default/lib

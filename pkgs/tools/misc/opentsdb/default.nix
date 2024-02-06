@@ -299,16 +299,14 @@ stdenv.mkDerivation rec {
   '';
 
   preBuild = lib.concatStrings (
-    lib.mapAttrsToList
-      (
-        dir:
-        lib.concatMapStrings (
-          artifact: ''
-            ln -s ${artifact}/share/java/* third_party/${dir}
-          ''
-        )
+    lib.mapAttrsToList (
+      dir:
+      lib.concatMapStrings (
+        artifact: ''
+          ln -s ${artifact}/share/java/* third_party/${dir}
+        ''
       )
-      artifacts
+    ) artifacts
   );
 
   postInstall = ''

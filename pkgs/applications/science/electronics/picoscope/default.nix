@@ -41,44 +41,41 @@ let
       license = licenses.unfree;
     };
 
-  libpicoipp =
-    callPackage
-      (
-        {
-          stdenv,
-          lib,
-          fetchurl,
-          autoPatchelfHook,
-          dpkg,
-        }:
-        stdenv.mkDerivation rec {
-          pname = "libpicoipp";
-          inherit (sources.libpicoipp) version;
-          src = fetchurl { inherit (sources.libpicoipp) url sha256; };
-          nativeBuildInputs = [
-            dpkg
-            autoPatchelfHook
-          ];
-          buildInputs = [ stdenv.cc.cc.lib ];
-          sourceRoot = ".";
-          unpackCmd = "dpkg-deb -x $src .";
-          installPhase = ''
-            runHook preInstall
-            mkdir -p $out/lib
-            cp -d opt/picoscope/lib/* $out/lib
-            install -Dt $out/usr/share/doc/libpicoipp usr/share/doc/libpicoipp/copyright
-            runHook postInstall
-          '';
-          meta =
-            with lib;
-            shared_meta lib
-            // {
-              sourceProvenance = with sourceTypes; [ binaryNativeCode ];
-              description = "library for picotech oscilloscope software";
-            };
-        }
-      )
-      { };
+  libpicoipp = callPackage (
+    {
+      stdenv,
+      lib,
+      fetchurl,
+      autoPatchelfHook,
+      dpkg,
+    }:
+    stdenv.mkDerivation rec {
+      pname = "libpicoipp";
+      inherit (sources.libpicoipp) version;
+      src = fetchurl { inherit (sources.libpicoipp) url sha256; };
+      nativeBuildInputs = [
+        dpkg
+        autoPatchelfHook
+      ];
+      buildInputs = [ stdenv.cc.cc.lib ];
+      sourceRoot = ".";
+      unpackCmd = "dpkg-deb -x $src .";
+      installPhase = ''
+        runHook preInstall
+        mkdir -p $out/lib
+        cp -d opt/picoscope/lib/* $out/lib
+        install -Dt $out/usr/share/doc/libpicoipp usr/share/doc/libpicoipp/copyright
+        runHook postInstall
+      '';
+      meta =
+        with lib;
+        shared_meta lib
+        // {
+          sourceProvenance = with sourceTypes; [ binaryNativeCode ];
+          description = "library for picotech oscilloscope software";
+        };
+    }
+  ) { };
 
   # If we don't have a platform available, put a dummy version here, so at
   # least evaluation succeeds.

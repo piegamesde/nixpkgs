@@ -46,21 +46,17 @@ let
       rm -rf $out/share/mediawiki/extensions/*
 
       ${concatStringsSep "\n" (
-        mapAttrsToList
-          (k: v: ''
-            ln -s ${v} $out/share/mediawiki/skins/${k}
-          '')
-          cfg.skins
+        mapAttrsToList (k: v: ''
+          ln -s ${v} $out/share/mediawiki/skins/${k}
+        '') cfg.skins
       )}
 
       ${concatStringsSep "\n" (
-        mapAttrsToList
-          (k: v: ''
-            ln -s ${
-              if v != null then v else "$src/share/mediawiki/extensions/${k}"
-            } $out/share/mediawiki/extensions/${k}
-          '')
-          cfg.extensions
+        mapAttrsToList (k: v: ''
+          ln -s ${
+            if v != null then v else "$src/share/mediawiki/extensions/${k}"
+          } $out/share/mediawiki/extensions/${k}
+        '') cfg.extensions
       )}
     '';
   };
@@ -135,8 +131,9 @@ let
       $wgDBname = "${cfg.database.name}";
       $wgDBuser = "${cfg.database.user}";
       ${
-        optionalString (cfg.database.passwordFile != null)
-          "$wgDBpassword = file_get_contents(\"${cfg.database.passwordFile}\");"
+        optionalString (
+          cfg.database.passwordFile != null
+        ) "$wgDBpassword = file_get_contents(\"${cfg.database.passwordFile}\");"
       }
 
       ${
@@ -658,11 +655,12 @@ in
     };
 
     systemd.services.httpd.after =
-      optional (cfg.webserver == "apache" && cfg.database.createLocally && cfg.database.type == "mysql")
-        "mysql.service"
-      ++ optional
-        (cfg.webserver == "apache" && cfg.database.createLocally && cfg.database.type == "postgres")
-        "postgresql.service";
+      optional (
+        cfg.webserver == "apache" && cfg.database.createLocally && cfg.database.type == "mysql"
+      ) "mysql.service"
+      ++ optional (
+        cfg.webserver == "apache" && cfg.database.createLocally && cfg.database.type == "postgres"
+      ) "postgresql.service";
 
     users.users.${user} = {
       group = group;

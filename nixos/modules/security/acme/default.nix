@@ -112,16 +112,14 @@ let
           chown -R ${user} .lego/accounts
         ''
         + (concatStringsSep "\n" (
-          mapAttrsToList
-            (cert: data: ''
-              for fixpath in ${escapeShellArg cert} .lego/${escapeShellArg cert}; do
-                if [ -d "$fixpath" ]; then
-                  chmod -R u=rwX,g=rX,o= "$fixpath"
-                  chown -R ${user}:${data.group} "$fixpath"
-                fi
-              done
-            '')
-            certConfigs
+          mapAttrsToList (cert: data: ''
+            for fixpath in ${escapeShellArg cert} .lego/${escapeShellArg cert}; do
+              if [ -d "$fixpath" ]; then
+                chmod -R u=rwX,g=rX,o= "$fixpath"
+                chown -R ${user}:${data.group} "$fixpath"
+              fi
+            done
+          '') certConfigs
         ));
     in
     {
@@ -224,13 +222,10 @@ let
           "--server"
           acmeServer
         ]
-        ++
-          concatMap
-            (name: [
-              "-d"
-              name
-            ])
-            extraDomains
+        ++ concatMap (name: [
+          "-d"
+          name
+        ]) extraDomains
         ++ data.extraLegoFlags;
 
       # Although --must-staple is common to both modes, it is not declared as a
@@ -396,8 +391,9 @@ let
                   rm renewed
                   ${data.postRun}
                   ${
-                    optionalString (data.reloadServices != [ ])
-                      "systemctl --no-block try-reload-or-restart ${escapeShellArgs data.reloadServices}"
+                    optionalString (
+                      data.reloadServices != [ ]
+                    ) "systemctl --no-block try-reload-or-restart ${escapeShellArgs data.reloadServices}"
                   }
                 fi
               '');
@@ -983,16 +979,14 @@ in
       # FIXME Most of these custom warnings and filters for security.acme.certs.* are required
       # because using mkRemovedOptionModule/mkChangedOptionModule with attrsets isn't possible.
       warnings = filter (w: w != "") (
-        mapAttrsToList
-          (
-            cert: data:
-            optionalString (data.extraDomains != "_mkMergedOptionModule") ''
-              The option definition `security.acme.certs.${cert}.extraDomains` has changed
-              to `security.acme.certs.${cert}.extraDomainNames` and is now a list of strings.
-              Setting a custom webroot for extra domains is not possible, instead use separate certs.
-            ''
-          )
-          cfg.certs
+        mapAttrsToList (
+          cert: data:
+          optionalString (data.extraDomains != "_mkMergedOptionModule") ''
+            The option definition `security.acme.certs.${cert}.extraDomains` has changed
+            to `security.acme.certs.${cert}.extraDomainNames` and is now a list of strings.
+            Setting a custom webroot for extra domains is not possible, instead use separate certs.
+          ''
+        ) cfg.certs
       );
 
       assertions =
@@ -1018,68 +1012,66 @@ in
           }
         ]
         ++ (builtins.concatLists (
-          mapAttrsToList
-            (cert: data: [
-              {
-                assertion = data.user == "_mkRemovedOptionModule";
-                message = ''
-                  The option definition `security.acme.certs.${cert}.user' no longer has any effect; Please remove it.
-                  Certificate user is now hard coded to the "acme" user. If you would
-                  like another user to have access, consider adding them to the
-                  "acme" group or changing security.acme.certs.${cert}.group.
-                '';
-              }
-              {
-                assertion = data.allowKeysForGroup == "_mkRemovedOptionModule";
-                message = ''
-                  The option definition `security.acme.certs.${cert}.allowKeysForGroup' no longer has any effect; Please remove it.
-                  All certs are readable by the configured group. If this is undesired,
-                  consider changing security.acme.certs.${cert}.group to an unused group.
-                '';
-              }
-              # * in the cert value breaks building of systemd services, and makes
-              # referencing them as a user quite weird too. Best practice is to use
-              # the domain option.
-              {
-                assertion = !hasInfix "*" cert;
-                message = ''
-                  The cert option path `security.acme.certs.${cert}.dnsProvider`
-                  cannot contain a * character.
-                  Instead, set `security.acme.certs.${cert}.domain = "${cert}";`
-                  and remove the wildcard from the path.
-                '';
-              }
-              {
-                assertion = data.dnsProvider == null || data.webroot == null;
-                message = ''
-                  Options `security.acme.certs.${cert}.dnsProvider` and
-                  `security.acme.certs.${cert}.webroot` are mutually exclusive.
-                '';
-              }
-              {
-                assertion = data.webroot == null || data.listenHTTP == null;
-                message = ''
-                  Options `security.acme.certs.${cert}.webroot` and
-                  `security.acme.certs.${cert}.listenHTTP` are mutually exclusive.
-                '';
-              }
-              {
-                assertion = data.listenHTTP == null || data.dnsProvider == null;
-                message = ''
-                  Options `security.acme.certs.${cert}.listenHTTP` and
-                  `security.acme.certs.${cert}.dnsProvider` are mutually exclusive.
-                '';
-              }
-              {
-                assertion = data.dnsProvider != null || data.webroot != null || data.listenHTTP != null;
-                message = ''
-                  One of `security.acme.certs.${cert}.dnsProvider`,
-                  `security.acme.certs.${cert}.webroot`, or
-                  `security.acme.certs.${cert}.listenHTTP` must be provided.
-                '';
-              }
-            ])
-            cfg.certs
+          mapAttrsToList (cert: data: [
+            {
+              assertion = data.user == "_mkRemovedOptionModule";
+              message = ''
+                The option definition `security.acme.certs.${cert}.user' no longer has any effect; Please remove it.
+                Certificate user is now hard coded to the "acme" user. If you would
+                like another user to have access, consider adding them to the
+                "acme" group or changing security.acme.certs.${cert}.group.
+              '';
+            }
+            {
+              assertion = data.allowKeysForGroup == "_mkRemovedOptionModule";
+              message = ''
+                The option definition `security.acme.certs.${cert}.allowKeysForGroup' no longer has any effect; Please remove it.
+                All certs are readable by the configured group. If this is undesired,
+                consider changing security.acme.certs.${cert}.group to an unused group.
+              '';
+            }
+            # * in the cert value breaks building of systemd services, and makes
+            # referencing them as a user quite weird too. Best practice is to use
+            # the domain option.
+            {
+              assertion = !hasInfix "*" cert;
+              message = ''
+                The cert option path `security.acme.certs.${cert}.dnsProvider`
+                cannot contain a * character.
+                Instead, set `security.acme.certs.${cert}.domain = "${cert}";`
+                and remove the wildcard from the path.
+              '';
+            }
+            {
+              assertion = data.dnsProvider == null || data.webroot == null;
+              message = ''
+                Options `security.acme.certs.${cert}.dnsProvider` and
+                `security.acme.certs.${cert}.webroot` are mutually exclusive.
+              '';
+            }
+            {
+              assertion = data.webroot == null || data.listenHTTP == null;
+              message = ''
+                Options `security.acme.certs.${cert}.webroot` and
+                `security.acme.certs.${cert}.listenHTTP` are mutually exclusive.
+              '';
+            }
+            {
+              assertion = data.listenHTTP == null || data.dnsProvider == null;
+              message = ''
+                Options `security.acme.certs.${cert}.listenHTTP` and
+                `security.acme.certs.${cert}.dnsProvider` are mutually exclusive.
+              '';
+            }
+            {
+              assertion = data.dnsProvider != null || data.webroot != null || data.listenHTTP != null;
+              message = ''
+                One of `security.acme.certs.${cert}.dnsProvider`,
+                `security.acme.certs.${cert}.webroot`, or
+                `security.acme.certs.${cert}.listenHTTP` must be provided.
+              '';
+            }
+          ]) cfg.certs
         ));
 
       users.users.acme = {
@@ -1099,9 +1091,9 @@ in
           {
             "acme-selfsigned-ca" = selfsignCAService;
           }
-          // (mapAttrs' (cert: conf: nameValuePair "acme-selfsigned-${cert}" conf.selfsignService)
-            certConfigs
-          )
+          // (mapAttrs' (
+            cert: conf: nameValuePair "acme-selfsigned-${cert}" conf.selfsignService
+          ) certConfigs)
         ));
 
       systemd.timers = mapAttrs' (cert: conf: nameValuePair "acme-${cert}" conf.renewTimer) certConfigs;
@@ -1109,17 +1101,14 @@ in
       systemd.targets =
         let
           # Create some targets which can be depended on to be "active" after cert renewals
-          finishedTargets =
-            mapAttrs'
-              (
-                cert: conf:
-                nameValuePair "acme-finished-${cert}" {
-                  wantedBy = [ "default.target" ];
-                  requires = [ "acme-${cert}.service" ];
-                  after = [ "acme-${cert}.service" ];
-                }
-              )
-              certConfigs;
+          finishedTargets = mapAttrs' (
+            cert: conf:
+            nameValuePair "acme-finished-${cert}" {
+              wantedBy = [ "default.target" ];
+              requires = [ "acme-${cert}.service" ];
+              after = [ "acme-${cert}.service" ];
+            }
+          ) certConfigs;
 
           # Create targets to limit the number of simultaneous account creations
           # How it works:
@@ -1130,22 +1119,19 @@ in
           # Using a target here is fine - account creation is a one time event. Even if
           # systemd clean --what=state is used to delete the account, so long as the user
           # then runs one of the cert services, there won't be any issues.
-          accountTargets =
-            mapAttrs'
-              (
-                hash: confs:
-                let
-                  leader = "acme-${(builtins.head confs).cert}.service";
-                  dependantServices = map (conf: "acme-${conf.cert}.service") (builtins.tail confs);
-                in
-                nameValuePair "acme-account-${hash}" {
-                  requiredBy = dependantServices;
-                  before = dependantServices;
-                  requires = [ leader ];
-                  after = [ leader ];
-                }
-              )
-              (groupBy (conf: conf.accountHash) (attrValues certConfigs));
+          accountTargets = mapAttrs' (
+            hash: confs:
+            let
+              leader = "acme-${(builtins.head confs).cert}.service";
+              dependantServices = map (conf: "acme-${conf.cert}.service") (builtins.tail confs);
+            in
+            nameValuePair "acme-account-${hash}" {
+              requiredBy = dependantServices;
+              before = dependantServices;
+              requires = [ leader ];
+              after = [ leader ];
+            }
+          ) (groupBy (conf: conf.accountHash) (attrValues certConfigs));
         in
         finishedTargets // accountTargets;
     })

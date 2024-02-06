@@ -157,15 +157,13 @@ let
         Address = mkDefault (map (address: "${address.address} ${toString address.port}") config.addresses);
 
         Subnet = mkDefault (
-          map
-            (
-              subnet:
-              if subnet.prefixLength == null then
-                "${subnet.address}#${toString subnet.weight}"
-              else
-                "${subnet.address}/${toString subnet.prefixLength}#${toString subnet.weight}"
-            )
-            config.subnets
+          map (
+            subnet:
+            if subnet.prefixLength == null then
+              "${subnet.address}#${toString subnet.weight}"
+            else
+              "${subnet.address}/${toString subnet.prefixLength}#${toString subnet.weight}"
+          ) config.subnets
         );
       };
     };
@@ -346,13 +344,10 @@ in
                 };
 
                 config = {
-                  hosts =
-                    mapAttrs
-                      (hostname: host: ''
-                        ${toTincConf host.settings}
-                        ${host.rsaPublicKey}
-                      '')
-                      config.hostSettings;
+                  hosts = mapAttrs (hostname: host: ''
+                    ${toTincConf host.settings}
+                    ${host.rsaPublicKey}
+                  '') config.hostSettings;
 
                   settings = {
                     DeviceType = mkDefault config.interfaceType;
@@ -467,16 +462,14 @@ in
             buildCommand = ''
               mkdir -p $out/bin
               ${concatStringsSep "\n" (
-                mapAttrsToList
-                  (
-                    network: data:
-                    optionalString (versionAtLeast data.package.version "1.1pre") ''
-                      makeWrapper ${data.package}/bin/tinc "$out/bin/tinc.${network}" \
-                        --add-flags "--pidfile=/run/tinc.${network}.pid" \
-                        --add-flags "--config=/etc/tinc/${network}"
-                    ''
-                  )
-                  cfg.networks
+                mapAttrsToList (
+                  network: data:
+                  optionalString (versionAtLeast data.package.version "1.1pre") ''
+                    makeWrapper ${data.package}/bin/tinc "$out/bin/tinc.${network}" \
+                      --add-flags "--pidfile=/run/tinc.${network}.pid" \
+                      --add-flags "--config=/etc/tinc/${network}"
+                  ''
+                ) cfg.networks
               )}
             '';
           };

@@ -37,13 +37,11 @@ let
   mkPatterns =
     filterBlocks:
     concatStringsSep "\n" (
-      map
-        (block: ''
-          ${block.match}
-          ${block.filters}
+      map (block: ''
+        ${block.match}
+        ${block.filters}
 
-        '')
-        filterBlocks
+      '') filterBlocks
     );
 
   # can't use joinSymlinks directly, because when we point $XDG_CONFIG_HOME

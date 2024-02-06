@@ -81,9 +81,9 @@ stdenv.mkDerivation rec {
         popd
       '';
 
-      makeFlags =
-        optionalString (kernel != null)
-          "-C ${kernel.dev}/lib/modules/${kernel.modDirVersion}/build modules";
+      makeFlags = optionalString (
+        kernel != null
+      ) "-C ${kernel.dev}/lib/modules/${kernel.modDirVersion}/build modules";
 
       installPhase = ''
         runHook preInstall

@@ -207,17 +207,15 @@ let
 
   mkSubModules = (
     foldl' (a: b: a // b) { } (
-      mapAttrsToList
-        (
-          name: opts:
-          mkSubModule {
-            inherit name;
-            inherit (opts) port;
-            extraOpts = opts.extraOpts or { };
-            imports = opts.imports or [ ];
-          }
-        )
-        exporterOpts
+      mapAttrsToList (
+        name: opts:
+        mkSubModule {
+          inherit name;
+          inherit (opts) port;
+          extraOpts = opts.extraOpts or { };
+          imports = opts.imports or [ ];
+        }
+      ) exporterOpts
     )
   );
 
@@ -424,17 +422,14 @@ in
         services.prometheus.exporters.postfix.group = mkDefault config.services.postfix.setgidGroup;
       })
     ]
-    ++ (mapAttrsToList
-      (
-        name: conf:
-        mkExporterConf {
-          inherit name;
-          inherit (conf) serviceOpts;
-          conf = cfg.${name};
-        }
-      )
-      exporterOpts
-    )
+    ++ (mapAttrsToList (
+      name: conf:
+      mkExporterConf {
+        inherit name;
+        inherit (conf) serviceOpts;
+        conf = cfg.${name};
+      }
+    ) exporterOpts)
   );
 
   meta = {

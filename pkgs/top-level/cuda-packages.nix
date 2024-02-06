@@ -55,18 +55,13 @@ let
 
     nccl = final.callPackage ../development/libraries/science/math/nccl { };
 
-    autoAddOpenGLRunpathHook =
-      final.callPackage
-        (
-          { makeSetupHook, addOpenGLRunpath }:
-          makeSetupHook
-            {
-              name = "auto-add-opengl-runpath-hook";
-              propagatedBuildInputs = [ addOpenGLRunpath ];
-            }
-            ../development/compilers/cudatoolkit/auto-add-opengl-runpath-hook.sh
-        )
-        { };
+    autoAddOpenGLRunpathHook = final.callPackage (
+      { makeSetupHook, addOpenGLRunpath }:
+      makeSetupHook {
+        name = "auto-add-opengl-runpath-hook";
+        propagatedBuildInputs = [ addOpenGLRunpath ];
+      } ../development/compilers/cudatoolkit/auto-add-opengl-runpath-hook.sh
+    ) { };
   };
 
   composedExtension = composeManyExtensions ([

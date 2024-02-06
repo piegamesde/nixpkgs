@@ -18,11 +18,9 @@ let
         mkdir -p $out/db
       ''
       + (concatStringsSep "\n" (
-        mapAttrsToList
-          (name: path: ''
-            ln -s ${path} $out/profile/${name}
-          '')
-          cfg.profiles
+        mapAttrsToList (name: path: ''
+          ln -s ${path} $out/profile/${name}
+        '') cfg.profiles
       ))
       + ''
         ${pkgs.dconf}/bin/dconf update $out/db

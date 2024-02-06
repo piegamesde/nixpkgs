@@ -229,12 +229,10 @@ in
           sites = mkOption {
             type =
               with types;
-              either
-                (enum [
-                  "default"
-                  "all"
-                ])
-                (listOf str);
+              either (enum [
+                "default"
+                "all"
+              ]) (listOf str);
             default = "all";
             description = lib.mdDoc ''
               List of site names for which statistics should be exported.

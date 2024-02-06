@@ -55,9 +55,9 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  preFixup =
-    lib.optionalString (aria2 != null)
-      ''gappsWrapperArgs+=(--suffix PATH : "${aria2}/bin")'';
+  preFixup = lib.optionalString (
+    aria2 != null
+  ) ''gappsWrapperArgs+=(--suffix PATH : "${aria2}/bin")'';
 
   meta = with lib; {
     description = "Download manager using GTK and libcurl";

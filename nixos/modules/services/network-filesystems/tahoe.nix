@@ -297,8 +297,9 @@ in
               web.port = tcp:${toString settings.web.port}
 
               [client]
-              ${optionalString (settings.client.introducer != null)
-                "introducer.furl = ${settings.client.introducer}"}
+              ${optionalString (
+                settings.client.introducer != null
+              ) "introducer.furl = ${settings.client.introducer}"}
               ${optionalString (settings.client.helper != null) "helper.furl = ${settings.client.helper}"}
 
               shares.needed = ${toString settings.client.shares.needed}
@@ -315,14 +316,18 @@ in
               [sftpd]
               enabled = ${boolToString settings.sftpd.enable}
               ${optionalString (settings.sftpd.port != null) "port = ${toString settings.sftpd.port}"}
-              ${optionalString (settings.sftpd.hostPublicKeyFile != null)
-                "host_pubkey_file = ${settings.sftpd.hostPublicKeyFile}"}
-              ${optionalString (settings.sftpd.hostPrivateKeyFile != null)
-                "host_privkey_file = ${settings.sftpd.hostPrivateKeyFile}"}
-              ${optionalString (settings.sftpd.accounts.file != null)
-                "accounts.file = ${settings.sftpd.accounts.file}"}
-              ${optionalString (settings.sftpd.accounts.url != null)
-                "accounts.url = ${settings.sftpd.accounts.url}"}
+              ${optionalString (
+                settings.sftpd.hostPublicKeyFile != null
+              ) "host_pubkey_file = ${settings.sftpd.hostPublicKeyFile}"}
+              ${optionalString (
+                settings.sftpd.hostPrivateKeyFile != null
+              ) "host_privkey_file = ${settings.sftpd.hostPrivateKeyFile}"}
+              ${optionalString (
+                settings.sftpd.accounts.file != null
+              ) "accounts.file = ${settings.sftpd.accounts.file}"}
+              ${optionalString (
+                settings.sftpd.accounts.url != null
+              ) "accounts.url = ${settings.sftpd.accounts.url}"}
             '';
           }
         );

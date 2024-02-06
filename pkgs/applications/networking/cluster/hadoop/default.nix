@@ -125,13 +125,10 @@ let
             platforms = attrNames platformAttrs;
           }
           (
-            attrByPath
-              [
-                stdenv.system
-                "meta"
-              ]
-              { }
-              platformAttrs
+            attrByPath [
+              stdenv.system
+              "meta"
+            ] { } platformAttrs
           );
     };
 in

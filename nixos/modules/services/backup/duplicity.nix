@@ -161,32 +161,29 @@ in
           ''
             set -x
             ${dup} cleanup ${target} --force ${extra}
-            ${lib.optionalString (cfg.cleanup.maxAge != null)
-              "${dup} remove-older-than ${lib.escapeShellArg cfg.cleanup.maxAge} ${target} --force ${extra}"}
-            ${lib.optionalString (cfg.cleanup.maxFull != null)
-              "${dup} remove-all-but-n-full ${toString cfg.cleanup.maxFull} ${target} --force ${extra}"}
-            ${lib.optionalString (cfg.cleanup.maxIncr != null)
-              "${dup} remove-all-inc-of-but-n-full ${toString cfg.cleanup.maxIncr} ${target} --force ${extra}"}
+            ${lib.optionalString (
+              cfg.cleanup.maxAge != null
+            ) "${dup} remove-older-than ${lib.escapeShellArg cfg.cleanup.maxAge} ${target} --force ${extra}"}
+            ${lib.optionalString (
+              cfg.cleanup.maxFull != null
+            ) "${dup} remove-all-but-n-full ${toString cfg.cleanup.maxFull} ${target} --force ${extra}"}
+            ${lib.optionalString (
+              cfg.cleanup.maxIncr != null
+            ) "${dup} remove-all-inc-of-but-n-full ${toString cfg.cleanup.maxIncr} ${target} --force ${extra}"}
             exec ${dup} ${if cfg.fullIfOlderThan == "always" then "full" else "incr"} ${
               lib.escapeShellArgs (
                 [
                   cfg.root
                   cfg.targetUrl
                 ]
-                ++
-                  concatMap
-                    (p: [
-                      "--include"
-                      p
-                    ])
-                    cfg.include
-                ++
-                  concatMap
-                    (p: [
-                      "--exclude"
-                      p
-                    ])
-                    cfg.exclude
+                ++ concatMap (p: [
+                  "--include"
+                  p
+                ]) cfg.include
+                ++ concatMap (p: [
+                  "--exclude"
+                  p
+                ]) cfg.exclude
                 ++ (lib.optionals (cfg.fullIfOlderThan != "never" && cfg.fullIfOlderThan != "always") [
                   "--full-if-older-than"
                   cfg.fullIfOlderThan

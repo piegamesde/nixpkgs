@@ -68,9 +68,9 @@ stdenv.mkDerivation rec {
   ];
 
   # Check that the udev plugin got built.
-  postInstall =
-    lib.optionalString (udev != null)
-      "[ -e ${placeholder "out"}/lib/dhcpcd/dev/udev.so ]";
+  postInstall = lib.optionalString (
+    udev != null
+  ) "[ -e ${placeholder "out"}/lib/dhcpcd/dev/udev.so ]";
 
   passthru = {
     inherit enablePrivSep;

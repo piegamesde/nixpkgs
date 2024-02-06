@@ -120,19 +120,15 @@ vscode-utils.buildVscodeMarketplaceExtension rec {
 
     ''
     + (lib.concatStringsSep "\n" (
-      map
-        (bin: ''
-          chmod +x "${bin}"
-        '')
-        vsixInfo.binaries
+      map (bin: ''
+        chmod +x "${bin}"
+      '') vsixInfo.binaries
     ))
     + lib.optionalString stdenv.isLinux (
       lib.concatStringsSep "\n" (
-        map
-          (bin: ''
-            patchelf_common "${bin}"
-          '')
-          vsixInfo.binaries
+        map (bin: ''
+          patchelf_common "${bin}"
+        '') vsixInfo.binaries
       )
     );
 

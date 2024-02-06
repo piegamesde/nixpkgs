@@ -47,10 +47,12 @@ let
         errors-to-stderr
         ${optionalString (cfg.up != "" || cfg.down != "" || cfg.updateResolvConf) "script-security 2"}
         ${cfg.config}
-        ${optionalString (cfg.up != "" || cfg.updateResolvConf)
-          "up ${pkgs.writeShellScript "openvpn-${name}-up" upScript}"}
-        ${optionalString (cfg.down != "" || cfg.updateResolvConf)
-          "down ${pkgs.writeShellScript "openvpn-${name}-down" downScript}"}
+        ${optionalString (
+          cfg.up != "" || cfg.updateResolvConf
+        ) "up ${pkgs.writeShellScript "openvpn-${name}-up" upScript}"}
+        ${optionalString (
+          cfg.down != "" || cfg.updateResolvConf
+        ) "down ${pkgs.writeShellScript "openvpn-${name}-down" downScript}"}
         ${optionalString (cfg.authUserPass != null)
           "auth-user-pass ${pkgs.writeText "openvpn-credentials-${name}" ''
             ${cfg.authUserPass.username}
@@ -88,14 +90,11 @@ in
 
 {
   imports = [
-    (mkRemovedOptionModule
-      [
-        "services"
-        "openvpn"
-        "enable"
-      ]
-      ""
-    )
+    (mkRemovedOptionModule [
+      "services"
+      "openvpn"
+      "enable"
+    ] "")
   ];
 
   ###### interface
@@ -239,8 +238,9 @@ in
 
     systemd.services =
       (listToAttrs (
-        mapAttrsFlatten (name: value: nameValuePair "openvpn-${name}" (makeOpenVPNJob value name))
-          cfg.servers
+        mapAttrsFlatten (
+          name: value: nameValuePair "openvpn-${name}" (makeOpenVPNJob value name)
+        ) cfg.servers
       ))
       // restartService;
 

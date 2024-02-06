@@ -61,11 +61,9 @@ let
       mkdir $out
     ''
     + (lib.concatStrings (
-      lib.mapAttrsToList
-        (
-          name: grammar: "ln -s ${if grammar ? src then grammar.src else fetchGrammar grammar} $out/${name}\n"
-        )
-        (import ./grammars { inherit lib; })
+      lib.mapAttrsToList (
+        name: grammar: "ln -s ${if grammar ? src then grammar.src else fetchGrammar grammar} $out/${name}\n"
+      ) (import ./grammars { inherit lib; })
     ))
   );
 
@@ -136,22 +134,20 @@ let
       grammars = grammarFn builtGrammars;
     in
     linkFarm "grammars" (
-      map
-        (
-          drv:
-          let
-            name = lib.strings.getName drv;
-          in
-          {
-            name =
-              (lib.strings.replaceStrings [ "-" ] [ "_" ] (
-                lib.strings.removePrefix "tree-sitter-" (lib.strings.removeSuffix "-grammar" name)
-              ))
-              + ".so";
-            path = "${drv}/parser";
-          }
-        )
-        grammars
+      map (
+        drv:
+        let
+          name = lib.strings.getName drv;
+        in
+        {
+          name =
+            (lib.strings.replaceStrings [ "-" ] [ "_" ] (
+              lib.strings.removePrefix "tree-sitter-" (lib.strings.removeSuffix "-grammar" name)
+            ))
+            + ".so";
+          path = "${drv}/parser";
+        }
+      ) grammars
     );
 
   allGrammars = builtins.attrValues builtGrammars;

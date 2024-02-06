@@ -15,14 +15,11 @@ in
 
 {
   imports = [
-    (mkRemovedOptionModule
-      [
-        "virtualisation"
-        "xen"
-        "qemu"
-      ]
-      "You don't need this option anymore, it will work without it."
-    )
+    (mkRemovedOptionModule [
+      "virtualisation"
+      "xen"
+      "qemu"
+    ] "You don't need this option anymore, it will work without it.")
     (mkRenamedOptionModule
       [
         "virtualisation"

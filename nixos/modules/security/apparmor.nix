@@ -30,22 +30,16 @@ in
 
 {
   imports = [
-    (mkRemovedOptionModule
-      [
-        "security"
-        "apparmor"
-        "confineSUIDApplications"
-      ]
-      "Please use the new options: `security.apparmor.policies.<policy>.enable'."
-    )
-    (mkRemovedOptionModule
-      [
-        "security"
-        "apparmor"
-        "profiles"
-      ]
-      "Please use the new option: `security.apparmor.policies'."
-    )
+    (mkRemovedOptionModule [
+      "security"
+      "apparmor"
+      "confineSUIDApplications"
+    ] "Please use the new options: `security.apparmor.policies.<policy>.enable'.")
+    (mkRemovedOptionModule [
+      "security"
+      "apparmor"
+      "profiles"
+    ] "Please use the new option: `security.apparmor.policies'.")
     apparmor/includes.nix
     apparmor/profiles.nix
   ];
@@ -132,15 +126,12 @@ in
   };
 
   config = mkIf cfg.enable {
-    assertions =
-      map
-        (policy: {
-          assertion = match ".*/.*" policy == null;
-          message = "`security.apparmor.policies.\"${policy}\"' must not contain a slash.";
-          # Because, for instance, aa-remove-unknown uses profiles_names_list() in rc.apparmor.functions
-          # which does not recurse into sub-directories.
-        })
-        (attrNames cfg.policies);
+    assertions = map (policy: {
+      assertion = match ".*/.*" policy == null;
+      message = "`security.apparmor.policies.\"${policy}\"' must not contain a slash.";
+      # Because, for instance, aa-remove-unknown uses profiles_names_list() in rc.apparmor.functions
+      # which does not recurse into sub-directories.
+    }) (attrNames cfg.policies);
 
     environment.systemPackages = [
       pkgs.apparmor-utils
@@ -149,12 +140,10 @@ in
     environment.etc."apparmor.d".source = pkgs.linkFarm "apparmor.d" (
       # It's important to put only enabledPolicies here and not all cfg.policies
       # because aa-remove-unknown reads profiles from all /etc/apparmor.d/*
-      mapAttrsToList
-        (name: p: {
-          inherit name;
-          path = p.profile;
-        })
-        enabledPolicies
+      mapAttrsToList (name: p: {
+        inherit name;
+        path = p.profile;
+      }) enabledPolicies
       ++ mapAttrsToList (name: path: { inherit name path; }) cfg.includes
     );
     environment.etc."apparmor/parser.conf".text =
@@ -247,15 +236,16 @@ in
           Type = "oneshot";
           RemainAfterExit = "yes";
           ExecStartPre = "${pkgs.apparmor-utils}/bin/aa-teardown";
-          ExecStart =
-            mapAttrsToList (n: p: "${pkgs.apparmor-parser}/bin/apparmor_parser --add ${commonOpts p}")
-              enabledPolicies;
+          ExecStart = mapAttrsToList (
+            n: p: "${pkgs.apparmor-parser}/bin/apparmor_parser --add ${commonOpts p}"
+          ) enabledPolicies;
           ExecStartPost = optional cfg.killUnconfinedConfinables killUnconfinedConfinables;
           ExecReload =
             # Add or replace into the kernel profiles in enabledPolicies
             # (because AppArmor can do that without stopping the processes already confined).
-            mapAttrsToList (n: p: "${pkgs.apparmor-parser}/bin/apparmor_parser --replace ${commonOpts p}")
-              enabledPolicies
+            mapAttrsToList (
+              n: p: "${pkgs.apparmor-parser}/bin/apparmor_parser --replace ${commonOpts p}"
+            ) enabledPolicies
             ++
               # Remove from the kernel any profile whose name is not
               # one of the names within the content of the profiles in enabledPolicies

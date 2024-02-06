@@ -238,13 +238,10 @@ in
       ]
       "The usbguard module now hardcodes IPCAccessControlFiles to /var/lib/usbguard/IPCAccessControl.d."
     )
-    (mkRemovedOptionModule
-      [
-        "services"
-        "usbguard"
-        "auditFilePath"
-      ]
-      "Removed usbguard module audit log files. Audit logs can be found in the systemd journal."
-    )
+    (mkRemovedOptionModule [
+      "services"
+      "usbguard"
+      "auditFilePath"
+    ] "Removed usbguard module audit log files. Audit logs can be found in the systemd journal.")
   ];
 }

@@ -58,12 +58,10 @@ let
   staticIPv6Addresses = map (i: i.name) (filter (i: i.ipv6.addresses != [ ]) interfaces);
 
   noIPv6rs = concatStringsSep "\n" (
-    map
-      (name: ''
-        interface ${name}
-        noipv6rs
-      '')
-      staticIPv6Addresses
+    map (name: ''
+      interface ${name}
+      noipv6rs
+    '') staticIPv6Addresses
   );
 
   # Config file adapted from the one that ships with dhcpcd.
@@ -107,8 +105,9 @@ let
       noipv6
     ''}
 
-    ${optionalString (config.networking.enableIPv6 && cfg.IPv6rs == null && staticIPv6Addresses != [ ])
-      noIPv6rs}
+    ${optionalString (
+      config.networking.enableIPv6 && cfg.IPv6rs == null && staticIPv6Addresses != [ ]
+    ) noIPv6rs}
     ${optionalString (config.networking.enableIPv6 && cfg.IPv6rs == false) ''
       noipv6rs
     ''}

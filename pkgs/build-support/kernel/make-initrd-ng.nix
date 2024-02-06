@@ -95,9 +95,9 @@ runCommand name
 
     passAsFile = [ "contents" ];
     contents =
-      lib.concatMapStringsSep "\n"
-        ({ object, symlink, ... }: "${object}\n${if symlink == null then "" else symlink}")
-        contents
+      lib.concatMapStringsSep "\n" (
+        { object, symlink, ... }: "${object}\n${if symlink == null then "" else symlink}"
+      ) contents
       + "\n";
 
     nativeBuildInputs = [

@@ -66,22 +66,16 @@ in
         "host"
       ]
     )
-    (lib.mkRemovedOptionModule
-      [
-        "services"
-        "zabbixServer"
-        "dbPassword"
-      ]
-      "Use services.zabbixServer.database.passwordFile instead."
-    )
-    (lib.mkRemovedOptionModule
-      [
-        "services"
-        "zabbixServer"
-        "extraConfig"
-      ]
-      "Use services.zabbixServer.settings instead."
-    )
+    (lib.mkRemovedOptionModule [
+      "services"
+      "zabbixServer"
+      "dbPassword"
+    ] "Use services.zabbixServer.database.passwordFile instead.")
+    (lib.mkRemovedOptionModule [
+      "services"
+      "zabbixServer"
+      "extraConfig"
+    ] "Use services.zabbixServer.settings instead.")
   ];
 
   # interface

@@ -143,15 +143,11 @@ let
       showWarnings config.warnings baseSystem;
 
   # Replace runtime dependencies
-  system =
-    foldr
-      (
-        { oldDependency, newDependency }:
-        drv:
-        pkgs.replaceDependency { inherit oldDependency newDependency drv; }
-      )
-      baseSystemAssertWarn
-      config.system.replaceRuntimeDependencies;
+  system = foldr (
+    { oldDependency, newDependency }:
+    drv:
+    pkgs.replaceDependency { inherit oldDependency newDependency drv; }
+  ) baseSystemAssertWarn config.system.replaceRuntimeDependencies;
 
   systemWithBuildDeps = system.overrideAttrs (
     o: {
@@ -168,20 +164,14 @@ in
 {
   imports = [
     ../build.nix
-    (mkRemovedOptionModule
-      [
-        "nesting"
-        "clone"
-      ]
-      "Use `specialisation.«name» = { inheritParentConfig = true; configuration = { ... }; }` instead."
-    )
-    (mkRemovedOptionModule
-      [
-        "nesting"
-        "children"
-      ]
-      "Use `specialisation.«name».configuration = { ... }` instead."
-    )
+    (mkRemovedOptionModule [
+      "nesting"
+      "clone"
+    ] "Use `specialisation.«name» = { inheritParentConfig = true; configuration = { ... }; }` instead.")
+    (mkRemovedOptionModule [
+      "nesting"
+      "children"
+    ] "Use `specialisation.«name».configuration = { ... }` instead.")
   ];
 
   options = {
@@ -225,16 +215,13 @@ in
 
           See `nixos/modules/system/activation/switch-to-configuration.pl`.
         '';
-        type =
-          types.unique
-            {
-              message = ''
-                Only one bootloader can be enabled at a time. This requirement has not
-                been checked until NixOS 22.05. Earlier versions defaulted to the last
-                definition. Change your configuration to enable only one bootloader.
-              '';
-            }
-            (types.either types.str types.package);
+        type = types.unique {
+          message = ''
+            Only one bootloader can be enabled at a time. This requirement has not
+            been checked until NixOS 22.05. Earlier versions defaulted to the last
+            definition. Change your configuration to enable only one bootloader.
+          '';
+        } (types.either types.str types.package);
       };
 
       toplevel = mkOption {

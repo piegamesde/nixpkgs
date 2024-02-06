@@ -24,36 +24,34 @@ let
   # See docs for crateRenames below.
   mkRustcDepArgs =
     dependencies: crateRenames:
-    lib.concatMapStringsSep " "
-      (
-        dep:
-        let
-          normalizeName = lib.replaceStrings [ "-" ] [ "_" ];
-          extern = normalizeName dep.libName;
-          # Find a choice that matches in name and optionally version.
-          findMatchOrUseExtern =
-            choices:
-            lib.findFirst (choice: (!(choice ? version) || choice.version == dep.version or ""))
-              { rename = extern; }
-              choices;
-          name =
-            if lib.hasAttr dep.crateName crateRenames then
-              let
-                choices = crateRenames.${dep.crateName};
-              in
-              normalizeName (if builtins.isList choices then (findMatchOrUseExtern choices).rename else choices)
-            else
-              extern;
-          opts = lib.optionalString (dep.stdlib or false) "noprelude:";
-          filename =
-            if lib.any (x: x == "lib" || x == "rlib") dep.crateType then
-              "${dep.metadata}.rlib"
-            else
-              "${dep.metadata}${stdenv.hostPlatform.extensions.sharedLibrary}";
-        in
-        " --extern ${opts}${name}=${dep.lib}/lib/lib${extern}-${filename}"
-      )
-      dependencies;
+    lib.concatMapStringsSep " " (
+      dep:
+      let
+        normalizeName = lib.replaceStrings [ "-" ] [ "_" ];
+        extern = normalizeName dep.libName;
+        # Find a choice that matches in name and optionally version.
+        findMatchOrUseExtern =
+          choices:
+          lib.findFirst (choice: (!(choice ? version) || choice.version == dep.version or "")) {
+            rename = extern;
+          } choices;
+        name =
+          if lib.hasAttr dep.crateName crateRenames then
+            let
+              choices = crateRenames.${dep.crateName};
+            in
+            normalizeName (if builtins.isList choices then (findMatchOrUseExtern choices).rename else choices)
+          else
+            extern;
+        opts = lib.optionalString (dep.stdlib or false) "noprelude:";
+        filename =
+          if lib.any (x: x == "lib" || x == "rlib") dep.crateType then
+            "${dep.metadata}.rlib"
+          else
+            "${dep.metadata}${stdenv.hostPlatform.extensions.sharedLibrary}";
+      in
+      " --extern ${opts}${name}=${dep.lib}/lib/lib${extern}-${filename}"
+    ) dependencies;
 
   # Create feature arguments for rustc.
   mkRustcFeatureArgs = lib.concatMapStringsSep " " (f: ''--cfg feature=\"${f}\"'');

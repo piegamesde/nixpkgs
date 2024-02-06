@@ -29,9 +29,9 @@ let
   systemActivationScript =
     set: onlyDry:
     let
-      set' =
-        mapAttrs (_: v: if isString v then (noDepEntry v) // { supportsDryActivation = false; } else v)
-          set;
+      set' = mapAttrs (
+        _: v: if isString v then (noDepEntry v) // { supportsDryActivation = false; } else v
+      ) set;
       withHeadlines = addAttributeName set';
       # When building a dry activation script, this replaces all activation scripts
       # that do not support dry mode with a comment that does nothing. Filtering these
@@ -39,16 +39,13 @@ let
       # does not work because when an activation script that supports dry mode depends on
       # an activation script that does not, the dependency cannot be resolved and the eval
       # fails.
-      withDrySnippets =
-        mapAttrs
-          (
-            a: v:
-            if onlyDry && !v.supportsDryActivation then
-              v // { text = "#### Activation script snippet ${a} does not support dry activation."; }
-            else
-              v
-          )
-          withHeadlines;
+      withDrySnippets = mapAttrs (
+        a: v:
+        if onlyDry && !v.supportsDryActivation then
+          v // { text = "#### Activation script snippet ${a} does not support dry activation."; }
+        else
+          v
+      ) withHeadlines;
     in
     ''
       #!${pkgs.runtimeShell}

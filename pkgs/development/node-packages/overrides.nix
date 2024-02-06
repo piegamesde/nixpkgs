@@ -200,10 +200,9 @@ final: prev: {
   expo-cli = prev."expo-cli".override (
     oldAttrs: {
       # The traveling-fastlane-darwin optional dependency aborts build on Linux.
-      dependencies =
-        builtins.filter
-          (d: d.packageName != "@expo/traveling-fastlane-${if stdenv.isLinux then "darwin" else "linux"}")
-          oldAttrs.dependencies;
+      dependencies = builtins.filter (
+        d: d.packageName != "@expo/traveling-fastlane-${if stdenv.isLinux then "darwin" else "linux"}"
+      ) oldAttrs.dependencies;
     }
   );
 

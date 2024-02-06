@@ -19,17 +19,14 @@ in
       # Files in the root
       root-files = builtins.attrNames (builtins.readDir root);
       # Files with their full paths
-      root-files-with-paths =
-        map
-          (file: {
-            name = file;
-            value = root + "/${file}";
-          })
-          root-files;
+      root-files-with-paths = map (file: {
+        name = file;
+        value = root + "/${file}";
+      }) root-files;
       # Subdirectories of the root with a cabal file.
-      cabal-subdirs =
-        builtins.filter ({ name, value }: builtins.pathExists (value + "/${name}.cabal"))
-          root-files-with-paths;
+      cabal-subdirs = builtins.filter (
+        { name, value }: builtins.pathExists (value + "/${name}.cabal")
+      ) root-files-with-paths;
     in
     builtins.listToAttrs cabal-subdirs;
   /* Find the first directory containing a file matching 'pattern'
@@ -74,14 +71,12 @@ in
     # The path to recursively list
     dir:
     lib.flatten (
-      lib.mapAttrsToList
-        (
-          name: type:
-          if type == "directory" then
-            lib.filesystem.listFilesRecursive (dir + "/${name}")
-          else
-            dir + "/${name}"
-        )
-        (builtins.readDir dir)
+      lib.mapAttrsToList (
+        name: type:
+        if type == "directory" then
+          lib.filesystem.listFilesRecursive (dir + "/${name}")
+        else
+          dir + "/${name}"
+      ) (builtins.readDir dir)
     );
 }

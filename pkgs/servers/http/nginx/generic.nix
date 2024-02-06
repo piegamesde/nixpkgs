@@ -49,15 +49,12 @@ outer@{
 
 let
 
-  moduleNames =
-    map
-      (
-        mod:
-        mod.name
-          or (throw "The nginx module with source ${toString mod.src} does not have a `name` attribute. This prevents duplicate module detection and is no longer supported."
-          )
+  moduleNames = map (
+    mod:
+    mod.name
+      or (throw "The nginx module with source ${toString mod.src} does not have a `name` attribute. This prevents duplicate module detection and is no longer supported."
       )
-      modules;
+  ) modules;
 
   mapModules =
     attrPath:
@@ -227,9 +224,9 @@ stdenv.mkDerivation {
 
   postInstall =
     let
-      noSourceRefs =
-        lib.concatMapStrings (m: "remove-references-to -t ${m.src} $out/sbin/nginx\n")
-          modules;
+      noSourceRefs = lib.concatMapStrings (
+        m: "remove-references-to -t ${m.src} $out/sbin/nginx\n"
+      ) modules;
     in
     noSourceRefs + postInstall;
 

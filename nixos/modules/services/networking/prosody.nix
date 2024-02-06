@@ -807,20 +807,16 @@ in
             ]
           else
             [ ];
-        mucDiscoItems =
-          builtins.foldl'
-            (
-              acc: muc:
-              [
-                {
-                  url = muc.domain;
-                  description = "${muc.domain} MUC endpoint";
-                }
-              ]
-              ++ acc
-            )
-            [ ]
-            cfg.muc;
+        mucDiscoItems = builtins.foldl' (
+          acc: muc:
+          [
+            {
+              url = muc.domain;
+              description = "${muc.domain} MUC endpoint";
+            }
+          ]
+          ++ acc
+        ) [ ] cfg.muc;
         discoItems = cfg.disco_items ++ httpDiscoItems ++ mucDiscoItems;
       in
       ''
@@ -880,27 +876,25 @@ in
 
         ${cfg.extraConfig}
 
-        ${lib.concatMapStrings
-          (muc: ''
-            Component ${toLua muc.domain} "muc"
-                modules_enabled = { "muc_mam"; ${optionalString muc.vcard_muc ''"vcard_muc";''} }
-                name = ${toLua muc.name}
-                restrict_room_creation = ${toLua muc.restrictRoomCreation}
-                max_history_messages = ${toLua muc.maxHistoryMessages}
-                muc_room_locking = ${toLua muc.roomLocking}
-                muc_room_lock_timeout = ${toLua muc.roomLockTimeout}
-                muc_tombstones = ${toLua muc.tombstones}
-                muc_tombstone_expiry = ${toLua muc.tombstoneExpiry}
-                muc_room_default_public = ${toLua muc.roomDefaultPublic}
-                muc_room_default_members_only = ${toLua muc.roomDefaultMembersOnly}
-                muc_room_default_moderated = ${toLua muc.roomDefaultModerated}
-                muc_room_default_public_jids = ${toLua muc.roomDefaultPublicJids}
-                muc_room_default_change_subject = ${toLua muc.roomDefaultChangeSubject}
-                muc_room_default_history_length = ${toLua muc.roomDefaultHistoryLength}
-                muc_room_default_language = ${toLua muc.roomDefaultLanguage}
-                ${muc.extraConfig}
-          '')
-          cfg.muc}
+        ${lib.concatMapStrings (muc: ''
+          Component ${toLua muc.domain} "muc"
+              modules_enabled = { "muc_mam"; ${optionalString muc.vcard_muc ''"vcard_muc";''} }
+              name = ${toLua muc.name}
+              restrict_room_creation = ${toLua muc.restrictRoomCreation}
+              max_history_messages = ${toLua muc.maxHistoryMessages}
+              muc_room_locking = ${toLua muc.roomLocking}
+              muc_room_lock_timeout = ${toLua muc.roomLockTimeout}
+              muc_tombstones = ${toLua muc.tombstones}
+              muc_tombstone_expiry = ${toLua muc.tombstoneExpiry}
+              muc_room_default_public = ${toLua muc.roomDefaultPublic}
+              muc_room_default_members_only = ${toLua muc.roomDefaultMembersOnly}
+              muc_room_default_moderated = ${toLua muc.roomDefaultModerated}
+              muc_room_default_public_jids = ${toLua muc.roomDefaultPublicJids}
+              muc_room_default_change_subject = ${toLua muc.roomDefaultChangeSubject}
+              muc_room_default_history_length = ${toLua muc.roomDefaultHistoryLength}
+              muc_room_default_language = ${toLua muc.roomDefaultLanguage}
+              ${muc.extraConfig}
+        '') cfg.muc}
 
         ${lib.optionalString (cfg.uploadHttp != null) ''
           -- TODO: think about migrating this to mod-http_file_share instead.
@@ -908,21 +902,20 @@ in
               http_upload_file_size_limit = ${cfg.uploadHttp.uploadFileSizeLimit}
               http_upload_expire_after = ${cfg.uploadHttp.uploadExpireAfter}
               ${
-                lib.optionalString (cfg.uploadHttp.userQuota != null)
-                  "http_upload_quota = ${toLua cfg.uploadHttp.userQuota}"
+                lib.optionalString (
+                  cfg.uploadHttp.userQuota != null
+                ) "http_upload_quota = ${toLua cfg.uploadHttp.userQuota}"
               }
               http_upload_path = ${toLua cfg.uploadHttp.httpUploadPath}
         ''}
 
         ${lib.concatStringsSep "\n" (
-          lib.mapAttrsToList
-            (n: v: ''
-              VirtualHost "${v.domain}"
-                enabled = ${boolToString v.enabled};
-                ${optionalString (v.ssl != null) (createSSLOptsStr v.ssl)}
-                ${v.extraConfig}
-            '')
-            cfg.virtualHosts
+          lib.mapAttrsToList (n: v: ''
+            VirtualHost "${v.domain}"
+              enabled = ${boolToString v.enabled};
+              ${optionalString (v.ssl != null) (createSSLOptsStr v.ssl)}
+              ${v.extraConfig}
+          '') cfg.virtualHosts
         )}
       '';
 

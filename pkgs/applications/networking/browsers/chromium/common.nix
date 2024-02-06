@@ -129,13 +129,11 @@ let
       mkGnString =
         value:
         "\"${
-          lib.escape
-            [
-              "\""
-              "$"
-              "\\"
-            ]
-            value
+          lib.escape [
+            "\""
+            "$"
+            "\\"
+          ] value
         }\"";
       sanitize =
         value:

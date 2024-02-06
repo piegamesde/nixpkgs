@@ -39,12 +39,10 @@ let
   # and because JSON is a valid subset of YAML.
   makeCheckConfigs =
     entries:
-    mapAttrs'
-      (name: conf: {
-        name = "datadog-agent/conf.d/${name}.d/conf.yaml";
-        value.source = pkgs.writeText "${name}-check-conf.yaml" (builtins.toJSON conf);
-      })
-      entries;
+    mapAttrs' (name: conf: {
+      name = "datadog-agent/conf.d/${name}.d/conf.yaml";
+      value.source = pkgs.writeText "${name}-check-conf.yaml" (builtins.toJSON conf);
+    }) entries;
 
   defaultChecks = {
     disk = cfg.diskCheck;
@@ -282,24 +280,22 @@ in
       let
         makeService =
           attrs:
-          recursiveUpdate
-            {
-              path = [
-                datadogPkg
-                pkgs.sysstat
-                pkgs.procps
-                pkgs.iproute2
-              ];
-              wantedBy = [ "multi-user.target" ];
-              serviceConfig = {
-                User = "datadog";
-                Group = "datadog";
-                Restart = "always";
-                RestartSec = 2;
-              };
-              restartTriggers = [ datadogPkg ] ++ map (x: x.source) (attrValues etcfiles);
-            }
-            attrs;
+          recursiveUpdate {
+            path = [
+              datadogPkg
+              pkgs.sysstat
+              pkgs.procps
+              pkgs.iproute2
+            ];
+            wantedBy = [ "multi-user.target" ];
+            serviceConfig = {
+              User = "datadog";
+              Group = "datadog";
+              Restart = "always";
+              RestartSec = 2;
+            };
+            restartTriggers = [ datadogPkg ] ++ map (x: x.source) (attrValues etcfiles);
+          } attrs;
       in
       {
         datadog-agent = makeService {

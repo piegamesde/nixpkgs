@@ -64,8 +64,9 @@ stdenv.mkDerivation {
 
   cmakeFlags =
     [ "-DLIBCXX_CXX_ABI=${cxxabi.pname}" ]
-    ++ lib.optional (stdenv.hostPlatform.isMusl || stdenv.hostPlatform.isWasi)
-      "-DLIBCXX_HAS_MUSL_LIBC=1"
+    ++ lib.optional (
+      stdenv.hostPlatform.isMusl || stdenv.hostPlatform.isWasi
+    ) "-DLIBCXX_HAS_MUSL_LIBC=1"
     ++ lib.optional (stdenv.hostPlatform.useLLVM or false) "-DLIBCXX_USE_COMPILER_RT=ON"
     ++ lib.optionals stdenv.hostPlatform.isWasm [
       "-DLIBCXX_ENABLE_THREADS=OFF"
@@ -82,14 +83,11 @@ stdenv.mkDerivation {
     # value here corresponds to `uname -r`. If stdenv.hostPlatform.release is
     # not null, then this property will be set via mkDerivation (TODO: how can
     # we set this?).
-    ++
-      lib.optional
-        (
-          stdenv.hostPlatform.isDarwin
-          && stdenv.hostPlatform.isAarch64
-          && stdenv.hostPlatform != stdenv.buildPlatform
-        )
-        "-DCMAKE_SYSTEM_VERSION=20.1.0";
+    ++ lib.optional (
+      stdenv.hostPlatform.isDarwin
+      && stdenv.hostPlatform.isAarch64
+      && stdenv.hostPlatform != stdenv.buildPlatform
+    ) "-DCMAKE_SYSTEM_VERSION=20.1.0";
 
   preInstall = lib.optionalString (stdenv.isDarwin) ''
     for file in lib/*.dylib; do

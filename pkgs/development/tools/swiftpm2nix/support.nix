@@ -15,14 +15,11 @@ rec {
     assert workspaceState.version == 5;
     json.generate "Package.resolved" {
       version = 1;
-      object.pins =
-        map
-          (dep: {
-            package = dep.packageRef.name;
-            repositoryURL = dep.packageRef.location;
-            state = dep.state.checkoutState;
-          })
-          workspaceState.object.dependencies;
+      object.pins = map (dep: {
+        package = dep.packageRef.name;
+        repositoryURL = dep.packageRef.location;
+        state = dep.state.checkoutState;
+      }) workspaceState.object.dependencies;
     };
 
   # Make packaging helpers from swiftpm2nix generated output.
@@ -37,18 +34,16 @@ rec {
 
       # Create fetch expressions for dependencies.
       sources = listToAttrs (
-        map
-          (
-            dep:
-            nameValuePair dep.subpath (
-              fetchgit {
-                url = dep.packageRef.location;
-                rev = dep.state.checkoutState.revision;
-                sha256 = hashes.${dep.subpath};
-              }
-            )
+        map (
+          dep:
+          nameValuePair dep.subpath (
+            fetchgit {
+              url = dep.packageRef.location;
+              rev = dep.state.checkoutState.revision;
+              sha256 = hashes.${dep.subpath};
+            }
           )
-          workspaceState.object.dependencies
+        ) workspaceState.object.dependencies
       );
 
       # Configure phase snippet for use in packaging.
@@ -59,11 +54,9 @@ rec {
           install -m 0600 ${workspaceStateFile} ./.build/workspace-state.json
         ''
         + concatStrings (
-          mapAttrsToList
-            (name: src: ''
-              ln -s '${src}' '.build/checkouts/${name}'
-            '')
-            sources
+          mapAttrsToList (name: src: ''
+            ln -s '${src}' '.build/checkouts/${name}'
+          '') sources
         )
         + ''
           # Helper that makes a swiftpm dependency mutable by copying the source.

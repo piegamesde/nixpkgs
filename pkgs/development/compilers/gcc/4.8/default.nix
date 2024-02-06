@@ -144,9 +144,9 @@ let
   # Cross-gcc settings (build == host != target)
   crossMingw = targetPlatform != hostPlatform && targetPlatform.libc == "msvcrt";
   stageNameAddon = if crossStageStatic then "stage-static" else "stage-final";
-  crossNameAddon =
-    optionalString (targetPlatform != hostPlatform)
-      "${targetPlatform.config}-${stageNameAddon}-";
+  crossNameAddon = optionalString (
+    targetPlatform != hostPlatform
+  ) "${targetPlatform.config}-${stageNameAddon}-";
 
   callFile = lib.callPackageWith {
     # lets

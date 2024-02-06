@@ -38,11 +38,9 @@ let
       # See https://docs.python.org/3.8/library/site.html for info on such .pth files
       # These add another site package path for each line
       touch poetry2nix-editable.pth
-      ${lib.concatMapStringsSep "\n"
-        (src: ''
-          echo "${toString src}" >> poetry2nix-editable.pth
-        '')
-        (lib.attrValues editablePackageSources)}
+      ${lib.concatMapStringsSep "\n" (src: ''
+        echo "${toString src}" >> poetry2nix-editable.pth
+      '') (lib.attrValues editablePackageSources)}
 
       # Create a very simple egg so pkg_resources can find this package
       # See https://setuptools.readthedocs.io/en/latest/formats.html for more info on the egg format

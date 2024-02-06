@@ -209,8 +209,9 @@ stdenv.mkDerivation rec {
       # renaming the unwrapped binaries (see below)
       "--bindir=${placeholder "out"}/.bin-unwrapped"
     ]
-    ++ lib.optional (stdenv.isLinux && useSystemd)
-      "-Dsystemduserunitdir=${placeholder "out"}/lib/systemd/user"
+    ++ lib.optional (
+      stdenv.isLinux && useSystemd
+    ) "-Dsystemduserunitdir=${placeholder "out"}/lib/systemd/user"
     ++ lib.optionals stdenv.isDarwin [
       "-Ddbus=disabled"
       "-Dglib=disabled"

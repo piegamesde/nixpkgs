@@ -132,8 +132,9 @@ let
     outputHash = "sha256-uxnW5AqX6PazqHJYLuF/By5qpev8Se+992jCyacogSY=";
   };
 in
-assert lib.assertMsg (enableClient || enableServer)
-  "mindustry: at least one of 'enableClient' and 'enableServer' must be true";
+assert lib.assertMsg (
+  enableClient || enableServer
+) "mindustry: at least one of 'enableClient' and 'enableServer' must be true";
 stdenv.mkDerivation rec {
   inherit
     pname

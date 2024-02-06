@@ -12,14 +12,11 @@ let
 in
 {
   imports = [
-    (mkRemovedOptionModule
-      [
-        "services"
-        "plex"
-        "managePlugins"
-      ]
-      "Please omit or define the option: `services.plex.extraPlugins' instead."
-    )
+    (mkRemovedOptionModule [
+      "services"
+      "plex"
+      "managePlugins"
+    ] "Please omit or define the option: `services.plex.extraPlugins' instead.")
   ];
 
   options = {

@@ -58,9 +58,9 @@ let
   crossMingw = targetPlatform != hostPlatform && targetPlatform.libc == "msvcrt";
   crossDarwin = targetPlatform != hostPlatform && targetPlatform.libc == "libSystem";
 
-  targetPrefix =
-    lib.optionalString (stdenv.targetPlatform != stdenv.hostPlatform)
-      "${stdenv.targetPlatform.config}-";
+  targetPrefix = lib.optionalString (
+    stdenv.targetPlatform != stdenv.hostPlatform
+  ) "${stdenv.targetPlatform.config}-";
 
   crossConfigureFlags =
     # Ensure that -print-prog-name is able to find the correct programs.
@@ -127,9 +127,9 @@ let
           # available in uclibc.
           "--disable-libsanitizer"
         ]
-        ++
-          lib.optional (targetPlatform.libc == "newlib" || targetPlatform.libc == "newlib-nano")
-            "--with-newlib"
+        ++ lib.optional (
+          targetPlatform.libc == "newlib" || targetPlatform.libc == "newlib-nano"
+        ) "--with-newlib"
         ++ lib.optional (targetPlatform.libc == "avrlibc") "--with-avrlibc"
     );
 
@@ -263,9 +263,9 @@ let
     ++ lib.optional disableBootstrap' "--disable-bootstrap"
 
     # Platform-specific flags
-    ++
-      lib.optional (targetPlatform == hostPlatform && targetPlatform.isx86_32)
-        "--with-arch=${stdenv.hostPlatform.parsed.cpu.name}"
+    ++ lib.optional (
+      targetPlatform == hostPlatform && targetPlatform.isx86_32
+    ) "--with-arch=${stdenv.hostPlatform.parsed.cpu.name}"
     ++ lib.optional targetPlatform.isNetBSD "--disable-libssp" # Provided by libc.
     ++ lib.optionals hostPlatform.isSunOS [
       "--enable-long-long"

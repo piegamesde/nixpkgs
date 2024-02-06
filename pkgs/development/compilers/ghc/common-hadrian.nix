@@ -203,9 +203,9 @@ let
     # https://gitlab.haskell.org/ghc/ghc/-/issues/22081
     ++ lib.optional enableDwarf elfutils
     ++ lib.optional (!enableNativeBignum) gmp
-    ++
-      lib.optional (platform.libc != "glibc" && !targetPlatform.isWindows && !targetPlatform.isGhcjs)
-        libiconv;
+    ++ lib.optional (
+      platform.libc != "glibc" && !targetPlatform.isWindows && !targetPlatform.isGhcjs
+    ) libiconv;
 
   # TODO(@sternenseemann): is buildTarget LLVM unnecessary?
   # GHC doesn't seem to have {LLC,OPT}_HOST

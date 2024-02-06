@@ -10,15 +10,12 @@ let
 in
 {
   imports = [
-    (lib.mkRemovedOptionModule
-      [
-        "i18n"
-        "inputMethod"
-        "kime"
-        "config"
-      ]
-      "Use i18n.inputMethod.kime.* instead"
-    )
+    (lib.mkRemovedOptionModule [
+      "i18n"
+      "inputMethod"
+      "kime"
+      "config"
+    ] "Use i18n.inputMethod.kime.* instead")
   ];
 
   options.i18n.inputMethod.kime = {

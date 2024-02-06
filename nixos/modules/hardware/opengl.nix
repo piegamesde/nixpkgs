@@ -41,14 +41,11 @@ in
         "extraPackages"
       ]
     )
-    (mkRemovedOptionModule
-      [
-        "hardware"
-        "opengl"
-        "s3tcSupport"
-      ]
-      "S3TC support is now always enabled in Mesa."
-    )
+    (mkRemovedOptionModule [
+      "hardware"
+      "opengl"
+      "s3tcSupport"
+    ] "S3TC support is now always enabled in Mesa.")
   ];
 
   options = {

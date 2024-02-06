@@ -187,13 +187,11 @@ rec {
     let
       res = f v;
     in
-    lib.traceSeqN (depth + 1)
-      {
-        fn = name;
-        from = v;
-        to = res;
-      }
-      res;
+    lib.traceSeqN (depth + 1) {
+      fn = name;
+      from = v;
+      to = res;
+    } res;
 
   # -- TESTING --
 
@@ -260,29 +258,27 @@ rec {
     tests:
     concatLists (
       attrValues (
-        mapAttrs
-          (
-            name: test:
-            let
-              testsToRun = if tests ? tests then tests.tests else [ ];
-            in
-            if
-              (substring 0 4 name == "test" || elem name testsToRun)
-              && ((testsToRun == [ ]) || elem name tests.tests)
-              && (test.expr != test.expected)
+        mapAttrs (
+          name: test:
+          let
+            testsToRun = if tests ? tests then tests.tests else [ ];
+          in
+          if
+            (substring 0 4 name == "test" || elem name testsToRun)
+            && ((testsToRun == [ ]) || elem name tests.tests)
+            && (test.expr != test.expected)
 
-            then
-              [
-                {
-                  inherit name;
-                  expected = test.expected;
-                  result = test.expr;
-                }
-              ]
-            else
-              [ ]
-          )
-          tests
+          then
+            [
+              {
+                inherit name;
+                expected = test.expected;
+                result = test.expr;
+              }
+            ]
+          else
+            [ ]
+        ) tests
       )
     );
 

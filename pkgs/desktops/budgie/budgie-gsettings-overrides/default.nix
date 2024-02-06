@@ -66,12 +66,10 @@ runCommand "budgie-gsettings-overrides" { preferLocalBuild = true; } ''
   schema_dir="$data_dir/glib-2.0/schemas"
   mkdir -p "$schema_dir"
 
-  ${concatMapStringsSep "\n"
-    (
-      pkg:
-      "cp -rf \"${glib.getSchemaPath pkg}\"/*.xml \"${glib.getSchemaPath pkg}\"/*.gschema.override \"$schema_dir\""
-    )
-    gsettingsOverridePackages}
+  ${concatMapStringsSep "\n" (
+    pkg:
+    "cp -rf \"${glib.getSchemaPath pkg}\"/*.xml \"${glib.getSchemaPath pkg}\"/*.gschema.override \"$schema_dir\""
+  ) gsettingsOverridePackages}
 
   chmod -R a+w "$data_dir"
   cat - > "$schema_dir/zz-nixos-defaults.gschema.override" <<- EOF

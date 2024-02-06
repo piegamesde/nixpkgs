@@ -81,16 +81,13 @@ let
   # Take the list and disallow custom overrides in all but the final stage,
   # and allow it in the final flag. Only defaults this boolean field if it
   # isn't already set.
-  withAllowCustomOverrides =
-    lib.lists.imap1
-      (
-        index: stageFun: prevStage:
-        # So true by default for only the first element because one
-        # 1-indexing. Since we reverse the list, this means this is true
-        # for the final stage.
-        { allowCustomOverrides = index == 1; } // (stageFun prevStage)
-      )
-      (lib.lists.reverseList stageFuns);
+  withAllowCustomOverrides = lib.lists.imap1 (
+    index: stageFun: prevStage:
+    # So true by default for only the first element because one
+    # 1-indexing. Since we reverse the list, this means this is true
+    # for the final stage.
+    { allowCustomOverrides = index == 1; } // (stageFun prevStage)
+  ) (lib.lists.reverseList stageFuns);
 
   # Adds the stdenv to the arguments, and sticks in it the previous stage for
   # debugging purposes.

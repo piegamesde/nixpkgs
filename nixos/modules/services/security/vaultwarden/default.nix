@@ -19,24 +19,21 @@ let
       parts = builtins.split "([A-Z0-9]+)" name;
       partsToEnvVar =
         parts:
-        foldl'
-          (
-            key: x:
-            let
-              last = stringLength key - 1;
-            in
-            if isList x then
-              key + optionalString (key != "" && substring last 1 key != "_") "_" + head x
-            else if key != "" && elem (substring 0 1 x) lowerChars then # to handle e.g. [ "disable" [ "2FAR" ] "emember" ]
-              substring 0 last key
-              + optionalString (substring (last - 1) 1 key != "_") "_"
-              + substring last 1 key
-              + toUpper x
-            else
-              key + toUpper x
-          )
-          ""
-          parts;
+        foldl' (
+          key: x:
+          let
+            last = stringLength key - 1;
+          in
+          if isList x then
+            key + optionalString (key != "" && substring last 1 key != "_") "_" + head x
+          else if key != "" && elem (substring 0 1 x) lowerChars then # to handle e.g. [ "disable" [ "2FAR" ] "emember" ]
+            substring 0 last key
+            + optionalString (substring (last - 1) 1 key != "_") "_"
+            + substring last 1 key
+            + toUpper x
+          else
+            key + toUpper x
+        ) "" parts;
     in
     if builtins.match "[A-Z0-9_]+" name != null then name else partsToEnvVar parts;
 
@@ -44,15 +41,12 @@ let
   # we can only check for values consistently after converting them to their corresponding environment variable name.
   configEnv =
     let
-      configEnv =
-        concatMapAttrs
-          (
-            name: value:
-            optionalAttrs (value != null) {
-              ${nameToEnvVar name} = if isBool value then boolToString value else toString value;
-            }
-          )
-          cfg.config;
+      configEnv = concatMapAttrs (
+        name: value:
+        optionalAttrs (value != null) {
+          ${nameToEnvVar name} = if isBool value then boolToString value else toString value;
+        }
+      ) cfg.config;
     in
     {
       DATA_FOLDER = "/var/lib/bitwarden_rs";

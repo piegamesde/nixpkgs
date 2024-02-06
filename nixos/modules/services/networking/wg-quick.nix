@@ -231,22 +231,21 @@ let
 
   generateUnit =
     name: values:
-    assert assertMsg
-      (values.configFile != null || ((values.privateKey != null) != (values.privateKeyFile != null)))
-      "Only one of privateKey, configFile or privateKeyFile may be set";
+    assert assertMsg (
+      values.configFile != null || ((values.privateKey != null) != (values.privateKeyFile != null))
+    ) "Only one of privateKey, configFile or privateKeyFile may be set";
     let
       preUpFile = if values.preUp != "" then writeScriptFile "preUp.sh" values.preUp else null;
       postUp =
-        optional (values.privateKeyFile != null)
-          "wg set ${name} private-key <(cat ${values.privateKeyFile})"
-        ++ (concatMap
-          (
-            peer:
-            optional (peer.presharedKeyFile != null)
-              "wg set ${name} peer ${peer.publicKey} preshared-key <(cat ${peer.presharedKeyFile})"
-          )
-          values.peers
-        )
+        optional (
+          values.privateKeyFile != null
+        ) "wg set ${name} private-key <(cat ${values.privateKeyFile})"
+        ++ (concatMap (
+          peer:
+          optional (
+            peer.presharedKeyFile != null
+          ) "wg set ${name} peer ${peer.publicKey} preshared-key <(cat ${peer.presharedKeyFile})"
+        ) values.peers)
         ++ optional (values.postUp != "") values.postUp;
       postUpFile =
         if postUp != [ ] then
@@ -274,22 +273,20 @@ let
           + optionalString (postUpFile != null) "PostUp = ${postUpFile}\n"
           + optionalString (preDownFile != null) "PreDown = ${preDownFile}\n"
           + optionalString (postDownFile != null) "PostDown = ${postDownFile}\n"
-          +
-            concatMapStringsSep "\n"
-              (
-                peer:
-                assert assertMsg (!((peer.presharedKeyFile != null) && (peer.presharedKey != null)))
-                  "Only one of presharedKey or presharedKeyFile may be set";
-                "[Peer]\n"
-                + "PublicKey = ${peer.publicKey}\n"
-                + optionalString (peer.presharedKey != null) "PresharedKey = ${peer.presharedKey}\n"
-                + optionalString (peer.endpoint != null) "Endpoint = ${peer.endpoint}\n"
-                +
-                  optionalString (peer.persistentKeepalive != null)
-                    "PersistentKeepalive = ${toString peer.persistentKeepalive}\n"
-                + optionalString (peer.allowedIPs != [ ]) "AllowedIPs = ${concatStringsSep "," peer.allowedIPs}\n"
-              )
-              values.peers;
+          + concatMapStringsSep "\n" (
+            peer:
+            assert assertMsg (
+              !((peer.presharedKeyFile != null) && (peer.presharedKey != null))
+            ) "Only one of presharedKey or presharedKeyFile may be set";
+            "[Peer]\n"
+            + "PublicKey = ${peer.publicKey}\n"
+            + optionalString (peer.presharedKey != null) "PresharedKey = ${peer.presharedKey}\n"
+            + optionalString (peer.endpoint != null) "Endpoint = ${peer.endpoint}\n"
+            + optionalString (
+              peer.persistentKeepalive != null
+            ) "PersistentKeepalive = ${toString peer.persistentKeepalive}\n"
+            + optionalString (peer.allowedIPs != [ ]) "AllowedIPs = ${concatStringsSep "," peer.allowedIPs}\n"
+          ) values.peers;
       };
       configPath =
         if values.configFile != null then

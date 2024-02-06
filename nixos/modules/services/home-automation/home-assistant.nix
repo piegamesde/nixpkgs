@@ -79,22 +79,16 @@ in
 {
   imports = [
     # Migrations in NixOS 22.05
-    (mkRemovedOptionModule
-      [
-        "services"
-        "home-assistant"
-        "applyDefaultConfig"
-      ]
-      "The default config was migrated into services.home-assistant.config"
-    )
-    (mkRemovedOptionModule
-      [
-        "services"
-        "home-assistant"
-        "autoExtraComponents"
-      ]
-      "Components are now parsed from services.home-assistant.config unconditionally"
-    )
+    (mkRemovedOptionModule [
+      "services"
+      "home-assistant"
+      "applyDefaultConfig"
+    ] "The default config was migrated into services.home-assistant.config")
+    (mkRemovedOptionModule [
+      "services"
+      "home-assistant"
+      "autoExtraComponents"
+    ] "Components are now parsed from services.home-assistant.config unconditionally")
     (mkRenamedOptionModule
       [
         "services"

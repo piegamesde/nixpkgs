@@ -119,11 +119,9 @@ let
             <prefer>
             ${
               concatStringsSep "" (
-                map
-                  (font: ''
-                    <family>${font}</family>
-                  '')
-                  fonts
+                map (font: ''
+                  <family>${font}</family>
+                '') fonts
               )
             }
             </prefer>
@@ -317,46 +315,31 @@ in
           "renderMonoTTFAsBitmap"
         ]
       )
-      (mkRemovedOptionModule
-        [
-          "fonts"
-          "fontconfig"
-          "forceAutohint"
-        ]
-        ""
-      )
-      (mkRemovedOptionModule
-        [
-          "fonts"
-          "fontconfig"
-          "renderMonoTTFAsBitmap"
-        ]
-        ""
-      )
-      (mkRemovedOptionModule
-        [
-          "fonts"
-          "fontconfig"
-          "dpi"
-        ]
-        "Use display server-specific options"
-      )
-      (mkRemovedOptionModule
-        [
-          "hardware"
-          "video"
-          "hidpi"
-          "enable"
-        ]
-        fontconfigNote
-      )
-      (mkRemovedOptionModule
-        [
-          "fonts"
-          "optimizeForVeryHighDPI"
-        ]
-        fontconfigNote
-      )
+      (mkRemovedOptionModule [
+        "fonts"
+        "fontconfig"
+        "forceAutohint"
+      ] "")
+      (mkRemovedOptionModule [
+        "fonts"
+        "fontconfig"
+        "renderMonoTTFAsBitmap"
+      ] "")
+      (mkRemovedOptionModule [
+        "fonts"
+        "fontconfig"
+        "dpi"
+      ] "Use display server-specific options")
+      (mkRemovedOptionModule [
+        "hardware"
+        "video"
+        "hidpi"
+        "enable"
+      ] fontconfigNote)
+      (mkRemovedOptionModule [
+        "fonts"
+        "optimizeForVeryHighDPI"
+      ] fontconfigNote)
     ]
     ++ lib.forEach
       [

@@ -350,8 +350,9 @@ rec {
             ${if wrapManual == true && name != "vim" then
               "Set `standalone = false` to include the manual."
             else
-              lib.optionalString (wrapManual == false && name == "vim")
-                "Set `standalone = true` to get the *vim wrappers only."}''
+              lib.optionalString (
+                wrapManual == false && name == "vim"
+              ) "Set `standalone = true` to get the *vim wrappers only."}''
           lib.warnIf
           (wrapGui != null)
           "vim.customize: wrapGui is deprecated: gvim is now automatically included if present"
@@ -405,56 +406,41 @@ rec {
 
   vimWithRC = throw "vimWithRC was removed, please use vim.customize instead";
 
-  vimGenDocHook =
-    callPackage
-      (
-        { vim }:
-        makeSetupHook
-          {
-            name = "vim-gen-doc-hook";
-            propagatedBuildInputs = [ vim ];
-            substitutions = {
-              vimBinary = "${vim}/bin/vim";
-              inherit rtpPath;
-            };
-          }
-          ./vim-gen-doc-hook.sh
-      )
-      { };
+  vimGenDocHook = callPackage (
+    { vim }:
+    makeSetupHook {
+      name = "vim-gen-doc-hook";
+      propagatedBuildInputs = [ vim ];
+      substitutions = {
+        vimBinary = "${vim}/bin/vim";
+        inherit rtpPath;
+      };
+    } ./vim-gen-doc-hook.sh
+  ) { };
 
-  vimCommandCheckHook =
-    callPackage
-      (
-        { neovim-unwrapped }:
-        makeSetupHook
-          {
-            name = "vim-command-check-hook";
-            propagatedBuildInputs = [ neovim-unwrapped ];
-            substitutions = {
-              vimBinary = "${neovim-unwrapped}/bin/nvim";
-              inherit rtpPath;
-            };
-          }
-          ./vim-command-check-hook.sh
-      )
-      { };
+  vimCommandCheckHook = callPackage (
+    { neovim-unwrapped }:
+    makeSetupHook {
+      name = "vim-command-check-hook";
+      propagatedBuildInputs = [ neovim-unwrapped ];
+      substitutions = {
+        vimBinary = "${neovim-unwrapped}/bin/nvim";
+        inherit rtpPath;
+      };
+    } ./vim-command-check-hook.sh
+  ) { };
 
-  neovimRequireCheckHook =
-    callPackage
-      (
-        { neovim-unwrapped }:
-        makeSetupHook
-          {
-            name = "neovim-require-check-hook";
-            propagatedBuildInputs = [ neovim-unwrapped ];
-            substitutions = {
-              nvimBinary = "${neovim-unwrapped}/bin/nvim";
-              inherit rtpPath;
-            };
-          }
-          ./neovim-require-check-hook.sh
-      )
-      { };
+  neovimRequireCheckHook = callPackage (
+    { neovim-unwrapped }:
+    makeSetupHook {
+      name = "neovim-require-check-hook";
+      propagatedBuildInputs = [ neovim-unwrapped ];
+      substitutions = {
+        nvimBinary = "${neovim-unwrapped}/bin/nvim";
+        inherit rtpPath;
+      };
+    } ./neovim-require-check-hook.sh
+  ) { };
 
   inherit
     (import ./build-vim-plugin.nix {

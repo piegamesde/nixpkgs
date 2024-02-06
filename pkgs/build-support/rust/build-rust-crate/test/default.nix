@@ -113,13 +113,11 @@ let
     runCommand "run-buildRustCrate-${crateName}-test" { nativeBuildInputs = [ crate ]; } (
       if !hasTests then
         ''
-          ${lib.concatMapStringsSep "\n"
-            (
-              binary:
-              # Can't actually run the binary when cross-compiling
-              (lib.optionalString (stdenv.hostPlatform != stdenv.buildPlatform) "type ") + binary
-            )
-            binaries}
+          ${lib.concatMapStringsSep "\n" (
+            binary:
+            # Can't actually run the binary when cross-compiling
+            (lib.optionalString (stdenv.hostPlatform != stdenv.buildPlatform) "type ") + binary
+          ) binaries}
           ${lib.optionalString isLib ''
             test -e ${crate}/lib/*.rlib || exit 1
             ${lib.optionalString (stdenv.hostPlatform != stdenv.buildPlatform) "test -x "} \
@@ -133,9 +131,9 @@ let
             $file 2>&1 >> $out
           done
           set -e
-          ${lib.concatMapStringsSep "\n"
-            (o: "grep '${o}' $out || {  echo 'output \"${o}\" not found in:'; cat $out; exit 23; }")
-            expectedTestOutputs}
+          ${lib.concatMapStringsSep "\n" (
+            o: "grep '${o}' $out || {  echo 'output \"${o}\" not found in:'; cat $out; exit 23; }"
+          ) expectedTestOutputs}
         ''
       else
         ''
@@ -662,10 +660,9 @@ rec {
         # Suppress deprecation warning
         buildRustCrate = null;
       };
-      tests =
-        lib.mapAttrs
-          (key: value: mkTest (value // lib.optionalAttrs (!value ? crateName) { crateName = key; }))
-          cases;
+      tests = lib.mapAttrs (
+        key: value: mkTest (value // lib.optionalAttrs (!value ? crateName) { crateName = key; })
+      ) cases;
     in
     tests
     // rec {

@@ -46,9 +46,9 @@ let
   # Hunspell
   hunspellDirs = builtins.map (lang: "${hunspellDicts.${lang}}/share/hunspell") languages;
   hunspellTargetDirs = "$out/opt/Pulsar/resources/app.asar.unpacked/node_modules/spellchecker/vendor/hunspell_dictionaries";
-  hunspellCopyCommands =
-    lib.concatMapStringsSep "\n" (lang: "cp -r ${lang}/* ${hunspellTargetDirs};")
-      hunspellDirs;
+  hunspellCopyCommands = lib.concatMapStringsSep "\n" (
+    lang: "cp -r ${lang}/* ${hunspellTargetDirs};"
+  ) hunspellDirs;
 in
 stdenv.mkDerivation rec {
   inherit pname version;

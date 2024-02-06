@@ -27,18 +27,16 @@ let
 
   linesForAttrs =
     attrs:
-    concatMap
-      (
-        name:
-        let
-          value = attrs.${name};
-        in
-        if isAttrs value then
-          map (line: name + "." + line) (linesForAttrs value)
-        else
-          [ "${name}=${toStr value}" ]
-      )
-      (attrNames attrs);
+    concatMap (
+      name:
+      let
+        value = attrs.${name};
+      in
+      if isAttrs value then
+        map (line: name + "." + line) (linesForAttrs value)
+      else
+        [ "${name}=${toStr value}" ]
+    ) (attrNames attrs);
 
   configFile = pkgs.writeText "davmail.properties" (concatStringsSep "\n" (linesForAttrs cfg.config));
 in

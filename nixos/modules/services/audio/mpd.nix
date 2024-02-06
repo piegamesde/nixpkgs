@@ -38,8 +38,9 @@ let
     state_file          "${cfg.dataDir}/state"
     sticker_file        "${cfg.dataDir}/sticker.sql"
 
-    ${optionalString (cfg.network.listenAddress != "any")
-      ''bind_to_address "${cfg.network.listenAddress}"''}
+    ${optionalString (
+      cfg.network.listenAddress != "any"
+    ) ''bind_to_address "${cfg.network.listenAddress}"''}
     ${optionalString (cfg.network.port != 6600) ''port "${toString cfg.network.port}"''}
     ${optionalString (cfg.fluidsynth) ''
       decoder {
@@ -262,12 +263,10 @@ in
         ''
         + optionalString (cfg.credentials != [ ]) (
           concatStringsSep "\n" (
-            imap0
-              (
-                i: c:
-                ''${pkgs.replace-secret}/bin/replace-secret '{{password-${toString i}}}' '${c.passwordFile}' /run/mpd/mpd.conf''
-              )
-              cfg.credentials
+            imap0 (
+              i: c:
+              ''${pkgs.replace-secret}/bin/replace-secret '{{password-${toString i}}}' '${c.passwordFile}' /run/mpd/mpd.conf''
+            ) cfg.credentials
           )
         );
 

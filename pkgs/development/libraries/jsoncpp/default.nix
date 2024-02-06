@@ -53,9 +53,9 @@ stdenv.mkDerivation rec {
     # comparison operators and conversion functions between
     # std::basic_string<..., Json::SecureAllocator<char>> vs.
     # std::basic_string<..., [default allocator]>
-    ++
-      lib.optional ((stdenv.buildPlatform != stdenv.hostPlatform) || secureMemory)
-        "-DJSONCPP_WITH_TESTS=OFF"
+    ++ lib.optional (
+      (stdenv.buildPlatform != stdenv.hostPlatform) || secureMemory
+    ) "-DJSONCPP_WITH_TESTS=OFF"
     ++ lib.optional (!enableStatic) "-DBUILD_STATIC_LIBS=OFF";
 
   # this is fixed and no longer necessary in 1.9.5 but there they use

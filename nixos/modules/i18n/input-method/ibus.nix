@@ -15,14 +15,10 @@ let
     check =
       x:
       (lib.types.package.check x)
-      && (attrByPath
-        [
-          "meta"
-          "isIbusEngine"
-        ]
-        false
-        x
-      );
+      && (attrByPath [
+        "meta"
+        "isIbusEngine"
+      ] false x);
   };
 
   impanel = optionalString (cfg.panel != null) "--panel=${cfg.panel}";

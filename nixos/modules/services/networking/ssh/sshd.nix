@@ -778,20 +778,16 @@ in
       Banner ${if cfg.banner == null then "none" else pkgs.writeText "ssh_banner" cfg.banner}
 
       AddressFamily ${if config.networking.enableIPv6 then "any" else "inet"}
-      ${concatMapStrings
-        (port: ''
-          Port ${toString port}
-        '')
-        cfg.ports}
+      ${concatMapStrings (port: ''
+        Port ${toString port}
+      '') cfg.ports}
 
-      ${concatMapStrings
-        (
-          { port, addr, ... }:
-          ''
-            ListenAddress ${addr}${optionalString (port != null) (":" + toString port)}
-          ''
-        )
-        cfg.listenAddresses}
+      ${concatMapStrings (
+        { port, addr, ... }:
+        ''
+          ListenAddress ${addr}${optionalString (port != null) (":" + toString port)}
+        ''
+      ) cfg.listenAddresses}
 
       ${optionalString cfgc.setXAuthLocation ''
         XAuthLocation ${pkgs.xorg.xauth}/bin/xauth

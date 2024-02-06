@@ -42,14 +42,12 @@ let
     # Add the extraPackages as python modules as well
     ++ (builtins.map unwrapped.python.pkgs.toPythonModule extraPackages)
     ++ lib.flatten (
-      lib.mapAttrsToList
-        (
-          feat: info:
-          (lib.optionals ((unwrapped.hasFeature feat) && (builtins.hasAttr "pythonRuntime" info))
-            info.pythonRuntime
-          )
-        )
-        unwrapped.featuresInfo
+      lib.mapAttrsToList (
+        feat: info:
+        (lib.optionals (
+          (unwrapped.hasFeature feat) && (builtins.hasAttr "pythonRuntime" info)
+        ) info.pythonRuntime)
+      ) unwrapped.featuresInfo
     );
   pythonEnv = unwrapped.python.withPackages (ps: pythonPkgs);
 
@@ -174,13 +172,11 @@ let
           lndir -silent ${unwrapped}
           ${lib.optionalString (extraPackages != [ ]) (
             builtins.concatStringsSep "\n" (
-              builtins.map
-                (pkg: ''
-                  if [[ -d ${lib.getBin pkg}/bin/ ]]; then
-                    lndir -silent ${pkg}/bin ./bin
-                  fi
-                '')
-                extraPackages
+              builtins.map (pkg: ''
+                if [[ -d ${lib.getBin pkg}/bin/ ]]; then
+                  lndir -silent ${pkg}/bin ./bin
+                fi
+              '') extraPackages
             )
           )}
           for i in $out/bin/*; do

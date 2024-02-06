@@ -25,12 +25,10 @@ bundlerApp rec {
   nativeBuildInputs = [ makeWrapper ];
 
   postBuild = lib.optionalString (path != "") (
-    lib.concatMapStrings
-      (exe: ''
-        wrapProgram $out/bin/${exe} \
-          --prefix PATH : ${path}
-      '')
-      exes
+    lib.concatMapStrings (exe: ''
+      wrapProgram $out/bin/${exe} \
+        --prefix PATH : ${path}
+    '') exes
   );
 
   passthru = {

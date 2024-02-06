@@ -22,9 +22,9 @@ let
   # you can provide an easy way to boot the same configuration
   # as you use, but with another kernel
   # !!! fix this
-  children =
-    mapAttrs (childName: childConfig: childConfig.configuration.system.build.toplevel)
-      config.specialisation;
+  children = mapAttrs (
+    childName: childConfig: childConfig.configuration.system.build.toplevel
+  ) config.specialisation;
 in
 {
   options = {

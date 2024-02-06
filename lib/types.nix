@@ -236,17 +236,13 @@ let
 
             # Returns the common type of all definitions, throws an error if they
             # don't have the same type
-            commonType =
-              foldl'
-                (
-                  type: def:
-                  if getType def.value == type then
-                    type
-                  else
-                    throw "The option `${showOption loc}' has conflicting option types in ${showFiles (getFiles defs)}"
-                )
-                (getType (head defs).value)
-                defs;
+            commonType = foldl' (
+              type: def:
+              if getType def.value == type then
+                type
+              else
+                throw "The option `${showOption loc}' has conflicting option types in ${showFiles (getFiles defs)}"
+            ) (getType (head defs).value) defs;
 
             mergeFunction =
               {
@@ -264,12 +260,10 @@ let
                 lambda =
                   loc: defs: arg:
                   anything.merge (loc ++ [ "<function body>" ]) (
-                    map
-                      (def: {
-                        file = def.file;
-                        value = def.value arg;
-                      })
-                      defs
+                    map (def: {
+                      file = def.file;
+                      value = def.value arg;
+                    }) defs
                   );
                 # Otherwise fall back to only allowing all equal definitions
               }
@@ -323,8 +317,9 @@ let
             bit: range: ign 0 (range - 1) "unsignedInt${toString bit}" "${toString bit} bit unsigned integer";
           sign =
             bit: range:
-            ign (0 - (range / 2)) (range / 2 - 1) "signedInt${toString bit}"
-              "${toString bit} bit signed integer";
+            ign (0 - (range / 2)) (
+              range / 2 - 1
+            ) "signedInt${toString bit}" "${toString bit} bit signed integer";
         in
         {
           # An int with a fixed range.
@@ -533,22 +528,18 @@ let
             map (x: x.value) (
               filter (x: x ? value) (
                 concatLists (
-                  imap1
-                    (
-                      n: def:
-                      imap1
-                        (
-                          m: def':
-                          (mergeDefinitions (loc ++ [ "[definition ${toString n}-entry ${toString m}]" ]) elemType [
-                            {
-                              inherit (def) file;
-                              value = def';
-                            }
-                          ]).optionalValue
-                        )
-                        def.value
-                    )
-                    defs
+                  imap1 (
+                    n: def:
+                    imap1 (
+                      m: def':
+                      (mergeDefinitions (loc ++ [ "[definition ${toString n}-entry ${toString m}]" ]) elemType [
+                        {
+                          inherit (def) file;
+                          value = def';
+                        }
+                      ]).optionalValue
+                    ) def.value
+                  ) defs
                 )
               )
             );
@@ -591,17 +582,13 @@ let
                 zipAttrsWith (name: defs: (mergeDefinitions (loc ++ [ name ]) elemType defs).optionalValue)
                   # Push down position info.
                   (
-                    map
-                      (
-                        def:
-                        mapAttrs
-                          (n: v: {
-                            inherit (def) file;
-                            value = v;
-                          })
-                          def.value
-                      )
-                      defs
+                    map (
+                      def:
+                      mapAttrs (n: v: {
+                        inherit (def) file;
+                        value = v;
+                      }) def.value
+                    ) defs
                   )
               )
             );
@@ -644,17 +631,13 @@ let
               )
               # Push down position info.
               (
-                map
-                  (
-                    def:
-                    mapAttrs
-                      (n: v: {
-                        inherit (def) file;
-                        value = v;
-                      })
-                      def.value
-                  )
-                  defs
+                map (
+                  def:
+                  mapAttrs (n: v: {
+                    inherit (def) file;
+                    value = v;
+                  }) def.value
+                ) defs
               );
           emptyValue = {
             value = { };
@@ -760,12 +743,10 @@ let
           merge =
             loc: defs: fnArgs:
             (mergeDefinitions (loc ++ [ "<function body>" ]) elemType (
-              map
-                (fn: {
-                  inherit (fn) file;
-                  value = fn.value fnArgs;
-                })
-                defs
+              map (fn: {
+                inherit (fn) file;
+                value = fn.value fnArgs;
+              }) defs
             )).mergedValue;
           getSubOptions = prefix: elemType.getSubOptions (prefix ++ [ "<function body>" ]);
           getSubModules = elemType.getSubModules;
@@ -802,8 +783,9 @@ let
           merge = loc: defs: {
             imports =
               staticModules
-              ++ map (def: lib.setDefaultModuleLocation "${def.file}, via option ${showOption loc}" def.value)
-                defs;
+              ++ map (
+                def: lib.setDefaultModuleLocation "${def.file}, via option ${showOption loc}" def.value
+              ) defs;
           };
           inherit (submoduleWith { modules = staticModules; }) getSubOptions getSubModules;
           substSubModules = m: deferredModuleWith (attrs // { staticModules = m; });
@@ -830,18 +812,15 @@ let
             let
               # Prepares the type definitions for mergeOptionDecls, which
               # annotates submodules types with file locations
-              optionModules =
-                map
-                  (
-                    { value, file }:
-                    {
-                      _file = file;
-                      # There's no way to merge types directly from the module system,
-                      # but we can cheat a bit by just declaring an option with the type
-                      options = lib.mkOption { type = value; };
-                    }
-                  )
-                  defs;
+              optionModules = map (
+                { value, file }:
+                {
+                  _file = file;
+                  # There's no way to merge types directly from the module system,
+                  # but we can cheat a bit by just declaring an option with the type
+                  options = lib.mkOption { type = value; };
+                }
+              ) defs;
               # Merges all the types into a single one, including submodule merging.
               # This also propagates file information to all submodules
               mergedOption = fixupOptionType loc (mergeOptionDecls loc optionModules);
@@ -861,21 +840,19 @@ let
 
           allModules =
             defs:
-            map
-              (
-                { value, file }:
-                if isAttrs value && shorthandOnlyDefinesConfig then
-                  {
-                    _file = file;
-                    config = value;
-                  }
-                else
-                  {
-                    _file = file;
-                    imports = [ value ];
-                  }
-              )
-              defs;
+            map (
+              { value, file }:
+              if isAttrs value && shorthandOnlyDefinesConfig then
+                {
+                  _file = file;
+                  config = value;
+                }
+              else
+                {
+                  _file = file;
+                  imports = [ value ];
+                }
+            ) defs;
 
           base = evalModules {
             inherit specialArgs;
@@ -1018,8 +995,9 @@ let
           description = "${
             optionDescriptionPhrase (class: class == "noun" || class == "conjunction") t1
           } or ${
-            optionDescriptionPhrase (class: class == "noun" || class == "conjunction" || class == "composite")
-              t2
+            optionDescriptionPhrase (
+              class: class == "noun" || class == "conjunction" || class == "composite"
+            ) t2
           }";
           descriptionClass = "conjunction";
           check = x: t1.check x || t2.check x;
@@ -1065,8 +1043,9 @@ let
       # converted to `finalType` using `coerceFunc`.
       coercedTo =
         coercedType: coerceFunc: finalType:
-        assert lib.assertMsg (coercedType.getSubModules == null)
-          "coercedTo: coercedType must not have submodules (it’s a ${coercedType.description})";
+        assert lib.assertMsg (
+          coercedType.getSubModules == null
+        ) "coercedTo: coercedType must not have submodules (it’s a ${coercedType.description})";
         mkOptionType rec {
           name = "coercedTo";
           description = "${optionDescriptionPhrase (class: class == "noun") finalType} or ${

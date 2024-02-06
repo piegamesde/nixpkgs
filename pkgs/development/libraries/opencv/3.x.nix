@@ -187,11 +187,9 @@ let
       mkdir -p "${extra.dst}"
     ''
     + concatStrings (
-      mapAttrsToList
-        (name: md5: ''
-          ln -s "${extra.src}/${name}" "${extra.dst}/${md5}-${name}"
-        '')
-        extra.files
+      mapAttrsToList (name: md5: ''
+        ln -s "${extra.src}/${name}" "${extra.dst}/${md5}-${name}"
+      '') extra.files
     );
 
   opencvFlag = name: enabled: "-DWITH_${name}=${printEnabled enabled}";

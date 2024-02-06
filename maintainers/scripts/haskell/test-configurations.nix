@@ -99,12 +99,10 @@ let
       configVersion = lib.concatStrings (builtins.match "ghc-([0-9]+).([0-9]+).x" configName);
       # return all package sets under haskell.packages matching the version components
       setsForVersion = builtins.map (name: packageSetsWithVersionedHead.${name}) (
-        builtins.filter
-          (
-            setName:
-            lib.hasPrefix "ghc${configVersion}" setName && (skipBinaryGHCs -> !(lib.hasInfix "Binary" setName))
-          )
-          (builtins.attrNames packageSetsWithVersionedHead)
+        builtins.filter (
+          setName:
+          lib.hasPrefix "ghc${configVersion}" setName && (skipBinaryGHCs -> !(lib.hasInfix "Binary" setName))
+        ) (builtins.attrNames packageSetsWithVersionedHead)
       );
 
       defaultSets = [ pkgs.haskellPackages ];
@@ -131,13 +129,10 @@ let
     builtins.attrNames (
       lib.fix (
         self:
-        import (nixpkgsPath + "/pkgs/development/haskell-modules/${fileName}")
-          {
-            haskellLib = pkgs.haskell.lib.compose;
-            inherit pkgs;
-          }
-          self
-          availableHaskellPackages
+        import (nixpkgsPath + "/pkgs/development/haskell-modules/${fileName}") {
+          haskellLib = pkgs.haskell.lib.compose;
+          inherit pkgs;
+        } self availableHaskellPackages
       )
     );
 
@@ -153,16 +148,14 @@ let
         )
       )
       (
-        lib.concatMap
-          (
-            fileName:
-            let
-              sets = setsForFile fileName;
-              attrs = overriddenAttrs fileName;
-            in
-            lib.concatMap (set: builtins.map (attr: set.${attr}) attrs) sets
-          )
-          files'
+        lib.concatMap (
+          fileName:
+          let
+            sets = setsForFile fileName;
+            attrs = overriddenAttrs fileName;
+          in
+          lib.concatMap (set: builtins.map (attr: set.${attr}) attrs) sets
+        ) files'
       );
 in
 

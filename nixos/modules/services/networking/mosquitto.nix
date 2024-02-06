@@ -40,12 +40,10 @@ let
 
   assertKeysValid =
     prefix: valid: config:
-    mapAttrsToList
-      (n: _: {
-        assertion = valid ? ${n};
-        message = "Invalid config key ${prefix}.${n}.";
-      })
-      config;
+    mapAttrsToList (n: _: {
+      assertion = valid ? ${n};
+      message = "Invalid config key ${prefix}.${n}.";
+    }) config;
 
   formatFreeform =
     {
@@ -116,25 +114,20 @@ let
 
   userAsserts =
     prefix: users:
-    mapAttrsToList
-      (n: _: {
-        assertion = builtins.match "[^:\r\n]+" n != null;
-        message = "Invalid user name ${n} in ${prefix}";
-      })
-      users
-    ++
-      mapAttrsToList
-        (n: u: {
-          assertion =
-            count (s: s != null) [
-              u.password
-              u.passwordFile
-              u.hashedPassword
-              u.hashedPasswordFile
-            ] <= 1;
-          message = "Cannot set more than one password option for user ${n} in ${prefix}";
-        })
-        users;
+    mapAttrsToList (n: _: {
+      assertion = builtins.match "[^:\r\n]+" n != null;
+      message = "Invalid user name ${n} in ${prefix}";
+    }) users
+    ++ mapAttrsToList (n: u: {
+      assertion =
+        count (s: s != null) [
+          u.password
+          u.passwordFile
+          u.hashedPassword
+          u.hashedPasswordFile
+        ] <= 1;
+      message = "Cannot set more than one password option for user ${n} in ${prefix}";
+    }) users;
 
   makePasswordFile =
     users: path:
@@ -225,12 +218,10 @@ let
 
   authAsserts =
     prefix: auth:
-    mapAttrsToList
-      (n: _: {
-        assertion = configKey.check n;
-        message = "Invalid auth plugin key ${prefix}.${n}";
-      })
-      auth;
+    mapAttrsToList (n: _: {
+      assertion = configKey.check n;
+      message = "Invalid auth plugin key ${prefix}.${n}";
+    }) auth;
 
   formatAuthPlugin =
     plugin:
@@ -682,28 +673,22 @@ in
           cfg.includeDirs
           ++ filter (v: v != null) (
             flatten [
-              (map
-                (l: [
-                  (l.settings.psk_file or null)
-                  (l.settings.http_dir or null)
-                  (l.settings.cafile or null)
-                  (l.settings.capath or null)
-                  (l.settings.certfile or null)
-                  (l.settings.crlfile or null)
-                  (l.settings.dhparamfile or null)
-                  (l.settings.keyfile or null)
-                ])
-                cfg.listeners
-              )
-              (mapAttrsToList
-                (_: b: [
-                  (b.settings.bridge_cafile or null)
-                  (b.settings.bridge_capath or null)
-                  (b.settings.bridge_certfile or null)
-                  (b.settings.bridge_keyfile or null)
-                ])
-                cfg.bridges
-              )
+              (map (l: [
+                (l.settings.psk_file or null)
+                (l.settings.http_dir or null)
+                (l.settings.cafile or null)
+                (l.settings.capath or null)
+                (l.settings.certfile or null)
+                (l.settings.crlfile or null)
+                (l.settings.dhparamfile or null)
+                (l.settings.keyfile or null)
+              ]) cfg.listeners)
+              (mapAttrsToList (_: b: [
+                (b.settings.bridge_cafile or null)
+                (b.settings.bridge_capath or null)
+                (b.settings.bridge_certfile or null)
+                (b.settings.bridge_keyfile or null)
+              ]) cfg.bridges)
             ]
           )
         );
@@ -726,8 +711,9 @@ in
         UMask = "0077";
       };
       preStart = concatStringsSep "\n" (
-        imap0 (idx: listener: makePasswordFile listener.users "${cfg.dataDir}/passwd-${toString idx}")
-          cfg.listeners
+        imap0 (
+          idx: listener: makePasswordFile listener.users "${cfg.dataDir}/passwd-${toString idx}"
+        ) cfg.listeners
       );
     };
 

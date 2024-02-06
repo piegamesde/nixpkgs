@@ -19,12 +19,10 @@ let
       file
     else
       (
-        lib.warn
-          ''
-            ${logPrefix}: configuration file "${file}" is being copied to the nix-store.
-            If you would like to avoid that, please set enableConfigCheck to false.
-          ''
-          /.
+        lib.warn ''
+          ${logPrefix}: configuration file "${file}" is being copied to the nix-store.
+          If you would like to avoid that, please set enableConfigCheck to false.
+        '' /.
         + file
       );
   checkConfigLocation =

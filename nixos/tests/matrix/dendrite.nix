@@ -3,9 +3,9 @@ import ../make-test-python.nix (
   let
     homeserverUrl = "http://homeserver:8008";
 
-    private_key =
-      pkgs.runCommand "matrix_key.pem" { buildInputs = [ pkgs.dendrite ]; }
-        "generate-keys --private-key $out";
+    private_key = pkgs.runCommand "matrix_key.pem" {
+      buildInputs = [ pkgs.dendrite ];
+    } "generate-keys --private-key $out";
   in
   {
     name = "dendrite";

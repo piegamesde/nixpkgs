@@ -192,25 +192,21 @@ in
           };
 
       temurin-bin = recurseIntoAttrs (
-        callPackage
-          (
-            if stdenv.isLinux then
-              ../development/compilers/temurin-bin/jdk-linux.nix
-            else
-              ../development/compilers/temurin-bin/jdk-darwin.nix
-          )
-          { }
+        callPackage (
+          if stdenv.isLinux then
+            ../development/compilers/temurin-bin/jdk-linux.nix
+          else
+            ../development/compilers/temurin-bin/jdk-darwin.nix
+        ) { }
       );
 
       semeru-bin = recurseIntoAttrs (
-        callPackage
-          (
-            if stdenv.isLinux then
-              ../development/compilers/semeru-bin/jdk-linux.nix
-            else
-              ../development/compilers/semeru-bin/jdk-darwin.nix
-          )
-          { }
+        callPackage (
+          if stdenv.isLinux then
+            ../development/compilers/semeru-bin/jdk-linux.nix
+          else
+            ../development/compilers/semeru-bin/jdk-darwin.nix
+        ) { }
       );
     };
 

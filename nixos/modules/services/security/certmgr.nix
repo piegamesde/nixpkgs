@@ -10,13 +10,10 @@ with lib;
 let
   cfg = config.services.certmgr;
 
-  specs =
-    mapAttrsToList
-      (n: v: rec {
-        name = n + ".json";
-        path = if isAttrs v then pkgs.writeText name (builtins.toJSON v) else v;
-      })
-      cfg.specs;
+  specs = mapAttrsToList (n: v: rec {
+    name = n + ".json";
+    path = if isAttrs v then pkgs.writeText name (builtins.toJSON v) else v;
+  }) cfg.specs;
 
   allSpecs = pkgs.linkFarm "certmgr.d" specs;
 
@@ -32,15 +29,13 @@ let
   );
 
   specPaths = map dirOf (
-    concatMap
-      (
-        spec:
-        if isAttrs spec then
-          collect isString (filterAttrsRecursive (n: v: isAttrs v || n == "path") spec)
-        else
-          [ spec ]
-      )
-      (attrValues cfg.specs)
+    concatMap (
+      spec:
+      if isAttrs spec then
+        collect isString (filterAttrsRecursive (n: v: isAttrs v || n == "path") spec)
+      else
+        [ spec ]
+    ) (attrValues cfg.specs)
   );
 
   preStart = ''
@@ -212,12 +207,10 @@ in
       }
       {
         assertion =
-          !any
-            (hasAttrByPath [
-              "authority"
-              "auth_key"
-            ])
-            (attrValues cfg.specs);
+          !any (hasAttrByPath [
+            "authority"
+            "auth_key"
+          ]) (attrValues cfg.specs);
         message = ''
           Inline services.certmgr.specs are added to the Nix store rendering them world readable.
           Specify paths as specs, if you want to use include auth_key - or use the auth_key_file option."

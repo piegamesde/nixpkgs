@@ -56,13 +56,11 @@ let
       toFwdMap =
         forwardPorts:
         toNftSet (
-          map
-            (
-              fwd:
-              with (splitIPPorts fwd.destination);
-              "${fwd.proto} . ${toNftRange fwd.sourcePort} : ${IP} . ${ports}"
-            )
-            forwardPorts
+          map (
+            fwd:
+            with (splitIPPorts fwd.destination);
+            "${fwd.proto} . ${toNftRange fwd.sourcePort} : ${IP} . ${ports}"
+          ) forwardPorts
         );
       fwdMap = toFwdMap fwdPorts;
       fwdRangeMap = toFwdMap fwdPortsRange;
@@ -72,18 +70,14 @@ let
       toFwdLoopDnatMap =
         forwardPorts:
         toNftSet (
-          concatMap
-            (
-              fwd:
-              map
-                (
-                  loopbackip:
-                  with (splitIPPorts fwd.destination);
-                  "${loopbackip} . ${fwd.proto} . ${toNftRange fwd.sourcePort} : ${IP} . ${ports}"
-                )
-                fwd.loopbackIPs
-            )
-            forwardPorts
+          concatMap (
+            fwd:
+            map (
+              loopbackip:
+              with (splitIPPorts fwd.destination);
+              "${loopbackip} . ${fwd.proto} . ${toNftRange fwd.sourcePort} : ${IP} . ${ports}"
+            ) fwd.loopbackIPs
+          ) forwardPorts
         );
       fwdLoopDnatMap = toFwdLoopDnatMap fwdPorts;
       fwdLoopDnatRangeMap = toFwdLoopDnatMap fwdPortsRange;

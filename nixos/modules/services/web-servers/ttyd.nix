@@ -30,12 +30,10 @@ let
       (toString cfg.signal)
     ]
     ++ (concatLists (
-      mapAttrsToList
-        (_k: _v: [
-          "--client-option"
-          "${_k}=${_v}"
-        ])
-        cfg.clientOptions
+      mapAttrsToList (_k: _v: [
+        "--client-option"
+        "${_k}=${_v}"
+      ]) cfg.clientOptions
     ))
     ++ [
       "--terminal-type"

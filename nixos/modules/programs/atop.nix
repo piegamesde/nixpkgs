@@ -114,11 +114,9 @@ in
     {
       environment.etc = mkIf (cfg.settings != { }) {
         atoprc.text = concatStrings (
-          mapAttrsToList
-            (n: v: ''
-              ${n} ${toString v}
-            '')
-            cfg.settings
+          mapAttrsToList (n: v: ''
+            ${n} ${toString v}
+          '') cfg.settings
         );
       };
       environment.systemPackages = [

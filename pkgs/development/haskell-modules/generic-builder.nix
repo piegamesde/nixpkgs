@@ -273,29 +273,25 @@ let
     ]
     ++ [
       "--package-db=$packageConfDir"
-      (optionalString (enableSharedExecutables && stdenv.isLinux)
-        "--ghc-option=-optl=-Wl,-rpath=$out/${ghcLibdir}/${pname}-${version}"
-      )
-      (optionalString (enableSharedExecutables && stdenv.isDarwin)
-        "--ghc-option=-optl=-Wl,-headerpad_max_install_names"
-      )
+      (optionalString (
+        enableSharedExecutables && stdenv.isLinux
+      ) "--ghc-option=-optl=-Wl,-rpath=$out/${ghcLibdir}/${pname}-${version}")
+      (optionalString (
+        enableSharedExecutables && stdenv.isDarwin
+      ) "--ghc-option=-optl=-Wl,-headerpad_max_install_names")
       (optionalString enableParallelBuilding "--ghc-options=${parallelBuildingFlags}")
       (optionalString useCpphs "--with-cpphs=${cpphs}/bin/cpphs --ghc-options=-cpp --ghc-options=-pgmP${cpphs}/bin/cpphs --ghc-options=-optP--cpp"
       )
-      (enableFeature
-        (
-          enableDeadCodeElimination
-          && !stdenv.hostPlatform.isAarch32
-          && !stdenv.hostPlatform.isAarch64
-          && (versionAtLeast "8.0.1" ghc.version)
-        )
-        "split-objs"
-      )
+      (enableFeature (
+        enableDeadCodeElimination
+        && !stdenv.hostPlatform.isAarch32
+        && !stdenv.hostPlatform.isAarch64
+        && (versionAtLeast "8.0.1" ghc.version)
+      ) "split-objs")
       (enableFeature enableLibraryProfiling "library-profiling")
-      (optionalString
-        ((enableExecutableProfiling || enableLibraryProfiling) && versionOlder "8" ghc.version)
-        "--profiling-detail=${profilingDetail}"
-      )
+      (optionalString (
+        (enableExecutableProfiling || enableLibraryProfiling) && versionOlder "8" ghc.version
+      ) "--profiling-detail=${profilingDetail}")
       (enableFeature enableExecutableProfiling (
         if versionOlder ghc.version "8" then "executable-profiling" else "profiling"
       ))
@@ -808,9 +804,9 @@ lib.fix (
             phases = [ "installPhase" ];
             installPhase = "echo $nativeBuildInputs $buildInputs > $out";
             LANG = "en_US.UTF-8";
-            LOCALE_ARCHIVE =
-              lib.optionalString (stdenv.hostPlatform.libc == "glibc")
-                "${buildPackages.glibcLocales}/lib/locale/locale-archive";
+            LOCALE_ARCHIVE = lib.optionalString (
+              stdenv.hostPlatform.libc == "glibc"
+            ) "${buildPackages.glibcLocales}/lib/locale/locale-archive";
             "NIX_${ghcCommandCaps}" = "${ghcEnv}/bin/${ghcCommand}";
             "NIX_${ghcCommandCaps}PKG" = "${ghcEnv}/bin/${ghcCommand}-pkg";
             # TODO: is this still valid?

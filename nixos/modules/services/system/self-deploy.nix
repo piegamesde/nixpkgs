@@ -149,9 +149,9 @@ in
 
       requires = lib.mkIf (!(isPathType cfg.repository)) [ "network-online.target" ];
 
-      environment.GIT_SSH_COMMAND =
-        lib.mkIf (cfg.sshKeyFile != null)
-          "${pkgs.openssh}/bin/ssh -i ${lib.escapeShellArg cfg.sshKeyFile}";
+      environment.GIT_SSH_COMMAND = lib.mkIf (
+        cfg.sshKeyFile != null
+      ) "${pkgs.openssh}/bin/ssh -i ${lib.escapeShellArg cfg.sshKeyFile}";
 
       restartIfChanged = false;
 
@@ -182,8 +182,9 @@ in
           }
         } ${lib.escapeShellArg "${repositoryDirectory}${cfg.nixFile}"}
 
-        ${lib.optionalString (cfg.switchCommand != "test")
-          "nix-env --profile /nix/var/nix/profiles/system --set ${outPath}"}
+        ${lib.optionalString (
+          cfg.switchCommand != "test"
+        ) "nix-env --profile /nix/var/nix/profiles/system --set ${outPath}"}
 
         ${outPath}/bin/switch-to-configuration ${cfg.switchCommand}
 

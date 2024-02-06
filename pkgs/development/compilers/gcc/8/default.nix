@@ -84,17 +84,17 @@ let
     ++ optional (targetPlatform.libc == "musl") ../libgomp-dont-force-initial-exec.patch
 
     # Obtain latest patch with ../update-mcfgthread-patches.sh
-    ++
-      optional (!crossStageStatic && targetPlatform.isMinGW && threadsCross.model == "mcf")
-        ./Added-mcf-thread-model-support-from-mcfgthread.patch
+    ++ optional (
+      !crossStageStatic && targetPlatform.isMinGW && threadsCross.model == "mcf"
+    ) ./Added-mcf-thread-model-support-from-mcfgthread.patch
     ++ [ ../libsanitizer-no-cyclades-9.patch ];
 
   # Cross-gcc settings (build == host != target)
   crossMingw = targetPlatform != hostPlatform && targetPlatform.libc == "msvcrt";
   stageNameAddon = if crossStageStatic then "stage-static" else "stage-final";
-  crossNameAddon =
-    optionalString (targetPlatform != hostPlatform)
-      "${targetPlatform.config}-${stageNameAddon}-";
+  crossNameAddon = optionalString (
+    targetPlatform != hostPlatform
+  ) "${targetPlatform.config}-${stageNameAddon}-";
 
   callFile = lib.callPackageWith {
     # lets

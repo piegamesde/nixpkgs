@@ -371,13 +371,11 @@ in
       (
         config:
         map (value: "${value} allow") (
-          getAttrFromPath
-            [
-              "services"
-              "unbound"
-              "allowedAccess"
-            ]
-            config
+          getAttrFromPath [
+            "services"
+            "unbound"
+            "allowedAccess"
+          ] config
         )
       )
     )

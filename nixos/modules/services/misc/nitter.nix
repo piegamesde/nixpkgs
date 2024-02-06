@@ -13,29 +13,24 @@ let
     ${generators.toINI
       {
         # String values need to be quoted
-        mkKeyValue =
-          generators.mkKeyValueDefault
-            {
-              mkValueString =
-                v:
-                if isString v then
-                  "\"" + (strings.escape [ "\"" ] (toString v)) + "\""
-                else
-                  generators.mkValueStringDefault { } v;
-            }
-            " = ";
+        mkKeyValue = generators.mkKeyValueDefault {
+          mkValueString =
+            v:
+            if isString v then
+              "\"" + (strings.escape [ "\"" ] (toString v)) + "\""
+            else
+              generators.mkValueStringDefault { } v;
+        } " = ";
       }
       (
-        lib.recursiveUpdate
-          {
-            Server = cfg.server;
-            Cache = cfg.cache;
-            Config = cfg.config // {
-              hmacKey = "@hmac@";
-            };
-            Preferences = cfg.preferences;
-          }
-          cfg.settings
+        lib.recursiveUpdate {
+          Server = cfg.server;
+          Cache = cfg.cache;
+          Config = cfg.config // {
+            hmacKey = "@hmac@";
+          };
+          Preferences = cfg.preferences;
+        } cfg.settings
       )}
   '';
   # `hmac` is a secret used for cryptographic signing of video URLs.

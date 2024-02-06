@@ -109,9 +109,9 @@ in
 
           # It is possible to alter configuration files via RCON. To ensure reproducibility we have to prevent this
           ReadOnlyPaths = if baseq3InStore then home else cfg.baseq3;
-          ExecStartPre =
-            optionalString (!baseq3InStore)
-              "+${pkgs.coreutils}/bin/cp ${configFile} ${cfg.baseq3}/.q3a/baseq3/nix.cfg";
+          ExecStartPre = optionalString (
+            !baseq3InStore
+          ) "+${pkgs.coreutils}/bin/cp ${configFile} ${cfg.baseq3}/.q3a/baseq3/nix.cfg";
 
           ExecStart = "${pkgs.ioquake3}/ioq3ded.x86_64 +exec nix.cfg";
         };

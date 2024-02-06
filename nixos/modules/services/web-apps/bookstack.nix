@@ -31,22 +31,16 @@ let
 in
 {
   imports = [
-    (mkRemovedOptionModule
-      [
-        "services"
-        "bookstack"
-        "extraConfig"
-      ]
-      "Use services.bookstack.config instead."
-    )
-    (mkRemovedOptionModule
-      [
-        "services"
-        "bookstack"
-        "cacheDir"
-      ]
-      "The cache directory is now handled automatically."
-    )
+    (mkRemovedOptionModule [
+      "services"
+      "bookstack"
+      "extraConfig"
+    ] "Use services.bookstack.config instead.")
+    (mkRemovedOptionModule [
+      "services"
+      "bookstack"
+      "cacheDir"
+    ] "The cache directory is now handled automatically.")
   ];
 
   options.services.bookstack = {
@@ -444,16 +438,13 @@ in
             }
           '';
           secretReplacements = lib.concatMapStrings mkSecretReplacement secretPaths;
-          filteredConfig =
-            lib.converge
-              (lib.filterAttrsRecursive (
-                _: v:
-                !elem v [
-                  { }
-                  null
-                ]
-              ))
-              cfg.config;
+          filteredConfig = lib.converge (lib.filterAttrsRecursive (
+            _: v:
+            !elem v [
+              { }
+              null
+            ]
+          )) cfg.config;
           bookstackEnv = pkgs.writeText "bookstack.env" (bookstackEnvVars filteredConfig);
         in
         ''

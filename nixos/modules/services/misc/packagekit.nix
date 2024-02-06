@@ -22,41 +22,34 @@ let
 
   confFiles = [
     (iniFmt.generate "PackageKit.conf" (
-      recursiveUpdate
-        {
-          Daemon = {
-            DefaultBackend = "nix";
-            KeepCache = false;
-          };
-        }
-        cfg.settings
+      recursiveUpdate {
+        Daemon = {
+          DefaultBackend = "nix";
+          KeepCache = false;
+        };
+      } cfg.settings
     ))
 
     (iniFmt.generate "Vendor.conf" (
-      recursiveUpdate
-        {
-          PackagesNotFound = rec {
-            DefaultUrl = "https://github.com/NixOS/nixpkgs";
-            CodecUrl = DefaultUrl;
-            HardwareUrl = DefaultUrl;
-            FontUrl = DefaultUrl;
-            MimeUrl = DefaultUrl;
-          };
-        }
-        cfg.vendorSettings
+      recursiveUpdate {
+        PackagesNotFound = rec {
+          DefaultUrl = "https://github.com/NixOS/nixpkgs";
+          CodecUrl = DefaultUrl;
+          HardwareUrl = DefaultUrl;
+          FontUrl = DefaultUrl;
+          MimeUrl = DefaultUrl;
+        };
+      } cfg.vendorSettings
     ))
   ];
 in
 {
   imports = [
-    (mkRemovedOptionModule
-      [
-        "services"
-        "packagekit"
-        "backend"
-      ]
-      "Always set to Nix."
-    )
+    (mkRemovedOptionModule [
+      "services"
+      "packagekit"
+      "backend"
+    ] "Always set to Nix.")
   ];
 
   options.services.packagekit = {

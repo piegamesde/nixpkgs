@@ -352,13 +352,10 @@ in
       (
         oldcfg: {
           backend = "docker";
-          containers =
-            lib.mapAttrs
-              (
-                n: v:
-                builtins.removeAttrs (v // { extraOptions = v.extraDockerOptions or [ ]; }) [ "extraDockerOptions" ]
-              )
-              oldcfg.docker-containers;
+          containers = lib.mapAttrs (
+            n: v:
+            builtins.removeAttrs (v // { extraOptions = v.extraDockerOptions or [ ]; }) [ "extraDockerOptions" ]
+          ) oldcfg.docker-containers;
         }
       )
     )
@@ -385,9 +382,9 @@ in
   config = lib.mkIf (cfg.containers != { }) (
     lib.mkMerge [
       {
-        systemd.services =
-          mapAttrs' (n: v: nameValuePair "${cfg.backend}-${n}" (mkService n v))
-            cfg.containers;
+        systemd.services = mapAttrs' (
+          n: v: nameValuePair "${cfg.backend}-${n}" (mkService n v)
+        ) cfg.containers;
       }
       (lib.mkIf (cfg.backend == "podman") { virtualisation.podman.enable = true; })
       (lib.mkIf (cfg.backend == "docker") { virtualisation.docker.enable = true; })

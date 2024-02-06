@@ -132,20 +132,18 @@ in
 
           ${
             concatStrings (
-              mapAttrsToList
-                (
-                  iface: cfg:
-                  let
-                    ifaceExpr = optionalString (iface != "default") "iifname ${iface}";
-                    tcpSet = portsToNftSet cfg.allowedTCPPorts cfg.allowedTCPPortRanges;
-                    udpSet = portsToNftSet cfg.allowedUDPPorts cfg.allowedUDPPortRanges;
-                  in
-                  ''
-                    ${optionalString (tcpSet != "") "${ifaceExpr} tcp dport { ${tcpSet} } accept"}
-                    ${optionalString (udpSet != "") "${ifaceExpr} udp dport { ${udpSet} } accept"}
-                  ''
-                )
-                cfg.allInterfaces
+              mapAttrsToList (
+                iface: cfg:
+                let
+                  ifaceExpr = optionalString (iface != "default") "iifname ${iface}";
+                  tcpSet = portsToNftSet cfg.allowedTCPPorts cfg.allowedTCPPortRanges;
+                  udpSet = portsToNftSet cfg.allowedUDPPorts cfg.allowedUDPPortRanges;
+                in
+                ''
+                  ${optionalString (tcpSet != "") "${ifaceExpr} tcp dport { ${tcpSet} } accept"}
+                  ${optionalString (udpSet != "") "${ifaceExpr} udp dport { ${udpSet} } accept"}
+                ''
+              ) cfg.allInterfaces
             )
           }
 

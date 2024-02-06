@@ -116,8 +116,9 @@ let
   envFile = pkgs.writeText "mastodon.env" (
     lib.concatMapStrings (s: s + "\n") (
       (lib.concatLists (
-        lib.mapAttrsToList (name: value: if value != null then [ "${name}=\"${toString value}\"" ] else [ ])
-          env
+        lib.mapAttrsToList (
+          name: value: if value != null then [ "${name}=\"${toString value}\"" ] else [ ]
+        ) env
       ))
     )
   );
@@ -140,57 +141,54 @@ let
       $sudo ${cfg.package}/bin/tootctl "$@"
     '';
 
-  sidekiqUnits =
-    lib.attrsets.mapAttrs'
-      (
-        name: processCfg:
-        lib.nameValuePair "mastodon-sidekiq-${name}" (
-          let
-            jobClassArgs = toString (builtins.map (c: "-q ${c}") processCfg.jobClasses);
-            jobClassLabel = toString ([ "" ] ++ processCfg.jobClasses);
-            threads = toString (if processCfg.threads == null then cfg.sidekiqThreads else processCfg.threads);
-          in
-          {
-            after =
-              [
-                "network.target"
-                "mastodon-init-dirs.service"
-              ]
-              ++ lib.optional databaseActuallyCreateLocally "postgresql.service"
-              ++ lib.optional cfg.automaticMigrations "mastodon-init-db.service";
-            requires =
-              [ "mastodon-init-dirs.service" ]
-              ++ lib.optional databaseActuallyCreateLocally "postgresql.service"
-              ++ lib.optional cfg.automaticMigrations "mastodon-init-db.service";
-            description = "Mastodon sidekiq${jobClassLabel}";
-            wantedBy = [ "mastodon.target" ];
-            environment = env // {
-              PORT = toString (cfg.sidekiqPort);
-              DB_POOL = threads;
-            };
-            serviceConfig = {
-              ExecStart = "${cfg.package}/bin/sidekiq ${jobClassArgs} -c ${threads} -r ${cfg.package}";
-              Restart = "always";
-              RestartSec = 20;
-              EnvironmentFile = [ "/var/lib/mastodon/.secrets_env" ] ++ cfg.extraEnvFiles;
-              WorkingDirectory = cfg.package;
-              # System Call Filtering
-              SystemCallFilter = [
-                ("~" + lib.concatStringsSep " " systemCallsList)
-                "@chown"
-                "pipe"
-                "pipe2"
-              ];
-            } // cfgService;
-            path = with pkgs; [
-              file
-              imagemagick
-              ffmpeg
-            ];
-          }
-        )
-      )
-      cfg.sidekiqProcesses;
+  sidekiqUnits = lib.attrsets.mapAttrs' (
+    name: processCfg:
+    lib.nameValuePair "mastodon-sidekiq-${name}" (
+      let
+        jobClassArgs = toString (builtins.map (c: "-q ${c}") processCfg.jobClasses);
+        jobClassLabel = toString ([ "" ] ++ processCfg.jobClasses);
+        threads = toString (if processCfg.threads == null then cfg.sidekiqThreads else processCfg.threads);
+      in
+      {
+        after =
+          [
+            "network.target"
+            "mastodon-init-dirs.service"
+          ]
+          ++ lib.optional databaseActuallyCreateLocally "postgresql.service"
+          ++ lib.optional cfg.automaticMigrations "mastodon-init-db.service";
+        requires =
+          [ "mastodon-init-dirs.service" ]
+          ++ lib.optional databaseActuallyCreateLocally "postgresql.service"
+          ++ lib.optional cfg.automaticMigrations "mastodon-init-db.service";
+        description = "Mastodon sidekiq${jobClassLabel}";
+        wantedBy = [ "mastodon.target" ];
+        environment = env // {
+          PORT = toString (cfg.sidekiqPort);
+          DB_POOL = threads;
+        };
+        serviceConfig = {
+          ExecStart = "${cfg.package}/bin/sidekiq ${jobClassArgs} -c ${threads} -r ${cfg.package}";
+          Restart = "always";
+          RestartSec = 20;
+          EnvironmentFile = [ "/var/lib/mastodon/.secrets_env" ] ++ cfg.extraEnvFiles;
+          WorkingDirectory = cfg.package;
+          # System Call Filtering
+          SystemCallFilter = [
+            ("~" + lib.concatStringsSep " " systemCallsList)
+            "@chown"
+            "pipe"
+            "pipe2"
+          ];
+        } // cfgService;
+        path = with pkgs; [
+          file
+          imagemagick
+          ffmpeg
+        ];
+      }
+    )
+  ) cfg.sidekiqProcesses;
 in
 {
 
@@ -657,8 +655,9 @@ in
           {
             assertion =
               1 == builtins.length (
-                lib.mapAttrsToList (_: v: builtins.elem "scheduler" v.jobClasses || v.jobClasses == [ ])
-                  cfg.sidekiqProcesses
+                lib.mapAttrsToList (
+                  _: v: builtins.elem "scheduler" v.jobClasses || v.jobClasses == [ ]
+                ) cfg.sidekiqProcesses
               );
             message = "There must be one and only one Sidekiq queue in services.mastodon.sidekiqProcesses with jobClass \"scheduler\".";
           }

@@ -25,8 +25,9 @@ let
       browse-domains=${concatStringsSep ", " browseDomains}
       use-ipv4=${yesNo ipv4}
       use-ipv6=${yesNo ipv6}
-      ${optionalString (allowInterfaces != null)
-        "allow-interfaces=${concatStringsSep "," allowInterfaces}"}
+      ${optionalString (
+        allowInterfaces != null
+      ) "allow-interfaces=${concatStringsSep "," allowInterfaces}"}
       ${optionalString (denyInterfaces != null) "deny-interfaces=${concatStringsSep "," denyInterfaces}"}
       ${optionalString (domainName != null) "domain-name=${domainName}"}
       allow-point-to-point=${yesNo allowPointToPoint}
@@ -288,14 +289,12 @@ in
     environment.systemPackages = [ pkgs.avahi ];
 
     environment.etc = (
-      mapAttrs'
-        (
-          n: v:
-          nameValuePair "avahi/services/${n}.service" {
-            ${if types.path.check v then "source" else "text"} = v;
-          }
-        )
-        cfg.extraServiceFiles
+      mapAttrs' (
+        n: v:
+        nameValuePair "avahi/services/${n}.service" {
+          ${if types.path.check v then "source" else "text"} = v;
+        }
+      ) cfg.extraServiceFiles
     );
 
     systemd.sockets.avahi-daemon = {

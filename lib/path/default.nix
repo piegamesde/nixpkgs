@@ -84,14 +84,12 @@ let
     # combination of `filter`, `init` and `tail`, because here we don't
     # allocate any intermediate lists
     else
-      genList
-        (
-          index:
-          # To get to the element we need to add the number of parts we skip and
-          # multiply by two due to the interleaved layout of `parts`
-          elemAt parts ((skipStart + index) * 2)
-        )
-        componentCount;
+      genList (
+        index:
+        # To get to the element we need to add the number of parts we skip and
+        # multiply by two due to the interleaved layout of `parts`
+        elemAt parts ((skipStart + index) * 2)
+      ) componentCount;
 
   # Join relative path components together
   joinRelPath =
@@ -260,18 +258,15 @@ in
       # Otherwise we take our time to gather more info for a better error message
       # Strictly go through each path, throwing on the first invalid one
       # Tracks the list index in the fold accumulator
-      foldl'
-        (
-          i: path:
-          if isValid path then
-            i + 1
-          else
-            throw ''
-              lib.path.subpath.join: Element at index ${toString i} is not a valid subpath string:
-                  ${subpathInvalidReason path}''
-        )
-        0
-        subpaths;
+      foldl' (
+        i: path:
+        if isValid path then
+          i + 1
+        else
+          throw ''
+            lib.path.subpath.join: Element at index ${toString i} is not a valid subpath string:
+                ${subpathInvalidReason path}''
+      ) 0 subpaths;
 
   /* Normalise a subpath. Throw an error if the subpath isn't valid, see
      `lib.path.subpath.isValid`

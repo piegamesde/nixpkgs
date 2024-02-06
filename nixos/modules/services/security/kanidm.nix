@@ -24,21 +24,18 @@ let
   hasPrefixInList =
     list: newPath:
     lib.any (path: lib.hasPrefix (builtins.toString path) (builtins.toString newPath)) list;
-  mergePaths =
-    lib.foldl'
-      (
-        merged: newPath:
-        let
-          # If the new path is a prefix to some existing path, we need to filter it out
-          filteredPaths =
-            lib.filter (p: !lib.hasPrefix (builtins.toString newPath) (builtins.toString p))
-              merged;
-          # If a prefix of the new path is already in the list, do not add it
-          filteredNew = if hasPrefixInList filteredPaths newPath then [ ] else [ newPath ];
-        in
-        filteredPaths ++ filteredNew
-      )
-      [ ];
+  mergePaths = lib.foldl' (
+    merged: newPath:
+    let
+      # If the new path is a prefix to some existing path, we need to filter it out
+      filteredPaths = lib.filter (
+        p: !lib.hasPrefix (builtins.toString newPath) (builtins.toString p)
+      ) merged;
+      # If a prefix of the new path is already in the list, do not add it
+      filteredNew = if hasPrefixInList filteredPaths newPath then [ ] else [ newPath ];
+    in
+    filteredPaths ++ filteredNew
+  ) [ ];
 
   defaultServiceConfig = {
     BindReadOnlyPaths = [

@@ -13,42 +13,37 @@ let
   mapExtra =
     v:
     lib.concatStringsSep "\n" (
-      mapAttrsToList
-        (key: val: "${key} = ${if (isString val) then "\"${val}\"" else "${builtins.toString val}"};")
-        v
+      mapAttrsToList (
+        key: val: "${key} = ${if (isString val) then "\"${val}\"" else "${builtins.toString val}"};"
+      ) v
     );
 
   listKeys = r: concatStringsSep "," (map (n: "\"${n}\"") (attrNames r));
 
   configFile =
     let
-      bars =
-        mapAttrsToList
-          (name: cfg: ''
-            ${name}: {
-              font: "${cfg.font}";
-              position: "${cfg.position}";
+      bars = mapAttrsToList (name: cfg: ''
+        ${name}: {
+          font: "${cfg.font}";
+          position: "${cfg.position}";
 
-              ${mapExtra cfg.extra}
+          ${mapExtra cfg.extra}
 
-              block-list: [${listKeys cfg.indicators}]
+          block-list: [${listKeys cfg.indicators}]
 
-              ${
-                concatStringsSep "\n" (
-                  mapAttrsToList
-                    (name: cfg: ''
-                      ${name}: {
-                        exec: "${cfg.exec}";
-                        align: "${cfg.align}";
-                        ${mapExtra cfg.extra}
-                      };
-                    '')
-                    cfg.indicators
-                )
-              }
-            };
-          '')
-          cfg.bars;
+          ${
+            concatStringsSep "\n" (
+              mapAttrsToList (name: cfg: ''
+                ${name}: {
+                  exec: "${cfg.exec}";
+                  align: "${cfg.align}";
+                  ${mapExtra cfg.extra}
+                };
+              '') cfg.indicators
+            )
+          }
+        };
+      '') cfg.bars;
     in
     pkgs.writeText "yabar.conf" ''
       bar-list = [${listKeys cfg.bars}];

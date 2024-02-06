@@ -20,9 +20,9 @@ let
   haveVirtual = cfg.virtual != "";
   haveLocalRecipients = cfg.localRecipients != null;
 
-  clientAccess =
-    optional (cfg.dnsBlacklistOverrides != "")
-      "check_client_access hash:/etc/postfix/client_access";
+  clientAccess = optional (
+    cfg.dnsBlacklistOverrides != ""
+  ) "check_client_access hash:/etc/postfix/client_access";
 
   dnsBl = optionals (cfg.dnsBlacklists != [ ]) (map (s: "reject_rbl_client " + s) cfg.dnsBlacklists);
 
@@ -834,20 +834,16 @@ in
             ln -sf ${masterCfFile} /var/lib/postfix/conf/master.cf
 
             ${concatStringsSep "\n" (
-              mapAttrsToList
-                (to: from: ''
-                  ln -sf ${from} /var/lib/postfix/conf/${to}
-                  ${pkgs.postfix}/bin/postalias /var/lib/postfix/conf/${to}
-                '')
-                cfg.aliasFiles
+              mapAttrsToList (to: from: ''
+                ln -sf ${from} /var/lib/postfix/conf/${to}
+                ${pkgs.postfix}/bin/postalias /var/lib/postfix/conf/${to}
+              '') cfg.aliasFiles
             )}
             ${concatStringsSep "\n" (
-              mapAttrsToList
-                (to: from: ''
-                  ln -sf ${from} /var/lib/postfix/conf/${to}
-                  ${pkgs.postfix}/bin/postmap /var/lib/postfix/conf/${to}
-                '')
-                cfg.mapFiles
+              mapAttrsToList (to: from: ''
+                ln -sf ${from} /var/lib/postfix/conf/${to}
+                ${pkgs.postfix}/bin/postmap /var/lib/postfix/conf/${to}
+              '') cfg.mapFiles
             )}
 
             mkdir -p /var/spool/mail

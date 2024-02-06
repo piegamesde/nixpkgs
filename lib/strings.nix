@@ -85,12 +85,10 @@ rec {
       list
     else
       tail (
-        lib.concatMap
-          (x: [
-            separator
-            x
-          ])
-          list
+        lib.concatMap (x: [
+          separator
+          x
+        ]) list
       );
 
   /* Concatenate a list of strings with a separator between each element

@@ -22,13 +22,10 @@ let
   #
   # Here, we override the defaultVersion and release arguments to
   # mkCoqDerivation.
-  overriddenQuickChick =
-    coqPackages.lib.overrideCoqDerivation
-      {
-        defaultVersion = "9999";
-        release."9999".sha256 = lib.fakeSha256;
-      }
-      coqPackages.QuickChick;
+  overriddenQuickChick = coqPackages.lib.overrideCoqDerivation {
+    defaultVersion = "9999";
+    release."9999".sha256 = lib.fakeSha256;
+  } coqPackages.QuickChick;
 in
 
 runCommand "coq-overrideCoqDerivation-test-0.1"

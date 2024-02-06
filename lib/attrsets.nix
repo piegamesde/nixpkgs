@@ -348,15 +348,13 @@ rec {
     # The attribute set to filter
     set:
     listToAttrs (
-      concatMap
-        (
-          name:
-          let
-            v = set.${name};
-          in
-          if pred name v then [ (nameValuePair name v) ] else [ ]
-        )
-        (attrNames set)
+      concatMap (
+        name:
+        let
+          v = set.${name};
+        in
+        if pred name v then [ (nameValuePair name v) ] else [ ]
+      ) (attrNames set)
     );
 
   /* Filter an attribute set recursively by removing all attributes for
@@ -375,18 +373,16 @@ rec {
     # The attribute set to filter
     set:
     listToAttrs (
-      concatMap
-        (
-          name:
-          let
-            v = set.${name};
-          in
-          if pred name v then
-            [ (nameValuePair name (if isAttrs v then filterAttrsRecursive pred v else v)) ]
-          else
-            [ ]
-        )
-        (attrNames set)
+      concatMap (
+        name:
+        let
+          v = set.${name};
+        in
+        if pred name v then
+          [ (nameValuePair name (if isAttrs v then filterAttrsRecursive pred v else v)) ]
+        else
+          [ ]
+      ) (attrNames set)
     );
 
   /* Like builtins.foldl' but for attribute sets.
@@ -462,9 +458,9 @@ rec {
     nul:
     # A list of attribute sets to fold together by key.
     list_of_attrs:
-    foldr (n: a: foldr (name: o: o // { ${name} = op n.${name} (a.${name} or nul); }) a (attrNames n))
-      { }
-      list_of_attrs;
+    foldr (
+      n: a: foldr (name: o: o // { ${name} = op n.${name} (a.${name} or nul); }) a (attrNames n)
+    ) { } list_of_attrs;
 
   /* Recursively collect sets that verify a given predicate named `pred`
      from the set `attrs`.  The recursion is stopped when the predicate is
@@ -509,14 +505,12 @@ rec {
   cartesianProductOfSets =
     # Attribute set with attributes that are lists of values
     attrsOfLists:
-    foldl'
-      (
-        listOfAttrs: attrName:
-        concatMap (attrs: map (listValue: attrs // { ${attrName} = listValue; }) attrsOfLists.${attrName})
-          listOfAttrs
-      )
-      [ { } ]
-      (attrNames attrsOfLists);
+    foldl' (
+      listOfAttrs: attrName:
+      concatMap (
+        attrs: map (listValue: attrs // { ${attrName} = listValue; }) attrsOfLists.${attrName}
+      ) listOfAttrs
+    ) [ { } ] (attrNames attrsOfLists);
 
   /* Utility function that creates a `{name, value}` pair as expected by `builtins.listToAttrs`.
 
@@ -549,12 +543,10 @@ rec {
     builtins.mapAttrs or (
       f: set:
       listToAttrs (
-        map
-          (attr: {
-            name = attr;
-            value = f attr set.${attr};
-          })
-          (attrNames set)
+        map (attr: {
+          name = attr;
+          value = f attr set.${attr};
+        }) (attrNames set)
       )
     );
 
@@ -750,12 +742,10 @@ rec {
     # List of values from the list of attribute sets.
     sets:
     listToAttrs (
-      map
-        (name: {
-          inherit name;
-          value = f name (catAttrs name sets);
-        })
-        names
+      map (name: {
+        inherit name;
+        value = f name (catAttrs name sets);
+      }) names
     );
 
   /* Merge sets of attributes and use the function f to merge attribute values.
@@ -873,13 +863,10 @@ rec {
     lhs:
     # Right attribute set of the merge.
     rhs:
-    recursiveUpdateUntil
-      (
-        path: lhs: rhs:
-        !(isAttrs lhs && isAttrs rhs)
-      )
-      lhs
-      rhs;
+    recursiveUpdateUntil (
+      path: lhs: rhs:
+      !(isAttrs lhs && isAttrs rhs)
+    ) lhs rhs;
 
   /* Returns true if the pattern is contained in the set. False otherwise.
 
@@ -1071,10 +1058,9 @@ rec {
     let
       intersection = builtins.intersectAttrs x y;
       collisions = lib.concatStringsSep " " (builtins.attrNames intersection);
-      mask =
-        builtins.mapAttrs
-          (name: value: builtins.throw "unionOfDisjoint: collision on ${name}; complete list: ${collisions}")
-          intersection;
+      mask = builtins.mapAttrs (
+        name: value: builtins.throw "unionOfDisjoint: collision on ${name}; complete list: ${collisions}"
+      ) intersection;
     in
     (x // y) // mask;
 

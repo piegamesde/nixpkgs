@@ -354,9 +354,9 @@ in
             cfg.settings.download-dir
           ]
           ++ optional cfg.settings.incomplete-dir-enabled cfg.settings.incomplete-dir
-          ++
-            optional (cfg.settings.watch-dir-enabled && cfg.settings.trash-original-torrent-files)
-              cfg.settings.watch-dir;
+          ++ optional (
+            cfg.settings.watch-dir-enabled && cfg.settings.trash-original-torrent-files
+          ) cfg.settings.watch-dir;
         BindReadOnlyPaths =
           [
             # No confinement done of /nix/store here like in systemd-confinement.nix,
@@ -365,12 +365,12 @@ in
             "/etc"
             "/run"
           ]
-          ++ optional
-            (cfg.settings.script-torrent-done-enabled && cfg.settings.script-torrent-done-filename != null)
-            cfg.settings.script-torrent-done-filename
-          ++
-            optional (cfg.settings.watch-dir-enabled && !cfg.settings.trash-original-torrent-files)
-              cfg.settings.watch-dir;
+          ++ optional (
+            cfg.settings.script-torrent-done-enabled && cfg.settings.script-torrent-done-filename != null
+          ) cfg.settings.script-torrent-done-filename
+          ++ optional (
+            cfg.settings.watch-dir-enabled && !cfg.settings.trash-original-torrent-files
+          ) cfg.settings.watch-dir;
         StateDirectory = [
           "transmission"
           "transmission/.config/transmission-daemon"

@@ -213,13 +213,11 @@ assert (
     "to produce a partition table, we need to use -E offset flag which is support only for fsType = ext4"
 );
 assert (
-  lib.assertMsg
-    (
-      touchEFIVars
-      ->
-        partitionTableType == "hybrid" || partitionTableType == "efi" || partitionTableType == "legacy+gpt"
-    )
-    "EFI variables can be used only with a partition table of type: hybrid, efi or legacy+gpt."
+  lib.assertMsg (
+    touchEFIVars
+    ->
+      partitionTableType == "hybrid" || partitionTableType == "efi" || partitionTableType == "legacy+gpt"
+  ) "EFI variables can be used only with a partition table of type: hybrid, efi or legacy+gpt."
 );
 # If only Nix store image, then: contents must be empty, configFile must be unset, and we should no install bootloader.
 assert (
@@ -228,9 +226,9 @@ assert (
 );
 # Either both or none of {user,group} need to be set
 assert (
-  lib.assertMsg
-    (lib.all (attrs: ((attrs.user or null) == null) == ((attrs.group or null) == null)) contents)
-    "Contents of the disk image should set none of {user, group} or both at the same time."
+  lib.assertMsg (lib.all (
+    attrs: ((attrs.user or null) == null) == ((attrs.group or null) == null)
+  ) contents) "Contents of the disk image should set none of {user, group} or both at the same time."
 );
 
 with lib;

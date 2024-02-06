@@ -25,26 +25,24 @@ let
 
     defaultVersion =
       with lib.versions;
-      lib.switch coq.version
-        [
-          {
-            case = range "8.14" "8.16";
-            out = "3.12";
-          }
-          {
-            case = isEq "8.13";
-            out = "3.10";
-          }
-          {
-            case = isEq "8.12";
-            out = "3.9";
-          }
-          {
-            case = range "8.8" "8.11";
-            out = "3.8";
-          }
-        ]
-        null;
+      lib.switch coq.version [
+        {
+          case = range "8.14" "8.16";
+          out = "3.12";
+        }
+        {
+          case = isEq "8.13";
+          out = "3.10";
+        }
+        {
+          case = isEq "8.12";
+          out = "3.9";
+        }
+        {
+          case = range "8.8" "8.11";
+          out = "3.8";
+        }
+      ] null;
 
     release = {
       "3.8".sha256 = "1gzlyxvw64ca12qql3wnq3bidcx9ygsklv9grjma3ib4hvg7vnr7";

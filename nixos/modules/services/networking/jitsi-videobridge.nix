@@ -254,8 +254,9 @@ in
 
         script =
           (concatStrings (
-            mapAttrsToList (name: xmppConfig: "export ${toVarName name}=$(cat ${xmppConfig.passwordFile})\n")
-              cfg.xmppConfigs
+            mapAttrsToList (
+              name: xmppConfig: "export ${toVarName name}=$(cat ${xmppConfig.passwordFile})\n"
+            ) cfg.xmppConfigs
           ))
           + ''
             ${pkgs.jitsi-videobridge}/bin/jitsi-videobridge --apis=${

@@ -52,10 +52,9 @@ stdenv.mkDerivation rec {
     # Libraries cannot be wrapped so we need to hardcode the plug-in paths.
     (substituteAll {
       src = ./gst-hardcode-plugins.patch;
-      load_gst_plugins =
-        lib.concatMapStrings
-          (plugin: ''gst_registry_scan_path(gst_registry_get(), "${lib.getLib plugin}/lib/gstreamer-1.0");'')
-          (gstPlugins gst_all_1);
+      load_gst_plugins = lib.concatMapStrings (
+        plugin: ''gst_registry_scan_path(gst_registry_get(), "${lib.getLib plugin}/lib/gstreamer-1.0");''
+      ) (gstPlugins gst_all_1);
     })
   ];
 

@@ -77,9 +77,9 @@ rec {
       # Find the haskell package that the 'root' is in, if any.
       haskell-path-parent =
         let
-          filtered =
-            builtins.filter (name: lib.hasPrefix (toString (project-root + "/${name}")) (toString root))
-              (builtins.attrNames haskell-paths);
+          filtered = builtins.filter (
+            name: lib.hasPrefix (toString (project-root + "/${name}")) (toString root)
+          ) (builtins.attrNames haskell-paths);
         in
         if filtered == [ ] then null else builtins.head filtered;
       # We're in the directory of a haskell package

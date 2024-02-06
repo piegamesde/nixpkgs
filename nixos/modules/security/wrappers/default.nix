@@ -136,26 +136,20 @@ let
       chmod "u${if setuid then "+" else "-"}s,g${if setgid then "+" else "-"}s,${permissions}" "$wrapperDir/${program}"
     '';
 
-  mkWrappedPrograms =
-    builtins.map (opts: if opts.capabilities != "" then mkSetcapProgram opts else mkSetuidProgram opts)
-      (lib.attrValues wrappers);
+  mkWrappedPrograms = builtins.map (
+    opts: if opts.capabilities != "" then mkSetcapProgram opts else mkSetuidProgram opts
+  ) (lib.attrValues wrappers);
 in
 {
   imports = [
-    (lib.mkRemovedOptionModule
-      [
-        "security"
-        "setuidOwners"
-      ]
-      "Use security.wrappers instead"
-    )
-    (lib.mkRemovedOptionModule
-      [
-        "security"
-        "setuidPrograms"
-      ]
-      "Use security.wrappers instead"
-    )
+    (lib.mkRemovedOptionModule [
+      "security"
+      "setuidOwners"
+    ] "Use security.wrappers instead")
+    (lib.mkRemovedOptionModule [
+      "security"
+      "setuidPrograms"
+    ] "Use security.wrappers instead")
   ];
 
   ###### interface
@@ -224,16 +218,13 @@ in
   ###### implementation
   config = {
 
-    assertions =
-      lib.mapAttrsToList
-        (name: opts: {
-          assertion = opts.setuid || opts.setgid -> opts.capabilities == "";
-          message = ''
-            The security.wrappers.${name} wrapper is not valid:
-                setuid/setgid and capabilities are mutually exclusive.
-          '';
-        })
-        wrappers;
+    assertions = lib.mapAttrsToList (name: opts: {
+      assertion = opts.setuid || opts.setgid -> opts.capabilities == "";
+      message = ''
+        The security.wrappers.${name} wrapper is not valid:
+            setuid/setgid and capabilities are mutually exclusive.
+      '';
+    }) wrappers;
 
     security.wrappers =
       let

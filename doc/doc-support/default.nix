@@ -90,22 +90,19 @@ let
       opt:
       opt
       // {
-        declarations =
-          map
-            (
-              decl:
-              if hasPrefix (toString ../..) (toString decl) then
-                let
-                  subpath = removePrefix "/" (removePrefix (toString ../..) (toString decl));
-                in
-                {
-                  url = "https://github.com/NixOS/nixpkgs/blob/master/${subpath}";
-                  name = subpath;
-                }
-              else
-                decl
-            )
-            opt.declarations;
+        declarations = map (
+          decl:
+          if hasPrefix (toString ../..) (toString decl) then
+            let
+              subpath = removePrefix "/" (removePrefix (toString ../..) (toString decl));
+            in
+            {
+              url = "https://github.com/NixOS/nixpkgs/blob/master/${subpath}";
+              name = subpath;
+            }
+          else
+            decl
+        ) opt.declarations;
       };
   };
 in

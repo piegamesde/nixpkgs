@@ -84,38 +84,36 @@ in
 
 
   ${lib.optionalString (lib.length crateBin > 0) (
-    lib.concatMapStringsSep "\n"
-      (
-        bin:
-        let
-          haveRequiredFeature =
-            if bin ? requiredFeatures then
-              # Check that all element in requiredFeatures are also present in crateFeatures
-              lib.intersectLists bin.requiredFeatures crateFeatures == bin.requiredFeatures
-            else
-              true;
-        in
-        if haveRequiredFeature then
-          ''
-            mkdir -p target/bin
-            BIN_NAME='${bin.name or crateName}'
-            ${if !bin ? path then
-              ''
-                BIN_PATH=""
-                search_for_bin_path "$BIN_NAME"
-              ''
-            else
-              ''
-                BIN_PATH='${bin.path}'
-              ''}
-              ${build_bin} "$BIN_NAME" "$BIN_PATH"
-          ''
-        else
-          ''
-            echo Binary ${bin.name or crateName} not compiled due to not having all of the required features -- ${lib.escapeShellArg (builtins.toJSON bin.requiredFeatures)} -- enabled.
-          ''
-      )
-      crateBin
+    lib.concatMapStringsSep "\n" (
+      bin:
+      let
+        haveRequiredFeature =
+          if bin ? requiredFeatures then
+            # Check that all element in requiredFeatures are also present in crateFeatures
+            lib.intersectLists bin.requiredFeatures crateFeatures == bin.requiredFeatures
+          else
+            true;
+      in
+      if haveRequiredFeature then
+        ''
+          mkdir -p target/bin
+          BIN_NAME='${bin.name or crateName}'
+          ${if !bin ? path then
+            ''
+              BIN_PATH=""
+              search_for_bin_path "$BIN_NAME"
+            ''
+          else
+            ''
+              BIN_PATH='${bin.path}'
+            ''}
+            ${build_bin} "$BIN_NAME" "$BIN_PATH"
+        ''
+      else
+        ''
+          echo Binary ${bin.name or crateName} not compiled due to not having all of the required features -- ${lib.escapeShellArg (builtins.toJSON bin.requiredFeatures)} -- enabled.
+        ''
+    ) crateBin
   )}
 
   ${lib.optionalString buildTests ''

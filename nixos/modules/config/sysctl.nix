@@ -52,8 +52,9 @@ in
   config = {
 
     environment.etc."sysctl.d/60-nixos.conf".text = concatStrings (
-      mapAttrsToList (n: v: optionalString (v != null) "${n}=${if v == false then "0" else toString v}\n")
-        config.boot.kernel.sysctl
+      mapAttrsToList (
+        n: v: optionalString (v != null) "${n}=${if v == false then "0" else toString v}\n"
+      ) config.boot.kernel.sysctl
     );
 
     systemd.services.systemd-sysctl = {

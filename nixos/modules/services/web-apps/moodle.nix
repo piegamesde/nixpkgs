@@ -48,8 +48,9 @@ let
     $CFG->dbhost    = '${cfg.database.host}';
     $CFG->dbname    = '${cfg.database.name}';
     $CFG->dbuser    = '${cfg.database.user}';
-    ${optionalString (cfg.database.passwordFile != null)
-      "$CFG->dbpass = file_get_contents('${cfg.database.passwordFile}');"}
+    ${optionalString (
+      cfg.database.passwordFile != null
+    ) "$CFG->dbpass = file_get_contents('${cfg.database.passwordFile}');"}
     $CFG->prefix    = 'mdl_';
     $CFG->dboptions = array (
       'dbpersist' => 0,

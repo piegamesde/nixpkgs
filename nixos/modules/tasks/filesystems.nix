@@ -177,11 +177,9 @@ let
   makeSpecialMounts =
     mounts:
     pkgs.writeText "mounts.sh" (
-      concatMapStringsSep "\n"
-        (mount: ''
-          specialMount "${mount.device}" "${mount.mountPoint}" "${concatStringsSep "," mount.options}" "${mount.fsType}"
-        '')
-        mounts
+      concatMapStringsSep "\n" (mount: ''
+        specialMount "${mount.device}" "${mount.mountPoint}" "${concatStringsSep "," mount.options}" "${mount.fsType}"
+      '') mounts
     );
 
   makeFstabEntries =
@@ -240,36 +238,34 @@ let
       rootPrefix ? "",
       extraOpts ? (fs: [ ]),
     }:
-    concatMapStrings
-      (
-        fs:
-        (optionalString (isBindMount fs) (escape rootPrefix))
-        + (
-          if fs.device != null then
-            escape fs.device
-          else if fs.label != null then
-            "/dev/disk/by-label/${escape fs.label}"
-          else
-            throw "No device specified for mount point ‘${fs.mountPoint}’."
-        )
-        + " "
-        + escape fs.mountPoint
-        + " "
-        + fs.fsType
-        + " "
-        + escape (builtins.concatStringsSep "," (fs.options ++ (extraOpts fs)))
-        + " 0 "
-        + (
-          if skipCheck fs then
-            "0"
-          else if fs.mountPoint == "/" then
-            "1"
-          else
-            "2"
-        )
-        + "\n"
+    concatMapStrings (
+      fs:
+      (optionalString (isBindMount fs) (escape rootPrefix))
+      + (
+        if fs.device != null then
+          escape fs.device
+        else if fs.label != null then
+          "/dev/disk/by-label/${escape fs.label}"
+        else
+          throw "No device specified for mount point ‘${fs.mountPoint}’."
       )
-      fstabFileSystems;
+      + " "
+      + escape fs.mountPoint
+      + " "
+      + fs.fsType
+      + " "
+      + escape (builtins.concatStringsSep "," (fs.options ++ (extraOpts fs)))
+      + " 0 "
+      + (
+        if skipCheck fs then
+          "0"
+        else if fs.mountPoint == "/" then
+          "1"
+        else
+          "2"
+      )
+      + "\n"
+    ) fstabFileSystems;
 
   initrdFstab = pkgs.writeText "initrd-fstab" (
     makeFstabEntries (filter utils.fsNeededForBoot fileSystems) {

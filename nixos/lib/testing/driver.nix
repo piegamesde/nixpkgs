@@ -33,9 +33,9 @@ let
   # TODO: This is an implementation error and needs fixing
   # the testing famework cannot legitimately restrict hostnames further
   # beyond RFC1035
-  invalidNodeNames =
-    lib.filter (node: builtins.match "^[A-z_]([A-z0-9_]+)?$" node == null)
-      nodeHostNames;
+  invalidNodeNames = lib.filter (
+    node: builtins.match "^[A-z_]([A-z0-9_]+)?$" node == null
+  ) nodeHostNames;
 
   uniqueVlans = lib.unique (builtins.concatLists vlans);
   vlanNames = map (i: "vlan${toString i}: VLan;") uniqueVlans;
@@ -109,12 +109,10 @@ let
           --set vlans '${toString vlans}' \
           ${
             lib.escapeShellArgs (
-              lib.concatMap
-                (arg: [
-                  "--add-flags"
-                  arg
-                ])
-                config.extraDriverArgs
+              lib.concatMap (arg: [
+                "--add-flags"
+                arg
+              ]) config.extraDriverArgs
             )
           }
       '';

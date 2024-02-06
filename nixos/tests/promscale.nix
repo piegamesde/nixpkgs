@@ -56,13 +56,11 @@ let
       '';
     };
   #version 15 is not supported yet
-  applicablePostgresqlVersions =
-    filterAttrs (_: value: versionAtLeast value.version "12" && !(versionAtLeast value.version "15"))
-      postgresql-versions;
+  applicablePostgresqlVersions = filterAttrs (
+    _: value: versionAtLeast value.version "12" && !(versionAtLeast value.version "15")
+  ) postgresql-versions;
 in
-mapAttrs'
-  (name: package: {
-    inherit name;
-    value = make-postgresql-test name package;
-  })
-  applicablePostgresqlVersions
+mapAttrs' (name: package: {
+  inherit name;
+  value = make-postgresql-test name package;
+}) applicablePostgresqlVersions

@@ -173,12 +173,14 @@ let
       --setenv PATH="$PATH" \
       ${optionalString cfg.ephemeral "--ephemeral"} \
       ${
-        optionalString (cfg.additionalCapabilities != null && cfg.additionalCapabilities != [ ])
-          ''--capability="${concatStringsSep "," cfg.additionalCapabilities}"''
+        optionalString (
+          cfg.additionalCapabilities != null && cfg.additionalCapabilities != [ ]
+        ) ''--capability="${concatStringsSep "," cfg.additionalCapabilities}"''
       } \
       ${
-        optionalString (cfg.tmpfs != null && cfg.tmpfs != [ ])
-          ''--tmpfs=${concatStringsSep " --tmpfs=" cfg.tmpfs}''
+        optionalString (
+          cfg.tmpfs != null && cfg.tmpfs != [ ]
+        ) ''--tmpfs=${concatStringsSep " --tmpfs=" cfg.tmpfs}''
       } \
       ${containerInit cfg} "''${SYSTEM_PATH:-/nix/var/nix/profiles/system}/init"
   '';
@@ -851,56 +853,53 @@ in
             }
           ]
           # declarative containers
-          ++ (mapAttrsToList
-            (
-              name: cfg:
-              nameValuePair "container@${name}" (
-                let
-                  containerConfig =
-                    cfg
-                    // (
-                      if cfg.enableTun then
-                        {
-                          allowedDevices = cfg.allowedDevices ++ [
-                            {
-                              node = "/dev/net/tun";
-                              modifier = "rw";
-                            }
-                          ];
-                          additionalCapabilities = cfg.additionalCapabilities ++ [ "CAP_NET_ADMIN" ];
-                        }
-                      else
-                        { }
-                    );
-                in
-                recursiveUpdate unit {
-                  preStart = preStartScript containerConfig;
-                  script = startScript containerConfig;
-                  postStart = postStartScript containerConfig;
-                  serviceConfig = serviceDirectives containerConfig;
-                  unitConfig.RequiresMountsFor = lib.optional (!containerConfig.ephemeral) "${stateDirectory}/%i";
-                  environment.root =
-                    if containerConfig.ephemeral then "/run/nixos-containers/%i" else "${stateDirectory}/%i";
-                }
-                // (
-                  if containerConfig.autoStart then
-                    {
-                      wantedBy = [ "machines.target" ];
-                      wants = [ "network.target" ];
-                      after = [ "network.target" ];
-                      restartTriggers = [
-                        containerConfig.path
-                        config.environment.etc."${configurationDirectoryName}/${name}.conf".source
-                      ];
-                      restartIfChanged = true;
-                    }
-                  else
-                    { }
-                )
+          ++ (mapAttrsToList (
+            name: cfg:
+            nameValuePair "container@${name}" (
+              let
+                containerConfig =
+                  cfg
+                  // (
+                    if cfg.enableTun then
+                      {
+                        allowedDevices = cfg.allowedDevices ++ [
+                          {
+                            node = "/dev/net/tun";
+                            modifier = "rw";
+                          }
+                        ];
+                        additionalCapabilities = cfg.additionalCapabilities ++ [ "CAP_NET_ADMIN" ];
+                      }
+                    else
+                      { }
+                  );
+              in
+              recursiveUpdate unit {
+                preStart = preStartScript containerConfig;
+                script = startScript containerConfig;
+                postStart = postStartScript containerConfig;
+                serviceConfig = serviceDirectives containerConfig;
+                unitConfig.RequiresMountsFor = lib.optional (!containerConfig.ephemeral) "${stateDirectory}/%i";
+                environment.root =
+                  if containerConfig.ephemeral then "/run/nixos-containers/%i" else "${stateDirectory}/%i";
+              }
+              // (
+                if containerConfig.autoStart then
+                  {
+                    wantedBy = [ "machines.target" ];
+                    wants = [ "network.target" ];
+                    after = [ "network.target" ];
+                    restartTriggers = [
+                      containerConfig.path
+                      config.environment.etc."${configurationDirectoryName}/${name}.conf".source
+                    ];
+                    restartIfChanged = true;
+                  }
+                else
+                  { }
               )
             )
-            config.containers
-          )
+          ) config.containers)
         )
       );
 
@@ -917,57 +916,53 @@ in
             + ":"
             + (if p.containerPort == null then toString p.hostPort else toString p.containerPort);
         in
-        mapAttrs'
-          (
-            name: cfg:
-            nameValuePair "${configurationDirectoryName}/${name}.conf" {
-              text = ''
-                SYSTEM_PATH=${cfg.path}
-                ${optionalString cfg.privateNetwork ''
-                  PRIVATE_NETWORK=1
-                  ${optionalString (cfg.hostBridge != null) ''
-                    HOST_BRIDGE=${cfg.hostBridge}
-                  ''}
-                  ${optionalString (length cfg.forwardPorts > 0) ''
-                    HOST_PORT=${concatStringsSep "," (map mkPortStr cfg.forwardPorts)}
-                  ''}
-                  ${optionalString (cfg.hostAddress != null) ''
-                    HOST_ADDRESS=${cfg.hostAddress}
-                  ''}
-                  ${optionalString (cfg.hostAddress6 != null) ''
-                    HOST_ADDRESS6=${cfg.hostAddress6}
-                  ''}
-                  ${optionalString (cfg.localAddress != null) ''
-                    LOCAL_ADDRESS=${cfg.localAddress}
-                  ''}
-                  ${optionalString (cfg.localAddress6 != null) ''
-                    LOCAL_ADDRESS6=${cfg.localAddress6}
-                  ''}
+        mapAttrs' (
+          name: cfg:
+          nameValuePair "${configurationDirectoryName}/${name}.conf" {
+            text = ''
+              SYSTEM_PATH=${cfg.path}
+              ${optionalString cfg.privateNetwork ''
+                PRIVATE_NETWORK=1
+                ${optionalString (cfg.hostBridge != null) ''
+                  HOST_BRIDGE=${cfg.hostBridge}
                 ''}
-                INTERFACES="${toString cfg.interfaces}"
-                MACVLANS="${toString cfg.macvlans}"
-                ${optionalString cfg.autoStart ''
-                  AUTO_START=1
+                ${optionalString (length cfg.forwardPorts > 0) ''
+                  HOST_PORT=${concatStringsSep "," (map mkPortStr cfg.forwardPorts)}
                 ''}
-                EXTRA_NSPAWN_FLAGS="${
-                  mkBindFlags cfg.bindMounts
-                  + optionalString (cfg.extraFlags != [ ]) (" " + concatStringsSep " " cfg.extraFlags)
-                }"
-              '';
-            }
-          )
-          config.containers;
+                ${optionalString (cfg.hostAddress != null) ''
+                  HOST_ADDRESS=${cfg.hostAddress}
+                ''}
+                ${optionalString (cfg.hostAddress6 != null) ''
+                  HOST_ADDRESS6=${cfg.hostAddress6}
+                ''}
+                ${optionalString (cfg.localAddress != null) ''
+                  LOCAL_ADDRESS=${cfg.localAddress}
+                ''}
+                ${optionalString (cfg.localAddress6 != null) ''
+                  LOCAL_ADDRESS6=${cfg.localAddress6}
+                ''}
+              ''}
+              INTERFACES="${toString cfg.interfaces}"
+              MACVLANS="${toString cfg.macvlans}"
+              ${optionalString cfg.autoStart ''
+                AUTO_START=1
+              ''}
+              EXTRA_NSPAWN_FLAGS="${
+                mkBindFlags cfg.bindMounts
+                + optionalString (cfg.extraFlags != [ ]) (" " + concatStringsSep " " cfg.extraFlags)
+              }"
+            '';
+          }
+        ) config.containers;
 
       # Generate /etc/hosts entries for the containers.
       networking.extraHosts = concatStrings (
-        mapAttrsToList
-          (
-            name: cfg:
-            optionalString (cfg.localAddress != null) ''
-              ${head (splitString "/" cfg.localAddress)} ${name}.containers
-            ''
-          )
-          config.containers
+        mapAttrsToList (
+          name: cfg:
+          optionalString (cfg.localAddress != null) ''
+            ${head (splitString "/" cfg.localAddress)} ${name}.containers
+          ''
+        ) config.containers
       );
 
       networking.dhcpcd.denyInterfaces = [

@@ -97,8 +97,8 @@ let
 
       passthru = allVersions;
     };
-  allVersions =
-    builtins.mapAttrs (_name: version: (prusa-slicer.overrideAttrs (override version)))
-      versions;
+  allVersions = builtins.mapAttrs (
+    _name: version: (prusa-slicer.overrideAttrs (override version))
+  ) versions;
 in
 allVersions.stable

@@ -101,16 +101,13 @@ in
         "sessionCommands"
       ]
     )
-    (mkRemovedOptionModule
-      [
-        "services"
-        "xserver"
-        "desktopManager"
-        "xfce"
-        "screenLock"
-      ]
-      ""
-    )
+    (mkRemovedOptionModule [
+      "services"
+      "xserver"
+      "desktopManager"
+      "xfce"
+      "screenLock"
+    ] "")
 
     # added 2022-06-26
     # thunar has its own module

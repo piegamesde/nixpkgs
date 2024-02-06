@@ -2,16 +2,13 @@
 
 let
 
-  testedSystems =
-    lib.filterAttrs
-      (
-        name: value:
-        let
-          platform = lib.systems.elaborate value;
-        in
-        platform.isLinux || platform.isWindows
-      )
-      lib.systems.examples;
+  testedSystems = lib.filterAttrs (
+    name: value:
+    let
+      platform = lib.systems.elaborate value;
+    in
+    platform.isLinux || platform.isWindows
+  ) lib.systems.examples;
 
   getExecutable =
     pkgs: pkgFun: exec:
@@ -72,34 +69,32 @@ let
 
   mapMultiPlatformTest =
     crossSystemFun: test:
-    lib.mapAttrs
-      (
-        name: system:
-        test rec {
-          crossPkgs = import pkgs.path {
-            localSystem = {
-              inherit (pkgs.stdenv.hostPlatform) config;
-            };
-            crossSystem = crossSystemFun system;
+    lib.mapAttrs (
+      name: system:
+      test rec {
+        crossPkgs = import pkgs.path {
+          localSystem = {
+            inherit (pkgs.stdenv.hostPlatform) config;
           };
+          crossSystem = crossSystemFun system;
+        };
 
-          emulator = crossPkgs.hostPlatform.emulator pkgs;
+        emulator = crossPkgs.hostPlatform.emulator pkgs;
 
-          # Apply some transformation on windows to get dlls in the right
-          # place. Unfortunately mingw doesn’t seem to be able to do linking
-          # properly.
-          platformFun =
-            pkg:
-            if crossPkgs.hostPlatform.isWindows then
-              pkgs.buildEnv {
-                name = "${pkg.name}-winlinks";
-                paths = [ pkg ] ++ pkg.buildInputs;
-              }
-            else
-              pkg;
-        }
-      )
-      testedSystems;
+        # Apply some transformation on windows to get dlls in the right
+        # place. Unfortunately mingw doesn’t seem to be able to do linking
+        # properly.
+        platformFun =
+          pkg:
+          if crossPkgs.hostPlatform.isWindows then
+            pkgs.buildEnv {
+              name = "${pkg.name}-winlinks";
+              paths = [ pkg ] ++ pkg.buildInputs;
+            }
+          else
+            pkg;
+      }
+    ) testedSystems;
 
   tests = {
 

@@ -114,9 +114,9 @@ stdenv.mkDerivation rec {
 
   enableParallelBuilding = true;
 
-  disallowedReferences =
-    lib.optional (stdenv.buildPlatform != stdenv.hostPlatform)
-      stdenv.shellPackage;
+  disallowedReferences = lib.optional (
+    stdenv.buildPlatform != stdenv.hostPlatform
+  ) stdenv.shellPackage;
 
   meta = with lib; {
     homepage = "https://github.com/shadow-maint";

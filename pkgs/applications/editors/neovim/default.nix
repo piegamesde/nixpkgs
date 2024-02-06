@@ -173,18 +173,16 @@ stdenv.mkDerivation rec {
       mkdir -p $out/lib/nvim/parser
     ''
     + lib.concatStrings (
-      lib.mapAttrsToList
-        (language: src: ''
-          ln -s \
-            ${
-              tree-sitter.buildGrammar {
-                inherit language src;
-                version = "neovim-${version}";
-              }
-            }/parser \
-            $out/lib/nvim/parser/${language}.so
-        '')
-        treesitter-parsers
+      lib.mapAttrsToList (language: src: ''
+        ln -s \
+          ${
+            tree-sitter.buildGrammar {
+              inherit language src;
+              version = "neovim-${version}";
+            }
+          }/parser \
+          $out/lib/nvim/parser/${language}.so
+      '') treesitter-parsers
     );
 
   shellHook = ''

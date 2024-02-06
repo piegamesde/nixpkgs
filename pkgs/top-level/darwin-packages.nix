@@ -128,13 +128,10 @@ makeScopeWithSplicing (generateSplicesForMkScope "darwin") (_: { })
 
       rewrite-tbd = callPackage ../os-specific/darwin/rewrite-tbd { };
 
-      checkReexportsHook =
-        pkgs.makeSetupHook
-          {
-            name = "darwin-check-reexports-hook";
-            propagatedBuildInputs = [ pkgs.darwin.print-reexports ];
-          }
-          ../os-specific/darwin/print-reexports/setup-hook.sh;
+      checkReexportsHook = pkgs.makeSetupHook {
+        name = "darwin-check-reexports-hook";
+        propagatedBuildInputs = [ pkgs.darwin.print-reexports ];
+      } ../os-specific/darwin/print-reexports/setup-hook.sh;
 
       sigtool = callPackage ../os-specific/darwin/sigtool { };
 
@@ -152,13 +149,10 @@ makeScopeWithSplicing (generateSplicesForMkScope "darwin") (_: { })
 
       signingUtils = callPackage ../os-specific/darwin/signing-utils { };
 
-      autoSignDarwinBinariesHook =
-        pkgs.makeSetupHook
-          {
-            name = "auto-sign-darwin-binaries-hook";
-            propagatedBuildInputs = [ self.signingUtils ];
-          }
-          ../os-specific/darwin/signing-utils/auto-sign-hook.sh;
+      autoSignDarwinBinariesHook = pkgs.makeSetupHook {
+        name = "auto-sign-darwin-binaries-hook";
+        propagatedBuildInputs = [ self.signingUtils ];
+      } ../os-specific/darwin/signing-utils/auto-sign-hook.sh;
 
       maloader = callPackage ../os-specific/darwin/maloader { };
 

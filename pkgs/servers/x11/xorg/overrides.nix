@@ -54,9 +54,9 @@
 let
   inherit (stdenv) isDarwin;
 
-  malloc0ReturnsNullCrossFlag =
-    lib.optional (stdenv.hostPlatform != stdenv.buildPlatform)
-      "--enable-malloc0returnsnull";
+  malloc0ReturnsNullCrossFlag = lib.optional (
+    stdenv.hostPlatform != stdenv.buildPlatform
+  ) "--enable-malloc0returnsnull";
 
   brokenOnDarwin =
     pkg:
@@ -70,37 +70,34 @@ let
 in
 self: super:
 {
-  wrapWithXFileSearchPathHook =
-    callPackage
+  wrapWithXFileSearchPathHook = callPackage (
+    {
+      makeBinaryWrapper,
+      makeSetupHook,
+      writeScript,
+    }:
+    makeSetupHook
+      {
+        name = "wrapWithXFileSearchPathHook";
+        propagatedBuildInputs = [ makeBinaryWrapper ];
+      }
       (
-        {
-          makeBinaryWrapper,
-          makeSetupHook,
-          writeScript,
-        }:
-        makeSetupHook
-          {
-            name = "wrapWithXFileSearchPathHook";
-            propagatedBuildInputs = [ makeBinaryWrapper ];
+        writeScript "wrapWithXFileSearchPathHook.sh" ''
+          wrapWithXFileSearchPath() {
+            paths=(
+              "$out/share/X11/%T/%N"
+              "$out/include/X11/%T/%N"
+              "${xorg.xbitmaps}/include/X11/%T/%N"
+            )
+            for exe in $out/bin/*; do
+              wrapProgram "$exe" \
+                --suffix XFILESEARCHPATH : $(IFS=:; echo "''${paths[*]}")
+            done
           }
-          (
-            writeScript "wrapWithXFileSearchPathHook.sh" ''
-              wrapWithXFileSearchPath() {
-                paths=(
-                  "$out/share/X11/%T/%N"
-                  "$out/include/X11/%T/%N"
-                  "${xorg.xbitmaps}/include/X11/%T/%N"
-                )
-                for exe in $out/bin/*; do
-                  wrapProgram "$exe" \
-                    --suffix XFILESEARCHPATH : $(IFS=:; echo "''${paths[*]}")
-                done
-              }
-              postInstallHooks+=(wrapWithXFileSearchPath)
-            ''
-          )
+          postInstallHooks+=(wrapWithXFileSearchPath)
+        ''
       )
-      { };
+  ) { };
 
   bdftopcf = super.bdftopcf.overrideAttrs (
     attrs: { buildInputs = attrs.buildInputs ++ [ xorg.xorgproto ]; }

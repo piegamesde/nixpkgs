@@ -195,30 +195,27 @@ in
   ##### implementation
   config =
     let
-      redsocks_blocks =
-        concatMapStrings
-          (
-            block:
-            let
-              proxy = splitString ":" block.proxy;
-            in
-            ''
-              redsocks {
-                local_ip = ${block.ip};
-                local_port = ${toString block.port};
+      redsocks_blocks = concatMapStrings (
+        block:
+        let
+          proxy = splitString ":" block.proxy;
+        in
+        ''
+          redsocks {
+            local_ip = ${block.ip};
+            local_port = ${toString block.port};
 
-                ip = ${elemAt proxy 0};
-                port = ${elemAt proxy 1};
-                type = ${block.type};
+            ip = ${elemAt proxy 0};
+            port = ${elemAt proxy 1};
+            type = ${block.type};
 
-                ${optionalString (block.login != null) "login = \"${block.login}\";"}
-                ${optionalString (block.password != null) "password = \"${block.password}\";"}
+            ${optionalString (block.login != null) "login = \"${block.login}\";"}
+            ${optionalString (block.password != null) "password = \"${block.password}\";"}
 
-                disclose_src = ${block.disclose_src};
-              }
-            ''
-          )
-          cfg.redsocks;
+            disclose_src = ${block.disclose_src};
+          }
+        ''
+      ) cfg.redsocks;
       configfile = pkgs.writeText "redsocks.conf" ''
         base {
           log_debug = ${if cfg.log_debug then "on" else "off"};
@@ -247,28 +244,25 @@ in
         "-d 240.168.0.0/4"
       ];
       redCond = block: optionalString (isString block.redirectCondition) block.redirectCondition;
-      iptables =
-        concatImapStrings
-          (
-            idx: block:
-            let
-              chain = "REDSOCKS${toString idx}";
-              doNotRedirect =
-                concatMapStringsSep "\n" (f: "ip46tables -t nat -A ${chain} ${f} -j RETURN 2>/dev/null || true")
-                  (block.doNotRedirect ++ (optionals block.redirectInternetOnly internetOnly));
-            in
-            optionalString (block.redirectCondition != false) ''
-              ip46tables -t nat -F ${chain} 2>/dev/null || true
-              ip46tables -t nat -N ${chain} 2>/dev/null || true
-              ${doNotRedirect}
-              ip46tables -t nat -A ${chain} -p tcp -j REDIRECT --to-ports ${toString block.port}
+      iptables = concatImapStrings (
+        idx: block:
+        let
+          chain = "REDSOCKS${toString idx}";
+          doNotRedirect = concatMapStringsSep "\n" (
+            f: "ip46tables -t nat -A ${chain} ${f} -j RETURN 2>/dev/null || true"
+          ) (block.doNotRedirect ++ (optionals block.redirectInternetOnly internetOnly));
+        in
+        optionalString (block.redirectCondition != false) ''
+          ip46tables -t nat -F ${chain} 2>/dev/null || true
+          ip46tables -t nat -N ${chain} 2>/dev/null || true
+          ${doNotRedirect}
+          ip46tables -t nat -A ${chain} -p tcp -j REDIRECT --to-ports ${toString block.port}
 
-              # TODO: show errors, when it will be easily possible by a switch to
-              # iptables-restore
-              ip46tables -t nat -A OUTPUT -p tcp ${redCond block} -j ${chain} 2>/dev/null || true
-            ''
-          )
-          cfg.redsocks;
+          # TODO: show errors, when it will be easily possible by a switch to
+          # iptables-restore
+          ip46tables -t nat -A OUTPUT -p tcp ${redCond block} -j ${chain} 2>/dev/null || true
+        ''
+      ) cfg.redsocks;
     in
     mkIf cfg.enable {
       users.groups.redsocks = { };
@@ -287,17 +281,15 @@ in
 
       networking.firewall.extraCommands = iptables;
 
-      networking.firewall.extraStopCommands =
-        concatImapStringsSep "\n"
-          (
-            idx: block:
-            let
-              chain = "REDSOCKS${toString idx}";
-            in
-            optionalString (block.redirectCondition != false)
-              "ip46tables -t nat -D OUTPUT -p tcp ${redCond block} -j ${chain} 2>/dev/null || true"
-          )
-          cfg.redsocks;
+      networking.firewall.extraStopCommands = concatImapStringsSep "\n" (
+        idx: block:
+        let
+          chain = "REDSOCKS${toString idx}";
+        in
+        optionalString (
+          block.redirectCondition != false
+        ) "ip46tables -t nat -D OUTPUT -p tcp ${redCond block} -j ${chain} 2>/dev/null || true"
+      ) cfg.redsocks;
     };
 
   meta.maintainers = with lib.maintainers; [ ekleog ];

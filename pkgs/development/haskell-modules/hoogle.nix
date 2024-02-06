@@ -90,12 +90,10 @@ buildPackages.stdenv.mkDerivation {
       '')
       (
         lib.filter (el: el.haddockDir != null) (
-          builtins.map
-            (p: {
-              haddockDir = if p ? haddockDir then p.haddockDir p else null;
-              name = p.pname;
-            })
-            docPackages
+          builtins.map (p: {
+            haddockDir = if p ? haddockDir then p.haddockDir p else null;
+            name = p.pname;
+          }) docPackages
         )
       )}
 

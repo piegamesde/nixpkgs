@@ -20,12 +20,10 @@ let
     name: val:
     optionalString (val != null)
       "-${name} \"${
-        escape
-          [
-            "\\"
-            "\""
-          ]
-          (toString val)
+        escape [
+          "\\"
+          "\""
+        ] (toString val)
       }\"";
   boolFlag = name: val: optionalString val "-${name}";
   flags = [

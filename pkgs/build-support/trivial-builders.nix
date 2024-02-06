@@ -565,13 +565,10 @@ rec {
         else
           throw "linkFarm entries must be either attrs or a list!";
 
-      linkCommands =
-        lib.mapAttrsToList
-          (name: path: ''
-            mkdir -p "$(dirname ${lib.escapeShellArg "${name}"})"
-            ln -s ${lib.escapeShellArg "${path}"} ${lib.escapeShellArg "${name}"}
-          '')
-          entries';
+      linkCommands = lib.mapAttrsToList (name: path: ''
+        mkdir -p "$(dirname ${lib.escapeShellArg "${name}"})"
+        ln -s ${lib.escapeShellArg "${path}"} ${lib.escapeShellArg "${name}"}
+      '') entries';
     in
     runCommand name
       {
@@ -747,13 +744,10 @@ rec {
       # Objects copied from outside of the store, such as paths and
       # `builtins.fetch*`ed ones
       sources = lib.attrNames (lib.filterAttrs (n: v: v ? path) context);
-      packages =
-        lib.mapAttrs'
-          (name: value: {
-            inherit value;
-            name = lib.head (builtins.match "${builtins.storeDir}/[${nixHashChars}]+-(.*)\.drv" name);
-          })
-          derivations;
+      packages = lib.mapAttrs' (name: value: {
+        inherit value;
+        name = lib.head (builtins.match "${builtins.storeDir}/[${nixHashChars}]+-(.*)\.drv" name);
+      }) derivations;
       # The syntax of output paths differs between outputs named `out`
       # and other, explicitly named ones. For explicitly named ones,
       # the output name is suffixed as `-name`, but `out` outputs
@@ -762,42 +756,33 @@ rec {
       # first so we can use them to remove false matches when looking
       # for `out` outputs (see the definition of `outputPaths`).
       namedOutputPaths = lib.flatten (
-        lib.mapAttrsToList
-          (
-            name: value:
-            (map
-              (
-                output:
-                lib.filter lib.isList (
-                  builtins.split "(${builtins.storeDir}/[${nixHashChars}]+-${name}-${output})" string
-                )
-              )
-              (lib.remove "out" value.outputs)
+        lib.mapAttrsToList (
+          name: value:
+          (map (
+            output:
+            lib.filter lib.isList (
+              builtins.split "(${builtins.storeDir}/[${nixHashChars}]+-${name}-${output})" string
             )
-          )
-          packages
+          ) (lib.remove "out" value.outputs))
+        ) packages
       );
       # Only `out` outputs
       outputPaths = lib.flatten (
-        lib.mapAttrsToList
-          (
-            name: value:
-            if lib.elem "out" value.outputs then
-              lib.filter
-                (
-                  x:
-                  lib.isList x
-                  &&
-                    # If the matched path is in `namedOutputPaths`,
-                    # it's a partial match of an output path where
-                    # the output name isn't `out`
-                    lib.all (o: !lib.hasPrefix (lib.head x) o) namedOutputPaths
-                )
-                (builtins.split "(${builtins.storeDir}/[${nixHashChars}]+-${name})" string)
-            else
-              [ ]
-          )
-          packages
+        lib.mapAttrsToList (
+          name: value:
+          if lib.elem "out" value.outputs then
+            lib.filter (
+              x:
+              lib.isList x
+              &&
+                # If the matched path is in `namedOutputPaths`,
+                # it's a partial match of an output path where
+                # the output name isn't `out`
+                lib.all (o: !lib.hasPrefix (lib.head x) o) namedOutputPaths
+            ) (builtins.split "(${builtins.storeDir}/[${nixHashChars}]+-${name})" string)
+          else
+            [ ]
+        ) packages
       );
       allPaths = lib.concatStringsSep "\n" (lib.unique (sources ++ namedOutputPaths ++ outputPaths));
       allPathsWithContext = builtins.appendContext allPaths context;
@@ -939,24 +924,18 @@ rec {
     };
 
   # An immutable file in the store with a length of 0 bytes.
-  emptyFile =
-    runCommand "empty-file"
-      {
-        outputHashAlgo = "sha256";
-        outputHashMode = "recursive";
-        outputHash = "0ip26j2h11n1kgkz36rl4akv694yz65hr72q4kv4b3lxcbi65b3p";
-        preferLocalBuild = true;
-      }
-      "touch $out";
+  emptyFile = runCommand "empty-file" {
+    outputHashAlgo = "sha256";
+    outputHashMode = "recursive";
+    outputHash = "0ip26j2h11n1kgkz36rl4akv694yz65hr72q4kv4b3lxcbi65b3p";
+    preferLocalBuild = true;
+  } "touch $out";
 
   # An immutable empty directory in the store.
-  emptyDirectory =
-    runCommand "empty-directory"
-      {
-        outputHashAlgo = "sha256";
-        outputHashMode = "recursive";
-        outputHash = "0sjjj9z1dhilhpc8pq4154czrb79z9cm044jvn75kxcjv6v5l2m5";
-        preferLocalBuild = true;
-      }
-      "mkdir $out";
+  emptyDirectory = runCommand "empty-directory" {
+    outputHashAlgo = "sha256";
+    outputHashMode = "recursive";
+    outputHash = "0sjjj9z1dhilhpc8pq4154czrb79z9cm044jvn75kxcjv6v5l2m5";
+    preferLocalBuild = true;
+  } "mkdir $out";
 }

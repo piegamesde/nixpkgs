@@ -81,18 +81,15 @@ in
 
               ${lines}
             '';
-          runnerRegistrationConfig =
-            getAttrs
-              [
-                "name"
-                "tokenFile"
-                "url"
-                "runnerGroup"
-                "extraLabels"
-                "ephemeral"
-                "workDir"
-              ]
-              cfg;
+          runnerRegistrationConfig = getAttrs [
+            "name"
+            "tokenFile"
+            "url"
+            "runnerGroup"
+            "extraLabels"
+            "ephemeral"
+            "workDir"
+          ] cfg;
           newConfigPath = builtins.toFile "${svcName}-config.json" (builtins.toJSON runnerRegistrationConfig);
           currentConfigPath = "$STATE_DIRECTORY/.nixos-current-config.json";
           newConfigTokenPath = "$STATE_DIRECTORY/.new-token";

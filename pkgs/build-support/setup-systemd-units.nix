@@ -43,15 +43,13 @@ let
       "$unitDir/.${name}.tmp"
     mv -T "$unitDir/.${name}.tmp" "$unitDir/${name}"
     ${lib.concatStringsSep "\n" (
-      map
-        (unit: ''
-          mkdir -p "$unitDir/${unit}.wants"
-          ln -sf "../${name}" \
-            "$unitDir/${unit}.wants/.${name}.tmp"
-          mv -T "$unitDir/${unit}.wants/.${name}.tmp" \
-            "$unitDir/${unit}.wants/${name}"
-        '')
-        file.wanted-by or [ ]
+      map (unit: ''
+        mkdir -p "$unitDir/${unit}.wants"
+        ln -sf "../${name}" \
+          "$unitDir/${unit}.wants/.${name}.tmp"
+        mv -T "$unitDir/${unit}.wants/.${name}.tmp" \
+          "$unitDir/${unit}.wants/${name}"
+      '') file.wanted-by or [ ]
     )}
     unitsToStart+=("${name}")
   '';

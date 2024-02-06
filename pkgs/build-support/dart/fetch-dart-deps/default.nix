@@ -46,11 +46,9 @@ let
     "postPatch"
   ];
 
-  buildDrvInheritArgs =
-    builtins.foldl'
-      (attrs: arg: if buildDrvArgs ? ${arg} then attrs // { ${arg} = buildDrvArgs.${arg}; } else attrs)
-      { }
-      buildDrvInheritArgNames;
+  buildDrvInheritArgs = builtins.foldl' (
+    attrs: arg: if buildDrvArgs ? ${arg} then attrs // { ${arg} = buildDrvArgs.${arg}; } else attrs
+  ) { } buildDrvInheritArgNames;
 
   drvArgs = buildDrvInheritArgs // (removeAttrs args [ "buildDrvArgs" ]);
   name = (if drvArgs ? name then drvArgs.name else "${drvArgs.pname}-${drvArgs.version}");

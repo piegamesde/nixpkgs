@@ -24,20 +24,19 @@ let
   };
 
   supportedDeviceIds =
-    assert lib.assertMsg (lib.all (name: lib.hasAttr name deviceIds) supportedDevices)
-      "Supported devices are: ${lib.concatStringsSep ", " (lib.attrNames deviceIds)}";
+    assert lib.assertMsg (lib.all (
+      name: lib.hasAttr name deviceIds
+    ) supportedDevices) "Supported devices are: ${lib.concatStringsSep ", " (lib.attrNames deviceIds)}";
     lib.listToAttrs (
-      map
-        (name: {
-          inherit name;
-          value = deviceIds.${name};
-        })
-        supportedDevices
+      map (name: {
+        inherit name;
+        value = deviceIds.${name};
+      }) supportedDevices
     );
 
-  unsupportedDeviceIds =
-    lib.filterAttrs (name: value: !(lib.hasAttr name supportedDeviceIds))
-      deviceIds;
+  unsupportedDeviceIds = lib.filterAttrs (
+    name: value: !(lib.hasAttr name supportedDeviceIds)
+  ) deviceIds;
 
   componentHashes = {
     "arria_lite" = "140jqnb97vrxx6398cpgpw35zrrx3z5kv1x5gr9is1xdbnf4fqhy";
@@ -75,13 +74,10 @@ stdenv.mkDerivation rec {
         sha256 = "1cqgv8x6vqga8s4v19yhmgrr886rb6p7sbx80528df5n4rpr2k4i";
       }
     ]
-    ++ (map
-      (id: {
-        name = "${id}-${version}.qdz";
-        sha256 = lib.getAttr id componentHashes;
-      })
-      (lib.attrValues supportedDeviceIds)
-    )
+    ++ (map (id: {
+      name = "${id}-${version}.qdz";
+      sha256 = lib.getAttr id componentHashes;
+    }) (lib.attrValues supportedDeviceIds))
   );
 
   nativeBuildInputs = [ unstick ];

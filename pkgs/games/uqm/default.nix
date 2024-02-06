@@ -95,11 +95,9 @@ stdenv.mkDerivation rec {
       ln -s "$voice" "uqm-${version}/content/addons/uqm-${version}-voice.uqm"
     ''
     + lib.optionalString useRemixPacks (
-      lib.concatMapStrings
-        (disc: ''
-          ln -s "${disc}" "uqm-$version/content/addons/${disc.name}"
-        '')
-        remixPacks
+      lib.concatMapStrings (disc: ''
+        ln -s "${disc}" "uqm-$version/content/addons/${disc.name}"
+      '') remixPacks
     )
     + lib.optionalString use3DOVideos ''
       ln -s "${videos}" "uqm-${version}/content/addons/3dovideo"

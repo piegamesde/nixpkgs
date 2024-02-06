@@ -25,13 +25,11 @@ let
     ''
 
     (concatStringsSep "\n" (
-      mapAttrsToList
-        (protocol: plugins: ''
-          protocol ${protocol} {
-            mail_plugins = $mail_plugins ${concatStringsSep " " plugins.enable}
-          }
-        '')
-        cfg.mailPlugins.perProtocol
+      mapAttrsToList (protocol: plugins: ''
+        protocol ${protocol} {
+          mail_plugins = $mail_plugins ${concatStringsSep " " plugins.enable}
+        }
+      '') cfg.mailPlugins.perProtocol
     ))
 
     (
@@ -191,14 +189,11 @@ let
 in
 {
   imports = [
-    (mkRemovedOptionModule
-      [
-        "services"
-        "dovecot2"
-        "package"
-      ]
-      ""
-    )
+    (mkRemovedOptionModule [
+      "services"
+      "dovecot2"
+      "package"
+    ] "")
   ];
 
   options.services.dovecot2 = {
@@ -380,19 +375,15 @@ in
     mailboxes = mkOption {
       type =
         with types;
-        coercedTo (listOf unspecified)
-          (
-            list:
-            listToAttrs (
-              map
-                (entry: {
-                  name = entry.name;
-                  value = removeAttrs entry [ "name" ];
-                })
-                list
-            )
+        coercedTo (listOf unspecified) (
+          list:
+          listToAttrs (
+            map (entry: {
+              name = entry.name;
+              value = removeAttrs entry [ "name" ];
+            }) list
           )
-          (attrsOf (submodule mailboxes));
+        ) (attrsOf (submodule mailboxes));
       default = { };
       example = literalExpression ''
         {
@@ -497,17 +488,15 @@ in
         + optionalString (cfg.sieveScripts != { }) ''
           mkdir -p ${stateDir}/sieve
           ${concatStringsSep "\n" (
-            mapAttrsToList
-              (to: from: ''
-                if [ -d '${from}' ]; then
-                  mkdir '${stateDir}/sieve/${to}'
-                  cp -p "${from}/"*.sieve '${stateDir}/sieve/${to}'
-                else
-                  cp -p '${from}' '${stateDir}/sieve/${to}'
-                fi
-                ${pkgs.dovecot_pigeonhole}/bin/sievec '${stateDir}/sieve/${to}'
-              '')
-              cfg.sieveScripts
+            mapAttrsToList (to: from: ''
+              if [ -d '${from}' ]; then
+                mkdir '${stateDir}/sieve/${to}'
+                cp -p "${from}/"*.sieve '${stateDir}/sieve/${to}'
+              else
+                cp -p '${from}' '${stateDir}/sieve/${to}'
+              fi
+              ${pkgs.dovecot_pigeonhole}/bin/sievec '${stateDir}/sieve/${to}'
+            '') cfg.sieveScripts
           )}
           chown -R '${cfg.mailUser}:${cfg.mailGroup}' '${stateDir}/sieve'
         '';

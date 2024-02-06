@@ -183,25 +183,19 @@ let
         inherit (darwin.apple_sdk_11_0.frameworks) WebKit;
       };
 
-      wrapQtAppsHook =
-        makeSetupHook
-          {
-            name = "wrap-qt6-apps-hook";
-            propagatedBuildInputs = [ buildPackages.makeBinaryWrapper ];
-          }
-          ./hooks/wrap-qt-apps-hook.sh;
+      wrapQtAppsHook = makeSetupHook {
+        name = "wrap-qt6-apps-hook";
+        propagatedBuildInputs = [ buildPackages.makeBinaryWrapper ];
+      } ./hooks/wrap-qt-apps-hook.sh;
 
-      qmake =
-        makeSetupHook
-          {
-            name = "qmake6-hook";
-            propagatedBuildInputs = [ self.qtbase.dev ];
-            substitutions = {
-              inherit debug;
-              fix_qmake_libtool = ./hooks/fix-qmake-libtool.sh;
-            };
-          }
-          ./hooks/qmake-hook.sh;
+      qmake = makeSetupHook {
+        name = "qmake6-hook";
+        propagatedBuildInputs = [ self.qtbase.dev ];
+        substitutions = {
+          inherit debug;
+          fix_qmake_libtool = ./hooks/fix-qmake-libtool.sh;
+        };
+      } ./hooks/qmake-hook.sh;
     };
 
   # TODO(@Artturin): convert to makeScopeWithSplicing

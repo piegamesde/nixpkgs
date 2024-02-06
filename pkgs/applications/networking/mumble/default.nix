@@ -84,83 +84,79 @@ let
 
   client =
     source:
-    generic
-      {
-        type = "mumble";
+    generic {
+      type = "mumble";
 
-        nativeBuildInputs = [ qt5.qttools ];
-        buildInputs =
-          [
-            flac
-            libogg
-            libopus
-            libsndfile
-            libvorbis
-            qt5.qtsvg
-            rnnoise
-            speex
-          ]
-          ++ lib.optional (!jackSupport) alsa-lib
-          ++ lib.optional jackSupport libjack2
-          ++ lib.optional speechdSupport speechd
-          ++ lib.optional pulseSupport libpulseaudio
-          ++ lib.optional pipewireSupport pipewire;
+      nativeBuildInputs = [ qt5.qttools ];
+      buildInputs =
+        [
+          flac
+          libogg
+          libopus
+          libsndfile
+          libvorbis
+          qt5.qtsvg
+          rnnoise
+          speex
+        ]
+        ++ lib.optional (!jackSupport) alsa-lib
+        ++ lib.optional jackSupport libjack2
+        ++ lib.optional speechdSupport speechd
+        ++ lib.optional pulseSupport libpulseaudio
+        ++ lib.optional pipewireSupport pipewire;
 
-        configureFlags =
-          [
-            "-D server=OFF"
-            "-D bundled-celt=ON"
-            "-D bundled-opus=OFF"
-            "-D bundled-speex=OFF"
-            "-D bundled-rnnoise=OFF"
-            "-D bundle-qt-translations=OFF"
-            "-D update=OFF"
-            "-D overlay-xcompile=OFF"
-            "-D oss=OFF"
-          ]
-          ++ lib.optional (!speechdSupport) "-D speechd=OFF"
-          ++ lib.optional (!pulseSupport) "-D pulseaudio=OFF"
-          ++ lib.optional (!pipewireSupport) "-D pipewire=OFF"
-          ++ lib.optional jackSupport "-D alsa=OFF -D jackaudio=ON";
+      configureFlags =
+        [
+          "-D server=OFF"
+          "-D bundled-celt=ON"
+          "-D bundled-opus=OFF"
+          "-D bundled-speex=OFF"
+          "-D bundled-rnnoise=OFF"
+          "-D bundle-qt-translations=OFF"
+          "-D update=OFF"
+          "-D overlay-xcompile=OFF"
+          "-D oss=OFF"
+        ]
+        ++ lib.optional (!speechdSupport) "-D speechd=OFF"
+        ++ lib.optional (!pulseSupport) "-D pulseaudio=OFF"
+        ++ lib.optional (!pipewireSupport) "-D pipewire=OFF"
+        ++ lib.optional jackSupport "-D alsa=OFF -D jackaudio=ON";
 
-        env.NIX_CFLAGS_COMPILE = lib.optionalString speechdSupport "-I${speechd}/include/speech-dispatcher";
+      env.NIX_CFLAGS_COMPILE = lib.optionalString speechdSupport "-I${speechd}/include/speech-dispatcher";
 
-        postFixup = ''
-          wrapProgram $out/bin/mumble \
-            --prefix LD_LIBRARY_PATH : "${
-              lib.makeLibraryPath (
-                lib.optional pulseSupport libpulseaudio ++ lib.optional pipewireSupport pipewire
-              )
-            }"
-        '';
-      }
-      source;
+      postFixup = ''
+        wrapProgram $out/bin/mumble \
+          --prefix LD_LIBRARY_PATH : "${
+            lib.makeLibraryPath (
+              lib.optional pulseSupport libpulseaudio ++ lib.optional pipewireSupport pipewire
+            )
+          }"
+      '';
+    } source;
 
   server =
     source:
-    generic
-      {
-        type = "murmur";
+    generic {
+      type = "murmur";
 
-        configureFlags =
-          [ "-D client=OFF" ]
-          ++ lib.optional (!iceSupport) "-D ice=OFF"
-          ++ lib.optionals iceSupport [
-            "-D Ice_HOME=${lib.getDev zeroc-ice};${lib.getLib zeroc-ice}"
-            "-D CMAKE_PREFIX_PATH=${lib.getDev zeroc-ice};${lib.getLib zeroc-ice}"
-            "-D Ice_SLICE_DIR=${lib.getDev zeroc-ice}/share/ice/slice"
-          ]
-          ++ lib.optional grpcSupport "-D grpc=ON";
+      configureFlags =
+        [ "-D client=OFF" ]
+        ++ lib.optional (!iceSupport) "-D ice=OFF"
+        ++ lib.optionals iceSupport [
+          "-D Ice_HOME=${lib.getDev zeroc-ice};${lib.getLib zeroc-ice}"
+          "-D CMAKE_PREFIX_PATH=${lib.getDev zeroc-ice};${lib.getLib zeroc-ice}"
+          "-D Ice_SLICE_DIR=${lib.getDev zeroc-ice}/share/ice/slice"
+        ]
+        ++ lib.optional grpcSupport "-D grpc=ON";
 
-        buildInputs =
-          [ libcap ]
-          ++ lib.optional iceSupport zeroc-ice
-          ++ lib.optionals grpcSupport [
-            grpc
-            which
-          ];
-      }
-      source;
+      buildInputs =
+        [ libcap ]
+        ++ lib.optional iceSupport zeroc-ice
+        ++ lib.optionals grpcSupport [
+          grpc
+          which
+        ];
+    } source;
 
   source = rec {
     version = "1.4.287";

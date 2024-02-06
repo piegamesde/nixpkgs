@@ -31,13 +31,10 @@ let
       # Compute versioned attribute name to be used in this package set
       computeName = version: "tensorrt_${toUnderscore version}";
       # Add all supported builds as attributes
-      allBuilds =
-        mapAttrs'
-          (
-            version: file:
-            nameValuePair (computeName version) (buildTensorRTPackage (removeAttrs file [ "fileVersionCuda" ]))
-          )
-          supportedVersions;
+      allBuilds = mapAttrs' (
+        version: file:
+        nameValuePair (computeName version) (buildTensorRTPackage (removeAttrs file [ "fileVersionCuda" ]))
+      ) supportedVersions;
       # Set the default attributes, e.g. tensorrt = tensorrt_8_4;
       defaultBuild = {
         "tensorrt" =

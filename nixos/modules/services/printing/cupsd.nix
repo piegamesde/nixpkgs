@@ -85,11 +85,9 @@ let
   '';
 
   cupsdFile = writeConf "cupsd.conf" ''
-    ${concatMapStrings
-      (addr: ''
-        Listen ${addr}
-      '')
-      cfg.listenAddresses}
+    ${concatMapStrings (addr: ''
+      Listen ${addr}
+    '') cfg.listenAddresses}
     Listen /run/cups/cups.sock
 
     DefaultShared ${if cfg.defaultShared then "Yes" else "No"}
@@ -139,34 +137,25 @@ in
       (
         config:
         let
-          enabled =
-            getAttrFromPath
-              [
-                "services"
-                "printing"
-                "gutenprint"
-              ]
-              config;
+          enabled = getAttrFromPath [
+            "services"
+            "printing"
+            "gutenprint"
+          ] config;
         in
         if enabled then [ pkgs.gutenprint ] else [ ]
       )
     )
-    (mkRemovedOptionModule
-      [
-        "services"
-        "printing"
-        "cupsFilesConf"
-      ]
-      ""
-    )
-    (mkRemovedOptionModule
-      [
-        "services"
-        "printing"
-        "cupsdConf"
-      ]
-      ""
-    )
+    (mkRemovedOptionModule [
+      "services"
+      "printing"
+      "cupsFilesConf"
+    ] "")
+    (mkRemovedOptionModule [
+      "services"
+      "printing"
+      "cupsdConf"
+    ] "")
   ];
 
   ###### interface
@@ -390,8 +379,9 @@ in
           ""
           "/run/cups/cups.sock"
         ]
-        ++ map (x: replaceStrings [ "localhost" ] [ "127.0.0.1" ] (removePrefix "*:" x))
-          cfg.listenAddresses;
+        ++ map (
+          x: replaceStrings [ "localhost" ] [ "127.0.0.1" ] (removePrefix "*:" x)
+        ) cfg.listenAddresses;
     };
 
     systemd.services.cups = {

@@ -82,16 +82,13 @@ in
       ]
     )
 
-    (mkRemovedOptionModule
-      [
-        "services"
-        "xserver"
-        "displayManager"
-        "gdm"
-        "nvidiaWayland"
-      ]
-      "We defer to GDM whether Wayland should be enabled."
-    )
+    (mkRemovedOptionModule [
+      "services"
+      "xserver"
+      "displayManager"
+      "gdm"
+      "nvidiaWayland"
+    ] "We defer to GDM whether Wayland should be enabled.")
   ];
 
   meta = {

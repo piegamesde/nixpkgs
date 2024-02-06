@@ -120,8 +120,9 @@ stdenv.mkDerivation rec {
       # Apparently glibc provides scsi itself?
       (cd $dev/include && ln -s $(ls -d ${linuxHeaders}/include/* | grep -v "scsi$") .)
 
-      ${lib.optionalString (stdenv.targetPlatform.libc == "musl" && stdenv.targetPlatform.isx86_32)
-        "install -D libssp_nonshared.a $out/lib/libssp_nonshared.a"}
+      ${lib.optionalString (
+        stdenv.targetPlatform.libc == "musl" && stdenv.targetPlatform.isx86_32
+      ) "install -D libssp_nonshared.a $out/lib/libssp_nonshared.a"}
 
       # Create 'ldd' symlink, builtin
       ln -s $out/lib/libc.so $bin/bin/ldd

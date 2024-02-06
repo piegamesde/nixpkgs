@@ -29,15 +29,12 @@ in
         "bindAddress"
       ]
     )
-    (mkRemovedOptionModule
-      [
-        "services"
-        "kubernetes"
-        "controllerManager"
-        "insecurePort"
-      ]
-      ""
-    )
+    (mkRemovedOptionModule [
+      "services"
+      "kubernetes"
+      "controllerManager"
+      "insecurePort"
+    ] "")
   ];
 
   ###### interface
@@ -156,8 +153,9 @@ in
                     ${optionalString (cfg.rootCaFile != null) "--root-ca-file=${cfg.rootCaFile}"} \
                     --secure-port=${toString cfg.securePort} \
                     ${
-                      optionalString (cfg.serviceAccountKeyFile != null)
-                        "--service-account-private-key-file=${cfg.serviceAccountKeyFile}"
+                      optionalString (
+                        cfg.serviceAccountKeyFile != null
+                      ) "--service-account-private-key-file=${cfg.serviceAccountKeyFile}"
                     } \
                     ${optionalString (cfg.tlsCertFile != null) "--tls-cert-file=${cfg.tlsCertFile}"} \
                     ${optionalString (cfg.tlsKeyFile != null) "--tls-private-key-file=${cfg.tlsKeyFile}"} \

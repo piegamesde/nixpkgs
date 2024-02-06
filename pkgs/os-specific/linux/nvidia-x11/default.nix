@@ -24,15 +24,13 @@ let
 
   kernel =
     # a hacky way of extracting parameters from callPackage
-    callPackage
-      (
-        {
-          kernel,
-          libsOnly ? false,
-        }:
-        if libsOnly then { } else kernel
-      )
-      { };
+    callPackage (
+      {
+        kernel,
+        libsOnly ? false,
+      }:
+      if libsOnly then { } else kernel
+    ) { };
 
   selectHighestVersion = a: b: if lib.versionOlder a.version b.version then b else a;
 in

@@ -309,19 +309,16 @@ let
     }
     // foldr (a: b: a // b) { } (map mkDestAttrs (builtins.attrValues destinations));
 
-  files =
-    mapAttrs'
-      (
-        n: srcCfg:
-        let
-          fileText = attrsToFile (mkSrcAttrs srcCfg);
-        in
-        {
-          name = srcCfg.dataset;
-          value = pkgs.writeText (stripSlashes srcCfg.dataset) fileText;
-        }
-      )
-      cfg.zetup;
+  files = mapAttrs' (
+    n: srcCfg:
+    let
+      fileText = attrsToFile (mkSrcAttrs srcCfg);
+    in
+    {
+      name = srcCfg.dataset;
+      value = pkgs.writeText (stripSlashes srcCfg.dataset) fileText;
+    }
+  ) cfg.zetup;
 in
 {
   options = {
@@ -492,12 +489,10 @@ in
               | xargs -I{} ${pkgs.znapzend}/bin/znapzendzetup delete "{}"
           ''
           + concatStringsSep "\n" (
-            mapAttrsToList
-              (dataset: config: ''
-                echo Importing znapzend zetup ${config} for dataset ${dataset}
-                ${pkgs.znapzend}/bin/znapzendzetup import --write ${dataset} ${config} &
-              '')
-              files
+            mapAttrsToList (dataset: config: ''
+              echo Importing znapzend zetup ${config} for dataset ${dataset}
+              ${pkgs.znapzend}/bin/znapzendzetup import --write ${dataset} ${config} &
+            '') files
           )
           + ''
             wait

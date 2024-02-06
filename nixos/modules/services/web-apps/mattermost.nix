@@ -37,23 +37,21 @@ let
 
   mattermostPluginDerivations =
     with pkgs;
-    map
-      (
-        plugin:
-        stdenv.mkDerivation {
-          name = "mattermost-plugin";
-          installPhase = ''
-            mkdir -p $out/share
-            cp ${plugin} $out/share/plugin.tar.gz
-          '';
-          dontUnpack = true;
-          dontPatch = true;
-          dontConfigure = true;
-          dontBuild = true;
-          preferLocalBuild = true;
-        }
-      )
-      cfg.plugins;
+    map (
+      plugin:
+      stdenv.mkDerivation {
+        name = "mattermost-plugin";
+        installPhase = ''
+          mkdir -p $out/share
+          cp ${plugin} $out/share/plugin.tar.gz
+        '';
+        dontUnpack = true;
+        dontPatch = true;
+        dontConfigure = true;
+        dontBuild = true;
+        preferLocalBuild = true;
+      }
+    ) cfg.plugins;
 
   mattermostPlugins =
     with pkgs;
@@ -86,18 +84,15 @@ let
         preferLocalBuild = true;
       };
 
-  mattermostConfWithoutPlugins =
-    recursiveUpdate
-      {
-        ServiceSettings.SiteURL = cfg.siteUrl;
-        ServiceSettings.ListenAddress = cfg.listenAddress;
-        TeamSettings.SiteName = cfg.siteName;
-        SqlSettings.DriverName = "postgres";
-        SqlSettings.DataSource = database;
-        PluginSettings.Directory = "${cfg.statePath}/plugins/server";
-        PluginSettings.ClientDirectory = "${cfg.statePath}/plugins/client";
-      }
-      cfg.extraConfig;
+  mattermostConfWithoutPlugins = recursiveUpdate {
+    ServiceSettings.SiteURL = cfg.siteUrl;
+    ServiceSettings.ListenAddress = cfg.listenAddress;
+    TeamSettings.SiteName = cfg.siteName;
+    SqlSettings.DriverName = "postgres";
+    SqlSettings.DataSource = database;
+    PluginSettings.Directory = "${cfg.statePath}/plugins/server";
+    PluginSettings.ClientDirectory = "${cfg.statePath}/plugins/client";
+  } cfg.extraConfig;
 
   mattermostConf = recursiveUpdate mattermostConfWithoutPlugins (
     if mattermostPlugins == null then

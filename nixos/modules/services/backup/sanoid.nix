@@ -223,22 +223,18 @@ in
       description = "Sanoid snapshot service";
       serviceConfig = {
         ExecStartPre = (
-          map
-            (buildAllowCommand "allow" [
-              "snapshot"
-              "mount"
-              "destroy"
-            ])
-            datasets
+          map (buildAllowCommand "allow" [
+            "snapshot"
+            "mount"
+            "destroy"
+          ]) datasets
         );
         ExecStopPost = (
-          map
-            (buildAllowCommand "unallow" [
-              "snapshot"
-              "mount"
-              "destroy"
-            ])
-            datasets
+          map (buildAllowCommand "unallow" [
+            "snapshot"
+            "mount"
+            "destroy"
+          ]) datasets
         );
         ExecStart = lib.escapeShellArgs (
           [

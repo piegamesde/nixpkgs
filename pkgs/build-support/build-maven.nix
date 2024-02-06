@@ -26,50 +26,48 @@ let
   info = lib.importJSON infoFile;
 
   dependencies = lib.flatten (
-    map
-      (
-        dep:
-        let
-          inherit (dep)
-            sha1
-            groupId
-            artifactId
-            version
-            metadata
-            repository-id
-            ;
-          versionDir = dep.unresolved-version or version;
-          authenticated = dep.authenticated or false;
-          url = dep.url or "";
+    map (
+      dep:
+      let
+        inherit (dep)
+          sha1
+          groupId
+          artifactId
+          version
+          metadata
+          repository-id
+          ;
+        versionDir = dep.unresolved-version or version;
+        authenticated = dep.authenticated or false;
+        url = dep.url or "";
 
-          fetch =
-            if (url != "") then
-              ((if authenticated then requireFile else fetchurl) { inherit url sha1; })
-            else
-              "";
+        fetch =
+          if (url != "") then
+            ((if authenticated then requireFile else fetchurl) { inherit url sha1; })
+          else
+            "";
 
-          fetchMetadata = (if authenticated then requireFile else fetchurl) { inherit (metadata) url sha1; };
+        fetchMetadata = (if authenticated then requireFile else fetchurl) { inherit (metadata) url sha1; };
 
-          layout = "${builtins.replaceStrings [ "." ] [ "/" ] groupId}/${artifactId}/${versionDir}";
-        in
-        lib.optional (url != "") {
-          layout = "${layout}/${fetch.name}";
+        layout = "${builtins.replaceStrings [ "." ] [ "/" ] groupId}/${artifactId}/${versionDir}";
+      in
+      lib.optional (url != "") {
+        layout = "${layout}/${fetch.name}";
+        drv = fetch;
+      }
+      ++ lib.optionals (dep ? metadata) (
+        [
+          {
+            layout = "${layout}/maven-metadata-${repository-id}.xml";
+            drv = fetchMetadata;
+          }
+        ]
+        ++ lib.optional (fetch != "") {
+          layout = "${layout}/${builtins.replaceStrings [ version ] [ dep.unresolved-version ] fetch.name}";
           drv = fetch;
         }
-        ++ lib.optionals (dep ? metadata) (
-          [
-            {
-              layout = "${layout}/maven-metadata-${repository-id}.xml";
-              drv = fetchMetadata;
-            }
-          ]
-          ++ lib.optional (fetch != "") {
-            layout = "${layout}/${builtins.replaceStrings [ version ] [ dep.unresolved-version ] fetch.name}";
-            drv = fetch;
-          }
-        )
       )
-      info.dependencies
+    ) info.dependencies
   );
 
   repo = linkFarm "maven-repository" (
@@ -98,13 +96,10 @@ in
   build = stdenv.mkDerivation {
     name = "${info.project.artifactId}-${info.project.version}.jar";
 
-    src =
-      builtins.filterSource
-        (
-          path: type:
-          (toString path) != (toString (src + "/target")) && (toString path) != (toString (src + "/.git"))
-        )
-        src;
+    src = builtins.filterSource (
+      path: type:
+      (toString path) != (toString (src + "/target")) && (toString path) != (toString (src + "/.git"))
+    ) src;
 
     buildInputs = [ maven ];
 

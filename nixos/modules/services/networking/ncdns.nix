@@ -38,13 +38,10 @@ let
       '';
     };
 
-  configFile =
-    pkgs.runCommand "ncdns.conf"
-      {
-        json = builtins.toJSON cfg.settings;
-        passAsFile = [ "json" ];
-      }
-      "${pkgs.remarshal}/bin/json2toml < $jsonPath > $out";
+  configFile = pkgs.runCommand "ncdns.conf" {
+    json = builtins.toJSON cfg.settings;
+    passAsFile = [ "json" ];
+  } "${pkgs.remarshal}/bin/json2toml < $jsonPath > $out";
 
   defaultFiles = {
     public = "${dataDir}/bit.key";

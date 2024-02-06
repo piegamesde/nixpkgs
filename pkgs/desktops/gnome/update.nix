@@ -20,9 +20,8 @@ let
       p.libversion
     ]
   );
-  package =
-    lib.attrByPath (lib.splitString "." attrPath) (throw "Cannot find attribute ‘${attrPath}’.")
-      pkgs;
+  package = lib.attrByPath (lib.splitString "." attrPath
+    ) (throw "Cannot find attribute ‘${attrPath}’.") pkgs;
   packageVersion = lib.getVersion package;
   upperBound =
     let

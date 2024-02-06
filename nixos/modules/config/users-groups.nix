@@ -488,40 +488,37 @@ let
 
   uidsAreUnique = idsAreUnique (filterAttrs (n: u: u.uid != null) cfg.users) "uid";
   gidsAreUnique = idsAreUnique (filterAttrs (n: g: g.gid != null) cfg.groups) "gid";
-  sdInitrdUidsAreUnique =
-    idsAreUnique (filterAttrs (n: u: u.uid != null) config.boot.initrd.systemd.users)
-      "uid";
-  sdInitrdGidsAreUnique =
-    idsAreUnique (filterAttrs (n: g: g.gid != null) config.boot.initrd.systemd.groups)
-      "gid";
+  sdInitrdUidsAreUnique = idsAreUnique (filterAttrs (
+    n: u: u.uid != null
+  ) config.boot.initrd.systemd.users) "uid";
+  sdInitrdGidsAreUnique = idsAreUnique (filterAttrs (
+    n: g: g.gid != null
+  ) config.boot.initrd.systemd.groups) "gid";
 
   spec = pkgs.writeText "users-groups.json" (
     builtins.toJSON {
       inherit (cfg) mutableUsers;
-      users =
-        mapAttrsToList
-          (_: u: {
-            inherit (u)
-              name
-              uid
-              group
-              description
-              home
-              homeMode
-              createHome
-              isSystemUser
-              password
-              passwordFile
-              hashedPassword
-              autoSubUidGidRange
-              subUidRanges
-              subGidRanges
-              initialPassword
-              initialHashedPassword
-              ;
-            shell = utils.toShellPath u.shell;
-          })
-          cfg.users;
+      users = mapAttrsToList (_: u: {
+        inherit (u)
+          name
+          uid
+          group
+          description
+          home
+          homeMode
+          createHome
+          isSystemUser
+          password
+          passwordFile
+          hashedPassword
+          autoSubUidGidRange
+          subUidRanges
+          subGidRanges
+          initialPassword
+          initialHashedPassword
+          ;
+        shell = utils.toShellPath u.shell;
+      }) cfg.users;
       groups = attrValues cfg.groups;
     }
   );
@@ -802,22 +799,19 @@ in
       # Install all the user shells
       environment.systemPackages = systemShells;
 
-      environment.etc =
-        mapAttrs'
-          (
-            _:
-            { packages, name, ... }:
-            {
-              name = "profiles/per-user/${name}";
-              value.source = pkgs.buildEnv {
-                name = "user-environment";
-                paths = packages;
-                inherit (config.environment) pathsToLink extraOutputsToInstall;
-                inherit (config.system.path) ignoreCollisions postBuild;
-              };
-            }
-          )
-          (filterAttrs (_: u: u.packages != [ ]) cfg.users);
+      environment.etc = mapAttrs' (
+        _:
+        { packages, name, ... }:
+        {
+          name = "profiles/per-user/${name}";
+          value.source = pkgs.buildEnv {
+            name = "user-environment";
+            paths = packages;
+            inherit (config.environment) pathsToLink extraOutputsToInstall;
+            inherit (config.system.path) ignoreCollisions postBuild;
+          };
+        }
+      ) (filterAttrs (_: u: u.packages != [ ]) cfg.users);
 
       environment.profiles = [
         "$HOME/.nix-profile"
@@ -829,16 +823,14 @@ in
         contents = {
           "/etc/passwd".text = ''
             ${lib.concatStringsSep "\n" (
-              lib.mapAttrsToList
-                (
-                  n:
-                  { uid, group }:
-                  let
-                    g = config.boot.initrd.systemd.groups.${group};
-                  in
-                  "${n}:x:${toString uid}:${toString g.gid}::/var/empty:"
-                )
-                config.boot.initrd.systemd.users
+              lib.mapAttrsToList (
+                n:
+                { uid, group }:
+                let
+                  g = config.boot.initrd.systemd.groups.${group};
+                in
+                "${n}:x:${toString uid}:${toString g.gid}::/var/empty:"
+              ) config.boot.initrd.systemd.users
             )}
           '';
           "/etc/group".text = ''
@@ -896,19 +888,17 @@ in
               !cfg.mutableUsers
               -> !cfg.allowNoPasswordLogin
               -> any id (
-                mapAttrsToList
-                  (
-                    name: cfg:
-                    (name == "root" || cfg.group == "wheel" || elem "wheel" cfg.extraGroups)
-                    && (
-                      allowsLogin cfg.hashedPassword
-                      || cfg.password != null
-                      || cfg.passwordFile != null
-                      || cfg.openssh.authorizedKeys.keys != [ ]
-                      || cfg.openssh.authorizedKeys.keyFiles != [ ]
-                    )
+                mapAttrsToList (
+                  name: cfg:
+                  (name == "root" || cfg.group == "wheel" || elem "wheel" cfg.extraGroups)
+                  && (
+                    allowsLogin cfg.hashedPassword
+                    || cfg.password != null
+                    || cfg.passwordFile != null
+                    || cfg.openssh.authorizedKeys.keys != [ ]
+                    || cfg.openssh.authorizedKeys.keyFiles != [ ]
                   )
-                  cfg.users
+                ) cfg.users
                 ++ [ config.security.googleOsLogin.enable ]
               );
             message = ''

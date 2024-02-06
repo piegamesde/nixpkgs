@@ -37,10 +37,12 @@ let
     override:
     let
       gateway =
-        optional (cfg.defaultGateway != null && (cfg.defaultGateway.address or "") != "")
-          cfg.defaultGateway.address
-        ++ optional (cfg.defaultGateway6 != null && (cfg.defaultGateway6.address or "") != "")
-          cfg.defaultGateway6.address;
+        optional (
+          cfg.defaultGateway != null && (cfg.defaultGateway.address or "") != ""
+        ) cfg.defaultGateway.address
+        ++ optional (
+          cfg.defaultGateway6 != null && (cfg.defaultGateway6.address or "") != ""
+        ) cfg.defaultGateway6.address;
       makeGateway = gateway: {
         routeConfig = {
           Gateway = gateway;
@@ -301,13 +303,11 @@ in
                         unknownOptions = [ "primary" ];
                         assertTrace = bool: msg: if bool then true else builtins.trace msg false;
                       in
-                      assert all
-                        (
-                          driverOpt:
-                          assertTrace (elem driverOpt (knownOptions ++ unknownOptions))
-                            "The bond.driverOption `${driverOpt}` cannot be mapped to the list of known networkd bond options. Please add it to the mapping above the assert or to `unknownOptions` should it not exist in networkd."
-                        )
-                        (mapAttrsToList (k: _: k) do);
+                      assert all (
+                        driverOpt:
+                        assertTrace (elem driverOpt (knownOptions ++ unknownOptions))
+                          "The bond.driverOption `${driverOpt}` cannot be mapped to the list of known networkd bond options. Please add it to the mapping above the assert or to `unknownOptions` should it not exist in networkd."
+                      ) (mapAttrsToList (k: _: k) do);
                       "";
                     # get those driverOptions that have been set
                     filterSystemdOptions = filterAttrs (sysDOpt: kOpts: any (kOpt: do ? ${kOpt}) kOpts.optNames);
@@ -512,19 +512,17 @@ in
                   echo "Configuring Open vSwitch ${n}..."
                   ovs-vsctl ${
                     concatStrings (
-                      mapAttrsToList
-                        (
-                          name: config:
-                          " -- add-port ${n} ${name}" + optionalString (config.vlan != null) " tag=${toString config.vlan}"
-                        )
-                        v.interfaces
+                      mapAttrsToList (
+                        name: config:
+                        " -- add-port ${n} ${name}" + optionalString (config.vlan != null) " tag=${toString config.vlan}"
+                      ) v.interfaces
                     )
                   } \
                     ${
                       concatStrings (
-                        mapAttrsToList
-                          (name: config: optionalString (config.type != null) " -- set interface ${name} type=${config.type}")
-                          v.interfaces
+                        mapAttrsToList (
+                          name: config: optionalString (config.type != null) " -- set interface ${name} type=${config.type}"
+                        ) v.interfaces
                       )
                     } \
                     ${concatMapStrings (x: " -- set-controller ${n} " + x) v.controllers} \

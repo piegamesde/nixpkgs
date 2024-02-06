@@ -176,15 +176,12 @@ stdenv.mkDerivation rec {
   dontStrip = true;
 
   # Patch RUNPATH according to dlopenLibs (see the comment there).
-  postFixup =
-    lib.concatMapStrings
-      (library: ''
-        for i in $(grep -F ${lib.escapeShellArg library.name} -l -r $out/{lib,bin}); do
-          origRpath=$(patchelf --print-rpath "$i")
-          patchelf --set-rpath "$origRpath:${lib.makeLibraryPath [ library.pkg ]}" "$i"
-        done
-      '')
-      dlopenLibs;
+  postFixup = lib.concatMapStrings (library: ''
+    for i in $(grep -F ${lib.escapeShellArg library.name} -l -r $out/{lib,bin}); do
+      origRpath=$(patchelf --print-rpath "$i")
+      patchelf --set-rpath "$origRpath:${lib.makeLibraryPath [ library.pkg ]}" "$i"
+    done
+  '') dlopenLibs;
 
   meta = {
     description = "Guest additions for VirtualBox";

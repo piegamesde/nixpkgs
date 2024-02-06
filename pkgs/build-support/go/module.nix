@@ -398,6 +398,6 @@ let
     }
   );
 in
-lib.warnIf (buildFlags != "" || buildFlagsArray != "")
-  "Use the `ldflags` and/or `tags` attributes instead of `buildFlags`/`buildFlagsArray`"
-  package
+lib.warnIf (
+  buildFlags != "" || buildFlagsArray != ""
+) "Use the `ldflags` and/or `tags` attributes instead of `buildFlags`/`buildFlagsArray`" package

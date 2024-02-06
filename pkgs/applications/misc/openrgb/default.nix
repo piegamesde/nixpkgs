@@ -74,13 +74,11 @@ stdenv.mkDerivation rec {
         qmakeFlags = old.qmakeFlags or [ ] ++ [
           # Welcome to Escape Hell, we have backslashes
           ''DEFINES+=OPENRGB_EXTRA_PLUGIN_DIRECTORY=\\\""${
-            lib.escape
-              [
-                "\\"
-                "\""
-                " "
-              ]
-              (toString pluginsDir)
+            lib.escape [
+              "\\"
+              "\""
+              " "
+            ] (toString pluginsDir)
           }/lib\\\""''
         ];
       }

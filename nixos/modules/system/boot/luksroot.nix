@@ -574,40 +574,35 @@ let
 
   stage1Crypttab = pkgs.writeText "initrd-crypttab" (
     lib.concatStringsSep "\n" (
-      lib.mapAttrsToList
-        (
-          n: v:
-          let
-            opts =
-              v.crypttabExtraOpts
-              ++ optional v.allowDiscards "discard"
-              ++ optionals v.bypassWorkqueues [
-                "no-read-workqueue"
-                "no-write-workqueue"
-              ]
-              ++ optional (v.header != null) "header=${v.header}"
-              ++ optional (v.keyFileOffset != null) "keyfile-offset=${toString v.keyFileOffset}"
-              ++ optional (v.keyFileSize != null) "keyfile-size=${toString v.keyFileSize}"
-              ++ optional (v.keyFileTimeout != null) "keyfile-timeout=${builtins.toString v.keyFileTimeout}s"
-              ++ optional (v.tryEmptyPassphrase) "try-empty-password=true";
-          in
-          "${n} ${v.device} ${if v.keyFile == null then "-" else v.keyFile} ${lib.concatStringsSep "," opts}"
-        )
-        luks.devices
+      lib.mapAttrsToList (
+        n: v:
+        let
+          opts =
+            v.crypttabExtraOpts
+            ++ optional v.allowDiscards "discard"
+            ++ optionals v.bypassWorkqueues [
+              "no-read-workqueue"
+              "no-write-workqueue"
+            ]
+            ++ optional (v.header != null) "header=${v.header}"
+            ++ optional (v.keyFileOffset != null) "keyfile-offset=${toString v.keyFileOffset}"
+            ++ optional (v.keyFileSize != null) "keyfile-size=${toString v.keyFileSize}"
+            ++ optional (v.keyFileTimeout != null) "keyfile-timeout=${builtins.toString v.keyFileTimeout}s"
+            ++ optional (v.tryEmptyPassphrase) "try-empty-password=true";
+        in
+        "${n} ${v.device} ${if v.keyFile == null then "-" else v.keyFile} ${lib.concatStringsSep "," opts}"
+      ) luks.devices
     )
   );
 in
 {
   imports = [
-    (mkRemovedOptionModule
-      [
-        "boot"
-        "initrd"
-        "luks"
-        "enable"
-      ]
-      ""
-    )
+    (mkRemovedOptionModule [
+      "boot"
+      "initrd"
+      "luks"
+      "enable"
+    ] "")
   ];
 
   options = {
@@ -1167,16 +1162,14 @@ in
           copy_bin_and_libs ${pkgs.gnupg}/bin/gpg-agent
           copy_bin_and_libs ${pkgs.gnupg}/libexec/scdaemon
 
-          ${concatMapStringsSep "\n"
-            (
-              x:
-              optionalString (x.gpgCard != null) ''
-                mkdir -p $out/secrets/gpg-keys/${x.device}
-                cp -a ${x.gpgCard.encryptedPass} $out/secrets/gpg-keys/${x.device}/cryptkey.gpg
-                cp -a ${x.gpgCard.publicKey} $out/secrets/gpg-keys/${x.device}/pubkey.asc
-              ''
-            )
-            (attrValues luks.devices)}
+          ${concatMapStringsSep "\n" (
+            x:
+            optionalString (x.gpgCard != null) ''
+              mkdir -p $out/secrets/gpg-keys/${x.device}
+              cp -a ${x.gpgCard.encryptedPass} $out/secrets/gpg-keys/${x.device}/cryptkey.gpg
+              cp -a ${x.gpgCard.publicKey} $out/secrets/gpg-keys/${x.device}/pubkey.asc
+            ''
+          ) (attrValues luks.devices)}
         ''}
       '';
 

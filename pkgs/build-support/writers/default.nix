@@ -192,16 +192,14 @@ let
         appendIfNotSet = el: list: if elem el list then list else list ++ [ el ];
         ghcArgs' = if threadedRuntime then appendIfNotSet "-threaded" ghcArgs else ghcArgs;
       in
-      makeBinWriter
-        {
-          compileScript = ''
-            cp $contentPath tmp.hs
-            ${ghc.withPackages (_: libraries)}/bin/ghc ${lib.escapeShellArgs ghcArgs'} tmp.hs
-            mv tmp $out
-          '';
-          inherit strip;
-        }
-        name;
+      makeBinWriter {
+        compileScript = ''
+          cp $contentPath tmp.hs
+          ${ghc.withPackages (_: libraries)}/bin/ghc ${lib.escapeShellArgs ghcArgs'} tmp.hs
+          mv tmp $out
+        '';
+        inherit strip;
+      } name;
 
     # writeHaskellBin takes the same arguments as writeHaskell but outputs a directory (like writeScriptBin)
     writeHaskellBin = name: writeHaskell "/bin/${name}";
@@ -216,15 +214,13 @@ let
       let
         darwinArgs = lib.optionals stdenv.isDarwin [ "-L${lib.getLib libiconv}/lib" ];
       in
-      makeBinWriter
-        {
-          compileScript = ''
-            cp "$contentPath" tmp.rs
-            PATH=${makeBinPath [ pkgs.gcc ]} ${lib.getBin rustc}/bin/rustc ${lib.escapeShellArgs rustcArgs} ${lib.escapeShellArgs darwinArgs} -o "$out" tmp.rs
-          '';
-          inherit strip;
-        }
-        name;
+      makeBinWriter {
+        compileScript = ''
+          cp "$contentPath" tmp.rs
+          PATH=${makeBinPath [ pkgs.gcc ]} ${lib.getBin rustc}/bin/rustc ${lib.escapeShellArgs rustcArgs} ${lib.escapeShellArgs darwinArgs} -o "$out" tmp.rs
+        '';
+        inherit strip;
+      } name;
 
     writeRustBin = name: writeRust "/bin/${name}";
 
@@ -313,20 +309,18 @@ let
           optionalString (flakeIgnore != [ ])
             "--ignore ${concatMapStringsSep "," escapeShellArg flakeIgnore}";
       in
-      makeScriptWriter
-        {
-          interpreter =
-            if libraries == [ ] then
-              "${python}/bin/python"
-            else
-              "${python.withPackages (ps: libraries)}/bin/python";
-          check = optionalString python.isPy3k (
-            writeDash "pythoncheck.sh" ''
-              exec ${buildPythonPackages.flake8}/bin/flake8 --show-source ${ignoreAttribute} "$1"
-            ''
-          );
-        }
-        name;
+      makeScriptWriter {
+        interpreter =
+          if libraries == [ ] then
+            "${python}/bin/python"
+          else
+            "${python.withPackages (ps: libraries)}/bin/python";
+        check = optionalString python.isPy3k (
+          writeDash "pythoncheck.sh" ''
+            exec ${buildPythonPackages.flake8}/bin/flake8 --show-source ${ignoreAttribute} "$1"
+          ''
+        );
+      } name;
 
     # writePyPy2 takes a name an attributeset with libraries and some pypy2 sourcecode and
     # returns an executable

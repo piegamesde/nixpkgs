@@ -51,21 +51,18 @@ in
     # Debugging
     environment.sessionVariables.MATE_SESSION_DEBUG = mkIf cfg.debug "1";
 
-    environment.systemPackages =
-      utils.removePackagesByName
-        (
-          pkgs.mate.basePackages
-          ++ pkgs.mate.extraPackages
-          ++ [
-            pkgs.desktop-file-utils
-            pkgs.glib
-            pkgs.gtk3.out
-            pkgs.shared-mime-info
-            pkgs.xdg-user-dirs # Update user dirs as described in https://freedesktop.org/wiki/Software/xdg-user-dirs/
-            pkgs.yelp # for 'Contents' in 'Help' menus
-          ]
-        )
-        config.environment.mate.excludePackages;
+    environment.systemPackages = utils.removePackagesByName (
+      pkgs.mate.basePackages
+      ++ pkgs.mate.extraPackages
+      ++ [
+        pkgs.desktop-file-utils
+        pkgs.glib
+        pkgs.gtk3.out
+        pkgs.shared-mime-info
+        pkgs.xdg-user-dirs # Update user dirs as described in https://freedesktop.org/wiki/Software/xdg-user-dirs/
+        pkgs.yelp # for 'Contents' in 'Help' menus
+      ]
+    ) config.environment.mate.excludePackages;
 
     programs.dconf.enable = true;
     # Shell integration for VTE terminals

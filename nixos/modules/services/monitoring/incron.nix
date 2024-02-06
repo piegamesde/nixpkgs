@@ -67,9 +67,9 @@ in
 
   config = mkIf cfg.enable {
 
-    warnings =
-      optional (cfg.allow != null && cfg.deny != null)
-        "If `services.incron.allow` is set then `services.incron.deny` will be ignored.";
+    warnings = optional (
+      cfg.allow != null && cfg.deny != null
+    ) "If `services.incron.allow` is set then `services.incron.deny` will be ignored.";
 
     environment.systemPackages = [ pkgs.incron ];
 

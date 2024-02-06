@@ -66,10 +66,12 @@ let
   );
 in
 
-assert lib.asserts.assertMsg ((args.installPhase or "") == "")
-  "buildPgxExtensions overwrites the installPhase, so providing one does nothing";
-assert lib.asserts.assertMsg ((args.buildPhase or "") == "")
-  "buildPgxExtensions overwrites the buildPhase, so providing one does nothing";
+assert lib.asserts.assertMsg (
+  (args.installPhase or "") == ""
+) "buildPgxExtensions overwrites the installPhase, so providing one does nothing";
+assert lib.asserts.assertMsg (
+  (args.buildPhase or "") == ""
+) "buildPgxExtensions overwrites the buildPhase, so providing one does nothing";
 assert lib.asserts.assertMsg (useFakeRustfmt -> !rustfmtInNativeBuildInputs)
   "The parameter useFakeRustfmt is set to true, but rustfmt is included in nativeBuildInputs. Either set useFakeRustfmt to false or remove rustfmt from nativeBuildInputs.";
 assert lib.asserts.assertMsg (!useFakeRustfmt -> rustfmtInNativeBuildInputs)

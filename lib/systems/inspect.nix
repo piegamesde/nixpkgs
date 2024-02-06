@@ -77,17 +77,14 @@ rec {
         bits = 32;
       };
     };
-    isArmv7 =
-      map
-        (
-          { arch, ... }:
-          {
-            cpu = {
-              inherit arch;
-            };
-          }
-        )
-        (lib.filter (cpu: lib.hasPrefix "armv7" cpu.arch or "") (lib.attrValues cpuTypes));
+    isArmv7 = map (
+      { arch, ... }:
+      {
+        cpu = {
+          inherit arch;
+        };
+      }
+    ) (lib.filter (cpu: lib.hasPrefix "armv7" cpu.arch or "") (lib.attrValues cpuTypes));
     isAarch64 = {
       cpu = {
         family = "arm";

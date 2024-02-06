@@ -113,12 +113,10 @@ let
 
   extraAutoPluginDir = internAndFixPlugins "munin-extra-auto-plugins.d" internManyPlugins (
     builtins.listToAttrs (
-      map
-        (path: {
-          name = baseNameOf path;
-          value = path;
-        })
-        nodeCfg.extraAutoPlugins
+      map (path: {
+        name = baseNameOf path;
+        value = path;
+      }) nodeCfg.extraAutoPlugins
     )
   );
 

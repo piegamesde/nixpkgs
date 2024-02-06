@@ -47,12 +47,10 @@ let
   ];
 
   crystalLib = linkFarm "crystal-lib" (
-    lib.mapAttrsToList
-      (name: value: {
-        inherit name;
-        path = if (builtins.hasAttr "url" value) then fetchgit value else fetchFromGitHub value;
-      })
-      (import shardsFile)
+    lib.mapAttrsToList (name: value: {
+      inherit name;
+      path = if (builtins.hasAttr "url" value) then fetchgit value else fetchFromGitHub value;
+    }) (import shardsFile)
   );
 
   # We no longer use --no-debug in accordance with upstream's recommendation
@@ -137,16 +135,14 @@ stdenv.mkDerivation (
         [ "runHook preInstall" ]
         ++ lib.optional (format == "make") "make \${installTargets:-install} $installFlags"
         ++ lib.optionals (format == "crystal") (
-          map
-            (bin: ''
-              install -Dm555 ${
-                lib.escapeShellArgs [
-                  bin
-                  "${placeholder "out"}/bin/${bin}"
-                ]
-              }
-            '')
-            (lib.attrNames crystalBinaries)
+          map (bin: ''
+            install -Dm555 ${
+              lib.escapeShellArgs [
+                bin
+                "${placeholder "out"}/bin/${bin}"
+              ]
+            }
+          '') (lib.attrNames crystalBinaries)
         )
         ++ lib.optional (format == "shards") "install -Dm555 bin/* -t $out/bin"
         ++ [

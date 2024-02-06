@@ -132,21 +132,17 @@ in
       </Plugin>
 
       ${concatStrings (
-        mapAttrsToList
-          (plugin: pluginConfig: ''
-            LoadPlugin ${plugin}
-            <Plugin "${plugin}">
-            ${pluginConfig}
-            </Plugin>
-          '')
-          cfg.plugins
+        mapAttrsToList (plugin: pluginConfig: ''
+          LoadPlugin ${plugin}
+          <Plugin "${plugin}">
+          ${pluginConfig}
+          </Plugin>
+        '') cfg.plugins
       )}
 
-      ${concatMapStrings
-        (f: ''
-          Include "${f}"
-        '')
-        cfg.include}
+      ${concatMapStrings (f: ''
+        Include "${f}"
+      '') cfg.include}
     '';
 
     systemd.tmpfiles.rules = [ "d '${cfg.dataDir}' - ${cfg.user} - - -" ];

@@ -16,9 +16,9 @@ stdenv.mkDerivation rec {
   patches = [ ./nlojet_clang_fix.patch ];
 
   # error: no member named 'finite' in the global namespace; did you mean simply 'finite'?
-  env.NIX_CFLAGS_COMPILE =
-    lib.optionalString (stdenv.isDarwin && stdenv.isAarch64)
-      "-Dfinite=isfinite";
+  env.NIX_CFLAGS_COMPILE = lib.optionalString (
+    stdenv.isDarwin && stdenv.isAarch64
+  ) "-Dfinite=isfinite";
 
   meta = {
     homepage = "http://www.desy.de/~znagy/Site/NLOJet++.html";

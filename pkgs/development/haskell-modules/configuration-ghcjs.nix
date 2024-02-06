@@ -51,32 +51,26 @@ self: super:
   # doctest doesn't work on ghcjs, but sometimes dontCheck doesn't seem to get rid of the dependency
   doctest = pkgs.lib.warn "ignoring dependency on doctest" null;
 
-  ghcjs-dom =
-    overrideCabal
-      (drv: {
-        libraryHaskellDepends = with self; [
-          ghcjs-base
-          ghcjs-dom-jsffi
-          text
-          transformers
-        ];
-        configureFlags = [
-          "-fjsffi"
-          "-f-webkit"
-        ];
-      })
-      super.ghcjs-dom;
+  ghcjs-dom = overrideCabal (drv: {
+    libraryHaskellDepends = with self; [
+      ghcjs-base
+      ghcjs-dom-jsffi
+      text
+      transformers
+    ];
+    configureFlags = [
+      "-fjsffi"
+      "-f-webkit"
+    ];
+  }) super.ghcjs-dom;
 
-  ghcjs-dom-jsffi =
-    overrideCabal
-      (drv: {
-        libraryHaskellDepends = (drv.libraryHaskellDepends or [ ]) ++ [
-          self.ghcjs-base
-          self.text
-        ];
-        broken = false;
-      })
-      super.ghcjs-dom-jsffi;
+  ghcjs-dom-jsffi = overrideCabal (drv: {
+    libraryHaskellDepends = (drv.libraryHaskellDepends or [ ]) ++ [
+      self.ghcjs-base
+      self.text
+    ];
+    broken = false;
+  }) super.ghcjs-dom-jsffi;
 
   # https://github.com/Deewiant/glob/issues/39
   Glob = dontCheck super.Glob;
@@ -87,10 +81,9 @@ self: super:
   # uses doctest
   http-types = dontCheck super.http-types;
 
-  jsaddle =
-    overrideCabal
-      (drv: { libraryHaskellDepends = (drv.libraryHaskellDepends or [ ]) ++ [ self.ghcjs-base ]; })
-      super.jsaddle;
+  jsaddle = overrideCabal (drv: {
+    libraryHaskellDepends = (drv.libraryHaskellDepends or [ ]) ++ [ self.ghcjs-base ];
+  }) super.jsaddle;
 
   # Tests hang, possibly some issue with tasty and race(async) usage in the nonTerminating tests
   logict = dontCheck super.logict;
@@ -103,19 +96,15 @@ self: super:
   # Terminal test not supported on ghcjs
   QuickCheck = dontCheck super.QuickCheck;
 
-  reflex =
-    overrideCabal
-      (drv: { libraryHaskellDepends = (drv.libraryHaskellDepends or [ ]) ++ [ self.ghcjs-base ]; })
-      super.reflex;
+  reflex = overrideCabal (drv: {
+    libraryHaskellDepends = (drv.libraryHaskellDepends or [ ]) ++ [ self.ghcjs-base ];
+  }) super.reflex;
 
-  reflex-dom =
-    overrideCabal
-      (drv: {
-        libraryHaskellDepends = removeLibraryHaskellDepends [ "jsaddle-webkit2gtk" ] (
-          drv.libraryHaskellDepends or [ ]
-        );
-      })
-      super.reflex-dom;
+  reflex-dom = overrideCabal (drv: {
+    libraryHaskellDepends = removeLibraryHaskellDepends [ "jsaddle-webkit2gtk" ] (
+      drv.libraryHaskellDepends or [ ]
+    );
+  }) super.reflex-dom;
 
   # https://github.com/dreixel/syb/issues/21
   syb = dontCheck super.syb;

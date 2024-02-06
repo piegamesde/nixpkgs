@@ -21,46 +21,31 @@ in
 
 {
   imports = [
-    (mkRemovedOptionModule
-      [
-        "services"
-        "mysql"
-        "pidDir"
-      ]
-      "Don't wait for pidfiles, describe dependencies through systemd."
-    )
-    (mkRemovedOptionModule
-      [
-        "services"
-        "mysql"
-        "rootPassword"
-      ]
-      "Use socket authentication or set the password outside of the nix store."
-    )
-    (mkRemovedOptionModule
-      [
-        "services"
-        "mysql"
-        "extraOptions"
-      ]
-      "Use services.mysql.settings.mysqld instead."
-    )
-    (mkRemovedOptionModule
-      [
-        "services"
-        "mysql"
-        "bind"
-      ]
-      "Use services.mysql.settings.mysqld.bind-address instead."
-    )
-    (mkRemovedOptionModule
-      [
-        "services"
-        "mysql"
-        "port"
-      ]
-      "Use services.mysql.settings.mysqld.port instead."
-    )
+    (mkRemovedOptionModule [
+      "services"
+      "mysql"
+      "pidDir"
+    ] "Don't wait for pidfiles, describe dependencies through systemd.")
+    (mkRemovedOptionModule [
+      "services"
+      "mysql"
+      "rootPassword"
+    ] "Use socket authentication or set the password outside of the nix store.")
+    (mkRemovedOptionModule [
+      "services"
+      "mysql"
+      "extraOptions"
+    ] "Use services.mysql.settings.mysqld instead.")
+    (mkRemovedOptionModule [
+      "services"
+      "mysql"
+      "bind"
+    ] "Use services.mysql.settings.mysqld.bind-address instead.")
+    (mkRemovedOptionModule [
+      "services"
+      "mysql"
+      "port"
+    ] "Use services.mysql.settings.mysqld.port instead.")
   ];
 
   ###### interface
@@ -455,32 +440,30 @@ in
               ) | ${cfg.package}/bin/mysql -u ${superUser} -N
 
               ${
-                concatMapStrings
-                  (database: ''
-                    # Create initial databases
-                    if ! test -e "${cfg.dataDir}/${database.name}"; then
-                        echo "Creating initial database: ${database.name}"
-                        ( echo 'create database `${database.name}`;'
+                concatMapStrings (database: ''
+                  # Create initial databases
+                  if ! test -e "${cfg.dataDir}/${database.name}"; then
+                      echo "Creating initial database: ${database.name}"
+                      ( echo 'create database `${database.name}`;'
 
-                          ${
-                            optionalString (database.schema != null) ''
-                              echo 'use `${database.name}`;'
+                        ${
+                          optionalString (database.schema != null) ''
+                            echo 'use `${database.name}`;'
 
-                              # TODO: this silently falls through if database.schema does not exist,
-                              # we should catch this somehow and exit, but can't do it here because we're in a subshell.
-                              if [ -f "${database.schema}" ]
-                              then
-                                  cat ${database.schema}
-                              elif [ -d "${database.schema}" ]
-                              then
-                                  cat ${database.schema}/mysql-databases/*.sql
-                              fi
-                            ''
-                          }
-                        ) | ${cfg.package}/bin/mysql -u ${superUser} -N
-                    fi
-                  '')
-                  cfg.initialDatabases
+                            # TODO: this silently falls through if database.schema does not exist,
+                            # we should catch this somehow and exit, but can't do it here because we're in a subshell.
+                            if [ -f "${database.schema}" ]
+                            then
+                                cat ${database.schema}
+                            elif [ -d "${database.schema}" ]
+                            then
+                                cat ${database.schema}/mysql-databases/*.sql
+                            fi
+                          ''
+                        }
+                      ) | ${cfg.package}/bin/mysql -u ${superUser} -N
+                  fi
+                '') cfg.initialDatabases
               }
 
               ${
@@ -520,31 +503,25 @@ in
 
           ${optionalString (cfg.ensureDatabases != [ ]) ''
             (
-            ${concatMapStrings
-              (database: ''
-                echo "CREATE DATABASE IF NOT EXISTS \`${database}\`;"
-              '')
-              cfg.ensureDatabases}
+            ${concatMapStrings (database: ''
+              echo "CREATE DATABASE IF NOT EXISTS \`${database}\`;"
+            '') cfg.ensureDatabases}
             ) | ${cfg.package}/bin/mysql -N
           ''}
 
-          ${concatMapStrings
-            (user: ''
-              ( echo "CREATE USER IF NOT EXISTS '${user.name}'@'localhost' IDENTIFIED WITH ${
-                if isMariaDB then "unix_socket" else "auth_socket"
-              };"
-                ${
-                  concatStringsSep "\n" (
-                    mapAttrsToList
-                      (database: permission: ''
-                        echo "GRANT ${permission} ON ${database} TO '${user.name}'@'localhost';"
-                      '')
-                      user.ensurePermissions
-                  )
-                }
-              ) | ${cfg.package}/bin/mysql -N
-            '')
-            cfg.ensureUsers}
+          ${concatMapStrings (user: ''
+            ( echo "CREATE USER IF NOT EXISTS '${user.name}'@'localhost' IDENTIFIED WITH ${
+              if isMariaDB then "unix_socket" else "auth_socket"
+            };"
+              ${
+                concatStringsSep "\n" (
+                  mapAttrsToList (database: permission: ''
+                    echo "GRANT ${permission} ON ${database} TO '${user.name}'@'localhost';"
+                  '') user.ensurePermissions
+                )
+              }
+            ) | ${cfg.package}/bin/mysql -N
+          '') cfg.ensureUsers}
         '';
 
       serviceConfig = mkMerge [

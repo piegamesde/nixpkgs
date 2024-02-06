@@ -372,15 +372,13 @@ let
   allGrammars =
     let
       treeSitterOrgaGrammars = lib.listToAttrs (
-        map
-          (repo: {
-            name = repo;
-            value = {
-              orga = "tree-sitter";
-              inherit repo;
-            };
-          })
-          knownTreeSitterOrgGrammarRepos
+        map (repo: {
+          name = repo;
+          value = {
+            orga = "tree-sitter";
+            inherit repo;
+          };
+        }) knownTreeSitterOrgGrammarRepos
       );
     in
     lib.attrsets.unionOfDisjoint otherGrammars treeSitterOrgaGrammars;
@@ -388,17 +386,14 @@ let
   jsonFile = name: val: (formats.json { }).generate name val;
 
   # implementation of the updater
-  updateImpl =
-    passArgs "updateImpl-with-args"
-      {
-        binaries = {
-          curl = "${curl}/bin/curl";
-          nix-prefetch-git = "${nix-prefetch-git}/bin/nix-prefetch-git";
-          printf = "${coreutils}/bin/printf";
-        };
-        inherit knownTreeSitterOrgGrammarRepos ignoredTreeSitterOrgRepos;
-      }
-      (writers.writePython3 "updateImpl" { flakeIgnore = [ "E501" ]; } ./update_impl.py);
+  updateImpl = passArgs "updateImpl-with-args" {
+    binaries = {
+      curl = "${curl}/bin/curl";
+      nix-prefetch-git = "${nix-prefetch-git}/bin/nix-prefetch-git";
+      printf = "${coreutils}/bin/printf";
+    };
+    inherit knownTreeSitterOrgGrammarRepos ignoredTreeSitterOrgRepos;
+  } (writers.writePython3 "updateImpl" { flakeIgnore = [ "E501" ]; } ./update_impl.py);
 
   # Pass the given arguments to the command, in the ARGS environment variable.
   # The arguments are just a json object that should be available in the script.
@@ -438,8 +433,9 @@ let
            ${updateImpl} fetch-repo "$1"
          '')
          (
-           lib.mapAttrsToList (nixRepoAttrName: attrs: attrs // { inherit nixRepoAttrName outputDir; })
-             allGrammars
+           lib.mapAttrsToList (
+             nixRepoAttrName: attrs: attrs // { inherit nixRepoAttrName outputDir; }
+           ) allGrammars
          )
      }
      ${updateImpl} print-all-grammars-nix-file "$(< ${

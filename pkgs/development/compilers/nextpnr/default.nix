@@ -68,9 +68,9 @@ stdenv.mkDerivation rec {
       "-DSERIALIZE_CHIPDBS=OFF"
     ]
     ++ (lib.optional enableGui "-DBUILD_GUI=ON")
-    ++ (lib.optional (enableGui && stdenv.isDarwin)
-      "-DOPENGL_INCLUDE_DIR=${OpenGL}/Library/Frameworks"
-    );
+    ++ (lib.optional (
+      enableGui && stdenv.isDarwin
+    ) "-DOPENGL_INCLUDE_DIR=${OpenGL}/Library/Frameworks");
 
   patchPhase = with builtins; ''
     # use PyPy for icestorm if enabled

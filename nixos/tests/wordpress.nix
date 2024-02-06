@@ -96,11 +96,9 @@ import ./make-test-python.nix (
       start_all()
 
       ${lib.concatStrings (
-        lib.mapAttrsToList
-          (name: value: ''
-            ${name}.wait_for_unit("${(value null).services.wordpress.webserver}")
-          '')
-          nodes
+        lib.mapAttrsToList (name: value: ''
+          ${name}.wait_for_unit("${(value null).services.wordpress.webserver}")
+        '') nodes
       )}
 
       site_names = ["site1.local", "site2.local"]

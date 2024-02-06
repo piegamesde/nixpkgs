@@ -883,11 +883,9 @@ in
       environment.systemPackages = optional (grub != null) grub;
 
       boot.loader.grub.extraPrepareConfig = concatStrings (
-        mapAttrsToList
-          (n: v: ''
-            ${pkgs.coreutils}/bin/cp -pf "${v}" "@bootPath@/${n}"
-          '')
-          config.boot.loader.grub.extraFiles
+        mapAttrsToList (n: v: ''
+          ${pkgs.coreutils}/bin/cp -pf "${v}" "@bootPath@/${n}"
+        '') config.boot.loader.grub.extraFiles
       );
 
       assertions =
@@ -960,15 +958,12 @@ in
   ];
 
   imports = [
-    (mkRemovedOptionModule
-      [
-        "boot"
-        "loader"
-        "grub"
-        "bootDevice"
-      ]
-      ""
-    )
+    (mkRemovedOptionModule [
+      "boot"
+      "loader"
+      "grub"
+      "bootDevice"
+    ] "")
     (mkRenamedOptionModule
       [
         "boot"

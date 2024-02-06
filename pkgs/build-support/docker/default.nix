@@ -541,15 +541,13 @@ rec {
     let
       stream = streamLayeredImage args;
     in
-    runCommand "${baseNameOf name}.tar.gz"
-      {
-        inherit (stream) imageName;
-        passthru = {
-          inherit (stream) imageTag;
-        };
-        nativeBuildInputs = [ pigz ];
-      }
-      "${stream} | pigz -nTR > $out";
+    runCommand "${baseNameOf name}.tar.gz" {
+      inherit (stream) imageName;
+      passthru = {
+        inherit (stream) imageTag;
+      };
+      nativeBuildInputs = [ pigz ];
+    } "${stream} | pigz -nTR > $out";
 
   # 1. extract the base image
   # 2. create the layer
@@ -1166,8 +1164,9 @@ rec {
     }:
     assert lib.assertMsg (!(drv.drvAttrs.__structuredAttrs or false))
       "streamNixShellImage: Does not work with the derivation ${drv.name} because it uses __structuredAttrs";
-    assert lib.assertMsg (command == null || run == null)
-      "streamNixShellImage: Can't specify both command and run";
+    assert lib.assertMsg (
+      command == null || run == null
+    ) "streamNixShellImage: Can't specify both command and run";
     let
 
       # A binary that calls the command to build the derivation
@@ -1221,18 +1220,16 @@ rec {
 
       # https://github.com/NixOS/nix/blob/2.8.0/src/libstore/build/local-derivation-goal.cc#L992-L1004
       drvEnv =
-        lib.mapAttrs'
-          (
-            name: value:
-            let
-              str = stringValue value;
-            in
-            if lib.elem name (drv.drvAttrs.passAsFile or [ ]) then
-              lib.nameValuePair "${name}Path" (writeText "pass-as-text-${name}" str)
-            else
-              lib.nameValuePair name str
-          )
-          drv.drvAttrs
+        lib.mapAttrs' (
+          name: value:
+          let
+            str = stringValue value;
+          in
+          if lib.elem name (drv.drvAttrs.passAsFile or [ ]) then
+            lib.nameValuePair "${name}Path" (writeText "pass-as-text-${name}" str)
+          else
+            lib.nameValuePair name str
+        ) drv.drvAttrs
         # A mapping from output name to the nix store path where they should end up
         # https://github.com/NixOS/nix/blob/2.8.0/src/libexpr/primops.cc#L1253
         // lib.genAttrs drv.outputs (output: builtins.unsafeDiscardStringContext drv.${output}.outPath);
@@ -1338,13 +1335,11 @@ rec {
     let
       stream = streamNixShellImage args;
     in
-    runCommand "${drv.name}-env.tar.gz"
-      {
-        inherit (stream) imageName;
-        passthru = {
-          inherit (stream) imageTag;
-        };
-        nativeBuildInputs = [ pigz ];
-      }
-      "${stream} | pigz -nTR > $out";
+    runCommand "${drv.name}-env.tar.gz" {
+      inherit (stream) imageName;
+      passthru = {
+        inherit (stream) imageTag;
+      };
+      nativeBuildInputs = [ pigz ];
+    } "${stream} | pigz -nTR > $out";
 }

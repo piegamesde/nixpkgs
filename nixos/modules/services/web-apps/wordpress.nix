@@ -40,16 +40,18 @@ let
 
         # copy additional plugin(s), theme(s) and language(s)
         ${concatStringsSep "\n" (
-          mapAttrsToList (name: theme: "cp -r ${theme} $out/share/wordpress/wp-content/themes/${name}")
-            cfg.themes
+          mapAttrsToList (
+            name: theme: "cp -r ${theme} $out/share/wordpress/wp-content/themes/${name}"
+          ) cfg.themes
         )}
         ${concatStringsSep "\n" (
-          mapAttrsToList (name: plugin: "cp -r ${plugin} $out/share/wordpress/wp-content/plugins/${name}")
-            cfg.plugins
+          mapAttrsToList (
+            name: plugin: "cp -r ${plugin} $out/share/wordpress/wp-content/plugins/${name}"
+          ) cfg.plugins
         )}
-        ${concatMapStringsSep "\n"
-          (language: "cp -r ${language} $out/share/wordpress/wp-content/languages/")
-          cfg.languages}
+        ${concatMapStringsSep "\n" (
+          language: "cp -r ${language} $out/share/wordpress/wp-content/languages/"
+        ) cfg.languages}
       '';
     };
 
@@ -135,11 +137,9 @@ let
       umask 0177
       echo "<?php" >> "${hostStateDir}/secret-keys.php"
       ${
-        concatMapStringsSep "\n"
-          (var: ''
-            echo "define('${var}', '`tr -dc a-zA-Z0-9 </dev/urandom | head -c 64`');" >> "${hostStateDir}/secret-keys.php"
-          '')
-          secretsVars
+        concatMapStringsSep "\n" (var: ''
+          echo "define('${var}', '`tr -dc a-zA-Z0-9 </dev/urandom | head -c 64`');" >> "${hostStateDir}/secret-keys.php"
+        '') secretsVars
       }
       echo "?>" >> "${hostStateDir}/secret-keys.php"
       chmod 440 "${hostStateDir}/secret-keys.php"
@@ -183,14 +183,12 @@ let
         plugins = mkOption {
           type =
             with types;
-            coercedTo (listOf path)
-              (
-                l:
-                warn "setting this option with a list is deprecated" listToAttrs (
-                  map (p: nameValuePair (p.name or (throw "${p} does not have a name")) p) l
-                )
+            coercedTo (listOf path) (
+              l:
+              warn "setting this option with a list is deprecated" listToAttrs (
+                map (p: nameValuePair (p.name or (throw "${p} does not have a name")) p) l
               )
-              (attrsOf path);
+            ) (attrsOf path);
           default = { };
           description = lib.mdDoc ''
             Path(s) to respective plugin(s) which are copied from the 'plugins' directory.
@@ -209,14 +207,12 @@ let
         themes = mkOption {
           type =
             with types;
-            coercedTo (listOf path)
-              (
-                l:
-                warn "setting this option with a list is deprecated" listToAttrs (
-                  map (p: nameValuePair (p.name or (throw "${p} does not have a name")) p) l
-                )
+            coercedTo (listOf path) (
+              l:
+              warn "setting this option with a list is deprecated" listToAttrs (
+                map (p: nameValuePair (p.name or (throw "${p} does not have a name")) p) l
               )
-              (attrsOf path);
+            ) (attrsOf path);
           default = {
             inherit (pkgs.wordpressPackages.themes) twentytwentythree;
           };
@@ -455,133 +451,113 @@ in
       {
 
         assertions =
-          (mapAttrsToList
-            (hostName: cfg: {
-              assertion = cfg.database.createLocally -> cfg.database.user == user;
-              message = ''services.wordpress.sites."${hostName}".database.user must be ${user} if the database is to be automatically provisioned'';
-            })
-            eachSite
-          )
-          ++ (mapAttrsToList
-            (hostName: cfg: {
-              assertion = cfg.database.createLocally -> cfg.database.passwordFile == null;
-              message = ''services.wordpress.sites."${hostName}".database.passwordFile cannot be specified if services.wordpress.sites."${hostName}".database.createLocally is set to true.'';
-            })
-            eachSite
-          );
+          (mapAttrsToList (hostName: cfg: {
+            assertion = cfg.database.createLocally -> cfg.database.user == user;
+            message = ''services.wordpress.sites."${hostName}".database.user must be ${user} if the database is to be automatically provisioned'';
+          }) eachSite)
+          ++ (mapAttrsToList (hostName: cfg: {
+            assertion = cfg.database.createLocally -> cfg.database.passwordFile == null;
+            message = ''services.wordpress.sites."${hostName}".database.passwordFile cannot be specified if services.wordpress.sites."${hostName}".database.createLocally is set to true.'';
+          }) eachSite);
 
         services.mysql = mkIf (any (v: v.database.createLocally) (attrValues eachSite)) {
           enable = true;
           package = mkDefault pkgs.mariadb;
           ensureDatabases = mapAttrsToList (hostName: cfg: cfg.database.name) eachSite;
-          ensureUsers =
-            mapAttrsToList
-              (hostName: cfg: {
-                name = cfg.database.user;
-                ensurePermissions = {
-                  "${cfg.database.name}.*" = "ALL PRIVILEGES";
-                };
-              })
-              eachSite;
+          ensureUsers = mapAttrsToList (hostName: cfg: {
+            name = cfg.database.user;
+            ensurePermissions = {
+              "${cfg.database.name}.*" = "ALL PRIVILEGES";
+            };
+          }) eachSite;
         };
 
-        services.phpfpm.pools =
-          mapAttrs'
-            (
-              hostName: cfg:
-              (nameValuePair "wordpress-${hostName}" {
-                inherit user;
-                group = webserver.group;
-                settings = {
-                  "listen.owner" = webserver.user;
-                  "listen.group" = webserver.group;
-                } // cfg.poolConfig;
-              })
-            )
-            eachSite;
+        services.phpfpm.pools = mapAttrs' (
+          hostName: cfg:
+          (nameValuePair "wordpress-${hostName}" {
+            inherit user;
+            group = webserver.group;
+            settings = {
+              "listen.owner" = webserver.user;
+              "listen.group" = webserver.group;
+            } // cfg.poolConfig;
+          })
+        ) eachSite;
       }
 
       (mkIf (cfg.webserver == "httpd") {
         services.httpd = {
           enable = true;
           extraModules = [ "proxy_fcgi" ];
-          virtualHosts =
-            mapAttrs
-              (
-                hostName: cfg:
-                mkMerge [
-                  cfg.virtualHost
-                  {
-                    documentRoot = mkForce "${pkg hostName cfg}/share/wordpress";
-                    extraConfig = ''
-                      <Directory "${pkg hostName cfg}/share/wordpress">
-                        <FilesMatch "\.php$">
-                          <If "-f %{REQUEST_FILENAME}">
-                            SetHandler "proxy:unix:${
-                              config.services.phpfpm.pools."wordpress-${hostName}".socket
-                            }|fcgi://localhost/"
-                          </If>
-                        </FilesMatch>
+          virtualHosts = mapAttrs (
+            hostName: cfg:
+            mkMerge [
+              cfg.virtualHost
+              {
+                documentRoot = mkForce "${pkg hostName cfg}/share/wordpress";
+                extraConfig = ''
+                  <Directory "${pkg hostName cfg}/share/wordpress">
+                    <FilesMatch "\.php$">
+                      <If "-f %{REQUEST_FILENAME}">
+                        SetHandler "proxy:unix:${
+                          config.services.phpfpm.pools."wordpress-${hostName}".socket
+                        }|fcgi://localhost/"
+                      </If>
+                    </FilesMatch>
 
-                        # standard wordpress .htaccess contents
-                        <IfModule mod_rewrite.c>
-                          RewriteEngine On
-                          RewriteBase /
-                          RewriteRule ^index\.php$ - [L]
-                          RewriteCond %{REQUEST_FILENAME} !-f
-                          RewriteCond %{REQUEST_FILENAME} !-d
-                          RewriteRule . /index.php [L]
-                        </IfModule>
+                    # standard wordpress .htaccess contents
+                    <IfModule mod_rewrite.c>
+                      RewriteEngine On
+                      RewriteBase /
+                      RewriteRule ^index\.php$ - [L]
+                      RewriteCond %{REQUEST_FILENAME} !-f
+                      RewriteCond %{REQUEST_FILENAME} !-d
+                      RewriteRule . /index.php [L]
+                    </IfModule>
 
-                        DirectoryIndex index.php
-                        Require all granted
-                        Options +FollowSymLinks -Indexes
-                      </Directory>
+                    DirectoryIndex index.php
+                    Require all granted
+                    Options +FollowSymLinks -Indexes
+                  </Directory>
 
-                      # https://wordpress.org/support/article/hardening-wordpress/#securing-wp-config-php
-                      <Files wp-config.php>
-                        Require all denied
-                      </Files>
-                    '';
-                  }
-                ]
-              )
-              eachSite;
+                  # https://wordpress.org/support/article/hardening-wordpress/#securing-wp-config-php
+                  <Files wp-config.php>
+                    Require all denied
+                  </Files>
+                '';
+              }
+            ]
+          ) eachSite;
         };
       })
 
       {
         systemd.tmpfiles.rules = flatten (
-          mapAttrsToList
-            (hostName: cfg: [
-              "d '${stateDir hostName}' 0750 ${user} ${webserver.group} - -"
-              "d '${cfg.uploadsDir}' 0750 ${user} ${webserver.group} - -"
-              "Z '${cfg.uploadsDir}' 0750 ${user} ${webserver.group} - -"
-              "d '${cfg.fontsDir}' 0750 ${user} ${webserver.group} - -"
-              "Z '${cfg.fontsDir}' 0750 ${user} ${webserver.group} - -"
-            ])
-            eachSite
+          mapAttrsToList (hostName: cfg: [
+            "d '${stateDir hostName}' 0750 ${user} ${webserver.group} - -"
+            "d '${cfg.uploadsDir}' 0750 ${user} ${webserver.group} - -"
+            "Z '${cfg.uploadsDir}' 0750 ${user} ${webserver.group} - -"
+            "d '${cfg.fontsDir}' 0750 ${user} ${webserver.group} - -"
+            "Z '${cfg.fontsDir}' 0750 ${user} ${webserver.group} - -"
+          ]) eachSite
         );
 
         systemd.services = mkMerge [
-          (mapAttrs'
-            (
-              hostName: cfg:
-              (nameValuePair "wordpress-init-${hostName}" {
-                wantedBy = [ "multi-user.target" ];
-                before = [ "phpfpm-wordpress-${hostName}.service" ];
-                after = optional cfg.database.createLocally "mysql.service";
-                script = secretsScript (stateDir hostName);
+          (mapAttrs' (
+            hostName: cfg:
+            (nameValuePair "wordpress-init-${hostName}" {
+              wantedBy = [ "multi-user.target" ];
+              before = [ "phpfpm-wordpress-${hostName}.service" ];
+              after = optional cfg.database.createLocally "mysql.service";
+              script = secretsScript (stateDir hostName);
 
-                serviceConfig = {
-                  Type = "oneshot";
-                  User = user;
-                  Group = webserver.group;
-                };
-              })
-            )
-            eachSite
-          )
+              serviceConfig = {
+                Type = "oneshot";
+                User = user;
+                Group = webserver.group;
+              };
+            })
+          ) eachSite)
 
           (optionalAttrs (any (v: v.database.createLocally) (attrValues eachSite)) {
             httpd.after = [ "mysql.service" ];
@@ -597,88 +573,82 @@ in
       (mkIf (cfg.webserver == "nginx") {
         services.nginx = {
           enable = true;
-          virtualHosts =
-            mapAttrs
-              (hostName: cfg: {
-                serverName = mkDefault hostName;
-                root = "${pkg hostName cfg}/share/wordpress";
+          virtualHosts = mapAttrs (hostName: cfg: {
+            serverName = mkDefault hostName;
+            root = "${pkg hostName cfg}/share/wordpress";
+            extraConfig = ''
+              index index.php;
+            '';
+            locations = {
+              "/" = {
+                priority = 200;
                 extraConfig = ''
-                  index index.php;
+                  try_files $uri $uri/ /index.php$is_args$args;
                 '';
-                locations = {
-                  "/" = {
-                    priority = 200;
-                    extraConfig = ''
-                      try_files $uri $uri/ /index.php$is_args$args;
-                    '';
-                  };
-                  "~ \\.php$" = {
-                    priority = 500;
-                    extraConfig = ''
-                      fastcgi_split_path_info ^(.+\.php)(/.+)$;
-                      fastcgi_pass unix:${config.services.phpfpm.pools."wordpress-${hostName}".socket};
-                      fastcgi_index index.php;
-                      include "${config.services.nginx.package}/conf/fastcgi.conf";
-                      fastcgi_param PATH_INFO $fastcgi_path_info;
-                      fastcgi_param PATH_TRANSLATED $document_root$fastcgi_path_info;
-                      # Mitigate https://httpoxy.org/ vulnerabilities
-                      fastcgi_param HTTP_PROXY "";
-                      fastcgi_intercept_errors off;
-                      fastcgi_buffer_size 16k;
-                      fastcgi_buffers 4 16k;
-                      fastcgi_connect_timeout 300;
-                      fastcgi_send_timeout 300;
-                      fastcgi_read_timeout 300;
-                    '';
-                  };
-                  "~ /\\." = {
-                    priority = 800;
-                    extraConfig = "deny all;";
-                  };
-                  "~* /(?:uploads|files)/.*\\.php$" = {
-                    priority = 900;
-                    extraConfig = "deny all;";
-                  };
-                  "~* \\.(js|css|png|jpg|jpeg|gif|ico)$" = {
-                    priority = 1000;
-                    extraConfig = ''
-                      expires max;
-                      log_not_found off;
-                    '';
-                  };
-                };
-              })
-              eachSite;
+              };
+              "~ \\.php$" = {
+                priority = 500;
+                extraConfig = ''
+                  fastcgi_split_path_info ^(.+\.php)(/.+)$;
+                  fastcgi_pass unix:${config.services.phpfpm.pools."wordpress-${hostName}".socket};
+                  fastcgi_index index.php;
+                  include "${config.services.nginx.package}/conf/fastcgi.conf";
+                  fastcgi_param PATH_INFO $fastcgi_path_info;
+                  fastcgi_param PATH_TRANSLATED $document_root$fastcgi_path_info;
+                  # Mitigate https://httpoxy.org/ vulnerabilities
+                  fastcgi_param HTTP_PROXY "";
+                  fastcgi_intercept_errors off;
+                  fastcgi_buffer_size 16k;
+                  fastcgi_buffers 4 16k;
+                  fastcgi_connect_timeout 300;
+                  fastcgi_send_timeout 300;
+                  fastcgi_read_timeout 300;
+                '';
+              };
+              "~ /\\." = {
+                priority = 800;
+                extraConfig = "deny all;";
+              };
+              "~* /(?:uploads|files)/.*\\.php$" = {
+                priority = 900;
+                extraConfig = "deny all;";
+              };
+              "~* \\.(js|css|png|jpg|jpeg|gif|ico)$" = {
+                priority = 1000;
+                extraConfig = ''
+                  expires max;
+                  log_not_found off;
+                '';
+              };
+            };
+          }) eachSite;
         };
       })
 
       (mkIf (cfg.webserver == "caddy") {
         services.caddy = {
           enable = true;
-          virtualHosts =
-            mapAttrs'
-              (
-                hostName: cfg:
-                (nameValuePair "http://${hostName}" {
-                  extraConfig = ''
-                    root    * /${pkg hostName cfg}/share/wordpress
-                    file_server
+          virtualHosts = mapAttrs' (
+            hostName: cfg:
+            (nameValuePair "http://${hostName}" {
+              extraConfig = ''
+                root    * /${pkg hostName cfg}/share/wordpress
+                file_server
 
-                    php_fastcgi unix/${config.services.phpfpm.pools."wordpress-${hostName}".socket}
+                php_fastcgi unix/${config.services.phpfpm.pools."wordpress-${hostName}".socket}
 
-                    @uploads {
-                      path_regexp path /uploads\/(.*)\.php
-                    }
-                    rewrite @uploads /
+                @uploads {
+                  path_regexp path /uploads\/(.*)\.php
+                }
+                rewrite @uploads /
 
-                    @wp-admin {
-                      path  not ^\/wp-admin/*
-                    }
-                    rewrite @wp-admin {path}/index.php?{query}
-                  '';
-                })
-              )
-              eachSite;
+                @wp-admin {
+                  path  not ^\/wp-admin/*
+                }
+                rewrite @wp-admin {path}/index.php?{query}
+              '';
+            })
+          ) eachSite;
         };
       })
     ]

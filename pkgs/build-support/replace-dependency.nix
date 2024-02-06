@@ -70,12 +70,10 @@ let
   referencesOf = drv: references.${discard (toString drv)};
 
   dependsOnOldMemo = listToAttrs (
-    map
-      (drv: {
-        name = discard (toString drv);
-        value = elem oldStorepath (referencesOf drv) || any dependsOnOld (referencesOf drv);
-      })
-      (builtins.attrNames references)
+    map (drv: {
+      name = discard (toString drv);
+      value = elem oldStorepath (referencesOf drv) || any dependsOnOld (referencesOf drv);
+    }) (builtins.attrNames references)
   );
 
   dependsOnOld = drv: dependsOnOldMemo.${discard (toString drv)};
@@ -102,15 +100,14 @@ let
 
   rewriteMemo =
     listToAttrs (
-      map
-        (drv: {
-          name = discard (toString drv);
-          value = rewriteHashes (builtins.storePath drv) (
-            filterAttrs (n: v: builtins.elem (builtins.storePath (discard (toString n))) (referencesOf drv))
-              rewriteMemo
-          );
-        })
-        (filter dependsOnOld (builtins.attrNames references))
+      map (drv: {
+        name = discard (toString drv);
+        value = rewriteHashes (builtins.storePath drv) (
+          filterAttrs (
+            n: v: builtins.elem (builtins.storePath (discard (toString n))) (referencesOf drv)
+          ) rewriteMemo
+        );
+      }) (filter dependsOnOld (builtins.attrNames references))
     )
     // rewrittenDeps;
 

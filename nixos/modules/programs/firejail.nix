@@ -22,38 +22,36 @@ let
         mkdir -p $out/bin
         mkdir -p $out/share/applications
         ${lib.concatStringsSep "\n" (
-          lib.mapAttrsToList
-            (
-              command: value:
-              let
-                opts =
-                  if builtins.isAttrs value then
-                    value
-                  else
-                    {
-                      executable = value;
-                      desktop = null;
-                      profile = null;
-                      extraArgs = [ ];
-                    };
-                args = lib.escapeShellArgs (
-                  opts.extraArgs ++ (optional (opts.profile != null) "--profile=${toString opts.profile}")
-                );
-              in
-              ''
-                cat <<_EOF >$out/bin/${command}
-                #! ${pkgs.runtimeShell} -e
-                exec /run/wrappers/bin/firejail ${args} -- ${toString opts.executable} "\$@"
-                _EOF
-                chmod 0755 $out/bin/${command}
+          lib.mapAttrsToList (
+            command: value:
+            let
+              opts =
+                if builtins.isAttrs value then
+                  value
+                else
+                  {
+                    executable = value;
+                    desktop = null;
+                    profile = null;
+                    extraArgs = [ ];
+                  };
+              args = lib.escapeShellArgs (
+                opts.extraArgs ++ (optional (opts.profile != null) "--profile=${toString opts.profile}")
+              );
+            in
+            ''
+              cat <<_EOF >$out/bin/${command}
+              #! ${pkgs.runtimeShell} -e
+              exec /run/wrappers/bin/firejail ${args} -- ${toString opts.executable} "\$@"
+              _EOF
+              chmod 0755 $out/bin/${command}
 
-                ${lib.optionalString (opts.desktop != null) ''
-                  substitute ${opts.desktop} $out/share/applications/$(basename ${opts.desktop}) \
-                    --replace ${opts.executable} $out/bin/${command}
-                ''}
-              ''
-            )
-            cfg.wrappedBinaries
+              ${lib.optionalString (opts.desktop != null) ''
+                substitute ${opts.desktop} $out/share/applications/$(basename ${opts.desktop}) \
+                  --replace ${opts.executable} $out/bin/${command}
+              ''}
+            ''
+          ) cfg.wrappedBinaries
         )}
       '';
 in

@@ -4399,9 +4399,9 @@ rec {
           pkgs:
           let
             self = {
-              crates =
-                lib.mapAttrs (packageId: value: buildByPackageIdForPkgsImpl self pkgs packageId)
-                  crateConfigs;
+              crates = lib.mapAttrs (
+                packageId: value: buildByPackageIdForPkgsImpl self pkgs packageId
+              ) crateConfigs;
               build = mkBuiltByPackageIdByPkgs pkgs.buildPackages;
             };
           in
@@ -4590,15 +4590,12 @@ rec {
         onlyInCrate2Nix = builtins.attrNames (
           lib.filterAttrs (n: v: (v ? "crate2nix") && !(v ? "cargo")) combined
         );
-        differentFeatures =
-          lib.filterAttrs
-            (
-              n: v:
-              (v ? "crate2nix")
-              && (v ? "cargo")
-              && (v.crate2nix.features or [ ]) != (v."cargo".resolved_default_features or [ ])
-            )
-            combined;
+        differentFeatures = lib.filterAttrs (
+          n: v:
+          (v ? "crate2nix")
+          && (v ? "cargo")
+          && (v.crate2nix.features or [ ]) != (v."cargo".resolved_default_features or [ ])
+        ) combined;
       in
       builtins.toJSON { inherit onlyInCargo onlyInCrate2Nix differentFeatures; };
 
@@ -4702,16 +4699,14 @@ rec {
       assert (builtins.isList features);
       assert (builtins.isAttrs target);
 
-      lib.filter
-        (
-          dep:
-          let
-            targetFunc = dep.target or (features: true);
-          in
-          targetFunc { inherit features target; }
-          && (!(dep.optional or false) || builtins.any (doesFeatureEnableDependency dep) features)
-        )
-        dependencies;
+      lib.filter (
+        dep:
+        let
+          targetFunc = dep.target or (features: true);
+        in
+        targetFunc { inherit features target; }
+        && (!(dep.optional or false) || builtins.any (doesFeatureEnableDependency dep) features)
+      ) dependencies;
 
     # Returns whether the given feature should enable the given dependency.
     doesFeatureEnableDependency =
@@ -4753,20 +4748,17 @@ rec {
       assert (builtins.isList features);
       assert (builtins.isList dependencies);
       let
-        additionalFeatures =
-          lib.concatMap
-            (
-              dependency:
-              assert (builtins.isAttrs dependency);
-              let
-                enabled = builtins.any (doesFeatureEnableDependency dependency) features;
-              in
-              if (dependency.optional or false) && enabled then
-                [ (dependency.rename or dependency.name) ]
-              else
-                [ ]
-            )
-            dependencies;
+        additionalFeatures = lib.concatMap (
+          dependency:
+          assert (builtins.isAttrs dependency);
+          let
+            enabled = builtins.any (doesFeatureEnableDependency dependency) features;
+          in
+          if (dependency.optional or false) && enabled then
+            [ (dependency.rename or dependency.name) ]
+          else
+            [ ]
+        ) dependencies;
       in
       sortedUnique (features ++ additionalFeatures);
 

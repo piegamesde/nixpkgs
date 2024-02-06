@@ -111,8 +111,9 @@ stdenv.mkDerivation rec {
     echo Install patched build compiler and host rtlib to local directory
     make install-compiler prefix=$PWD/patched-fbc
     make install-rtlib prefix=$PWD/patched-fbc ${
-      lib.optionalString (stdenv.buildPlatform != stdenv.hostPlatform)
-        "TARGET=${stdenv.hostPlatform.config}"
+      lib.optionalString (
+        stdenv.buildPlatform != stdenv.hostPlatform
+      ) "TARGET=${stdenv.hostPlatform.config}"
     }
     make clean
 

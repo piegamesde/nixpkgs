@@ -47,41 +47,38 @@ in
   ...
 }@args:
 let
-  args-to-remove =
-    foldl (flip remove)
-      (
-        [
-          "version"
-          "fetcher"
-          "repo"
-          "owner"
-          "domain"
-          "releaseRev"
-          "displayVersion"
-          "defaultVersion"
-          "useMelquiondRemake"
-          "release"
-          "buildInputs"
-          "nativeBuildInputs"
-          "extraBuildInputs"
-          "extraNativeBuildInputs"
-          "overrideBuildInputs"
-          "overrideNativeBuildInputs"
-          "namePrefix"
-          "meta"
-          "useDuneifVersion"
-          "useDune"
-          "opam-name"
-          "extraInstallFlags"
-          "setCOQBIN"
-          "mlPlugin"
-          "dropAttrs"
-          "dropDerivationAttrs"
-          "keepAttrs"
-        ]
-        ++ dropAttrs
-      )
-      keepAttrs;
+  args-to-remove = foldl (flip remove) (
+    [
+      "version"
+      "fetcher"
+      "repo"
+      "owner"
+      "domain"
+      "releaseRev"
+      "displayVersion"
+      "defaultVersion"
+      "useMelquiondRemake"
+      "release"
+      "buildInputs"
+      "nativeBuildInputs"
+      "extraBuildInputs"
+      "extraNativeBuildInputs"
+      "overrideBuildInputs"
+      "overrideNativeBuildInputs"
+      "namePrefix"
+      "meta"
+      "useDuneifVersion"
+      "useDune"
+      "opam-name"
+      "extraInstallFlags"
+      "setCOQBIN"
+      "mlPlugin"
+      "dropAttrs"
+      "dropDerivationAttrs"
+      "keepAttrs"
+    ]
+    ++ dropAttrs
+  ) keepAttrs;
   fetch = import ../coq/meta-fetch/default.nix { inherit lib stdenv fetchzip; } (
     {
       inherit release releaseRev;
@@ -99,34 +96,32 @@ let
     in
     n
     + optionalString (v != "" && v != null) (
-      switch d
-        [
-          {
-            case = true;
-            out = sep + v;
-          }
-          {
-            case = ".";
-            out = sep + versions.major v;
-          }
-          {
-            case = "..";
-            out = sep + versions.majorMinor v;
-          }
-          {
-            case = "...";
-            out = sep + versions.majorMinorPatch v;
-          }
-          {
-            case = isFunction;
-            out = optionalString (d v != "") (sep + d v);
-          }
-          {
-            case = isString;
-            out = optionalString (d != "") (sep + d);
-          }
-        ]
-        ""
+      switch d [
+        {
+          case = true;
+          out = sep + v;
+        }
+        {
+          case = ".";
+          out = sep + versions.major v;
+        }
+        {
+          case = "..";
+          out = sep + versions.majorMinor v;
+        }
+        {
+          case = "...";
+          out = sep + versions.majorMinorPatch v;
+        }
+        {
+          case = isFunction;
+          out = optionalString (d v != "") (sep + d v);
+        }
+        {
+          case = isString;
+          out = optionalString (d != "") (sep + d);
+        }
+      ] ""
     )
     + optionalString (v == null) "-broken";
   append-version = p: n: p + display-pkg n "" coqPackages.${n}.version + "-";
@@ -144,91 +139,83 @@ let
         "COQLIBINSTALL=$(out)/lib/coq/${coq.coq-version}/user-contrib"
         "COQPLUGININSTALL=$(OCAMLFIND_DESTDIR)"
       ];
-  docdir-flags =
-    switch coq.coq-version
-      [
-        {
-          case = v: versions.isLe "8.6" v && v != "dev";
-          out = [ "DOCDIR=$(out)/share/coq/${coq.coq-version}/" ];
-        }
-      ]
-      [ "COQDOCINSTALL=$(out)/share/coq/${coq.coq-version}/user-contrib" ];
+  docdir-flags = switch coq.coq-version [
+    {
+      case = v: versions.isLe "8.6" v && v != "dev";
+      out = [ "DOCDIR=$(out)/share/coq/${coq.coq-version}/" ];
+    }
+  ] [ "COQDOCINSTALL=$(out)/share/coq/${coq.coq-version}/user-contrib" ];
 in
 
 stdenv.mkDerivation (
-  removeAttrs
-    (
-      {
+  removeAttrs (
+    {
 
-        name = prefix-name + (display-pkg pname "-" fetched.version);
+      name = prefix-name + (display-pkg pname "-" fetched.version);
 
-        inherit (fetched) version src;
+      inherit (fetched) version src;
 
-        nativeBuildInputs =
-          args.overrideNativeBuildInputs or (
-            [ which ]
-            ++ optional useDune coq.ocamlPackages.dune_3
-            ++ optionals (useDune || mlPlugin) [
-              coq.ocamlPackages.ocaml
-              coq.ocamlPackages.findlib
-            ]
-            ++ (args.nativeBuildInputs or [ ])
-            ++ extraNativeBuildInputs
-          );
-        buildInputs =
-          args.overrideBuildInputs or ([ coq ] ++ (args.buildInputs or [ ]) ++ extraBuildInputs);
-        inherit enableParallelBuilding;
+      nativeBuildInputs =
+        args.overrideNativeBuildInputs or (
+          [ which ]
+          ++ optional useDune coq.ocamlPackages.dune_3
+          ++ optionals (useDune || mlPlugin) [
+            coq.ocamlPackages.ocaml
+            coq.ocamlPackages.findlib
+          ]
+          ++ (args.nativeBuildInputs or [ ])
+          ++ extraNativeBuildInputs
+        );
+      buildInputs =
+        args.overrideBuildInputs or ([ coq ] ++ (args.buildInputs or [ ]) ++ extraBuildInputs);
+      inherit enableParallelBuilding;
 
-        meta =
-          (
+      meta =
+        (
+          {
+            platforms = coq.meta.platforms;
+          }
+          // (switch domain [
             {
-              platforms = coq.meta.platforms;
+              case = pred.union isGitHubDomain isGitLabDomain;
+              out = {
+                homepage = "https://${domain}/${owner}/${repo}";
+              };
             }
-            // (switch domain
-              [
-                {
-                  case = pred.union isGitHubDomain isGitLabDomain;
-                  out = {
-                    homepage = "https://${domain}/${owner}/${repo}";
-                  };
-                }
-              ]
-              { }
-            )
-            // optionalAttrs (fetched.broken or false) {
-              coqFilter = true;
-              broken = true;
-            }
-          )
-          // (args.meta or { });
-      }
-      // (optionalAttrs setCOQBIN { COQBIN = "${coq}/bin/"; })
-      // (optionalAttrs (!args ? installPhase && !args ? useMelquiondRemake) {
-        installFlags = coqlib-flags ++ docdir-flags ++ extraInstallFlags;
-      })
-      // (optionalAttrs useDune {
-        buildPhase = ''
-          runHook preBuild
-          dune build -p ${opam-name} ''${enableParallelBuilding:+-j $NIX_BUILD_CORES}
-          runHook postBuild
-        '';
-        installPhase = ''
-          runHook preInstall
-          dune install ${opam-name} --prefix=$out
-          mv $out/lib/coq $out/lib/TEMPORARY
-          mkdir $out/lib/coq/
-          mv $out/lib/TEMPORARY $out/lib/coq/${coq.coq-version}
-          runHook postInstall
-        '';
-      })
-      // (optionalAttrs (args ? useMelquiondRemake) rec {
-        COQUSERCONTRIB = "$out/lib/coq/${coq.coq-version}/user-contrib";
-        preConfigurePhases = "autoconf";
-        configureFlags = [ "--libdir=${COQUSERCONTRIB}/${useMelquiondRemake.logpath or ""}" ];
-        buildPhase = "./remake -j$NIX_BUILD_CORES";
-        installPhase = "./remake install";
-      })
-      // (removeAttrs args args-to-remove)
-    )
-    dropDerivationAttrs
+          ] { })
+          // optionalAttrs (fetched.broken or false) {
+            coqFilter = true;
+            broken = true;
+          }
+        )
+        // (args.meta or { });
+    }
+    // (optionalAttrs setCOQBIN { COQBIN = "${coq}/bin/"; })
+    // (optionalAttrs (!args ? installPhase && !args ? useMelquiondRemake) {
+      installFlags = coqlib-flags ++ docdir-flags ++ extraInstallFlags;
+    })
+    // (optionalAttrs useDune {
+      buildPhase = ''
+        runHook preBuild
+        dune build -p ${opam-name} ''${enableParallelBuilding:+-j $NIX_BUILD_CORES}
+        runHook postBuild
+      '';
+      installPhase = ''
+        runHook preInstall
+        dune install ${opam-name} --prefix=$out
+        mv $out/lib/coq $out/lib/TEMPORARY
+        mkdir $out/lib/coq/
+        mv $out/lib/TEMPORARY $out/lib/coq/${coq.coq-version}
+        runHook postInstall
+      '';
+    })
+    // (optionalAttrs (args ? useMelquiondRemake) rec {
+      COQUSERCONTRIB = "$out/lib/coq/${coq.coq-version}/user-contrib";
+      preConfigurePhases = "autoconf";
+      configureFlags = [ "--libdir=${COQUSERCONTRIB}/${useMelquiondRemake.logpath or ""}" ];
+      buildPhase = "./remake -j$NIX_BUILD_CORES";
+      installPhase = "./remake install";
+    })
+    // (removeAttrs args args-to-remove)
+  ) dropDerivationAttrs
 )

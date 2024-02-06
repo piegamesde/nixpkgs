@@ -13,12 +13,10 @@ let
   opt = options.services.grafana;
   provisioningSettingsFormat = pkgs.formats.yaml { };
   declarativePlugins = pkgs.linkFarm "grafana-plugins" (
-    builtins.map
-      (pkg: {
-        name = pkg.pname;
-        path = pkg;
-      })
-      cfg.declarativePlugins
+    builtins.map (pkg: {
+      name = pkg.pname;
+      path = pkg;
+    }) cfg.declarativePlugins
   );
   useMysql = cfg.settings.database.type == "mysql";
   usePostgresql = cfg.settings.database.type == "postgres";
@@ -132,24 +130,21 @@ let
   # to `foo.bar.baz`.
   submodule' =
     module:
-    types.coercedTo
-      (mkOptionType {
-        name = "grafana-provision-submodule";
-        description = "Wrapper-type for backwards compat of Grafana's declarative provisioning";
-        check =
-          x:
-          if builtins.isList x then
-            throw ''
-              Provisioning dashboards and datasources declaratively by
-              setting `dashboards` or `datasources` to a list is not supported
-              anymore. Use `services.grafana.provision.datasources.settings.datasources`
-              (or `services.grafana.provision.dashboards.settings.providers`) instead.
-            ''
-          else
-            isAttrs x || isFunction x;
-      })
-      id
-      (types.submodule module);
+    types.coercedTo (mkOptionType {
+      name = "grafana-provision-submodule";
+      description = "Wrapper-type for backwards compat of Grafana's declarative provisioning";
+      check =
+        x:
+        if builtins.isList x then
+          throw ''
+            Provisioning dashboards and datasources declaratively by
+            setting `dashboards` or `datasources` to a list is not supported
+            anymore. Use `services.grafana.provision.datasources.settings.datasources`
+            (or `services.grafana.provision.dashboards.settings.providers`) instead.
+          ''
+        else
+          isAttrs x || isFunction x;
+    }) id (types.submodule module);
 
   # http://docs.grafana.org/administration/provisioning/#datasources
   grafanaTypes.datasourceConfig = types.submodule {
@@ -1008,16 +1003,13 @@ in
       ''
     )
 
-    (mkRemovedOptionModule
-      [
-        "services"
-        "grafana"
-        "auth"
-        "azuread"
-        "tenantId"
-      ]
-      "This option has been deprecated upstream."
-    )
+    (mkRemovedOptionModule [
+      "services"
+      "grafana"
+      "auth"
+      "azuread"
+      "tenantId"
+    ] "This option has been deprecated upstream.")
   ];
 
   options.services.grafana = {
@@ -1967,9 +1959,9 @@ in
       ++ (optional
         (
           let
-            datasourcesToCheck =
-              optionals (cfg.provision.datasources.settings != null)
-                cfg.provision.datasources.settings.datasources;
+            datasourcesToCheck = optionals (
+              cfg.provision.datasources.settings != null
+            ) cfg.provision.datasources.settings.datasources;
             declarationUnsafe =
               { secureJsonData, ... }:
               secureJsonData != null && any (flip doesntUseFileProvider null) (attrValues secureJsonData);

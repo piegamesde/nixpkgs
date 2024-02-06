@@ -18,15 +18,13 @@ let
   getRecursivePropagatedBuildInputs =
     pkgs:
     lib.flatten (
-      map
-        (
-          pkg:
-          let
-            cleanPropagatedBuildInputs = lib.filter lib.isDerivation pkg.propagatedBuildInputs;
-          in
-          cleanPropagatedBuildInputs ++ (getRecursivePropagatedBuildInputs cleanPropagatedBuildInputs)
-        )
-        pkgs
+      map (
+        pkg:
+        let
+          cleanPropagatedBuildInputs = lib.filter lib.isDerivation pkg.propagatedBuildInputs;
+        in
+        cleanPropagatedBuildInputs ++ (getRecursivePropagatedBuildInputs cleanPropagatedBuildInputs)
+      ) pkgs
     );
 
   deepPlugins = lib.unique (plugins ++ (getRecursivePropagatedBuildInputs plugins));

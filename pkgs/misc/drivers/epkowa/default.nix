@@ -451,12 +451,10 @@ stdenv.mkDerivation rec {
       registry=$out/bin/iscan-registry;
     ''
     + lib.concatStrings (
-      lib.mapAttrsToList
-        (name: value: ''
-          plugin=${value};
-          ${value.passthru.registrationCommand}
-        '')
-        plugins
+      lib.mapAttrsToList (name: value: ''
+        plugin=${value};
+        ${value.passthru.registrationCommand}
+      '') plugins
     );
   meta = common_meta // {
     description = "sane-epkowa backend for some epson scanners";

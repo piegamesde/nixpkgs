@@ -58,9 +58,9 @@ let
     configureFlags =
       [ "--disable-debug" ]
       ++ lib.optional (stdenv.isFreeBSD || stdenv.isDarwin) "--enable-rpath"
-      ++
-        lib.optional (stdenv.buildPlatform != stdenv.hostPlatform)
-          "--with-cross-build=${nativeBuildRoot}";
+      ++ lib.optional (
+        stdenv.buildPlatform != stdenv.hostPlatform
+      ) "--with-cross-build=${nativeBuildRoot}";
 
     enableParallelBuilding = true;
 

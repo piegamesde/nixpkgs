@@ -9,12 +9,10 @@
   config = lib.mkIf (config.boot.initrd.enable && config.boot.initrd.systemd.enable) {
     # Copy secrets into the initrd if they cannot be appended
     boot.initrd.systemd.contents = lib.mkIf (!config.boot.loader.supportsInitrdSecrets) (
-      lib.mapAttrs'
-        (
-          dest: source:
-          lib.nameValuePair "/.initrd-secrets/${dest}" { source = if source == null then dest else source; }
-        )
-        config.boot.initrd.secrets
+      lib.mapAttrs' (
+        dest: source:
+        lib.nameValuePair "/.initrd-secrets/${dest}" { source = if source == null then dest else source; }
+      ) config.boot.initrd.secrets
     );
 
     # Copy secrets to their respective locations

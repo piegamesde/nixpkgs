@@ -54,21 +54,19 @@ let
   includeDependencies =
     { dependencies }:
     lib.optionalString (dependencies != [ ]) (
-      lib.concatMapStrings
-        (dependency: ''
-          # Bundle the dependencies of the package
-          mkdir -p node_modules
-          cd node_modules
+      lib.concatMapStrings (dependency: ''
+        # Bundle the dependencies of the package
+        mkdir -p node_modules
+        cd node_modules
 
-          # Only include dependencies if they don't exist. They may also be bundled in the package.
-          if [ ! -e "${dependency.name}" ]
-          then
-              ${composePackage dependency}
-          fi
+        # Only include dependencies if they don't exist. They may also be bundled in the package.
+        if [ ! -e "${dependency.name}" ]
+        then
+            ${composePackage dependency}
+        fi
 
-          cd ..
-        '')
-        dependencies
+        cd ..
+      '') dependencies
     );
 
   # Recursively composes the dependencies of a package

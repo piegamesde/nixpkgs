@@ -28,14 +28,11 @@ in
       (
         config:
         let
-          value =
-            getAttrFromPath
-              [
-                "services"
-                "redshift"
-                "latitude"
-              ]
-              config;
+          value = getAttrFromPath [
+            "services"
+            "redshift"
+            "latitude"
+          ] config;
         in
         if value == null then
           throw "services.redshift.latitude is set to null, you can remove this"
@@ -56,14 +53,11 @@ in
       (
         config:
         let
-          value =
-            getAttrFromPath
-              [
-                "services"
-                "redshift"
-                "longitude"
-              ]
-              config;
+          value = getAttrFromPath [
+            "services"
+            "redshift"
+            "longitude"
+          ] config;
         in
         if value == null then
           throw "services.redshift.longitude is set to null, you can remove this"

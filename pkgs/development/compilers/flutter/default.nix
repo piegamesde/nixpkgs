@@ -59,12 +59,10 @@ let
                   includedEngineArtifacts = {
                     common = [ "flutter_patched_sdk_product" ];
                     platform.linux = lib.optionals stdenv.hostPlatform.isLinux (
-                      lib.genAttrs
-                        (
-                          (lib.optional stdenv.hostPlatform.isx86_64 "x64")
-                          ++ (lib.optional stdenv.hostPlatform.isAarch64 "arm64")
-                        )
-                        (architecture: [ "release" ])
+                      lib.genAttrs (
+                        (lib.optional stdenv.hostPlatform.isx86_64 "x64")
+                        ++ (lib.optional stdenv.hostPlatform.isAarch64 "arm64")
+                      ) (architecture: [ "release" ])
                     );
                   };
                 }

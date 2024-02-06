@@ -76,34 +76,25 @@ with lib;
       (
         config:
         let
-          value =
-            getAttrFromPath
-              [
-                "services"
-                "ddclient"
-                "domain"
-              ]
-              config;
+          value = getAttrFromPath [
+            "services"
+            "ddclient"
+            "domain"
+          ] config;
         in
         if value != "" then [ value ] else [ ]
       )
     )
-    (mkRemovedOptionModule
-      [
-        "services"
-        "ddclient"
-        "homeDir"
-      ]
-      ""
-    )
-    (mkRemovedOptionModule
-      [
-        "services"
-        "ddclient"
-        "password"
-      ]
-      "Use services.ddclient.passwordFile instead."
-    )
+    (mkRemovedOptionModule [
+      "services"
+      "ddclient"
+      "homeDir"
+    ] "")
+    (mkRemovedOptionModule [
+      "services"
+      "ddclient"
+      "password"
+    ] "Use services.ddclient.passwordFile instead.")
   ];
 
   ###### interface
@@ -139,9 +130,9 @@ with lib;
 
       username = mkOption {
         # For `nsupdate` username contains the path to the nsupdate executable
-        default =
-          lib.optionalString (config.services.ddclient.protocol == "nsupdate")
-            "${pkgs.bind.dnsutils}/bin/nsupdate";
+        default = lib.optionalString (
+          config.services.ddclient.protocol == "nsupdate"
+        ) "${pkgs.bind.dnsutils}/bin/nsupdate";
         defaultText = "";
         type = str;
         description = lib.mdDoc ''

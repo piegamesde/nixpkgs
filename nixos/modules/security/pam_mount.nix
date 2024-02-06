@@ -135,9 +135,9 @@ in
     environment.etc."security/pam_mount.conf.xml" = {
       source =
         let
-          extraUserVolumes =
-            filterAttrs (n: u: u.cryptHomeLuks != null || u.pamMount != { })
-              config.users.users;
+          extraUserVolumes = filterAttrs (
+            n: u: u.cryptHomeLuks != null || u.pamMount != { }
+          ) config.users.users;
           mkAttr = k: v: ''${k}="${v}"'';
           userVolumeEntry =
             user:

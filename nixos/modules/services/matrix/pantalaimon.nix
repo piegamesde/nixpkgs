@@ -20,18 +20,16 @@ let
       };
 
       ${name} = (
-        recursiveUpdate
-          {
-            Homeserver = instanceConfig.homeserver;
-            ListenAddress = instanceConfig.listenAddress;
-            ListenPort = instanceConfig.listenPort;
-            SSL = instanceConfig.ssl;
+        recursiveUpdate {
+          Homeserver = instanceConfig.homeserver;
+          ListenAddress = instanceConfig.listenAddress;
+          ListenPort = instanceConfig.listenPort;
+          SSL = instanceConfig.ssl;
 
-            # Set some settings to prevent user interaction for headless operation
-            IgnoreVerification = true;
-            UseKeyring = false;
-          }
-          instanceConfig.extraSettings
+          # Set some settings to prevent user interaction for headless operation
+          IgnoreVerification = true;
+          UseKeyring = false;
+        } instanceConfig.extraSettings
       );
     };
 

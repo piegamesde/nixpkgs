@@ -105,19 +105,15 @@ in
 
   config = {
     _module.args.nodes = config.nodesCompat;
-    nodesCompat =
-      mapAttrs
-        (
-          name: config:
-          config
-          // {
-            config =
-              lib.warnIf (lib.isInOldestRelease 2211)
-                "Module argument `nodes.${name}.config` is deprecated. Use `nodes.${name}` instead."
-                config;
-          }
-        )
-        config.nodes;
+    nodesCompat = mapAttrs (
+      name: config:
+      config
+      // {
+        config = lib.warnIf (lib.isInOldestRelease
+          2211
+        ) "Module argument `nodes.${name}.config` is deprecated. Use `nodes.${name}` instead." config;
+      }
+    ) config.nodes;
 
     passthru.nodes = config.nodesCompat;
   };

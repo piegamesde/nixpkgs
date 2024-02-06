@@ -36,69 +36,65 @@ let
     );
 
   vrrpScriptStr = concatStringsSep "\n" (
-    map
-      (s: ''
-        vrrp_script ${s.name} {
-          script "${s.script}"
-          interval ${toString s.interval}
-          fall ${toString s.fall}
-          rise ${toString s.rise}
-          timeout ${toString s.timeout}
-          weight ${toString s.weight}
-          user ${s.user} ${optionalString (s.group != null) s.group}
+    map (s: ''
+      vrrp_script ${s.name} {
+        script "${s.script}"
+        interval ${toString s.interval}
+        fall ${toString s.fall}
+        rise ${toString s.rise}
+        timeout ${toString s.timeout}
+        weight ${toString s.weight}
+        user ${s.user} ${optionalString (s.group != null) s.group}
 
-          ${s.extraConfig}
-        }
-      '')
-      vrrpScripts
+        ${s.extraConfig}
+      }
+    '') vrrpScripts
   );
 
   vrrpInstancesStr = concatStringsSep "\n" (
-    map
-      (i: ''
-        vrrp_instance ${i.name} {
-          interface ${i.interface}
-          state ${i.state}
-          virtual_router_id ${toString i.virtualRouterId}
-          priority ${toString i.priority}
-          ${optionalString i.noPreempt "nopreempt"}
+    map (i: ''
+      vrrp_instance ${i.name} {
+        interface ${i.interface}
+        state ${i.state}
+        virtual_router_id ${toString i.virtualRouterId}
+        priority ${toString i.priority}
+        ${optionalString i.noPreempt "nopreempt"}
 
-          ${
-            optionalString i.useVmac (
-              "use_vmac" + optionalString (i.vmacInterface != null) " ${i.vmacInterface}"
-            )
-          }
-          ${optionalString i.vmacXmitBase "vmac_xmit_base"}
-
-          ${optionalString (i.unicastSrcIp != null) "unicast_src_ip ${i.unicastSrcIp}"}
-          unicast_peer {
-            ${concatStringsSep "\n" i.unicastPeers}
-          }
-
-          virtual_ipaddress {
-            ${concatMapStringsSep "\n" virtualIpLine i.virtualIps}
-          }
-
-          ${
-            optionalString (builtins.length i.trackScripts > 0) ''
-              track_script {
-                ${concatStringsSep "\n" i.trackScripts}
-              }
-            ''
-          }
-
-          ${
-            optionalString (builtins.length i.trackInterfaces > 0) ''
-              track_interface {
-                ${concatStringsSep "\n" i.trackInterfaces}
-              }
-            ''
-          }
-
-          ${i.extraConfig}
+        ${
+          optionalString i.useVmac (
+            "use_vmac" + optionalString (i.vmacInterface != null) " ${i.vmacInterface}"
+          )
         }
-      '')
-      vrrpInstances
+        ${optionalString i.vmacXmitBase "vmac_xmit_base"}
+
+        ${optionalString (i.unicastSrcIp != null) "unicast_src_ip ${i.unicastSrcIp}"}
+        unicast_peer {
+          ${concatStringsSep "\n" i.unicastPeers}
+        }
+
+        virtual_ipaddress {
+          ${concatMapStringsSep "\n" virtualIpLine i.virtualIps}
+        }
+
+        ${
+          optionalString (builtins.length i.trackScripts > 0) ''
+            track_script {
+              ${concatStringsSep "\n" i.trackScripts}
+            }
+          ''
+        }
+
+        ${
+          optionalString (builtins.length i.trackInterfaces > 0) ''
+            track_interface {
+              ${concatStringsSep "\n" i.trackInterfaces}
+            }
+          ''
+        }
+
+        ${i.extraConfig}
+      }
+    '') vrrpInstances
   );
 
   virtualIpLine =

@@ -18,59 +18,52 @@ let
   # One range of handles for each meta/data instance
   handleStep = maxHandle / (length aliases) / 2;
 
-  fileSystems =
-    mapAttrsToList
-      (name: fs: ''
-        <FileSystem>
-          Name ${name}
-          ID ${toString fs.id}
-          RootHandle ${toString fs.rootHandle}
+  fileSystems = mapAttrsToList (name: fs: ''
+    <FileSystem>
+      Name ${name}
+      ID ${toString fs.id}
+      RootHandle ${toString fs.rootHandle}
 
-          ${fs.extraConfig}
+      ${fs.extraConfig}
 
-          <MetaHandleRanges>
-          ${
-            concatStringsSep "\n" (
-              imap0
-                (
-                  i: alias:
-                  let
-                    begin = i * handleStep + 3;
-                    end = begin + handleStep - 1;
-                  in
-                  "Range ${alias} ${toString begin}-${toString end}"
-                )
-                aliases
-            )
-          }
-          </MetaHandleRanges>
+      <MetaHandleRanges>
+      ${
+        concatStringsSep "\n" (
+          imap0 (
+            i: alias:
+            let
+              begin = i * handleStep + 3;
+              end = begin + handleStep - 1;
+            in
+            "Range ${alias} ${toString begin}-${toString end}"
+          ) aliases
+        )
+      }
+      </MetaHandleRanges>
 
-          <DataHandleRanges>
-          ${
-            concatStringsSep "\n" (
-              imap0
-                (
-                  i: alias:
-                  let
-                    begin = i * handleStep + 3 + (length aliases) * handleStep;
-                    end = begin + handleStep - 1;
-                  in
-                  "Range ${alias} ${toString begin}-${toString end}"
-                )
-                aliases
-            )
-          }
-          </DataHandleRanges>
+      <DataHandleRanges>
+      ${
+        concatStringsSep "\n" (
+          imap0 (
+            i: alias:
+            let
+              begin = i * handleStep + 3 + (length aliases) * handleStep;
+              end = begin + handleStep - 1;
+            in
+            "Range ${alias} ${toString begin}-${toString end}"
+          ) aliases
+        )
+      }
+      </DataHandleRanges>
 
-          <StorageHints>
-          TroveSyncMeta ${if fs.troveSyncMeta then "yes" else "no"}
-          TroveSyncData ${if fs.troveSyncData then "yes" else "no"}
-          ${fs.extraStorageHints}
-          </StorageHints>
+      <StorageHints>
+      TroveSyncMeta ${if fs.troveSyncMeta then "yes" else "no"}
+      TroveSyncData ${if fs.troveSyncData then "yes" else "no"}
+      ${fs.extraStorageHints}
+      </StorageHints>
 
-        </FileSystem>
-      '')
-      cfg.fileSystems;
+    </FileSystem>
+  '') cfg.fileSystems;
 
   configFile = ''
     <Defaults>

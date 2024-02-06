@@ -59,16 +59,14 @@ lib.composeManyExtensions [
   # NixOps
   (
     self: super:
-    lib.mapAttrs
-      (
-        _: v:
-        addBuildSystem {
-          inherit self;
-          drv = v;
-          attr = "poetry";
-        }
-      )
-      (lib.filterAttrs (n: _: lib.strings.hasPrefix "nixops" n) super)
+    lib.mapAttrs (
+      _: v:
+      addBuildSystem {
+        inherit self;
+        drv = v;
+        attr = "poetry";
+      }
+    ) (lib.filterAttrs (n: _: lib.strings.hasPrefix "nixops" n) super)
     // {
       # NixOps >=2 dependency
       nixos-modules-contrib = addBuildSystem {
@@ -85,12 +83,10 @@ lib.composeManyExtensions [
     let
       buildSystems = lib.importJSON ./build-systems.json;
     in
-    lib.mapAttrs
-      (
-        attr: systems:
-        builtins.foldl' (drv: attr: addBuildSystem { inherit drv self attr; }) super.${attr} systems
-      )
-      buildSystems
+    lib.mapAttrs (
+      attr: systems:
+      builtins.foldl' (drv: attr: addBuildSystem { inherit drv self attr; }) super.${attr} systems
+    ) buildSystems
   )
 
   # Build fixes
@@ -2036,14 +2032,12 @@ lib.composeManyExtensions [
               -e "/'\/lib\/i386-linux-gnu', '\/lib\/x86_64-linux-gnu']/d" \
               -e "/\/include\/smpeg/d" \
               -i buildconfig/config_unix.py
-            ${lib.concatMapStrings
-              (dep: ''
-                sed \
-                  -e "/origincdirs =/a\        origincdirs += ['${lib.getDev dep}/include']" \
-                  -e "/origlibdirs =/a\        origlibdirs += ['${lib.getLib dep}/lib']" \
-                  -i buildconfig/config_unix.py
-              '')
-              buildInputs}
+            ${lib.concatMapStrings (dep: ''
+              sed \
+                -e "/origincdirs =/a\        origincdirs += ['${lib.getDev dep}/include']" \
+                -e "/origlibdirs =/a\        origlibdirs += ['${lib.getLib dep}/lib']" \
+                -i buildconfig/config_unix.py
+            '') buildInputs}
             LOCALBASE=/ ${self.python.interpreter} buildconfig/config.py
           '';
         }
@@ -2552,9 +2546,9 @@ lib.composeManyExtensions [
 
           GEOS_LIBRARY_PATH = "${pkgs.geos}/lib/libgeos_c${stdenv.hostPlatform.extensions.sharedLibrary}";
 
-          GEOS_LIBC =
-            lib.optionalString (!stdenv.isDarwin)
-              "${lib.getLib stdenv.cc.libc}/lib/libc${stdenv.hostPlatform.extensions.sharedLibrary}.6";
+          GEOS_LIBC = lib.optionalString (
+            !stdenv.isDarwin
+          ) "${lib.getLib stdenv.cc.libc}/lib/libc${stdenv.hostPlatform.extensions.sharedLibrary}.6";
 
           # Fix library paths
           postPatch = lib.optionalString (!(old.src.isWheel or false)) (
@@ -2679,81 +2673,75 @@ lib.composeManyExtensions [
       # the complexity manageable for now.
       tokenizers = super.tokenizers.override { preferWheel = true; };
 
-      torch =
-        lib.makeOverridable
-          (
-            {
-              enableCuda ? false,
-              cudatoolkit ? pkgs.cudatoolkit_10_1,
-              pkg ? super.torch,
-            }:
-            pkg.overrideAttrs (
-              old: {
-                preConfigure =
-                  if (!enableCuda) then
-                    ''
-                      export USE_CUDA=0
-                    ''
-                  else
-                    ''
-                      export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:${cudatoolkit}/targets/x86_64-linux/lib"
-                    '';
-                preFixup = lib.optionalString (!enableCuda) ''
-                  # For some reason pytorch retains a reference to libcuda even if it
-                  # is explicitly disabled with USE_CUDA=0.
-                  find $out -name "*.so" -exec ${pkgs.patchelf}/bin/patchelf --remove-needed libcuda.so.1 {} \;
+      torch = lib.makeOverridable (
+        {
+          enableCuda ? false,
+          cudatoolkit ? pkgs.cudatoolkit_10_1,
+          pkg ? super.torch,
+        }:
+        pkg.overrideAttrs (
+          old: {
+            preConfigure =
+              if (!enableCuda) then
+                ''
+                  export USE_CUDA=0
+                ''
+              else
+                ''
+                  export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:${cudatoolkit}/targets/x86_64-linux/lib"
                 '';
-                buildInputs =
-                  (old.buildInputs or [ ])
-                  ++ [ self.typing-extensions ]
-                  ++ lib.optionals enableCuda [
-                    pkgs.linuxPackages.nvidia_x11
-                    pkgs.nccl.dev
-                    pkgs.nccl.out
-                  ];
-                propagatedBuildInputs = [
-                  self.numpy
-                  self.future
-                  self.typing-extensions
-                ];
-              }
-            )
-          )
-          { };
+            preFixup = lib.optionalString (!enableCuda) ''
+              # For some reason pytorch retains a reference to libcuda even if it
+              # is explicitly disabled with USE_CUDA=0.
+              find $out -name "*.so" -exec ${pkgs.patchelf}/bin/patchelf --remove-needed libcuda.so.1 {} \;
+            '';
+            buildInputs =
+              (old.buildInputs or [ ])
+              ++ [ self.typing-extensions ]
+              ++ lib.optionals enableCuda [
+                pkgs.linuxPackages.nvidia_x11
+                pkgs.nccl.dev
+                pkgs.nccl.out
+              ];
+            propagatedBuildInputs = [
+              self.numpy
+              self.future
+              self.typing-extensions
+            ];
+          }
+        )
+      ) { };
 
-      torchvision =
-        lib.makeOverridable
-          (
-            {
-              enableCuda ? false,
-              cudatoolkit ? pkgs.cudatoolkit_10_1,
-              pkg ? super.torchvision,
-            }:
-            pkg.overrideAttrs (
-              old: {
+      torchvision = lib.makeOverridable (
+        {
+          enableCuda ? false,
+          cudatoolkit ? pkgs.cudatoolkit_10_1,
+          pkg ? super.torchvision,
+        }:
+        pkg.overrideAttrs (
+          old: {
 
-                # without that autoPatchelfHook will fail because cudatoolkit is not in LD_LIBRARY_PATH
-                autoPatchelfIgnoreMissingDeps = true;
-                buildInputs =
-                  (old.buildInputs or [ ]) ++ [ self.torch ] ++ lib.optionals enableCuda [ cudatoolkit ];
-                preConfigure =
-                  if (enableCuda) then
-                    ''
-                      export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:${self.torch}/${self.python.sitePackages}/torch/lib:${
-                        lib.makeLibraryPath [
-                          cudatoolkit
-                          "${cudatoolkit}"
-                        ]
-                      }"
-                    ''
-                  else
-                    ''
-                      export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:${self.torch}/${self.python.sitePackages}/torch/lib"
-                    '';
-              }
-            )
-          )
-          { };
+            # without that autoPatchelfHook will fail because cudatoolkit is not in LD_LIBRARY_PATH
+            autoPatchelfIgnoreMissingDeps = true;
+            buildInputs =
+              (old.buildInputs or [ ]) ++ [ self.torch ] ++ lib.optionals enableCuda [ cudatoolkit ];
+            preConfigure =
+              if (enableCuda) then
+                ''
+                  export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:${self.torch}/${self.python.sitePackages}/torch/lib:${
+                    lib.makeLibraryPath [
+                      cudatoolkit
+                      "${cudatoolkit}"
+                    ]
+                  }"
+                ''
+              else
+                ''
+                  export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:${self.torch}/${self.python.sitePackages}/torch/lib"
+                '';
+          }
+        )
+      ) { };
 
       typed_ast = super.typed-ast.overridePythonAttrs (
         old: { nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ self.pytest-runner ]; }
@@ -3097,9 +3085,9 @@ lib.composeManyExtensions [
         {
           buildInputs = (old.buildInputs or [ ]) ++ [ pkgs.ncurses ];
         }
-        //
-          lib.optionalAttrs (lib.versionAtLeast old.version "2.0.19" && lib.versionOlder old.version "2.0.20")
-            { sourceRoot = "."; }
+        // lib.optionalAttrs (
+          lib.versionAtLeast old.version "2.0.19" && lib.versionOlder old.version "2.0.20"
+        ) { sourceRoot = "."; }
       );
 
       wcwidth = super.wcwidth.overridePythonAttrs (

@@ -21,9 +21,9 @@ let
     else
       (pkgs.buildEnv {
         name = "kubernetes-cni-config";
-        paths =
-          imap (i: entry: pkgs.writeTextDir "${toString (10 + i)}-${entry.type}.conf" (builtins.toJSON entry))
-            cfg.cni.config;
+        paths = imap (
+          i: entry: pkgs.writeTextDir "${toString (10 + i)}-${entry.type}.conf" (builtins.toJSON entry)
+        ) cfg.cni.config;
       });
 
   infraContainer = pkgs.dockerTools.buildImage {
@@ -74,51 +74,36 @@ let
 in
 {
   imports = [
-    (mkRemovedOptionModule
-      [
-        "services"
-        "kubernetes"
-        "kubelet"
-        "applyManifests"
-      ]
-      ""
-    )
-    (mkRemovedOptionModule
-      [
-        "services"
-        "kubernetes"
-        "kubelet"
-        "cadvisorPort"
-      ]
-      ""
-    )
-    (mkRemovedOptionModule
-      [
-        "services"
-        "kubernetes"
-        "kubelet"
-        "allowPrivileged"
-      ]
-      ""
-    )
-    (mkRemovedOptionModule
-      [
-        "services"
-        "kubernetes"
-        "kubelet"
-        "networkPlugin"
-      ]
-      ""
-    )
-    (mkRemovedOptionModule
-      [
-        "services"
-        "kubernetes"
-        "kubelet"
-        "containerRuntime"
-      ]
-      ""
-    )
+    (mkRemovedOptionModule [
+      "services"
+      "kubernetes"
+      "kubelet"
+      "applyManifests"
+    ] "")
+    (mkRemovedOptionModule [
+      "services"
+      "kubernetes"
+      "kubelet"
+      "cadvisorPort"
+    ] "")
+    (mkRemovedOptionModule [
+      "services"
+      "kubernetes"
+      "kubelet"
+      "allowPrivileged"
+    ] "")
+    (mkRemovedOptionModule [
+      "services"
+      "kubernetes"
+      "kubelet"
+      "networkPlugin"
+    ] "")
+    (mkRemovedOptionModule [
+      "services"
+      "kubernetes"
+      "kubelet"
+      "containerRuntime"
+    ] "")
   ];
 
   ###### interface
@@ -334,23 +319,19 @@ in
           ++ lib.optional config.boot.zfs.enabled config.boot.zfs.package
           ++ top.path;
         preStart = ''
-          ${concatMapStrings
-            (img: ''
-              echo "Seeding container image: ${img}"
-              ${if (lib.hasSuffix "gz" img) then
-                ''${pkgs.gzip}/bin/zcat "${img}" | ${pkgs.containerd}/bin/ctr -n k8s.io image import --all-platforms -''
-              else
-                ''${pkgs.coreutils}/bin/cat "${img}" | ${pkgs.containerd}/bin/ctr -n k8s.io image import --all-platforms -''}
-            '')
-            cfg.seedDockerImages}
+          ${concatMapStrings (img: ''
+            echo "Seeding container image: ${img}"
+            ${if (lib.hasSuffix "gz" img) then
+              ''${pkgs.gzip}/bin/zcat "${img}" | ${pkgs.containerd}/bin/ctr -n k8s.io image import --all-platforms -''
+            else
+              ''${pkgs.coreutils}/bin/cat "${img}" | ${pkgs.containerd}/bin/ctr -n k8s.io image import --all-platforms -''}
+          '') cfg.seedDockerImages}
 
           rm /opt/cni/bin/* || true
-          ${concatMapStrings
-            (package: ''
-              echo "Linking cni package: ${package}"
-              ln -fs ${package}/bin/* /opt/cni/bin
-            '')
-            cfg.cni.packages}
+          ${concatMapStrings (package: ''
+            echo "Linking cni package: ${package}"
+            ln -fs ${package}/bin/* /opt/cni/bin
+          '') cfg.cni.packages}
         '';
         serviceConfig = {
           Slice = "kubernetes.slice";
@@ -430,16 +411,13 @@ in
     })
 
     (mkIf (cfg.enable && cfg.manifests != { }) {
-      environment.etc =
-        mapAttrs'
-          (
-            name: manifest:
-            nameValuePair "${manifestPath}/${name}.json" {
-              text = builtins.toJSON manifest;
-              mode = "0755";
-            }
-          )
-          cfg.manifests;
+      environment.etc = mapAttrs' (
+        name: manifest:
+        nameValuePair "${manifestPath}/${name}.json" {
+          text = builtins.toJSON manifest;
+          mode = "0755";
+        }
+      ) cfg.manifests;
     })
 
     (mkIf (cfg.unschedulable && cfg.enable) {

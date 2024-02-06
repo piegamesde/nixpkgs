@@ -15,13 +15,11 @@ let
 
   filterSrc =
     src:
-    builtins.filterSource
-      (
-        path: type:
-        type != "directory"
-        || (baseNameOf path != ".git" && baseNameOf path != ".git" && baseNameOf path != ".svn")
-      )
-      src;
+    builtins.filterSource (
+      path: type:
+      type != "directory"
+      || (baseNameOf path != ".git" && baseNameOf path != ".git" && baseNameOf path != ".svn")
+    ) src;
 
   buildZipPackage =
     { name, src }:
@@ -135,34 +133,32 @@ let
 
       bundleDependencies =
         dependencies:
-        lib.concatMapStrings
-          (
-            dependencyName:
-            let
-              dependency = dependencies.${dependencyName};
-            in
-            ''
-              ${if dependency.targetDir == "" then
-                ''
-                  vendorDir="$(dirname ${dependencyName})"
-                  mkdir -p "$vendorDir"
-                  ${if symlinkDependencies then
-                    ''ln -s "${dependency.src}" "$vendorDir/$(basename "${dependencyName}")"''
-                  else
-                    ''cp -av "${dependency.src}" "$vendorDir/$(basename "${dependencyName}")"''}
-                ''
-              else
-                ''
-                  namespaceDir="${dependencyName}/$(dirname "${dependency.targetDir}")"
-                  mkdir -p "$namespaceDir"
-                  ${if symlinkDependencies then
-                    ''ln -s "${dependency.src}" "$namespaceDir/$(basename "${dependency.targetDir}")"''
-                  else
-                    ''cp -av "${dependency.src}" "$namespaceDir/$(basename "${dependency.targetDir}")"''}
-                ''}
-            ''
-          )
-          (builtins.attrNames dependencies);
+        lib.concatMapStrings (
+          dependencyName:
+          let
+            dependency = dependencies.${dependencyName};
+          in
+          ''
+            ${if dependency.targetDir == "" then
+              ''
+                vendorDir="$(dirname ${dependencyName})"
+                mkdir -p "$vendorDir"
+                ${if symlinkDependencies then
+                  ''ln -s "${dependency.src}" "$vendorDir/$(basename "${dependencyName}")"''
+                else
+                  ''cp -av "${dependency.src}" "$vendorDir/$(basename "${dependencyName}")"''}
+              ''
+            else
+              ''
+                namespaceDir="${dependencyName}/$(dirname "${dependency.targetDir}")"
+                mkdir -p "$namespaceDir"
+                ${if symlinkDependencies then
+                  ''ln -s "${dependency.src}" "$namespaceDir/$(basename "${dependency.targetDir}")"''
+                else
+                  ''cp -av "${dependency.src}" "$namespaceDir/$(basename "${dependency.targetDir}")"''}
+              ''}
+          ''
+        ) (builtins.attrNames dependencies);
 
       extraArgs = removeAttrs args [
         "packages"

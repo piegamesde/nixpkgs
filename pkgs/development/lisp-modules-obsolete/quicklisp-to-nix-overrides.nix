@@ -34,13 +34,10 @@ in
   };
   iterate = multiOverride [
     skipBuildPhase
-    (ifLispNotIn
-      [
-        "sbcl"
-        "gcl"
-      ]
-      (x: { parasites = [ ]; })
-    )
+    (ifLispNotIn [
+      "sbcl"
+      "gcl"
+    ] (x: { parasites = [ ]; }))
   ];
   cl-fuse = x: {
     propagatedBuildInputs = [ pkgs.fuse ];
@@ -335,19 +332,16 @@ in
   };
   dbi = x: {
     parasites = [ ];
-    deps =
-      pkgs.lib.filter
-        (
-          x:
-          (
-            x.name != quicklisp-to-nix-packages.dbd-mysql.name
-            && x.name != quicklisp-to-nix-packages.dbd-postgres.name
-            && x.name != quicklisp-to-nix-packages.dbd-sqlite3.name
-            && x.name != quicklisp-to-nix-packages.dbi-test.name
-            && true
-          )
-        )
-        x.deps;
+    deps = pkgs.lib.filter (
+      x:
+      (
+        x.name != quicklisp-to-nix-packages.dbd-mysql.name
+        && x.name != quicklisp-to-nix-packages.dbd-postgres.name
+        && x.name != quicklisp-to-nix-packages.dbd-sqlite3.name
+        && x.name != quicklisp-to-nix-packages.dbi-test.name
+        && true
+      )
+    ) x.deps;
   };
   cl-cffi-gtk-glib = addNativeLibs [ pkgs.glib ];
   cl-cffi-gtk-gdk-pixbuf = addNativeLibs [ pkgs.gdk-pixbuf ];
@@ -369,13 +363,10 @@ in
         '';
       };
   };
-  woo =
-    ifLispNotIn
-      [
-        "sbcl"
-        "gcl"
-      ]
-      (extraLispDeps (with quicklisp-to-nix-packages; [ cl-speedy-queue ]));
+  woo = ifLispNotIn [
+    "sbcl"
+    "gcl"
+  ] (extraLispDeps (with quicklisp-to-nix-packages; [ cl-speedy-queue ]));
   cl-syslog = x: {
     overrides =
       y:
@@ -386,21 +377,15 @@ in
         '';
       };
   };
-  log4cl =
-    ifLispNotIn
-      [
-        "sbcl"
-        "gcl"
-      ]
-      (extraLispDeps (with quicklisp-to-nix-packages; [ cl-syslog ]));
-  md5 =
-    ifLispNotIn
-      [
-        "sbcl"
-        "ccl"
-        "gcl"
-      ]
-      (extraLispDeps (with quicklisp-to-nix-packages; [ flexi-streams ]));
+  log4cl = ifLispNotIn [
+    "sbcl"
+    "gcl"
+  ] (extraLispDeps (with quicklisp-to-nix-packages; [ cl-syslog ]));
+  md5 = ifLispNotIn [
+    "sbcl"
+    "ccl"
+    "gcl"
+  ] (extraLispDeps (with quicklisp-to-nix-packages; [ flexi-streams ]));
   cl-gobject-introspection = addNativeLibs (
     with pkgs;
     [

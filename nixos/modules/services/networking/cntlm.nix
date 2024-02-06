@@ -26,11 +26,9 @@ let
         ${concatMapStrings (entry: "Proxy ${entry}\n") cfg.proxy}
         ${optionalString (cfg.noproxy != [ ]) "NoProxy ${concatStringsSep ", " cfg.noproxy}"}
 
-        ${concatMapStrings
-          (port: ''
-            Listen ${toString port}
-          '')
-          cfg.port}
+        ${concatMapStrings (port: ''
+          Listen ${toString port}
+        '') cfg.port}
 
         ${cfg.extraConfig}
       '';

@@ -138,13 +138,10 @@ stdenv.mkDerivation {
     (if pkg-config_ ? meta then removeAttrs pkg-config.meta [ "priority" ] else { })
     // {
       description =
-        lib.attrByPath
-          [
-            "meta"
-            "description"
-          ]
-          "pkg-config"
-          pkg-config_
+        lib.attrByPath [
+          "meta"
+          "description"
+        ] "pkg-config" pkg-config_
         + " (wrapper script)";
       priority = 10;
     };

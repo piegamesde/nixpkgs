@@ -94,41 +94,39 @@ let
 
     ${cfg.extraConfig}
 
-    ${concatMapStrings
-      (
-        {
-          name,
-          file,
-          master ? true,
-          slaves ? [ ],
-          masters ? [ ],
-          allowQuery ? [ ],
-          extraConfig ? "",
-        }:
-        ''
-          zone "${name}" {
-            type ${if master then "master" else "slave"};
-            file "${file}";
-            ${
-              if master then
-                ''
-                  allow-transfer {
-                    ${concatMapStrings (ip: "${ip};\n") slaves}
-                  };
-                ''
-              else
-                ''
-                  masters {
-                    ${concatMapStrings (ip: "${ip};\n") masters}
-                  };
-                ''
-            }
-            allow-query { ${concatMapStrings (ip: "${ip}; ") allowQuery}};
-            ${extraConfig}
-          };
-        ''
-      )
-      (attrValues cfg.zones)}
+    ${concatMapStrings (
+      {
+        name,
+        file,
+        master ? true,
+        slaves ? [ ],
+        masters ? [ ],
+        allowQuery ? [ ],
+        extraConfig ? "",
+      }:
+      ''
+        zone "${name}" {
+          type ${if master then "master" else "slave"};
+          file "${file}";
+          ${
+            if master then
+              ''
+                allow-transfer {
+                  ${concatMapStrings (ip: "${ip};\n") slaves}
+                };
+              ''
+            else
+              ''
+                masters {
+                  ${concatMapStrings (ip: "${ip};\n") masters}
+                };
+              ''
+          }
+          allow-query { ${concatMapStrings (ip: "${ip}; ") allowQuery}};
+          ${extraConfig}
+        };
+      ''
+    ) (attrValues cfg.zones)}
   '';
 in
 

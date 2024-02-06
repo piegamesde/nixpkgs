@@ -69,17 +69,15 @@ lib.makeScope pkgs.newScope (
       origArgs:
       let
         args = lib.fix (
-          lib.extends
-            (_: previousAttrs: {
-              pname = "php-${previousAttrs.pname}";
-              passthru = (previousAttrs.passthru or { }) // {
-                updateScript = nix-update-script { };
-              };
-              meta = (previousAttrs.meta or { }) // {
-                mainProgram = previousAttrs.meta.mainProgram or previousAttrs.pname;
-              };
-            })
-            (if lib.isFunction origArgs then origArgs else (_: origArgs))
+          lib.extends (_: previousAttrs: {
+            pname = "php-${previousAttrs.pname}";
+            passthru = (previousAttrs.passthru or { }) // {
+              updateScript = nix-update-script { };
+            };
+            meta = (previousAttrs.meta or { }) // {
+              mainProgram = previousAttrs.meta.mainProgram or previousAttrs.pname;
+            };
+          }) (if lib.isFunction origArgs then origArgs else (_: origArgs))
         );
       in
       pkgs.stdenv.mkDerivation args;
@@ -155,9 +153,9 @@ lib.makeScope pkgs.newScope (
             phpize
             ${postPhpize}
 
-            ${lib.concatMapStringsSep "\n"
-              (dep: "mkdir -p ext; ln -s ${dep.dev}/include ext/${dep.extensionName}")
-              internalDeps}
+            ${lib.concatMapStringsSep "\n" (
+              dep: "mkdir -p ext; ln -s ${dep.dev}/include ext/${dep.extensionName}"
+            ) internalDeps}
           '';
 
           checkPhase = ''
@@ -693,13 +691,10 @@ lib.makeScope pkgs.newScope (
           # which we later use listToAttrs to make all attrs available by name.
           #
           # Also filter out extensions based on the enable property.
-          namedExtensions =
-            builtins.map
-              (drv: {
-                name = drv.name;
-                value = mkExtension drv;
-              })
-              (builtins.filter (i: i.enable or true) extensionData);
+          namedExtensions = builtins.map (drv: {
+            name = drv.name;
+            value = mkExtension drv;
+          }) (builtins.filter (i: i.enable or true) extensionData);
         in
         # Produce the final attribute set of all extensions defined.
         builtins.listToAttrs namedExtensions

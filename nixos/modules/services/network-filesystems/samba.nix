@@ -70,14 +70,11 @@ in
 
 {
   imports = [
-    (mkRemovedOptionModule
-      [
-        "services"
-        "samba"
-        "defaultShare"
-      ]
-      ""
-    )
+    (mkRemovedOptionModule [
+      "services"
+      "samba"
+      "defaultShare"
+    ] "")
     (mkRemovedOptionModule
       [
         "services"

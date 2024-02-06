@@ -41,14 +41,12 @@
       buildPhase =
         let
           createTags = lib.concatStringsSep "\n" (
-            map
-              (a: ''
-                TAG_FILE="$SRC_DEST/${a.name}$tagSuffix"
-                echo running tag cmd "${a.tagCmd}" in `pwd`
-                ${a.tagCmd}
-                TAG_FILES="$TAG_FILES''${TAG_FILES:+:}$TAG_FILE"
-              '')
-              createTagFiles
+            map (a: ''
+              TAG_FILE="$SRC_DEST/${a.name}$tagSuffix"
+              echo running tag cmd "${a.tagCmd}" in `pwd`
+              ${a.tagCmd}
+              TAG_FILES="$TAG_FILES''${TAG_FILES:+:}$TAG_FILE"
+            '') createTagFiles
           );
         in
         ''

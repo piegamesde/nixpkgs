@@ -131,14 +131,12 @@ let
   # }
   overrideNativeBuildInputs =
     overrides: old:
-    lib.mapAttrs
-      (
-        name: value:
-        (builtins.getAttr name old).overrideAttrs (
-          attrs: { nativeBuildInputs = attrs.nativeBuildInputs ++ value; }
-        )
+    lib.mapAttrs (
+      name: value:
+      (builtins.getAttr name old).overrideAttrs (
+        attrs: { nativeBuildInputs = attrs.nativeBuildInputs ++ value; }
       )
-      overrides;
+    ) overrides;
 
   # Overrides package definitions with buildInputs.
   # For example,
@@ -156,12 +154,10 @@ let
   # }
   overrideBuildInputs =
     overrides: old:
-    lib.mapAttrs
-      (
-        name: value:
-        (builtins.getAttr name old).overrideAttrs (attrs: { buildInputs = attrs.buildInputs ++ value; })
-      )
-      overrides;
+    lib.mapAttrs (
+      name: value:
+      (builtins.getAttr name old).overrideAttrs (attrs: { buildInputs = attrs.buildInputs ++ value; })
+    ) overrides;
 
   # Overrides package definitions with maintainers.
   # For example,
@@ -198,17 +194,15 @@ let
   # }
   overrideRDepends =
     overrides: old:
-    lib.mapAttrs
-      (
-        name: value:
-        (builtins.getAttr name old).overrideAttrs (
-          attrs: {
-            nativeBuildInputs = (attrs.nativeBuildInputs or [ ]) ++ value;
-            propagatedNativeBuildInputs = (attrs.propagatedNativeBuildInputs or [ ]) ++ value;
-          }
-        )
+    lib.mapAttrs (
+      name: value:
+      (builtins.getAttr name old).overrideAttrs (
+        attrs: {
+          nativeBuildInputs = (attrs.nativeBuildInputs or [ ]) ++ value;
+          propagatedNativeBuildInputs = (attrs.propagatedNativeBuildInputs or [ ]) ++ value;
+        }
       )
-      overrides;
+    ) overrides;
 
   # Overrides package definition requiring X running to install.
   # For example,
@@ -227,13 +221,10 @@ let
   overrideRequireX =
     packageNames: old:
     let
-      nameValuePairs =
-        map
-          (name: {
-            inherit name;
-            value = (builtins.getAttr name old).override { requireX = true; };
-          })
-          packageNames;
+      nameValuePairs = map (name: {
+        inherit name;
+        value = (builtins.getAttr name old).override { requireX = true; };
+      }) packageNames;
     in
     builtins.listToAttrs nameValuePairs;
 
@@ -258,20 +249,17 @@ let
   overrideRequireHome =
     packageNames: old:
     let
-      nameValuePairs =
-        map
-          (name: {
-            inherit name;
-            value = (builtins.getAttr name old).overrideAttrs (
-              oldAttrs: {
-                preInstall = ''
-                  ${oldAttrs.preInstall or ""}
-                  export HOME=$(mktemp -d)
-                '';
-              }
-            );
-          })
-          packageNames;
+      nameValuePairs = map (name: {
+        inherit name;
+        value = (builtins.getAttr name old).overrideAttrs (
+          oldAttrs: {
+            preInstall = ''
+              ${oldAttrs.preInstall or ""}
+              export HOME=$(mktemp -d)
+            '';
+          }
+        );
+      }) packageNames;
     in
     builtins.listToAttrs nameValuePairs;
 
@@ -292,13 +280,10 @@ let
   overrideSkipCheck =
     packageNames: old:
     let
-      nameValuePairs =
-        map
-          (name: {
-            inherit name;
-            value = (builtins.getAttr name old).override { doCheck = false; };
-          })
-          packageNames;
+      nameValuePairs = map (name: {
+        inherit name;
+        value = (builtins.getAttr name old).override { doCheck = false; };
+      }) packageNames;
     in
     builtins.listToAttrs nameValuePairs;
 
@@ -319,13 +304,10 @@ let
   overrideBroken =
     packageNames: old:
     let
-      nameValuePairs =
-        map
-          (name: {
-            inherit name;
-            value = (builtins.getAttr name old).override { broken = true; };
-          })
-          packageNames;
+      nameValuePairs = map (name: {
+        inherit name;
+        value = (builtins.getAttr name old).override { broken = true; };
+      }) packageNames;
     in
     builtins.listToAttrs nameValuePairs;
 

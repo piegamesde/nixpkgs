@@ -264,23 +264,19 @@ in
     # Preferences are converted into a policy
     programs.firefox.policies = {
       Preferences = (
-        mapAttrs
-          (_: value: {
-            Value = value;
-            Status = cfg.preferencesStatus;
-          })
-          cfg.preferences
+        mapAttrs (_: value: {
+          Value = value;
+          Status = cfg.preferencesStatus;
+        }) cfg.preferences
       );
       ExtensionSettings = listToAttrs (
-        map
-          (
-            lang:
-            nameValuePair "langpack-${lang}@firefox.mozilla.org" {
-              installation_mode = "normal_installed";
-              install_url = "https://releases.mozilla.org/pub/firefox/releases/${cfg.package.version}/linux-x86_64/xpi/${lang}.xpi";
-            }
-          )
-          cfg.languagePacks
+        map (
+          lang:
+          nameValuePair "langpack-${lang}@firefox.mozilla.org" {
+            installation_mode = "normal_installed";
+            install_url = "https://releases.mozilla.org/pub/firefox/releases/${cfg.package.version}/linux-x86_64/xpi/${lang}.xpi";
+          }
+        ) cfg.languagePacks
       );
     };
   };

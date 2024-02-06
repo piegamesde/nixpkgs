@@ -27,12 +27,10 @@ let
   configDirectory = pkgs.runCommand "netdata-config-d" { } ''
     mkdir $out
     ${concatStringsSep "\n" (
-      mapAttrsToList
-        (path: file: ''
-          mkdir -p "$out/$(dirname ${path})"
-          ln -s "${file}" "$out/${path}"
-        '')
-        cfg.configDir
+      mapAttrsToList (path: file: ''
+        mkdir -p "$out/$(dirname ${path})"
+        ln -s "${file}" "$out/${path}"
+      '') cfg.configDir
     )}
   '';
 

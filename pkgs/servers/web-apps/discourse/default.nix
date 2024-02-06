@@ -415,8 +415,9 @@ let
       ln -sf ${assets} $out/share/discourse/public.dist/assets
       rm -r $out/share/discourse/app/assets/javascripts
       ln -sf ${assets.javascripts} $out/share/discourse/app/assets/javascripts
-      ${lib.concatMapStringsSep "\n" (p: "ln -sf ${p} $out/share/discourse/plugins/${p.pluginName or ""}")
-        plugins}
+      ${lib.concatMapStringsSep "\n" (
+        p: "ln -sf ${p} $out/share/discourse/plugins/${p.pluginName or ""}"
+      ) plugins}
 
       runHook postInstall
     '';

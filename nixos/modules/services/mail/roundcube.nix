@@ -160,15 +160,13 @@ in
       # by default, spellchecking uses a third-party cloud services
       $config['spellcheck_engine'] = 'pspell';
       $config['spellcheck_languages'] = array(${
-        lib.concatMapStringsSep ", "
-          (
-            dict:
-            let
-              p = builtins.parseDrvName dict.shortName;
-            in
-            "'${p.name}' => '${dict.fullName}'"
-          )
-          cfg.dicts
+        lib.concatMapStringsSep ", " (
+          dict:
+          let
+            p = builtins.parseDrvName dict.shortName;
+          in
+          "'${p.name}' => '${dict.fullName}'"
+        ) cfg.dicts
       });
 
       ${cfg.extraConfig}

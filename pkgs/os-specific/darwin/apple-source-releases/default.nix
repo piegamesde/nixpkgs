@@ -228,9 +228,9 @@ let
     # There should be an IOVideo here, but they haven't released it :(
   };
 
-  IOKitSrcs =
-    lib.mapAttrs (name: value: if lib.isFunction value then value name else value)
-      IOKitSpecs;
+  IOKitSrcs = lib.mapAttrs (
+    name: value: if lib.isFunction value then value name else value
+  ) IOKitSpecs;
 in
 
 # darwin package set

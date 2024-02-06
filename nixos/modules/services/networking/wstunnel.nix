@@ -307,12 +307,14 @@ let
               ${package}/bin/wstunnel \
                 --server \
                 ${
-                  optionalString (restrictTo != null)
-                    "--restrictTo=${utils.escapeSystemdExecArg (hostPortToString restrictTo)}"
+                  optionalString (
+                    restrictTo != null
+                  ) "--restrictTo=${utils.escapeSystemdExecArg (hostPortToString restrictTo)}"
                 } \
                 ${
-                  optionalString (resolvedTlsCertificate != null)
-                    "--tlsCertificate=${utils.escapeSystemdExecArg resolvedTlsCertificate}"
+                  optionalString (
+                    resolvedTlsCertificate != null
+                  ) "--tlsCertificate=${utils.escapeSystemdExecArg resolvedTlsCertificate}"
                 } \
                 ${
                   optionalString (resolvedTlsKey != null) "--tlsKey=${utils.escapeSystemdExecArg resolvedTlsKey}"
@@ -361,8 +363,9 @@ let
             } \
             ${concatStringsSep " " (mapAttrsToList (n: v: "--customHeaders=\"${n}: ${v}\"") customHeaders)} \
             ${
-              optionalString (dynamicToRemote != null)
-                "--dynamicToRemote=${utils.escapeSystemdExecArg (hostPortToString dynamicToRemote)}"
+              optionalString (
+                dynamicToRemote != null
+              ) "--dynamicToRemote=${utils.escapeSystemdExecArg (hostPortToString dynamicToRemote)}"
             } \
             ${optionalString udp "--udp"} \
             ${optionalString (httpProxy != null) "--httpProxy=${httpProxy}"} \
@@ -372,8 +375,9 @@ let
             ${optionalString (tlsSNI != null) "--tlsSNI=${tlsSNI}"} \
             ${optionalString tlsVerifyCertificate "--tlsVerifyCertificate"} \
             ${
-              optionalString (websocketPingInterval != null)
-                "--websocketPingFrequency=${toString websocketPingInterval}"
+              optionalString (
+                websocketPingInterval != null
+              ) "--websocketPingFrequency=${toString websocketPingInterval}"
             } \
             ${optionalString (upgradeCredentials != null) "--upgradeCredentials=${upgradeCredentials}"} \
             --udpTimeoutSec=${toString udpTimeout} \
@@ -386,13 +390,10 @@ let
         PrivateTmp = true;
         AmbientCapabilities =
           (optionals (clientCfg.soMark != null) [ "CAP_NET_ADMIN" ])
-          ++ (optionals
-            (
-              (clientCfg.dynamicToRemote.port or 1024) < 1024
-              || (any (x: x.local.port < 1024) clientCfg.localToRemote)
-            )
-            [ "CAP_NET_BIND_SERVICE" ]
-          );
+          ++ (optionals (
+            (clientCfg.dynamicToRemote.port or 1024) < 1024
+            || (any (x: x.local.port < 1024) clientCfg.localToRemote)
+          ) [ "CAP_NET_BIND_SERVICE" ]);
         NoNewPrivileges = true;
         RestrictNamespaces = "uts ipc pid user cgroup";
         ProtectSystem = "strict";
@@ -461,38 +462,29 @@ in
       // (mapAttrs' generateClientUnit (filterAttrs (n: v: v.enable) cfg.clients));
 
     assertions =
-      (mapAttrsToList
-        (name: serverCfg: {
-          assertion =
-            !(serverCfg.useACMEHost != null && (serverCfg.tlsCertificate != null || serverCfg.tlsKey != null));
-          message = ''
-            Options services.wstunnel.servers."${name}".useACMEHost and services.wstunnel.servers."${name}".{tlsCertificate, tlsKey} are mutually exclusive.
-          '';
-        })
-        cfg.servers
-      )
-      ++ (mapAttrsToList
-        (name: serverCfg: {
-          assertion =
-            !(
-              (serverCfg.tlsCertificate != null || serverCfg.tlsKey != null)
-              && !(serverCfg.tlsCertificate != null && serverCfg.tlsKey != null)
-            );
-          message = ''
-            services.wstunnel.servers."${name}".tlsCertificate and services.wstunnel.servers."${name}".tlsKey need to be set together.
-          '';
-        })
-        cfg.servers
-      )
-      ++ (mapAttrsToList
-        (name: clientCfg: {
-          assertion = !(clientCfg.localToRemote == [ ] && clientCfg.dynamicToRemote == null);
-          message = ''
-            Either one of services.wstunnel.clients."${name}".localToRemote or services.wstunnel.clients."${name}".dynamicToRemote must be set.
-          '';
-        })
-        cfg.clients
-      );
+      (mapAttrsToList (name: serverCfg: {
+        assertion =
+          !(serverCfg.useACMEHost != null && (serverCfg.tlsCertificate != null || serverCfg.tlsKey != null));
+        message = ''
+          Options services.wstunnel.servers."${name}".useACMEHost and services.wstunnel.servers."${name}".{tlsCertificate, tlsKey} are mutually exclusive.
+        '';
+      }) cfg.servers)
+      ++ (mapAttrsToList (name: serverCfg: {
+        assertion =
+          !(
+            (serverCfg.tlsCertificate != null || serverCfg.tlsKey != null)
+            && !(serverCfg.tlsCertificate != null && serverCfg.tlsKey != null)
+          );
+        message = ''
+          services.wstunnel.servers."${name}".tlsCertificate and services.wstunnel.servers."${name}".tlsKey need to be set together.
+        '';
+      }) cfg.servers)
+      ++ (mapAttrsToList (name: clientCfg: {
+        assertion = !(clientCfg.localToRemote == [ ] && clientCfg.dynamicToRemote == null);
+        message = ''
+          Either one of services.wstunnel.clients."${name}".localToRemote or services.wstunnel.clients."${name}".dynamicToRemote must be set.
+        '';
+      }) cfg.clients);
   };
 
   meta.maintainers = with maintainers; [ alyaeanyx ];

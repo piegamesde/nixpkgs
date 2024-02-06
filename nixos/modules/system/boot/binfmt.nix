@@ -335,35 +335,33 @@ in
 
   config = {
     boot.binfmt.registrations = builtins.listToAttrs (
-      map
-        (system: {
-          name = system;
-          value =
-            { config, ... }:
-            let
-              interpreter = getEmulator system;
-              qemuArch = getQemuArch system;
+      map (system: {
+        name = system;
+        value =
+          { config, ... }:
+          let
+            interpreter = getEmulator system;
+            qemuArch = getQemuArch system;
 
-              preserveArgvZero = "qemu-${qemuArch}" == baseNameOf interpreter;
-              interpreterReg =
-                let
-                  wrapperName = "qemu-${qemuArch}-binfmt-P";
-                  wrapper = pkgs.wrapQemuBinfmtP wrapperName interpreter;
-                in
-                if preserveArgvZero then "${wrapper}/bin/${wrapperName}" else interpreter;
-            in
-            (
-              {
-                preserveArgvZero = mkDefault preserveArgvZero;
+            preserveArgvZero = "qemu-${qemuArch}" == baseNameOf interpreter;
+            interpreterReg =
+              let
+                wrapperName = "qemu-${qemuArch}-binfmt-P";
+                wrapper = pkgs.wrapQemuBinfmtP wrapperName interpreter;
+              in
+              if preserveArgvZero then "${wrapper}/bin/${wrapperName}" else interpreter;
+          in
+          (
+            {
+              preserveArgvZero = mkDefault preserveArgvZero;
 
-                interpreter = mkDefault interpreterReg;
-                wrapInterpreterInShell = mkDefault (!config.preserveArgvZero);
-                interpreterSandboxPath = mkDefault (dirOf (dirOf config.interpreter));
-              }
-              // (magics.${system} or (throw "Cannot create binfmt registration for system ${system}"))
-            );
-        })
-        cfg.emulatedSystems
+              interpreter = mkDefault interpreterReg;
+              wrapInterpreterInShell = mkDefault (!config.preserveArgvZero);
+              interpreterSandboxPath = mkDefault (dirOf (dirOf config.interpreter));
+            }
+            // (magics.${system} or (throw "Cannot create binfmt registration for system ${system}"))
+          );
+      }) cfg.emulatedSystems
     );
     nix.settings = lib.mkIf (cfg.emulatedSystems != [ ]) {
       extra-platforms =

@@ -952,13 +952,10 @@ runTests {
   };
 
   testOverrideExistingOverride = {
-    expr =
-      overrideExisting
-        {
-          a = 3;
-          b = 2;
-        }
-        { a = 1; };
+    expr = overrideExisting {
+      a = 3;
+      b = 2;
+    } { a = 1; };
     expected = {
       a = 1;
       b = 2;
@@ -1235,12 +1232,10 @@ runTests {
     in
     {
       expr = generators.toPretty { } (
-        generators.withRecursion
-          {
-            throwOnDepthLimit = false;
-            depthLimit = 2;
-          }
-          a
+        generators.withRecursion {
+          throwOnDepthLimit = false;
+          depthLimit = 2;
+        } a
       );
       expected = "{\n  b = 1;\n  c = {\n    b = \"<unevaluated>\";\n    c = {\n      b = \"<unevaluated>\";\n      c = \"<unevaluated>\";\n    };\n  };\n}";
     };
@@ -1270,12 +1265,10 @@ runTests {
     in
     {
       expr = generators.toPretty { } (
-        generators.withRecursion
-          {
-            depthLimit = 1;
-            throwOnDepthLimit = false;
-          }
-          a
+        generators.withRecursion {
+          depthLimit = 1;
+          throwOnDepthLimit = false;
+        } a
       );
       expected = "{\n  b = <function, args: {a, b}>;\n  c = {\n    d = \"<unevaluated>\";\n  };\n  value = \"<unevaluated>\";\n}";
     };
@@ -1876,33 +1869,30 @@ runTests {
 
   # The example from the updateManyAttrsByPath documentation
   testUpdateManyAttrsByPathExample = {
-    expr =
-      updateManyAttrsByPath
-        [
-          {
-            path = [
-              "a"
-              "b"
-            ];
-            update = old: { d = old.c; };
-          }
-          {
-            path = [
-              "a"
-              "b"
-              "c"
-            ];
-            update = old: old + 1;
-          }
-          {
-            path = [
-              "x"
-              "y"
-            ];
-            update = old: "xy";
-          }
-        ]
-        { a.b.c = 0; };
+    expr = updateManyAttrsByPath [
+      {
+        path = [
+          "a"
+          "b"
+        ];
+        update = old: { d = old.c; };
+      }
+      {
+        path = [
+          "a"
+          "b"
+          "c"
+        ];
+        update = old: old + 1;
+      }
+      {
+        path = [
+          "x"
+          "y"
+        ];
+        update = old: "xy";
+      }
+    ] { a.b.c = 0; };
     expected = {
       a = {
         b = {
@@ -1923,55 +1913,46 @@ runTests {
 
   # A single update to the root path is just like applying the function directly
   testUpdateManyAttrsByPathSingleIncrement = {
-    expr =
-      updateManyAttrsByPath
-        [
-          {
-            path = [ ];
-            update = old: old + 1;
-          }
-        ]
-        0;
+    expr = updateManyAttrsByPath [
+      {
+        path = [ ];
+        update = old: old + 1;
+      }
+    ] 0;
     expected = 1;
   };
 
   # Multiple updates can be applied are done in order
   testUpdateManyAttrsByPathMultipleIncrements = {
-    expr =
-      updateManyAttrsByPath
-        [
-          {
-            path = [ ];
-            update = old: old + "a";
-          }
-          {
-            path = [ ];
-            update = old: old + "b";
-          }
-          {
-            path = [ ];
-            update = old: old + "c";
-          }
-        ]
-        "";
+    expr = updateManyAttrsByPath [
+      {
+        path = [ ];
+        update = old: old + "a";
+      }
+      {
+        path = [ ];
+        update = old: old + "b";
+      }
+      {
+        path = [ ];
+        update = old: old + "c";
+      }
+    ] "";
     expected = "abc";
   };
 
   # If an update doesn't use the value, all previous updates are not evaluated
   testUpdateManyAttrsByPathLazy = {
-    expr =
-      updateManyAttrsByPath
-        [
-          {
-            path = [ ];
-            update = old: old + throw "nope";
-          }
-          {
-            path = [ ];
-            update = old: "untainted";
-          }
-        ]
-        (throw "start");
+    expr = updateManyAttrsByPath [
+      {
+        path = [ ];
+        update = old: old + throw "nope";
+      }
+      {
+        path = [ ];
+        update = old: "untainted";
+      }
+    ] (throw "start");
     expected = "untainted";
   };
 
@@ -2007,22 +1988,19 @@ runTests {
 
   # Nested attributes are updated first
   testUpdateManyAttrsByPathNestedBeforehand = {
-    expr =
-      updateManyAttrsByPath
-        [
-          {
-            path = [ "a" ];
-            update = old: old // { x = old.b; };
-          }
-          {
-            path = [
-              "a"
-              "b"
-            ];
-            update = old: old + 1;
-          }
-        ]
-        { a.b = 0; };
+    expr = updateManyAttrsByPath [
+      {
+        path = [ "a" ];
+        update = old: old // { x = old.b; };
+      }
+      {
+        path = [
+          "a"
+          "b"
+        ];
+        update = old: old + 1;
+      }
+    ] { a.b = 0; };
     expected = {
       a.b = 1;
       a.x = 1;

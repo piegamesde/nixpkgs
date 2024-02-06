@@ -22,17 +22,15 @@ let
   menuBuilderGrub2 =
     defaults: options:
     lib.concatStrings (
-      map
-        (option: ''
-          menuentry '${defaults.name} ${
-            # Name appended to menuentry defaults to params if no specific name given.
-            option.name or (optionalString (option ? params) "(${option.params})")
-          }' ${optionalString (option ? class) " --class ${option.class}"} {
-            linux ${defaults.image} \''${isoboot} ${defaults.params} ${option.params or ""}
-            initrd ${defaults.initrd}
-          }
-        '')
-        options
+      map (option: ''
+        menuentry '${defaults.name} ${
+          # Name appended to menuentry defaults to params if no specific name given.
+          option.name or (optionalString (option ? params) "(${option.params})")
+        }' ${optionalString (option ? class) " --class ${option.class}"} {
+          linux ${defaults.image} \''${isoboot} ${defaults.params} ${option.params or ""}
+          initrd ${defaults.initrd}
+        }
+      '') options
     );
 
   #

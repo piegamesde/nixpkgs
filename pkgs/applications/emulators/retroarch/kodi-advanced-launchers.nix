@@ -15,13 +15,10 @@ let
     nohup sh -c "sleep 10 && ${exec} '$@' -f;pkill -SIGCONT kodi"
   '';
   scriptSh = exec: pkgs.writeScript ("kodi-" + exec.name) (script exec.path);
-  execs =
-    map
-      (core: rec {
-        name = core.core;
-        path = core + "/bin/retroarch-" + name;
-      })
-      cores;
+  execs = map (core: rec {
+    name = core.core;
+    path = core + "/bin/retroarch-" + name;
+  }) cores;
 in
 
 stdenv.mkDerivation {

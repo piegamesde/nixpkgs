@@ -59,23 +59,21 @@ let
         };
         scrubDerivations =
           namePrefix: pkgSet:
-          mapAttrs
-            (
-              name: value:
-              let
-                wholeName = "${namePrefix}.${name}";
-                guard = lib.warn "Attempt to evaluate package ${wholeName} in option documentation; this is not supported and will eventually be an error. Use `mkPackageOption{,MD}` or `literalExpression` instead.";
-              in
-              if isAttrs value then
-                scrubDerivations wholeName value
-                // optionalAttrs (isDerivation value) {
-                  outPath = guard "\${${wholeName}}";
-                  drvPath = guard drvPath;
-                }
-              else
-                value
-            )
-            pkgSet;
+          mapAttrs (
+            name: value:
+            let
+              wholeName = "${namePrefix}.${name}";
+              guard = lib.warn "Attempt to evaluate package ${wholeName} in option documentation; this is not supported and will eventually be an error. Use `mkPackageOption{,MD}` or `literalExpression` instead.";
+            in
+            if isAttrs value then
+              scrubDerivations wholeName value
+              // optionalAttrs (isDerivation value) {
+                outPath = guard "\${${wholeName}}";
+                drvPath = guard drvPath;
+              }
+            else
+              value
+          ) pkgSet;
       in
       scrubbedEval.options;
 

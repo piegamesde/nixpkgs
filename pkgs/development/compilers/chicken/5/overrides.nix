@@ -38,13 +38,10 @@ in
   cairo =
     old:
     (addToBuildInputsWithPkgConfig pkgs.cairo old)
-    // (addToPropagatedBuildInputs
-      (with chickenEggs; [
-        srfi-1
-        srfi-13
-      ])
-      old
-    );
+    // (addToPropagatedBuildInputs (with chickenEggs; [
+      srfi-1
+      srfi-13
+    ]) old);
   cmark = addToBuildInputs pkgs.cmark;
   dbus = addToBuildInputsWithPkgConfig pkgs.dbus;
   epoxy = addToPropagatedBuildInputsWithPkgConfig pkgs.libepoxy;
@@ -81,13 +78,10 @@ in
     old:
     # csc: invalid option `-framework OpenGL'
     (brokenOnDarwin old)
-    // (addToBuildInputsWithPkgConfig
-      [
-        pkgs.libGL
-        pkgs.libGLU
-      ]
-      old
-    );
+    // (addToBuildInputsWithPkgConfig [
+      pkgs.libGL
+      pkgs.libGLU
+    ] old);
   openssl = addToBuildInputs pkgs.openssl;
   plot = addToBuildInputs pkgs.plotutils;
   postgresql = addToBuildInputsWithPkgConfig pkgs.postgresql;
@@ -107,13 +101,10 @@ in
     old:
     # Undefined symbols for architecture arm64: "_clearok"
     (brokenOnDarwin old)
-    // (addToBuildInputs
-      [
-        pkgs.ncurses
-        pkgs.stfl
-      ]
-      old
-    );
+    // (addToBuildInputs [
+      pkgs.ncurses
+      pkgs.stfl
+    ] old);
   taglib = addToBuildInputs [
     pkgs.zlib
     pkgs.taglib

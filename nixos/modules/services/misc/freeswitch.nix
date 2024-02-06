@@ -13,12 +13,10 @@ let
     cp -rT ${cfg.configTemplate} $out
     chmod -R +w $out
     ${concatStringsSep "\n" (
-      mapAttrsToList
-        (fileName: filePath: ''
-          mkdir -p $out/$(dirname ${fileName})
-          cp ${filePath} $out/${fileName}
-        '')
-        cfg.configDir
+      mapAttrsToList (fileName: filePath: ''
+        mkdir -p $out/$(dirname ${fileName})
+        cp ${filePath} $out/${fileName}
+      '') cfg.configDir
     )}
   '';
   configPath = if cfg.enableReload then "/etc/freeswitch" else configDirectory;

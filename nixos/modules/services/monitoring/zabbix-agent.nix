@@ -39,14 +39,11 @@ in
 
 {
   imports = [
-    (lib.mkRemovedOptionModule
-      [
-        "services"
-        "zabbixAgent"
-        "extraConfig"
-      ]
-      "Use services.zabbixAgent.settings instead."
-    )
+    (lib.mkRemovedOptionModule [
+      "services"
+      "zabbixAgent"
+      "extraConfig"
+    ] "Use services.zabbixAgent.settings instead.")
   ];
 
   # interface

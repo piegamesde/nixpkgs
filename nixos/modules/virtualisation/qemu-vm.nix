@@ -108,10 +108,8 @@ let
 
   lookupDriveDeviceName =
     driveName: driveList:
-    (findSingle (drive: drive.name == driveName) (throw "Drive ${driveName} not found")
-      (throw "Multiple drives named ${driveName}")
-      driveList
-    ).device;
+    (findSingle (drive: drive.name == driveName) (throw "Drive ${driveName} not found"
+      ) (throw "Multiple drives named ${driveName}") driveList).device;
 
   addDeviceNames = imap1 (idx: drive: drive // { device = driveDeviceName idx; });
 
@@ -141,12 +139,12 @@ let
         ${
           concatStringsSep " \\\n" (
             [ "-f qcow2" ]
-            ++
-              optional (cfg.useBootLoader && cfg.useDefaultFilesystems)
-                "-F qcow2 -b ${systemImage}/nixos.qcow2"
-            ++
-              optional (!(cfg.useBootLoader && cfg.useDefaultFilesystems))
-                "-o size=${toString config.virtualisation.diskSize}M"
+            ++ optional (
+              cfg.useBootLoader && cfg.useDefaultFilesystems
+            ) "-F qcow2 -b ${systemImage}/nixos.qcow2"
+            ++ optional (
+              !(cfg.useBootLoader && cfg.useDefaultFilesystems)
+            ) "-o size=${toString config.virtualisation.diskSize}M"
             ++ [ ''"$NIX_DISK_IMAGE"'' ]
           )
         }
@@ -236,9 +234,9 @@ let
         ${concatStringsSep " " config.virtualisation.qemu.networkingOptions} \
         ${
           concatStringsSep " \\\n    " (
-            mapAttrsToList
-              (tag: share: "-virtfs local,path=${share.source},security_model=none,mount_tag=${tag}")
-              config.virtualisation.sharedDirectories
+            mapAttrsToList (
+              tag: share: "-virtfs local,path=${share.source},security_model=none,mount_tag=${tag}"
+            ) config.virtualisation.sharedDirectories
           )
         } \
         ${drivesCmdLine config.virtualisation.qemu.drives} \
@@ -1070,13 +1068,10 @@ in
           driveExtraOpts.format = if cfg.writableStore then "qcow2" else "raw";
         }
       ])
-      (imap0
-        (idx: _: {
-          file = "$(pwd)/empty${toString idx}.qcow2";
-          driveExtraOpts.werror = "report";
-        })
-        cfg.emptyDiskImages
-      )
+      (imap0 (idx: _: {
+        file = "$(pwd)/empty${toString idx}.qcow2";
+        driveExtraOpts.werror = "report";
+      }) cfg.emptyDiskImages)
     ];
 
     fileSystems = mkVMOverride cfg.fileSystems;

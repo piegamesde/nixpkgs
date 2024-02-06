@@ -61,13 +61,11 @@ in
     map
       (
         option:
-        mkRemovedOptionModule
-          [
-            "services"
-            "netatalk"
-            option
-          ]
-          "This option was removed in favor of `services.netatalk.settings`."
+        mkRemovedOptionModule [
+          "services"
+          "netatalk"
+          option
+        ] "This option was removed in favor of `services.netatalk.settings`."
       )
       [
         "extraConfig"

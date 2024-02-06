@@ -21,15 +21,12 @@ in
   };
 
   imports = [
-    (mkRemovedOptionModule
-      [
-        "services"
-        "gnome3"
-        "gnome-settings-daemon"
-        "package"
-      ]
-      ""
-    )
+    (mkRemovedOptionModule [
+      "services"
+      "gnome3"
+      "gnome-settings-daemon"
+      "package"
+    ] "")
 
     # Added 2021-05-07
     (mkRenamedOptionModule

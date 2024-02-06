@@ -36,18 +36,15 @@ let
       # complicated because nghttpx backend patterns can be entirely
       # omitted and the params may be given as a mixed collection of
       # 'key=val' pairs or atoms (e.g: 'proto=h2;tls')
-      params =
-        lib.mapAttrsToList
-          (
-            n: v:
-            if builtins.isBool v then
-              n
-            else if builtins.isString v then
-              "${n}=${v}"
-            else
-              "${n}=${builtins.toString v}"
-          )
-          (filterParams backend.params);
+      params = lib.mapAttrsToList (
+        n: v:
+        if builtins.isBool v then
+          n
+        else if builtins.isString v then
+          "${n}=${v}"
+        else
+          "${n}=${builtins.toString v}"
+      ) (filterParams backend.params);
 
       # NB: params are delimited by a ";" which is the same delimiter
       # to separate the host;[pattern];[params] sections of a backend

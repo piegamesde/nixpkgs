@@ -44,22 +44,16 @@ in
         "webServerUser"
       ]
     )
-    (mkRemovedOptionModule
-      [
-        "services"
-        "piwik"
-        "phpfpmProcessManagerConfig"
-      ]
-      "Use services.phpfpm.pools.<name>.settings"
-    )
-    (mkRemovedOptionModule
-      [
-        "services"
-        "matomo"
-        "phpfpmProcessManagerConfig"
-      ]
-      "Use services.phpfpm.pools.<name>.settings"
-    )
+    (mkRemovedOptionModule [
+      "services"
+      "piwik"
+      "phpfpmProcessManagerConfig"
+    ] "Use services.phpfpm.pools.<name>.settings")
+    (mkRemovedOptionModule [
+      "services"
+      "matomo"
+      "phpfpmProcessManagerConfig"
+    ] "Use services.phpfpm.pools.<name>.settings")
     (mkRenamedOptionModule
       [
         "services"

@@ -27,54 +27,52 @@ mkCoqDerivation {
   inherit version;
   defaultVersion =
     with lib.versions;
-    lib.switch coq.coq-version
-      [
-        {
-          case = "8.16";
-          out = "8.16.0";
-        }
-        {
-          case = "8.15";
-          out = "8.15.1";
-        }
-        {
-          case = "8.14";
-          out = "8.14.1";
-        }
-        {
-          case = "8.13";
-          out = "8.13.2";
-        }
-        {
-          case = "8.12";
-          out = "8.12.0";
-        }
-        {
-          case = "8.11";
-          out = "8.11.0";
-        }
-        {
-          case = "8.10";
-          out = "8.10.0";
-        }
-        {
-          case = "8.9";
-          out = "8.9.0";
-        }
-        {
-          case = "8.8";
-          out = "8.8.0";
-        }
-        {
-          case = "8.6";
-          out = "8.6.1";
-        }
-        {
-          case = "8.5";
-          out = "8.5.0";
-        }
-      ]
-      null;
+    lib.switch coq.coq-version [
+      {
+        case = "8.16";
+        out = "8.16.0";
+      }
+      {
+        case = "8.15";
+        out = "8.15.1";
+      }
+      {
+        case = "8.14";
+        out = "8.14.1";
+      }
+      {
+        case = "8.13";
+        out = "8.13.2";
+      }
+      {
+        case = "8.12";
+        out = "8.12.0";
+      }
+      {
+        case = "8.11";
+        out = "8.11.0";
+      }
+      {
+        case = "8.10";
+        out = "8.10.0";
+      }
+      {
+        case = "8.9";
+        out = "8.9.0";
+      }
+      {
+        case = "8.8";
+        out = "8.8.0";
+      }
+      {
+        case = "8.6";
+        out = "8.6.1";
+      }
+      {
+        case = "8.5";
+        out = "8.5.0";
+      }
+    ] null;
 
   mlPlugin = true;
 

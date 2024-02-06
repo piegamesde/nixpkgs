@@ -47,16 +47,14 @@ rec {
   # the packages named in the input set to the corresponding versions
   packageSourceOverrides =
     overrides: self: super:
-    pkgs.lib.mapAttrs
-      (
-        name: src:
-        let
-          isPath = x: builtins.substring 0 1 (toString x) == "/";
-          generateExprs = if isPath src then self.callCabal2nix else self.callHackage;
-        in
-        generateExprs name src { }
-      )
-      overrides;
+    pkgs.lib.mapAttrs (
+      name: src:
+      let
+        isPath = x: builtins.substring 0 1 (toString x) == "/";
+        generateExprs = if isPath src then self.callCabal2nix else self.callHackage;
+      in
+      generateExprs name src { }
+    ) overrides;
 
   /* doCoverage modifies a haskell package to enable the generation
      and installation of a coverage report.
@@ -335,16 +333,14 @@ rec {
   */
   buildFromSdist =
     pkg:
-    overrideCabal
-      (drv: {
-        src = "${sdistTarball pkg}/${pkg.pname}-${pkg.version}.tar.gz";
+    overrideCabal (drv: {
+      src = "${sdistTarball pkg}/${pkg.pname}-${pkg.version}.tar.gz";
 
-        # Revising and jailbreaking the cabal file has been handled in sdistTarball
-        revision = null;
-        editedCabalFile = null;
-        jailbreak = false;
-      })
-      pkg;
+      # Revising and jailbreaking the cabal file has been handled in sdistTarball
+      revision = null;
+      editedCabalFile = null;
+      jailbreak = false;
+    }) pkg;
 
   /* Build the package in a strict way to uncover potential problems.
      This includes buildFromSdist and failOnAllWarnings.
@@ -373,20 +369,18 @@ rec {
       ignorePackages ? [ ],
     }:
     drv:
-    overrideCabal
-      (_drv: {
-        postBuild =
-          with lib;
-          let
-            args = concatStringsSep " " (
-              optional ignoreEmptyImports "--ignore-empty-imports"
-              ++ optional ignoreMainModule "--ignore-main-module"
-              ++ map (pkg: "--ignore-package ${pkg}") ignorePackages
-            );
-          in
-          "${pkgs.haskellPackages.packunused}/bin/packunused" + optionalString (args != "") " ${args}";
-      })
-      (appendConfigureFlag "--ghc-option=-ddump-minimal-imports" drv);
+    overrideCabal (_drv: {
+      postBuild =
+        with lib;
+        let
+          args = concatStringsSep " " (
+            optional ignoreEmptyImports "--ignore-empty-imports"
+            ++ optional ignoreMainModule "--ignore-main-module"
+            ++ map (pkg: "--ignore-package ${pkg}") ignorePackages
+          );
+        in
+        "${pkgs.haskellPackages.packunused}/bin/packunused" + optionalString (args != "") " ${args}";
+    }) (appendConfigureFlag "--ghc-option=-ddump-minimal-imports" drv);
 
   buildStackProject = pkgs.callPackage ../generic-stack-builder.nix { };
 
@@ -404,13 +398,11 @@ rec {
       version ? null,
     }:
     drv:
-    overrideCabal
-      (_: {
-        inherit src;
-        version = if version == null then drv.version else version;
-        editedCabalFile = null;
-      })
-      drv;
+    overrideCabal (_: {
+      inherit src;
+      version = if version == null then drv.version else version;
+      editedCabalFile = null;
+    }) drv;
 
   # Get all of the build inputs of a haskell package, divided by category.
   getBuildInputs = p: p.getBuildInputs;
@@ -544,32 +536,27 @@ rec {
         drvs:
         builtins.map (i: i.val) (
           builtins.genericClosure {
-            startSet =
-              builtins.map
-                (drv: {
-                  key = drv.outPath;
-                  val = drv;
-                })
-                drvs;
+            startSet = builtins.map (drv: {
+              key = drv.outPath;
+              val = drv;
+            }) drvs;
             operator =
               { val, ... }:
               if !lib.isDerivation val then
                 [ ]
               else
-                builtins.concatMap
-                  (
-                    drv:
-                    if !lib.isDerivation drv then
-                      [ ]
-                    else
-                      [
-                        {
-                          key = drv.outPath;
-                          val = drv;
-                        }
-                      ]
-                  )
-                  (val.buildInputs or [ ] ++ val.propagatedBuildInputs or [ ]);
+                builtins.concatMap (
+                  drv:
+                  if !lib.isDerivation drv then
+                    [ ]
+                  else
+                    [
+                      {
+                        key = drv.outPath;
+                        val = drv;
+                      }
+                    ]
+                ) (val.buildInputs or [ ] ++ val.propagatedBuildInputs or [ ]);
           }
         );
     in

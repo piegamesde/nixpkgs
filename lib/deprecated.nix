@@ -38,14 +38,10 @@ rec {
           // {
             function = foldArgs merger f arg;
             args =
-              (lib.attrByPath
-                [
-                  "passthru"
-                  "args"
-                ]
-                { }
-                z
-              )
+              (lib.attrByPath [
+                "passthru"
+                "args"
+              ] { } z)
               // x;
           }
         )
@@ -96,49 +92,42 @@ rec {
   # Output : its value or default.
   getValue =
     attrSet: argList: name:
-    (attrByPath [ name ]
-      (
-        if checkFlag attrSet name then
-          true
-        else if argList == [ ] then
-          null
-        else
-          let
-            x = builtins.head argList;
-          in
-          if (head x) == name then (head (tail x)) else (getValue attrSet (tail argList) name)
-      )
-      attrSet
-    );
+    (attrByPath [ name ] (
+      if checkFlag attrSet name then
+        true
+      else if argList == [ ] then
+        null
+      else
+        let
+          x = builtins.head argList;
+        in
+        if (head x) == name then (head (tail x)) else (getValue attrSet (tail argList) name)
+    ) attrSet);
 
   # Input : attrSet, [[name default] ...], [ [flagname reqs..] ... ]
   # Output : are reqs satisfied? It's asserted.
   checkReqs =
     attrSet: argList: condList:
     (foldr lib.and true (
-      map
-        (
-          x:
-          let
-            name = (head x);
-          in
+      map (
+        x:
+        let
+          name = (head x);
+        in
 
-          (
-            (checkFlag attrSet name)
-            -> (foldr lib.and true (
-              map
-                (
-                  y:
-                  let
-                    val = (getValue attrSet argList y);
-                  in
-                  (val != null) && (val != false)
-                )
-                (tail x)
-            ))
-          )
+        (
+          (checkFlag attrSet name)
+          -> (foldr lib.and true (
+            map (
+              y:
+              let
+                val = (getValue attrSet argList y);
+              in
+              (val != null) && (val != false)
+            ) (tail x)
+          ))
         )
-        condList
+      ) condList
     ));
 
   # This function has O(n^2) performance.
@@ -252,32 +241,27 @@ rec {
     list:
     builtins.map (x: x.val) (
       builtins.genericClosure {
-        startSet =
-          builtins.map
-            (x: {
-              key = x.outPath;
-              val = x;
-            })
-            (builtins.filter (x: x != null) list);
+        startSet = builtins.map (x: {
+          key = x.outPath;
+          val = x;
+        }) (builtins.filter (x: x != null) list);
         operator =
           item:
           if !builtins.isAttrs item.val then
             [ ]
           else
-            builtins.concatMap
-              (
-                x:
-                if x != null then
-                  [
-                    {
-                      key = x.outPath;
-                      val = x;
-                    }
-                  ]
-                else
-                  [ ]
-              )
-              ((item.val.propagatedBuildInputs or [ ]) ++ (item.val.propagatedNativeBuildInputs or [ ]));
+            builtins.concatMap (
+              x:
+              if x != null then
+                [
+                  {
+                    key = x.outPath;
+                    val = x;
+                  }
+                ]
+              else
+                [ ]
+            ) ((item.val.propagatedBuildInputs or [ ]) ++ (item.val.propagatedNativeBuildInputs or [ ]));
       }
     );
 
@@ -329,25 +313,22 @@ rec {
       overrideSnd ? [ "buildPhase" ],
     }:
     attrs1: attrs2:
-    foldr
-      (
-        n: set:
-        setAttr set n (
-          if set ? ${n} then # merge
-            if
-              elem n mergeLists # attribute contains list, merge them by concatenating
-            then
-              attrs2.${n} ++ attrs1.${n}
-            else if elem n overrideSnd then
-              attrs1.${n}
-            else
-              throw "error mergeAttrsNoOverride, attribute ${n} given in both attributes - no merge func defined"
+    foldr (
+      n: set:
+      setAttr set n (
+        if set ? ${n} then # merge
+          if
+            elem n mergeLists # attribute contains list, merge them by concatenating
+          then
+            attrs2.${n} ++ attrs1.${n}
+          else if elem n overrideSnd then
+            attrs1.${n}
           else
-            attrs2.${n} # add attribute not existing in attr1
-        )
+            throw "error mergeAttrsNoOverride, attribute ${n} given in both attributes - no merge func defined"
+        else
+          attrs2.${n} # add attribute not existing in attr1
       )
-      attrs1
-      (attrNames attrs2);
+    ) attrs1 (attrNames attrs2);
 
   # example usage:
   # mergeAttrByFunc  {

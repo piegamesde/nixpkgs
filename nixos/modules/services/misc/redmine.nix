@@ -36,8 +36,9 @@ let
       username: ${cfg.database.user}
       password: #dbpass#
       ${
-        optionalString (cfg.database.type == "mysql2" && cfg.database.socket != null)
-          "socket: ${cfg.database.socket}"
+        optionalString (
+          cfg.database.type == "mysql2" && cfg.database.socket != null
+        ) "socket: ${cfg.database.socket}"
       }
   '';
 
@@ -66,23 +67,17 @@ let
 in
 {
   imports = [
-    (mkRemovedOptionModule
-      [
-        "services"
-        "redmine"
-        "extraConfig"
-      ]
-      "Use services.redmine.settings instead."
-    )
-    (mkRemovedOptionModule
-      [
-        "services"
-        "redmine"
-        "database"
-        "password"
-      ]
-      "Use services.redmine.database.passwordFile instead."
-    )
+    (mkRemovedOptionModule [
+      "services"
+      "redmine"
+      "extraConfig"
+    ] "Use services.redmine.settings instead.")
+    (mkRemovedOptionModule [
+      "services"
+      "redmine"
+      "database"
+      "password"
+    ] "Use services.redmine.database.passwordFile instead.")
   ];
 
   # interface
