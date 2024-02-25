@@ -48,7 +48,8 @@ else if localSystem.isLinux then
   stagesLinux
 else if localSystem.isDarwin then
   stagesDarwin
-else # misc special cases
+# misc special cases
+else
   {
     # switch
     x86_64-solaris = stagesNix;

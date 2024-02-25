@@ -135,8 +135,8 @@ let
     arch:
     if targetPlatform.isPower then
       false
-    else # powerpc does not allow -march=
-    if isGNU then
+    # powerpc does not allow -march=
+    else if isGNU then
       {
         # Intel
         skylake = versionAtLeast ccVersion "6.0";

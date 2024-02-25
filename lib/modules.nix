@@ -1004,7 +1004,8 @@ rec {
       map (mapAttrs (n: v: mkIf cfg.condition v)) (pushDownProperties cfg.content)
     else if cfg._type or "" == "override" then
       map (mapAttrs (n: v: mkOverride cfg.priority v)) (pushDownProperties cfg.content)
-    else # FIXME: handle mkOrder?
+    # FIXME: handle mkOrder?
+    else
       [ cfg ];
 
   /* Given a config value, expand mkMerge properties, and discharge

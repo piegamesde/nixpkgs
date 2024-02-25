@@ -8,7 +8,8 @@ let
   ssh-keys =
     if builtins.pathExists ../../ssh-keys.nix then # Outside sandbox
       ../../ssh-keys.nix
-    else # In sandbox
+    # In sandbox
+    else
       ./ssh-keys.nix;
 
   inherit (import ssh-keys pkgs) snakeOilPrivateKey snakeOilPublicKey;
