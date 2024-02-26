@@ -28,7 +28,7 @@ stdenv.mkDerivation {
 
   src =
     assert lib.assertMsg (builtins.hasAttr stdenv.hostPlatform.system srcs
-      ) "p4d is not available for ${stdenv.hostPlatform.system}";
+    ) "p4d is not available for ${stdenv.hostPlatform.system}";
     srcs.${stdenv.hostPlatform.system};
 
   sourceRoot = ".";

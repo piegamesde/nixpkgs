@@ -93,7 +93,7 @@ let
         ++ lib.optional (cfg.enableGnomeExtensions or false) gnome-browser-connector
         ++ lib.optional (cfg.enableUgetIntegrator or false) uget-integrator
         ++ lib.optional (cfg.enablePlasmaBrowserIntegration or false
-          ) plasma5Packages.plasma-browser-integration
+        ) plasma5Packages.plasma-browser-integration
         ++ lib.optional (cfg.enableFXCastBridge or false) fx_cast_bridge
         ++ extraNativeMessagingHosts;
       libs =

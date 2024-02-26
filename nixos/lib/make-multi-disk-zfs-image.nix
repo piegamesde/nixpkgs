@@ -98,7 +98,7 @@ let
       vpc = "vhd";
       raw = "img";
     }
-      .${formatOpt} or formatOpt;
+    .${formatOpt} or formatOpt;
   bootFilename = "nixos.boot${filenameSuffix}";
   rootFilename = "nixos.root${filenameSuffix}";
 

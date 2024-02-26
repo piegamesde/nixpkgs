@@ -82,7 +82,7 @@ import ./make-test-python.nix (
         };
 
         virtualisation.vlans = [
-          2  # towards server
+          2 # towards server
           3 # towards client
         ];
 
@@ -144,7 +144,7 @@ import ./make-test-python.nix (
         };
 
         virtualisation.vlans = [
-          2  # towards server
+          2 # towards server
           3 # towards client
         ];
 

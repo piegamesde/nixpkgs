@@ -372,7 +372,7 @@ in
         };
         locations."=/config.js" = mkDefault {
           alias = overrideJs "${pkgs.jitsi-meet}/config.js" "config" (recursiveUpdate defaultCfg cfg.config
-            ) cfg.extraConfig;
+          ) cfg.extraConfig;
         };
         locations."=/interface_config.js" = mkDefault {
           alias =
@@ -397,7 +397,7 @@ in
               cp -R . $out
               cp ${
                 overrideJs "${pkgs.jitsi-meet}/config.js" "config" (recursiveUpdate defaultCfg cfg.config
-                  ) cfg.extraConfig
+                ) cfg.extraConfig
               } $out/config.js
               cp ${
                 overrideJs "${pkgs.jitsi-meet}/interface_config.js" "interfaceConfig" cfg.interfaceConfig ""

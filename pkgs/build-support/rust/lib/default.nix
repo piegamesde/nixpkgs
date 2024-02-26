@@ -49,7 +49,7 @@ rec {
     platform.rustc.platform.vendor or {
       "w64" = "pc";
     }
-      .${vendor.name} or vendor.name;
+    .${vendor.name} or vendor.name;
 
   # Returns the name of the rust target, even if it is custom. Adjustments are
   # because rust has slightly different naming conventions than we do.
@@ -65,7 +65,7 @@ rec {
           "armv5tel" = "armv5te";
           "riscv64" = "riscv64gc";
         }
-          .${cpu.name} or cpu.name;
+        .${cpu.name} or cpu.name;
       vendor_ = toTargetVendor platform;
     in
     platform.rustc.config

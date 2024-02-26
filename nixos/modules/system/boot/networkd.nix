@@ -3170,7 +3170,7 @@ let
       ''
       + ''
 
-        ''
+      ''
       + flip concatMapStrings def.addresses (
         x: ''
           [Address]

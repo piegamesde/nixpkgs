@@ -15181,13 +15181,13 @@ with pkgs;
   # plain, cross-compiled compiler (which is only theoretical at the moment).
   ghc =
     targetPackages.haskellPackages.ghc or
-      # Prefer native-bignum to avoid linking issues with gmp
-      (
-        if stdenv.targetPlatform.isStatic then
-          haskell.compiler.native-bignum.ghc92
-        else
-          haskell.compiler.ghc92
-      );
+    # Prefer native-bignum to avoid linking issues with gmp
+    (
+      if stdenv.targetPlatform.isStatic then
+        haskell.compiler.native-bignum.ghc92
+      else
+        haskell.compiler.ghc92
+    );
 
   alex = haskell.lib.compose.justStaticExecutables haskellPackages.alex;
 

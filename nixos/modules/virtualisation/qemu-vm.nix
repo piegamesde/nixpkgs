@@ -109,7 +109,7 @@ let
   lookupDriveDeviceName =
     driveName: driveList:
     (findSingle (drive: drive.name == driveName) (throw "Drive ${driveName} not found"
-      ) (throw "Multiple drives named ${driveName}") driveList).device;
+    ) (throw "Multiple drives named ${driveName}") driveList).device;
 
   addDeviceNames = imap1 (idx: drive: drive // { device = driveDeviceName idx; });
 

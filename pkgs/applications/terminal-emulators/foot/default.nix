@@ -88,7 +88,7 @@ let
       "gcc" = "gcc-ar";
       "unknown" = "ar";
     }
-      ."${compilerName}";
+    ."${compilerName}";
 
   # PGO only makes sense if we are not cross compiling and
   # using a compiler which foot's PGO build supports (clang or gcc)

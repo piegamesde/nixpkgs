@@ -61,7 +61,7 @@ let
       (map (
         extension:
         lib.nameValuePair (extensionRenames.${extension.extensionUuid} or extension.extensionPortalSlug
-          ) extension
+        ) extension
       ))
       builtins.listToAttrs
     ];

@@ -84,7 +84,7 @@ let
       vpc = "vhd";
       raw = "img";
     }
-      .${formatOpt} or formatOpt;
+    .${formatOpt} or formatOpt;
   rootFilename = "nixos.root${filenameSuffix}";
 
   # FIXME: merge with channel.nix / make-channel.nix.

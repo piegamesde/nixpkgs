@@ -136,9 +136,9 @@ rec {
     in
     licstr:
     spdxLicenses.${lib.toLower licstr}
-      or (lib.warn "getLicenseFromSpdxId: No license matches the given SPDX ID: ${licstr}" {
-        shortName = licstr;
-      });
+    or (lib.warn "getLicenseFromSpdxId: No license matches the given SPDX ID: ${licstr}" {
+      shortName = licstr;
+    });
 
   /* Get the path to the main program of a derivation with either
      meta.mainProgram or pname or name

@@ -16,7 +16,7 @@ let
           #  - the test author has a slightly more realistic view of the
           #    final format during development.
           value = lib.throwIfNot (formatSet.type.check def
-            ) (builtins.trace def "definition does not pass the type's check function") def;
+          ) (builtins.trace def "definition does not pass the type's check function") def;
           file = "def${toString n}";
         }) [ def ]
       );

@@ -250,7 +250,7 @@ let
       vpc = "vhd";
       raw = "img";
     }
-      .${format} or format;
+    .${format} or format;
 
   rootPartition =
     {

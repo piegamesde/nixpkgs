@@ -171,8 +171,8 @@ rec {
       ++ lib.optional (!stdenv.hostPlatform.isDarwin) makeStaticBinaries
 
     # Glibc doesn’t come with static runtimes by default.
-      # ++ lib.optional (stdenv.hostPlatform.libc == "glibc") ((lib.flip overrideInStdenv) [ self.glibc.static ])
-      );
+    # ++ lib.optional (stdenv.hostPlatform.libc == "glibc") ((lib.flip overrideInStdenv) [ self.glibc.static ])
+    );
 
   /* Modify a stdenv so that all buildInputs are implicitly propagated to
      consuming derivations
