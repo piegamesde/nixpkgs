@@ -151,8 +151,7 @@ let
           throw "Unsupported type for GN value `${value}'.";
       toFlag = key: value: "${key}=${sanitize value}";
     in
-    attrs:
-    lib.concatStringsSep " " (lib.attrValues (lib.mapAttrs toFlag attrs));
+    attrs: lib.concatStringsSep " " (lib.attrValues (lib.mapAttrs toFlag attrs));
 
   # https://source.chromium.org/chromium/chromium/src/+/master:build/linux/unbundle/replace_gn_files.py
   gnSystemLibraries = [

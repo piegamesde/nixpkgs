@@ -3,5 +3,4 @@ args@{
   lib,
   callPackage,
 }:
-self:
-(import ./hackage-packages.nix args self)
+self: (import ./hackage-packages.nix args self)

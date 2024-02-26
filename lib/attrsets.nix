@@ -271,8 +271,7 @@ rec {
         # intermediate values aren't evaluated if not needed
         foldl (acc: el: el.update acc) withNestedMods split.right;
     in
-    updates: value:
-    go 0 true value updates;
+    updates: value: go 0 true value updates;
 
   /* Return the specified attributes from a set.
 
@@ -525,9 +524,7 @@ rec {
     # Attribute name
     name:
     # Attribute value
-    value: {
-      inherit name value;
-    };
+    value: { inherit name value; };
 
   /* Apply a function to each element in an attribute set, creating a new attribute set.
 

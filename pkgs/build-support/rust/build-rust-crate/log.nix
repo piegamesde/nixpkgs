@@ -1,7 +1,8 @@
 { lib }:
 
 let
-  echo_colored_body = start_escape:
+  echo_colored_body =
+    start_escape:
     # Body of a function that behaves like "echo" but
     # has the output colored by the given start_escape
     # sequence. E.g.

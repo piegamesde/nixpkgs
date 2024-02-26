@@ -145,8 +145,7 @@ let
   # Replace runtime dependencies
   system = foldr (
     { oldDependency, newDependency }:
-    drv:
-    pkgs.replaceDependency { inherit oldDependency newDependency drv; }
+    drv: pkgs.replaceDependency { inherit oldDependency newDependency drv; }
   ) baseSystemAssertWarn config.system.replaceRuntimeDependencies;
 
   systemWithBuildDeps = system.overrideAttrs (

@@ -82,8 +82,7 @@ rec {
                 [ (substring 0 1 str) ]
                 ++ (if str == "" then [ ] else (recurse (substring 1 (stringLength (str)) str)));
             in
-            str:
-            recurse str;
+            str: recurse str;
           chars = s: filter (c: c != "" && !isList c) (splitString s);
           escape = s: map (c: "\\" + c) (chars s);
         in

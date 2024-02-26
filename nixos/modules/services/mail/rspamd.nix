@@ -93,8 +93,7 @@ let
               files = options.type.files;
               warning = "The option `${from}` defined in ${showFiles files} has enum value `proxy` which has been renamed to `rspamd_proxy`";
             in
-            x:
-            if x == "proxy" then traceWarning warning "rspamd_proxy" else x;
+            x: if x == "proxy" then traceWarning warning "rspamd_proxy" else x;
         };
         bindSockets = mkOption {
           type = types.listOf (types.either types.str (types.submodule bindSocketOpts));

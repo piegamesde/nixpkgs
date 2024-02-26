@@ -122,8 +122,7 @@ let
       filter = key: value: (value != null) || !(lib.hasAttr key hardening);
       apply = service: lib.filterAttrs filter (hardening // (service.serviceConfig or { }));
     in
-    service:
-    service // { serviceConfig = apply service; };
+    service: service // { serviceConfig = apply service; };
 
   services.hylafax-spool = {
     description = "HylaFAX spool area preparation";

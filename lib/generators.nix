@@ -101,8 +101,7 @@ rec {
         else
           k: v: [ (mkLine k v) ];
     in
-    attrs:
-    libStr.concatStrings (lib.concatLists (libAttr.mapAttrsToList mkLines attrs));
+    attrs: libStr.concatStrings (lib.concatLists (libAttr.mapAttrsToList mkLines attrs));
 
   # Generate an INI-style config file from an
   # attrset of sections to an attrset of key-value pairs.
@@ -260,8 +259,7 @@ rec {
             else
               { ${head path} = value; };
         in
-        attrs:
-        lib.foldl lib.recursiveUpdate { } (lib.flatten (recurse [ ] attrs));
+        attrs: lib.foldl lib.recursiveUpdate { } (lib.flatten (recurse [ ] attrs));
 
       toINI_ = toINI { inherit mkKeyValue mkSectionName; };
     in

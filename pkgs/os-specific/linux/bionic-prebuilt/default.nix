@@ -13,8 +13,7 @@ let
     let
       pname = stdenv.targetPlatform.parsed.cpu.name;
     in
-    pset:
-    pset.${pname} or (throw "bionic-prebuilt: unsupported platform ${pname}");
+    pset: pset.${pname} or (throw "bionic-prebuilt: unsupported platform ${pname}");
 
   prebuilt_crt = choosePlatform {
     aarch64 = fetchzip {
