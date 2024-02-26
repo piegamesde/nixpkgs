@@ -32,7 +32,9 @@ let
     modesetting = { };
   };
 
-  fontsForXServer = config.fonts.fonts ++
+  fontsForXServer =
+    config.fonts.fonts
+    ++
     # We don't want these fonts in fonts.conf, because then modern,
     # fontconfig-based applications will get horrible bitmapped
     # Helvetica fonts.  It's better to get a substitution (like Nimbus
