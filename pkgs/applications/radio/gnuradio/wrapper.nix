@@ -147,7 +147,9 @@ let
             ]
           else
             # Add here qt4 related environment for 3.7?
-            [ ]
+            [
+
+            ]
         )
     ++ extraMakeWrapperArgs
   );

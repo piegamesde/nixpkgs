@@ -51,6 +51,7 @@ stdenv.mkDerivation rec {
   ];
 
   propagatedBuildInputs = [
+
   ] ++ lib.optionals stdenv.isDarwin [ IOKit ] ++ lib.optionals stdenv.isLinux [ udev ];
 
   meta = with lib; {

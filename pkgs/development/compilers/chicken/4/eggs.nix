@@ -11,7 +11,9 @@ rec {
       sha256 = "0wmldiwwg1jpcn07wb906nc53si5j7sa83wgyq643xzqcx4v4x1d";
     };
 
-    buildInputs = [ ];
+    buildInputs = [
+
+    ];
   };
 
   defstruct = eggDerivation {
@@ -23,7 +25,9 @@ rec {
       sha256 = "0lsgl32nmb5hxqiii4r3292cx5vqh50kp6v062nfiyid9lhrj0li";
     };
 
-    buildInputs = [ ];
+    buildInputs = [
+
+    ];
   };
 
   http-client = eggDerivation {
@@ -68,7 +72,9 @@ rec {
       sha256 = "1vc9rpb44fhn0n91hzglin986dw9zj87fikvfrd7j308z22a41yh";
     };
 
-    buildInputs = [ ];
+    buildInputs = [
+
+    ];
   };
 
   sendfile = eggDerivation {
@@ -80,7 +86,9 @@ rec {
       sha256 = "036x4xdndx7qly94afnag5b9idd1yymdm8d832w2cy054y7lxqsi";
     };
 
-    buildInputs = [ ];
+    buildInputs = [
+
+    ];
   };
 
   simple-md5 = eggDerivation {
@@ -92,7 +100,9 @@ rec {
       sha256 = "1h0b51p9wl1dl3pzs39hdq3hk2qnjgn8n750bgmh0651g4lzmq3i";
     };
 
-    buildInputs = [ ];
+    buildInputs = [
+
+    ];
   };
 
   uri-common = eggDerivation {
