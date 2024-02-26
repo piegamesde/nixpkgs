@@ -180,8 +180,7 @@ let
 
   binDistUsed =
     ghcBinDists.${distSetName}.${stdenv.hostPlatform.system}
-      or (throw "cannot bootstrap GHC on this platform ('${stdenv.hostPlatform.system}' with libc '${distSetName}')"
-      );
+      or (throw "cannot bootstrap GHC on this platform ('${stdenv.hostPlatform.system}' with libc '${distSetName}')");
 
   useLLVM = !stdenv.targetPlatform.isx86;
 

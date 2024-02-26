@@ -20515,8 +20515,7 @@ with pkgs;
         targetPackages.darwin.iosSdkPkgs.libraries or darwin.iosSdkPkgs.libraries
       else
         targetPackages.darwin.LibsystemCross
-          or (throw "don't yet have a `targetPackages.darwin.LibsystemCross for ${stdenv.targetPlatform.config}`"
-          )
+          or (throw "don't yet have a `targetPackages.darwin.LibsystemCross for ${stdenv.targetPlatform.config}`")
     else if name == "fblibc" then
       targetPackages.freebsdCross.libc or freebsdCross.libc
     else if name == "nblibc" then

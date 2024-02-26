@@ -479,8 +479,7 @@ in
           (optional (type == "oneshot" && (restart == "always" || restart == "on-success"))
             "Service '${name}.service' with 'Type=oneshot' cannot have 'Restart=always' or 'Restart=on-success'"
           )
-          (optional hasDeprecated "Service '${name}.service' uses the attribute 'StartLimitInterval' in the Service section, which is deprecated. See https://github.com/NixOS/nixpkgs/issues/45786."
-          )
+          (optional hasDeprecated "Service '${name}.service' uses the attribute 'StartLimitInterval' in the Service section, which is deprecated. See https://github.com/NixOS/nixpkgs/issues/45786.")
           (optional (service.reloadIfChanged && service.reloadTriggers != [ ])
             "Service '${name}.service' has both 'reloadIfChanged' and 'reloadTriggers' set. This is probably not what you want, because 'reloadTriggers' behave the same whay as 'restartTriggers' if 'reloadIfChanged' is set."
           )

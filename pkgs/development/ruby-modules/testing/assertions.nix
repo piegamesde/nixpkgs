@@ -23,8 +23,7 @@
     if builtins.all (ex: builtins.any (ac: ex == ac) (builtins.attrNames actual)) expected then
       (test.passed "has expected keys")
     else
-      (test.failed "keys differ: expected: [${lib.concatStringsSep ";" expected}] actual: [${lib.concatStringsSep ";" (builtins.attrNames actual)}]"
-      );
+      (test.failed "keys differ: expected: [${lib.concatStringsSep ";" expected}] actual: [${lib.concatStringsSep ";" (builtins.attrNames actual)}]");
 
   havePrefix =
     expected: actual:

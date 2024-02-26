@@ -84,8 +84,7 @@ let
 
   actual =
     binDists.${stdenv.hostPlatform.system}.${releaseType}.${branch}
-      or (throw "Factorio ${releaseType}-${branch} binaries for ${stdenv.hostPlatform.system} are not available for download."
-      );
+      or (throw "Factorio ${releaseType}-${branch} binaries for ${stdenv.hostPlatform.system} are not available for download.");
 
   makeBinDists =
     versions:

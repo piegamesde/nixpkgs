@@ -396,8 +396,7 @@ lib.composeManyExtensions [
               "40.0.1" = "sha256-gFfDTc2QWBWHBCycVH1dYlCsWQMVcRZfOBIau+njtDU=";
             }
             .${version}
-              or (lib.warn "Unknown cryptography version: '${version}'. Please update getCargoHash." lib.fakeHash
-              );
+              or (lib.warn "Unknown cryptography version: '${version}'. Please update getCargoHash." lib.fakeHash);
           sha256 = getCargoHash super.cryptography.version;
           isWheel = lib.hasSuffix ".whl" super.cryptography.src;
           scrypto =

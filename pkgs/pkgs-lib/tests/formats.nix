@@ -15,8 +15,10 @@ let
           #  - we don't write nonsensical tests that will impede progress
           #  - the test author has a slightly more realistic view of the
           #    final format during development.
-          value = lib.throwIfNot (formatSet.type.check def
-          ) (builtins.trace def "definition does not pass the type's check function") def;
+          value =
+            lib.throwIfNot (formatSet.type.check def)
+              (builtins.trace def "definition does not pass the type's check function")
+              def;
           file = "def${toString n}";
         }) [ def ]
       );
