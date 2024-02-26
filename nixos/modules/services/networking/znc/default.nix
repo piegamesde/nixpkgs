@@ -34,9 +34,9 @@ let
             l < r
           else
             isAttrs set.${r} # Attrsets should be last, makes for a nice config
-        # This last case occurs when any side (but not both) is an attrset
-        # The order of these is correct when the attrset is on the right
-        # which we're just returning
+          # This last case occurs when any side (but not both) is an attrset
+          # The order of these is correct when the attrset is on the right
+          # which we're just returning
         ) (attrNames set);
 
       # Specifies an attrset that encodes the value according to its type

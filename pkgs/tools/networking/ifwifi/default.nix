@@ -34,7 +34,7 @@ rustPlatform.buildRustPackage rec {
           [ networkmanager ]
           # `wifiscanner` crate's runtime deps
           ++ (lib.optional stdenv.isLinux iw)
-        # ++ (lib.optional stdenv.isDarwin airport) # airport isn't packaged
+          # ++ (lib.optional stdenv.isDarwin airport) # airport isn't packaged
         )
       }"
   '';
