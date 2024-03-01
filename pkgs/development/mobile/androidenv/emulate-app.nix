@@ -53,26 +53,30 @@ stdenv.mkDerivation {
         export TMPDIR=/tmp
     fi
 
-    ${if androidUserHome == null then
-      ''
-        # Store the virtual devices somewhere else, instead of polluting a user's HOME directory
-        export ANDROID_USER_HOME=$(mktemp -d $TMPDIR/nix-android-user-home-XXXX)
-      ''
-    else
-      ''
-        mkdir -p "${androidUserHome}"
-        export ANDROID_USER_HOME="${androidUserHome}"
-      ''}
+    ${
+      if androidUserHome == null then
+        ''
+          # Store the virtual devices somewhere else, instead of polluting a user's HOME directory
+          export ANDROID_USER_HOME=$(mktemp -d $TMPDIR/nix-android-user-home-XXXX)
+        ''
+      else
+        ''
+          mkdir -p "${androidUserHome}"
+          export ANDROID_USER_HOME="${androidUserHome}"
+        ''
+    }
 
-    ${if androidAvdHome == null then
-      ''
-        export ANDROID_AVD_HOME=$ANDROID_USER_HOME/avd
-      ''
-    else
-      ''
-        mkdir -p "${androidAvdHome}"
-        export ANDROID_AVD_HOME="${androidAvdHome}"
-      ''}
+    ${
+      if androidAvdHome == null then
+        ''
+          export ANDROID_AVD_HOME=$ANDROID_USER_HOME/avd
+        ''
+      else
+        ''
+          mkdir -p "${androidAvdHome}"
+          export ANDROID_AVD_HOME="${androidAvdHome}"
+        ''
+    }
 
     # We need to specify the location of the Android SDK root folder
     export ANDROID_SDK_ROOT=${sdk}/libexec/android-sdk

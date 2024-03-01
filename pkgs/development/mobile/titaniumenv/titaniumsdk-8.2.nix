@@ -111,13 +111,15 @@ stdenv.mkDerivation {
 
     # Patch some executables
 
-    ${if stdenv.system == "i686-linux" then
-      ''
-        patchelf --set-interpreter ${stdenv.cc.libc}/lib/ld-linux.so.2 android/titanium_prep.linux32
-      ''
-    else
-      lib.optionalString (stdenv.system == "x86_64-linux") ''
-        patchelf --set-interpreter ${stdenv.cc.libc}/lib/ld-linux-x86-64.so.2 android/titanium_prep.linux64
-      ''}
+    ${
+      if stdenv.system == "i686-linux" then
+        ''
+          patchelf --set-interpreter ${stdenv.cc.libc}/lib/ld-linux.so.2 android/titanium_prep.linux32
+        ''
+      else
+        lib.optionalString (stdenv.system == "x86_64-linux") ''
+          patchelf --set-interpreter ${stdenv.cc.libc}/lib/ld-linux-x86-64.so.2 android/titanium_prep.linux64
+        ''
+    }
   '';
 }

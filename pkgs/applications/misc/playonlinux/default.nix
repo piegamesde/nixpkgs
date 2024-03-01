@@ -132,15 +132,17 @@ stdenv.mkDerivation {
 
     bunzip2 $out/share/playonlinux/bin/check_dd_x86.bz2
     patchelf --set-interpreter $(cat ${ld32}) --set-rpath ${libs pkgsi686Linux} $out/share/playonlinux/bin/check_dd_x86
-    ${if stdenv.hostPlatform.system == "x86_64-linux" then
-      ''
-        bunzip2 $out/share/playonlinux/bin/check_dd_amd64.bz2
-        patchelf --set-interpreter $(cat ${ld64}) --set-rpath ${libs pkgs} $out/share/playonlinux/bin/check_dd_amd64
-      ''
-    else
-      ''
-        rm $out/share/playonlinux/bin/check_dd_amd64.bz2
-      ''}
+    ${
+      if stdenv.hostPlatform.system == "x86_64-linux" then
+        ''
+          bunzip2 $out/share/playonlinux/bin/check_dd_amd64.bz2
+          patchelf --set-interpreter $(cat ${ld64}) --set-rpath ${libs pkgs} $out/share/playonlinux/bin/check_dd_amd64
+        ''
+      else
+        ''
+          rm $out/share/playonlinux/bin/check_dd_amd64.bz2
+        ''
+    }
     for f in $out/share/playonlinux/bin/*; do
       bzip2 $f
     done

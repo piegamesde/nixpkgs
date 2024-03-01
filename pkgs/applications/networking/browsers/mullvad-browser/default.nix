@@ -180,14 +180,16 @@ stdenv.mkDerivation rec {
     lockPref("noscript.firstRunRedirection", false);
 
     // Allow sandbox access to sound devices if using ALSA directly
-    ${if (audioSupport && !pulseaudioSupport) then
-      ''
-        pref("security.sandbox.content.write_path_whitelist", "/dev/snd/");
-      ''
-    else
-      ''
-        clearPref("security.sandbox.content.write_path_whitelist");
-      ''}
+    ${
+      if (audioSupport && !pulseaudioSupport) then
+        ''
+          pref("security.sandbox.content.write_path_whitelist", "/dev/snd/");
+        ''
+      else
+        ''
+          clearPref("security.sandbox.content.write_path_whitelist");
+        ''
+    }
 
     ${lib.optionalString (extraPrefs != "") ''
       ${extraPrefs}

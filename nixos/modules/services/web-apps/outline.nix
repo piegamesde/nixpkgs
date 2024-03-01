@@ -711,42 +711,44 @@ in
 
           # The config file is required for the CLI, the DATABASE_URL environment
           # variable is read by the app.
-          ${if (cfg.databaseUrl == "local") then
-            ''
-              cat <<EOF > $RUNTIME_DIRECTORY/database.json
-              {
-                "production": {
-                  "dialect": "postgres",
-                  "host": "/run/postgresql",
-                  "username": null,
-                  "password": null
-                }
-              }
-              EOF
-              export DATABASE_URL=${lib.escapeShellArg localPostgresqlUrl}
-              export PGSSLMODE=disable
-            ''
-          else
-            ''
-              cat <<EOF > $RUNTIME_DIRECTORY/database.json
-              {
-                "production": {
-                  "use_env_variable": "DATABASE_URL",
-                  "dialect": "postgres",
-                  "dialectOptions": {
-                    "ssl": {
-                      "rejectUnauthorized": false
-                    }
+          ${
+            if (cfg.databaseUrl == "local") then
+              ''
+                cat <<EOF > $RUNTIME_DIRECTORY/database.json
+                {
+                  "production": {
+                    "dialect": "postgres",
+                    "host": "/run/postgresql",
+                    "username": null,
+                    "password": null
                   }
-                },
-                "production-ssl-disabled": {
-                  "use_env_variable": "DATABASE_URL",
-                  "dialect": "postgres"
                 }
-              }
-              EOF
-              export DATABASE_URL=${lib.escapeShellArg cfg.databaseUrl}
-            ''}
+                EOF
+                export DATABASE_URL=${lib.escapeShellArg localPostgresqlUrl}
+                export PGSSLMODE=disable
+              ''
+            else
+              ''
+                cat <<EOF > $RUNTIME_DIRECTORY/database.json
+                {
+                  "production": {
+                    "use_env_variable": "DATABASE_URL",
+                    "dialect": "postgres",
+                    "dialectOptions": {
+                      "ssl": {
+                        "rejectUnauthorized": false
+                      }
+                    }
+                  },
+                  "production-ssl-disabled": {
+                    "use_env_variable": "DATABASE_URL",
+                    "dialect": "postgres"
+                  }
+                }
+                EOF
+                export DATABASE_URL=${lib.escapeShellArg cfg.databaseUrl}
+              ''
+          }
 
           cd $RUNTIME_DIRECTORY
           ${sequelize}/bin/outline-sequelize db:migrate
@@ -781,15 +783,17 @@ in
             export SMTP_PASSWORD="$(head -n1 ${lib.escapeShellArg cfg.smtp.passwordFile})"
           ''}
 
-          ${if (cfg.databaseUrl == "local") then
-            ''
-              export DATABASE_URL=${lib.escapeShellArg localPostgresqlUrl}
-              export PGSSLMODE=disable
-            ''
-          else
-            ''
-              export DATABASE_URL=${lib.escapeShellArg cfg.databaseUrl}
-            ''}
+          ${
+            if (cfg.databaseUrl == "local") then
+              ''
+                export DATABASE_URL=${lib.escapeShellArg localPostgresqlUrl}
+                export PGSSLMODE=disable
+              ''
+            else
+              ''
+                export DATABASE_URL=${lib.escapeShellArg cfg.databaseUrl}
+              ''
+          }
 
           ${cfg.package}/bin/outline-server
         '';

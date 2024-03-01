@@ -98,15 +98,17 @@ in
         ''
           mkdir -p target/bin
           BIN_NAME='${bin.name or crateName}'
-          ${if !bin ? path then
-            ''
-              BIN_PATH=""
-              search_for_bin_path "$BIN_NAME"
-            ''
-          else
-            ''
-              BIN_PATH='${bin.path}'
-            ''}
+          ${
+            if !bin ? path then
+              ''
+                BIN_PATH=""
+                search_for_bin_path "$BIN_NAME"
+              ''
+            else
+              ''
+                BIN_PATH='${bin.path}'
+              ''
+          }
             ${build_bin} "$BIN_NAME" "$BIN_PATH"
         ''
       else

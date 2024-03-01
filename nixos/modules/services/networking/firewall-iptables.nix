@@ -82,18 +82,20 @@ let
     # The "nixos-fw-refuse" chain rejects or drops packets.
     ip46tables -N nixos-fw-refuse
 
-    ${if cfg.rejectPackets then
-      ''
-        # Send a reset for existing TCP connections that we've
-        # somehow forgotten about.  Send ICMP "port unreachable"
-        # for everything else.
-        ip46tables -A nixos-fw-refuse -p tcp ! --syn -j REJECT --reject-with tcp-reset
-        ip46tables -A nixos-fw-refuse -j REJECT
-      ''
-    else
-      ''
-        ip46tables -A nixos-fw-refuse -j DROP
-      ''}
+    ${
+      if cfg.rejectPackets then
+        ''
+          # Send a reset for existing TCP connections that we've
+          # somehow forgotten about.  Send ICMP "port unreachable"
+          # for everything else.
+          ip46tables -A nixos-fw-refuse -p tcp ! --syn -j REJECT --reject-with tcp-reset
+          ip46tables -A nixos-fw-refuse -j REJECT
+        ''
+      else
+        ''
+          ip46tables -A nixos-fw-refuse -j DROP
+        ''
+    }
 
 
     # The "nixos-fw-log-refuse" chain performs logging, then

@@ -234,9 +234,11 @@ let
       cfg.${deviceType}.accelSpeed != null
     ) ''Option "AccelSpeed" "${cfg.${deviceType}.accelSpeed}"''}
     ${optionalString (cfg.${deviceType}.buttonMapping != null)
-      ''Option "ButtonMapping" "${cfg.${deviceType}.buttonMapping}"''}
+      ''Option "ButtonMapping" "${cfg.${deviceType}.buttonMapping}"''
+    }
     ${optionalString (cfg.${deviceType}.calibrationMatrix != null)
-      ''Option "CalibrationMatrix" "${cfg.${deviceType}.calibrationMatrix}"''}
+      ''Option "CalibrationMatrix" "${cfg.${deviceType}.calibrationMatrix}"''
+    }
     ${optionalString (
       cfg.${deviceType}.transformationMatrix != null
     ) ''Option "TransformationMatrix" "${cfg.${deviceType}.transformationMatrix}"''}
@@ -247,13 +249,15 @@ let
     Option "MiddleEmulation" "${xorgBool cfg.${deviceType}.middleEmulation}"
     Option "NaturalScrolling" "${xorgBool cfg.${deviceType}.naturalScrolling}"
     ${optionalString (cfg.${deviceType}.scrollButton != null)
-      ''Option "ScrollButton" "${toString cfg.${deviceType}.scrollButton}"''}
+      ''Option "ScrollButton" "${toString cfg.${deviceType}.scrollButton}"''
+    }
     Option "ScrollMethod" "${cfg.${deviceType}.scrollMethod}"
     Option "HorizontalScrolling" "${xorgBool cfg.${deviceType}.horizontalScrolling}"
     Option "SendEventsMode" "${cfg.${deviceType}.sendEventsMode}"
     Option "Tapping" "${xorgBool cfg.${deviceType}.tapping}"
     ${optionalString (cfg.${deviceType}.tappingButtonMap != null)
-      ''Option "TappingButtonMap" "${cfg.${deviceType}.tappingButtonMap}"''}
+      ''Option "TappingButtonMap" "${cfg.${deviceType}.tappingButtonMap}"''
+    }
     Option "TappingDragLock" "${xorgBool cfg.${deviceType}.tappingDragLock}"
     Option "DisableWhileTyping" "${xorgBool cfg.${deviceType}.disableWhileTyping}"
     ${cfg.${deviceType}.additionalOptions}

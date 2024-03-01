@@ -622,33 +622,35 @@ lib.fix (
       installPhase = ''
         runHook preInstall
 
-        ${if !isLibrary && buildTarget == "" then
-          "${setupCommand} install"
-        # ^^ if the project is not a library, and no build target is specified, we can just use "install".
-        else if !isLibrary then
-          "${setupCommand} copy ${buildTarget}"
-        # ^^ if the project is not a library, and we have a build target, then use "copy" to install
-        # just the target specified; "install" will error here, since not all targets have been built.
-        else
-          ''
-            ${setupCommand} copy ${buildTarget}
-            local packageConfDir="$out/${ghcLibdir}/package.conf.d"
-            local packageConfFile="$packageConfDir/${pname}-${version}.conf"
-            mkdir -p "$packageConfDir"
-            ${setupCommand} register --gen-pkg-config=$packageConfFile
-            if [ -d "$packageConfFile" ]; then
-              mv "$packageConfFile/"* "$packageConfDir"
-              rmdir "$packageConfFile"
-            fi
-            for packageConfFile in "$packageConfDir/"*; do
-              local pkgId=$(gawk -f ${unprettyConf} "$packageConfFile" \
-                | grep '^id:' | cut -d' ' -f2)
-              mv "$packageConfFile" "$packageConfDir/$pkgId.conf"
-            done
+        ${
+          if !isLibrary && buildTarget == "" then
+            "${setupCommand} install"
+          # ^^ if the project is not a library, and no build target is specified, we can just use "install".
+          else if !isLibrary then
+            "${setupCommand} copy ${buildTarget}"
+          # ^^ if the project is not a library, and we have a build target, then use "copy" to install
+          # just the target specified; "install" will error here, since not all targets have been built.
+          else
+            ''
+              ${setupCommand} copy ${buildTarget}
+              local packageConfDir="$out/${ghcLibdir}/package.conf.d"
+              local packageConfFile="$packageConfDir/${pname}-${version}.conf"
+              mkdir -p "$packageConfDir"
+              ${setupCommand} register --gen-pkg-config=$packageConfFile
+              if [ -d "$packageConfFile" ]; then
+                mv "$packageConfFile/"* "$packageConfDir"
+                rmdir "$packageConfFile"
+              fi
+              for packageConfFile in "$packageConfDir/"*; do
+                local pkgId=$(gawk -f ${unprettyConf} "$packageConfFile" \
+                  | grep '^id:' | cut -d' ' -f2)
+                mv "$packageConfFile" "$packageConfDir/$pkgId.conf"
+              done
 
-            # delete confdir if there are no libraries
-            find $packageConfDir -maxdepth 0 -empty -delete;
-          ''}
+              # delete confdir if there are no libraries
+              find $packageConfDir -maxdepth 0 -empty -delete;
+            ''
+        }
         ${optionalString isGhcjs ''
           for exeDir in "${binDir}/"*.jsexe; do
             exe="''${exeDir%.jsexe}"
@@ -671,7 +673,8 @@ lib.fix (
             for exe in "${binDir}/"* ; do
               install_name_tool -add_rpath "$out/${ghcLibdir}/${pname}-${version}" "$exe"
             done
-          ''}
+          ''
+        }
 
         ${optionalString enableSeparateDocOutput ''
           for x in ${docdir "$doc"}"/html/src/"*.html; do

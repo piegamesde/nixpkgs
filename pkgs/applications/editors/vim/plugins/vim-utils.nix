@@ -350,12 +350,14 @@ rec {
         lib.warnIf (wrapManual != null)
           ''
             vim.customize: wrapManual is deprecated: the manual is now included by default if `name == "vim"`.
-            ${if wrapManual == true && name != "vim" then
-              "Set `standalone = false` to include the manual."
-            else
-              lib.optionalString (
-                wrapManual == false && name == "vim"
-              ) "Set `standalone = true` to get the *vim wrappers only."}''
+            ${
+              if wrapManual == true && name != "vim" then
+                "Set `standalone = false` to include the manual."
+              else
+                lib.optionalString (
+                  wrapManual == false && name == "vim"
+                ) "Set `standalone = true` to get the *vim wrappers only."
+            }''
           lib.warnIf
           (wrapGui != null)
           "vim.customize: wrapGui is deprecated: gvim is now automatically included if present"

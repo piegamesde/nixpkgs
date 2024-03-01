@@ -183,18 +183,20 @@ in
           set -euo pipefail
 
           # prepare config file
-          ${(
-            if settingsProvided || configFileProvided || cfg.persistentKeys then
-              "echo "
+          ${
+            (
+              if settingsProvided || configFileProvided || cfg.persistentKeys then
+                "echo "
 
-              + (lib.optionalString settingsProvided "'${builtins.toJSON cfg.settings}'")
-              + (lib.optionalString configFileProvided "$(${binHjson} -c \"$CREDENTIALS_DIRECTORY/yggdrasil.conf\")")
-              + (lib.optionalString cfg.persistentKeys "$(cat ${keysPath})")
-              + " | ${pkgs.jq}/bin/jq -s add | ${binYggdrasil} -normaliseconf -useconf"
-            else
-              "${binYggdrasil} -genconf"
-          )
-          + " > /run/yggdrasil/yggdrasil.conf"}
+                + (lib.optionalString settingsProvided "'${builtins.toJSON cfg.settings}'")
+                + (lib.optionalString configFileProvided "$(${binHjson} -c \"$CREDENTIALS_DIRECTORY/yggdrasil.conf\")")
+                + (lib.optionalString cfg.persistentKeys "$(cat ${keysPath})")
+                + " | ${pkgs.jq}/bin/jq -s add | ${binYggdrasil} -normaliseconf -useconf"
+              else
+                "${binYggdrasil} -genconf"
+            )
+            + " > /run/yggdrasil/yggdrasil.conf"
+          }
 
           # start yggdrasil
           ${binYggdrasil} -useconffile /run/yggdrasil/yggdrasil.conf

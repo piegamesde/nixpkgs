@@ -543,7 +543,8 @@ in
           # FIXME: to be tested as I'm not sure it works well with NoNewPrivileges=
           # https://gitlab.com/apparmor/apparmor/-/wikis/AppArmorStacking#seccomp-and-no_new_privs
           px ${cfg.settings.script-torrent-done-filename} -> &@{dirs},
-        ''}
+        ''
+      }
     '';
   };
 

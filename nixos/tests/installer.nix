@@ -44,17 +44,19 @@ let
             ''}
 
             boot.loader.grub.extraConfig = "serial; terminal_output serial";
-            ${if grubUseEfi then
-              ''
-                boot.loader.grub.device = "nodev";
-                boot.loader.grub.efiSupport = true;
-                boot.loader.grub.efiInstallAsRemovable = true; # XXX: needed for OVMF?
-              ''
-            else
-              ''
-                boot.loader.grub.device = "${grubDevice}";
-                boot.loader.grub.fsIdentifier = "${grubIdentifier}";
-              ''}
+            ${
+              if grubUseEfi then
+                ''
+                  boot.loader.grub.device = "nodev";
+                  boot.loader.grub.efiSupport = true;
+                  boot.loader.grub.efiInstallAsRemovable = true; # XXX: needed for OVMF?
+                ''
+              else
+                ''
+                  boot.loader.grub.device = "${grubDevice}";
+                  boot.loader.grub.fsIdentifier = "${grubIdentifier}";
+                ''
+            }
 
             boot.loader.grub.configurationLimit = 100 + ${toString forceGrubReinstallCount};
           ''

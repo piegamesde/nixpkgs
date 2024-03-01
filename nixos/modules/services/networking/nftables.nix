@@ -140,12 +140,14 @@ in
             text = ''
               #! ${pkgs.nftables}/bin/nft -f
               flush ruleset
-              ${if cfg.rulesetFile != null then
-                ''
-                  include "${cfg.rulesetFile}"
-                ''
-              else
-                cfg.ruleset}
+              ${
+                if cfg.rulesetFile != null then
+                  ''
+                    include "${cfg.rulesetFile}"
+                  ''
+                else
+                  cfg.ruleset
+              }
             '';
             checkPhase = lib.optionalString cfg.checkRuleset ''
               cp $out ruleset.conf

@@ -517,10 +517,12 @@ let
 
                 echo "Creating new bond ${n}..."
                 ip link add name "${n}" type bond \
-                ${let
-                  opts = (mapAttrs (const toString) (bondDeprecation.filterDeprecated v)) // v.driverOptions;
-                in
-                concatStringsSep "\n" (mapAttrsToList (set: val: "  ${set} ${val} \\") opts)}
+                ${
+                  let
+                    opts = (mapAttrs (const toString) (bondDeprecation.filterDeprecated v)) // v.driverOptions;
+                  in
+                  concatStringsSep "\n" (mapAttrsToList (set: val: "  ${set} ${val} \\") opts)
+                }
 
                 # !!! There must be a better way to wait for the interface
                 while [ ! -d "/sys/class/net/${n}" ]; do sleep 0.1; done;

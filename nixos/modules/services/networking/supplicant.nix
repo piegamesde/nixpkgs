@@ -250,7 +250,8 @@ in
                   replaceStrings [ " " ] [ "-" ] iface
                 }.service", TAG+="SUPPLICANT_ASSIGNED"''
               )
-            )}
+            )
+          }
 
           ${optionalString (hasAttr "WLAN" cfg) ''
             ACTION=="add", SUBSYSTEM=="net", ENV{DEVTYPE}=="wlan", TAG!="SUPPLICANT_ASSIGNED", TAG+="systemd", PROGRAM="/run/current-system/systemd/bin/systemd-escape -p %E{INTERFACE}", ENV{SYSTEMD_WANTS}+="supplicant-wlan@$result.service"

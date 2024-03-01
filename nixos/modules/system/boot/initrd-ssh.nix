@@ -173,14 +173,16 @@ in
 
         LogLevel ${sshdCfg.settings.LogLevel}
 
-        ${if sshdCfg.settings.UseDns then
-          ''
-            UseDNS yes
-          ''
-        else
-          ''
-            UseDNS no
-          ''}
+        ${
+          if sshdCfg.settings.UseDns then
+            ''
+              UseDNS yes
+            ''
+          else
+            ''
+              UseDNS no
+            ''
+        }
 
         ${cfg.extraConfig}
       '';

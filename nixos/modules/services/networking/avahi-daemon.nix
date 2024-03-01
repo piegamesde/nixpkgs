@@ -17,11 +17,12 @@ let
     pkgs.writeText "avahi-daemon.conf" ''
       [server]
       ${
-      # Users can set `networking.hostName' to the empty string, when getting
-      # a host name from DHCP.  In that case, let Avahi take whatever the
-      # current host name is; setting `host-name' to the empty string in
-      # `avahi-daemon.conf' would be invalid.
-      optionalString (hostName != "") "host-name=${hostName}"}
+        # Users can set `networking.hostName' to the empty string, when getting
+        # a host name from DHCP.  In that case, let Avahi take whatever the
+        # current host name is; setting `host-name' to the empty string in
+        # `avahi-daemon.conf' would be invalid.
+        optionalString (hostName != "") "host-name=${hostName}"
+      }
       browse-domains=${concatStringsSep ", " browseDomains}
       use-ipv4=${yesNo ipv4}
       use-ipv6=${yesNo ipv6}

@@ -249,39 +249,41 @@ in
           -e 's|shared.loader=|shared.loader=''${catalina.base}/shared/lib/*.jar|' \
           ${tomcat}/conf/catalina.properties > ${cfg.baseDir}/conf/catalina.properties
 
-        ${if cfg.serverXml != "" then
-          ''
-            cp -f ${pkgs.writeTextDir "server.xml" cfg.serverXml}/* ${cfg.baseDir}/conf/
-          ''
-        else
-          let
-            hostElementForVirtualHost =
-              virtualHost:
-              ''
-                <Host name="${virtualHost.name}" appBase="virtualhosts/${virtualHost.name}/webapps"
-                      unpackWARs="true" autoDeploy="true" xmlValidation="false" xmlNamespaceAware="false">
-              ''
-              + concatStrings (innerElementsForVirtualHost virtualHost)
-              + ''
-                </Host>
-              '';
-            innerElementsForVirtualHost =
-              virtualHost:
-              (map (alias: ''
-                <Alias>${alias}</Alias>
-              '') virtualHost.aliases)
-              ++ (optional cfg.logPerVirtualHost ''
-                <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs/${virtualHost.name}"
-                       prefix="${virtualHost.name}_access_log." pattern="combined" resolveHosts="false"/>
-              '');
-            hostElementsString = concatMapStringsSep "\n" hostElementForVirtualHost cfg.virtualHosts;
-            hostElementsSedString = replaceStrings [ "\n" ] [ "\\\n" ] hostElementsString;
-          in
-          ''
-            # Create a modified server.xml which also includes all virtual hosts
-            sed -e "/<Engine name=\"Catalina\" defaultHost=\"localhost\">/a\\"${escapeShellArg hostElementsSedString} \
-                  ${tomcat}/conf/server.xml > ${cfg.baseDir}/conf/server.xml
-          ''}
+        ${
+          if cfg.serverXml != "" then
+            ''
+              cp -f ${pkgs.writeTextDir "server.xml" cfg.serverXml}/* ${cfg.baseDir}/conf/
+            ''
+          else
+            let
+              hostElementForVirtualHost =
+                virtualHost:
+                ''
+                  <Host name="${virtualHost.name}" appBase="virtualhosts/${virtualHost.name}/webapps"
+                        unpackWARs="true" autoDeploy="true" xmlValidation="false" xmlNamespaceAware="false">
+                ''
+                + concatStrings (innerElementsForVirtualHost virtualHost)
+                + ''
+                  </Host>
+                '';
+              innerElementsForVirtualHost =
+                virtualHost:
+                (map (alias: ''
+                  <Alias>${alias}</Alias>
+                '') virtualHost.aliases)
+                ++ (optional cfg.logPerVirtualHost ''
+                  <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs/${virtualHost.name}"
+                         prefix="${virtualHost.name}_access_log." pattern="combined" resolveHosts="false"/>
+                '');
+              hostElementsString = concatMapStringsSep "\n" hostElementForVirtualHost cfg.virtualHosts;
+              hostElementsSedString = replaceStrings [ "\n" ] [ "\\\n" ] hostElementsString;
+            in
+            ''
+              # Create a modified server.xml which also includes all virtual hosts
+              sed -e "/<Engine name=\"Catalina\" defaultHost=\"localhost\">/a\\"${escapeShellArg hostElementsSedString} \
+                    ${tomcat}/conf/server.xml > ${cfg.baseDir}/conf/server.xml
+            ''
+        }
         ${optionalString (cfg.logDirs != [ ]) ''
           for i in ${toString cfg.logDirs}; do
             mkdir -p ${cfg.baseDir}/logs/$i

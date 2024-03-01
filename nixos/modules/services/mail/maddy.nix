@@ -400,20 +400,22 @@ in
         $(local_domains) = ${toString cfg.localDomains}
         hostname ${cfg.hostname}
 
-        ${if (cfg.tls.loader == "file") then
-          ''
-            tls file ${concatStringsSep " " (map (x: x.certPath + " " + x.keyPath) cfg.tls.certificates)} ${
-              optionalString (cfg.tls.extraConfig != "") ''
-                { ${cfg.tls.extraConfig} }
-              ''
-            }
-          ''
-        else if (cfg.tls.loader == "off") then
-          ''
-            tls off
-          ''
-        else
-          ""}
+        ${
+          if (cfg.tls.loader == "file") then
+            ''
+              tls file ${concatStringsSep " " (map (x: x.certPath + " " + x.keyPath) cfg.tls.certificates)} ${
+                optionalString (cfg.tls.extraConfig != "") ''
+                  { ${cfg.tls.extraConfig} }
+                ''
+              }
+            ''
+          else if (cfg.tls.loader == "off") then
+            ''
+              tls off
+            ''
+          else
+            ""
+        }
 
         ${cfg.config}
       '';

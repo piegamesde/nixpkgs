@@ -249,13 +249,15 @@ in
             ''
               sed -i /var/lib/nifi/conf/nifi.properties \
                 -e 's|nifi.web.proxy.host=.*|nifi.web.proxy.host=${cfg.proxyHost}:${(toString cfg.proxyPort)}|g'
-            ''}
+            ''
+          }
           ${lib.optionalString
             ((cfg.enableHTTPS == false) || (cfg.proxyHost == null) && (cfg.proxyPort == null))
             ''
               sed -i /var/lib/nifi/conf/nifi.properties \
                 -e 's|nifi.web.proxy.host=.*|nifi.web.proxy.host=|g'
-            ''}
+            ''
+          }
           ${lib.optionalString ((cfg.initJavaHeapSize != null) && (cfg.maxJavaHeapSize != null)) ''
             sed -i /var/lib/nifi/conf/bootstrap.conf \
               -e 's|java.arg.2=.*|java.arg.2=-Xms${(toString cfg.initJavaHeapSize)}m|g' \

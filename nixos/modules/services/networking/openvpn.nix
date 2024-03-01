@@ -57,7 +57,8 @@ let
           "auth-user-pass ${pkgs.writeText "openvpn-credentials-${name}" ''
             ${cfg.authUserPass.username}
             ${cfg.authUserPass.password}
-          ''}"}
+          ''}"
+        }
       '';
     in
     {

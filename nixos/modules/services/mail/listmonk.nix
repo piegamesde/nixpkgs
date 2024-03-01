@@ -24,15 +24,17 @@ let
     )
   );
   updateDatabaseConfigScript = pkgs.writeShellScriptBin "update-database-config.sh" ''
-    ${if cfg.database.mutableSettings then
-      ''
-        if [ ! -f /var/lib/listmonk/.db_settings_initialized ]; then
-          ${pkgs.postgresql}/bin/psql -d listmonk -f ${updateDatabaseConfigSQL} ;
-          touch /var/lib/listmonk/.db_settings_initialized
-        fi
-      ''
-    else
-      "${pkgs.postgresql}/bin/psql -d listmonk -f ${updateDatabaseConfigSQL}"}
+    ${
+      if cfg.database.mutableSettings then
+        ''
+          if [ ! -f /var/lib/listmonk/.db_settings_initialized ]; then
+            ${pkgs.postgresql}/bin/psql -d listmonk -f ${updateDatabaseConfigSQL} ;
+            touch /var/lib/listmonk/.db_settings_initialized
+          fi
+        ''
+      else
+        "${pkgs.postgresql}/bin/psql -d listmonk -f ${updateDatabaseConfigSQL}"
+    }
   '';
 
   databaseSettingsOpts = with types; {

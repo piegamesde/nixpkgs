@@ -177,12 +177,13 @@ else
           $out/bin/${ghcCommand}-pkg recache
         ''}
         ${
-        # ghcjs will read the ghc_libdir file when resolving plugins.
-        lib.optionalString (isGhcjs && ghcLibdir != null) ''
-          mkdir -p "${libDir}"
-          rm -f "${libDir}/ghc_libdir"
-          printf '%s' '${ghcLibdir}' > "${libDir}/ghc_libdir"
-        ''}
+          # ghcjs will read the ghc_libdir file when resolving plugins.
+          lib.optionalString (isGhcjs && ghcLibdir != null) ''
+            mkdir -p "${libDir}"
+            rm -f "${libDir}/ghc_libdir"
+            printf '%s' '${ghcLibdir}' > "${libDir}/ghc_libdir"
+          ''
+        }
         $out/bin/${ghcCommand}-pkg check
       ''
       + postBuild;

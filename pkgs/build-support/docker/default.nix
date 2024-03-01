@@ -1039,17 +1039,19 @@ rec {
             nativeBuildInputs = [ jq ];
           }
           ''
-            ${if (tag == null) then
-              ''
-                outName="$(basename "$out")"
-                outHash=$(echo "$outName" | cut -d - -f 1)
+            ${
+              if (tag == null) then
+                ''
+                  outName="$(basename "$out")"
+                  outHash=$(echo "$outName" | cut -d - -f 1)
 
-                imageTag=$outHash
-              ''
-            else
-              ''
-                imageTag="${tag}"
-              ''}
+                  imageTag=$outHash
+                ''
+              else
+                ''
+                  imageTag="${tag}"
+                ''
+            }
 
             # convert "created" to iso format
             if [[ "$created" != "now" ]]; then

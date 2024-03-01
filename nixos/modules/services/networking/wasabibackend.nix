@@ -146,19 +146,21 @@ in
       };
       preStart = ''
         mkdir -p ${cfg.dataDir}/.walletwasabi/backend
-        ${if cfg.customConfigFile != null then
-          ''
-            cp -v ${cfg.customConfigFile} ${cfg.dataDir}/.walletwasabi/backend/Config.json
-          ''
-        else
-          ''
-            cp -v ${configFile} ${cfg.dataDir}/.walletwasabi/backend/Config.json
-            ${optionalString (cfg.rpc.passwordFile != null) ''
-              CONFIGTMP=$(mktemp)
-              cat ${cfg.dataDir}/.walletwasabi/backend/Config.json | ${pkgs.jq}/bin/jq --arg rpconnection "${cfg.rpc.user}:$(cat "${cfg.rpc.passwordFile}")" '. + { BitcoinRpcConnectionString: $rpconnection }' > $CONFIGTMP
-              mv $CONFIGTMP ${cfg.dataDir}/.walletwasabi/backend/Config.json
-            ''}
-          ''}
+        ${
+          if cfg.customConfigFile != null then
+            ''
+              cp -v ${cfg.customConfigFile} ${cfg.dataDir}/.walletwasabi/backend/Config.json
+            ''
+          else
+            ''
+              cp -v ${configFile} ${cfg.dataDir}/.walletwasabi/backend/Config.json
+              ${optionalString (cfg.rpc.passwordFile != null) ''
+                CONFIGTMP=$(mktemp)
+                cat ${cfg.dataDir}/.walletwasabi/backend/Config.json | ${pkgs.jq}/bin/jq --arg rpconnection "${cfg.rpc.user}:$(cat "${cfg.rpc.passwordFile}")" '. + { BitcoinRpcConnectionString: $rpconnection }' > $CONFIGTMP
+                mv $CONFIGTMP ${cfg.dataDir}/.walletwasabi/backend/Config.json
+              ''}
+            ''
+        }
         chmod ug+w ${cfg.dataDir}/.walletwasabi/backend/Config.json
       '';
       serviceConfig = {

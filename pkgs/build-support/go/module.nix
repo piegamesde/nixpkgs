@@ -154,18 +154,20 @@ let
                       exit 10
                     fi
 
-                  ${if proxyVendor then
-                    ''
-                      mkdir -p "''${GOPATH}/pkg/mod/cache/download"
-                      go mod download
-                    ''
-                  else
-                    ''
-                      if (( "''${NIX_DEBUG:-0}" >= 1 )); then
-                        goModVendorFlags+=(-v)
-                      fi
-                      go mod vendor "''${goModVendorFlags[@]}"
-                    ''}
+                  ${
+                    if proxyVendor then
+                      ''
+                        mkdir -p "''${GOPATH}/pkg/mod/cache/download"
+                        go mod download
+                      ''
+                    else
+                      ''
+                        if (( "''${NIX_DEBUG:-0}" >= 1 )); then
+                          goModVendorFlags+=(-v)
+                        fi
+                        go mod vendor "''${goModVendorFlags[@]}"
+                      ''
+                  }
 
                     mkdir -p vendor
 
@@ -177,15 +179,17 @@ let
               args.modInstallPhase or ''
                   runHook preInstall
 
-                ${if proxyVendor then
-                  ''
-                    rm -rf "''${GOPATH}/pkg/mod/cache/download/sumdb"
-                    cp -r --reflink=auto "''${GOPATH}/pkg/mod/cache/download" $out
-                  ''
-                else
-                  ''
-                    cp -r --reflink=auto vendor $out
-                  ''}
+                ${
+                  if proxyVendor then
+                    ''
+                      rm -rf "''${GOPATH}/pkg/mod/cache/download/sumdb"
+                      cp -r --reflink=auto "''${GOPATH}/pkg/mod/cache/download" $out
+                    ''
+                  else
+                    ''
+                      cp -r --reflink=auto vendor $out
+                    ''
+                }
 
                   if ! [ "$(ls -A $out)" ]; then
                     echo "vendor folder is empty, please set 'vendorHash = null;' or 'vendorSha256 = null;' in your expression"
@@ -244,15 +248,17 @@ let
             cd "$modRoot"
           ''
           + lib.optionalString hasAnyVendorHash ''
-            ${if proxyVendor then
-              ''
-                export GOPROXY=file://${go-modules}
-              ''
-            else
-              ''
-                rm -rf vendor
-                cp -r --reflink=auto ${go-modules} vendor
-              ''}
+            ${
+              if proxyVendor then
+                ''
+                  export GOPROXY=file://${go-modules}
+                ''
+              else
+                ''
+                  rm -rf vendor
+                  cp -r --reflink=auto ${go-modules} vendor
+                ''
+            }
           ''
           + ''
 

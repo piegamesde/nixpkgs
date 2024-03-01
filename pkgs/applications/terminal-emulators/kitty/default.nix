@@ -165,22 +165,24 @@ buildPythonApplication rec {
     ''
       runHook preBuild
       ${lib.optionalString (stdenv.isDarwin && stdenv.isx86_64) "export MACOSX_DEPLOYMENT_TARGET=11"}
-      ${if stdenv.isDarwin then
-        ''
-          ${python.pythonForBuild.interpreter} setup.py build ${darwinOptions}
-          make docs
-          ${python.pythonForBuild.interpreter} setup.py kitty.app ${darwinOptions}
-        ''
-      else
-        ''
-          ${python.pythonForBuild.interpreter} setup.py linux-package \
-          --egl-library='${lib.getLib libGL}/lib/libEGL.so.1' \
-          --startup-notification-library='${libstartup_notification}/lib/libstartup-notification-1.so' \
-          --canberra-library='${libcanberra}/lib/libcanberra.so' \
-          --fontconfig-library='${fontconfig.lib}/lib/libfontconfig.so' \
-          ${commonOptions}
-          ${python.pythonForBuild.interpreter} setup.py build-launcher
-        ''}
+      ${
+        if stdenv.isDarwin then
+          ''
+            ${python.pythonForBuild.interpreter} setup.py build ${darwinOptions}
+            make docs
+            ${python.pythonForBuild.interpreter} setup.py kitty.app ${darwinOptions}
+          ''
+        else
+          ''
+            ${python.pythonForBuild.interpreter} setup.py linux-package \
+            --egl-library='${lib.getLib libGL}/lib/libEGL.so.1' \
+            --startup-notification-library='${libstartup_notification}/lib/libstartup-notification-1.so' \
+            --canberra-library='${libcanberra}/lib/libcanberra.so' \
+            --fontconfig-library='${fontconfig.lib}/lib/libfontconfig.so' \
+            ${commonOptions}
+            ${python.pythonForBuild.interpreter} setup.py build-launcher
+          ''
+      }
       runHook postBuild
     '';
 
@@ -227,22 +229,24 @@ buildPythonApplication rec {
     runHook preInstall
     mkdir -p $out
     mkdir -p $kitten/bin
-    ${if stdenv.isDarwin then
-      ''
-        mkdir "$out/bin"
-        ln -s ../Applications/kitty.app/Contents/MacOS/kitty "$out/bin/kitty"
-        ln -s ../Applications/kitty.app/Contents/MacOS/kitten "$out/bin/kitten"
-        cp ./kitty.app/Contents/MacOS/kitten "$kitten/bin/kitten"
-        mkdir "$out/Applications"
-        cp -r kitty.app "$out/Applications/kitty.app"
+    ${
+      if stdenv.isDarwin then
+        ''
+          mkdir "$out/bin"
+          ln -s ../Applications/kitty.app/Contents/MacOS/kitty "$out/bin/kitty"
+          ln -s ../Applications/kitty.app/Contents/MacOS/kitten "$out/bin/kitten"
+          cp ./kitty.app/Contents/MacOS/kitten "$kitten/bin/kitten"
+          mkdir "$out/Applications"
+          cp -r kitty.app "$out/Applications/kitty.app"
 
-        installManPage 'docs/_build/man/kitty.1'
-      ''
-    else
-      ''
-        cp -r linux-package/{bin,share,lib} $out
-        cp linux-package/bin/kitten $kitten/bin/kitten
-      ''}
+          installManPage 'docs/_build/man/kitty.1'
+        ''
+      else
+        ''
+          cp -r linux-package/{bin,share,lib} $out
+          cp linux-package/bin/kitten $kitten/bin/kitten
+        ''
+    }
     wrapProgram "$out/bin/kitty" --prefix PATH : "$out/bin:${
       lib.makeBinPath [
         imagemagick

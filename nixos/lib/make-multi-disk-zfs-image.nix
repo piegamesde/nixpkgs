@@ -276,16 +276,18 @@ let
             '';
 
             postVM = ''
-              ${if formatOpt == "raw" then
-                ''
-                  mv $bootDiskImage $out/${bootFilename}
-                  mv $rootDiskImage $out/${rootFilename}
-                ''
-              else
-                ''
-                  ${pkgs.qemu}/bin/qemu-img convert -f raw -O ${formatOpt} ${compress} $bootDiskImage $out/${bootFilename}
-                  ${pkgs.qemu}/bin/qemu-img convert -f raw -O ${formatOpt} ${compress} $rootDiskImage $out/${rootFilename}
-                ''}
+              ${
+                if formatOpt == "raw" then
+                  ''
+                    mv $bootDiskImage $out/${bootFilename}
+                    mv $rootDiskImage $out/${rootFilename}
+                  ''
+                else
+                  ''
+                    ${pkgs.qemu}/bin/qemu-img convert -f raw -O ${formatOpt} ${compress} $bootDiskImage $out/${bootFilename}
+                    ${pkgs.qemu}/bin/qemu-img convert -f raw -O ${formatOpt} ${compress} $rootDiskImage $out/${rootFilename}
+                  ''
+              }
               bootDiskImage=$out/${bootFilename}
               rootDiskImage=$out/${rootFilename}
               set -x

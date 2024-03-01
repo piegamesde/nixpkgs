@@ -137,20 +137,22 @@ stdenv.mkDerivation rec {
 
   installPhase = ''
     runHook preInstall
-    ${rec {
-      aarch64-darwin = ''
-        mkdir -p $out/Applications
-        cp -R zoom.us.app $out/Applications/
-      '';
-      # darwin steps same on both architectures
-      x86_64-darwin = aarch64-darwin;
-      x86_64-linux = ''
-        mkdir $out
-        tar -C $out -xf $src
-        mv $out/usr/* $out/
-      '';
+    ${
+      rec {
+        aarch64-darwin = ''
+          mkdir -p $out/Applications
+          cp -R zoom.us.app $out/Applications/
+        '';
+        # darwin steps same on both architectures
+        x86_64-darwin = aarch64-darwin;
+        x86_64-linux = ''
+          mkdir $out
+          tar -C $out -xf $src
+          mv $out/usr/* $out/
+        '';
+      }
+      .${system} or throwSystem
     }
-    .${system} or throwSystem}
     runHook postInstall
   '';
 

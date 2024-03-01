@@ -156,33 +156,35 @@ let
 
         iface_args="-s ${optionalString cfg.dbusControlled "-u"} -D${cfg.driver} ${configStr}"
 
-        ${if iface == null then
-          ''
-            # detect interfaces automatically
+        ${
+          if iface == null then
+            ''
+              # detect interfaces automatically
 
-            # check if there are no wireless interfaces
-            if ! find -H /sys/class/net/* -name wireless | grep -q .; then
-              # if so, wait until one appears
-              echo "Waiting for wireless interfaces"
-              grep -q '^ACTION=add' < <(stdbuf -oL -- udevadm monitor -s net/wlan -pu)
-              # Note: the above line has been carefully written:
-              # 1. The process substitution avoids udevadm hanging (after grep has quit)
-              #    until it tries to write to the pipe again. Not even pipefail works here.
-              # 2. stdbuf is needed because udevadm output is buffered by default and grep
-              #    may hang until more udev events enter the pipe.
-            fi
+              # check if there are no wireless interfaces
+              if ! find -H /sys/class/net/* -name wireless | grep -q .; then
+                # if so, wait until one appears
+                echo "Waiting for wireless interfaces"
+                grep -q '^ACTION=add' < <(stdbuf -oL -- udevadm monitor -s net/wlan -pu)
+                # Note: the above line has been carefully written:
+                # 1. The process substitution avoids udevadm hanging (after grep has quit)
+                #    until it tries to write to the pipe again. Not even pipefail works here.
+                # 2. stdbuf is needed because udevadm output is buffered by default and grep
+                #    may hang until more udev events enter the pipe.
+              fi
 
-            # add any interface found to the daemon arguments
-            for name in $(find -H /sys/class/net/* -name wireless | cut -d/ -f 5); do
-              echo "Adding interface $name"
-              args+="''${args:+ -N} -i$name $iface_args"
-            done
-          ''
-        else
-          ''
-            # add known interface to the daemon arguments
-            args="-i${iface} $iface_args"
-          ''}
+              # add any interface found to the daemon arguments
+              for name in $(find -H /sys/class/net/* -name wireless | cut -d/ -f 5); do
+                echo "Adding interface $name"
+                args+="''${args:+ -N} -i$name $iface_args"
+              done
+            ''
+          else
+            ''
+              # add known interface to the daemon arguments
+              args="-i${iface} $iface_args"
+            ''
+        }
 
         # finally start daemon
         exec wpa_supplicant $args

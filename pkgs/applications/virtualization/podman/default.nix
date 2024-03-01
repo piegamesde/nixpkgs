@@ -114,28 +114,32 @@ buildGoModule rec {
     runHook preBuild
     patchShebangs .
     substituteInPlace Makefile --replace "/bin/bash" "${runtimeShell}"
-    ${if stdenv.isDarwin then
-      ''
-        make podman-remote # podman-mac-helper uses FHS paths
-      ''
-    else
-      ''
-        make bin/podman bin/rootlessport bin/quadlet
-      ''}
+    ${
+      if stdenv.isDarwin then
+        ''
+          make podman-remote # podman-mac-helper uses FHS paths
+        ''
+      else
+        ''
+          make bin/podman bin/rootlessport bin/quadlet
+        ''
+    }
     make docs
     runHook postBuild
   '';
 
   installPhase = ''
     runHook preInstall
-    ${if stdenv.isDarwin then
-      ''
-        install bin/darwin/podman -Dt $out/bin
-      ''
-    else
-      ''
-        make install.bin install.systemd
-      ''}
+    ${
+      if stdenv.isDarwin then
+        ''
+          install bin/darwin/podman -Dt $out/bin
+        ''
+      else
+        ''
+          make install.bin install.systemd
+        ''
+    }
     make install.completions install.man
     mkdir -p ${HELPER_BINARIES_DIR}
     ln -s ${helpersBin}/bin/* ${HELPER_BINARIES_DIR}

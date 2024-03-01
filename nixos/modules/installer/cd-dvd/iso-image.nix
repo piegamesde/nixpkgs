@@ -217,27 +217,28 @@ let
     fi
 
     ${
-    # When there is a theme configured, use it, otherwise use the background image.
-    if config.isoImage.grubTheme != null then
-      ''
-        # Sets theme.
-        set theme=(\$root)/EFI/boot/grub-theme/theme.txt
-        # Load theme fonts
-        $(find ${config.isoImage.grubTheme} -iname '*.pf2' -printf "loadfont (\$root)/EFI/boot/grub-theme/%P\n")
-      ''
-    else
-      ''
-        if background_image (\$root)/EFI/boot/efi-background.png; then
-          # Black background means transparent background when there
-          # is a background image set... This seems undocumented :(
-          set color_normal=black/black
-          set color_highlight=white/blue
-        else
-          # Falls back again to proper colors.
-          set menu_color_normal=cyan/blue
-          set menu_color_highlight=white/blue
-        fi
-      ''}
+      # When there is a theme configured, use it, otherwise use the background image.
+      if config.isoImage.grubTheme != null then
+        ''
+          # Sets theme.
+          set theme=(\$root)/EFI/boot/grub-theme/theme.txt
+          # Load theme fonts
+          $(find ${config.isoImage.grubTheme} -iname '*.pf2' -printf "loadfont (\$root)/EFI/boot/grub-theme/%P\n")
+        ''
+      else
+        ''
+          if background_image (\$root)/EFI/boot/efi-background.png; then
+            # Black background means transparent background when there
+            # is a background image set... This seems undocumented :(
+            set color_normal=black/black
+            set color_highlight=white/blue
+          else
+            # Falls back again to proper colors.
+            set menu_color_normal=cyan/blue
+            set menu_color_highlight=white/blue
+          fi
+        ''
+    }
   '';
 
   # The EFI boot image.

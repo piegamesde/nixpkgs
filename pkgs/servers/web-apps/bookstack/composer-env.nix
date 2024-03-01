@@ -139,24 +139,30 @@ let
             dependency = dependencies.${dependencyName};
           in
           ''
-            ${if dependency.targetDir == "" then
-              ''
-                vendorDir="$(dirname ${dependencyName})"
-                mkdir -p "$vendorDir"
-                ${if symlinkDependencies then
-                  ''ln -s "${dependency.src}" "$vendorDir/$(basename "${dependencyName}")"''
-                else
-                  ''cp -av "${dependency.src}" "$vendorDir/$(basename "${dependencyName}")"''}
-              ''
-            else
-              ''
-                namespaceDir="${dependencyName}/$(dirname "${dependency.targetDir}")"
-                mkdir -p "$namespaceDir"
-                ${if symlinkDependencies then
-                  ''ln -s "${dependency.src}" "$namespaceDir/$(basename "${dependency.targetDir}")"''
-                else
-                  ''cp -av "${dependency.src}" "$namespaceDir/$(basename "${dependency.targetDir}")"''}
-              ''}
+            ${
+              if dependency.targetDir == "" then
+                ''
+                  vendorDir="$(dirname ${dependencyName})"
+                  mkdir -p "$vendorDir"
+                  ${
+                    if symlinkDependencies then
+                      ''ln -s "${dependency.src}" "$vendorDir/$(basename "${dependencyName}")"''
+                    else
+                      ''cp -av "${dependency.src}" "$vendorDir/$(basename "${dependencyName}")"''
+                  }
+                ''
+              else
+                ''
+                  namespaceDir="${dependencyName}/$(dirname "${dependency.targetDir}")"
+                  mkdir -p "$namespaceDir"
+                  ${
+                    if symlinkDependencies then
+                      ''ln -s "${dependency.src}" "$namespaceDir/$(basename "${dependency.targetDir}")"''
+                    else
+                      ''cp -av "${dependency.src}" "$namespaceDir/$(basename "${dependency.targetDir}")"''
+                  }
+                ''
+            }
           ''
         ) (builtins.attrNames dependencies);
 
@@ -176,19 +182,21 @@ let
         inherit unpackPhase buildPhase;
 
         installPhase = ''
-          ${if executable then
-            ''
-              mkdir -p $out/share/php
-              cp -av $src $out/share/php/$name
-              chmod -R u+w $out/share/php/$name
-              cd $out/share/php/$name
-            ''
-          else
-            ''
-              cp -av $src $out
-              chmod -R u+w $out
-              cd $out
-            ''}
+          ${
+            if executable then
+              ''
+                mkdir -p $out/share/php
+                cp -av $src $out/share/php/$name
+                chmod -R u+w $out/share/php/$name
+                cd $out/share/php/$name
+              ''
+            else
+              ''
+                cp -av $src $out
+                chmod -R u+w $out
+                cd $out
+              ''
+          }
 
           # Remove unwanted files
           rm -f *.nix

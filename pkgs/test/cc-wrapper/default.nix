@@ -51,7 +51,8 @@ stdenv.mkDerivation {
           printf "checking whether compiler builds valid static pie C binaries... " >&2
           $CC ${staticLibc} -static-pie -o cc-static-pie ${./cc-main.c}
           ${emulator} ./cc-static-pie
-        ''}
+        ''
+      }
     ''}
 
     printf "checking whether compiler uses NIX_CFLAGS_COMPILE... " >&2

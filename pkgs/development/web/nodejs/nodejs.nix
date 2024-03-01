@@ -224,16 +224,18 @@ let
       mkdir -p $libv8/lib
       pushd out/Release/obj.target
       find . -path "./torque_*/**/*.o" -or -path "./v8*/**/*.o" | sort -u >files
-      ${if stdenv.buildPlatform.isGnu then
-        ''
-          ar -cqs $libv8/lib/libv8.a @files
-        ''
-      else
-        ''
-          cat files | while read -r file; do
-            ar -cqS $libv8/lib/libv8.a $file
-          done
-        ''}
+      ${
+        if stdenv.buildPlatform.isGnu then
+          ''
+            ar -cqs $libv8/lib/libv8.a @files
+          ''
+        else
+          ''
+            cat files | while read -r file; do
+              ar -cqS $libv8/lib/libv8.a $file
+            done
+          ''
+      }
       popd
 
       # copy v8 headers

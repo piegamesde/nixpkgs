@@ -634,14 +634,16 @@ in
               fi
               poolImported "${pool}" || poolImport "${pool}"  # Try one last time, e.g. to import a degraded pool.
             fi
-            ${if isBool cfgZfs.requestEncryptionCredentials then
-              optionalString cfgZfs.requestEncryptionCredentials ''
-                zfs load-key -a
-              ''
-            else
-              concatMapStrings (fs: ''
-                zfs load-key -- ${escapeShellArg fs}
-              '') (filter (x: datasetToPool x == pool) cfgZfs.requestEncryptionCredentials)}
+            ${
+              if isBool cfgZfs.requestEncryptionCredentials then
+                optionalString cfgZfs.requestEncryptionCredentials ''
+                  zfs load-key -a
+                ''
+              else
+                concatMapStrings (fs: ''
+                  zfs load-key -- ${escapeShellArg fs}
+                '') (filter (x: datasetToPool x == pool) cfgZfs.requestEncryptionCredentials)
+            }
           '') rootPools)
         );
 

@@ -83,9 +83,11 @@ makeSetupHook {
           testLib.runTest "basic-contains-dconf" (
             testLib.skip stdenv.isDarwin ''
               ${expectSomeLineContainingYInFileXToMentionZ "${tested}/bin/foo" "GIO_EXTRA_MODULES"
-                "${dconf.lib}/lib/gio/modules"}
+                "${dconf.lib}/lib/gio/modules"
+              }
               ${expectSomeLineContainingYInFileXToMentionZ "${tested}/libexec/bar" "GIO_EXTRA_MODULES"
-                "${dconf.lib}/lib/gio/modules"}
+                "${dconf.lib}/lib/gio/modules"
+              }
             ''
           );
 
@@ -96,9 +98,11 @@ makeSetupHook {
           testLib.runTest "basic-contains-gdk-pixbuf" (
             testLib.skip stdenv.isDarwin ''
               ${expectSomeLineContainingYInFileXToMentionZ "${tested}/bin/foo" "GDK_PIXBUF_MODULE_FILE"
-                "${lib.getLib librsvg}/lib/gdk-pixbuf-2.0/2.10.0/loaders.cache"}
+                "${lib.getLib librsvg}/lib/gdk-pixbuf-2.0/2.10.0/loaders.cache"
+              }
               ${expectSomeLineContainingYInFileXToMentionZ "${tested}/libexec/bar" "GDK_PIXBUF_MODULE_FILE"
-                "${lib.getLib librsvg}/lib/gdk-pixbuf-2.0/2.10.0/loaders.cache"}
+                "${lib.getLib librsvg}/lib/gdk-pixbuf-2.0/2.10.0/loaders.cache"
+              }
             ''
           );
 
@@ -143,9 +147,11 @@ makeSetupHook {
           in
           testLib.runTest "typelib-user-has-gi-typelib-path" ''
             ${expectSomeLineContainingYInFileXToMentionZ "${tested}/bin/foo" "GI_TYPELIB_PATH"
-              "${typelib-Mahjong}/lib/girepository-1.0"}
+              "${typelib-Mahjong}/lib/girepository-1.0"
+            }
             ${expectSomeLineContainingYInFileXToMentionZ "${tested}/libexec/bar" "GI_TYPELIB_PATH"
-              "${typelib-Mahjong}/lib/girepository-1.0"}
+              "${typelib-Mahjong}/lib/girepository-1.0"
+            }
           '';
 
         # Simple derivation containing a gobject-introspection typelib in lib output.
@@ -197,9 +203,11 @@ makeSetupHook {
           in
           testLib.runTest "typelib-multiout-user-has-gi-typelib-path" ''
             ${expectSomeLineContainingYInFileXToMentionZ "${tested}/bin/foo" "GI_TYPELIB_PATH"
-              "${typelib-Bechamel.lib}/lib/girepository-1.0"}
+              "${typelib-Bechamel.lib}/lib/girepository-1.0"
+            }
             ${expectSomeLineContainingYInFileXToMentionZ "${tested}/libexec/bar" "GI_TYPELIB_PATH"
-              "${typelib-Bechamel.lib}/lib/girepository-1.0"}
+              "${typelib-Bechamel.lib}/lib/girepository-1.0"
+            }
           '';
 
         # Simple derivation that contains a typelib as well as a program using it.
@@ -232,9 +240,11 @@ makeSetupHook {
           in
           testLib.runTest "typelib-self-user-has-gi-typelib-path" ''
             ${expectSomeLineContainingYInFileXToMentionZ "${tested}/bin/foo" "GI_TYPELIB_PATH"
-              "${typelib-self-user}/lib/girepository-1.0"}
+              "${typelib-self-user}/lib/girepository-1.0"
+            }
             ${expectSomeLineContainingYInFileXToMentionZ "${tested}/libexec/bar" "GI_TYPELIB_PATH"
-              "${typelib-self-user}/lib/girepository-1.0"}
+              "${typelib-self-user}/lib/girepository-1.0"
+            }
           '';
       };
   };

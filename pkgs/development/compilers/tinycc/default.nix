@@ -64,10 +64,12 @@ stdenv.mkDerivation rec {
   ] ++ lib.optionals stdenv.hostPlatform.isMusl [ "--config-musl" ];
 
   preConfigure = ''
-    ${if stdenv.isDarwin && !isCleanVer version then
-      "echo 'not overwriting VERSION since it would upset ld'"
-    else
-      "echo ${version} > VERSION"}
+    ${
+      if stdenv.isDarwin && !isCleanVer version then
+        "echo 'not overwriting VERSION since it would upset ld'"
+      else
+        "echo ${version} > VERSION"
+    }
     configureFlagsArray+=("--elfinterp=$(< $NIX_CC/nix-support/dynamic-linker)")
   '';
 

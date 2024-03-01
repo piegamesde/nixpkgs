@@ -327,17 +327,19 @@ let
         RedirectPermanent / ${hostOpts.globalRedirect}
       ''}
 
-      ${let
-        makeDirConf = elem: ''
-          Alias ${elem.urlPath} ${elem.dir}/
-          <Directory ${elem.dir}>
-              Options +Indexes
-              Require all granted
-              AllowOverride All
-          </Directory>
-        '';
-      in
-      concatMapStrings makeDirConf hostOpts.servedDirs}
+      ${
+        let
+          makeDirConf = elem: ''
+            Alias ${elem.urlPath} ${elem.dir}/
+            <Directory ${elem.dir}>
+                Options +Indexes
+                Require all granted
+                AllowOverride All
+            </Directory>
+          '';
+        in
+        concatMapStrings makeDirConf hostOpts.servedDirs
+      }
 
       ${mkLocations hostOpts.locations}
       ${hostOpts.extraConfig}
@@ -361,32 +363,36 @@ let
         MaxRequestsPerChild  ${toString cfg.maxRequestsPerChild}
     </IfModule>
 
-    ${let
-      toStr =
-        listen: "Listen ${listen.ip}:${toString listen.port} ${if listen.ssl then "https" else "http"}";
-      uniqueListen = uniqList { inputList = map toStr listenInfo; };
-    in
-    concatStringsSep "\n" uniqueListen}
+    ${
+      let
+        toStr =
+          listen: "Listen ${listen.ip}:${toString listen.port} ${if listen.ssl then "https" else "http"}";
+        uniqueListen = uniqList { inputList = map toStr listenInfo; };
+      in
+      concatStringsSep "\n" uniqueListen
+    }
 
     User ${cfg.user}
     Group ${cfg.group}
 
-    ${let
-      mkModule =
-        module:
-        if isString module then
-          {
-            name = module;
-            path = "${pkg}/modules/mod_${module}.so";
-          }
-        else if isAttrs module then
-          { inherit (module) name path; }
-        else
-          throw "Expecting either a string or attribute set including a name and path.";
-    in
-    concatMapStringsSep "\n" (module: "LoadModule ${module.name}_module ${module.path}") (
-      unique (map mkModule modules)
-    )}
+    ${
+      let
+        mkModule =
+          module:
+          if isString module then
+            {
+              name = module;
+              path = "${pkg}/modules/mod_${module}.so";
+            }
+          else if isAttrs module then
+            { inherit (module) name path; }
+          else
+            throw "Expecting either a string or attribute set including a name and path.";
+      in
+      concatMapStringsSep "\n" (module: "LoadModule ${module.name}_module ${module.path}") (
+        unique (map mkModule modules)
+      )
+    }
 
     AddHandler type-map var
 

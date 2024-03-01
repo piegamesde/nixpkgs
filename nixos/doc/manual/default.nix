@@ -259,41 +259,43 @@ rec {
         cp ${../../../doc/overrides.css} $dst/overrides.css
         cp -r ${pkgs.documentation-highlighter} $dst/highlightjs
 
-        ${if allowDocBook then
-          ''
-            xsltproc \
-              ${manualXsltprocOptions} \
-              --stringparam id.warnings "1" \
-              --nonet --output $dst/ \
-              ${docbook_xsl_ns}/xml/xsl/docbook/xhtml/chunktoc.xsl \
-              ${manual-combined}/manual-combined.xml \
-              |& tee xsltproc.out
-            grep "^ID recommended on" xsltproc.out &>/dev/null && echo "error: some IDs are missing" && false
-            rm xsltproc.out
+        ${
+          if allowDocBook then
+            ''
+              xsltproc \
+                ${manualXsltprocOptions} \
+                --stringparam id.warnings "1" \
+                --nonet --output $dst/ \
+                ${docbook_xsl_ns}/xml/xsl/docbook/xhtml/chunktoc.xsl \
+                ${manual-combined}/manual-combined.xml \
+                |& tee xsltproc.out
+              grep "^ID recommended on" xsltproc.out &>/dev/null && echo "error: some IDs are missing" && false
+              rm xsltproc.out
 
-            mkdir -p $dst/images/callouts
-            cp ${docbook_xsl_ns}/xml/xsl/docbook/images/callouts/*.svg $dst/images/callouts/
-          ''
-        else
-          ''
-            ${prepareManualFromMD}
+              mkdir -p $dst/images/callouts
+              cp ${docbook_xsl_ns}/xml/xsl/docbook/images/callouts/*.svg $dst/images/callouts/
+            ''
+          else
+            ''
+              ${prepareManualFromMD}
 
-            # TODO generator is set like this because the docbook/md manual compare workflow will
-            # trigger if it's different
-            nixos-render-docs -j $NIX_BUILD_CORES manual html \
-              --manpage-urls ${manpageUrls} \
-              --revision ${lib.escapeShellArg revision} \
-              --generator "DocBook XSL Stylesheets V${docbook_xsl_ns.version}" \
-              --stylesheet style.css \
-              --stylesheet overrides.css \
-              --stylesheet highlightjs/mono-blue.css \
-              --script ./highlightjs/highlight.pack.js \
-              --script ./highlightjs/loader.js \
-              --toc-depth 1 \
-              --chunk-toc-depth 1 \
-              ./manual.md \
-              $dst/index.html
-          ''}
+              # TODO generator is set like this because the docbook/md manual compare workflow will
+              # trigger if it's different
+              nixos-render-docs -j $NIX_BUILD_CORES manual html \
+                --manpage-urls ${manpageUrls} \
+                --revision ${lib.escapeShellArg revision} \
+                --generator "DocBook XSL Stylesheets V${docbook_xsl_ns.version}" \
+                --stylesheet style.css \
+                --stylesheet overrides.css \
+                --stylesheet highlightjs/mono-blue.css \
+                --script ./highlightjs/highlight.pack.js \
+                --script ./highlightjs/loader.js \
+                --toc-depth 1 \
+                --chunk-toc-depth 1 \
+                ./manual.md \
+                $dst/index.html
+            ''
+        }
 
         mkdir -p $out/nix-support
         echo "nix-build out $out" >> $out/nix-support/hydra-build-products
@@ -355,24 +357,26 @@ rec {
         # Generate manpages.
         mkdir -p $out/share/man/man8
         installManPage ${./manpages}/*
-        ${if allowDocBook then
-          ''
-            xsltproc --nonet \
-              --maxdepth 6000 \
-              --param man.output.in.separate.dir 1 \
-              --param man.output.base.dir "'$out/share/man/'" \
-              --param man.endnotes.are.numbered 0 \
-              --param man.break.after.slash 1 \
-              ${docbook_xsl_ns}/xml/xsl/docbook/manpages/docbook.xsl \
-              ${manpages-combined}
-          ''
-        else
-          ''
-            mkdir -p $out/share/man/man5
-            nixos-render-docs -j $NIX_BUILD_CORES options manpage \
-              --revision ${lib.escapeShellArg revision} \
-              ${optionsJSON}/share/doc/nixos/options.json \
-              $out/share/man/man5/configuration.nix.5
-          ''}
+        ${
+          if allowDocBook then
+            ''
+              xsltproc --nonet \
+                --maxdepth 6000 \
+                --param man.output.in.separate.dir 1 \
+                --param man.output.base.dir "'$out/share/man/'" \
+                --param man.endnotes.are.numbered 0 \
+                --param man.break.after.slash 1 \
+                ${docbook_xsl_ns}/xml/xsl/docbook/manpages/docbook.xsl \
+                ${manpages-combined}
+            ''
+          else
+            ''
+              mkdir -p $out/share/man/man5
+              nixos-render-docs -j $NIX_BUILD_CORES options manpage \
+                --revision ${lib.escapeShellArg revision} \
+                ${optionsJSON}/share/doc/nixos/options.json \
+                $out/share/man/man5/configuration.nix.5
+            ''
+        }
       '';
 }

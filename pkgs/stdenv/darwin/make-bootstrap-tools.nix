@@ -190,15 +190,17 @@ rec {
         fi
       done
 
-      ${if stdenv.targetPlatform.isx86_64 then
-        ''
-          rpathify $out/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation
-        ''
-      else
-        ''
-          sed -i -e 's|/nix/store/.*/libobjc.A.dylib|@executable_path/../libobjc.A.dylib|g' \
-            $out/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation.tbd
-        ''}
+      ${
+        if stdenv.targetPlatform.isx86_64 then
+          ''
+            rpathify $out/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation
+          ''
+        else
+          ''
+            sed -i -e 's|/nix/store/.*/libobjc.A.dylib|@executable_path/../libobjc.A.dylib|g' \
+              $out/Library/Frameworks/CoreFoundation.framework/Versions/A/CoreFoundation.tbd
+          ''
+      }
 
       nuke-refs $out/lib/*
       nuke-refs $out/lib/system/*

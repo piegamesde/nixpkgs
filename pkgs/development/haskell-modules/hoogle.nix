@@ -62,16 +62,18 @@ buildPackages.stdenv.mkDerivation {
   passAsFile = [ "buildCommand" ];
 
   buildCommand = ''
-    ${let
-      # Filter out nulls here to work around https://github.com/NixOS/nixpkgs/issues/82245
-      # If we don't then grabbing `p.name` here will fail.
-      packages' = lib.filter (p: p != null) packages;
-    in
-    lib.optionalString (packages' != [ ] -> docPackages == [ ]) (
-      "echo WARNING: localHoogle package list empty, even though"
-      + " the following were specified: "
-      + lib.concatMapStringsSep ", " (p: p.name) packages'
-    )}
+    ${
+      let
+        # Filter out nulls here to work around https://github.com/NixOS/nixpkgs/issues/82245
+        # If we don't then grabbing `p.name` here will fail.
+        packages' = lib.filter (p: p != null) packages;
+      in
+      lib.optionalString (packages' != [ ] -> docPackages == [ ]) (
+        "echo WARNING: localHoogle package list empty, even though"
+        + " the following were specified: "
+        + lib.concatMapStringsSep ", " (p: p.name) packages'
+      )
+    }
     mkdir -p $out/share/doc/hoogle
 
     echo importing builtin packages
@@ -95,7 +97,8 @@ buildPackages.stdenv.mkDerivation {
             name = p.pname;
           }) docPackages
         )
-      )}
+      )
+    }
 
     echo building hoogle database
     hoogle generate --database $out/share/doc/hoogle/default.hoo --local=$out/share/doc/hoogle

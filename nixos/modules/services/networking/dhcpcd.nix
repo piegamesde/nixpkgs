@@ -90,15 +90,17 @@ let
     ${optionalString (allowInterfaces != null) "allowinterfaces ${toString allowInterfaces}"}
 
     # Immediately fork to background if specified, otherwise wait for IP address to be assigned
-    ${{
-      background = "background";
-      any = "waitip";
-      ipv4 = "waitip 4";
-      ipv6 = "waitip 6";
-      both = "waitip 4\nwaitip 6";
-      if-carrier-up = "";
+    ${
+      {
+        background = "background";
+        any = "waitip";
+        ipv4 = "waitip 4";
+        ipv6 = "waitip 6";
+        both = "waitip 4\nwaitip 6";
+        if-carrier-up = "";
+      }
+      .${cfg.wait}
     }
-    .${cfg.wait}}
 
     ${optionalString (config.networking.enableIPv6 == false) ''
       # Don't solicit or accept IPv6 Router Advertisements and DHCPv6 if disabled IPv6

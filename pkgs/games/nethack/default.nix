@@ -134,7 +134,8 @@ stdenv.mkDerivation rec {
         ${buildPackages.perl}/bin/perl -p \
           -e 's,[a-z./]+/(makedefs|dgn_comp|lev_comp|dlb)(?!\.),${buildPackages.nethack}/libexec/nethack/\1,g' \
           -i sys/unix/Makefile.*
-      ''}
+      ''
+    }
     sed -i -e '/rm -f $(MAKEDEFS)/d' sys/unix/Makefile.src
     # Fix building on darwin where otherwise __has_attribute fails with an empty parameter
     sed -e 's/define __warn_unused_result__ .*/define __warn_unused_result__ __unused__/' -i include/tradstdc.h

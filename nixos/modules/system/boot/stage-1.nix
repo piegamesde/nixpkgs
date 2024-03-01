@@ -232,15 +232,17 @@ let
         # Make sure that the patchelf'ed binaries still work.
         echo "testing patched programs..."
         $out/bin/ash -c 'echo hello world' | grep "hello world"
-        ${if zfsRequiresMountHelper then
-          ''
-            $out/bin/mount -V 1>&1 | grep -q "mount from util-linux"
-            $out/bin/mount.zfs -h 2>&1 | grep -q "Usage: mount.zfs"
-          ''
-        else
-          ''
-            $out/bin/mount --help 2>&1 | grep -q "BusyBox"
-          ''}
+        ${
+          if zfsRequiresMountHelper then
+            ''
+              $out/bin/mount -V 1>&1 | grep -q "mount from util-linux"
+              $out/bin/mount.zfs -h 2>&1 | grep -q "Usage: mount.zfs"
+            ''
+          else
+            ''
+              $out/bin/mount --help 2>&1 | grep -q "BusyBox"
+            ''
+        }
         $out/bin/blkid -V 2>&1 | grep -q 'libblkid'
         $out/bin/udevadm --version
         $out/bin/dmsetup --version 2>&1 | tee -a log | grep -q "version:"
@@ -386,14 +388,16 @@ let
 
     setHostId = optionalString (config.networking.hostId != null) ''
       hi="${config.networking.hostId}"
-      ${if pkgs.stdenv.isBigEndian then
-        ''
-          echo -ne "\x''${hi:0:2}\x''${hi:2:2}\x''${hi:4:2}\x''${hi:6:2}" > /etc/hostid
-        ''
-      else
-        ''
-          echo -ne "\x''${hi:6:2}\x''${hi:4:2}\x''${hi:2:2}\x''${hi:0:2}" > /etc/hostid
-        ''}
+      ${
+        if pkgs.stdenv.isBigEndian then
+          ''
+            echo -ne "\x''${hi:0:2}\x''${hi:2:2}\x''${hi:4:2}\x''${hi:6:2}" > /etc/hostid
+          ''
+        else
+          ''
+            echo -ne "\x''${hi:6:2}\x''${hi:4:2}\x''${hi:2:2}\x''${hi:0:2}" > /etc/hostid
+          ''
+      }
     '';
   };
 

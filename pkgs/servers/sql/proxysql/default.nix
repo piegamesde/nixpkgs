@@ -160,7 +160,8 @@ stdenv.mkDerivation rec {
                 p = re2;
               }
             ]
-        )}
+        )
+      }
 
       pushd libhttpserver
       tar xf libhttpserver-*.tar.gz

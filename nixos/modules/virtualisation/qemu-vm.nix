@@ -204,13 +204,15 @@ let
       NIX_EFI_VARS=$(readlink -f "''${NIX_EFI_VARS:-${config.system.name}-efi-vars.fd}")
       # VM needs writable EFI vars
       if ! test -e "$NIX_EFI_VARS"; then
-      ${if cfg.useBootLoader then
-        # We still need the EFI var from the make-disk-image derivation
-        # because our "switch-to-configuration" process might
-        # write into it and we want to keep this data.
-        ''cp ${systemImage}/efi-vars.fd "$NIX_EFI_VARS"''
-      else
-        ''cp ${cfg.efi.variables} "$NIX_EFI_VARS"''}
+      ${
+        if cfg.useBootLoader then
+          # We still need the EFI var from the make-disk-image derivation
+          # because our "switch-to-configuration" process might
+          # write into it and we want to keep this data.
+          ''cp ${systemImage}/efi-vars.fd "$NIX_EFI_VARS"''
+        else
+          ''cp ${cfg.efi.variables} "$NIX_EFI_VARS"''
+      }
         chmod 0644 "$NIX_EFI_VARS"
       fi
     ''}
