@@ -231,9 +231,10 @@ in
       "nut/upssched.conf".source = cfg.schedulerRules;
       # These file are containing private information and thus should not
       # be stored inside the Nix store.
-      /* "nut/upsd.conf".source = "";
-         "nut/upsd.users".source = "";
-         "nut/upsmon.conf".source = "";
+      /*
+        "nut/upsd.conf".source = "";
+        "nut/upsd.users".source = "";
+        "nut/upsmon.conf".source = "";
       */
     };
 
@@ -250,7 +251,8 @@ in
           mkdir -p /var/state/ups
         '';
 
-    /* users.users.nut =
+    /*
+        users.users.nut =
           { uid = 84;
             home = "/var/lib/nut";
             createHome = true;

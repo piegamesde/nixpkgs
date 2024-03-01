@@ -10,13 +10,14 @@
     denyList ? [ ],
   }:
 
-  /* dictlist is a list of form
-     [ { filename = /path/to/files/basename;
-     name = "name"; } ]
-     basename.dict.dz and basename.index should be
-     dict files. Or look below for other options.
-     allowList is a list of IP/domain *-wildcarded strings
-     denyList is the same..
+  /*
+    dictlist is a list of form
+    [ { filename = /path/to/files/basename;
+    name = "name"; } ]
+    basename.dict.dz and basename.index should be
+    dict files. Or look below for other options.
+    allowList is a list of IP/domain *-wildcarded strings
+    denyList is the same..
   */
 
   let

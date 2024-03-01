@@ -11,8 +11,9 @@
   enableStatic ? stdenv.hostPlatform.isStatic,
 }:
 
-/* For details on using mkl as a blas provider for python packages such as numpy,
-   numexpr, scipy, etc., see the Python section of the NixPkgs manual.
+/*
+  For details on using mkl as a blas provider for python packages such as numpy,
+  numexpr, scipy, etc., see the Python section of the NixPkgs manual.
 */
 let
   # Release notes and download URLs are here:

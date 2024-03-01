@@ -417,12 +417,13 @@ rec {
     else
       "string";
 
-  /* deprecated:
+  /*
+    deprecated:
 
-     For historical reasons, imap has an index starting at 1.
+    For historical reasons, imap has an index starting at 1.
 
-     But for consistency with the rest of the library we want an index
-     starting at zero.
+    But for consistency with the rest of the library we want an index
+    starting at zero.
   */
   imap = imap1;
 

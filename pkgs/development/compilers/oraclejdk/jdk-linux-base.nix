@@ -39,8 +39,9 @@ assert swingSupport -> xorg != null;
 
 let
 
-  #
-  # The JRE libraries are in directories that depend on the CPU.
+  /**
+    The JRE libraries are in directories that depend on the CPU.
+  */
   architecture =
     {
       i686-linux = "i386";
@@ -174,8 +175,9 @@ let
 
     inherit installjdk pluginSupport;
 
-    #
-    # libXt is only needed on amd64
+    /**
+      libXt is only needed on amd64
+    */
     libraries =
       [
         stdenv.cc.libc

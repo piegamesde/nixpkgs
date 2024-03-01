@@ -110,9 +110,10 @@ rec {
           "libexec/invokeme"
         ];
         execer = [
-          /* This is the same verdict binlore will
-             come up with. It's a no-op just to demo
-             how to fiddle lore via the Nix API.
+          /*
+            This is the same verdict binlore will
+            come up with. It's a no-op just to demo
+            how to fiddle lore via the Nix API.
           */
           "cannot:${openssl.bin}/bin/openssl"
           # different verdict, but not used

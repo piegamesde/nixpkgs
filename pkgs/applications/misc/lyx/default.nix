@@ -44,8 +44,9 @@ mkDerivation rec {
   configureFlags = [
     "--enable-qt5"
     #"--without-included-boost"
-    /* Boost is a huge dependency from which 1.4 MB of libs would be used.
-        Using internal boost stuff only increases executable by around 0.2 MB.
+    /*
+      Boost is a huge dependency from which 1.4 MB of libs would be used.
+       Using internal boost stuff only increases executable by around 0.2 MB.
     */
     #"--without-included-mythes" # such a small library isn't worth a separate package
   ];

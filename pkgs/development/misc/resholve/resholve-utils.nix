@@ -7,11 +7,12 @@
 }:
 
 rec {
-  /* These functions break up the work of partially validating the
-     'solutions' attrset and massaging it into env/cli args.
+  /*
+    These functions break up the work of partially validating the
+    'solutions' attrset and massaging it into env/cli args.
 
-     Note: some of the left-most args do not *have* to be passed as
-     deep as they are, but I've done so to provide more error context
+    Note: some of the left-most args do not *have* to be passed as
+    deep as they are, but I've done so to provide more error context
   */
 
   # for brevity / line length
@@ -86,9 +87,10 @@ rec {
     solution: env: value:
     "RESHOLVE_${lib.toUpper env}=${shellEnv solution env value}";
 
-  /* Discard attrs:
-     - claimed by phraseArgs
-     - only needed for binlore.collect
+  /*
+    Discard attrs:
+    - claimed by phraseArgs
+    - only needed for binlore.collect
   */
   removeUnneededArgs =
     value:
@@ -151,9 +153,10 @@ rec {
       lib.mapAttrsToList phraseInvocation (injectUnresholved solutions unresholved)
     );
 
-  /* subshell/PS4/set -x and : command to output resholve envs
-     and invocation. Extra context makes it clearer what the
-     Nix API is doing, makes nix-shell debugging easier, etc.
+  /*
+    subshell/PS4/set -x and : command to output resholve envs
+    and invocation. Extra context makes it clearer what the
+    Nix API is doing, makes nix-shell debugging easier, etc.
   */
   phraseContext =
     {
@@ -222,10 +225,11 @@ rec {
     let
       inherit stdenv;
 
-      /* Knock out our special solutions arg, but otherwise
-         just build what the caller is giving us. We'll
-         actually resholve it separately below (after we
-         generate binlore for it).
+      /*
+        Knock out our special solutions arg, but otherwise
+        just build what the caller is giving us. We'll
+        actually resholve it separately below (after we
+        generate binlore for it).
       */
       unresholved = (
         stdenv.mkDerivation (
@@ -237,10 +241,11 @@ rec {
         )
       );
     in
-    /* resholve in a separate derivation; some concerns:
-       - we aren't keeping many of the user's args, so they
-         can't readily set LOGLEVEL and such...
-       - not sure how this affects multiple outputs
+    /*
+      resholve in a separate derivation; some concerns:
+      - we aren't keeping many of the user's args, so they
+        can't readily set LOGLEVEL and such...
+      - not sure how this affects multiple outputs
     */
     lib.extendDerivation true passthru (
       stdenv.mkDerivation {

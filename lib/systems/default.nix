@@ -11,10 +11,11 @@ rec {
   examples = import ./examples.nix { inherit lib; };
   architectures = import ./architectures.nix { inherit lib; };
 
-  /* List of all Nix system doubles the nixpkgs flake will expose the package set
-     for. All systems listed here must be supported by nixpkgs as `localSystem`.
+  /*
+    List of all Nix system doubles the nixpkgs flake will expose the package set
+    for. All systems listed here must be supported by nixpkgs as `localSystem`.
 
-     **Warning**: This attribute is considered experimental and is subject to change.
+    **Warning**: This attribute is considered experimental and is subject to change.
   */
   flakeExposed = import ./flake-systems.nix { };
 

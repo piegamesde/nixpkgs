@@ -1,6 +1,7 @@
-/* This file is for options that NixOS and nix-darwin have in common.
+/*
+  This file is for options that NixOS and nix-darwin have in common.
 
-   Platform-specific code is in the respective default.nix files.
+  Platform-specific code is in the respective default.nix files.
 */
 
 {
@@ -271,10 +272,11 @@ in
       type = types.submoduleWith { modules = [ settingsModule ]; };
     };
 
-    /* Internal and/or computed values.
+    /*
+      Internal and/or computed values.
 
-       These are written as options instead of let binding to allow sharing with
-       default.nix on both NixOS and nix-darwin.
+      These are written as options instead of let binding to allow sharing with
+      default.nix on both NixOS and nix-darwin.
     */
     tomlFile = mkOption {
       type = types.path;

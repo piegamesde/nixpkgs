@@ -324,26 +324,27 @@ rec {
     mkdir /mnt/proc /mnt/dev /mnt/sys
   '';
 
-  /* Run a derivation in a Linux virtual machine (using Qemu/KVM).  By
-     default, there is no disk image; the root filesystem is a tmpfs,
-     and the nix store is shared with the host (via the 9P protocol).
-     Thus, any pure Nix derivation should run unmodified, e.g. the
-     call
+  /*
+    Run a derivation in a Linux virtual machine (using Qemu/KVM).  By
+    default, there is no disk image; the root filesystem is a tmpfs,
+    and the nix store is shared with the host (via the 9P protocol).
+    Thus, any pure Nix derivation should run unmodified, e.g. the
+    call
 
-       runInLinuxVM patchelf
+      runInLinuxVM patchelf
 
-     will build the derivation `patchelf' inside a VM.  The attribute
-     `preVM' can optionally contain a shell command to be evaluated
-     *before* the VM is started (i.e., on the host).  The attribute
-     `memSize' specifies the memory size of the VM in megabytes,
-     defaulting to 512.  The attribute `diskImage' can optionally
-     specify a file system image to be attached to /dev/sda.  (Note
-     that currently we expect the image to contain a filesystem, not a
-     full disk image with a partition table etc.)
+    will build the derivation `patchelf' inside a VM.  The attribute
+    `preVM' can optionally contain a shell command to be evaluated
+    *before* the VM is started (i.e., on the host).  The attribute
+    `memSize' specifies the memory size of the VM in megabytes,
+    defaulting to 512.  The attribute `diskImage' can optionally
+    specify a file system image to be attached to /dev/sda.  (Note
+    that currently we expect the image to contain a filesystem, not a
+    full disk image with a partition table etc.)
 
-     If the build fails and Nix is run with the `-K' option, a script
-     `run-vm' will be left behind in the temporary build directory
-     that allows you to boot into the VM and debug it interactively.
+    If the build fails and Nix is run with the `-K' option, a script
+    `run-vm' will be left behind in the temporary build directory
+    that allows you to boot into the VM and debug it interactively.
   */
 
   runInLinuxVM =
@@ -431,10 +432,11 @@ rec {
       }
     );
 
-  /* Like runInLinuxVM, but run the build not using the stdenv from
-     the Nix store, but using the tools provided by /bin, /usr/bin
-     etc. from the specified filesystem image, which typically is a
-     filesystem containing a non-NixOS Linux distribution.
+  /*
+    Like runInLinuxVM, but run the build not using the stdenv from
+    the Nix store, but using the tools provided by /bin, /usr/bin
+    etc. from the specified filesystem image, which typically is a
+    filesystem containing a non-NixOS Linux distribution.
   */
 
   runInLinuxImage =
@@ -443,8 +445,9 @@ rec {
       lib.overrideDerivation drv (attrs: {
         mountDisk = true;
 
-        /* Mount `image' as the root FS, but use a temporary copy-on-write
-           image since we don't want to (and can't) write to `image'.
+        /*
+          Mount `image' as the root FS, but use a temporary copy-on-write
+          image since we don't want to (and can't) write to `image'.
         */
         preVM = ''
           diskImage=$(pwd)/disk-image.qcow2
@@ -453,9 +456,10 @@ rec {
           ${qemu}/bin/qemu-img create -F ${attrs.diskImageFormat} -b "$origImage" -f qcow2 $diskImage
         '';
 
-        /* Inside the VM, run the stdenv setup script normally, but at the
-           very end set $PATH and $SHELL to the `native' paths for the
-           distribution inside the VM.
+        /*
+          Inside the VM, run the stdenv setup script normally, but at the
+          very end set $PATH and $SHELL to the `native' paths for the
+          distribution inside the VM.
         */
         postHook = ''
           PATH=/usr/bin:/bin:/usr/sbin:/sbin
@@ -470,8 +474,9 @@ rec {
       })
     );
 
-  /* Create a filesystem image of the specified size and fill it with
-     a set of RPM packages.
+  /*
+    Create a filesystem image of the specified size and fill it with
+    a set of RPM packages.
   */
 
   fillDiskWithRPMs =
@@ -557,8 +562,9 @@ rec {
       }
     );
 
-  /* Generate a script that can be used to run an interactive session
-     in the given image.
+  /*
+    Generate a script that can be used to run an interactive session
+    in the given image.
   */
 
   makeImageTestScript =
@@ -583,9 +589,10 @@ rec {
       ${qemuCommandLinux}
     '';
 
-  /* Build RPM packages from the tarball `src' in the Linux
-     distribution installed in the filesystem `diskImage'.  The
-     tarball must contain an RPM specfile.
+  /*
+    Build RPM packages from the tarball `src' in the Linux
+    distribution installed in the filesystem `diskImage'.  The
+    tarball must contain an RPM specfile.
   */
 
   buildRPM =
@@ -655,10 +662,11 @@ rec {
       )
     );
 
-  /* Create a filesystem image of the specified size and fill it with
-     a set of Debian packages.  `debs' must be a list of list of
-     .deb files, namely, the Debian packages grouped together into
-     strongly connected components.  See deb/deb-closure.nix.
+  /*
+    Create a filesystem image of the specified size and fill it with
+    a set of Debian packages.  `debs' must be a list of list of
+    .deb files, namely, the Debian packages grouped together into
+    strongly connected components.  See deb/deb-closure.nix.
   */
 
   fillDiskWithDebs =
@@ -770,9 +778,10 @@ rec {
       }
     );
 
-  /* Generate a Nix expression containing fetchurl calls for the
-     closure of a set of top-level RPM packages from the
-     `primary.xml.gz' file of a Fedora or openSUSE distribution.
+  /*
+    Generate a Nix expression containing fetchurl calls for the
+    closure of a set of top-level RPM packages from the
+    `primary.xml.gz' file of a Fedora or openSUSE distribution.
   */
 
   rpmClosureGenerator =
@@ -805,9 +814,10 @@ rec {
           ${toString packages} > $out
       '';
 
-  /* Helper function that combines rpmClosureGenerator and
-     fillDiskWithRPMs to generate a disk image from a set of package
-     names.
+  /*
+    Helper function that combines rpmClosureGenerator and
+    fillDiskWithRPMs to generate a disk image from a set of package
+    names.
   */
 
   makeImageFromRPMDist =
@@ -858,8 +868,9 @@ rec {
       }) { inherit fetchurl; };
     };
 
-  /* Like `rpmClosureGenerator', but now for Debian/Ubuntu releases
-     (i.e. generate a closure from a Packages.bz2 file).
+  /*
+    Like `rpmClosureGenerator', but now for Debian/Ubuntu releases
+    (i.e. generate a closure from a Packages.bz2 file).
   */
 
   debClosureGenerator =
@@ -900,9 +911,10 @@ rec {
           ./Packages ${urlPrefix} ${toString packages} > $out
       '';
 
-  /* Helper function that combines debClosureGenerator and
-     fillDiskWithDebs to generate a disk image from a set of package
-     names.
+  /*
+    Helper function that combines debClosureGenerator and
+    fillDiskWithDebs to generate a disk image from a set of package
+    names.
   */
 
   makeImageFromDebDist =
@@ -1429,18 +1441,19 @@ rec {
     "diff"
   ];
 
-  /* A set of functions that build the Linux distributions specified
-     in `rpmDistros' and `debDistros'.  For instance,
-     `diskImageFuns.ubuntu1004x86_64 { }' builds an Ubuntu 10.04 disk
-     image containing the default packages specified above.  Overrides
-     of the default image parameters can be given.  In particular,
-     `extraPackages' specifies the names of additional packages from
-     the distribution that should be included in the image; `packages'
-     allows the entire set of packages to be overridden; and `size'
-     sets the size of the disk in megabytes.  E.g.,
-     `diskImageFuns.ubuntu1004x86_64 { extraPackages = ["firefox"];
-     size = 8192; }' builds an 8 GiB image containing Firefox in
-     addition to the default packages.
+  /*
+    A set of functions that build the Linux distributions specified
+    in `rpmDistros' and `debDistros'.  For instance,
+    `diskImageFuns.ubuntu1004x86_64 { }' builds an Ubuntu 10.04 disk
+    image containing the default packages specified above.  Overrides
+    of the default image parameters can be given.  In particular,
+    `extraPackages' specifies the names of additional packages from
+    the distribution that should be included in the image; `packages'
+    allows the entire set of packages to be overridden; and `size'
+    sets the size of the disk in megabytes.  E.g.,
+    `diskImageFuns.ubuntu1004x86_64 { extraPackages = ["firefox"];
+    size = 8192; }' builds an 8 GiB image containing Firefox in
+    addition to the default packages.
   */
   diskImageFuns =
     (lib.mapAttrs (
@@ -1458,8 +1471,9 @@ rec {
     f { inherit extraPackages; }
   ) diskImageFuns;
 
-  /* Default disk images generated from the `rpmDistros' and
-     `debDistros' sets.
+  /*
+    Default disk images generated from the `rpmDistros' and
+    `debDistros' sets.
   */
   diskImages = lib.mapAttrs (name: f: f { }) diskImageFuns;
 }

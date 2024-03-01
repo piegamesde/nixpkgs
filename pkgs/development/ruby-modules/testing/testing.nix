@@ -1,26 +1,27 @@
 with builtins;
 let
-  /* underTest = {
-       x = {
-         a = 1;
-         b = "2";
-       };
-     };
+  /*
+    underTest = {
+      x = {
+        a = 1;
+        b = "2";
+      };
+    };
 
-     tests = [
-       (root: false)
-       {
-         x = [
-           (set: true)
-           {
-             a = (a: a > 1);
-             b = (b: b == "3");
-           }
-         ];
-       }
-     ];
+    tests = [
+      (root: false)
+      {
+        x = [
+          (set: true)
+          {
+            a = (a: a > 1);
+            b = (b: b == "3");
+          }
+        ];
+      }
+    ];
 
-     results = run "Examples" underTest tests;
+    results = run "Examples" underTest tests;
   */
 
   passed = desc: {

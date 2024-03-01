@@ -12,15 +12,16 @@
   wrapNeovimUnstable,
 }:
 let
-  /* returns everything needed for the caller to wrap its own neovim:
-     - the generated content of the future init.vim
-     - the arguments to wrap neovim with
-     The caller is responsible for writing the init.vim and adding it to the wrapped
-     arguments (["-u" writeText "init.vim" GENERATEDRC)]).
-     This makes it possible to write the config anywhere: on a per-project basis
-     .nvimrc or in $XDG_CONFIG_HOME/nvim/init.vim to avoid sideeffects.
-     Indeed, note that wrapping with `-u init.vim` has sideeffects like .nvimrc wont be loaded
-     anymore, $MYVIMRC wont be set etc
+  /*
+    returns everything needed for the caller to wrap its own neovim:
+    - the generated content of the future init.vim
+    - the arguments to wrap neovim with
+    The caller is responsible for writing the init.vim and adding it to the wrapped
+    arguments (["-u" writeText "init.vim" GENERATEDRC)]).
+    This makes it possible to write the config anywhere: on a per-project basis
+    .nvimrc or in $XDG_CONFIG_HOME/nvim/init.vim to avoid sideeffects.
+    Indeed, note that wrapping with `-u init.vim` has sideeffects like .nvimrc wont be loaded
+    anymore, $MYVIMRC wont be set etc
   */
   makeNeovimConfig =
     {
@@ -199,13 +200,14 @@ let
       }
     );
 
-  /* Generate vim.g.<LANG>_host_prog lua rc to setup host providers
+  /*
+    Generate vim.g.<LANG>_host_prog lua rc to setup host providers
 
-     Mapping a boolean argument to a key that tells us whether to add
-         vim.g.<LANG>_host_prog=$out/bin/nvim-<LANG>
-     Or this:
-         let g:loaded_${prog}_provider=0
-     While the latter tells nvim that this provider is not available
+    Mapping a boolean argument to a key that tells us whether to add
+        vim.g.<LANG>_host_prog=$out/bin/nvim-<LANG>
+    Or this:
+        let g:loaded_${prog}_provider=0
+    While the latter tells nvim that this provider is not available
   */
   generateProviderRc =
     {

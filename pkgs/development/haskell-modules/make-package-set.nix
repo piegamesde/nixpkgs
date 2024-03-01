@@ -618,11 +618,12 @@ package-set { inherit pkgs lib callPackage; } self
     withHoogle = self.ghcWithHoogle;
   };
 
-  /* Run `cabal sdist` on a source.
+  /*
+    Run `cabal sdist` on a source.
 
-     Unlike `haskell.lib.sdistTarball`, this does not require any dependencies
-     to be present, as it uses `cabal-install` instead of building `Setup.hs`.
-     This makes `cabalSdist` faster than `sdistTarball`.
+    Unlike `haskell.lib.sdistTarball`, this does not require any dependencies
+    to be present, as it uses `cabal-install` instead of building `Setup.hs`.
+    This makes `cabalSdist` faster than `sdistTarball`.
   */
   cabalSdist =
     {
@@ -650,11 +651,12 @@ package-set { inherit pkgs lib callPackage; } self
         mv out/*.tar.gz $out
       '';
 
-  /* Like `haskell.lib.buildFromSdist`, but using `cabal sdist` instead of
-     building `./Setup`.
+  /*
+    Like `haskell.lib.buildFromSdist`, but using `cabal sdist` instead of
+    building `./Setup`.
 
-     Unlike `haskell.lib.buildFromSdist`, this does not require any dependencies
-     to be present. This makes `buildFromCabalSdist` faster than `haskell.lib.buildFromSdist`.
+    Unlike `haskell.lib.buildFromSdist`, this does not require any dependencies
+    to be present. This makes `buildFromCabalSdist` faster than `haskell.lib.buildFromSdist`.
   */
   buildFromCabalSdist =
     pkg:
@@ -663,22 +665,23 @@ package-set { inherit pkgs lib callPackage; } self
       version = pkg.version;
     } pkg;
 
-  /* Modify a Haskell package to add shell completion scripts for the
-     given executables produced by it. These completion scripts will be
-     picked up automatically if the resulting derivation is installed,
-     e.g. by `nix-env -i`.
+  /*
+    Modify a Haskell package to add shell completion scripts for the
+    given executables produced by it. These completion scripts will be
+    picked up automatically if the resulting derivation is installed,
+    e.g. by `nix-env -i`.
 
-     This depends on the `--*-completion` flag `optparse-applicative` provides
-     automatically. Since we need to invoke installed executables, completions
-     are not generated if we are cross-compiling.
+    This depends on the `--*-completion` flag `optparse-applicative` provides
+    automatically. Since we need to invoke installed executables, completions
+    are not generated if we are cross-compiling.
 
-      commands: names of the executables built by the derivation
-           pkg: Haskell package that builds the executables
+     commands: names of the executables built by the derivation
+          pkg: Haskell package that builds the executables
 
-     Example:
-       generateOptparseApplicativeCompletions [ "exec1" "exec2" ] pkg
+    Example:
+      generateOptparseApplicativeCompletions [ "exec1" "exec2" ] pkg
 
-      Type: [str] -> drv -> drv
+     Type: [str] -> drv -> drv
   */
   generateOptparseApplicativeCompletions = self.callPackage (
     { stdenv }:

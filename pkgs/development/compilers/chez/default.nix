@@ -34,12 +34,14 @@ stdenv.mkDerivation rec {
 
   env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.cc.isGNU "-Wno-error=format-truncation";
 
-  #* We patch out a very annoying 'feature' in ./configure, which
-  #* tries to use 'git' to update submodules.
-  #*
-  #* We have to also fix a few occurrences to tools with absolute
-  #* paths in some helper scripts, otherwise the build will fail on
-  #* NixOS or in any chroot build.
+  /*
+    ** We patch out a very annoying 'feature' in ./configure, which
+    ** tries to use 'git' to update submodules.
+    **
+    ** We have to also fix a few occurrences to tools with absolute
+    ** paths in some helper scripts, otherwise the build will fail on
+    ** NixOS or in any chroot build.
+  */
   patchPhase = ''
     substituteInPlace ./configure \
       --replace "git submodule init && git submodule update || exit 1" "true"
@@ -55,13 +57,15 @@ stdenv.mkDerivation rec {
       --replace "/usr/bin/libtool" libtool
   '';
 
-  #* Don't use configureFlags, since that just implicitly appends
-  #* everything onto a --prefix flag, which ./configure gets very angry
-  #* about.
-  #*
-  #* Also, carefully set a manual workarea argument, so that we
-  #* can later easily find the machine type that we built Chez
-  #* for.
+  /*
+    ** Don't use configureFlags, since that just implicitly appends
+    ** everything onto a --prefix flag, which ./configure gets very angry
+    ** about.
+    **
+    ** Also, carefully set a manual workarea argument, so that we
+    ** can later easily find the machine type that we built Chez
+    ** for.
+  */
   configurePhase = ''
     ./configure --threads --installprefix=$out --installman=$out/share/man
   '';

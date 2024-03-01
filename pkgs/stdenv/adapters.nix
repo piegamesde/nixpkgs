@@ -1,6 +1,7 @@
-/* This file contains various functions that take a stdenv and return
-   a new stdenv with different behaviour, e.g. using a different C
-   compiler.
+/*
+  This file contains various functions that take a stdenv and return
+  a new stdenv with different behaviour, e.g. using a different C
+  compiler.
 */
 
 {
@@ -166,8 +167,9 @@ rec {
       # ++ lib.optional (stdenv.hostPlatform.libc == "glibc") ((lib.flip overrideInStdenv) [ self.glibc.static ])
     );
 
-  /* Modify a stdenv so that all buildInputs are implicitly propagated to
-     consuming derivations
+  /*
+    Modify a stdenv so that all buildInputs are implicitly propagated to
+    consuming derivations
   */
   propagateBuildInputs =
     stdenv:
@@ -178,14 +180,15 @@ rec {
       });
     });
 
-  /* Modify a stdenv so that the specified attributes are added to
-     every derivation returned by its mkDerivation function.
+  /*
+    Modify a stdenv so that the specified attributes are added to
+    every derivation returned by its mkDerivation function.
 
-     Example:
-       stdenvNoOptimise =
-         addAttrsToDerivation
-           { env.NIX_CFLAGS_COMPILE = "-O0"; }
-           stdenv;
+    Example:
+      stdenvNoOptimise =
+        addAttrsToDerivation
+          { env.NIX_CFLAGS_COMPILE = "-O0"; }
+          stdenv;
   */
   addAttrsToDerivation =
     extraAttrs: stdenv:
@@ -193,8 +196,9 @@ rec {
       mkDerivationFromStdenv = extendMkDerivationArgs old (_: extraAttrs);
     });
 
-  /* Use the trace output to report all processed derivations with their
-     license name.
+  /*
+    Use the trace output to report all processed derivations with their
+    license name.
   */
   traceDrvLicenses =
     stdenv:
@@ -218,9 +222,10 @@ rec {
       );
     });
 
-  /* Modify a stdenv so that it produces debug builds; that is,
-     binaries have debug info, and compiler optimisations are
-     disabled.
+  /*
+    Modify a stdenv so that it produces debug builds; that is,
+    binaries have debug info, and compiler optimisations are
+    disabled.
   */
   keepDebugInfo =
     stdenv:
@@ -280,10 +285,11 @@ rec {
           }
     );
 
-  /* Modify a stdenv so that it builds binaries optimized specifically
-     for the machine they are built on.
+  /*
+    Modify a stdenv so that it builds binaries optimized specifically
+    for the machine they are built on.
 
-     WARNING: this breaks purity!
+    WARNING: this breaks purity!
   */
   impureUseNativeOptimizations =
     stdenv:
@@ -300,18 +306,19 @@ rec {
       });
     });
 
-  /* Modify a stdenv so that it builds binaries with the specified list of
-     compilerFlags appended and passed to the compiler.
+  /*
+    Modify a stdenv so that it builds binaries with the specified list of
+    compilerFlags appended and passed to the compiler.
 
-     This example would recompile every derivation on the system with
-     -funroll-loops and -O3 passed to each gcc invocation.
+    This example would recompile every derivation on the system with
+    -funroll-loops and -O3 passed to each gcc invocation.
 
-     Example:
-       nixpkgs.overlays = [
-         (self: super: {
-           stdenv = super.withCFlags [ "-funroll-loops" "-O3" ] super.stdenv;
-         })
-       ];
+    Example:
+      nixpkgs.overlays = [
+        (self: super: {
+          stdenv = super.withCFlags [ "-funroll-loops" "-O3" ] super.stdenv;
+        })
+      ];
   */
   withCFlags =
     compilerFlags: stdenv:

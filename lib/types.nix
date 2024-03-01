@@ -322,15 +322,17 @@ let
             ) "signedInt${toString bit}" "${toString bit} bit signed integer";
         in
         {
-          # An int with a fixed range.
-          #
-          # Example:
-          #   (ints.between 0 100).check (-1)
-          #   => false
-          #   (ints.between 0 100).check (101)
-          #   => false
-          #   (ints.between 0 0).check 0
-          #   => true
+          /*
+            An int with a fixed range.
+            *
+            * Example:
+            *   (ints.between 0 100).check (-1)
+            *   => false
+            *   (ints.between 0 100).check (101)
+            *   => false
+            *   (ints.between 0 0).check 0
+            *   => true
+          */
           inherit between;
 
           unsigned = addCheck types.int (x: x >= 0) // {

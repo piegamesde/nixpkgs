@@ -11,13 +11,14 @@
   texlive,
 }:
 
-/* To use with a texlive distribution, ensure that the desired fonts and
-   the packages kpathsea, t1utils, metafont are available at runtime.
+/*
+  To use with a texlive distribution, ensure that the desired fonts and
+  the packages kpathsea, t1utils, metafont are available at runtime.
 
-   Possible overrides:
-   - potrace = autotrace
-   - fontforge = ghostscript (limited functionality)
-   - fontforge = null (limited functionality)
+  Possible overrides:
+  - potrace = autotrace
+  - fontforge = ghostscript (limited functionality)
+  - fontforge = null (limited functionality)
 */
 
 stdenv.mkDerivation (finalAttrs: rec {

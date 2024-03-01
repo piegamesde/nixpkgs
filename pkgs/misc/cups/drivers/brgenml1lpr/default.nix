@@ -9,7 +9,8 @@
   makeWrapper,
 }:
 
-/* [Setup instructions](http://support.brother.com/g/s/id/linux/en/instruction_prn1a.html).
+/*
+    [Setup instructions](http://support.brother.com/g/s/id/linux/en/instruction_prn1a.html).
 
     URI example
      ~  `lpd://BRW0080927AFBCE/binary_p1`

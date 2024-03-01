@@ -58,19 +58,20 @@ let
     ]
   );
 
-  /* [network-manager]
-     Identity=unix-group:networkmanager
-     Action=org.freedesktop.NetworkManager.*
-     ResultAny=yes
-     ResultInactive=no
-     ResultActive=yes
+  /*
+    [network-manager]
+    Identity=unix-group:networkmanager
+    Action=org.freedesktop.NetworkManager.*
+    ResultAny=yes
+    ResultInactive=no
+    ResultActive=yes
 
-     [modem-manager]
-     Identity=unix-group:networkmanager
-     Action=org.freedesktop.ModemManager*
-     ResultAny=yes
-     ResultInactive=no
-     ResultActive=yes
+    [modem-manager]
+    Identity=unix-group:networkmanager
+    Action=org.freedesktop.ModemManager*
+    ResultAny=yes
+    ResultInactive=no
+    ResultActive=yes
   */
   polkitConf = ''
     polkit.addRule(function(action, subject) {

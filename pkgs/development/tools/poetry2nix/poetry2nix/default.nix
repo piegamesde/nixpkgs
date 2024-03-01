@@ -114,10 +114,11 @@ lib.makeScope pkgs.newScope (self: {
 
   inherit version;
 
-  /* Returns a package of editable sources whose changes will be available without needing to restart the
-     nix-shell.
-     In editablePackageSources you can pass a mapping from package name to source directory to have
-     those packages available in the resulting environment, whose source changes are immediately available.
+  /*
+    Returns a package of editable sources whose changes will be available without needing to restart the
+    nix-shell.
+    In editablePackageSources you can pass a mapping from package name to source directory to have
+    those packages available in the resulting environment, whose source changes are immediately available.
   */
   mkPoetryEditablePackage =
     {
@@ -374,9 +375,10 @@ lib.makeScope pkgs.newScope (self: {
       };
 
       requiredPythonModules = python.pkgs.requiredPythonModules;
-      /* Include all the nested dependencies which are required for each package.
-         This guarantees that using the "poetryPackages" attribute will return
-         complete list of dependencies for the poetry project to be portable.
+      /*
+        Include all the nested dependencies which are required for each package.
+        This guarantees that using the "poetryPackages" attribute will return
+        complete list of dependencies for the poetry project to be portable.
       */
       storePackages = requiredPythonModules (
         builtins.foldl' (acc: v: acc ++ v) [ ] (lib.attrValues inputAttrs)
@@ -390,12 +392,13 @@ lib.makeScope pkgs.newScope (self: {
       inherit pyProject;
     };
 
-  /* Returns a package with a python interpreter and all packages specified in the poetry.lock lock file.
-     In editablePackageSources you can pass a mapping from package name to source directory to have
-     those packages available in the resulting environment, whose source changes are immediately available.
+  /*
+    Returns a package with a python interpreter and all packages specified in the poetry.lock lock file.
+    In editablePackageSources you can pass a mapping from package name to source directory to have
+    those packages available in the resulting environment, whose source changes are immediately available.
 
-     Example:
-     poetry2nix.mkPoetryEnv { poetrylock = ./poetry.lock; python = python3; }
+    Example:
+    poetry2nix.mkPoetryEnv { poetrylock = ./poetry.lock; python = python3; }
   */
   mkPoetryEnv =
     {
@@ -469,12 +472,13 @@ lib.makeScope pkgs.newScope (self: {
     in
     poetryPython.python.withPackages (ps: envPkgs ++ (extraPackages ps));
 
-  /* Creates a Python application from pyproject.toml and poetry.lock
+  /*
+    Creates a Python application from pyproject.toml and poetry.lock
 
-     The result also contains a .dependencyEnv attribute which is a python
-     environment of all dependencies and this apps modules. This is useful if
-     you rely on dependencies to invoke your modules for deployment: e.g. this
-     allows `gunicorn my-module:app`.
+    The result also contains a .dependencyEnv attribute which is a python
+    environment of all dependencies and this apps modules. This is useful if
+    you rely on dependencies to invoke your modules for deployment: e.g. this
+    allows `gunicorn my-module:app`.
   */
   mkPoetryApplication =
     {
@@ -626,9 +630,10 @@ lib.makeScope pkgs.newScope (self: {
       self.mkDefaultPoetryOverrides overlay;
   };
 
-  /* The default list of poetry2nix override overlays
+  /*
+    The default list of poetry2nix override overlays
 
-     Can be overriden by calling defaultPoetryOverrides.overrideOverlay which takes an overlay function
+    Can be overriden by calling defaultPoetryOverrides.overrideOverlay which takes an overlay function
   */
   defaultPoetryOverrides = self.mkDefaultPoetryOverrides (import ./overrides { inherit pkgs lib; });
 
@@ -637,8 +642,9 @@ lib.makeScope pkgs.newScope (self: {
     # Returns the specified overlay in a list
     withoutDefaults = overlay: [ overlay ];
 
-    /* Returns the specified overlay and returns a list
-       combining it with poetry2nix default overrides
+    /*
+      Returns the specified overlay and returns a list
+      combining it with poetry2nix default overrides
     */
     withDefaults = overlay: [
       overlay

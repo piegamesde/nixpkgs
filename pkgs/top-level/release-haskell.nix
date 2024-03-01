@@ -1,12 +1,13 @@
-/* This is the Hydra jobset for the `haskell-updates` branch in Nixpkgs.
-   You can see the status of this jobset at
-   https://hydra.nixos.org/jobset/nixpkgs/haskell-updates.
+/*
+  This is the Hydra jobset for the `haskell-updates` branch in Nixpkgs.
+  You can see the status of this jobset at
+  https://hydra.nixos.org/jobset/nixpkgs/haskell-updates.
 
-   To debug this expression you can use `hydra-eval-jobs` from
-   `pkgs.hydra_unstable` which prints the jobset description
-   to `stdout`:
+  To debug this expression you can use `hydra-eval-jobs` from
+  `pkgs.hydra_unstable` which prints the jobset description
+  to `stdout`:
 
-   $ hydra-eval-jobs -I . pkgs/top-level/release-haskell.nix
+  $ hydra-eval-jobs -I . pkgs/top-level/release-haskell.nix
 */
 {
   supportedSystems ? [

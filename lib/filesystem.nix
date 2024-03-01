@@ -6,11 +6,12 @@ let
 in
 
 {
-  /* A map of all haskell packages defined in the given path,
-     identified by having a cabal file with the same name as the
-     directory itself.
+  /*
+    A map of all haskell packages defined in the given path,
+    identified by having a cabal file with the same name as the
+    directory itself.
 
-     Type: Path -> Map String Path
+    Type: Path -> Map String Path
   */
   haskellPathsInDir =
     # The directory within to search
@@ -29,11 +30,12 @@ in
       ) root-files-with-paths;
     in
     builtins.listToAttrs cabal-subdirs;
-  /* Find the first directory containing a file matching 'pattern'
-     upward from a given 'file'.
-     Returns 'null' if no directories contain a file matching 'pattern'.
+  /*
+    Find the first directory containing a file matching 'pattern'
+    upward from a given 'file'.
+    Returns 'null' if no directories contain a file matching 'pattern'.
 
-     Type: RegExp -> Path -> Nullable { path : Path; matches : [ MatchResults ]; }
+    Type: RegExp -> Path -> Nullable { path : Path; matches : [ MatchResults ]; }
   */
   locateDominatingFile =
     # The pattern to search for
@@ -63,9 +65,10 @@ in
     in
     go (if isDir then file else parent);
 
-  /* Given a directory, return a flattened list of all files within it recursively.
+  /*
+    Given a directory, return a flattened list of all files within it recursively.
 
-     Type: Path -> [ Path ]
+    Type: Path -> [ Path ]
   */
   listFilesRecursive =
     # The path to recursively list

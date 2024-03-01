@@ -91,8 +91,9 @@ lib.makeScope pkgs.newScope (
     inherit (pkgs) gimp;
 
     bimp = pluginDerivation rec {
-      /* menu:
-         File/Batch Image Manipulation...
+      /*
+        menu:
+        File/Batch Image Manipulation...
       */
       pname = "bimp";
       version = "2.6";
@@ -128,8 +129,9 @@ lib.makeScope pkgs.newScope (
     };
 
     gap = pluginDerivation {
-      /* menu:
-         Video
+      /*
+        menu:
+        Video
       */
       pname = "gap";
       version = "2.6.0";
@@ -181,9 +183,10 @@ lib.makeScope pkgs.newScope (
     };
 
     fourier = pluginDerivation rec {
-      /* menu:
-         Filters/Generic/FFT Forward
-         Filters/Generic/FFT Inverse
+      /*
+        menu:
+        Filters/Generic/FFT Forward
+        Filters/Generic/FFT Inverse
       */
       pname = "fourier";
       version = "0.4.3";
@@ -218,14 +221,15 @@ lib.makeScope pkgs.newScope (
     };
 
     resynthesizer = pluginDerivation rec {
-      /* menu:
-         Edit/Fill with pattern seamless...
-         Filters/Enhance/Heal selection...
-         Filters/Enhance/Heal transparency...
-         Filters/Enhance/Sharpen by synthesis...
-         Filters/Enhance/Uncrop...
-         Filters/Map/Style...
-         Filters/Render/Texture...
+      /*
+        menu:
+        Edit/Fill with pattern seamless...
+        Filters/Enhance/Heal selection...
+        Filters/Enhance/Heal transparency...
+        Filters/Enhance/Sharpen by synthesis...
+        Filters/Enhance/Uncrop...
+        Filters/Map/Style...
+        Filters/Render/Texture...
       */
       pname = "resynthesizer";
       version = "2.0.3";
@@ -261,8 +265,9 @@ lib.makeScope pkgs.newScope (
     };
 
     waveletSharpen = pluginDerivation {
-      /* menu:
-         Filters/Enhance/Wavelet sharpen
+      /*
+        menu:
+        Filters/Enhance/Wavelet sharpen
       */
       pname = "wavelet-sharpen";
       version = "0.1.2";
@@ -284,8 +289,9 @@ lib.makeScope pkgs.newScope (
     };
 
     lqrPlugin = pluginDerivation rec {
-      /* menu:
-         Layer/Liquid Rescale
+      /*
+        menu:
+        Layer/Liquid Rescale
       */
       pname = "lqr-plugin";
       version = "0.7.2";

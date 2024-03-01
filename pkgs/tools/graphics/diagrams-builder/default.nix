@@ -1,12 +1,13 @@
-/* If user need access to more haskell package for building his
-   diagrams, he simply has to pass these package through the
-   extra packages function as follow in `config.nix`:
+/*
+  If user need access to more haskell package for building his
+  diagrams, he simply has to pass these package through the
+  extra packages function as follow in `config.nix`:
 
-   ~~~
-   diagrams-builder.override {
-     extraPackages = self : [myHaskellPackage];
-   }
-   ­~~~
+  ~~~
+  diagrams-builder.override {
+    extraPackages = self : [myHaskellPackage];
+  }
+  ­~~~
 */
 
 {

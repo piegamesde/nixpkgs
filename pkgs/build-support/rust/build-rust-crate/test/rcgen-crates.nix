@@ -4135,8 +4135,9 @@ rec {
     # crate2nix/default.nix (excerpt start)
     #
 
-    /* Target (platform) data for conditional dependencies.
-       This corresponds roughly to what buildRustCrate is setting.
+    /*
+      Target (platform) data for conditional dependencies.
+      This corresponds roughly to what buildRustCrate is setting.
     */
     defaultTarget = {
       unix = true;
@@ -4200,11 +4201,12 @@ rec {
         || baseName == "tests.nix"
       );
 
-    /* Returns a crate which depends on successful test execution
-       of crate given as the second argument.
+    /*
+      Returns a crate which depends on successful test execution
+      of crate given as the second argument.
 
-       testCrateFlags: list of flags to pass to the test executable
-       testInputs: list of packages that should be available during test execution
+      testCrateFlags: list of flags to pass to the test executable
+      testInputs: list of packages that should be available during test execution
     */
     crateWithTest =
       {
@@ -4367,8 +4369,9 @@ rec {
             ;
         };
 
-    /* Returns an attr set with packageId mapped to the result of buildRustCrateForPkgsFunc
-       for the corresponding crate.
+    /*
+      Returns an attr set with packageId mapped to the result of buildRustCrateForPkgsFunc
+      for the corresponding crate.
     */
     builtRustCratesWithFeatures =
       {
@@ -4511,8 +4514,9 @@ rec {
       in
       map depDerivation enabledDependencies;
 
-    /* Returns a sanitized version of val with all values substituted that cannot
-       be serialized as JSON.
+    /*
+      Returns a sanitized version of val with all values substituted that cannot
+      be serialized as JSON.
     */
     sanitizeForJson =
       val:
@@ -4559,10 +4563,11 @@ rec {
         internal = debug;
       };
 
-    /* Returns differences between cargo default features and crate2nix default
-       features.
+    /*
+      Returns differences between cargo default features and crate2nix default
+      features.
 
-       This is useful for verifying the feature resolution in crate2nix.
+      This is useful for verifying the feature resolution in crate2nix.
     */
     diffDefaultPackageFeatures =
       {
@@ -4597,10 +4602,11 @@ rec {
       in
       builtins.toJSON { inherit onlyInCargo onlyInCrate2Nix differentFeatures; };
 
-    /* Returns an attrset mapping packageId to the list of enabled features.
+    /*
+      Returns an attrset mapping packageId to the list of enabled features.
 
-       If multiple paths to a dependency enable different features, the
-       corresponding feature sets are merged. Features in rust are additive.
+      If multiple paths to a dependency enable different features, the
+      corresponding feature sets are merged. Features in rust are additive.
     */
     mergePackageFeatures =
       {
@@ -4717,11 +4723,12 @@ rec {
       in
       feature == name || startsWithPrefix;
 
-    /* Returns the expanded features for the given inputFeatures by applying the
-       rules in featureMap.
+    /*
+      Returns the expanded features for the given inputFeatures by applying the
+      rules in featureMap.
 
-       featureMap is an attribute set which maps feature names to lists of further
-       feature names to enable in case this feature is selected.
+      featureMap is an attribute set which maps feature names to lists of further
+      feature names to enable in case this feature is selected.
     */
     expandFeatures =
       featureMap: inputFeatures:
@@ -4736,10 +4743,11 @@ rec {
       in
       sortedUnique outFeatures;
 
-    /* This function adds optional dependencies as features if they are enabled
-       indirectly by dependency features. This function mimics Cargo's behavior
-       described in a note at:
-       https://doc.rust-lang.org/nightly/cargo/reference/features.html#dependency-features
+    /*
+      This function adds optional dependencies as features if they are enabled
+      indirectly by dependency features. This function mimics Cargo's behavior
+      described in a note at:
+      https://doc.rust-lang.org/nightly/cargo/reference/features.html#dependency-features
     */
     enableFeatures =
       dependencies: features:
@@ -4760,9 +4768,10 @@ rec {
       in
       sortedUnique (features ++ additionalFeatures);
 
-    /* Returns the actual features for the given dependency.
+    /*
+      Returns the actual features for the given dependency.
 
-       features: The features of the crate that refers this dependency.
+      features: The features of the crate that refers this dependency.
     */
     dependencyFeatures =
       features: dependency:

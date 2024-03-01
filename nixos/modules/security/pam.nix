@@ -1420,9 +1420,10 @@ in
           setEnvironment = false;
         };
 
-        /* FIXME: should runuser -l start a systemd session? Currently
-           it complains "Cannot create session: Already running in a
-           session".
+        /*
+          FIXME: should runuser -l start a systemd session? Currently
+          it complains "Cannot create session: Already running in a
+          session".
         */
         runuser-l = {
           rootOK = true;

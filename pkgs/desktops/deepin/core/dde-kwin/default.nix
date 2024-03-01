@@ -33,8 +33,9 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-qXN9AwjLnqO5BpnrX5PaSCKZ6ff874r08ubCMM272tA=";
   };
 
-  /* This is the final version of dde-kwin, upstream has been archived.
-     We should remove this package when deepin-kwin release a new version.
+  /*
+    This is the final version of dde-kwin, upstream has been archived.
+    We should remove this package when deepin-kwin release a new version.
   */
 
   postPatch = ''

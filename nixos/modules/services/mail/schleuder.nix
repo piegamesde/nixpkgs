@@ -44,13 +44,14 @@ in
         "security@example.com"
       ];
     };
-    /* maybe one day....
-       domains = lib.mkOption {
-       description = "Domains for which all mail should be handled by Schleuder.";
-       type = lib.types.listOf lib.types.str;
-       default = [];
-       example = ["securelists.example.com"];
-       };
+    /*
+      maybe one day....
+      domains = lib.mkOption {
+      description = "Domains for which all mail should be handled by Schleuder.";
+      type = lib.types.listOf lib.types.str;
+      default = [];
+      example = ["securelists.example.com"];
+      };
     */
     settings = lib.mkOption {
       description = lib.mdDoc ''

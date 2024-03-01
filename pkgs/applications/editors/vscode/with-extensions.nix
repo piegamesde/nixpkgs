@@ -10,7 +10,8 @@
   vscodeExtensions ? [ ],
 }:
 
-/* `vscodeExtensions`
+/*
+  `vscodeExtensions`
    :  A set of vscode extensions to be installed alongside the editor. Here's a an
       example:
 

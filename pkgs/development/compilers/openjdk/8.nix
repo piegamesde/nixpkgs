@@ -42,8 +42,9 @@
 
 let
 
-  #
-  # The JRE libraries are in directories that depend on the CPU.
+  /**
+    The JRE libraries are in directories that depend on the CPU.
+  */
   architecture =
     {
       i686-linux = "i386";

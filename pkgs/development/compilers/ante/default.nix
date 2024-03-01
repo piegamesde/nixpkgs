@@ -24,7 +24,8 @@ rustPlatform.buildRustPackage {
     };
   };
 
-  /* https://crates.io/crates/llvm-sys#llvm-compatibility
+  /*
+     https://crates.io/crates/llvm-sys#llvm-compatibility
      llvm-sys requires a specific version of llvmPackages,
      that is not the same as the one included by default with rustPlatform.
   */

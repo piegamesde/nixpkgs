@@ -7,9 +7,10 @@
 
 buildGoModule rec {
   pname = "tilt";
-  /* Do not use "dev" as a version. If you do, Tilt will consider itself
-     running in development environment and try to serve assets from the
-     source tree, which is not there once build completes.
+  /*
+    Do not use "dev" as a version. If you do, Tilt will consider itself
+    running in development environment and try to serve assets from the
+    source tree, which is not there once build completes.
   */
   version = "0.32.2";
 

@@ -74,10 +74,11 @@ runTests {
     '';
   };
 
-  /* testOr = {
-       expr = or true false;
-       expected = true;
-     };
+  /*
+    testOr = {
+      expr = or true false;
+      expected = true;
+    };
   */
 
   testAnd = {

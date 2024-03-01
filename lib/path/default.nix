@@ -103,40 +103,41 @@ in
 # No rec! Add dependencies on this file at the top.
 {
 
-  /* Append a subpath string to a path.
+  /*
+    Append a subpath string to a path.
 
-     Like `path + ("/" + string)` but safer, because it errors instead of returning potentially surprising results.
-     More specifically, it checks that the first argument is a [path value type](https://nixos.org/manual/nix/stable/language/values.html#type-path"),
-     and that the second argument is a valid subpath string (see `lib.path.subpath.isValid`).
+    Like `path + ("/" + string)` but safer, because it errors instead of returning potentially surprising results.
+    More specifically, it checks that the first argument is a [path value type](https://nixos.org/manual/nix/stable/language/values.html#type-path"),
+    and that the second argument is a valid subpath string (see `lib.path.subpath.isValid`).
 
-     Type:
-       append :: Path -> String -> Path
+    Type:
+      append :: Path -> String -> Path
 
-     Example:
-       append /foo "bar/baz"
-       => /foo/bar/baz
+    Example:
+      append /foo "bar/baz"
+      => /foo/bar/baz
 
-       # subpaths don't need to be normalised
-       append /foo "./bar//baz/./"
-       => /foo/bar/baz
+      # subpaths don't need to be normalised
+      append /foo "./bar//baz/./"
+      => /foo/bar/baz
 
-       # can append to root directory
-       append /. "foo/bar"
-       => /foo/bar
+      # can append to root directory
+      append /. "foo/bar"
+      => /foo/bar
 
-       # first argument needs to be a path value type
-       append "/foo" "bar"
-       => <error>
+      # first argument needs to be a path value type
+      append "/foo" "bar"
+      => <error>
 
-       # second argument needs to be a valid subpath string
-       append /foo /bar
-       => <error>
-       append /foo ""
-       => <error>
-       append /foo "/bar"
-       => <error>
-       append /foo "../bar"
-       => <error>
+      # second argument needs to be a valid subpath string
+      append /foo /bar
+      => <error>
+      append /foo ""
+      => <error>
+      append /foo "/bar"
+      => <error>
+      append /foo "../bar"
+      => <error>
   */
   append =
     # The absolute path to append to
@@ -150,103 +151,105 @@ in
           ${subpathInvalidReason subpath}'';
     path + ("/" + subpath);
 
-  /* Whether a value is a valid subpath string.
+  /*
+    Whether a value is a valid subpath string.
 
-     - The value is a string
+    - The value is a string
 
-     - The string is not empty
+    - The string is not empty
 
-     - The string doesn't start with a `/`
+    - The string doesn't start with a `/`
 
-     - The string doesn't contain any `..` path components
+    - The string doesn't contain any `..` path components
 
-     Type:
-       subpath.isValid :: String -> Bool
+    Type:
+      subpath.isValid :: String -> Bool
 
-     Example:
-       # Not a string
-       subpath.isValid null
-       => false
+    Example:
+      # Not a string
+      subpath.isValid null
+      => false
 
-       # Empty string
-       subpath.isValid ""
-       => false
+      # Empty string
+      subpath.isValid ""
+      => false
 
-       # Absolute path
-       subpath.isValid "/foo"
-       => false
+      # Absolute path
+      subpath.isValid "/foo"
+      => false
 
-       # Contains a `..` path component
-       subpath.isValid "../foo"
-       => false
+      # Contains a `..` path component
+      subpath.isValid "../foo"
+      => false
 
-       # Valid subpath
-       subpath.isValid "foo/bar"
-       => true
+      # Valid subpath
+      subpath.isValid "foo/bar"
+      => true
 
-       # Doesn't need to be normalised
-       subpath.isValid "./foo//bar/"
-       => true
+      # Doesn't need to be normalised
+      subpath.isValid "./foo//bar/"
+      => true
   */
   subpath.isValid =
     # The value to check
     value: subpathInvalidReason value == null;
 
-  /* Join subpath strings together using `/`, returning a normalised subpath string.
+  /*
+    Join subpath strings together using `/`, returning a normalised subpath string.
 
-     Like `concatStringsSep "/"` but safer, specifically:
+    Like `concatStringsSep "/"` but safer, specifically:
 
-     - All elements must be valid subpath strings, see `lib.path.subpath.isValid`
+    - All elements must be valid subpath strings, see `lib.path.subpath.isValid`
 
-     - The result gets normalised, see `lib.path.subpath.normalise`
+    - The result gets normalised, see `lib.path.subpath.normalise`
 
-     - The edge case of an empty list gets properly handled by returning the neutral subpath `"./."`
+    - The edge case of an empty list gets properly handled by returning the neutral subpath `"./."`
 
-     Laws:
+    Laws:
 
-     - Associativity:
+    - Associativity:
 
-           subpath.join [ x (subpath.join [ y z ]) ] == subpath.join [ (subpath.join [ x y ]) z ]
+          subpath.join [ x (subpath.join [ y z ]) ] == subpath.join [ (subpath.join [ x y ]) z ]
 
-     - Identity - `"./."` is the neutral element for normalised paths:
+    - Identity - `"./."` is the neutral element for normalised paths:
 
-           subpath.join [ ] == "./."
-           subpath.join [ (subpath.normalise p) "./." ] == subpath.normalise p
-           subpath.join [ "./." (subpath.normalise p) ] == subpath.normalise p
+          subpath.join [ ] == "./."
+          subpath.join [ (subpath.normalise p) "./." ] == subpath.normalise p
+          subpath.join [ "./." (subpath.normalise p) ] == subpath.normalise p
 
-     - Normalisation - the result is normalised according to `lib.path.subpath.normalise`:
+    - Normalisation - the result is normalised according to `lib.path.subpath.normalise`:
 
-           subpath.join ps == subpath.normalise (subpath.join ps)
+          subpath.join ps == subpath.normalise (subpath.join ps)
 
-     - For non-empty lists, the implementation is equivalent to normalising the result of `concatStringsSep "/"`.
-       Note that the above laws can be derived from this one.
+    - For non-empty lists, the implementation is equivalent to normalising the result of `concatStringsSep "/"`.
+      Note that the above laws can be derived from this one.
 
-           ps != [] -> subpath.join ps == subpath.normalise (concatStringsSep "/" ps)
+          ps != [] -> subpath.join ps == subpath.normalise (concatStringsSep "/" ps)
 
-     Type:
-       subpath.join :: [ String ] -> String
+    Type:
+      subpath.join :: [ String ] -> String
 
-     Example:
-       subpath.join [ "foo" "bar/baz" ]
-       => "./foo/bar/baz"
+    Example:
+      subpath.join [ "foo" "bar/baz" ]
+      => "./foo/bar/baz"
 
-       # normalise the result
-       subpath.join [ "./foo" "." "bar//./baz/" ]
-       => "./foo/bar/baz"
+      # normalise the result
+      subpath.join [ "./foo" "." "bar//./baz/" ]
+      => "./foo/bar/baz"
 
-       # passing an empty list results in the current directory
-       subpath.join [ ]
-       => "./."
+      # passing an empty list results in the current directory
+      subpath.join [ ]
+      => "./."
 
-       # elements must be valid subpath strings
-       subpath.join [ /foo ]
-       => <error>
-       subpath.join [ "" ]
-       => <error>
-       subpath.join [ "/foo" ]
-       => <error>
-       subpath.join [ "../foo" ]
-       => <error>
+      # elements must be valid subpath strings
+      subpath.join [ /foo ]
+      => <error>
+      subpath.join [ "" ]
+      => <error>
+      subpath.join [ "/foo" ]
+      => <error>
+      subpath.join [ "../foo" ]
+      => <error>
   */
   subpath.join =
     # The list of subpaths to join together
@@ -268,78 +271,79 @@ in
                 ${subpathInvalidReason path}''
       ) 0 subpaths;
 
-  /* Normalise a subpath. Throw an error if the subpath isn't valid, see
-     `lib.path.subpath.isValid`
+  /*
+    Normalise a subpath. Throw an error if the subpath isn't valid, see
+    `lib.path.subpath.isValid`
 
-     - Limit repeating `/` to a single one
+    - Limit repeating `/` to a single one
 
-     - Remove redundant `.` components
+    - Remove redundant `.` components
 
-     - Remove trailing `/` and `/.`
+    - Remove trailing `/` and `/.`
 
-     - Add leading `./`
+    - Add leading `./`
 
-     Laws:
+    Laws:
 
-     - Idempotency - normalising multiple times gives the same result:
+    - Idempotency - normalising multiple times gives the same result:
 
-           subpath.normalise (subpath.normalise p) == subpath.normalise p
+          subpath.normalise (subpath.normalise p) == subpath.normalise p
 
-     - Uniqueness - there's only a single normalisation for the paths that lead to the same file system node:
+    - Uniqueness - there's only a single normalisation for the paths that lead to the same file system node:
 
-           subpath.normalise p != subpath.normalise q -> $(realpath ${p}) != $(realpath ${q})
+          subpath.normalise p != subpath.normalise q -> $(realpath ${p}) != $(realpath ${q})
 
-     - Don't change the result when appended to a Nix path value:
+    - Don't change the result when appended to a Nix path value:
 
-           base + ("/" + p) == base + ("/" + subpath.normalise p)
+          base + ("/" + p) == base + ("/" + subpath.normalise p)
 
-     - Don't change the path according to `realpath`:
+    - Don't change the path according to `realpath`:
 
-           $(realpath ${p}) == $(realpath ${subpath.normalise p})
+          $(realpath ${p}) == $(realpath ${subpath.normalise p})
 
-     - Only error on invalid subpaths:
+    - Only error on invalid subpaths:
 
-           builtins.tryEval (subpath.normalise p)).success == subpath.isValid p
+          builtins.tryEval (subpath.normalise p)).success == subpath.isValid p
 
-     Type:
-       subpath.normalise :: String -> String
+    Type:
+      subpath.normalise :: String -> String
 
-     Example:
-       # limit repeating `/` to a single one
-       subpath.normalise "foo//bar"
-       => "./foo/bar"
+    Example:
+      # limit repeating `/` to a single one
+      subpath.normalise "foo//bar"
+      => "./foo/bar"
 
-       # remove redundant `.` components
-       subpath.normalise "foo/./bar"
-       => "./foo/bar"
+      # remove redundant `.` components
+      subpath.normalise "foo/./bar"
+      => "./foo/bar"
 
-       # add leading `./`
-       subpath.normalise "foo/bar"
-       => "./foo/bar"
+      # add leading `./`
+      subpath.normalise "foo/bar"
+      => "./foo/bar"
 
-       # remove trailing `/`
-       subpath.normalise "foo/bar/"
-       => "./foo/bar"
+      # remove trailing `/`
+      subpath.normalise "foo/bar/"
+      => "./foo/bar"
 
-       # remove trailing `/.`
-       subpath.normalise "foo/bar/."
-       => "./foo/bar"
+      # remove trailing `/.`
+      subpath.normalise "foo/bar/."
+      => "./foo/bar"
 
-       # Return the current directory as `./.`
-       subpath.normalise "."
-       => "./."
+      # Return the current directory as `./.`
+      subpath.normalise "."
+      => "./."
 
-       # error on `..` path components
-       subpath.normalise "foo/../bar"
-       => <error>
+      # error on `..` path components
+      subpath.normalise "foo/../bar"
+      => <error>
 
-       # error on empty string
-       subpath.normalise ""
-       => <error>
+      # error on empty string
+      subpath.normalise ""
+      => <error>
 
-       # error on absolute path
-       subpath.normalise "/foo"
-       => <error>
+      # error on absolute path
+      subpath.normalise "/foo"
+      => <error>
   */
   subpath.normalise =
     # The subpath string to normalise

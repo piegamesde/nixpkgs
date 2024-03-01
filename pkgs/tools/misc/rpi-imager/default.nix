@@ -44,9 +44,10 @@ mkDerivation rec {
 
   sourceRoot = "${src.name}/src";
 
-  /* By default, the builder checks for JSON support in lsblk by running "lsblk --json",
-     but that throws an error, as /sys/dev doesn't exist in the sandbox.
-     This patch removes the check.
+  /*
+    By default, the builder checks for JSON support in lsblk by running "lsblk --json",
+    but that throws an error, as /sys/dev doesn't exist in the sandbox.
+    This patch removes the check.
   */
   patches = [ ./lsblkCheckFix.patch ];
 

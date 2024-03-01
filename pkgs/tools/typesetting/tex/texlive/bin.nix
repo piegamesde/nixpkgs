@@ -206,9 +206,10 @@ rec {
 
     # TODO: perhaps improve texmf.cnf search locations
     postInstall =
-      /* links format -> engine will be regenerated in texlive.combine
-         note: for unlinking, the texlinks patch is irrelevant, so we use
-         the included texlinks.sh to avoid the dependency on bin.texlinks
+      /*
+        links format -> engine will be regenerated in texlive.combine
+        note: for unlinking, the texlinks patch is irrelevant, so we use
+        the included texlinks.sh to avoid the dependency on bin.texlinks
       */
       ''
         PATH="$out/bin:$PATH" sh ../texk/texlive/linked_scripts/texlive-extra/texlinks.sh --cnffile "$out/share/texmf-dist/web2c/fmtutil.cnf" --unlink "$out/bin"

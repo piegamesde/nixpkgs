@@ -96,10 +96,12 @@ let
   rustAttrs = rust;
 in
 
-# The overridable pkgs.buildRustCrate function.
-#
-# Any unrecognized parameters will be passed as to
-# the underlying stdenv.mkDerivation.
+/*
+  The overridable pkgs.buildRustCrate function.
+  *
+  * Any unrecognized parameters will be passed as to
+  * the underlying stdenv.mkDerivation.
+*/
 crate_:
 lib.makeOverridable
   (

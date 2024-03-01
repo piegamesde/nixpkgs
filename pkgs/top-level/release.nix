@@ -1,12 +1,13 @@
-/* This file defines the builds that constitute the Nixpkgs.
-   Everything defined here ends up in the Nixpkgs channel.  Individual
-   jobs can be tested by running:
+/*
+  This file defines the builds that constitute the Nixpkgs.
+  Everything defined here ends up in the Nixpkgs channel.  Individual
+  jobs can be tested by running:
 
-   $ nix-build pkgs/top-level/release.nix -A <jobname>.<system>
+  $ nix-build pkgs/top-level/release.nix -A <jobname>.<system>
 
-   e.g.
+  e.g.
 
-   $ nix-build pkgs/top-level/release.nix -A coreutils.x86_64-linux
+  $ nix-build pkgs/top-level/release.nix -A coreutils.x86_64-linux
 */
 {
   nixpkgs ? {
@@ -101,12 +102,13 @@ let
             jobs.transmission-gtk.x86_64-darwin
 
             # Tests
-            /* jobs.tests.cc-wrapper.x86_64-darwin
-               jobs.tests.cc-wrapper-clang.x86_64-darwin
-               jobs.tests.cc-wrapper-libcxx.x86_64-darwin
-               jobs.tests.stdenv-inputs.x86_64-darwin
-               jobs.tests.macOSSierraShared.x86_64-darwin
-               jobs.tests.stdenv.hooks.patch-shebangs.x86_64-darwin
+            /*
+              jobs.tests.cc-wrapper.x86_64-darwin
+              jobs.tests.cc-wrapper-clang.x86_64-darwin
+              jobs.tests.cc-wrapper-libcxx.x86_64-darwin
+              jobs.tests.stdenv-inputs.x86_64-darwin
+              jobs.tests.macOSSierraShared.x86_64-darwin
+              jobs.tests.stdenv.hooks.patch-shebangs.x86_64-darwin
             */
           ];
         }
@@ -138,22 +140,23 @@ let
           jobs.firefox-unwrapped.x86_64-linux
           jobs.cachix.x86_64-linux
 
-          /* jobs.tests.cc-wrapper.x86_64-linux
-             jobs.tests.cc-wrapper-gcc7.x86_64-linux
-             jobs.tests.cc-wrapper-gcc8.x86_64-linux
+          /*
+            jobs.tests.cc-wrapper.x86_64-linux
+            jobs.tests.cc-wrapper-gcc7.x86_64-linux
+            jobs.tests.cc-wrapper-gcc8.x86_64-linux
 
-             # broken see issue #40038
+            # broken see issue #40038
 
-             jobs.tests.cc-wrapper-clang.x86_64-linux
-             jobs.tests.cc-wrapper-libcxx.x86_64-linux
-             jobs.tests.cc-wrapper-clang-5.x86_64-linux
-             jobs.tests.cc-wrapper-libcxx-5.x86_64-linux
-             jobs.tests.cc-wrapper-clang-6.x86_64-linux
-             jobs.tests.cc-wrapper-libcxx-6.x86_64-linux
-             jobs.tests.cc-multilib-gcc.x86_64-linux
-             jobs.tests.cc-multilib-clang.x86_64-linux
-             jobs.tests.stdenv-inputs.x86_64-linux
-             jobs.tests.stdenv.hooks.patch-shebangs.x86_64-linux
+            jobs.tests.cc-wrapper-clang.x86_64-linux
+            jobs.tests.cc-wrapper-libcxx.x86_64-linux
+            jobs.tests.cc-wrapper-clang-5.x86_64-linux
+            jobs.tests.cc-wrapper-libcxx-5.x86_64-linux
+            jobs.tests.cc-wrapper-clang-6.x86_64-linux
+            jobs.tests.cc-wrapper-libcxx-6.x86_64-linux
+            jobs.tests.cc-multilib-gcc.x86_64-linux
+            jobs.tests.cc-multilib-clang.x86_64-linux
+            jobs.tests.stdenv-inputs.x86_64-linux
+            jobs.tests.stdenv.hooks.patch-shebangs.x86_64-linux
           */
         ]
         ++ lib.collect lib.isDerivation jobs.stdenvBootstrapTools
@@ -171,18 +174,19 @@ let
           jobs.vim.x86_64-darwin
           jobs.inkscape.x86_64-darwin
           jobs.qt5.qtmultimedia.x86_64-darwin
-          /* jobs.tests.cc-wrapper.x86_64-darwin
-             jobs.tests.cc-wrapper-gcc7.x86_64-darwin
-             # jobs.tests.cc-wrapper-gcc8.x86_64-darwin
-             jobs.tests.cc-wrapper-clang.x86_64-darwin
-             jobs.tests.cc-wrapper-libcxx.x86_64-darwin
-             jobs.tests.cc-wrapper-clang-5.x86_64-darwin
-             jobs.tests.cc-wrapper-libcxx-6.x86_64-darwin
-             jobs.tests.cc-wrapper-clang-6.x86_64-darwin
-             jobs.tests.cc-wrapper-libcxx-6.x86_64-darwin
-             jobs.tests.stdenv-inputs.x86_64-darwin
-             jobs.tests.macOSSierraShared.x86_64-darwin
-             jobs.tests.stdenv.hooks.patch-shebangs.x86_64-darwin
+          /*
+            jobs.tests.cc-wrapper.x86_64-darwin
+            jobs.tests.cc-wrapper-gcc7.x86_64-darwin
+            # jobs.tests.cc-wrapper-gcc8.x86_64-darwin
+            jobs.tests.cc-wrapper-clang.x86_64-darwin
+            jobs.tests.cc-wrapper-libcxx.x86_64-darwin
+            jobs.tests.cc-wrapper-clang-5.x86_64-darwin
+            jobs.tests.cc-wrapper-libcxx-6.x86_64-darwin
+            jobs.tests.cc-wrapper-clang-6.x86_64-darwin
+            jobs.tests.cc-wrapper-libcxx-6.x86_64-darwin
+            jobs.tests.stdenv-inputs.x86_64-darwin
+            jobs.tests.macOSSierraShared.x86_64-darwin
+            jobs.tests.stdenv.hooks.patch-shebangs.x86_64-darwin
           */
         ];
     };

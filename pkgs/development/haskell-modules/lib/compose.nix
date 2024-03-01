@@ -4,35 +4,37 @@
 
 rec {
 
-  /* This function takes a file like `hackage-packages.nix` and constructs
-     a full package set out of that.
+  /*
+    This function takes a file like `hackage-packages.nix` and constructs
+    a full package set out of that.
   */
   makePackageSet = import ../make-package-set.nix;
 
-  /* The function overrideCabal lets you alter the arguments to the
-     mkDerivation function.
+  /*
+    The function overrideCabal lets you alter the arguments to the
+    mkDerivation function.
 
-     Example:
+    Example:
 
-     First, note how the aeson package is constructed in hackage-packages.nix:
+    First, note how the aeson package is constructed in hackage-packages.nix:
 
-         "aeson" = callPackage ({ mkDerivation, attoparsec, <snip>
-                                }:
-                                  mkDerivation {
-                                    pname = "aeson";
-                                    <snip>
-                                    homepage = "https://github.com/bos/aeson";
-                                  })
+        "aeson" = callPackage ({ mkDerivation, attoparsec, <snip>
+                               }:
+                                 mkDerivation {
+                                   pname = "aeson";
+                                   <snip>
+                                   homepage = "https://github.com/bos/aeson";
+                                 })
 
-     The mkDerivation function of haskellPackages will take care of putting
-     the homepage in the right place, in meta.
+    The mkDerivation function of haskellPackages will take care of putting
+    the homepage in the right place, in meta.
 
-         > haskellPackages.aeson.meta.homepage
-         "https://github.com/bos/aeson"
+        > haskellPackages.aeson.meta.homepage
+        "https://github.com/bos/aeson"
 
-         > x = haskell.lib.compose.overrideCabal (old: { homepage = old.homepage + "#readme"; }) haskellPackages.aeson
-         > x.meta.homepage
-         "https://github.com/bos/aeson#readme"
+        > x = haskell.lib.compose.overrideCabal (old: { homepage = old.homepage + "#readme"; }) haskellPackages.aeson
+        > x.meta.homepage
+        "https://github.com/bos/aeson#readme"
   */
   overrideCabal =
     f: drv:
@@ -56,112 +58,125 @@ rec {
       generateExprs name src { }
     ) overrides;
 
-  /* doCoverage modifies a haskell package to enable the generation
-     and installation of a coverage report.
+  /*
+    doCoverage modifies a haskell package to enable the generation
+    and installation of a coverage report.
 
-     See https://wiki.haskell.org/Haskell_program_coverage
+    See https://wiki.haskell.org/Haskell_program_coverage
   */
   doCoverage = overrideCabal (drv: {
     doCoverage = true;
   });
 
-  /* dontCoverage modifies a haskell package to disable the generation
-     and installation of a coverage report.
+  /*
+    dontCoverage modifies a haskell package to disable the generation
+    and installation of a coverage report.
   */
   dontCoverage = overrideCabal (drv: {
     doCoverage = false;
   });
 
-  /* doHaddock modifies a haskell package to enable the generation and
-     installation of API documentation from code comments using the
-     haddock tool.
+  /*
+    doHaddock modifies a haskell package to enable the generation and
+    installation of API documentation from code comments using the
+    haddock tool.
   */
   doHaddock = overrideCabal (drv: {
     doHaddock = true;
   });
 
-  /* dontHaddock modifies a haskell package to disable the generation and
-     installation of API documentation from code comments using the
-     haddock tool.
+  /*
+    dontHaddock modifies a haskell package to disable the generation and
+    installation of API documentation from code comments using the
+    haddock tool.
   */
   dontHaddock = overrideCabal (drv: {
     doHaddock = false;
   });
 
-  /* doJailbreak enables the removal of version bounds from the cabal
-     file. You may want to avoid this function.
+  /*
+    doJailbreak enables the removal of version bounds from the cabal
+    file. You may want to avoid this function.
 
-     This is useful when a package reports that it can not be built
-     due to version mismatches. In some cases, removing the version
-     bounds entirely is an easy way to make a package build, but at
-     the risk of breaking software in non-obvious ways now or in the
-     future.
+    This is useful when a package reports that it can not be built
+    due to version mismatches. In some cases, removing the version
+    bounds entirely is an easy way to make a package build, but at
+    the risk of breaking software in non-obvious ways now or in the
+    future.
 
-     Instead of jailbreaking, you can patch the cabal file.
+    Instead of jailbreaking, you can patch the cabal file.
 
-     Note that jailbreaking at this time, doesn't lift bounds on
-     conditional branches.
-     https://github.com/peti/jailbreak-cabal/issues/7 has further details.
+    Note that jailbreaking at this time, doesn't lift bounds on
+    conditional branches.
+    https://github.com/peti/jailbreak-cabal/issues/7 has further details.
   */
   doJailbreak = overrideCabal (drv: {
     jailbreak = true;
   });
 
-  /* dontJailbreak restores the use of the version bounds the check
-     the use of dependencies in the package description.
+  /*
+    dontJailbreak restores the use of the version bounds the check
+    the use of dependencies in the package description.
   */
   dontJailbreak = overrideCabal (drv: {
     jailbreak = false;
   });
 
-  /* doCheck enables dependency checking, compilation and execution
-     of test suites listed in the package description file.
+  /*
+    doCheck enables dependency checking, compilation and execution
+    of test suites listed in the package description file.
   */
   doCheck = overrideCabal (drv: {
     doCheck = true;
   });
-  /* dontCheck disables dependency checking, compilation and execution
-     of test suites listed in the package description file.
+  /*
+    dontCheck disables dependency checking, compilation and execution
+    of test suites listed in the package description file.
   */
   dontCheck = overrideCabal (drv: {
     doCheck = false;
   });
 
-  /* doBenchmark enables dependency checking and compilation
-     for benchmarks listed in the package description file.
-     Benchmarks are, however, not executed at the moment.
+  /*
+    doBenchmark enables dependency checking and compilation
+    for benchmarks listed in the package description file.
+    Benchmarks are, however, not executed at the moment.
   */
   doBenchmark = overrideCabal (drv: {
     doBenchmark = true;
   });
-  /* dontBenchmark disables dependency checking, compilation and execution
-     for benchmarks listed in the package description file.
+  /*
+    dontBenchmark disables dependency checking, compilation and execution
+    for benchmarks listed in the package description file.
   */
   dontBenchmark = overrideCabal (drv: {
     doBenchmark = false;
   });
 
-  /* doDistribute enables the distribution of binaries for the package
-     via hydra.
+  /*
+    doDistribute enables the distribution of binaries for the package
+    via hydra.
   */
   doDistribute = overrideCabal (drv: {
     # lib.platforms.all is the default value for platforms (since GHC can cross-compile)
     hydraPlatforms = lib.subtractLists (drv.badPlatforms or [ ]) (drv.platforms or lib.platforms.all);
   });
-  /* dontDistribute disables the distribution of binaries for the package
-     via hydra.
+  /*
+    dontDistribute disables the distribution of binaries for the package
+    via hydra.
   */
   dontDistribute = overrideCabal (drv: {
     hydraPlatforms = [ ];
   });
 
-  /* appendConfigureFlag adds a single argument that will be passed to the
-     cabal configure command, after the arguments that have been defined
-     in the initial declaration or previous overrides.
+  /*
+    appendConfigureFlag adds a single argument that will be passed to the
+    cabal configure command, after the arguments that have been defined
+    in the initial declaration or previous overrides.
 
-     Example:
+    Example:
 
-         > haskell.lib.compose.appendConfigureFlag "--profiling-detail=all-functions" haskellPackages.servant
+        > haskell.lib.compose.appendConfigureFlag "--profiling-detail=all-functions" haskellPackages.servant
   */
   appendConfigureFlag = x: appendConfigureFlags [ x ];
   appendConfigureFlags =
@@ -181,10 +196,11 @@ rec {
       buildFlags = (drv.buildFlags or [ ]) ++ xs;
     });
 
-  /* removeConfigureFlag drv x is a Haskell package like drv, but with
-     all cabal configure arguments that are equal to x removed.
+  /*
+    removeConfigureFlag drv x is a Haskell package like drv, but with
+    all cabal configure arguments that are equal to x removed.
 
-         > haskell.lib.compose.removeConfigureFlag "--verbose" haskellPackages.servant
+        > haskell.lib.compose.removeConfigureFlag "--verbose" haskellPackages.servant
   */
   removeConfigureFlag =
     x:
@@ -305,12 +321,14 @@ rec {
       patches = (drv.patches or [ ]) ++ xs;
     });
 
-  # Set a specific build target instead of compiling all targets in the package.
-  # For example, imagine we have a .cabal file with a library, and 2 executables "dev" and "server".
-  # We can build only "server" and not wait on the compilation of "dev" by using setBuildTarget as follows:
-  #
-  #   > setBuildTarget "server" (callCabal2nix "thePackageName" thePackageSrc {})
-  #
+  /*
+    Set a specific build target instead of compiling all targets in the package.
+    For example, imagine we have a .cabal file with a library, and 2 executables "dev" and "server".
+    We can build only "server" and not wait on the compilation of "dev" by using setBuildTarget as follows:
+
+      > setBuildTarget "server" (callCabal2nix "thePackageName" thePackageSrc {})
+
+  */
   setBuildTargets =
     xs:
     overrideCabal (drv: {
@@ -331,20 +349,26 @@ rec {
       hardeningDisable = flags;
     });
 
-  # Let Nix strip the binary files.
-  # This removes debugging symbols.
+  /*
+    Let Nix strip the binary files.
+    This removes debugging symbols.
+  */
   doStrip = overrideCabal (drv: {
     dontStrip = false;
   });
 
-  # Stop Nix from stripping the binary files.
-  # This keeps debugging symbols.
+  /*
+    Stop Nix from stripping the binary files.
+    This keeps debugging symbols.
+  */
   dontStrip = overrideCabal (drv: {
     dontStrip = true;
   });
 
-  # Useful for debugging segfaults with gdb.
-  # This includes dontStrip.
+  /*
+    Useful for debugging segfaults with gdb.
+    This includes dontStrip.
+  */
   enableDWARFDebugging =
     drv:
     # -g: enables debugging symbols
@@ -354,8 +378,9 @@ rec {
       dontStrip drv
     );
 
-  /* Create a source distribution tarball like those found on hackage,
-     instead of building the package.
+  /*
+    Create a source distribution tarball like those found on hackage,
+    instead of building the package.
   */
   sdistTarball =
     pkg:
@@ -371,8 +396,9 @@ rec {
       fixupPhase = ":";
     });
 
-  /* Create a documentation tarball suitable for uploading to Hackage instead
-     of building the package.
+  /*
+    Create a documentation tarball suitable for uploading to Hackage instead
+    of building the package.
   */
   documentationTarball =
     pkg:
@@ -397,13 +423,15 @@ rec {
       '';
     });
 
-  /* Use the gold linker. It is a linker for ELF that is designed
-     "to run as fast as possible on modern systems"
+  /*
+    Use the gold linker. It is a linker for ELF that is designed
+    "to run as fast as possible on modern systems"
   */
   linkWithGold = appendConfigureFlag "--ghc-option=-optl-fuse-ld=gold --ld-option=-fuse-ld=gold --with-ld=ld.gold";
 
-  /* link executables statically against haskell libs to reduce
-     closure size
+  /*
+    link executables statically against haskell libs to reduce
+    closure size
   */
   justStaticExecutables = overrideCabal (drv: {
     enableSharedExecutables = false;
@@ -419,13 +447,14 @@ rec {
       '';
   });
 
-  /* Build a source distribution tarball instead of using the source files
-     directly. The effect is that the package is built as if it were published
-     on hackage. This can be used as a test for the source distribution,
-     assuming the build fails when packaging mistakes are in the cabal file.
+  /*
+    Build a source distribution tarball instead of using the source files
+    directly. The effect is that the package is built as if it were published
+    on hackage. This can be used as a test for the source distribution,
+    assuming the build fails when packaging mistakes are in the cabal file.
 
-     A faster implementation using `cabal-install` is available as
-     `buildFromCabalSdist` in your Haskell package set.
+    A faster implementation using `cabal-install` is available as
+    `buildFromCabalSdist` in your Haskell package set.
   */
   buildFromSdist =
     pkg:
@@ -438,25 +467,28 @@ rec {
       jailbreak = false;
     }) pkg;
 
-  /* Build the package in a strict way to uncover potential problems.
-     This includes buildFromSdist and failOnAllWarnings.
+  /*
+    Build the package in a strict way to uncover potential problems.
+    This includes buildFromSdist and failOnAllWarnings.
   */
   buildStrictly = pkg: buildFromSdist (failOnAllWarnings pkg);
 
   # Disable core optimizations, significantly speeds up build time
   disableOptimization = appendConfigureFlag "--disable-optimization";
 
-  /* Turn on most of the compiler warnings and fail the build if any
-     of them occur.
+  /*
+    Turn on most of the compiler warnings and fail the build if any
+    of them occur.
   */
   failOnAllWarnings = appendConfigureFlag "--ghc-option=-Wall --ghc-option=-Werror";
 
-  /* Add a post-build check to verify that dependencies declared in
-     the cabal file are actually used.
+  /*
+    Add a post-build check to verify that dependencies declared in
+    the cabal file are actually used.
 
-     The first attrset argument can be used to configure the strictness
-     of this check and a list of ignored package names that would otherwise
-     cause false alarms.
+    The first attrset argument can be used to configure the strictness
+    of this check and a list of ignored package names that would otherwise
+    cause false alarms.
   */
   checkUnusedPackages =
     {
@@ -480,8 +512,9 @@ rec {
 
   buildStackProject = pkgs.callPackage ../generic-stack-builder.nix { };
 
-  /* Add a dummy command to trigger a build despite an equivalent
-     earlier build that is present in the store or cache.
+  /*
+    Add a dummy command to trigger a build despite an equivalent
+    earlier build that is present in the store or cache.
   */
   triggerRebuild =
     i:
@@ -489,8 +522,9 @@ rec {
       postUnpack = ": trigger rebuild ${toString i}";
     });
 
-  /* Override the sources for the package and optionally the version.
-     This also takes of removing editedCabalFile.
+  /*
+    Override the sources for the package and optionally the version.
+    This also takes of removing editedCabalFile.
   */
   overrideSrc =
     {
@@ -565,8 +599,9 @@ rec {
     in
     builtins.listToAttrs (map toKeyVal haskellPaths);
 
-  /* INTERNAL function retained for backwards compatibility, use
-     haskell.packages.*.generateOptparseApplicativeCompletions instead!
+  /*
+    INTERNAL function retained for backwards compatibility, use
+    haskell.packages.*.generateOptparseApplicativeCompletions instead!
   */
   __generateOptparseApplicativeCompletion =
     exeName:
@@ -590,9 +625,10 @@ rec {
         '';
     });
 
-  /* Retained for backwards compatibility.
-     Use haskell.packages.*.generateOptparseApplicativeCompletions
-     which is cross aware instead.
+  /*
+    Retained for backwards compatibility.
+    Use haskell.packages.*.generateOptparseApplicativeCompletions
+    which is cross aware instead.
   */
   generateOptparseApplicativeCompletions =
     commands: pkg:
@@ -600,9 +636,10 @@ rec {
       "haskellLib.generateOptparseApplicativeCompletions is deprecated in favor of haskellPackages.generateOptparseApplicativeCompletions. Please change ${pkg.name} to use the latter and make sure it uses its matching haskell.packages set!"
       (pkgs.lib.foldr __generateOptparseApplicativeCompletion pkg commands);
 
-  /* Retained for backwards compatibility.
-     Use haskell.packages.*.generateOptparseApplicativeCompletions
-     which is cross aware instead.
+  /*
+    Retained for backwards compatibility.
+    Use haskell.packages.*.generateOptparseApplicativeCompletions
+    which is cross aware instead.
   */
   generateOptparseApplicativeCompletion =
     command: pkg:

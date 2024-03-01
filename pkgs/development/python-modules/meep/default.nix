@@ -103,11 +103,12 @@ buildPythonPackage rec {
     inherit mpi;
   };
 
-  /* This test is taken from the MEEP tutorial "Fields in a Waveguide" at
-     <https://meep.readthedocs.io/en/latest/Python_Tutorials/Basics/>.
-     It is important, that the test actually performs a calculation
-     (calls `sim.run()`), as only then MPI will be initialised and MPI linking
-     errors can be caught.
+  /*
+    This test is taken from the MEEP tutorial "Fields in a Waveguide" at
+    <https://meep.readthedocs.io/en/latest/Python_Tutorials/Basics/>.
+    It is important, that the test actually performs a calculation
+    (calls `sim.run()`), as only then MPI will be initialised and MPI linking
+    errors can be caught.
   */
   doCheck = true;
   checkPhase = ''

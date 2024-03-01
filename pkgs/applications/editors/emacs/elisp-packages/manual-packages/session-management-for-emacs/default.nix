@@ -22,9 +22,10 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    /* installation: add to your ~/.emacs
-       (require 'session)
-       (add-hook 'after-init-hook 'session-initialize)
+    /*
+      installation: add to your ~/.emacs
+      (require 'session)
+      (add-hook 'after-init-hook 'session-initialize)
     */
     description = "Small session management for emacs";
     homepage = "https://emacs-session.sourceforge.net/";

@@ -55,7 +55,8 @@ let
     };
   };
 
-  /* shabScript:       a path or filename to use as a template
+  /*
+     shabScript:       a path or filename to use as a template
      parameters.name:  the name to use as part of the store path
      parameters:       variables to expose to the template
   */
@@ -70,7 +71,8 @@ let
       ${shab}/bin/shab "$shabScript" >$out
     '';
 
-  /* shabScriptText:   a string to use as a template
+  /*
+     shabScriptText:   a string to use as a template
      parameters.name:  the name to use as part of the store path
      parameters:       variables to expose to the template
   */

@@ -402,13 +402,14 @@ in
         ZOO_LOG_DIR = cfg.baseDir;
       };
       serviceConfig = {
-        /* **
-             Exhibitor is a bit un-nixy. It wants to present to you a user interface in order to
-             mutate the configuration of both itself and ZooKeeper, and to coordinate changes
-             among the members of the Zookeeper ensemble. I'm going for a different approach here,
-             which is to manage all the configuration via nix and have it write out the configuration
-             files that exhibitor will use, and to reduce the amount of inter-exhibitor orchestration.
-           **
+        /**
+          *
+            Exhibitor is a bit un-nixy. It wants to present to you a user interface in order to
+            mutate the configuration of both itself and ZooKeeper, and to coordinate changes
+            among the members of the Zookeeper ensemble. I'm going for a different approach here,
+            which is to manage all the configuration via nix and have it write out the configuration
+            files that exhibitor will use, and to reduce the amount of inter-exhibitor orchestration.
+          **
         */
         ExecStart = ''
           ${pkgs.exhibitor}/bin/startExhibitor.sh ${cliOptions}

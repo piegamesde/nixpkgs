@@ -1,7 +1,8 @@
-/* This is the Hydra jobset for the `r-updates` branch in Nixpkgs.
-   The jobset can be tested by:
+/*
+  This is the Hydra jobset for the `r-updates` branch in Nixpkgs.
+  The jobset can be tested by:
 
-   $ hydra-eval-jobs -I . pkgs/top-level/release-r.nix
+  $ hydra-eval-jobs -I . pkgs/top-level/release-r.nix
 */
 {
   supportedSystems ? [

@@ -3,15 +3,16 @@
   lib,
   stdenv,
 }:
-/* Create a systemd portable service image
-   https://systemd.io/PORTABLE_SERVICES/
+/*
+  Create a systemd portable service image
+  https://systemd.io/PORTABLE_SERVICES/
 
-   Example:
-   pkgs.portableService {
-     pname = "demo";
-     version = "1.0";
-     units = [ demo-service demo-socket ];
-   }
+  Example:
+  pkgs.portableService {
+    pname = "demo";
+    version = "1.0";
+    units = [ demo-service demo-socket ];
+  }
 */
 {
   # The name and version of the portable service. The resulting image will be

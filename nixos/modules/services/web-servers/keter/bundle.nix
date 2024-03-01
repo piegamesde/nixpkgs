@@ -1,5 +1,6 @@
-/* This makes a keter bundle as described on the github page:
-   https://github.com/snoyberg/keter#bundling-your-app-for-keter
+/*
+  This makes a keter bundle as described on the github page:
+  https://github.com/snoyberg/keter#bundling-your-app-for-keter
 */
 {
   keterDomain,
@@ -16,9 +17,10 @@ let
     {
       # we just use nix as an absolute path so we're not bundling any binaries
       type = "webapp";
-      /* Note that we're not actually putting the executable in the bundle,
-         we already can use the nix store for copying, so we just
-         symlink to the app.
+      /*
+        Note that we're not actually putting the executable in the bundle,
+        we already can use the nix store for copying, so we just
+        symlink to the app.
       */
       exec = keterExecutable;
       host = keterDomain;

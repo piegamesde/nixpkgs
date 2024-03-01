@@ -1,8 +1,9 @@
-/* To run:
+/*
+  To run:
 
-       nix-shell maintainers/scripts/update.nix
+      nix-shell maintainers/scripts/update.nix
 
-   See https://nixos.org/manual/nixpkgs/unstable/#var-passthru-updateScript
+  See https://nixos.org/manual/nixpkgs/unstable/#var-passthru-updateScript
 */
 {
   package ? null,
@@ -39,14 +40,15 @@ let
       in
       [ x ] ++ nubOn f xs;
 
-  /* Recursively find all packages (derivations) in `pkgs` matching `cond` predicate.
+  /*
+    Recursively find all packages (derivations) in `pkgs` matching `cond` predicate.
 
-     Type: packagesWithPath :: AttrPath → (AttrPath → derivation → bool) → AttrSet → List<AttrSet{attrPath :: str; package :: derivation; }>
-           AttrPath :: [str]
+    Type: packagesWithPath :: AttrPath → (AttrPath → derivation → bool) → AttrSet → List<AttrSet{attrPath :: str; package :: derivation; }>
+          AttrPath :: [str]
 
-     The packages will be returned as a list of named pairs comprising of:
-       - attrPath: stringified attribute path (based on `rootPath`)
-       - package: corresponding derivation
+    The packages will be returned as a list of named pairs comprising of:
+      - attrPath: stringified attribute path (based on `rootPath`)
+      - package: corresponding derivation
   */
   packagesWithPath =
     rootPath: cond: pkgs:

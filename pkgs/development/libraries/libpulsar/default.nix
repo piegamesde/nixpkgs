@@ -26,14 +26,15 @@
 }:
 
 let
-  /* Check if null or false
-     Example:
-     let result = enableFeature null
-     => "OFF"
-     let result = enableFeature false
-     => "OFF"
-     let result = enableFeature «derivation»
-     => "ON"
+  /*
+    Check if null or false
+    Example:
+    let result = enableFeature null
+    => "OFF"
+    let result = enableFeature false
+    => "OFF"
+    let result = enableFeature «derivation»
+    => "ON"
   */
   enableCmakeFeature = p: if (p == null || p == false) then "OFF" else "ON";
 

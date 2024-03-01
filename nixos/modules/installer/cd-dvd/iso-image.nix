@@ -12,13 +12,14 @@
 with lib;
 
 let
-  #
-  # Given a list of `options`, concats the result of mapping each options
-  # to a menuentry for use in grub.
-  #
-  #  * defaults: {name, image, params, initrd}
-  #  * options: [ option... ]
-  #  * option: {name, params, class}
+  /**
+    Given a list of `options`, concats the result of mapping each options
+    to a menuentry for use in grub.
+
+     * defaults: {name, image, params, initrd}
+     * options: [ option... ]
+     * option: {name, params, class}
+  */
   menuBuilderGrub2 =
     defaults: options:
     lib.concatStrings (
@@ -33,15 +34,17 @@ let
       '') options
     );
 
-  #
-  # Builds the default options.
+  /**
+    Builds the default options.
+  */
   buildMenuGrub2 = buildMenuAdditionalParamsGrub2 "";
 
   targetArch = if config.boot.loader.grub.forcei686 then "ia32" else pkgs.stdenv.hostPlatform.efiArch;
 
-  #
-  # Given params to add to `params`, build a set of default options.
-  # Use this one when creating a variant (e.g. hidpi)
+  /**
+    Given params to add to `params`, build a set of default options.
+    Use this one when creating a variant (e.g. hidpi)
+  */
   buildMenuAdditionalParamsGrub2 =
     additional:
     let

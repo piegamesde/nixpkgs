@@ -54,17 +54,19 @@ rec {
   isLua53 = lua.luaversion == "5.3";
   isLuaJIT = lib.getName lua == "luajit";
 
-  /* generates the relative path towards the folder where
-     seems stable even when using  lua_modules_path = ""
+  /*
+    generates the relative path towards the folder where
+    seems stable even when using  lua_modules_path = ""
 
-     Example:
-      getDataFolder luaPackages.stdlib
-      => stdlib-41.2.2-1-rocks/stdlib/41.2.2-1/doc
+    Example:
+     getDataFolder luaPackages.stdlib
+     => stdlib-41.2.2-1-rocks/stdlib/41.2.2-1/doc
   */
   getDataFolder = drv: "${drv.pname}-${drv.version}-rocks/${drv.pname}/${drv.version}";
 
-  /* Convert derivation to a lua module.
-     so that luaRequireModules can be run later
+  /*
+    Convert derivation to a lua module.
+    so that luaRequireModules can be run later
   */
   toLuaModule =
     drv:
@@ -76,12 +78,13 @@ rec {
       };
     });
 
-  /* generate luarocks config
+  /*
+    generate luarocks config
 
-     generateLuarocksConfig {
-       externalDeps = [ { name = "CRYPTO"; dep = pkgs.openssl; } ];
-       rocksSubdir = "subdir";
-     };
+    generateLuarocksConfig {
+      externalDeps = [ { name = "CRYPTO"; dep = pkgs.openssl; } ];
+      rocksSubdir = "subdir";
+    };
   */
   generateLuarocksConfig =
     {

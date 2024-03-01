@@ -1,6 +1,7 @@
-/* TeX Live user docs
-   - source: ../../../../../doc/languages-frameworks/texlive.xml
-   - current html: https://nixos.org/nixpkgs/manual/#sec-language-texlive
+/*
+  TeX Live user docs
+  - source: ../../../../../doc/languages-frameworks/texlive.xml
+  - current html: https://nixos.org/nixpkgs/manual/#sec-language-texlive
 */
 {
   stdenv,

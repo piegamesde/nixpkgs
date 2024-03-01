@@ -25,8 +25,9 @@ let
 
   testing-lib = import ./testing/default.nix { inherit lib; };
 in
-/* This attribute set appears as lib.nixos in the flake, or can be imported
-   using a binding like `nixosLib = import (nixpkgs + "/nixos/lib") { }`.
+/*
+  This attribute set appears as lib.nixos in the flake, or can be imported
+  using a binding like `nixosLib = import (nixpkgs + "/nixos/lib") { }`.
 */
 {
   inherit (seqAttrsIf (!featureFlags ? minimalModules) minimalModulesWarning eval-config-minimal)

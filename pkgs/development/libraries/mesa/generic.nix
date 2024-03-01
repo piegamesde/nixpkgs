@@ -112,15 +112,16 @@
   udev,
 }:
 
-/* * Packaging design:
-   - The basic mesa ($out) contains headers and libraries (GLU is in libGLU now).
-     This or the mesa attribute (which also contains GLU) are small (~ 2 MB, mostly headers)
-     and are designed to be the buildInput of other packages.
-   - DRI drivers are compiled into $drivers output, which is much bigger and
-     depends on LLVM. These should be searched at runtime in
-     "/run/opengl-driver{,-32}/lib/*" and so are kind-of impure (given by NixOS).
-     (I suppose on non-NixOS one would create the appropriate symlinks from there.)
-   - libOSMesa is in $osmesa (~4 MB)
+/**
+  Packaging design:
+  - The basic mesa ($out) contains headers and libraries (GLU is in libGLU now).
+    This or the mesa attribute (which also contains GLU) are small (~ 2 MB, mostly headers)
+    and are designed to be the buildInput of other packages.
+  - DRI drivers are compiled into $drivers output, which is much bigger and
+    depends on LLVM. These should be searched at runtime in
+    "/run/opengl-driver{,-32}/lib/*" and so are kind-of impure (given by NixOS).
+    (I suppose on non-NixOS one would create the appropriate symlinks from there.)
+  - libOSMesa is in $osmesa (~4 MB)
 */
 
 let

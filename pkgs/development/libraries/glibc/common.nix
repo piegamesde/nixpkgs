@@ -1,20 +1,21 @@
-/* Build configuration used to build glibc, Info files, and locale
-    information.
+/*
+  Build configuration used to build glibc, Info files, and locale
+   information.
 
-    Note that this derivation has multiple outputs and does not respect the
-    standard convention of putting the executables into the first output. The
-    first output is `lib` so that the libraries provided by this derivation
-    can be accessed directly, e.g.
+   Note that this derivation has multiple outputs and does not respect the
+   standard convention of putting the executables into the first output. The
+   first output is `lib` so that the libraries provided by this derivation
+   can be accessed directly, e.g.
 
-      "${pkgs.glibc}/lib/ld-linux-x86_64.so.2"
+     "${pkgs.glibc}/lib/ld-linux-x86_64.so.2"
 
-    The executables are put into `bin` output and need to be referenced via
-    the `bin` attribute of the main package, e.g.
+   The executables are put into `bin` output and need to be referenced via
+   the `bin` attribute of the main package, e.g.
 
-      "${pkgs.glibc.bin}/bin/ldd".
+     "${pkgs.glibc.bin}/bin/ldd".
 
-   The executables provided by glibc typically include `ldd`, `locale`, `iconv`
-   but the exact set depends on the library version and the configuration.
+  The executables provided by glibc typically include `ldd`, `locale`, `iconv`
+  but the exact set depends on the library version and the configuration.
 */
 
 # Note: this package is used for bootstrapping fetchurl, and thus
@@ -63,13 +64,14 @@ stdenv.mkDerivation (
 
     patches =
       [
-        /* No tarballs for stable upstream branch, only https://sourceware.org/git/glibc.git and using git would complicate bootstrapping.
-            $ git fetch --all -p && git checkout origin/release/2.36/master && git describe
-            glibc-2.37-8-g590d0e089b
-            $ git show --minimal --reverse glibc-2.37.. | gzip -9n --rsyncable - > 2.37-master.patch.gz
+        /*
+          No tarballs for stable upstream branch, only https://sourceware.org/git/glibc.git and using git would complicate bootstrapping.
+           $ git fetch --all -p && git checkout origin/release/2.36/master && git describe
+           glibc-2.37-8-g590d0e089b
+           $ git show --minimal --reverse glibc-2.37.. | gzip -9n --rsyncable - > 2.37-master.patch.gz
 
-           To compare the archive contents zdiff can be used.
-            $ zdiff -u 2.37-master.patch.gz ../nixpkgs/pkgs/development/libraries/glibc/2.37-master.patch.gz
+          To compare the archive contents zdiff can be used.
+           $ zdiff -u 2.37-master.patch.gz ../nixpkgs/pkgs/development/libraries/glibc/2.37-master.patch.gz
         */
         ./2.37-master.patch.gz
 
@@ -82,9 +84,10 @@ stdenv.mkDerivation (
         # Don't use /etc/ld.so.preload, but /etc/ld-nix.so.preload.
         ./dont-use-system-ld-so-preload.patch
 
-        /* The command "getconf CS_PATH" returns the default search path
-           "/bin:/usr/bin", which is inappropriate on NixOS machines. This
-           patch extends the search path by "/run/current-system/sw/bin".
+        /*
+          The command "getconf CS_PATH" returns the default search path
+          "/bin:/usr/bin", which is inappropriate on NixOS machines. This
+          patch extends the search path by "/run/current-system/sw/bin".
         */
         ./fix_path_attribute_in_getconf.patch
 
@@ -95,10 +98,11 @@ stdenv.mkDerivation (
 
         ./0001-Revert-Remove-all-usage-of-BASH-or-BASH-in-installed.patch
 
-        /* Patch derived from archlinux (at the time of adding they're at 2.37),
-            https://github.com/archlinux/svntogit-packages/blob/packages/glibc/trunk/reenable_DT_HASH.patch
+        /*
+          Patch derived from archlinux (at the time of adding they're at 2.37),
+           https://github.com/archlinux/svntogit-packages/blob/packages/glibc/trunk/reenable_DT_HASH.patch
 
-           See https://github.com/NixOS/nixpkgs/pull/188492#issuecomment-1233802991 for context.
+          See https://github.com/NixOS/nixpkgs/pull/188492#issuecomment-1233802991 for context.
         */
         ./reenable_DT_HASH.patch
       ]

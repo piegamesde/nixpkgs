@@ -96,10 +96,11 @@ resholve.mkDerivation rec {
         "$BATS_LOCKING_IMPLEMENTATION" = "${flock}/bin/flock";
       };
       execer = [
-        /* both blatant lies for expedience; these can certainly exec args
-           they may be safe here, because they may always run things that
-           are ultimately in libexec?
-           TODO: handle parallel and flock in binlore/resholve
+        /*
+          both blatant lies for expedience; these can certainly exec args
+          they may be safe here, because they may always run things that
+          are ultimately in libexec?
+          TODO: handle parallel and flock in binlore/resholve
         */
         "cannot:${parallel}/bin/parallel"
         "cannot:${flock}/bin/flock"

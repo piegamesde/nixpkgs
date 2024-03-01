@@ -17,53 +17,55 @@ let
     splitString
     ;
 
-  # The attrset `exporterTests` contains one attribute
-  # for each exporter test. Each of these attributes
-  # is expected to be an attrset containing:
-  #
-  #  `exporterConfig`:
-  #    this attribute set contains config for the exporter itself
-  #
-  #  `exporterTest`
-  #    this attribute set contains test instructions
-  #
-  #  `metricProvider` (optional)
-  #    this attribute contains additional machine config
-  #
-  #  `nodeName` (optional)
-  #    override an incompatible testnode name
-  #
-  #  Example:
-  #    exporterTests.<exporterName> = {
-  #      exporterConfig = {
-  #        enable = true;
-  #      };
-  #      metricProvider = {
-  #        services.<metricProvider>.enable = true;
-  #      };
-  #      exporterTest = ''
-  #        wait_for_unit("prometheus-<exporterName>-exporter.service")
-  #        wait_for_open_port(1234)
-  #        succeed("curl -sSf 'localhost:1234/metrics'")
-  #      '';
-  #    };
-  #
-  #  # this would generate the following test config:
-  #
-  #    nodes.<exporterName> = {
-  #      services.prometheus.<exporterName> = {
-  #        enable = true;
-  #      };
-  #      services.<metricProvider>.enable = true;
-  #    };
-  #
-  #    testScript = ''
-  #      <exporterName>.start()
-  #      <exporterName>.wait_for_unit("prometheus-<exporterName>-exporter.service")
-  #      <exporterName>.wait_for_open_port(1234)
-  #      <exporterName>.succeed("curl -sSf 'localhost:1234/metrics'")
-  #      <exporterName>.shutdown()
-  #    '';
+  /*
+    * The attrset `exporterTests` contains one attribute
+    * for each exporter test. Each of these attributes
+    * is expected to be an attrset containing:
+    *
+    *  `exporterConfig`:
+    *    this attribute set contains config for the exporter itself
+    *
+    *  `exporterTest`
+    *    this attribute set contains test instructions
+    *
+    *  `metricProvider` (optional)
+    *    this attribute contains additional machine config
+    *
+    *  `nodeName` (optional)
+    *    override an incompatible testnode name
+    *
+    *  Example:
+    *    exporterTests.<exporterName> = {
+    *      exporterConfig = {
+    *        enable = true;
+    *      };
+    *      metricProvider = {
+    *        services.<metricProvider>.enable = true;
+    *      };
+    *      exporterTest = ''
+    *        wait_for_unit("prometheus-<exporterName>-exporter.service")
+    *        wait_for_open_port(1234)
+    *        succeed("curl -sSf 'localhost:1234/metrics'")
+    *      '';
+    *    };
+    *
+    *  # this would generate the following test config:
+    *
+    *    nodes.<exporterName> = {
+    *      services.prometheus.<exporterName> = {
+    *        enable = true;
+    *      };
+    *      services.<metricProvider>.enable = true;
+    *    };
+    *
+    *    testScript = ''
+    *      <exporterName>.start()
+    *      <exporterName>.wait_for_unit("prometheus-<exporterName>-exporter.service")
+    *      <exporterName>.wait_for_open_port(1234)
+    *      <exporterName>.succeed("curl -sSf 'localhost:1234/metrics'")
+    *      <exporterName>.shutdown()
+    *    '';
+  */
 
   exporterTests = {
     apcupsd = {

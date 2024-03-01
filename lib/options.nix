@@ -35,23 +35,25 @@ let
 in
 rec {
 
-  /* Returns true when the given argument is an option
+  /*
+    Returns true when the given argument is an option
 
-     Type: isOption :: a -> bool
+    Type: isOption :: a -> bool
 
-     Example:
-       isOption 1             // => false
-       isOption (mkOption {}) // => true
+    Example:
+      isOption 1             // => false
+      isOption (mkOption {}) // => true
   */
   isOption = lib.isType "option";
 
-  /* Creates an Option attribute set. mkOption accepts an attribute set with the following keys:
+  /*
+    Creates an Option attribute set. mkOption accepts an attribute set with the following keys:
 
-     All keys default to `null` when not given.
+    All keys default to `null` when not given.
 
-     Example:
-       mkOption { }  // => { _type = "option"; }
-       mkOption { default = "foo"; } // => { _type = "option"; default = "foo"; }
+    Example:
+      mkOption { }  // => { _type = "option"; }
+      mkOption { default = "foo"; } // => { _type = "option"; default = "foo"; }
   */
   mkOption =
     {
@@ -78,12 +80,13 @@ rec {
     }@attrs:
     attrs // { _type = "option"; };
 
-  /* Creates an Option attribute set for a boolean value option i.e an
-     option to be toggled on or off:
+  /*
+    Creates an Option attribute set for a boolean value option i.e an
+    option to be toggled on or off:
 
-     Example:
-       mkEnableOption "foo"
-       => { _type = "option"; default = false; description = "Whether to enable foo."; example = true; type = { ... }; }
+    Example:
+      mkEnableOption "foo"
+      => { _type = "option"; default = false; description = "Whether to enable foo."; example = true; type = { ... }; }
   */
   mkEnableOption =
     # Name for the created option
@@ -99,46 +102,47 @@ rec {
       type = lib.types.bool;
     };
 
-  /* Creates an Option attribute set for an option that specifies the
-     package a module should use for some purpose.
+  /*
+    Creates an Option attribute set for an option that specifies the
+    package a module should use for some purpose.
 
-     The package is specified in the third argument under `default` as a list of strings
-     representing its attribute path in nixpkgs (or another package set).
-     Because of this, you need to pass nixpkgs itself (or a subset) as the first argument.
+    The package is specified in the third argument under `default` as a list of strings
+    representing its attribute path in nixpkgs (or another package set).
+    Because of this, you need to pass nixpkgs itself (or a subset) as the first argument.
 
-     The second argument may be either a string or a list of strings.
-     It provides the display name of the package in the description of the generated option
-     (using only the last element if the passed value is a list)
-     and serves as the fallback value for the `default` argument.
+    The second argument may be either a string or a list of strings.
+    It provides the display name of the package in the description of the generated option
+    (using only the last element if the passed value is a list)
+    and serves as the fallback value for the `default` argument.
 
-     To include extra information in the description, pass `extraDescription` to
-     append arbitrary text to the generated description.
-     You can also pass an `example` value, either a literal string or an attribute path.
+    To include extra information in the description, pass `extraDescription` to
+    append arbitrary text to the generated description.
+    You can also pass an `example` value, either a literal string or an attribute path.
 
-     The default argument can be omitted if the provided name is
-     an attribute of pkgs (if name is a string) or a
-     valid attribute path in pkgs (if name is a list).
+    The default argument can be omitted if the provided name is
+    an attribute of pkgs (if name is a string) or a
+    valid attribute path in pkgs (if name is a list).
 
-     If you wish to explicitly provide no default, pass `null` as `default`.
+    If you wish to explicitly provide no default, pass `null` as `default`.
 
-     Type: mkPackageOption :: pkgs -> (string|[string]) -> { default? :: [string], example? :: null|string|[string], extraDescription? :: string } -> option
+    Type: mkPackageOption :: pkgs -> (string|[string]) -> { default? :: [string], example? :: null|string|[string], extraDescription? :: string } -> option
 
-     Example:
-       mkPackageOption pkgs "hello" { }
-       => { _type = "option"; default = «derivation /nix/store/3r2vg51hlxj3cx5vscp0vkv60bqxkaq0-hello-2.10.drv»; defaultText = { ... }; description = "The hello package to use."; type = { ... }; }
+    Example:
+      mkPackageOption pkgs "hello" { }
+      => { _type = "option"; default = «derivation /nix/store/3r2vg51hlxj3cx5vscp0vkv60bqxkaq0-hello-2.10.drv»; defaultText = { ... }; description = "The hello package to use."; type = { ... }; }
 
-     Example:
-       mkPackageOption pkgs "GHC" {
-         default = [ "ghc" ];
-         example = "pkgs.haskell.packages.ghc92.ghc.withPackages (hkgs: [ hkgs.primes ])";
-       }
-       => { _type = "option"; default = «derivation /nix/store/jxx55cxsjrf8kyh3fp2ya17q99w7541r-ghc-8.10.7.drv»; defaultText = { ... }; description = "The GHC package to use."; example = { ... }; type = { ... }; }
+    Example:
+      mkPackageOption pkgs "GHC" {
+        default = [ "ghc" ];
+        example = "pkgs.haskell.packages.ghc92.ghc.withPackages (hkgs: [ hkgs.primes ])";
+      }
+      => { _type = "option"; default = «derivation /nix/store/jxx55cxsjrf8kyh3fp2ya17q99w7541r-ghc-8.10.7.drv»; defaultText = { ... }; description = "The GHC package to use."; example = { ... }; type = { ... }; }
 
-     Example:
-       mkPackageOption pkgs [ "python39Packages" "pytorch" ] {
-         extraDescription = "This is an example and doesn't actually do anything.";
-       }
-       => { _type = "option"; default = «derivation /nix/store/gvqgsnc4fif9whvwd9ppa568yxbkmvk8-python3.9-pytorch-1.10.2.drv»; defaultText = { ... }; description = "The pytorch package to use. This is an example and doesn't actually do anything."; type = { ... }; }
+    Example:
+      mkPackageOption pkgs [ "python39Packages" "pytorch" ] {
+        extraDescription = "This is an example and doesn't actually do anything.";
+      }
+      => { _type = "option"; default = «derivation /nix/store/gvqgsnc4fif9whvwd9ppa568yxbkmvk8-python3.9-pytorch-1.10.2.drv»; defaultText = { ... }; description = "The pytorch package to use. This is an example and doesn't actually do anything."; type = { ... }; }
   */
   mkPackageOption =
     # Package set (a specific version of nixpkgs or a subset)
@@ -178,11 +182,12 @@ rec {
     in
     option // { description = lib.mdDoc option.description; };
 
-  /* This option accepts anything, but it does not produce any result.
+  /*
+    This option accepts anything, but it does not produce any result.
 
-     This is useful for sharing a module across different module sets
-     without having to implement similar features as long as the
-     values of the options are not accessed.
+    This is useful for sharing a module across different module sets
+    without having to implement similar features as long as the
+    values of the options are not accessed.
   */
   mkSinkUndeclaredOptions =
     attrs:
@@ -259,23 +264,25 @@ rec {
           first
       ) (head defs) (tail defs)).value;
 
-  /* Extracts values of all "value" keys of the given list.
+  /*
+    Extracts values of all "value" keys of the given list.
 
-     Type: getValues :: [ { value :: a; } ] -> [a]
+    Type: getValues :: [ { value :: a; } ] -> [a]
 
-     Example:
-       getValues [ { value = 1; } { value = 2; } ] // => [ 1 2 ]
-       getValues [ ]                               // => [ ]
+    Example:
+      getValues [ { value = 1; } { value = 2; } ] // => [ 1 2 ]
+      getValues [ ]                               // => [ ]
   */
   getValues = map (x: x.value);
 
-  /* Extracts values of all "file" keys of the given list
+  /*
+    Extracts values of all "file" keys of the given list
 
-     Type: getFiles :: [ { file :: a; } ] -> [a]
+    Type: getFiles :: [ { file :: a; } ] -> [a]
 
-     Example:
-       getFiles [ { file = "file1"; } { file = "file2"; } ] // => [ "file1" "file2" ]
-       getFiles [ ]                                         // => [ ]
+    Example:
+      getFiles [ { file = "file1"; } { file = "file2"; } ] // => [ "file1" "file2" ]
+      getFiles [ ]                                         // => [ ]
   */
   getFiles = map (x: x.file);
 
@@ -326,16 +333,17 @@ rec {
       [ docOption ] ++ optionals subOptionsVisible subOptions
     ) (collect isOption options);
 
-  /* This function recursively removes all derivation attributes from
-     `x` except for the `name` attribute.
+  /*
+    This function recursively removes all derivation attributes from
+    `x` except for the `name` attribute.
 
-     This is to make the generation of `options.xml` much more
-     efficient: the XML representation of derivations is very large
-     (on the order of megabytes) and is not actually used by the
-     manual generator.
+    This is to make the generation of `options.xml` much more
+    efficient: the XML representation of derivations is very large
+    (on the order of megabytes) and is not actually used by the
+    manual generator.
 
-     This function was made obsolete by renderOptionValue and is kept for
-     compatibility with out-of-tree code.
+    This function was made obsolete by renderOptionValue and is kept for
+    compatibility with out-of-tree code.
   */
   scrubOptionValue =
     x:
@@ -353,8 +361,9 @@ rec {
     else
       x;
 
-  /* Ensures that the given option value (default or example) is a `_type`d string
-     by rendering Nix values to `literalExpression`s.
+  /*
+    Ensures that the given option value (default or example) is a `_type`d string
+    by rendering Nix values to `literalExpression`s.
   */
   renderOptionValue =
     v:
@@ -368,10 +377,11 @@ rec {
         } v
       );
 
-  /* For use in the `defaultText` and `example` option attributes. Causes the
-     given string to be rendered verbatim in the documentation as Nix code. This
-     is necessary for complex values, e.g. functions, or values that depend on
-     other values or packages.
+  /*
+    For use in the `defaultText` and `example` option attributes. Causes the
+    given string to be rendered verbatim in the documentation as Nix code. This
+    is necessary for complex values, e.g. functions, or values that depend on
+    other values or packages.
   */
   literalExpression =
     text:
@@ -385,9 +395,10 @@ rec {
 
   literalExample = lib.warn "literalExample is deprecated, use literalExpression instead, or use literalDocBook for a non-Nix description." literalExpression;
 
-  /* For use in the `defaultText` and `example` option attributes. Causes the
-     given DocBook text to be inserted verbatim in the documentation, for when
-     a `literalExpression` would be too hard to read.
+  /*
+    For use in the `defaultText` and `example` option attributes. Causes the
+    given DocBook text to be inserted verbatim in the documentation, for when
+    a `literalExpression` would be too hard to read.
   */
   literalDocBook =
     text:
@@ -399,8 +410,9 @@ rec {
         inherit text;
       };
 
-  /* Transition marker for documentation that's already migrated to markdown
-     syntax.
+  /*
+    Transition marker for documentation that's already migrated to markdown
+    syntax.
   */
   mdDoc =
     text:
@@ -412,9 +424,10 @@ rec {
         inherit text;
       };
 
-  /* For use in the `defaultText` and `example` option attributes. Causes the
-     given MD text to be inserted verbatim in the documentation, for when
-     a `literalExpression` would be too hard to read.
+  /*
+    For use in the `defaultText` and `example` option attributes. Causes the
+    given MD text to be inserted verbatim in the documentation, for when
+    a `literalExpression` would be too hard to read.
   */
   literalMD =
     text:
@@ -428,17 +441,18 @@ rec {
 
   # Helper functions.
 
-  /* Convert an option, described as a list of the option parts to a
-     human-readable version.
+  /*
+    Convert an option, described as a list of the option parts to a
+    human-readable version.
 
-     Example:
-       (showOption ["foo" "bar" "baz"]) == "foo.bar.baz"
-       (showOption ["foo" "bar.baz" "tux"]) == "foo.\"bar.baz\".tux"
-       (showOption ["windowManager" "2bwm" "enable"]) == "windowManager.\"2bwm\".enable"
+    Example:
+      (showOption ["foo" "bar" "baz"]) == "foo.bar.baz"
+      (showOption ["foo" "bar.baz" "tux"]) == "foo.\"bar.baz\".tux"
+      (showOption ["windowManager" "2bwm" "enable"]) == "windowManager.\"2bwm\".enable"
 
-     Placeholders will not be quoted as they are not actual values:
-       (showOption ["foo" "*" "bar"]) == "foo.*.bar"
-       (showOption ["foo" "<name>" "bar"]) == "foo.<name>.bar"
+    Placeholders will not be quoted as they are not actual values:
+      (showOption ["foo" "*" "bar"]) == "foo.*.bar"
+      (showOption ["foo" "<name>" "bar"]) == "foo.<name>.bar"
   */
   showOption =
     parts:

@@ -296,11 +296,12 @@ in
       }
     )
   );
-  /* Linux kernel modules are inherently tied to a specific kernel.  So
-     rather than provide specific instances of those packages for a
-     specific kernel, we have a function that builds those packages
-     for a specific kernel.  This function can then be called for
-     whatever kernel you're using.
+  /*
+    Linux kernel modules are inherently tied to a specific kernel.  So
+    rather than provide specific instances of those packages for a
+    specific kernel, we have a function that builds those packages
+    for a specific kernel.  This function can then be called for
+    whatever kernel you're using.
   */
 
   packagesFor =

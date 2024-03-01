@@ -55,7 +55,8 @@ let
           url = "https://boringssl.googlesource.com/boringssl/+/a24ab549e6ae246b391155d7bed3790ac0e07de2";
           sha256 = "0483jkpg4g64v23ln2blb74xnmzdjcn3r7w4zk7nfg8j3q5f9lxm";
         })
-        /* # the following patch is too complex, so we will modify the build flags
+        /*
+              # the following patch is too complex, so we will modify the build flags
               # of crypto/fipsmodule/CMakeFiles/fipsmodule.dir/bcm.c.o in preBuild
               # and turn off -Werror=stringop-overflow
               (fetchGitilesPatch {

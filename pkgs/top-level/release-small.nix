@@ -1,5 +1,6 @@
-/* A small release file, with few packages to be built.  The aim is to reduce
-   the load on Hydra when testing the `stdenv-updates' branch.
+/*
+  A small release file, with few packages to be built.  The aim is to reduce
+  the load on Hydra when testing the `stdenv-updates' branch.
 */
 
 {

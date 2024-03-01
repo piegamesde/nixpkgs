@@ -2,38 +2,39 @@
 
 rec {
 
-  /* `overrideDerivation drv f` takes a derivation (i.e., the result
-     of a call to the builtin function `derivation`) and returns a new
-     derivation in which the attributes of the original are overridden
-     according to the function `f`.  The function `f` is called with
-     the original derivation attributes.
+  /*
+    `overrideDerivation drv f` takes a derivation (i.e., the result
+    of a call to the builtin function `derivation`) and returns a new
+    derivation in which the attributes of the original are overridden
+    according to the function `f`.  The function `f` is called with
+    the original derivation attributes.
 
-     `overrideDerivation` allows certain "ad-hoc" customisation
-     scenarios (e.g. in ~/.config/nixpkgs/config.nix).  For instance,
-     if you want to "patch" the derivation returned by a package
-     function in Nixpkgs to build another version than what the
-     function itself provides, you can do something like this:
+    `overrideDerivation` allows certain "ad-hoc" customisation
+    scenarios (e.g. in ~/.config/nixpkgs/config.nix).  For instance,
+    if you want to "patch" the derivation returned by a package
+    function in Nixpkgs to build another version than what the
+    function itself provides, you can do something like this:
 
-       mySed = overrideDerivation pkgs.gnused (oldAttrs: {
-         name = "sed-4.2.2-pre";
-         src = fetchurl {
-           url = ftp://alpha.gnu.org/gnu/sed/sed-4.2.2-pre.tar.bz2;
-           sha256 = "11nq06d131y4wmf3drm0yk502d2xc6n5qy82cg88rb9nqd2lj41k";
-         };
-         patches = [];
-       });
+      mySed = overrideDerivation pkgs.gnused (oldAttrs: {
+        name = "sed-4.2.2-pre";
+        src = fetchurl {
+          url = ftp://alpha.gnu.org/gnu/sed/sed-4.2.2-pre.tar.bz2;
+          sha256 = "11nq06d131y4wmf3drm0yk502d2xc6n5qy82cg88rb9nqd2lj41k";
+        };
+        patches = [];
+      });
 
-     For another application, see build-support/vm, where this
-     function is used to build arbitrary derivations inside a QEMU
-     virtual machine.
+    For another application, see build-support/vm, where this
+    function is used to build arbitrary derivations inside a QEMU
+    virtual machine.
 
-     Note that in order to preserve evaluation errors, the new derivation's
-     outPath depends on the old one's, which means that this function cannot
-     be used in circular situations when the old derivation also depends on the
-     new one.
+    Note that in order to preserve evaluation errors, the new derivation's
+    outPath depends on the old one's, which means that this function cannot
+    be used in circular situations when the old derivation also depends on the
+    new one.
 
-     You should in general prefer `drv.overrideAttrs` over this function;
-     see the nixpkgs manual for more information on overriding.
+    You should in general prefer `drv.overrideAttrs` over this function;
+    see the nixpkgs manual for more information on overriding.
   */
   overrideDerivation =
     drv: f:
@@ -57,23 +58,24 @@ rec {
       }
     );
 
-  /* `makeOverridable` takes a function from attribute set to attribute set and
-     injects `override` attribute which can be used to override arguments of
-     the function.
+  /*
+    `makeOverridable` takes a function from attribute set to attribute set and
+    injects `override` attribute which can be used to override arguments of
+    the function.
 
-       nix-repl> x = {a, b}: { result = a + b; }
+      nix-repl> x = {a, b}: { result = a + b; }
 
-       nix-repl> y = lib.makeOverridable x { a = 1; b = 2; }
+      nix-repl> y = lib.makeOverridable x { a = 1; b = 2; }
 
-       nix-repl> y
-       { override = «lambda»; overrideDerivation = «lambda»; result = 3; }
+      nix-repl> y
+      { override = «lambda»; overrideDerivation = «lambda»; result = 3; }
 
-       nix-repl> y.override { a = 10; }
-       { override = «lambda»; overrideDerivation = «lambda»; result = 12; }
+      nix-repl> y.override { a = 10; }
+      { override = «lambda»; overrideDerivation = «lambda»; result = 12; }
 
-     Please refer to "Nixpkgs Contributors Guide" section
-     "<pkg>.overrideDerivation" to learn about `overrideDerivation` and caveats
-     related to its use.
+    Please refer to "Nixpkgs Contributors Guide" section
+    "<pkg>.overrideDerivation" to learn about `overrideDerivation` and caveats
+    related to its use.
   */
   makeOverridable =
     f: origArgs:
@@ -104,26 +106,27 @@ rec {
     else
       result;
 
-  /* Call the package function in the file `fn` with the required
-     arguments automatically.  The function is called with the
-     arguments `args`, but any missing arguments are obtained from
-     `autoArgs`.  This function is intended to be partially
-     parameterised, e.g.,
+  /*
+    Call the package function in the file `fn` with the required
+    arguments automatically.  The function is called with the
+    arguments `args`, but any missing arguments are obtained from
+    `autoArgs`.  This function is intended to be partially
+    parameterised, e.g.,
 
-       callPackage = callPackageWith pkgs;
-       pkgs = {
-         libfoo = callPackage ./foo.nix { };
-         libbar = callPackage ./bar.nix { };
-       };
+      callPackage = callPackageWith pkgs;
+      pkgs = {
+        libfoo = callPackage ./foo.nix { };
+        libbar = callPackage ./bar.nix { };
+      };
 
-     If the `libbar` function expects an argument named `libfoo`, it is
-     automatically passed as an argument.  Overrides or missing
-     arguments can be supplied in `args`, e.g.
+    If the `libbar` function expects an argument named `libfoo`, it is
+    automatically passed as an argument.  Overrides or missing
+    arguments can be supplied in `args`, e.g.
 
-       libbar = callPackage ./bar.nix {
-         libfoo = null;
-         enableX11 = true;
-       };
+      libbar = callPackage ./bar.nix {
+        libfoo = null;
+        enableX11 = true;
+      };
   */
   callPackageWith =
     autoArgs: fn: args:
@@ -193,9 +196,10 @@ rec {
     in
     if missingArgs == [ ] then makeOverridable f allArgs else abort error;
 
-  /* Like callPackage, but for a function that returns an attribute
-     set of derivations. The override function is added to the
-     individual attributes.
+  /*
+    Like callPackage, but for a function that returns an attribute
+    set of derivations. The override function is added to the
+    individual attributes.
   */
   callPackagesWith =
     autoArgs: fn: args:
@@ -215,8 +219,9 @@ rec {
     else
       lib.mapAttrs mkAttrOverridable pkgs;
 
-  /* Add attributes to each output of a derivation without changing
-     the derivation itself and check a given condition when evaluating.
+  /*
+    Add attributes to each output of a derivation without changing
+    the derivation itself and check a given condition when evaluating.
   */
   extendDerivation =
     condition: passthru: drv:
@@ -262,10 +267,11 @@ rec {
         drv.outPath;
     };
 
-  /* Strip a derivation of all non-essential attributes, returning
-     only those needed by hydra-eval-jobs. Also strictly evaluate the
-     result to ensure that there are no thunks kept alive to prevent
-     garbage collection.
+  /*
+    Strip a derivation of all non-essential attributes, returning
+    only those needed by hydra-eval-jobs. Also strictly evaluate the
+    result to ensure that there are no thunks kept alive to prevent
+    garbage collection.
   */
   hydraJob =
     drv:
@@ -304,15 +310,16 @@ rec {
     in
     if drv == null then null else lib.deepSeq drv' drv';
 
-  /* Make a set of packages with a common scope. All packages called
-     with the provided `callPackage` will be evaluated with the same
-     arguments. Any package in the set may depend on any other. The
-     `overrideScope'` function allows subsequent modification of the package
-     set in a consistent way, i.e. all packages in the set will be
-     called with the overridden packages. The package sets may be
-     hierarchical: the packages in the set are called with the scope
-     provided by `newScope` and the set provides a `newScope` attribute
-     which can form the parent scope for later package sets.
+  /*
+    Make a set of packages with a common scope. All packages called
+    with the provided `callPackage` will be evaluated with the same
+    arguments. Any package in the set may depend on any other. The
+    `overrideScope'` function allows subsequent modification of the package
+    set in a consistent way, i.e. all packages in the set will be
+    called with the overridden packages. The package sets may be
+    hierarchical: the packages in the set are called with the scope
+    provided by `newScope` and the set provides a `newScope` attribute
+    which can form the parent scope for later package sets.
   */
   makeScope =
     newScope: f:
@@ -331,8 +338,9 @@ rec {
     in
     self;
 
-  /* Like the above, but aims to support cross compilation. It's still ugly, but
-     hopefully it helps a little bit.
+  /*
+    Like the above, but aims to support cross compilation. It's still ugly, but
+    hopefully it helps a little bit.
   */
   makeScopeWithSplicing =
     splicePackages: newScope: otherSplices: keep: extra: f:

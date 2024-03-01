@@ -32,12 +32,13 @@ stdenvNoCC.mkDerivation rec {
     '';
     homepage = "https://sourcefoundry.org/hack/";
 
-    /* "The font binaries are released under a license that permits unlimited
-       print, desktop, and web use for commercial and non-commercial
-       applications. It may be embedded and distributed in documents and
-       applications. The source is released in the widely supported UFO format
-       and may be modified to derive new typeface branches. The full text of
-       the license is available in LICENSE.md" (From the GitHub page)
+    /*
+      "The font binaries are released under a license that permits unlimited
+      print, desktop, and web use for commercial and non-commercial
+      applications. It may be embedded and distributed in documents and
+      applications. The source is released in the widely supported UFO format
+      and may be modified to derive new typeface branches. The full text of
+      the license is available in LICENSE.md" (From the GitHub page)
     */
     license = licenses.free;
     maintainers = with maintainers; [ dywedir ];

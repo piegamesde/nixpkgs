@@ -336,10 +336,11 @@ in
 
     assertions = [
       # already present in synaptics.nix
-      /* {
-           assertion = !config.services.xserver.synaptics.enable;
-           message = "Synaptics and libinput are incompatible, you cannot enable both (in services.xserver).";
-         }
+      /*
+        {
+          assertion = !config.services.xserver.synaptics.enable;
+          message = "Synaptics and libinput are incompatible, you cannot enable both (in services.xserver).";
+        }
       */
     ];
   };

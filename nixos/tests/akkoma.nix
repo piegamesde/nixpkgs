@@ -1,8 +1,9 @@
-/* End-to-end test for Akkoma.
+/*
+  End-to-end test for Akkoma.
 
-   Based in part on nixos/tests/pleroma.
+  Based in part on nixos/tests/pleroma.
 
-   TODO: Test federation.
+  TODO: Test federation.
 */
 import ./make-test-python.nix (
   {
