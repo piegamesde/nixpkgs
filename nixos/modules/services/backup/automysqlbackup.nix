@@ -68,14 +68,12 @@ in
       config = mkOption {
         type =
           with types;
-          attrsOf (
-            oneOf [
-              str
-              int
-              bool
-              (listOf str)
-            ]
-          );
+          attrsOf (oneOf [
+            str
+            int
+            bool
+            (listOf str)
+          ]);
         default = { };
         description = lib.mdDoc ''
           automysqlbackup configuration. Refer to

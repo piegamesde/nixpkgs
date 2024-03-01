@@ -120,118 +120,116 @@ in
       '';
       type =
         with types;
-        listOf (
-          submodule {
-            options = {
+        listOf (submodule {
+          options = {
 
-              noPass = mkOption {
-                type = with types; bool;
-                default = false;
-                description = lib.mdDoc ''
-                  If `true`, the user is not required to enter a
-                  password.
-                '';
-              };
-
-              noLog = mkOption {
-                type = with types; bool;
-                default = false;
-                description = lib.mdDoc ''
-                  If `true`, successful executions will not be logged
-                  to
-                  {manpage}`syslogd(8)`.
-                '';
-              };
-
-              persist = mkOption {
-                type = with types; bool;
-                default = false;
-                description = lib.mdDoc ''
-                  If `true`, do not ask for a password again for some
-                  time after the user successfully authenticates.
-                '';
-              };
-
-              keepEnv = mkOption {
-                type = with types; bool;
-                default = false;
-                description = lib.mdDoc ''
-                  If `true`, environment variables other than those
-                  listed in
-                  {manpage}`doas(1)`
-                  are kept when creating the environment for the new process.
-                '';
-              };
-
-              setEnv = mkOption {
-                type = with types; listOf str;
-                default = [ ];
-                description = lib.mdDoc ''
-                  Keep or set the specified variables. Variables may also be
-                  removed with a leading '-' or set using
-                  `variable=value`. If the first character of
-                  `value` is a '$', the value to be set is taken from
-                  the existing environment variable of the indicated name. This
-                  option is processed after the default environment has been
-                  created.
-
-                  NOTE: All rules have `setenv { SSH_AUTH_SOCK }` by
-                  default. To prevent `SSH_AUTH_SOCK` from being
-                  inherited, add `"-SSH_AUTH_SOCK"` anywhere in this
-                  list.
-                '';
-              };
-
-              users = mkOption {
-                type = with types; listOf (either str int);
-                default = [ ];
-                description = lib.mdDoc "The usernames / UIDs this rule should apply for.";
-              };
-
-              groups = mkOption {
-                type = with types; listOf (either str int);
-                default = [ ];
-                description = lib.mdDoc "The groups / GIDs this rule should apply for.";
-              };
-
-              runAs = mkOption {
-                type = with types; nullOr str;
-                default = null;
-                description = lib.mdDoc ''
-                  Which user or group the specified command is allowed to run as.
-                  When set to `null` (the default), all users are
-                  allowed.
-
-                  A user can be specified using just the username:
-                  `"foo"`. It is also possible to only allow running as
-                  a specific group with `":bar"`.
-                '';
-              };
-
-              cmd = mkOption {
-                type = with types; nullOr str;
-                default = null;
-                description = lib.mdDoc ''
-                  The command the user is allowed to run. When set to
-                  `null` (the default), all commands are allowed.
-
-                  NOTE: It is best practice to specify absolute paths. If a
-                  relative path is specified, only a restricted PATH will be
-                  searched.
-                '';
-              };
-
-              args = mkOption {
-                type = with types; nullOr (listOf str);
-                default = null;
-                description = lib.mdDoc ''
-                  Arguments that must be provided to the command. When set to
-                  `[]`, the command must be run without any arguments.
-                '';
-              };
+            noPass = mkOption {
+              type = with types; bool;
+              default = false;
+              description = lib.mdDoc ''
+                If `true`, the user is not required to enter a
+                password.
+              '';
             };
-          }
-        );
+
+            noLog = mkOption {
+              type = with types; bool;
+              default = false;
+              description = lib.mdDoc ''
+                If `true`, successful executions will not be logged
+                to
+                {manpage}`syslogd(8)`.
+              '';
+            };
+
+            persist = mkOption {
+              type = with types; bool;
+              default = false;
+              description = lib.mdDoc ''
+                If `true`, do not ask for a password again for some
+                time after the user successfully authenticates.
+              '';
+            };
+
+            keepEnv = mkOption {
+              type = with types; bool;
+              default = false;
+              description = lib.mdDoc ''
+                If `true`, environment variables other than those
+                listed in
+                {manpage}`doas(1)`
+                are kept when creating the environment for the new process.
+              '';
+            };
+
+            setEnv = mkOption {
+              type = with types; listOf str;
+              default = [ ];
+              description = lib.mdDoc ''
+                Keep or set the specified variables. Variables may also be
+                removed with a leading '-' or set using
+                `variable=value`. If the first character of
+                `value` is a '$', the value to be set is taken from
+                the existing environment variable of the indicated name. This
+                option is processed after the default environment has been
+                created.
+
+                NOTE: All rules have `setenv { SSH_AUTH_SOCK }` by
+                default. To prevent `SSH_AUTH_SOCK` from being
+                inherited, add `"-SSH_AUTH_SOCK"` anywhere in this
+                list.
+              '';
+            };
+
+            users = mkOption {
+              type = with types; listOf (either str int);
+              default = [ ];
+              description = lib.mdDoc "The usernames / UIDs this rule should apply for.";
+            };
+
+            groups = mkOption {
+              type = with types; listOf (either str int);
+              default = [ ];
+              description = lib.mdDoc "The groups / GIDs this rule should apply for.";
+            };
+
+            runAs = mkOption {
+              type = with types; nullOr str;
+              default = null;
+              description = lib.mdDoc ''
+                Which user or group the specified command is allowed to run as.
+                When set to `null` (the default), all users are
+                allowed.
+
+                A user can be specified using just the username:
+                `"foo"`. It is also possible to only allow running as
+                a specific group with `":bar"`.
+              '';
+            };
+
+            cmd = mkOption {
+              type = with types; nullOr str;
+              default = null;
+              description = lib.mdDoc ''
+                The command the user is allowed to run. When set to
+                `null` (the default), all commands are allowed.
+
+                NOTE: It is best practice to specify absolute paths. If a
+                relative path is specified, only a restricted PATH will be
+                searched.
+              '';
+            };
+
+            args = mkOption {
+              type = with types; nullOr (listOf str);
+              default = null;
+              description = lib.mdDoc ''
+                Arguments that must be provided to the command. When set to
+                `[]`, the command must be run without any arguments.
+              '';
+            };
+          };
+        });
     };
 
     extraConfig = mkOption {

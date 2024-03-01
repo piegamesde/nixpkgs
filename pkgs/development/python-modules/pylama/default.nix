@@ -70,7 +70,9 @@ let
     pythonImportsCheck = [ "pylama.main" ];
 
     passthru.tests = {
-      check = pylama.overridePythonAttrs (_: { doCheck = true; });
+      check = pylama.overridePythonAttrs (_: {
+        doCheck = true;
+      });
     };
 
     meta = with lib; {

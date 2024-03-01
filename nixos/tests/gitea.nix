@@ -31,134 +31,132 @@ let
   ];
   makeGiteaTest =
     type:
-    nameValuePair type (
-      makeTest {
-        name = "${giteaPackage.pname}-${type}";
-        meta.maintainers = with maintainers; [
-          aanderse
-          indeednotjames
-          kolaente
-          ma27
-        ];
+    nameValuePair type (makeTest {
+      name = "${giteaPackage.pname}-${type}";
+      meta.maintainers = with maintainers; [
+        aanderse
+        indeednotjames
+        kolaente
+        ma27
+      ];
 
-        nodes = {
-          server =
-            { config, pkgs, ... }:
-            {
-              virtualisation.memorySize = 2048;
-              services.gitea = {
-                enable = true;
-                database = {
-                  inherit type;
-                };
-                package = giteaPackage;
-                settings.service.DISABLE_REGISTRATION = true;
-                settings."repository.signing".SIGNING_KEY = signingPrivateKeyId;
+      nodes = {
+        server =
+          { config, pkgs, ... }:
+          {
+            virtualisation.memorySize = 2048;
+            services.gitea = {
+              enable = true;
+              database = {
+                inherit type;
               };
-              environment.systemPackages = [
-                giteaPackage
-                pkgs.gnupg
-                pkgs.jq
-              ];
-              services.openssh.enable = true;
+              package = giteaPackage;
+              settings.service.DISABLE_REGISTRATION = true;
+              settings."repository.signing".SIGNING_KEY = signingPrivateKeyId;
             };
-          client1 =
-            { config, pkgs, ... }:
-            {
-              environment.systemPackages = [ pkgs.git ];
-            };
-          client2 =
-            { config, pkgs, ... }:
-            {
-              environment.systemPackages = [ pkgs.git ];
-            };
-        };
+            environment.systemPackages = [
+              giteaPackage
+              pkgs.gnupg
+              pkgs.jq
+            ];
+            services.openssh.enable = true;
+          };
+        client1 =
+          { config, pkgs, ... }:
+          {
+            environment.systemPackages = [ pkgs.git ];
+          };
+        client2 =
+          { config, pkgs, ... }:
+          {
+            environment.systemPackages = [ pkgs.git ];
+          };
+      };
 
-        testScript =
-          let
-            inherit (import ./ssh-keys.nix pkgs) snakeOilPrivateKey snakeOilPublicKey;
-          in
-          ''
-            GIT_SSH_COMMAND = "ssh -i $HOME/.ssh/privk -o StrictHostKeyChecking=no"
-            REPO = "gitea@server:test/repo"
-            PRIVK = "${snakeOilPrivateKey}"
+      testScript =
+        let
+          inherit (import ./ssh-keys.nix pkgs) snakeOilPrivateKey snakeOilPublicKey;
+        in
+        ''
+          GIT_SSH_COMMAND = "ssh -i $HOME/.ssh/privk -o StrictHostKeyChecking=no"
+          REPO = "gitea@server:test/repo"
+          PRIVK = "${snakeOilPrivateKey}"
 
-            start_all()
+          start_all()
 
-            client1.succeed("mkdir /tmp/repo")
-            client1.succeed("mkdir -p $HOME/.ssh")
-            client1.succeed(f"cat {PRIVK} > $HOME/.ssh/privk")
-            client1.succeed("chmod 0400 $HOME/.ssh/privk")
-            client1.succeed("git -C /tmp/repo init")
-            client1.succeed("echo hello world > /tmp/repo/testfile")
-            client1.succeed("git -C /tmp/repo add .")
-            client1.succeed("git config --global user.email test@localhost")
-            client1.succeed("git config --global user.name test")
-            client1.succeed("git -C /tmp/repo commit -m 'Initial import'")
-            client1.succeed(f"git -C /tmp/repo remote add origin {REPO}")
+          client1.succeed("mkdir /tmp/repo")
+          client1.succeed("mkdir -p $HOME/.ssh")
+          client1.succeed(f"cat {PRIVK} > $HOME/.ssh/privk")
+          client1.succeed("chmod 0400 $HOME/.ssh/privk")
+          client1.succeed("git -C /tmp/repo init")
+          client1.succeed("echo hello world > /tmp/repo/testfile")
+          client1.succeed("git -C /tmp/repo add .")
+          client1.succeed("git config --global user.email test@localhost")
+          client1.succeed("git config --global user.name test")
+          client1.succeed("git -C /tmp/repo commit -m 'Initial import'")
+          client1.succeed(f"git -C /tmp/repo remote add origin {REPO}")
 
-            server.wait_for_unit("gitea.service")
-            server.wait_for_open_port(3000)
-            server.wait_for_open_port(22)
-            server.succeed("curl --fail http://localhost:3000/")
+          server.wait_for_unit("gitea.service")
+          server.wait_for_open_port(3000)
+          server.wait_for_open_port(22)
+          server.succeed("curl --fail http://localhost:3000/")
 
-            server.succeed(
-                "su -l gitea -c 'gpg --homedir /var/lib/gitea/data/home/.gnupg "
-                + "--import ${toString (pkgs.writeText "gitea.key" signingPrivateKey)}'"
-            )
+          server.succeed(
+              "su -l gitea -c 'gpg --homedir /var/lib/gitea/data/home/.gnupg "
+              + "--import ${toString (pkgs.writeText "gitea.key" signingPrivateKey)}'"
+          )
 
-            assert "BEGIN PGP PUBLIC KEY BLOCK" in server.succeed("curl http://localhost:3000/api/v1/signing-key.gpg")
+          assert "BEGIN PGP PUBLIC KEY BLOCK" in server.succeed("curl http://localhost:3000/api/v1/signing-key.gpg")
 
-            server.succeed(
-                "curl --fail http://localhost:3000/user/sign_up | grep 'Registration is disabled. "
-                + "Please contact your site administrator.'"
-            )
-            server.succeed(
-                "su -l gitea -c 'GITEA_WORK_DIR=/var/lib/gitea gitea admin user create "
-                + "--username test --password totallysafe --email test@localhost'"
-            )
+          server.succeed(
+              "curl --fail http://localhost:3000/user/sign_up | grep 'Registration is disabled. "
+              + "Please contact your site administrator.'"
+          )
+          server.succeed(
+              "su -l gitea -c 'GITEA_WORK_DIR=/var/lib/gitea gitea admin user create "
+              + "--username test --password totallysafe --email test@localhost'"
+          )
 
-            api_token = server.succeed(
-                "curl --fail -X POST http://test:totallysafe@localhost:3000/api/v1/users/test/tokens "
-                + "-H 'Accept: application/json' -H 'Content-Type: application/json' -d "
-                + "'{\"name\":\"token\",\"scopes\":[\"all\"]}' | jq '.sha1' | xargs echo -n"
-            )
+          api_token = server.succeed(
+              "curl --fail -X POST http://test:totallysafe@localhost:3000/api/v1/users/test/tokens "
+              + "-H 'Accept: application/json' -H 'Content-Type: application/json' -d "
+              + "'{\"name\":\"token\",\"scopes\":[\"all\"]}' | jq '.sha1' | xargs echo -n"
+          )
 
-            server.succeed(
-                "curl --fail -X POST http://localhost:3000/api/v1/user/repos "
-                + "-H 'Accept: application/json' -H 'Content-Type: application/json' "
-                + f"-H 'Authorization: token {api_token}'"
-                + ' -d \'{"auto_init":false, "description":"string", "license":"mit", "name":"repo", "private":false}\'''
-            )
+          server.succeed(
+              "curl --fail -X POST http://localhost:3000/api/v1/user/repos "
+              + "-H 'Accept: application/json' -H 'Content-Type: application/json' "
+              + f"-H 'Authorization: token {api_token}'"
+              + ' -d \'{"auto_init":false, "description":"string", "license":"mit", "name":"repo", "private":false}\'''
+          )
 
-            server.succeed(
-                "curl --fail -X POST http://localhost:3000/api/v1/user/keys "
-                + "-H 'Accept: application/json' -H 'Content-Type: application/json' "
-                + f"-H 'Authorization: token {api_token}'"
-                + ' -d \'{"key":"${snakeOilPublicKey}","read_only":true,"title":"SSH"}\'''
-            )
+          server.succeed(
+              "curl --fail -X POST http://localhost:3000/api/v1/user/keys "
+              + "-H 'Accept: application/json' -H 'Content-Type: application/json' "
+              + f"-H 'Authorization: token {api_token}'"
+              + ' -d \'{"key":"${snakeOilPublicKey}","read_only":true,"title":"SSH"}\'''
+          )
 
-            client1.succeed(
-                f"GIT_SSH_COMMAND='{GIT_SSH_COMMAND}' git -C /tmp/repo push origin master"
-            )
+          client1.succeed(
+              f"GIT_SSH_COMMAND='{GIT_SSH_COMMAND}' git -C /tmp/repo push origin master"
+          )
 
-            client2.succeed("mkdir -p $HOME/.ssh")
-            client2.succeed(f"cat {PRIVK} > $HOME/.ssh/privk")
-            client2.succeed("chmod 0400 $HOME/.ssh/privk")
-            client2.succeed(f"GIT_SSH_COMMAND='{GIT_SSH_COMMAND}' git clone {REPO}")
-            client2.succeed('test "$(cat repo/testfile | xargs echo -n)" = "hello world"')
+          client2.succeed("mkdir -p $HOME/.ssh")
+          client2.succeed(f"cat {PRIVK} > $HOME/.ssh/privk")
+          client2.succeed("chmod 0400 $HOME/.ssh/privk")
+          client2.succeed(f"GIT_SSH_COMMAND='{GIT_SSH_COMMAND}' git clone {REPO}")
+          client2.succeed('test "$(cat repo/testfile | xargs echo -n)" = "hello world"')
 
-            server.succeed(
-                'test "$(curl http://localhost:3000/api/v1/repos/test/repo/commits '
-                + '-H "Accept: application/json" | jq length)" = "1"'
-            )
+          server.succeed(
+              'test "$(curl http://localhost:3000/api/v1/repos/test/repo/commits '
+              + '-H "Accept: application/json" | jq length)" = "1"'
+          )
 
-            client1.shutdown()
-            client2.shutdown()
-            server.shutdown()
-          '';
-      }
-    );
+          client1.shutdown()
+          client2.shutdown()
+          server.shutdown()
+        '';
+    });
 in
 
 listToAttrs (map makeGiteaTest supportedDbTypes)

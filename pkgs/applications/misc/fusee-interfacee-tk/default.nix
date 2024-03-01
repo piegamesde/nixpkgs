@@ -7,12 +7,10 @@
 }:
 
 let
-  pythonEnv = python3.withPackages (
-    ps: [
-      ps.tkinter
-      ps.pyusb
-    ]
-  );
+  pythonEnv = python3.withPackages (ps: [
+    ps.tkinter
+    ps.pyusb
+  ]);
 in
 stdenv.mkDerivation rec {
   pname = "fusee-interfacee-tk";

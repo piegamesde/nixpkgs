@@ -9,12 +9,10 @@ with vmTools;
   buildHelloInVM = runInLinuxVM hello;
 
   buildPcmanrmInVM = runInLinuxVM (
-    pcmanfm.overrideAttrs (
-      old: {
-        # goes out-of-memory with many cores
-        enableParallelBuilding = false;
-      }
-    )
+    pcmanfm.overrideAttrs (old: {
+      # goes out-of-memory with many cores
+      enableParallelBuilding = false;
+    })
   );
 
   testRPMImage = makeImageTestScript diskImages.fedora27x86_64;

@@ -46,13 +46,11 @@ let
 
   disallowExtglob =
     x:
-    x.overrideAttrs (
-      _: {
-        checkPhase = ''
-          ${stdenv.shell} -n "$target"
-        '';
-      }
-    );
+    x.overrideAttrs (_: {
+      checkPhase = ''
+        ${stdenv.shell} -n "$target"
+      '';
+    });
 
   # Run old checkPhase, but only succeed if it fails.
   # This HACK is required because we can't introspect build failures
@@ -60,15 +58,13 @@ let
   # `checkPhase` would fail if extglob was used in the script.
   assertFail =
     x:
-    x.overrideAttrs (
-      old: {
-        checkPhase = ''
-          if
-            ${old.checkPhase}
-          then exit 1; fi
-        '';
-      }
-    );
+    x.overrideAttrs (old: {
+      checkPhase = ''
+        if
+          ${old.checkPhase}
+        then exit 1; fi
+      '';
+    });
 
   mkCase =
     case: outcome: isBin:
@@ -96,7 +92,9 @@ let
     binSucc = mkCase binCase "succ" true;
     binFail = mkCase binCase "fail" true;
     # Check that we can also override plain writeTextFile
-    textFileSuccess = textFileCase.overrideAttrs (_: { checkPhase = "true"; });
+    textFileSuccess = textFileCase.overrideAttrs (_: {
+      checkPhase = "true";
+    });
   };
 
   # `runTest` forces nix to build the script of our test case and

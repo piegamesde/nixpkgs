@@ -105,13 +105,11 @@ makeScope pkgs'.newScope (
       // {
 
         # Propagate overridden scope
-        emacs = emacs'.overrideAttrs (
-          old: {
-            passthru = (old.passthru or { }) // {
-              pkgs = dontRecurseIntoAttrs self;
-            };
-          }
-        );
+        emacs = emacs'.overrideAttrs (old: {
+          passthru = (old.passthru or { }) // {
+            pkgs = dontRecurseIntoAttrs self;
+          };
+        });
 
         trivialBuild = pkgs.callPackage ../build-support/emacs/trivial.nix { inherit (self) emacs; };
 

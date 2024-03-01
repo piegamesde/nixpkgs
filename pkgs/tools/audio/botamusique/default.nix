@@ -48,7 +48,9 @@ let
   };
 
   nodeDependencies =
-    (botamusiqueNodePackages.shell.override (old: { src = src + "/web"; })).nodeDependencies;
+    (botamusiqueNodePackages.shell.override (old: {
+      src = src + "/web";
+    })).nodeDependencies;
 
   # Python needed to instantiate the html templates
   buildPython = python3Packages.python.withPackages (ps: [ ps.jinja2 ]);

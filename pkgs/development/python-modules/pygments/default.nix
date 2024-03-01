@@ -37,7 +37,9 @@ let
     pythonImportsCheck = [ "pygments" ];
 
     passthru.tests = {
-      check = pygments.overridePythonAttrs (_: { doCheck = true; });
+      check = pygments.overridePythonAttrs (_: {
+        doCheck = true;
+      });
     };
 
     meta = with lib; {

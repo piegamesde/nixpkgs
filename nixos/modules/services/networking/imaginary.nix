@@ -47,14 +47,12 @@ in
       type = types.submodule {
         freeformType =
           with types;
-          attrsOf (
-            oneOf [
-              bool
-              int
-              (nonEmptyListOf str)
-              str
-            ]
-          );
+          attrsOf (oneOf [
+            bool
+            int
+            (nonEmptyListOf str)
+            str
+          ]);
 
         options = {
           return-size = mkOption {

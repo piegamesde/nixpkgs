@@ -12,17 +12,15 @@ let
     # 3. Ansible being unable to upgrade to a later version of resolvelib
     # see here for more details: https://github.com/NixOS/nixpkgs/pull/155380/files#r786255738
     packageOverrides = self: super: {
-      resolvelib = super.resolvelib.overridePythonAttrs (
-        attrs: rec {
-          version = "1.0.1";
-          src = fetchFromGitHub {
-            owner = "sarugaku";
-            repo = "resolvelib";
-            rev = "/refs/tags/${version}";
-            hash = "sha256-oxyPn3aFPOyx/2aP7Eg2ThtPbyzrFT1JzWqy6GqNbzM=";
-          };
-        }
-      );
+      resolvelib = super.resolvelib.overridePythonAttrs (attrs: rec {
+        version = "1.0.1";
+        src = fetchFromGitHub {
+          owner = "sarugaku";
+          repo = "resolvelib";
+          rev = "/refs/tags/${version}";
+          hash = "sha256-oxyPn3aFPOyx/2aP7Eg2ThtPbyzrFT1JzWqy6GqNbzM=";
+        };
+      });
     };
     self = python;
   };

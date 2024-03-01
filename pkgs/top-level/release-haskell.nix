@@ -239,17 +239,15 @@ let
             "ghcjs"
             "ghcjs810"
           ]
-          (
-            ghcjsName: {
-              # We can't build ghcjs itself, since it exceeds 3GB (Hydra's output limit) due
-              # to the size of its bundled libs. We can however save users a bit of compile
-              # time by building the bootstrap ghcjs on Hydra. For this reason, we overwrite
-              # the ghcjs attributes in haskell.compiler with a reference to the bootstrap
-              # ghcjs attribute in their bootstrap package set (exposed via passthru) which
-              # would otherwise be ignored by Hydra.
-              bootGhcjs = (packagePlatforms pkgs.haskell.compiler.${ghcjsName}.passthru).bootGhcjs;
-            }
-          )
+          (ghcjsName: {
+            # We can't build ghcjs itself, since it exceeds 3GB (Hydra's output limit) due
+            # to the size of its bundled libs. We can however save users a bit of compile
+            # time by building the bootstrap ghcjs on Hydra. For this reason, we overwrite
+            # the ghcjs attributes in haskell.compiler with a reference to the bootstrap
+            # ghcjs attribute in their bootstrap package set (exposed via passthru) which
+            # would otherwise be ignored by Hydra.
+            bootGhcjs = (packagePlatforms pkgs.haskell.compiler.${ghcjsName}.passthru).bootGhcjs;
+          })
         );
 
       tests.haskell = packagePlatforms pkgs.tests.haskell;
@@ -536,36 +534,34 @@ let
             # mergeable job from successfully building.
             filterInLinux = lib.filter (drv: drv.system == "x86_64-linux" || drv.system == "aarch64-linux");
           in
-          filterInLinux (
-            accumulateDerivations [
-              # haskell specific tests
-              jobs.tests.haskell
-              # important top-level packages
-              jobs.cabal-install
-              jobs.cabal2nix
-              jobs.cachix
-              jobs.darcs
-              jobs.haskell-language-server
-              jobs.hledger
-              jobs.hledger-ui
-              jobs.hpack
-              jobs.niv
-              jobs.pandoc
-              jobs.stack
-              jobs.stylish-haskell
-              # important haskell (library) packages
-              jobs.haskellPackages.cabal-plan
-              jobs.haskellPackages.distribution-nixpkgs
-              jobs.haskellPackages.hackage-db
-              jobs.haskellPackages.xmonad
-              jobs.haskellPackages.xmonad-contrib
-              # haskell packages maintained by @peti
-              # imported from the old hydra jobset
-              jobs.haskellPackages.hopenssl
-              jobs.haskellPackages.hsemail
-              jobs.haskellPackages.hsyslog
-            ]
-          );
+          filterInLinux (accumulateDerivations [
+            # haskell specific tests
+            jobs.tests.haskell
+            # important top-level packages
+            jobs.cabal-install
+            jobs.cabal2nix
+            jobs.cachix
+            jobs.darcs
+            jobs.haskell-language-server
+            jobs.hledger
+            jobs.hledger-ui
+            jobs.hpack
+            jobs.niv
+            jobs.pandoc
+            jobs.stack
+            jobs.stylish-haskell
+            # important haskell (library) packages
+            jobs.haskellPackages.cabal-plan
+            jobs.haskellPackages.distribution-nixpkgs
+            jobs.haskellPackages.hackage-db
+            jobs.haskellPackages.xmonad
+            jobs.haskellPackages.xmonad-contrib
+            # haskell packages maintained by @peti
+            # imported from the old hydra jobset
+            jobs.haskellPackages.hopenssl
+            jobs.haskellPackages.hsemail
+            jobs.haskellPackages.hsyslog
+          ]);
       };
       maintained = pkgs.releaseTools.aggregate {
         name = "maintained-haskell-packages";

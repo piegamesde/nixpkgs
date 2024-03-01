@@ -42,16 +42,14 @@ let
     postgresSupport = true;
   };
   python = python3.withPackages (pkgs: with pkgs; [ pygobject3 ]);
-  sphinx-build = python3.pkgs.sphinx.overrideAttrs (
-    super: {
-      postFixup =
-        super.postFixup or ""
-        + ''
-          # Do not propagate Python
-          rm $out/nix-support/propagated-build-inputs
-        '';
-    }
-  );
+  sphinx-build = python3.pkgs.sphinx.overrideAttrs (super: {
+    postFixup =
+      super.postFixup or ""
+      + ''
+        # Do not propagate Python
+        rm $out/nix-support/propagated-build-inputs
+      '';
+  });
   boost_python = boost.override {
     enablePython = true;
     inherit python;

@@ -100,107 +100,105 @@ in
     };
   };
 
-  config = mkIf cfg.enable (
-    mkMerge [
-      {
-        environment.etc."dbus-1".source = configDir;
+  config = mkIf cfg.enable (mkMerge [
+    {
+      environment.etc."dbus-1".source = configDir;
 
-        environment.pathsToLink = [
-          "/etc/dbus-1"
-          "/share/dbus-1"
-        ];
+      environment.pathsToLink = [
+        "/etc/dbus-1"
+        "/share/dbus-1"
+      ];
 
-        users.users.messagebus = {
-          uid = config.ids.uids.messagebus;
-          description = "D-Bus system message bus daemon user";
-          home = homeDir;
-          group = "messagebus";
+      users.users.messagebus = {
+        uid = config.ids.uids.messagebus;
+        description = "D-Bus system message bus daemon user";
+        home = homeDir;
+        group = "messagebus";
+      };
+
+      users.groups.messagebus.gid = config.ids.gids.messagebus;
+
+      # You still need the dbus reference implementation installed to use dbus-broker
+      systemd.packages = [ pkgs.dbus ];
+
+      services.dbus.packages = [
+        pkgs.dbus
+        config.system.path
+      ];
+
+      systemd.user.sockets.dbus.wantedBy = [ "sockets.target" ];
+    }
+
+    (mkIf config.boot.initrd.systemd.dbus.enable {
+      boot.initrd.systemd = {
+        users.messagebus = { };
+        groups.messagebus = { };
+        contents."/etc/dbus-1".source = pkgs.makeDBusConf {
+          inherit (cfg) apparmor;
+          suidHelper = "/bin/false";
+          serviceDirectories = [ pkgs.dbus ];
         };
+        packages = [ pkgs.dbus ];
+        storePaths = [ "${pkgs.dbus}/bin/dbus-daemon" ];
+        targets.sockets.wants = [ "dbus.socket" ];
+      };
+    })
 
-        users.groups.messagebus.gid = config.ids.gids.messagebus;
+    (mkIf (cfg.implementation == "dbus") {
+      environment.systemPackages = [ pkgs.dbus ];
 
-        # You still need the dbus reference implementation installed to use dbus-broker
-        systemd.packages = [ pkgs.dbus ];
+      security.wrappers.dbus-daemon-launch-helper = {
+        source = "${pkgs.dbus}/libexec/dbus-daemon-launch-helper";
+        owner = "root";
+        group = "messagebus";
+        setuid = true;
+        setgid = false;
+        permissions = "u+rx,g+rx,o-rx";
+      };
 
-        services.dbus.packages = [
-          pkgs.dbus
-          config.system.path
-        ];
-
-        systemd.user.sockets.dbus.wantedBy = [ "sockets.target" ];
-      }
-
-      (mkIf config.boot.initrd.systemd.dbus.enable {
-        boot.initrd.systemd = {
-          users.messagebus = { };
-          groups.messagebus = { };
-          contents."/etc/dbus-1".source = pkgs.makeDBusConf {
-            inherit (cfg) apparmor;
-            suidHelper = "/bin/false";
-            serviceDirectories = [ pkgs.dbus ];
-          };
-          packages = [ pkgs.dbus ];
-          storePaths = [ "${pkgs.dbus}/bin/dbus-daemon" ];
-          targets.sockets.wants = [ "dbus.socket" ];
+      systemd.services.dbus = {
+        # Don't restart dbus-daemon. Bad things tend to happen if we do.
+        reloadIfChanged = true;
+        restartTriggers = [ configDir ];
+        environment = {
+          LD_LIBRARY_PATH = config.system.nssModules.path;
         };
-      })
+      };
 
-      (mkIf (cfg.implementation == "dbus") {
-        environment.systemPackages = [ pkgs.dbus ];
+      systemd.user.services.dbus = {
+        # Don't restart dbus-daemon. Bad things tend to happen if we do.
+        reloadIfChanged = true;
+        restartTriggers = [ configDir ];
+      };
+    })
 
-        security.wrappers.dbus-daemon-launch-helper = {
-          source = "${pkgs.dbus}/libexec/dbus-daemon-launch-helper";
-          owner = "root";
-          group = "messagebus";
-          setuid = true;
-          setgid = false;
-          permissions = "u+rx,g+rx,o-rx";
+    (mkIf (cfg.implementation == "broker") {
+      environment.systemPackages = [ pkgs.dbus-broker ];
+
+      systemd.packages = [ pkgs.dbus-broker ];
+
+      # Just to be sure we don't restart through the unit alias
+      systemd.services.dbus.reloadIfChanged = true;
+      systemd.user.services.dbus.reloadIfChanged = true;
+
+      # NixOS Systemd Module doesn't respect 'Install'
+      # https://github.com/NixOS/nixpkgs/issues/108643
+      systemd.services.dbus-broker = {
+        aliases = [ "dbus.service" ];
+        # Don't restart dbus. Bad things tend to happen if we do.
+        reloadIfChanged = true;
+        restartTriggers = [ configDir ];
+        environment = {
+          LD_LIBRARY_PATH = config.system.nssModules.path;
         };
+      };
 
-        systemd.services.dbus = {
-          # Don't restart dbus-daemon. Bad things tend to happen if we do.
-          reloadIfChanged = true;
-          restartTriggers = [ configDir ];
-          environment = {
-            LD_LIBRARY_PATH = config.system.nssModules.path;
-          };
-        };
-
-        systemd.user.services.dbus = {
-          # Don't restart dbus-daemon. Bad things tend to happen if we do.
-          reloadIfChanged = true;
-          restartTriggers = [ configDir ];
-        };
-      })
-
-      (mkIf (cfg.implementation == "broker") {
-        environment.systemPackages = [ pkgs.dbus-broker ];
-
-        systemd.packages = [ pkgs.dbus-broker ];
-
-        # Just to be sure we don't restart through the unit alias
-        systemd.services.dbus.reloadIfChanged = true;
-        systemd.user.services.dbus.reloadIfChanged = true;
-
-        # NixOS Systemd Module doesn't respect 'Install'
-        # https://github.com/NixOS/nixpkgs/issues/108643
-        systemd.services.dbus-broker = {
-          aliases = [ "dbus.service" ];
-          # Don't restart dbus. Bad things tend to happen if we do.
-          reloadIfChanged = true;
-          restartTriggers = [ configDir ];
-          environment = {
-            LD_LIBRARY_PATH = config.system.nssModules.path;
-          };
-        };
-
-        systemd.user.services.dbus-broker = {
-          aliases = [ "dbus.service" ];
-          # Don't restart dbus. Bad things tend to happen if we do.
-          reloadIfChanged = true;
-          restartTriggers = [ configDir ];
-        };
-      })
-    ]
-  );
+      systemd.user.services.dbus-broker = {
+        aliases = [ "dbus.service" ];
+        # Don't restart dbus. Bad things tend to happen if we do.
+        reloadIfChanged = true;
+        restartTriggers = [ configDir ];
+      };
+    })
+  ]);
 }

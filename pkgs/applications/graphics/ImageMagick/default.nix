@@ -78,120 +78,118 @@ let
       null;
 in
 
-stdenv.mkDerivation (
-  finalAttrs: {
-    pname = "imagemagick";
-    version = "7.1.1-8";
+stdenv.mkDerivation (finalAttrs: {
+  pname = "imagemagick";
+  version = "7.1.1-8";
 
-    src = fetchFromGitHub {
-      owner = "ImageMagick";
-      repo = "ImageMagick";
-      rev = finalAttrs.version;
-      hash = "sha256-2wAm2y8YQwhgsPNqxGGJ65emL/kMYoVvF2phZMXTpZc=";
-    };
+  src = fetchFromGitHub {
+    owner = "ImageMagick";
+    repo = "ImageMagick";
+    rev = finalAttrs.version;
+    hash = "sha256-2wAm2y8YQwhgsPNqxGGJ65emL/kMYoVvF2phZMXTpZc=";
+  };
 
-    outputs = [
-      "out"
-      "dev"
-      "doc"
-    ]; # bin/ isn't really big
-    outputMan = "out"; # it's tiny
+  outputs = [
+    "out"
+    "dev"
+    "doc"
+  ]; # bin/ isn't really big
+  outputMan = "out"; # it's tiny
 
-    enableParallelBuilding = true;
+  enableParallelBuilding = true;
 
-    configureFlags =
-      [
-        "--with-frozenpaths"
-        (lib.withFeatureAs (arch != null) "gcc-arch" arch)
-        (lib.withFeature librsvgSupport "rsvg")
-        (lib.withFeature librsvgSupport "pango")
-        (lib.withFeature liblqr1Support "lqr")
-        (lib.withFeature libjxlSupport "jxl")
-        (lib.withFeatureAs ghostscriptSupport "gs-font-dir" "${ghostscript}/share/ghostscript/fonts")
-        (lib.withFeature ghostscriptSupport "gslib")
-      ]
-      ++ lib.optionals stdenv.hostPlatform.isMinGW [
-        # due to libxml2 being without DLLs ATM
-        "--enable-static"
-        "--disable-shared"
-      ];
-
-    nativeBuildInputs = [
-      pkg-config
-      libtool
+  configureFlags =
+    [
+      "--with-frozenpaths"
+      (lib.withFeatureAs (arch != null) "gcc-arch" arch)
+      (lib.withFeature librsvgSupport "rsvg")
+      (lib.withFeature librsvgSupport "pango")
+      (lib.withFeature liblqr1Support "lqr")
+      (lib.withFeature libjxlSupport "jxl")
+      (lib.withFeatureAs ghostscriptSupport "gs-font-dir" "${ghostscript}/share/ghostscript/fonts")
+      (lib.withFeature ghostscriptSupport "gslib")
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isMinGW [
+      # due to libxml2 being without DLLs ATM
+      "--enable-static"
+      "--disable-shared"
     ];
 
-    buildInputs =
-      [ potrace ]
-      ++ lib.optional zlibSupport zlib
-      ++ lib.optional fontconfigSupport fontconfig
-      ++ lib.optional ghostscriptSupport ghostscript
-      ++ lib.optional liblqr1Support liblqr1
-      ++ lib.optional libpngSupport libpng
-      ++ lib.optional librawSupport libraw
-      ++ lib.optional libtiffSupport libtiff
-      ++ lib.optional libxml2Support libxml2
-      ++ lib.optional libheifSupport libheif
-      ++ lib.optional djvulibreSupport djvulibre
-      ++ lib.optional libjxlSupport libjxl
-      ++ lib.optional openexrSupport openexr
-      ++ lib.optionals librsvgSupport [
-        librsvg
-        pango
-      ]
-      ++ lib.optional openjpegSupport openjpeg
-      ++ lib.optionals stdenv.isDarwin [
-        ApplicationServices
-        Foundation
-      ];
+  nativeBuildInputs = [
+    pkg-config
+    libtool
+  ];
 
-    propagatedBuildInputs =
-      [ curl ]
-      ++ lib.optional bzip2Support bzip2
-      ++ lib.optional freetypeSupport freetype
-      ++ lib.optional libjpegSupport libjpeg
-      ++ lib.optional lcms2Support lcms2
-      ++ lib.optional libX11Support libX11
-      ++ lib.optional libXtSupport libXt
-      ++ lib.optional libwebpSupport libwebp;
+  buildInputs =
+    [ potrace ]
+    ++ lib.optional zlibSupport zlib
+    ++ lib.optional fontconfigSupport fontconfig
+    ++ lib.optional ghostscriptSupport ghostscript
+    ++ lib.optional liblqr1Support liblqr1
+    ++ lib.optional libpngSupport libpng
+    ++ lib.optional librawSupport libraw
+    ++ lib.optional libtiffSupport libtiff
+    ++ lib.optional libxml2Support libxml2
+    ++ lib.optional libheifSupport libheif
+    ++ lib.optional djvulibreSupport djvulibre
+    ++ lib.optional libjxlSupport libjxl
+    ++ lib.optional openexrSupport openexr
+    ++ lib.optionals librsvgSupport [
+      librsvg
+      pango
+    ]
+    ++ lib.optional openjpegSupport openjpeg
+    ++ lib.optionals stdenv.isDarwin [
+      ApplicationServices
+      Foundation
+    ];
 
-    postInstall =
-      ''
-        (cd "$dev/include" && ln -s ImageMagick* ImageMagick)
-        moveToOutput "bin/*-config" "$dev"
-        moveToOutput "lib/ImageMagick-*/config-Q16HDRI" "$dev" # includes configure params
-        for file in "$dev"/bin/*-config; do
-          substituteInPlace "$file" --replace pkg-config \
-            "PKG_CONFIG_PATH='$dev/lib/pkgconfig' '$(command -v $PKG_CONFIG)'"
-        done
-      ''
-      + lib.optionalString ghostscriptSupport ''
-        for la in $out/lib/*.la; do
-          sed 's|-lgs|-L${lib.getLib ghostscript}/lib -lgs|' -i $la
-        done
-      '';
+  propagatedBuildInputs =
+    [ curl ]
+    ++ lib.optional bzip2Support bzip2
+    ++ lib.optional freetypeSupport freetype
+    ++ lib.optional libjpegSupport libjpeg
+    ++ lib.optional lcms2Support lcms2
+    ++ lib.optional libX11Support libX11
+    ++ lib.optional libXtSupport libXt
+    ++ lib.optional libwebpSupport libwebp;
 
-    passthru.tests = {
-      version = testers.testVersion { package = imagemagick; };
-      inherit (python3.pkgs) img2pdf;
-      pkg-config = testers.testMetaPkgConfig finalAttrs.finalPackage;
-    };
+  postInstall =
+    ''
+      (cd "$dev/include" && ln -s ImageMagick* ImageMagick)
+      moveToOutput "bin/*-config" "$dev"
+      moveToOutput "lib/ImageMagick-*/config-Q16HDRI" "$dev" # includes configure params
+      for file in "$dev"/bin/*-config; do
+        substituteInPlace "$file" --replace pkg-config \
+          "PKG_CONFIG_PATH='$dev/lib/pkgconfig' '$(command -v $PKG_CONFIG)'"
+      done
+    ''
+    + lib.optionalString ghostscriptSupport ''
+      for la in $out/lib/*.la; do
+        sed 's|-lgs|-L${lib.getLib ghostscript}/lib -lgs|' -i $la
+      done
+    '';
 
-    meta = with lib; {
-      homepage = "http://www.imagemagick.org/";
-      description = "A software suite to create, edit, compose, or convert bitmap images";
-      pkgConfigModules = [
-        "ImageMagick"
-        "MagickWand"
-      ];
-      platforms = platforms.linux ++ platforms.darwin;
-      maintainers = with maintainers; [
-        erictapen
-        dotlambda
-        rhendric
-      ];
-      license = licenses.asl20;
-      mainProgram = "magick";
-    };
-  }
-)
+  passthru.tests = {
+    version = testers.testVersion { package = imagemagick; };
+    inherit (python3.pkgs) img2pdf;
+    pkg-config = testers.testMetaPkgConfig finalAttrs.finalPackage;
+  };
+
+  meta = with lib; {
+    homepage = "http://www.imagemagick.org/";
+    description = "A software suite to create, edit, compose, or convert bitmap images";
+    pkgConfigModules = [
+      "ImageMagick"
+      "MagickWand"
+    ];
+    platforms = platforms.linux ++ platforms.darwin;
+    maintainers = with maintainers; [
+      erictapen
+      dotlambda
+      rhendric
+    ];
+    license = licenses.asl20;
+    mainProgram = "magick";
+  };
+})

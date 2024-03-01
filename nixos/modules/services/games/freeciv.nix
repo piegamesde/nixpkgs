@@ -14,15 +14,13 @@ let
       with lib.types;
       let
         valueType =
-          nullOr (
-            oneOf [
-              bool
-              int
-              float
-              str
-              (listOf valueType)
-            ]
-          )
+          nullOr (oneOf [
+            bool
+            int
+            float
+            str
+            (listOf valueType)
+          ])
           // {
             description = "freeciv-server params";
           };

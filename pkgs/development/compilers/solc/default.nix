@@ -140,7 +140,9 @@ let
         '';
 
         passthru.tests = {
-          solcWithTests = solc.overrideAttrs (attrs: { doCheck = true; });
+          solcWithTests = solc.overrideAttrs (attrs: {
+            doCheck = true;
+          });
         };
       }
     else

@@ -24,25 +24,23 @@ let
     rev = "eb87829547270eab13c223e6de58b25bc9a0282e";
     hash = "sha256-AVaKcRjF5ZiSR8aPSLBzSTeWVwGWW/aSyQJcN0Yhza0=";
   };
-  caf' = caf.overrideAttrs (
-    old: {
-      version = "unstable-2022-11-17-zeek";
-      src = fetchFromGitHub {
-        owner = "zeek";
-        repo = "actor-framework";
-        rev = "dbb68b4573736d7aeb69268cc73aa766c998b3dd";
-        hash = "sha256-RV2mKF3B47h/hDgK/D1UJN/ll2G5rcPkHaLVY1/C/Pg=";
-      };
-      checkPhase = ''
-        runHook preCheck
-        libcaf_core/caf-core-test
-        libcaf_io/caf-io-test
-        libcaf_openssl/caf-openssl-test
-        libcaf_net/caf-net-test --not-suites='net.*'
-        runHook postCheck
-      '';
-    }
-  );
+  caf' = caf.overrideAttrs (old: {
+    version = "unstable-2022-11-17-zeek";
+    src = fetchFromGitHub {
+      owner = "zeek";
+      repo = "actor-framework";
+      rev = "dbb68b4573736d7aeb69268cc73aa766c998b3dd";
+      hash = "sha256-RV2mKF3B47h/hDgK/D1UJN/ll2G5rcPkHaLVY1/C/Pg=";
+    };
+    checkPhase = ''
+      runHook preCheck
+      libcaf_core/caf-core-test
+      libcaf_io/caf-io-test
+      libcaf_openssl/caf-openssl-test
+      libcaf_net/caf-net-test --not-suites='net.*'
+      runHook postCheck
+    '';
+  });
 in
 stdenv.mkDerivation {
   pname = "zeek-broker";

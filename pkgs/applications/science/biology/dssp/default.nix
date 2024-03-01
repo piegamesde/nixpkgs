@@ -8,17 +8,15 @@
   zlib,
 }:
 let
-  libcifpp' = libcifpp.overrideAttrs (
-    oldAttrs: rec {
-      # dssp 4.2.2.1 requires specific version "5.0.8" of libcifpp
-      version = "5.0.8";
-      src = fetchFromGitHub {
-        inherit (oldAttrs.src) owner repo;
-        rev = "v${version}";
-        sha256 = "sha256-KJGcopGhCWSl+ElG3BPJjBf/kvYJowOHxto6Ci1IMco=";
-      };
-    }
-  );
+  libcifpp' = libcifpp.overrideAttrs (oldAttrs: rec {
+    # dssp 4.2.2.1 requires specific version "5.0.8" of libcifpp
+    version = "5.0.8";
+    src = fetchFromGitHub {
+      inherit (oldAttrs.src) owner repo;
+      rev = "v${version}";
+      sha256 = "sha256-KJGcopGhCWSl+ElG3BPJjBf/kvYJowOHxto6Ci1IMco=";
+    };
+  });
 in
 
 stdenv.mkDerivation rec {

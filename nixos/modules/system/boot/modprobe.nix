@@ -55,11 +55,9 @@ with lib;
     environment.etc."modprobe.d/ubuntu.conf".source = "${pkgs.kmod-blacklist-ubuntu}/modprobe.conf";
 
     environment.etc."modprobe.d/nixos.conf".text = ''
-      ${flip concatMapStrings config.boot.blacklistedKernelModules (
-        name: ''
-          blacklist ${name}
-        ''
-      )}
+      ${flip concatMapStrings config.boot.blacklistedKernelModules (name: ''
+        blacklist ${name}
+      '')}
       ${config.boot.extraModprobeConfig}
     '';
     environment.etc."modprobe.d/debian.conf".source = pkgs.kmod-debian-aliases;

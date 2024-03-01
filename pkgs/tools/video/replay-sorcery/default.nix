@@ -33,14 +33,12 @@ stdenv.mkDerivation rec {
       # instead of $out/etc/replay-sorcery.conf.
       ./fix-global-config.patch
     ]
-    ++ lib.optional notifySupport (
-      substituteAll {
-        # Patch in libnotify if support is enabled. Can't use makeWrapper
-        # since it would break the security wrapper in the NixOS module.
-        src = ./hardcode-libnotify.patch;
-        inherit libnotify;
-      }
-    );
+    ++ lib.optional notifySupport (substituteAll {
+      # Patch in libnotify if support is enabled. Can't use makeWrapper
+      # since it would break the security wrapper in the NixOS module.
+      src = ./hardcode-libnotify.patch;
+      inherit libnotify;
+    });
 
   nativeBuildInputs = [
     cmake

@@ -145,7 +145,9 @@ let
             path: _value:
 
             lib.nameValuePair (createName path) (
-              self.overrideAttrs (attrs: { src = makeSource (createSourceParams path); })
+              self.overrideAttrs (attrs: {
+                src = makeSource (createSourceParams path);
+              })
             );
 
           hashesOnly =

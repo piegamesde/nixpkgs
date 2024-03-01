@@ -62,23 +62,21 @@ stdenv.mkDerivation rec {
 
   dontStrip = !ocamlPackages.ocaml.nativeCompilers;
 
-  desktopItems = lib.optional enableX11 (
-    makeDesktopItem {
-      name = pname;
-      desktopName = "Unison";
-      comment = "Bidirectional file synchronizer";
-      genericName = "File synchronization tool";
-      exec = "unison";
-      icon = "unison";
-      categories = [
-        "Utility"
-        "FileTools"
-        "GTK"
-      ];
-      startupNotify = true;
-      startupWMClass = "Unison";
-    }
-  );
+  desktopItems = lib.optional enableX11 (makeDesktopItem {
+    name = pname;
+    desktopName = "Unison";
+    comment = "Bidirectional file synchronizer";
+    genericName = "File synchronization tool";
+    exec = "unison";
+    icon = "unison";
+    categories = [
+      "Utility"
+      "FileTools"
+      "GTK"
+    ];
+    startupNotify = true;
+    startupWMClass = "Unison";
+  });
 
   meta = with lib; {
     homepage = "https://www.cis.upenn.edu/~bcpierce/unison/";

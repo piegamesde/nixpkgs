@@ -37,14 +37,12 @@ buildPythonPackage rec {
     tzlocal
   ];
 
-  passthru.optional-dependencies = lib.fix (
-    self: {
-      kerberos = [ requests-kerberos ];
-      sqlalchemy = [ sqlalchemy ];
-      external-authentication-token-cache = [ keyring ];
-      all = self.kerberos ++ self.sqlalchemy;
-    }
-  );
+  passthru.optional-dependencies = lib.fix (self: {
+    kerberos = [ requests-kerberos ];
+    sqlalchemy = [ sqlalchemy ];
+    external-authentication-token-cache = [ keyring ];
+    all = self.kerberos ++ self.sqlalchemy;
+  });
 
   nativeCheckInputs = [
     httpretty

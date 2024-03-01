@@ -13,14 +13,12 @@ let
   datasetSettingsType =
     with types;
     (attrsOf (
-      nullOr (
-        oneOf [
-          str
-          int
-          bool
-          (listOf str)
-        ]
-      )
+      nullOr (oneOf [
+        str
+        int
+        bool
+        (listOf str)
+      ])
     ))
     // {
       description = "dataset/template options";

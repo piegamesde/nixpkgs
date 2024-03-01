@@ -159,34 +159,32 @@ let
   variant = lib.optionalString cudaSupport "-gpu";
   pname = "tensorflow${variant}";
 
-  pythonEnv = python.withPackages (
-    _: [
-      # python deps needed during wheel build time (not runtime, see the buildPythonPackage part for that)
-      # This list can likely be shortened, but each trial takes multiple hours so won't bother for now.
-      absl-py
-      astunparse
-      dill
-      flatbuffers-python
-      gast
-      google-pasta
-      grpcio
-      h5py
-      keras-preprocessing
-      numpy
-      opt-einsum
-      packaging
-      protobuf-python
-      setuptools
-      six
-      tblib
-      tensorboard
-      tensorflow-estimator-bin
-      termcolor
-      typing-extensions
-      wheel
-      wrapt
-    ]
-  );
+  pythonEnv = python.withPackages (_: [
+    # python deps needed during wheel build time (not runtime, see the buildPythonPackage part for that)
+    # This list can likely be shortened, but each trial takes multiple hours so won't bother for now.
+    absl-py
+    astunparse
+    dill
+    flatbuffers-python
+    gast
+    google-pasta
+    grpcio
+    h5py
+    keras-preprocessing
+    numpy
+    opt-einsum
+    packaging
+    protobuf-python
+    setuptools
+    six
+    tblib
+    tensorboard
+    tensorflow-estimator-bin
+    termcolor
+    typing-extensions
+    wheel
+    wrapt
+  ]);
 
   rules_cc_darwin_patched = stdenv.mkDerivation {
     name = "rules_cc-${pname}-${version}";
@@ -250,17 +248,15 @@ let
   };
   bazel-build =
     if stdenv.isDarwin then
-      _bazel-build.overrideAttrs (
-        prev: {
-          bazelFlags = prev.bazelFlags ++ [
-            "--override_repository=rules_cc=${rules_cc_darwin_patched}"
-            "--override_repository=llvm-raw=${llvm-raw_darwin_patched}"
-          ];
-          preBuild = ''
-            export AR="${cctools}/bin/libtool"
-          '';
-        }
-      )
+      _bazel-build.overrideAttrs (prev: {
+        bazelFlags = prev.bazelFlags ++ [
+          "--override_repository=rules_cc=${rules_cc_darwin_patched}"
+          "--override_repository=llvm-raw=${llvm-raw_darwin_patched}"
+        ];
+        preBuild = ''
+          export AR="${cctools}/bin/libtool"
+        '';
+      })
     else
       _bazel-build;
 
@@ -306,7 +302,9 @@ let
         libjpeg_turbo
         libpng
         lmdb-core
-        (pybind11.overridePythonAttrs (_: { inherit stdenv; }))
+        (pybind11.overridePythonAttrs (_: {
+          inherit stdenv;
+        }))
         snappy
         sqlite
       ]

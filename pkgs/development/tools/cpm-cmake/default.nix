@@ -4,43 +4,41 @@
   fetchFromGitHub,
 }:
 
-stdenvNoCC.mkDerivation (
-  finalAttrs: {
-    pname = "cpm-cmake";
-    version = "0.38.1";
+stdenvNoCC.mkDerivation (finalAttrs: {
+  pname = "cpm-cmake";
+  version = "0.38.1";
 
-    src = fetchFromGitHub {
-      owner = "cpm-cmake";
-      repo = "cpm.cmake";
-      rev = "v${finalAttrs.version}";
-      hash = "sha256-gH12lO8XiSlPHyifJeaZ5mdk8ylIbLYTKKkitTK4jCA=";
-    };
+  src = fetchFromGitHub {
+    owner = "cpm-cmake";
+    repo = "cpm.cmake";
+    rev = "v${finalAttrs.version}";
+    hash = "sha256-gH12lO8XiSlPHyifJeaZ5mdk8ylIbLYTKKkitTK4jCA=";
+  };
 
-    dontConfigure = true;
-    dontBuild = true;
+  dontConfigure = true;
+  dontBuild = true;
 
-    installPhase = ''
-      runHook preInstall
+  installPhase = ''
+    runHook preInstall
 
-      mkdir -p $out/share/{,doc/}cpm
-      install -Dm644 cmake/CPM.cmake $out/share/cpm/CPM.cmake
-      install -Dm644 README.md CONTRIBUTING.md $out/share/doc/cpm/
+    mkdir -p $out/share/{,doc/}cpm
+    install -Dm644 cmake/CPM.cmake $out/share/cpm/CPM.cmake
+    install -Dm644 README.md CONTRIBUTING.md $out/share/doc/cpm/
 
-      runHook postInstall
+    runHook postInstall
+  '';
+
+  meta = with lib; {
+    homepage = "https://github.com/cpm-cmake/CPM.cmake";
+    description = "CMake's missing package manager";
+    longDescription = ''
+      CPM.cmake is a cross-platform CMake script that adds dependency
+      management capabilities to CMake. It's built as a thin wrapper around
+      CMake's FetchContent module that adds version control, caching, a
+      simple API and more.
     '';
-
-    meta = with lib; {
-      homepage = "https://github.com/cpm-cmake/CPM.cmake";
-      description = "CMake's missing package manager";
-      longDescription = ''
-        CPM.cmake is a cross-platform CMake script that adds dependency
-        management capabilities to CMake. It's built as a thin wrapper around
-        CMake's FetchContent module that adds version control, caching, a
-        simple API and more.
-      '';
-      license = licenses.mit;
-      maintainers = with maintainers; [ ];
-      platforms = platforms.all;
-    };
-  }
-)
+    license = licenses.mit;
+    maintainers = with maintainers; [ ];
+    platforms = platforms.all;
+  };
+})

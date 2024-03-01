@@ -49,7 +49,9 @@ let
 
     passthru.tests = {
       # hangs on darwin
-      check = doit.overridePythonAttrs (_: { doCheck = !stdenv.isDarwin; });
+      check = doit.overridePythonAttrs (_: {
+        doCheck = !stdenv.isDarwin;
+      });
     };
 
     pythonImportsCheck = [ "doit" ];

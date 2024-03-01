@@ -218,14 +218,12 @@ let
     cd "$TMPDIR"
 
     ${lib.optionalString (cfg.emptyDiskImages != [ ]) "idx=0"}
-    ${flip concatMapStrings cfg.emptyDiskImages (
-      size: ''
-        if ! test -e "empty$idx.qcow2"; then
-            ${qemu}/bin/qemu-img create -f qcow2 "empty$idx.qcow2" "${toString size}M"
-        fi
-        idx=$((idx + 1))
-      ''
-    )}
+    ${flip concatMapStrings cfg.emptyDiskImages (size: ''
+      if ! test -e "empty$idx.qcow2"; then
+          ${qemu}/bin/qemu-img create -f qcow2 "empty$idx.qcow2" "${toString size}M"
+      fi
+      idx=$((idx + 1))
+    '')}
 
     # Start QEMU.
     exec ${qemu-common.qemuBinary qemu} \

@@ -62,27 +62,25 @@ let
       default = null;
       type =
         with types;
-        nullOr (
-          enum [
-            "ActiveCalendarEvent"
-            "ActiveConnection"
-            "ExternalCommand"
-            "JsonPath"
-            "Kodi"
-            "KodiIdleTime"
-            "LastLogActivity"
-            "Load"
-            "LogindSessionsIdle"
-            "Mpd"
-            "NetworkBandwidth"
-            "Ping"
-            "Processes"
-            "Smb"
-            "Users"
-            "XIdleTime"
-            "XPath"
-          ]
-        );
+        nullOr (enum [
+          "ActiveCalendarEvent"
+          "ActiveConnection"
+          "ExternalCommand"
+          "JsonPath"
+          "Kodi"
+          "KodiIdleTime"
+          "LastLogActivity"
+          "Load"
+          "LogindSessionsIdle"
+          "Mpd"
+          "NetworkBandwidth"
+          "Ping"
+          "Processes"
+          "Smb"
+          "Users"
+          "XIdleTime"
+          "XPath"
+        ]);
       description = mdDoc ''
         Name of the class implementing the check.  If this option is not specified, the check's
         name must represent a valid internal check class.
@@ -101,17 +99,15 @@ let
       default = null;
       type =
         with types;
-        nullOr (
-          enum [
-            "Calendar"
-            "Command"
-            "File"
-            "Periodic"
-            "SystemdTimer"
-            "XPath"
-            "XPathDelta"
-          ]
-        );
+        nullOr (enum [
+          "Calendar"
+          "Command"
+          "File"
+          "Periodic"
+          "SystemdTimer"
+          "XPath"
+          "XPathDelta"
+        ]);
       description = mdDoc ''
         Name of the class implementing the check.  If this option is not specified, the check's
         name must represent a valid internal check class.

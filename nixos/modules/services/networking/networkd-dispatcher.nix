@@ -16,13 +16,11 @@ in
   options = {
     services.networkd-dispatcher = {
 
-      enable = mkEnableOption (
-        mdDoc ''
-          Networkd-dispatcher service for systemd-networkd connection status
-          change. See [https://gitlab.com/craftyguy/networkd-dispatcher](upstream instructions)
-          for usage.
-        ''
-      );
+      enable = mkEnableOption (mdDoc ''
+        Networkd-dispatcher service for systemd-networkd connection status
+        change. See [https://gitlab.com/craftyguy/networkd-dispatcher](upstream instructions)
+        for usage.
+      '');
 
       rules = mkOption {
         default = { };

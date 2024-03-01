@@ -4,31 +4,27 @@
 
 let
   libc = pkgs.stdenv.cc.libc;
-  patchelf = pkgs.patchelf.overrideAttrs (
-    previousAttrs: {
-      NIX_CFLAGS_COMPILE = (previousAttrs.NIX_CFLAGS_COMPILE or [ ]) ++ [
-        "-static-libgcc"
-        "-static-libstdc++"
-      ];
-      NIX_CFLAGS_LINK = (previousAttrs.NIX_CFLAGS_LINK or [ ]) ++ [
-        "-static-libgcc"
-        "-static-libstdc++"
-      ];
-    }
-  );
+  patchelf = pkgs.patchelf.overrideAttrs (previousAttrs: {
+    NIX_CFLAGS_COMPILE = (previousAttrs.NIX_CFLAGS_COMPILE or [ ]) ++ [
+      "-static-libgcc"
+      "-static-libstdc++"
+    ];
+    NIX_CFLAGS_LINK = (previousAttrs.NIX_CFLAGS_LINK or [ ]) ++ [
+      "-static-libgcc"
+      "-static-libstdc++"
+    ];
+  });
 in
 with pkgs;
 rec {
 
-  coreutilsMinimal = coreutils.override (
-    args: {
-      # We want coreutils without ACL/attr support.
-      aclSupport = false;
-      attrSupport = false;
-      # Our tooling currently can't handle scripts in bin/, only ELFs and symlinks.
-      singleBinary = "symlinks";
-    }
-  );
+  coreutilsMinimal = coreutils.override (args: {
+    # We want coreutils without ACL/attr support.
+    aclSupport = false;
+    attrSupport = false;
+    # Our tooling currently can't handle scripts in bin/, only ELFs and symlinks.
+    singleBinary = "symlinks";
+  });
 
   tarMinimal = gnutar.override { acl = null; };
 

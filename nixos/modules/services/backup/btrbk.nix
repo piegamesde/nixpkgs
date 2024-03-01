@@ -122,81 +122,75 @@ in
         description = lib.mdDoc "Set of btrbk instances. The instance named `btrbk` is the default one.";
         type =
           with types;
-          attrsOf (
-            submodule {
-              options = {
-                onCalendar = mkOption {
-                  type = types.nullOr types.str;
-                  default = "daily";
-                  description = lib.mdDoc ''
-                    How often this btrbk instance is started. See systemd.time(7) for more information about the format.
-                    Setting it to null disables the timer, thus this instance can only be started manually.
-                  '';
-                };
-                settings = mkOption {
-                  type =
-                    let
-                      t = types.attrsOf (
-                        types.either types.str (t // { description = "instances of this type recursively"; })
-                      );
-                    in
-                    t;
-                  default = { };
-                  example = {
-                    snapshot_preserve_min = "2d";
-                    snapshot_preserve = "14d";
-                    volume = {
-                      "/mnt/btr_pool" = {
-                        target = "/mnt/btr_backup/mylaptop";
-                        subvolume = {
-                          "rootfs" = { };
-                          "home" = {
-                            snapshot_create = "always";
-                          };
+          attrsOf (submodule {
+            options = {
+              onCalendar = mkOption {
+                type = types.nullOr types.str;
+                default = "daily";
+                description = lib.mdDoc ''
+                  How often this btrbk instance is started. See systemd.time(7) for more information about the format.
+                  Setting it to null disables the timer, thus this instance can only be started manually.
+                '';
+              };
+              settings = mkOption {
+                type =
+                  let
+                    t = types.attrsOf (
+                      types.either types.str (t // { description = "instances of this type recursively"; })
+                    );
+                  in
+                  t;
+                default = { };
+                example = {
+                  snapshot_preserve_min = "2d";
+                  snapshot_preserve = "14d";
+                  volume = {
+                    "/mnt/btr_pool" = {
+                      target = "/mnt/btr_backup/mylaptop";
+                      subvolume = {
+                        "rootfs" = { };
+                        "home" = {
+                          snapshot_create = "always";
                         };
                       };
                     };
                   };
-                  description = lib.mdDoc "configuration options for btrbk. Nested attrsets translate to subsections.";
                 };
+                description = lib.mdDoc "configuration options for btrbk. Nested attrsets translate to subsections.";
               };
-            }
-          );
+            };
+          });
         default = { };
       };
       sshAccess = mkOption {
         description = lib.mdDoc "SSH keys that should be able to make or push snapshots on this system remotely with btrbk";
         type =
           with types;
-          listOf (
-            submodule {
-              options = {
-                key = mkOption {
-                  type = str;
-                  description = lib.mdDoc "SSH public key allowed to login as user `btrbk` to run remote backups.";
-                };
-                roles = mkOption {
-                  type = listOf (
-                    enum [
-                      "info"
-                      "source"
-                      "target"
-                      "delete"
-                      "snapshot"
-                      "send"
-                      "receive"
-                    ]
-                  );
-                  example = [
-                    "source"
-                    "info"
-                    "send"
-                  ];
-                  description = lib.mdDoc "What actions can be performed with this SSH key. See ssh_filter_btrbk(1) for details";
-                };
+          listOf (submodule {
+            options = {
+              key = mkOption {
+                type = str;
+                description = lib.mdDoc "SSH public key allowed to login as user `btrbk` to run remote backups.";
               };
-            }
-          );
+              roles = mkOption {
+                type = listOf (enum [
+                  "info"
+                  "source"
+                  "target"
+                  "delete"
+                  "snapshot"
+                  "send"
+                  "receive"
+                ]);
+                example = [
+                  "source"
+                  "info"
+                  "send"
+                ];
+                description = lib.mdDoc "What actions can be performed with this SSH key. See ssh_filter_btrbk(1) for details";
+              };
+            };
+          });
         default = [ ];
       };
     };

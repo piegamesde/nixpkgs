@@ -69,12 +69,10 @@ let
       srcs = lib.importJSON ./src-deps.json;
       toFetchurl =
         d:
-        lib.attrsets.nameValuePair d.name (
-          fetchurl {
-            urls = d.urls;
-            sha256 = d.sha256;
-          }
-        );
+        lib.attrsets.nameValuePair d.name (fetchurl {
+          urls = d.urls;
+          sha256 = d.sha256;
+        });
     in
     builtins.listToAttrs (
       map toFetchurl [

@@ -7,11 +7,15 @@
 let
   fake =
     name:
-    lib.overrideDerivation (writeScriptBin name ''
-      #!${runtimeShell}
-      echo >&2 "Faking call to ${name} with arguments:"
-      echo >&2 "$@"
-    '') (drv: { name = "${name}-stub"; });
+    lib.overrideDerivation
+      (writeScriptBin name ''
+        #!${runtimeShell}
+        echo >&2 "Faking call to ${name} with arguments:"
+        echo >&2 "$@"
+      '')
+      (drv: {
+        name = "${name}-stub";
+      });
 in
 
 {

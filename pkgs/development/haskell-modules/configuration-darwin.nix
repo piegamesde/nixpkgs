@@ -16,11 +16,13 @@ self: super:
     # see: https://github.com/psibi/shell-conduit/issues/12
     shell-conduit = dontCheck super.shell-conduit;
 
-    conduit-extra = super.conduit-extra.overrideAttrs (drv: { __darwinAllowLocalNetworking = true; });
+    conduit-extra = super.conduit-extra.overrideAttrs (drv: {
+      __darwinAllowLocalNetworking = true;
+    });
 
-    streaming-commons = super.streaming-commons.overrideAttrs (
-      _: { __darwinAllowLocalNetworking = true; }
-    );
+    streaming-commons = super.streaming-commons.overrideAttrs (_: {
+      __darwinAllowLocalNetworking = true;
+    });
 
     halive = addBuildDepend darwin.apple_sdk.frameworks.AppKit super.halive;
 

@@ -761,12 +761,10 @@ in
           install -m 0755 -d /home
 
           ${
-            pkgs.perl.withPackages (
-              p: [
-                p.FileSlurp
-                p.JSON
-              ]
-            )
+            pkgs.perl.withPackages (p: [
+              p.FileSlurp
+              p.JSON
+            ])
           }/bin/perl \
           -w ${./update-users-groups.pl} ${spec}
         '';

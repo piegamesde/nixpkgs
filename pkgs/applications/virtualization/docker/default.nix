@@ -63,62 +63,56 @@ rec {
       libseccomp,
     }:
     let
-      docker-runc = runc.overrideAttrs (
-        oldAttrs: {
-          pname = "docker-runc";
-          inherit version;
+      docker-runc = runc.overrideAttrs (oldAttrs: {
+        pname = "docker-runc";
+        inherit version;
 
-          src = fetchFromGitHub {
-            owner = "opencontainers";
-            repo = "runc";
-            rev = runcRev;
-            hash = runcHash;
-          };
+        src = fetchFromGitHub {
+          owner = "opencontainers";
+          repo = "runc";
+          rev = runcRev;
+          hash = runcHash;
+        };
 
-          # docker/runc already include these patches / are not applicable
-          patches = [ ];
-        }
-      );
+        # docker/runc already include these patches / are not applicable
+        patches = [ ];
+      });
 
-      docker-containerd = containerd.overrideAttrs (
-        oldAttrs: {
-          pname = "docker-containerd";
-          inherit version;
+      docker-containerd = containerd.overrideAttrs (oldAttrs: {
+        pname = "docker-containerd";
+        inherit version;
 
-          src = fetchFromGitHub {
-            owner = "containerd";
-            repo = "containerd";
-            rev = containerdRev;
-            hash = containerdHash;
-          };
+        src = fetchFromGitHub {
+          owner = "containerd";
+          repo = "containerd";
+          rev = containerdRev;
+          hash = containerdHash;
+        };
 
-          buildInputs = oldAttrs.buildInputs ++ lib.optionals withSeccomp [ libseccomp ];
-        }
-      );
+        buildInputs = oldAttrs.buildInputs ++ lib.optionals withSeccomp [ libseccomp ];
+      });
 
-      docker-tini = tini.overrideAttrs (
-        oldAttrs: {
-          pname = "docker-init";
-          inherit version;
+      docker-tini = tini.overrideAttrs (oldAttrs: {
+        pname = "docker-init";
+        inherit version;
 
-          src = fetchFromGitHub {
-            owner = "krallin";
-            repo = "tini";
-            rev = tiniRev;
-            hash = tiniHash;
-          };
+        src = fetchFromGitHub {
+          owner = "krallin";
+          repo = "tini";
+          rev = tiniRev;
+          hash = tiniHash;
+        };
 
-          # Do not remove static from make files as we want a static binary
-          postPatch = "";
+        # Do not remove static from make files as we want a static binary
+        postPatch = "";
 
-          buildInputs = [
-            glibc
-            glibc.static
-          ];
+        buildInputs = [
+          glibc
+          glibc.static
+        ];
 
-          env.NIX_CFLAGS_COMPILE = "-DMINIMAL=ON";
-        }
-      );
+        env.NIX_CFLAGS_COMPILE = "-DMINIMAL=ON";
+      });
 
       moby-src = fetchFromGitHub {
         owner = "moby";

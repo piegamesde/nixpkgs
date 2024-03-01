@@ -17,29 +17,27 @@ let
         (import ./poetry-git-overlay.nix { inherit pkgs; })
         (self: super: {
 
-          nixops = super.nixops.overridePythonAttrs (
-            old: {
-              version = "${old.version}-pre-${lib.substring 0 7 super.nixops.src.rev or "dirty"}";
+          nixops = super.nixops.overridePythonAttrs (old: {
+            version = "${old.version}-pre-${lib.substring 0 7 super.nixops.src.rev or "dirty"}";
 
-              postPatch = ''
-                substituteInPlace nixops/args.py --subst-var version
-              '';
+            postPatch = ''
+              substituteInPlace nixops/args.py --subst-var version
+            '';
 
-              meta = old.meta // {
-                homepage = "https://github.com/NixOS/nixops";
-                description = "NixOS cloud provisioning and deployment tool";
-                maintainers = with lib.maintainers; [
-                  adisbladis
-                  aminechikhaoui
-                  eelco
-                  rob
-                  domenkozar
-                ];
-                platforms = lib.platforms.unix;
-                license = lib.licenses.lgpl3;
-              };
-            }
-          );
+            meta = old.meta // {
+              homepage = "https://github.com/NixOS/nixops";
+              description = "NixOS cloud provisioning and deployment tool";
+              maintainers = with lib.maintainers; [
+                adisbladis
+                aminechikhaoui
+                eelco
+                rob
+                domenkozar
+              ];
+              platforms = lib.platforms.unix;
+              license = lib.licenses.lgpl3;
+            };
+          });
         })
 
         # User provided overrides
@@ -76,42 +74,38 @@ let
         )
 
         (self: super: {
-          cryptography = super.cryptography.overridePythonAttrs (
-            old: {
-              meta = old.meta // {
-                knownVulnerabilities =
-                  old.meta.knownVulnerabilities or [ ]
-                  ++ lib.optionals (lib.versionOlder old.version "39.0.1") [
-                    "CVE-2022-4304"
-                    "CVE-2023-0215"
-                    "CVE-2023-0216"
-                    "CVE-2023-0217"
-                    "CVE-2023-0401"
-                    "CVE-2022-4203"
-                    "CVE-2022-4450"
-                    "CVE-2023-23931"
-                  ];
-              };
-            }
-          );
+          cryptography = super.cryptography.overridePythonAttrs (old: {
+            meta = old.meta // {
+              knownVulnerabilities =
+                old.meta.knownVulnerabilities or [ ]
+                ++ lib.optionals (lib.versionOlder old.version "39.0.1") [
+                  "CVE-2022-4304"
+                  "CVE-2023-0215"
+                  "CVE-2023-0216"
+                  "CVE-2023-0217"
+                  "CVE-2023-0401"
+                  "CVE-2022-4203"
+                  "CVE-2022-4450"
+                  "CVE-2023-23931"
+                ];
+            };
+          });
         })
       ];
     }).python;
 
   pkg =
-    interpreter.pkgs.nixops.withPlugins (
-      ps: [
-        ps.nixops-aws
-        ps.nixops-digitalocean
-        ps.nixops-encrypted-links
-        ps.nixops-gcp
-        ps.nixops-hercules-ci
-        ps.nixops-hetzner
-        ps.nixopsvbox
-        ps.nixops-virtd
-        ps.nixops-hetznercloud
-      ]
-    )
+    interpreter.pkgs.nixops.withPlugins (ps: [
+      ps.nixops-aws
+      ps.nixops-digitalocean
+      ps.nixops-encrypted-links
+      ps.nixops-gcp
+      ps.nixops-hercules-ci
+      ps.nixops-hetzner
+      ps.nixopsvbox
+      ps.nixops-virtd
+      ps.nixops-hetznercloud
+    ])
     // rec {
       # Workaround for https://github.com/NixOS/nixpkgs/issues/119407
       # TODO after #1199407: Use .overrideAttrs(pkg: old: { passthru.tests = .....; })

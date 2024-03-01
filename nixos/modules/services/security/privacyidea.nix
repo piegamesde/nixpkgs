@@ -267,14 +267,12 @@ in
           type =
             with types;
             attrsOf (
-              attrsOf (
-                oneOf [
-                  str
-                  bool
-                  int
-                  (listOf str)
-                ]
-              )
+              attrsOf (oneOf [
+                str
+                bool
+                int
+                (listOf str)
+              ])
             );
           default = { };
           description = lib.mdDoc ''

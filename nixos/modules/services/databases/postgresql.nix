@@ -410,14 +410,12 @@ in
       settings = mkOption {
         type =
           with types;
-          attrsOf (
-            oneOf [
-              bool
-              float
-              int
-              str
-            ]
-          );
+          attrsOf (oneOf [
+            bool
+            float
+            int
+            str
+          ]);
         default = { };
         description = lib.mdDoc ''
           PostgreSQL configuration. Refer to

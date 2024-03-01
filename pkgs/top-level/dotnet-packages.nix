@@ -232,19 +232,17 @@ let
 
     Dafny =
       let
-        z3 = pkgs.z3.overrideAttrs (
-          oldAttrs: rec {
-            version = "4.8.4";
-            name = "z3-${version}";
+        z3 = pkgs.z3.overrideAttrs (oldAttrs: rec {
+          version = "4.8.4";
+          name = "z3-${version}";
 
-            src = fetchFromGitHub {
-              owner = "Z3Prover";
-              repo = "z3";
-              rev = "z3-${version}";
-              sha256 = "014igqm5vwswz0yhz0cdxsj3a6dh7i79hvhgc3jmmmz3z0xm1gyn";
-            };
-          }
-        );
+          src = fetchFromGitHub {
+            owner = "Z3Prover";
+            repo = "z3";
+            rev = "z3-${version}";
+            sha256 = "014igqm5vwswz0yhz0cdxsj3a6dh7i79hvhgc3jmmmz3z0xm1gyn";
+          };
+        });
         self' = pkgs.dotnetPackages.override ({
           pkgs = pkgs // {
             inherit z3;

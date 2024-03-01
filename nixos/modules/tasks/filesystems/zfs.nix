@@ -518,14 +518,12 @@ in
       settings = mkOption {
         type =
           with types;
-          attrsOf (
-            oneOf [
-              str
-              int
-              bool
-              (listOf str)
-            ]
-          );
+          attrsOf (oneOf [
+            str
+            int
+            bool
+            (listOf str)
+          ]);
         example = literalExpression ''
           {
             ZED_DEBUG_LOG = "/tmp/zed.debug.log";
@@ -691,19 +689,23 @@ in
       };
 
       environment.etc =
-        genAttrs (map (file: "zfs/zed.d/${file}") [
-          "all-syslog.sh"
-          "pool_import-led.sh"
-          "resilver_finish-start-scrub.sh"
-          "statechange-led.sh"
-          "vdev_attach-led.sh"
-          "zed-functions.sh"
-          "data-notify.sh"
-          "resilver_finish-notify.sh"
-          "scrub_finish-notify.sh"
-          "statechange-notify.sh"
-          "vdev_clear-led.sh"
-        ]) (file: { source = "${cfgZfs.package}/etc/${file}"; })
+        genAttrs
+          (map (file: "zfs/zed.d/${file}") [
+            "all-syslog.sh"
+            "pool_import-led.sh"
+            "resilver_finish-start-scrub.sh"
+            "statechange-led.sh"
+            "vdev_attach-led.sh"
+            "zed-functions.sh"
+            "data-notify.sh"
+            "resilver_finish-notify.sh"
+            "scrub_finish-notify.sh"
+            "statechange-notify.sh"
+            "vdev_clear-led.sh"
+          ])
+          (file: {
+            source = "${cfgZfs.package}/etc/${file}";
+          })
         // {
           "zfs/zed.d/zed.rc".text = zedConf;
           "zfs/zpool.d".source = "${cfgZfs.package}/etc/zfs/zpool.d/";

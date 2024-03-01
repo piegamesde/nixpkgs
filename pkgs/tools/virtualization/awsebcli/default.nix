@@ -24,12 +24,10 @@ let
 
   changeVersion =
     overrideFunc: version: hash:
-    overrideFunc (
-      oldAttrs: rec {
-        inherit version;
-        src = oldAttrs.src.override { inherit version hash; };
-      }
-    );
+    overrideFunc (oldAttrs: rec {
+      inherit version;
+      src = oldAttrs.src.override { inherit version hash; };
+    });
 
   localPython = python3.override {
     self = localPython;
@@ -43,21 +41,19 @@ let
       semantic-version =
         changeVersion super.semantic-version.overridePythonAttrs "2.8.5"
           "sha256-0sst4FWHYpNGebmhBOguynr0SMn0l00fPuzP9lHfilQ=";
-      pyyaml = super.pyyaml.overridePythonAttrs (
-        oldAttrs: rec {
-          version = "5.4.1";
-          checkPhase = ''
-            runHook preCheck
-            PYTHONPATH="tests/lib3:$PYTHONPATH" ${localPython.interpreter} -m test_all
-            runHook postCheck
-          '';
-          src = localPython.pkgs.fetchPypi {
-            pname = "PyYAML";
-            inherit version;
-            hash = "sha256-YHd0y7oocyv6gCtUuqdIQhX1MJkQVbtWLvvtWy8gpF4=";
-          };
-        }
-      );
+      pyyaml = super.pyyaml.overridePythonAttrs (oldAttrs: rec {
+        version = "5.4.1";
+        checkPhase = ''
+          runHook preCheck
+          PYTHONPATH="tests/lib3:$PYTHONPATH" ${localPython.interpreter} -m test_all
+          runHook postCheck
+        '';
+        src = localPython.pkgs.fetchPypi {
+          pname = "PyYAML";
+          inherit version;
+          hash = "sha256-YHd0y7oocyv6gCtUuqdIQhX1MJkQVbtWLvvtWy8gpF4=";
+        };
+      });
     };
   };
 in

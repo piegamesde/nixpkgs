@@ -27,26 +27,24 @@ stdenv.mkDerivation rec {
           inherit pkgs nodejs;
           inherit (stdenv.hostPlatform) system;
         }).nodeDependencies.override
-          (
-            old: {
-              # access to path '/nix/store/...-source' is forbidden in restricted mode
-              src = src;
-              dontNpmInstall = true;
+          (old: {
+            # access to path '/nix/store/...-source' is forbidden in restricted mode
+            src = src;
+            dontNpmInstall = true;
 
-              # ERROR: .../.bin/node-gyp-build: /usr/bin/env: bad interpreter: No such file or directory
-              # https://github.com/svanderburg/node2nix/issues/275
-              # There are multiple instances of it, hence the globstar
-              preRebuild = ''
-                shopt -s globstar
-                sed -i -e "s|#!/usr/bin/env node|#! ${pkgs.nodejs}/bin/node|" \
-                  node_modules/**/node-gyp-build/bin.js \
-              '';
+            # ERROR: .../.bin/node-gyp-build: /usr/bin/env: bad interpreter: No such file or directory
+            # https://github.com/svanderburg/node2nix/issues/275
+            # There are multiple instances of it, hence the globstar
+            preRebuild = ''
+              shopt -s globstar
+              sed -i -e "s|#!/usr/bin/env node|#! ${pkgs.nodejs}/bin/node|" \
+                node_modules/**/node-gyp-build/bin.js \
+            '';
 
-              buildInputs = [ cypress ];
-              # prevent downloading cypress, use the executable in path instead
-              CYPRESS_INSTALL_BINARY = "0";
-            }
-          );
+            buildInputs = [ cypress ];
+            # prevent downloading cypress, use the executable in path instead
+            CYPRESS_INSTALL_BINARY = "0";
+          });
     in
     ''
       runHook preBuild

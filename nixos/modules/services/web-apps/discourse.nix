@@ -112,14 +112,12 @@ in
         type =
           with lib.types;
           attrsOf (
-            nullOr (
-              oneOf [
-                str
-                int
-                bool
-                float
-              ]
-            )
+            nullOr (oneOf [
+              str
+              int
+              bool
+              float
+            ])
           );
         default = { };
         example = lib.literalExpression ''
@@ -418,13 +416,11 @@ in
           authentication = lib.mkOption {
             type =
               with lib.types;
-              nullOr (
-                enum [
-                  "plain"
-                  "login"
-                  "cram_md5"
-                ]
-              );
+              nullOr (enum [
+                "plain"
+                "login"
+                "cram_md5"
+              ]);
             default = null;
             description = lib.mdDoc ''
               Authentication type to use, see http://api.rubyonrails.org/classes/ActionMailer/Base.html

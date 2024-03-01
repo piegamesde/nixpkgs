@@ -4,15 +4,13 @@ let
   python = python3.override {
     self = python;
     packageOverrides = self: super: {
-      xstatic-bootstrap = super.xstatic-bootstrap.overridePythonAttrs (
-        oldAttrs: rec {
-          version = "3.3.7.1";
-          src = oldAttrs.src.override {
-            inherit version;
-            sha256 = "0cgihyjb9rg6r2ddpzbjm31y0901vyc8m9h3v0zrhxydx1w9x50c";
-          };
-        }
-      );
+      xstatic-bootstrap = super.xstatic-bootstrap.overridePythonAttrs (oldAttrs: rec {
+        version = "3.3.7.1";
+        src = oldAttrs.src.override {
+          inherit version;
+          sha256 = "0cgihyjb9rg6r2ddpzbjm31y0901vyc8m9h3v0zrhxydx1w9x50c";
+        };
+      });
     };
   };
 in

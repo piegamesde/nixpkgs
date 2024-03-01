@@ -23,18 +23,16 @@ let
       "23"
     ];
 
-  interpretersAliases = versionLoop (
-    version: {
-      "erlangR${version}" = self.interpreters."erlang_${version}";
-      "erlangR${version}_odbc" = self.interpreters."erlang_${version}_odbc";
-      "erlangR${version}_javac" = self.interpreters."erlang_${version}_javac";
-      "erlangR${version}_odbc_javac" = self.interpreters."erlang_${version}_odbc_javac";
-    }
-  );
+  interpretersAliases = versionLoop (version: {
+    "erlangR${version}" = self.interpreters."erlang_${version}";
+    "erlangR${version}_odbc" = self.interpreters."erlang_${version}_odbc";
+    "erlangR${version}_javac" = self.interpreters."erlang_${version}_javac";
+    "erlangR${version}_odbc_javac" = self.interpreters."erlang_${version}_odbc_javac";
+  });
 
-  packagesAliases = versionLoop (
-    version: { "erlangR${version}" = self.packages."erlang_${version}"; }
-  );
+  packagesAliases = versionLoop (version: {
+    "erlangR${version}" = self.packages."erlang_${version}";
+  });
 in
 
 {

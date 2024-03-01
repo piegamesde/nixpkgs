@@ -8,22 +8,20 @@
 let
   py = python3.override {
     packageOverrides = self: super: {
-      pyyaml = super.pyyaml.overridePythonAttrs (
-        oldAttrs: rec {
-          version = "5.4.1";
-          src = fetchFromGitHub {
-            owner = "yaml";
-            repo = "pyyaml";
-            rev = version;
-            hash = "sha256-VUqnlOF/8zSOqh6JoEYOsfQ0P4g+eYqxyFTywgCS7gM=";
-          };
-          checkPhase = ''
-            runHook preCheck
-            PYTHONPATH="tests/lib3:$PYTHONPATH" ${self.python.interpreter} -m test_all
-            runHook postCheck
-          '';
-        }
-      );
+      pyyaml = super.pyyaml.overridePythonAttrs (oldAttrs: rec {
+        version = "5.4.1";
+        src = fetchFromGitHub {
+          owner = "yaml";
+          repo = "pyyaml";
+          rev = version;
+          hash = "sha256-VUqnlOF/8zSOqh6JoEYOsfQ0P4g+eYqxyFTywgCS7gM=";
+        };
+        checkPhase = ''
+          runHook preCheck
+          PYTHONPATH="tests/lib3:$PYTHONPATH" ${self.python.interpreter} -m test_all
+          runHook postCheck
+        '';
+      });
     };
     self = py;
   };

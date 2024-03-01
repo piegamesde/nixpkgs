@@ -11,25 +11,23 @@ let
   py = python3.override {
     packageOverrides = final: prev: {
       django = final.django_4;
-      drf-nested-routers = prev.drf-nested-routers.overridePythonAttrs (
-        oldAttrs: {
-          patches = [
-            # all for django 4 compat
-            (fetchpatch {
-              url = "https://github.com/alanjds/drf-nested-routers/commit/59764cc356f7f593422b26845a9dfac0ad196120.diff";
-              hash = "sha256-mq3vLHzQlGl2EReJ5mVVQMMcYgGIVt/T+qi1STtQ0aI=";
-            })
-            (fetchpatch {
-              url = "https://github.com/alanjds/drf-nested-routers/commit/723a5729dd2ffcb66fe315f229789ca454986fa4.diff";
-              hash = "sha256-UCbBjwlidqsJ9vEEWlGzfqqMOr0xuB2TAaUxHsLzFfU=";
-            })
-            (fetchpatch {
-              url = "https://github.com/alanjds/drf-nested-routers/commit/38e49eb73759bc7dcaaa9166169590f5315e1278.diff";
-              hash = "sha256-IW4BLhHHhXDUZqHaXg46qWoQ89pMXv0ZxKjOCTnDcI0=";
-            })
-          ];
-        }
-      );
+      drf-nested-routers = prev.drf-nested-routers.overridePythonAttrs (oldAttrs: {
+        patches = [
+          # all for django 4 compat
+          (fetchpatch {
+            url = "https://github.com/alanjds/drf-nested-routers/commit/59764cc356f7f593422b26845a9dfac0ad196120.diff";
+            hash = "sha256-mq3vLHzQlGl2EReJ5mVVQMMcYgGIVt/T+qi1STtQ0aI=";
+          })
+          (fetchpatch {
+            url = "https://github.com/alanjds/drf-nested-routers/commit/723a5729dd2ffcb66fe315f229789ca454986fa4.diff";
+            hash = "sha256-UCbBjwlidqsJ9vEEWlGzfqqMOr0xuB2TAaUxHsLzFfU=";
+          })
+          (fetchpatch {
+            url = "https://github.com/alanjds/drf-nested-routers/commit/38e49eb73759bc7dcaaa9166169590f5315e1278.diff";
+            hash = "sha256-IW4BLhHHhXDUZqHaXg46qWoQ89pMXv0ZxKjOCTnDcI0=";
+          })
+        ];
+      });
     };
   };
 in

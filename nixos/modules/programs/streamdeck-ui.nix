@@ -26,12 +26,10 @@ in
   config = mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
       cfg.package
-      (mkIf cfg.autoStart (
-        makeAutostartItem {
-          name = "streamdeck-ui";
-          package = cfg.package;
-        }
-      ))
+      (mkIf cfg.autoStart (makeAutostartItem {
+        name = "streamdeck-ui";
+        package = cfg.package;
+      }))
     ];
 
     services.udev.packages = [ cfg.package ];

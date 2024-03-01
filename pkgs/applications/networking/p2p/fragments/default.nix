@@ -21,16 +21,14 @@
 }:
 
 let
-  patchedTransmission = transmission.overrideAttrs (
-    oldAttrs: {
-      patches = (oldAttrs.patches or [ ]) ++ [
-        (fetchpatch {
-          url = "https://raw.githubusercontent.com/flathub/de.haeckerfelix.Fragments/2aee477c8e26a24570f8dbbdbd1c49e017ae32eb/transmission_pdeathsig.patch";
-          sha256 = "sha256-/rCoA566tMmzqcIfffC082Y56TwEyyQJ0knxymtscbA=";
-        })
-      ];
-    }
-  );
+  patchedTransmission = transmission.overrideAttrs (oldAttrs: {
+    patches = (oldAttrs.patches or [ ]) ++ [
+      (fetchpatch {
+        url = "https://raw.githubusercontent.com/flathub/de.haeckerfelix.Fragments/2aee477c8e26a24570f8dbbdbd1c49e017ae32eb/transmission_pdeathsig.patch";
+        sha256 = "sha256-/rCoA566tMmzqcIfffC082Y56TwEyyQJ0knxymtscbA=";
+      })
+    ];
+  });
 in
 stdenv.mkDerivation rec {
   pname = "fragments";

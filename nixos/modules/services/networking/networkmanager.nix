@@ -164,13 +164,11 @@ in
         type =
           with types;
           attrsOf (
-            nullOr (
-              oneOf [
-                bool
-                int
-                str
-              ]
-            )
+            nullOr (oneOf [
+              bool
+              int
+              str
+            ])
           );
         default = { };
         description = lib.mdDoc ''

@@ -163,11 +163,9 @@ in
         AuthorizedKeysFile %h/.ssh/authorized_keys %h/.ssh/authorized_keys2 /etc/ssh/authorized_keys.d/%u
         ChallengeResponseAuthentication no
 
-        ${flip concatMapStrings cfg.hostKeys (
-          path: ''
-            HostKey ${initrdKeyPath path}
-          ''
-        )}
+        ${flip concatMapStrings cfg.hostKeys (path: ''
+          HostKey ${initrdKeyPath path}
+        '')}
 
         KexAlgorithms ${concatStringsSep "," sshdCfg.settings.KexAlgorithms}
         Ciphers ${concatStringsSep "," sshdCfg.settings.Ciphers}
@@ -248,12 +246,10 @@ in
           '') cfg.authorizedKeys
         )}
 
-        ${flip concatMapStrings cfg.hostKeys (
-          path: ''
-            # keys from Nix store are world-readable, which sshd doesn't like
-            chmod 0600 "${initrdKeyPath path}"
-          ''
-        )}
+        ${flip concatMapStrings cfg.hostKeys (path: ''
+          # keys from Nix store are world-readable, which sshd doesn't like
+          chmod 0600 "${initrdKeyPath path}"
+        '')}
 
         /bin/sshd -e
       '';
@@ -298,11 +294,9 @@ in
           # Keys from Nix store are world-readable, which sshd doesn't
           # like. If this were a real nix store and not the initrd, we
           # neither would nor could do this
-          preStart = flip concatMapStrings cfg.hostKeys (
-            path: ''
-              /bin/chmod 0600 "${initrdKeyPath path}"
-            ''
-          );
+          preStart = flip concatMapStrings cfg.hostKeys (path: ''
+            /bin/chmod 0600 "${initrdKeyPath path}"
+          '');
           unitConfig.DefaultDependencies = false;
           serviceConfig = {
             ExecStart = "${package}/bin/sshd -D -f /etc/ssh/sshd_config";

@@ -173,13 +173,11 @@ in
       type =
         with types;
         attrsOf (
-          nullOr (
-            oneOf [
-              str
-              path
-              package
-            ]
-          )
+          nullOr (oneOf [
+            str
+            path
+            package
+          ])
         );
       default = { };
       example = {
@@ -208,12 +206,10 @@ in
       '';
       type =
         with types;
-        listOf (
-          oneOf [
-            singleLineStr
-            package
-          ]
-        );
+        listOf (oneOf [
+          singleLineStr
+          package
+        ]);
       default = [ ];
     };
 

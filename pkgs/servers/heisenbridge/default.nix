@@ -8,17 +8,15 @@
 let
   python = python3.override {
     packageOverrides = self: super: {
-      mautrix = super.mautrix.overridePythonAttrs (
-        oldAttrs: rec {
-          version = "0.16.10";
-          src = fetchFromGitHub {
-            owner = "mautrix";
-            repo = "python";
-            rev = "v${version}";
-            hash = "sha256-YQsQ7M+mHcRdGUZp+mo46AlBmKSdmlgRdGieEG0Hu9k=";
-          };
-        }
-      );
+      mautrix = super.mautrix.overridePythonAttrs (oldAttrs: rec {
+        version = "0.16.10";
+        src = fetchFromGitHub {
+          owner = "mautrix";
+          repo = "python";
+          rev = "v${version}";
+          hash = "sha256-YQsQ7M+mHcRdGUZp+mo46AlBmKSdmlgRdGieEG0Hu9k=";
+        };
+      });
     };
   };
 in

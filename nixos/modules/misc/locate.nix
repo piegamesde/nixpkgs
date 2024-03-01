@@ -261,12 +261,10 @@ in
           plocate
         ];
         plocate = (
-          mkIf isPLocate (
-            mkMerge [
-              common
-              plocate
-            ]
-          )
+          mkIf isPLocate (mkMerge [
+            common
+            plocate
+          ])
         );
       };
 

@@ -113,16 +113,14 @@ let
     with types;
     let
       confAtom =
-        nullOr (
-          oneOf [
-            bool
-            int
-            float
-            str
-            path
-            package
-          ]
-        )
+        nullOr (oneOf [
+          bool
+          int
+          float
+          str
+          path
+          package
+        ])
         // {
           description = "Nix config atom (null, bool, int, float, str, path or package)";
         };
@@ -501,15 +499,13 @@ in
             let
               referenceAttrs =
                 with types;
-                attrsOf (
-                  oneOf [
-                    str
-                    int
-                    bool
-                    path
-                    package
-                  ]
-                );
+                attrsOf (oneOf [
+                  str
+                  int
+                  bool
+                  path
+                  package
+                ]);
             in
             { config, name, ... }:
             {

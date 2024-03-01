@@ -6,7 +6,9 @@
 
 let
   sp = callPackage ./sp.nix { };
-  mp = sp.overrideAttrs (oldAttrs: rec { sourceRoot = "source/MP"; });
+  mp = sp.overrideAttrs (oldAttrs: rec {
+    sourceRoot = "source/MP";
+  });
 in
 buildEnv {
   name = "iortcw";

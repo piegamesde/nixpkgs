@@ -13,23 +13,21 @@
   # or doc/builders/testers.chapter.md
   testBuildFailure =
     drv:
-    drv.overrideAttrs (
-      orig: {
-        builder = buildPackages.bash;
-        args =
-          [
-            (substituteAll {
-              coreutils = buildPackages.coreutils;
-              src = ./expect-failure.sh;
-            })
-            orig.realBuilder or stdenv.shell
-          ]
-          ++ orig.args or [
-            "-e"
-            (orig.builder or ../../stdenv/generic/default-builder.sh)
-          ];
-      }
-    );
+    drv.overrideAttrs (orig: {
+      builder = buildPackages.bash;
+      args =
+        [
+          (substituteAll {
+            coreutils = buildPackages.coreutils;
+            src = ./expect-failure.sh;
+          })
+          orig.realBuilder or stdenv.shell
+        ]
+        ++ orig.args or [
+          "-e"
+          (orig.builder or ../../stdenv/generic/default-builder.sh)
+        ];
+    });
 
   # See https://nixos.org/manual/nixpkgs/unstable/#tester-testEqualDerivation
   # or doc/builders/testers.chapter.md

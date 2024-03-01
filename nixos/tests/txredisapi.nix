@@ -14,13 +14,11 @@ import ./make-test-python.nix (
           services.redis.servers."".enable = true;
 
           environment.systemPackages = with pkgs; [
-            (python3.withPackages (
-              ps: [
-                ps.twisted
-                ps.txredisapi
-                ps.mock
-              ]
-            ))
+            (python3.withPackages (ps: [
+              ps.twisted
+              ps.txredisapi
+              ps.mock
+            ]))
           ];
         };
     };

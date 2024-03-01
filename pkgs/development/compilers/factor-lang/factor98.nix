@@ -79,13 +79,11 @@ let
         buildInputs = [ gdk-pixbuf ];
         passthru.runtimeLibs = runtimeLibs ++ interpreter.runtimeLibs;
       }
-      (
-        wrapFactorScript {
-          from = "${interpreter}/lib/factor/.factor.wrapped";
-          to = "$out/bin/factor";
-          runtimeLibs = (runtimeLibs ++ interpreter.runtimeLibs);
-        }
-      );
+      (wrapFactorScript {
+        from = "${interpreter}/lib/factor/.factor.wrapped";
+        to = "$out/bin/factor";
+        runtimeLibs = (runtimeLibs ++ interpreter.runtimeLibs);
+      });
 
   # Development helper for use in nix shell
   wrapLocalFactor = writeScriptBin "wrapFactor" ''

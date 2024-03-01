@@ -217,13 +217,11 @@ in
       settings = mkOption {
         type =
           with types;
-          attrsOf (
-            oneOf [
-              int
-              str
-              (listOf str)
-            ]
-          );
+          attrsOf (oneOf [
+            int
+            str
+            (listOf str)
+          ]);
         default = { };
         description = lib.mdDoc ''
           Zabbix Proxy configuration. Refer to

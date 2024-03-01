@@ -55,12 +55,10 @@ in
               type =
                 with types;
                 nullOr (
-                  attrsOf (
-                    oneOf [
-                      str
-                      bool
-                    ]
-                  )
+                  attrsOf (oneOf [
+                    str
+                    bool
+                  ])
                 );
               default = null;
               description = lib.mdDoc ''
@@ -81,12 +79,10 @@ in
               type =
                 with types;
                 nullOr (
-                  attrsOf (
-                    oneOf [
-                      str
-                      bool
-                    ]
-                  )
+                  attrsOf (oneOf [
+                    str
+                    bool
+                  ])
                 );
               default = null;
               description = lib.mdDoc ''

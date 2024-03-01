@@ -33,23 +33,21 @@ let
   build-with-compile-into-pwd =
     args:
     let
-      build = (build-asdf-system (args // { version = args.version + "-build"; })).overrideAttrs (
-        o: {
-          buildPhase = with builtins; ''
-            mkdir __fasls
-            export LD_LIBRARY_PATH=${makeLibraryPath o.nativeLibs}:$LD_LIBRARY_PATH
-            export CLASSPATH=${makeSearchPath "share/java/*" o.javaLibs}:$CLASSPATH
-            export CL_SOURCE_REGISTRY=$CL_SOURCE_REGISTRY:$(pwd)//
-            export ASDF_OUTPUT_TRANSLATIONS="$(pwd):$(pwd)/__fasls:${storeDir}:${storeDir}"
-            ${o.lisp} ${o.buildScript}
-          '';
-          installPhase = ''
-            mkdir -pv $out
-            rm -rf __fasls
-            cp -r * $out
-          '';
-        }
-      );
+      build = (build-asdf-system (args // { version = args.version + "-build"; })).overrideAttrs (o: {
+        buildPhase = with builtins; ''
+          mkdir __fasls
+          export LD_LIBRARY_PATH=${makeLibraryPath o.nativeLibs}:$LD_LIBRARY_PATH
+          export CLASSPATH=${makeSearchPath "share/java/*" o.javaLibs}:$CLASSPATH
+          export CL_SOURCE_REGISTRY=$CL_SOURCE_REGISTRY:$(pwd)//
+          export ASDF_OUTPUT_TRANSLATIONS="$(pwd):$(pwd)/__fasls:${storeDir}:${storeDir}"
+          ${o.lisp} ${o.buildScript}
+        '';
+        installPhase = ''
+          mkdir -pv $out
+          rm -rf __fasls
+          cp -r * $out
+        '';
+      });
     in
     build-asdf-system (
       args
@@ -88,7 +86,9 @@ let
       ];
     };
 
-    uiop = asdf.overrideLispAttrs (o: { pname = "uiop"; });
+    uiop = asdf.overrideLispAttrs (o: {
+      pname = "uiop";
+    });
 
     cffi =
       let
@@ -114,15 +114,13 @@ let
         javaLibs = optionals isJVM [ jna ];
       };
 
-    cffi-libffi = ql.cffi-libffi.overrideLispAttrs (
-      o: {
-        src = pkgs.fetchzip {
-          url = "https://github.com/cffi/cffi/archive/3f842b92ef808900bf20dae92c2d74232c2f6d3a.tar.gz";
-          sha256 = "1jilvmbbfrmb23j07lwmkbffc6r35wnvas5s4zjc84i856ccclm2";
-        };
-        patches = [ ./patches/cffi-libffi-darwin-ffi-h.patch ];
-      }
-    );
+    cffi-libffi = ql.cffi-libffi.overrideLispAttrs (o: {
+      src = pkgs.fetchzip {
+        url = "https://github.com/cffi/cffi/archive/3f842b92ef808900bf20dae92c2d74232c2f6d3a.tar.gz";
+        sha256 = "1jilvmbbfrmb23j07lwmkbffc6r35wnvas5s4zjc84i856ccclm2";
+      };
+      patches = [ ./patches/cffi-libffi-darwin-ffi-h.patch ];
+    });
 
     cl-unicode = build-with-compile-into-pwd {
       pname = "cl-unicode";
@@ -393,15 +391,13 @@ let
 
     nyxt = nyxt-gtk;
 
-    ltk = ql.ltk.overrideLispAttrs (
-      o: {
-        src = pkgs.fetchzip {
-          url = "https://github.com/uthar/ltk/archive/f19162e76d6c7c2f51bd289b811d9ba20dd6555e.tar.gz";
-          sha256 = "0mzikv4abq9yqlj6dsji1wh34mjizr5prv6mvzzj29z1485fh1bj";
-        };
-        version = "f19162e76";
-      }
-    );
+    ltk = ql.ltk.overrideLispAttrs (o: {
+      src = pkgs.fetchzip {
+        url = "https://github.com/uthar/ltk/archive/f19162e76d6c7c2f51bd289b811d9ba20dd6555e.tar.gz";
+        sha256 = "0mzikv4abq9yqlj6dsji1wh34mjizr5prv6mvzzj29z1485fh1bj";
+      };
+      version = "f19162e76";
+    });
 
     qt =
       let

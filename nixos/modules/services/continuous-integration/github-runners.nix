@@ -16,17 +16,15 @@ in
     default = { };
     type =
       with types;
-      attrsOf (
-        submodule {
-          options = import ./github-runner/options.nix (
-            args
-            // {
-              # services.github-runners.${name}.name doesn't have a default; it falls back to ${name} below.
-              includeNameDefault = false;
-            }
-          );
-        }
-      );
+      attrsOf (submodule {
+        options = import ./github-runner/options.nix (
+          args
+          // {
+            # services.github-runners.${name}.name doesn't have a default; it falls back to ${name} below.
+            includeNameDefault = false;
+          }
+        );
+      });
     example = {
       runner1 = {
         enable = true;

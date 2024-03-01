@@ -403,7 +403,9 @@ in
           ];
           loggerSectionNames = map (n: "logging.${n}") loggerNames;
         in
-        lib.genAttrs loggerSectionNames (name: { handler = "stderr"; })
+        lib.genAttrs loggerSectionNames (name: {
+          handler = "stderr";
+        })
       );
 
     assertions =
@@ -531,14 +533,12 @@ in
 
     services.nginx = mkIf (cfg.serve.enable && cfg.webHosts != [ ]) {
       enable = mkDefault true;
-      virtualHosts = lib.genAttrs cfg.webHosts (
-        webHost: {
-          locations = {
-            ${cfg.serve.virtualRoot}.extraConfig = "uwsgi_pass unix:/run/mailman-web.socket;";
-            "${removeSuffix "/" cfg.serve.virtualRoot}/static/".alias = webSettings.STATIC_ROOT + "/";
-          };
-        }
-      );
+      virtualHosts = lib.genAttrs cfg.webHosts (webHost: {
+        locations = {
+          ${cfg.serve.virtualRoot}.extraConfig = "uwsgi_pass unix:/run/mailman-web.socket;";
+          "${removeSuffix "/" cfg.serve.virtualRoot}/static/".alias = webSettings.STATIC_ROOT + "/";
+        };
+      });
     };
 
     environment.systemPackages = [

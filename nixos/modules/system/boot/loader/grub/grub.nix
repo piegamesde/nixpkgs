@@ -219,53 +219,51 @@ in
         '';
         type =
           with types;
-          attrsOf (
-            submodule {
-              options = {
-                hashedPasswordFile = mkOption {
-                  example = "/path/to/file";
-                  default = null;
-                  type = with types; uniq (nullOr str);
-                  description = lib.mdDoc ''
-                    Specifies the path to a file containing the password hash
-                    for the account, generated with grub-mkpasswd-pbkdf2.
-                    This hash will be stored in /boot/grub/grub.cfg, and will
-                    be visible to any local user who can read this file.
-                  '';
-                };
-                hashedPassword = mkOption {
-                  example = "grub.pbkdf2.sha512.10000.674DFFDEF76E13EA...2CC972B102CF4355";
-                  default = null;
-                  type = with types; uniq (nullOr str);
-                  description = lib.mdDoc ''
-                    Specifies the password hash for the account,
-                    generated with grub-mkpasswd-pbkdf2.
-                    This hash will be copied to the Nix store, and will be visible to all local users.
-                  '';
-                };
-                passwordFile = mkOption {
-                  example = "/path/to/file";
-                  default = null;
-                  type = with types; uniq (nullOr str);
-                  description = lib.mdDoc ''
-                    Specifies the path to a file containing the
-                    clear text password for the account.
-                    This password will be stored in /boot/grub/grub.cfg, and will
-                    be visible to any local user who can read this file.
-                  '';
-                };
-                password = mkOption {
-                  example = "Pa$$w0rd!";
-                  default = null;
-                  type = with types; uniq (nullOr str);
-                  description = lib.mdDoc ''
-                    Specifies the clear text password for the account.
-                    This password will be copied to the Nix store, and will be visible to all local users.
-                  '';
-                };
+          attrsOf (submodule {
+            options = {
+              hashedPasswordFile = mkOption {
+                example = "/path/to/file";
+                default = null;
+                type = with types; uniq (nullOr str);
+                description = lib.mdDoc ''
+                  Specifies the path to a file containing the password hash
+                  for the account, generated with grub-mkpasswd-pbkdf2.
+                  This hash will be stored in /boot/grub/grub.cfg, and will
+                  be visible to any local user who can read this file.
+                '';
               };
-            }
-          );
+              hashedPassword = mkOption {
+                example = "grub.pbkdf2.sha512.10000.674DFFDEF76E13EA...2CC972B102CF4355";
+                default = null;
+                type = with types; uniq (nullOr str);
+                description = lib.mdDoc ''
+                  Specifies the password hash for the account,
+                  generated with grub-mkpasswd-pbkdf2.
+                  This hash will be copied to the Nix store, and will be visible to all local users.
+                '';
+              };
+              passwordFile = mkOption {
+                example = "/path/to/file";
+                default = null;
+                type = with types; uniq (nullOr str);
+                description = lib.mdDoc ''
+                  Specifies the path to a file containing the
+                  clear text password for the account.
+                  This password will be stored in /boot/grub/grub.cfg, and will
+                  be visible to any local user who can read this file.
+                '';
+              };
+              password = mkOption {
+                example = "Pa$$w0rd!";
+                default = null;
+                type = with types; uniq (nullOr str);
+                description = lib.mdDoc ''
+                  Specifies the clear text password for the account.
+                  This password will be copied to the Nix store, and will be visible to all local users.
+                '';
+              };
+            };
+          });
       };
 
       mirroredBoots = mkOption {
@@ -287,55 +285,53 @@ in
 
         type =
           with types;
-          listOf (
-            submodule {
-              options = {
+          listOf (submodule {
+            options = {
 
-                path = mkOption {
-                  example = "/boot1";
-                  type = types.str;
-                  description = lib.mdDoc ''
-                    The path to the boot directory where GRUB will be written. Generally
-                    this boot path should double as an EFI path.
-                  '';
-                };
-
-                efiSysMountPoint = mkOption {
-                  default = null;
-                  example = "/boot1/efi";
-                  type = types.nullOr types.str;
-                  description = lib.mdDoc ''
-                    The path to the efi system mount point. Usually this is the same
-                    partition as the above path and can be left as null.
-                  '';
-                };
-
-                efiBootloaderId = mkOption {
-                  default = null;
-                  example = "NixOS-fsid";
-                  type = types.nullOr types.str;
-                  description = lib.mdDoc ''
-                    The id of the bootloader to store in efi nvram.
-                    The default is to name it NixOS and append the path or efiSysMountPoint.
-                    This is only used if `boot.loader.efi.canTouchEfiVariables` is true.
-                  '';
-                };
-
-                devices = mkOption {
-                  default = [ ];
-                  example = [
-                    "/dev/disk/by-id/wwn-0x500001234567890a"
-                    "/dev/disk/by-id/wwn-0x500009876543210a"
-                  ];
-                  type = types.listOf types.str;
-                  description = lib.mdDoc ''
-                    The path to the devices which will have the GRUB MBR written.
-                    Note these are typically device paths and not paths to partitions.
-                  '';
-                };
+              path = mkOption {
+                example = "/boot1";
+                type = types.str;
+                description = lib.mdDoc ''
+                  The path to the boot directory where GRUB will be written. Generally
+                  this boot path should double as an EFI path.
+                '';
               };
-            }
-          );
+
+              efiSysMountPoint = mkOption {
+                default = null;
+                example = "/boot1/efi";
+                type = types.nullOr types.str;
+                description = lib.mdDoc ''
+                  The path to the efi system mount point. Usually this is the same
+                  partition as the above path and can be left as null.
+                '';
+              };
+
+              efiBootloaderId = mkOption {
+                default = null;
+                example = "NixOS-fsid";
+                type = types.nullOr types.str;
+                description = lib.mdDoc ''
+                  The id of the bootloader to store in efi nvram.
+                  The default is to name it NixOS and append the path or efiSysMountPoint.
+                  This is only used if `boot.loader.efi.canTouchEfiVariables` is true.
+                '';
+              };
+
+              devices = mkOption {
+                default = [ ];
+                example = [
+                  "/dev/disk/by-id/wwn-0x500001234567890a"
+                  "/dev/disk/by-id/wwn-0x500009876543210a"
+                ];
+                type = types.listOf types.str;
+                description = lib.mdDoc ''
+                  The path to the devices which will have the GRUB MBR written.
+                  Note these are typically device paths and not paths to partitions.
+                '';
+              };
+            };
+          });
       };
 
       configurationName = mkOption {
@@ -866,11 +862,9 @@ in
             set -e
             ${optionalString cfg.enableCryptodisk "export GRUB_ENABLE_CRYPTODISK=y"}
           ''
-          + flip concatMapStrings cfg.mirroredBoots (
-            args: ''
-              ${perl}/bin/perl ${install-grub-pl} ${grubConfig args} $@
-            ''
-          )
+          + flip concatMapStrings cfg.mirroredBoots (args: ''
+            ${perl}/bin/perl ${install-grub-pl} ${grubConfig args} $@
+          '')
           + cfg.extraInstallCommands
         );
 
@@ -947,12 +941,10 @@ in
               message = "EFI paths must be absolute, not ${args.efiSysMountPoint}";
             }
           ]
-          ++ forEach args.devices (
-            device: {
-              assertion = device == "nodev" || hasPrefix "/" device;
-              message = "GRUB devices must be absolute paths, not ${device} in ${args.path}";
-            }
-          )
+          ++ forEach args.devices (device: {
+            assertion = device == "nodev" || hasPrefix "/" device;
+            message = "GRUB devices must be absolute paths, not ${device} in ${args.path}";
+          })
         );
     })
   ];

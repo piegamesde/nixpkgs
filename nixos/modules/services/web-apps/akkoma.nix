@@ -58,16 +58,14 @@ let
     let
       elixirValue' =
         with types;
-        nullOr (
-          oneOf [
-            bool
-            int
-            float
-            str
-            (attrsOf elixirValue')
-            (listOf elixirValue')
-          ]
-        )
+        nullOr (oneOf [
+          bool
+          int
+          float
+          str
+          (attrsOf elixirValue')
+          (listOf elixirValue')
+        ])
         // {
           description = "Elixir value";
         };
@@ -1154,21 +1152,19 @@ in
           BindPaths = [ "${uploadDir}:${uploadDir}:norbind" ];
           BindReadOnlyPaths = mkMerge [
             (mkIf (!isStorePath staticDir) [ "${staticDir}:${staticDir}:norbind" ])
-            (mkIf isConfined (
-              mkMerge [
-                [
-                  "/etc/hosts"
-                  "/etc/resolv.conf"
-                ]
-                (mkIf (isStorePath staticDir) (
-                  map (dir: "${dir}:${dir}:norbind") (
-                    splitString "\n" (readFile ((pkgs.closureInfo { rootPaths = staticDir; }) + "/store-paths"))
-                  )
-                ))
-                (mkIf (db ? socket_dir) [ "${db.socket_dir}:${db.socket_dir}:norbind" ])
-                (mkIf (db ? socket) [ "${db.socket}:${db.socket}:norbind" ])
+            (mkIf isConfined (mkMerge [
+              [
+                "/etc/hosts"
+                "/etc/resolv.conf"
               ]
-            ))
+              (mkIf (isStorePath staticDir) (
+                map (dir: "${dir}:${dir}:norbind") (
+                  splitString "\n" (readFile ((pkgs.closureInfo { rootPaths = staticDir; }) + "/store-paths"))
+                )
+              ))
+              (mkIf (db ? socket_dir) [ "${db.socket_dir}:${db.socket_dir}:norbind" ])
+              (mkIf (db ? socket) [ "${db.socket}:${db.socket}:norbind" ])
+            ]))
           ];
 
           ExecStartPre = "${envWrapper}/bin/pleroma_ctl migrate";
@@ -1220,15 +1216,13 @@ in
           DevicePolicy = "closed";
 
           # SMTP adapter uses dynamic port 0 binding, which is incompatible with bind address filtering
-          SocketBindAllow = mkIf (!hasSmtp) (
-            mkMerge [
-              [
-                "tcp:${toString cfg.dist.epmdPort}"
-                "tcp:${toString cfg.dist.portMin}-${toString cfg.dist.portMax}"
-              ]
-              (mkIf (web.http.port != 0) [ "tcp:${toString web.http.port}" ])
+          SocketBindAllow = mkIf (!hasSmtp) (mkMerge [
+            [
+              "tcp:${toString cfg.dist.epmdPort}"
+              "tcp:${toString cfg.dist.portMin}-${toString cfg.dist.portMax}"
             ]
-          );
+            (mkIf (web.http.port != 0) [ "tcp:${toString web.http.port}" ])
+          ]);
           SocketBindDeny = mkIf (!hasSmtp) "any";
         };
       };

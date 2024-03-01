@@ -77,36 +77,34 @@ in
 
     settings = mkOption {
       default = null;
-      type = nullOr (
-        submodule {
-          freeformType = (pkgs.formats.yaml { }).type;
-          options = {
-            schema_version = mkOption {
-              default = pkgs.adguardhome.schema_version;
-              defaultText = literalExpression "pkgs.adguardhome.schema_version";
-              type = int;
-              description = lib.mdDoc ''
-                Schema version for the configuration.
-                Defaults to the `schema_version` supplied by `pkgs.adguardhome`.
-              '';
-            };
-            bind_host = mkOption {
-              default = "0.0.0.0";
-              type = str;
-              description = lib.mdDoc ''
-                Host address to bind HTTP server to.
-              '';
-            };
-            bind_port = mkOption {
-              default = 3000;
-              type = port;
-              description = lib.mdDoc ''
-                Port to serve HTTP pages on.
-              '';
-            };
+      type = nullOr (submodule {
+        freeformType = (pkgs.formats.yaml { }).type;
+        options = {
+          schema_version = mkOption {
+            default = pkgs.adguardhome.schema_version;
+            defaultText = literalExpression "pkgs.adguardhome.schema_version";
+            type = int;
+            description = lib.mdDoc ''
+              Schema version for the configuration.
+              Defaults to the `schema_version` supplied by `pkgs.adguardhome`.
+            '';
           };
-        }
-      );
+          bind_host = mkOption {
+            default = "0.0.0.0";
+            type = str;
+            description = lib.mdDoc ''
+              Host address to bind HTTP server to.
+            '';
+          };
+          bind_port = mkOption {
+            default = 3000;
+            type = port;
+            description = lib.mdDoc ''
+              Port to serve HTTP pages on.
+            '';
+          };
+        };
+      });
       description = lib.mdDoc ''
         AdGuard Home configuration. Refer to
         <https://github.com/AdguardTeam/AdGuardHome/wiki/Configuration#configuration-file>

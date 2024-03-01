@@ -7,34 +7,30 @@
 let
   py = python3.override {
     packageOverrides = self: super: {
-      emoji = super.emoji.overridePythonAttrs (
-        oldAttrs: rec {
-          version = "1.7.0";
+      emoji = super.emoji.overridePythonAttrs (oldAttrs: rec {
+        version = "1.7.0";
 
-          src = fetchFromGitHub {
-            owner = "carpedm20";
-            repo = "emoji";
-            rev = "v${version}";
-            sha256 = "sha256-vKQ51RP7uy57vP3dOnHZRSp/Wz+YDzeLUR8JnIELE/I=";
-          };
-        }
-      );
+        src = fetchFromGitHub {
+          owner = "carpedm20";
+          repo = "emoji";
+          rev = "v${version}";
+          sha256 = "sha256-vKQ51RP7uy57vP3dOnHZRSp/Wz+YDzeLUR8JnIELE/I=";
+        };
+      });
 
       # Support for later tweepy releases is missing
       # https://github.com/ranguli/ioccheck/issues/70
-      tweepy = super.tweepy.overridePythonAttrs (
-        oldAttrs: rec {
-          version = "3.10.0";
+      tweepy = super.tweepy.overridePythonAttrs (oldAttrs: rec {
+        version = "3.10.0";
 
-          src = fetchFromGitHub {
-            owner = "tweepy";
-            repo = "tweepy";
-            rev = "v${version}";
-            sha256 = "0k4bdlwjna6f1k19jki4xqgckrinkkw8b9wihzymr1l04rwd05nw";
-          };
-          doCheck = false;
-        }
-      );
+        src = fetchFromGitHub {
+          owner = "tweepy";
+          repo = "tweepy";
+          rev = "v${version}";
+          sha256 = "0k4bdlwjna6f1k19jki4xqgckrinkkw8b9wihzymr1l04rwd05nw";
+        };
+        doCheck = false;
+      });
     };
   };
 in

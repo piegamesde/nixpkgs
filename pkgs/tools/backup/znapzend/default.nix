@@ -35,12 +35,10 @@ let
     ];
   };
 
-  perl' = perl.withPackages (
-    p: [
-      MojoIOLoopForkCall'
-      p.TAPParserSourceHandlerpgTAP
-    ]
-  );
+  perl' = perl.withPackages (p: [
+    MojoIOLoopForkCall'
+    p.TAPParserSourceHandlerpgTAP
+  ]);
 
   version = "0.21.0";
   sha256 = "1lg46rf2ahlclan29zx8ag5k4fjp28sc9l02z76f0pvdlj4qnihl";

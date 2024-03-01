@@ -107,17 +107,15 @@ let
   optZfs = shouldUsePkg zfs;
 
   # Downgrade rocksdb, 7.10 breaks ceph
-  rocksdb' = rocksdb.overrideAttrs (
-    oldAttrs: {
-      version = "7.9.2";
-      src = fetchFromGitHub {
-        owner = "facebook";
-        repo = "rocksdb";
-        rev = "refs/tags/v7.9.2";
-        hash = "sha256-5P7IqJ14EZzDkbjaBvbix04ceGGdlWBuVFH/5dpD5VM=";
-      };
-    }
-  );
+  rocksdb' = rocksdb.overrideAttrs (oldAttrs: {
+    version = "7.9.2";
+    src = fetchFromGitHub {
+      owner = "facebook";
+      repo = "rocksdb";
+      rev = "refs/tags/v7.9.2";
+      hash = "sha256-5P7IqJ14EZzDkbjaBvbix04ceGGdlWBuVFH/5dpD5VM=";
+    };
+  });
 
   hasRadosgw = optExpat != null && optCurl != null && optLibedit != null;
 
@@ -188,21 +186,19 @@ let
   # Watch out for python <> boost compatibility
   python = python310.override {
     packageOverrides = self: super: {
-      sqlalchemy = super.sqlalchemy.overridePythonAttrs (
-        oldAttrs: rec {
-          version = "1.4.46";
-          src = super.fetchPypi {
-            pname = "SQLAlchemy";
-            inherit version;
-            hash = "sha256-aRO4JH2KKS74MVFipRkx4rQM6RaB8bbxj2lwRSAMSjA=";
-          };
-          nativeCheckInputs = oldAttrs.nativeCheckInputs ++ (with super; [ pytest-xdist ]);
-          disabledTestPaths = (oldAttrs.disabledTestPaths or [ ]) ++ [
-            "test/aaa_profiling"
-            "test/ext/mypy"
-          ];
-        }
-      );
+      sqlalchemy = super.sqlalchemy.overridePythonAttrs (oldAttrs: rec {
+        version = "1.4.46";
+        src = super.fetchPypi {
+          pname = "SQLAlchemy";
+          inherit version;
+          hash = "sha256-aRO4JH2KKS74MVFipRkx4rQM6RaB8bbxj2lwRSAMSjA=";
+        };
+        nativeCheckInputs = oldAttrs.nativeCheckInputs ++ (with super; [ pytest-xdist ]);
+        disabledTestPaths = (oldAttrs.disabledTestPaths or [ ]) ++ [
+          "test/aaa_profiling"
+          "test/ext/mypy"
+        ];
+      });
     };
   };
 

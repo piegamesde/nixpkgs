@@ -94,13 +94,11 @@ let
           && buildPlatform == hostPlatform
           && hostPlatform == targetPlatform
         )
-        (
-          fetchpatch {
-            name = "gcc-12-darwin-aarch64-support.patch";
-            url = "https://github.com/Homebrew/formula-patches/raw/1d184289/gcc/gcc-12.2.0-arm.diff";
-            sha256 = "sha256-omclLslGi/2yCV4pNBMaIpPDMW3tcz/RXdupbNbeOHA=";
-          }
-        )
+        (fetchpatch {
+          name = "gcc-12-darwin-aarch64-support.patch";
+          url = "https://github.com/Homebrew/formula-patches/raw/1d184289/gcc/gcc-12.2.0-arm.diff";
+          sha256 = "sha256-omclLslGi/2yCV4pNBMaIpPDMW3tcz/RXdupbNbeOHA=";
+        })
     ++ optional langD ../libphobos.patch
 
     # backport fixes to build gccgo with musl libc

@@ -27,7 +27,9 @@ let
     doCheck = false;
 
     passthru.tests = {
-      check = pyjsparser.overridePythonAttrs (_: { doCheck = true; });
+      check = pyjsparser.overridePythonAttrs (_: {
+        doCheck = true;
+      });
     };
 
     pythonImportsCheck = [ "pyjsparser" ];

@@ -112,16 +112,14 @@ builtins.intersectAttrs super {
   inherit
     (pkgs.lib.mapAttrs (
       _:
-      overrideCabal (
-        drv: {
-          testToolDepends = (drv.testToolDepends or [ ]) ++ [ pkgs.git ];
-          preCheck =
-            ''
-              export HOME=$TMPDIR/home
-            ''
-            + (drv.preCheck or "");
-        }
-      )
+      overrideCabal (drv: {
+        testToolDepends = (drv.testToolDepends or [ ]) ++ [ pkgs.git ];
+        preCheck =
+          ''
+            export HOME=$TMPDIR/home
+          ''
+          + (drv.preCheck or "");
+      })
     ) super)
     hls-brittany-plugin
     hls-floskell-plugin
@@ -1168,7 +1166,9 @@ builtins.intersectAttrs super {
       super.hercules-ci-api-core.drvPath
       == "/nix/store/dgy3w43zypmdswc7a7zis0njgljqvnq0-hercules-ci-api-core-0.1.5.0.drv"
     then
-      super.hercules-ci-api-core.overrideAttrs (_: { dummyAttr = 1; })
+      super.hercules-ci-api-core.overrideAttrs (_: {
+        dummyAttr = 1;
+      })
     else
       super.hercules-ci-api-core;
 
@@ -1181,7 +1181,9 @@ builtins.intersectAttrs super {
   hercules-ci-cnix-store =
     (super.hercules-ci-cnix-store.override { nix = self.hercules-ci-cnix-store.passthru.nixPackage; })
     .overrideAttrs
-      (_: { passthru.nixPackage = pkgs.nixVersions.nix_2_14; });
+      (_: {
+        passthru.nixPackage = pkgs.nixVersions.nix_2_14;
+      });
 
   # the testsuite fails because of not finding tsc without some help
   aeson-typescript = overrideCabal (drv: {
@@ -1388,16 +1390,14 @@ builtins.intersectAttrs super {
     addBuildDepend
       # Overrides for tailwindcss copied from:
       # https://github.com/EmaApps/emanote/blob/master/nix/tailwind.nix
-      (pkgs.nodePackages.tailwindcss.overrideAttrs (
-        oa: {
-          plugins = [
-            pkgs.nodePackages."@tailwindcss/aspect-ratio"
-            pkgs.nodePackages."@tailwindcss/forms"
-            pkgs.nodePackages."@tailwindcss/line-clamp"
-            pkgs.nodePackages."@tailwindcss/typography"
-          ];
-        }
-      ))
+      (pkgs.nodePackages.tailwindcss.overrideAttrs (oa: {
+        plugins = [
+          pkgs.nodePackages."@tailwindcss/aspect-ratio"
+          pkgs.nodePackages."@tailwindcss/forms"
+          pkgs.nodePackages."@tailwindcss/line-clamp"
+          pkgs.nodePackages."@tailwindcss/typography"
+        ];
+      }))
       super.tailwind;
 
   emanote = addBuildDepend pkgs.stork super.emanote;

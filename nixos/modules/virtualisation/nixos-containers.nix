@@ -669,7 +669,11 @@ in
               };
 
               extraVeths = mkOption {
-                type = with types; attrsOf (submodule { options = networkOptions; });
+                type =
+                  with types;
+                  attrsOf (submodule {
+                    options = networkOptions;
+                  });
                 default = { };
                 description = lib.mdDoc ''
                   Extra veth-pairs to be created for the container.

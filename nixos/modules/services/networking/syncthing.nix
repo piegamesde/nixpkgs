@@ -323,40 +323,38 @@ in
                   '';
                   type =
                     with types;
-                    nullOr (
-                      submodule {
-                        options = {
-                          type = mkOption {
-                            type = enum [
-                              "external"
-                              "simple"
-                              "staggered"
-                              "trashcan"
-                            ];
-                            description = mdDoc ''
-                              The type of versioning.
-                              See <https://docs.syncthing.net/users/versioning.html>.
-                            '';
-                          };
-                          fsPath = mkOption {
-                            default = "";
-                            type = either str path;
-                            description = mdDoc ''
-                              Path to the versioning folder.
-                              See <https://docs.syncthing.net/users/versioning.html>.
-                            '';
-                          };
-                          params = mkOption {
-                            type = attrsOf (either str path);
-                            description = mdDoc ''
-                              The parameters for versioning. Structure depends on
-                              [versioning.type](#opt-services.syncthing.folders._name_.versioning.type).
-                              See <https://docs.syncthing.net/users/versioning.html>.
-                            '';
-                          };
+                    nullOr (submodule {
+                      options = {
+                        type = mkOption {
+                          type = enum [
+                            "external"
+                            "simple"
+                            "staggered"
+                            "trashcan"
+                          ];
+                          description = mdDoc ''
+                            The type of versioning.
+                            See <https://docs.syncthing.net/users/versioning.html>.
+                          '';
                         };
-                      }
-                    );
+                        fsPath = mkOption {
+                          default = "";
+                          type = either str path;
+                          description = mdDoc ''
+                            Path to the versioning folder.
+                            See <https://docs.syncthing.net/users/versioning.html>.
+                          '';
+                        };
+                        params = mkOption {
+                          type = attrsOf (either str path);
+                          description = mdDoc ''
+                            The parameters for versioning. Structure depends on
+                            [versioning.type](#opt-services.syncthing.folders._name_.versioning.type).
+                            See <https://docs.syncthing.net/users/versioning.html>.
+                          '';
+                        };
+                      };
+                    });
                 };
 
                 rescanInterval = mkOption {

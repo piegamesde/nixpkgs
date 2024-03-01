@@ -101,13 +101,11 @@ in
 
     config = mkOption {
       type = attrsOf (
-        nullOr (
-          oneOf [
-            bool
-            int
-            str
-          ]
-        )
+        nullOr (oneOf [
+          bool
+          int
+          str
+        ])
       );
       default = { };
       example = literalExpression ''

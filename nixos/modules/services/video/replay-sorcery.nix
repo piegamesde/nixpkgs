@@ -30,12 +30,10 @@ in
       };
 
       settings = mkOption {
-        type = attrsOf (
-          oneOf [
-            str
-            int
-          ]
-        );
+        type = attrsOf (oneOf [
+          str
+          int
+        ]);
         default = { };
         description = lib.mdDoc "System-wide configuration for ReplaySorcery (/etc/replay-sorcery.conf).";
         example = literalExpression ''

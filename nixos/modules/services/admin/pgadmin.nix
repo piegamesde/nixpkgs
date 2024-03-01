@@ -56,13 +56,11 @@ let
 
   pyType =
     with types;
-    attrsOf (
-      oneOf [
-        (attrsOf base)
-        (listOf base)
-        base
-      ]
-    );
+    attrsOf (oneOf [
+      (attrsOf base)
+      (listOf base)
+      base
+    ]);
 in
 {
   options.services.pgadmin = {

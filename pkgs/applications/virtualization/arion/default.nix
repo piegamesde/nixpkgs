@@ -17,13 +17,11 @@ let
        - have functions to use Arion from inside Nix: arion.eval and arion.build
        - make it self-contained by including docker-compose
   */
-  arion = (justStaticExecutables (overrideCabal cabalOverrides arion-compose)).overrideAttrs (
-    o: {
-      # Patch away the arion-compose name. Unlike the Haskell library, the program
-      # is called arion (arion was already taken on hackage).
-      pname = "arion";
-    }
-  );
+  arion = (justStaticExecutables (overrideCabal cabalOverrides arion-compose)).overrideAttrs (o: {
+    # Patch away the arion-compose name. Unlike the Haskell library, the program
+    # is called arion (arion was already taken on hackage).
+    pname = "arion";
+  });
 
   inherit (haskell.lib.compose) justStaticExecutables overrideCabal;
 

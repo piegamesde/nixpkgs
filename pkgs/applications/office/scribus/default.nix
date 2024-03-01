@@ -27,12 +27,10 @@
 }:
 
 let
-  pythonEnv = python3.withPackages (
-    ps: [
-      ps.pillow
-      ps.tkinter
-    ]
-  );
+  pythonEnv = python3.withPackages (ps: [
+    ps.pillow
+    ps.tkinter
+  ]);
 in
 mkDerivation rec {
   pname = "scribus";

@@ -9,15 +9,13 @@ let
   # Seahub 8.x.x does not support django-webpack-loader >=1.x.x
   python = python3.override {
     packageOverrides = self: super: {
-      django-webpack-loader = super.django-webpack-loader.overridePythonAttrs (
-        old: rec {
-          version = "0.7.0";
-          src = old.src.override {
-            inherit version;
-            hash = "sha256-ejyIIBqlRIH5OZRlYVy+e5rs6AgUlqbQKHt8uOIy9Ec=";
-          };
-        }
-      );
+      django-webpack-loader = super.django-webpack-loader.overridePythonAttrs (old: rec {
+        version = "0.7.0";
+        src = old.src.override {
+          inherit version;
+          hash = "sha256-ejyIIBqlRIH5OZRlYVy+e5rs6AgUlqbQKHt8uOIy9Ec=";
+        };
+      });
     };
   };
 in

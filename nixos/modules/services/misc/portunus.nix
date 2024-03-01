@@ -227,14 +227,12 @@ in
           }
         ];
 
-        staticClients = forEach cfg.dex.oidcClients (
-          client: {
-            inherit (client) id;
-            redirectURIs = [ client.callbackURL ];
-            name = "OIDC for ${client.id}";
-            secretEnv = "DEX_CLIENT_${client.id}";
-          }
-        );
+        staticClients = forEach cfg.dex.oidcClients (client: {
+          inherit (client) id;
+          redirectURIs = [ client.callbackURL ];
+          name = "OIDC for ${client.id}";
+          secretEnv = "DEX_CLIENT_${client.id}";
+        });
       };
     };
 

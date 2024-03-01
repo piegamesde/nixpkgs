@@ -7,20 +7,16 @@
 let
   python = python3.override {
     packageOverrides = self: super: {
-      click = super.click.overridePythonAttrs (
-        old: rec {
-          version = "7.1.2";
-          src = old.src.override {
-            inherit version;
-            hash = "sha256-0rUlXHxjSbwb0eWeCM0SrLvWPOZJ8liHVXg6qU37axo=";
-          };
-        }
-      );
-      requests-aws4auth = super.requests-aws4auth.overridePythonAttrs (
-        old: {
-          doCheck = false; # requires click>=8.0
-        }
-      );
+      click = super.click.overridePythonAttrs (old: rec {
+        version = "7.1.2";
+        src = old.src.override {
+          inherit version;
+          hash = "sha256-0rUlXHxjSbwb0eWeCM0SrLvWPOZJ8liHVXg6qU37axo=";
+        };
+      });
+      requests-aws4auth = super.requests-aws4auth.overridePythonAttrs (old: {
+        doCheck = false; # requires click>=8.0
+      });
     };
   };
 in

@@ -33,16 +33,14 @@ let
     hsPkgs:
     lib.pipe hsPkgs.haskell-language-server (
       [
-        (haskell.lib.compose.overrideCabal (
-          old: {
-            enableSharedExecutables = dynamic;
-            ${if !dynamic then "postInstall" else null} = ''
-              ${old.postInstall or ""}
+        (haskell.lib.compose.overrideCabal (old: {
+          enableSharedExecutables = dynamic;
+          ${if !dynamic then "postInstall" else null} = ''
+            ${old.postInstall or ""}
 
-              remove-references-to -t ${hsPkgs.ghc} $out/bin/haskell-language-server
-            '';
-          }
-        ))
+            remove-references-to -t ${hsPkgs.ghc} $out/bin/haskell-language-server
+          '';
+        }))
         ((if dynamic then enableCabalFlag else disableCabalFlag) "dynamic")
       ]
       ++ optionals (!dynamic) [ justStaticExecutables ]

@@ -384,10 +384,8 @@ in
     };
   };
 
-  config.services.hylafax = mkIf (config.services.hylafax.enable) (
-    mkMerge [
-      defaultConfig
-      localConfig
-    ]
-  );
+  config.services.hylafax = mkIf (config.services.hylafax.enable) (mkMerge [
+    defaultConfig
+    localConfig
+  ]);
 }

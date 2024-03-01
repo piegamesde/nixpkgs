@@ -76,15 +76,13 @@ let
       description = mdDoc "Niceness.";
     };
     class = {
-      type = nullOr (
-        enum [
-          "idle"
-          "batch"
-          "other"
-          "rr"
-          "fifo"
-        ]
-      );
+      type = nullOr (enum [
+        "idle"
+        "batch"
+        "other"
+        "rr"
+        "fifo"
+      ]);
       example = literalExpression "\"batch\"";
       description = mdDoc "CPU scheduler class.";
     };
@@ -94,13 +92,11 @@ let
       description = mdDoc "CPU scheduler priority.";
     };
     ioClass = {
-      type = nullOr (
-        enum [
-          "idle"
-          "best-effort"
-          "realtime"
-        ]
-      );
+      type = nullOr (enum [
+        "idle"
+        "best-effort"
+        "realtime"
+      ]);
       example = literalExpression "\"best-effort\"";
       description = mdDoc "IO scheduler class.";
     };

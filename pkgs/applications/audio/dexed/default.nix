@@ -64,16 +64,14 @@ stdenv.mkDerivation rec {
     ];
 
   # JUCE insists on only dlopen'ing these
-  NIX_LDFLAGS = lib.optionalString stdenv.hostPlatform.isLinux (
-    toString [
-      "-lX11"
-      "-lXext"
-      "-lXcursor"
-      "-lXinerama"
-      "-lXrandr"
-      "-ljack"
-    ]
-  );
+  NIX_LDFLAGS = lib.optionalString stdenv.hostPlatform.isLinux (toString [
+    "-lX11"
+    "-lXext"
+    "-lXcursor"
+    "-lXinerama"
+    "-lXrandr"
+    "-ljack"
+  ]);
 
   installPhase =
     let

@@ -36,13 +36,11 @@ rec {
       sources = listToAttrs (
         map (
           dep:
-          nameValuePair dep.subpath (
-            fetchgit {
-              url = dep.packageRef.location;
-              rev = dep.state.checkoutState.revision;
-              sha256 = hashes.${dep.subpath};
-            }
-          )
+          nameValuePair dep.subpath (fetchgit {
+            url = dep.packageRef.location;
+            rev = dep.state.checkoutState.revision;
+            sha256 = hashes.${dep.subpath};
+          })
         ) workspaceState.object.dependencies
       );
 

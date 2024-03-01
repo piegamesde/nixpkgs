@@ -141,14 +141,12 @@ in
           freeformType =
             with lib.types;
             attrsOf (
-              nullOr (
-                oneOf [
-                  bool
-                  int
-                  float
-                  str
-                ]
-              )
+              nullOr (oneOf [
+                bool
+                int
+                float
+                str
+              ])
               // {
                 description = "INI atom (null, bool, int, float or string)";
               }

@@ -600,14 +600,12 @@ in
                     # TODO: this should be converted to freeformType
                     type =
                       with types;
-                      attrsOf (
-                        oneOf [
-                          bool
-                          int
-                          str
-                          (listOf str)
-                        ]
-                      );
+                      attrsOf (oneOf [
+                        bool
+                        int
+                        str
+                        (listOf str)
+                      ]);
                     default = { };
                     description = lib.mdDoc ''
                       Redis configuration. Refer to

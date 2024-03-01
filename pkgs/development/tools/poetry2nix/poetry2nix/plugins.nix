@@ -63,22 +63,20 @@ in
       nativeBuildInputs ? [ ],
       buildInputs ? [ ],
     }:
-    drv.overridePythonAttrs (
-      old: {
-        passthru = old.passthru // {
-          withPlugins =
-            pluginFn:
-            mkPluginDrv {
-              plugins = [ finalDrv ] ++ pluginFn self;
-              inherit
-                self
-                postInstall
-                nativeBuildInputs
-                buildInputs
-                ;
-              drv = finalDrv;
-            };
-        };
-      }
-    );
+    drv.overridePythonAttrs (old: {
+      passthru = old.passthru // {
+        withPlugins =
+          pluginFn:
+          mkPluginDrv {
+            plugins = [ finalDrv ] ++ pluginFn self;
+            inherit
+              self
+              postInstall
+              nativeBuildInputs
+              buildInputs
+              ;
+            drv = finalDrv;
+          };
+      };
+    });
 }

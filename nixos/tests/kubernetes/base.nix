@@ -99,16 +99,14 @@ let
                 ;
             }
           ))
-          (optionalAttrs (extraConfiguration != null) (
-            extraConfiguration {
-              inherit
-                config
-                pkgs
-                lib
-                nodes
-                ;
-            }
-          ))
+          (optionalAttrs (extraConfiguration != null) (extraConfiguration {
+            inherit
+              config
+              pkgs
+              lib
+              nodes
+              ;
+          }))
         ]
       ) machines;
 

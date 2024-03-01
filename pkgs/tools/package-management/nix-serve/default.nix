@@ -32,14 +32,12 @@ stdenv.mkDerivation {
     install -Dm0755 nix-serve.psgi $out/libexec/nix-serve/nix-serve.psgi
 
     makeWrapper ${
-      perl.withPackages (
-        p: [
-          p.DBDSQLite
-          p.Plack
-          p.Starman
-          nix.perl-bindings
-        ]
-      )
+      perl.withPackages (p: [
+        p.DBDSQLite
+        p.Plack
+        p.Starman
+        nix.perl-bindings
+      ])
     }/bin/starman $out/bin/nix-serve \
                 --prefix PATH : "${
                   lib.makeBinPath [

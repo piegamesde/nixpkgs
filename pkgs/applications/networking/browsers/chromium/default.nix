@@ -81,12 +81,10 @@ let
           pulseSupport
           ungoogled
           ;
-        gnChromium = gn.overrideAttrs (
-          oldAttrs: {
-            inherit (upstream-info.deps.gn) version;
-            src = fetchgit { inherit (upstream-info.deps.gn) url rev sha256; };
-          }
-        );
+        gnChromium = gn.overrideAttrs (oldAttrs: {
+          inherit (upstream-info.deps.gn) version;
+          src = fetchgit { inherit (upstream-info.deps.gn) url rev sha256; };
+        });
       }
       // lib.optionalAttrs (chromiumVersionAtLeast "113") rec {
         llvmPackages = llvmPackages_16;

@@ -11,15 +11,13 @@
 }:
 
 let
-  pyFxADeps = python3.withPackages (
-    p: [
-      p.setuptools # imports pkg_resources
-      # remainder taken from requirements.txt
-      p.pyfxa
-      p.tokenlib
-      p.cryptography
-    ]
-  );
+  pyFxADeps = python3.withPackages (p: [
+    p.setuptools # imports pkg_resources
+    # remainder taken from requirements.txt
+    p.pyfxa
+    p.tokenlib
+    p.cryptography
+  ]);
 in
 
 rustPlatform.buildRustPackage rec {

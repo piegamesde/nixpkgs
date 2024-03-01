@@ -17,41 +17,39 @@ let
     else
       throw "Unsupported ROCm LLVM platform";
 in
-stdenv.mkDerivation (
-  finalAttrs: {
-    pname = "rocm-device-libs";
-    version = "5.4.4";
+stdenv.mkDerivation (finalAttrs: {
+  pname = "rocm-device-libs";
+  version = "5.4.4";
 
-    src = fetchFromGitHub {
-      owner = "RadeonOpenCompute";
-      repo = "ROCm-Device-Libs";
-      rev = "rocm-${finalAttrs.version}";
-      hash = "sha256-8gxvgy2GlROxM5qKtZVu5Lxa1FmTIVlBTpfp8rxhNhk=";
-    };
+  src = fetchFromGitHub {
+    owner = "RadeonOpenCompute";
+    repo = "ROCm-Device-Libs";
+    rev = "rocm-${finalAttrs.version}";
+    hash = "sha256-8gxvgy2GlROxM5qKtZVu5Lxa1FmTIVlBTpfp8rxhNhk=";
+  };
 
-    patches = [ ./cmake.patch ];
+  patches = [ ./cmake.patch ];
 
-    nativeBuildInputs = [
-      cmake
-      rocm-cmake
-    ];
+  nativeBuildInputs = [
+    cmake
+    rocm-cmake
+  ];
 
-    buildInputs = [ libxml2 ];
-    cmakeFlags = [ "-DLLVM_TARGETS_TO_BUILD=AMDGPU;${llvmNativeTarget}" ];
+  buildInputs = [ libxml2 ];
+  cmakeFlags = [ "-DLLVM_TARGETS_TO_BUILD=AMDGPU;${llvmNativeTarget}" ];
 
-    passthru.updateScript = rocmUpdateScript {
-      name = finalAttrs.pname;
-      owner = finalAttrs.src.owner;
-      repo = finalAttrs.src.repo;
-    };
+  passthru.updateScript = rocmUpdateScript {
+    name = finalAttrs.pname;
+    owner = finalAttrs.src.owner;
+    repo = finalAttrs.src.repo;
+  };
 
-    meta = with lib; {
-      description = "Set of AMD-specific device-side language runtime libraries";
-      homepage = "https://github.com/RadeonOpenCompute/ROCm-Device-Libs";
-      license = licenses.ncsa;
-      maintainers = with maintainers; [ lovesegfault ] ++ teams.rocm.members;
-      platforms = platforms.linux;
-      broken = versions.minor finalAttrs.version != versions.minor stdenv.cc.version;
-    };
-  }
-)
+  meta = with lib; {
+    description = "Set of AMD-specific device-side language runtime libraries";
+    homepage = "https://github.com/RadeonOpenCompute/ROCm-Device-Libs";
+    license = licenses.ncsa;
+    maintainers = with maintainers; [ lovesegfault ] ++ teams.rocm.members;
+    platforms = platforms.linux;
+    broken = versions.minor finalAttrs.version != versions.minor stdenv.cc.version;
+  };
+})

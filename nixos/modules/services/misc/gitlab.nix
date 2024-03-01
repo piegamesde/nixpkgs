@@ -761,14 +761,12 @@ in
           freeformType =
             with types;
             attrsOf (
-              nullOr (
-                oneOf [
-                  str
-                  int
-                  bool
-                  attrs
-                ]
-              )
+              nullOr (oneOf [
+                str
+                int
+                bool
+                attrs
+              ])
             );
 
           options = {

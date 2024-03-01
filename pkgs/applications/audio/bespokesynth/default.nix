@@ -116,12 +116,10 @@ stdenv.mkDerivation rec {
       CoreAudioKit
     ];
 
-  env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.hostPlatform.isDarwin (
-    toString [
-      # Fails to find fp.h on its own
-      "-isystem ${CoreServices}/Library/Frameworks/CoreServices.framework/Versions/Current/Frameworks/CarbonCore.framework/Versions/Current/Headers/"
-    ]
-  );
+  env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.hostPlatform.isDarwin (toString [
+    # Fails to find fp.h on its own
+    "-isystem ${CoreServices}/Library/Frameworks/CoreServices.framework/Versions/Current/Frameworks/CarbonCore.framework/Versions/Current/Headers/"
+  ]);
 
   postInstall =
     if stdenv.hostPlatform.isDarwin then

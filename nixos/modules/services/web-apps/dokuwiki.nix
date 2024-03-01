@@ -180,15 +180,13 @@ let
       toPath = pathPrefix ++ to;
     in
     {
-      options = setAttrByPath from (
-        mkOption {
-          visible = false;
-          description = lib.mdDoc "Alias of {option}${showOption toPath}";
-          apply =
-            x:
-            builtins.trace "Obsolete option `${showOption fromPath}' is used. It was renamed to ${showOption toPath}" toOp;
-        }
-      );
+      options = setAttrByPath from (mkOption {
+        visible = false;
+        description = lib.mdDoc "Alias of {option}${showOption toPath}";
+        apply =
+          x:
+          builtins.trace "Obsolete option `${showOption fromPath}' is used. It was renamed to ${showOption toPath}" toOp;
+      });
       config = mkMerge [
         {
           warnings = optional fromOpt.isDefined "The option `${showOption fromPath}' defined in ${showFiles fromOpt.files} has been renamed to `${showOption toPath}'.";
@@ -419,13 +417,11 @@ let
         poolConfig = mkOption {
           type =
             with types;
-            attrsOf (
-              oneOf [
-                str
-                int
-                bool
-              ]
-            );
+            attrsOf (oneOf [
+              str
+              int
+              bool
+            ]);
           default = {
             "pm" = "dynamic";
             "pm.max_children" = 32;
@@ -558,162 +554,160 @@ in
   };
 
   # implementation
-  config = mkIf (eachSite != { }) (
-    mkMerge [
-      {
+  config = mkIf (eachSite != { }) (mkMerge [
+    {
 
-        warnings = flatten (mapAttrsToList (_: cfg: cfg.warnings) eachSite);
+      warnings = flatten (mapAttrsToList (_: cfg: cfg.warnings) eachSite);
 
-        assertions = flatten (mapAttrsToList (_: cfg: cfg.assertions) eachSite);
+      assertions = flatten (mapAttrsToList (_: cfg: cfg.assertions) eachSite);
 
-        services.phpfpm.pools = mapAttrs' (
+      services.phpfpm.pools = mapAttrs' (
+        hostName: cfg:
+        (nameValuePair "dokuwiki-${hostName}" {
+          inherit user;
+          group = webserver.group;
+
+          phpPackage = mkPhpPackage cfg;
+          phpEnv =
+            optionalAttrs (cfg.usersFile != null) { DOKUWIKI_USERS_AUTH_CONFIG = "${cfg.usersFile}"; }
+            // optionalAttrs (cfg.mergedConfig.useacl) {
+              DOKUWIKI_ACL_AUTH_CONFIG =
+                if (cfg.acl != null) then "${dokuwikiAclAuthConfig hostName cfg}" else "${toString cfg.aclFile}";
+            };
+
+          settings = {
+            "listen.owner" = webserver.user;
+            "listen.group" = webserver.group;
+          } // cfg.poolConfig;
+        })
+      ) eachSite;
+    }
+
+    {
+      systemd.tmpfiles.rules = flatten (
+        mapAttrsToList (
           hostName: cfg:
-          (nameValuePair "dokuwiki-${hostName}" {
-            inherit user;
-            group = webserver.group;
+          [
+            "d ${cfg.stateDir}/attic 0750 ${user} ${webserver.group} - -"
+            "d ${cfg.stateDir}/cache 0750 ${user} ${webserver.group} - -"
+            "d ${cfg.stateDir}/index 0750 ${user} ${webserver.group} - -"
+            "d ${cfg.stateDir}/locks 0750 ${user} ${webserver.group} - -"
+            "d ${cfg.stateDir}/log 0750 ${user} ${webserver.group} - -"
+            "d ${cfg.stateDir}/media 0750 ${user} ${webserver.group} - -"
+            "d ${cfg.stateDir}/media_attic 0750 ${user} ${webserver.group} - -"
+            "d ${cfg.stateDir}/media_meta 0750 ${user} ${webserver.group} - -"
+            "d ${cfg.stateDir}/meta 0750 ${user} ${webserver.group} - -"
+            "d ${cfg.stateDir}/pages 0750 ${user} ${webserver.group} - -"
+            "d ${cfg.stateDir}/tmp 0750 ${user} ${webserver.group} - -"
+          ]
+          ++
+            lib.optional (cfg.aclFile != null)
+              "C ${cfg.aclFile} 0640 ${user} ${webserver.group} - ${pkg hostName cfg}/share/dokuwiki/conf/acl.auth.php.dist"
+          ++
+            lib.optional (cfg.usersFile != null)
+              "C ${cfg.usersFile} 0640 ${user} ${webserver.group} - ${pkg hostName cfg}/share/dokuwiki/conf/users.auth.php.dist"
+        ) eachSite
+      );
 
-            phpPackage = mkPhpPackage cfg;
-            phpEnv =
-              optionalAttrs (cfg.usersFile != null) { DOKUWIKI_USERS_AUTH_CONFIG = "${cfg.usersFile}"; }
-              // optionalAttrs (cfg.mergedConfig.useacl) {
-                DOKUWIKI_ACL_AUTH_CONFIG =
-                  if (cfg.acl != null) then "${dokuwikiAclAuthConfig hostName cfg}" else "${toString cfg.aclFile}";
-              };
+      users.users.${user} = {
+        group = webserver.group;
+        isSystemUser = true;
+      };
+    }
 
-            settings = {
-              "listen.owner" = webserver.user;
-              "listen.group" = webserver.group;
-            } // cfg.poolConfig;
+    (mkIf (cfg.webserver == "nginx") {
+      services.nginx = {
+        enable = true;
+        virtualHosts = mapAttrs (hostName: cfg: {
+          serverName = mkDefault hostName;
+          root = "${pkg hostName cfg}/share/dokuwiki";
+
+          locations = {
+            "~ /(conf/|bin/|inc/|install.php)" = {
+              extraConfig = "deny all;";
+            };
+
+            "~ ^/data/" = {
+              root = "${cfg.stateDir}";
+              extraConfig = "internal;";
+            };
+
+            "~ ^/lib.*\.(js|css|gif|png|ico|jpg|jpeg)$" = {
+              extraConfig = "expires 365d;";
+            };
+
+            "/" = {
+              priority = 1;
+              index = "doku.php";
+              extraConfig = ''try_files $uri $uri/ @dokuwiki;'';
+            };
+
+            "@dokuwiki" = {
+              extraConfig = ''
+                # rewrites "doku.php/" out of the URLs if you set the userwrite setting to .htaccess in dokuwiki config page
+                rewrite ^/_media/(.*) /lib/exe/fetch.php?media=$1 last;
+                rewrite ^/_detail/(.*) /lib/exe/detail.php?media=$1 last;
+                rewrite ^/_export/([^/]+)/(.*) /doku.php?do=export_$1&id=$2 last;
+                rewrite ^/(.*) /doku.php?id=$1&$args last;
+              '';
+            };
+
+            "~ \\.php$" = {
+              extraConfig = ''
+                try_files $uri $uri/ /doku.php;
+                include ${config.services.nginx.package}/conf/fastcgi_params;
+                fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+                fastcgi_param REDIRECT_STATUS 200;
+                fastcgi_pass unix:${config.services.phpfpm.pools."dokuwiki-${hostName}".socket};
+              '';
+            };
+          };
+        }) eachSite;
+      };
+    })
+
+    (mkIf (cfg.webserver == "caddy") {
+      services.caddy = {
+        enable = true;
+        virtualHosts = mapAttrs' (
+          hostName: cfg:
+          (nameValuePair "http://${hostName}" {
+            extraConfig = ''
+              root * ${pkg hostName cfg}/share/dokuwiki
+              file_server
+
+              encode zstd gzip
+              php_fastcgi unix/${config.services.phpfpm.pools."dokuwiki-${hostName}".socket}
+
+              @restrict_files {
+                path /data/* /conf/* /bin/* /inc/* /vendor/* /install.php
+              }
+
+              respond @restrict_files 404
+
+              @allow_media {
+                path_regexp path ^/_media/(.*)$
+              }
+              rewrite @allow_media /lib/exe/fetch.php?media=/{http.regexp.path.1}
+
+              @allow_detail   {
+                path /_detail*
+              }
+              rewrite @allow_detail /lib/exe/detail.php?media={path}
+
+              @allow_export   {
+                path /_export*
+                path_regexp export /([^/]+)/(.*)
+              }
+              rewrite @allow_export /doku.php?do=export_{http.regexp.export.1}&id={http.regexp.export.2}
+
+              try_files {path} {path}/ /doku.php?id={path}&{query}
+            '';
           })
         ) eachSite;
-      }
-
-      {
-        systemd.tmpfiles.rules = flatten (
-          mapAttrsToList (
-            hostName: cfg:
-            [
-              "d ${cfg.stateDir}/attic 0750 ${user} ${webserver.group} - -"
-              "d ${cfg.stateDir}/cache 0750 ${user} ${webserver.group} - -"
-              "d ${cfg.stateDir}/index 0750 ${user} ${webserver.group} - -"
-              "d ${cfg.stateDir}/locks 0750 ${user} ${webserver.group} - -"
-              "d ${cfg.stateDir}/log 0750 ${user} ${webserver.group} - -"
-              "d ${cfg.stateDir}/media 0750 ${user} ${webserver.group} - -"
-              "d ${cfg.stateDir}/media_attic 0750 ${user} ${webserver.group} - -"
-              "d ${cfg.stateDir}/media_meta 0750 ${user} ${webserver.group} - -"
-              "d ${cfg.stateDir}/meta 0750 ${user} ${webserver.group} - -"
-              "d ${cfg.stateDir}/pages 0750 ${user} ${webserver.group} - -"
-              "d ${cfg.stateDir}/tmp 0750 ${user} ${webserver.group} - -"
-            ]
-            ++
-              lib.optional (cfg.aclFile != null)
-                "C ${cfg.aclFile} 0640 ${user} ${webserver.group} - ${pkg hostName cfg}/share/dokuwiki/conf/acl.auth.php.dist"
-            ++
-              lib.optional (cfg.usersFile != null)
-                "C ${cfg.usersFile} 0640 ${user} ${webserver.group} - ${pkg hostName cfg}/share/dokuwiki/conf/users.auth.php.dist"
-          ) eachSite
-        );
-
-        users.users.${user} = {
-          group = webserver.group;
-          isSystemUser = true;
-        };
-      }
-
-      (mkIf (cfg.webserver == "nginx") {
-        services.nginx = {
-          enable = true;
-          virtualHosts = mapAttrs (hostName: cfg: {
-            serverName = mkDefault hostName;
-            root = "${pkg hostName cfg}/share/dokuwiki";
-
-            locations = {
-              "~ /(conf/|bin/|inc/|install.php)" = {
-                extraConfig = "deny all;";
-              };
-
-              "~ ^/data/" = {
-                root = "${cfg.stateDir}";
-                extraConfig = "internal;";
-              };
-
-              "~ ^/lib.*\.(js|css|gif|png|ico|jpg|jpeg)$" = {
-                extraConfig = "expires 365d;";
-              };
-
-              "/" = {
-                priority = 1;
-                index = "doku.php";
-                extraConfig = ''try_files $uri $uri/ @dokuwiki;'';
-              };
-
-              "@dokuwiki" = {
-                extraConfig = ''
-                  # rewrites "doku.php/" out of the URLs if you set the userwrite setting to .htaccess in dokuwiki config page
-                  rewrite ^/_media/(.*) /lib/exe/fetch.php?media=$1 last;
-                  rewrite ^/_detail/(.*) /lib/exe/detail.php?media=$1 last;
-                  rewrite ^/_export/([^/]+)/(.*) /doku.php?do=export_$1&id=$2 last;
-                  rewrite ^/(.*) /doku.php?id=$1&$args last;
-                '';
-              };
-
-              "~ \\.php$" = {
-                extraConfig = ''
-                  try_files $uri $uri/ /doku.php;
-                  include ${config.services.nginx.package}/conf/fastcgi_params;
-                  fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
-                  fastcgi_param REDIRECT_STATUS 200;
-                  fastcgi_pass unix:${config.services.phpfpm.pools."dokuwiki-${hostName}".socket};
-                '';
-              };
-            };
-          }) eachSite;
-        };
-      })
-
-      (mkIf (cfg.webserver == "caddy") {
-        services.caddy = {
-          enable = true;
-          virtualHosts = mapAttrs' (
-            hostName: cfg:
-            (nameValuePair "http://${hostName}" {
-              extraConfig = ''
-                root * ${pkg hostName cfg}/share/dokuwiki
-                file_server
-
-                encode zstd gzip
-                php_fastcgi unix/${config.services.phpfpm.pools."dokuwiki-${hostName}".socket}
-
-                @restrict_files {
-                  path /data/* /conf/* /bin/* /inc/* /vendor/* /install.php
-                }
-
-                respond @restrict_files 404
-
-                @allow_media {
-                  path_regexp path ^/_media/(.*)$
-                }
-                rewrite @allow_media /lib/exe/fetch.php?media=/{http.regexp.path.1}
-
-                @allow_detail   {
-                  path /_detail*
-                }
-                rewrite @allow_detail /lib/exe/detail.php?media={path}
-
-                @allow_export   {
-                  path /_export*
-                  path_regexp export /([^/]+)/(.*)
-                }
-                rewrite @allow_export /doku.php?do=export_{http.regexp.export.1}&id={http.regexp.export.2}
-
-                try_files {path} {path}/ /doku.php?id={path}&{query}
-              '';
-            })
-          ) eachSite;
-        };
-      })
-    ]
-  );
+      };
+    })
+  ]);
 
   meta.maintainers = with maintainers; [
     _1000101

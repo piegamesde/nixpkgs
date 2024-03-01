@@ -65,13 +65,11 @@ stdenv.mkDerivation {
 
   inherit src;
 
-  patches = lib.optional (lib.versionOlder nvidia_x11.settingsVersion "440") (
-    fetchpatch {
-      # fixes "multiple definition of `VDPAUDeviceFunctions'" linking errors
-      url = "https://github.com/NVIDIA/nvidia-settings/commit/a7c1f5fce6303a643fadff7d85d59934bd0cf6b6.patch";
-      hash = "sha256-ZwF3dRTYt/hO8ELg9weoz1U/XcU93qiJL2d1aq1Jlak=";
-    }
-  );
+  patches = lib.optional (lib.versionOlder nvidia_x11.settingsVersion "440") (fetchpatch {
+    # fixes "multiple definition of `VDPAUDeviceFunctions'" linking errors
+    url = "https://github.com/NVIDIA/nvidia-settings/commit/a7c1f5fce6303a643fadff7d85d59934bd0cf6b6.patch";
+    hash = "sha256-ZwF3dRTYt/hO8ELg9weoz1U/XcU93qiJL2d1aq1Jlak=";
+  });
 
   postPatch = lib.optionalString nvidia_x11.useProfiles ''
     sed -i 's,/usr/share/nvidia/,${nvidia_x11.bin}/share/nvidia/,g' src/gtk+-2.x/ctkappprofile.c

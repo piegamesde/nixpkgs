@@ -20,12 +20,10 @@ let
     src = ./command-not-found.pl;
     isExecutable = true;
     inherit (cfg) dbPath;
-    perl = pkgs.perl.withPackages (
-      p: [
-        p.DBDSQLite
-        p.StringShellQuote
-      ]
-    );
+    perl = pkgs.perl.withPackages (p: [
+      p.DBDSQLite
+      p.StringShellQuote
+    ]);
   };
 in
 

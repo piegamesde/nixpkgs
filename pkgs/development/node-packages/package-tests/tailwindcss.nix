@@ -14,9 +14,9 @@ let
     @tailwind utilities;
   '';
 
-  tailwindcssWithPlugins = tailwindcss.overrideAttrs (
-    oldAttrs: { plugins = [ nodePackages."@tailwindcss/typography" ]; }
-  );
+  tailwindcssWithPlugins = tailwindcss.overrideAttrs (oldAttrs: {
+    plugins = [ nodePackages."@tailwindcss/typography" ];
+  });
 
   tailwindcssWithPluginsConfig = builtins.toFile "tailwind.config.js" ''
     module.exports = {

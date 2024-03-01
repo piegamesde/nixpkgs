@@ -61,37 +61,31 @@ let
       services.dhcpd4 = {
         enable = true;
         interfaces = map (n: "eth${toString n}") vlanIfs;
-        extraConfig = flip concatMapStrings vlanIfs (
-          n: ''
-            subnet 192.168.${toString n}.0 netmask 255.255.255.0 {
-              option routers 192.168.${toString n}.1;
-              range 192.168.${toString n}.3 192.168.${toString n}.254;
-            }
-          ''
-        );
-        machines = flip map vlanIfs (
-          vlan: {
-            hostName = "client${toString vlan}";
-            ethernetAddress = qemu-common.qemuNicMac vlan 1;
-            ipAddress = "192.168.${toString vlan}.2";
+        extraConfig = flip concatMapStrings vlanIfs (n: ''
+          subnet 192.168.${toString n}.0 netmask 255.255.255.0 {
+            option routers 192.168.${toString n}.1;
+            range 192.168.${toString n}.3 192.168.${toString n}.254;
           }
-        );
+        '');
+        machines = flip map vlanIfs (vlan: {
+          hostName = "client${toString vlan}";
+          ethernetAddress = qemu-common.qemuNicMac vlan 1;
+          ipAddress = "192.168.${toString vlan}.2";
+        });
       };
       services.radvd = {
         enable = true;
-        config = flip concatMapStrings vlanIfs (
-          n: ''
-            interface eth${toString n} {
-              AdvSendAdvert on;
-              AdvManagedFlag on;
-              AdvOtherConfigFlag on;
+        config = flip concatMapStrings vlanIfs (n: ''
+          interface eth${toString n} {
+            AdvSendAdvert on;
+            AdvManagedFlag on;
+            AdvOtherConfigFlag on;
 
-              prefix fd00:1234:5678:${toString n}::/64 {
-                AdvAutonomous off;
-              };
+            prefix fd00:1234:5678:${toString n}::/64 {
+              AdvAutonomous off;
             };
-          ''
-        );
+          };
+        '');
       };
       services.dhcpd6 = {
         enable = true;
@@ -100,13 +94,11 @@ let
           ''
             authoritative;
           ''
-          + flip concatMapStrings vlanIfs (
-            n: ''
-              subnet6 fd00:1234:5678:${toString n}::/64 {
-                range6 fd00:1234:5678:${toString n}::2 fd00:1234:5678:${toString n}::2;
-              }
-            ''
-          );
+          + flip concatMapStrings vlanIfs (n: ''
+            subnet6 fd00:1234:5678:${toString n}::/64 {
+              range6 fd00:1234:5678:${toString n}::2 fd00:1234:5678:${toString n}::2;
+            }
+          '');
       };
     };
 

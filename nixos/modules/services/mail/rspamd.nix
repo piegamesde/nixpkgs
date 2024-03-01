@@ -407,13 +407,11 @@ in
         config = mkOption {
           type =
             with types;
-            attrsOf (
-              oneOf [
-                bool
-                str
-                (listOf str)
-              ]
-            );
+            attrsOf (oneOf [
+              bool
+              str
+              (listOf str)
+            ]);
           description = lib.mdDoc ''
             Addon to postfix configuration
           '';

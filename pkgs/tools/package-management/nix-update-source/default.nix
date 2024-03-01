@@ -41,7 +41,11 @@ python3Packages.buildPythonApplication rec {
       // json.fetch
       // {
         inherit src;
-        overrideSrc = drv: lib.overrideDerivation drv (orig: { inherit src; });
+        overrideSrc =
+          drv:
+          lib.overrideDerivation drv (orig: {
+            inherit src;
+          });
       };
 
     updateScript = ''

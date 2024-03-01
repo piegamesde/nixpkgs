@@ -62,9 +62,9 @@ self: super: {
   ed25519 = doJailbreak super.ed25519;
   hackage-security = doJailbreak super.hackage-security;
   hashable = pkgs.lib.pipe super.hashable [
-    (overrideCabal (
-      drv: { postPatch = "sed -i -e 's,integer-gmp .*<1.1,integer-gmp < 2,' hashable.cabal"; }
-    ))
+    (overrideCabal (drv: {
+      postPatch = "sed -i -e 's,integer-gmp .*<1.1,integer-gmp < 2,' hashable.cabal";
+    }))
     doJailbreak
     dontCheck
     (addBuildDepend self.base-orphans)

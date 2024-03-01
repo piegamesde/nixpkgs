@@ -33,7 +33,9 @@ let
     '';
 
     passthru.tests = {
-      check = pyparsing.overridePythonAttrs (_: { doCheck = true; });
+      check = pyparsing.overridePythonAttrs (_: {
+        doCheck = true;
+      });
     };
 
     meta = with lib; {

@@ -67,14 +67,12 @@ let
     libtirpc
     gperftools
     liburing
-    (python3.withPackages (
-      pkgs: [
-        pkgs.flask
-        pkgs.prettytable
-        pkgs.requests
-        pkgs.pyxattr
-      ]
-    ))
+    (python3.withPackages (pkgs: [
+      pkgs.flask
+      pkgs.prettytable
+      pkgs.requests
+      pkgs.pyxattr
+    ]))
     # NOTE: `python3` has to be *AFTER* the above `python3.withPackages`,
     #       to ensure that the packages are available but the `toPythonPath`
     #       shell function used in `postFixup` is also still available.

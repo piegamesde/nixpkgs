@@ -219,15 +219,13 @@ rec {
         let
           acc' = [ y ] ++ acc;
         in
-        innerClosePropagation acc' (
-          uniqList {
-            inputList =
-              (maybeAttrNullable "propagatedBuildInputs" [ ] y)
-              ++ (maybeAttrNullable "propagatedNativeBuildInputs" [ ] y)
-              ++ ys;
-            acc = acc';
-          }
-        );
+        innerClosePropagation acc' (uniqList {
+          inputList =
+            (maybeAttrNullable "propagatedBuildInputs" [ ] y)
+            ++ (maybeAttrNullable "propagatedNativeBuildInputs" [ ] y)
+            ++ ys;
+          acc = acc';
+        });
 
   closePropagationSlow = list: (uniqList { inputList = (innerClosePropagation [ ] list); });
 

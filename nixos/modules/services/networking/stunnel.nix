@@ -104,13 +104,11 @@ in
           with types;
           attrsOf (
             attrsOf (
-              nullOr (
-                oneOf [
-                  bool
-                  int
-                  str
-                ]
-              )
+              nullOr (oneOf [
+                bool
+                int
+                str
+              ])
             )
           );
         example = {
@@ -135,13 +133,11 @@ in
           with types;
           attrsOf (
             attrsOf (
-              nullOr (
-                oneOf [
-                  bool
-                  int
-                  str
-                ]
-              )
+              nullOr (oneOf [
+                bool
+                int
+                str
+              ])
             )
           );
 

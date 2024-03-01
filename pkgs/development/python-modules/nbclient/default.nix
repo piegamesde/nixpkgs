@@ -61,7 +61,9 @@ let
     '';
 
     passthru.tests = {
-      check = nbclient.overridePythonAttrs (_: { doCheck = true; });
+      check = nbclient.overridePythonAttrs (_: {
+        doCheck = true;
+      });
     };
 
     meta = with lib; {

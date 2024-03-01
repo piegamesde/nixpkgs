@@ -115,95 +115,89 @@ in
       '';
       type =
         with types;
-        listOf (
-          submodule {
-            options = {
-              users = mkOption {
-                type = with types; listOf (either str int);
-                description = lib.mdDoc ''
-                  The usernames / UIDs this rule should apply for.
-                '';
-                default = [ ];
-              };
-
-              groups = mkOption {
-                type = with types; listOf (either str int);
-                description = lib.mdDoc ''
-                  The groups / GIDs this rule should apply for.
-                '';
-                default = [ ];
-              };
-
-              host = mkOption {
-                type = types.str;
-                default = "ALL";
-                description = lib.mdDoc ''
-                  For what host this rule should apply.
-                '';
-              };
-
-              runAs = mkOption {
-                type = with types; str;
-                default = "ALL:ALL";
-                description = lib.mdDoc ''
-                  Under which user/group the specified command is allowed to run.
-
-                  A user can be specified using just the username: `"foo"`.
-                  It is also possible to specify a user/group combination using `"foo:bar"`
-                  or to only allow running as a specific group with `":bar"`.
-                '';
-              };
-
-              commands = mkOption {
-                description = lib.mdDoc ''
-                  The commands for which the rule should apply.
-                '';
-                type =
-                  with types;
-                  listOf (
-                    either str (
-                      submodule {
-
-                        options = {
-                          command = mkOption {
-                            type = with types; str;
-                            description = lib.mdDoc ''
-                              A command being either just a path to a binary to allow any arguments,
-                              the full command with arguments pre-set or with `""` used as the argument,
-                              not allowing arguments to the command at all.
-                            '';
-                          };
-
-                          options = mkOption {
-                            type =
-                              with types;
-                              listOf (
-                                enum [
-                                  "NOPASSWD"
-                                  "PASSWD"
-                                  "NOEXEC"
-                                  "EXEC"
-                                  "SETENV"
-                                  "NOSETENV"
-                                  "LOG_INPUT"
-                                  "NOLOG_INPUT"
-                                  "LOG_OUTPUT"
-                                  "NOLOG_OUTPUT"
-                                ]
-                              );
-                            description = lib.mdDoc ''
-                              Options for running the command. Refer to the [sudo manual](https://www.sudo.ws/man/1.7.10/sudoers.man.html).
-                            '';
-                            default = [ ];
-                          };
-                        };
-                      }
-                    )
-                  );
-              };
+        listOf (submodule {
+          options = {
+            users = mkOption {
+              type = with types; listOf (either str int);
+              description = lib.mdDoc ''
+                The usernames / UIDs this rule should apply for.
+              '';
+              default = [ ];
             };
-          }
-        );
+
+            groups = mkOption {
+              type = with types; listOf (either str int);
+              description = lib.mdDoc ''
+                The groups / GIDs this rule should apply for.
+              '';
+              default = [ ];
+            };
+
+            host = mkOption {
+              type = types.str;
+              default = "ALL";
+              description = lib.mdDoc ''
+                For what host this rule should apply.
+              '';
+            };
+
+            runAs = mkOption {
+              type = with types; str;
+              default = "ALL:ALL";
+              description = lib.mdDoc ''
+                Under which user/group the specified command is allowed to run.
+
+                A user can be specified using just the username: `"foo"`.
+                It is also possible to specify a user/group combination using `"foo:bar"`
+                or to only allow running as a specific group with `":bar"`.
+              '';
+            };
+
+            commands = mkOption {
+              description = lib.mdDoc ''
+                The commands for which the rule should apply.
+              '';
+              type =
+                with types;
+                listOf (
+                  either str (submodule {
+
+                    options = {
+                      command = mkOption {
+                        type = with types; str;
+                        description = lib.mdDoc ''
+                          A command being either just a path to a binary to allow any arguments,
+                          the full command with arguments pre-set or with `""` used as the argument,
+                          not allowing arguments to the command at all.
+                        '';
+                      };
+
+                      options = mkOption {
+                        type =
+                          with types;
+                          listOf (enum [
+                            "NOPASSWD"
+                            "PASSWD"
+                            "NOEXEC"
+                            "EXEC"
+                            "SETENV"
+                            "NOSETENV"
+                            "LOG_INPUT"
+                            "NOLOG_INPUT"
+                            "LOG_OUTPUT"
+                            "NOLOG_OUTPUT"
+                          ]);
+                        description = lib.mdDoc ''
+                          Options for running the command. Refer to the [sudo manual](https://www.sudo.ws/man/1.7.10/sudoers.man.html).
+                        '';
+                        default = [ ];
+                      };
+                    };
+                  })
+                );
+            };
+          };
+        });
     };
 
     security.sudo.extraConfig = mkOption {

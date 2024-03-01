@@ -28,7 +28,9 @@ let
     '';
 
     passthru.tests = {
-      check = incremental.overridePythonAttrs (_: { doCheck = true; });
+      check = incremental.overridePythonAttrs (_: {
+        doCheck = true;
+      });
     };
 
     pythonImportsCheck = [ "incremental" ];

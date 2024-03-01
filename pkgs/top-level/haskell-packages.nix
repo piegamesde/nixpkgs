@@ -560,15 +560,13 @@ in
         in
         pkgs.lib.genAttrs integerSimpleGhcNames (
           name:
-          packages.${name}.override (
-            oldAttrs: {
-              ghc = bh.compiler.integer-simple.${name};
-              buildHaskellPackages = bh.packages.integer-simple.${name};
-              overrides = pkgs.lib.composeExtensions (oldAttrs.overrides or (_: _: { })) (
-                _: _: { integer-simple = null; }
-              );
-            }
-          )
+          packages.${name}.override (oldAttrs: {
+            ghc = bh.compiler.integer-simple.${name};
+            buildHaskellPackages = bh.packages.integer-simple.${name};
+            overrides = pkgs.lib.composeExtensions (oldAttrs.overrides or (_: _: { })) (
+              _: _: { integer-simple = null; }
+            );
+          })
         );
 
       native-bignum =

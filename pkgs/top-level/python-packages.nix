@@ -2290,16 +2290,14 @@ self: super: with self; {
 
   cython = callPackage ../development/python-modules/Cython { };
 
-  cython_3 = self.cython.overridePythonAttrs (
-    old: rec {
-      version = "3.0.0b2";
-      src = old.src.override {
-        inherit version;
-        hash = "sha256-bEKAZWV56STBGURyR2ZLsi+v7cfezKWTqOogvdV9Z1U=";
-      };
-      patches = [ ];
-    }
-  );
+  cython_3 = self.cython.overridePythonAttrs (old: rec {
+    version = "3.0.0b2";
+    src = old.src.override {
+      inherit version;
+      hash = "sha256-bEKAZWV56STBGURyR2ZLsi+v7cfezKWTqOogvdV9Z1U=";
+    };
+    patches = [ ];
+  });
 
   cytoolz = callPackage ../development/python-modules/cytoolz { };
 
@@ -5678,14 +5676,12 @@ self: super: with self; {
     toPythonModule
     (
       p:
-      p.overrideAttrs (
-        super: {
-          meta = super.meta // {
-            outputsToInstall = [ "py" ]; # The package always builds python3 bindings
-            broken = (super.meta.broken or false) || !isPy3k;
-          };
-        }
-      )
+      p.overrideAttrs (super: {
+        meta = super.meta // {
+          outputsToInstall = [ "py" ]; # The package always builds python3 bindings
+          broken = (super.meta.broken or false) || !isPy3k;
+        };
+      })
     )
     (p: p.override { python3 = python; })
     (p: p.py)
@@ -5705,13 +5701,11 @@ self: super: with self; {
     toPythonModule
     (
       p:
-      p.overrideAttrs (
-        super: {
-          meta = super.meta // {
-            outputsToInstall = [ "py" ];
-          };
-        }
-      )
+      p.overrideAttrs (super: {
+        meta = super.meta // {
+          outputsToInstall = [ "py" ];
+        };
+      })
     )
     (
       p:
@@ -5734,13 +5728,11 @@ self: super: with self; {
     toPythonModule
     (
       p:
-      p.overrideAttrs (
-        super: {
-          meta = super.meta // {
-            outputsToInstall = [ "py" ];
-          };
-        }
-      )
+      p.overrideAttrs (super: {
+        meta = super.meta // {
+          outputsToInstall = [ "py" ];
+        };
+      })
     )
     (p: p.override { inherit python; })
     (p: p.py)
@@ -5760,14 +5752,12 @@ self: super: with self; {
     toPythonModule
     (
       p:
-      p.overrideAttrs (
-        super: {
-          meta = super.meta // {
-            outputsToInstall = [ "py" ];
-            broken = super.meta.broken or isPy27;
-          };
-        }
-      )
+      p.overrideAttrs (super: {
+        meta = super.meta // {
+          outputsToInstall = [ "py" ];
+          broken = super.meta.broken or isPy27;
+        };
+      })
     )
     (
       p:
@@ -6231,12 +6221,10 @@ self: super: with self; {
   meshtastic = callPackage ../development/python-modules/meshtastic { };
 
   meson = toPythonModule (
-    (pkgs.meson.override { python3 = python; }).overrideAttrs (
-      oldAttrs: {
-        # We do not want the setup hook in Python packages because the build is performed differently.
-        setupHook = null;
-      }
-    )
+    (pkgs.meson.override { python3 = python; }).overrideAttrs (oldAttrs: {
+      # We do not want the setup hook in Python packages because the build is performed differently.
+      setupHook = null;
+    })
   );
 
   mesonpep517 = callPackage ../development/python-modules/mesonpep517 { };
@@ -10059,15 +10047,13 @@ self: super: with self; {
 
   pyuavcan = callPackage ../development/python-modules/pyuavcan {
     # this version pinpoint to anold version is necessary due to a regression
-    nunavut = self.nunavut.overridePythonAttrs (
-      old: rec {
-        version = "0.2.3";
-        src = old.src.override {
-          inherit version;
-          hash = "sha256-pZtRUvQMpqrnW5+8umsRcNhF9NJZJZ3I9yILVglMCnU=";
-        };
-      }
-    );
+    nunavut = self.nunavut.overridePythonAttrs (old: rec {
+      version = "0.2.3";
+      src = old.src.override {
+        inherit version;
+        hash = "sha256-pZtRUvQMpqrnW5+8umsRcNhF9NJZJZ3I9yILVglMCnU=";
+      };
+    });
   };
 
   pyudev = callPackage ../development/python-modules/pyudev { inherit (pkgs) udev; };

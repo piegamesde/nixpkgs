@@ -43,16 +43,14 @@ let
   # the game requires a special version 78.6.0 of spidermonkey, otherwise
   # we get compilation errors. We override the src attribute of spidermonkey_78
   # in order to reuse that declartion, while giving it a different source input.
-  spidermonkey_78_6 = spidermonkey_78.overrideAttrs (
-    old: rec {
-      version = "78.6.0";
-      src = fetchurl {
-        url = "mirror://mozilla/firefox/releases/${version}esr/source/firefox-${version}esr.source.tar.xz";
-        sha256 = "0lyg65v380j8i2lrylwz8a5ya80822l8vcnlx3dfqpd3s6zzjsay";
-      };
-      patches = (old.patches or [ ]) ++ [ ./spidermonkey-cargo-toml.patch ];
-    }
-  );
+  spidermonkey_78_6 = spidermonkey_78.overrideAttrs (old: rec {
+    version = "78.6.0";
+    src = fetchurl {
+      url = "mirror://mozilla/firefox/releases/${version}esr/source/firefox-${version}esr.source.tar.xz";
+      sha256 = "0lyg65v380j8i2lrylwz8a5ya80822l8vcnlx3dfqpd3s6zzjsay";
+    };
+    patches = (old.patches or [ ]) ++ [ ./spidermonkey-cargo-toml.patch ];
+  });
 in
 stdenv.mkDerivation rec {
   pname = "0ad";

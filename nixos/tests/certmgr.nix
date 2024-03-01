@@ -167,13 +167,11 @@ in
       };
       imp = toString (
         pkgs.writeText "test.json" (
-          builtins.toJSON (
-            mkSpec {
-              host = "imp.example.org";
-              service = "nginx";
-              action = "restart";
-            }
-          )
+          builtins.toJSON (mkSpec {
+            host = "imp.example.org";
+            service = "nginx";
+            action = "restart";
+          })
         )
       );
     };

@@ -59,7 +59,9 @@ let
     ] ++ lib.flatten (builtins.attrValues passthru.optional-dependencies);
 
     passthru.tests = {
-      check = self.overridePythonAttrs (_: { doCheck = false; });
+      check = self.overridePythonAttrs (_: {
+        doCheck = false;
+      });
     };
 
     meta = with lib; {

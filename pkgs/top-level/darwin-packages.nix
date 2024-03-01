@@ -251,7 +251,9 @@ makeScopeWithSplicing (generateSplicesForMkScope "darwin") (_: { })
           # This may seem unimportant, but without it packages (e.g., bacula) will
           # fail with linker errors referring ___CFConstantStringClassReference.
           # It's not clear to me why some packages need this extra setup.
-          lib.overrideDerivation apple_sdk.frameworks.CoreFoundation (drv: { setupHook = null; })
+          lib.overrideDerivation apple_sdk.frameworks.CoreFoundation (drv: {
+            setupHook = null;
+          })
         else
           callPackage ../os-specific/darwin/swift-corelibs/corefoundation.nix { };
 

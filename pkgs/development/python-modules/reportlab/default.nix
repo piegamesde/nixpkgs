@@ -10,7 +10,9 @@
 }:
 
 let
-  ft = freetype.overrideAttrs (oldArgs: { dontDisableStatic = true; });
+  ft = freetype.overrideAttrs (oldArgs: {
+    dontDisableStatic = true;
+  });
 in
 buildPythonPackage rec {
   pname = "reportlab";

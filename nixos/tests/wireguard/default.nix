@@ -32,9 +32,9 @@ listToAttrs (
     in
     flip mapAttrsToList tests (
       name: test:
-      nameValuePair "wireguard-${name}-linux-${v'}" (
-        test { kernelPackages = pkgs."linuxPackages_${v'}"; }
-      )
+      nameValuePair "wireguard-${name}-linux-${v'}" (test {
+        kernelPackages = pkgs."linuxPackages_${v'}";
+      })
     )
   )
 )

@@ -329,15 +329,13 @@ in
         akvcam = callPackage ../os-specific/linux/akvcam { };
 
         amdgpu-pro = callPackage ../os-specific/linux/amdgpu-pro {
-          libffi = pkgs.libffi.overrideAttrs (
-            orig: rec {
-              version = "3.3";
-              src = fetchurl {
-                url = "https://github.com/libffi/libffi/releases/download/v${version}/${orig.pname}-${version}.tar.gz";
-                sha256 = "0mi0cpf8aa40ljjmzxb7im6dbj45bb0kllcd09xgmp834y9agyvj";
-              };
-            }
-          );
+          libffi = pkgs.libffi.overrideAttrs (orig: rec {
+            version = "3.3";
+            src = fetchurl {
+              url = "https://github.com/libffi/libffi/releases/download/v${version}/${orig.pname}-${version}.tar.gz";
+              sha256 = "0mi0cpf8aa40ljjmzxb7im6dbj45bb0kllcd09xgmp834y9agyvj";
+            };
+          });
         };
 
         apfs = callPackage ../os-specific/linux/apfs { };
@@ -729,17 +727,15 @@ in
       allowImportFromDerivation ? true,
     }:
     recurseIntoAttrs (
-      packagesFor (
-        manualConfig {
-          inherit
-            version
-            src
-            modDirVersion
-            configfile
-            allowImportFromDerivation
-            ;
-        }
-      )
+      packagesFor (manualConfig {
+        inherit
+          version
+          src
+          modDirVersion
+          configfile
+          allowImportFromDerivation
+          ;
+      })
     );
 
   # Derive one of the default .config files

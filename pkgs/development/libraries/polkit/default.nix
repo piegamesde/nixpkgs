@@ -112,12 +112,10 @@ stdenv.mkDerivation rec {
     (python3.pythonForBuild.withPackages (
       pp: with pp; [
         dbus-python
-        (python-dbusmock.overridePythonAttrs (
-          attrs: {
-            # Avoid dependency cycle.
-            doCheck = false;
-          }
-        ))
+        (python-dbusmock.overridePythonAttrs (attrs: {
+          # Avoid dependency cycle.
+          doCheck = false;
+        }))
       ]
     ))
   ];

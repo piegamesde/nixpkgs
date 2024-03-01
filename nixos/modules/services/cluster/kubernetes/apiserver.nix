@@ -158,16 +158,14 @@ in
         "RBAC"
         "Node"
       ]; # Enabling RBAC by default, although kubernetes default is AllowAllow
-      type = listOf (
-        enum [
-          "AlwaysAllow"
-          "AlwaysDeny"
-          "ABAC"
-          "Webhook"
-          "RBAC"
-          "Node"
-        ]
-      );
+      type = listOf (enum [
+        "AlwaysAllow"
+        "AlwaysDeny"
+        "ABAC"
+        "Webhook"
+        "RBAC"
+        "Node"
+      ]);
     };
 
     authorizationPolicy = mkOption {

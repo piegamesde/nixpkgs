@@ -1563,22 +1563,18 @@ self: super:
 
   # 2023-04-16: https://github.com/ghcjs/jsaddle/pull/137
   jsaddle-webkit2gtk = lib.pipe super.jsaddle-webkit2gtk [
-    (appendPatch (
-      fetchpatch {
-        url = "https://github.com/ghcjs/jsaddle/commit/f990366f19d23a8008d482572d52351c1a6f7215.patch";
-        hash = "sha256-IbkJrlyG6q5rqMIhn//Dt3u6T314Pug+mQMwwe0LK5w=";
-        relative = "jsaddle-webkit2gtk";
-      }
-    ))
-    (overrideCabal (
-      old: {
-        postPatch =
-          old.postPatch or ""
-          + ''
-            sed -i 's/bytestring.*0.11/bytestring/' jsaddle-webkit2gtk.cabal
-          '';
-      }
-    ))
+    (appendPatch (fetchpatch {
+      url = "https://github.com/ghcjs/jsaddle/commit/f990366f19d23a8008d482572d52351c1a6f7215.patch";
+      hash = "sha256-IbkJrlyG6q5rqMIhn//Dt3u6T314Pug+mQMwwe0LK5w=";
+      relative = "jsaddle-webkit2gtk";
+    }))
+    (overrideCabal (old: {
+      postPatch =
+        old.postPatch or ""
+        + ''
+          sed -i 's/bytestring.*0.11/bytestring/' jsaddle-webkit2gtk.cabal
+        '';
+    }))
   ];
 
   # 2022-03-16: lens bound can be loosened https://github.com/ghcjs/jsaddle-dom/issues/19
@@ -1866,7 +1862,12 @@ self: super:
   servant-swagger-ui-core = doJailbreak super.servant-swagger-ui-core;
 
   hercules-ci-agent = lib.pipe super.hercules-ci-agent [
-    (pkg: pkg.override (_: { cachix = super.cachix_1_3_3; }))
+    (
+      pkg:
+      pkg.override (_: {
+        cachix = super.cachix_1_3_3;
+      })
+    )
     (self.generateOptparseApplicativeCompletions [ "hercules-ci-agent" ])
   ];
 
@@ -1876,7 +1877,9 @@ self: super:
 
   hercules-ci-cli = lib.pipe super.hercules-ci-cli [
     unmarkBroken
-    (overrideCabal (drv: { hydraPlatforms = super.hercules-ci-cli.meta.platforms; }))
+    (overrideCabal (drv: {
+      hydraPlatforms = super.hercules-ci-cli.meta.platforms;
+    }))
     # See hercules-ci-optparse-applicative in non-hackage-packages.nix.
     (addBuildDepend super.hercules-ci-optparse-applicative)
     (self.generateOptparseApplicativeCompletions [ "hci" ])
@@ -2285,24 +2288,20 @@ self: super:
           }
         )
         # Provide newly added dependencies
-        (overrideCabal (
-          drv: {
-            libraryHaskellDepends = drv.libraryHaskellDepends or [ ] ++ [
-              self.cryptonite
-              self.memory
-            ];
-            testHaskellDepends = drv.testHaskellDepends or [ ] ++ [ self.inspection-testing ];
-          }
-        ))
+        (overrideCabal (drv: {
+          libraryHaskellDepends = drv.libraryHaskellDepends or [ ] ++ [
+            self.cryptonite
+            self.memory
+          ];
+          testHaskellDepends = drv.testHaskellDepends or [ ] ++ [ self.inspection-testing ];
+        }))
         # https://github.com/factisresearch/large-hashable/issues/24
-        (overrideCabal (
-          drv: {
-            testFlags = drv.testFlags or [ ] ++ [
-              "-n"
-              "^Data.LargeHashable.Tests.Inspection:genericSumGetsOptimized$"
-            ];
-          }
-        ))
+        (overrideCabal (drv: {
+          testFlags = drv.testFlags or [ ] ++ [
+            "-n"
+            "^Data.LargeHashable.Tests.Inspection:genericSumGetsOptimized$"
+          ];
+        }))
       ];
 
   # BSON defaults to requiring network instead of network-bsd which is

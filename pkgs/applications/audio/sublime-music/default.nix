@@ -20,17 +20,15 @@
 let
   python = python3.override {
     packageOverrides = self: super: {
-      semver = super.semver.overridePythonAttrs (
-        oldAttrs: rec {
-          version = "2.13.0";
-          src = fetchFromGitHub {
-            owner = "python-semver";
-            repo = "python-semver";
-            rev = "refs/tags/${version}";
-            hash = "sha256-IWTo/P9JRxBQlhtcH3JMJZZrwAA8EALF4dtHajWUc4w=";
-          };
-        }
-      );
+      semver = super.semver.overridePythonAttrs (oldAttrs: rec {
+        version = "2.13.0";
+        src = fetchFromGitHub {
+          owner = "python-semver";
+          repo = "python-semver";
+          rev = "refs/tags/${version}";
+          hash = "sha256-IWTo/P9JRxBQlhtcH3JMJZZrwAA8EALF4dtHajWUc4w=";
+        };
+      });
     };
   };
 in

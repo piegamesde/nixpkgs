@@ -69,20 +69,18 @@ stdenv.mkDerivation rec {
         '';
       };
     in
-    openrgb.overrideAttrs (
-      old: {
-        qmakeFlags = old.qmakeFlags or [ ] ++ [
-          # Welcome to Escape Hell, we have backslashes
-          ''DEFINES+=OPENRGB_EXTRA_PLUGIN_DIRECTORY=\\\""${
-            lib.escape [
-              "\\"
-              "\""
-              " "
-            ] (toString pluginsDir)
-          }/lib\\\""''
-        ];
-      }
-    );
+    openrgb.overrideAttrs (old: {
+      qmakeFlags = old.qmakeFlags or [ ] ++ [
+        # Welcome to Escape Hell, we have backslashes
+        ''DEFINES+=OPENRGB_EXTRA_PLUGIN_DIRECTORY=\\\""${
+          lib.escape [
+            "\\"
+            "\""
+            " "
+          ] (toString pluginsDir)
+        }/lib\\\""''
+      ];
+    });
 
   meta = with lib; {
     description = "Open source RGB lighting control";

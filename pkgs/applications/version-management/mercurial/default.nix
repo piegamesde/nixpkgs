@@ -213,71 +213,67 @@ let
         touch $out
       '';
 in
-self.overridePythonAttrs (
-  origAttrs: {
-    passthru = origAttrs.passthru // rec {
-      # withExtensions takes a function which takes the python packages set and
-      # returns a list of extensions to install.
-      #
-      # for instance: mercurial.withExtension (pm: [ pm.hg-evolve ])
-      withExtensions =
-        f:
-        let
-          python = self.python;
-          mercurialHighPrio =
-            ps:
-            (ps.toPythonModule self).overrideAttrs (
-              oldAttrs: {
-                meta = oldAttrs.meta // {
-                  priority = 50;
-                };
-              }
-            );
-          plugins = (f python.pkgs) ++ [ (mercurialHighPrio python.pkgs) ];
-          env = python.withPackages (ps: plugins);
-        in
-        stdenv.mkDerivation {
-          pname = "${self.pname}-with-extensions";
+self.overridePythonAttrs (origAttrs: {
+  passthru = origAttrs.passthru // rec {
+    # withExtensions takes a function which takes the python packages set and
+    # returns a list of extensions to install.
+    #
+    # for instance: mercurial.withExtension (pm: [ pm.hg-evolve ])
+    withExtensions =
+      f:
+      let
+        python = self.python;
+        mercurialHighPrio =
+          ps:
+          (ps.toPythonModule self).overrideAttrs (oldAttrs: {
+            meta = oldAttrs.meta // {
+              priority = 50;
+            };
+          });
+        plugins = (f python.pkgs) ++ [ (mercurialHighPrio python.pkgs) ];
+        env = python.withPackages (ps: plugins);
+      in
+      stdenv.mkDerivation {
+        pname = "${self.pname}-with-extensions";
 
-          inherit (self) src version meta;
+        inherit (self) src version meta;
 
-          buildInputs = self.buildInputs ++ self.propagatedBuildInputs;
-          nativeBuildInputs = self.nativeBuildInputs;
+        buildInputs = self.buildInputs ++ self.propagatedBuildInputs;
+        nativeBuildInputs = self.nativeBuildInputs;
 
-          dontUnpack = true;
-          dontPatch = true;
-          dontConfigure = true;
-          dontBuild = true;
-          doCheck = false;
+        dontUnpack = true;
+        dontPatch = true;
+        dontConfigure = true;
+        dontBuild = true;
+        doCheck = false;
 
-          installPhase = ''
-            runHook preInstall
+        installPhase = ''
+          runHook preInstall
 
-            mkdir -p $out/bin
+          mkdir -p $out/bin
 
-            for bindir in ${lib.concatStringsSep " " (map (d: "${lib.getBin d}/bin") plugins)}; do
-              for bin in $bindir/*; do
-                ln -s ${env}/bin/$(basename $bin) $out/bin/
-              done
+          for bindir in ${lib.concatStringsSep " " (map (d: "${lib.getBin d}/bin") plugins)}; do
+            for bin in $bindir/*; do
+              ln -s ${env}/bin/$(basename $bin) $out/bin/
             done
+          done
 
-            ln -s ${self}/share $out/share
+          ln -s ${self}/share $out/share
 
-            runHook postInstall
-          '';
+          runHook postInstall
+        '';
 
-          installCheckPhase = ''
-            runHook preInstallCheck
+        installCheckPhase = ''
+          runHook preInstallCheck
 
-            $out/bin/hg help >/dev/null || exit 1
+          $out/bin/hg help >/dev/null || exit 1
 
-            runHook postInstallCheck
-          '';
-        };
-
-      tests = origAttrs.passthru.tests // {
-        withExtensions = withExtensions (pm: [ pm.hg-evolve ]);
+          runHook postInstallCheck
+        '';
       };
+
+    tests = origAttrs.passthru.tests // {
+      withExtensions = withExtensions (pm: [ pm.hg-evolve ]);
     };
-  }
-)
+  };
+})

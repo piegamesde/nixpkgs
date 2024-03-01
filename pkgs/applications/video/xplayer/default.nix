@@ -28,12 +28,10 @@
 }:
 
 let
-  pythonenv = python3.withPackages (
-    ps: [
-      ps.pygobject3
-      ps.dbus-python # For one plugin
-    ]
-  );
+  pythonenv = python3.withPackages (ps: [
+    ps.pygobject3
+    ps.dbus-python # For one plugin
+  ]);
 in
 
 stdenv.mkDerivation rec {

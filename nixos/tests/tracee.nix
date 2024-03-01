@@ -17,41 +17,39 @@ import ./make-test-python.nix (
             # required by Test_EventFilters/trace_events_from_ls_and_which_binary_in_separate_scopes
             which
             # build the go integration tests as a binary
-            (tracee.overrideAttrs (
-              oa: {
-                pname = oa.pname + "-integration";
-                postPatch =
-                  oa.postPatch or ""
-                  + ''
-                    # prepare tester.sh (which will be embedded in the test binary)
-                    patchShebangs tests/integration/tester.sh
+            (tracee.overrideAttrs (oa: {
+              pname = oa.pname + "-integration";
+              postPatch =
+                oa.postPatch or ""
+                + ''
+                  # prepare tester.sh (which will be embedded in the test binary)
+                  patchShebangs tests/integration/tester.sh
 
-                    # fix the test to look at nixos paths for running programs
-                    substituteInPlace tests/integration/integration_test.go \
-                      --replace "bin=/usr/bin/" "comm=" \
-                      --replace "binary=/usr/bin/" "comm=" \
-                      --replace "/usr/bin/dockerd" "dockerd" \
-                      --replace "/usr/bin" "/run/current-system/sw/bin"
-                  '';
-                nativeBuildInputs = oa.nativeBuildInputs or [ ] ++ [ makeWrapper ];
-                buildPhase = ''
-                  runHook preBuild
-                  # just build the static lib we need for the go test binary
-                  make $makeFlags ''${enableParallelBuilding:+-j$NIX_BUILD_CORES} bpf-core ./dist/btfhub
+                  # fix the test to look at nixos paths for running programs
+                  substituteInPlace tests/integration/integration_test.go \
+                    --replace "bin=/usr/bin/" "comm=" \
+                    --replace "binary=/usr/bin/" "comm=" \
+                    --replace "/usr/bin/dockerd" "dockerd" \
+                    --replace "/usr/bin" "/run/current-system/sw/bin"
+                '';
+              nativeBuildInputs = oa.nativeBuildInputs or [ ] ++ [ makeWrapper ];
+              buildPhase = ''
+                runHook preBuild
+                # just build the static lib we need for the go test binary
+                make $makeFlags ''${enableParallelBuilding:+-j$NIX_BUILD_CORES} bpf-core ./dist/btfhub
 
-                  # then compile the tests to be ran later
-                  CGO_LDFLAGS="$(pkg-config --libs libbpf)" go test -tags core,ebpf,integration -p 1 -c -o $GOPATH/tracee-integration ./tests/integration/...
-                  runHook postBuild
-                '';
-                doCheck = false;
-                outputs = [ "out" ];
-                installPhase = ''
-                  mkdir -p $out/bin
-                  mv $GOPATH/tracee-integration $out/bin/
-                '';
-                doInstallCheck = false;
-              }
-            ))
+                # then compile the tests to be ran later
+                CGO_LDFLAGS="$(pkg-config --libs libbpf)" go test -tags core,ebpf,integration -p 1 -c -o $GOPATH/tracee-integration ./tests/integration/...
+                runHook postBuild
+              '';
+              doCheck = false;
+              outputs = [ "out" ];
+              installPhase = ''
+                mkdir -p $out/bin
+                mv $GOPATH/tracee-integration $out/bin/
+              '';
+              doInstallCheck = false;
+            }))
           ];
         };
     };

@@ -73,14 +73,12 @@ let
     cl-ode = pkg: {
       nativeLibs =
         let
-          ode' = ode.overrideAttrs (
-            o: {
-              configureFlags = [
-                "--enable-shared"
-                "--enable-double-precision"
-              ];
-            }
-          );
+          ode' = ode.overrideAttrs (o: {
+            configureFlags = [
+              "--enable-shared"
+              "--enable-double-precision"
+            ];
+          });
         in
         [ ode' ];
     };

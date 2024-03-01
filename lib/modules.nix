@@ -313,9 +313,9 @@ rec {
                   builtins.addErrorContext
                     "while evaluating the error message for definitions for `${optText}', which is an option that does not exist"
                     (
-                      builtins.addErrorContext "while evaluating a definition from `${firstDef.file}'" (
-                        showDefs [ firstDef ]
-                      )
+                      builtins.addErrorContext "while evaluating a definition from `${firstDef.file}'" (showDefs [
+                        firstDef
+                      ])
                     );
               in
               "The option `${optText}' does not exist. Definition values:${defText}";
@@ -1205,14 +1205,12 @@ rec {
     optionName: replacementInstructions:
     { options, ... }:
     {
-      options = setAttrByPath optionName (
-        mkOption {
-          visible = false;
-          apply =
-            x:
-            throw "The option `${showOption optionName}' can no longer be used since it's been removed. ${replacementInstructions}";
-        }
-      );
+      options = setAttrByPath optionName (mkOption {
+        visible = false;
+        apply =
+          x:
+          throw "The option `${showOption optionName}' can no longer be used since it's been removed. ${replacementInstructions}";
+      });
       config.assertions =
         let
           opt = getAttrFromPath optionName options;
@@ -1305,13 +1303,11 @@ rec {
       options = foldl' recursiveUpdate { } (
         map (
           path:
-          setAttrByPath path (
-            mkOption {
-              visible = false;
-              # To use the value in mergeFn without triggering errors
-              default = "_mkMergedOptionModule";
-            }
-          )
+          setAttrByPath path (mkOption {
+            visible = false;
+            # To use the value in mergeFn without triggering errors
+            default = "_mkMergedOptionModule";
+          })
         ) from
       );
 

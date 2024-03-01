@@ -33,11 +33,9 @@ stdenv.mkDerivation rec {
 
   patches = [ ./build-use-optional-freetype-with-pkg-config.patch ];
 
-  postPatch = lib.forEach extensions (
-    ext: ''
-      cp ${ext} ./${ext.name or (builtins.baseNameOf ext)}
-    ''
-  );
+  postPatch = lib.forEach extensions (ext: ''
+    cp ${ext} ./${ext.name or (builtins.baseNameOf ext)}
+  '');
 
   preConfigure = ''
     patchShebangs build.sh

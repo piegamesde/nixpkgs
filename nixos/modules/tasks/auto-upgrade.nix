@@ -132,23 +132,21 @@ in
         };
         type =
           with types;
-          nullOr (
-            submodule {
-              options = {
-                lower = mkOption {
-                  description = lib.mdDoc "Lower limit of the reboot window";
-                  type = types.strMatching "[[:digit:]]{2}:[[:digit:]]{2}";
-                  example = "01:00";
-                };
-
-                upper = mkOption {
-                  description = lib.mdDoc "Upper limit of the reboot window";
-                  type = types.strMatching "[[:digit:]]{2}:[[:digit:]]{2}";
-                  example = "05:00";
-                };
+          nullOr (submodule {
+            options = {
+              lower = mkOption {
+                description = lib.mdDoc "Lower limit of the reboot window";
+                type = types.strMatching "[[:digit:]]{2}:[[:digit:]]{2}";
+                example = "01:00";
               };
-            }
-          );
+
+              upper = mkOption {
+                description = lib.mdDoc "Upper limit of the reboot window";
+                type = types.strMatching "[[:digit:]]{2}:[[:digit:]]{2}";
+                example = "05:00";
+              };
+            };
+          });
       };
 
       persistent = mkOption {

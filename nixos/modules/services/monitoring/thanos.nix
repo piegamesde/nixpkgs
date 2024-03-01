@@ -817,23 +817,21 @@ in
       };
     })
 
-    (mkIf cfg.store.enable (
-      mkMerge [
-        (assertRelativeStateDir "store")
-        {
-          systemd.services.thanos-store = {
-            wantedBy = [ "multi-user.target" ];
-            after = [ "network.target" ];
-            serviceConfig = {
-              DynamicUser = true;
-              StateDirectory = cfg.store.stateDir;
-              Restart = "always";
-              ExecStart = thanos "store";
-            };
+    (mkIf cfg.store.enable (mkMerge [
+      (assertRelativeStateDir "store")
+      {
+        systemd.services.thanos-store = {
+          wantedBy = [ "multi-user.target" ];
+          after = [ "network.target" ];
+          serviceConfig = {
+            DynamicUser = true;
+            StateDirectory = cfg.store.stateDir;
+            Restart = "always";
+            ExecStart = thanos "store";
           };
-        }
-      ]
-    ))
+        };
+      }
+    ]))
 
     (mkIf cfg.query.enable {
       systemd.services.thanos-query = {
@@ -847,82 +845,74 @@ in
       };
     })
 
-    (mkIf cfg.rule.enable (
-      mkMerge [
-        (assertRelativeStateDir "rule")
-        {
-          systemd.services.thanos-rule = {
+    (mkIf cfg.rule.enable (mkMerge [
+      (assertRelativeStateDir "rule")
+      {
+        systemd.services.thanos-rule = {
+          wantedBy = [ "multi-user.target" ];
+          after = [ "network.target" ];
+          serviceConfig = {
+            DynamicUser = true;
+            StateDirectory = cfg.rule.stateDir;
+            Restart = "always";
+            ExecStart = thanos "rule";
+          };
+        };
+      }
+    ]))
+
+    (mkIf cfg.compact.enable (mkMerge [
+      (assertRelativeStateDir "compact")
+      {
+        systemd.services.thanos-compact =
+          let
+            wait = cfg.compact.startAt == null;
+          in
+          {
             wantedBy = [ "multi-user.target" ];
             after = [ "network.target" ];
             serviceConfig = {
+              Type = if wait then "simple" else "oneshot";
+              Restart = if wait then "always" else "no";
               DynamicUser = true;
-              StateDirectory = cfg.rule.stateDir;
-              Restart = "always";
-              ExecStart = thanos "rule";
+              StateDirectory = cfg.compact.stateDir;
+              ExecStart = thanos "compact";
             };
-          };
-        }
-      ]
-    ))
+          }
+          // optionalAttrs (!wait) { inherit (cfg.compact) startAt; };
+      }
+    ]))
 
-    (mkIf cfg.compact.enable (
-      mkMerge [
-        (assertRelativeStateDir "compact")
-        {
-          systemd.services.thanos-compact =
-            let
-              wait = cfg.compact.startAt == null;
-            in
-            {
-              wantedBy = [ "multi-user.target" ];
-              after = [ "network.target" ];
-              serviceConfig = {
-                Type = if wait then "simple" else "oneshot";
-                Restart = if wait then "always" else "no";
-                DynamicUser = true;
-                StateDirectory = cfg.compact.stateDir;
-                ExecStart = thanos "compact";
-              };
-            }
-            // optionalAttrs (!wait) { inherit (cfg.compact) startAt; };
-        }
-      ]
-    ))
-
-    (mkIf cfg.downsample.enable (
-      mkMerge [
-        (assertRelativeStateDir "downsample")
-        {
-          systemd.services.thanos-downsample = {
-            wantedBy = [ "multi-user.target" ];
-            after = [ "network.target" ];
-            serviceConfig = {
-              DynamicUser = true;
-              StateDirectory = cfg.downsample.stateDir;
-              Restart = "always";
-              ExecStart = thanos "downsample";
-            };
+    (mkIf cfg.downsample.enable (mkMerge [
+      (assertRelativeStateDir "downsample")
+      {
+        systemd.services.thanos-downsample = {
+          wantedBy = [ "multi-user.target" ];
+          after = [ "network.target" ];
+          serviceConfig = {
+            DynamicUser = true;
+            StateDirectory = cfg.downsample.stateDir;
+            Restart = "always";
+            ExecStart = thanos "downsample";
           };
-        }
-      ]
-    ))
+        };
+      }
+    ]))
 
-    (mkIf cfg.receive.enable (
-      mkMerge [
-        (assertRelativeStateDir "receive")
-        {
-          systemd.services.thanos-receive = {
-            wantedBy = [ "multi-user.target" ];
-            after = [ "network.target" ];
-            serviceConfig = {
-              DynamicUser = true;
-              StateDirectory = cfg.receive.stateDir;
-              Restart = "always";
-              ExecStart = thanos "receive";
-            };
+    (mkIf cfg.receive.enable (mkMerge [
+      (assertRelativeStateDir "receive")
+      {
+        systemd.services.thanos-receive = {
+          wantedBy = [ "multi-user.target" ];
+          after = [ "network.target" ];
+          serviceConfig = {
+            DynamicUser = true;
+            StateDirectory = cfg.receive.stateDir;
+            Restart = "always";
+            ExecStart = thanos "receive";
           };
-        }
-      ]
-    ))
+        };
+      }
+    ]))
   ];
 }

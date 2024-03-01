@@ -819,12 +819,10 @@ in
         default = { };
         type =
           with types;
-          attrsOf (
-            submodule [
-              (inheritableModule false)
-              certOpts
-            ]
-          );
+          attrsOf (submodule [
+            (inheritableModule false)
+            certOpts
+          ]);
         description = lib.mdDoc ''
           Attribute set of certificates to get signed and renewed. Creates
           `acme-''${cert}.{service,timer}` systemd units for

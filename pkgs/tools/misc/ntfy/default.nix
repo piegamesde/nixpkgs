@@ -18,16 +18,14 @@ let
       ntfy-webpush = self.callPackage ./webpush.nix { };
 
       # databases, on which slack-sdk depends, is incompatible with SQLAlchemy 2.0
-      sqlalchemy = super.sqlalchemy.overridePythonAttrs (
-        old: rec {
-          version = "1.4.46";
-          src = self.fetchPypi {
-            pname = "SQLAlchemy";
-            inherit version;
-            hash = "sha256-aRO4JH2KKS74MVFipRkx4rQM6RaB8bbxj2lwRSAMSjA=";
-          };
-        }
-      );
+      sqlalchemy = super.sqlalchemy.overridePythonAttrs (old: rec {
+        version = "1.4.46";
+        src = self.fetchPypi {
+          pname = "SQLAlchemy";
+          inherit version;
+          hash = "sha256-aRO4JH2KKS74MVFipRkx4rQM6RaB8bbxj2lwRSAMSjA=";
+        };
+      });
     };
   };
 in

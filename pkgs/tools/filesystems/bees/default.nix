@@ -76,10 +76,8 @@ in
     ln -s ${bees}/bin/beesd "$out"/bin/beesd
   ''
 ).overrideAttrs
-  (
-    old: {
-      passthru.tests = {
-        smoke-test = nixosTests.bees;
-      };
-    }
-  )
+  (old: {
+    passthru.tests = {
+      smoke-test = nixosTests.bees;
+    };
+  })

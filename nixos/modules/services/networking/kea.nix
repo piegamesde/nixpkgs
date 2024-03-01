@@ -257,8 +257,8 @@ in
         UMask = "0077";
       };
     in
-    mkIf (cfg.ctrl-agent.enable || cfg.dhcp4.enable || cfg.dhcp6.enable || cfg.dhcp-ddns.enable) (
-      mkMerge [
+    mkIf (cfg.ctrl-agent.enable || cfg.dhcp4.enable || cfg.dhcp6.enable || cfg.dhcp-ddns.enable)
+      (mkMerge [
         { environment.systemPackages = [ package ]; }
 
         (mkIf cfg.ctrl-agent.enable {
@@ -424,8 +424,7 @@ in
             } // commonServiceConfig;
           };
         })
-      ]
-    );
+      ]);
 
   meta.maintainers = with maintainers; [ hexa ];
   # uses attributes of the linked package

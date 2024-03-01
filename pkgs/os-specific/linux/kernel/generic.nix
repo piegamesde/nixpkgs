@@ -280,16 +280,14 @@ let
 
     # Adds dependencies needed to edit the config:
     # nix-shell '<nixpkgs>' -A linux.configEnv --command 'make nconfig'
-    configEnv = kernel.overrideAttrs (
-      old: {
-        nativeBuildInputs =
-          old.nativeBuildInputs or [ ]
-          ++ (with buildPackages; [
-            pkg-config
-            ncurses
-          ]);
-      }
-    );
+    configEnv = kernel.overrideAttrs (old: {
+      nativeBuildInputs =
+        old.nativeBuildInputs or [ ]
+        ++ (with buildPackages; [
+          pkg-config
+          ncurses
+        ]);
+    });
 
     passthru = kernel.passthru // (removeAttrs passthru [ "passthru" ]);
     tests =

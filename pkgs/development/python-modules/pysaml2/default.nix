@@ -23,16 +23,14 @@
 }:
 
 let
-  pymongo3 = pymongo.overridePythonAttrs (
-    old: rec {
-      version = "3.12.3";
-      src = fetchPypi {
-        pname = "pymongo";
-        inherit version;
-        hash = "sha256-ConK3ABipeU2ZN3gQ/bAlxcrjBxfAJRJAJUoL/mZWl8=";
-      };
-    }
-  );
+  pymongo3 = pymongo.overridePythonAttrs (old: rec {
+    version = "3.12.3";
+    src = fetchPypi {
+      pname = "pymongo";
+      inherit version;
+      hash = "sha256-ConK3ABipeU2ZN3gQ/bAlxcrjBxfAJRJAJUoL/mZWl8=";
+    };
+  });
 in
 buildPythonPackage rec {
   pname = "pysaml2";

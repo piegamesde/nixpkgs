@@ -275,13 +275,11 @@
         }
         // sources.python310
       )).overrideAttrs
-        (
-          old: {
-            # TODO(@Artturin): Add this to the main cpython expr
-            strictDeps = true;
-            pname = "python3-minimal";
-          }
-        );
+        (old: {
+          # TODO(@Artturin): Add this to the main cpython expr
+          strictDeps = true;
+          pname = "python3-minimal";
+        });
 
     pypy27 = callPackage ./pypy {
       self = __splicedPackages.pypy27;

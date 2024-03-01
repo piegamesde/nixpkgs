@@ -36,31 +36,29 @@ let
       );
   siteDir = "$out/share/emacs/site-lisp/elpa/${tree-sitter-langs.pname}-${tree-sitter-langs.version}";
 in
-melpaStablePackages.tree-sitter-langs.overrideAttrs (
-  old: {
-    postPatch =
-      old.postPatch or ""
-      + ''
-        substituteInPlace ./tree-sitter-langs-build.el \
-        --replace "tree-sitter-langs-grammar-dir tree-sitter-langs--dir"  "tree-sitter-langs-grammar-dir \"${grammarDir}/langs\""
-      '';
+melpaStablePackages.tree-sitter-langs.overrideAttrs (old: {
+  postPatch =
+    old.postPatch or ""
+    + ''
+      substituteInPlace ./tree-sitter-langs-build.el \
+      --replace "tree-sitter-langs-grammar-dir tree-sitter-langs--dir"  "tree-sitter-langs-grammar-dir \"${grammarDir}/langs\""
+    '';
 
-    postInstall =
-      old.postInstall or ""
-      + lib.concatStringsSep "\n" (
-        map (g: ''
-          if [[ -d "${g}/queries" ]]; then
-            mkdir -p ${siteDir}/queries/${langName g}/
-            for f in ${g}/queries/*; do
-              ln -sfn "$f" ${siteDir}/queries/${langName g}/
-            done
-          fi
-        '') plugins
-      );
+  postInstall =
+    old.postInstall or ""
+    + lib.concatStringsSep "\n" (
+      map (g: ''
+        if [[ -d "${g}/queries" ]]; then
+          mkdir -p ${siteDir}/queries/${langName g}/
+          for f in ${g}/queries/*; do
+            ln -sfn "$f" ${siteDir}/queries/${langName g}/
+          done
+        fi
+      '') plugins
+    );
 
-    passthru = old.passthru or { } // {
-      inherit plugins;
-      withPlugins = fn: final.tree-sitter-langs.override { plugins = fn tree-sitter-grammars; };
-    };
-  }
-)
+  passthru = old.passthru or { } // {
+    inherit plugins;
+    withPlugins = fn: final.tree-sitter-langs.override { plugins = fn tree-sitter-grammars; };
+  };
+})

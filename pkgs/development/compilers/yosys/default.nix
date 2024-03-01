@@ -56,18 +56,16 @@ let
         with builtins;
         concatStringsSep " " (map (n: "--add-flags -m --add-flags ${n.plugin}") plugins);
     in
-    lib.appendToName "with-plugins" (
-      symlinkJoin {
-        inherit (yosys) name;
-        paths = paths ++ [ yosys ];
-        nativeBuildInputs = [ makeWrapper ];
-        postBuild = ''
-          wrapProgram $out/bin/yosys \
-            --set NIX_YOSYS_PLUGIN_DIRS $out/share/yosys/plugins \
-            ${module_flags}
-        '';
-      }
-    );
+    lib.appendToName "with-plugins" (symlinkJoin {
+      inherit (yosys) name;
+      paths = paths ++ [ yosys ];
+      nativeBuildInputs = [ makeWrapper ];
+      postBuild = ''
+        wrapProgram $out/bin/yosys \
+          --set NIX_YOSYS_PLUGIN_DIRS $out/share/yosys/plugins \
+          ${module_flags}
+      '';
+    });
 
   allPlugins = {
     bluespec = yosys-bluespec;

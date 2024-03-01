@@ -18,12 +18,10 @@ let
   bindZoneCoerce =
     list:
     builtins.listToAttrs (
-      lib.forEach list (
-        zone: {
-          name = zone.name;
-          value = zone;
-        }
-      )
+      lib.forEach list (zone: {
+        name = zone.name;
+        value = zone;
+      })
     );
 
   bindZoneOptions =

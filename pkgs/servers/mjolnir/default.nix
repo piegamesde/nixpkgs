@@ -31,13 +31,11 @@ stdenv.mkDerivation rec {
           inherit pkgs nodejs;
           inherit (stdenv.hostPlatform) system;
         }).nodeDependencies.override
-          (
-            old: {
-              # access to path '/nix/store/...-source' is forbidden in restricted mode
-              src = src;
-              dontNpmInstall = true;
-            }
-          )
+          (old: {
+            # access to path '/nix/store/...-source' is forbidden in restricted mode
+            src = src;
+            dontNpmInstall = true;
+          })
       );
     in
     ''

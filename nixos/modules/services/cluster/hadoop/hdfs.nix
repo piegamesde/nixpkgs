@@ -68,31 +68,29 @@ let
     }:
     (
 
-      mkIf serviceOptions.enable (
-        mkMerge [
-          {
-            systemd.services."hdfs-${toLower name}" = {
-              inherit description preStart;
-              environment = environment // serviceOptions.extraEnv;
-              wantedBy = [ "multi-user.target" ];
-              inherit (serviceOptions) restartIfChanged;
-              serviceConfig = {
-                inherit User;
-                SyslogIdentifier = "hdfs-${toLower name}";
-                ExecStart = "${cfg.package}/bin/hdfs --config ${hadoopConf} ${toLower name} ${escapeShellArgs serviceOptions.extraFlags}";
-                Restart = "always";
-              };
+      mkIf serviceOptions.enable (mkMerge [
+        {
+          systemd.services."hdfs-${toLower name}" = {
+            inherit description preStart;
+            environment = environment // serviceOptions.extraEnv;
+            wantedBy = [ "multi-user.target" ];
+            inherit (serviceOptions) restartIfChanged;
+            serviceConfig = {
+              inherit User;
+              SyslogIdentifier = "hdfs-${toLower name}";
+              ExecStart = "${cfg.package}/bin/hdfs --config ${hadoopConf} ${toLower name} ${escapeShellArgs serviceOptions.extraFlags}";
+              Restart = "always";
             };
+          };
 
-            services.hadoop.gatewayRole.enable = true;
+          services.hadoop.gatewayRole.enable = true;
 
-            networking.firewall.allowedTCPPorts = mkIf (
-              (builtins.hasAttr "openFirewall" serviceOptions) && serviceOptions.openFirewall
-            ) allowedTCPPorts;
-          }
-          extraConfig
-        ]
-      )
+          networking.firewall.allowedTCPPorts = mkIf (
+            (builtins.hasAttr "openFirewall" serviceOptions) && serviceOptions.openFirewall
+          ) allowedTCPPorts;
+        }
+        extraConfig
+      ])
     );
 in
 {
@@ -119,28 +117,26 @@ in
         type =
           with types;
           nullOr (
-            listOf (
-              submodule {
-                options = {
-                  type = mkOption {
-                    type = enum [
-                      "SSD"
-                      "DISK"
-                      "ARCHIVE"
-                      "RAM_DISK"
-                    ];
-                    description = lib.mdDoc ''
-                      Storage types ([SSD]/[DISK]/[ARCHIVE]/[RAM_DISK]) for HDFS storage policies.
-                    '';
-                  };
-                  path = mkOption {
-                    type = path;
-                    example = [ "/var/lib/hadoop/hdfs/dn" ];
-                    description = lib.mdDoc "Determines where on the local filesystem a data node should store its blocks.";
-                  };
+            listOf (submodule {
+              options = {
+                type = mkOption {
+                  type = enum [
+                    "SSD"
+                    "DISK"
+                    "ARCHIVE"
+                    "RAM_DISK"
+                  ];
+                  description = lib.mdDoc ''
+                    Storage types ([SSD]/[DISK]/[ARCHIVE]/[RAM_DISK]) for HDFS storage policies.
+                  '';
                 };
-              }
-            )
+                path = mkOption {
+                  type = path;
+                  example = [ "/var/lib/hadoop/hdfs/dn" ];
+                  description = lib.mdDoc "Determines where on the local filesystem a data node should store its blocks.";
+                };
+              };
+            })
           );
       };
     };

@@ -61,38 +61,36 @@ buildPythonPackage rec {
     typing-extensions
   ];
 
-  passthru.optional-dependencies = lib.fix (
-    self: {
-      asyncio = [ greenlet ];
-      mypy = [ mypy ];
-      mssql = [ pyodbc ];
-      mssql_pymysql = [
-        # TODO: pymssql
-      ];
-      mssql_pyodbc = [ pyodbc ];
-      mysql = [ mysqlclient ];
-      mysql_connector = [ mysql-connector ];
-      mariadb_connector = [ mariadb ];
-      oracle = [ cx_oracle ];
-      oracle_oracledb = [ oracledb ];
-      postgresql = [ psycopg2 ];
-      postgresql_pg8000 = [ pg8000 ];
-      postgresql_asyncpg = [ asyncpg ] ++ self.asyncio;
-      postgresql_psycopg2binary = [ psycopg2 ];
-      postgresql_psycopg2cffi = [ psycopg2cffi ];
-      postgresql_psycopg = [ psycopg ];
-      pymysql = [ pymysql ];
-      aiomysql = [ aiomysql ] ++ self.asyncio;
-      asyncmy = [ asyncmy ] ++ self.asyncio;
-      aiosqlite = [
-        aiosqlite
-        typing-extensions
-      ] ++ self.asyncio;
-      sqlcipher = [
-        # TODO: sqlcipher3
-      ];
-    }
-  );
+  passthru.optional-dependencies = lib.fix (self: {
+    asyncio = [ greenlet ];
+    mypy = [ mypy ];
+    mssql = [ pyodbc ];
+    mssql_pymysql = [
+      # TODO: pymssql
+    ];
+    mssql_pyodbc = [ pyodbc ];
+    mysql = [ mysqlclient ];
+    mysql_connector = [ mysql-connector ];
+    mariadb_connector = [ mariadb ];
+    oracle = [ cx_oracle ];
+    oracle_oracledb = [ oracledb ];
+    postgresql = [ psycopg2 ];
+    postgresql_pg8000 = [ pg8000 ];
+    postgresql_asyncpg = [ asyncpg ] ++ self.asyncio;
+    postgresql_psycopg2binary = [ psycopg2 ];
+    postgresql_psycopg2cffi = [ psycopg2cffi ];
+    postgresql_psycopg = [ psycopg ];
+    pymysql = [ pymysql ];
+    aiomysql = [ aiomysql ] ++ self.asyncio;
+    asyncmy = [ asyncmy ] ++ self.asyncio;
+    aiosqlite = [
+      aiosqlite
+      typing-extensions
+    ] ++ self.asyncio;
+    sqlcipher = [
+      # TODO: sqlcipher3
+    ];
+  });
 
   nativeCheckInputs = [
     pytest-xdist

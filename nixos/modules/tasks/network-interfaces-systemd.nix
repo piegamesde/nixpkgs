@@ -101,66 +101,62 @@ let
     };
 
   interfaceNetworks = mkMerge (
-    forEach interfaces (
-      i: {
-        netdevs = mkIf i.virtual ({
-          "40-${i.name}" = {
-            netdevConfig = {
-              Name = i.name;
-              Kind = i.virtualType;
-            };
-            "${i.virtualType}Config" = optionalAttrs (i.virtualOwner != null) { User = i.virtualOwner; };
+    forEach interfaces (i: {
+      netdevs = mkIf i.virtual ({
+        "40-${i.name}" = {
+          netdevConfig = {
+            Name = i.name;
+            Kind = i.virtualType;
           };
-        });
-        networks."40-${i.name}" = mkMerge [
-          (genericNetwork id)
-          {
-            name = mkDefault i.name;
-            DHCP = mkForce (dhcpStr (if i.useDHCP != null then i.useDHCP else false));
-            address = forEach (interfaceIps i) (ip: "${ip.address}/${toString ip.prefixLength}");
-            routes = forEach (interfaceRoutes i) (
-              route: {
-                # Most of these route options have not been tested.
-                # Please fix or report any mistakes you may find.
-                routeConfig =
-                  optionalAttrs (route.address != null && route.prefixLength != null) {
-                    Destination = "${route.address}/${toString route.prefixLength}";
-                  }
-                  // optionalAttrs (route.options ? fastopen_no_cookie) {
-                    FastOpenNoCookie = route.options.fastopen_no_cookie;
-                  }
-                  // optionalAttrs (route.via != null) { Gateway = route.via; }
-                  // optionalAttrs (route.type != null) { Type = route.type; }
-                  // optionalAttrs (route.options ? onlink) { GatewayOnLink = true; }
-                  // optionalAttrs (route.options ? initrwnd) {
-                    InitialAdvertisedReceiveWindow = route.options.initrwnd;
-                  }
-                  // optionalAttrs (route.options ? initcwnd) { InitialCongestionWindow = route.options.initcwnd; }
-                  // optionalAttrs (route.options ? pref) { IPv6Preference = route.options.pref; }
-                  // optionalAttrs (route.options ? mtu) { MTUBytes = route.options.mtu; }
-                  // optionalAttrs (route.options ? metric) { Metric = route.options.metric; }
-                  // optionalAttrs (route.options ? src) { PreferredSource = route.options.src; }
-                  // optionalAttrs (route.options ? protocol) { Protocol = route.options.protocol; }
-                  // optionalAttrs (route.options ? quickack) { QuickAck = route.options.quickack; }
-                  // optionalAttrs (route.options ? scope) { Scope = route.options.scope; }
-                  // optionalAttrs (route.options ? from) { Source = route.options.from; }
-                  // optionalAttrs (route.options ? table) { Table = route.options.table; }
-                  // optionalAttrs (route.options ? advmss) {
-                    TCPAdvertisedMaximumSegmentSize = route.options.advmss;
-                  }
-                  // optionalAttrs (route.options ? ttl-propagate) {
-                    TTLPropagate = route.options.ttl-propagate == "enabled";
-                  };
+          "${i.virtualType}Config" = optionalAttrs (i.virtualOwner != null) { User = i.virtualOwner; };
+        };
+      });
+      networks."40-${i.name}" = mkMerge [
+        (genericNetwork id)
+        {
+          name = mkDefault i.name;
+          DHCP = mkForce (dhcpStr (if i.useDHCP != null then i.useDHCP else false));
+          address = forEach (interfaceIps i) (ip: "${ip.address}/${toString ip.prefixLength}");
+          routes = forEach (interfaceRoutes i) (route: {
+            # Most of these route options have not been tested.
+            # Please fix or report any mistakes you may find.
+            routeConfig =
+              optionalAttrs (route.address != null && route.prefixLength != null) {
+                Destination = "${route.address}/${toString route.prefixLength}";
               }
-            );
-            networkConfig.IPv6PrivacyExtensions = "kernel";
-            linkConfig =
-              optionalAttrs (i.macAddress != null) { MACAddress = i.macAddress; }
-              // optionalAttrs (i.mtu != null) { MTUBytes = toString i.mtu; };
-          }
-        ];
-      }
-    )
+              // optionalAttrs (route.options ? fastopen_no_cookie) {
+                FastOpenNoCookie = route.options.fastopen_no_cookie;
+              }
+              // optionalAttrs (route.via != null) { Gateway = route.via; }
+              // optionalAttrs (route.type != null) { Type = route.type; }
+              // optionalAttrs (route.options ? onlink) { GatewayOnLink = true; }
+              // optionalAttrs (route.options ? initrwnd) {
+                InitialAdvertisedReceiveWindow = route.options.initrwnd;
+              }
+              // optionalAttrs (route.options ? initcwnd) { InitialCongestionWindow = route.options.initcwnd; }
+              // optionalAttrs (route.options ? pref) { IPv6Preference = route.options.pref; }
+              // optionalAttrs (route.options ? mtu) { MTUBytes = route.options.mtu; }
+              // optionalAttrs (route.options ? metric) { Metric = route.options.metric; }
+              // optionalAttrs (route.options ? src) { PreferredSource = route.options.src; }
+              // optionalAttrs (route.options ? protocol) { Protocol = route.options.protocol; }
+              // optionalAttrs (route.options ? quickack) { QuickAck = route.options.quickack; }
+              // optionalAttrs (route.options ? scope) { Scope = route.options.scope; }
+              // optionalAttrs (route.options ? from) { Source = route.options.from; }
+              // optionalAttrs (route.options ? table) { Table = route.options.table; }
+              // optionalAttrs (route.options ? advmss) {
+                TCPAdvertisedMaximumSegmentSize = route.options.advmss;
+              }
+              // optionalAttrs (route.options ? ttl-propagate) {
+                TTLPropagate = route.options.ttl-propagate == "enabled";
+              };
+          });
+          networkConfig.IPv6PrivacyExtensions = "kernel";
+          linkConfig =
+            optionalAttrs (i.macAddress != null) { MACAddress = i.macAddress; }
+            // optionalAttrs (i.mtu != null) { MTUBytes = toString i.mtu; };
+        }
+      ];
+    })
   );
 in
 
@@ -229,15 +225,13 @@ in
               networks = listToAttrs (
                 forEach bridge.interfaces (
                   bi:
-                  nameValuePair "40-${bi}" (
-                    mkMerge [
-                      (genericNetwork (mkOverride 999))
-                      {
-                        DHCP = mkOverride 0 (dhcpStr false);
-                        networkConfig.Bridge = name;
-                      }
-                    ]
-                  )
+                  nameValuePair "40-${bi}" (mkMerge [
+                    (genericNetwork (mkOverride 999))
+                    {
+                      DHCP = mkOverride 0 (dhcpStr false);
+                      networkConfig.Bridge = name;
+                    }
+                  ])
                 )
               );
             }
@@ -330,15 +324,13 @@ in
               networks = listToAttrs (
                 forEach bond.interfaces (
                   bi:
-                  nameValuePair "40-${bi}" (
-                    mkMerge [
-                      (genericNetwork (mkOverride 999))
-                      {
-                        DHCP = mkOverride 0 (dhcpStr false);
-                        networkConfig.Bond = name;
-                      }
-                    ]
-                  )
+                  nameValuePair "40-${bi}" (mkMerge [
+                    (genericNetwork (mkOverride 999))
+                    {
+                      DHCP = mkOverride 0 (dhcpStr false);
+                      networkConfig.Bond = name;
+                    }
+                  ])
                 )
               );
             }

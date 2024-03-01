@@ -69,61 +69,55 @@ let
       };
 
       smtp = mkOption {
-        type = listOf (
-          submodule {
-            freeformType =
-              with types;
-              attrsOf (
-                oneOf [
-                  str
-                  int
-                  bool
-                ]
-              );
+        type = listOf (submodule {
+          freeformType =
+            with types;
+            attrsOf (oneOf [
+              str
+              int
+              bool
+            ]);
 
-            options = {
-              enabled = mkEnableOption (lib.mdDoc "this SMTP server for listmonk");
-              host = mkOption {
-                type = types.str;
-                description = lib.mdDoc "Hostname for the SMTP server";
-              };
-              port = mkOption {
-                type = types.port;
-                description = lib.mdDoc "Port for the SMTP server";
-              };
-              max_conns = mkOption {
-                type = types.int;
-                description = lib.mdDoc "Maximum number of simultaneous connections, defaults to 1";
-                default = 1;
-              };
-              tls_type = mkOption {
-                type = types.enum [
-                  "none"
-                  "STARTTLS"
-                  "TLS"
-                ];
-                description = lib.mdDoc "Type of TLS authentication with the SMTP server";
-              };
+          options = {
+            enabled = mkEnableOption (lib.mdDoc "this SMTP server for listmonk");
+            host = mkOption {
+              type = types.str;
+              description = lib.mdDoc "Hostname for the SMTP server";
             };
-          }
-        );
+            port = mkOption {
+              type = types.port;
+              description = lib.mdDoc "Port for the SMTP server";
+            };
+            max_conns = mkOption {
+              type = types.int;
+              description = lib.mdDoc "Maximum number of simultaneous connections, defaults to 1";
+              default = 1;
+            };
+            tls_type = mkOption {
+              type = types.enum [
+                "none"
+                "STARTTLS"
+                "TLS"
+              ];
+              description = lib.mdDoc "Type of TLS authentication with the SMTP server";
+            };
+          };
+        });
 
         description = lib.mdDoc "List of outgoing SMTP servers";
       };
 
       # TODO: refine this type based on the smtp one.
       "bounce.mailboxes" = mkOption {
-        type = listOf (
-          submodule {
-            freeformType =
-              with types;
-              oneOf [
-                str
-                int
-                bool
-              ];
-          }
-        );
+        type = listOf (submodule {
+          freeformType =
+            with types;
+            oneOf [
+              str
+              int
+              bool
+            ];
+        });
         default = [ ];
         description = lib.mdDoc "List of bounce mailboxes";
       };

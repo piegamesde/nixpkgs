@@ -89,7 +89,9 @@ let
     doCheck = false;
 
     passthru.tests = {
-      check = bsuite.overridePythonAttrs (_: { doCheck = true; });
+      check = bsuite.overridePythonAttrs (_: {
+        doCheck = true;
+      });
     };
 
     meta = with lib; {

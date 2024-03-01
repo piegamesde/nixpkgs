@@ -311,41 +311,35 @@ in
           serviceConfig.PermissionsStartOnly = true;
         };
 
-        dd-jmxfetch = lib.mkIf (lib.hasAttr "jmx" cfg.checks) (
-          makeService {
-            description = "Datadog JMX Fetcher";
-            path = [
-              datadogPkg
-              pkgs.python
-              pkgs.sysstat
-              pkgs.procps
-              pkgs.jdk
-            ];
-            serviceConfig.ExecStart = "${datadogPkg}/bin/dd-jmxfetch";
-          }
-        );
+        dd-jmxfetch = lib.mkIf (lib.hasAttr "jmx" cfg.checks) (makeService {
+          description = "Datadog JMX Fetcher";
+          path = [
+            datadogPkg
+            pkgs.python
+            pkgs.sysstat
+            pkgs.procps
+            pkgs.jdk
+          ];
+          serviceConfig.ExecStart = "${datadogPkg}/bin/dd-jmxfetch";
+        });
 
-        datadog-process-agent = lib.mkIf cfg.enableLiveProcessCollection (
-          makeService {
-            description = "Datadog Live Process Agent";
-            path = [ ];
-            script = ''
-              export DD_API_KEY=$(head -n 1 ${cfg.apiKeyFile})
-              ${pkgs.datadog-process-agent}/bin/process-agent --config /etc/datadog-agent/datadog.yaml
-            '';
-          }
-        );
+        datadog-process-agent = lib.mkIf cfg.enableLiveProcessCollection (makeService {
+          description = "Datadog Live Process Agent";
+          path = [ ];
+          script = ''
+            export DD_API_KEY=$(head -n 1 ${cfg.apiKeyFile})
+            ${pkgs.datadog-process-agent}/bin/process-agent --config /etc/datadog-agent/datadog.yaml
+          '';
+        });
 
-        datadog-trace-agent = lib.mkIf cfg.enableTraceAgent (
-          makeService {
-            description = "Datadog Trace Agent";
-            path = [ ];
-            script = ''
-              export DD_API_KEY=$(head -n 1 ${cfg.apiKeyFile})
-              ${datadogPkg}/bin/trace-agent -config /etc/datadog-agent/datadog.yaml
-            '';
-          }
-        );
+        datadog-trace-agent = lib.mkIf cfg.enableTraceAgent (makeService {
+          description = "Datadog Trace Agent";
+          path = [ ];
+          script = ''
+            export DD_API_KEY=$(head -n 1 ${cfg.apiKeyFile})
+            ${datadogPkg}/bin/trace-agent -config /etc/datadog-agent/datadog.yaml
+          '';
+        });
       };
 
     environment.etc = etcfiles;

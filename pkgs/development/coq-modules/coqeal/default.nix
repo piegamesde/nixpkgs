@@ -80,10 +80,8 @@
     license = lib.licenses.mit;
   };
 }).overrideAttrs
-  (
-    o: {
-      propagatedBuildInputs =
-        o.propagatedBuildInputs
-        ++ lib.optional (lib.versions.isGe "1.1" o.version || o.version == "dev") mathcomp-real-closed;
-    }
-  )
+  (o: {
+    propagatedBuildInputs =
+      o.propagatedBuildInputs
+      ++ lib.optional (lib.versions.isGe "1.1" o.version || o.version == "dev") mathcomp-real-closed;
+  })

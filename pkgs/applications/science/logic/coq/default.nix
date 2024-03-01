@@ -261,22 +261,20 @@ let
 
     createFindlibDestdir = true;
 
-    desktopItems = optional buildIde (
-      makeDesktopItem {
-        name = "coqide";
-        exec = "coqide";
-        icon = "coq";
-        desktopName = "CoqIDE";
-        comment = "Graphical interface for the Coq proof assistant";
-        categories = [
-          "Development"
-          "Science"
-          "Math"
-          "IDE"
-          "GTK"
-        ];
-      }
-    );
+    desktopItems = optional buildIde (makeDesktopItem {
+      name = "coqide";
+      exec = "coqide";
+      icon = "coq";
+      desktopName = "CoqIDE";
+      comment = "Graphical interface for the Coq proof assistant";
+      categories = [
+        "Development"
+        "Science"
+        "Math"
+        "IDE"
+        "GTK"
+      ];
+    });
 
     postInstall =
       let
@@ -319,20 +317,18 @@ let
   };
 in
 if coqAtLeast "8.17" then
-  self.overrideAttrs (
-    _: {
-      buildPhase = ''
-        runHook preBuild
-        make dunestrap
-        dune build -p coq-core,coq-stdlib,coq,coqide-server${lib.optionalString buildIde ",coqide"} -j $NIX_BUILD_CORES
-        runHook postBuild
-      '';
-      installPhase = ''
-        runHook preInstall
-        dune install --prefix $out coq-core coq-stdlib coq coqide-server${lib.optionalString buildIde " coqide"}
-        runHook postInstall
-      '';
-    }
-  )
+  self.overrideAttrs (_: {
+    buildPhase = ''
+      runHook preBuild
+      make dunestrap
+      dune build -p coq-core,coq-stdlib,coq,coqide-server${lib.optionalString buildIde ",coqide"} -j $NIX_BUILD_CORES
+      runHook postBuild
+    '';
+    installPhase = ''
+      runHook preInstall
+      dune install --prefix $out coq-core coq-stdlib coq coqide-server${lib.optionalString buildIde " coqide"}
+      runHook postInstall
+    '';
+  })
 else
   self

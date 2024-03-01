@@ -77,50 +77,48 @@ let
         ];
       };
     }).overrideAttrs
-      (
-        attrs: {
-          nativeBuildInputs =
-            (attrs.nativeBuildInputs or [ ])
-            ++ lib.optionals (stdenv.isLinux) [
-              autoPatchelfHook
-              patchelf
-            ];
-          buildInputs =
-            (attrs.buildInputs or [ ])
-            ++ lib.optionals (stdenv.isLinux) [
-              python3
-              stdenv.cc.cc
-              libdbusmenu
-              openssl.out
-              expat
-              libxcrypt-legacy
-            ];
-          dontAutoPatchelf = true;
-          postFixup =
-            (attrs.postFixup or "")
-            + lib.optionalString (stdenv.isLinux) ''
-              (
-                cd $out/clion
-                # bundled cmake does not find libc
-                rm -rf bin/cmake/linux
-                ln -s ${cmake} bin/cmake/linux
-                # bundled gdb does not find libcrypto 10
-                rm -rf bin/gdb/linux
-                ln -s ${gdb} bin/gdb/linux
+      (attrs: {
+        nativeBuildInputs =
+          (attrs.nativeBuildInputs or [ ])
+          ++ lib.optionals (stdenv.isLinux) [
+            autoPatchelfHook
+            patchelf
+          ];
+        buildInputs =
+          (attrs.buildInputs or [ ])
+          ++ lib.optionals (stdenv.isLinux) [
+            python3
+            stdenv.cc.cc
+            libdbusmenu
+            openssl.out
+            expat
+            libxcrypt-legacy
+          ];
+        dontAutoPatchelf = true;
+        postFixup =
+          (attrs.postFixup or "")
+          + lib.optionalString (stdenv.isLinux) ''
+            (
+              cd $out/clion
+              # bundled cmake does not find libc
+              rm -rf bin/cmake/linux
+              ln -s ${cmake} bin/cmake/linux
+              # bundled gdb does not find libcrypto 10
+              rm -rf bin/gdb/linux
+              ln -s ${gdb} bin/gdb/linux
 
-                ls -d $PWD/bin/lldb/linux/x64/lib/python3.8/lib-dynload/* |
-                xargs patchelf \
-                  --replace-needed libssl.so.10 libssl.so \
-                  --replace-needed libcrypto.so.10 libcrypto.so
+              ls -d $PWD/bin/lldb/linux/x64/lib/python3.8/lib-dynload/* |
+              xargs patchelf \
+                --replace-needed libssl.so.10 libssl.so \
+                --replace-needed libcrypto.so.10 libcrypto.so
 
-                autoPatchelf $PWD/bin
+              autoPatchelf $PWD/bin
 
-                wrapProgram $out/bin/clion \
-                  --set CL_JDK "${jdk}"
-              )
-            '';
-        }
-      );
+              wrapProgram $out/bin/clion \
+                --set CL_JDK "${jdk}"
+            )
+          '';
+      });
 
   buildDataGrip =
     {
@@ -217,22 +215,20 @@ let
         maintainers = [ ];
       };
     }).overrideAttrs
-      (
-        attrs: {
-          postFixup =
-            (attrs.postFixup or "")
-            + lib.optionalString stdenv.isLinux ''
-              interp="$(cat $NIX_CC/nix-support/dynamic-linker)"
-              patchelf --set-interpreter $interp $out/goland/plugins/go-plugin/lib/dlv/linux/dlv
+      (attrs: {
+        postFixup =
+          (attrs.postFixup or "")
+          + lib.optionalString stdenv.isLinux ''
+            interp="$(cat $NIX_CC/nix-support/dynamic-linker)"
+            patchelf --set-interpreter $interp $out/goland/plugins/go-plugin/lib/dlv/linux/dlv
 
-              chmod +x $out/goland/plugins/go-plugin/lib/dlv/linux/dlv
+            chmod +x $out/goland/plugins/go-plugin/lib/dlv/linux/dlv
 
-              # fortify source breaks build since delve compiles with -O0
-              wrapProgram $out/bin/goland \
-                --prefix CGO_CPPFLAGS " " "-U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=0"
-            '';
-        }
-      );
+            # fortify source breaks build since delve compiles with -O0
+            wrapProgram $out/bin/goland \
+              --prefix CGO_CPPFLAGS " " "-U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=0"
+          '';
+      });
 
   buildIdea =
     {
@@ -441,22 +437,20 @@ let
         maintainers = with maintainers; [ raphaelr ];
       };
     }).overrideAttrs
-      (
-        attrs: {
-          postPatch = lib.optionalString (!stdenv.isDarwin) (
-            attrs.postPatch
-            + ''
-              interp="$(cat $NIX_CC/nix-support/dynamic-linker)"
-              patchelf --set-interpreter $interp \
-                lib/ReSharperHost/linux-x64/Rider.Backend \
-                plugins/dotCommon/DotFiles/linux-x64/JetBrains.Profiler.PdbServer
+      (attrs: {
+        postPatch = lib.optionalString (!stdenv.isDarwin) (
+          attrs.postPatch
+          + ''
+            interp="$(cat $NIX_CC/nix-support/dynamic-linker)"
+            patchelf --set-interpreter $interp \
+              lib/ReSharperHost/linux-x64/Rider.Backend \
+              plugins/dotCommon/DotFiles/linux-x64/JetBrains.Profiler.PdbServer
 
-              rm -rf lib/ReSharperHost/linux-x64/dotnet
-              ln -s ${dotnet-sdk_6} lib/ReSharperHost/linux-x64/dotnet
-            ''
-          );
-        }
-      );
+            rm -rf lib/ReSharperHost/linux-x64/dotnet
+            ln -s ${dotnet-sdk_6} lib/ReSharperHost/linux-x64/dotnet
+          ''
+        );
+      });
 
   buildRubyMine =
     {

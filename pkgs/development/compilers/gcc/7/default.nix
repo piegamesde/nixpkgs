@@ -85,21 +85,17 @@ let
     ++ optional (targetPlatform != hostPlatform) ../libstdc++-target.patch
     ++ optionals targetPlatform.isNetBSD [ ../libstdc++-netbsd-ctypes.patch ]
     ++ optional noSysDirs ../no-sys-dirs.patch
-    ++ optional (hostPlatform != buildPlatform) (
-      fetchpatch {
-        # XXX: Refine when this should be applied
-        url = "https://git.busybox.net/buildroot/plain/package/gcc/7.1.0/0900-remove-selftests.patch?id=11271540bfe6adafbc133caf6b5b902a816f5f02";
-        sha256 = "0mrvxsdwip2p3l17dscpc1x8vhdsciqw1z5q9i6p5g9yg1cqnmgs";
-      }
-    )
+    ++ optional (hostPlatform != buildPlatform) (fetchpatch {
+      # XXX: Refine when this should be applied
+      url = "https://git.busybox.net/buildroot/plain/package/gcc/7.1.0/0900-remove-selftests.patch?id=11271540bfe6adafbc133caf6b5b902a816f5f02";
+      sha256 = "0mrvxsdwip2p3l17dscpc1x8vhdsciqw1z5q9i6p5g9yg1cqnmgs";
+    })
     ++ optional langFortran ../gfortran-driving.patch
     ++ optional (targetPlatform.libc == "musl" && targetPlatform.isPower) ../ppc-musl.patch
-    ++ optional (targetPlatform.libc == "musl" && targetPlatform.isx86_32) (
-      fetchpatch {
-        url = "https://git.alpinelinux.org/aports/plain/main/gcc/gcc-6.1-musl-libssp.patch?id=5e4b96e23871ee28ef593b439f8c07ca7c7eb5bb";
-        sha256 = "1jf1ciz4gr49lwyh8knfhw6l5gvfkwzjy90m7qiwkcbsf4a3fqn2";
-      }
-    )
+    ++ optional (targetPlatform.libc == "musl" && targetPlatform.isx86_32) (fetchpatch {
+      url = "https://git.alpinelinux.org/aports/plain/main/gcc/gcc-6.1-musl-libssp.patch?id=5e4b96e23871ee28ef593b439f8c07ca7c7eb5bb";
+      sha256 = "1jf1ciz4gr49lwyh8knfhw6l5gvfkwzjy90m7qiwkcbsf4a3fqn2";
+    })
     ++ optional (targetPlatform.libc == "musl") ../libgomp-dont-force-initial-exec.patch
 
     # Obtain latest patch with ../update-mcfgthread-patches.sh

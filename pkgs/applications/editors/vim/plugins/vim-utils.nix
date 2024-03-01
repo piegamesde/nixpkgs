@@ -479,26 +479,24 @@ rec {
 
   toVimPlugin =
     drv:
-    drv.overrideAttrs (
-      oldAttrs: {
-        # dont move the "doc" folder since vim expects it
-        forceShare = [
-          "man"
-          "info"
+    drv.overrideAttrs (oldAttrs: {
+      # dont move the "doc" folder since vim expects it
+      forceShare = [
+        "man"
+        "info"
+      ];
+
+      nativeBuildInputs =
+        oldAttrs.nativeBuildInputs or [ ]
+        ++ lib.optionals (stdenv.hostPlatform == stdenv.buildPlatform) [
+          vimCommandCheckHook
+          vimGenDocHook
+          # many neovim plugins keep using buildVimPlugin
+          neovimRequireCheckHook
         ];
 
-        nativeBuildInputs =
-          oldAttrs.nativeBuildInputs or [ ]
-          ++ lib.optionals (stdenv.hostPlatform == stdenv.buildPlatform) [
-            vimCommandCheckHook
-            vimGenDocHook
-            # many neovim plugins keep using buildVimPlugin
-            neovimRequireCheckHook
-          ];
-
-        passthru = (oldAttrs.passthru or { }) // {
-          vimPlugin = true;
-        };
-      }
-    );
+      passthru = (oldAttrs.passthru or { }) // {
+        vimPlugin = true;
+      };
+    });
 }

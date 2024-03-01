@@ -13,17 +13,15 @@
 }:
 
 let
-  fido2_0 = fido2.overridePythonAttrs (
-    oldAttrs: rec {
-      version = "0.9.3";
-      format = "setuptools";
-      src = fetchPypi {
-        inherit (oldAttrs) pname;
-        inherit version;
-        hash = "sha256-tF6JphCc/Lfxu1E3dqotZAjpXEgi+DolORi5RAg0Zuw=";
-      };
-    }
-  );
+  fido2_0 = fido2.overridePythonAttrs (oldAttrs: rec {
+    version = "0.9.3";
+    format = "setuptools";
+    src = fetchPypi {
+      inherit (oldAttrs) pname;
+      inherit version;
+      hash = "sha256-tF6JphCc/Lfxu1E3dqotZAjpXEgi+DolORi5RAg0Zuw=";
+    };
+  });
 in
 buildPythonPackage rec {
   pname = "ctap-keyring-device";

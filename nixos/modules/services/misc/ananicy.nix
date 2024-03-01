@@ -32,13 +32,11 @@ in
       settings = mkOption {
         type =
           with types;
-          attrsOf (
-            oneOf [
-              int
-              bool
-              str
-            ]
-          );
+          attrsOf (oneOf [
+            int
+            bool
+            str
+          ]);
         default = { };
         example = {
           apply_nice = false;

@@ -314,31 +314,27 @@ in
     '';
 
     # We use `mkAfter` to ensure that LUKS password prompt would be shown earlier than the splash screen.
-    boot.initrd.preLVMCommands = mkIf (!config.boot.initrd.systemd.enable) (
-      mkAfter ''
-        mkdir -p /etc/plymouth
-        mkdir -p /run/plymouth
-        ln -s ${configFile} /etc/plymouth/plymouthd.conf
-        ln -s $extraUtils/share/plymouth/plymouthd.defaults /etc/plymouth/plymouthd.defaults
-        ln -s $extraUtils/share/plymouth/logo.png /etc/plymouth/logo.png
-        ln -s $extraUtils/share/plymouth/themes /etc/plymouth/themes
-        ln -s $extraUtils/lib/plymouth /etc/plymouth/plugins
-        ln -s $extraUtils/etc/fonts /etc/fonts
+    boot.initrd.preLVMCommands = mkIf (!config.boot.initrd.systemd.enable) (mkAfter ''
+      mkdir -p /etc/plymouth
+      mkdir -p /run/plymouth
+      ln -s ${configFile} /etc/plymouth/plymouthd.conf
+      ln -s $extraUtils/share/plymouth/plymouthd.defaults /etc/plymouth/plymouthd.defaults
+      ln -s $extraUtils/share/plymouth/logo.png /etc/plymouth/logo.png
+      ln -s $extraUtils/share/plymouth/themes /etc/plymouth/themes
+      ln -s $extraUtils/lib/plymouth /etc/plymouth/plugins
+      ln -s $extraUtils/etc/fonts /etc/fonts
 
-        plymouthd --mode=boot --pid-file=/run/plymouth/pid --attach-to-session
-        plymouth show-splash
-      ''
-    );
+      plymouthd --mode=boot --pid-file=/run/plymouth/pid --attach-to-session
+      plymouth show-splash
+    '');
 
     boot.initrd.postMountCommands = mkIf (!config.boot.initrd.systemd.enable) ''
       plymouth update-root-fs --new-root-dir="$targetRoot"
     '';
 
     # `mkBefore` to ensure that any custom prompts would be visible.
-    boot.initrd.preFailCommands = mkIf (!config.boot.initrd.systemd.enable) (
-      mkBefore ''
-        plymouth quit --wait
-      ''
-    );
+    boot.initrd.preFailCommands = mkIf (!config.boot.initrd.systemd.enable) (mkBefore ''
+      plymouth quit --wait
+    '');
   };
 }

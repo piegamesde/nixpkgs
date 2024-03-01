@@ -9,15 +9,13 @@ let
 
   root = expr;
 
-  uniqueUrls = map (x: x.file) (
-    genericClosure {
-      startSet = map (file: {
-        key = file.url;
-        inherit file;
-      }) urls;
-      operator = const [ ];
-    }
-  );
+  uniqueUrls = map (x: x.file) (genericClosure {
+    startSet = map (file: {
+      key = file.url;
+      inherit file;
+    }) urls;
+    operator = const [ ];
+  });
 
   urls = map (drv: {
     url = head (drv.urls or [ drv.url ]);
@@ -32,12 +30,10 @@ let
     drv.outputHash or "" != "" && drv.outputHashMode or "flat" == "flat" && (drv ? url || drv ? urls)
   ) dependencies;
 
-  dependencies = map (x: x.value) (
-    genericClosure {
-      startSet = map keyDrv (derivationsIn' root);
-      operator = { key, value }: map keyDrv (immediateDependenciesOf value);
-    }
-  );
+  dependencies = map (x: x.value) (genericClosure {
+    startSet = map keyDrv (derivationsIn' root);
+    operator = { key, value }: map keyDrv (immediateDependenciesOf value);
+  });
 
   derivationsIn' =
     x:

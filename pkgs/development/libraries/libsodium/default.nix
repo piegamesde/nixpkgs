@@ -6,49 +6,47 @@
   testers,
 }:
 
-stdenv.mkDerivation (
-  finalAttrs: {
-    pname = "libsodium";
-    version = "1.0.18";
+stdenv.mkDerivation (finalAttrs: {
+  pname = "libsodium";
+  version = "1.0.18";
 
-    src = fetchurl {
-      url = "https://download.libsodium.org/libsodium/releases/${finalAttrs.pname}-${finalAttrs.version}.tar.gz";
-      sha256 = "1h9ncvj23qbbni958knzsli8dvybcswcjbx0qjjgi922nf848l3g";
-    };
+  src = fetchurl {
+    url = "https://download.libsodium.org/libsodium/releases/${finalAttrs.pname}-${finalAttrs.version}.tar.gz";
+    sha256 = "1h9ncvj23qbbni958knzsli8dvybcswcjbx0qjjgi922nf848l3g";
+  };
 
-    outputs = [
-      "out"
-      "dev"
-    ];
+  outputs = [
+    "out"
+    "dev"
+  ];
 
-    patches = lib.optional stdenv.targetPlatform.isMinGW ./mingw-no-fortify.patch;
+  patches = lib.optional stdenv.targetPlatform.isMinGW ./mingw-no-fortify.patch;
 
-    nativeBuildInputs = lib.optional stdenv.targetPlatform.isMinGW autoreconfHook;
+  nativeBuildInputs = lib.optional stdenv.targetPlatform.isMinGW autoreconfHook;
 
-    separateDebugInfo = stdenv.isLinux && stdenv.hostPlatform.libc != "musl";
+  separateDebugInfo = stdenv.isLinux && stdenv.hostPlatform.libc != "musl";
 
-    enableParallelBuilding = true;
-    hardeningDisable = lib.optional (
-      stdenv.targetPlatform.isMusl && stdenv.targetPlatform.isx86_32
-    ) "stackprotector";
+  enableParallelBuilding = true;
+  hardeningDisable = lib.optional (
+    stdenv.targetPlatform.isMusl && stdenv.targetPlatform.isx86_32
+  ) "stackprotector";
 
-    # FIXME: the hardeingDisable attr above does not seems effective, so
-    # the need to disable stackprotector via configureFlags
-    configureFlags = lib.optional (
-      stdenv.targetPlatform.isMusl && stdenv.targetPlatform.isx86_32
-    ) "--disable-ssp";
+  # FIXME: the hardeingDisable attr above does not seems effective, so
+  # the need to disable stackprotector via configureFlags
+  configureFlags = lib.optional (
+    stdenv.targetPlatform.isMusl && stdenv.targetPlatform.isx86_32
+  ) "--disable-ssp";
 
-    doCheck = true;
+  doCheck = true;
 
-    passthru.tests.pkg-config = testers.testMetaPkgConfig finalAttrs.finalPackage;
+  passthru.tests.pkg-config = testers.testMetaPkgConfig finalAttrs.finalPackage;
 
-    meta = with lib; {
-      description = "A modern and easy-to-use crypto library";
-      homepage = "http://doc.libsodium.org/";
-      license = licenses.isc;
-      maintainers = with maintainers; [ raskin ];
-      pkgConfigModules = [ "libsodium" ];
-      platforms = platforms.all;
-    };
-  }
-)
+  meta = with lib; {
+    description = "A modern and easy-to-use crypto library";
+    homepage = "http://doc.libsodium.org/";
+    license = licenses.isc;
+    maintainers = with maintainers; [ raskin ];
+    pkgConfigModules = [ "libsodium" ];
+    platforms = platforms.all;
+  };
+})

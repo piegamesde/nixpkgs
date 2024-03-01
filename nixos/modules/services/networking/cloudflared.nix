@@ -131,12 +131,10 @@ let
     proxyType = mkOption {
       type =
         with types;
-        nullOr (
-          enum [
-            ""
-            "socks"
-          ]
-        );
+        nullOr (enum [
+          ""
+          "socks"
+        ]);
       default = null;
       example = "";
       description = lib.mdDoc ''

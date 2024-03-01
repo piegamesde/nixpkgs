@@ -36,7 +36,9 @@ let
     doCheck = false;
 
     passthru.tests = {
-      check = automat.overridePythonAttrs (_: { doCheck = true; });
+      check = automat.overridePythonAttrs (_: {
+        doCheck = true;
+      });
     };
 
     meta = with lib; {

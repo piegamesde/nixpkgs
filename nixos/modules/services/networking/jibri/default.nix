@@ -96,7 +96,9 @@ let
   };
   # Allow overriding leaves of the default config despite types.attrs not doing any merging.
   jibriConfig = recursiveUpdate defaultJibriConfig cfg.config;
-  configFile = pkgs.writeText "jibri.conf" (toHOCON { jibri = jibriConfig; });
+  configFile = pkgs.writeText "jibri.conf" (toHOCON {
+    jibri = jibriConfig;
+  });
 in
 {
   options.services.jibri = with types; {

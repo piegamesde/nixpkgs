@@ -148,16 +148,14 @@ let
     drv: pkgs.replaceDependency { inherit oldDependency newDependency drv; }
   ) baseSystemAssertWarn config.system.replaceRuntimeDependencies;
 
-  systemWithBuildDeps = system.overrideAttrs (
-    o: {
-      systemBuildClosure = pkgs.closureInfo { rootPaths = [ system.drvPath ]; };
-      buildCommand =
-        o.buildCommand
-        + ''
-          ln -sn $systemBuildClosure $out/build-closure
-        '';
-    }
-  );
+  systemWithBuildDeps = system.overrideAttrs (o: {
+    systemBuildClosure = pkgs.closureInfo { rootPaths = [ system.drvPath ]; };
+    buildCommand =
+      o.buildCommand
+      + ''
+        ln -sn $systemBuildClosure $out/build-closure
+      '';
+  });
 in
 
 {
@@ -391,12 +389,10 @@ in
       closureInfo = pkgs.closureInfo {
         rootPaths = [
           # override to avoid  infinite recursion (and to allow using extraDependencies to add forbidden dependencies)
-          (config.system.build.toplevel.overrideAttrs (
-            _: {
-              extraDependencies = [ ];
-              closureInfo = null;
-            }
-          ))
+          (config.system.build.toplevel.overrideAttrs (_: {
+            extraDependencies = [ ];
+            closureInfo = null;
+          }))
         ];
       };
     };

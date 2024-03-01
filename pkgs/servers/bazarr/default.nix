@@ -33,14 +33,12 @@ stdenv.mkDerivation rec {
   ];
 
   buildInputs = [
-    (python3.withPackages (
-      ps: [
-        ps.lxml
-        ps.numpy
-        ps.gevent
-        ps.gevent-websocket
-      ]
-    ))
+    (python3.withPackages (ps: [
+      ps.lxml
+      ps.numpy
+      ps.gevent
+      ps.gevent-websocket
+    ]))
   ] ++ runtimeProgDeps;
 
   installPhase = ''

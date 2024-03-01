@@ -30,17 +30,15 @@ let
         # luasql-sqlite3 master branch broke compatibility with lua 5.1. Pin to
         # an earlier commit.
         # https://github.com/lunarmodules/luasql/issues/147
-        luasql-sqlite3 = super.luaLib.overrideLuarocks super.luasql-sqlite3 (
-          drv: {
-            version = "2.6.0-1-custom";
-            src = fetchFromGitHub {
-              owner = "lunarmodules";
-              repo = "luasql";
-              rev = "8c58fd6ee32faf750daf6e99af015a31402578d1";
-              hash = "sha256-XlTB5O81yWCrx56m0cXQp7EFzeOyfNeqGbuiYqMrTUk=";
-            };
-          }
-        );
+        luasql-sqlite3 = super.luaLib.overrideLuarocks super.luasql-sqlite3 (drv: {
+          version = "2.6.0-1-custom";
+          src = fetchFromGitHub {
+            owner = "lunarmodules";
+            repo = "luasql";
+            rev = "8c58fd6ee32faf750daf6e99af015a31402578d1";
+            hash = "sha256-XlTB5O81yWCrx56m0cXQp7EFzeOyfNeqGbuiYqMrTUk=";
+          };
+        });
       };
     in
     lua.override { inherit packageOverrides; };

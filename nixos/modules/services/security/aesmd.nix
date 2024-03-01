@@ -71,13 +71,11 @@ in
         options.proxyType = mkOption {
           type =
             with types;
-            nullOr (
-              enum [
-                "default"
-                "direct"
-                "manual"
-              ]
-            );
+            nullOr (enum [
+              "default"
+              "direct"
+              "manual"
+            ]);
           default = if (cfg.settings.proxy != null) then "manual" else null;
           defaultText = literalExpression ''
             if (config.${opt.settings}.proxy != null) then "manual" else null
@@ -93,13 +91,11 @@ in
         options.defaultQuotingType = mkOption {
           type =
             with types;
-            nullOr (
-              enum [
-                "ecdsa_256"
-                "epid_linkable"
-                "epid_unlinkable"
-              ]
-            );
+            nullOr (enum [
+              "ecdsa_256"
+              "epid_linkable"
+              "epid_unlinkable"
+            ]);
           default = null;
           example = "ecdsa_256";
           description = lib.mdDoc "Attestation quote type.";

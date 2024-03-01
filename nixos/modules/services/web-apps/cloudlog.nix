@@ -122,13 +122,11 @@ in
       };
     };
     poolConfig = mkOption {
-      type = attrsOf (
-        oneOf [
-          str
-          int
-          bool
-        ]
-      );
+      type = attrsOf (oneOf [
+        str
+        int
+        bool
+      ]);
       default = {
         "pm" = "dynamic";
         "pm.max_children" = 32;

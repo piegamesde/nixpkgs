@@ -57,26 +57,22 @@ let
 
   transport = pkgs.writeText "transport.sympa" (
     concatStringsSep "\n" (
-      flip map fqdns (
-        domain: ''
-          ${domain}                        error:User unknown in recipient table
-          sympa@${domain}                  sympa:sympa@${domain}
-          listmaster@${domain}             sympa:listmaster@${domain}
-          bounce@${domain}                 sympabounce:sympa@${domain}
-          abuse-feedback-report@${domain}  sympabounce:sympa@${domain}
-        ''
-      )
+      flip map fqdns (domain: ''
+        ${domain}                        error:User unknown in recipient table
+        sympa@${domain}                  sympa:sympa@${domain}
+        listmaster@${domain}             sympa:listmaster@${domain}
+        bounce@${domain}                 sympabounce:sympa@${domain}
+        abuse-feedback-report@${domain}  sympabounce:sympa@${domain}
+      '')
     )
   );
 
   virtual = pkgs.writeText "virtual.sympa" (
     concatStringsSep "\n" (
-      flip map fqdns (
-        domain: ''
-          sympa-request@${domain}  postmaster@localhost
-          sympa-owner@${domain}    postmaster@localhost
-        ''
-      )
+      flip map fqdns (domain: ''
+        sympa-request@${domain}  postmaster@localhost
+        sympa-owner@${domain}    postmaster@localhost
+      '')
     )
   );
 
@@ -151,13 +147,11 @@ in
                 description = lib.mdDoc "URL path part of the web interface.";
               };
               settings = mkOption {
-                type = attrsOf (
-                  oneOf [
-                    str
-                    int
-                    bool
-                  ]
-                );
+                type = attrsOf (oneOf [
+                  str
+                  int
+                  bool
+                ]);
                 default = { };
                 example = {
                   default_max_list_members = 3;
@@ -315,13 +309,11 @@ in
     };
 
     settings = mkOption {
-      type = attrsOf (
-        oneOf [
-          str
-          int
-          bool
-        ]
-      );
+      type = attrsOf (oneOf [
+        str
+        int
+        bool
+      ]);
       default = { };
       example = literalExpression ''
         {
@@ -425,7 +417,9 @@ in
       }
       // (flip mapAttrs' cfg.domains (
         fqdn: domain:
-        nameValuePair "etc/${fqdn}/robot.conf" (mkDefault { source = robotConfig fqdn domain; })
+        nameValuePair "etc/${fqdn}/robot.conf" (mkDefault {
+          source = robotConfig fqdn domain;
+        })
       ));
 
     environment = {
@@ -471,12 +465,10 @@ in
 
         "d  /run/sympa                   0755 ${user} ${group} - -"
       ]
-      ++ (flip concatMap fqdns (
-        fqdn: [
-          "d  ${dataDir}/etc/${fqdn}       0700 ${user} ${group} - -"
-          "d  ${dataDir}/list_data/${fqdn} 0700 ${user} ${group} - -"
-        ]
-      ))
+      ++ (flip concatMap fqdns (fqdn: [
+        "d  ${dataDir}/etc/${fqdn}       0700 ${user} ${group} - -"
+        "d  ${dataDir}/list_data/${fqdn} 0700 ${user} ${group} - -"
+      ]))
       #++ (flip mapAttrsToList enabledFiles (k: v:
       #  "L+ ${dataDir}/${k}              -    -       -        - ${v.source}"
       #))
@@ -575,15 +567,13 @@ in
         host:
         {
           locations =
-            genAttrs (hostLocations host) (
-              loc: {
-                extraConfig = ''
-                  include ${config.services.nginx.package}/conf/fastcgi_params;
+            genAttrs (hostLocations host) (loc: {
+              extraConfig = ''
+                include ${config.services.nginx.package}/conf/fastcgi_params;
 
-                  fastcgi_pass unix:/run/sympa/wwsympa.socket;
-                '';
-              }
-            )
+                fastcgi_pass unix:/run/sympa/wwsympa.socket;
+              '';
+            })
             // {
               "/static-sympa/".alias = "${dataDir}/static_content/";
             };

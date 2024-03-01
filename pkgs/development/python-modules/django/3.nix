@@ -33,14 +33,12 @@ buildPythonPackage rec {
         zoneinfo = tzdata + "/share/zoneinfo";
       })
     ]
-    ++ lib.optional withGdal (
-      substituteAll {
-        src = ./django_3_set_geos_gdal_lib.patch;
-        inherit geos39;
-        inherit gdal;
-        extension = stdenv.hostPlatform.extensions.sharedLibrary;
-      }
-    );
+    ++ lib.optional withGdal (substituteAll {
+      src = ./django_3_set_geos_gdal_lib.patch;
+      inherit geos39;
+      inherit gdal;
+      extension = stdenv.hostPlatform.extensions.sharedLibrary;
+    });
 
   propagatedBuildInputs = [
     asgiref

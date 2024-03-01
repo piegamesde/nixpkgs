@@ -415,28 +415,26 @@ let
       lispLibs = packages clpkgs;
       systems = [ ];
     }).overrideAttrs
-      (
-        o: {
-          installPhase = ''
-            # The recent version of makeWrapper causes breakage. For more info see
-            # https://github.com/Uthar/nix-cl/issues/2
-            source ${oldMakeWrapper}
+      (o: {
+        installPhase = ''
+          # The recent version of makeWrapper causes breakage. For more info see
+          # https://github.com/Uthar/nix-cl/issues/2
+          source ${oldMakeWrapper}
 
-            mkdir -pv $out/bin
-            makeWrapper \
-              ${head (split " " o.lisp)} \
-              $out/bin/${baseNameOf (head (split " " o.lisp))} \
-              --prefix CL_SOURCE_REGISTRY : "${o.CL_SOURCE_REGISTRY}" \
-              --prefix ASDF_OUTPUT_TRANSLATIONS : ${concatStringsSep "::" (flattenedDeps o.lispLibs)}: \
-              --prefix LD_LIBRARY_PATH : "${o.LD_LIBRARY_PATH}" \
-              --prefix LD_LIBRARY_PATH : "${makeLibraryPath o.nativeLibs}" \
-              --prefix CLASSPATH : "${o.CLASSPATH}" \
-              --prefix CLASSPATH : "${makeSearchPath "share/java/*" o.javaLibs}" \
-              --prefix PATH : "${makeBinPath (o.buildInputs or [ ])}" \
-              --prefix PATH : "${makeBinPath (o.propagatedBuildInputs or [ ])}"
-          '';
-        }
-      );
+          mkdir -pv $out/bin
+          makeWrapper \
+            ${head (split " " o.lisp)} \
+            $out/bin/${baseNameOf (head (split " " o.lisp))} \
+            --prefix CL_SOURCE_REGISTRY : "${o.CL_SOURCE_REGISTRY}" \
+            --prefix ASDF_OUTPUT_TRANSLATIONS : ${concatStringsSep "::" (flattenedDeps o.lispLibs)}: \
+            --prefix LD_LIBRARY_PATH : "${o.LD_LIBRARY_PATH}" \
+            --prefix LD_LIBRARY_PATH : "${makeLibraryPath o.nativeLibs}" \
+            --prefix CLASSPATH : "${o.CLASSPATH}" \
+            --prefix CLASSPATH : "${makeSearchPath "share/java/*" o.javaLibs}" \
+            --prefix PATH : "${makeBinPath (o.buildInputs or [ ])}" \
+            --prefix PATH : "${makeBinPath (o.propagatedBuildInputs or [ ])}"
+        '';
+      });
 
   lispWithPackages =
     lisp:

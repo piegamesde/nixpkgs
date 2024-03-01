@@ -95,10 +95,8 @@ let
   '';
 in
 # The main output is the run script, inject the derivation for the actual test
-runScript.overrideAttrs (
-  old: {
-    passthru = {
-      inherit testDerivation;
-    };
-  }
-)
+runScript.overrideAttrs (old: {
+  passthru = {
+    inherit testDerivation;
+  };
+})

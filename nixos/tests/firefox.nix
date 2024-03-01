@@ -1,16 +1,14 @@
 import ./make-test-python.nix (
   { pkgs, firefoxPackage, ... }:
   let
-    firefoxPackage' = firefoxPackage.override (
-      args: {
-        extraPrefsFiles = (args.extraPrefsFiles or [ ]) ++ [
-          # make sure that autoplay is enabled by default for the audio test
-          (builtins.toString (
-            builtins.toFile "autoplay-pref.js" ''defaultPref("media.autoplay.default",0);''
-          ))
-        ];
-      }
-    );
+    firefoxPackage' = firefoxPackage.override (args: {
+      extraPrefsFiles = (args.extraPrefsFiles or [ ]) ++ [
+        # make sure that autoplay is enabled by default for the audio test
+        (builtins.toString (
+          builtins.toFile "autoplay-pref.js" ''defaultPref("media.autoplay.default",0);''
+        ))
+      ];
+    });
   in
   {
     name = firefoxPackage'.unwrapped.pname;

@@ -15,42 +15,40 @@ in
       default = { };
       type =
         with types;
-        attrsOf (
-          submodule {
-            options = {
-              nickname = mkOption {
-                type = types.str;
-                description = lib.mdDoc ''
-                  The nickname of this Tahoe introducer.
-                '';
-              };
-              tub.port = mkOption {
-                default = 3458;
-                type = types.port;
-                description = lib.mdDoc ''
-                  The port on which the introducer will listen.
-                '';
-              };
-              tub.location = mkOption {
-                default = null;
-                type = types.nullOr types.str;
-                description = lib.mdDoc ''
-                  The external location that the introducer should listen on.
-
-                  If specified, the port should be included.
-                '';
-              };
-              package = mkOption {
-                default = pkgs.tahoelafs;
-                defaultText = literalExpression "pkgs.tahoelafs";
-                type = types.package;
-                description = lib.mdDoc ''
-                  The package to use for the Tahoe LAFS daemon.
-                '';
-              };
+        attrsOf (submodule {
+          options = {
+            nickname = mkOption {
+              type = types.str;
+              description = lib.mdDoc ''
+                The nickname of this Tahoe introducer.
+              '';
             };
-          }
-        );
+            tub.port = mkOption {
+              default = 3458;
+              type = types.port;
+              description = lib.mdDoc ''
+                The port on which the introducer will listen.
+              '';
+            };
+            tub.location = mkOption {
+              default = null;
+              type = types.nullOr types.str;
+              description = lib.mdDoc ''
+                The external location that the introducer should listen on.
+
+                If specified, the port should be included.
+              '';
+            };
+            package = mkOption {
+              default = pkgs.tahoelafs;
+              defaultText = literalExpression "pkgs.tahoelafs";
+              type = types.package;
+              description = lib.mdDoc ''
+                The package to use for the Tahoe LAFS daemon.
+              '';
+            };
+          };
+        });
       description = lib.mdDoc ''
         The Tahoe introducers.
       '';
@@ -59,146 +57,144 @@ in
       default = { };
       type =
         with types;
-        attrsOf (
-          submodule {
-            options = {
-              nickname = mkOption {
-                type = types.str;
-                description = lib.mdDoc ''
-                  The nickname of this Tahoe node.
-                '';
-              };
-              tub.port = mkOption {
-                default = 3457;
-                type = types.port;
-                description = lib.mdDoc ''
-                  The port on which the tub will listen.
-
-                  This is the correct setting to tweak if you want Tahoe's storage
-                  system to listen on a different port.
-                '';
-              };
-              tub.location = mkOption {
-                default = null;
-                type = types.nullOr types.str;
-                description = lib.mdDoc ''
-                  The external location that the node should listen on.
-
-                  This is the setting to tweak if there are multiple interfaces
-                  and you want to alter which interface Tahoe is advertising.
-
-                  If specified, the port should be included.
-                '';
-              };
-              web.port = mkOption {
-                default = 3456;
-                type = types.port;
-                description = lib.mdDoc ''
-                  The port on which the Web server will listen.
-
-                  This is the correct setting to tweak if you want Tahoe's WUI to
-                  listen on a different port.
-                '';
-              };
-              client.introducer = mkOption {
-                default = null;
-                type = types.nullOr types.str;
-                description = lib.mdDoc ''
-                  The furl for a Tahoe introducer node.
-
-                  Like all furls, keep this safe and don't share it.
-                '';
-              };
-              client.helper = mkOption {
-                default = null;
-                type = types.nullOr types.str;
-                description = lib.mdDoc ''
-                  The furl for a Tahoe helper node.
-
-                  Like all furls, keep this safe and don't share it.
-                '';
-              };
-              client.shares.needed = mkOption {
-                default = 3;
-                type = types.int;
-                description = lib.mdDoc ''
-                  The number of shares required to reconstitute a file.
-                '';
-              };
-              client.shares.happy = mkOption {
-                default = 7;
-                type = types.int;
-                description = lib.mdDoc ''
-                  The number of distinct storage nodes required to store
-                  a file.
-                '';
-              };
-              client.shares.total = mkOption {
-                default = 10;
-                type = types.int;
-                description = lib.mdDoc ''
-                  The number of shares required to store a file.
-                '';
-              };
-              storage.enable = mkEnableOption (lib.mdDoc "storage service");
-              storage.reservedSpace = mkOption {
-                default = "1G";
-                type = types.str;
-                description = lib.mdDoc ''
-                  The amount of filesystem space to not use for storage.
-                '';
-              };
-              helper.enable = mkEnableOption (lib.mdDoc "helper service");
-              sftpd.enable = mkEnableOption (lib.mdDoc "SFTP service");
-              sftpd.port = mkOption {
-                default = null;
-                type = types.nullOr types.int;
-                description = lib.mdDoc ''
-                  The port on which the SFTP server will listen.
-
-                  This is the correct setting to tweak if you want Tahoe's SFTP
-                  daemon to listen on a different port.
-                '';
-              };
-              sftpd.hostPublicKeyFile = mkOption {
-                default = null;
-                type = types.nullOr types.path;
-                description = lib.mdDoc ''
-                  Path to the SSH host public key.
-                '';
-              };
-              sftpd.hostPrivateKeyFile = mkOption {
-                default = null;
-                type = types.nullOr types.path;
-                description = lib.mdDoc ''
-                  Path to the SSH host private key.
-                '';
-              };
-              sftpd.accounts.file = mkOption {
-                default = null;
-                type = types.nullOr types.path;
-                description = lib.mdDoc ''
-                  Path to the accounts file.
-                '';
-              };
-              sftpd.accounts.url = mkOption {
-                default = null;
-                type = types.nullOr types.str;
-                description = lib.mdDoc ''
-                  URL of the accounts server.
-                '';
-              };
-              package = mkOption {
-                default = pkgs.tahoelafs;
-                defaultText = literalExpression "pkgs.tahoelafs";
-                type = types.package;
-                description = lib.mdDoc ''
-                  The package to use for the Tahoe LAFS daemon.
-                '';
-              };
+        attrsOf (submodule {
+          options = {
+            nickname = mkOption {
+              type = types.str;
+              description = lib.mdDoc ''
+                The nickname of this Tahoe node.
+              '';
             };
-          }
-        );
+            tub.port = mkOption {
+              default = 3457;
+              type = types.port;
+              description = lib.mdDoc ''
+                The port on which the tub will listen.
+
+                This is the correct setting to tweak if you want Tahoe's storage
+                system to listen on a different port.
+              '';
+            };
+            tub.location = mkOption {
+              default = null;
+              type = types.nullOr types.str;
+              description = lib.mdDoc ''
+                The external location that the node should listen on.
+
+                This is the setting to tweak if there are multiple interfaces
+                and you want to alter which interface Tahoe is advertising.
+
+                If specified, the port should be included.
+              '';
+            };
+            web.port = mkOption {
+              default = 3456;
+              type = types.port;
+              description = lib.mdDoc ''
+                The port on which the Web server will listen.
+
+                This is the correct setting to tweak if you want Tahoe's WUI to
+                listen on a different port.
+              '';
+            };
+            client.introducer = mkOption {
+              default = null;
+              type = types.nullOr types.str;
+              description = lib.mdDoc ''
+                The furl for a Tahoe introducer node.
+
+                Like all furls, keep this safe and don't share it.
+              '';
+            };
+            client.helper = mkOption {
+              default = null;
+              type = types.nullOr types.str;
+              description = lib.mdDoc ''
+                The furl for a Tahoe helper node.
+
+                Like all furls, keep this safe and don't share it.
+              '';
+            };
+            client.shares.needed = mkOption {
+              default = 3;
+              type = types.int;
+              description = lib.mdDoc ''
+                The number of shares required to reconstitute a file.
+              '';
+            };
+            client.shares.happy = mkOption {
+              default = 7;
+              type = types.int;
+              description = lib.mdDoc ''
+                The number of distinct storage nodes required to store
+                a file.
+              '';
+            };
+            client.shares.total = mkOption {
+              default = 10;
+              type = types.int;
+              description = lib.mdDoc ''
+                The number of shares required to store a file.
+              '';
+            };
+            storage.enable = mkEnableOption (lib.mdDoc "storage service");
+            storage.reservedSpace = mkOption {
+              default = "1G";
+              type = types.str;
+              description = lib.mdDoc ''
+                The amount of filesystem space to not use for storage.
+              '';
+            };
+            helper.enable = mkEnableOption (lib.mdDoc "helper service");
+            sftpd.enable = mkEnableOption (lib.mdDoc "SFTP service");
+            sftpd.port = mkOption {
+              default = null;
+              type = types.nullOr types.int;
+              description = lib.mdDoc ''
+                The port on which the SFTP server will listen.
+
+                This is the correct setting to tweak if you want Tahoe's SFTP
+                daemon to listen on a different port.
+              '';
+            };
+            sftpd.hostPublicKeyFile = mkOption {
+              default = null;
+              type = types.nullOr types.path;
+              description = lib.mdDoc ''
+                Path to the SSH host public key.
+              '';
+            };
+            sftpd.hostPrivateKeyFile = mkOption {
+              default = null;
+              type = types.nullOr types.path;
+              description = lib.mdDoc ''
+                Path to the SSH host private key.
+              '';
+            };
+            sftpd.accounts.file = mkOption {
+              default = null;
+              type = types.nullOr types.path;
+              description = lib.mdDoc ''
+                Path to the accounts file.
+              '';
+            };
+            sftpd.accounts.url = mkOption {
+              default = null;
+              type = types.nullOr types.str;
+              description = lib.mdDoc ''
+                URL of the accounts server.
+              '';
+            };
+            package = mkOption {
+              default = pkgs.tahoelafs;
+              defaultText = literalExpression "pkgs.tahoelafs";
+              type = types.package;
+              description = lib.mdDoc ''
+                The package to use for the Tahoe LAFS daemon.
+              '';
+            };
+          };
+        });
       description = lib.mdDoc ''
         The Tahoe nodes.
       '';

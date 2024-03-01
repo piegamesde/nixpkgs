@@ -45,31 +45,29 @@ final: prev: {
 
   "@githubnext/github-copilot-cli" = pkgs.github-copilot-cli;
 
-  "@medable/mdctl-cli" = prev."@medable/mdctl-cli".override (
-    oldAttrs: {
-      nativeBuildInputs =
-        with pkgs;
-        with darwin.apple_sdk.frameworks;
-        [
-          glib
-          libsecret
-          pkg-config
-        ]
-        ++ lib.optionals stdenv.isDarwin [
-          AppKit
-          Security
-        ];
-      buildInputs = [
-        final.node-gyp-build
-        final.node-pre-gyp
-        nodejs
+  "@medable/mdctl-cli" = prev."@medable/mdctl-cli".override (oldAttrs: {
+    nativeBuildInputs =
+      with pkgs;
+      with darwin.apple_sdk.frameworks;
+      [
+        glib
+        libsecret
+        pkg-config
+      ]
+      ++ lib.optionals stdenv.isDarwin [
+        AppKit
+        Security
       ];
+    buildInputs = [
+      final.node-gyp-build
+      final.node-pre-gyp
+      nodejs
+    ];
 
-      meta = oldAttrs.meta // {
-        broken = since "16";
-      };
-    }
-  );
+    meta = oldAttrs.meta // {
+      broken = since "16";
+    };
+  });
   mdctl-cli = final."@medable/mdctl-cli";
 
   autoprefixer = prev.autoprefixer.override {
@@ -83,21 +81,19 @@ final: prev: {
     };
   };
 
-  aws-azure-login = prev.aws-azure-login.override (
-    oldAttrs: {
-      nativeBuildInputs = [ pkgs.buildPackages.makeWrapper ];
-      prePatch = ''
-        export PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=1
-      '';
-      postInstall = ''
-        wrapProgram $out/bin/aws-azure-login \
-            --set PUPPETEER_EXECUTABLE_PATH ${pkgs.chromium}/bin/chromium
-      '';
-      meta = oldAttrs.meta // {
-        platforms = lib.platforms.linux;
-      };
-    }
-  );
+  aws-azure-login = prev.aws-azure-login.override (oldAttrs: {
+    nativeBuildInputs = [ pkgs.buildPackages.makeWrapper ];
+    prePatch = ''
+      export PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=1
+    '';
+    postInstall = ''
+      wrapProgram $out/bin/aws-azure-login \
+          --set PUPPETEER_EXECUTABLE_PATH ${pkgs.chromium}/bin/chromium
+    '';
+    meta = oldAttrs.meta // {
+      platforms = lib.platforms.linux;
+    };
+  });
 
   balanceofsatoshis = prev.balanceofsatoshis.override {
     nativeBuildInputs = [ pkgs.installShellFiles ];
@@ -147,64 +143,56 @@ final: prev: {
     '';
   };
 
-  coc-imselect = prev.coc-imselect.override (
-    oldAttrs: {
-      meta = oldAttrs.meta // {
-        broken = since "10";
-      };
-    }
-  );
+  coc-imselect = prev.coc-imselect.override (oldAttrs: {
+    meta = oldAttrs.meta // {
+      broken = since "10";
+    };
+  });
 
-  dat = prev.dat.override (
-    oldAttrs: {
-      buildInputs = [
-        final.node-gyp-build
-        pkgs.libtool
-        pkgs.autoconf
-        pkgs.automake
-      ];
-      meta = oldAttrs.meta // {
-        broken = since "12";
-      };
-    }
-  );
+  dat = prev.dat.override (oldAttrs: {
+    buildInputs = [
+      final.node-gyp-build
+      pkgs.libtool
+      pkgs.autoconf
+      pkgs.automake
+    ];
+    meta = oldAttrs.meta // {
+      broken = since "12";
+    };
+  });
 
   eask = prev."@emacs-eask/cli".override { name = "eask"; };
 
   # NOTE: this is a stub package to fetch npm dependencies for
   # ../../applications/video/epgstation
-  epgstation = prev."epgstation-../../applications/video/epgstation".override (
-    oldAttrs: {
-      buildInputs = [ pkgs.postgresql ];
-      nativeBuildInputs = [
-        final.node-pre-gyp
-        final.node-gyp-build
-        pkgs.which
-      ];
-      meta = oldAttrs.meta // {
-        platforms = lib.platforms.none;
-      };
-    }
-  );
+  epgstation = prev."epgstation-../../applications/video/epgstation".override (oldAttrs: {
+    buildInputs = [ pkgs.postgresql ];
+    nativeBuildInputs = [
+      final.node-pre-gyp
+      final.node-gyp-build
+      pkgs.which
+    ];
+    meta = oldAttrs.meta // {
+      platforms = lib.platforms.none;
+    };
+  });
 
   # NOTE: this is a stub package to fetch npm dependencies for
   # ../../applications/video/epgstation/client
-  epgstation-client = prev."epgstation-client-../../applications/video/epgstation/client".override (
-    oldAttrs: {
-      meta = oldAttrs.meta // {
-        platforms = lib.platforms.none;
-      };
-    }
-  );
+  epgstation-client =
+    prev."epgstation-client-../../applications/video/epgstation/client".override
+      (oldAttrs: {
+        meta = oldAttrs.meta // {
+          platforms = lib.platforms.none;
+        };
+      });
 
-  expo-cli = prev."expo-cli".override (
-    oldAttrs: {
-      # The traveling-fastlane-darwin optional dependency aborts build on Linux.
-      dependencies = builtins.filter (
-        d: d.packageName != "@expo/traveling-fastlane-${if stdenv.isLinux then "darwin" else "linux"}"
-      ) oldAttrs.dependencies;
-    }
-  );
+  expo-cli = prev."expo-cli".override (oldAttrs: {
+    # The traveling-fastlane-darwin optional dependency aborts build on Linux.
+    dependencies = builtins.filter (
+      d: d.packageName != "@expo/traveling-fastlane-${if stdenv.isLinux then "darwin" else "linux"}"
+    ) oldAttrs.dependencies;
+  });
 
   fast-cli = prev.fast-cli.override {
     nativeBuildInputs = [ pkgs.buildPackages.makeWrapper ];
@@ -230,14 +218,12 @@ final: prev: {
 
   flood = prev.flood.override { buildInputs = [ final.node-pre-gyp ]; };
 
-  git-ssb = prev.git-ssb.override (
-    oldAttrs: {
-      buildInputs = [ final.node-gyp-build ];
-      meta = oldAttrs.meta // {
-        broken = since "10";
-      };
-    }
-  );
+  git-ssb = prev.git-ssb.override (oldAttrs: {
+    buildInputs = [ final.node-gyp-build ];
+    meta = oldAttrs.meta // {
+      broken = since "10";
+    };
+  });
 
   graphite-cli = prev."@withgraphite/graphite-cli".override {
     name = "graphite-cli";
@@ -266,34 +252,28 @@ final: prev: {
     ];
   };
 
-  ijavascript = prev.ijavascript.override (
-    oldAttrs: {
-      preRebuild = ''
-        export npm_config_zmq_external=true
-      '';
-      buildInputs = oldAttrs.buildInputs ++ [
-        final.node-gyp-build
-        pkgs.zeromq
-      ];
-    }
-  );
+  ijavascript = prev.ijavascript.override (oldAttrs: {
+    preRebuild = ''
+      export npm_config_zmq_external=true
+    '';
+    buildInputs = oldAttrs.buildInputs ++ [
+      final.node-gyp-build
+      pkgs.zeromq
+    ];
+  });
 
-  insect = prev.insect.override (
-    oldAttrs: {
-      nativeBuildInputs = oldAttrs.nativeBuildInputs or [ ] ++ [
-        pkgs.psc-package
-        final.pulp
-      ];
-    }
-  );
+  insect = prev.insect.override (oldAttrs: {
+    nativeBuildInputs = oldAttrs.nativeBuildInputs or [ ] ++ [
+      pkgs.psc-package
+      final.pulp
+    ];
+  });
 
-  intelephense = prev.intelephense.override (
-    oldAttrs: {
-      meta = oldAttrs.meta // {
-        license = lib.licenses.unfree;
-      };
-    }
-  );
+  intelephense = prev.intelephense.override (oldAttrs: {
+    meta = oldAttrs.meta // {
+      license = lib.licenses.unfree;
+    };
+  });
 
   joplin = prev.joplin.override {
     nativeBuildInputs = [ pkgs.pkg-config ];
@@ -351,26 +331,24 @@ final: prev: {
     '';
   };
 
-  manta = prev.manta.override (
-    oldAttrs: {
-      nativeBuildInputs = with pkgs; [
-        nodejs_14
-        installShellFiles
-      ];
-      postInstall = ''
-        # create completions, following upstream procedure https://github.com/joyent/node-manta/blob/v5.2.3/Makefile#L85-L91
-        completion_cmds=$(find ./bin -type f -printf "%f\n")
+  manta = prev.manta.override (oldAttrs: {
+    nativeBuildInputs = with pkgs; [
+      nodejs_14
+      installShellFiles
+    ];
+    postInstall = ''
+      # create completions, following upstream procedure https://github.com/joyent/node-manta/blob/v5.2.3/Makefile#L85-L91
+      completion_cmds=$(find ./bin -type f -printf "%f\n")
 
-        node ./lib/create_client.js
-        for cmd in $completion_cmds; do
-          installShellCompletion --cmd $cmd --bash <(./bin/$cmd --completion)
-        done
-      '';
-      meta = oldAttrs.meta // {
-        maintainers = with lib.maintainers; [ teutat3s ];
-      };
-    }
-  );
+      node ./lib/create_client.js
+      for cmd in $completion_cmds; do
+        installShellCompletion --cmd $cmd --bash <(./bin/$cmd --completion)
+      done
+    '';
+    meta = oldAttrs.meta // {
+      maintainers = with lib.maintainers; [ teutat3s ];
+    };
+  });
 
   mermaid-cli = prev."@mermaid-js/mermaid-cli".override (
     if stdenv.isDarwin then
@@ -407,14 +385,12 @@ final: prev: {
     '';
   };
 
-  node-inspector = prev.node-inspector.override (
-    oldAttrs: {
-      buildInputs = [ final.node-pre-gyp ];
-      meta = oldAttrs.meta // {
-        broken = since "10";
-      };
-    }
-  );
+  node-inspector = prev.node-inspector.override (oldAttrs: {
+    buildInputs = [ final.node-pre-gyp ];
+    meta = oldAttrs.meta // {
+      broken = since "10";
+    };
+  });
 
   node-red = prev.node-red.override { buildInputs = [ final.node-pre-gyp ]; };
 
@@ -479,23 +455,21 @@ final: prev: {
       '';
   };
 
-  postcss-cli = prev.postcss-cli.override (
-    oldAttrs: {
-      nativeBuildInputs = [ pkgs.buildPackages.makeWrapper ];
-      postInstall = ''
-        wrapProgram "$out/bin/postcss" \
-          --prefix NODE_PATH : ${final.postcss}/lib/node_modules \
-          --prefix NODE_PATH : ${final.autoprefixer}/lib/node_modules
-        ln -s '${final.postcss}/lib/node_modules/postcss' "$out/lib/node_modules/postcss"
-      '';
-      passthru.tests = {
-        simple-execution = callPackage ./package-tests/postcss-cli.nix { inherit (final) postcss-cli; };
-      };
-      meta = oldAttrs.meta // {
-        maintainers = with lib.maintainers; [ Luflosi ];
-      };
-    }
-  );
+  postcss-cli = prev.postcss-cli.override (oldAttrs: {
+    nativeBuildInputs = [ pkgs.buildPackages.makeWrapper ];
+    postInstall = ''
+      wrapProgram "$out/bin/postcss" \
+        --prefix NODE_PATH : ${final.postcss}/lib/node_modules \
+        --prefix NODE_PATH : ${final.autoprefixer}/lib/node_modules
+      ln -s '${final.postcss}/lib/node_modules/postcss' "$out/lib/node_modules/postcss"
+    '';
+    passthru.tests = {
+      simple-execution = callPackage ./package-tests/postcss-cli.nix { inherit (final) postcss-cli; };
+    };
+    meta = oldAttrs.meta // {
+      maintainers = with lib.maintainers; [ Luflosi ];
+    };
+  });
 
   # To update prisma, please first update prisma-engines to the latest
   # version. Then change the correct hash to this package. The PR should hold
@@ -532,27 +506,25 @@ final: prev: {
     '';
   };
 
-  readability-cli = prev.readability-cli.override (
-    oldAttrs: {
-      # Wrap src to fix this build error:
-      # > readability-cli/readable.ts: unsupported interpreter directive "#!/usr/bin/env -S deno..."
-      #
-      # Need to wrap the source, instead of patching in patchPhase, because
-      # buildNodePackage only unpacks sources in the installPhase.
-      src = pkgs.srcOnly {
-        src = oldAttrs.src;
-        name = oldAttrs.name;
-        patchPhase = "chmod a-x readable.ts";
-      };
+  readability-cli = prev.readability-cli.override (oldAttrs: {
+    # Wrap src to fix this build error:
+    # > readability-cli/readable.ts: unsupported interpreter directive "#!/usr/bin/env -S deno..."
+    #
+    # Need to wrap the source, instead of patching in patchPhase, because
+    # buildNodePackage only unpacks sources in the installPhase.
+    src = pkgs.srcOnly {
+      src = oldAttrs.src;
+      name = oldAttrs.name;
+      patchPhase = "chmod a-x readable.ts";
+    };
 
-      nativeBuildInputs = [ pkgs.pkg-config ];
-      buildInputs = with pkgs; [
-        pixman
-        cairo
-        pango
-      ];
-    }
-  );
+    nativeBuildInputs = [ pkgs.pkg-config ];
+    buildInputs = with pkgs; [
+      pixman
+      cairo
+      pango
+    ];
+  });
 
   reveal-md = prev.reveal-md.override (
     lib.optionalAttrs (!stdenv.isDarwin) {
@@ -569,26 +541,22 @@ final: prev: {
 
   rush = prev."@microsoft/rush".override { name = "rush"; };
 
-  ssb-server = prev.ssb-server.override (
-    oldAttrs: {
-      buildInputs = [
-        pkgs.automake
-        pkgs.autoconf
-        final.node-gyp-build
-      ];
-      meta = oldAttrs.meta // {
-        broken = since "10";
-      };
-    }
-  );
+  ssb-server = prev.ssb-server.override (oldAttrs: {
+    buildInputs = [
+      pkgs.automake
+      pkgs.autoconf
+      final.node-gyp-build
+    ];
+    meta = oldAttrs.meta // {
+      broken = since "10";
+    };
+  });
 
-  stf = prev.stf.override (
-    oldAttrs: {
-      meta = oldAttrs.meta // {
-        broken = since "10";
-      };
-    }
-  );
+  stf = prev.stf.override (oldAttrs: {
+    meta = oldAttrs.meta // {
+      broken = since "10";
+    };
+  });
 
   tailwindcss = prev.tailwindcss.override {
     plugins = [ ];
@@ -626,21 +594,19 @@ final: prev: {
     '';
   };
 
-  thelounge = prev.thelounge.override (
-    oldAttrs: {
-      buildInputs = [ final.node-pre-gyp ];
-      postInstall = ''
-        echo /var/lib/thelounge > $out/lib/node_modules/thelounge/.thelounge_home
-        patch -d $out/lib/node_modules/thelounge -p1 < ${./thelounge-packages-path.patch}
-      '';
-      passthru.tests = {
-        inherit (nixosTests) thelounge;
-      };
-      meta = oldAttrs.meta // {
-        maintainers = with lib.maintainers; [ winter ];
-      };
-    }
-  );
+  thelounge = prev.thelounge.override (oldAttrs: {
+    buildInputs = [ final.node-pre-gyp ];
+    postInstall = ''
+      echo /var/lib/thelounge > $out/lib/node_modules/thelounge/.thelounge_home
+      patch -d $out/lib/node_modules/thelounge -p1 < ${./thelounge-packages-path.patch}
+    '';
+    passthru.tests = {
+      inherit (nixosTests) thelounge;
+    };
+    meta = oldAttrs.meta // {
+      maintainers = with lib.maintainers; [ winter ];
+    };
+  });
 
   thelounge-plugin-closepms = prev.thelounge-plugin-closepms.override {
     nativeBuildInputs = [ final.node-pre-gyp ];
@@ -666,17 +632,15 @@ final: prev: {
     '';
   };
 
-  triton = prev.triton.override (
-    oldAttrs: {
-      nativeBuildInputs = [ pkgs.installShellFiles ];
-      postInstall = ''
-        installShellCompletion --cmd triton --bash <($out/bin/triton completion)
-      '';
-      meta = oldAttrs.meta // {
-        maintainers = with lib.maintainers; [ teutat3s ];
-      };
-    }
-  );
+  triton = prev.triton.override (oldAttrs: {
+    nativeBuildInputs = [ pkgs.installShellFiles ];
+    postInstall = ''
+      installShellCompletion --cmd triton --bash <($out/bin/triton completion)
+    '';
+    meta = oldAttrs.meta // {
+      maintainers = with lib.maintainers; [ teutat3s ];
+    };
+  });
 
   ts-node = prev.ts-node.override {
     nativeBuildInputs = [ pkgs.buildPackages.makeWrapper ];
@@ -753,13 +717,11 @@ final: prev: {
 
   webtorrent-cli = prev.webtorrent-cli.override { buildInputs = [ final.node-gyp-build ]; };
 
-  wrangler = prev.wrangler.override (
-    oldAttrs: {
-      meta = oldAttrs.meta // {
-        broken = before "16.13";
-      };
-    }
-  );
+  wrangler = prev.wrangler.override (oldAttrs: {
+    meta = oldAttrs.meta // {
+      broken = before "16.13";
+    };
+  });
 
   yaml-language-server = prev.yaml-language-server.override {
     nativeBuildInputs = [ pkgs.buildPackages.makeWrapper ];

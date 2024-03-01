@@ -38,17 +38,15 @@ rec {
         with lib.types;
         let
           valueType =
-            nullOr (
-              oneOf [
-                bool
-                int
-                float
-                str
-                path
-                (attrsOf valueType)
-                (listOf valueType)
-              ]
-            )
+            nullOr (oneOf [
+              bool
+              int
+              float
+              str
+              path
+              (attrsOf valueType)
+              (listOf valueType)
+            ])
             // {
               description = "JSON value";
             };
@@ -94,17 +92,15 @@ rec {
         with lib.types;
         let
           valueType =
-            nullOr (
-              oneOf [
-                bool
-                int
-                float
-                str
-                path
-                (attrsOf valueType)
-                (listOf valueType)
-              ]
-            )
+            nullOr (oneOf [
+              bool
+              int
+              float
+              str
+              path
+              (attrsOf valueType)
+              (listOf valueType)
+            ])
             // {
               description = "YAML value";
             };
@@ -129,14 +125,12 @@ rec {
         let
 
           singleIniAtom =
-            nullOr (
-              oneOf [
-                bool
-                int
-                float
-                str
-              ]
-            )
+            nullOr (oneOf [
+              bool
+              int
+              float
+              str
+            ])
             // {
               description = "INI atom (null, bool, int, float or string)";
             };
@@ -188,14 +182,12 @@ rec {
         let
 
           singleAtom =
-            nullOr (
-              oneOf [
-                bool
-                int
-                float
-                str
-              ]
-            )
+            nullOr (oneOf [
+              bool
+              int
+              float
+              str
+            ])
             // {
               description = "atom (null, bool, int, float or string)";
             };
@@ -413,16 +405,14 @@ rec {
         with lib.types;
         let
           valueType =
-            nullOr (
-              oneOf [
-                bool
-                int
-                float
-                str
-                (attrsOf valueType)
-                (listOf valueType)
-              ]
-            )
+            nullOr (oneOf [
+              bool
+              int
+              float
+              str
+              (attrsOf valueType)
+              (listOf valueType)
+            ])
             // {
               description = "Elixir value";
             };
@@ -490,29 +480,23 @@ rec {
             {
               inherit rawElixir elixirOr;
 
-              atom = elixirOr (
-                mkOptionType {
-                  name = "elixirAtom";
-                  description = "elixir atom";
-                  check = isElixirType "atom";
-                }
-              );
+              atom = elixirOr (mkOptionType {
+                name = "elixirAtom";
+                description = "elixir atom";
+                check = isElixirType "atom";
+              });
 
-              tuple = elixirOr (
-                mkOptionType {
-                  name = "elixirTuple";
-                  description = "elixir tuple";
-                  check = isElixirType "tuple";
-                }
-              );
+              tuple = elixirOr (mkOptionType {
+                name = "elixirTuple";
+                description = "elixir tuple";
+                check = isElixirType "tuple";
+              });
 
-              map = elixirOr (
-                mkOptionType {
-                  name = "elixirMap";
-                  description = "elixir map";
-                  check = isElixirType "map";
-                }
-              );
+              map = elixirOr (mkOptionType {
+                name = "elixirMap";
+                description = "elixir map";
+                check = isElixirType "map";
+              });
               # Wrap standard types, since anything in the Elixir configuration
               # can be raw Elixir
             }
@@ -542,17 +526,15 @@ rec {
         with lib.types;
         let
           valueType =
-            nullOr (
-              oneOf [
-                bool
-                float
-                int
-                path
-                str
-                (attrsOf valueType)
-                (listOf valueType)
-              ]
-            )
+            nullOr (oneOf [
+              bool
+              float
+              int
+              path
+              str
+              (attrsOf valueType)
+              (listOf valueType)
+            ])
             // {
               description = "Python value";
             };

@@ -17,28 +17,26 @@ in
     settings.scripts = mkOption {
       type =
         with types;
-        listOf (
-          submodule {
-            options = {
-              name = mkOption {
-                type = str;
-                example = "sleep";
-                description = lib.mdDoc "Name of the script.";
-              };
-              script = mkOption {
-                type = str;
-                example = "sleep 5";
-                description = lib.mdDoc "Shell script to execute when metrics are requested.";
-              };
-              timeout = mkOption {
-                type = nullOr int;
-                default = null;
-                example = 60;
-                description = lib.mdDoc "Optional timeout for the script in seconds.";
-              };
+        listOf (submodule {
+          options = {
+            name = mkOption {
+              type = str;
+              example = "sleep";
+              description = lib.mdDoc "Name of the script.";
             };
-          }
-        );
+            script = mkOption {
+              type = str;
+              example = "sleep 5";
+              description = lib.mdDoc "Shell script to execute when metrics are requested.";
+            };
+            timeout = mkOption {
+              type = nullOr int;
+              default = null;
+              example = 60;
+              description = lib.mdDoc "Optional timeout for the script in seconds.";
+            };
+          };
+        });
       example = literalExpression ''
         {
           scripts = [

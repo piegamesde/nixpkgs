@@ -177,28 +177,24 @@ in
           ''
         );
       in
-      script.overrideAttrs (
-        old: {
-          meta = (old.meta or { }) // {
-            platforms = lib.platforms.darwin;
-          };
-        }
-      );
+      script.overrideAttrs (old: {
+        meta = (old.meta or { }) // {
+          platforms = lib.platforms.darwin;
+        };
+      });
 
     system = {
       # To prevent gratuitous rebuilds on each change to Nixpkgs
       nixos.revision = null;
 
-      stateVersion = lib.mkDefault (
-        throw ''
-          The macOS linux builder should not need a stateVersion to be set, but a module
-          has accessed stateVersion nonetheless.
-          Please inspect the trace of the following command to figure out which module
-          has a dependency on stateVersion.
+      stateVersion = lib.mkDefault (throw ''
+        The macOS linux builder should not need a stateVersion to be set, but a module
+        has accessed stateVersion nonetheless.
+        Please inspect the trace of the following command to figure out which module
+        has a dependency on stateVersion.
 
-            nix-instantiate --attr darwin.builder --show-trace
-        ''
-      );
+          nix-instantiate --attr darwin.builder --show-trace
+      '');
     };
 
     users.users."${user}" = {

@@ -7,7 +7,9 @@
 let
   tests =
     let
-      p = pkgs.python3Packages.xpybutil.overridePythonAttrs (_: { dontWrapPythonPrograms = true; });
+      p = pkgs.python3Packages.xpybutil.overridePythonAttrs (_: {
+        dontWrapPythonPrograms = true;
+      });
     in
     [
       ({

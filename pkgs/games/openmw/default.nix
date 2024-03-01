@@ -22,42 +22,40 @@
 }:
 
 let
-  openscenegraph_openmw = (openscenegraph.override { colladaSupport = true; }).overrideDerivation (
-    self: {
-      src = fetchFromGitHub {
-        owner = "OpenMW";
-        repo = "osg";
-        rev = "bbe61c3bc510a4f5bb4aea21cce506519c2d24e6";
-        sha256 = "sha256-t3smLqstp7wWfi9HXJoBCek+3acqt/ySBYF8RJOG6Mo=";
-      };
-      patches = [
-        (fetchpatch {
-          # For Darwin, OSG doesn't build some plugins as they're redundant with QuickTime.
-          # OpenMW doesn't like this, and expects them to be there. Apply their patch for it.
-          name = "darwin-osg-plugins-fix.patch";
-          url = "https://gitlab.com/OpenMW/openmw-dep/-/raw/0abe3c9c3858211028d881d7706813d606335f72/macos/osg.patch";
-          sha256 = "sha256-/CLRZofZHot8juH78VG1/qhTHPhy5DoPMN+oH8hC58U=";
-        })
-      ];
-    }
-  );
+  openscenegraph_openmw =
+    (openscenegraph.override { colladaSupport = true; }).overrideDerivation
+      (self: {
+        src = fetchFromGitHub {
+          owner = "OpenMW";
+          repo = "osg";
+          rev = "bbe61c3bc510a4f5bb4aea21cce506519c2d24e6";
+          sha256 = "sha256-t3smLqstp7wWfi9HXJoBCek+3acqt/ySBYF8RJOG6Mo=";
+        };
+        patches = [
+          (fetchpatch {
+            # For Darwin, OSG doesn't build some plugins as they're redundant with QuickTime.
+            # OpenMW doesn't like this, and expects them to be there. Apply their patch for it.
+            name = "darwin-osg-plugins-fix.patch";
+            url = "https://gitlab.com/OpenMW/openmw-dep/-/raw/0abe3c9c3858211028d881d7706813d606335f72/macos/osg.patch";
+            sha256 = "sha256-/CLRZofZHot8juH78VG1/qhTHPhy5DoPMN+oH8hC58U=";
+          })
+        ];
+      });
 
-  bullet_openmw = bullet.overrideDerivation (
-    old: rec {
-      version = "3.17";
-      src = fetchFromGitHub {
-        owner = "bulletphysics";
-        repo = "bullet3";
-        rev = version;
-        sha256 = "sha256-uQ4X8F8nmagbcFh0KexrmnhHIXFSB3A1CCnjPVeHL3Q=";
-      };
-      patches = [ ];
-      cmakeFlags = (old.cmakeFlags or [ ]) ++ [
-        "-DUSE_DOUBLE_PRECISION=ON"
-        "-DBULLET2_MULTITHREADING=ON"
-      ];
-    }
-  );
+  bullet_openmw = bullet.overrideDerivation (old: rec {
+    version = "3.17";
+    src = fetchFromGitHub {
+      owner = "bulletphysics";
+      repo = "bullet3";
+      rev = version;
+      sha256 = "sha256-uQ4X8F8nmagbcFh0KexrmnhHIXFSB3A1CCnjPVeHL3Q=";
+    };
+    patches = [ ];
+    cmakeFlags = (old.cmakeFlags or [ ]) ++ [
+      "-DUSE_DOUBLE_PRECISION=ON"
+      "-DBULLET2_MULTITHREADING=ON"
+    ];
+  });
 in
 mkDerivation rec {
   pname = "openmw";

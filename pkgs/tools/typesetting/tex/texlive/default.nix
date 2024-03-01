@@ -329,13 +329,11 @@ tl
               platforms = lib.platforms.all;
               maintainers = with lib.maintainers; [ veprbl ];
             }
-            (
-              combine {
-                ${pname} = attrs;
-                extraName = "combined" + lib.removePrefix "scheme" pname;
-                extraVersion = with version; if final then "-final" else ".${year}${month}${day}";
-              }
-            )
+            (combine {
+              ${pname} = attrs;
+              extraName = "combined" + lib.removePrefix "scheme" pname;
+              extraVersion = with version; if final then "-final" else ".${year}${month}${day}";
+            })
         )
         {
           inherit (tl)

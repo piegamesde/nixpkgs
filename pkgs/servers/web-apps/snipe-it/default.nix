@@ -15,29 +15,27 @@ let
       inherit (stdenv.hostPlatform) system;
       noDev = true; # Disable development dependencies
     }).overrideAttrs
-      (
-        attrs: {
-          installPhase =
-            attrs.installPhase
-            + ''
-              # Before symlinking the following directories, copy the invalid_barcode.gif
-              # to a different location. The `snipe-it-setup` oneshot service will then
-              # copy the file back during bootstrap.
-              mkdir -p $out/share/snipe-it
-              cp $out/public/uploads/barcodes/invalid_barcode.gif $out/share/snipe-it/
+      (attrs: {
+        installPhase =
+          attrs.installPhase
+          + ''
+            # Before symlinking the following directories, copy the invalid_barcode.gif
+            # to a different location. The `snipe-it-setup` oneshot service will then
+            # copy the file back during bootstrap.
+            mkdir -p $out/share/snipe-it
+            cp $out/public/uploads/barcodes/invalid_barcode.gif $out/share/snipe-it/
 
-              rm -R $out/storage $out/public/uploads $out/bootstrap/cache
-              ln -s ${dataDir}/.env $out/.env
-              ln -s ${dataDir}/storage $out/
-              ln -s ${dataDir}/public/uploads $out/public/uploads
-              ln -s ${dataDir}/bootstrap/cache $out/bootstrap/cache
+            rm -R $out/storage $out/public/uploads $out/bootstrap/cache
+            ln -s ${dataDir}/.env $out/.env
+            ln -s ${dataDir}/storage $out/
+            ln -s ${dataDir}/public/uploads $out/public/uploads
+            ln -s ${dataDir}/bootstrap/cache $out/bootstrap/cache
 
-              chmod +x $out/artisan
+            chmod +x $out/artisan
 
-              substituteInPlace config/database.php --replace "env('DB_DUMP_PATH', '/usr/local/bin')" "env('DB_DUMP_PATH', '${mariadb}/bin')"
-            '';
-        }
-      );
+            substituteInPlace config/database.php --replace "env('DB_DUMP_PATH', '/usr/local/bin')" "env('DB_DUMP_PATH', '${mariadb}/bin')"
+          '';
+      });
 in
 package.override rec {
   pname = "snipe-it";

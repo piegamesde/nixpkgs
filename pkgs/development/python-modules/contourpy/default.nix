@@ -61,7 +61,9 @@ let
     ];
 
     passthru.tests = {
-      check = countourpy.overridePythonAttrs (_: { doCheck = true; });
+      check = countourpy.overridePythonAttrs (_: {
+        doCheck = true;
+      });
     };
 
     pythonImportsCheck = [ "contourpy" ];

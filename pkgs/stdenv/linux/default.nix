@@ -403,48 +403,46 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
               enableLTO = false;
             }
           )).overrideAttrs
-            (
-              a: {
+            (a: {
 
-                # This signals to cc-wrapper (as overridden above in this file) to add `--sysroot`
-                # to `$out/nix-support/cc-cflags`.
-                passthru = a.passthru // {
-                  isXgcc = true;
-                };
+              # This signals to cc-wrapper (as overridden above in this file) to add `--sysroot`
+              # to `$out/nix-support/cc-cflags`.
+              passthru = a.passthru // {
+                isXgcc = true;
+              };
 
-                # Gcc will look for the C library headers in
-                #
-                #    ${with_build_sysroot}${native_system_header_dir}
-                #
-                # The ordinary gcc expression sets `--with-build-sysroot=/` and sets
-                # `native-system-header-dir` to `"${lib.getDev stdenv.cc.libc}/include`.
-                #
-                # Unfortunately the value of "--with-native-system-header-dir=" gets "burned in" to the
-                # compiler, and it is quite difficult to get the compiler to change or ignore it
-                # afterwards.  On the other hand, the `sysroot` is very easy to change; you can just pass
-                # a `--sysroot` flag to `gcc`.
-                #
-                # So we override the expression to remove the default settings for these flags, and
-                # replace them such that the concatenated value will be the same as before, but we split
-                # the value between the two variables differently: `--native-system-header-dir=/include`,
-                # and `--with-build-sysroot=${lib.getDev stdenv.cc.libc}`.
-                #
-                configureFlags = (a.configureFlags or [ ]) ++ [
-                  "--with-native-system-header-dir=/include"
-                  "--with-build-sysroot=${lib.getDev final.stdenv.cc.libc}"
-                ];
+              # Gcc will look for the C library headers in
+              #
+              #    ${with_build_sysroot}${native_system_header_dir}
+              #
+              # The ordinary gcc expression sets `--with-build-sysroot=/` and sets
+              # `native-system-header-dir` to `"${lib.getDev stdenv.cc.libc}/include`.
+              #
+              # Unfortunately the value of "--with-native-system-header-dir=" gets "burned in" to the
+              # compiler, and it is quite difficult to get the compiler to change or ignore it
+              # afterwards.  On the other hand, the `sysroot` is very easy to change; you can just pass
+              # a `--sysroot` flag to `gcc`.
+              #
+              # So we override the expression to remove the default settings for these flags, and
+              # replace them such that the concatenated value will be the same as before, but we split
+              # the value between the two variables differently: `--native-system-header-dir=/include`,
+              # and `--with-build-sysroot=${lib.getDev stdenv.cc.libc}`.
+              #
+              configureFlags = (a.configureFlags or [ ]) ++ [
+                "--with-native-system-header-dir=/include"
+                "--with-build-sysroot=${lib.getDev final.stdenv.cc.libc}"
+              ];
 
-                # This is a separate phase because gcc assembles its phase scripts
-                # in bash instead of nix (we should fix that).
-                preFixupPhases = (a.preFixupPhases or [ ]) ++ [ "preFixupXgccPhase" ];
+              # This is a separate phase because gcc assembles its phase scripts
+              # in bash instead of nix (we should fix that).
+              preFixupPhases = (a.preFixupPhases or [ ]) ++ [ "preFixupXgccPhase" ];
 
-                # This is needed to prevent "error: cycle detected in build of '...-xgcc-....drv'
-                # in the references of output 'lib' from output 'out'"
-                preFixupXgccPhase = ''
-                  find $lib/lib/ -name \*.so\* -exec patchelf --shrink-rpath {} \; || true
-                '';
-              }
-            );
+              # This is needed to prevent "error: cycle detected in build of '...-xgcc-....drv'
+              # in the references of output 'lib' from output 'out'"
+              preFixupXgccPhase = ''
+                find $lib/lib/ -name \*.so\* -exec patchelf --shrink-rpath {} \; || true
+              '';
+            });
       };
 
       # `gettext` comes with obsolete config.sub/config.guess that don't recognize LoongArch64.
@@ -480,37 +478,35 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
           texinfo
           which
           ;
-        dejagnu = super.dejagnu.overrideAttrs (a: { doCheck = false; });
+        dejagnu = super.dejagnu.overrideAttrs (a: {
+          doCheck = false;
+        });
 
         # We need libidn2 and its dependency libunistring as glibc dependency.
         # To avoid the cycle, we build against bootstrap libc, nuke references,
         # and use the result as input for our final glibc.  We also pass this pair
         # through, so the final package-set uses exactly the same builds.
-        libunistring = super.libunistring.overrideAttrs (
-          attrs: {
-            postFixup =
-              attrs.postFixup or ""
-              + ''
-                ${self.nukeReferences}/bin/nuke-refs "$out"/lib/lib*.so.*.*
-              '';
-            # Apparently iconv won't work with bootstrap glibc, but it will be used
-            # with glibc built later where we keep *this* build of libunistring,
-            # so we need to trick it into supporting libiconv.
-            env = attrs.env or { } // {
-              am_cv_func_iconv_works = "yes";
-            };
-          }
-        );
-        libidn2 = super.libidn2.overrideAttrs (
-          attrs: {
-            postFixup =
-              attrs.postFixup or ""
-              + ''
-                ${self.nukeReferences}/bin/nuke-refs -e '${lib.getLib self.libunistring}' \
-                  "$out"/lib/lib*.so.*.*
-              '';
-          }
-        );
+        libunistring = super.libunistring.overrideAttrs (attrs: {
+          postFixup =
+            attrs.postFixup or ""
+            + ''
+              ${self.nukeReferences}/bin/nuke-refs "$out"/lib/lib*.so.*.*
+            '';
+          # Apparently iconv won't work with bootstrap glibc, but it will be used
+          # with glibc built later where we keep *this* build of libunistring,
+          # so we need to trick it into supporting libiconv.
+          env = attrs.env or { } // {
+            am_cv_func_iconv_works = "yes";
+          };
+        });
+        libidn2 = super.libidn2.overrideAttrs (attrs: {
+          postFixup =
+            attrs.postFixup or ""
+            + ''
+              ${self.nukeReferences}/bin/nuke-refs -e '${lib.getLib self.libunistring}' \
+                "$out"/lib/lib*.so.*.*
+            '';
+        });
 
         # This also contains the full, dynamically linked, final Glibc.
         binutils = prevStage.binutils.override {
@@ -613,19 +609,17 @@ assert bootstrapTools.passthru.isFromBootstrapFiles or false; # sanity check
           ${localSystem.libc} = getLibc prevStage;
           gcc-unwrapped =
             (super.gcc-unwrapped.override (commonGccOverrides // { inherit (prevStage) which; })).overrideAttrs
-              (
-                a: {
-                  # so we can add them to allowedRequisites below
-                  passthru = a.passthru // {
-                    inherit (self)
-                      gmp
-                      mpfr
-                      libmpc
-                      isl
-                      ;
-                  };
-                }
-              );
+              (a: {
+                # so we can add them to allowedRequisites below
+                passthru = a.passthru // {
+                  inherit (self)
+                    gmp
+                    mpfr
+                    libmpc
+                    isl
+                    ;
+                };
+              });
         };
       extraNativeBuildInputs =
         [ prevStage.patchelf ]

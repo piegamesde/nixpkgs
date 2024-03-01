@@ -60,13 +60,11 @@ in
     preferences = mkOption {
       type =
         with types;
-        attrsOf (
-          oneOf [
-            bool
-            int
-            string
-          ]
-        );
+        attrsOf (oneOf [
+          bool
+          int
+          string
+        ]);
       default = { };
       description = mdDoc ''
         Preferences to set from `about:config`.

@@ -75,13 +75,11 @@ let
     concatStringsSep "\n" (toLines cfg.config);
 
   semanticTypes = with types; rec {
-    zncAtom = nullOr (
-      oneOf [
-        int
-        bool
-        str
-      ]
-    );
+    zncAtom = nullOr (oneOf [
+      int
+      bool
+      str
+    ]);
     zncAttr = attrsOf (nullOr zncConf);
     zncAll = oneOf [
       zncAtom

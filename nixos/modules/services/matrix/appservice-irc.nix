@@ -20,12 +20,10 @@ let
       {
         # Because this program will be run at build time, we need `nativeBuildInputs`
         nativeBuildInputs = [
-          (pkgs.python3.withPackages (
-            ps: [
-              ps.pyyaml
-              ps.jsonschema
-            ]
-          ))
+          (pkgs.python3.withPackages (ps: [
+            ps.pyyaml
+            ps.jsonschema
+          ]))
         ];
         preferLocalBuild = true;
 

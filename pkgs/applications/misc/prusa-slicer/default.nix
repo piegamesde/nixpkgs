@@ -35,19 +35,17 @@
   systemd,
 }:
 let
-  wxGTK-prusa = wxGTK31.overrideAttrs (
-    old: rec {
-      pname = "wxwidgets-prusa3d-patched";
-      version = "3.1.4";
-      src = fetchFromGitHub {
-        owner = "prusa3d";
-        repo = "wxWidgets";
-        rev = "489f6118256853cf5b299d595868641938566cdb";
-        hash = "sha256-xGL5I2+bPjmZGSTYe1L7VAmvLHbwd934o/cxg9baEvQ=";
-        fetchSubmodules = true;
-      };
-    }
-  );
+  wxGTK-prusa = wxGTK31.overrideAttrs (old: rec {
+    pname = "wxwidgets-prusa3d-patched";
+    version = "3.1.4";
+    src = fetchFromGitHub {
+      owner = "prusa3d";
+      repo = "wxWidgets";
+      rev = "489f6118256853cf5b299d595868641938566cdb";
+      hash = "sha256-xGL5I2+bPjmZGSTYe1L7VAmvLHbwd934o/cxg9baEvQ=";
+      fetchSubmodules = true;
+    };
+  });
 in
 stdenv.mkDerivation rec {
   pname = "prusa-slicer";

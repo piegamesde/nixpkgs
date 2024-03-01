@@ -243,12 +243,10 @@ in
   # 21.x    Standard   2023-10-18  2025-10-18  2026-10-18 (unreleased)
   asterisk-lts = versions.asterisk_18;
   asterisk-stable = versions.asterisk_20;
-  asterisk = versions.asterisk_20.overrideAttrs (
-    o: {
-      passthru = (o.passthru or { }) // {
-        inherit updateScript;
-      };
-    }
-  );
+  asterisk = versions.asterisk_20.overrideAttrs (o: {
+    passthru = (o.passthru or { }) // {
+      inherit updateScript;
+    };
+  });
 }
 // versions

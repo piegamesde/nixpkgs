@@ -5,9 +5,9 @@ import ./make-test-python.nix (
 
     # Build Quake with coverage instrumentation.
     overrides = pkgs: {
-      quake3game = pkgs.quake3game.override (
-        args: { stdenv = pkgs.stdenvAdapters.addCoverageInstrumentation args.stdenv; }
-      );
+      quake3game = pkgs.quake3game.override (args: {
+        stdenv = pkgs.stdenvAdapters.addCoverageInstrumentation args.stdenv;
+      });
     };
 
     # Only allow the demo data to be used (only if it's unfreeRedistributable).

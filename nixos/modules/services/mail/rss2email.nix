@@ -38,13 +38,11 @@ in
       config = mkOption {
         type =
           with types;
-          attrsOf (
-            oneOf [
-              str
-              int
-              bool
-            ]
-          );
+          attrsOf (oneOf [
+            str
+            int
+            bool
+          ]);
         default = { };
         description = lib.mdDoc ''
           The configuration to give rss2email.

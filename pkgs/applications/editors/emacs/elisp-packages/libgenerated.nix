@@ -34,7 +34,9 @@ let
           rev = commit;
           inherit sha256 url;
         }).overrideAttrs
-          (_: { GIT_SSL_NO_VERIFY = true; })
+          (_: {
+            GIT_SSL_NO_VERIFY = true;
+          })
       ) { };
       bitbucket = self.callPackage (
         { fetchhg }:

@@ -66,9 +66,7 @@ in
         '';
   };
 }).overrideAttrs
-  (
-    o: {
-      inherit version;
-      pname = "nixos-install-tools";
-    }
-  )
+  (o: {
+    inherit version;
+    pname = "nixos-install-tools";
+  })

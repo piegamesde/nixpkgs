@@ -92,31 +92,27 @@ let
   # Convert derivation to a Python module.
   toPythonModule =
     drv:
-    drv.overrideAttrs (
-      oldAttrs: {
-        # Use passthru in order to prevent rebuilds when possible.
-        passthru = (oldAttrs.passthru or { }) // {
-          pythonModule = python;
-          pythonPath = [ ]; # Deprecated, for compatibility.
-          requiredPythonModules = requiredPythonModules drv.propagatedBuildInputs;
-        };
-      }
-    );
+    drv.overrideAttrs (oldAttrs: {
+      # Use passthru in order to prevent rebuilds when possible.
+      passthru = (oldAttrs.passthru or { }) // {
+        pythonModule = python;
+        pythonPath = [ ]; # Deprecated, for compatibility.
+        requiredPythonModules = requiredPythonModules drv.propagatedBuildInputs;
+      };
+    });
 
   # Convert a Python library to an application.
   toPythonApplication =
     drv:
-    drv.overrideAttrs (
-      oldAttrs: {
-        passthru = (oldAttrs.passthru or { }) // {
-          # Remove Python prefix from name so we have a "normal" name.
-          # While the prefix shows up in the store path, it won't be
-          # used by `nix-env`.
-          name = removePythonPrefix oldAttrs.name;
-          pythonModule = false;
-        };
-      }
-    );
+    drv.overrideAttrs (oldAttrs: {
+      passthru = (oldAttrs.passthru or { }) // {
+        # Remove Python prefix from name so we have a "normal" name.
+        # While the prefix shows up in the store path, it won't be
+        # used by `nix-env`.
+        name = removePythonPrefix oldAttrs.name;
+        pythonModule = false;
+      };
+    });
 
   disabled =
     drv:

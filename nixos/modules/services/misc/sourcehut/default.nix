@@ -155,20 +155,18 @@ in
     services = mkOption {
       type =
         with types;
-        listOf (
-          enum [
-            "builds"
-            "git"
-            "hg"
-            "hub"
-            "lists"
-            "man"
-            "meta"
-            "pages"
-            "paste"
-            "todo"
-          ]
-        );
+        listOf (enum [
+          "builds"
+          "git"
+          "hg"
+          "hub"
+          "lists"
+          "man"
+          "meta"
+          "pages"
+          "paste"
+          "todo"
+        ]);
       defaultText = "locally enabled services";
       description = lib.mdDoc ''
         Services that may be displayed as links in the title bar of the Web interface.
@@ -808,163 +806,161 @@ in
     };
   };
 
-  config = mkIf cfg.enable (
-    mkMerge [
-      {
-        environment.systemPackages = [ pkgs.sourcehut.coresrht ];
+  config = mkIf cfg.enable (mkMerge [
+    {
+      environment.systemPackages = [ pkgs.sourcehut.coresrht ];
 
-        services.sourcehut.settings = {
-          "git.sr.ht".outgoing-domain = mkDefault "https://git.${domain}";
-          "lists.sr.ht".notify-from = mkDefault "lists-notify@${domain}";
-          "lists.sr.ht".posting-domain = mkDefault "lists.${domain}";
-          "meta.sr.ht::settings".onboarding-redirect = mkDefault "https://meta.${domain}";
-          "todo.sr.ht".notify-from = mkDefault "todo-notify@${domain}";
-          "todo.sr.ht::mail".posting-domain = mkDefault "todo.${domain}";
+      services.sourcehut.settings = {
+        "git.sr.ht".outgoing-domain = mkDefault "https://git.${domain}";
+        "lists.sr.ht".notify-from = mkDefault "lists-notify@${domain}";
+        "lists.sr.ht".posting-domain = mkDefault "lists.${domain}";
+        "meta.sr.ht::settings".onboarding-redirect = mkDefault "https://meta.${domain}";
+        "todo.sr.ht".notify-from = mkDefault "todo-notify@${domain}";
+        "todo.sr.ht::mail".posting-domain = mkDefault "todo.${domain}";
+      };
+    }
+    (mkIf cfg.postgresql.enable {
+      assertions = [
+        {
+          assertion = postgresql.enable;
+          message = "postgresql must be enabled and configured";
+        }
+      ];
+    })
+    (mkIf cfg.postfix.enable {
+      assertions = [
+        {
+          assertion = postfix.enable;
+          message = "postfix must be enabled and configured";
+        }
+      ];
+      # Needed for sharing the LMTP sockets with JoinsNamespaceOf=
+      systemd.services.postfix.serviceConfig.PrivateTmp = true;
+    })
+    (mkIf cfg.redis.enable { services.redis.vmOverCommit = mkDefault true; })
+    (mkIf cfg.nginx.enable {
+      assertions = [
+        {
+          assertion = nginx.enable;
+          message = "nginx must be enabled and configured";
+        }
+      ];
+      # For proxyPass= in virtual-hosts for Sourcehut services.
+      services.nginx.recommendedProxySettings = mkDefault true;
+    })
+    (mkIf (cfg.builds.enable || cfg.git.enable || cfg.hg.enable) {
+      services.openssh = {
+        # Note that sshd will continue to honor AuthorizedKeysFile.
+        # Note that you may want automatically rotate
+        # or link to /dev/null the following log files:
+        # - /var/log/gitsrht-dispatch
+        # - /var/log/{build,git,hg}srht-keys
+        # - /var/log/{git,hg}srht-shell
+        # - /var/log/gitsrht-update-hook
+        authorizedKeysCommand = ''/etc/ssh/sourcehut/subdir/srht-dispatch "%u" "%h" "%t" "%k"'';
+        # srht-dispatch will setuid/setgid according to [git.sr.ht::dispatch]
+        authorizedKeysCommandUser = "root";
+        extraConfig = ''
+          PermitUserEnvironment SRHT_*
+        '';
+      };
+      environment.etc."ssh/sourcehut/config.ini".source =
+        settingsFormat.generate "sourcehut-dispatch-config.ini"
+          (filterAttrs (k: v: k == "git.sr.ht::dispatch") cfg.settings);
+      environment.etc."ssh/sourcehut/subdir/srht-dispatch" = {
+        # sshd_config(5): The program must be owned by root, not writable by group or others
+        mode = "0755";
+        source = pkgs.writeShellScript "srht-dispatch" ''
+          set -e
+          cd /etc/ssh/sourcehut/subdir
+          ${cfg.python}/bin/gitsrht-dispatch "$@"
+        '';
+      };
+      systemd.services.sshd = {
+        #path = optional cfg.git.enable [ cfg.git.package ];
+        serviceConfig = {
+          BindReadOnlyPaths =
+            # Note that those /usr/bin/* paths are hardcoded in multiple places in *.sr.ht,
+            # for instance to get the user from the [git.sr.ht::dispatch] settings.
+            # *srht-keys needs to:
+            # - access a redis-server in [sr.ht] redis-host,
+            # - access the PostgreSQL server in [*.sr.ht] connection-string,
+            # - query metasrht-api (through the HTTP API).
+            # Using this has the side effect of creating empty files in /usr/bin/
+            optionals cfg.builds.enable [
+              "${pkgs.writeShellScript "buildsrht-keys-wrapper" ''
+                set -e
+                cd /run/sourcehut/buildsrht/subdir
+                set -x
+                exec -a "$0" ${pkgs.sourcehut.buildsrht}/bin/buildsrht-keys "$@"
+              ''}:/usr/bin/buildsrht-keys"
+              "${pkgs.sourcehut.buildsrht}/bin/master-shell:/usr/bin/master-shell"
+              "${pkgs.sourcehut.buildsrht}/bin/runner-shell:/usr/bin/runner-shell"
+            ]
+            ++ optionals cfg.git.enable [
+              # /path/to/gitsrht-keys calls /path/to/gitsrht-shell,
+              # or [git.sr.ht] shell= if set.
+              "${pkgs.writeShellScript "gitsrht-keys-wrapper" ''
+                set -e
+                cd /run/sourcehut/gitsrht/subdir
+                set -x
+                exec -a "$0" ${pkgs.sourcehut.gitsrht}/bin/gitsrht-keys "$@"
+              ''}:/usr/bin/gitsrht-keys"
+              "${pkgs.writeShellScript "gitsrht-shell-wrapper" ''
+                set -e
+                cd /run/sourcehut/gitsrht/subdir
+                set -x
+                exec -a "$0" ${pkgs.sourcehut.gitsrht}/bin/gitsrht-shell "$@"
+              ''}:/usr/bin/gitsrht-shell"
+              "${pkgs.writeShellScript "gitsrht-update-hook" ''
+                set -e
+                test -e "''${PWD%/*}"/config.ini ||
+                # Git hooks are run relative to their repository's directory,
+                # but gitsrht-update-hook looks up ../config.ini
+                ln -s /run/sourcehut/gitsrht/config.ini "''${PWD%/*}"/config.ini
+                # hooks/post-update calls /usr/bin/gitsrht-update-hook as hooks/stage-3
+                # but this wrapper being a bash script, it overrides $0 with /usr/bin/gitsrht-update-hook
+                # hence this hack to put hooks/stage-3 back into gitsrht-update-hook's $0
+                if test "''${STAGE3:+set}"
+                then
+                  set -x
+                  exec -a hooks/stage-3 ${pkgs.sourcehut.gitsrht}/bin/gitsrht-update-hook "$@"
+                else
+                  export STAGE3=set
+                  set -x
+                  exec -a "$0" ${pkgs.sourcehut.gitsrht}/bin/gitsrht-update-hook "$@"
+                fi
+              ''}:/usr/bin/gitsrht-update-hook"
+            ]
+            ++ optionals cfg.hg.enable [
+              # /path/to/hgsrht-keys calls /path/to/hgsrht-shell,
+              # or [hg.sr.ht] shell= if set.
+              "${pkgs.writeShellScript "hgsrht-keys-wrapper" ''
+                set -e
+                cd /run/sourcehut/hgsrht/subdir
+                set -x
+                exec -a "$0" ${pkgs.sourcehut.hgsrht}/bin/hgsrht-keys "$@"
+              ''}:/usr/bin/hgsrht-keys"
+              "${pkgs.writeShellScript "hgsrht-shell-wrapper" ''
+                set -e
+                cd /run/sourcehut/hgsrht/subdir
+                set -x
+                exec -a "$0" ${pkgs.sourcehut.hgsrht}/bin/hgsrht-shell "$@"
+              ''}:/usr/bin/hgsrht-shell"
+              # Mercurial's changegroup hooks are run relative to their repository's directory,
+              # but hgsrht-hook-changegroup looks up ./config.ini
+              "${pkgs.writeShellScript "hgsrht-hook-changegroup" ''
+                set -e
+                test -e "''$PWD"/config.ini ||
+                ln -s /run/sourcehut/hgsrht/config.ini "''$PWD"/config.ini
+                set -x
+                exec -a "$0" ${cfg.python}/bin/hgsrht-hook-changegroup "$@"
+              ''}:/usr/bin/hgsrht-hook-changegroup"
+            ];
         };
-      }
-      (mkIf cfg.postgresql.enable {
-        assertions = [
-          {
-            assertion = postgresql.enable;
-            message = "postgresql must be enabled and configured";
-          }
-        ];
-      })
-      (mkIf cfg.postfix.enable {
-        assertions = [
-          {
-            assertion = postfix.enable;
-            message = "postfix must be enabled and configured";
-          }
-        ];
-        # Needed for sharing the LMTP sockets with JoinsNamespaceOf=
-        systemd.services.postfix.serviceConfig.PrivateTmp = true;
-      })
-      (mkIf cfg.redis.enable { services.redis.vmOverCommit = mkDefault true; })
-      (mkIf cfg.nginx.enable {
-        assertions = [
-          {
-            assertion = nginx.enable;
-            message = "nginx must be enabled and configured";
-          }
-        ];
-        # For proxyPass= in virtual-hosts for Sourcehut services.
-        services.nginx.recommendedProxySettings = mkDefault true;
-      })
-      (mkIf (cfg.builds.enable || cfg.git.enable || cfg.hg.enable) {
-        services.openssh = {
-          # Note that sshd will continue to honor AuthorizedKeysFile.
-          # Note that you may want automatically rotate
-          # or link to /dev/null the following log files:
-          # - /var/log/gitsrht-dispatch
-          # - /var/log/{build,git,hg}srht-keys
-          # - /var/log/{git,hg}srht-shell
-          # - /var/log/gitsrht-update-hook
-          authorizedKeysCommand = ''/etc/ssh/sourcehut/subdir/srht-dispatch "%u" "%h" "%t" "%k"'';
-          # srht-dispatch will setuid/setgid according to [git.sr.ht::dispatch]
-          authorizedKeysCommandUser = "root";
-          extraConfig = ''
-            PermitUserEnvironment SRHT_*
-          '';
-        };
-        environment.etc."ssh/sourcehut/config.ini".source =
-          settingsFormat.generate "sourcehut-dispatch-config.ini"
-            (filterAttrs (k: v: k == "git.sr.ht::dispatch") cfg.settings);
-        environment.etc."ssh/sourcehut/subdir/srht-dispatch" = {
-          # sshd_config(5): The program must be owned by root, not writable by group or others
-          mode = "0755";
-          source = pkgs.writeShellScript "srht-dispatch" ''
-            set -e
-            cd /etc/ssh/sourcehut/subdir
-            ${cfg.python}/bin/gitsrht-dispatch "$@"
-          '';
-        };
-        systemd.services.sshd = {
-          #path = optional cfg.git.enable [ cfg.git.package ];
-          serviceConfig = {
-            BindReadOnlyPaths =
-              # Note that those /usr/bin/* paths are hardcoded in multiple places in *.sr.ht,
-              # for instance to get the user from the [git.sr.ht::dispatch] settings.
-              # *srht-keys needs to:
-              # - access a redis-server in [sr.ht] redis-host,
-              # - access the PostgreSQL server in [*.sr.ht] connection-string,
-              # - query metasrht-api (through the HTTP API).
-              # Using this has the side effect of creating empty files in /usr/bin/
-              optionals cfg.builds.enable [
-                "${pkgs.writeShellScript "buildsrht-keys-wrapper" ''
-                  set -e
-                  cd /run/sourcehut/buildsrht/subdir
-                  set -x
-                  exec -a "$0" ${pkgs.sourcehut.buildsrht}/bin/buildsrht-keys "$@"
-                ''}:/usr/bin/buildsrht-keys"
-                "${pkgs.sourcehut.buildsrht}/bin/master-shell:/usr/bin/master-shell"
-                "${pkgs.sourcehut.buildsrht}/bin/runner-shell:/usr/bin/runner-shell"
-              ]
-              ++ optionals cfg.git.enable [
-                # /path/to/gitsrht-keys calls /path/to/gitsrht-shell,
-                # or [git.sr.ht] shell= if set.
-                "${pkgs.writeShellScript "gitsrht-keys-wrapper" ''
-                  set -e
-                  cd /run/sourcehut/gitsrht/subdir
-                  set -x
-                  exec -a "$0" ${pkgs.sourcehut.gitsrht}/bin/gitsrht-keys "$@"
-                ''}:/usr/bin/gitsrht-keys"
-                "${pkgs.writeShellScript "gitsrht-shell-wrapper" ''
-                  set -e
-                  cd /run/sourcehut/gitsrht/subdir
-                  set -x
-                  exec -a "$0" ${pkgs.sourcehut.gitsrht}/bin/gitsrht-shell "$@"
-                ''}:/usr/bin/gitsrht-shell"
-                "${pkgs.writeShellScript "gitsrht-update-hook" ''
-                  set -e
-                  test -e "''${PWD%/*}"/config.ini ||
-                  # Git hooks are run relative to their repository's directory,
-                  # but gitsrht-update-hook looks up ../config.ini
-                  ln -s /run/sourcehut/gitsrht/config.ini "''${PWD%/*}"/config.ini
-                  # hooks/post-update calls /usr/bin/gitsrht-update-hook as hooks/stage-3
-                  # but this wrapper being a bash script, it overrides $0 with /usr/bin/gitsrht-update-hook
-                  # hence this hack to put hooks/stage-3 back into gitsrht-update-hook's $0
-                  if test "''${STAGE3:+set}"
-                  then
-                    set -x
-                    exec -a hooks/stage-3 ${pkgs.sourcehut.gitsrht}/bin/gitsrht-update-hook "$@"
-                  else
-                    export STAGE3=set
-                    set -x
-                    exec -a "$0" ${pkgs.sourcehut.gitsrht}/bin/gitsrht-update-hook "$@"
-                  fi
-                ''}:/usr/bin/gitsrht-update-hook"
-              ]
-              ++ optionals cfg.hg.enable [
-                # /path/to/hgsrht-keys calls /path/to/hgsrht-shell,
-                # or [hg.sr.ht] shell= if set.
-                "${pkgs.writeShellScript "hgsrht-keys-wrapper" ''
-                  set -e
-                  cd /run/sourcehut/hgsrht/subdir
-                  set -x
-                  exec -a "$0" ${pkgs.sourcehut.hgsrht}/bin/hgsrht-keys "$@"
-                ''}:/usr/bin/hgsrht-keys"
-                "${pkgs.writeShellScript "hgsrht-shell-wrapper" ''
-                  set -e
-                  cd /run/sourcehut/hgsrht/subdir
-                  set -x
-                  exec -a "$0" ${pkgs.sourcehut.hgsrht}/bin/hgsrht-shell "$@"
-                ''}:/usr/bin/hgsrht-shell"
-                # Mercurial's changegroup hooks are run relative to their repository's directory,
-                # but hgsrht-hook-changegroup looks up ./config.ini
-                "${pkgs.writeShellScript "hgsrht-hook-changegroup" ''
-                  set -e
-                  test -e "''$PWD"/config.ini ||
-                  ln -s /run/sourcehut/hgsrht/config.ini "''$PWD"/config.ini
-                  set -x
-                  exec -a "$0" ${cfg.python}/bin/hgsrht-hook-changegroup "$@"
-                ''}:/usr/bin/hgsrht-hook-changegroup"
-              ];
-          };
-        };
-      })
-    ]
-  );
+      };
+    })
+  ]);
 
   imports = [
 
@@ -1109,17 +1105,15 @@ in
               "sourcehut/gitsrht"
               "sourcehut/gitsrht/repos"
             ];
-            preStart = mkIf (versionOlder config.system.stateVersion "22.05") (
-              mkBefore ''
-                # Fix Git hooks of repositories pre-dating https://github.com/NixOS/nixpkgs/pull/133984
-                (
-                set +f
-                shopt -s nullglob
-                for h in /var/lib/sourcehut/gitsrht/repos/~*/*/hooks/{pre-receive,update,post-update}
-                do ln -fnsv /usr/bin/gitsrht-update-hook "$h"; done
-                )
-              ''
-            );
+            preStart = mkIf (versionOlder config.system.stateVersion "22.05") (mkBefore ''
+              # Fix Git hooks of repositories pre-dating https://github.com/NixOS/nixpkgs/pull/133984
+              (
+              set +f
+              shopt -s nullglob
+              for h in /var/lib/sourcehut/gitsrht/repos/~*/*/hooks/{pre-receive,update,post-update}
+              do ln -fnsv /usr/bin/gitsrht-update-hook "$h"; done
+              )
+            '');
           }
         ];
         port = 5001;

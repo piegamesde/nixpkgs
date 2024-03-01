@@ -43,4 +43,6 @@ in
     enableOfficialBranding = false;
   }
 ).overrideAttrs
-  (prev: { MOZ_REQUIRE_SIGNING = ""; })
+  (prev: {
+    MOZ_REQUIRE_SIGNING = "";
+  })

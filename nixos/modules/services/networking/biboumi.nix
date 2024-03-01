@@ -33,13 +33,11 @@ in
           freeformType =
             with types;
             (attrsOf (
-              nullOr (
-                oneOf [
-                  str
-                  int
-                  bool
-                ]
-              )
+              nullOr (oneOf [
+                str
+                int
+                bool
+              ])
             ))
             // {
               description = "settings option";

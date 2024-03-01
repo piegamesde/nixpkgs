@@ -54,21 +54,19 @@ let
     sha256 = "sha256-kpvrRiiygfjQni8z+ju9mPBVqy2gs08Wj4cHxE9eorQ=";
   };
 
-  gdbm3 = gdbm.overrideAttrs (
-    old: rec {
-      version = "1.8.3";
+  gdbm3 = gdbm.overrideAttrs (old: rec {
+    version = "1.8.3";
 
-      src = fetchurl {
-        url = "mirror://gnu/gdbm/gdbm-${version}.tar.gz";
-        sha256 = "sha256-zDQDOKLii0AFirnrU1SiHVP4ihWC6iG6C7GFw3ooHck=";
-      };
+    src = fetchurl {
+      url = "mirror://gnu/gdbm/gdbm-${version}.tar.gz";
+      sha256 = "sha256-zDQDOKLii0AFirnrU1SiHVP4ihWC6iG6C7GFw3ooHck=";
+    };
 
-      installPhase = ''
-        mkdir -p $out/lib
-        cp .libs/libgdbm*.so* $out/lib/
-      '';
-    }
-  );
+    installPhase = ''
+      mkdir -p $out/lib
+      cp .libs/libgdbm*.so* $out/lib/
+    '';
+  });
 
   vmware-unpack-env = buildFHSEnv rec {
     name = "vmware-unpack-env";

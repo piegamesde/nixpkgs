@@ -6,7 +6,10 @@
 
 let
   unsafeBuildOpenRAMod =
-    attrs: name: (buildOpenRAMod attrs name).overrideAttrs (_: { doCheck = false; });
+    attrs: name:
+    (buildOpenRAMod attrs name).overrideAttrs (_: {
+      doCheck = false;
+    });
 in
 {
   ca = buildOpenRAMod {
@@ -143,14 +146,12 @@ in
         };
       };
     } name).overrideAttrs
-      (
-        origAttrs: {
-          postPatch = ''
-            ${origAttrs.postPatch}
-            sed -i 's/{DEV_VERSION}/${version}/' mods/*/mod.yaml
-          '';
-        }
-      );
+      (origAttrs: {
+        postPatch = ''
+          ${origAttrs.postPatch}
+          sed -i 's/{DEV_VERSION}/${version}/' mods/*/mod.yaml
+        '';
+      });
 
   mw = buildOpenRAMod rec {
     version = "257.git.c9be8f2";

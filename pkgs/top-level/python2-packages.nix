@@ -78,11 +78,9 @@ with super;
 
   typing = callPackage ../development/python2-modules/typing { };
 
-  six = super.six.overridePythonAttrs (
-    _: {
-      doCheck = false; # circular dependency with pytest
-    }
-  );
+  six = super.six.overridePythonAttrs (_: {
+    doCheck = false; # circular dependency with pytest
+  });
 
   wheel = callPackage ../development/python2-modules/wheel { };
 

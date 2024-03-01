@@ -26,22 +26,20 @@ stdenv.mkDerivation rec {
   ];
   buildInputs = [ jre ];
 
-  desktopItems = lib.optional (!stdenv.isDarwin) (
-    makeDesktopItem {
-      name = "basex";
-      exec = "basexgui %f";
-      icon = "${./basex.svg}"; # icon copied from Ubuntu basex package
-      comment = "Visually query and analyse your XML data";
-      desktopName = "BaseX XML Database";
-      genericName = "XML database tool";
-      categories = [
-        "Development"
-        "Utility"
-        "Database"
-      ];
-      mimeTypes = [ "text/xml" ];
-    }
-  );
+  desktopItems = lib.optional (!stdenv.isDarwin) (makeDesktopItem {
+    name = "basex";
+    exec = "basexgui %f";
+    icon = "${./basex.svg}"; # icon copied from Ubuntu basex package
+    comment = "Visually query and analyse your XML data";
+    desktopName = "BaseX XML Database";
+    genericName = "XML database tool";
+    categories = [
+      "Development"
+      "Utility"
+      "Database"
+    ];
+    mimeTypes = [ "text/xml" ];
+  });
 
   dontBuild = true;
 

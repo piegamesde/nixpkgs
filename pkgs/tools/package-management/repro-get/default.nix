@@ -43,25 +43,23 @@ buildGoModule rec {
   '';
 
   passthru.tests = {
-    "pkg-version" = repro-get.overrideAttrs (
-      old: {
-        # see invalidateFetcherByDrvHash
-        name = "${repro-get.pname}-${
-          builtins.unsafeDiscardStringContext (lib.substring 0 12 (baseNameOf repro-get.drvPath))
-        }";
-        subPackages = [ "pkg/version" ];
-        installPhase = ''
-          rm -rf $out
-          touch $out
-        '';
-        preCheck = "";
-        outputHash = "sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=";
-        outputHashAlgo = "sha256";
-        outputHashMode = "flat";
-        outputs = [ "out" ];
-        nativeBuildInputs = old.nativeBuildInputs ++ [ cacert ];
-      }
-    );
+    "pkg-version" = repro-get.overrideAttrs (old: {
+      # see invalidateFetcherByDrvHash
+      name = "${repro-get.pname}-${
+        builtins.unsafeDiscardStringContext (lib.substring 0 12 (baseNameOf repro-get.drvPath))
+      }";
+      subPackages = [ "pkg/version" ];
+      installPhase = ''
+        rm -rf $out
+        touch $out
+      '';
+      preCheck = "";
+      outputHash = "sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=";
+      outputHashAlgo = "sha256";
+      outputHashMode = "flat";
+      outputs = [ "out" ];
+      nativeBuildInputs = old.nativeBuildInputs ++ [ cacert ];
+    });
     version = testers.testVersion {
       package = repro-get;
       command = "HOME=$(mktemp -d) repro-get -v";

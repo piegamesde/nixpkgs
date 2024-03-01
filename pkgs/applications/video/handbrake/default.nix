@@ -99,46 +99,44 @@ let
   # patches are required for subtitle timing to work correctly. See:
   # https://github.com/HandBrake/HandBrake/issues/4029
   ffmpeg-version = "5.1.1";
-  ffmpeg-hb = ffmpeg_5-full.overrideAttrs (
-    old: {
-      version = ffmpeg-version;
-      src = fetchurl {
-        url = "https://www.ffmpeg.org/releases/ffmpeg-${ffmpeg-version}.tar.bz2";
-        hash = "sha256-zQ4W+QNCEmbVzN3t97g7nldUrvS596fwbOnkyALwVFs=";
-      };
-      patches = old.patches or [ ] ++ [
-        "${src}/contrib/ffmpeg/A01-qsv-libavfilter-qsvvpp-change-the-output-frame-s-width-a.patch"
-        "${src}/contrib/ffmpeg/A02-qsv-configure-ensure-enable-libmfx-uses-libmfx-1.x.patch"
-        "${src}/contrib/ffmpeg/A03-qsv-configure-fix-the-check-for-MFX_CODEC_VP9.patch"
-        "${src}/contrib/ffmpeg/A04-qsv-remove-mfx-prefix-from-mfx-headers.patch"
-        "${src}/contrib/ffmpeg/A05-qsv-load-user-plugin-for-MFX_VERSION-2.0.patch"
-        "${src}/contrib/ffmpeg/A06-qsv-build-audio-related-code-when-MFX_VERSION-2.0.patch"
-        "${src}/contrib/ffmpeg/A07-qsvenc-support-multi-frame-encode-when-MFX_VERSION-2.patch"
-        "${src}/contrib/ffmpeg/A08-qsvenc-support-MFX_RATECONTROL_LA_EXT-when-MFX_VERSI.patch"
-        "${src}/contrib/ffmpeg/A09-qsv-support-OPAQUE-memory-when-MFX_VERSION-2.0.patch"
-        "${src}/contrib/ffmpeg/A10-qsv-configure-add-enable-libvpl-option.patch"
-        "${src}/contrib/ffmpeg/A11-qsv-use-a-new-method-to-create-mfx-session-when-usin.patch"
-        "${src}/contrib/ffmpeg/A12-qsv-fix-decode-10bit-hdr.patch"
-        "${src}/contrib/ffmpeg/A13-mov-read-name-track-tag-written-by-movenc.patch"
-        "${src}/contrib/ffmpeg/A14-movenc-write-3gpp-track-titl-tag.patch"
-        "${src}/contrib/ffmpeg/A15-mov-read-3gpp-udta-tags.patch"
-        "${src}/contrib/ffmpeg/A16-movenc-write-3gpp-track-names-tags-for-all-available.patch"
-        "${src}/contrib/ffmpeg/A17-FFmpeg-devel-amfenc-Add-support-for-pict_type-field.patch"
-        "${src}/contrib/ffmpeg/A18-dvdsubdec-fix-processing-of-partial-packets.patch"
-        "${src}/contrib/ffmpeg/A19-ccaption_dec-return-number-of-bytes-used.patch"
-        "${src}/contrib/ffmpeg/A20-dvdsubdec-return-number-of-bytes-used.patch"
-        "${src}/contrib/ffmpeg/A21-dvdsubdec-use-pts-of-initial-packet.patch"
-        "${src}/contrib/ffmpeg/A22-matroskaenc-aac-extradata-updated.patch"
-        "${src}/contrib/ffmpeg/A23-ccaption_dec-fix-pts-in-real_time-mode.patch"
-        "${src}/contrib/ffmpeg/A24-fix-eac3-dowmix.patch"
-        "${src}/contrib/ffmpeg/A25-enable-truehd-pass.patch"
-        "${src}/contrib/ffmpeg/A26-Update-the-min-version-to-1.4.23.0-for-AMF-SDK.patch"
-        "${src}/contrib/ffmpeg/A27-avcodec-amfenc-Fixes-the-color-information-in-the-ou.patch"
-        "${src}/contrib/ffmpeg/A28-avcodec-amfenc-HDR-metadata.patch"
-        "${src}/contrib/ffmpeg/A30-svt-av1-backports.patch"
-      ];
-    }
-  );
+  ffmpeg-hb = ffmpeg_5-full.overrideAttrs (old: {
+    version = ffmpeg-version;
+    src = fetchurl {
+      url = "https://www.ffmpeg.org/releases/ffmpeg-${ffmpeg-version}.tar.bz2";
+      hash = "sha256-zQ4W+QNCEmbVzN3t97g7nldUrvS596fwbOnkyALwVFs=";
+    };
+    patches = old.patches or [ ] ++ [
+      "${src}/contrib/ffmpeg/A01-qsv-libavfilter-qsvvpp-change-the-output-frame-s-width-a.patch"
+      "${src}/contrib/ffmpeg/A02-qsv-configure-ensure-enable-libmfx-uses-libmfx-1.x.patch"
+      "${src}/contrib/ffmpeg/A03-qsv-configure-fix-the-check-for-MFX_CODEC_VP9.patch"
+      "${src}/contrib/ffmpeg/A04-qsv-remove-mfx-prefix-from-mfx-headers.patch"
+      "${src}/contrib/ffmpeg/A05-qsv-load-user-plugin-for-MFX_VERSION-2.0.patch"
+      "${src}/contrib/ffmpeg/A06-qsv-build-audio-related-code-when-MFX_VERSION-2.0.patch"
+      "${src}/contrib/ffmpeg/A07-qsvenc-support-multi-frame-encode-when-MFX_VERSION-2.patch"
+      "${src}/contrib/ffmpeg/A08-qsvenc-support-MFX_RATECONTROL_LA_EXT-when-MFX_VERSI.patch"
+      "${src}/contrib/ffmpeg/A09-qsv-support-OPAQUE-memory-when-MFX_VERSION-2.0.patch"
+      "${src}/contrib/ffmpeg/A10-qsv-configure-add-enable-libvpl-option.patch"
+      "${src}/contrib/ffmpeg/A11-qsv-use-a-new-method-to-create-mfx-session-when-usin.patch"
+      "${src}/contrib/ffmpeg/A12-qsv-fix-decode-10bit-hdr.patch"
+      "${src}/contrib/ffmpeg/A13-mov-read-name-track-tag-written-by-movenc.patch"
+      "${src}/contrib/ffmpeg/A14-movenc-write-3gpp-track-titl-tag.patch"
+      "${src}/contrib/ffmpeg/A15-mov-read-3gpp-udta-tags.patch"
+      "${src}/contrib/ffmpeg/A16-movenc-write-3gpp-track-names-tags-for-all-available.patch"
+      "${src}/contrib/ffmpeg/A17-FFmpeg-devel-amfenc-Add-support-for-pict_type-field.patch"
+      "${src}/contrib/ffmpeg/A18-dvdsubdec-fix-processing-of-partial-packets.patch"
+      "${src}/contrib/ffmpeg/A19-ccaption_dec-return-number-of-bytes-used.patch"
+      "${src}/contrib/ffmpeg/A20-dvdsubdec-return-number-of-bytes-used.patch"
+      "${src}/contrib/ffmpeg/A21-dvdsubdec-use-pts-of-initial-packet.patch"
+      "${src}/contrib/ffmpeg/A22-matroskaenc-aac-extradata-updated.patch"
+      "${src}/contrib/ffmpeg/A23-ccaption_dec-fix-pts-in-real_time-mode.patch"
+      "${src}/contrib/ffmpeg/A24-fix-eac3-dowmix.patch"
+      "${src}/contrib/ffmpeg/A25-enable-truehd-pass.patch"
+      "${src}/contrib/ffmpeg/A26-Update-the-min-version-to-1.4.23.0-for-AMF-SDK.patch"
+      "${src}/contrib/ffmpeg/A27-avcodec-amfenc-Fixes-the-color-information-in-the-ou.patch"
+      "${src}/contrib/ffmpeg/A28-avcodec-amfenc-HDR-metadata.patch"
+      "${src}/contrib/ffmpeg/A30-svt-av1-backports.patch"
+    ];
+  });
 
   versionFile = writeText "version.txt" ''
     BRANCH=${versions.majorMinor version}.x

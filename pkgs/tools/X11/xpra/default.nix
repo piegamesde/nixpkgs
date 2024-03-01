@@ -41,18 +41,16 @@
 let
   inherit (python3.pkgs) cython buildPythonApplication;
 
-  xf86videodummy = xorg.xf86videodummy.overrideDerivation (
-    p: {
-      patches = [
-        # patch provided by Xpra upstream
-        ./0002-Constant-DPI.patch
-        # https://github.com/Xpra-org/xpra/issues/349
-        ./0003-fix-pointer-limits.patch
-        # patch provided by Xpra upstream
-        ./0005-support-for-30-bit-depth-in-dummy-driver.patch
-      ];
-    }
-  );
+  xf86videodummy = xorg.xf86videodummy.overrideDerivation (p: {
+    patches = [
+      # patch provided by Xpra upstream
+      ./0002-Constant-DPI.patch
+      # https://github.com/Xpra-org/xpra/issues/349
+      ./0003-fix-pointer-limits.patch
+      # patch provided by Xpra upstream
+      ./0005-support-for-30-bit-depth-in-dummy-driver.patch
+    ];
+  });
 
   xorgModulePaths = writeText "module-paths" ''
     Section "Files"

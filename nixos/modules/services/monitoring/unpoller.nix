@@ -313,7 +313,11 @@ in
         defaults = controllerOptions;
 
         controllers = mkOption {
-          type = with types; listOf (submodule { options = controllerOptions; });
+          type =
+            with types;
+            listOf (submodule {
+              options = controllerOptions;
+            });
           default = [ ];
           description = lib.mdDoc ''
             List of Unifi controllers to poll. Use defaults if empty.

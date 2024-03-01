@@ -47,7 +47,9 @@ buildPythonPackage rec {
   pythonImportsCheck = [ "json_stream_rs_tokenizer" ];
 
   passthru.tests = {
-    runTests = json-stream-rs-tokenizer.overrideAttrs (_: { doCheck = true; });
+    runTests = json-stream-rs-tokenizer.overrideAttrs (_: {
+      doCheck = true;
+    });
   };
 
   meta = with lib; {

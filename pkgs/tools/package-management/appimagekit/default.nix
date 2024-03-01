@@ -37,56 +37,54 @@ let
   };
 
   # squashfuse adapted to nix from cmake experession in "${appimagekit_src}/lib/libappimage/cmake/dependencies.cmake"
-  appimagekit_squashfuse = squashfuse.overrideAttrs (
-    attrs: rec {
-      pname = "squashfuse";
-      version = "unstable-2016-10-09";
+  appimagekit_squashfuse = squashfuse.overrideAttrs (attrs: rec {
+    pname = "squashfuse";
+    version = "unstable-2016-10-09";
 
-      src = fetchFromGitHub {
-        owner = "vasi";
-        repo = pname;
-        rev = "1f980303b89c779eabfd0a0fdd36d6a7a311bf92";
-        sha256 = "sha256-BZd1+7sRYZHthULKk3RlgMIy4uCUei45GbSEiZxLPFM=";
-      };
+    src = fetchFromGitHub {
+      owner = "vasi";
+      repo = pname;
+      rev = "1f980303b89c779eabfd0a0fdd36d6a7a311bf92";
+      sha256 = "sha256-BZd1+7sRYZHthULKk3RlgMIy4uCUei45GbSEiZxLPFM=";
+    };
 
-      patches = [
-        "${appimagekit_src}/lib/libappimage/src/patches/squashfuse.patch"
-        "${appimagekit_src}/lib/libappimage/src/patches/squashfuse_dlopen.patch"
-      ];
+    patches = [
+      "${appimagekit_src}/lib/libappimage/src/patches/squashfuse.patch"
+      "${appimagekit_src}/lib/libappimage/src/patches/squashfuse_dlopen.patch"
+    ];
 
-      postPatch = ''
-        cp -v ${appimagekit_src}/lib/libappimage/src/patches/squashfuse_dlopen.[hc] .
-      '';
+    postPatch = ''
+      cp -v ${appimagekit_src}/lib/libappimage/src/patches/squashfuse_dlopen.[hc] .
+    '';
 
-      # Workaround build failure on -fno-common toolchains:
-      #   ld: libsquashfuse_ll.a(libfuseprivate_la-fuseprivate.o):(.bss+0x8):
-      #     multiple definition of `have_libloaded'; runtime.4.o:(.bss.have_libloaded+0x0): first defined here
-      env.NIX_CFLAGS_COMPILE = "-fcommon";
+    # Workaround build failure on -fno-common toolchains:
+    #   ld: libsquashfuse_ll.a(libfuseprivate_la-fuseprivate.o):(.bss+0x8):
+    #     multiple definition of `have_libloaded'; runtime.4.o:(.bss.have_libloaded+0x0): first defined here
+    env.NIX_CFLAGS_COMPILE = "-fcommon";
 
-      preConfigure = ''
-        sed -i "/PKG_CHECK_MODULES.*/,/,:./d" configure
-        sed -i "s/typedef off_t sqfs_off_t/typedef int64_t sqfs_off_t/g" common.h
-      '';
+    preConfigure = ''
+      sed -i "/PKG_CHECK_MODULES.*/,/,:./d" configure
+      sed -i "s/typedef off_t sqfs_off_t/typedef int64_t sqfs_off_t/g" common.h
+    '';
 
-      configureFlags = [
-        "--disable-demo"
-        "--disable-high-level"
-        "--without-lzo"
-        "--without-lz4"
-      ];
+    configureFlags = [
+      "--disable-demo"
+      "--disable-high-level"
+      "--without-lzo"
+      "--without-lz4"
+    ];
 
-      postConfigure = ''
-        sed -i "s|XZ_LIBS = -llzma |XZ_LIBS = -Bstatic -llzma/|g" Makefile
-      '';
+    postConfigure = ''
+      sed -i "s|XZ_LIBS = -llzma |XZ_LIBS = -Bstatic -llzma/|g" Makefile
+    '';
 
-      # only static libs and header files
-      installPhase = ''
-        mkdir -p $out/lib $out/include
-        cp -v ./.libs/*.a $out/lib
-        cp -v ./*.h $out/include
-      '';
-    }
-  );
+    # only static libs and header files
+    installPhase = ''
+      mkdir -p $out/lib $out/include
+      cp -v ./.libs/*.a $out/lib
+      cp -v ./*.h $out/include
+    '';
+  });
 in
 stdenv.mkDerivation rec {
   pname = "appimagekit";

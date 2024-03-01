@@ -8,17 +8,15 @@
 let
   python = python3.override {
     packageOverrides = self: super: {
-      tulir-telethon = self.telethon.overridePythonAttrs (
-        oldAttrs: rec {
-          version = "1.28.0a3";
-          pname = "tulir-telethon";
-          src = super.fetchPypi {
-            inherit pname version;
-            hash = "sha256-N1XQGpjfyUqcT+bsSBxC5Purvnd/+4NzVzMhiaq5yDo=";
-          };
-          doCheck = false;
-        }
-      );
+      tulir-telethon = self.telethon.overridePythonAttrs (oldAttrs: rec {
+        version = "1.28.0a3";
+        pname = "tulir-telethon";
+        src = super.fetchPypi {
+          inherit pname version;
+          hash = "sha256-N1XQGpjfyUqcT+bsSBxC5Purvnd/+4NzVzMhiaq5yDo=";
+        };
+        doCheck = false;
+      });
     };
   };
 in

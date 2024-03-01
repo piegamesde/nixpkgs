@@ -42,12 +42,10 @@ in
 {
   options = {
     services.webhook = {
-      enable = mkEnableOption (
-        mdDoc ''
-          [Webhook](https://github.com/adnanh/webhook), a server written in Go that allows you to create HTTP endpoints (hooks),
-          which execute configured commands for any person or service that knows the URL
-        ''
-      );
+      enable = mkEnableOption (mdDoc ''
+        [Webhook](https://github.com/adnanh/webhook), a server written in Go that allows you to create HTTP endpoints (hooks),
+        which execute configured commands for any person or service that knows the URL
+      '');
 
       package = mkPackageOptionMD pkgs "webhook" { };
       user = mkOption {

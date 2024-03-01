@@ -156,14 +156,12 @@ let
   };
 in
 if oldVer then
-  libxml.overrideAttrs (
-    attrs: rec {
-      version = "2.10.1";
-      src = fetchurl {
-        url = "mirror://gnome/sources/libxml2/${lib.versions.majorMinor version}/libxml2-${version}.tar.xz";
-        sha256 = "21a9e13cc7c4717a6c36268d0924f92c3f67a1ece6b7ff9d588958a6db9fb9d8";
-      };
-    }
-  )
+  libxml.overrideAttrs (attrs: rec {
+    version = "2.10.1";
+    src = fetchurl {
+      url = "mirror://gnome/sources/libxml2/${lib.versions.majorMinor version}/libxml2-${version}.tar.xz";
+      sha256 = "21a9e13cc7c4717a6c36268d0924f92c3f67a1ece6b7ff9d588958a6db9fb9d8";
+    };
+  })
 else
   libxml

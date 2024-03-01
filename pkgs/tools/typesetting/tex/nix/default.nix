@@ -38,10 +38,15 @@ rec {
         copySources
         ;
 
-      includes = map (x: [
-        x.key
-        (baseNameOf (toString x.key))
-      ]) (findLaTeXIncludes { inherit rootFile; });
+      includes =
+        map
+          (x: [
+            x.key
+            (baseNameOf (toString x.key))
+          ])
+          (findLaTeXIncludes {
+            inherit rootFile;
+          });
 
       buildInputs = [
         tex
@@ -169,10 +174,15 @@ rec {
         pkgs.perl
       ];
       copyIncludes = ./copy-includes.pl;
-      includes = map (x: [
-        x.key
-        (baseNameOf (toString x.key))
-      ]) (findLhs2TeXIncludes { rootFile = source; });
+      includes =
+        map
+          (x: [
+            x.key
+            (baseNameOf (toString x.key))
+          ])
+          (findLhs2TeXIncludes {
+            rootFile = source;
+          });
     };
 
   animateDot =

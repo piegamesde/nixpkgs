@@ -124,7 +124,9 @@ let
           };
         };
     in
-    either str (submodule { options = scriptOptions; });
+    either str (submodule {
+      options = scriptOptions;
+    });
 in
 
 {

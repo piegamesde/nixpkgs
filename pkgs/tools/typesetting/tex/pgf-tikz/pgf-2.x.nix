@@ -4,37 +4,35 @@
   fetchFromGitHub,
 }:
 
-stdenvNoCC.mkDerivation (
-  finalAttrs: {
-    pname = "pgf";
-    version = "2.10";
+stdenvNoCC.mkDerivation (finalAttrs: {
+  pname = "pgf";
+  version = "2.10";
 
-    src = fetchFromGitHub {
-      owner = "pgf-tikz";
-      repo = "pgf";
-      rev = "refs/tags/${finalAttrs.version}";
-      hash = "sha256-AA+XFhEkJifODJb6SppnxhR4lMlMNaH+k10UF6QisJ8=";
-    };
+  src = fetchFromGitHub {
+    owner = "pgf-tikz";
+    repo = "pgf";
+    rev = "refs/tags/${finalAttrs.version}";
+    hash = "sha256-AA+XFhEkJifODJb6SppnxhR4lMlMNaH+k10UF6QisJ8=";
+  };
 
-    dontConfigure = true;
-    dontBuild = true;
+  dontConfigure = true;
+  dontBuild = true;
 
-    installPhase = ''
-      runHook preInstall
+  installPhase = ''
+    runHook preInstall
 
-      mkdir -p $out/share/texmf-nix
-      cp -prd context doc generic latex plain $out/share/texmf-nix/
+    mkdir -p $out/share/texmf-nix
+    cp -prd context doc generic latex plain $out/share/texmf-nix/
 
-      runHook postInstall
-    '';
+    runHook postInstall
+  '';
 
-    meta = with lib; {
-      homepage = "https://github.com/pgf-tikz/pgf";
-      description = "A Portable Graphic Format for TeX - version ${version}";
-      branch = lib.versions.major version;
-      license = licenses.gpl2Plus;
-      maintainers = with maintainers; [ AndersonTorres ];
-      platforms = platforms.unix;
-    };
-  }
-)
+  meta = with lib; {
+    homepage = "https://github.com/pgf-tikz/pgf";
+    description = "A Portable Graphic Format for TeX - version ${version}";
+    branch = lib.versions.major version;
+    license = licenses.gpl2Plus;
+    maintainers = with maintainers; [ AndersonTorres ];
+    platforms = platforms.unix;
+  };
+})

@@ -220,76 +220,74 @@ in
       streams = mkOption {
         type =
           with types;
-          attrsOf (
-            submodule {
-              options = {
-                location = mkOption {
-                  type = types.oneOf [
-                    types.path
-                    types.str
-                  ];
-                  description = lib.mdDoc ''
-                    For type `pipe` or `file`, the path to the pipe or file.
-                    For type `librespot`, `airplay` or `process`, the path to the corresponding binary.
-                    For type `tcp`, the `host:port` address to connect to or listen on.
-                    For type `meta`, a list of stream names in the form `/one/two/...`. Don't forget the leading slash.
-                    For type `alsa`, use an empty string.
-                  '';
-                  example = literalExpression ''
-                    "/path/to/pipe"
-                    "/path/to/librespot"
-                    "192.168.1.2:4444"
-                    "/MyTCP/Spotify/MyPipe"
-                  '';
-                };
-                type = mkOption {
-                  type = types.enum [
-                    "pipe"
-                    "librespot"
-                    "airplay"
-                    "file"
-                    "process"
-                    "tcp"
-                    "alsa"
-                    "spotify"
-                    "meta"
-                  ];
-                  default = "pipe";
-                  description = lib.mdDoc ''
-                    The type of input stream.
-                  '';
-                };
-                query = mkOption {
-                  type = attrsOf str;
-                  default = { };
-                  description = lib.mdDoc ''
-                    Key-value pairs that convey additional parameters about a stream.
-                  '';
-                  example = literalExpression ''
-                    # for type == "pipe":
-                    {
-                      mode = "create";
-                    };
-                    # for type == "process":
-                    {
-                      params = "--param1 --param2";
-                      logStderr = "true";
-                    };
-                    # for type == "tcp":
-                    {
-                      mode = "client";
-                    }
-                    # for type == "alsa":
-                    {
-                      device = "hw:0,0";
-                    }
-                  '';
-                };
-                inherit sampleFormat;
-                inherit codec;
+          attrsOf (submodule {
+            options = {
+              location = mkOption {
+                type = types.oneOf [
+                  types.path
+                  types.str
+                ];
+                description = lib.mdDoc ''
+                  For type `pipe` or `file`, the path to the pipe or file.
+                  For type `librespot`, `airplay` or `process`, the path to the corresponding binary.
+                  For type `tcp`, the `host:port` address to connect to or listen on.
+                  For type `meta`, a list of stream names in the form `/one/two/...`. Don't forget the leading slash.
+                  For type `alsa`, use an empty string.
+                '';
+                example = literalExpression ''
+                  "/path/to/pipe"
+                  "/path/to/librespot"
+                  "192.168.1.2:4444"
+                  "/MyTCP/Spotify/MyPipe"
+                '';
               };
-            }
-          );
+              type = mkOption {
+                type = types.enum [
+                  "pipe"
+                  "librespot"
+                  "airplay"
+                  "file"
+                  "process"
+                  "tcp"
+                  "alsa"
+                  "spotify"
+                  "meta"
+                ];
+                default = "pipe";
+                description = lib.mdDoc ''
+                  The type of input stream.
+                '';
+              };
+              query = mkOption {
+                type = attrsOf str;
+                default = { };
+                description = lib.mdDoc ''
+                  Key-value pairs that convey additional parameters about a stream.
+                '';
+                example = literalExpression ''
+                  # for type == "pipe":
+                  {
+                    mode = "create";
+                  };
+                  # for type == "process":
+                  {
+                    params = "--param1 --param2";
+                    logStderr = "true";
+                  };
+                  # for type == "tcp":
+                  {
+                    mode = "client";
+                  }
+                  # for type == "alsa":
+                  {
+                    device = "hw:0,0";
+                  }
+                '';
+              };
+              inherit sampleFormat;
+              inherit codec;
+            };
+          });
         default = {
           default = { };
         };

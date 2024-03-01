@@ -12,14 +12,12 @@ let
   unsupported = lib.listToAttrs (
     map (
       x:
-      lib.nameValuePair (toAttrName x) (
-        throw ''
-          Citrix Workspace at version ${x} is not supported anymore!
+      lib.nameValuePair (toAttrName x) (throw ''
+        Citrix Workspace at version ${x} is not supported anymore!
 
-          Actively supported releases are listed here:
-          https://www.citrix.com/support/product-lifecycle/milestones/receiver.html
-        ''
-      )
+        Actively supported releases are listed here:
+        https://www.citrix.com/support/product-lifecycle/milestones/receiver.html
+      '')
     ) unsupportedVersions
   );
 

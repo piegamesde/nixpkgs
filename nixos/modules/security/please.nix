@@ -13,12 +13,10 @@ let
 in
 {
   options.security.please = {
-    enable = mkEnableOption (
-      mdDoc ''
-        please, a Sudo clone which allows a users to execute a command or edit a
-        file as another user
-      ''
-    );
+    enable = mkEnableOption (mdDoc ''
+      please, a Sudo clone which allows a users to execute a command or edit a
+      file as another user
+    '');
 
     package = mkOption {
       type = types.package;

@@ -349,15 +349,13 @@ in
         "virtualisation"
         "oci-containers"
       ]
-      (
-        oldcfg: {
-          backend = "docker";
-          containers = lib.mapAttrs (
-            n: v:
-            builtins.removeAttrs (v // { extraOptions = v.extraDockerOptions or [ ]; }) [ "extraDockerOptions" ]
-          ) oldcfg.docker-containers;
-        }
-      )
+      (oldcfg: {
+        backend = "docker";
+        containers = lib.mapAttrs (
+          n: v:
+          builtins.removeAttrs (v // { extraOptions = v.extraDockerOptions or [ ]; }) [ "extraDockerOptions" ]
+        ) oldcfg.docker-containers;
+      })
     )
   ];
 

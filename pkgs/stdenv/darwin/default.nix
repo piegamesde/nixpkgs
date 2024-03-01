@@ -886,9 +886,9 @@ rec {
           # Hack to make sure we don't link ncurses in bootstrap tools. The proper
           # solution is to avoid passing -L/nix-store/...-bootstrap-tools/lib,
           # quite a sledgehammer just to get the C runtime.
-          gettext = super.gettext.overrideAttrs (
-            drv: { configureFlags = drv.configureFlags ++ [ "--disable-curses" ]; }
-          );
+          gettext = super.gettext.overrideAttrs (drv: {
+            configureFlags = drv.configureFlags ++ [ "--disable-curses" ];
+          });
 
           "${finalLlvmPackages}" =
             super."${finalLlvmPackages}"

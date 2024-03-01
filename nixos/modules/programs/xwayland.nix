@@ -31,7 +31,9 @@ in
 
     package = mkOption {
       type = types.path;
-      default = pkgs.xwayland.override (oldArgs: { inherit (cfg) defaultFontPath; });
+      default = pkgs.xwayland.override (oldArgs: {
+        inherit (cfg) defaultFontPath;
+      });
       defaultText = literalExpression ''
         pkgs.xwayland.override (oldArgs: {
           inherit (config.programs.xwayland) defaultFontPath;

@@ -65,7 +65,11 @@ in
 
       cellServDB = mkOption {
         default = [ ];
-        type = with types; listOf (submodule { options = cellServDBConfig; });
+        type =
+          with types;
+          listOf (submodule {
+            options = cellServDBConfig;
+          });
         description = lib.mdDoc ''
           This cell's database server records, added to the global
           CellServDB. See CellServDB(5) man page for syntax. Ignored when

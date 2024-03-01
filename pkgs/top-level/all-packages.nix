@@ -952,53 +952,51 @@ with pkgs;
       makeOverridable (import ../build-support/fetchurl) {
         inherit lib stdenvNoCC buildPackages;
         inherit cacert;
-        curl = buildPackages.curlMinimal.override (
-          old: rec {
-            # break dependency cycles
+        curl = buildPackages.curlMinimal.override (old: rec {
+          # break dependency cycles
+          fetchurl = stdenv.fetchurlBoot;
+          zlib = buildPackages.zlib.override { fetchurl = stdenv.fetchurlBoot; };
+          pkg-config = buildPackages.pkg-config.override (old: {
+            pkg-config = old.pkg-config.override { fetchurl = stdenv.fetchurlBoot; };
+          });
+          perl = buildPackages.perl.override { fetchurl = stdenv.fetchurlBoot; };
+          openssl = buildPackages.openssl.override {
             fetchurl = stdenv.fetchurlBoot;
-            zlib = buildPackages.zlib.override { fetchurl = stdenv.fetchurlBoot; };
-            pkg-config = buildPackages.pkg-config.override (
-              old: { pkg-config = old.pkg-config.override { fetchurl = stdenv.fetchurlBoot; }; }
-            );
-            perl = buildPackages.perl.override { fetchurl = stdenv.fetchurlBoot; };
-            openssl = buildPackages.openssl.override {
-              fetchurl = stdenv.fetchurlBoot;
-              buildPackages = {
-                coreutils = buildPackages.coreutils.override {
-                  fetchurl = stdenv.fetchurlBoot;
-                  inherit perl;
-                  xz = buildPackages.xz.override { fetchurl = stdenv.fetchurlBoot; };
-                  gmp = null;
-                  aclSupport = false;
-                  attrSupport = false;
-                };
+            buildPackages = {
+              coreutils = buildPackages.coreutils.override {
+                fetchurl = stdenv.fetchurlBoot;
                 inherit perl;
+                xz = buildPackages.xz.override { fetchurl = stdenv.fetchurlBoot; };
+                gmp = null;
+                aclSupport = false;
+                attrSupport = false;
               };
               inherit perl;
             };
-            libssh2 = buildPackages.libssh2.override {
-              fetchurl = stdenv.fetchurlBoot;
-              inherit zlib openssl;
-            };
-            # On darwin, libkrb5 needs bootstrap_cmds which would require
-            # converting many packages to fetchurl_boot to avoid evaluation cycles.
-            # So turn gssSupport off there, and on Windows.
-            # On other platforms, keep the previous value.
-            gssSupport =
-              if stdenv.isDarwin || stdenv.hostPlatform.isWindows then false else old.gssSupport or true; # `? true` is the default
-            libkrb5 = buildPackages.libkrb5.override {
-              fetchurl = stdenv.fetchurlBoot;
-              inherit pkg-config perl openssl;
-              keyutils = buildPackages.keyutils.override { fetchurl = stdenv.fetchurlBoot; };
-            };
-            nghttp2 = buildPackages.nghttp2.override {
-              fetchurl = stdenv.fetchurlBoot;
-              inherit pkg-config;
-              enableApp = false; # curl just needs libnghttp2
-              enableTests = false; # avoids bringing `cunit` and `tzdata` into scope
-            };
-          }
-        );
+            inherit perl;
+          };
+          libssh2 = buildPackages.libssh2.override {
+            fetchurl = stdenv.fetchurlBoot;
+            inherit zlib openssl;
+          };
+          # On darwin, libkrb5 needs bootstrap_cmds which would require
+          # converting many packages to fetchurl_boot to avoid evaluation cycles.
+          # So turn gssSupport off there, and on Windows.
+          # On other platforms, keep the previous value.
+          gssSupport =
+            if stdenv.isDarwin || stdenv.hostPlatform.isWindows then false else old.gssSupport or true; # `? true` is the default
+          libkrb5 = buildPackages.libkrb5.override {
+            fetchurl = stdenv.fetchurlBoot;
+            inherit pkg-config perl openssl;
+            keyutils = buildPackages.keyutils.override { fetchurl = stdenv.fetchurlBoot; };
+          };
+          nghttp2 = buildPackages.nghttp2.override {
+            fetchurl = stdenv.fetchurlBoot;
+            inherit pkg-config;
+            enableApp = false; # curl just needs libnghttp2
+            enableTests = false; # avoids bringing `cunit` and `tzdata` into scope
+          };
+        });
       };
 
   fetchRepoProject = callPackage ../build-support/fetchrepoproject { };
@@ -4096,15 +4094,13 @@ with pkgs;
 
   stack2nix =
     with haskell.lib;
-    overrideCabal (justStaticExecutables haskellPackages.stack2nix) (
-      _: {
-        executableToolDepends = [ makeWrapper ];
-        postInstall = ''
-          wrapProgram $out/bin/stack2nix \
-            --prefix PATH ":" "${git}/bin:${cabal-install}/bin"
-        '';
-      }
-    );
+    overrideCabal (justStaticExecutables haskellPackages.stack2nix) (_: {
+      executableToolDepends = [ makeWrapper ];
+      postInstall = ''
+        wrapProgram $out/bin/stack2nix \
+          --prefix PATH ":" "${git}/bin:${cabal-install}/bin"
+      '';
+    });
 
   caddy = callPackage ../servers/caddy { };
 
@@ -6361,7 +6357,9 @@ with pkgs;
 
     mozc = callPackage ../tools/inputmethods/ibus-engines/ibus-mozc {
       stdenv = clangStdenv;
-      protobuf = pkgs.protobuf.overrideDerivation (_: { stdenv = clangStdenv; });
+      protobuf = pkgs.protobuf.overrideDerivation (_: {
+        stdenv = clangStdenv;
+      });
     };
 
     rime = callPackage ../tools/inputmethods/ibus-engines/ibus-rime { };
@@ -8131,16 +8129,14 @@ with pkgs;
 
   grub2 = callPackage ../tools/misc/grub/2.0x.nix {
     # update breaks grub2
-    gnulib = pkgs.gnulib.overrideAttrs (
-      _: rec {
-        version = "20200223";
-        src = fetchgit {
-          url = "https://git.savannah.gnu.org/r/gnulib.git";
-          rev = "292fd5d6ff5ecce81ec3c648f353732a9ece83c0";
-          sha256 = "0hkg3nql8nsll0vrqk4ifda0v4kpi67xz42r8daqsql6c4rciqnw";
-        };
-      }
-    );
+    gnulib = pkgs.gnulib.overrideAttrs (_: rec {
+      version = "20200223";
+      src = fetchgit {
+        url = "https://git.savannah.gnu.org/r/gnulib.git";
+        rev = "292fd5d6ff5ecce81ec3c648f353732a9ece83c0";
+        sha256 = "0hkg3nql8nsll0vrqk4ifda0v4kpi67xz42r8daqsql6c4rciqnw";
+      };
+    });
   };
 
   grub2_efi = grub2.override { efiSupport = true; };
@@ -8560,12 +8556,10 @@ with pkgs;
   ihaskell = callPackage ../development/tools/haskell/ihaskell/wrapper.nix {
     inherit (haskellPackages) ghcWithPackages;
 
-    jupyter = python3.withPackages (
-      ps: [
-        ps.jupyter
-        ps.notebook
-      ]
-    );
+    jupyter = python3.withPackages (ps: [
+      ps.jupyter
+      ps.notebook
+    ]);
 
     packages = config.ihaskell.packages or (_: [ ]);
   };
@@ -13720,16 +13714,14 @@ with pkgs;
 
   wget2 = callPackage ../tools/networking/wget2 {
     # update breaks grub2
-    gnulib = pkgs.gnulib.overrideAttrs (
-      _: rec {
-        version = "20210208";
-        src = fetchgit {
-          url = "https://git.savannah.gnu.org/r/gnulib.git";
-          rev = "0b38e1d69f03d3977d7ae7926c1efeb461a8a971";
-          sha256 = "06bj9y8wcfh35h653yk8j044k7h5g82d2j3z3ib69rg0gy1xagzp";
-        };
-      }
-    );
+    gnulib = pkgs.gnulib.overrideAttrs (_: rec {
+      version = "20210208";
+      src = fetchgit {
+        url = "https://git.savannah.gnu.org/r/gnulib.git";
+        rev = "0b38e1d69f03d3977d7ae7926c1efeb461a8a971";
+        sha256 = "06bj9y8wcfh35h653yk8j044k7h5g82d2j3z3ib69rg0gy1xagzp";
+      };
+    });
   };
 
   wgpu-utils = callPackage ../tools/graphics/wgpu-utils {
@@ -13892,18 +13884,16 @@ with pkgs;
     # xvfb-run is used by a bunch of things to run tests
     # and doesn't support hardware accelerated rendering
     # so remove it from the rebuild heavy path for mesa
-    xorgserver = xorg.xorgserver.overrideAttrs (
-      old: {
-        buildInputs = lib.filter (pkg: lib.getName pkg != "mesa") old.buildInputs;
-        configureFlags = old.configureFlags ++ [
-          "--disable-glamor"
-          "--disable-glx"
-          "--disable-dri"
-          "--disable-dri2"
-          "--disable-dri3"
-        ];
-      }
-    );
+    xorgserver = xorg.xorgserver.overrideAttrs (old: {
+      buildInputs = lib.filter (pkg: lib.getName pkg != "mesa") old.buildInputs;
+      configureFlags = old.configureFlags ++ [
+        "--disable-glamor"
+        "--disable-glx"
+        "--disable-dri"
+        "--disable-dri2"
+        "--disable-dri3"
+      ];
+    });
   };
 
   xvkbd = callPackage ../tools/X11/xvkbd { };
@@ -14590,16 +14580,14 @@ with pkgs;
   wrapNonDeterministicGcc =
     stdenv: ccWrapper:
     if ccWrapper.isGNU then
-      ccWrapper.overrideAttrs (
-        old: {
-          env = old.env // {
-            cc = old.env.cc.override {
-              reproducibleBuild = false;
-              profiledCompiler = with stdenv; (!isDarwin && hostPlatform.isx86);
-            };
+      ccWrapper.overrideAttrs (old: {
+        env = old.env // {
+          cc = old.env.cc.override {
+            reproducibleBuild = false;
+            profiledCompiler = with stdenv; (!isDarwin && hostPlatform.isx86);
           };
-        }
-      )
+        };
+      })
     else
       ccWrapper;
 
@@ -14640,26 +14628,22 @@ with pkgs;
         # Binutils with glibc multi
         bintools = cc.bintools.override { libc = glibc_multi; };
       in
-      lowPrio (
-        wrapCCWith {
-          cc = cc.cc.override {
-            stdenv = overrideCC stdenv (
-              wrapCCWith {
-                cc = cc.cc;
-                inherit bintools;
-                libc = glibc_multi;
-              }
-            );
-            profiledCompiler = false;
-            enableMultilib = true;
-          };
-          libc = glibc_multi;
-          inherit bintools;
-          extraBuildCommands = ''
-            echo "dontMoveLib64=1" >> $out/nix-support/setup-hook
-          '';
-        }
-      )
+      lowPrio (wrapCCWith {
+        cc = cc.cc.override {
+          stdenv = overrideCC stdenv (wrapCCWith {
+            cc = cc.cc;
+            inherit bintools;
+            libc = glibc_multi;
+          });
+          profiledCompiler = false;
+          enableMultilib = true;
+        };
+        libc = glibc_multi;
+        inherit bintools;
+        extraBuildCommands = ''
+          echo "dontMoveLib64=1" >> $out/nix-support/setup-hook
+        '';
+      })
     else
       throw "Multilib ${cc.name} not supported for ‘${stdenv.targetPlatform.system}’";
 
@@ -14681,7 +14665,13 @@ with pkgs;
   clangMultiStdenv = overrideCC stdenv buildPackages.clang_multi;
   multiStdenv = if stdenv.cc.isClang then clangMultiStdenv else gccMultiStdenv;
 
-  gcc_debug = lowPrio (wrapCC (gcc.cc.overrideAttrs (_: { dontStrip = true; })));
+  gcc_debug = lowPrio (
+    wrapCC (
+      gcc.cc.overrideAttrs (_: {
+        dontStrip = true;
+      })
+    )
+  );
 
   gccCrossLibcStdenv = overrideCC stdenv buildPackages.gccCrossStageStatic;
 
@@ -17398,27 +17388,23 @@ with pkgs;
   ansible = ansible_2_14;
   ansible_2_14 = python3Packages.toPythonApplication python3Packages.ansible-core;
   ansible_2_13 = python3Packages.toPythonApplication (
-    python3Packages.ansible-core.overridePythonAttrs (
-      oldAttrs: rec {
-        version = "2.13.6";
-        src = oldAttrs.src.override {
-          inherit version;
-          hash = "sha256-Mf4yK2MpBnSo9zhhEN9QHwBEqkSJC+OrMTpuIluaKc8=";
-        };
-      }
-    )
+    python3Packages.ansible-core.overridePythonAttrs (oldAttrs: rec {
+      version = "2.13.6";
+      src = oldAttrs.src.override {
+        inherit version;
+        hash = "sha256-Mf4yK2MpBnSo9zhhEN9QHwBEqkSJC+OrMTpuIluaKc8=";
+      };
+    })
   );
   ansible_2_12 = python3Packages.toPythonApplication (
-    python3Packages.ansible-core.overridePythonAttrs (
-      oldAttrs: rec {
-        version = "2.12.10";
-        src = oldAttrs.src.override {
-          inherit version;
-          hash = "sha256-/rHfYXOM/B9eiTtCouwafeMpd9Z+hnB7Retj0MXDwjY=";
-        };
-        meta.changelog = "https://github.com/ansible/ansible/blob/v${version}/changelogs/CHANGELOG-v${lib.versions.majorMinor version}.rst";
-      }
-    )
+    python3Packages.ansible-core.overridePythonAttrs (oldAttrs: rec {
+      version = "2.12.10";
+      src = oldAttrs.src.override {
+        inherit version;
+        hash = "sha256-/rHfYXOM/B9eiTtCouwafeMpd9Z+hnB7Retj0MXDwjY=";
+      };
+      meta.changelog = "https://github.com/ansible/ansible/blob/v${version}/changelogs/CHANGELOG-v${lib.versions.majorMinor version}.rst";
+    })
   );
 
   ansible-doctor = with python3.pkgs; toPythonApplication ansible-doctor;
@@ -17685,9 +17671,9 @@ with pkgs;
     withAllTargets = true;
   };
   binutils = wrapBintoolsWith { bintools = binutils-unwrapped; };
-  binutils_nogold = lowPrio (
-    wrapBintoolsWith { bintools = binutils-unwrapped.override { enableGold = false; }; }
-  );
+  binutils_nogold = lowPrio (wrapBintoolsWith {
+    bintools = binutils-unwrapped.override { enableGold = false; };
+  });
   binutilsNoLibc = wrapBintoolsWith {
     bintools = binutils-unwrapped;
     libc = preLibcCrossHeaders;
@@ -18799,7 +18785,9 @@ with pkgs;
   pkg-config = callPackage ../build-support/pkg-config-wrapper { pkg-config = pkg-config-unwrapped; };
 
   pkg-configUpstream = lowPrio (
-    pkg-config.override (old: { pkg-config = old.pkg-config.override { vanilla = true; }; })
+    pkg-config.override (old: {
+      pkg-config = old.pkg-config.override { vanilla = true; };
+    })
   );
 
   pnpm-lock-export = callPackage ../development/web/pnpm-lock-export { };
@@ -20399,30 +20387,26 @@ with pkgs;
     inherit (darwin.apple_sdk.frameworks) Security;
   };
 
-  libgit2_1_3_0 = libgit2.overrideAttrs (
-    _: rec {
-      version = "1.3.0";
-      src = pkgs.fetchFromGitHub {
-        owner = "libgit2";
-        repo = "libgit2";
-        rev = "v${version}";
-        sha256 = "sha256-7atNkOBzX+nU1gtFQEaE+EF1L+eex+Ajhq2ocoJY920=";
-      };
-      patches = [ ];
-    }
-  );
+  libgit2_1_3_0 = libgit2.overrideAttrs (_: rec {
+    version = "1.3.0";
+    src = pkgs.fetchFromGitHub {
+      owner = "libgit2";
+      repo = "libgit2";
+      rev = "v${version}";
+      sha256 = "sha256-7atNkOBzX+nU1gtFQEaE+EF1L+eex+Ajhq2ocoJY920=";
+    };
+    patches = [ ];
+  });
 
-  libgit2_1_5 = libgit2.overrideAttrs (
-    _: rec {
-      version = "1.5.1";
-      src = pkgs.fetchFromGitHub {
-        owner = "libgit2";
-        repo = "libgit2";
-        rev = "v${version}";
-        hash = "sha256-KzBMwpqn6wUFhgB3KDclBS0BvZSVcasM5AG/y+L91xM=";
-      };
-    }
-  );
+  libgit2_1_5 = libgit2.overrideAttrs (_: rec {
+    version = "1.5.1";
+    src = pkgs.fetchFromGitHub {
+      owner = "libgit2";
+      repo = "libgit2";
+      rev = "v${version}";
+      hash = "sha256-KzBMwpqn6wUFhgB3KDclBS0BvZSVcasM5AG/y+L91xM=";
+    };
+  });
 
   libgit2-glib = callPackage ../development/libraries/libgit2-glib { };
 
@@ -20749,7 +20733,9 @@ with pkgs;
 
   glib = callPackage ../development/libraries/glib (
     let
-      glib-untested = glib.overrideAttrs (_: { doCheck = false; });
+      glib-untested = glib.overrideAttrs (_: {
+        doCheck = false;
+      });
     in
     {
       # break dependency cycles
@@ -23727,18 +23713,16 @@ with pkgs;
 
   rocksdb_lite = rocksdb.override { enableLite = true; };
 
-  rocksdb_6_23 = rocksdb.overrideAttrs (
-    _: rec {
-      pname = "rocksdb";
-      version = "6.23.3";
-      src = fetchFromGitHub {
-        owner = "facebook";
-        repo = pname;
-        rev = "v${version}";
-        sha256 = "sha256-SsDqhjdCdtIGNlsMj5kfiuS3zSGwcxi4KV71d95h7yk=";
-      };
-    }
-  );
+  rocksdb_6_23 = rocksdb.overrideAttrs (_: rec {
+    pname = "rocksdb";
+    version = "6.23.3";
+    src = fetchFromGitHub {
+      owner = "facebook";
+      repo = pname;
+      rev = "v${version}";
+      sha256 = "sha256-SsDqhjdCdtIGNlsMj5kfiuS3zSGwcxi4KV71d95h7yk=";
+    };
+  });
 
   rotate-backups = callPackage ../tools/backup/rotate-backups { };
 
@@ -24992,11 +24976,15 @@ with pkgs;
 
   sqitchMysql =
     (callPackage ../development/tools/misc/sqitch { mysqlSupport = true; }).overrideAttrs
-      (_: { pname = "sqitch-mysql"; });
+      (_: {
+        pname = "sqitch-mysql";
+      });
 
   sqitchPg =
     (callPackage ../development/tools/misc/sqitch { postgresqlSupport = true; }).overrideAttrs
-      (_: { pname = "sqitch-pg"; });
+      (_: {
+        pname = "sqitch-pg";
+      });
 
   ### DEVELOPMENT / R MODULES
 
@@ -25658,12 +25646,10 @@ with pkgs;
   napalm =
     with python3Packages;
     toPythonApplication (
-      napalm.overridePythonAttrs (
-        attrs: {
-          # add community frontends that depend on the napalm python package
-          propagatedBuildInputs = attrs.propagatedBuildInputs ++ [ napalm-hp-procurve ];
-        }
-      )
+      napalm.overridePythonAttrs (attrs: {
+        # add community frontends that depend on the napalm python package
+        propagatedBuildInputs = attrs.propagatedBuildInputs ++ [ napalm-hp-procurve ];
+      })
     );
 
   nas = callPackage ../servers/nas { };
@@ -25761,13 +25747,11 @@ with pkgs;
   onlyoffice-documentserver = callPackage ../servers/onlyoffice-documentserver { };
 
   outline = callPackage ../servers/web-apps/outline (
-    lib.fix (
-      super: {
-        yarn2nix-moretea = yarn2nix-moretea.override { inherit (super) nodejs yarn; };
-        yarn = yarn.override { inherit (super) nodejs; };
-        nodejs = nodejs_16;
-      }
-    )
+    lib.fix (super: {
+      yarn2nix-moretea = yarn2nix-moretea.override { inherit (super) nodejs yarn; };
+      yarn = yarn.override { inherit (super) nodejs; };
+      nodejs = nodejs_16;
+    })
   );
 
   openbgpd = callPackage ../servers/openbgpd { };
@@ -25932,19 +25916,17 @@ with pkgs;
     inherit (darwin.apple_sdk.frameworks) CoreFoundation Security;
     stdenv =
       if stdenv.isDarwin then
-        darwin.apple_sdk_11_0.stdenv.override (
-          old: {
-            hostPlatform = old.hostPlatform // {
-              darwinMinVersion = "10.14";
-            };
-            buildPlatform = old.buildPlatform // {
-              darwinMinVersion = "10.14";
-            };
-            targetPlatform = old.targetPlatform // {
-              darwinMinVersion = "10.14";
-            };
-          }
-        )
+        darwin.apple_sdk_11_0.stdenv.override (old: {
+          hostPlatform = old.hostPlatform // {
+            darwinMinVersion = "10.14";
+          };
+          buildPlatform = old.buildPlatform // {
+            darwinMinVersion = "10.14";
+          };
+          targetPlatform = old.targetPlatform // {
+            darwinMinVersion = "10.14";
+          };
+        })
       else if stdenv.cc.isClang then
         llvmPackages.stdenv
       else
@@ -27083,15 +27065,13 @@ with pkgs;
     makeLinuxHeaders
     ;
 
-  linuxHeaders_5_19 = linuxHeaders.overrideAttrs (
-    _: rec {
-      version = "5.19.16";
-      src = fetchurl {
-        url = "mirror://kernel/linux/kernel/v5.x/linux-${version}.tar.xz";
-        sha256 = "13g0c6ljxk3sd0ja39ndih5vrzp2ssj78qxaf8nswn8hgrkazsx1";
-      };
-    }
-  );
+  linuxHeaders_5_19 = linuxHeaders.overrideAttrs (_: rec {
+    version = "5.19.16";
+    src = fetchurl {
+      url = "mirror://kernel/linux/kernel/v5.x/linux-${version}.tar.xz";
+      sha256 = "13g0c6ljxk3sd0ja39ndih5vrzp2ssj78qxaf8nswn8hgrkazsx1";
+    };
+  });
 
   klibc = callPackage ../os-specific/linux/klibc { };
 
@@ -32002,12 +31982,10 @@ with pkgs;
         # telegram-desktop has random crashes when jemalloc is built with gcc.
         # Apparently, it triggers some bug due to usage of gcc's builtin
         # functions like __builtin_ffsl by jemalloc when it's built with gcc.
-        jemalloc = (jemalloc.override { stdenv = clangStdenv; }).overrideAttrs (
-          _: {
-            # no idea how to fix the tests :(
-            doCheck = false;
-          }
-        );
+        jemalloc = (jemalloc.override { stdenv = clangStdenv; }).overrideAttrs (_: {
+          # no idea how to fix the tests :(
+          doCheck = false;
+        });
 
         abseil-cpp = abseil-cpp_202111;
       };
@@ -34981,14 +34959,12 @@ with pkgs;
         };
       };
     }).overrideAttrs
-      (
-        _: rec {
-          pname = "vim-darwin";
-          meta = {
-            platforms = lib.platforms.darwin;
-          };
-        }
-      );
+      (_: rec {
+        pname = "vim-darwin";
+        meta = {
+          platforms = lib.platforms.darwin;
+        };
+      });
 
   vimacs = callPackage ../applications/editors/vim/vimacs.nix { };
 
@@ -35878,17 +35854,15 @@ with pkgs;
     boost = boost175;
     inherit (darwin) autoSignDarwinBinariesHook;
   };
-  elementsd-simplicity = elementsd.overrideAttrs (
-    _: rec {
-      version = "unstable-2023-04-18";
-      src = fetchFromGitHub {
-        owner = "ElementsProject";
-        repo = "elements";
-        rev = "ea318a45094ab3d31dd017d7781a6f28f1ffaa33"; # simplicity branch latest
-        sha256 = "ooe+If3HWaJWpr2ux7DpiCTqB9Hv+aXjquEjplDjvhM=";
-      };
-    }
-  );
+  elementsd-simplicity = elementsd.overrideAttrs (_: rec {
+    version = "unstable-2023-04-18";
+    src = fetchFromGitHub {
+      owner = "ElementsProject";
+      repo = "elements";
+      rev = "ea318a45094ab3d31dd017d7781a6f28f1ffaa33"; # simplicity branch latest
+      sha256 = "ooe+If3HWaJWpr2ux7DpiCTqB9Hv+aXjquEjplDjvhM=";
+    };
+  });
 
   ergo = callPackage ../applications/blockchains/ergo { };
 
@@ -38167,7 +38141,9 @@ with pkgs;
   cubicle = callPackage ../applications/science/logic/cubicle { };
 
   cvc3 = callPackage ../applications/science/logic/cvc3 {
-    gmp = lib.overrideDerivation gmp (_: { dontDisableStatic = true; });
+    gmp = lib.overrideDerivation gmp (_: {
+      dontDisableStatic = true;
+    });
     stdenv = gccStdenv;
   };
   cvc4 = callPackage ../applications/science/logic/cvc4 { };
@@ -38215,24 +38191,22 @@ with pkgs;
   ifstat-legacy = callPackage ../tools/networking/ifstat-legacy { };
 
   isabelle = callPackage ../applications/science/logic/isabelle {
-    polyml = polyml.overrideAttrs (
-      _: {
-        pname = "polyml-for-isabelle";
-        version = "2022";
-        configureFlags = [
-          "--enable-intinf-as-int"
-          "--with-gmp"
-          "--disable-shared"
-        ];
-        buildFlags = [ "compiler" ];
-        src = fetchFromGitHub {
-          owner = "polyml";
-          repo = "polyml";
-          rev = "bafe319bc3a65bf63bd98a4721a6f4dd9e0eabd6";
-          sha256 = "1ygs09zzq8icq1gc8qf4sb24lxx7sbcyd5hw3vw67a3ryaki0qw2";
-        };
-      }
-    );
+    polyml = polyml.overrideAttrs (_: {
+      pname = "polyml-for-isabelle";
+      version = "2022";
+      configureFlags = [
+        "--enable-intinf-as-int"
+        "--with-gmp"
+        "--disable-shared"
+      ];
+      buildFlags = [ "compiler" ];
+      src = fetchFromGitHub {
+        owner = "polyml";
+        repo = "polyml";
+        rev = "bafe319bc3a65bf63bd98a4721a6f4dd9e0eabd6";
+        sha256 = "1ygs09zzq8icq1gc8qf4sb24lxx7sbcyd5hw3vw67a3ryaki0qw2";
+      };
+    });
 
     java = openjdk17;
   };
@@ -40261,15 +40235,13 @@ with pkgs;
 
   phonetisaurus = callPackage ../development/libraries/phonetisaurus {
     # https://github.com/AdolfVonKleist/Phonetisaurus/issues/70
-    openfst = openfst.overrideAttrs (
-      _: rec {
-        version = "1.7.9";
-        src = fetchurl {
-          url = "http://www.openfst.org/twiki/pub/FST/FstDownload/openfst-${version}.tar.gz";
-          sha256 = "1pmx1yhn2gknj0an0zwqmzgwjaycapi896244np50a8y3nrsw6ck";
-        };
-      }
-    );
+    openfst = openfst.overrideAttrs (_: rec {
+      version = "1.7.9";
+      src = fetchurl {
+        url = "http://www.openfst.org/twiki/pub/FST/FstDownload/openfst-${version}.tar.gz";
+        sha256 = "1pmx1yhn2gknj0an0zwqmzgwjaycapi896244np50a8y3nrsw6ck";
+      };
+    });
   };
 
   duti = callPackage ../os-specific/darwin/duti {

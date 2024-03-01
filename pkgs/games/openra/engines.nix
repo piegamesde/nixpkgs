@@ -28,16 +28,14 @@ let
         inherit rev sha256 postFetch;
       };
     } name).overrideAttrs
-      (
-        origAttrs: {
-          postInstall = ''
-            ${origAttrs.postInstall}
-            cp -r mods/ts $out/lib/openra/mods/
-            cp mods/ts/icon.png $(mkdirp $out/share/pixmaps)/openra-ts.png
-            ( cd $out/share/applications; sed -e 's/Dawn/Sun/g' -e 's/cnc/ts/g' openra-cnc.desktop > openra-ts.desktop )
-          '';
-        }
-      );
+      (origAttrs: {
+        postInstall = ''
+          ${origAttrs.postInstall}
+          cp -r mods/ts $out/lib/openra/mods/
+          cp mods/ts/icon.png $(mkdirp $out/share/pixmaps)/openra-ts.png
+          ( cd $out/share/applications; sed -e 's/Dawn/Sun/g' -e 's/cnc/ts/g' openra-cnc.desktop > openra-ts.desktop )
+        '';
+      });
 in
 {
   release =

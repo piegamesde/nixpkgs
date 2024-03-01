@@ -54,12 +54,10 @@ buildPythonPackage rec {
     #   hy.withPackages (ps: with ps; [ hyrule requests ])
     withPackages =
       python-packages:
-      (python.withPackages (ps: (python-packages ps) ++ [ ps.hy ])).overrideAttrs (
-        old: {
-          name = "${hy.name}-env";
-          meta = lib.mergeAttrs (builtins.removeAttrs hy.meta [ "license" ]) { mainProgram = "hy"; };
-        }
-      );
+      (python.withPackages (ps: (python-packages ps) ++ [ ps.hy ])).overrideAttrs (old: {
+        name = "${hy.name}-env";
+        meta = lib.mergeAttrs (builtins.removeAttrs hy.meta [ "license" ]) { mainProgram = "hy"; };
+      });
   };
 
   meta = with lib; {

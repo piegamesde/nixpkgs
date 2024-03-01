@@ -17,16 +17,14 @@
   libnl,
 }:
 let
-  dpdk_19_11 = dpdk.overrideAttrs (
-    old: rec {
-      version = "19.11.12";
-      src = fetchurl {
-        url = "https://fast.dpdk.org/rel/dpdk-${version}.tar.xz";
-        sha256 = "sha256-F9m2+MZi3n0psPIwjWwhiIbbNkoGlxqtru2OlV7TbzQ=";
-      };
-      mesonFlags = old.mesonFlags ++ [ "-Denable_docs=false" ];
-    }
-  );
+  dpdk_19_11 = dpdk.overrideAttrs (old: rec {
+    version = "19.11.12";
+    src = fetchurl {
+      url = "https://fast.dpdk.org/rel/dpdk-${version}.tar.xz";
+      sha256 = "sha256-F9m2+MZi3n0psPIwjWwhiIbbNkoGlxqtru2OlV7TbzQ=";
+    };
+    mesonFlags = old.mesonFlags ++ [ "-Denable_docs=false" ];
+  });
 in
 stdenv.mkDerivation rec {
   pname = "odp-dpdk";

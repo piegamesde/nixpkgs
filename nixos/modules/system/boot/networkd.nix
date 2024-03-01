@@ -3069,22 +3069,18 @@ let
         [L2TP]
         ${attrsToSection def.l2tpConfig}
       ''
-      + flip concatMapStrings def.l2tpSessions (
-        x: ''
-          [L2TPSession]
-          ${attrsToSection x.l2tpSessionConfig}
-        ''
-      )
+      + flip concatMapStrings def.l2tpSessions (x: ''
+        [L2TPSession]
+        ${attrsToSection x.l2tpSessionConfig}
+      '')
       + optionalString (def.wireguardConfig != { }) ''
         [WireGuard]
         ${attrsToSection def.wireguardConfig}
       ''
-      + flip concatMapStrings def.wireguardPeers (
-        x: ''
-          [WireGuardPeer]
-          ${attrsToSection x.wireguardPeerConfig}
-        ''
-      )
+      + flip concatMapStrings def.wireguardPeers (x: ''
+        [WireGuardPeer]
+        ${attrsToSection x.wireguardPeerConfig}
+      '')
       + optionalString (def.bondConfig != { }) ''
         [Bond]
         ${attrsToSection def.bondConfig}
@@ -3171,24 +3167,18 @@ let
       + ''
 
       ''
-      + flip concatMapStrings def.addresses (
-        x: ''
-          [Address]
-          ${attrsToSection x.addressConfig}
-        ''
-      )
-      + flip concatMapStrings def.routingPolicyRules (
-        x: ''
-          [RoutingPolicyRule]
-          ${attrsToSection x.routingPolicyRuleConfig}
-        ''
-      )
-      + flip concatMapStrings def.routes (
-        x: ''
-          [Route]
-          ${attrsToSection x.routeConfig}
-        ''
-      )
+      + flip concatMapStrings def.addresses (x: ''
+        [Address]
+        ${attrsToSection x.addressConfig}
+      '')
+      + flip concatMapStrings def.routingPolicyRules (x: ''
+        [RoutingPolicyRule]
+        ${attrsToSection x.routingPolicyRuleConfig}
+      '')
+      + flip concatMapStrings def.routes (x: ''
+        [Route]
+        ${attrsToSection x.routeConfig}
+      '')
       + optionalString (def.dhcpV4Config != { }) ''
         [DHCPv4]
         ${attrsToSection def.dhcpV4Config}
@@ -3213,40 +3203,30 @@ let
         [IPv6SendRA]
         ${attrsToSection def.ipv6SendRAConfig}
       ''
-      + flip concatMapStrings def.ipv6Prefixes (
-        x: ''
-          [IPv6Prefix]
-          ${attrsToSection x.ipv6PrefixConfig}
-        ''
-      )
-      + flip concatMapStrings def.ipv6RoutePrefixes (
-        x: ''
-          [IPv6RoutePrefix]
-          ${attrsToSection x.ipv6RoutePrefixConfig}
-        ''
-      )
-      + flip concatMapStrings def.dhcpServerStaticLeases (
-        x: ''
-          [DHCPServerStaticLease]
-          ${attrsToSection x.dhcpServerStaticLeaseConfig}
-        ''
-      )
+      + flip concatMapStrings def.ipv6Prefixes (x: ''
+        [IPv6Prefix]
+        ${attrsToSection x.ipv6PrefixConfig}
+      '')
+      + flip concatMapStrings def.ipv6RoutePrefixes (x: ''
+        [IPv6RoutePrefix]
+        ${attrsToSection x.ipv6RoutePrefixConfig}
+      '')
+      + flip concatMapStrings def.dhcpServerStaticLeases (x: ''
+        [DHCPServerStaticLease]
+        ${attrsToSection x.dhcpServerStaticLeaseConfig}
+      '')
       + optionalString (def.bridgeConfig != { }) ''
         [Bridge]
         ${attrsToSection def.bridgeConfig}
       ''
-      + flip concatMapStrings def.bridgeFDBs (
-        x: ''
-          [BridgeFDB]
-          ${attrsToSection x.bridgeFDBConfig}
-        ''
-      )
-      + flip concatMapStrings def.bridgeMDBs (
-        x: ''
-          [BridgeMDB]
-          ${attrsToSection x.bridgeMDBConfig}
-        ''
-      )
+      + flip concatMapStrings def.bridgeFDBs (x: ''
+        [BridgeFDB]
+        ${attrsToSection x.bridgeFDBConfig}
+      '')
+      + flip concatMapStrings def.bridgeMDBs (x: ''
+        [BridgeMDB]
+        ${attrsToSection x.bridgeMDBConfig}
+      '')
       + optionalString (def.lldpConfig != { }) ''
         [LLDP]
         ${attrsToSection def.lldpConfig}
@@ -3359,12 +3339,10 @@ let
         [QuickFairQueueingClass]
         ${attrsToSection def.quickFairQueueingConfigClass}
       ''
-      + flip concatMapStrings def.bridgeVLANs (
-        x: ''
-          [BridgeVLAN]
-          ${attrsToSection x.bridgeVLANConfig}
-        ''
-      )
+      + flip concatMapStrings def.bridgeVLANs (x: ''
+        [BridgeVLAN]
+        ${attrsToSection x.bridgeVLANConfig}
+      '')
       + def.extraConfig;
   };
 
@@ -3406,12 +3384,10 @@ let
       inherit visible;
       type =
         with types;
-        attrsOf (
-          submodule [
-            { options = networkOptions; }
-            networkConfig
-          ]
-        );
+        attrsOf (submodule [
+          { options = networkOptions; }
+          networkConfig
+        ]);
       description = lib.mdDoc "Definition of systemd networks.";
     };
 

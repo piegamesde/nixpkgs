@@ -762,76 +762,74 @@ in
 
       type =
         with types;
-        attrsOf (
-          submodule {
+        attrsOf (submodule {
 
-            options = {
+          options = {
 
-              interfaces = mkOption {
-                description = lib.mdDoc "The physical network interfaces connected by the vSwitch.";
-                type = with types; attrsOf (submodule vswitchInterfaceOpts);
-              };
-
-              controllers = mkOption {
-                type = types.listOf types.str;
-                default = [ ];
-                example = [ "ptcp:6653:[::1]" ];
-                description = lib.mdDoc ''
-                  Specify the controller targets. For the allowed options see `man 8 ovs-vsctl`.
-                '';
-              };
-
-              openFlowRules = mkOption {
-                type = types.lines;
-                default = "";
-                example = ''
-                  actions=normal
-                '';
-                description = lib.mdDoc ''
-                  OpenFlow rules to insert into the Open vSwitch. All `openFlowRules` are
-                  loaded with `ovs-ofctl` within one atomic operation.
-                '';
-              };
-
-              # TODO: custom "openflow version" type, with list from existing openflow protocols
-              supportedOpenFlowVersions = mkOption {
-                type = types.listOf types.str;
-                example = [
-                  "OpenFlow10"
-                  "OpenFlow13"
-                  "OpenFlow14"
-                ];
-                default = [ "OpenFlow13" ];
-                description = lib.mdDoc ''
-                  Supported versions to enable on this switch.
-                '';
-              };
-
-              # TODO: use same type as elements from supportedOpenFlowVersions
-              openFlowVersion = mkOption {
-                type = types.str;
-                default = "OpenFlow13";
-                description = lib.mdDoc ''
-                  Version of OpenFlow protocol to use when communicating with the switch internally (e.g. with `openFlowRules`).
-                '';
-              };
-
-              extraOvsctlCmds = mkOption {
-                type = types.lines;
-                default = "";
-                example = ''
-                  set-fail-mode <switch_name> secure
-                  set Bridge <switch_name> stp_enable=true
-                '';
-                description = lib.mdDoc ''
-                  Commands to manipulate the Open vSwitch database. Every line executed with `ovs-vsctl`.
-                  All commands are bundled together with the operations for adding the interfaces
-                  into one atomic operation.
-                '';
-              };
+            interfaces = mkOption {
+              description = lib.mdDoc "The physical network interfaces connected by the vSwitch.";
+              type = with types; attrsOf (submodule vswitchInterfaceOpts);
             };
-          }
-        );
+
+            controllers = mkOption {
+              type = types.listOf types.str;
+              default = [ ];
+              example = [ "ptcp:6653:[::1]" ];
+              description = lib.mdDoc ''
+                Specify the controller targets. For the allowed options see `man 8 ovs-vsctl`.
+              '';
+            };
+
+            openFlowRules = mkOption {
+              type = types.lines;
+              default = "";
+              example = ''
+                actions=normal
+              '';
+              description = lib.mdDoc ''
+                OpenFlow rules to insert into the Open vSwitch. All `openFlowRules` are
+                loaded with `ovs-ofctl` within one atomic operation.
+              '';
+            };
+
+            # TODO: custom "openflow version" type, with list from existing openflow protocols
+            supportedOpenFlowVersions = mkOption {
+              type = types.listOf types.str;
+              example = [
+                "OpenFlow10"
+                "OpenFlow13"
+                "OpenFlow14"
+              ];
+              default = [ "OpenFlow13" ];
+              description = lib.mdDoc ''
+                Supported versions to enable on this switch.
+              '';
+            };
+
+            # TODO: use same type as elements from supportedOpenFlowVersions
+            openFlowVersion = mkOption {
+              type = types.str;
+              default = "OpenFlow13";
+              description = lib.mdDoc ''
+                Version of OpenFlow protocol to use when communicating with the switch internally (e.g. with `openFlowRules`).
+              '';
+            };
+
+            extraOvsctlCmds = mkOption {
+              type = types.lines;
+              default = "";
+              example = ''
+                set-fail-mode <switch_name> secure
+                set Bridge <switch_name> stp_enable=true
+              '';
+              description = lib.mdDoc ''
+                Commands to manipulate the Open vSwitch database. Every line executed with `ovs-vsctl`.
+                All commands are bundled together with the operations for adding the interfaces
+                into one atomic operation.
+              '';
+            };
+          };
+        });
     };
 
     networking.bridges = mkOption {
@@ -856,28 +854,26 @@ in
 
       type =
         with types;
-        attrsOf (
-          submodule {
+        attrsOf (submodule {
 
-            options = {
+          options = {
 
-              interfaces = mkOption {
-                example = [
-                  "eth0"
-                  "eth1"
-                ];
-                type = types.listOf types.str;
-                description = lib.mdDoc "The physical network interfaces connected by the bridge.";
-              };
-
-              rstp = mkOption {
-                default = false;
-                type = types.bool;
-                description = lib.mdDoc "Whether the bridge interface should enable rstp.";
-              };
+            interfaces = mkOption {
+              example = [
+                "eth0"
+                "eth1"
+              ];
+              type = types.listOf types.str;
+              description = lib.mdDoc "The physical network interfaces connected by the bridge.";
             };
-          }
-        );
+
+            rstp = mkOption {
+              default = false;
+              type = types.bool;
+              description = lib.mdDoc "Whether the bridge interface should enable rstp.";
+            };
+          };
+        });
     };
 
     networking.bonds =
@@ -909,82 +905,80 @@ in
 
         type =
           with types;
-          attrsOf (
-            submodule {
+          attrsOf (submodule {
 
-              options = {
+            options = {
 
-                interfaces = mkOption {
-                  example = [
-                    "enp4s0f0"
-                    "enp4s0f1"
-                    "wlan0"
-                  ];
-                  type = types.listOf types.str;
-                  description = lib.mdDoc "The interfaces to bond together";
-                };
-
-                driverOptions = mkOption {
-                  type = types.attrsOf types.str;
-                  default = { };
-                  example = literalExpression driverOptionsExample;
-                  description = lib.mdDoc ''
-                    Options for the bonding driver.
-                    Documentation can be found in
-                    <https://www.kernel.org/doc/Documentation/networking/bonding.txt>
-                  '';
-                };
-
-                lacp_rate = mkOption {
-                  default = null;
-                  example = "fast";
-                  type = types.nullOr types.str;
-                  description = lib.mdDoc ''
-                    DEPRECATED, use `driverOptions`.
-                    Option specifying the rate in which we'll ask our link partner
-                    to transmit LACPDU packets in 802.3ad mode.
-                  '';
-                };
-
-                miimon = mkOption {
-                  default = null;
-                  example = 100;
-                  type = types.nullOr types.int;
-                  description = lib.mdDoc ''
-                    DEPRECATED, use `driverOptions`.
-                    Miimon is the number of millisecond in between each round of polling
-                    by the device driver for failed links. By default polling is not
-                    enabled and the driver is trusted to properly detect and handle
-                    failure scenarios.
-                  '';
-                };
-
-                mode = mkOption {
-                  default = null;
-                  example = "active-backup";
-                  type = types.nullOr types.str;
-                  description = lib.mdDoc ''
-                    DEPRECATED, use `driverOptions`.
-                    The mode which the bond will be running. The default mode for
-                    the bonding driver is balance-rr, optimizing for throughput.
-                    More information about valid modes can be found at
-                    https://www.kernel.org/doc/Documentation/networking/bonding.txt
-                  '';
-                };
-
-                xmit_hash_policy = mkOption {
-                  default = null;
-                  example = "layer2+3";
-                  type = types.nullOr types.str;
-                  description = lib.mdDoc ''
-                    DEPRECATED, use `driverOptions`.
-                    Selects the transmit hash policy to use for slave selection in
-                    balance-xor, 802.3ad, and tlb modes.
-                  '';
-                };
+              interfaces = mkOption {
+                example = [
+                  "enp4s0f0"
+                  "enp4s0f1"
+                  "wlan0"
+                ];
+                type = types.listOf types.str;
+                description = lib.mdDoc "The interfaces to bond together";
               };
-            }
-          );
+
+              driverOptions = mkOption {
+                type = types.attrsOf types.str;
+                default = { };
+                example = literalExpression driverOptionsExample;
+                description = lib.mdDoc ''
+                  Options for the bonding driver.
+                  Documentation can be found in
+                  <https://www.kernel.org/doc/Documentation/networking/bonding.txt>
+                '';
+              };
+
+              lacp_rate = mkOption {
+                default = null;
+                example = "fast";
+                type = types.nullOr types.str;
+                description = lib.mdDoc ''
+                  DEPRECATED, use `driverOptions`.
+                  Option specifying the rate in which we'll ask our link partner
+                  to transmit LACPDU packets in 802.3ad mode.
+                '';
+              };
+
+              miimon = mkOption {
+                default = null;
+                example = 100;
+                type = types.nullOr types.int;
+                description = lib.mdDoc ''
+                  DEPRECATED, use `driverOptions`.
+                  Miimon is the number of millisecond in between each round of polling
+                  by the device driver for failed links. By default polling is not
+                  enabled and the driver is trusted to properly detect and handle
+                  failure scenarios.
+                '';
+              };
+
+              mode = mkOption {
+                default = null;
+                example = "active-backup";
+                type = types.nullOr types.str;
+                description = lib.mdDoc ''
+                  DEPRECATED, use `driverOptions`.
+                  The mode which the bond will be running. The default mode for
+                  the bonding driver is balance-rr, optimizing for throughput.
+                  More information about valid modes can be found at
+                  https://www.kernel.org/doc/Documentation/networking/bonding.txt
+                '';
+              };
+
+              xmit_hash_policy = mkOption {
+                default = null;
+                example = "layer2+3";
+                type = types.nullOr types.str;
+                description = lib.mdDoc ''
+                  DEPRECATED, use `driverOptions`.
+                  Selects the transmit hash policy to use for slave selection in
+                  balance-xor, 802.3ad, and tlb modes.
+                '';
+              };
+            };
+          });
       };
 
     networking.macvlans = mkOption {
@@ -1003,25 +997,23 @@ in
       '';
       type =
         with types;
-        attrsOf (
-          submodule {
-            options = {
+        attrsOf (submodule {
+          options = {
 
-              interface = mkOption {
-                example = "enp4s0";
-                type = types.str;
-                description = lib.mdDoc "The interface the macvlan will transmit packets through.";
-              };
-
-              mode = mkOption {
-                default = null;
-                type = types.nullOr types.str;
-                example = "vepa";
-                description = lib.mdDoc "The mode of the macvlan device.";
-              };
+            interface = mkOption {
+              example = "enp4s0";
+              type = types.str;
+              description = lib.mdDoc "The interface the macvlan will transmit packets through.";
             };
-          }
-        );
+
+            mode = mkOption {
+              default = null;
+              type = types.nullOr types.str;
+              example = "vepa";
+              description = lib.mdDoc "The mode of the macvlan device.";
+            };
+          };
+        });
     };
 
     networking.fooOverUDP = mkOption {
@@ -1044,63 +1036,59 @@ in
       '';
       type =
         with types;
-        attrsOf (
-          submodule {
-            options = {
-              port = mkOption {
-                type = port;
-                description = lib.mdDoc ''
-                  Local port of the encapsulation UDP socket.
-                '';
-              };
-
-              protocol = mkOption {
-                type = nullOr (ints.between 1 255);
-                default = null;
-                description = lib.mdDoc ''
-                  Protocol number of the encapsulated packets. Specifying `null`
-                  (the default) creates a GUE endpoint, specifying a protocol number will create
-                  a FOU endpoint.
-                '';
-              };
-
-              local = mkOption {
-                type = nullOr (
-                  submodule {
-                    options = {
-                      address = mkOption {
-                        type = types.str;
-                        description = lib.mdDoc ''
-                          Local address to bind to. The address must be available when the FOU
-                          endpoint is created, using the scripted network setup this can be achieved
-                          either by setting `dev` or adding dependency information to
-                          `systemd.services.<name>-fou-encap`; it isn't supported
-                          when using networkd.
-                        '';
-                      };
-
-                      dev = mkOption {
-                        type = nullOr str;
-                        default = null;
-                        example = "eth0";
-                        description = lib.mdDoc ''
-                          Network device to bind to.
-                        '';
-                      };
-                    };
-                  }
-                );
-                default = null;
-                example = {
-                  address = "203.0.113.22";
-                };
-                description = lib.mdDoc ''
-                  Local address (and optionally device) to bind to using the given port.
-                '';
-              };
+        attrsOf (submodule {
+          options = {
+            port = mkOption {
+              type = port;
+              description = lib.mdDoc ''
+                Local port of the encapsulation UDP socket.
+              '';
             };
-          }
-        );
+
+            protocol = mkOption {
+              type = nullOr (ints.between 1 255);
+              default = null;
+              description = lib.mdDoc ''
+                Protocol number of the encapsulated packets. Specifying `null`
+                (the default) creates a GUE endpoint, specifying a protocol number will create
+                a FOU endpoint.
+              '';
+            };
+
+            local = mkOption {
+              type = nullOr (submodule {
+                options = {
+                  address = mkOption {
+                    type = types.str;
+                    description = lib.mdDoc ''
+                      Local address to bind to. The address must be available when the FOU
+                      endpoint is created, using the scripted network setup this can be achieved
+                      either by setting `dev` or adding dependency information to
+                      `systemd.services.<name>-fou-encap`; it isn't supported
+                      when using networkd.
+                    '';
+                  };
+
+                  dev = mkOption {
+                    type = nullOr str;
+                    default = null;
+                    example = "eth0";
+                    description = lib.mdDoc ''
+                      Network device to bind to.
+                    '';
+                  };
+                };
+              });
+              default = null;
+              example = {
+                address = "203.0.113.22";
+              };
+              description = lib.mdDoc ''
+                Local address (and optionally device) to bind to using the given port.
+              '';
+            };
+          };
+        });
     };
 
     networking.sits = mkOption {
@@ -1124,96 +1112,92 @@ in
       '';
       type =
         with types;
-        attrsOf (
-          submodule {
-            options = {
+        attrsOf (submodule {
+          options = {
 
-              remote = mkOption {
-                type = types.nullOr types.str;
-                default = null;
-                example = "10.0.0.1";
-                description = lib.mdDoc ''
-                  The address of the remote endpoint to forward traffic over.
-                '';
-              };
-
-              local = mkOption {
-                type = types.nullOr types.str;
-                default = null;
-                example = "10.0.0.22";
-                description = lib.mdDoc ''
-                  The address of the local endpoint which the remote
-                  side should send packets to.
-                '';
-              };
-
-              ttl = mkOption {
-                type = types.nullOr types.int;
-                default = null;
-                example = 255;
-                description = lib.mdDoc ''
-                  The time-to-live of the connection to the remote tunnel endpoint.
-                '';
-              };
-
-              dev = mkOption {
-                type = types.nullOr types.str;
-                default = null;
-                example = "enp4s0f0";
-                description = lib.mdDoc ''
-                  The underlying network device on which the tunnel resides.
-                '';
-              };
-
-              encapsulation =
-                with types;
-                mkOption {
-                  type = nullOr (
-                    submodule {
-                      options = {
-                        type = mkOption {
-                          type = enum [
-                            "fou"
-                            "gue"
-                          ];
-                          description = lib.mdDoc ''
-                            Selects encapsulation type. See
-                            {manpage}`ip-link(8)` for details.
-                          '';
-                        };
-
-                        port = mkOption {
-                          type = port;
-                          example = 9001;
-                          description = lib.mdDoc ''
-                            Destination port for encapsulated packets.
-                          '';
-                        };
-
-                        sourcePort = mkOption {
-                          type = nullOr types.port;
-                          default = null;
-                          example = 9002;
-                          description = lib.mdDoc ''
-                            Source port for encapsulated packets. Will be chosen automatically by
-                            the kernel if unset.
-                          '';
-                        };
-                      };
-                    }
-                  );
-                  default = null;
-                  example = {
-                    type = "fou";
-                    port = 9001;
-                  };
-                  description = lib.mdDoc ''
-                    Configures encapsulation in UDP packets.
-                  '';
-                };
+            remote = mkOption {
+              type = types.nullOr types.str;
+              default = null;
+              example = "10.0.0.1";
+              description = lib.mdDoc ''
+                The address of the remote endpoint to forward traffic over.
+              '';
             };
-          }
-        );
+
+            local = mkOption {
+              type = types.nullOr types.str;
+              default = null;
+              example = "10.0.0.22";
+              description = lib.mdDoc ''
+                The address of the local endpoint which the remote
+                side should send packets to.
+              '';
+            };
+
+            ttl = mkOption {
+              type = types.nullOr types.int;
+              default = null;
+              example = 255;
+              description = lib.mdDoc ''
+                The time-to-live of the connection to the remote tunnel endpoint.
+              '';
+            };
+
+            dev = mkOption {
+              type = types.nullOr types.str;
+              default = null;
+              example = "enp4s0f0";
+              description = lib.mdDoc ''
+                The underlying network device on which the tunnel resides.
+              '';
+            };
+
+            encapsulation =
+              with types;
+              mkOption {
+                type = nullOr (submodule {
+                  options = {
+                    type = mkOption {
+                      type = enum [
+                        "fou"
+                        "gue"
+                      ];
+                      description = lib.mdDoc ''
+                        Selects encapsulation type. See
+                        {manpage}`ip-link(8)` for details.
+                      '';
+                    };
+
+                    port = mkOption {
+                      type = port;
+                      example = 9001;
+                      description = lib.mdDoc ''
+                        Destination port for encapsulated packets.
+                      '';
+                    };
+
+                    sourcePort = mkOption {
+                      type = nullOr types.port;
+                      default = null;
+                      example = 9002;
+                      description = lib.mdDoc ''
+                        Source port for encapsulated packets. Will be chosen automatically by
+                        the kernel if unset.
+                      '';
+                    };
+                  };
+                });
+                default = null;
+                example = {
+                  type = "fou";
+                  port = 9001;
+                };
+                description = lib.mdDoc ''
+                  Configures encapsulation in UDP packets.
+                '';
+              };
+          };
+        });
     };
 
     networking.greTunnels = mkOption {
@@ -1241,74 +1225,72 @@ in
       '';
       type =
         with types;
-        attrsOf (
-          submodule {
-            options = {
+        attrsOf (submodule {
+          options = {
 
-              remote = mkOption {
-                type = types.nullOr types.str;
-                default = null;
-                example = "10.0.0.1";
-                description = lib.mdDoc ''
-                  The address of the remote endpoint to forward traffic over.
-                '';
-              };
-
-              local = mkOption {
-                type = types.nullOr types.str;
-                default = null;
-                example = "10.0.0.22";
-                description = lib.mdDoc ''
-                  The address of the local endpoint which the remote
-                  side should send packets to.
-                '';
-              };
-
-              dev = mkOption {
-                type = types.nullOr types.str;
-                default = null;
-                example = "enp4s0f0";
-                description = lib.mdDoc ''
-                  The underlying network device on which the tunnel resides.
-                '';
-              };
-
-              ttl = mkOption {
-                type = types.nullOr types.int;
-                default = null;
-                example = 255;
-                description = lib.mdDoc ''
-                  The time-to-live/hoplimit of the connection to the remote tunnel endpoint.
-                '';
-              };
-
-              type = mkOption {
-                type =
-                  with types;
-                  enum [
-                    "tun"
-                    "tap"
-                    "tun6"
-                    "tap6"
-                  ];
-                default = "tap";
-                example = "tap";
-                apply =
-                  v:
-                  {
-                    tun = "gre";
-                    tap = "gretap";
-                    tun6 = "ip6gre";
-                    tap6 = "ip6gretap";
-                  }
-                  .${v};
-                description = lib.mdDoc ''
-                  Whether the tunnel routes layer 2 (tap) or layer 3 (tun) traffic.
-                '';
-              };
+            remote = mkOption {
+              type = types.nullOr types.str;
+              default = null;
+              example = "10.0.0.1";
+              description = lib.mdDoc ''
+                The address of the remote endpoint to forward traffic over.
+              '';
             };
-          }
-        );
+
+            local = mkOption {
+              type = types.nullOr types.str;
+              default = null;
+              example = "10.0.0.22";
+              description = lib.mdDoc ''
+                The address of the local endpoint which the remote
+                side should send packets to.
+              '';
+            };
+
+            dev = mkOption {
+              type = types.nullOr types.str;
+              default = null;
+              example = "enp4s0f0";
+              description = lib.mdDoc ''
+                The underlying network device on which the tunnel resides.
+              '';
+            };
+
+            ttl = mkOption {
+              type = types.nullOr types.int;
+              default = null;
+              example = 255;
+              description = lib.mdDoc ''
+                The time-to-live/hoplimit of the connection to the remote tunnel endpoint.
+              '';
+            };
+
+            type = mkOption {
+              type =
+                with types;
+                enum [
+                  "tun"
+                  "tap"
+                  "tun6"
+                  "tap6"
+                ];
+              default = "tap";
+              example = "tap";
+              apply =
+                v:
+                {
+                  tun = "gre";
+                  tap = "gretap";
+                  tun6 = "ip6gre";
+                  tap6 = "ip6gretap";
+                }
+                .${v};
+              description = lib.mdDoc ''
+                Whether the tunnel routes layer 2 (tap) or layer 3 (tun) traffic.
+              '';
+            };
+          };
+        });
     };
 
     networking.vlans = mkOption {
@@ -1334,25 +1316,23 @@ in
 
       type =
         with types;
-        attrsOf (
-          submodule {
+        attrsOf (submodule {
 
-            options = {
+          options = {
 
-              id = mkOption {
-                example = 1;
-                type = types.int;
-                description = lib.mdDoc "The vlan identifier";
-              };
-
-              interface = mkOption {
-                example = "enp4s0";
-                type = types.str;
-                description = lib.mdDoc "The interface the vlan will transmit packets through.";
-              };
+            id = mkOption {
+              example = 1;
+              type = types.int;
+              description = lib.mdDoc "The vlan identifier";
             };
-          }
-        );
+
+            interface = mkOption {
+              example = "enp4s0";
+              type = types.str;
+              description = lib.mdDoc "The interface the vlan will transmit packets through.";
+            };
+          };
+        });
     };
 
     networking.wlanInterfaces = mkOption {
@@ -1393,83 +1373,79 @@ in
 
       type =
         with types;
-        attrsOf (
-          submodule {
+        attrsOf (submodule {
 
-            options = {
+          options = {
 
-              device = mkOption {
-                type = types.str;
-                example = "wlp6s0";
-                description = lib.mdDoc "The name of the underlying hardware WLAN device as assigned by `udev`.";
-              };
-
-              type = mkOption {
-                type = types.enum [
-                  "managed"
-                  "ibss"
-                  "monitor"
-                  "mesh"
-                  "wds"
-                ];
-                default = "managed";
-                example = "ibss";
-                description = lib.mdDoc ''
-                  The type of the WLAN interface.
-                  The type has to be supported by the underlying hardware of the device.
-                '';
-              };
-
-              meshID = mkOption {
-                type = types.nullOr types.str;
-                default = null;
-                description = lib.mdDoc "MeshID of interface with type `mesh`.";
-              };
-
-              flags = mkOption {
-                type =
-                  with types;
-                  nullOr (
-                    enum [
-                      "none"
-                      "fcsfail"
-                      "control"
-                      "otherbss"
-                      "cook"
-                      "active"
-                    ]
-                  );
-                default = null;
-                example = "control";
-                description = lib.mdDoc ''
-                  Flags for interface of type `monitor`.
-                '';
-              };
-
-              fourAddr = mkOption {
-                type = types.nullOr types.bool;
-                default = null;
-                description = lib.mdDoc "Whether to enable `4-address mode` with type `managed`.";
-              };
-
-              mac = mkOption {
-                type = types.nullOr types.str;
-                default = null;
-                example = "02:00:00:00:00:01";
-                description = lib.mdDoc ''
-                  MAC address to use for the device. If `null`, then the MAC of the
-                  underlying hardware WLAN device is used.
-
-                  INFO: Locally administered MAC addresses are of the form:
-                  - x2:xx:xx:xx:xx:xx
-                  - x6:xx:xx:xx:xx:xx
-                  - xA:xx:xx:xx:xx:xx
-                  - xE:xx:xx:xx:xx:xx
-                '';
-              };
+            device = mkOption {
+              type = types.str;
+              example = "wlp6s0";
+              description = lib.mdDoc "The name of the underlying hardware WLAN device as assigned by `udev`.";
             };
-          }
-        );
+
+            type = mkOption {
+              type = types.enum [
+                "managed"
+                "ibss"
+                "monitor"
+                "mesh"
+                "wds"
+              ];
+              default = "managed";
+              example = "ibss";
+              description = lib.mdDoc ''
+                The type of the WLAN interface.
+                The type has to be supported by the underlying hardware of the device.
+              '';
+            };
+
+            meshID = mkOption {
+              type = types.nullOr types.str;
+              default = null;
+              description = lib.mdDoc "MeshID of interface with type `mesh`.";
+            };
+
+            flags = mkOption {
+              type =
+                with types;
+                nullOr (enum [
+                  "none"
+                  "fcsfail"
+                  "control"
+                  "otherbss"
+                  "cook"
+                  "active"
+                ]);
+              default = null;
+              example = "control";
+              description = lib.mdDoc ''
+                Flags for interface of type `monitor`.
+              '';
+            };
+
+            fourAddr = mkOption {
+              type = types.nullOr types.bool;
+              default = null;
+              description = lib.mdDoc "Whether to enable `4-address mode` with type `managed`.";
+            };
+
+            mac = mkOption {
+              type = types.nullOr types.str;
+              default = null;
+              example = "02:00:00:00:00:01";
+              description = lib.mdDoc ''
+                MAC address to use for the device. If `null`, then the MAC of the
+                underlying hardware WLAN device is used.
+
+                INFO: Locally administered MAC addresses are of the form:
+                - x2:xx:xx:xx:xx:xx
+                - x6:xx:xx:xx:xx:xx
+                - xA:xx:xx:xx:xx:xx
+                - xE:xx:xx:xx:xx:xx
+              '';
+            };
+          };
+        });
     };
 
     networking.useDHCP = mkOption {
@@ -1518,41 +1494,33 @@ in
     warnings = concatMap (i: i.warnings) interfaces;
 
     assertions =
-      (forEach interfaces (
-        i: {
-          # With the linux kernel, interface name length is limited by IFNAMSIZ
-          # to 16 bytes, including the trailing null byte.
-          # See include/linux/if.h in the kernel sources
-          assertion = stringLength i.name < 16;
-          message = ''
-            The name of networking.interfaces."${i.name}" is too long, it needs to be less than 16 characters.
-          '';
-        }
-      ))
-      ++ (forEach slaveIfs (
-        i: {
-          assertion = i.ipv4.addresses == [ ] && i.ipv6.addresses == [ ];
-          message = ''
-            The networking.interfaces."${i.name}" must not have any defined ips when it is a slave.
-          '';
-        }
-      ))
-      ++ (forEach interfaces (
-        i: {
-          assertion = i.tempAddress != "disabled" -> cfg.enableIPv6;
-          message = ''
-            Temporary addresses are only needed when IPv6 is enabled.
-          '';
-        }
-      ))
-      ++ (forEach interfaces (
-        i: {
-          assertion = (i.virtual && i.virtualType == "tun") -> i.macAddress == null;
-          message = ''
-            Setting a MAC Address for tun device ${i.name} isn't supported.
-          '';
-        }
-      ))
+      (forEach interfaces (i: {
+        # With the linux kernel, interface name length is limited by IFNAMSIZ
+        # to 16 bytes, including the trailing null byte.
+        # See include/linux/if.h in the kernel sources
+        assertion = stringLength i.name < 16;
+        message = ''
+          The name of networking.interfaces."${i.name}" is too long, it needs to be less than 16 characters.
+        '';
+      }))
+      ++ (forEach slaveIfs (i: {
+        assertion = i.ipv4.addresses == [ ] && i.ipv6.addresses == [ ];
+        message = ''
+          The networking.interfaces."${i.name}" must not have any defined ips when it is a slave.
+        '';
+      }))
+      ++ (forEach interfaces (i: {
+        assertion = i.tempAddress != "disabled" -> cfg.enableIPv6;
+        message = ''
+          Temporary addresses are only needed when IPv6 is enabled.
+        '';
+      }))
+      ++ (forEach interfaces (i: {
+        assertion = (i.virtual && i.virtualType == "tun") -> i.macAddress == null;
+        message = ''
+          Setting a MAC Address for tun device ${i.name} isn't supported.
+        '';
+      }))
       ++ [
         {
           assertion = cfg.hostId == null || (stringLength cfg.hostId == 8 && isHexString cfg.hostId);
@@ -1758,11 +1726,9 @@ in
                   ${pkgs.iw}/bin/iw phy `${pkgs.coreutils}/bin/cat /sys/class/net/$INTERFACE/phy80211/name` set name ${device}
 
                   # Add new WLAN interfaces
-                  ${flip concatMapStrings new (
-                    i: ''
-                      ${pkgs.iw}/bin/iw phy ${device} interface add ${i._iName} type managed
-                    ''
-                  )}
+                  ${flip concatMapStrings new (i: ''
+                    ${pkgs.iw}/bin/iw phy ${device} interface add ${i._iName} type managed
+                  '')}
 
                   # Configure the current interface
                   ${pkgs.iw}/bin/iw dev ${device} set type ${current.type}

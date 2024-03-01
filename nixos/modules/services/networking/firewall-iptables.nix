@@ -147,11 +147,9 @@ let
     ''}
 
     # Accept all traffic on the trusted interfaces.
-    ${flip concatMapStrings cfg.trustedInterfaces (
-      iface: ''
-        ip46tables -A nixos-fw -i ${iface} -j nixos-fw-accept
-      ''
-    )}
+    ${flip concatMapStrings cfg.trustedInterfaces (iface: ''
+      ip46tables -A nixos-fw -i ${iface} -j nixos-fw-accept
+    '')}
 
     # Accept packets from established or related connections.
     ip46tables -A nixos-fw -m conntrack --ctstate ESTABLISHED,RELATED -j nixos-fw-accept

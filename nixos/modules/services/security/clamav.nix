@@ -51,14 +51,12 @@ in
         settings = mkOption {
           type =
             with types;
-            attrsOf (
-              oneOf [
-                bool
-                int
-                str
-                (listOf str)
-              ]
-            );
+            attrsOf (oneOf [
+              bool
+              int
+              str
+              (listOf str)
+            ]);
           default = { };
           description = lib.mdDoc ''
             ClamAV configuration. Refer to <https://linux.die.net/man/5/clamd.conf>,
@@ -89,14 +87,12 @@ in
         settings = mkOption {
           type =
             with types;
-            attrsOf (
-              oneOf [
-                bool
-                int
-                str
-                (listOf str)
-              ]
-            );
+            attrsOf (oneOf [
+              bool
+              int
+              str
+              (listOf str)
+            ]);
           default = { };
           description = lib.mdDoc ''
             freshclam configuration. Refer to <https://linux.die.net/man/5/freshclam.conf>,

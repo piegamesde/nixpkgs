@@ -61,24 +61,32 @@ rec {
 
      See https://wiki.haskell.org/Haskell_program_coverage
   */
-  doCoverage = overrideCabal (drv: { doCoverage = true; });
+  doCoverage = overrideCabal (drv: {
+    doCoverage = true;
+  });
 
   /* dontCoverage modifies a haskell package to disable the generation
      and installation of a coverage report.
   */
-  dontCoverage = overrideCabal (drv: { doCoverage = false; });
+  dontCoverage = overrideCabal (drv: {
+    doCoverage = false;
+  });
 
   /* doHaddock modifies a haskell package to enable the generation and
      installation of API documentation from code comments using the
      haddock tool.
   */
-  doHaddock = overrideCabal (drv: { doHaddock = true; });
+  doHaddock = overrideCabal (drv: {
+    doHaddock = true;
+  });
 
   /* dontHaddock modifies a haskell package to disable the generation and
      installation of API documentation from code comments using the
      haddock tool.
   */
-  dontHaddock = overrideCabal (drv: { doHaddock = false; });
+  dontHaddock = overrideCabal (drv: {
+    doHaddock = false;
+  });
 
   /* doJailbreak enables the removal of version bounds from the cabal
      file. You may want to avoid this function.
@@ -95,45 +103,57 @@ rec {
      conditional branches.
      https://github.com/peti/jailbreak-cabal/issues/7 has further details.
   */
-  doJailbreak = overrideCabal (drv: { jailbreak = true; });
+  doJailbreak = overrideCabal (drv: {
+    jailbreak = true;
+  });
 
   /* dontJailbreak restores the use of the version bounds the check
      the use of dependencies in the package description.
   */
-  dontJailbreak = overrideCabal (drv: { jailbreak = false; });
+  dontJailbreak = overrideCabal (drv: {
+    jailbreak = false;
+  });
 
   /* doCheck enables dependency checking, compilation and execution
      of test suites listed in the package description file.
   */
-  doCheck = overrideCabal (drv: { doCheck = true; });
+  doCheck = overrideCabal (drv: {
+    doCheck = true;
+  });
   /* dontCheck disables dependency checking, compilation and execution
      of test suites listed in the package description file.
   */
-  dontCheck = overrideCabal (drv: { doCheck = false; });
+  dontCheck = overrideCabal (drv: {
+    doCheck = false;
+  });
 
   /* doBenchmark enables dependency checking and compilation
      for benchmarks listed in the package description file.
      Benchmarks are, however, not executed at the moment.
   */
-  doBenchmark = overrideCabal (drv: { doBenchmark = true; });
+  doBenchmark = overrideCabal (drv: {
+    doBenchmark = true;
+  });
   /* dontBenchmark disables dependency checking, compilation and execution
      for benchmarks listed in the package description file.
   */
-  dontBenchmark = overrideCabal (drv: { doBenchmark = false; });
+  dontBenchmark = overrideCabal (drv: {
+    doBenchmark = false;
+  });
 
   /* doDistribute enables the distribution of binaries for the package
      via hydra.
   */
-  doDistribute = overrideCabal (
-    drv: {
-      # lib.platforms.all is the default value for platforms (since GHC can cross-compile)
-      hydraPlatforms = lib.subtractLists (drv.badPlatforms or [ ]) (drv.platforms or lib.platforms.all);
-    }
-  );
+  doDistribute = overrideCabal (drv: {
+    # lib.platforms.all is the default value for platforms (since GHC can cross-compile)
+    hydraPlatforms = lib.subtractLists (drv.badPlatforms or [ ]) (drv.platforms or lib.platforms.all);
+  });
   /* dontDistribute disables the distribution of binaries for the package
      via hydra.
   */
-  dontDistribute = overrideCabal (drv: { hydraPlatforms = [ ]; });
+  dontDistribute = overrideCabal (drv: {
+    hydraPlatforms = [ ];
+  });
 
   /* appendConfigureFlag adds a single argument that will be passed to the
      cabal configure command, after the arguments that have been defined
@@ -145,10 +165,21 @@ rec {
   */
   appendConfigureFlag = x: appendConfigureFlags [ x ];
   appendConfigureFlags =
-    xs: overrideCabal (drv: { configureFlags = (drv.configureFlags or [ ]) ++ xs; });
+    xs:
+    overrideCabal (drv: {
+      configureFlags = (drv.configureFlags or [ ]) ++ xs;
+    });
 
-  appendBuildFlag = x: overrideCabal (drv: { buildFlags = (drv.buildFlags or [ ]) ++ [ x ]; });
-  appendBuildFlags = xs: overrideCabal (drv: { buildFlags = (drv.buildFlags or [ ]) ++ xs; });
+  appendBuildFlag =
+    x:
+    overrideCabal (drv: {
+      buildFlags = (drv.buildFlags or [ ]) ++ [ x ];
+    });
+  appendBuildFlags =
+    xs:
+    overrideCabal (drv: {
+      buildFlags = (drv.buildFlags or [ ]) ++ xs;
+    });
 
   /* removeConfigureFlag drv x is a Haskell package like drv, but with
      all cabal configure arguments that are equal to x removed.
@@ -156,68 +187,123 @@ rec {
          > haskell.lib.compose.removeConfigureFlag "--verbose" haskellPackages.servant
   */
   removeConfigureFlag =
-    x: overrideCabal (drv: { configureFlags = lib.remove x (drv.configureFlags or [ ]); });
+    x:
+    overrideCabal (drv: {
+      configureFlags = lib.remove x (drv.configureFlags or [ ]);
+    });
 
   addBuildTool = x: addBuildTools [ x ];
-  addBuildTools = xs: overrideCabal (drv: { buildTools = (drv.buildTools or [ ]) ++ xs; });
+  addBuildTools =
+    xs:
+    overrideCabal (drv: {
+      buildTools = (drv.buildTools or [ ]) ++ xs;
+    });
 
   addExtraLibrary = x: addExtraLibraries [ x ];
   addExtraLibraries =
-    xs: overrideCabal (drv: { extraLibraries = (drv.extraLibraries or [ ]) ++ xs; });
+    xs:
+    overrideCabal (drv: {
+      extraLibraries = (drv.extraLibraries or [ ]) ++ xs;
+    });
 
   addBuildDepend = x: addBuildDepends [ x ];
-  addBuildDepends = xs: overrideCabal (drv: { buildDepends = (drv.buildDepends or [ ]) ++ xs; });
+  addBuildDepends =
+    xs:
+    overrideCabal (drv: {
+      buildDepends = (drv.buildDepends or [ ]) ++ xs;
+    });
 
   addTestToolDepend = x: addTestToolDepends [ x ];
   addTestToolDepends =
-    xs: overrideCabal (drv: { testToolDepends = (drv.testToolDepends or [ ]) ++ xs; });
+    xs:
+    overrideCabal (drv: {
+      testToolDepends = (drv.testToolDepends or [ ]) ++ xs;
+    });
 
   addPkgconfigDepend = x: addPkgconfigDepends [ x ];
   addPkgconfigDepends =
-    xs: overrideCabal (drv: { pkg-configDepends = (drv.pkg-configDepends or [ ]) ++ xs; });
+    xs:
+    overrideCabal (drv: {
+      pkg-configDepends = (drv.pkg-configDepends or [ ]) ++ xs;
+    });
 
   addSetupDepend = x: addSetupDepends [ x ];
   addSetupDepends =
-    xs: overrideCabal (drv: { setupHaskellDepends = (drv.setupHaskellDepends or [ ]) ++ xs; });
+    xs:
+    overrideCabal (drv: {
+      setupHaskellDepends = (drv.setupHaskellDepends or [ ]) ++ xs;
+    });
 
   enableCabalFlag = x: drv: appendConfigureFlag "-f${x}" (removeConfigureFlag "-f-${x}" drv);
   disableCabalFlag = x: drv: appendConfigureFlag "-f-${x}" (removeConfigureFlag "-f${x}" drv);
 
-  markBroken = overrideCabal (
-    drv: {
-      broken = true;
-      hydraPlatforms = [ ];
-    }
-  );
-  unmarkBroken = overrideCabal (drv: { broken = false; });
+  markBroken = overrideCabal (drv: {
+    broken = true;
+    hydraPlatforms = [ ];
+  });
+  unmarkBroken = overrideCabal (drv: {
+    broken = false;
+  });
   markBrokenVersion =
     version: drv:
     assert drv.version == version;
     markBroken drv;
-  markUnbroken = overrideCabal (drv: { broken = false; });
+  markUnbroken = overrideCabal (drv: {
+    broken = false;
+  });
 
-  enableLibraryProfiling = overrideCabal (drv: { enableLibraryProfiling = true; });
-  disableLibraryProfiling = overrideCabal (drv: { enableLibraryProfiling = false; });
+  enableLibraryProfiling = overrideCabal (drv: {
+    enableLibraryProfiling = true;
+  });
+  disableLibraryProfiling = overrideCabal (drv: {
+    enableLibraryProfiling = false;
+  });
 
-  enableExecutableProfiling = overrideCabal (drv: { enableExecutableProfiling = true; });
-  disableExecutableProfiling = overrideCabal (drv: { enableExecutableProfiling = false; });
+  enableExecutableProfiling = overrideCabal (drv: {
+    enableExecutableProfiling = true;
+  });
+  disableExecutableProfiling = overrideCabal (drv: {
+    enableExecutableProfiling = false;
+  });
 
-  enableSharedExecutables = overrideCabal (drv: { enableSharedExecutables = true; });
-  disableSharedExecutables = overrideCabal (drv: { enableSharedExecutables = false; });
+  enableSharedExecutables = overrideCabal (drv: {
+    enableSharedExecutables = true;
+  });
+  disableSharedExecutables = overrideCabal (drv: {
+    enableSharedExecutables = false;
+  });
 
-  enableSharedLibraries = overrideCabal (drv: { enableSharedLibraries = true; });
-  disableSharedLibraries = overrideCabal (drv: { enableSharedLibraries = false; });
+  enableSharedLibraries = overrideCabal (drv: {
+    enableSharedLibraries = true;
+  });
+  disableSharedLibraries = overrideCabal (drv: {
+    enableSharedLibraries = false;
+  });
 
-  enableDeadCodeElimination = overrideCabal (drv: { enableDeadCodeElimination = true; });
-  disableDeadCodeElimination = overrideCabal (drv: { enableDeadCodeElimination = false; });
+  enableDeadCodeElimination = overrideCabal (drv: {
+    enableDeadCodeElimination = true;
+  });
+  disableDeadCodeElimination = overrideCabal (drv: {
+    enableDeadCodeElimination = false;
+  });
 
-  enableStaticLibraries = overrideCabal (drv: { enableStaticLibraries = true; });
-  disableStaticLibraries = overrideCabal (drv: { enableStaticLibraries = false; });
+  enableStaticLibraries = overrideCabal (drv: {
+    enableStaticLibraries = true;
+  });
+  disableStaticLibraries = overrideCabal (drv: {
+    enableStaticLibraries = false;
+  });
 
-  enableSeparateBinOutput = overrideCabal (drv: { enableSeparateBinOutput = true; });
+  enableSeparateBinOutput = overrideCabal (drv: {
+    enableSeparateBinOutput = true;
+  });
 
   appendPatch = x: appendPatches [ x ];
-  appendPatches = xs: overrideCabal (drv: { patches = (drv.patches or [ ]) ++ xs; });
+  appendPatches =
+    xs:
+    overrideCabal (drv: {
+      patches = (drv.patches or [ ]) ++ xs;
+    });
 
   # Set a specific build target instead of compiling all targets in the package.
   # For example, imagine we have a .cabal file with a library, and 2 executables "dev" and "server".
@@ -225,21 +311,37 @@ rec {
   #
   #   > setBuildTarget "server" (callCabal2nix "thePackageName" thePackageSrc {})
   #
-  setBuildTargets = xs: overrideCabal (drv: { buildTarget = lib.concatStringsSep " " xs; });
+  setBuildTargets =
+    xs:
+    overrideCabal (drv: {
+      buildTarget = lib.concatStringsSep " " xs;
+    });
   setBuildTarget = x: setBuildTargets [ x ];
 
-  doHyperlinkSource = overrideCabal (drv: { hyperlinkSource = true; });
-  dontHyperlinkSource = overrideCabal (drv: { hyperlinkSource = false; });
+  doHyperlinkSource = overrideCabal (drv: {
+    hyperlinkSource = true;
+  });
+  dontHyperlinkSource = overrideCabal (drv: {
+    hyperlinkSource = false;
+  });
 
-  disableHardening = flags: overrideCabal (drv: { hardeningDisable = flags; });
+  disableHardening =
+    flags:
+    overrideCabal (drv: {
+      hardeningDisable = flags;
+    });
 
   # Let Nix strip the binary files.
   # This removes debugging symbols.
-  doStrip = overrideCabal (drv: { dontStrip = false; });
+  doStrip = overrideCabal (drv: {
+    dontStrip = false;
+  });
 
   # Stop Nix from stripping the binary files.
   # This keeps debugging symbols.
-  dontStrip = overrideCabal (drv: { dontStrip = true; });
+  dontStrip = overrideCabal (drv: {
+    dontStrip = true;
+  });
 
   # Useful for debugging segfaults with gdb.
   # This includes dontStrip.
@@ -257,47 +359,43 @@ rec {
   */
   sdistTarball =
     pkg:
-    lib.overrideDerivation pkg (
-      drv: {
-        name = "${drv.pname}-source-${drv.version}";
-        # Since we disable the haddock phase, we also need to override the
-        # outputs since the separate doc output will not be produced.
-        outputs = [ "out" ];
-        buildPhase = "./Setup sdist";
-        haddockPhase = ":";
-        checkPhase = ":";
-        installPhase = "install -D dist/${drv.pname}-*.tar.gz $out/${drv.pname}-${drv.version}.tar.gz";
-        fixupPhase = ":";
-      }
-    );
+    lib.overrideDerivation pkg (drv: {
+      name = "${drv.pname}-source-${drv.version}";
+      # Since we disable the haddock phase, we also need to override the
+      # outputs since the separate doc output will not be produced.
+      outputs = [ "out" ];
+      buildPhase = "./Setup sdist";
+      haddockPhase = ":";
+      checkPhase = ":";
+      installPhase = "install -D dist/${drv.pname}-*.tar.gz $out/${drv.pname}-${drv.version}.tar.gz";
+      fixupPhase = ":";
+    });
 
   /* Create a documentation tarball suitable for uploading to Hackage instead
      of building the package.
   */
   documentationTarball =
     pkg:
-    pkgs.lib.overrideDerivation pkg (
-      drv: {
-        name = "${drv.name}-docs";
-        # Like sdistTarball, disable the "doc" output here.
-        outputs = [ "out" ];
-        buildPhase = ''
-          runHook preHaddock
-          ./Setup haddock --for-hackage
-          runHook postHaddock
-        '';
-        haddockPhase = ":";
-        checkPhase = ":";
-        installPhase = ''
-          runHook preInstall
-          mkdir -p "$out"
-          tar --format=ustar \
-            -czf "$out/${drv.name}-docs.tar.gz" \
-            -C dist/doc/html "${drv.name}-docs"
-          runHook postInstall
-        '';
-      }
-    );
+    pkgs.lib.overrideDerivation pkg (drv: {
+      name = "${drv.name}-docs";
+      # Like sdistTarball, disable the "doc" output here.
+      outputs = [ "out" ];
+      buildPhase = ''
+        runHook preHaddock
+        ./Setup haddock --for-hackage
+        runHook postHaddock
+      '';
+      haddockPhase = ":";
+      checkPhase = ":";
+      installPhase = ''
+        runHook preInstall
+        mkdir -p "$out"
+        tar --format=ustar \
+          -czf "$out/${drv.name}-docs.tar.gz" \
+          -C dist/doc/html "${drv.name}-docs"
+        runHook postInstall
+      '';
+    });
 
   /* Use the gold linker. It is a linker for ELF that is designed
      "to run as fast as possible on modern systems"
@@ -307,21 +405,19 @@ rec {
   /* link executables statically against haskell libs to reduce
      closure size
   */
-  justStaticExecutables = overrideCabal (
-    drv: {
-      enableSharedExecutables = false;
-      enableLibraryProfiling = false;
-      isLibrary = false;
-      doHaddock = false;
-      postFixup =
-        drv.postFixup or ""
-        + ''
+  justStaticExecutables = overrideCabal (drv: {
+    enableSharedExecutables = false;
+    enableLibraryProfiling = false;
+    isLibrary = false;
+    doHaddock = false;
+    postFixup =
+      drv.postFixup or ""
+      + ''
 
-          # Remove every directory which could have links to other store paths.
-          rm -rf $out/lib $out/nix-support $out/share/doc
-        '';
-    }
-  );
+        # Remove every directory which could have links to other store paths.
+        rm -rf $out/lib $out/nix-support $out/share/doc
+      '';
+  });
 
   /* Build a source distribution tarball instead of using the source files
      directly. The effect is that the package is built as if it were published
@@ -387,7 +483,11 @@ rec {
   /* Add a dummy command to trigger a build despite an equivalent
      earlier build that is present in the store or cache.
   */
-  triggerRebuild = i: overrideCabal (drv: { postUnpack = ": trigger rebuild ${toString i}"; });
+  triggerRebuild =
+    i:
+    overrideCabal (drv: {
+      postUnpack = ": trigger rebuild ${toString i}";
+    });
 
   /* Override the sources for the package and optionally the version.
      This also takes of removing editedCabalFile.
@@ -470,27 +570,25 @@ rec {
   */
   __generateOptparseApplicativeCompletion =
     exeName:
-    overrideCabal (
-      drv: {
-        postInstall =
-          (drv.postInstall or "")
-          + ''
-            bashCompDir="''${!outputBin}/share/bash-completion/completions"
-            zshCompDir="''${!outputBin}/share/zsh/vendor-completions"
-            fishCompDir="''${!outputBin}/share/fish/vendor_completions.d"
-            mkdir -p "$bashCompDir" "$zshCompDir" "$fishCompDir"
-            "''${!outputBin}/bin/${exeName}" --bash-completion-script "''${!outputBin}/bin/${exeName}" >"$bashCompDir/${exeName}"
-            "''${!outputBin}/bin/${exeName}" --zsh-completion-script "''${!outputBin}/bin/${exeName}" >"$zshCompDir/_${exeName}"
-            "''${!outputBin}/bin/${exeName}" --fish-completion-script "''${!outputBin}/bin/${exeName}" >"$fishCompDir/${exeName}.fish"
+    overrideCabal (drv: {
+      postInstall =
+        (drv.postInstall or "")
+        + ''
+          bashCompDir="''${!outputBin}/share/bash-completion/completions"
+          zshCompDir="''${!outputBin}/share/zsh/vendor-completions"
+          fishCompDir="''${!outputBin}/share/fish/vendor_completions.d"
+          mkdir -p "$bashCompDir" "$zshCompDir" "$fishCompDir"
+          "''${!outputBin}/bin/${exeName}" --bash-completion-script "''${!outputBin}/bin/${exeName}" >"$bashCompDir/${exeName}"
+          "''${!outputBin}/bin/${exeName}" --zsh-completion-script "''${!outputBin}/bin/${exeName}" >"$zshCompDir/_${exeName}"
+          "''${!outputBin}/bin/${exeName}" --fish-completion-script "''${!outputBin}/bin/${exeName}" >"$fishCompDir/${exeName}.fish"
 
-            # Sanity check
-            grep -F ${exeName} <$bashCompDir/${exeName} >/dev/null || {
-              echo 'Could not find ${exeName} in completion script.'
-              exit 1
-            }
-          '';
-      }
-    );
+          # Sanity check
+          grep -F ${exeName} <$bashCompDir/${exeName} >/dev/null || {
+            echo 'Could not find ${exeName} in completion script.'
+            exit 1
+          }
+        '';
+    });
 
   /* Retained for backwards compatibility.
      Use haskell.packages.*.generateOptparseApplicativeCompletions
@@ -515,7 +613,9 @@ rec {
   # Don't fail at configure time if there are multiple versions of the
   # same package in the (recursive) dependencies of the package being
   # built. Will delay failures, if any, to compile time.
-  allowInconsistentDependencies = overrideCabal (drv: { allowInconsistentDependencies = true; });
+  allowInconsistentDependencies = overrideCabal (drv: {
+    allowInconsistentDependencies = true;
+  });
 
   # Work around a Cabal bug requiring pkg-config --static --libs to work even
   # when linking dynamically, affecting Cabal 3.8 and 3.9.
@@ -560,12 +660,10 @@ rec {
           }
         );
     in
-    overrideCabal (
-      old: {
-        benchmarkPkgconfigDepends = propagatedPlainBuildInputs old.benchmarkPkgconfigDepends or [ ];
-        executablePkgconfigDepends = propagatedPlainBuildInputs old.executablePkgconfigDepends or [ ];
-        libraryPkgconfigDepends = propagatedPlainBuildInputs old.libraryPkgconfigDepends or [ ];
-        testPkgconfigDepends = propagatedPlainBuildInputs old.testPkgconfigDepends or [ ];
-      }
-    );
+    overrideCabal (old: {
+      benchmarkPkgconfigDepends = propagatedPlainBuildInputs old.benchmarkPkgconfigDepends or [ ];
+      executablePkgconfigDepends = propagatedPlainBuildInputs old.executablePkgconfigDepends or [ ];
+      libraryPkgconfigDepends = propagatedPlainBuildInputs old.libraryPkgconfigDepends or [ ];
+      testPkgconfigDepends = propagatedPlainBuildInputs old.testPkgconfigDepends or [ ];
+    });
 }

@@ -72,12 +72,10 @@ let
     sha256 = "1xcm07qjk6m2czi150fiqqxql067i832adck6zxrishm70c9jbr9";
   };
 
-  myGn = gn.overrideAttrs (
-    oldAttrs: {
-      version = "for-v8";
-      src = gnSrc;
-    }
-  );
+  myGn = gn.overrideAttrs (oldAttrs: {
+    version = "for-v8";
+    src = gnSrc;
+  });
 in
 
 stdenv.mkDerivation rec {

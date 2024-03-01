@@ -31,20 +31,18 @@ self: super: {
     meta.homepage = "https://gitlab.com/FlyingWombat/case.kak";
   };
 
-  fzf-kak = super.fzf-kak.overrideAttrs (
-    oldAttrs: rec {
-      preFixup = ''
-        if [[ -x "${fzf}/bin/fzf" ]]; then
-          fzfImpl='${fzf}/bin/fzf'
-        else
-          fzfImpl='${fzf}/bin/sk'
-        fi
+  fzf-kak = super.fzf-kak.overrideAttrs (oldAttrs: rec {
+    preFixup = ''
+      if [[ -x "${fzf}/bin/fzf" ]]; then
+        fzfImpl='${fzf}/bin/fzf'
+      else
+        fzfImpl='${fzf}/bin/sk'
+      fi
 
-        substituteInPlace $out/share/kak/autoload/plugins/fzf-kak/rc/fzf.kak \
-          --replace \'fzf\' \'"$fzfImpl"\'
-      '';
-    }
-  );
+      substituteInPlace $out/share/kak/autoload/plugins/fzf-kak/rc/fzf.kak \
+        --replace \'fzf\' \'"$fzfImpl"\'
+    '';
+  });
 
   kak-ansi = stdenv.mkDerivation rec {
     pname = "kak-ansi";
@@ -107,18 +105,16 @@ self: super: {
     };
   };
 
-  kakoune-rainbow = super.kakoune-rainbow.overrideAttrs (
-    oldAttrs: rec {
-      preFixup = ''
-        mkdir -p $out/bin
-        mv $out/share/kak/autoload/plugins/kakoune-rainbow/bin/kak-rainbow.scm $out/bin
-        substituteInPlace $out/bin/kak-rainbow.scm \
-          --replace '/usr/bin/env -S guile' '${guile}/bin/guile'
-        substituteInPlace $out/share/kak/autoload/plugins/kakoune-rainbow/rainbow.kak \
-          --replace '%sh{dirname "$kak_source"}' "'$out'"
-      '';
-    }
-  );
+  kakoune-rainbow = super.kakoune-rainbow.overrideAttrs (oldAttrs: rec {
+    preFixup = ''
+      mkdir -p $out/bin
+      mv $out/share/kak/autoload/plugins/kakoune-rainbow/bin/kak-rainbow.scm $out/bin
+      substituteInPlace $out/bin/kak-rainbow.scm \
+        --replace '/usr/bin/env -S guile' '${guile}/bin/guile'
+      substituteInPlace $out/share/kak/autoload/plugins/kakoune-rainbow/rainbow.kak \
+        --replace '%sh{dirname "$kak_source"}' "'$out'"
+    '';
+  });
 
   kakoune-state-save = buildKakounePluginFrom2Nix {
     pname = "kakoune-state-save";
@@ -140,14 +136,12 @@ self: super: {
     };
   };
 
-  powerline-kak = super.powerline-kak.overrideAttrs (
-    oldAttrs: rec {
-      preFixup = ''
-        substituteInPlace $out/share/kak/autoload/plugins/powerline-kak/rc/modules/git.kak \
-          --replace ' git ' ' ${git}/bin/git '
-      '';
-    }
-  );
+  powerline-kak = super.powerline-kak.overrideAttrs (oldAttrs: rec {
+    preFixup = ''
+      substituteInPlace $out/share/kak/autoload/plugins/powerline-kak/rc/modules/git.kak \
+        --replace ' git ' ' ${git}/bin/git '
+    '';
+  });
 
   quickscope-kak = buildKakounePluginFrom2Nix rec {
     pname = "quickscope-kak";

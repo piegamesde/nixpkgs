@@ -55,20 +55,18 @@ stdenvNoCC.mkDerivation rec {
       "''${gappsWrapperArgs[@]-}"
   '';
 
-  desktopItems = lib.toList (
-    makeDesktopItem {
-      name = "agi";
-      desktopName = "Android GPU Inspector";
-      exec = "agi";
-      icon = "agi";
-      categories = [
-        "Development"
-        "Debugger"
-        "Graphics"
-        "3DGraphics"
-      ];
-    }
-  );
+  desktopItems = lib.toList (makeDesktopItem {
+    name = "agi";
+    desktopName = "Android GPU Inspector";
+    exec = "agi";
+    icon = "agi";
+    categories = [
+      "Development"
+      "Debugger"
+      "Graphics"
+      "3DGraphics"
+    ];
+  });
 
   meta = with lib; {
     description = "Android GPU Inspector";

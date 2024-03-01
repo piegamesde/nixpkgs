@@ -318,70 +318,68 @@ in
     };
   };
 
-  config = mkIf cfg.enable (
-    mkMerge ([
-      {
-        assertions = [
-          {
-            assertion = cfg.static-auth-secret != null -> cfg.static-auth-secret-file == null;
-            message = "static-auth-secret and static-auth-secret-file cannot be set at the same time";
-          }
-        ];
-      }
+  config = mkIf cfg.enable (mkMerge ([
+    {
+      assertions = [
+        {
+          assertion = cfg.static-auth-secret != null -> cfg.static-auth-secret-file == null;
+          message = "static-auth-secret and static-auth-secret-file cannot be set at the same time";
+        }
+      ];
+    }
 
-      {
-        users.users.turnserver = {
-          uid = config.ids.uids.turnserver;
-          group = "turnserver";
-          description = "coturn TURN server user";
-        };
-        users.groups.turnserver = {
-          gid = config.ids.gids.turnserver;
-          members = [ "turnserver" ];
-        };
+    {
+      users.users.turnserver = {
+        uid = config.ids.uids.turnserver;
+        group = "turnserver";
+        description = "coturn TURN server user";
+      };
+      users.groups.turnserver = {
+        gid = config.ids.gids.turnserver;
+        members = [ "turnserver" ];
+      };
 
-        systemd.services.coturn =
-          let
-            runConfig = "/run/coturn/turnserver.cfg";
-          in
-          {
-            description = "coturn TURN server";
-            after = [ "network-online.target" ];
-            wants = [ "network-online.target" ];
-            wantedBy = [ "multi-user.target" ];
+      systemd.services.coturn =
+        let
+          runConfig = "/run/coturn/turnserver.cfg";
+        in
+        {
+          description = "coturn TURN server";
+          after = [ "network-online.target" ];
+          wants = [ "network-online.target" ];
+          wantedBy = [ "multi-user.target" ];
 
-            unitConfig = {
-              Documentation = "man:coturn(1) man:turnadmin(1) man:turnserver(1)";
-            };
-
-            preStart = ''
-              cat ${configFile} > ${runConfig}
-              ${optionalString (cfg.static-auth-secret-file != null) ''
-                ${pkgs.replace-secret}/bin/replace-secret \
-                  "#static-auth-secret#" \
-                  ${cfg.static-auth-secret-file} \
-                  ${runConfig}
-              ''}
-              chmod 640 ${runConfig}
-            '';
-            serviceConfig = {
-              Type = "simple";
-              ExecStart = "${pkgs.coturn}/bin/turnserver -c ${runConfig}";
-              RuntimeDirectory = "turnserver";
-              User = "turnserver";
-              Group = "turnserver";
-              AmbientCapabilities = mkIf (
-                cfg.listening-port < 1024
-                || cfg.alt-listening-port < 1024
-                || cfg.tls-listening-port < 1024
-                || cfg.alt-tls-listening-port < 1024
-                || cfg.min-port < 1024
-              ) "cap_net_bind_service";
-              Restart = "on-abort";
-            };
+          unitConfig = {
+            Documentation = "man:coturn(1) man:turnadmin(1) man:turnserver(1)";
           };
-        systemd.tmpfiles.rules = [ "d  /run/coturn 0700 turnserver turnserver - -" ];
-      }
-    ])
-  );
+
+          preStart = ''
+            cat ${configFile} > ${runConfig}
+            ${optionalString (cfg.static-auth-secret-file != null) ''
+              ${pkgs.replace-secret}/bin/replace-secret \
+                "#static-auth-secret#" \
+                ${cfg.static-auth-secret-file} \
+                ${runConfig}
+            ''}
+            chmod 640 ${runConfig}
+          '';
+          serviceConfig = {
+            Type = "simple";
+            ExecStart = "${pkgs.coturn}/bin/turnserver -c ${runConfig}";
+            RuntimeDirectory = "turnserver";
+            User = "turnserver";
+            Group = "turnserver";
+            AmbientCapabilities = mkIf (
+              cfg.listening-port < 1024
+              || cfg.alt-listening-port < 1024
+              || cfg.tls-listening-port < 1024
+              || cfg.alt-tls-listening-port < 1024
+              || cfg.min-port < 1024
+            ) "cap_net_bind_service";
+            Restart = "on-abort";
+          };
+        };
+      systemd.tmpfiles.rules = [ "d  /run/coturn 0700 turnserver turnserver - -" ];
+    }
+  ]));
 }

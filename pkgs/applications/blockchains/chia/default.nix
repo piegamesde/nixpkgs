@@ -82,7 +82,9 @@ let
     '';
 
     passthru.tests = {
-      chiaWithTests = chia.overrideAttrs (_: { doCheck = true; });
+      chiaWithTests = chia.overrideAttrs (_: {
+        doCheck = true;
+      });
     };
 
     meta = with lib; {

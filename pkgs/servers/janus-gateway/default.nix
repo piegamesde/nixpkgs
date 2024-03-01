@@ -24,14 +24,12 @@
 }:
 
 let
-  libwebsockets_janus = libwebsockets.overrideAttrs (
-    _: {
-      configureFlags = [
-        "-DLWS_MAX_SMP=1"
-        "-DLWS_WITHOUT_EXTENSIONS=0"
-      ];
-    }
-  );
+  libwebsockets_janus = libwebsockets.overrideAttrs (_: {
+    configureFlags = [
+      "-DLWS_MAX_SMP=1"
+      "-DLWS_WITHOUT_EXTENSIONS=0"
+    ];
+  });
 in
 
 stdenv.mkDerivation rec {

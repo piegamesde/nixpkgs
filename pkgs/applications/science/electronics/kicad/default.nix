@@ -196,25 +196,23 @@ stdenv.mkDerivation rec {
         "kicad-cli"
       ];
     in
-    (concatStringsSep "\n" (
-      flatten [
-        "runHook preInstall"
+    (concatStringsSep "\n" (flatten [
+      "runHook preInstall"
 
-        (optionalString (withScripting) "buildPythonPath \"${base} $pythonPath\" \n")
+      (optionalString (withScripting) "buildPythonPath \"${base} $pythonPath\" \n")
 
-        # wrap each of the directly usable tools
-        (map (
-          tool:
-          "makeWrapper ${base}/${bin}/${tool} $out/bin/${tool} $makeWrapperArgs"
-          + optionalString (withScripting) " --set PYTHONPATH \"$program_PYTHONPATH\""
-        ) tools)
+      # wrap each of the directly usable tools
+      (map (
+        tool:
+        "makeWrapper ${base}/${bin}/${tool} $out/bin/${tool} $makeWrapperArgs"
+        + optionalString (withScripting) " --set PYTHONPATH \"$program_PYTHONPATH\""
+      ) tools)
 
-        # link in the CLI utils
-        (map (util: "ln -s ${base}/${bin}/${util} $out/bin/${util}") utils)
+      # link in the CLI utils
+      (map (util: "ln -s ${base}/${bin}/${util} $out/bin/${util}") utils)
 
-        "runHook postInstall"
-      ]
-    ));
+      "runHook postInstall"
+    ]));
 
   postInstall = ''
     mkdir -p $out/share

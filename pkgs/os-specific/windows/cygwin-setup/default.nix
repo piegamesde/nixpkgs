@@ -38,14 +38,12 @@ stdenv.mkDerivation rec {
 
   buildInputs =
     let
-      mkStatic = flip overrideDerivation (
-        o: {
-          dontDisableStatic = true;
-          configureFlags = toList (o.configureFlags or [ ]) ++ [ "--enable-static" ];
-          buildInputs = map mkStatic (o.buildInputs or [ ]);
-          propagatedBuildInputs = map mkStatic (o.propagatedBuildInputs or [ ]);
-        }
-      );
+      mkStatic = flip overrideDerivation (o: {
+        dontDisableStatic = true;
+        configureFlags = toList (o.configureFlags or [ ]) ++ [ "--enable-static" ];
+        buildInputs = map mkStatic (o.buildInputs or [ ]);
+        propagatedBuildInputs = map mkStatic (o.propagatedBuildInputs or [ ]);
+      });
     in
     map mkStatic [
       zlib

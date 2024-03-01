@@ -170,7 +170,9 @@ rec {
   # Similar to the testOn function, but with an additional 'crossSystem'
   # parameter for packageSet', defining the target platform for cross builds,
   # and triggering the build of the host derivation.
-  mapTestOnCross = _mapTestOnHelper (addMetaAttrs { maintainers = crossMaintainers; });
+  mapTestOnCross = _mapTestOnHelper (addMetaAttrs {
+    maintainers = crossMaintainers;
+  });
 
   /* Recursively map a (nested) set of derivations to an isomorphic
      set of meta.platforms values.

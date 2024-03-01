@@ -305,12 +305,10 @@ in
             # inboxes through additional nesting.
             freeformType =
               with types;
-              attrsOf (
-                oneOf [
-                  iniAtom
-                  (attrsOf iniAtom)
-                ]
-              );
+              attrsOf (oneOf [
+                iniAtom
+                (attrsOf iniAtom)
+              ]);
 
             options.css = mkOption {
               type = with types; listOf str;

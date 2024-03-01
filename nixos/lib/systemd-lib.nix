@@ -386,13 +386,11 @@ rec {
           set -e
           ${text}
         '').overrideAttrs
-          (
-            _: {
-              # The derivation name is different from the script file name
-              # to keep the script file name short to avoid cluttering logs.
-              name = "unit-script-${scriptName}";
-            }
-          );
+          (_: {
+            # The derivation name is different from the script file name
+            # to keep the script file name short to avoid cluttering logs.
+            name = "unit-script-${scriptName}";
+          });
     in
     "${out}/bin/${scriptName}";
 

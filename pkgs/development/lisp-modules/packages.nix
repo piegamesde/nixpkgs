@@ -30,21 +30,19 @@ let
   build-with-compile-into-pwd =
     args:
     let
-      build = (build-asdf-system (args // { version = args.version + "-build"; })).overrideAttrs (
-        o: {
-          buildPhase = with builtins; ''
-            mkdir __fasls
-            export ASDF_OUTPUT_TRANSLATIONS="$(pwd):$(pwd)/__fasls:${storeDir}:${storeDir}"
-            export CL_SOURCE_REGISTRY=$CL_SOURCE_REGISTRY:$(pwd)//
-            ${o.pkg}/bin/${o.program} ${toString (o.flags or [ ])} < ${o.buildScript}
-          '';
-          installPhase = ''
-            mkdir -pv $out
-            rm -rf __fasls
-            cp -r * $out
-          '';
-        }
-      );
+      build = (build-asdf-system (args // { version = args.version + "-build"; })).overrideAttrs (o: {
+        buildPhase = with builtins; ''
+          mkdir __fasls
+          export ASDF_OUTPUT_TRANSLATIONS="$(pwd):$(pwd)/__fasls:${storeDir}:${storeDir}"
+          export CL_SOURCE_REGISTRY=$CL_SOURCE_REGISTRY:$(pwd)//
+          ${o.pkg}/bin/${o.program} ${toString (o.flags or [ ])} < ${o.buildScript}
+        '';
+        installPhase = ''
+          mkdir -pv $out
+          rm -rf __fasls
+          cp -r * $out
+        '';
+      });
     in
     build-asdf-system (
       args
@@ -377,41 +375,37 @@ let
 
       nyxt = self.nyxt-gtk;
 
-      stumpwm = super.stumpwm.overrideLispAttrs (
-        o: rec {
-          version = "22.11";
-          src = pkgs.fetchFromGitHub {
-            owner = "stumpwm";
-            repo = "stumpwm";
-            rev = version;
-            hash = "sha256-zXj17ucgyFhv7P0qEr4cYSVRPGrL1KEIofXWN2trr/M=";
-          };
-          buildScript = pkgs.writeText "build-stumpwm.lisp" ''
-            (load "${super.stumpwm.asdfFasl}/asdf.${super.stumpwm.faslExt}")
-            (asdf:load-system 'stumpwm/build)
-            (sb-ext:save-lisp-and-die
-              "stumpwm"
-              :executable t
-              #+sb-core-compression :compression
-              #+sb-core-compression t
-              :toplevel #'stumpwm:main)
-          '';
-          installPhase = ''
-            mkdir -p $out/bin
-            cp -v stumpwm $out/bin
-          '';
-        }
-      );
+      stumpwm = super.stumpwm.overrideLispAttrs (o: rec {
+        version = "22.11";
+        src = pkgs.fetchFromGitHub {
+          owner = "stumpwm";
+          repo = "stumpwm";
+          rev = version;
+          hash = "sha256-zXj17ucgyFhv7P0qEr4cYSVRPGrL1KEIofXWN2trr/M=";
+        };
+        buildScript = pkgs.writeText "build-stumpwm.lisp" ''
+          (load "${super.stumpwm.asdfFasl}/asdf.${super.stumpwm.faslExt}")
+          (asdf:load-system 'stumpwm/build)
+          (sb-ext:save-lisp-and-die
+            "stumpwm"
+            :executable t
+            #+sb-core-compression :compression
+            #+sb-core-compression t
+            :toplevel #'stumpwm:main)
+        '';
+        installPhase = ''
+          mkdir -p $out/bin
+          cp -v stumpwm $out/bin
+        '';
+      });
 
-      ltk = super.ltk.overrideLispAttrs (
-        o: {
-          src = pkgs.fetchzip {
-            url = "https://github.com/uthar/ltk/archive/f19162e76d6c7c2f51bd289b811d9ba20dd6555e.tar.gz";
-            sha256 = "0mzikv4abq9yqlj6dsji1wh34mjizr5prv6mvzzj29z1485fh1bj";
-          };
-          version = "f19162e76";
-        }
-      );
+      ltk = super.ltk.overrideLispAttrs (o: {
+        src = pkgs.fetchzip {
+          url = "https://github.com/uthar/ltk/archive/f19162e76d6c7c2f51bd289b811d9ba20dd6555e.tar.gz";
+          sha256 = "0mzikv4abq9yqlj6dsji1wh34mjizr5prv6mvzzj29z1485fh1bj";
+        };
+        version = "f19162e76";
+      });
 
       qt =
         let

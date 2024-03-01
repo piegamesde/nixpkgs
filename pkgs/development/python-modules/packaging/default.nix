@@ -33,7 +33,9 @@ let
 
     pythonImportsCheck = [ "packaging" ];
 
-    passthru.tests = packaging.overridePythonAttrs (_: { doCheck = true; });
+    passthru.tests = packaging.overridePythonAttrs (_: {
+      doCheck = true;
+    });
 
     meta = with lib; {
       description = "Core utilities for Python packages";

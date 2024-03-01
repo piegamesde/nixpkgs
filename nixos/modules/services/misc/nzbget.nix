@@ -72,13 +72,11 @@ in
       settings = mkOption {
         type =
           with types;
-          attrsOf (
-            oneOf [
-              bool
-              int
-              str
-            ]
-          );
+          attrsOf (oneOf [
+            bool
+            int
+            str
+          ]);
         default = { };
         description = lib.mdDoc ''
           NZBGet configuration, passed via command line using switch -o. Refer to

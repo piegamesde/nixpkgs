@@ -41,7 +41,9 @@ let
     ] ++ pytest-jupyter.optional-dependencies.server;
 
     passthru.tests = {
-      check = self.overridePythonAttrs (_: { doCheck = true; });
+      check = self.overridePythonAttrs (_: {
+        doCheck = true;
+      });
     };
 
     meta = with lib; {

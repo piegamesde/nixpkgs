@@ -29,47 +29,45 @@ let
     }
     .${system} or throwSystem;
 in
-stdenv.mkDerivation (
-  finalAttrs: {
-    pname = "infisical";
-    version = "0.3.7";
+stdenv.mkDerivation (finalAttrs: {
+  pname = "infisical";
+  version = "0.3.7";
 
-    src = fetchurl {
-      url = "https://github.com/Infisical/infisical/releases/download/v${finalAttrs.version}/infisical_${finalAttrs.version}_${plat}.tar.gz";
-      inherit sha256;
-    };
+  src = fetchurl {
+    url = "https://github.com/Infisical/infisical/releases/download/v${finalAttrs.version}/infisical_${finalAttrs.version}_${plat}.tar.gz";
+    inherit sha256;
+  };
 
-    sourceRoot = ".";
-    installPhase = ''
-      mkdir -p $out/bin/ $out/share/completions/ $out/share/man/
-      cp completions/* $out/share/completions/
-      cp manpages/* $out/share/man/
-      cp infisical $out/bin
+  sourceRoot = ".";
+  installPhase = ''
+    mkdir -p $out/bin/ $out/share/completions/ $out/share/man/
+    cp completions/* $out/share/completions/
+    cp manpages/* $out/share/man/
+    cp infisical $out/bin
+  '';
+
+  postInstall = ''
+    installManPage share/man/infisical.1.gz
+    installShellCompletion share/completions/infisical.{bash,fish,zsh}
+    chmod +x bin/infisical
+  '';
+
+  meta = with lib; {
+    description = "The official Infisical CLI";
+    longDescription = ''
+      Infisical is an Open Source, End-to-End encrypted platform that lets you
+      securely sync secrets and configs across your team, devices, and infrastructure
     '';
-
-    postInstall = ''
-      installManPage share/man/infisical.1.gz
-      installShellCompletion share/completions/infisical.{bash,fish,zsh}
-      chmod +x bin/infisical
-    '';
-
-    meta = with lib; {
-      description = "The official Infisical CLI";
-      longDescription = ''
-        Infisical is an Open Source, End-to-End encrypted platform that lets you
-        securely sync secrets and configs across your team, devices, and infrastructure
-      '';
-      mainProgram = "infisical";
-      homepage = "https://infisical.com/";
-      downloadPage = "https://github.com/Infisical/infisical/releases/";
-      license = licenses.mit;
-      maintainers = [ maintainers.ivanmoreau ];
-      platforms = [
-        "x86_64-linux"
-        "x86_64-darwin"
-        "aarch64-darwin"
-        "aarch64-linux"
-      ];
-    };
-  }
-)
+    mainProgram = "infisical";
+    homepage = "https://infisical.com/";
+    downloadPage = "https://github.com/Infisical/infisical/releases/";
+    license = licenses.mit;
+    maintainers = [ maintainers.ivanmoreau ];
+    platforms = [
+      "x86_64-linux"
+      "x86_64-darwin"
+      "aarch64-darwin"
+      "aarch64-linux"
+    ];
+  };
+})

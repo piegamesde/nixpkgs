@@ -77,93 +77,91 @@ let
     hash = "sha256-DBA2FeV0G/HI8GUMtGYO52jk7wM4HMlKLDA4b+Wmo+k=";
   };
 in
-stdenv.mkDerivation (
-  finalAttrs: {
-    pname = "vulkan-cts";
-    version = "1.3.5.2";
+stdenv.mkDerivation (finalAttrs: {
+  pname = "vulkan-cts";
+  version = "1.3.5.2";
 
-    src = fetchFromGitHub {
-      owner = "KhronosGroup";
-      repo = "VK-GL-CTS";
-      rev = "${finalAttrs.pname}-${finalAttrs.version}";
-      hash = "sha256-79N0DX+yQhTuAhspBmeqM/iFQpJ1LabKyFfzHoLLbeg=";
-    };
+  src = fetchFromGitHub {
+    owner = "KhronosGroup";
+    repo = "VK-GL-CTS";
+    rev = "${finalAttrs.pname}-${finalAttrs.version}";
+    hash = "sha256-79N0DX+yQhTuAhspBmeqM/iFQpJ1LabKyFfzHoLLbeg=";
+  };
 
-    outputs = [
-      "out"
-      "lib"
-    ];
+  outputs = [
+    "out"
+    "lib"
+  ];
 
-    prePatch = ''
-      mkdir -p external/renderdoc/src external/spirv-headers external/video-parser external/vulkan-docs
+  prePatch = ''
+    mkdir -p external/renderdoc/src external/spirv-headers external/video-parser external/vulkan-docs
 
-      cp -r ${renderdoc} external/renderdoc/src/renderdoc_app.h
+    cp -r ${renderdoc} external/renderdoc/src/renderdoc_app.h
 
-      cp -r ${amber} external/amber/src
-      cp -r ${jsoncpp} external/jsoncpp/src
-      cp -r ${glslang} external/glslang/src
-      cp -r ${spirv-tools} external/spirv-tools/src
-      cp -r ${spirv-headers} external/spirv-headers/src
-      cp -r ${video-parser} external/video-parser/src
-      cp -r ${vulkan-docs} external/vulkan-docs/src
-      chmod u+w -R external
-    '';
+    cp -r ${amber} external/amber/src
+    cp -r ${jsoncpp} external/jsoncpp/src
+    cp -r ${glslang} external/glslang/src
+    cp -r ${spirv-tools} external/spirv-tools/src
+    cp -r ${spirv-headers} external/spirv-headers/src
+    cp -r ${video-parser} external/video-parser/src
+    cp -r ${vulkan-docs} external/vulkan-docs/src
+    chmod u+w -R external
+  '';
 
-    buildInputs = [
-      ffmpeg_4
-      libdrm
-      libffi
-      libglvnd
-      libpng
-      libX11
-      libXau
-      libXdmcp
-      libxcb
-      spirv-headers
-      spirv-tools
-      wayland
-      wayland-protocols
-      zlib
-    ];
+  buildInputs = [
+    ffmpeg_4
+    libdrm
+    libffi
+    libglvnd
+    libpng
+    libX11
+    libXau
+    libXdmcp
+    libxcb
+    spirv-headers
+    spirv-tools
+    wayland
+    wayland-protocols
+    zlib
+  ];
 
-    nativeBuildInputs = [
-      cmake
-      glslang
-      makeWrapper
-      ninja
-      pkg-config
-      python3
-      wayland-scanner
-    ];
+  nativeBuildInputs = [
+    cmake
+    glslang
+    makeWrapper
+    ninja
+    pkg-config
+    python3
+    wayland-scanner
+  ];
 
-    cmakeFlags = [
-      # Fix cts cmake not coping with absolute install dirs
-      "-DCMAKE_INSTALL_BINDIR=bin"
-      "-DCMAKE_INSTALL_LIBDIR=lib"
-      "-DCMAKE_INSTALL_INCLUDEDIR=include"
+  cmakeFlags = [
+    # Fix cts cmake not coping with absolute install dirs
+    "-DCMAKE_INSTALL_BINDIR=bin"
+    "-DCMAKE_INSTALL_LIBDIR=lib"
+    "-DCMAKE_INSTALL_INCLUDEDIR=include"
 
-      "-DWAYLAND_SCANNER=wayland-scanner"
-    ];
+    "-DWAYLAND_SCANNER=wayland-scanner"
+  ];
 
-    postInstall = ''
-      mv $out $lib
+  postInstall = ''
+    mv $out $lib
 
-      mkdir -p $out/bin $out/archive-dir
-      cp -a external/vulkancts/modules/vulkan/deqp-vk external/vulkancts/modules/vulkan/deqp-vksc $out/bin/
-      cp -a external/vulkancts/modules/vulkan/vulkan $out/archive-dir/
-      cp -a external/vulkancts/modules/vulkan/vk-default $out/
+    mkdir -p $out/bin $out/archive-dir
+    cp -a external/vulkancts/modules/vulkan/deqp-vk external/vulkancts/modules/vulkan/deqp-vksc $out/bin/
+    cp -a external/vulkancts/modules/vulkan/vulkan $out/archive-dir/
+    cp -a external/vulkancts/modules/vulkan/vk-default $out/
 
-      wrapProgram $out/bin/deqp-vk \
-        --add-flags '--deqp-vk-library-path=${vulkan-loader}/lib/libvulkan.so' \
-        --add-flags "--deqp-archive-dir=$out/archive-dir"
-    '';
+    wrapProgram $out/bin/deqp-vk \
+      --add-flags '--deqp-vk-library-path=${vulkan-loader}/lib/libvulkan.so' \
+      --add-flags "--deqp-archive-dir=$out/archive-dir"
+  '';
 
-    meta = with lib; {
-      description = "Khronos Vulkan Conformance Tests";
-      homepage = "https://github.com/KhronosGroup/VK-GL-CTS/blob/main/external/vulkancts/README.md";
-      changelog = "https://github.com/KhronosGroup/VK-GL-CTS/releases/tag/${finalAttrs.pname}-${finalAttrs.version}";
-      license = licenses.asl20;
-      maintainers = with maintainers; [ Flakebi ];
-    };
-  }
-)
+  meta = with lib; {
+    description = "Khronos Vulkan Conformance Tests";
+    homepage = "https://github.com/KhronosGroup/VK-GL-CTS/blob/main/external/vulkancts/README.md";
+    changelog = "https://github.com/KhronosGroup/VK-GL-CTS/releases/tag/${finalAttrs.pname}-${finalAttrs.version}";
+    license = licenses.asl20;
+    maintainers = with maintainers; [ Flakebi ];
+  };
+})

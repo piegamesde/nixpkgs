@@ -12,16 +12,14 @@ let
   overrideAzureMgmtPackage =
     package: version: extension: hash:
     # check to make sure overriding is even necessary
-    package.overrideAttrs (
-      oldAttrs: rec {
-        inherit version;
+    package.overrideAttrs (oldAttrs: rec {
+      inherit version;
 
-        src = py.pkgs.fetchPypi {
-          inherit (oldAttrs) pname;
-          inherit version hash extension;
-        };
-      }
-    );
+      src = py.pkgs.fetchPypi {
+        inherit (oldAttrs) pname;
+        inherit version hash extension;
+      };
+    });
 
   py = python3.override {
     packageOverrides = self: super: {
@@ -114,9 +112,9 @@ let
         '';
       };
 
-      antlr4-python3-runtime = super.antlr4-python3-runtime.override (
-        _: { antlr4 = super.pkgs.antlr4_9; }
-      );
+      antlr4-python3-runtime = super.antlr4-python3-runtime.override (_: {
+        antlr4 = super.pkgs.antlr4_9;
+      });
 
       azure-batch =
         overrideAzureMgmtPackage super.azure-batch "13.0.0" "zip"
@@ -270,15 +268,13 @@ let
         overrideAzureMgmtPackage super.azure-mgmt-media "9.0.0" "zip"
           "sha256-TI7l8sSQ2QUgPqiE3Cu/F67Wna+KHbQS3fuIjOb95ZM=";
 
-      azure-mgmt-msi = super.azure-mgmt-msi.overridePythonAttrs (
-        old: rec {
-          version = "6.1.0";
-          src = old.src.override {
-            inherit version;
-            hash = "sha256-lS8da3Al1z1pMLDBf6ZtWc1UFUVgkN1qpKTxt4VXdlQ=";
-          };
-        }
-      );
+      azure-mgmt-msi = super.azure-mgmt-msi.overridePythonAttrs (old: rec {
+        version = "6.1.0";
+        src = old.src.override {
+          inherit version;
+          hash = "sha256-lS8da3Al1z1pMLDBf6ZtWc1UFUVgkN1qpKTxt4VXdlQ=";
+        };
+      });
 
       azure-mgmt-privatedns =
         overrideAzureMgmtPackage super.azure-mgmt-privatedns "1.0.0" "zip"
@@ -388,285 +384,247 @@ let
         overrideAzureMgmtPackage super.azure-multiapi-storage "1.0.0" "tar.gz"
           "sha256-x5v3e3/poSm+JMt0SWI1lcM6YAUcP+o2Sn8TluXOyIg=";
 
-      azure-appconfiguration = super.azure-appconfiguration.overrideAttrs (
-        oldAttrs: rec {
-          version = "1.1.1";
+      azure-appconfiguration = super.azure-appconfiguration.overrideAttrs (oldAttrs: rec {
+        version = "1.1.1";
 
-          src = super.fetchPypi {
-            inherit (oldAttrs) pname;
-            inherit version;
-            hash = "sha256-uDzSy2PZMiXehOJ6u/wFkhL43id2b0xY3Tq7g53/C+Q=";
-            extension = "zip";
-          };
-        }
-      );
+        src = super.fetchPypi {
+          inherit (oldAttrs) pname;
+          inherit version;
+          hash = "sha256-uDzSy2PZMiXehOJ6u/wFkhL43id2b0xY3Tq7g53/C+Q=";
+          extension = "zip";
+        };
+      });
 
-      azure-graphrbac = super.azure-graphrbac.overrideAttrs (
-        oldAttrs: rec {
-          version = "0.60.0";
+      azure-graphrbac = super.azure-graphrbac.overrideAttrs (oldAttrs: rec {
+        version = "0.60.0";
 
-          src = super.fetchPypi {
-            inherit (oldAttrs) pname;
-            inherit version;
-            hash = "sha256-0Lti2L+OGWuQPzlxukr6RI5P4U6DlOv83ZQdhNYuyv4=";
-            extension = "zip";
-          };
-        }
-      );
+        src = super.fetchPypi {
+          inherit (oldAttrs) pname;
+          inherit version;
+          hash = "sha256-0Lti2L+OGWuQPzlxukr6RI5P4U6DlOv83ZQdhNYuyv4=";
+          extension = "zip";
+        };
+      });
 
-      azure-storage-blob = super.azure-storage-blob.overrideAttrs (
-        oldAttrs: rec {
-          version = "1.5.0";
-          src = super.fetchPypi {
-            inherit (oldAttrs) pname;
-            inherit version;
-            hash = "sha256-8YeoeOehkfTgmBWZBPcrQUbPcOGquvZISrS6cvxvJSw=";
-          };
-        }
-      );
+      azure-storage-blob = super.azure-storage-blob.overrideAttrs (oldAttrs: rec {
+        version = "1.5.0";
+        src = super.fetchPypi {
+          inherit (oldAttrs) pname;
+          inherit version;
+          hash = "sha256-8YeoeOehkfTgmBWZBPcrQUbPcOGquvZISrS6cvxvJSw=";
+        };
+      });
 
-      azure-storage-common = super.azure-storage-common.overrideAttrs (
-        oldAttrs: rec {
-          version = "1.4.2";
-          src = super.fetchPypi {
-            inherit (oldAttrs) pname;
-            inherit version;
-            hash = "sha256-Tsh8dTfUV+yVJS4ORkd+LBzPM3dP/v0F2FRGgssK5AE=";
-          };
-        }
-      );
+      azure-storage-common = super.azure-storage-common.overrideAttrs (oldAttrs: rec {
+        version = "1.4.2";
+        src = super.fetchPypi {
+          inherit (oldAttrs) pname;
+          inherit version;
+          hash = "sha256-Tsh8dTfUV+yVJS4ORkd+LBzPM3dP/v0F2FRGgssK5AE=";
+        };
+      });
 
-      azure-synapse-artifacts = super.azure-synapse-artifacts.overrideAttrs (
-        oldAttrs: rec {
-          version = "0.14.0";
-          src = super.fetchPypi {
-            inherit (oldAttrs) pname;
-            inherit version;
-            hash = "sha256-Q1gGq7EZ/JvYjD7y0mp3kEy15QKZI84UQTdlIBoQLMs=";
-            extension = "zip";
-          };
-          propagatedBuildInputs = with super; oldAttrs.propagatedBuildInputs ++ [ azure-mgmt-core ];
-        }
-      );
+      azure-synapse-artifacts = super.azure-synapse-artifacts.overrideAttrs (oldAttrs: rec {
+        version = "0.14.0";
+        src = super.fetchPypi {
+          inherit (oldAttrs) pname;
+          inherit version;
+          hash = "sha256-Q1gGq7EZ/JvYjD7y0mp3kEy15QKZI84UQTdlIBoQLMs=";
+          extension = "zip";
+        };
+        propagatedBuildInputs = with super; oldAttrs.propagatedBuildInputs ++ [ azure-mgmt-core ];
+      });
 
-      azure-synapse-accesscontrol = super.azure-synapse-accesscontrol.overrideAttrs (
-        oldAttrs: rec {
-          version = "0.5.0";
-          src = super.fetchPypi {
-            inherit (oldAttrs) pname;
-            inherit version;
-            hash = "sha256-g14ySiByqPgkJGRH8EnIRJO9Q6H2usS5FOeMCQiUuwQ=";
-            extension = "zip";
-          };
-        }
-      );
+      azure-synapse-accesscontrol = super.azure-synapse-accesscontrol.overrideAttrs (oldAttrs: rec {
+        version = "0.5.0";
+        src = super.fetchPypi {
+          inherit (oldAttrs) pname;
+          inherit version;
+          hash = "sha256-g14ySiByqPgkJGRH8EnIRJO9Q6H2usS5FOeMCQiUuwQ=";
+          extension = "zip";
+        };
+      });
 
-      azure-synapse-managedprivateendpoints = super.azure-synapse-managedprivateendpoints.overrideAttrs (
-        oldAttrs: rec {
-          version = "0.3.0";
-          src = super.fetchPypi {
-            inherit (oldAttrs) pname;
-            inherit version;
-            hash = "sha256-fN1IuZ9fjxgRZv6qh9gg6v6KYpnKlXfnoLqfZCDXoRY=";
-            extension = "zip";
-          };
-        }
-      );
+      azure-synapse-managedprivateendpoints =
+        super.azure-synapse-managedprivateendpoints.overrideAttrs
+          (oldAttrs: rec {
+            version = "0.3.0";
+            src = super.fetchPypi {
+              inherit (oldAttrs) pname;
+              inherit version;
+              hash = "sha256-fN1IuZ9fjxgRZv6qh9gg6v6KYpnKlXfnoLqfZCDXoRY=";
+              extension = "zip";
+            };
+          });
 
-      azure-synapse-spark = super.azure-synapse-spark.overrideAttrs (
-        oldAttrs: rec {
-          version = "0.2.0";
-          src = super.fetchPypi {
-            inherit (oldAttrs) pname;
-            inherit version;
-            hash = "sha256-OQ5brhweEIrtN2iP4I5NacdC9t3YUiGIVhhqSs3FMuI=";
-            extension = "zip";
-          };
-        }
-      );
+      azure-synapse-spark = super.azure-synapse-spark.overrideAttrs (oldAttrs: rec {
+        version = "0.2.0";
+        src = super.fetchPypi {
+          inherit (oldAttrs) pname;
+          inherit version;
+          hash = "sha256-OQ5brhweEIrtN2iP4I5NacdC9t3YUiGIVhhqSs3FMuI=";
+          extension = "zip";
+        };
+      });
 
-      azure-keyvault = super.azure-keyvault.overrideAttrs (
-        oldAttrs: rec {
-          version = "1.1.0";
-          src = super.fetchPypi {
-            inherit (oldAttrs) pname;
-            inherit version;
-            extension = "zip";
-            hash = "sha256-N6jl83brWjBPzQZtQUtdk7mH5o+SErDEHvo31Cmq3Uk=";
-          };
+      azure-keyvault = super.azure-keyvault.overrideAttrs (oldAttrs: rec {
+        version = "1.1.0";
+        src = super.fetchPypi {
+          inherit (oldAttrs) pname;
+          inherit version;
+          extension = "zip";
+          hash = "sha256-N6jl83brWjBPzQZtQUtdk7mH5o+SErDEHvo31Cmq3Uk=";
+        };
 
-          propagatedBuildInputs = with self; [
-            azure-common
-            azure-nspkg
-            msrest
-            msrestazure
-            cryptography
-          ];
-          pythonNamespaces = [ "azure" ];
-          pythonImportsCheck = [ ];
-        }
-      );
+        propagatedBuildInputs = with self; [
+          azure-common
+          azure-nspkg
+          msrest
+          msrestazure
+          cryptography
+        ];
+        pythonNamespaces = [ "azure" ];
+        pythonImportsCheck = [ ];
+      });
 
-      azure-keyvault-administration = super.azure-keyvault-administration.overridePythonAttrs (
-        oldAttrs: rec {
-          version = "4.0.0b3";
-          src = super.fetchPypi {
-            inherit (oldAttrs) pname;
-            inherit version;
-            extension = "zip";
-            hash = "sha256-d3tJWObM3plRurzfqWmHkn5CqVL9ekQfn9AeDc/KxLQ=";
-          };
-        }
-      );
+      azure-keyvault-administration =
+        super.azure-keyvault-administration.overridePythonAttrs
+          (oldAttrs: rec {
+            version = "4.0.0b3";
+            src = super.fetchPypi {
+              inherit (oldAttrs) pname;
+              inherit version;
+              extension = "zip";
+              hash = "sha256-d3tJWObM3plRurzfqWmHkn5CqVL9ekQfn9AeDc/KxLQ=";
+            };
+          });
 
-      azure-keyvault-keys = super.azure-keyvault-keys.overridePythonAttrs (
-        oldAttrs: rec {
-          version = "4.8.0b2";
-          src = super.fetchPypi {
-            inherit (oldAttrs) pname;
-            inherit version;
-            extension = "zip";
-            hash = "sha256-VUwQJAwpZIQ8fzBUjUX0ui2yaVkDK7p0fwmnz373XbY=";
-          };
-        }
-      );
+      azure-keyvault-keys = super.azure-keyvault-keys.overridePythonAttrs (oldAttrs: rec {
+        version = "4.8.0b2";
+        src = super.fetchPypi {
+          inherit (oldAttrs) pname;
+          inherit version;
+          extension = "zip";
+          hash = "sha256-VUwQJAwpZIQ8fzBUjUX0ui2yaVkDK7p0fwmnz373XbY=";
+        };
+      });
 
       # part of azure.mgmt.datalake namespace
-      azure-mgmt-datalake-analytics = super.azure-mgmt-datalake-analytics.overrideAttrs (
-        oldAttrs: rec {
-          version = "0.2.1";
+      azure-mgmt-datalake-analytics = super.azure-mgmt-datalake-analytics.overrideAttrs (oldAttrs: rec {
+        version = "0.2.1";
 
-          src = super.fetchPypi {
-            inherit (oldAttrs) pname;
-            inherit version;
-            hash = "sha256-THlg0JT1hH2aRWwYuKPI5gxCjjCAo5BfHJQ9gbpjUaQ=";
-            extension = "zip";
-          };
+        src = super.fetchPypi {
+          inherit (oldAttrs) pname;
+          inherit version;
+          hash = "sha256-THlg0JT1hH2aRWwYuKPI5gxCjjCAo5BfHJQ9gbpjUaQ=";
+          extension = "zip";
+        };
 
-          preBuild = ''
-            rm azure_bdist_wheel.py
-            substituteInPlace setup.cfg \
-              --replace "azure-namespace-package = azure-mgmt-datalake-nspkg" ""
-          '';
-        }
-      );
+        preBuild = ''
+          rm azure_bdist_wheel.py
+          substituteInPlace setup.cfg \
+            --replace "azure-namespace-package = azure-mgmt-datalake-nspkg" ""
+        '';
+      });
 
-      azure-mgmt-datalake-store = super.azure-mgmt-datalake-store.overrideAttrs (
-        oldAttrs: rec {
-          version = "0.5.0";
+      azure-mgmt-datalake-store = super.azure-mgmt-datalake-store.overrideAttrs (oldAttrs: rec {
+        version = "0.5.0";
 
-          src = super.fetchPypi {
-            inherit (oldAttrs) pname;
-            inherit version;
-            hash = "sha256-k3bTVJVmHRn4rMVgT2ewvFlJOxg1u8SA+aGVL5ABekw=";
-            extension = "zip";
-          };
+        src = super.fetchPypi {
+          inherit (oldAttrs) pname;
+          inherit version;
+          hash = "sha256-k3bTVJVmHRn4rMVgT2ewvFlJOxg1u8SA+aGVL5ABekw=";
+          extension = "zip";
+        };
 
-          preBuild = ''
-            rm azure_bdist_wheel.py
-            substituteInPlace setup.cfg \
-              --replace "azure-namespace-package = azure-mgmt-datalake-nspkg" ""
-          '';
-        }
-      );
+        preBuild = ''
+          rm azure_bdist_wheel.py
+          substituteInPlace setup.cfg \
+            --replace "azure-namespace-package = azure-mgmt-datalake-nspkg" ""
+        '';
+      });
 
-      adal = super.adal.overridePythonAttrs (
-        oldAttrs: rec {
-          version = "1.2.7";
+      adal = super.adal.overridePythonAttrs (oldAttrs: rec {
+        version = "1.2.7";
 
-          src = super.fetchPypi {
-            inherit (oldAttrs) pname;
-            inherit version;
-            hash = "sha256-109FuBMXRU2W6YL9HFDm+1yZrCIjcorqh2RDOjn1ZvE=";
-          };
+        src = super.fetchPypi {
+          inherit (oldAttrs) pname;
+          inherit version;
+          hash = "sha256-109FuBMXRU2W6YL9HFDm+1yZrCIjcorqh2RDOjn1ZvE=";
+        };
 
-          # sdist doesn't provide tests
-          doCheck = false;
-        }
-      );
+        # sdist doesn't provide tests
+        doCheck = false;
+      });
 
-      msal = super.msal.overridePythonAttrs (
-        oldAttrs: rec {
-          version = "1.20.0";
+      msal = super.msal.overridePythonAttrs (oldAttrs: rec {
+        version = "1.20.0";
 
-          src = super.fetchPypi {
-            inherit (oldAttrs) pname;
-            inherit version;
-            hash = "sha256-eDRM1MkdYTSlk7Xj5FVB5mbje3R/+KYxbDZo3R5qtrI=";
-          };
-        }
-      );
+        src = super.fetchPypi {
+          inherit (oldAttrs) pname;
+          inherit version;
+          hash = "sha256-eDRM1MkdYTSlk7Xj5FVB5mbje3R/+KYxbDZo3R5qtrI=";
+        };
+      });
 
-      semver = super.semver.overridePythonAttrs (
-        oldAttrs: rec {
-          version = "2.13.0";
+      semver = super.semver.overridePythonAttrs (oldAttrs: rec {
+        version = "2.13.0";
 
-          src = super.fetchPypi {
-            inherit (oldAttrs) pname;
-            inherit version;
-            hash = "sha256-+g/ici7hw/V+rEeIIMOlri9iSvgmTL35AAyYD/f3Xj8=";
-          };
-        }
-      );
+        src = super.fetchPypi {
+          inherit (oldAttrs) pname;
+          inherit version;
+          hash = "sha256-+g/ici7hw/V+rEeIIMOlri9iSvgmTL35AAyYD/f3Xj8=";
+        };
+      });
 
-      jsondiff = super.jsondiff.overridePythonAttrs (
-        oldAttrs: rec {
-          version = "2.0.0";
+      jsondiff = super.jsondiff.overridePythonAttrs (oldAttrs: rec {
+        version = "2.0.0";
 
-          src = oldAttrs.src.override {
-            inherit version;
-            hash = "sha256-J5WETvB17IorjThcTVn16kiwjnGA/OPLJ4e+DbALH7Q=";
-          };
-        }
-      );
+        src = oldAttrs.src.override {
+          inherit version;
+          hash = "sha256-J5WETvB17IorjThcTVn16kiwjnGA/OPLJ4e+DbALH7Q=";
+        };
+      });
 
-      knack = super.knack.overridePythonAttrs (
-        oldAttrs: rec {
-          version = "0.10.1";
+      knack = super.knack.overridePythonAttrs (oldAttrs: rec {
+        version = "0.10.1";
 
-          src = super.fetchPypi {
-            inherit (oldAttrs) pname;
-            inherit version;
-            hash = "sha256-xXKBKCl+bSaXkQhc+Wwv/fzvWM+DxjSly5LrA7KSmDg=";
-          };
-        }
-      );
+        src = super.fetchPypi {
+          inherit (oldAttrs) pname;
+          inherit version;
+          hash = "sha256-xXKBKCl+bSaXkQhc+Wwv/fzvWM+DxjSly5LrA7KSmDg=";
+        };
+      });
 
-      argcomplete = super.argcomplete.overridePythonAttrs (
-        oldAttrs: rec {
-          version = "2.0.0";
+      argcomplete = super.argcomplete.overridePythonAttrs (oldAttrs: rec {
+        version = "2.0.0";
 
-          src = super.fetchPypi {
-            inherit (oldAttrs) pname;
-            inherit version;
-            hash = "sha256-Y3KteMidZiA1EBQYriU2aERbORdVz+lOpS8bnSJCWyA=";
-          };
-        }
-      );
+        src = super.fetchPypi {
+          inherit (oldAttrs) pname;
+          inherit version;
+          hash = "sha256-Y3KteMidZiA1EBQYriU2aERbORdVz+lOpS8bnSJCWyA=";
+        };
+      });
 
-      sshtunnel = super.sshtunnel.overridePythonAttrs (
-        oldAttrs: rec {
-          name = "sshtunnel-${version}";
-          version = "0.1.5";
+      sshtunnel = super.sshtunnel.overridePythonAttrs (oldAttrs: rec {
+        name = "sshtunnel-${version}";
+        version = "0.1.5";
 
-          src = super.fetchPypi {
-            inherit (oldAttrs) pname;
-            inherit version;
-            hash = "sha256-yBP9zajoHDk2/+rEfLac+y0fXnetDeZWxtq1au69kkk=";
-          };
-        }
-      );
+        src = super.fetchPypi {
+          inherit (oldAttrs) pname;
+          inherit version;
+          hash = "sha256-yBP9zajoHDk2/+rEfLac+y0fXnetDeZWxtq1au69kkk=";
+        };
+      });
 
-      websocket-client = super.websocket-client.overridePythonAttrs (
-        oldAttrs: rec {
-          version = "1.3.1";
+      websocket-client = super.websocket-client.overridePythonAttrs (oldAttrs: rec {
+        version = "1.3.1";
 
-          src = oldAttrs.src.override {
-            inherit version;
-            hash = "sha256-YninUGU5VBgoP4h958O+r7OqaNraXKy+SyFOjSbaSZs=";
-          };
-        }
-      );
+        src = oldAttrs.src.override {
+          inherit version;
+          hash = "sha256-YninUGU5VBgoP4h958O+r7OqaNraXKy+SyFOjSbaSZs=";
+        };
+      });
     };
   };
 in

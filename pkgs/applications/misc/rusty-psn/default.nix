@@ -57,22 +57,20 @@ rustPlatform.buildRustPackage rec {
       mv $out/bin/rusty-psn $out/bin/rusty-psn-gui
     '';
 
-  desktopItem = lib.optionalString withGui (
-    makeDesktopItem {
-      name = "rusty-psn";
-      desktopName = "rusty-psn";
-      exec = "rusty-psn-gui";
-      comment = "A simple tool to grab updates for PS3 games, directly from Sony's servers using their updates API.";
-      categories = [ "Network" ];
-      keywords = [
-        "psn"
-        "ps3"
-        "sony"
-        "playstation"
-        "update"
-      ];
-    }
-  );
+  desktopItem = lib.optionalString withGui (makeDesktopItem {
+    name = "rusty-psn";
+    desktopName = "rusty-psn";
+    exec = "rusty-psn-gui";
+    comment = "A simple tool to grab updates for PS3 games, directly from Sony's servers using their updates API.";
+    categories = [ "Network" ];
+    keywords = [
+      "psn"
+      "ps3"
+      "sony"
+      "playstation"
+      "update"
+    ];
+  });
   desktopItems = lib.optionals withGui [ desktopItem ];
 
   meta = with lib; {

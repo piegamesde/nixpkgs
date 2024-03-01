@@ -363,64 +363,62 @@ in
     };
   };
 
-  config = mkIf cfg.enable (
-    mkMerge [
-      {
-        assertions = [
-          {
-            assertion = !(cfg.man.man-db.enable && cfg.man.mandoc.enable);
-            message = ''
-              man-db and mandoc can't be used as the default man page viewer at the same time!
-            '';
-          }
+  config = mkIf cfg.enable (mkMerge [
+    {
+      assertions = [
+        {
+          assertion = !(cfg.man.man-db.enable && cfg.man.mandoc.enable);
+          message = ''
+            man-db and mandoc can't be used as the default man page viewer at the same time!
+          '';
+        }
+      ];
+    }
+
+    # The actual implementation for this lives in man-db.nix or mandoc.nix,
+    # depending on which backend is active.
+    (mkIf cfg.man.enable {
+      environment.pathsToLink = [ "/share/man" ];
+      environment.extraOutputsToInstall = [ "man" ] ++ optional cfg.dev.enable "devman";
+    })
+
+    (mkIf cfg.info.enable {
+      environment.systemPackages = [ pkgs.texinfoInteractive ];
+      environment.pathsToLink = [ "/share/info" ];
+      environment.extraOutputsToInstall = [ "info" ] ++ optional cfg.dev.enable "devinfo";
+      environment.extraSetup = ''
+        if [ -w $out/share/info ]; then
+          shopt -s nullglob
+          for i in $out/share/info/*.info $out/share/info/*.info.gz; do
+              ${pkgs.buildPackages.texinfo}/bin/install-info $i $out/share/info/dir
+          done
+        fi
+      '';
+    })
+
+    (mkIf cfg.doc.enable {
+      environment.pathsToLink = [ "/share/doc" ];
+      environment.extraOutputsToInstall = [ "doc" ] ++ optional cfg.dev.enable "devdoc";
+    })
+
+    (mkIf cfg.nixos.enable {
+      system.build.manual = manual;
+
+      system.activationScripts.check-manual-docbook = ''
+        if [[ $(cat ${manual.optionsUsedDocbook}) = 1 ]]; then
+          echo -e "\e[31;1mwarning\e[0m: This configuration contains option documentation in docbook." \
+                  "Support for docbook is deprecated and will be removed after NixOS 23.05." \
+                  "See nix-store --read-log ${builtins.unsafeDiscardStringContext manual.optionsJSON.drvPath}"
+        fi
+      '';
+
+      environment.systemPackages =
+        [ ]
+        ++ optional cfg.man.enable manual.manpages
+        ++ optionals cfg.doc.enable [
+          manual.manualHTML
+          nixos-help
         ];
-      }
-
-      # The actual implementation for this lives in man-db.nix or mandoc.nix,
-      # depending on which backend is active.
-      (mkIf cfg.man.enable {
-        environment.pathsToLink = [ "/share/man" ];
-        environment.extraOutputsToInstall = [ "man" ] ++ optional cfg.dev.enable "devman";
-      })
-
-      (mkIf cfg.info.enable {
-        environment.systemPackages = [ pkgs.texinfoInteractive ];
-        environment.pathsToLink = [ "/share/info" ];
-        environment.extraOutputsToInstall = [ "info" ] ++ optional cfg.dev.enable "devinfo";
-        environment.extraSetup = ''
-          if [ -w $out/share/info ]; then
-            shopt -s nullglob
-            for i in $out/share/info/*.info $out/share/info/*.info.gz; do
-                ${pkgs.buildPackages.texinfo}/bin/install-info $i $out/share/info/dir
-            done
-          fi
-        '';
-      })
-
-      (mkIf cfg.doc.enable {
-        environment.pathsToLink = [ "/share/doc" ];
-        environment.extraOutputsToInstall = [ "doc" ] ++ optional cfg.dev.enable "devdoc";
-      })
-
-      (mkIf cfg.nixos.enable {
-        system.build.manual = manual;
-
-        system.activationScripts.check-manual-docbook = ''
-          if [[ $(cat ${manual.optionsUsedDocbook}) = 1 ]]; then
-            echo -e "\e[31;1mwarning\e[0m: This configuration contains option documentation in docbook." \
-                    "Support for docbook is deprecated and will be removed after NixOS 23.05." \
-                    "See nix-store --read-log ${builtins.unsafeDiscardStringContext manual.optionsJSON.drvPath}"
-          fi
-        '';
-
-        environment.systemPackages =
-          [ ]
-          ++ optional cfg.man.enable manual.manpages
-          ++ optionals cfg.doc.enable [
-            manual.manualHTML
-            nixos-help
-          ];
-      })
-    ]
-  );
+    })
+  ]);
 }

@@ -10,27 +10,23 @@
   lmmath,
 }:
 let
-  camlpdf = ocamlPackages.camlpdf.overrideAttrs (
-    o: {
-      src = fetchFromGitHub {
-        owner = "gfngfn";
-        repo = "camlpdf";
-        rev = "v2.3.1+satysfi";
-        sha256 = "1s8wcqdkl1alvfcj67lhn3qdz8ikvd1v64f4q6bi4c0qj9lmp30k";
-      };
-    }
-  );
-  otfm = ocamlPackages.otfm.overrideAttrs (
-    o: {
-      src = fetchFromGitHub {
-        owner = "gfngfn";
-        repo = "otfm";
-        rev = "v0.3.7+satysfi";
-        sha256 = "0y8s0ij1vp1s4h5y1hn3ns76fzki2ba5ysqdib33akdav9krbj8p";
-      };
-      propagatedBuildInputs = o.propagatedBuildInputs ++ [ ocamlPackages.result ];
-    }
-  );
+  camlpdf = ocamlPackages.camlpdf.overrideAttrs (o: {
+    src = fetchFromGitHub {
+      owner = "gfngfn";
+      repo = "camlpdf";
+      rev = "v2.3.1+satysfi";
+      sha256 = "1s8wcqdkl1alvfcj67lhn3qdz8ikvd1v64f4q6bi4c0qj9lmp30k";
+    };
+  });
+  otfm = ocamlPackages.otfm.overrideAttrs (o: {
+    src = fetchFromGitHub {
+      owner = "gfngfn";
+      repo = "otfm";
+      rev = "v0.3.7+satysfi";
+      sha256 = "0y8s0ij1vp1s4h5y1hn3ns76fzki2ba5ysqdib33akdav9krbj8p";
+    };
+    propagatedBuildInputs = o.propagatedBuildInputs ++ [ ocamlPackages.result ];
+  });
   yojson-with-position = ocamlPackages.buildDunePackage {
     pname = "yojson-with-position";
     version = "1.4.2";

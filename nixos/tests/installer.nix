@@ -565,7 +565,11 @@ let
   # disable zfs so we can support latest kernel if needed
   no-zfs-module = {
     nixpkgs.overlays = [
-      (final: super: { zfs = super.zfs.overrideAttrs (_: { meta.platforms = [ ]; }); })
+      (final: super: {
+        zfs = super.zfs.overrideAttrs (_: {
+          meta.platforms = [ ];
+        });
+      })
     ];
   };
 in

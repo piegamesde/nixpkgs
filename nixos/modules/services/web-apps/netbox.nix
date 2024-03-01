@@ -24,18 +24,16 @@ let
   ];
 
   pkg =
-    (cfg.package.overrideAttrs (
-      old: {
-        installPhase =
-          old.installPhase
-          + ''
-            ln -s ${configFile} $out/opt/netbox/netbox/netbox/configuration.py
-          ''
-          + optionalString cfg.enableLdap ''
-            ln -s ${cfg.ldapConfigPath} $out/opt/netbox/netbox/netbox/ldap_config.py
-          '';
-      }
-    )).override
+    (cfg.package.overrideAttrs (old: {
+      installPhase =
+        old.installPhase
+        + ''
+          ln -s ${configFile} $out/opt/netbox/netbox/netbox/configuration.py
+        ''
+        + optionalString cfg.enableLdap ''
+          ln -s ${cfg.ldapConfigPath} $out/opt/netbox/netbox/netbox/ldap_config.py
+        '';
+    })).override
       { inherit (cfg) plugins; };
   netboxManageScript =
     with pkgs;

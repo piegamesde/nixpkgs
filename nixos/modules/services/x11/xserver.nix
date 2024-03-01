@@ -91,11 +91,9 @@ let
 
   xrandrDeviceSection =
     let
-      monitors = forEach xrandrHeads (
-        h: ''
-          Option "monitor-${h.config.output}" "${h.name}"
-        ''
-      );
+      monitors = forEach xrandrHeads (h: ''
+        Option "monitor-${h.config.output}" "${h.name}"
+      '');
     in
     concatStrings monitors;
 
@@ -512,7 +510,11 @@ in
         ];
         type =
           with types;
-          listOf (coercedTo str (output: { inherit output; }) (submodule { options = xrandrOptions; }));
+          listOf (
+            coercedTo str (output: { inherit output; }) (submodule {
+              options = xrandrOptions;
+            })
+          );
         # Set primary to true for the first head if no other has been set
         # primary already.
         apply =
@@ -917,13 +919,11 @@ in
       EndSection
 
       # Additional "InputClass" sections
-      ${flip (concatMapStringsSep "\n") cfg.inputClassSections (
-        inputClassSection: ''
-          Section "InputClass"
-          ${indent inputClassSection}
-          EndSection
-        ''
-      )}
+      ${flip (concatMapStringsSep "\n") cfg.inputClassSections (inputClassSection: ''
+        Section "InputClass"
+        ${indent inputClassSection}
+        EndSection
+      '')}
 
 
       Section "ServerLayout"
@@ -932,82 +932,78 @@ in
         # Reference the Screen sections for each driver.  This will
         # cause the X server to try each in turn.
         ${
-          flip concatMapStrings (filter (d: d.display) cfg.drivers) (
-            d: ''
-              Screen "Screen-${d.name}[0]"
-            ''
-          )
+          flip concatMapStrings (filter (d: d.display) cfg.drivers) (d: ''
+            Screen "Screen-${d.name}[0]"
+          '')
         }
       EndSection
 
       # For each supported driver, add a "Device" and "Screen"
       # section.
-      ${flip concatMapStrings cfg.drivers (
-        driver: ''
+      ${flip concatMapStrings cfg.drivers (driver: ''
 
-          Section "Device"
-            Identifier "Device-${driver.name}[0]"
-            Driver "${driver.driverName or driver.name}"
-          ${indent cfg.deviceSection}
-          ${indent (driver.deviceSection or "")}
-          ${indent xrandrDeviceSection}
+        Section "Device"
+          Identifier "Device-${driver.name}[0]"
+          Driver "${driver.driverName or driver.name}"
+        ${indent cfg.deviceSection}
+        ${indent (driver.deviceSection or "")}
+        ${indent xrandrDeviceSection}
+        EndSection
+        ${optionalString driver.display ''
+
+          Section "Screen"
+            Identifier "Screen-${driver.name}[0]"
+            Device "Device-${driver.name}[0]"
+            ${
+              optionalString (cfg.monitorSection != "") ''
+                Monitor "Monitor[0]"
+              ''
+            }
+
+          ${indent cfg.screenSection}
+          ${indent (driver.screenSection or "")}
+
+            ${
+              optionalString (cfg.defaultDepth != 0) ''
+                DefaultDepth ${toString cfg.defaultDepth}
+              ''
+            }
+
+            ${
+              optionalString
+                (
+                  driver.name != "virtualbox"
+                  && (cfg.resolutions != [ ] || cfg.extraDisplaySettings != "" || cfg.virtualScreen != null)
+                )
+                (
+                  let
+                    f = depth: ''
+                      SubSection "Display"
+                        Depth ${toString depth}
+                        ${
+                          optionalString (cfg.resolutions != [ ])
+                            "Modes ${concatMapStrings (res: ''"${toString res.x}x${toString res.y}"'') cfg.resolutions}"
+                        }
+                      ${indent cfg.extraDisplaySettings}
+                        ${
+                          optionalString (
+                            cfg.virtualScreen != null
+                          ) "Virtual ${toString cfg.virtualScreen.x} ${toString cfg.virtualScreen.y}"
+                        }
+                      EndSubSection
+                    '';
+                  in
+                  concatMapStrings f [
+                    8
+                    16
+                    24
+                  ]
+                )
+            }
+
           EndSection
-          ${optionalString driver.display ''
-
-            Section "Screen"
-              Identifier "Screen-${driver.name}[0]"
-              Device "Device-${driver.name}[0]"
-              ${
-                optionalString (cfg.monitorSection != "") ''
-                  Monitor "Monitor[0]"
-                ''
-              }
-
-            ${indent cfg.screenSection}
-            ${indent (driver.screenSection or "")}
-
-              ${
-                optionalString (cfg.defaultDepth != 0) ''
-                  DefaultDepth ${toString cfg.defaultDepth}
-                ''
-              }
-
-              ${
-                optionalString
-                  (
-                    driver.name != "virtualbox"
-                    && (cfg.resolutions != [ ] || cfg.extraDisplaySettings != "" || cfg.virtualScreen != null)
-                  )
-                  (
-                    let
-                      f = depth: ''
-                        SubSection "Display"
-                          Depth ${toString depth}
-                          ${
-                            optionalString (cfg.resolutions != [ ])
-                              "Modes ${concatMapStrings (res: ''"${toString res.x}x${toString res.y}"'') cfg.resolutions}"
-                          }
-                        ${indent cfg.extraDisplaySettings}
-                          ${
-                            optionalString (
-                              cfg.virtualScreen != null
-                            ) "Virtual ${toString cfg.virtualScreen.x} ${toString cfg.virtualScreen.y}"
-                          }
-                        EndSubSection
-                      '';
-                    in
-                    concatMapStrings f [
-                      8
-                      16
-                      24
-                    ]
-                  )
-              }
-
-            EndSection
-          ''}
-        ''
-      )}
+        ''}
+      '')}
 
       ${xrandrMonitorSections}
 

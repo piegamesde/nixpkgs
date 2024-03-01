@@ -197,6 +197,8 @@ let
         inherit (unwrapped) meta;
       }
     else
-      unwrapped.overrideAttrs (_: { inherit passthru; });
+      unwrapped.overrideAttrs (_: {
+        inherit passthru;
+      });
 in
 self

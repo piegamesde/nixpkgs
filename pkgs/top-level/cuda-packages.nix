@@ -8,19 +8,19 @@ with lib;
 
 let
 
-  scope = makeScope pkgs.newScope (
-    final: {
-      # Here we put package set configuration and utility functions.
-      inherit cudaVersion;
-      cudaMajorVersion = versions.major final.cudaVersion;
-      cudaMajorMinorVersion = lib.versions.majorMinor final.cudaVersion;
-      inherit lib pkgs;
+  scope = makeScope pkgs.newScope (final: {
+    # Here we put package set configuration and utility functions.
+    inherit cudaVersion;
+    cudaMajorVersion = versions.major final.cudaVersion;
+    cudaMajorMinorVersion = lib.versions.majorMinor final.cudaVersion;
+    inherit lib pkgs;
 
-      addBuildInputs =
-        drv: buildInputs:
-        drv.overrideAttrs (oldAttrs: { buildInputs = (oldAttrs.buildInputs or [ ]) ++ buildInputs; });
-    }
-  );
+    addBuildInputs =
+      drv: buildInputs:
+      drv.overrideAttrs (oldAttrs: {
+        buildInputs = (oldAttrs.buildInputs or [ ]) ++ buildInputs;
+      });
+  });
 
   cutensorExtension =
     final: prev:

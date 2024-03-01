@@ -25,145 +25,113 @@ rec {
 
   services =
     with types;
-    attrsOf (
-      submodule [
-        stage2ServiceOptions
-        unitConfig
-        stage2ServiceConfig
-      ]
-    );
+    attrsOf (submodule [
+      stage2ServiceOptions
+      unitConfig
+      stage2ServiceConfig
+    ]);
   initrdServices =
     with types;
-    attrsOf (
-      submodule [
-        stage1ServiceOptions
-        unitConfig
-        stage1ServiceConfig
-      ]
-    );
+    attrsOf (submodule [
+      stage1ServiceOptions
+      unitConfig
+      stage1ServiceConfig
+    ]);
 
   targets =
     with types;
-    attrsOf (
-      submodule [
-        stage2CommonUnitOptions
-        unitConfig
-      ]
-    );
+    attrsOf (submodule [
+      stage2CommonUnitOptions
+      unitConfig
+    ]);
   initrdTargets =
     with types;
-    attrsOf (
-      submodule [
-        stage1CommonUnitOptions
-        unitConfig
-      ]
-    );
+    attrsOf (submodule [
+      stage1CommonUnitOptions
+      unitConfig
+    ]);
 
   sockets =
     with types;
-    attrsOf (
-      submodule [
-        stage2SocketOptions
-        unitConfig
-      ]
-    );
+    attrsOf (submodule [
+      stage2SocketOptions
+      unitConfig
+    ]);
   initrdSockets =
     with types;
-    attrsOf (
-      submodule [
-        stage1SocketOptions
-        unitConfig
-      ]
-    );
+    attrsOf (submodule [
+      stage1SocketOptions
+      unitConfig
+    ]);
 
   timers =
     with types;
-    attrsOf (
-      submodule [
-        stage2TimerOptions
-        unitConfig
-      ]
-    );
+    attrsOf (submodule [
+      stage2TimerOptions
+      unitConfig
+    ]);
   initrdTimers =
     with types;
-    attrsOf (
-      submodule [
-        stage1TimerOptions
-        unitConfig
-      ]
-    );
+    attrsOf (submodule [
+      stage1TimerOptions
+      unitConfig
+    ]);
 
   paths =
     with types;
-    attrsOf (
-      submodule [
-        stage2PathOptions
-        unitConfig
-      ]
-    );
+    attrsOf (submodule [
+      stage2PathOptions
+      unitConfig
+    ]);
   initrdPaths =
     with types;
-    attrsOf (
-      submodule [
-        stage1PathOptions
-        unitConfig
-      ]
-    );
+    attrsOf (submodule [
+      stage1PathOptions
+      unitConfig
+    ]);
 
   slices =
     with types;
-    attrsOf (
-      submodule [
-        stage2SliceOptions
-        unitConfig
-      ]
-    );
+    attrsOf (submodule [
+      stage2SliceOptions
+      unitConfig
+    ]);
   initrdSlices =
     with types;
-    attrsOf (
-      submodule [
-        stage1SliceOptions
-        unitConfig
-      ]
-    );
+    attrsOf (submodule [
+      stage1SliceOptions
+      unitConfig
+    ]);
 
   mounts =
     with types;
-    listOf (
-      submodule [
-        stage2MountOptions
-        unitConfig
-        mountConfig
-      ]
-    );
+    listOf (submodule [
+      stage2MountOptions
+      unitConfig
+      mountConfig
+    ]);
   initrdMounts =
     with types;
-    listOf (
-      submodule [
-        stage1MountOptions
-        unitConfig
-        mountConfig
-      ]
-    );
+    listOf (submodule [
+      stage1MountOptions
+      unitConfig
+      mountConfig
+    ]);
 
   automounts =
     with types;
-    listOf (
-      submodule [
-        stage2AutomountOptions
-        unitConfig
-        automountConfig
-      ]
-    );
+    listOf (submodule [
+      stage2AutomountOptions
+      unitConfig
+      automountConfig
+    ]);
   initrdAutomounts =
     with types;
-    attrsOf (
-      submodule [
-        stage1AutomountOptions
-        unitConfig
-        automountConfig
-      ]
-    );
+    attrsOf (submodule [
+      stage1AutomountOptions
+      unitConfig
+      automountConfig
+    ]);
 
   initrdContents = types.attrsOf (
     types.submodule (

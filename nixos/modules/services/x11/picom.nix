@@ -273,16 +273,14 @@ in
     vSync = mkOption {
       type =
         with types;
-        either bool (
-          enum [
-            "none"
-            "drm"
-            "opengl"
-            "opengl-oml"
-            "opengl-swc"
-            "opengl-mswc"
-          ]
-        );
+        either bool (enum [
+          "none"
+          "drm"
+          "opengl"
+          "opengl-oml"
+          "opengl-swc"
+          "opengl-mswc"
+        ]);
       default = false;
       apply =
         x:

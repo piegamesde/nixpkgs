@@ -286,29 +286,25 @@ in
         description = lib.mdDoc "How many Sidekiq processes should be used to handle background jobs, and which job classes they handle. *Read the [upstream documentation](https://docs.joinmastodon.org/admin/scaling/#sidekiq) before configuring this!*";
         type =
           with lib.types;
-          attrsOf (
-            submodule {
-              options = {
-                jobClasses = lib.mkOption {
-                  type = listOf (
-                    enum [
-                      "default"
-                      "push"
-                      "pull"
-                      "mailers"
-                      "scheduler"
-                      "ingress"
-                    ]
-                  );
-                  description = lib.mdDoc "If not empty, which job classes should be executed by this process. *Only one process should handle the 'scheduler' class. If left empty, this process will handle the 'scheduler' class.*";
-                };
-                threads = lib.mkOption {
-                  type = nullOr int;
-                  description = lib.mdDoc "Number of threads this process should use for executing jobs. If null, the configured `sidekiqThreads` are used.";
-                };
+          attrsOf (submodule {
+            options = {
+              jobClasses = lib.mkOption {
+                type = listOf (enum [
+                  "default"
+                  "push"
+                  "pull"
+                  "mailers"
+                  "scheduler"
+                  "ingress"
+                ]);
+                description = lib.mdDoc "If not empty, which job classes should be executed by this process. *Only one process should handle the 'scheduler' class. If left empty, this process will handle the 'scheduler' class.*";
               };
-            }
-          );
+              threads = lib.mkOption {
+                type = nullOr int;
+                description = lib.mdDoc "Number of threads this process should use for executing jobs. If null, the configured `sidekiqThreads` are used.";
+              };
+            };
+          });
         default = {
           all = {
             jobClasses = [ ];

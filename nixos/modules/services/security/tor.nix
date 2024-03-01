@@ -32,18 +32,16 @@ let
           in
           p1 != null && 0 < p2 && p2 < 1024
       )
-      (
-        flatten [
-          cfg.settings.ORPort
-          cfg.settings.DirPort
-          cfg.settings.DNSPort
-          cfg.settings.ExtORPort
-          cfg.settings.HTTPTunnelPort
-          cfg.settings.NATDPort
-          cfg.settings.SOCKSPort
-          cfg.settings.TransPort
-        ]
-      );
+      (flatten [
+        cfg.settings.ORPort
+        cfg.settings.DirPort
+        cfg.settings.DNSPort
+        cfg.settings.ExtORPort
+        cfg.settings.HTTPTunnelPort
+        cfg.settings.NATDPort
+        cfg.settings.SOCKSPort
+        cfg.settings.TransPort
+      ]);
   optionBool =
     optionName:
     mkOption {
@@ -90,12 +88,10 @@ let
   optionPort = mkOption {
     type =
       with types;
-      nullOr (
-        oneOf [
-          port
-          (enum [ "auto" ])
-        ]
-      );
+      nullOr (oneOf [
+        port
+        (enum [ "auto" ])
+      ]);
     default = null;
   };
   optionPorts =
@@ -222,41 +218,39 @@ let
         oneOf [
           port
           (enum [ "auto" ])
-          (listOf (
-            oneOf [
-              port
-              (enum [ "auto" ])
-              (submodule (
-                { config, ... }:
-                let
-                  flags = [
-                    "IPv4Only"
-                    "IPv6Only"
-                    "NoAdvertise"
-                    "NoListen"
-                  ];
-                in
-                {
-                  options =
-                    {
-                      addr = optionAddress;
-                      port = optionPort;
-                      flags = optionFlags;
+          (listOf (oneOf [
+            port
+            (enum [ "auto" ])
+            (submodule (
+              { config, ... }:
+              let
+                flags = [
+                  "IPv4Only"
+                  "IPv6Only"
+                  "NoAdvertise"
+                  "NoListen"
+                ];
+              in
+              {
+                options =
+                  {
+                    addr = optionAddress;
+                    port = optionPort;
+                    flags = optionFlags;
+                  }
+                  // genAttrs flags (
+                    name:
+                    mkOption {
+                      type = types.bool;
+                      default = false;
                     }
-                    // genAttrs flags (
-                      name:
-                      mkOption {
-                        type = types.bool;
-                        default = false;
-                      }
-                    );
-                  config = {
-                    flags = filter (name: config.${name} == true) flags;
-                  };
-                }
-              ))
-            ]
-          ))
+                  );
+                config = {
+                  flags = filter (name: config.${name} == true) flags;
+                };
+              }
+            ))
+          ]))
         ];
       description = lib.mdDoc (descriptionGeneric optionName);
     };
@@ -890,34 +884,32 @@ in
                   description = lib.mdDoc (descriptionGeneric "HiddenServicePort");
                   type =
                     with types;
-                    listOf (
-                      oneOf [
-                        port
-                        (submodule (
-                          { ... }:
-                          {
-                            options = {
-                              port = optionPort;
-                              target = mkOption {
-                                default = null;
-                                type = nullOr (
-                                  submodule (
-                                    { ... }:
-                                    {
-                                      options = {
-                                        unix = optionUnix;
-                                        addr = optionAddress;
-                                        port = optionPort;
-                                      };
-                                    }
-                                  )
-                                );
-                              };
+                    listOf (oneOf [
+                      port
+                      (submodule (
+                        { ... }:
+                        {
+                          options = {
+                            port = optionPort;
+                            target = mkOption {
+                              default = null;
+                              type = nullOr (
+                                submodule (
+                                  { ... }:
+                                  {
+                                    options = {
+                                      unix = optionUnix;
+                                      addr = optionAddress;
+                                      port = optionPort;
+                                    };
+                                  }
+                                )
+                              );
                             };
-                          }
-                        ))
-                      ]
-                    );
+                          };
+                        }
+                      ))
+                    ]);
                   apply = map (
                     v:
                     if isInt v then
@@ -933,12 +925,10 @@ in
                   description = lib.mdDoc (descriptionGeneric "HiddenServiceVersion");
                   type =
                     with types;
-                    nullOr (
-                      enum [
-                        2
-                        3
-                      ]
-                    );
+                    nullOr (enum [
+                      2
+                      3
+                    ]);
                   default = null;
                 };
                 options.settings = mkOption {
@@ -951,14 +941,12 @@ in
                     freeformType =
                       with types;
                       (attrsOf (
-                        nullOr (
-                          oneOf [
-                            str
-                            int
-                            bool
-                            (listOf str)
-                          ]
-                        )
+                        nullOr (oneOf [
+                          str
+                          int
+                          bool
+                          (listOf str)
+                        ])
                       ))
                       // {
                         description = "settings option";
@@ -1013,14 +1001,12 @@ in
           freeformType =
             with types;
             (attrsOf (
-              nullOr (
-                oneOf [
-                  str
-                  int
-                  bool
-                  (listOf str)
-                ]
-              )
+              nullOr (oneOf [
+                str
+                int
+                bool
+                (listOf str)
+              ])
             ))
             // {
               description = "settings option";
@@ -1077,41 +1063,39 @@ in
               oneOf [
                 port
                 (enum [ "auto" ])
-                (listOf (
-                  oneOf [
-                    port
-                    (enum [ "auto" ])
-                    (submodule (
-                      { config, ... }:
-                      let
-                        flags = [
-                          "GroupWritable"
-                          "RelaxDirModeCheck"
-                          "WorldWritable"
-                        ];
-                      in
-                      {
-                        options =
-                          {
-                            unix = optionUnix;
-                            flags = optionFlags;
-                            addr = optionAddress;
-                            port = optionPort;
+                (listOf (oneOf [
+                  port
+                  (enum [ "auto" ])
+                  (submodule (
+                    { config, ... }:
+                    let
+                      flags = [
+                        "GroupWritable"
+                        "RelaxDirModeCheck"
+                        "WorldWritable"
+                      ];
+                    in
+                    {
+                      options =
+                        {
+                          unix = optionUnix;
+                          flags = optionFlags;
+                          addr = optionAddress;
+                          port = optionPort;
+                        }
+                        // genAttrs flags (
+                          name:
+                          mkOption {
+                            type = types.bool;
+                            default = false;
                           }
-                          // genAttrs flags (
-                            name:
-                            mkOption {
-                              type = types.bool;
-                              default = false;
-                            }
-                          );
-                        config = {
-                          flags = filter (name: config.${name} == true) flags;
-                        };
-                      }
-                    ))
-                  ]
-                ))
+                        );
+                      config = {
+                        flags = filter (name: config.${name} == true) flags;
+                      };
+                    }
+                  ))
+                ]))
               ];
           };
           options.ControlPortFileGroupReadable = optionBool "ControlPortFileGroupReadable";
@@ -1163,21 +1147,19 @@ in
             default = null;
             type =
               with types;
-              nullOr (
-                oneOf [
-                  port
-                  (enum [ "auto" ])
-                  (submodule (
-                    { ... }:
-                    {
-                      options = {
-                        addr = optionAddress;
-                        port = optionPort;
-                      };
-                    }
-                  ))
-                ]
-              );
+              nullOr (oneOf [
+                port
+                (enum [ "auto" ])
+                (submodule (
+                  { ... }:
+                  {
+                    options = {
+                      addr = optionAddress;
+                      port = optionPort;
+                    };
+                  }
+                ))
+              ]);
             apply = p: if isInt p || isString p then { port = p; } else p;
           };
           options.ExtORPortCookieAuthFile = optionPath "ExtORPortCookieAuthFile";
@@ -1201,23 +1183,21 @@ in
             default = [ ];
             type =
               with types;
-              listOf (
-                oneOf [
-                  (submodule {
-                    options = {
-                      onion = mkOption {
-                        type = strMatching "[a-z2-7]{16}\\.onion";
-                        description = lib.mdDoc "Onion address.";
-                        example = "xxxxxxxxxxxxxxxx.onion";
-                      };
-                      auth = mkOption {
-                        type = strMatching "[A-Za-z0-9+/]{22}";
-                        description = lib.mdDoc "Authentication cookie.";
-                      };
+              listOf (oneOf [
+                (submodule {
+                  options = {
+                    onion = mkOption {
+                      type = strMatching "[a-z2-7]{16}\\.onion";
+                      description = lib.mdDoc "Onion address.";
+                      example = "xxxxxxxxxxxxxxxx.onion";
                     };
-                  })
-                ]
-              );
+                    auth = mkOption {
+                      type = strMatching "[A-Za-z0-9+/]{22}";
+                      description = lib.mdDoc "Authentication cookie.";
+                    };
+                  };
+                })
+              ]);
             example = [
               {
                 onion = "xxxxxxxxxxxxxxxx.onion";
@@ -1255,18 +1235,16 @@ in
             description = lib.mdDoc (descriptionGeneric "PublishServerDescriptor");
             type =
               with types;
-              nullOr (
-                enum [
-                  false
-                  true
-                  0
-                  1
-                  "0"
-                  "1"
-                  "v3"
-                  "bridge"
-                ]
-              );
+              nullOr (enum [
+                false
+                true
+                0
+                1
+                "0"
+                "1"
+                "v3"
+                "bridge"
+              ]);
             default = null;
           };
           options.ReducedExitPolicy = optionBool "ReducedExitPolicy";
@@ -1336,14 +1314,12 @@ in
             description = lib.mdDoc (descriptionGeneric "TransProxyType");
             type =
               with types;
-              nullOr (
-                enum [
-                  "default"
-                  "TPROXY"
-                  "ipfw"
-                  "pf-divert"
-                ]
-              );
+              nullOr (enum [
+                "default"
+                "TPROXY"
+                "ipfw"
+                "pf-divert"
+              ]);
             default = null;
           };
           #options.TruncateLogFile
@@ -1495,12 +1471,10 @@ in
             else
               [ ]
           )
-          (
-            flatten [
-              cfg.settings.ORPort
-              cfg.settings.DirPort
-            ]
-          );
+          (flatten [
+            cfg.settings.ORPort
+            cfg.settings.DirPort
+          ]);
     };
 
     systemd.services.tor = {

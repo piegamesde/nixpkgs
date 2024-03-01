@@ -24,13 +24,11 @@ let
     final: prev:
     mapAttrs (
       pkgName: mainProgram:
-      prev.${pkgName}.override (
-        oldAttrs: {
-          meta = oldAttrs.meta // {
-            inherit mainProgram;
-          };
-        }
-      )
+      prev.${pkgName}.override (oldAttrs: {
+        meta = oldAttrs.meta // {
+          inherit mainProgram;
+        };
+      })
     ) (import ./main-programs.nix);
 
   extensions = composeManyExtensions [

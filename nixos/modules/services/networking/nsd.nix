@@ -426,20 +426,18 @@ let
       rrlWhitelist = mkOption {
         type =
           with types;
-          listOf (
-            enum [
-              "nxdomain"
-              "error"
-              "referral"
-              "any"
-              "rrsig"
-              "wildcard"
-              "nodata"
-              "dnskey"
-              "positive"
-              "all"
-            ]
-          );
+          listOf (enum [
+            "nxdomain"
+            "error"
+            "referral"
+            "any"
+            "rrsig"
+            "wildcard"
+            "nodata"
+            "dnskey"
+            "positive"
+            "all"
+          ]);
         default = [ ];
         description = lib.mdDoc ''
           Whitelists the given rrl-types.

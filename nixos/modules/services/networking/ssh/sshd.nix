@@ -359,26 +359,24 @@ in
       listenAddresses = mkOption {
         type =
           with types;
-          listOf (
-            submodule {
-              options = {
-                addr = mkOption {
-                  type = types.nullOr types.str;
-                  default = null;
-                  description = lib.mdDoc ''
-                    Host, IPv4 or IPv6 address to listen to.
-                  '';
-                };
-                port = mkOption {
-                  type = types.nullOr types.int;
-                  default = null;
-                  description = lib.mdDoc ''
-                    Port to listen to.
-                  '';
-                };
+          listOf (submodule {
+            options = {
+              addr = mkOption {
+                type = types.nullOr types.str;
+                default = null;
+                description = lib.mdDoc ''
+                  Host, IPv4 or IPv6 address to listen to.
+                '';
               };
-            }
-          );
+              port = mkOption {
+                type = types.nullOr types.int;
+                default = null;
+                description = lib.mdDoc ''
+                  Port to listen to.
+                '';
+              };
+            };
+          });
         default = [ ];
         example = [
           {
@@ -686,24 +684,22 @@ in
             # socket activation, it goes to the remote side (#19589).
             exec >&2
 
-            ${flip concatMapStrings cfg.hostKeys (
-              k: ''
-                if ! [ -s "${k.path}" ]; then
-                    if ! [ -h "${k.path}" ]; then
-                        rm -f "${k.path}"
-                    fi
-                    mkdir -m 0755 -p "$(dirname '${k.path}')"
-                    ssh-keygen \
-                      -t "${k.type}" \
-                      ${optionalString (k ? bits) "-b ${toString k.bits}"} \
-                      ${optionalString (k ? rounds) "-a ${toString k.rounds}"} \
-                      ${optionalString (k ? comment) "-C '${k.comment}'"} \
-                      ${optionalString (k ? openSSHFormat && k.openSSHFormat) "-o"} \
-                      -f "${k.path}" \
-                      -N ""
-                fi
-              ''
-            )}
+            ${flip concatMapStrings cfg.hostKeys (k: ''
+              if ! [ -s "${k.path}" ]; then
+                  if ! [ -h "${k.path}" ]; then
+                      rm -f "${k.path}"
+                  fi
+                  mkdir -m 0755 -p "$(dirname '${k.path}')"
+                  ssh-keygen \
+                    -t "${k.type}" \
+                    ${optionalString (k ? bits) "-b ${toString k.bits}"} \
+                    ${optionalString (k ? rounds) "-a ${toString k.rounds}"} \
+                    ${optionalString (k ? comment) "-C '${k.comment}'"} \
+                    ${optionalString (k ? openSSHFormat && k.openSSHFormat) "-o"} \
+                    -f "${k.path}" \
+                    -N ""
+              fi
+            '')}
           '';
 
           serviceConfig =
@@ -802,11 +798,9 @@ in
         AuthorizedKeysCommandUser ${cfg.authorizedKeysCommandUser}
       ''}
 
-      ${flip concatMapStrings cfg.hostKeys (
-        k: ''
-          HostKey ${k.path}
-        ''
-      )}
+      ${flip concatMapStrings cfg.hostKeys (k: ''
+        HostKey ${k.path}
+      '')}
     '';
 
     assertions =

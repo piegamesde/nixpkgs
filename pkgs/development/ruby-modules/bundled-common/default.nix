@@ -58,7 +58,13 @@ let
 
   hasBundler = builtins.hasAttr "bundler" filteredGemset;
 
-  bundler = if hasBundler then gems.bundler else defs.bundler.override (attrs: { inherit ruby; });
+  bundler =
+    if hasBundler then
+      gems.bundler
+    else
+      defs.bundler.override (attrs: {
+        inherit ruby;
+      });
 
   gems = lib.flip lib.mapAttrs configuredGemset (name: attrs: buildGem name attrs);
 

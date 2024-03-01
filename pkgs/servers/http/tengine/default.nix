@@ -48,14 +48,12 @@ stdenv.mkDerivation rec {
   ] ++ concatMap (mod: mod.inputs or [ ]) modules;
 
   patches =
-    singleton (
-      substituteAll {
-        src = ../nginx/nix-etag-1.15.4.patch;
-        preInstall = ''
-          export nixStoreDir="$NIX_STORE" nixStoreDirLen="''${#NIX_STORE}"
-        '';
-      }
-    )
+    singleton (substituteAll {
+      src = ../nginx/nix-etag-1.15.4.patch;
+      preInstall = ''
+        export nixStoreDir="$NIX_STORE" nixStoreDirLen="''${#NIX_STORE}"
+      '';
+    })
     ++ [
       ./check-resolv-conf.patch
       ../nginx/nix-skip-check-logs-path.patch

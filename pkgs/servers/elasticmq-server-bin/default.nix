@@ -45,15 +45,13 @@ let
     };
   };
 in
-elasticmq-server.overrideAttrs (
-  _: {
-    passthru.tests.elasticmqTest = import ./elasticmq-test.nix {
-      inherit
-        elasticmq-server
-        runCommand
-        python3Packages
-        writeText
-        ;
-    };
-  }
-)
+elasticmq-server.overrideAttrs (_: {
+  passthru.tests.elasticmqTest = import ./elasticmq-test.nix {
+    inherit
+      elasticmq-server
+      runCommand
+      python3Packages
+      writeText
+      ;
+  };
+})

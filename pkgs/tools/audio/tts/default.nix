@@ -104,7 +104,9 @@ python.pkgs.buildPythonApplication rec {
 
   # tests get stuck when run in nixpkgs-review, tested in passthru
   doCheck = false;
-  passthru.tests.pytest = tts.overridePythonAttrs (_: { doCheck = true; });
+  passthru.tests.pytest = tts.overridePythonAttrs (_: {
+    doCheck = true;
+  });
 
   nativeCheckInputs = with python.pkgs; [
     espeak-ng

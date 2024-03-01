@@ -27,15 +27,13 @@ stdenv.mkDerivation rec {
         sha256 = "sha256-TBemEXkuox8FdS9RvjnWcTWPaHRo4crcwSR9czrUwBY=";
       })
     ]
-    ++ lib.optional stdenv.hostPlatform.isDarwin (
-      fetchpatch {
-        # https://sourceforge.net/p/giflib/bugs/133/
-        name = "darwin-soname.patch";
-        url = "https://sourceforge.net/p/giflib/bugs/_discuss/thread/4e811ad29b/c323/attachment/Makefile.patch";
-        sha256 = "12afkqnlkl3n1hywwgx8sqnhp3bz0c5qrwcv8j9hifw1lmfhv67r";
-        extraPrefix = "./";
-      }
-    );
+    ++ lib.optional stdenv.hostPlatform.isDarwin (fetchpatch {
+      # https://sourceforge.net/p/giflib/bugs/133/
+      name = "darwin-soname.patch";
+      url = "https://sourceforge.net/p/giflib/bugs/_discuss/thread/4e811ad29b/c323/attachment/Makefile.patch";
+      sha256 = "12afkqnlkl3n1hywwgx8sqnhp3bz0c5qrwcv8j9hifw1lmfhv67r";
+      extraPrefix = "./";
+    });
 
   postPatch =
     ''

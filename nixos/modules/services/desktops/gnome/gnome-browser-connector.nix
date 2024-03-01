@@ -54,12 +54,10 @@ in
   ];
 
   options = {
-    services.gnome.gnome-browser-connector.enable = mkEnableOption (
-      mdDoc ''
-        Native host connector for the GNOME Shell browser extension, a DBus service
-        allowing to install GNOME Shell extensions from a web browser.
-      ''
-    );
+    services.gnome.gnome-browser-connector.enable = mkEnableOption (mdDoc ''
+      Native host connector for the GNOME Shell browser extension, a DBus service
+      allowing to install GNOME Shell extensions from a web browser.
+    '');
   };
 
   config = mkIf config.services.gnome.gnome-browser-connector.enable {

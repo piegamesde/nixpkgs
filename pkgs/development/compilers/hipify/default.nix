@@ -7,46 +7,44 @@
   libxml2,
 }:
 
-stdenv.mkDerivation (
-  finalAttrs: {
-    pname = "hipify";
-    version = "5.4.2";
+stdenv.mkDerivation (finalAttrs: {
+  pname = "hipify";
+  version = "5.4.2";
 
-    src = fetchFromGitHub {
-      owner = "ROCm-Developer-Tools";
-      repo = "HIPIFY";
-      rev = "rocm-${finalAttrs.version}";
-      hash = "sha256-EaHtI1ywjEHioWptuHvCllJ3dENtSClVoE6NpWTOa9I=";
-    };
+  src = fetchFromGitHub {
+    owner = "ROCm-Developer-Tools";
+    repo = "HIPIFY";
+    rev = "rocm-${finalAttrs.version}";
+    hash = "sha256-EaHtI1ywjEHioWptuHvCllJ3dENtSClVoE6NpWTOa9I=";
+  };
 
-    nativeBuildInputs = [ cmake ];
-    buildInputs = [ libxml2 ];
+  nativeBuildInputs = [ cmake ];
+  buildInputs = [ libxml2 ];
 
-    postPatch = ''
-      substituteInPlace CMakeLists.txt \
-        --replace "\''${LLVM_TOOLS_BINARY_DIR}/clang" "${stdenv.cc}/bin/clang"
-    '';
+  postPatch = ''
+    substituteInPlace CMakeLists.txt \
+      --replace "\''${LLVM_TOOLS_BINARY_DIR}/clang" "${stdenv.cc}/bin/clang"
+  '';
 
-    passthru.updateScript = rocmUpdateScript {
-      name = finalAttrs.pname;
-      owner = finalAttrs.src.owner;
-      repo = finalAttrs.src.repo;
-    };
+  passthru.updateScript = rocmUpdateScript {
+    name = finalAttrs.pname;
+    owner = finalAttrs.src.owner;
+    repo = finalAttrs.src.repo;
+  };
 
-    # Fixup weird install paths
-    postInstall = ''
-      mkdir -p $out/bin
-      mv $out/{*.sh,hipify-*} $out/bin
-      cp -afs $out/bin $out/hip
-    '';
+  # Fixup weird install paths
+  postInstall = ''
+    mkdir -p $out/bin
+    mv $out/{*.sh,hipify-*} $out/bin
+    cp -afs $out/bin $out/hip
+  '';
 
-    meta = with lib; {
-      description = "Convert CUDA to Portable C++ Code";
-      homepage = "https://github.com/ROCm-Developer-Tools/HIPIFY";
-      license = with licenses; [ mit ];
-      maintainers = teams.rocm.members;
-      platforms = platforms.linux;
-      broken = versions.minor finalAttrs.version != versions.minor stdenv.cc.version;
-    };
-  }
-)
+  meta = with lib; {
+    description = "Convert CUDA to Portable C++ Code";
+    homepage = "https://github.com/ROCm-Developer-Tools/HIPIFY";
+    license = with licenses; [ mit ];
+    maintainers = teams.rocm.members;
+    platforms = platforms.linux;
+    broken = versions.minor finalAttrs.version != versions.minor stdenv.cc.version;
+  };
+})

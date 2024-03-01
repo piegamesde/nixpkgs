@@ -9,8 +9,12 @@ with lib.types;
   options.free = lib.mkOption {
     type = submodule {
       config._module.freeformType = lib.mkMerge [
-        (attrsOf (submodule { options.foo = lib.mkOption { }; }))
-        (attrsOf (submodule { options.bar = lib.mkOption { }; }))
+        (attrsOf (submodule {
+          options.foo = lib.mkOption { };
+        }))
+        (attrsOf (submodule {
+          options.bar = lib.mkOption { };
+        }))
       ];
     };
   };

@@ -38,20 +38,18 @@ mkDerivation rec {
 
   env.NIX_CFLAGS_COMPILE = "-Wno-error=unused-result -Wno-error=missing-braces";
 
-  desktopItems = lib.singleton (
-    makeDesktopItem {
-      name = "lsd2dsl";
-      exec = "lsd2dsl-qtgui";
-      desktopName = "lsd2dsl";
-      genericName = "lsd2dsl";
-      comment = meta.description;
-      categories = [
-        "Dictionary"
-        "FileTools"
-        "Qt"
-      ];
-    }
-  );
+  desktopItems = lib.singleton (makeDesktopItem {
+    name = "lsd2dsl";
+    exec = "lsd2dsl-qtgui";
+    desktopName = "lsd2dsl";
+    genericName = "lsd2dsl";
+    comment = meta.description;
+    categories = [
+      "Dictionary"
+      "FileTools"
+      "Qt"
+    ];
+  });
 
   installPhase = ''
     install -Dm755 console/lsd2dsl gui/lsd2dsl-qtgui -t $out/bin

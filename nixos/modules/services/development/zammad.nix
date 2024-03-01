@@ -186,23 +186,21 @@ in
   config = mkIf cfg.enable {
 
     services.zammad.database.settings = {
-      production = mapAttrs (_: v: mkDefault v) (
-        filterNull {
-          adapter =
-            {
-              PostgreSQL = "postgresql";
-              MySQL = "mysql2";
-            }
-            .${cfg.database.type};
-          database = cfg.database.name;
-          pool = 50;
-          timeout = 5000;
-          encoding = "utf8";
-          username = cfg.database.user;
-          host = cfg.database.host;
-          port = cfg.database.port;
-        }
-      );
+      production = mapAttrs (_: v: mkDefault v) (filterNull {
+        adapter =
+          {
+            PostgreSQL = "postgresql";
+            MySQL = "mysql2";
+          }
+          .${cfg.database.type};
+        database = cfg.database.name;
+        pool = 50;
+        timeout = 5000;
+        encoding = "utf8";
+        username = cfg.database.user;
+        host = cfg.database.host;
+        port = cfg.database.port;
+      });
     };
 
     networking.firewall.allowedTCPPorts = mkIf cfg.openPorts [

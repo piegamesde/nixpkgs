@@ -25,17 +25,15 @@ let
         + "touch $out"
       );
 
-  wrappedHello = hello.overrideAttrs (
-    oa: {
-      propagatedBuildInputs = [
-        wrapLua
-        lua.pkgs.cjson
-      ];
-      postFixup = ''
-        wrapLuaPrograms
-      '';
-    }
-  );
+  wrappedHello = hello.overrideAttrs (oa: {
+    propagatedBuildInputs = [
+      wrapLua
+      lua.pkgs.cjson
+    ];
+    postFixup = ''
+      wrapLuaPrograms
+    '';
+  });
 in
 pkgs.recurseIntoAttrs ({
 

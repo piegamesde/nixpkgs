@@ -818,27 +818,25 @@ in
 
                   type =
                     with types;
-                    nullOr (
-                      submodule {
-                        options = {
-                          gracePeriod = mkOption {
-                            default = 10;
-                            type = types.int;
-                            description = lib.mdDoc "Time in seconds to wait for the GPG Smartcard.";
-                          };
-
-                          encryptedPass = mkOption {
-                            type = types.path;
-                            description = lib.mdDoc "Path to the GPG encrypted passphrase.";
-                          };
-
-                          publicKey = mkOption {
-                            type = types.path;
-                            description = lib.mdDoc "Path to the Public Key.";
-                          };
+                    nullOr (submodule {
+                      options = {
+                        gracePeriod = mkOption {
+                          default = 10;
+                          type = types.int;
+                          description = lib.mdDoc "Time in seconds to wait for the GPG Smartcard.";
                         };
-                      }
-                    );
+
+                        encryptedPass = mkOption {
+                          type = types.path;
+                          description = lib.mdDoc "Path to the GPG encrypted passphrase.";
+                        };
+
+                        publicKey = mkOption {
+                          type = types.path;
+                          description = lib.mdDoc "Path to the Public Key.";
+                        };
+                      };
+                    });
                 };
 
                 fido2 = {
@@ -888,77 +886,75 @@ in
 
                   type =
                     with types;
-                    nullOr (
-                      submodule {
-                        options = {
-                          twoFactor = mkOption {
-                            default = true;
-                            type = types.bool;
-                            description = lib.mdDoc "Whether to use a passphrase and a YubiKey (true), or only a YubiKey (false).";
+                    nullOr (submodule {
+                      options = {
+                        twoFactor = mkOption {
+                          default = true;
+                          type = types.bool;
+                          description = lib.mdDoc "Whether to use a passphrase and a YubiKey (true), or only a YubiKey (false).";
+                        };
+
+                        slot = mkOption {
+                          default = 2;
+                          type = types.int;
+                          description = lib.mdDoc "Which slot on the YubiKey to challenge.";
+                        };
+
+                        saltLength = mkOption {
+                          default = 16;
+                          type = types.int;
+                          description = lib.mdDoc "Length of the new salt in byte (64 is the effective maximum).";
+                        };
+
+                        keyLength = mkOption {
+                          default = 64;
+                          type = types.int;
+                          description = lib.mdDoc "Length of the LUKS slot key derived with PBKDF2 in byte.";
+                        };
+
+                        iterationStep = mkOption {
+                          default = 0;
+                          type = types.int;
+                          description = lib.mdDoc "How much the iteration count for PBKDF2 is increased at each successful authentication.";
+                        };
+
+                        gracePeriod = mkOption {
+                          default = 10;
+                          type = types.int;
+                          description = lib.mdDoc "Time in seconds to wait for the YubiKey.";
+                        };
+
+                        /* TODO: Add to the documentation of the current module:
+
+                           Options related to the storing the salt.
+                        */
+                        storage = {
+                          device = mkOption {
+                            default = "/dev/sda1";
+                            type = types.path;
+                            description = lib.mdDoc ''
+                              An unencrypted device that will temporarily be mounted in stage-1.
+                              Must contain the current salt to create the challenge for this LUKS device.
+                            '';
                           };
 
-                          slot = mkOption {
-                            default = 2;
-                            type = types.int;
-                            description = lib.mdDoc "Which slot on the YubiKey to challenge.";
+                          fsType = mkOption {
+                            default = "vfat";
+                            type = types.str;
+                            description = lib.mdDoc "The filesystem of the unencrypted device.";
                           };
 
-                          saltLength = mkOption {
-                            default = 16;
-                            type = types.int;
-                            description = lib.mdDoc "Length of the new salt in byte (64 is the effective maximum).";
-                          };
-
-                          keyLength = mkOption {
-                            default = 64;
-                            type = types.int;
-                            description = lib.mdDoc "Length of the LUKS slot key derived with PBKDF2 in byte.";
-                          };
-
-                          iterationStep = mkOption {
-                            default = 0;
-                            type = types.int;
-                            description = lib.mdDoc "How much the iteration count for PBKDF2 is increased at each successful authentication.";
-                          };
-
-                          gracePeriod = mkOption {
-                            default = 10;
-                            type = types.int;
-                            description = lib.mdDoc "Time in seconds to wait for the YubiKey.";
-                          };
-
-                          /* TODO: Add to the documentation of the current module:
-
-                             Options related to the storing the salt.
-                          */
-                          storage = {
-                            device = mkOption {
-                              default = "/dev/sda1";
-                              type = types.path;
-                              description = lib.mdDoc ''
-                                An unencrypted device that will temporarily be mounted in stage-1.
-                                Must contain the current salt to create the challenge for this LUKS device.
-                              '';
-                            };
-
-                            fsType = mkOption {
-                              default = "vfat";
-                              type = types.str;
-                              description = lib.mdDoc "The filesystem of the unencrypted device.";
-                            };
-
-                            path = mkOption {
-                              default = "/crypt-storage/default";
-                              type = types.str;
-                              description = lib.mdDoc ''
-                                Absolute path of the salt on the unencrypted device with
-                                that device's root directory as "/".
-                              '';
-                            };
+                          path = mkOption {
+                            default = "/crypt-storage/default";
+                            type = types.str;
+                            description = lib.mdDoc ''
+                              Absolute path of the salt on the unencrypted device with
+                              that device's root directory as "/".
+                            '';
                           };
                         };
-                      }
-                    );
+                      };
+                    });
                 };
 
                 preOpenCommands = mkOption {

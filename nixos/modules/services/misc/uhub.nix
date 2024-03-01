@@ -11,13 +11,11 @@ let
   settingsFormat = {
     type =
       with lib.types;
-      attrsOf (
-        oneOf [
-          bool
-          int
-          str
-        ]
-      );
+      attrsOf (oneOf [
+        bool
+        int
+        str
+      ]);
     generate =
       name: attrs:
       pkgs.writeText name (
@@ -67,24 +65,22 @@ in
               description = lib.mdDoc "Uhub plugin configuration.";
               type =
                 with types;
-                listOf (
-                  submodule {
-                    options = {
-                      plugin = mkOption {
-                        type = path;
-                        example = literalExpression "$${pkgs.uhub}/plugins/mod_auth_sqlite.so";
-                        description = lib.mdDoc "Path to plugin file.";
-                      };
-                      settings = mkOption {
-                        description = lib.mdDoc "Settings specific to this plugin.";
-                        type = with types; attrsOf str;
-                        example = {
-                          file = "/etc/uhub/users.db";
-                        };
+                listOf (submodule {
+                  options = {
+                    plugin = mkOption {
+                      type = path;
+                      example = literalExpression "$${pkgs.uhub}/plugins/mod_auth_sqlite.so";
+                      description = lib.mdDoc "Path to plugin file.";
+                    };
+                    settings = mkOption {
+                      description = lib.mdDoc "Settings specific to this plugin.";
+                      type = with types; attrsOf str;
+                      example = {
+                        file = "/etc/uhub/users.db";
                       };
                     };
-                  }
-                );
+                  };
+                });
               default = [ ];
             };
           };

@@ -20,34 +20,32 @@ let
   # onlykey requires a patched version of libagent
   lib-agent =
     with python3Packages;
-    libagent.overridePythonAttrs (
-      oa: rec {
-        version = "1.0.4";
-        src = fetchPypi {
-          inherit version;
-          pname = "lib-agent";
-          sha256 = "sha256-MwtufyJVPWuK7bbX+9Kv6wEi/zq4ftXrfjrMOYpcIfc=";
-        };
-        propagatedBuildInputs = oa.propagatedBuildInputs or [ ] ++ [
-          bech32
-          cryptography
-          docutils
-          pycryptodome
-          pynacl
-          wheel
-        ];
+    libagent.overridePythonAttrs (oa: rec {
+      version = "1.0.4";
+      src = fetchPypi {
+        inherit version;
+        pname = "lib-agent";
+        sha256 = "sha256-MwtufyJVPWuK7bbX+9Kv6wEi/zq4ftXrfjrMOYpcIfc=";
+      };
+      propagatedBuildInputs = oa.propagatedBuildInputs or [ ] ++ [
+        bech32
+        cryptography
+        docutils
+        pycryptodome
+        pynacl
+        wheel
+      ];
 
-        # turn off testing because I can't get it to work
-        doCheck = false;
-        pythonImportsCheck = [ "libagent" ];
+      # turn off testing because I can't get it to work
+      doCheck = false;
+      pythonImportsCheck = [ "libagent" ];
 
-        meta = oa.meta // {
-          description = "Using OnlyKey as hardware SSH and GPG agent";
-          homepage = "https://github.com/trustcrypto/onlykey-agent/tree/ledger";
-          maintainers = with lib.maintainers; [ kalbasit ];
-        };
-      }
-    );
+      meta = oa.meta // {
+        description = "Using OnlyKey as hardware SSH and GPG agent";
+        homepage = "https://github.com/trustcrypto/onlykey-agent/tree/ledger";
+        maintainers = with lib.maintainers; [ kalbasit ];
+      };
+    });
 in
 python3Packages.buildPythonApplication rec {
   pname = "onlykey-agent";

@@ -113,12 +113,10 @@ buildPythonPackage rec {
       pushd $(mktemp -d)
       # pip and python in $PATH is needed for the test suite to pass fully
       PATH=${
-        python.withPackages (
-          p: [
-            p.numba
-            p.pip
-          ]
-        )
+        python.withPackages (p: [
+          p.numba
+          p.pip
+        ])
       }/bin:$PATH
       HOME=$PWD python -m numba.runtests -m $NIX_BUILD_CORES
       popd

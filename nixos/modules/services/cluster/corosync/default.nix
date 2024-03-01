@@ -38,24 +38,22 @@ in
       default = [ ];
       type =
         with types;
-        listOf (
-          submodule {
-            options = {
-              nodeid = mkOption {
-                type = int;
-                description = lib.mdDoc "Node ID number";
-              };
-              name = mkOption {
-                type = str;
-                description = lib.mdDoc "Node name";
-              };
-              ring_addrs = mkOption {
-                type = listOf str;
-                description = lib.mdDoc "List of addresses, one for each ring.";
-              };
+        listOf (submodule {
+          options = {
+            nodeid = mkOption {
+              type = int;
+              description = lib.mdDoc "Node ID number";
             };
-          }
-        );
+            name = mkOption {
+              type = str;
+              description = lib.mdDoc "Node name";
+            };
+            ring_addrs = mkOption {
+              type = listOf str;
+              description = lib.mdDoc "List of addresses, one for each ring.";
+            };
+          };
+        });
     };
   };
 

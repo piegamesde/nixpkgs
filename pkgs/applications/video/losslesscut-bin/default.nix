@@ -44,23 +44,21 @@ in
   else
     x86_64-appimage
 ).overrideAttrs
-  (
-    oldAttrs: {
-      passthru = (oldAttrs.passthru or { }) // {
-        inherit
-          x86_64-appimage
-          x86_64-dmg
-          aarch64-dmg
-          x86_64-windows
-          ;
-      };
-      meta = oldAttrs.meta // {
-        platforms = lib.unique (
-          x86_64-appimage.meta.platforms
-          ++ x86_64-dmg.meta.platforms
-          ++ aarch64-dmg.meta.platforms
-          ++ x86_64-windows.meta.platforms
-        );
-      };
-    }
-  )
+  (oldAttrs: {
+    passthru = (oldAttrs.passthru or { }) // {
+      inherit
+        x86_64-appimage
+        x86_64-dmg
+        aarch64-dmg
+        x86_64-windows
+        ;
+    };
+    meta = oldAttrs.meta // {
+      platforms = lib.unique (
+        x86_64-appimage.meta.platforms
+        ++ x86_64-dmg.meta.platforms
+        ++ aarch64-dmg.meta.platforms
+        ++ x86_64-windows.meta.platforms
+      );
+    };
+  })

@@ -86,7 +86,9 @@ runTests {
   };
 
   testFix = {
-    expr = fix (x: { a = if x ? a then "a" else "b"; });
+    expr = fix (x: {
+      a = if x ? a then "a" else "b";
+    });
     expected = {
       a = "a";
     };
@@ -95,7 +97,9 @@ runTests {
   testComposeExtensions = {
     expr =
       let
-        obj = makeExtensible (self: { foo = self.bar; });
+        obj = makeExtensible (self: {
+          foo = self.bar;
+        });
         f = self: super: {
           bar = false;
           baz = true;
@@ -111,7 +115,9 @@ runTests {
   testComposeManyExtensions0 = {
     expr =
       let
-        obj = makeExtensible (self: { foo = true; });
+        obj = makeExtensible (self: {
+          foo = true;
+        });
         emptyComposition = composeManyExtensions [ ];
         composed = obj.extend emptyComposition;
       in
@@ -127,7 +133,9 @@ runTests {
       };
       g = self: super: { bar = super.baz or false; };
       h = self: super: { qux = super.bar or false; };
-      obj = makeExtensible (self: { foo = self.qux; });
+      obj = makeExtensible (self: {
+        foo = self.qux;
+      });
     in
     {
       expr =
@@ -279,13 +287,11 @@ runTests {
 
   testSplitStringsDerivation = {
     expr = take 3 (
-      strings.splitString "/" (
-        derivation {
-          name = "name";
-          builder = "builder";
-          system = "system";
-        }
-      )
+      strings.splitString "/" (derivation {
+        name = "name";
+        builder = "builder";
+        system = "system";
+      })
     );
     expected = [
       ""
@@ -2163,7 +2169,9 @@ runTests {
   # lazyDerivation
 
   testLazyDerivationIsLazyInDerivationForAttrNames = {
-    expr = attrNames (lazyDerivation { derivation = throw "not lazy enough"; });
+    expr = attrNames (lazyDerivation {
+      derivation = throw "not lazy enough";
+    });
     # It's ok to add attribute names here when lazyDerivation is improved
     # in accordance with its inline comments.
     expected = [

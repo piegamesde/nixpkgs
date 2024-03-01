@@ -123,28 +123,26 @@ let
                 "token@token"
               ];
             })
-            (
-              _: {
-                # This preHook hides the credentials from /proc
-                preHook =
-                  if username != "" && token != "" then
-                    ''
-                      echo -n "${username}" >username
-                      echo -n "${token}"    >token
-                    ''
-                  else
-                    ''
-                      # Deliberately failing since username/token was not provided, so we can't fetch.
-                      # We can't use builtins.throw since we want the result to be used if the tar is in the store already.
-                      exit 1
-                    '';
-                failureHook = ''
-                  cat <<EOF
-                  ${helpMsg}
-                  EOF
-                '';
-              }
-            )
+            (_: {
+              # This preHook hides the credentials from /proc
+              preHook =
+                if username != "" && token != "" then
+                  ''
+                    echo -n "${username}" >username
+                    echo -n "${token}"    >token
+                  ''
+                else
+                  ''
+                    # Deliberately failing since username/token was not provided, so we can't fetch.
+                    # We can't use builtins.throw since we want the result to be used if the tar is in the store already.
+                    exit 1
+                  '';
+              failureHook = ''
+                cat <<EOF
+                ${helpMsg}
+                EOF
+              '';
+            })
           );
     };
 

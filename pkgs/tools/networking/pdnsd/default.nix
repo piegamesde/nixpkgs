@@ -16,13 +16,11 @@ stdenv.mkDerivation rec {
 
   patches =
     # fix build with linux headers >= 5.13
-    lib.optional stdenv.isLinux (
-      fetchpatch {
-        name = "fix-build-linux-headers-gte-5.13.patch";
-        url = "https://gitweb.gentoo.org/repo/gentoo.git/plain/net-dns/pdnsd/files/pdnsd-1.2.9a-linux-5.13_build_fix.patch?id=7ce35657f269c3b7016e8940ad36e59cf06e12a4";
-        hash = "sha256-Sh/0ZyiQpDvFZOWE9OCQ9+ocXurjzJvrE4WNWaGwAwk=";
-      }
-    );
+    lib.optional stdenv.isLinux (fetchpatch {
+      name = "fix-build-linux-headers-gte-5.13.patch";
+      url = "https://gitweb.gentoo.org/repo/gentoo.git/plain/net-dns/pdnsd/files/pdnsd-1.2.9a-linux-5.13_build_fix.patch?id=7ce35657f269c3b7016e8940ad36e59cf06e12a4";
+      hash = "sha256-Sh/0ZyiQpDvFZOWE9OCQ9+ocXurjzJvrE4WNWaGwAwk=";
+    });
 
   postPatch = ''
     sed -i 's/.*(cachedir).*/:/' Makefile.in

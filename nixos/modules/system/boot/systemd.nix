@@ -318,13 +318,11 @@ in
       type =
         with types;
         attrsOf (
-          nullOr (
-            oneOf [
-              str
-              path
-              package
-            ]
-          )
+          nullOr (oneOf [
+            str
+            path
+            package
+          ])
         );
       default = { };
       example = {
@@ -339,13 +337,11 @@ in
       type =
         with types;
         attrsOf (
-          nullOr (
-            oneOf [
-              str
-              path
-              package
-            ]
-          )
+          nullOr (oneOf [
+            str
+            path
+            package
+          ])
         );
       default = { };
       example = {

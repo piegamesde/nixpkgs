@@ -223,12 +223,10 @@ in
         loader = mkOption {
           type =
             with types;
-            nullOr (
-              enum [
-                "file"
-                "off"
-              ]
-            );
+            nullOr (enum [
+              "file"
+              "off"
+            ]);
           default = "off";
           description = lib.mdDoc ''
             TLS certificates are obtained by modules called "certificate
@@ -241,26 +239,24 @@ in
         certificates = mkOption {
           type =
             with types;
-            listOf (
-              submodule {
-                options = {
-                  keyPath = mkOption {
-                    type = types.path;
-                    example = "/etc/ssl/mx1.example.org.key";
-                    description = lib.mdDoc ''
-                      Path to the private key used for TLS.
-                    '';
-                  };
-                  certPath = mkOption {
-                    type = types.path;
-                    example = "/etc/ssl/mx1.example.org.crt";
-                    description = lib.mdDoc ''
-                      Path to the certificate used for TLS.
-                    '';
-                  };
+            listOf (submodule {
+              options = {
+                keyPath = mkOption {
+                  type = types.path;
+                  example = "/etc/ssl/mx1.example.org.key";
+                  description = lib.mdDoc ''
+                    Path to the private key used for TLS.
+                  '';
                 };
-              }
-            );
+                certPath = mkOption {
+                  type = types.path;
+                  example = "/etc/ssl/mx1.example.org.crt";
+                  description = lib.mdDoc ''
+                    Path to the certificate used for TLS.
+                  '';
+                };
+              };
+            });
           default = [ ];
           example = lib.literalExpression ''
             [{

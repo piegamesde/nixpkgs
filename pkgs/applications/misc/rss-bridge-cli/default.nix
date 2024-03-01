@@ -26,15 +26,13 @@ in
 (writeShellScriptBin "rss-bridge-cli" ''
   ${phpBin} ${rss-bridge}/index.php "$@"
 '').overrideAttrs
-  (
-    oldAttrs: rec {
-      version = rss-bridge.version;
+  (oldAttrs: rec {
+    version = rss-bridge.version;
 
-      meta = with lib; {
-        description = "Command-line interface for RSS-Bridge";
-        homepage = "https://github.com/RSS-Bridge/rss-bridge";
-        license = licenses.unlicense;
-        maintainers = with maintainers; [ ymeister ];
-      };
-    }
-  )
+    meta = with lib; {
+      description = "Command-line interface for RSS-Bridge";
+      homepage = "https://github.com/RSS-Bridge/rss-bridge";
+      license = licenses.unlicense;
+      maintainers = with maintainers; [ ymeister ];
+    };
+  })

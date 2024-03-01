@@ -88,46 +88,44 @@ let
         seq = if lib.versionAtLeast self.emacs.version "27" then null else super.seq;
         # Compilation instructions for the Ada executables:
         # https://www.nongnu.org/ada-mode/
-        ada-mode = super.ada-mode.overrideAttrs (
-          old: {
-            # actually unpack source of ada-mode and wisi
-            # which are both needed to compile the tools
-            # we need at runtime
-            dontUnpack = false;
-            srcs = [
-              super.ada-mode.src
-              self.wisi.src
-            ];
+        ada-mode = super.ada-mode.overrideAttrs (old: {
+          # actually unpack source of ada-mode and wisi
+          # which are both needed to compile the tools
+          # we need at runtime
+          dontUnpack = false;
+          srcs = [
+            super.ada-mode.src
+            self.wisi.src
+          ];
 
-            sourceRoot = "ada-mode-${self.ada-mode.version}";
+          sourceRoot = "ada-mode-${self.ada-mode.version}";
 
-            nativeBuildInputs = [
-              buildPackages.gnat
-              buildPackages.gprbuild
-              buildPackages.dos2unix
-              buildPackages.re2c
-            ];
+          nativeBuildInputs = [
+            buildPackages.gnat
+            buildPackages.gprbuild
+            buildPackages.dos2unix
+            buildPackages.re2c
+          ];
 
-            buildInputs = [ pkgs.gnatcoll-xref ];
+          buildInputs = [ pkgs.gnatcoll-xref ];
 
-            buildPhase = ''
-              runHook preBuild
-              ./build.sh -j$NIX_BUILD_CORES
-              runHook postBuild
+          buildPhase = ''
+            runHook preBuild
+            ./build.sh -j$NIX_BUILD_CORES
+            runHook postBuild
+          '';
+
+          postInstall =
+            (old.postInstall or "")
+            + "\n"
+            + ''
+              ./install.sh --prefix=$out
             '';
 
-            postInstall =
-              (old.postInstall or "")
-              + "\n"
-              + ''
-                ./install.sh --prefix=$out
-              '';
-
-            meta = old.meta // {
-              maintainers = [ lib.maintainers.sternenseemann ];
-            };
-          }
-        );
+          meta = old.meta // {
+            maintainers = [ lib.maintainers.sternenseemann ];
+          };
+        });
 
         jinx = super.jinx.overrideAttrs (
           old:
@@ -161,21 +159,19 @@ let
           }
         );
 
-        plz = super.plz.overrideAttrs (
-          old: {
-            dontUnpack = false;
-            postPatch =
-              old.postPatch or ""
-              + ''
-                substituteInPlace ./plz.el \
-                  --replace 'plz-curl-program "curl"' 'plz-curl-program "${pkgs.curl}/bin/curl"'
-              '';
-            preInstall = ''
-              tar -cf "$pname-$version.tar" --transform "s,^,$pname-$version/," * .[!.]*
-              src="$pname-$version.tar"
+        plz = super.plz.overrideAttrs (old: {
+          dontUnpack = false;
+          postPatch =
+            old.postPatch or ""
+            + ''
+              substituteInPlace ./plz.el \
+                --replace 'plz-curl-program "curl"' 'plz-curl-program "${pkgs.curl}/bin/curl"'
             '';
-          }
-        );
+          preInstall = ''
+            tar -cf "$pname-$version.tar" --transform "s,^,$pname-$version/," * .[!.]*
+            src="$pname-$version.tar"
+          '';
+        });
       };
 
       elpaPackages = super // overrides;

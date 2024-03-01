@@ -5,10 +5,8 @@ let
   setupHook = makeSetupHook { name = "install-shell-files"; } ../setup-hooks/install-shell-files.sh;
 in
 
-setupHook.overrideAttrs (
-  oldAttrs: {
-    passthru = (oldAttrs.passthru or { }) // {
-      tests = tests.install-shell-files;
-    };
-  }
-)
+setupHook.overrideAttrs (oldAttrs: {
+  passthru = (oldAttrs.passthru or { }) // {
+    tests = tests.install-shell-files;
+  };
+})

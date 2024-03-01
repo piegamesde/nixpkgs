@@ -339,14 +339,12 @@ in
       settings = mkOption {
         type = lib.types.submodule {
           freeformType = attrsOf (
-            nullOr (
-              oneOf [
-                str
-                int
-                bool
-                (attrsOf path)
-              ]
-            )
+            nullOr (oneOf [
+              str
+              int
+              bool
+              (attrsOf path)
+            ])
           );
 
           options = {

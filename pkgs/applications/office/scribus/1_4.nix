@@ -31,12 +31,10 @@ let
     sha256 = "0hq3i7c2l50445an9glhhg47kj26y16svfajc6naqn307ph9vzc3";
   };
 
-  pythonEnv = python2.withPackages (
-    ps: [
-      ps.tkinter
-      ps.pillow
-    ]
-  );
+  pythonEnv = python2.withPackages (ps: [
+    ps.tkinter
+    ps.pillow
+  ]);
 in
 stdenv.mkDerivation rec {
   pname = "scribus";

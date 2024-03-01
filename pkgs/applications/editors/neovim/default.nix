@@ -59,12 +59,10 @@ let
           self = deterministicLuajit;
         };
       in
-      deterministicLuajit.withPackages (
-        ps: [
-          ps.mpack
-          ps.lpeg
-        ]
-      )
+      deterministicLuajit.withPackages (ps: [
+        ps.mpack
+        ps.lpeg
+      ])
     else
       lua;
 

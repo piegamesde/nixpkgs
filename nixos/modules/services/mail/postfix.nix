@@ -560,13 +560,11 @@ in
       config = mkOption {
         type =
           with types;
-          attrsOf (
-            oneOf [
-              bool
-              str
-              (listOf str)
-            ]
-          );
+          attrsOf (oneOf [
+            bool
+            str
+            (listOf str)
+          ]);
         description = lib.mdDoc ''
           The main.cf configuration file as key value set.
         '';
@@ -749,351 +747,349 @@ in
 
   ###### implementation
 
-  config = mkIf config.services.postfix.enable (
-    mkMerge [
-      {
+  config = mkIf config.services.postfix.enable (mkMerge [
+    {
 
-        environment = {
-          etc.postfix.source = "/var/lib/postfix/conf";
+      environment = {
+        etc.postfix.source = "/var/lib/postfix/conf";
 
-          # This makes it comfortable to run 'postqueue/postdrop' for example.
-          systemPackages = [ pkgs.postfix ];
+        # This makes it comfortable to run 'postqueue/postdrop' for example.
+        systemPackages = [ pkgs.postfix ];
+      };
+
+      services.pfix-srsd.enable = config.services.postfix.useSrs;
+
+      services.mail.sendmailSetuidWrapper = mkIf config.services.postfix.setSendmail {
+        program = "sendmail";
+        source = "${pkgs.postfix}/bin/sendmail";
+        owner = "root";
+        group = setgidGroup;
+        setuid = false;
+        setgid = true;
+      };
+
+      security.wrappers.mailq = {
+        program = "mailq";
+        source = "${pkgs.postfix}/bin/mailq";
+        owner = "root";
+        group = setgidGroup;
+        setuid = false;
+        setgid = true;
+      };
+
+      security.wrappers.postqueue = {
+        program = "postqueue";
+        source = "${pkgs.postfix}/bin/postqueue";
+        owner = "root";
+        group = setgidGroup;
+        setuid = false;
+        setgid = true;
+      };
+
+      security.wrappers.postdrop = {
+        program = "postdrop";
+        source = "${pkgs.postfix}/bin/postdrop";
+        owner = "root";
+        group = setgidGroup;
+        setuid = false;
+        setgid = true;
+      };
+
+      users.users = optionalAttrs (user == "postfix") {
+        postfix = {
+          description = "Postfix mail server user";
+          uid = config.ids.uids.postfix;
+          group = group;
+        };
+      };
+
+      users.groups =
+        optionalAttrs (group == "postfix") { ${group}.gid = config.ids.gids.postfix; }
+        // optionalAttrs (setgidGroup == "postdrop") { ${setgidGroup}.gid = config.ids.gids.postdrop; };
+
+      systemd.services.postfix-setup = {
+        description = "Setup for Postfix mail server";
+        serviceConfig.RemainAfterExit = true;
+        serviceConfig.Type = "oneshot";
+        script = ''
+          # Backwards compatibility
+          if [ ! -d /var/lib/postfix ] && [ -d /var/postfix ]; then
+            mkdir -p /var/lib
+            mv /var/postfix /var/lib/postfix
+          fi
+
+          # All permissions set according ${pkgs.postfix}/etc/postfix/postfix-files script
+          mkdir -p /var/lib/postfix /var/lib/postfix/queue/{pid,public,maildrop}
+          chmod 0755 /var/lib/postfix
+          chown root:root /var/lib/postfix
+
+          rm -rf /var/lib/postfix/conf
+          mkdir -p /var/lib/postfix/conf
+          chmod 0755 /var/lib/postfix/conf
+          ln -sf ${pkgs.postfix}/etc/postfix/postfix-files /var/lib/postfix/conf/postfix-files
+          ln -sf ${mainCfFile} /var/lib/postfix/conf/main.cf
+          ln -sf ${masterCfFile} /var/lib/postfix/conf/master.cf
+
+          ${concatStringsSep "\n" (
+            mapAttrsToList (to: from: ''
+              ln -sf ${from} /var/lib/postfix/conf/${to}
+              ${pkgs.postfix}/bin/postalias /var/lib/postfix/conf/${to}
+            '') cfg.aliasFiles
+          )}
+          ${concatStringsSep "\n" (
+            mapAttrsToList (to: from: ''
+              ln -sf ${from} /var/lib/postfix/conf/${to}
+              ${pkgs.postfix}/bin/postmap /var/lib/postfix/conf/${to}
+            '') cfg.mapFiles
+          )}
+
+          mkdir -p /var/spool/mail
+          chown root:root /var/spool/mail
+          chmod a+rwxt /var/spool/mail
+          ln -sf /var/spool/mail /var/
+
+          #Finally delegate to postfix checking remain directories in /var/lib/postfix and set permissions on them
+          ${pkgs.postfix}/bin/postfix set-permissions config_directory=/var/lib/postfix/conf
+        '';
+      };
+
+      systemd.services.postfix = {
+        description = "Postfix mail server";
+
+        wantedBy = [ "multi-user.target" ];
+        after = [
+          "network.target"
+          "postfix-setup.service"
+        ];
+        requires = [ "postfix-setup.service" ];
+        path = [ pkgs.postfix ];
+
+        serviceConfig = {
+          Type = "forking";
+          Restart = "always";
+          PIDFile = "/var/lib/postfix/queue/pid/master.pid";
+          ExecStart = "${pkgs.postfix}/bin/postfix start";
+          ExecStop = "${pkgs.postfix}/bin/postfix stop";
+          ExecReload = "${pkgs.postfix}/bin/postfix reload";
+        };
+      };
+
+      services.postfix.config =
+        (mapAttrs (_: v: mkDefault v) {
+          compatibility_level = pkgs.postfix.version;
+          mail_owner = cfg.user;
+          default_privs = "nobody";
+
+          # NixOS specific locations
+          data_directory = "/var/lib/postfix/data";
+          queue_directory = "/var/lib/postfix/queue";
+
+          # Default location of everything in package
+          meta_directory = "${pkgs.postfix}/etc/postfix";
+          command_directory = "${pkgs.postfix}/bin";
+          sample_directory = "/etc/postfix";
+          newaliases_path = "${pkgs.postfix}/bin/newaliases";
+          mailq_path = "${pkgs.postfix}/bin/mailq";
+          readme_directory = false;
+          sendmail_path = "${pkgs.postfix}/bin/sendmail";
+          daemon_directory = "${pkgs.postfix}/libexec/postfix";
+          manpage_directory = "${pkgs.postfix}/share/man";
+          html_directory = "${pkgs.postfix}/share/postfix/doc/html";
+          shlib_directory = false;
+          mail_spool_directory = "/var/spool/mail/";
+          setgid_group = cfg.setgidGroup;
+        })
+        // optionalAttrs (cfg.relayHost != "") {
+          relayhost =
+            if cfg.lookupMX then
+              "${cfg.relayHost}:${toString cfg.relayPort}"
+            else
+              "[${cfg.relayHost}]:${toString cfg.relayPort}";
+        }
+        // optionalAttrs (!config.networking.enableIPv6) { inet_protocols = mkDefault "ipv4"; }
+        // optionalAttrs (cfg.networks != null) { mynetworks = cfg.networks; }
+        // optionalAttrs (cfg.networksStyle != "") { mynetworks_style = cfg.networksStyle; }
+        // optionalAttrs (cfg.hostname != "") { myhostname = cfg.hostname; }
+        // optionalAttrs (cfg.domain != "") { mydomain = cfg.domain; }
+        // optionalAttrs (cfg.origin != "") { myorigin = cfg.origin; }
+        // optionalAttrs (cfg.destination != null) { mydestination = cfg.destination; }
+        // optionalAttrs (cfg.relayDomains != null) { relay_domains = cfg.relayDomains; }
+        // optionalAttrs (cfg.recipientDelimiter != "") { recipient_delimiter = cfg.recipientDelimiter; }
+        // optionalAttrs haveAliases { alias_maps = [ "${cfg.aliasMapType}:/etc/postfix/aliases" ]; }
+        // optionalAttrs haveTransport { transport_maps = [ "hash:/etc/postfix/transport" ]; }
+        // optionalAttrs haveVirtual {
+          virtual_alias_maps = [ "${cfg.virtualMapType}:/etc/postfix/virtual" ];
+        }
+        // optionalAttrs haveLocalRecipients {
+          local_recipient_maps = [
+            "hash:/etc/postfix/local_recipients"
+          ] ++ optional haveAliases "$alias_maps";
+        }
+        // optionalAttrs (cfg.dnsBlacklists != [ ]) { smtpd_client_restrictions = clientRestrictions; }
+        // optionalAttrs cfg.useSrs {
+          sender_canonical_maps = [ "tcp:127.0.0.1:10001" ];
+          sender_canonical_classes = [ "envelope_sender" ];
+          recipient_canonical_maps = [ "tcp:127.0.0.1:10002" ];
+          recipient_canonical_classes = [ "envelope_recipient" ];
+        }
+        // optionalAttrs cfg.enableHeaderChecks { header_checks = [ "regexp:/etc/postfix/header_checks" ]; }
+        // optionalAttrs (cfg.tlsTrustedAuthorities != "") {
+          smtp_tls_CAfile = cfg.tlsTrustedAuthorities;
+          smtp_tls_security_level = mkDefault "may";
+        }
+        // optionalAttrs (cfg.sslCert != "") {
+          smtp_tls_cert_file = cfg.sslCert;
+          smtp_tls_key_file = cfg.sslKey;
+
+          smtp_tls_security_level = mkDefault "may";
+
+          smtpd_tls_cert_file = cfg.sslCert;
+          smtpd_tls_key_file = cfg.sslKey;
+
+          smtpd_tls_security_level = "may";
         };
 
-        services.pfix-srsd.enable = config.services.postfix.useSrs;
-
-        services.mail.sendmailSetuidWrapper = mkIf config.services.postfix.setSendmail {
-          program = "sendmail";
-          source = "${pkgs.postfix}/bin/sendmail";
-          owner = "root";
-          group = setgidGroup;
-          setuid = false;
-          setgid = true;
-        };
-
-        security.wrappers.mailq = {
-          program = "mailq";
-          source = "${pkgs.postfix}/bin/mailq";
-          owner = "root";
-          group = setgidGroup;
-          setuid = false;
-          setgid = true;
-        };
-
-        security.wrappers.postqueue = {
-          program = "postqueue";
-          source = "${pkgs.postfix}/bin/postqueue";
-          owner = "root";
-          group = setgidGroup;
-          setuid = false;
-          setgid = true;
-        };
-
-        security.wrappers.postdrop = {
-          program = "postdrop";
-          source = "${pkgs.postfix}/bin/postdrop";
-          owner = "root";
-          group = setgidGroup;
-          setuid = false;
-          setgid = true;
-        };
-
-        users.users = optionalAttrs (user == "postfix") {
-          postfix = {
-            description = "Postfix mail server user";
-            uid = config.ids.uids.postfix;
-            group = group;
+      services.postfix.masterConfig =
+        {
+          pickup = {
+            private = false;
+            wakeup = 60;
+            maxproc = 1;
+          };
+          cleanup = {
+            private = false;
+            maxproc = 0;
+          };
+          qmgr = {
+            private = false;
+            wakeup = 300;
+            maxproc = 1;
+          };
+          tlsmgr = {
+            wakeup = 1000;
+            wakeupUnusedComponent = false;
+            maxproc = 1;
+          };
+          rewrite = {
+            command = "trivial-rewrite";
+          };
+          bounce = {
+            maxproc = 0;
+          };
+          defer = {
+            maxproc = 0;
+            command = "bounce";
+          };
+          trace = {
+            maxproc = 0;
+            command = "bounce";
+          };
+          verify = {
+            maxproc = 1;
+          };
+          flush = {
+            private = false;
+            wakeup = 1000;
+            wakeupUnusedComponent = false;
+            maxproc = 0;
+          };
+          proxymap = {
+            command = "proxymap";
+          };
+          proxywrite = {
+            maxproc = 1;
+            command = "proxymap";
+          };
+          showq = {
+            private = false;
+          };
+          error = { };
+          retry = {
+            command = "error";
+          };
+          discard = { };
+          local = {
+            privileged = true;
+          };
+          virtual = {
+            privileged = true;
+          };
+          lmtp = { };
+          anvil = {
+            maxproc = 1;
+          };
+          scache = {
+            maxproc = 1;
+          };
+        }
+        // optionalAttrs cfg.enableSubmission {
+          submission = {
+            type = "inet";
+            private = false;
+            command = "smtpd";
+            args =
+              let
+                mkKeyVal = opt: val: [
+                  "-o"
+                  (opt + "=" + val)
+                ];
+              in
+              concatLists (mapAttrsToList mkKeyVal cfg.submissionOptions);
+          };
+        }
+        // optionalAttrs cfg.enableSmtp {
+          smtp_inet = {
+            name = "smtp";
+            type = "inet";
+            private = false;
+            command = "smtpd";
+          };
+          smtp = { };
+          relay = {
+            command = "smtp";
+            args = [
+              "-o"
+              "smtp_fallback_relay="
+            ];
+          };
+        }
+        // optionalAttrs cfg.enableSubmissions {
+          submissions = {
+            type = "inet";
+            private = false;
+            command = "smtpd";
+            args =
+              let
+                mkKeyVal = opt: val: [
+                  "-o"
+                  (opt + "=" + val)
+                ];
+                adjustSmtpTlsSecurityLevel =
+                  !(cfg.submissionsOptions ? smtpd_tls_security_level)
+                  || cfg.submissionsOptions.smtpd_tls_security_level == "none"
+                  || cfg.submissionsOptions.smtpd_tls_security_level == "may";
+                submissionsOptions =
+                  cfg.submissionsOptions
+                  // {
+                    smtpd_tls_wrappermode = "yes";
+                  }
+                  // optionalAttrs adjustSmtpTlsSecurityLevel { smtpd_tls_security_level = "encrypt"; };
+              in
+              concatLists (mapAttrsToList mkKeyVal submissionsOptions);
           };
         };
+    }
 
-        users.groups =
-          optionalAttrs (group == "postfix") { ${group}.gid = config.ids.gids.postfix; }
-          // optionalAttrs (setgidGroup == "postdrop") { ${setgidGroup}.gid = config.ids.gids.postdrop; };
-
-        systemd.services.postfix-setup = {
-          description = "Setup for Postfix mail server";
-          serviceConfig.RemainAfterExit = true;
-          serviceConfig.Type = "oneshot";
-          script = ''
-            # Backwards compatibility
-            if [ ! -d /var/lib/postfix ] && [ -d /var/postfix ]; then
-              mkdir -p /var/lib
-              mv /var/postfix /var/lib/postfix
-            fi
-
-            # All permissions set according ${pkgs.postfix}/etc/postfix/postfix-files script
-            mkdir -p /var/lib/postfix /var/lib/postfix/queue/{pid,public,maildrop}
-            chmod 0755 /var/lib/postfix
-            chown root:root /var/lib/postfix
-
-            rm -rf /var/lib/postfix/conf
-            mkdir -p /var/lib/postfix/conf
-            chmod 0755 /var/lib/postfix/conf
-            ln -sf ${pkgs.postfix}/etc/postfix/postfix-files /var/lib/postfix/conf/postfix-files
-            ln -sf ${mainCfFile} /var/lib/postfix/conf/main.cf
-            ln -sf ${masterCfFile} /var/lib/postfix/conf/master.cf
-
-            ${concatStringsSep "\n" (
-              mapAttrsToList (to: from: ''
-                ln -sf ${from} /var/lib/postfix/conf/${to}
-                ${pkgs.postfix}/bin/postalias /var/lib/postfix/conf/${to}
-              '') cfg.aliasFiles
-            )}
-            ${concatStringsSep "\n" (
-              mapAttrsToList (to: from: ''
-                ln -sf ${from} /var/lib/postfix/conf/${to}
-                ${pkgs.postfix}/bin/postmap /var/lib/postfix/conf/${to}
-              '') cfg.mapFiles
-            )}
-
-            mkdir -p /var/spool/mail
-            chown root:root /var/spool/mail
-            chmod a+rwxt /var/spool/mail
-            ln -sf /var/spool/mail /var/
-
-            #Finally delegate to postfix checking remain directories in /var/lib/postfix and set permissions on them
-            ${pkgs.postfix}/bin/postfix set-permissions config_directory=/var/lib/postfix/conf
-          '';
-        };
-
-        systemd.services.postfix = {
-          description = "Postfix mail server";
-
-          wantedBy = [ "multi-user.target" ];
-          after = [
-            "network.target"
-            "postfix-setup.service"
-          ];
-          requires = [ "postfix-setup.service" ];
-          path = [ pkgs.postfix ];
-
-          serviceConfig = {
-            Type = "forking";
-            Restart = "always";
-            PIDFile = "/var/lib/postfix/queue/pid/master.pid";
-            ExecStart = "${pkgs.postfix}/bin/postfix start";
-            ExecStop = "${pkgs.postfix}/bin/postfix stop";
-            ExecReload = "${pkgs.postfix}/bin/postfix reload";
-          };
-        };
-
-        services.postfix.config =
-          (mapAttrs (_: v: mkDefault v) {
-            compatibility_level = pkgs.postfix.version;
-            mail_owner = cfg.user;
-            default_privs = "nobody";
-
-            # NixOS specific locations
-            data_directory = "/var/lib/postfix/data";
-            queue_directory = "/var/lib/postfix/queue";
-
-            # Default location of everything in package
-            meta_directory = "${pkgs.postfix}/etc/postfix";
-            command_directory = "${pkgs.postfix}/bin";
-            sample_directory = "/etc/postfix";
-            newaliases_path = "${pkgs.postfix}/bin/newaliases";
-            mailq_path = "${pkgs.postfix}/bin/mailq";
-            readme_directory = false;
-            sendmail_path = "${pkgs.postfix}/bin/sendmail";
-            daemon_directory = "${pkgs.postfix}/libexec/postfix";
-            manpage_directory = "${pkgs.postfix}/share/man";
-            html_directory = "${pkgs.postfix}/share/postfix/doc/html";
-            shlib_directory = false;
-            mail_spool_directory = "/var/spool/mail/";
-            setgid_group = cfg.setgidGroup;
-          })
-          // optionalAttrs (cfg.relayHost != "") {
-            relayhost =
-              if cfg.lookupMX then
-                "${cfg.relayHost}:${toString cfg.relayPort}"
-              else
-                "[${cfg.relayHost}]:${toString cfg.relayPort}";
-          }
-          // optionalAttrs (!config.networking.enableIPv6) { inet_protocols = mkDefault "ipv4"; }
-          // optionalAttrs (cfg.networks != null) { mynetworks = cfg.networks; }
-          // optionalAttrs (cfg.networksStyle != "") { mynetworks_style = cfg.networksStyle; }
-          // optionalAttrs (cfg.hostname != "") { myhostname = cfg.hostname; }
-          // optionalAttrs (cfg.domain != "") { mydomain = cfg.domain; }
-          // optionalAttrs (cfg.origin != "") { myorigin = cfg.origin; }
-          // optionalAttrs (cfg.destination != null) { mydestination = cfg.destination; }
-          // optionalAttrs (cfg.relayDomains != null) { relay_domains = cfg.relayDomains; }
-          // optionalAttrs (cfg.recipientDelimiter != "") { recipient_delimiter = cfg.recipientDelimiter; }
-          // optionalAttrs haveAliases { alias_maps = [ "${cfg.aliasMapType}:/etc/postfix/aliases" ]; }
-          // optionalAttrs haveTransport { transport_maps = [ "hash:/etc/postfix/transport" ]; }
-          // optionalAttrs haveVirtual {
-            virtual_alias_maps = [ "${cfg.virtualMapType}:/etc/postfix/virtual" ];
-          }
-          // optionalAttrs haveLocalRecipients {
-            local_recipient_maps = [
-              "hash:/etc/postfix/local_recipients"
-            ] ++ optional haveAliases "$alias_maps";
-          }
-          // optionalAttrs (cfg.dnsBlacklists != [ ]) { smtpd_client_restrictions = clientRestrictions; }
-          // optionalAttrs cfg.useSrs {
-            sender_canonical_maps = [ "tcp:127.0.0.1:10001" ];
-            sender_canonical_classes = [ "envelope_sender" ];
-            recipient_canonical_maps = [ "tcp:127.0.0.1:10002" ];
-            recipient_canonical_classes = [ "envelope_recipient" ];
-          }
-          // optionalAttrs cfg.enableHeaderChecks { header_checks = [ "regexp:/etc/postfix/header_checks" ]; }
-          // optionalAttrs (cfg.tlsTrustedAuthorities != "") {
-            smtp_tls_CAfile = cfg.tlsTrustedAuthorities;
-            smtp_tls_security_level = mkDefault "may";
-          }
-          // optionalAttrs (cfg.sslCert != "") {
-            smtp_tls_cert_file = cfg.sslCert;
-            smtp_tls_key_file = cfg.sslKey;
-
-            smtp_tls_security_level = mkDefault "may";
-
-            smtpd_tls_cert_file = cfg.sslCert;
-            smtpd_tls_key_file = cfg.sslKey;
-
-            smtpd_tls_security_level = "may";
-          };
-
-        services.postfix.masterConfig =
-          {
-            pickup = {
-              private = false;
-              wakeup = 60;
-              maxproc = 1;
-            };
-            cleanup = {
-              private = false;
-              maxproc = 0;
-            };
-            qmgr = {
-              private = false;
-              wakeup = 300;
-              maxproc = 1;
-            };
-            tlsmgr = {
-              wakeup = 1000;
-              wakeupUnusedComponent = false;
-              maxproc = 1;
-            };
-            rewrite = {
-              command = "trivial-rewrite";
-            };
-            bounce = {
-              maxproc = 0;
-            };
-            defer = {
-              maxproc = 0;
-              command = "bounce";
-            };
-            trace = {
-              maxproc = 0;
-              command = "bounce";
-            };
-            verify = {
-              maxproc = 1;
-            };
-            flush = {
-              private = false;
-              wakeup = 1000;
-              wakeupUnusedComponent = false;
-              maxproc = 0;
-            };
-            proxymap = {
-              command = "proxymap";
-            };
-            proxywrite = {
-              maxproc = 1;
-              command = "proxymap";
-            };
-            showq = {
-              private = false;
-            };
-            error = { };
-            retry = {
-              command = "error";
-            };
-            discard = { };
-            local = {
-              privileged = true;
-            };
-            virtual = {
-              privileged = true;
-            };
-            lmtp = { };
-            anvil = {
-              maxproc = 1;
-            };
-            scache = {
-              maxproc = 1;
-            };
-          }
-          // optionalAttrs cfg.enableSubmission {
-            submission = {
-              type = "inet";
-              private = false;
-              command = "smtpd";
-              args =
-                let
-                  mkKeyVal = opt: val: [
-                    "-o"
-                    (opt + "=" + val)
-                  ];
-                in
-                concatLists (mapAttrsToList mkKeyVal cfg.submissionOptions);
-            };
-          }
-          // optionalAttrs cfg.enableSmtp {
-            smtp_inet = {
-              name = "smtp";
-              type = "inet";
-              private = false;
-              command = "smtpd";
-            };
-            smtp = { };
-            relay = {
-              command = "smtp";
-              args = [
-                "-o"
-                "smtp_fallback_relay="
-              ];
-            };
-          }
-          // optionalAttrs cfg.enableSubmissions {
-            submissions = {
-              type = "inet";
-              private = false;
-              command = "smtpd";
-              args =
-                let
-                  mkKeyVal = opt: val: [
-                    "-o"
-                    (opt + "=" + val)
-                  ];
-                  adjustSmtpTlsSecurityLevel =
-                    !(cfg.submissionsOptions ? smtpd_tls_security_level)
-                    || cfg.submissionsOptions.smtpd_tls_security_level == "none"
-                    || cfg.submissionsOptions.smtpd_tls_security_level == "may";
-                  submissionsOptions =
-                    cfg.submissionsOptions
-                    // {
-                      smtpd_tls_wrappermode = "yes";
-                    }
-                    // optionalAttrs adjustSmtpTlsSecurityLevel { smtpd_tls_security_level = "encrypt"; };
-                in
-                concatLists (mapAttrsToList mkKeyVal submissionsOptions);
-            };
-          };
-      }
-
-      (mkIf haveAliases { services.postfix.aliasFiles.aliases = aliasesFile; })
-      (mkIf haveCanonical { services.postfix.mapFiles.canonical = canonicalFile; })
-      (mkIf haveTransport { services.postfix.mapFiles.transport = transportFile; })
-      (mkIf haveVirtual { services.postfix.mapFiles.virtual = virtualFile; })
-      (mkIf haveLocalRecipients { services.postfix.mapFiles.local_recipients = localRecipientMapFile; })
-      (mkIf cfg.enableHeaderChecks { services.postfix.mapFiles.header_checks = headerChecksFile; })
-      (mkIf (cfg.dnsBlacklists != [ ]) {
-        services.postfix.mapFiles.client_access = checkClientAccessFile;
-      })
-    ]
-  );
+    (mkIf haveAliases { services.postfix.aliasFiles.aliases = aliasesFile; })
+    (mkIf haveCanonical { services.postfix.mapFiles.canonical = canonicalFile; })
+    (mkIf haveTransport { services.postfix.mapFiles.transport = transportFile; })
+    (mkIf haveVirtual { services.postfix.mapFiles.virtual = virtualFile; })
+    (mkIf haveLocalRecipients { services.postfix.mapFiles.local_recipients = localRecipientMapFile; })
+    (mkIf cfg.enableHeaderChecks { services.postfix.mapFiles.header_checks = headerChecksFile; })
+    (mkIf (cfg.dnsBlacklists != [ ]) {
+      services.postfix.mapFiles.client_access = checkClientAccessFile;
+    })
+  ]);
 
   imports = [
     (mkRemovedOptionModule

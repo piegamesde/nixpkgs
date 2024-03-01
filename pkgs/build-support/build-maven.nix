@@ -71,12 +71,10 @@ let
   );
 
   repo = linkFarm "maven-repository" (
-    lib.forEach dependencies (
-      dependency: {
-        name = dependency.layout;
-        path = dependency.drv;
-      }
-    )
+    lib.forEach dependencies (dependency: {
+      name = dependency.layout;
+      path = dependency.drv;
+    })
   );
 
   settings = writeText "settings.xml" ''

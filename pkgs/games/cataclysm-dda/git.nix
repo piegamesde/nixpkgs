@@ -27,29 +27,27 @@ let
       ;
   };
 
-  self = common.overrideAttrs (
-    common: rec {
-      pname = common.pname + "-git";
-      inherit version;
+  self = common.overrideAttrs (common: rec {
+    pname = common.pname + "-git";
+    inherit version;
 
-      src = fetchFromGitHub {
-        owner = "CleverRaven";
-        repo = "Cataclysm-DDA";
-        inherit rev sha256;
-      };
+    src = fetchFromGitHub {
+      owner = "CleverRaven";
+      repo = "Cataclysm-DDA";
+      inherit rev sha256;
+    };
 
-      patches = [
-        # Unconditionally look for translation files in $out/share/locale
-        ./locale-path.patch
-      ];
+    patches = [
+      # Unconditionally look for translation files in $out/share/locale
+      ./locale-path.patch
+    ];
 
-      makeFlags = common.makeFlags ++ [ "VERSION=git-${version}-${lib.substring 0 8 src.rev}" ];
+    makeFlags = common.makeFlags ++ [ "VERSION=git-${version}-${lib.substring 0 8 src.rev}" ];
 
-      meta = common.meta // {
-        maintainers = with lib.maintainers; common.meta.maintainers ++ [ rardiol ];
-      };
-    }
-  );
+    meta = common.meta // {
+      maintainers = with lib.maintainers; common.meta.maintainers ++ [ rardiol ];
+    };
+  });
 in
 
 attachPkgs pkgs self

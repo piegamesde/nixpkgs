@@ -29,15 +29,13 @@ import ./make-test-python.nix (
       r13y  reproducibility
     '';
 
-    dwWithAcronyms = pkgs.dokuwiki.overrideAttrs (
-      prev: {
-        installPhase =
-          prev.installPhase or ""
-          + ''
-            ln -sf ${acronymsFile} $out/share/dokuwiki/conf/acronyms.local.conf
-          '';
-      }
-    );
+    dwWithAcronyms = pkgs.dokuwiki.overrideAttrs (prev: {
+      installPhase =
+        prev.installPhase or ""
+        + ''
+          ln -sf ${acronymsFile} $out/share/dokuwiki/conf/acronyms.local.conf
+        '';
+    });
 
     mkNode =
       webserver:

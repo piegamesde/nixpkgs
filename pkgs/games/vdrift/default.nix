@@ -72,13 +72,11 @@ in
   export VDRIFT_DATA_DIRECTORY="${data}"
   exec ${bin}/bin/vdrift "$@"
 '').overrideAttrs
-  (
-    _: {
-      name = wrappedName;
-      meta = bin.meta // {
-        hydraPlatforms = [ ];
-      };
-      unwrapped = bin;
-      inherit bin data;
-    }
-  )
+  (_: {
+    name = wrappedName;
+    meta = bin.meta // {
+      hydraPlatforms = [ ];
+    };
+    unwrapped = bin;
+    inherit bin data;
+  })

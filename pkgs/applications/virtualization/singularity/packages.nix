@@ -70,20 +70,18 @@ let
         inherit package;
       };
     }).config.programs.singularity.packageOverriden.overrideAttrs
-      (
-        oldAttrs: {
-          meta = oldAttrs.meta // {
-            description = "";
-            longDescription = ''
-              This package produces identical store derivations to `pkgs.${packageName}`
-              overriden and installed by the NixOS module `programs.singularity`
-              with default configuration.
+      (oldAttrs: {
+        meta = oldAttrs.meta // {
+          description = "";
+          longDescription = ''
+            This package produces identical store derivations to `pkgs.${packageName}`
+            overriden and installed by the NixOS module `programs.singularity`
+            with default configuration.
 
-              This is for binary substitutes only. Use pkgs.${packageName} instead.
-            '';
-          };
-        }
-      );
+            This is for binary substitutes only. Use pkgs.${packageName} instead.
+          '';
+        };
+      });
 in
 {
   inherit apptainer singularity;

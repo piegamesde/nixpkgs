@@ -137,12 +137,10 @@ rec {
         };
       }
     ).overrideAttrs
-      (
-        oa: {
-          # Only download for x86_64
-          meta.platforms = [ "x86_64-linux" ];
-        }
-      );
+      (oa: {
+        # Only download for x86_64
+        meta.platforms = [ "x86_64-linux" ];
+      });
 
   ### Eclipse SDK
 

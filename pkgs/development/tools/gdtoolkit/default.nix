@@ -6,19 +6,17 @@
 }:
 
 let
-  lark080 = python3Packages.lark.overrideAttrs (
-    old: rec {
-      # gdtoolkit needs exactly this lark version
-      version = "0.8.0";
-      src = fetchFromGitHub {
-        owner = "lark-parser";
-        repo = "lark";
-        rev = version;
-        hash = "sha256-KN9buVlH8hJ8t0ZP5yefeYM5vH5Gg7a7TEDGKJYpozs=";
-        fetchSubmodules = true;
-      };
-    }
-  );
+  lark080 = python3Packages.lark.overrideAttrs (old: rec {
+    # gdtoolkit needs exactly this lark version
+    version = "0.8.0";
+    src = fetchFromGitHub {
+      owner = "lark-parser";
+      repo = "lark";
+      rev = version;
+      hash = "sha256-KN9buVlH8hJ8t0ZP5yefeYM5vH5Gg7a7TEDGKJYpozs=";
+      fetchSubmodules = true;
+    };
+  });
 in
 python3Packages.buildPythonApplication rec {
   pname = "gdtoolkit";

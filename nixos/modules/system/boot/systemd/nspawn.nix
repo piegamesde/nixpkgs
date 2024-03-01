@@ -186,15 +186,13 @@ in
     in
     mkMerge [
       (mkIf (cfg != { }) {
-        environment.etc."systemd/nspawn".source = mkIf (cfg != { }) (
-          generateUnits {
-            allowCollisions = false;
-            type = "nspawn";
-            inherit units;
-            upstreamUnits = [ ];
-            upstreamWants = [ ];
-          }
-        );
+        environment.etc."systemd/nspawn".source = mkIf (cfg != { }) (generateUnits {
+          allowCollisions = false;
+          type = "nspawn";
+          inherit units;
+          upstreamUnits = [ ];
+          upstreamWants = [ ];
+        });
       })
       { systemd.targets.multi-user.wants = [ "machines.target" ]; }
     ];

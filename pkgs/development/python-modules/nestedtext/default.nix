@@ -54,7 +54,9 @@ buildPythonPackage rec {
   ];
 
   passthru.tests = {
-    runTests = nestedtext.overrideAttrs (_: { doCheck = true; });
+    runTests = nestedtext.overrideAttrs (_: {
+      doCheck = true;
+    });
   };
 
   pythonImportsCheck = [ "nestedtext" ];

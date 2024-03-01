@@ -305,13 +305,11 @@ rec {
           type =
             with types;
             attrsOf (
-              nullOr (
-                oneOf [
-                  str
-                  path
-                  package
-                ]
-              )
+              nullOr (oneOf [
+                str
+                path
+                package
+              ])
             );
           example = {
             PATH = "/foo/bar/bin";
@@ -324,12 +322,10 @@ rec {
           default = [ ];
           type =
             with types;
-            listOf (
-              oneOf [
-                package
-                str
-              ]
-            );
+            listOf (oneOf [
+              package
+              str
+            ]);
           description = lib.mdDoc ''
             Packages added to the service's {env}`PATH`
             environment variable.  Both the {file}`bin`

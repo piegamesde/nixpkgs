@@ -213,37 +213,35 @@ lib.makeScope pkgs.newScope (
         let
           patched = patchNpmElm (patchBinwrap [ elmi-to-json ] nodePkgs.elm-coverage);
         in
-        patched.override (
-          old: {
-            # Symlink Elm instrument binary
-            preRebuild =
-              (old.preRebuild or "")
-              + ''
-                # Noop custom installation script
-                sed 's/\"install\".*/\"install\":\"echo no-op\"/g' --in-place package.json
+        patched.override (old: {
+          # Symlink Elm instrument binary
+          preRebuild =
+            (old.preRebuild or "")
+            + ''
+              # Noop custom installation script
+              sed 's/\"install\".*/\"install\":\"echo no-op\"/g' --in-place package.json
 
-                # This should not be needed (thanks to binwrap* being nooped) but for some reason it still needs to be done
-                # in case of just this package
-                # TODO: investigate
-                sed 's/\"install\".*/\"install\":\"echo no-op\",/g' --in-place node_modules/elmi-to-json/package.json
-              '';
-            postInstall =
-              (old.postInstall or "")
-              + ''
-                mkdir -p unpacked_bin
-                ln -sf ${elm-instrument}/bin/elm-instrument unpacked_bin/elm-instrument
-              '';
-            meta =
-              with lib;
-              nodePkgs.elm-coverage.meta
-              // {
-                description = "Work in progress - Code coverage tooling for Elm";
-                homepage = "https://github.com/zwilias/elm-coverage";
-                license = licenses.bsd3;
-                maintainers = [ maintainers.turbomack ];
-              };
-          }
-        );
+              # This should not be needed (thanks to binwrap* being nooped) but for some reason it still needs to be done
+              # in case of just this package
+              # TODO: investigate
+              sed 's/\"install\".*/\"install\":\"echo no-op\",/g' --in-place node_modules/elmi-to-json/package.json
+            '';
+          postInstall =
+            (old.postInstall or "")
+            + ''
+              mkdir -p unpacked_bin
+              ln -sf ${elm-instrument}/bin/elm-instrument unpacked_bin/elm-instrument
+            '';
+          meta =
+            with lib;
+            nodePkgs.elm-coverage.meta
+            // {
+              description = "Work in progress - Code coverage tooling for Elm";
+              homepage = "https://github.com/zwilias/elm-coverage";
+              license = licenses.bsd3;
+              maintainers = [ maintainers.turbomack ];
+            };
+        });
 
       create-elm-app = patchNpmElm nodePkgs.create-elm-app // {
         meta =
@@ -281,24 +279,22 @@ lib.makeScope pkgs.newScope (
           };
       };
 
-      elm-spa = nodePkgs."elm-spa".overrideAttrs (
-        old: {
-          nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [
-            makeWrapper
-            old.nodejs.pkgs.node-gyp-build
-          ];
+      elm-spa = nodePkgs."elm-spa".overrideAttrs (old: {
+        nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [
+          makeWrapper
+          old.nodejs.pkgs.node-gyp-build
+        ];
 
-          meta =
-            with lib;
-            nodePkgs."elm-spa".meta
-            // {
-              description = "A tool for building single page apps in Elm";
-              homepage = "https://www.elm-spa.dev/";
-              license = licenses.bsd3;
-              maintainers = [ maintainers.ilyakooo0 ];
-            };
-        }
-      );
+        meta =
+          with lib;
+          nodePkgs."elm-spa".meta
+          // {
+            description = "A tool for building single page apps in Elm";
+            homepage = "https://www.elm-spa.dev/";
+            license = licenses.bsd3;
+            maintainers = [ maintainers.ilyakooo0 ];
+          };
+      });
 
       elm-optimize-level-2 = nodePkgs."elm-optimize-level-2" // {
         meta =
@@ -312,51 +308,49 @@ lib.makeScope pkgs.newScope (
           };
       };
 
-      elm-pages = nodePkgs."elm-pages".overrideAttrs (
-        old: {
-          nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [
-            makeWrapper
-            old.nodejs.pkgs.node-gyp-build
-          ];
+      elm-pages = nodePkgs."elm-pages".overrideAttrs (old: {
+        nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [
+          makeWrapper
+          old.nodejs.pkgs.node-gyp-build
+        ];
 
-          # can't use `patches = [ <patch_file> ]` with a nodePkgs derivation;
-          # need to patch in one of the build phases instead.
-          # see upstream issue https://github.com/dillonkearns/elm-pages/issues/305 for dealing with the read-only problem
-          preFixup = ''
-            patch $out/lib/node_modules/elm-pages/generator/src/codegen.js ${./packages/elm-pages-fix-read-only.patch}
-          '';
+        # can't use `patches = [ <patch_file> ]` with a nodePkgs derivation;
+        # need to patch in one of the build phases instead.
+        # see upstream issue https://github.com/dillonkearns/elm-pages/issues/305 for dealing with the read-only problem
+        preFixup = ''
+          patch $out/lib/node_modules/elm-pages/generator/src/codegen.js ${./packages/elm-pages-fix-read-only.patch}
+        '';
 
-          postFixup = ''
-            wrapProgram $out/bin/elm-pages --prefix PATH : ${
-              with pkgs.elmPackages;
-              lib.makeBinPath [
-                elm
-                elm-review
-                elm-optimize-level-2
-              ]
-            }
-          '';
+        postFixup = ''
+          wrapProgram $out/bin/elm-pages --prefix PATH : ${
+            with pkgs.elmPackages;
+            lib.makeBinPath [
+              elm
+              elm-review
+              elm-optimize-level-2
+            ]
+          }
+        '';
 
-          meta =
-            with lib;
-            nodePkgs."elm-pages".meta
-            // {
-              description = "A statically typed site generator for Elm.";
-              homepage = "https://github.com/dillonkearns/elm-pages";
-              license = licenses.bsd3;
-              maintainers = [
-                maintainers.turbomack
-                maintainers.jali-clarke
-              ];
-            };
-        }
-      );
+        meta =
+          with lib;
+          nodePkgs."elm-pages".meta
+          // {
+            description = "A statically typed site generator for Elm.";
+            homepage = "https://github.com/dillonkearns/elm-pages";
+            license = licenses.bsd3;
+            maintainers = [
+              maintainers.turbomack
+              maintainers.jali-clarke
+            ];
+          };
+      });
 
       lamdera = callPackage ./packages/lamdera.nix { };
 
-      elm-doc-preview = nodePkgs."elm-doc-preview".overrideAttrs (
-        old: { nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ old.nodejs.pkgs.node-gyp-build ]; }
-      );
+      elm-doc-preview = nodePkgs."elm-doc-preview".overrideAttrs (old: {
+        nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [ old.nodejs.pkgs.node-gyp-build ];
+      });
 
       inherit (nodePkgs)
         elm-live

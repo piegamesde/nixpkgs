@@ -228,5 +228,8 @@ recursiveUpdate lib (rec {
      ```
   */
   overrideCoqDerivation =
-    f: drv: (drv.override (args: { mkCoqDerivation = drv_: (args.mkCoqDerivation drv_).override f; }));
+    f: drv:
+    (drv.override (args: {
+      mkCoqDerivation = drv_: (args.mkCoqDerivation drv_).override f;
+    }));
 })

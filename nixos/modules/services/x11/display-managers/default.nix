@@ -525,12 +525,10 @@ in
               }
             )
           )
-          (
-            cartesianProductOfSets {
-              dm = dms;
-              wm = wms;
-            }
-          )
+          (cartesianProductOfSets {
+            dm = dms;
+            wm = wms;
+          })
       );
 
     # Make xsessions and wayland sessions available in XDG_DATA_DIRS

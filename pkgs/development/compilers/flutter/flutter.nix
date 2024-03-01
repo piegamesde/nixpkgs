@@ -17,12 +17,10 @@
             "arm64"
             "x64"
           ]
-          (
-            architecture: [
-              "profile"
-              "release"
-            ]
-          )
+          (architecture: [
+            "profile"
+            "release"
+          ])
         )
         // {
           x86 = [ "jit-release" ];
@@ -34,13 +32,11 @@
             (lib.optional stdenv.hostPlatform.isx86_64 "x64")
             ++ (lib.optional stdenv.hostPlatform.isAarch64 "arm64")
           )
-          (
-            architecture: [
-              "debug"
-              "profile"
-              "release"
-            ]
-          )
+          (architecture: [
+            "debug"
+            "profile"
+            "release"
+          ])
       );
     };
   },

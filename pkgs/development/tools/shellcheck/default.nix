@@ -57,16 +57,14 @@ let
     };
   };
 in
-overrideMeta shellcheck (
-  old: {
-    maintainers = with lib.maintainers; [
-      Profpatsch
-      zowoq
-    ];
-    outputsToInstall = [
-      "bin"
-      "man"
-      "doc"
-    ];
-  }
-)
+overrideMeta shellcheck (old: {
+  maintainers = with lib.maintainers; [
+    Profpatsch
+    zowoq
+  ];
+  outputsToInstall = [
+    "bin"
+    "man"
+    "doc"
+  ];
+})

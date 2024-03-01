@@ -78,21 +78,19 @@ import ./make-test-python.nix (
           };
           inboxes =
             lib.recursiveUpdate
-              (lib.genAttrs (map baseNameOf repositories) (
-                repo: {
-                  address = [
-                    # Routed to the "public-inbox:" transport in services.postfix.transport
-                    "${repo}@${domain}"
-                  ];
-                  description = ''
-                    ${repo}@${domain} :
-                    discussions about ${repo}.
-                  '';
-                  url = "https://machine.${domain}/inbox/${repo}";
-                  newsgroup = "inbox.comp.${orga}.${repo}";
-                  coderepo = [ repo ];
-                }
-              ))
+              (lib.genAttrs (map baseNameOf repositories) (repo: {
+                address = [
+                  # Routed to the "public-inbox:" transport in services.postfix.transport
+                  "${repo}@${domain}"
+                ];
+                description = ''
+                  ${repo}@${domain} :
+                  discussions about ${repo}.
+                '';
+                url = "https://machine.${domain}/inbox/${repo}";
+                newsgroup = "inbox.comp.${orga}.${repo}";
+                coderepo = [ repo ];
+              }))
               {
                 repo2 = {
                   hide = [

@@ -18,28 +18,26 @@ let
   # https://github.com/thestinger/vte-ng
   #
   # three of the patches have been locally modified to cleanly apply on 0.62
-  vte-ng = vte.overrideAttrs (
-    attrs: {
-      patches = attrs.patches or [ ] ++ [
-        (fetchpatch {
-          name = "0001-expose-functions-for-pausing-unpausing-output.patch";
-          url = "https://github.com/thestinger/vte-ng/commit/342e26574f50dcd40bbeaad9e839c2a6144d0c1c.patch";
-          sha256 = "1b0k9ys545q85vfki417p21kis9f36yd0hyp12phayynss6fn715";
-        })
-        # Derived from https://github.com/thestinger/vte-ng/commit/5ae3acb69474fe5bc43767a4a3625e9ed23607a1.patch
-        ./vte-ng-modified-patches/vte-0002-expose-function-for-setting-cursor-position.patch
-        # Derived from https://github.com/thestinger/vte-ng/commit/742d57ecf15e24f6a5f2133a81b6c70acc8ff03c.patch
-        ./vte-ng-modified-patches/vte-0003-add-function-for-setting-the-text-selections.patch
-        (fetchpatch {
-          name = "0004-add-functions-to-get-set-block-selection-mode.patch";
-          url = "https://github.com/thestinger/vte-ng/commit/08748fd9cb82bd191e5c476b1682ca71f7732572.patch";
-          sha256 = "1cnhd8f7ywdgcyd6xmcd2nn39jjxzkxp4d0zsj2k7m5v74nhcs1g";
-        })
-        # Derived from "https://github.com/thestinger/vte-ng/commit/dd74ae7c06e8888af2fc090ac6f8920a9d8227fb.patch";
-        ./vte-ng-modified-patches/vte-0005-expose-function-for-getting-the-selected-text.patch
-      ];
-    }
-  );
+  vte-ng = vte.overrideAttrs (attrs: {
+    patches = attrs.patches or [ ] ++ [
+      (fetchpatch {
+        name = "0001-expose-functions-for-pausing-unpausing-output.patch";
+        url = "https://github.com/thestinger/vte-ng/commit/342e26574f50dcd40bbeaad9e839c2a6144d0c1c.patch";
+        sha256 = "1b0k9ys545q85vfki417p21kis9f36yd0hyp12phayynss6fn715";
+      })
+      # Derived from https://github.com/thestinger/vte-ng/commit/5ae3acb69474fe5bc43767a4a3625e9ed23607a1.patch
+      ./vte-ng-modified-patches/vte-0002-expose-function-for-setting-cursor-position.patch
+      # Derived from https://github.com/thestinger/vte-ng/commit/742d57ecf15e24f6a5f2133a81b6c70acc8ff03c.patch
+      ./vte-ng-modified-patches/vte-0003-add-function-for-setting-the-text-selections.patch
+      (fetchpatch {
+        name = "0004-add-functions-to-get-set-block-selection-mode.patch";
+        url = "https://github.com/thestinger/vte-ng/commit/08748fd9cb82bd191e5c476b1682ca71f7732572.patch";
+        sha256 = "1cnhd8f7ywdgcyd6xmcd2nn39jjxzkxp4d0zsj2k7m5v74nhcs1g";
+      })
+      # Derived from "https://github.com/thestinger/vte-ng/commit/dd74ae7c06e8888af2fc090ac6f8920a9d8227fb.patch";
+      ./vte-ng-modified-patches/vte-0005-expose-function-for-getting-the-selected-text.patch
+    ];
+  });
 in
 stdenv.mkDerivation rec {
   pname = "termite";

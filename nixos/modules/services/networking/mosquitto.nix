@@ -177,12 +177,10 @@ let
   makeACLFile =
     idx: users: supplement:
     pkgs.writeText "mosquitto-acl-${toString idx}.conf" (
-      concatStringsSep "\n" (
-        flatten [
-          supplement
-          (mapAttrsToList (n: u: [ "user ${n}" ] ++ map (t: "topic ${t}") u.acl) users)
-        ]
-      )
+      concatStringsSep "\n" (flatten [
+        supplement
+        (mapAttrsToList (n: u: [ "user ${n}" ] ++ map (t: "topic ${t}") u.acl) users)
+      ])
     );
 
   authPluginOptions =
@@ -396,26 +394,24 @@ let
     submodule {
       options = {
         addresses = mkOption {
-          type = listOf (
-            submodule {
-              options = {
-                address = mkOption {
-                  type = str;
-                  description = lib.mdDoc ''
-                    Address of the remote MQTT broker.
-                  '';
-                };
-
-                port = mkOption {
-                  type = port;
-                  description = lib.mdDoc ''
-                    Port of the remote MQTT broker.
-                  '';
-                  default = 1883;
-                };
+          type = listOf (submodule {
+            options = {
+              address = mkOption {
+                type = str;
+                description = lib.mdDoc ''
+                  Address of the remote MQTT broker.
+                '';
               };
-            }
-          );
+
+              port = mkOption {
+                type = port;
+                description = lib.mdDoc ''
+                  Port of the remote MQTT broker.
+                '';
+                default = 1883;
+              };
+            };
+          });
           default = [ ];
           description = lib.mdDoc ''
             Remote endpoints for the bridge.
@@ -533,15 +529,13 @@ let
 
     logDest = mkOption {
       type = listOf (
-        either path (
-          enum [
-            "stdout"
-            "stderr"
-            "syslog"
-            "topic"
-            "dlt"
-          ]
-        )
+        either path (enum [
+          "stdout"
+          "stderr"
+          "syslog"
+          "topic"
+          "dlt"
+        ])
       );
       description = lib.mdDoc ''
         Destinations to send log messages to.
@@ -550,20 +544,18 @@ let
     };
 
     logType = mkOption {
-      type = listOf (
-        enum [
-          "debug"
-          "error"
-          "warning"
-          "notice"
-          "information"
-          "subscribe"
-          "unsubscribe"
-          "websockets"
-          "none"
-          "all"
-        ]
-      );
+      type = listOf (enum [
+        "debug"
+        "error"
+        "warning"
+        "notice"
+        "information"
+        "subscribe"
+        "unsubscribe"
+        "websockets"
+        "none"
+        "all"
+      ]);
       description = lib.mdDoc ''
         Types of messages to log.
       '';
@@ -671,26 +663,24 @@ in
         ] ++ filter path.check cfg.logDest;
         ReadOnlyPaths = map (p: "${p}") (
           cfg.includeDirs
-          ++ filter (v: v != null) (
-            flatten [
-              (map (l: [
-                (l.settings.psk_file or null)
-                (l.settings.http_dir or null)
-                (l.settings.cafile or null)
-                (l.settings.capath or null)
-                (l.settings.certfile or null)
-                (l.settings.crlfile or null)
-                (l.settings.dhparamfile or null)
-                (l.settings.keyfile or null)
-              ]) cfg.listeners)
-              (mapAttrsToList (_: b: [
-                (b.settings.bridge_cafile or null)
-                (b.settings.bridge_capath or null)
-                (b.settings.bridge_certfile or null)
-                (b.settings.bridge_keyfile or null)
-              ]) cfg.bridges)
-            ]
-          )
+          ++ filter (v: v != null) (flatten [
+            (map (l: [
+              (l.settings.psk_file or null)
+              (l.settings.http_dir or null)
+              (l.settings.cafile or null)
+              (l.settings.capath or null)
+              (l.settings.certfile or null)
+              (l.settings.crlfile or null)
+              (l.settings.dhparamfile or null)
+              (l.settings.keyfile or null)
+            ]) cfg.listeners)
+            (mapAttrsToList (_: b: [
+              (b.settings.bridge_cafile or null)
+              (b.settings.bridge_capath or null)
+              (b.settings.bridge_certfile or null)
+              (b.settings.bridge_keyfile or null)
+            ]) cfg.bridges)
+          ])
         );
         RemoveIPC = true;
         RestrictAddressFamilies = [

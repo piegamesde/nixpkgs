@@ -21,26 +21,24 @@
 }:
 
 let
-  libdeltachat' = libdeltachat.overrideAttrs (
-    old: rec {
-      version = "1.112.8";
-      src = fetchFromGitHub {
-        owner = "deltachat";
-        repo = "deltachat-core-rust";
-        rev = "v${version}";
-        hash = "sha256-bvXZtgFZx94Sw9Tst620HAhi9kmG8PjtWnghdw2ZF84=";
+  libdeltachat' = libdeltachat.overrideAttrs (old: rec {
+    version = "1.112.8";
+    src = fetchFromGitHub {
+      owner = "deltachat";
+      repo = "deltachat-core-rust";
+      rev = "v${version}";
+      hash = "sha256-bvXZtgFZx94Sw9Tst620HAhi9kmG8PjtWnghdw2ZF84=";
+    };
+    cargoDeps = rustPlatform.importCargoLock {
+      lockFile = ./Cargo.lock;
+      outputHashes = {
+        "email-0.0.21" = "sha256-Ys47MiEwVZenRNfenT579Rb17ABQ4QizVFTWUq3+bAY=";
+        "encoded-words-0.2.0" = "sha256-KK9st0hLFh4dsrnLd6D8lC6pRFFs8W+WpZSGMGJcosk=";
+        "lettre-0.9.2" = "sha256-+hU1cFacyyeC9UGVBpS14BWlJjHy90i/3ynMkKAzclk=";
+        "quinn-proto-0.9.2" = "sha256-N1gD5vMsBEHO4Fz4ZYEKZA8eE/VywXNXssGcK6hjvpg=";
       };
-      cargoDeps = rustPlatform.importCargoLock {
-        lockFile = ./Cargo.lock;
-        outputHashes = {
-          "email-0.0.21" = "sha256-Ys47MiEwVZenRNfenT579Rb17ABQ4QizVFTWUq3+bAY=";
-          "encoded-words-0.2.0" = "sha256-KK9st0hLFh4dsrnLd6D8lC6pRFFs8W+WpZSGMGJcosk=";
-          "lettre-0.9.2" = "sha256-+hU1cFacyyeC9UGVBpS14BWlJjHy90i/3ynMkKAzclk=";
-          "quinn-proto-0.9.2" = "sha256-N1gD5vMsBEHO4Fz4ZYEKZA8eE/VywXNXssGcK6hjvpg=";
-        };
-      };
-    }
-  );
+    };
+  });
   esbuild' = esbuild.override {
     buildGoModule =
       args:
@@ -121,28 +119,26 @@ buildNpmPackage rec {
     runHook postInstall
   '';
 
-  desktopItems = lib.singleton (
-    makeDesktopItem {
-      name = "deltachat";
-      exec = "deltachat %u";
-      icon = "deltachat";
-      desktopName = "Delta Chat";
-      genericName = "Delta Chat";
-      comment = meta.description;
-      categories = [
-        "Network"
-        "InstantMessaging"
-        "Chat"
-      ];
-      startupWMClass = "DeltaChat";
-      mimeTypes = [
-        "x-scheme-handler/openpgp4fpr"
-        "x-scheme-handler/dcaccount"
-        "x-scheme-handler/dclogin"
-        "x-scheme-handler/mailto"
-      ];
-    }
-  );
+  desktopItems = lib.singleton (makeDesktopItem {
+    name = "deltachat";
+    exec = "deltachat %u";
+    icon = "deltachat";
+    desktopName = "Delta Chat";
+    genericName = "Delta Chat";
+    comment = meta.description;
+    categories = [
+      "Network"
+      "InstantMessaging"
+      "Chat"
+    ];
+    startupWMClass = "DeltaChat";
+    mimeTypes = [
+      "x-scheme-handler/openpgp4fpr"
+      "x-scheme-handler/dcaccount"
+      "x-scheme-handler/dclogin"
+      "x-scheme-handler/mailto"
+    ];
+  });
 
   meta = with lib; {
     description = "Email-based instant messaging for Desktop";

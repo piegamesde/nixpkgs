@@ -126,52 +126,50 @@ in
       type =
         with types;
         attrsOf (
-          either path (
-            submodule {
-              options = {
-                service = mkOption {
-                  type = nullOr str;
-                  default = null;
-                  description = lib.mdDoc "The service on which to perform \<action\> after fetching.";
-                };
-
-                action = mkOption {
-                  type = addCheck str (
-                    x:
-                    cfg.svcManager == "command"
-                    || elem x [
-                      "restart"
-                      "reload"
-                      "nop"
-                    ]
-                  );
-                  default = "nop";
-                  description = lib.mdDoc "The action to take after fetching.";
-                };
-
-                # These ought all to be specified according to certmgr spec def.
-                authority = mkOption {
-                  type = attrs;
-                  description = lib.mdDoc "certmgr spec authority object.";
-                };
-
-                certificate = mkOption {
-                  type = nullOr attrs;
-                  description = lib.mdDoc "certmgr spec certificate object.";
-                };
-
-                private_key = mkOption {
-                  type = nullOr attrs;
-                  description = lib.mdDoc "certmgr spec private_key object.";
-                };
-
-                request = mkOption {
-                  type = nullOr attrs;
-                  description = lib.mdDoc "certmgr spec request object.";
-                };
+          either path (submodule {
+            options = {
+              service = mkOption {
+                type = nullOr str;
+                default = null;
+                description = lib.mdDoc "The service on which to perform \<action\> after fetching.";
               };
-            }
-          )
+
+              action = mkOption {
+                type = addCheck str (
+                  x:
+                  cfg.svcManager == "command"
+                  || elem x [
+                    "restart"
+                    "reload"
+                    "nop"
+                  ]
+                );
+                default = "nop";
+                description = lib.mdDoc "The action to take after fetching.";
+              };
+
+              # These ought all to be specified according to certmgr spec def.
+              authority = mkOption {
+                type = attrs;
+                description = lib.mdDoc "certmgr spec authority object.";
+              };
+
+              certificate = mkOption {
+                type = nullOr attrs;
+                description = lib.mdDoc "certmgr spec certificate object.";
+              };
+
+              private_key = mkOption {
+                type = nullOr attrs;
+                description = lib.mdDoc "certmgr spec private_key object.";
+              };
+
+              request = mkOption {
+                type = nullOr attrs;
+                description = lib.mdDoc "certmgr spec request object.";
+              };
+            };
+          })
         );
       description = lib.mdDoc ''
         Certificate specs as described by:

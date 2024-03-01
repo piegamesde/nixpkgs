@@ -76,157 +76,155 @@ let
     };
   };
 in
-stdenv.mkDerivation (
-  finalAttrs: {
-    pname = "mangohud";
-    version = "0.6.9-1";
+stdenv.mkDerivation (finalAttrs: {
+  pname = "mangohud";
+  version = "0.6.9-1";
 
-    src = fetchFromGitHub {
-      owner = "flightlessmango";
-      repo = "MangoHud";
-      rev = "refs/tags/v${finalAttrs.version}";
-      fetchSubmodules = true;
-      hash = "sha256-AX4m1XZ+yXp74E3slFGyI3CGu2eYU+eXNN2EY+ivdfk=";
-    };
+  src = fetchFromGitHub {
+    owner = "flightlessmango";
+    repo = "MangoHud";
+    rev = "refs/tags/v${finalAttrs.version}";
+    fetchSubmodules = true;
+    hash = "sha256-AX4m1XZ+yXp74E3slFGyI3CGu2eYU+eXNN2EY+ivdfk=";
+  };
 
-    outputs = [
-      "out"
-      "doc"
-      "man"
-    ];
+  outputs = [
+    "out"
+    "doc"
+    "man"
+  ];
 
-    # Unpack subproject sources
-    postUnpack = ''
-      (
-          cd "$sourceRoot/subprojects"
-          ${lib.optionalString finalAttrs.doCheck ''
-            cp -R --no-preserve=mode,ownership ${cmocka.src} cmocka
-          ''}
-          cp -R --no-preserve=mode,ownership ${imgui.src} imgui-${imgui.version}
-          cp -R --no-preserve=mode,ownership ${vulkan-headers.src} Vulkan-Headers-${vulkan-headers.version}
-        )'';
+  # Unpack subproject sources
+  postUnpack = ''
+    (
+        cd "$sourceRoot/subprojects"
+        ${lib.optionalString finalAttrs.doCheck ''
+          cp -R --no-preserve=mode,ownership ${cmocka.src} cmocka
+        ''}
+        cp -R --no-preserve=mode,ownership ${imgui.src} imgui-${imgui.version}
+        cp -R --no-preserve=mode,ownership ${vulkan-headers.src} Vulkan-Headers-${vulkan-headers.version}
+      )'';
 
-    patches = [
-      # Add @libraryPath@ template variable to fix loading the preload
-      # library and @dataPath@ to support overlaying Vulkan apps without
-      # requiring MangoHud to be installed
-      ./preload-nix-workaround.patch
+  patches = [
+    # Add @libraryPath@ template variable to fix loading the preload
+    # library and @dataPath@ to support overlaying Vulkan apps without
+    # requiring MangoHud to be installed
+    ./preload-nix-workaround.patch
 
-      # Hard code dependencies. Can't use makeWrapper since the Vulkan
-      # layer can be used without the mangohud executable by setting MANGOHUD=1.
-      (substituteAll {
-        src = ./hardcode-dependencies.patch;
+    # Hard code dependencies. Can't use makeWrapper since the Vulkan
+    # layer can be used without the mangohud executable by setting MANGOHUD=1.
+    (substituteAll {
+      src = ./hardcode-dependencies.patch;
 
-        path = lib.makeBinPath [
-          coreutils
-          curl
-          glxinfo
-          gnugrep
-          gnused
-          xdg-utils
-        ];
-
-        libdbus = dbus.lib;
-        inherit hwdata;
-      })
-    ];
-
-    postPatch = ''
-      substituteInPlace bin/mangohud.in \
-        --subst-var-by libraryPath ${
-          lib.makeSearchPath "lib/mangohud" (
-            [ (placeholder "out") ]
-            ++ lib.optionals (stdenv.hostPlatform.system == "x86_64-linux") [ mangohud32 ]
-          )
-        } \
-        --subst-var-by dataDir ${placeholder "out"}/share
-
-      (
-        cd subprojects
-        unzip ${imgui.patch}
-        unzip ${vulkan-headers.patch}
-      )
-    '';
-
-    mesonFlags =
-      [
-        "-Dwith_wayland=enabled"
-        "-Duse_system_spdlog=enabled"
-        "-Dtests=${if finalAttrs.doCheck then "enabled" else "disabled"}"
-      ]
-      ++ lib.optionals gamescopeSupport [
-        "-Dmangoapp=true"
-        "-Dmangoapp_layer=true"
-        "-Dmangohudctl=true"
+      path = lib.makeBinPath [
+        coreutils
+        curl
+        glxinfo
+        gnugrep
+        gnused
+        xdg-utils
       ];
 
-    nativeBuildInputs = [
-      addOpenGLRunpath
-      glslang
-      mako
-      meson
-      ninja
-      pkg-config
-      unzip
+      libdbus = dbus.lib;
+      inherit hwdata;
+    })
+  ];
 
-      # Only the headers are used from these packages
-      # The corresponding libraries are loaded at runtime from the app's runpath
-      libXNVCtrl
-      wayland
-      libX11
+  postPatch = ''
+    substituteInPlace bin/mangohud.in \
+      --subst-var-by libraryPath ${
+        lib.makeSearchPath "lib/mangohud" (
+          [ (placeholder "out") ]
+          ++ lib.optionals (stdenv.hostPlatform.system == "x86_64-linux") [ mangohud32 ]
+        )
+      } \
+      --subst-var-by dataDir ${placeholder "out"}/share
+
+    (
+      cd subprojects
+      unzip ${imgui.patch}
+      unzip ${vulkan-headers.patch}
+    )
+  '';
+
+  mesonFlags =
+    [
+      "-Dwith_wayland=enabled"
+      "-Duse_system_spdlog=enabled"
+      "-Dtests=${if finalAttrs.doCheck then "enabled" else "disabled"}"
+    ]
+    ++ lib.optionals gamescopeSupport [
+      "-Dmangoapp=true"
+      "-Dmangoapp_layer=true"
+      "-Dmangohudctl=true"
     ];
 
-    buildInputs =
-      [
-        dbus
-        nlohmann_json
-        spdlog
-      ]
-      ++ lib.optionals gamescopeSupport [
-        glew
-        glfw
-        xorg.libXrandr
-      ];
+  nativeBuildInputs = [
+    addOpenGLRunpath
+    glslang
+    mako
+    meson
+    ninja
+    pkg-config
+    unzip
 
-    doCheck = true;
+    # Only the headers are used from these packages
+    # The corresponding libraries are loaded at runtime from the app's runpath
+    libXNVCtrl
+    wayland
+    libX11
+  ];
 
-    nativeCheckInputs = [ appstream ];
+  buildInputs =
+    [
+      dbus
+      nlohmann_json
+      spdlog
+    ]
+    ++ lib.optionals gamescopeSupport [
+      glew
+      glfw
+      xorg.libXrandr
+    ];
 
-    # Support 32bit Vulkan applications by linking in 32bit Vulkan layers
-    # This is needed for the same reason the 32bit preload workaround is needed.
-    postInstall = lib.optionalString (stdenv.hostPlatform.system == "x86_64-linux") ''
-      ln -s ${mangohud32}/share/vulkan/implicit_layer.d/MangoHud.x86.json \
+  doCheck = true;
+
+  nativeCheckInputs = [ appstream ];
+
+  # Support 32bit Vulkan applications by linking in 32bit Vulkan layers
+  # This is needed for the same reason the 32bit preload workaround is needed.
+  postInstall = lib.optionalString (stdenv.hostPlatform.system == "x86_64-linux") ''
+    ln -s ${mangohud32}/share/vulkan/implicit_layer.d/MangoHud.x86.json \
+      "$out/share/vulkan/implicit_layer.d"
+
+    ${lib.optionalString gamescopeSupport ''
+      ln -s ${mangohud32}/share/vulkan/implicit_layer.d/libMangoApp.x86.json \
         "$out/share/vulkan/implicit_layer.d"
+    ''}
+  '';
 
-      ${lib.optionalString gamescopeSupport ''
-        ln -s ${mangohud32}/share/vulkan/implicit_layer.d/libMangoApp.x86.json \
-          "$out/share/vulkan/implicit_layer.d"
-      ''}
-    '';
+  postFixup = ''
+    # Add OpenGL driver path to RUNPATH to support NVIDIA cards
+    addOpenGLRunpath "$out/lib/mangohud/libMangoHud.so"
+    ${lib.optionalString gamescopeSupport ''
+      addOpenGLRunpath "$out/bin/mangoapp"
+    ''}
+    ${lib.optionalString finalAttrs.doCheck ''
+      # libcmocka.so is only used for tests
+      rm "$out/lib/libcmocka.so"
+    ''}
+  '';
 
-    postFixup = ''
-      # Add OpenGL driver path to RUNPATH to support NVIDIA cards
-      addOpenGLRunpath "$out/lib/mangohud/libMangoHud.so"
-      ${lib.optionalString gamescopeSupport ''
-        addOpenGLRunpath "$out/bin/mangoapp"
-      ''}
-      ${lib.optionalString finalAttrs.doCheck ''
-        # libcmocka.so is only used for tests
-        rm "$out/lib/libcmocka.so"
-      ''}
-    '';
+  passthru.updateScript = nix-update-script { };
 
-    passthru.updateScript = nix-update-script { };
-
-    meta = with lib; {
-      description = "A Vulkan and OpenGL overlay for monitoring FPS, temperatures, CPU/GPU load and more";
-      homepage = "https://github.com/flightlessmango/MangoHud";
-      platforms = platforms.linux;
-      license = licenses.mit;
-      maintainers = with maintainers; [
-        kira-bruneau
-        zeratax
-      ];
-    };
-  }
-)
+  meta = with lib; {
+    description = "A Vulkan and OpenGL overlay for monitoring FPS, temperatures, CPU/GPU load and more";
+    homepage = "https://github.com/flightlessmango/MangoHud";
+    platforms = platforms.linux;
+    license = licenses.mit;
+    maintainers = with maintainers; [
+      kira-bruneau
+      zeratax
+    ];
+  };
+})

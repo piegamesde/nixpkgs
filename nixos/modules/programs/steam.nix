@@ -30,7 +30,9 @@ let
       Exec=${steam-gamescope}/bin/steam-gamescope
       Type=Application
     '').overrideAttrs
-      (_: { passthru.providedSessions = [ "steam" ]; });
+      (_: {
+        passthru.providedSessions = [ "steam" ];
+      });
 in
 {
   options.programs.steam = {

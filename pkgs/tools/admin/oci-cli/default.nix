@@ -8,29 +8,25 @@ let
   py = python3.override {
     packageOverrides = self: super: {
 
-      click = super.click.overridePythonAttrs (
-        oldAttrs: rec {
-          version = "7.1.2";
+      click = super.click.overridePythonAttrs (oldAttrs: rec {
+        version = "7.1.2";
 
-          src = oldAttrs.src.override {
-            inherit version;
-            hash = "sha256-0rUlXHxjSbwb0eWeCM0SrLvWPOZJ8liHVXg6qU37axo=";
-            sha256 = "";
-          };
-        }
-      );
+        src = oldAttrs.src.override {
+          inherit version;
+          hash = "sha256-0rUlXHxjSbwb0eWeCM0SrLvWPOZJ8liHVXg6qU37axo=";
+          sha256 = "";
+        };
+      });
 
-      jmespath = super.jmespath.overridePythonAttrs (
-        oldAttrs: rec {
-          version = "0.10.0";
-          src = oldAttrs.src.override {
-            inherit version;
-            sha256 = "b85d0567b8666149a93172712e68920734333c0ce7e89b78b3e987f71e5ed4f9";
-            hash = "";
-          };
-          doCheck = false;
-        }
-      );
+      jmespath = super.jmespath.overridePythonAttrs (oldAttrs: rec {
+        version = "0.10.0";
+        src = oldAttrs.src.override {
+          inherit version;
+          sha256 = "b85d0567b8666149a93172712e68920734333c0ce7e89b78b3e987f71e5ed4f9";
+          hash = "";
+        };
+        doCheck = false;
+      });
     };
   };
 in

@@ -26,20 +26,18 @@ let
   # the next SPIRV headers release.
   # FIXME: if this ever becomes common, figure out a way to pull revisions directly
   # from upstream known-good.json
-  spirv-headers' = spirv-headers.overrideAttrs (
-    _: {
-      version = "unstable-2023-04-27";
+  spirv-headers' = spirv-headers.overrideAttrs (_: {
+    version = "unstable-2023-04-27";
 
-      src = fetchFromGitHub {
-        owner = "KhronosGroup";
-        repo = "SPIRV-Headers";
-        rev = "7f1d2f4158704337aff1f739c8e494afc5716e7e";
-        hash = "sha256-DHOYIZQqP5uWDYdb+vePpMBaQDOCB5Pcg8wPBMF8itk=";
-      };
+    src = fetchFromGitHub {
+      owner = "KhronosGroup";
+      repo = "SPIRV-Headers";
+      rev = "7f1d2f4158704337aff1f739c8e494afc5716e7e";
+      hash = "sha256-DHOYIZQqP5uWDYdb+vePpMBaQDOCB5Pcg8wPBMF8itk=";
+    };
 
-      postPatch = "";
-    }
-  );
+    postPatch = "";
+  });
 in
 stdenv.mkDerivation rec {
   pname = "vulkan-validation-layers";

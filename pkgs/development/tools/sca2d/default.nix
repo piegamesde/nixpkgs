@@ -7,20 +7,18 @@
 let
   python = python3.override {
     packageOverrides = self: super: {
-      lark010 = super.lark.overridePythonAttrs (
-        old: rec {
-          version = "0.10.0";
+      lark010 = super.lark.overridePythonAttrs (old: rec {
+        version = "0.10.0";
 
-          src = fetchFromGitHub {
-            owner = "lark-parser";
-            repo = "lark";
-            rev = "refs/tags/${version}";
-            sha256 = "sha256-ctdPPKPSD4weidyhyj7RCV89baIhmuxucF3/Ojx1Efo=";
-          };
+        src = fetchFromGitHub {
+          owner = "lark-parser";
+          repo = "lark";
+          rev = "refs/tags/${version}";
+          sha256 = "sha256-ctdPPKPSD4weidyhyj7RCV89baIhmuxucF3/Ojx1Efo=";
+        };
 
-          disabledTestPaths = [ "tests/test_nearley/test_nearley.py" ];
-        }
-      );
+        disabledTestPaths = [ "tests/test_nearley/test_nearley.py" ];
+      });
     };
     self = python;
   };

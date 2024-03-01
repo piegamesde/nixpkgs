@@ -255,12 +255,10 @@ in
     ''
       mkdir -v $sourceRoot/${tarballPath}
     ''
-    + (flip concatMapStrings srcs.third_party (
-      f: ''
-        ln -sfv ${f} $sourceRoot/${tarballPath}/${f.md5name}
-        ln -sfv ${f} $sourceRoot/${tarballPath}/${f.name}
-      ''
-    ))
+    + (flip concatMapStrings srcs.third_party (f: ''
+      ln -sfv ${f} $sourceRoot/${tarballPath}/${f.md5name}
+      ln -sfv ${f} $sourceRoot/${tarballPath}/${f.name}
+    ''))
     + ''
       ln -sv ${srcs.help} $sourceRoot/${tarballPath}/${srcs.help.name}
       ln -svf ${srcs.translations} $sourceRoot/${tarballPath}/${srcs.translations.name}

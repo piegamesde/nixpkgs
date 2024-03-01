@@ -54,13 +54,11 @@ in
         type =
           with lib.types;
           attrsOf (
-            attrsOf (
-              oneOf [
-                str
-                int
-                bool
-              ]
-            )
+            attrsOf (oneOf [
+              str
+              int
+              bool
+            ])
           );
         default = { };
         example = {

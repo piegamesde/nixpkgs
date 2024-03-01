@@ -162,13 +162,11 @@ in
     settings = mkOption {
       type =
         with types;
-        (attrsOf (
-          oneOf [
-            bool
-            int
-            str
-          ]
-        ));
+        (attrsOf (oneOf [
+          bool
+          int
+          str
+        ]));
       default = { };
       description = lib.mdDoc "Dolibarr settings, see <https://github.com/Dolibarr/dolibarr/blob/develop/htdocs/conf/conf.php.example> for details.";
     };
@@ -207,13 +205,11 @@ in
     poolConfig = mkOption {
       type =
         with types;
-        attrsOf (
-          oneOf [
-            str
-            int
-            bool
-          ]
-        );
+        attrsOf (oneOf [
+          str
+          int
+          bool
+        ]);
       default = {
         "pm" = "dynamic";
         "pm.max_children" = 32;
@@ -230,147 +226,145 @@ in
   };
 
   # implementation
-  config = mkIf cfg.enable (
-    mkMerge [
-      {
+  config = mkIf cfg.enable (mkMerge [
+    {
 
-        assertions = [
+      assertions = [
+        {
+          assertion = cfg.database.createLocally -> cfg.database.user == cfg.user;
+          message = "services.dolibarr.database.user must match services.dolibarr.user if the database is to be automatically provisioned";
+        }
+      ];
+
+      services.dolibarr.settings = {
+        dolibarr_main_url_root = "https://${cfg.domain}";
+        dolibarr_main_document_root = "${package}/htdocs";
+        dolibarr_main_url_root_alt = "/custom";
+        dolibarr_main_data_root = "${cfg.stateDir}/documents";
+
+        dolibarr_main_db_host = cfg.database.host;
+        dolibarr_main_db_port = toString cfg.database.port;
+        dolibarr_main_db_name = cfg.database.name;
+        dolibarr_main_db_prefix = "llx_";
+        dolibarr_main_db_user = cfg.database.user;
+        dolibarr_main_db_pass = mkIf (cfg.database.passwordFile != null) ''
+          file_get_contents("${cfg.database.passwordFile}")
+        '';
+        dolibarr_main_db_type = "mysqli";
+        dolibarr_main_db_character_set = mkDefault "utf8";
+        dolibarr_main_db_collation = mkDefault "utf8_unicode_ci";
+
+        # Authentication settings
+        dolibarr_main_authentication = mkDefault "dolibarr";
+
+        # Security settings
+        dolibarr_main_prod = true;
+        dolibarr_main_force_https = vhostCfg.forceSSL or false;
+        dolibarr_main_restrict_os_commands = "${pkgs.mariadb}/bin/mysqldump, ${pkgs.mariadb}/bin/mysql";
+        dolibarr_nocsrfcheck = false;
+        dolibarr_main_instance_unique_id = ''
+          file_get_contents("${cfg.stateDir}/dolibarr_main_instance_unique_id")
+        '';
+        dolibarr_mailing_limit_sendbyweb = false;
+      };
+
+      systemd.tmpfiles.rules = [
+        "d '${cfg.stateDir}' 0750 ${cfg.user} ${cfg.group}"
+        "d '${cfg.stateDir}/documents' 0750 ${cfg.user} ${cfg.group}"
+        "f '${cfg.stateDir}/conf.php' 0660 ${cfg.user} ${cfg.group}"
+        "L '${cfg.stateDir}/install.forced.php' - ${cfg.user} ${cfg.group} - ${mkConfigFile "install.forced.php" install}"
+      ];
+
+      services.mysql = mkIf cfg.database.createLocally {
+        enable = mkDefault true;
+        package = mkDefault pkgs.mariadb;
+        ensureDatabases = [ cfg.database.name ];
+        ensureUsers = [
           {
-            assertion = cfg.database.createLocally -> cfg.database.user == cfg.user;
-            message = "services.dolibarr.database.user must match services.dolibarr.user if the database is to be automatically provisioned";
+            name = cfg.database.user;
+            ensurePermissions = {
+              "${cfg.database.name}.*" = "ALL PRIVILEGES";
+            };
           }
         ];
+      };
 
-        services.dolibarr.settings = {
-          dolibarr_main_url_root = "https://${cfg.domain}";
-          dolibarr_main_document_root = "${package}/htdocs";
-          dolibarr_main_url_root_alt = "/custom";
-          dolibarr_main_data_root = "${cfg.stateDir}/documents";
+      services.nginx.enable = mkIf (cfg.nginx != null) true;
+      services.nginx.virtualHosts."${cfg.domain}" = mkIf (cfg.nginx != null) (
+        lib.mkMerge [
+          cfg.nginx
+          ({
+            root = lib.mkForce "${package}/htdocs";
+            locations."/".index = "index.php";
+            locations."~ [^/]\\.php(/|$)" = {
+              extraConfig = ''
+                fastcgi_split_path_info ^(.+?\.php)(/.*)$;
+                fastcgi_pass unix:${config.services.phpfpm.pools.dolibarr.socket};
+              '';
+            };
+          })
+        ]
+      );
 
-          dolibarr_main_db_host = cfg.database.host;
-          dolibarr_main_db_port = toString cfg.database.port;
-          dolibarr_main_db_name = cfg.database.name;
-          dolibarr_main_db_prefix = "llx_";
-          dolibarr_main_db_user = cfg.database.user;
-          dolibarr_main_db_pass = mkIf (cfg.database.passwordFile != null) ''
-            file_get_contents("${cfg.database.passwordFile}")
+      systemd.services."phpfpm-dolibarr".after = mkIf cfg.database.createLocally [ "mysql.service" ];
+      services.phpfpm.pools.dolibarr = {
+        inherit (cfg) user group;
+        phpPackage = pkgs.php.buildEnv {
+          extensions = { enabled, all }: enabled ++ [ all.calendar ];
+          # recommended by dolibarr web application
+          extraConfig = ''
+            session.use_strict_mode = 1
+            session.cookie_samesite = "Lax"
+            ; open_basedir = "${package}/htdocs, ${cfg.stateDir}"
+            allow_url_fopen = 0
+            disable_functions = "pcntl_alarm, pcntl_fork, pcntl_waitpid, pcntl_wait, pcntl_wifexited, pcntl_wifstopped, pcntl_wifsignaled, pcntl_wifcontinued, pcntl_wexitstatus, pcntl_wtermsig, pcntl_wstopsig, pcntl_signal, pcntl_signal_get_handler, pcntl_signal_dispatch, pcntl_get_last_error, pcntl_strerror, pcntl_sigprocmask, pcntl_sigwaitinfo, pcntl_sigtimedwait, pcntl_exec, pcntl_getpriority, pcntl_setpriority, pcntl_async_signals"
           '';
-          dolibarr_main_db_type = "mysqli";
-          dolibarr_main_db_character_set = mkDefault "utf8";
-          dolibarr_main_db_collation = mkDefault "utf8_unicode_ci";
-
-          # Authentication settings
-          dolibarr_main_authentication = mkDefault "dolibarr";
-
-          # Security settings
-          dolibarr_main_prod = true;
-          dolibarr_main_force_https = vhostCfg.forceSSL or false;
-          dolibarr_main_restrict_os_commands = "${pkgs.mariadb}/bin/mysqldump, ${pkgs.mariadb}/bin/mysql";
-          dolibarr_nocsrfcheck = false;
-          dolibarr_main_instance_unique_id = ''
-            file_get_contents("${cfg.stateDir}/dolibarr_main_instance_unique_id")
-          '';
-          dolibarr_mailing_limit_sendbyweb = false;
         };
 
-        systemd.tmpfiles.rules = [
-          "d '${cfg.stateDir}' 0750 ${cfg.user} ${cfg.group}"
-          "d '${cfg.stateDir}/documents' 0750 ${cfg.user} ${cfg.group}"
-          "f '${cfg.stateDir}/conf.php' 0660 ${cfg.user} ${cfg.group}"
-          "L '${cfg.stateDir}/install.forced.php' - ${cfg.user} ${cfg.group} - ${mkConfigFile "install.forced.php" install}"
-        ];
+        settings = {
+          "listen.mode" = "0660";
+          "listen.owner" = cfg.user;
+          "listen.group" = cfg.group;
+        } // cfg.poolConfig;
+      };
 
-        services.mysql = mkIf cfg.database.createLocally {
-          enable = mkDefault true;
-          package = mkDefault pkgs.mariadb;
-          ensureDatabases = [ cfg.database.name ];
-          ensureUsers = [
-            {
-              name = cfg.database.user;
-              ensurePermissions = {
-                "${cfg.database.name}.*" = "ALL PRIVILEGES";
-              };
-            }
-          ];
+      # there are several challenges with dolibarr and NixOS which we can address here
+      # - the dolibarr installer cannot be entirely automated, though it can partially be by including a file called install.forced.php
+      # - the dolibarr installer requires write access to its config file during installation, though not afterwards
+      # - the dolibarr config file generally holds secrets generated by the installer, though the config file is a php file so we can read and write these secrets from an external file
+      systemd.services.dolibarr-config = {
+        description = "dolibarr configuration file management via NixOS";
+        wantedBy = [ "multi-user.target" ];
+
+        script = ''
+          # extract the 'main instance unique id' secret that the dolibarr installer generated for us, store it in a file for use by our own NixOS generated configuration file
+          ${pkgs.php}/bin/php -r "include '${cfg.stateDir}/conf.php'; file_put_contents('${cfg.stateDir}/dolibarr_main_instance_unique_id', \$dolibarr_main_instance_unique_id);"
+
+          # replace configuration file generated by installer with the NixOS generated configuration file
+          install -m 644 ${mkConfigFile "conf.php" cfg.settings} '${cfg.stateDir}/conf.php'
+        '';
+
+        serviceConfig = {
+          Type = "oneshot";
+          User = cfg.user;
+          Group = cfg.group;
+          RemainAfterExit = "yes";
         };
 
-        services.nginx.enable = mkIf (cfg.nginx != null) true;
-        services.nginx.virtualHosts."${cfg.domain}" = mkIf (cfg.nginx != null) (
-          lib.mkMerge [
-            cfg.nginx
-            ({
-              root = lib.mkForce "${package}/htdocs";
-              locations."/".index = "index.php";
-              locations."~ [^/]\\.php(/|$)" = {
-                extraConfig = ''
-                  fastcgi_split_path_info ^(.+?\.php)(/.*)$;
-                  fastcgi_pass unix:${config.services.phpfpm.pools.dolibarr.socket};
-                '';
-              };
-            })
-          ]
-        );
-
-        systemd.services."phpfpm-dolibarr".after = mkIf cfg.database.createLocally [ "mysql.service" ];
-        services.phpfpm.pools.dolibarr = {
-          inherit (cfg) user group;
-          phpPackage = pkgs.php.buildEnv {
-            extensions = { enabled, all }: enabled ++ [ all.calendar ];
-            # recommended by dolibarr web application
-            extraConfig = ''
-              session.use_strict_mode = 1
-              session.cookie_samesite = "Lax"
-              ; open_basedir = "${package}/htdocs, ${cfg.stateDir}"
-              allow_url_fopen = 0
-              disable_functions = "pcntl_alarm, pcntl_fork, pcntl_waitpid, pcntl_wait, pcntl_wifexited, pcntl_wifstopped, pcntl_wifsignaled, pcntl_wifcontinued, pcntl_wexitstatus, pcntl_wtermsig, pcntl_wstopsig, pcntl_signal, pcntl_signal_get_handler, pcntl_signal_dispatch, pcntl_get_last_error, pcntl_strerror, pcntl_sigprocmask, pcntl_sigwaitinfo, pcntl_sigtimedwait, pcntl_exec, pcntl_getpriority, pcntl_setpriority, pcntl_async_signals"
-            '';
-          };
-
-          settings = {
-            "listen.mode" = "0660";
-            "listen.owner" = cfg.user;
-            "listen.group" = cfg.group;
-          } // cfg.poolConfig;
+        unitConfig = {
+          ConditionFileNotEmpty = "${cfg.stateDir}/conf.php";
         };
+      };
 
-        # there are several challenges with dolibarr and NixOS which we can address here
-        # - the dolibarr installer cannot be entirely automated, though it can partially be by including a file called install.forced.php
-        # - the dolibarr installer requires write access to its config file during installation, though not afterwards
-        # - the dolibarr config file generally holds secrets generated by the installer, though the config file is a php file so we can read and write these secrets from an external file
-        systemd.services.dolibarr-config = {
-          description = "dolibarr configuration file management via NixOS";
-          wantedBy = [ "multi-user.target" ];
+      users.users.dolibarr = mkIf (cfg.user == "dolibarr") {
+        isSystemUser = true;
+        group = cfg.group;
+      };
 
-          script = ''
-            # extract the 'main instance unique id' secret that the dolibarr installer generated for us, store it in a file for use by our own NixOS generated configuration file
-            ${pkgs.php}/bin/php -r "include '${cfg.stateDir}/conf.php'; file_put_contents('${cfg.stateDir}/dolibarr_main_instance_unique_id', \$dolibarr_main_instance_unique_id);"
-
-            # replace configuration file generated by installer with the NixOS generated configuration file
-            install -m 644 ${mkConfigFile "conf.php" cfg.settings} '${cfg.stateDir}/conf.php'
-          '';
-
-          serviceConfig = {
-            Type = "oneshot";
-            User = cfg.user;
-            Group = cfg.group;
-            RemainAfterExit = "yes";
-          };
-
-          unitConfig = {
-            ConditionFileNotEmpty = "${cfg.stateDir}/conf.php";
-          };
-        };
-
-        users.users.dolibarr = mkIf (cfg.user == "dolibarr") {
-          isSystemUser = true;
-          group = cfg.group;
-        };
-
-        users.groups = optionalAttrs (cfg.group == "dolibarr") { dolibarr = { }; };
-      }
-      (mkIf (cfg.nginx != null) {
-        users.users."${config.services.nginx.group}".extraGroups = mkIf (cfg.nginx != null) [ cfg.group ];
-      })
-    ]
-  );
+      users.groups = optionalAttrs (cfg.group == "dolibarr") { dolibarr = { }; };
+    }
+    (mkIf (cfg.nginx != null) {
+      users.users."${config.services.nginx.group}".extraGroups = mkIf (cfg.nginx != null) [ cfg.group ];
+    })
+  ]);
 }

@@ -72,12 +72,10 @@ let
           dtc
           flex
           openssl
-          (buildPackages.python3.withPackages (
-            p: [
-              p.libfdt
-              p.setuptools # for pkg_resources
-            ]
-          ))
+          (buildPackages.python3.withPackages (p: [
+            p.libfdt
+            p.setuptools # for pkg_resources
+          ]))
           swig
           which # for scripts/dtc-version.sh
         ];

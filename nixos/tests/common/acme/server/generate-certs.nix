@@ -12,13 +12,11 @@ in
 mkDerivation {
   name = "test-certs";
   buildInputs = [
-    (minica.overrideAttrs (
-      old: {
-        prePatch = ''
-          sed -i 's_NotAfter: time.Now().AddDate(2, 0, 30),_NotAfter: time.Now().AddDate(20, 0, 0),_' main.go
-        '';
-      }
-    ))
+    (minica.overrideAttrs (old: {
+      prePatch = ''
+        sed -i 's_NotAfter: time.Now().AddDate(2, 0, 30),_NotAfter: time.Now().AddDate(20, 0, 0),_' main.go
+      '';
+    }))
   ];
   dontUnpack = true;
 

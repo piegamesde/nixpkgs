@@ -34,18 +34,16 @@ let
   # OpenJPEG version is hardcoded in package source
   openJpegVersion = with stdenv; lib.versions.majorMinor (lib.getVersion openjpeg);
 
-  freeglut-mupdf = freeglut.overrideAttrs (
-    old: rec {
-      pname = "freeglut-mupdf";
-      version = "3.0.0-r${src.rev}";
-      src = fetchFromGitHub {
-        owner = "ArtifexSoftware";
-        repo = "thirdparty-freeglut";
-        rev = "13ae6aa2c2f9a7b4266fc2e6116c876237f40477";
-        hash = "sha256-0fuE0lm9rlAaok2Qe0V1uUrgP4AjMWgp3eTbw8G6PMM=";
-      };
-    }
-  );
+  freeglut-mupdf = freeglut.overrideAttrs (old: rec {
+    pname = "freeglut-mupdf";
+    version = "3.0.0-r${src.rev}";
+    src = fetchFromGitHub {
+      owner = "ArtifexSoftware";
+      repo = "thirdparty-freeglut";
+      rev = "13ae6aa2c2f9a7b4266fc2e6116c876237f40477";
+      hash = "sha256-0fuE0lm9rlAaok2Qe0V1uUrgP4AjMWgp3eTbw8G6PMM=";
+    };
+  });
 in
 stdenv.mkDerivation rec {
   version = "1.21.1";

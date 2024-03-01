@@ -89,11 +89,9 @@ in
       timerConfig.OnCalendar = cfg.refreshInterval;
     };
     security.pam.services.sshd.text = mkIf cfg.enableMotdInSSHD (
-      mkDefault (
-        mkAfter ''
-          session optional ${pkgs.pam}/lib/security/pam_motd.so motd=/var/lib/rust-motd/motd
-        ''
-      )
+      mkDefault (mkAfter ''
+        session optional ${pkgs.pam}/lib/security/pam_motd.so motd=/var/lib/rust-motd/motd
+      '')
     );
     services.openssh.extraConfig = mkIf (cfg.settings ? last_login && cfg.settings.last_login != { }) ''
       PrintLastLog no

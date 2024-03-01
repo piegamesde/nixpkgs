@@ -83,7 +83,9 @@ let
             -- "$out/texmf-dist/scripts/texlive/mktexlsr.pl" --sort "$out"/texmf-dist
         '';
     }).overrideAttrs
-      (_: { allowSubstitutes = true; });
+      (_: {
+        allowSubstitutes = true;
+      });
 
   # expose info and man pages in usual /share/{info,man} location
   doc = buildEnv {
@@ -369,4 +371,6 @@ in
         find "$TEXMFSYSVAR"/web2c -name '*.log' -delete
       '';
 }).overrideAttrs
-  (_: { allowSubstitutes = true; })
+  (_: {
+    allowSubstitutes = true;
+  })

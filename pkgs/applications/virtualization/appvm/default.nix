@@ -12,16 +12,14 @@ let
   # Upstream patches fail with newer virt-viewer. These are own ports to the
   # newest virt-viewer version, see:
   # https://github.com/jollheef/appvm/issues/28
-  virt-manager-without-menu = virt-viewer.overrideAttrs (
-    oldAttrs: {
-      patches = oldAttrs.patches ++ [
-        ./0001-Remove-menu-bar.patch
-        ./0002-Do-not-grab-keyboard-mouse.patch
-        ./0003-Use-name-of-appvm-applications-as-a-title.patch
-        ./0004-Use-title-application-name-as-subtitle.patch
-      ];
-    }
-  );
+  virt-manager-without-menu = virt-viewer.overrideAttrs (oldAttrs: {
+    patches = oldAttrs.patches ++ [
+      ./0001-Remove-menu-bar.patch
+      ./0002-Do-not-grab-keyboard-mouse.patch
+      ./0003-Use-name-of-appvm-applications-as-a-title.patch
+      ./0004-Use-title-application-name-as-subtitle.patch
+    ];
+  });
 in
 buildGoModule rec {
   pname = "appvm";

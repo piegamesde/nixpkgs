@@ -75,19 +75,17 @@ let
   # As of zrythm-1.0.0-beta.4.5.62, Zrythm needs clap
   # https://github.com/falktx/carla/tree/main/source/includes/clap, which is
   # only available on Carla unstable as of 2023-02-24.
-  carla-unstable = carla.overrideAttrs (
-    oldAttrs: rec {
-      pname = "carla";
-      version = "unstable-2023-02-24";
+  carla-unstable = carla.overrideAttrs (oldAttrs: rec {
+    pname = "carla";
+    version = "unstable-2023-02-24";
 
-      src = fetchFromGitHub {
-        owner = "falkTX";
-        repo = pname;
-        rev = "33a142f447925f55d00532933a1f28e9745c13eb";
-        hash = "sha256-hQj0HlcOYfwsxG05pq/qcuKcOwDMV1ED+YdxBToBzvk=";
-      };
-    }
-  );
+    src = fetchFromGitHub {
+      owner = "falkTX";
+      repo = pname;
+      rev = "33a142f447925f55d00532933a1f28e9745c13eb";
+      hash = "sha256-hQj0HlcOYfwsxG05pq/qcuKcOwDMV1ED+YdxBToBzvk=";
+    };
+  });
 in
 stdenv.mkDerivation rec {
   pname = "zrythm";

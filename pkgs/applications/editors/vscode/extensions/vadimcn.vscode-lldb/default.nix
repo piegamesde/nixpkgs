@@ -61,14 +61,12 @@ let
       inherit pkgs nodejs;
       inherit (stdenv.hostPlatform) system;
     }).nodeDependencies.override
-      (
-        old: {
-          inherit src version;
-          nativeBuildInputs = [ pkg-config ];
-          buildInputs = [ libsecret ];
-          dontNpmInstall = true;
-        }
-      )
+      (old: {
+        inherit src version;
+        nativeBuildInputs = [ pkg-config ];
+        buildInputs = [ libsecret ];
+        dontNpmInstall = true;
+      })
   );
 in
 stdenv.mkDerivation {

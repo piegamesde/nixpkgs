@@ -8,35 +8,33 @@
 # `glibc` needs to be overridden here because it's still needed to `./configure` the source in order
 # to have a build environment where we can call the needed make target.
 
-glibc.overrideAttrs (
-  oldAttrs: {
-    pname = "glibc-mtrace";
+glibc.overrideAttrs (oldAttrs: {
+  pname = "glibc-mtrace";
 
-    buildPhase = ''
-      runHook preBuild
+  buildPhase = ''
+    runHook preBuild
 
-      mkdir malloc
-      make -C ../glibc-${glibc.minorRelease}/malloc objdir=`pwd` `pwd`/malloc/mtrace;
+    mkdir malloc
+    make -C ../glibc-${glibc.minorRelease}/malloc objdir=`pwd` `pwd`/malloc/mtrace;
 
-      runHook postBuild
-    '';
+    runHook postBuild
+  '';
 
-    installPhase = ''
-      mkdir -p $out/bin
-      mv malloc/mtrace $out/bin/
-    '';
+  installPhase = ''
+    mkdir -p $out/bin
+    mv malloc/mtrace $out/bin/
+  '';
 
-    # Perl checked during configure
-    nativeBuildInputs = oldAttrs.nativeBuildInputs ++ [ perl ];
-    # Perl shebang used for `mtrace`.
-    buildInputs = oldAttrs.buildInputs ++ [ perl ];
+  # Perl checked during configure
+  nativeBuildInputs = oldAttrs.nativeBuildInputs ++ [ perl ];
+  # Perl shebang used for `mtrace`.
+  buildInputs = oldAttrs.buildInputs ++ [ perl ];
 
-    # Reset a few things declared by `pkgs.glibc`.
-    outputs = [ "out" ];
-    separateDebugInfo = false;
+  # Reset a few things declared by `pkgs.glibc`.
+  outputs = [ "out" ];
+  separateDebugInfo = false;
 
-    meta = oldAttrs.meta // {
-      description = "Perl script used to interpret and provide human readable output of the trace log contained in the file mtracedata, whose contents were produced by mtrace(3).";
-    };
-  }
-)
+  meta = oldAttrs.meta // {
+    description = "Perl script used to interpret and provide human readable output of the trace log contained in the file mtracedata, whose contents were produced by mtrace(3).";
+  };
+})

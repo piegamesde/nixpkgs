@@ -184,13 +184,11 @@ in
     poolConfig = mkOption {
       type =
         with types;
-        attrsOf (
-          oneOf [
-            str
-            int
-            bool
-          ]
-        );
+        attrsOf (oneOf [
+          str
+          int
+          bool
+        ]);
       default = {
         "pm" = "dynamic";
         "pm.max_children" = 32;
@@ -238,20 +236,18 @@ in
                 path
                 str
               ])
-              (
-                submodule {
-                  options = {
-                    _secret = mkOption {
-                      type = nullOr str;
-                      description = lib.mdDoc ''
-                        The path to a file containing the value the
-                        option should be set to in the final
-                        configuration file.
-                      '';
-                    };
+              (submodule {
+                options = {
+                  _secret = mkOption {
+                    type = nullOr str;
+                    description = lib.mdDoc ''
+                      The path to a file containing the value the
+                      option should be set to in the final
+                      configuration file.
+                    '';
                   };
-                }
-              )
+                };
+              })
           )
         );
       default = { };

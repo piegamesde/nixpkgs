@@ -152,11 +152,9 @@ let
                 domain ${cfg.domain}
               ''}
               ${optionalString (cfg.search != [ ]) ("search " + concatStringsSep " " cfg.search)}
-              ${flip concatMapStrings cfg.nameservers (
-                ns: ''
-                  nameserver ${ns}
-                ''
-              )}
+              ${flip concatMapStrings cfg.nameservers (ns: ''
+                nameserver ${ns}
+              '')}
               EOF
             ''}
 
@@ -350,19 +348,15 @@ let
                 ip link add name "${n}" type bridge
 
                 # Enslave child interfaces
-                ${flip concatMapStrings v.interfaces (
-                  i: ''
-                    ip link set "${i}" master "${n}"
-                    ip link set "${i}" up
-                  ''
-                )}
+                ${flip concatMapStrings v.interfaces (i: ''
+                  ip link set "${i}" master "${n}"
+                  ip link set "${i}" up
+                '')}
                 # Save list of enslaved interfaces
                 echo "${
-                  flip concatMapStrings v.interfaces (
-                    i: ''
-                      ${i}
-                    ''
-                  )
+                  flip concatMapStrings v.interfaces (i: ''
+                    ${i}
+                  '')
                 }" > /run/${n}.interfaces
 
                 ${optionalString config.virtualisation.libvirtd.enable ''
@@ -401,19 +395,15 @@ let
                 done
 
                 # Enslave child interfaces (new list of interfaces)
-                ${flip concatMapStrings v.interfaces (
-                  i: ''
-                    ip link set "${i}" master "${n}"
-                    ip link set "${i}" up
-                  ''
-                )}
+                ${flip concatMapStrings v.interfaces (i: ''
+                  ip link set "${i}" master "${n}"
+                  ip link set "${i}" up
+                '')}
                 # Save list of enslaved interfaces
                 echo "${
-                  flip concatMapStrings v.interfaces (
-                    i: ''
-                      ${i}
-                    ''
-                  )
+                  flip concatMapStrings v.interfaces (i: ''
+                    ${i}
+                  '')
                 }" > /run/${n}.interfaces
 
                 # (Un-)set stp on the bridge
@@ -537,12 +527,10 @@ let
 
                 # Bring up the bond and enslave the specified interfaces
                 ip link set "${n}" up
-                ${flip concatMapStrings v.interfaces (
-                  i: ''
-                    ip link set "${i}" down
-                    ip link set "${i}" master "${n}"
-                  ''
-                )}
+                ${flip concatMapStrings v.interfaces (i: ''
+                  ip link set "${i}" down
+                  ip link set "${i}" master "${n}"
+                '')}
               '';
               postStop = destroyBond n;
             }

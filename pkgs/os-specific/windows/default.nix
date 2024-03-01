@@ -26,12 +26,10 @@ lib.makeScope newScope (
       if stdenv.hostPlatform.useLLVM or false then
         buildPackages.llvmPackages_8.clangNoLibcxx
       else
-        buildPackages.gccCrossStageStatic.override (
-          old: {
-            bintools = old.bintools.override { libc = libcCross; };
-            libc = libcCross;
-          }
-        )
+        buildPackages.gccCrossStageStatic.override (old: {
+          bintools = old.bintools.override { libc = libcCross; };
+          libc = libcCross;
+        })
     );
 
     mingw_w64_headers = callPackage ./mingw-w64/headers.nix { };

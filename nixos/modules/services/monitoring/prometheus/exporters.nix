@@ -240,12 +240,10 @@ let
       users.groups = (
         mkIf (conf.group == "${name}-exporter" && !enableDynamicUser) { "${name}-exporter" = { }; }
       );
-      networking.firewall.extraCommands = mkIf conf.openFirewall (
-        concatStrings [
-          "ip46tables -A nixos-fw ${conf.firewallFilter} "
-          "-m comment --comment ${name}-exporter -j nixos-fw-accept"
-        ]
-      );
+      networking.firewall.extraCommands = mkIf conf.openFirewall (concatStrings [
+        "ip46tables -A nixos-fw ${conf.firewallFilter} "
+        "-m comment --comment ${name}-exporter -j nixos-fw-accept"
+      ]);
       systemd.services."prometheus-${name}-exporter" = mkMerge ([
         {
           wantedBy = [ "multi-user.target" ];
@@ -392,15 +390,13 @@ in
               '';
             }
           ]
-          ++ (flip map (attrNames exporterOpts) (
-            exporter: {
-              assertion = cfg.${exporter}.firewallFilter != null -> cfg.${exporter}.openFirewall;
-              message = ''
-                The `firewallFilter'-option of exporter ${exporter} doesn't have any effect unless
-                `openFirewall' is set to `true'!
-              '';
-            }
-          ))
+          ++ (flip map (attrNames exporterOpts) (exporter: {
+            assertion = cfg.${exporter}.firewallFilter != null -> cfg.${exporter}.openFirewall;
+            message = ''
+              The `firewallFilter'-option of exporter ${exporter} doesn't have any effect unless
+              `openFirewall' is set to `true'!
+            '';
+          }))
           ++ config.services.prometheus.exporters.assertions;
         warnings = config.services.prometheus.exporters.warnings;
       }

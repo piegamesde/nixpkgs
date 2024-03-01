@@ -24,7 +24,9 @@ let
     pythonImportsCheck = [ "sortedcontainers" ];
 
     passthru.tests = {
-      pytest = sortedcontainers.overridePythonAttrs (_: { doCheck = true; });
+      pytest = sortedcontainers.overridePythonAttrs (_: {
+        doCheck = true;
+      });
     };
 
     meta = with lib; {

@@ -440,36 +440,34 @@ rec {
   runInLinuxImage =
     drv:
     runInLinuxVM (
-      lib.overrideDerivation drv (
-        attrs: {
-          mountDisk = true;
+      lib.overrideDerivation drv (attrs: {
+        mountDisk = true;
 
-          /* Mount `image' as the root FS, but use a temporary copy-on-write
-             image since we don't want to (and can't) write to `image'.
-          */
-          preVM = ''
-            diskImage=$(pwd)/disk-image.qcow2
-            origImage=${attrs.diskImage}
-            if test -d "$origImage"; then origImage="$origImage/disk-image.qcow2"; fi
-            ${qemu}/bin/qemu-img create -F ${attrs.diskImageFormat} -b "$origImage" -f qcow2 $diskImage
-          '';
+        /* Mount `image' as the root FS, but use a temporary copy-on-write
+           image since we don't want to (and can't) write to `image'.
+        */
+        preVM = ''
+          diskImage=$(pwd)/disk-image.qcow2
+          origImage=${attrs.diskImage}
+          if test -d "$origImage"; then origImage="$origImage/disk-image.qcow2"; fi
+          ${qemu}/bin/qemu-img create -F ${attrs.diskImageFormat} -b "$origImage" -f qcow2 $diskImage
+        '';
 
-          /* Inside the VM, run the stdenv setup script normally, but at the
-             very end set $PATH and $SHELL to the `native' paths for the
-             distribution inside the VM.
-          */
-          postHook = ''
-            PATH=/usr/bin:/bin:/usr/sbin:/sbin
-            SHELL=/bin/sh
-            eval "$origPostHook"
-          '';
+        /* Inside the VM, run the stdenv setup script normally, but at the
+           very end set $PATH and $SHELL to the `native' paths for the
+           distribution inside the VM.
+        */
+        postHook = ''
+          PATH=/usr/bin:/bin:/usr/sbin:/sbin
+          SHELL=/bin/sh
+          eval "$origPostHook"
+        '';
 
-          origPostHook = lib.optionalString (attrs ? postHook) attrs.postHook;
+        origPostHook = lib.optionalString (attrs ? postHook) attrs.postHook;
 
-          # Don't run Nix-specific build steps like patchelf.
-          fixupPhase = "true";
-        }
-      )
+        # Don't run Nix-specific build steps like patchelf.
+        fixupPhase = "true";
+      })
     );
 
   /* Create a filesystem image of the specified size and fill it with

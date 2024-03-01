@@ -144,12 +144,10 @@ in
                   (attrsOf validSettingsTypes)
                 ];
               in
-              attrsOf (
-                oneOf [
-                  settingsType
-                  (listOf settingsType)
-                ]
-              )
+              attrsOf (oneOf [
+                settingsType
+                (listOf settingsType)
+              ])
               // {
                 description = ''
                   unbound.conf configuration type. The format consist of an attribute

@@ -165,94 +165,90 @@ in
       };
     })
 
-    (mkIf cfg.enable (
-      mkMerge [
-        {
-          environment.systemPackages = [ pkgs.kbd ];
+    (mkIf cfg.enable (mkMerge [
+      {
+        environment.systemPackages = [ pkgs.kbd ];
 
-          # Let systemd-vconsole-setup.service do the work of setting up the
-          # virtual consoles.
-          environment.etc."vconsole.conf".source = vconsoleConf;
-          # Provide kbd with additional packages.
-          environment.etc.kbd.source = "${consoleEnv pkgs.kbd}/share";
+        # Let systemd-vconsole-setup.service do the work of setting up the
+        # virtual consoles.
+        environment.etc."vconsole.conf".source = vconsoleConf;
+        # Provide kbd with additional packages.
+        environment.etc.kbd.source = "${consoleEnv pkgs.kbd}/share";
 
-          boot.initrd.preLVMCommands = mkIf (!config.boot.initrd.systemd.enable) (
-            mkBefore ''
-              kbd_mode ${if isUnicode then "-u" else "-a"} -C /dev/console
-              printf "\033%%${if isUnicode then "G" else "@"}" >> /dev/console
-              loadkmap < ${optimizedKeymap}
+        boot.initrd.preLVMCommands = mkIf (!config.boot.initrd.systemd.enable) (mkBefore ''
+          kbd_mode ${if isUnicode then "-u" else "-a"} -C /dev/console
+          printf "\033%%${if isUnicode then "G" else "@"}" >> /dev/console
+          loadkmap < ${optimizedKeymap}
 
-              ${optionalString (cfg.earlySetup && cfg.font != null) ''
-                setfont -C /dev/console $extraUtils/share/consolefonts/font.psf
-              ''}
-            ''
-          );
+          ${optionalString (cfg.earlySetup && cfg.font != null) ''
+            setfont -C /dev/console $extraUtils/share/consolefonts/font.psf
+          ''}
+        '');
 
-          boot.initrd.systemd.contents = {
-            "/etc/vconsole.conf".source = vconsoleConf;
-            # Add everything if we want full console setup...
-            "/etc/kbd" = lib.mkIf cfg.earlySetup {
-              source = "${consoleEnv config.boot.initrd.systemd.package.kbd}/share";
-            };
-            # ...but only the keymaps if we don't
-            "/etc/kbd/keymaps" = lib.mkIf (!cfg.earlySetup) {
-              source = "${consoleEnv config.boot.initrd.systemd.package.kbd}/share/keymaps";
-            };
+        boot.initrd.systemd.contents = {
+          "/etc/vconsole.conf".source = vconsoleConf;
+          # Add everything if we want full console setup...
+          "/etc/kbd" = lib.mkIf cfg.earlySetup {
+            source = "${consoleEnv config.boot.initrd.systemd.package.kbd}/share";
           };
-          boot.initrd.systemd.storePaths =
-            [
-              "${config.boot.initrd.systemd.package}/lib/systemd/systemd-vconsole-setup"
-              "${config.boot.initrd.systemd.package.kbd}/bin/setfont"
-              "${config.boot.initrd.systemd.package.kbd}/bin/loadkeys"
-              "${config.boot.initrd.systemd.package.kbd.gzip}/bin/gzip" # Fonts and keyboard layouts are compressed
-            ]
-            ++ optionals (cfg.font != null && hasPrefix builtins.storeDir cfg.font) [ "${cfg.font}" ]
-            ++ optionals (hasPrefix builtins.storeDir cfg.keyMap) [ "${cfg.keyMap}" ];
-
-          systemd.services.reload-systemd-vconsole-setup = {
-            description = "Reset console on configuration changes";
-            wantedBy = [ "multi-user.target" ];
-            restartTriggers = [
-              vconsoleConf
-              (consoleEnv pkgs.kbd)
-            ];
-            reloadIfChanged = true;
-            serviceConfig = {
-              RemainAfterExit = true;
-              ExecStart = "${pkgs.coreutils}/bin/true";
-              ExecReload = "/run/current-system/systemd/bin/systemctl restart systemd-vconsole-setup";
-            };
+          # ...but only the keymaps if we don't
+          "/etc/kbd/keymaps" = lib.mkIf (!cfg.earlySetup) {
+            source = "${consoleEnv config.boot.initrd.systemd.package.kbd}/share/keymaps";
           };
-        }
+        };
+        boot.initrd.systemd.storePaths =
+          [
+            "${config.boot.initrd.systemd.package}/lib/systemd/systemd-vconsole-setup"
+            "${config.boot.initrd.systemd.package.kbd}/bin/setfont"
+            "${config.boot.initrd.systemd.package.kbd}/bin/loadkeys"
+            "${config.boot.initrd.systemd.package.kbd.gzip}/bin/gzip" # Fonts and keyboard layouts are compressed
+          ]
+          ++ optionals (cfg.font != null && hasPrefix builtins.storeDir cfg.font) [ "${cfg.font}" ]
+          ++ optionals (hasPrefix builtins.storeDir cfg.keyMap) [ "${cfg.keyMap}" ];
 
-        (mkIf (cfg.colors != [ ]) {
-          boot.kernelParams = [
-            "vt.default_red=${makeColor 0 cfg.colors}"
-            "vt.default_grn=${makeColor 1 cfg.colors}"
-            "vt.default_blu=${makeColor 2 cfg.colors}"
+        systemd.services.reload-systemd-vconsole-setup = {
+          description = "Reset console on configuration changes";
+          wantedBy = [ "multi-user.target" ];
+          restartTriggers = [
+            vconsoleConf
+            (consoleEnv pkgs.kbd)
           ];
-        })
+          reloadIfChanged = true;
+          serviceConfig = {
+            RemainAfterExit = true;
+            ExecStart = "${pkgs.coreutils}/bin/true";
+            ExecReload = "/run/current-system/systemd/bin/systemctl restart systemd-vconsole-setup";
+          };
+        };
+      }
 
-        (mkIf (cfg.earlySetup && cfg.font != null && !config.boot.initrd.systemd.enable) {
-          boot.initrd.extraUtilsCommands = ''
-            mkdir -p $out/share/consolefonts
-            ${if substring 0 1 cfg.font == "/" then
-              ''
-                font="${cfg.font}"
-              ''
-            else
-              ''
-                font="$(echo ${consoleEnv pkgs.kbd}/share/consolefonts/${cfg.font}.*)"
-              ''}
-            if [[ $font == *.gz ]]; then
-              gzip -cd $font > $out/share/consolefonts/font.psf
-            else
-              cp -L $font $out/share/consolefonts/font.psf
-            fi
-          '';
-        })
-      ]
-    ))
+      (mkIf (cfg.colors != [ ]) {
+        boot.kernelParams = [
+          "vt.default_red=${makeColor 0 cfg.colors}"
+          "vt.default_grn=${makeColor 1 cfg.colors}"
+          "vt.default_blu=${makeColor 2 cfg.colors}"
+        ];
+      })
+
+      (mkIf (cfg.earlySetup && cfg.font != null && !config.boot.initrd.systemd.enable) {
+        boot.initrd.extraUtilsCommands = ''
+          mkdir -p $out/share/consolefonts
+          ${if substring 0 1 cfg.font == "/" then
+            ''
+              font="${cfg.font}"
+            ''
+          else
+            ''
+              font="$(echo ${consoleEnv pkgs.kbd}/share/consolefonts/${cfg.font}.*)"
+            ''}
+          if [[ $font == *.gz ]]; then
+            gzip -cd $font > $out/share/consolefonts/font.psf
+          else
+            cp -L $font $out/share/consolefonts/font.psf
+          fi
+        '';
+      })
+    ]))
   ];
 
   imports = [

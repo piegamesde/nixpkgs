@@ -80,12 +80,10 @@ stdenv.mkDerivation rec {
   postPatch = ''
     patchShebangs tests/gen-installed-test.py
     PATH=${
-      python3.withPackages (
-        pp: [
-          pp.pygobject3
-          pp.tappy
-        ]
-      )
+      python3.withPackages (pp: [
+        pp.pygobject3
+        pp.tappy
+      ])
     }/bin:$PATH patchShebangs tests/introspection.py
   '';
 

@@ -279,12 +279,10 @@ in
     users.groups.avahi = { };
 
     system.nssModules = optional cfg.nssmdns pkgs.nssmdns;
-    system.nssDatabases.hosts = optionals cfg.nssmdns (
-      mkMerge [
-        (mkBefore [ "mdns_minimal [NOTFOUND=return]" ]) # before resolve
-        (mkAfter [ "mdns" ]) # after dns
-      ]
-    );
+    system.nssDatabases.hosts = optionals cfg.nssmdns (mkMerge [
+      (mkBefore [ "mdns_minimal [NOTFOUND=return]" ]) # before resolve
+      (mkAfter [ "mdns" ]) # after dns
+    ]);
 
     environment.systemPackages = [ pkgs.avahi ];
 

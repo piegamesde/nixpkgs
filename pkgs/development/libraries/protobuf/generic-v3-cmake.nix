@@ -93,7 +93,9 @@ let
 
     passthru = {
       tests = {
-        pythonProtobuf = python3.pkgs.protobuf.override (_: { protobuf = self; });
+        pythonProtobuf = python3.pkgs.protobuf.override (_: {
+          protobuf = self;
+        });
       };
     };
 

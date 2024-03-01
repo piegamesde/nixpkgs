@@ -32,7 +32,9 @@ in
           config.boot.kernelPackages.v86d.overrideAttrs (old: {
                     hardeningDisable = [ "all" ];
                   })'';
-        default = config.boot.kernelPackages.v86d.overrideAttrs (old: { hardeningDisable = [ "all" ]; });
+        default = config.boot.kernelPackages.v86d.overrideAttrs (old: {
+          hardeningDisable = [ "all" ];
+        });
       };
     };
   };

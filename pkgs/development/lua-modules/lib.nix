@@ -68,15 +68,13 @@ rec {
   */
   toLuaModule =
     drv:
-    drv.overrideAttrs (
-      oldAttrs: {
-        # Use passthru in order to prevent rebuilds when possible.
-        passthru = (oldAttrs.passthru or { }) // {
-          luaModule = lua;
-          requiredLuaModules = requiredLuaModules drv.propagatedBuildInputs;
-        };
-      }
-    );
+    drv.overrideAttrs (oldAttrs: {
+      # Use passthru in order to prevent rebuilds when possible.
+      passthru = (oldAttrs.passthru or { }) // {
+        luaModule = lua;
+        requiredLuaModules = requiredLuaModules drv.propagatedBuildInputs;
+      };
+    });
 
   /* generate luarocks config
 

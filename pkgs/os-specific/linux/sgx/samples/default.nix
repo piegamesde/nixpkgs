@@ -67,52 +67,46 @@ let
 in
 {
   cxx11SGXDemo = buildSample "Cxx11SGXDemo";
-  localAttestation = (buildSample "LocalAttestation").overrideAttrs (
-    oldAttrs: {
-      installPhase = ''
-        runHook preInstall
+  localAttestation = (buildSample "LocalAttestation").overrideAttrs (oldAttrs: {
+    installPhase = ''
+      runHook preInstall
 
-        mkdir -p $out/{bin,lib}
-        install -m 755 bin/app* $out/bin
-        install bin/*.so $out/lib
+      mkdir -p $out/{bin,lib}
+      install -m 755 bin/app* $out/bin
+      install bin/*.so $out/lib
 
-        for bin in $out/bin/*; do
-          wrapProgram $bin \
-            --chdir "$out/lib" \
-            ${
-              lib.optionalString (!isSimulation)
-                ''--prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [ sgx-psw ]}"''
-            }
-        done
+      for bin in $out/bin/*; do
+        wrapProgram $bin \
+          --chdir "$out/lib" \
+          ${
+            lib.optionalString (!isSimulation)
+              ''--prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [ sgx-psw ]}"''
+          }
+      done
 
-        runHook postInstall
-      '';
-    }
-  );
+      runHook postInstall
+    '';
+  });
   powerTransition = buildSample "PowerTransition";
   protobufSGXDemo = buildSample "ProtobufSGXDemo";
-  remoteAttestation = (buildSample "RemoteAttestation").overrideAttrs (
-    oldAttrs: {
-      # Makefile sets rpath to point to $TMPDIR
-      preFixup = ''
-        patchelf --remove-rpath $out/bin/app
-      '';
+  remoteAttestation = (buildSample "RemoteAttestation").overrideAttrs (oldAttrs: {
+    # Makefile sets rpath to point to $TMPDIR
+    preFixup = ''
+      patchelf --remove-rpath $out/bin/app
+    '';
 
-      postInstall = ''
-        install sample_libcrypto/*.so $out/lib
-      '';
-    }
-  );
+    postInstall = ''
+      install sample_libcrypto/*.so $out/lib
+    '';
+  });
   sampleEnclave = buildSample "SampleEnclave";
   sampleEnclavePCL = buildSample "SampleEnclavePCL";
   sampleEnclaveGMIPP = buildSample "SampleEnclaveGMIPP";
-  sealUnseal = (buildSample "SealUnseal").overrideAttrs (
-    oldAttrs: {
-      prePatch = ''
-        substituteInPlace App/App.cpp \
-          --replace '"sealed_data_blob.txt"' '"/tmp/sealed_data_blob.txt"'
-      '';
-    }
-  );
+  sealUnseal = (buildSample "SealUnseal").overrideAttrs (oldAttrs: {
+    prePatch = ''
+      substituteInPlace App/App.cpp \
+        --replace '"sealed_data_blob.txt"' '"/tmp/sealed_data_blob.txt"'
+    '';
+  });
   switchless = buildSample "Switchless";
 }

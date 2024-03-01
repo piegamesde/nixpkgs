@@ -55,12 +55,10 @@ stdenv.mkDerivation rec {
 
     jsoncpp
     libxml2
-    (python3.withPackages (
-      ps: [
-        ps.pystache
-        ps.six
-      ]
-    ))
+    (python3.withPackages (ps: [
+      ps.pystache
+      ps.six
+    ]))
     sqlite
     xercesc
     zxing-cpp

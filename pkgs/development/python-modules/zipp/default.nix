@@ -34,7 +34,9 @@ let
     pythonImportsCheck = [ "zipp" ];
 
     passthru.tests = {
-      check = zipp.overridePythonAttrs (_: { doCheck = true; });
+      check = zipp.overridePythonAttrs (_: {
+        doCheck = true;
+      });
     };
 
     meta = with lib; {

@@ -37,26 +37,24 @@ in
     listen = mkOption {
       type =
         with types;
-        listOf (
-          submodule ({
-            options = {
-              port = mkOption {
-                type = types.port;
-                description = lib.mdDoc "Port to listen on";
-              };
-              ip = mkOption {
-                type = types.str;
-                default = "*";
-                description = lib.mdDoc "IP to listen on. 0.0.0.0 for IPv4 only, * for all.";
-              };
-              ssl = mkOption {
-                type = types.bool;
-                default = false;
-                description = lib.mdDoc "Whether to enable SSL (https) support.";
-              };
+        listOf (submodule ({
+          options = {
+            port = mkOption {
+              type = types.port;
+              description = lib.mdDoc "Port to listen on";
             };
-          })
-        );
+            ip = mkOption {
+              type = types.str;
+              default = "*";
+              description = lib.mdDoc "IP to listen on. 0.0.0.0 for IPv4 only, * for all.";
+            };
+            ssl = mkOption {
+              type = types.bool;
+              default = false;
+              description = lib.mdDoc "Whether to enable SSL (https) support.";
+            };
+          };
+        }));
       default = [ ];
       example = [
         {

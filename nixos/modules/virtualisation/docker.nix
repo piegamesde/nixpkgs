@@ -172,102 +172,100 @@ in
 
   ###### implementation
 
-  config = mkIf cfg.enable (
-    mkMerge [
-      {
-        boot.kernelModules = [
-          "bridge"
-          "veth"
-          "br_netfilter"
-          "xt_nat"
-        ];
-        boot.kernel.sysctl = {
-          "net.ipv4.conf.all.forwarding" = mkOverride 98 true;
-          "net.ipv4.conf.default.forwarding" = mkOverride 98 true;
-        };
-        environment.systemPackages = [ cfg.package ] ++ optional cfg.enableNvidia pkgs.nvidia-docker;
-        users.groups.docker.gid = config.ids.gids.docker;
-        systemd.packages = [ cfg.package ];
+  config = mkIf cfg.enable (mkMerge [
+    {
+      boot.kernelModules = [
+        "bridge"
+        "veth"
+        "br_netfilter"
+        "xt_nat"
+      ];
+      boot.kernel.sysctl = {
+        "net.ipv4.conf.all.forwarding" = mkOverride 98 true;
+        "net.ipv4.conf.default.forwarding" = mkOverride 98 true;
+      };
+      environment.systemPackages = [ cfg.package ] ++ optional cfg.enableNvidia pkgs.nvidia-docker;
+      users.groups.docker.gid = config.ids.gids.docker;
+      systemd.packages = [ cfg.package ];
 
-        systemd.services.docker = {
-          wantedBy = optional cfg.enableOnBoot "multi-user.target";
-          after = [
-            "network.target"
-            "docker.socket"
+      systemd.services.docker = {
+        wantedBy = optional cfg.enableOnBoot "multi-user.target";
+        after = [
+          "network.target"
+          "docker.socket"
+        ];
+        requires = [ "docker.socket" ];
+        environment = proxy_env;
+        serviceConfig = {
+          Type = "notify";
+          ExecStart = [
+            ""
+            ''
+              ${cfg.package}/bin/dockerd \
+                --config-file=${daemonSettingsFile} \
+                ${cfg.extraOptions}
+            ''
           ];
-          requires = [ "docker.socket" ];
-          environment = proxy_env;
-          serviceConfig = {
-            Type = "notify";
-            ExecStart = [
-              ""
-              ''
-                ${cfg.package}/bin/dockerd \
-                  --config-file=${daemonSettingsFile} \
-                  ${cfg.extraOptions}
-              ''
-            ];
-            ExecReload = [
-              ""
-              "${pkgs.procps}/bin/kill -s HUP $MAINPID"
-            ];
-          };
-
-          path = [
-            pkgs.kmod
-          ] ++ optional (cfg.storageDriver == "zfs") pkgs.zfs ++ optional cfg.enableNvidia pkgs.nvidia-docker;
+          ExecReload = [
+            ""
+            "${pkgs.procps}/bin/kill -s HUP $MAINPID"
+          ];
         };
 
-        systemd.sockets.docker = {
-          description = "Docker Socket for the API";
-          wantedBy = [ "sockets.target" ];
-          socketConfig = {
-            ListenStream = cfg.listenOptions;
-            SocketMode = "0660";
-            SocketUser = "root";
-            SocketGroup = "docker";
-          };
+        path = [
+          pkgs.kmod
+        ] ++ optional (cfg.storageDriver == "zfs") pkgs.zfs ++ optional cfg.enableNvidia pkgs.nvidia-docker;
+      };
+
+      systemd.sockets.docker = {
+        description = "Docker Socket for the API";
+        wantedBy = [ "sockets.target" ];
+        socketConfig = {
+          ListenStream = cfg.listenOptions;
+          SocketMode = "0660";
+          SocketUser = "root";
+          SocketGroup = "docker";
         };
+      };
 
-        systemd.services.docker-prune = {
-          description = "Prune docker resources";
+      systemd.services.docker-prune = {
+        description = "Prune docker resources";
 
-          restartIfChanged = false;
-          unitConfig.X-StopOnRemoval = false;
+        restartIfChanged = false;
+        unitConfig.X-StopOnRemoval = false;
 
-          serviceConfig.Type = "oneshot";
+        serviceConfig.Type = "oneshot";
 
-          script = ''
-            ${cfg.package}/bin/docker system prune -f ${toString cfg.autoPrune.flags}
-          '';
+        script = ''
+          ${cfg.package}/bin/docker system prune -f ${toString cfg.autoPrune.flags}
+        '';
 
-          startAt = optional cfg.autoPrune.enable cfg.autoPrune.dates;
-          after = [ "docker.service" ];
-          requires = [ "docker.service" ];
-        };
+        startAt = optional cfg.autoPrune.enable cfg.autoPrune.dates;
+        after = [ "docker.service" ];
+        requires = [ "docker.service" ];
+      };
 
-        assertions = [
-          {
-            assertion = cfg.enableNvidia -> config.hardware.opengl.driSupport32Bit or false;
-            message = "Option enableNvidia requires 32bit support libraries";
-          }
-        ];
+      assertions = [
+        {
+          assertion = cfg.enableNvidia -> config.hardware.opengl.driSupport32Bit or false;
+          message = "Option enableNvidia requires 32bit support libraries";
+        }
+      ];
 
-        virtualisation.docker.daemon.settings = {
-          group = "docker";
-          hosts = [ "fd://" ];
-          log-driver = mkDefault cfg.logDriver;
-          storage-driver = mkIf (cfg.storageDriver != null) (mkDefault cfg.storageDriver);
-          live-restore = mkDefault cfg.liveRestore;
-          runtimes = mkIf cfg.enableNvidia {
-            nvidia = {
-              path = "${pkgs.nvidia-docker}/bin/nvidia-container-runtime";
-            };
+      virtualisation.docker.daemon.settings = {
+        group = "docker";
+        hosts = [ "fd://" ];
+        log-driver = mkDefault cfg.logDriver;
+        storage-driver = mkIf (cfg.storageDriver != null) (mkDefault cfg.storageDriver);
+        live-restore = mkDefault cfg.liveRestore;
+        runtimes = mkIf cfg.enableNvidia {
+          nvidia = {
+            path = "${pkgs.nvidia-docker}/bin/nvidia-container-runtime";
           };
         };
-      }
-    ]
-  );
+      };
+    }
+  ]);
 
   imports = [
     (mkRemovedOptionModule [

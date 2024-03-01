@@ -24,9 +24,9 @@ let
   # A patch is needed to run the tests inside the Nix sandbox:
   # /etc/passwd: "nixbld:x:1000:100:Nix build user:/build:/noshell"
   # sshd: "User nixbld not allowed because shell /noshell does not exist"
-  opensshUnsafe = openssh.overrideAttrs (
-    oldAttrs: { patches = oldAttrs.patches ++ [ ./openssh-nixos-sandbox.patch ]; }
-  );
+  opensshUnsafe = openssh.overrideAttrs (oldAttrs: {
+    patches = oldAttrs.patches ++ [ ./openssh-nixos-sandbox.patch ];
+  });
 in
 stdenv.mkDerivation rec {
   pname = "monkeysphere";

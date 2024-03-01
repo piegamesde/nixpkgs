@@ -31,23 +31,19 @@ let
             "arm64"
             "x64"
           ]
-          (
-            arch: {
-              base = [ { archive = "artifacts.zip"; } ];
-              variants =
-                lib.genAttrs
-                  [
-                    "profile"
-                    "release"
-                  ]
-                  (
-                    variant: [
-                      { archive = "artifacts.zip"; }
-                      { archive = "${lib.toLower hostPlatform.uname.system}-x64.zip"; }
-                    ]
-                  );
-            }
-          )
+          (arch: {
+            base = [ { archive = "artifacts.zip"; } ];
+            variants =
+              lib.genAttrs
+                [
+                  "profile"
+                  "release"
+                ]
+                (variant: [
+                  { archive = "artifacts.zip"; }
+                  { archive = "${lib.toLower hostPlatform.uname.system}-x64.zip"; }
+                ]);
+          })
         )
         // {
           "x86" = {

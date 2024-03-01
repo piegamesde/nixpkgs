@@ -69,12 +69,10 @@ stdenv.mkDerivation rec {
     "-DADLplug_Jack=${if withJack then "ON" else "OFF"}"
   ];
 
-  env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.hostPlatform.isDarwin (
-    toString [
-      # "fp.h" file not found
-      "-isystem ${CoreServices}/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/CarbonCore.framework/Versions/A/Headers"
-    ]
-  );
+  env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.hostPlatform.isDarwin (toString [
+    # "fp.h" file not found
+    "-isystem ${CoreServices}/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/CarbonCore.framework/Versions/A/Headers"
+  ]);
 
   NIX_LDFLAGS = toString (
     lib.optionals stdenv.hostPlatform.isDarwin [

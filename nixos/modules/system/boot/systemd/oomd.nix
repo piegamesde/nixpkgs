@@ -18,13 +18,11 @@ in
     extraConfig = lib.mkOption {
       type =
         with lib.types;
-        attrsOf (
-          oneOf [
-            str
-            int
-            bool
-          ]
-        );
+        attrsOf (oneOf [
+          str
+          int
+          bool
+        ]);
       default = { };
       example = lib.literalExpression ''{ DefaultMemoryPressureDurationSec = "20s"; }'';
       description = lib.mdDoc ''

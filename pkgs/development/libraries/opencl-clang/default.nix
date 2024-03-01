@@ -17,17 +17,15 @@ let
 
   addPatches =
     component: pkg:
-    pkg.overrideAttrs (
-      oldAttrs: {
-        postPatch =
-          oldAttrs.postPatch or ""
-          + ''
-            for p in ${passthru.patchesOut}/${component}/*; do
-              patch -p1 -i "$p"
-            done
-          '';
-      }
-    );
+    pkg.overrideAttrs (oldAttrs: {
+      postPatch =
+        oldAttrs.postPatch or ""
+        + ''
+          for p in ${passthru.patchesOut}/${component}/*; do
+            patch -p1 -i "$p"
+          done
+        '';
+    });
 
   passthru = rec {
     spirv-llvm-translator = llvmPkgs.spirv-llvm-translator.override { llvm = llvmPackages_11.llvm; };
