@@ -94,12 +94,13 @@ stdenv.mkDerivation (rec {
 
   installPhase = "make config=release prefix=$out "
     + lib.optionalString stdenv.hostPlatform.isDarwin ("bits=64 " + (lib.optionalString (!lto) "lto=no "))
-    + '' install
-    wrapProgram $out/bin/ponyc \
-      --prefix PATH ":" "${stdenv.cc}/bin" \
-      --set-default CC "$CC" \
-      --prefix PONYPATH : "${lib.makeLibraryPath [ pcre2 openssl (placeholder "out") ]}"
-  '';
+    + ''
+      install
+      wrapProgram $out/bin/ponyc \
+        --prefix PATH ":" "${stdenv.cc}/bin" \
+        --set-default CC "$CC" \
+        --prefix PONYPATH : "${lib.makeLibraryPath [ pcre2 openssl (placeholder "out") ]}"
+    '';
 
   # Stripping breaks linking for ponyc
   dontStrip = true;

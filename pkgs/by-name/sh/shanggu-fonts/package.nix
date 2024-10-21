@@ -51,8 +51,8 @@ stdenvNoCC.mkDerivation {
     + lib.strings.concatLines (
       lib.lists.forEach (builtins.attrNames source) (
         name: (''
-          install -Dm444 ${name}/*.ttc -t $'' + name + ''/share/fonts/truetype
-          ln -s $'' + name + ''/share/fonts/truetype/*.ttc $out/share/fonts/truetype
+          install -Dm444 ${name}/*.ttc -t ''$${name}/share/fonts/truetype
+          ln -s ''$${name}/share/fonts/truetype/*.ttc $out/share/fonts/truetype
           ''
         )
       )

@@ -24,9 +24,10 @@ stdenv.mkDerivation rec {
     # For libuv on darwin
     lib.optionalString stdenv.hostPlatform.isDarwin ''
       export LIBTOOLIZE=libtoolize
-    '' +
+    ''
     # Help libgc's configure.
-    '' export CXXCPP="$CXX -E"
+    + ''
+      export CXXCPP="$CXX -E"
     '';
 
   patchPhase = ''
